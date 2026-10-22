@@ -8,7 +8,7 @@
 
 ```text
 bittrove88.github.io/
-├── index.html                         # ブランドの入口
+├── index.html                         # 空白ページ（リンクなし）
 ├── catalog/index.html                 # 3アプリの一覧
 ├── unite-roulette/
 │   ├── index.html
@@ -28,7 +28,9 @@ GitHub Pages の Source は「Deploy from a branch」、ブランチは `main`�
 
 アプリを追加する場合はルート直下に固有名のディレクトリと `index.html` を置き、`catalog/index.html` の `.grid` に既存と同じ `<a class="card">` を1件追加します。カードはアイコン、名前、説明のみ。PCは3列、601〜900pxは2列、600px以下は1列です。`apps/` 階層は使用しません。
 
-各ページの canonical、OGP、Twitter URL は公開URLに合わせます。UNITEのOGP画像は `unite-roulette/img/` に配置しています。ほかのページは専用OGP画像を設定せず、タイトル・説明によるカードを使用しています。
+ルートの `index.html` は空白ページとし、リンク・リダイレクト・OGPは配置しません。`noindex,nofollow` を指定しています。カタログと各アプリは直接URLでアクセスできます。この設定はアクセス制限ではなく、公開リポジトリからもURLは確認できます。
+
+カタログと各アプリの canonical、OGP、Twitter URL は公開URLに合わせます。UNITEのOGP画像は `unite-roulette/img/` に配置しています。ほかのページは専用OGP画像を設定せず、タイトル・説明によるカードを使用しています。
 
 ## ローカル確認
 
@@ -36,7 +38,7 @@ GitHub Pages の Source は「Deploy from a branch」、ブランチは `main`�
 python3 -m http.server 8000
 ```
 
-http://localhost:8000/ と `/catalog/`、各アプリを開きます。PC・タブレット・スマートフォンの表示、カードリンク、各ルーレットの抽選、RPGカタログの検索・絞り込み・お気に入り・比較を確認してください。
+http://localhost:8000/ が空白でリンクがないことを確認し、`/catalog/` と各アプリを直接開きます。PC・タブレット・スマートフォンの表示、カードリンク、各ルーレットの抽選、RPGカタログの検索・絞り込み・お気に入り・比較を確認してください。
 
 ## 移行情報
 
