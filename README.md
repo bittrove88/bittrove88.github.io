@@ -53,3 +53,7 @@ http://localhost:8000/ が空白でリンクがないことを確認し、`/cata
 UNITEの既存GA4測定ID `G-CHKNB5BK2H` と共有イベントを保持しています。新しいページや他アプリへの計測追加は行っていません。Google Analytics側のデータストリームURL・ドメイン条件はリポジトリでは管理していません。
 
 UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts、ポケモン画像の外部配信元を利用します。通信環境によって読み込みが影響を受けます。お気に入り等のブラウザ保存データはオリジンごとに保存され、旧ドメインから自動移行されません。
+
+## ポートフォリオ
+
+`/portfolio/` にCanvaサイトから移行した内田隼人のポートフォリオを配置しています。構成と更新方法は [portfolio/README.md](portfolio/README.md) を参照してください。ルートは空白のまま維持します。
