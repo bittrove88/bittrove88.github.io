@@ -1,39 +1,68 @@
+'use strict';
+// Real Chromium QA. Uses the session's Playwright and Chromium, no production dependency.
+const {chromium}=require('playwright'),http=require('node:http'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'../dist'),output=process.env.ARCLINE_EVIDENCE_DIR||'/workspace/work/arcline-browser';fs.mkdirSync(output,{recursive:true});
+const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css'};
+const server=http.createServer((req,res)=>{const name=decodeURIComponent(req.url.split('?')[0]);const file=path.resolve(root,'.'+(name==='/'?'/index.html':name));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(err,data)=>{if(err)res.writeHead(404).end();else{res.setHeader('Content-Type',mime[path.extname(file)]||'text/plain');res.end(data);}});});
+const sdkMock=`globalThis.sdkCalls=[];globalThis.sdkCallbacks={};globalThis.ytgame={IN_PLAYABLES_ENV:true,game:{firstFrameReady(){sdkCalls.push('first')},gameReady(){sdkCalls.push('ready')},async loadData(){sdkCalls.push('load');if(globalThis.loadFail)throw Error('load failed');return JSON.stringify({version:1,cleared:99})},async saveData(raw){sdkCalls.push({save:JSON.parse(raw)})}},system:{isAudioEnabled(){return true},onPause(f){sdkCallbacks.pause=f},onResume(f){sdkCallbacks.resume=f},onAudioEnabledChange(f){sdkCallbacks.audio=f}}};`;
 (async()=>{
-const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict'),E=require('../dist/engine.js');
-const els={},callbacks={},calls=[],frames=new Map();let seq=0;
-const context=new Proxy({createLinearGradient:()=>({addColorStop(){}})},{get:(t,k)=>t[k]||(()=>{})});
-const classList=()=>({toggle(){},add(){},remove(){}});
-function el(id){return els[id]??={id,hidden:false,value:0,style:{},dataset:{},classList:classList(),setAttribute(k,v){this[k]=v;},setPointerCapture(){},focus(){},getContext:()=>context,getBoundingClientRect:()=>id==='stick'?{left:18,top:650,width:106,height:106}:id==='fire'?{left:270,top:650,width:98,height:98}:{left:0,top:0,width:390,height:844},click(){this.onclick?.({detail:0});}};}
-const groups={'[data-rig]':[0,1].map(i=>Object.assign(el('rig'+i),{dataset:{rig:i}})),'[data-level]':[0,1,2].map(i=>Object.assign(el('level'+i),{dataset:{level:i}}))};
-const param=()=>({value:0,setValueAtTime(v){this.value=v;},exponentialRampToValueAtTime(v){this.value=v;}});
-class Audio{constructor(){this.currentTime=0;this.sampleRate=1000;this.destination={};this.state='suspended';}createGain(){return {gain:param(),connect(){return this;}};}createOscillator(){return {frequency:param(),connect(){return this;},start(){},stop(){this.stopped=true;}};}createBuffer(a,n){return {getChannelData:()=>new Float32Array(n)};}createBufferSource(){return {connect(){return this;},start(){}};}resume(){this.state='running';return Promise.resolve();}suspend(){this.state='suspended';return Promise.resolve();}}
-const sandbox={setTimeout:()=>0,ArcEngine:E,document:{getElementById:el,querySelectorAll:q=>groups[q]||[],documentElement:{},addEventListener:(k,f)=>callbacks[k]=f},requestAnimationFrame:f=>{frames.set(++seq,f);return seq;},cancelAnimationFrame:i=>frames.delete(i),console,ytgame:{IN_PLAYABLES_ENV:true,game:{loadData:async()=>JSON.stringify({version:1,cleared:99}),saveData:async data=>calls.push(JSON.parse(data)),firstFrameReady:()=>calls.push('first'),gameReady:()=>calls.push('ready')},system:{isAudioEnabled:()=>true,onPause:f=>callbacks.pause=f,onResume:f=>callbacks.resume=f,onAudioEnabledChange:f=>callbacks.audio=f}},window:{devicePixelRatio:1,AudioContext:Audio}};sandbox.globalThis=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync(__dirname+'/../dist/game.js','utf8'),sandbox);await new Promise(setImmediate);assert.deepEqual(calls,['first','ready']);
-const read=x=>vm.runInContext(x,sandbox),state=()=>read('s');let now=1000;
-function tick(n=1){for(let i=0;i<n;i++){now+=50;const q=[...frames.values()];frames.clear();q.forEach(f=>f(now));}}
-const pointer=(x=319,y=699,id=1)=>({clientX:x,clientY:y,pointerId:id,button:0,preventDefault(){}}),key=(k,repeat=false)=>({key:k,repeat,preventDefault(){}});
-// Arena swipe, selection, sound starts from an action.
-assert.equal(read('selectedMap'),99);el('prevMap').click();assert.equal(read('selectedMap'),98);el('nextMap').click();assert.equal(read('selectedMap'),99);assert.equal(read('audio.state'),'running');
-let flowCount=0;
-for(let rig=0;rig<2;rig++)for(const stage of [1,10,50,51,80,81,100]){
- groups['[data-rig]'][rig].click();vm.runInContext(`selectedMap=${stage-1}`,sandbox);el('play').click();assert.equal(state().rig,rig);assert.equal(state().stage,stage);assert.equal(state().phase,'aim');
- tick(610);assert.equal(state().phase,'aim'); // no countdown shot
- const angle=state().angle;el('world').onpointerdown(pointer(120,220));el('world').onpointermove(pointer(120,180));el('world').onpointerup(pointer(120,180));assert(state().angle>angle);assert.equal(state().phase,'aim');
- // Joystick neutral/deadzone/proportional movement and recenter on cancel.
- const x=state().units[0].x;el('stick').onpointerdown(pointer(71,703));tick(4);assert.equal(state().units[0].x,x);el('stick').onpointermove(pointer(88,703));tick(4);assert(state().units[0].x>x);el('stick').onpointercancel(pointer(88,703));const after=state().units[0].x;tick(4);assert.equal(state().units[0].x,after);assert.equal(el('stickKnob').style.transform,'translate(0px,0px)');
- // Charge duration; wrong pointer cannot release; cancellation never fires.
- el('fire').onpointerdown(pointer());tick(8);assert(state().power>60&&state().power<70);el('fire').onpointerup(pointer(319,699,2));assert(read('charge'));el('fire').onpointercancel(pointer());assert.equal(state().phase,'aim');assert.equal(read('charge'),null);
- el('fire').onpointerdown(pointer());tick(50);assert(state().power<100);el('fire').onpointermove(pointer(10,10));assert.equal(read('charge.cancel'),true);el('fire').onpointerup(pointer(10,10));assert.equal(state().phase,'aim');
- const mx=state().units[0].x;el('fire').onpointerdown(pointer());el('stick').onpointerdown(pointer(100,703,4));tick(3);assert(state().units[0].x>mx);el('stick').onpointerup(pointer(100,703,4));el('fire').onpointercancel(pointer());
- // SDK pause cancels an active charge; lifting after resume does not fire.
- el('fire').onpointerdown(pointer());tick(6);callbacks.pause();assert.equal(frames.size,0);assert.equal(read('charge'),null);assert.equal(read('audio.state'),'suspended');callbacks.resume();el('fire').onpointerup(pointer());assert.equal(state().phase,'aim');
- callbacks.audio(false);assert.equal(read('master.gain.value'),0);assert.equal(read('audio.state'),'suspended');el('fire').onpointerdown(pointer());tick(3);assert.equal(read('master.gain.value'),0);el('fire').onpointercancel(pointer());callbacks.audio(true);assert.equal(read('audio.state'),'running');
- callbacks.keydown(key(' '));tick(6);callbacks.keydown(key(' ',true));assert(read('charge'));el('pause').click();assert.equal(read('charge'),null);el('resume').click();callbacks.keyup(key(' '));assert.equal(state().phase,'aim');
- let guard=0,pausedFlight=false;
- while(state().phase!=='over'&&guard++<20000){if(state().phase==='aim'){const b=E.solve(state(),0);vm.runInContext(`s.angle=${b.angle}`,sandbox);el('fire').onpointerdown(pointer());vm.runInContext(`update(0,${(b.power-20)/80*.72})`,sandbox);el('fire').onpointerup(pointer());assert.equal(state().phase,'flight');if(!pausedFlight){const f=read('flight');callbacks.pause();tick(5);assert.equal(read('flight'),f);callbacks.resume();pausedFlight=true;}}tick();}
- assert.equal(state().phase,'over');assert(state().result);assert(!el('overlay').hidden);assert.equal(read('dialog'),'result');const nextStage=state().result==='win'?Math.min(100,stage+1):stage;el('resume').click();assert.equal(state().stage,nextStage);assert.equal(state().round,1);assert.equal(state().result,null);
- el('pause').click();el('returnLobby').click();assert(state());assert.equal(read('dialog'),'confirm');el('resume').click();assert.equal(read('manualPaused'),false);el('pause').click();el('returnLobby').click();el('returnLobby').click();assert.equal(state(),null);assert(!el('lobby').hidden);flowCount++;
-}
-await read('saveChain');assert(calls.some(x=>typeof x==='object'&&x.cleared===100));
-console.log(JSON.stringify({status:'PASS',flows:flowCount,checks:['arena swipe','rig selection and campaign stages','no shot timer','drag angle','joystick neutral/proportional/recenter','fast bouncing charge','release fires','wrong pointer ignored','cancel/outside release does not fire','pause cancels charge','muted master stays silent','keyboard repeat/pause safety','pause during flight','all outcomes-to-rematch/lobby flows'],method:'Mock DOM and Web Audio; not real-browser/device QA'},null,2));
-
-})().catch(e=>{console.error(e);process.exitCode=1;});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url=`http://127.0.0.1:${server.address().port}/`;
+ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const errors=[],rows=[];let flows=0;
+ async function pageFor(size,sdk=false,loadFail=false){const context=await browser.newContext({viewport:size,hasTouch:true});await context.route('https://www.youtube.com/**',r=>sdk?r.fulfill({contentType:'text/javascript',body:sdkMock}):r.abort());if(loadFail)await context.addInitScript(()=>globalThis.loadFail=true);const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(url);await page.waitForFunction('!document.getElementById("play").disabled');return {context,page};}
+ for(const [width,height] of [[320,568],[360,640],[390,844],[844,390],[768,1024],[1024,768]]){
+  const {page,context}=await pageFor({width,height});await page.locator('#play').click();await page.evaluate('endDemo()');
+  const geometry=await page.evaluate(()=>{const rect=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};};return {fire:rect('fire'),gauge:rect('powerHUD'),stick:rect('stick'),weapon:rect('weaponToggle'),budget:rect('shotBudget'),overflow:document.documentElement.scrollWidth>innerWidth};});
+  assert(!geometry.overflow);assert(Math.abs(geometry.fire.y-geometry.gauge.bottom-28)<1,'gauge 28px above fire');
+  for(const id of ['fire','gauge','stick','weapon']){const r=geometry[id];assert(r.x>=0&&r.y>=0&&r.right<=width+.1&&r.bottom<=height+.1,`${width}/${height}/${id} inside viewport`);}
+  assert(geometry.fire.w>=44&&geometry.stick.w>=44&&geometry.weapon.h>=44,'touch targets');
+  await page.screenshot({path:path.join(output,`battle-${width}x${height}.png`)});
+  // Independent pointer IDs: cancel, out-of-bounds release and lost capture never consume a shot.
+  await page.evaluate(()=>{const fire=document.getElementById('fire'),r=fire.getBoundingClientRect();fire.onpointerdown({preventDefault(){},button:0,pointerId:11,clientX:r.x+20,clientY:r.y+20});fire.onpointerup({pointerId:12});if(!charge)throw Error('wrong pointer released charge');fire.onpointercancel({pointerId:11});});
+  assert.equal(await page.evaluate('s.shotCount'),0);
+  await page.evaluate(()=>{const f=document.getElementById('fire');f.onpointerdown({preventDefault(){},button:0,pointerId:13});f.onpointermove({pointerId:13,clientX:0,clientY:0});f.onpointerup({pointerId:13});});assert.equal(await page.evaluate('s.shotCount'),0);
+  await page.keyboard.down('Space');await page.waitForTimeout(100);await page.locator('#pause').click();await page.locator('#resume').click();await page.keyboard.up('Space');assert.equal(await page.evaluate('s.shotCount'),0);
+  // Resize cancels active input without firing or spending resources.
+  await page.keyboard.down('Space');await page.setViewportSize({width:height,height:width});await page.waitForTimeout(100);await page.keyboard.up('Space');assert.equal(await page.evaluate('s.shotCount'),0);await page.setViewportSize({width,height});
+  rows.push({width,height,gaugeGap:geometry.fire.y-geometry.gauge.bottom,touchTargets:true,inputSafety:true});flows+=5;await context.close();
+ }
+ // Every authored level must actually initialize and render in the production browser bundle.
+ {
+  const {page,context}=await pageFor({width:390,height:844});await page.locator('#play').click();await page.evaluate('endDemo()');
+  const count=await page.evaluate(()=>{let count=0;for(let n=1;n<=100;n++){selectedMap=n-1;start();endDemo();draw();if(s.stage!==n||s.phase!=='aim')throw Error('Level '+n+' failed initialization');count++;}return count;});assert.equal(count,100);
+  for(const [n,id] of [[11,'B'],[42,'ceiling-lift'],[96,'gate-choices']]){const unchanged=await page.evaluate(({n,id})=>{selectedMap=n-1;start();endDemo();const before=JSON.stringify({world:s.world,units:s.units,skills:s.skills,round:s.round,shots:s.shotCount});runDemo(id);update(.5,.5);draw();update(.5,.5);draw();const after=JSON.stringify({world:s.world,units:s.units,skills:s.skills,round:s.round,shots:s.shotCount});endDemo();return before===after;},{n,id});assert(unchanged,'local variants cannot advance combat or consume supplies');flows++;}
+  for(const n of [10,40,60,80,100]){await page.evaluate(`selectedMap=${n-1};start();endDemo();draw()`);await page.screenshot({path:path.join(output,`boss-${n}.png`)});}
+  await page.setViewportSize({width:844,height:390});await page.waitForTimeout(100);await page.screenshot({path:path.join(output,'boss-100-landscape.png')});
+  await page.evaluate(`selectedMap=13;start();endDemo();s.weaponId='W04';s.angle=20;document.getElementById('weaponToggle').click()`);assert.equal(await page.evaluate('s.angle'),55,'Mortar legal angle is shown by the barrel');await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate('s.angle'),55);assert(await page.evaluate('(()=>{const m=G.muzzle(s,0,s.angle),p=E.trajectory(s,0,s.angle,70).path[0];return Math.hypot(m.x-p.x,m.y-p.y)<1e-6})()'),'barrel and physics muzzle agree');
+  flows+=101;await context.close();
+ }
+ // Actual browser touch dispatch with two simultaneous fingers; no handler-only simulation.
+ {
+  const {page,context}=await pageFor({width:390,height:844});await page.locator('#play').click();await page.evaluate('endDemo()');const cdp=await context.newCDPSession(page);
+  const points=await page.evaluate(()=>{const point=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};};return {stick:point('stick'),fire:point('fire')};});
+  const sx=await page.evaluate('s.units[0].x');
+  const a={id:1,x:points.stick.x+23,y:points.stick.y},b={id:2,...points.fire};
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[a,b]});await page.waitForTimeout(240);
+  assert(await page.evaluate('!!charge&&!!stick'),'two fingers concurrently held');assert(await page.evaluate('s.units[0].x')>sx,'movement while charging');
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[a]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  assert.equal(await page.evaluate('s.shotCount'),1,'touch release fires exactly once');
+  await page.waitForFunction("s.phase==='aim'",{},{timeout:20000});assert(await page.evaluate('platformStatus.cpuJobs.some(j=>j.worker)'),'CPU uses worker');assert.equal(await page.evaluate('platformStatus.errors.length'),0);
+  flows+=3;await context.close();
+ }
+ // Host SDK lifecycle, audio and paused-flight state, migration and failed load.
+ for(const loadFail of [false,true]){
+  const {page,context}=await pageFor({width:390,height:844},true,loadFail);
+  assert.deepEqual(await page.evaluate('sdkCalls.filter(x=>typeof x==="string")'),['first','load','ready']);
+  await page.locator('#play').click();await page.evaluate('endDemo()');
+  if(!loadFail)assert.equal(await page.evaluate('s.stage'),100);
+  await page.keyboard.down('Space');await page.waitForTimeout(120);await page.evaluate('sdkCallbacks.pause()');assert.equal(await page.evaluate('charge'),null);assert(await page.evaluate('document.getElementById("app").inert'));await page.evaluate('sdkCallbacks.resume()');await page.keyboard.up('Space');assert.equal(await page.evaluate('s.shotCount'),0);
+  await page.evaluate('sdkCallbacks.audio(false)');await page.keyboard.down('Space');await page.waitForTimeout(80);assert.equal(await page.evaluate('master.gain.value'),0);await page.keyboard.up('Space');
+  await page.evaluate('sdkCallbacks.pause()');const f=await page.evaluate('flight');await page.waitForTimeout(150);assert.equal(await page.evaluate('flight'),f);await page.evaluate('sdkCallbacks.resume()');
+  await page.evaluate('save.data.collectedCosmeticIds.push("S01");save.save()');await page.evaluate('save.pending');
+  const saved=await page.evaluate('sdkCalls.filter(x=>x.save)');if(loadFail)assert.equal(saved.length,0,'failed SDK load never overwritten');else{assert(saved.at(-1).save.collectedCosmeticIds.includes('S01'));assert(saved.at(-1).save.legacyBackup);}
+  flows+=5;await context.close();
+ }
+ assert.deepEqual(errors,[],'no page exceptions');
+ const report={status:'PASS',flows,viewports:rows,errors,method:'Real headless Chromium; six emulated viewport sizes, CDP two-finger touch, offline fallback and mocked YouTube SDK. No physical-device or actual YouTube certification claim.'};fs.writeFileSync(path.join(output,'BROWSER.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+ await browser.close();server.close();
+})().catch(e=>{console.error(e);server.close();process.exit(1);});

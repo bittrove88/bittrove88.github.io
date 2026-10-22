@@ -1,14 +1,33 @@
-# ARCLINE Codex移行パッケージ
+# ARCLINE
 
-**まずCODEX_HANDOFF.mdを読んでください。** 新しいCodexに渡す開始文はCODEX_START_PROMPT.mdです。
+Buildless Canvas artillery campaign. Implementation candidate **0.4.0-rc1**, based on design **v1.1**. English UI, one rover, 100 fixed levels (90 normal / 10 bosses), 20 weapons, 8 skills and 37 collectible appearances. No permanent combat upgrades.
 
-- game/dist：現在の最新実装0.3.0-rc1。現行ソースと同一の4ファイルです。
-- design：未実装の新100面設計と、優先して適用するv1.1レビュー。
-- evidence：旧実装のテスト結果。新設計の動作保証ではありません。
-- game/arcline-current-playables.zip：現在版の配布用4ファイルZIP。YouTube審査未完了。
+The imported 0.3 implementation is preserved in baseline commit `125c76a`; `EXPORT_MANIFEST.json` describes that import, including the verified distribution ZIP that was deliberately excluded from Git. Historical results in `evidence/current-release/` are **not** evidence for the new implementation.
 
-ローカル起動：`python3 -m http.server 8000 --directory game/dist` → `http://localhost:8000/`
+From this directory:
 
-ビルド・npm installは不要。テストは`node game/tests/engine.test.cjs`と`node game/tests/runtime.test.cjs`。実ブラウザー検証は別途必要です。
+```sh
+python3 -m http.server 8000 --directory game/dist
+node game/tests/engine.test.cjs
+node game/tests/campaign.test.cjs
+node game/tests/accessibility.test.cjs
+node game/tests/boss.test.cjs
+```
 
-エクスポート時の出典コミットとファイルハッシュはEXPORT_MANIFEST.jsonに記録しています。認証情報とGit履歴は含みません。
+Open http://localhost:8000/. No install or build is needed for play. Drag vertically to aim; hold Fire, then release. Use the joystick while charging. Keyboard: arrows and Space. Skill buttons toggle a skill; hold to replay its demo. BLINK requires a second tap on the destination. The weapon button switches Standard / equipped special (or the single new-weapon trial). Collection is saved immediately and survives defeat.
+
+Real-browser QA additionally uses Playwright and Chromium provided by the development environment:
+
+```sh
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/runtime.test.cjs
+```
+
+This optional QA dependency is not shipped. Production relies only on local HTML/CSS/JS and the YouTube SDK, with offline SDK fallback.
+
+`game/tools/build_levels.py` deterministically compiles authored polygon/region blockouts with review provenance. It does not infer collision geometry from Japanese prose. The original design documents and JSON remain unchanged. Package a candidate outside the repository with:
+
+```sh
+python3 game/tools/build_playables.py --output /tmp/arcline-package
+```
+
+`evidence/v1.1/` contains measured results, scope and tuning notes. Automated geometry samples and Chromium touch emulation are separate from physical-device QA, player research and YouTube certification. The existing Sites project and main/public deployment have not been changed.
