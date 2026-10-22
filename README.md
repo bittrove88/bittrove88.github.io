@@ -88,3 +88,5 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 - [講演サイト](ai-marketing-frontier/README.md)
 - [UNITE Films](unite-videos/README.md)
 - [StoryMaker](storymaker/README.md)
+
+講演サイトは記事表示とプレゼンモードに対応。開始ボタンまたは `P` で切り替え、矢印キーや全画面表示で発表できます。[操作方法](ai-marketing-frontier/README.md#プレゼンモード)を参照してください。
