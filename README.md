@@ -19,6 +19,9 @@ bittrove88.github.io/
 ├── switch2-rpg-catalog/index.html
 ├── portfolio/                         # 内田隼人のポートフォリオ
 ├── anzu20251007/                      # あんずのアルバム（全4ページ）
+├── ai-marketing-frontier/            # 生成AIマーケティング講演
+├── unite-videos/                      # UNITE動画ショーケース
+├── storymaker/                        # StoryMaker動画ショーケース
 ├── AGENTS.md                          # カタログ更新などの共通ルール
 ├── favicon.svg
 ├── .nojekyll
@@ -72,5 +75,16 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 | Switch 2 RPG Catalog | [/switch2-rpg-catalog/](https://bittrove88.github.io/switch2-rpg-catalog/) |
 | Hayato Uchida Portfolio | [/portfolio/](https://bittrove88.github.io/portfolio/) |
 | あんず・ひだまりスケッチ | [/anzu20251007/](https://bittrove88.github.io/anzu20251007/) |
+| 生成AI × マーケティングの最前線 | [/ai-marketing-frontier/](https://bittrove88.github.io/ai-marketing-frontier/) |
+| UNITE Films | [/unite-videos/](https://bittrove88.github.io/unite-videos/) |
+| StoryMaker | [/storymaker/](https://bittrove88.github.io/storymaker/) |
 
 アルバムの構成・更新方法は [anzu20251007/README.md](anzu20251007/README.md) を参照してください。
+
+## 講演・動画サイト
+
+2026-10-22、講演PowerPointと動画6本から3サイトを追加しました。動画は総計約1.25GBから約86.5MBへ圧縮し、元の尺と音声を保持しています。各サイトの構成・更新・圧縮情報は下記を参照してください。
+
+- [講演サイト](ai-marketing-frontier/README.md)
+- [UNITE Films](unite-videos/README.md)
+- [StoryMaker](storymaker/README.md)
