@@ -1,0 +1,53 @@
+# Bittrove
+
+公開URL: https://bittrove88.github.io/
+
+アプリ一覧: https://bittrove88.github.io/catalog/
+
+## ディレクトリ構成
+
+```text
+bittrove88.github.io/
+├── index.html                         # ブランドの入口
+├── catalog/index.html                 # 3アプリの一覧
+├── unite-roulette/
+│   ├── index.html
+│   └── img/
+│       ├── ogp.png
+│       └── ogp-s.png
+├── character-roulette-30/index.html
+├── switch2-rpg-catalog/index.html
+├── favicon.svg
+├── .nojekyll
+└── README.md
+```
+
+## 公開・運用
+
+GitHub Pages の Source は「Deploy from a branch」、ブランチは `main`、ディレクトリは `/(root)`。`main` へのプッシュで公開されます。ビルドツールは不要です。`.nojekyll` を維持し、独自ドメインや `CNAME` は設定しません。
+
+アプリを追加する場合はルート直下に固有名のディレクトリと `index.html` を置き、`catalog/index.html` の `.grid` に既存と同じ `<a class="card">` を1件追加します。カードはアイコン、名前、説明のみ。PCは3列、601〜900pxは2列、600px以下は1列です。`apps/` 階層は使用しません。
+
+各ページの canonical、OGP、Twitter URL は公開URLに合わせます。UNITEのOGP画像は `unite-roulette/img/` に配置しています。ほかのページは専用OGP画像を設定せず、タイトル・説明によるカードを使用しています。
+
+## ローカル確認
+
+```sh
+python3 -m http.server 8000
+```
+
+http://localhost:8000/ と `/catalog/`、各アプリを開きます。PC・タブレット・スマートフォンの表示、カードリンク、各ルーレットの抽選、RPGカタログの検索・絞り込み・お気に入り・比較を確認してください。
+
+## 移行情報
+
+移行元: https://github.com/bittrovelab/PU-TR
+
+取得コミット: `ca92fbbd3b1705cf99a9fce7a4e83ad67df1ff1d` (`main`)
+
+移行日: 2026-10-22
+
+`index.html` → `unite-roulette/index.html`、`cr.html` → `character-roulette-30/index.html`、`Switch2_RPG_Catalog.html` → `switch2-rpg-catalog/index.html` と画像2件を移行。元リポジトリとドメイン設定には変更を加えていません。アプリの処理・スタイル・RPGの埋め込み画像は維持し、公開先URLとhead内メタデータのみ調整しています。RPG作品情報は移行元の内容をそのまま保持しています。
+
+UNITEの既存GA4測定ID `G-CHKNB5BK2H` と共有イベントを保持しています。新しいページや他アプリへの計測追加は行っていません。Google Analytics側のデータストリームURL・ドメイン条件はリポジトリでは管理していません。
+
+UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts、ポケモン画像の外部配信元を利用します。通信環境によって読み込みが影響を受けます。お気に入り等のブラウザ保存データはオリジンごとに保存され、旧ドメインから自動移行されません。
