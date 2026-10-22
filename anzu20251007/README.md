@@ -1,6 +1,6 @@
 # あんず｜ひだまりスケッチ
 
-公開URL: https://bittrove88.github.io/anzu20251007/
+公開URL: `https://bittrove88.github.io/anzu20251007/`
 
 移行元: https://ihcu.my.canva.site/anzu20251007
 

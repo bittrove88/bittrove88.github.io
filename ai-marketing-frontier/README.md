@@ -1,6 +1,6 @@
 # 生成AI × マーケティングの最前線
 
-公開URL: https://bittrove88.github.io/ai-marketing-frontier/
+公開URL: `https://bittrove88.github.io/ai-marketing-frontier/`
 
 提供資料: 「生成AIを活用したデジタルマーケティングの最前線.pptx」（全52枚）
 

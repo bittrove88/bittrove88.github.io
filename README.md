@@ -1,6 +1,6 @@
 # Bittrove
 
-公開URL: https://bittrove88.github.io/
+公開URL: `https://bittrove88.github.io/`
 
 カタログ: https://bittrove88.github.io/catalog/
 
@@ -22,6 +22,7 @@ bittrove88.github.io/
 ├── ai-marketing-frontier/            # 生成AIマーケティング講演
 ├── unite-videos/                      # UNITE動画ショーケース
 ├── storymaker/                        # StoryMaker動画ショーケース
+├── career/                            # 職務経歴と更新版Word
 ├── AGENTS.md                          # カタログ更新などの共通ルール
 ├── favicon.svg
 ├── .nojekyll
@@ -70,14 +71,15 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 
 | コンテンツ | URL |
 | --- | --- |
-| UNITE Roulette | [/unite-roulette/](https://bittrove88.github.io/unite-roulette/) |
-| キャラルーレット30 | [/character-roulette-30/](https://bittrove88.github.io/character-roulette-30/) |
-| Switch 2 RPG Catalog | [/switch2-rpg-catalog/](https://bittrove88.github.io/switch2-rpg-catalog/) |
-| Hayato Uchida Portfolio | [/portfolio/](https://bittrove88.github.io/portfolio/) |
-| あんず・ひだまりスケッチ | [/anzu20251007/](https://bittrove88.github.io/anzu20251007/) |
-| 生成AI × マーケティングの最前線 | [/ai-marketing-frontier/](https://bittrove88.github.io/ai-marketing-frontier/) |
-| UNITE Films | [/unite-videos/](https://bittrove88.github.io/unite-videos/) |
-| StoryMaker | [/storymaker/](https://bittrove88.github.io/storymaker/) |
+| UNITE Roulette | `/unite-roulette/` |
+| キャラルーレット30 | `/character-roulette-30/` |
+| Switch 2 RPG Catalog | `/switch2-rpg-catalog/` |
+| Hayato Uchida Portfolio | `/portfolio/` |
+| あんず・ひだまりスケッチ | `/anzu20251007/` |
+| 生成AI × マーケティングの最前線 | `/ai-marketing-frontier/` |
+| UNITE Films | `/unite-videos/` |
+| StoryMaker | `/storymaker/` |
+| 職務経歴書・内田隼人 | `/career/` |
 
 アルバムの構成・更新方法は [anzu20251007/README.md](anzu20251007/README.md) を参照してください。
 
@@ -90,3 +92,11 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 - [StoryMaker](storymaker/README.md)
 
 講演サイトは記事表示とプレゼンモードに対応。開始ボタンまたは `P` で切り替え、矢印キーや全画面表示で発表できます。[操作方法](ai-marketing-frontier/README.md#プレゼンモード)を参照してください。
+
+## コンテンツ間の導線
+
+他コンテンツへの移動は `/catalog/` を経由します。各カードにはディレクトリ名と同じIDを付け、`/catalog/#career` のように位置を指定できます。記事・紹介ページ・プレゼン・JavaScriptから別コンテンツへ直接移動するリンクは置きません。同じコンテンツ内のページ送り、画像・動画・Wordなどの資料、外部の公開出典は維持します。
+
+これはサイト内の導線の制御です。PublicリポジトリとGitHub Pagesのため、URL直接入力、検索、ファイル一覧・過去コミット等からの閲覧を防ぐアクセス制限ではありません。秘匿や認証が必要な資料は公開リポジトリへ配置しないでください。
+
+職務経歴書は [career/README.md](career/README.md) を参照。Word原本は変更せず、更新版を同コンテンツ内に収録しています。非公開の参考資料2件の原本・内部仕様・未公開計画は公開先へコピーしていません。

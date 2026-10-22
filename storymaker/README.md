@@ -1,6 +1,6 @@
 # StoryMaker
 
-公開URL: https://bittrove88.github.io/storymaker/
+公開URL: `https://bittrove88.github.io/storymaker/`
 
 ユーザー提供の動画を圧縮し、視聴用の紹介サイトとして公開しています。元動画には変更を加えていません。
 
