@@ -1,0 +1,33 @@
+* { box-sizing: border-box; }
+html { color-scheme: light; scroll-behavior: smooth; }
+body { margin: 0; background: #fdf3dd; color: #513d2f; font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; line-height: 1.9; }
+a { color: #8a473a; text-underline-offset: .25em; }
+a:focus-visible, summary:focus-visible { outline: 3px solid #8a473a; outline-offset: 5px; }
+header { display: flex; justify-content: space-between; gap: 20px; max-width: 980px; margin: auto; padding: 20px 24px; font-size: 13px; }
+header a { text-decoration: none; }
+main { max-width: 960px; margin: auto; }
+.page-label { margin: 0 24px 12px; text-align: center; color: #826f58; font-size: 12px; letter-spacing: .2em; }
+.collage { width: 100%; }
+.collage img { display: block; width: 100%; height: auto; margin: 0; }
+.captions { margin: 20px 28px 28px; padding: 14px 0; border-top: 1px solid #dfcfac; font-size: 14px; }
+.captions summary { cursor: pointer; width: fit-content; }
+.captions p { max-width: 42em; }
+.message { max-width: 760px; margin: 0 auto; padding: 16px 36px 40px; font-size: 18px; line-height: 2.1; }
+.message p { margin: 0 0 1.5em; overflow-wrap: anywhere; }
+.message p:last-child { margin-bottom: 0; font-size: .9em; }
+.pagination { display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: 20px 36px; padding: 32px 24px 16px; }
+.pagination a { font-weight: 700; }
+.pagination .next { color: #bb433e; font-size: clamp(22px, 4vw, 34px); }
+.page-numbers { display: flex; justify-content: center; gap: 12px; padding: 16px 24px 32px; }
+.page-numbers a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #cdb789; border-radius: 50%; text-decoration: none; }
+.page-numbers [aria-current] { color: #fff; background: #886647; border-color: #886647; }
+footer { text-align: center; padding: 8px 24px 32px; font-size: 13px; }
+.skip { position: fixed; left: 8px; top: 8px; transform: translateY(-160%); z-index: 2; background: #fdf3dd; padding: 8px 16px; }
+.skip:focus { transform: translateY(0); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 600px) {
+  header { padding: 16px 20px; font-size: 12px; }
+  .message { padding: 16px 22px 28px; font-size: 16px; line-height: 2; }
+  .captions { margin: 16px 22px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
