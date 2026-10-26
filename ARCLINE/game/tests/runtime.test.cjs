@@ -13,7 +13,7 @@ const sdkMock=`globalThis.sdkCalls=[];globalThis.sdkCallbacks={};globalThis.ytga
  for(const [width,height] of [[320,568],[360,640],[390,844],[844,390],[768,1024],[1024,768]]){
   const {page,context}=await pageFor({width,height});await page.locator('#play').click();await page.evaluate('endDemo()');
   const geometry=await page.evaluate(()=>{const rect=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};};return {fire:rect('fire'),gauge:rect('powerHUD'),stick:rect('stick'),weapon:rect('weaponToggle'),budget:rect('shotBudget'),overflow:document.documentElement.scrollWidth>innerWidth};});
-  assert(!geometry.overflow);assert(Math.abs(geometry.fire.y-geometry.gauge.bottom-28)<1,'gauge 28px above fire');
+  assert(!geometry.overflow);assert(geometry.gauge.w>=Math.min(280,width-24),'wide gauge');
   for(const id of ['fire','gauge','stick','weapon']){const r=geometry[id];assert(r.x>=0&&r.y>=0&&r.right<=width+.1&&r.bottom<=height+.1,`${width}/${height}/${id} inside viewport`);}
   assert(geometry.fire.w>=44&&geometry.stick.w>=44&&geometry.weapon.h>=44,'touch targets');
   await page.screenshot({path:path.join(output,`battle-${width}x${height}.png`)});

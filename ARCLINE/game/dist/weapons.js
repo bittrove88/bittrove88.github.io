@@ -22,6 +22,20 @@ Object.assign(weapons[16],{push:true,damage:.85,blast:30});
 Object.assign(weapons[17],{pull:true,damage:.85});
 Object.assign(weapons[18],{lift:true,damage:.87,blast:40});
 Object.assign(weapons[19],{bounces:3,push:true,damage:.93,blast:30});
+// Appearance only: keeps each weapon recognizable without changing damage or flight.
+const appearances=[
+ ['#fff0a9','orb','●','ARC',6],['#ff9a62','shell','⬟','HEAVY',10],
+ ['#8af3ff','needle','➤','NEEDLE',5],['#ffb2cf','shell','◆','LOFT',8],
+ ['#c6ff87','ring','⌁','HOP',7],['#77ffe5','ring','↗','RICOCHET',7],
+ ['#b1fbc7','gear','◉','ROLL',9],['#ffe275','ring','⋯','SKIP',7],
+ ['#f6a3ff','spark','⋔','FAN',6],['#ffbd78','diamond','✦','CLUSTER',7],
+ ['#8fc6ff','orb','••','TWIN',7],['#dab0ff','ring','◎','AIRBURST',8],
+ ['#ffba80','drill','➤','DRILL',8],['#95ffff','needle','━','RAIL',6],
+ ['#d4ff8f','arrow','↓','DIVE',8],['#ffdf87','diamond','≋','WAVE',8],
+ ['#ff977e','shell','→','IMPACT',9],['#d6a2ff','orbit','⊙','PULL',8],
+ ['#8ee6ff','arrow','↑','LIFT',8],['#edff7e','spark','✧','PINBALL',8]
+];
+weapons.forEach((weapon,i)=>{const [color,shape,glyph,label,size]=appearances[i];weapon.appearance={color,shape,glyph,label,size};});
 const skills=['BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP'];
 const api={weapons,skills,get:id=>weapons.find(w=>w.id===id)||weapons[0]};
 if(typeof module!=='undefined')module.exports=api;else root.ArcWeapons=api;
