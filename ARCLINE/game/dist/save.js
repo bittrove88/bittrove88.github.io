@@ -9,7 +9,7 @@ function decode(raw){
  if(p.schemaVersion!==undefined&&p.schemaVersion!==2)throw Error('Unsupported save version');
  const unlocked=validIds(p.unlockedWeaponIds,weaponIds);if(!unlocked.includes('W01'))unlocked.unshift('W01');
  const cosmetics=validIds(p.collectedCosmeticIds,cosmeticIds);
- const out={schemaVersion:2,contentRevision:revision,cleared:Number.isInteger(p.cleared)?Math.max(0,Math.min(100,p.cleared)):0,unlockedWeaponIds:unlocked,collectedCosmeticIds:cosmetics,equippedWeaponId:unlocked.includes(p.equippedWeaponId)?p.equippedWeaponId:'W01',equippedCosmeticId:cosmetics.includes(p.equippedCosmeticId)?p.equippedCosmeticId:null,seenPreviewIds:validIds(p.seenPreviewIds,[...weaponIds,...['controls','slope','pickup','boss-swap','ceiling-lift','gate-choices','W','B','C','K','U','F','V','M','BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP']])};
+ const out={schemaVersion:2,contentRevision:revision,cleared:Number.isInteger(p.cleared)?Math.max(0,Math.min(100,p.cleared)):0,unlockedWeaponIds:unlocked,collectedCosmeticIds:cosmetics,equippedWeaponId:unlocked.includes(p.equippedWeaponId)?p.equippedWeaponId:'W01',equippedCosmeticId:cosmetics.includes(p.equippedCosmeticId)?p.equippedCosmeticId:null,seenPreviewIds:validIds(p.seenPreviewIds,[...weaponIds,...['controls','touch-controls-v2','slope','pickup','boss-swap','ceiling-lift','gate-choices','W','B','C','K','U','F','V','M','BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP']])};
  if(p.legacyBackup&&typeof p.legacyBackup==='string')out.legacyBackup=p.legacyBackup;
  if(raw&&p.schemaVersion!==2)out.legacyBackup=raw;
  return out;

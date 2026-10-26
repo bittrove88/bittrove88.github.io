@@ -12,7 +12,7 @@ check(W.weapons.length===20&&W.skills.length===8,'full arsenal');
 check(new Set(E.levels.flatMap(x=>x.pickups).filter(p=>p.id[0]==='W').map(p=>p.id)).size===19,'19 weapon capsules');
 check(new Set(E.levels.flatMap(x=>x.pickups).filter(p=>p.id[0]==='S').map(p=>p.id)).size===27,'27 normal cosmetics');
 check(new Set(E.levels.flatMap(x=>x.pickups).filter(p=>p.id[0]==='B').map(p=>p.id)).size===10,'10 boss cosmetics');
-check(E.chargePower(0)===20&&E.chargePower(.72)===100&&E.chargePower(1.44)===20,'0.72 triangular charge');
+check(E.chargePower(0)===20&&E.chargePower(.95)===100&&E.chargePower(1.9)===20,'0.95 triangular charge');
 const state=E.campaign(1);check(state.units[0].hp===5&&state.units[1].hp===3&&state.shotLimit===10,'3/10/5');const boss=E.campaign(100);check(boss.units[1].hp===10&&boss.shotLimit===18,'10/18');
 // Weapon mechanics share the exact same trajectory engine, not a second prediction model.
 function flat(){const s=E.campaign(1);s.spec={...s.spec,id:1,features:[],floors:[[[0,8],[100,8]]],pickups:[]};s.world=G.world(s.spec);s.units[0].x=150;s.units[1].x=850;s.units.forEach(u=>{u.y=420;u.slope=0;});s.pickups=[];return s;}

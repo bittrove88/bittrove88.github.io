@@ -14,7 +14,7 @@ const biomes=[
 {name:'Magnetic Mine',sky:['#292a53','#9eafd7'],land:'#5c6187',edge:'#cdceff'},
 {name:'Sky Ruins',sky:['#2d496a','#d0dcd2'],land:'#728e9a',edge:'#e4fbd8'},
 {name:'Archeart Keep',sky:['#28203e','#b998b1'],land:'#706080',edge:'#f6c6dd'}];
-function chargePower(seconds){const t=(Math.max(0,seconds)/.72)%2;return 20+80*(t<=1?t:2-t);}
+function chargePower(seconds){const t=(Math.max(0,seconds)/.95)%2;return 20+80*(t<=1?t:2-t);}
 function seeded(seed=1){let x=seed>>>0;return ()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296;};}
 function campaign(stage=1,save={}){
  const spec=L[clamp(Math.floor(stage)||1,1,100)-1],world=G.world(spec);
