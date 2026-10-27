@@ -34,12 +34,26 @@ function world(spec,round=1,bossPhase=0,effects={}){
    const [x,h,angle]=v,aa=(angle+(spec.id===39&&tick%2?90:0))*Math.PI/180,c=point(x,h),dx=Math.cos(aa)*55,dy=Math.sin(aa)*55;
    solids.push({id,kind:'crystal',poly:[{x:c.x-dx,y:c.y-dy},{x:c.x+dx,y:c.y+dy},{x:c.x+dx+4,y:c.y+dy+4},{x:c.x-dx+4,y:c.y-dy+4}]});
   }
-  if(k==='W'){const [x1,x2,h]=v;waters.push({id,x1:x1*10,x2:x2*10,y:500-h*10});}
+  if(k==='W'){
+   // The legacy W authoring slot is now a supported reflective material.
+   // Its visible top is exactly the existing floor collision edge, never a
+   // floating water plane or a second, hidden surface beneath the ground.
+   const left=v[0]*10,right=v[1]*10;
+   for(const floor of surfaces.filter(f=>f.id.startsWith('floor'))){
+    for(let j=1;j<floor.points.length;j++){
+     const a=floor.points[j-1],b=floor.points[j],x1=Math.max(left,a.x),x2=Math.min(right,b.x);
+     if(x2-x1<.01)continue;
+     const from={x:x1,y:floorY([a,b],x1)},to={x:x2,y:floorY([a,b],x2)};
+     solids.push({id:id+':'+floor.id+':'+j,kind:'reflector',sourceFeatureId:id,floorId:floor.id,poly:[from,to,{x:to.x,y:to.y+6},{x:from.x,y:from.y+6}]});
+    }
+   }
+  }
   if('CUFV'.includes(k)){
    const [x1,x2,h1,h2]=v;let direction=spec.id===54||spec.id===55?1:tick%2?-1:1;
    if(spec.id===60&&effects.broken>0)direction=1;
    const strength=spec.id===60?(effects.broken>=2?0:effects.broken===1?.18:.35):.35;
-   const on=k!=='V'||(tick+(spec.id===64?1:0))%2===1;
+   const ventStartsOn=Number.isFinite(v[4])?!!v[4]:spec.ventStartsOn===undefined?spec.id===64:!!spec.ventStartsOn;
+   const on=k!=='V'||(tick+(ventStartsOn?1:0))%2===1;
    let offset=spec.id===30?(effects.cloudOffset||0):0;
    regions.push({id,kind:k,x1:x1*10+offset,x2:x2*10+offset,y1:500-h2*10,y2:500-h1*10,direction,strength,on,slow:spec.id===90&&effects.thinCloud?.85:.72});
   }
@@ -57,7 +71,7 @@ function safePosition(w,x,y,other=null,range=[35,965]){
   if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.abs(xx-other.x)>100))return p;
  }return null;
 }
-function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t))best={...h,solid:o};}}return best;}
+function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t-EPS||Math.abs(h.t-best.t)<=EPS&&o.kind==='reflector'&&best.solid.kind==='floor'))best={...h,solid:o};}}return best;}
 function lineClear(w,a,b){const h=sweep(w,a,b);return !h||h.t>.98;}
 function move(s,side,amount){
  const u=s.units[side];if(!Number.isFinite(amount)||s.result)return 0;let remaining=clamp(amount,-1000,1000),moved=0;

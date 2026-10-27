@@ -19,23 +19,39 @@ function hitTargets(s,side,a,b,age,weapon){
  }
  return best;
 }
+function phaseTravel(a,b,poly,budget){
+ const distance=Math.hypot(b.x-a.x,b.y-a.y),cuts=[0,1];
+ for(let i=0;i<poly.length;i++){const hit=G.segment(a,b,poly[i],poly[(i+1)%poly.length]);if(hit)cuts.push(hit.t);}
+ cuts.sort((x,y)=>x-y);let used=0;
+ for(let i=1;i<cuts.length;i++){
+  const from=cuts[i-1],to=cuts[i];if(to-from<1e-8)continue;
+  const mid=(from+to)/2;if(!G.inside({x:a.x+(b.x-a.x)*mid,y:a.y+(b.y-a.y)*mid},poly))continue;
+  const length=(to-from)*distance;
+  if(used+length>budget+1e-7){const t=from+Math.max(0,budget-used)/Math.max(distance,1e-9);return {used:budget,stop:{x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t}};}
+  used+=length;
+ }
+ return {used,stop:null};
+}
 function simulate(s,side,angle,power,options={}){
- const weapon=W.get(options.weaponId||'W01'),skill=options.skill||null,origin=G.muzzle(s,side,Math.max(weapon.minAngle||-15,angle));
+ const weapon=W.get(options.weaponId||'W01'),skill=options.skill||null;
+ const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle(s,side,Math.max(weapon.minAngle||-15,angle));
+ const startDelay=G.clamp(Number(options.startDelay)||0,0,2),curve=G.clamp(Number(options.curve)||0,-1.5,1.5);
  const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
  const damageBudget=weapon.damage;
  const newBullet=(offset=0,delay=0,budget=damageBudget,primary=true)=>{
-  const a=origin.theta+offset*Math.PI/180,v=G.clamp(power,20,100)*6.7*weapon.speed;
-  return {id:bulletId++,x:origin.x,y:origin.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:delay,start:delay,age:0,budget,primary,path:[{x:origin.x,y:origin.y,t:delay}],forceEntries:new Set(),initialBounces:0,clouds:new Set(),waters:new Set(),magnetTime:{},bounces:0,solidBounces:0,phaseRemaining:Math.max(weapon.phase||0,skill==='PHASE'?60:0),phaseUsed:false,phaseSolid:null,phaseExit:false,solidSkip:null,splitDone:false,archerDone:false,waterSkip:false,roll:0,rollDistance:0};
+  delay+=startDelay;const a=origin.theta+offset*Math.PI/180,v=G.clamp(power,20,100)*6.7*weapon.speed;
+  return {id:bulletId++,x:origin.x,y:origin.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:delay,start:delay,age:0,budget,primary,path:[{x:origin.x,y:origin.y,t:delay}],forceEntries:new Set(),initialBounces:0,clouds:new Set(),magnetTime:{},bounces:0,solidBounces:0,phaseRemaining:Math.max(weapon.phase||0,skill==='PHASE'?60:0),phaseUsed:false,phaseSolid:null,phaseExit:false,solidSkip:null,splitDone:false,archerDone:false,roll:0,rollDistance:0};
  };
  const queue=[];
- if(weapon.fan){for(const o of (skill==='SPLIT'?[-12,0,12]:[-10,0,10])){const bullet=newBullet(o,0,damageBudget/3,o===0);bullet.splitDone=true;queue.push(bullet);}}
- else if(weapon.twin){queue.push(newBullet(0,0,damageBudget/2));queue.push(newBullet(0,.16,damageBudget/2,false));}
+ if(weapon.fan){for(const o of (skill==='SPLIT'?[-15,0,15]:[-13,0,13])){const bullet=newBullet(o,0,damageBudget/3,o===0);bullet.splitDone=true;queue.push(bullet);}}
+ else if(weapon.twin){queue.push(newBullet(-3,0,damageBudget/2));queue.push(newBullet(3,.25,damageBudget/2,false));}
  else queue.push(newBullet());
+ if(curve)events.push({type:'curve',x:origin.x,y:origin.y,t:startDelay,bullet:0});
  function explode(p,hit=null){
-  const end={x:p.x,y:p.y,t:p.t};impacts.push({...end,hit,bullet:p.id});events.push({...end,type:hit?.kind==='weak'?'weak':hit?.kind==='part'?'part':'impact',bullet:p.id});
+  const end={x:p.x,y:p.y,t:p.t};impacts.push({...end,hit,bullet:p.id});events.push({...end,type:hit?.kind==='weak'?'weak':hit?.kind==='part'?'part':hit?.kind==='airburst'?'airburst':'impact',bullet:p.id});
   const blast=weapon.blast*(skill==='BURST'?1.5:1);
   const waves=[];
-  if(weapon.wave){for(const dir of [-1,1]){let current=G.surfaceAt(s.world,p.x,p.y,30);const path=[];if(current)for(let distance=0;distance<=100;distance+=5){const x=p.x+dir*distance,next=G.surfaceAt(s.world,x,current.y,12);if(!next||!G.lineClear(s.world,{x:current.x,y:current.y-4},{x,y:next.y-4}))break;current=next;path.push({x,y:next.y-4});}if(path.length){waves.push(path);events.push({type:'wave',x:p.x,y:p.y,t:p.t,path,bullet:p.id});}}}
+  if(weapon.wave){for(const dir of [-1,1]){let current=G.surfaceAt(s.world,p.x,p.y,30);const path=[];if(current)for(let distance=0;distance<=(weapon.waveDistance||180);distance+=5){const x=p.x+dir*distance,next=G.surfaceAt(s.world,x,current.y,12);if(!next||!G.lineClear(s.world,{x:current.x,y:current.y-4},{x,y:next.y-4}))break;current=next;path.push({x,y:next.y-4});}if(path.length){waves.push(path);events.push({type:'wave',x:p.x,y:p.y,t:p.t,path,bullet:p.id});}}}
   for(let j=0;j<2;j++){
    const u=s.units[j],center={x:u.x,y:u.y-(j===1&&s.spec.boss?38:22)},d=Math.hypot(p.x-center.x,p.y-center.y);
    let value=0;
@@ -54,7 +70,7 @@ function simulate(s,side,angle,power,options={}){
    const old={x:p.x,y:p.y};let next={x:p.x+p.vx*DT,y:p.y+p.vy*DT};
    if(p.roll){
     const f=G.surfaceAt(s.world,next.x,p.y+3,15);
-    if(!f||p.rollDistance>=120||p.roll>=1.2){explode(p);ended=true;break;}
+    if(!f||p.rollDistance>=(weapon.rollDistance||220)||p.roll>=1.6){explode(p);ended=true;break;}
     next.y=f.y-3;p.roll+=DT;p.rollDistance+=Math.abs(next.x-old.x);
    }
    const target=hitTargets(s,side,old,next,p.age,weapon);
@@ -72,38 +88,32 @@ function simulate(s,side,angle,power,options={}){
      if(c.id[0]==='R'&&s.skills[c.skill]>=s.skillCaps[c.skill])return;
      seenPickups.add(c.id);
     }else seenTerminals.add(c.id);
-    events.push({type,id:c.id,x:c.x,y:c.y,t:p.t+DT*t,bullet:p.id});
+    events.push({type,id:c.id,x:c.x,y:c.y,t:p.t+DT*t*(stop?.t??1),bullet:p.id});
    });
    p.t+=DT;p.age+=DT;
    if(solid&&stop===solid){
-    if(!p.phaseUsed&&p.phaseRemaining>0){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
-    else if(p.bounces<3&&(solid.solid.kind==='crystal'||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
-     const dot=p.vx*solid.nx+p.vy*solid.ny;p.vx=(p.vx-2*dot*solid.nx)*.9;p.vy=(p.vy-2*dot*solid.ny)*.9;
-     if(weapon.skipper&&solid.ny<-.5){p.vx*=.95;p.vy=-Math.max(65,Math.min(120,Math.abs(p.vy)*.45));}
+    const material=solid.solid.kind,reflective=material==='reflector'||material==='crystal';
+    const canPhase=material!=='floor'&&material!=='reflector'&&(skill==='PHASE'||['solid','roof','bridge'].includes(material));
+    if(!p.phaseUsed&&p.phaseRemaining>0&&canPhase){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
+    else if(p.bounces<3&&(reflective||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
+     const restitution=weapon.restitution||.9,dot=p.vx*solid.nx+p.vy*solid.ny;p.vx=(p.vx-2*dot*solid.nx)*restitution;p.vy=(p.vy-2*dot*solid.ny)*restitution;
+     if(weapon.hop&&solid.ny<-.5)p.vy=-Math.max(150,Math.abs(p.vy)*1.1);
+     if(weapon.skipper&&solid.ny<-.5){p.vx*=.98;p.vy=-Math.max(55,Math.min(95,Math.abs(p.vy)*.3));}
      p.x=solid.x+solid.nx*1.5;p.y=solid.y+solid.ny*1.5;p.bounces++;p.solidBounces++;p.solidSkip=solid.solid.id;
-     events.push({type:'bounce',x:p.x,y:p.y,t:p.t,count:p.bounces,bullet:p.id});p.path.push({x:p.x,y:p.y,t:p.t});continue;
-    }else if(weapon.roller&&!p.roll&&solid.ny<-.5){p.roll=.001;p.vx=Math.sign(p.vx)*100;p.vy=0;p.y=solid.y-3;p.x=solid.x;p.solidSkip=solid.solid.id;p.path.push({x:p.x,y:p.y,t:p.t});events.push({type:'roll',x:p.x,y:p.y,t:p.t,bullet:p.id});continue;}
+     events.push({type:'bounce',x:p.x,y:p.y,t:p.t,count:p.bounces,surface:material,solidId:solid.solid.id,bullet:p.id});p.path.push({x:p.x,y:p.y,t:p.t});continue;
+    }else if(weapon.roller&&!p.roll&&solid.ny<-.5){p.roll=.001;p.vx=Math.sign(p.vx)*(weapon.rollSpeed||180);p.vy=0;p.y=solid.y-3;p.x=solid.x;p.solidSkip=solid.solid.id;p.path.push({x:p.x,y:p.y,t:p.t});events.push({type:'roll',x:p.x,y:p.y,t:p.t,bullet:p.id});continue;}
    }
    p.x=stop?stop.x:next.x;p.y=stop?stop.y:next.y;
    p.path.push({x:p.x,y:p.y,t:p.t});
    if(p.solidSkip&&!G.inside(p,s.world.solids.find(o=>o.id===p.solidSkip)?.poly||[]))p.solidSkip=null;
    if(p.phaseSolid){
-    const o=s.world.solids.find(o=>o.id===p.phaseSolid);p.phaseRemaining-=Math.hypot(p.x-old.x,p.y-old.y);
+    const o=s.world.solids.find(o=>o.id===p.phaseSolid),travel=phaseTravel(old,p,o.poly,p.phaseRemaining);p.phaseRemaining-=travel.used;
+    if(travel.stop){p.x=travel.stop.x;p.y=travel.stop.y;p.path[p.path.length-1]={x:p.x,y:p.y,t:p.t};explode(p);ended=true;break;}
     if(!G.inside(p,o.poly)&&p.phaseExit){p.phaseSolid=null;p.phaseExit=false;}
-    else if(p.phaseRemaining<0){explode(p);ended=true;break;}
    }
    if(stop){explode(p,target===stop?target:null);ended=true;break;}
-   // Water contact is resolved before region entry and acceleration.
-   for(const water of s.world.waters){
-    const wasInside=old.y>=water.y&&old.x>=water.x1&&old.x<=water.x2,nowInside=p.y>=water.y&&p.x>=water.x1&&p.x<=water.x2;
-    if(!wasInside&&nowInside&&!p.waters.has(water.id)){
-     p.waters.add(water.id);const incidence=Math.atan2(Math.abs(p.vy),Math.abs(p.vx))*180/Math.PI;
-     if(old.y<water.y&&incidence<=22&&!p.waterSkip&&p.bounces<3){p.vy=-Math.abs(p.vy)*.82;p.vx*=.82;p.y=water.y-.5;p.waterSkip=true;p.bounces++;events.push({type:'skip',x:p.x,y:p.y,t:p.t,bullet:p.id});}
-     else {p.vx*=.72;p.vy*=.72;p.underwater=true;events.push({type:'water',x:p.x,y:p.y,t:p.t,bullet:p.id});}
-    }
-   }
-   p.underwater=s.world.waters.some(w=>p.x>=w.x1&&p.x<=w.x2&&p.y>=w.y);
-   let ax=0,ay=GRAVITY*weapon.gravity*(p.underwater?.6:1);
+   let ax=0,ay=GRAVITY*weapon.gravity*(p.archerDone?2.8:1);
+   if(curve&&p.age<=1.2){const a=curve*DT,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;}
    for(const r of s.world.regions){
     if(!r.on||!inRegion(p,r))continue;
     if(r.kind!=='C'&&!p.forceEntries.has(r.id)){p.forceEntries.add(r.id);events.push({type:{U:'updraft',F:'wind',V:'vent',M:'magnet'}[r.kind],x:p.x,y:p.y,t:p.t,bullet:p.id});}
@@ -118,15 +128,15 @@ function simulate(s,side,angle,power,options={}){
    }
    if(!p.roll){const oldVy=p.vy;p.vx=G.clamp(p.vx+G.clamp(ax,-300,300)*DT,-900,900);p.vy=G.clamp(p.vy+G.clamp(ay,-400,600)*DT,-700,900);
     if(oldVy<0&&p.vy>=0){
-     if(weapon.archer&&!p.archerDone){p.vx*=.45;p.archerDone=true;events.push({type:'dive',x:p.x,y:p.y,t:p.t,bullet:p.id});}
+     if(weapon.archer&&!p.archerDone){p.vx*=.25;p.vy=Math.max(110,p.vy);p.archerDone=true;events.push({type:'dive',x:p.x,y:p.y,t:p.t,bullet:p.id});}
      if(!p.splitDone&&(weapon.split||skill==='SPLIT'&&p.primary)){
       p.splitDone=true;events.push({type:'split',x:p.x,y:p.y,t:p.t,bullet:p.id});
-      for(const off of [-12,0,12]){const a=off*Math.PI/180,c={...p,id:bulletId++,vx:p.vx*Math.cos(a)-p.vy*Math.sin(a),vy:p.vx*Math.sin(a)+p.vy*Math.cos(a),budget:p.budget/3,primary:false,start:p.t,path:[{x:p.x,y:p.y,t:p.t}],forceEntries:new Set(p.forceEntries),initialBounces:p.bounces,clouds:new Set(p.clouds),waters:new Set(p.waters),magnetTime:{...p.magnetTime}};queue.push(c);}
+      for(const off of [-16,0,16]){const a=off*Math.PI/180,c={...p,id:bulletId++,vx:p.vx*Math.cos(a)-p.vy*Math.sin(a),vy:p.vx*Math.sin(a)+p.vy*Math.cos(a),budget:p.budget/3,primary:false,start:p.t,path:[{x:p.x,y:p.y,t:p.t}],forceEntries:new Set(p.forceEntries),initialBounces:p.bounces,clouds:new Set(p.clouds),magnetTime:{...p.magnetTime}};queue.push(c);}
       ended=true;break;
      }
     }
    }
-   if(weapon.airburst){const u=s.units[1-side];if(Math.hypot(p.x-u.x,p.y-(u.y-22))<50&&G.lineClear(s.world,p,{x:u.x,y:u.y-22})){explode(p,{unit:1-side,kind:'airburst'});ended=true;break;}}
+   if(weapon.airburst){const u=s.units[1-side];if(Math.hypot(p.x-u.x,p.y-(u.y-22))<(weapon.proximity||80)&&G.lineClear(s.world,p,{x:u.x,y:u.y-22})){explode(p,{unit:1-side,kind:'airburst'});ended=true;break;}}
   }
   if(!ended)events.push({type:'expired',x:p.x,y:p.y,t:p.t,bullet:p.id});
  }

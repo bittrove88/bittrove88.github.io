@@ -1,112 +1,93 @@
 'use strict';
-// Browser regressions for the playable preview, collection and journey. Controlled
-// battle states below exercise presentation; they are not recorded as player wins.
-const {chromium}=require('playwright');
-const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'../dist');
-const output=process.env.ARCLINE_EVIDENCE_DIR||'/workspace/work/arcline-immersion';fs.mkdirSync(output,{recursive:true});
+// Actual Chromium controls verify presentation and selected-to-fired weapon identity.
+// Seeded/unlocked/injected states isolate flows; these are not human campaign wins.
+const {chromium}=require('playwright'),http=require('node:http'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'../dist'),output=process.env.ARCLINE_EVIDENCE_DIR||'/workspace/work/arcline-redesign-browser/immersion';fs.mkdirSync(output,{recursive:true});
 const mime={'.html':'text/html;charset=utf-8','.js':'text/javascript;charset=utf-8','.css':'text/css;charset=utf-8'};
 const server=http.createServer((req,res)=>{const name=decodeURIComponent(req.url.split('?')[0]),file=path.resolve(root,'.'+(name==='/'?'/index.html':name));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(err,data)=>{if(err)res.writeHead(404).end();else{res.setHeader('Content-Type',mime[path.extname(file)]||'text/plain');res.end(data);}});});
 const sizes=[[320,568],[360,640],[390,844],[568,320],[640,360],[844,390],[768,1024],[1024,768]];
 (async()=>{
- await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url=`http://127.0.0.1:${server.address().port}/`;
- const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
- const errors=[],rows=[];let checks=0;
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url=`http://127.0.0.1:${server.address().port}/`,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
+ const errors=[],rows=[],weapons=[];let checks=0;
+ const ok=(v,m)=>{checks++;assert(v,m);},eq=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
  async function open(width=390,height=844){const context=await browser.newContext({viewport:{width,height},hasTouch:true,isMobile:true});await context.route('https://www.youtube.com/**',r=>r.abort());const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(url);await page.waitForFunction('!document.getElementById("play").disabled');return {page,context};}
- async function stopFrames(page){await page.evaluate(()=>{cancelAnimationFrame(raf);raf=0;});}
- async function newBattle(page,n=1){await page.evaluate(n=>{selectedMap=n-1;start();endDemo();encounter=null;document.getElementById('encounterBanner').hidden=true;hud();draw();},n);}
- // Initial equipment is an explicit, visual choice; no native one-option form
- // competes with PLAY. Every journey area still exposes replay and locked levels.
+ async function stop(page){await page.evaluate(()=>{cancelAnimationFrame(raf);raf=0;});}
+ async function battle(page,n=1){await page.evaluate(n=>{selectedMap=n-1;start();encounter=null;document.getElementById('encounterBanner').hidden=true;endDemo();hud();draw();},n);}
+ async function fire(page,elapsed=.4){const b=await page.locator('#fire').boundingBox();await page.mouse.move(b.x+b.width/2,b.y+b.height/2);await page.mouse.down();await page.evaluate(dt=>{update(dt,dt);draw();},elapsed);await page.mouse.up();}
+ // Five substantial stage cards and a scrolling twenty-theme journey, at eight sizes.
  for(const [width,height] of sizes){
   const {page,context}=await open(width,height);
-  assert(await page.locator('#play').isVisible());assert(await page.locator('#openCollection').isVisible());assert(!await page.locator('#weaponLoadout').isVisible());assert(!await page.locator('#cosmeticLoadout').isVisible());checks+=4;
-  await page.locator('#chooseLevel').tap();assert.equal(await page.locator('#journeyAreas [role="tab"]').count(),10,'ten distinct places in the journey');checks++;
-  const seen=new Set();
-  for(let area=0;area<10;area++){
-   await page.locator('#journeyAreas [role="tab"]').nth(area).tap();
-   const stages=await page.locator('#levelGrid [data-stage]').evaluateAll(nodes=>nodes.map(n=>({stage:+n.dataset.stage,disabled:n.disabled})));
-   assert.equal(stages.length,10,'each area exposes ten authored levels');assert(stages.every(n=>n.stage>=area*10&&n.stage<area*10+10),'area contains its own levels');for(const n of stages){seen.add(n.stage);assert.equal(n.disabled,n.stage>0,'new player unlocks only the first level');}checks+=3;
+  ok(await page.locator('#play').isVisible());ok(await page.locator('#openCollection').isVisible());ok(!await page.locator('#weaponLoadout').isVisible());eq(await page.locator('#themeProgress i').count(),5);
+  await page.locator('#chooseLevel').tap();eq(await page.locator('#journeyAreas [role="tab"]').count(),20);eq(await page.locator('#levelGrid [data-stage]').count(),5);
+  await page.locator('#journeyNext').tap();eq(await page.locator('#levelGrid [data-stage]').evaluateAll(ns=>ns.map(n=>+n.dataset.stage)),[5,6,7,8,9]);await page.locator('#journeyPrev').tap();eq(await page.locator('#levelGrid [data-stage]').evaluateAll(ns=>ns.map(n=>+n.dataset.stage)),[0,1,2,3,4]);
+  const targets=await page.locator('#journeyAreas [role="tab"]').evaluateAll(ns=>ns.map(n=>({w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height})));ok(targets.every(r=>r.w>=44&&r.h>=44),'theme controls remain usable');
+  if(width===390){const seen=new Set();for(let theme=0;theme<20;theme++){await page.locator('#journeyAreas [role="tab"]').nth(theme).tap();const stages=await page.locator('#levelGrid [data-stage]').evaluateAll(ns=>ns.map(n=>({stage:+n.dataset.stage,disabled:n.disabled})));eq(stages.length,5);for(const item of stages){ok(item.stage>=theme*5&&item.stage<theme*5+5);eq(item.disabled,item.stage>0,'only first stage initially unlocked');seen.add(item.stage);}}eq(seen.size,100);await page.screenshot({path:path.join(output,'journey-390x844.png')});}
+  await page.locator('#closeLevels').tap();await page.locator('#openCollection').tap();ok(await page.locator('#collectionPanel').isVisible());eq(await page.locator('[data-equip-weapon]').count(),20);eq(await page.locator('.equipment-detail').count(),1,'details are confined to the selected equipment');
+  const panel=await page.locator('.collection-panel').evaluate(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,overflow:document.documentElement.scrollWidth>innerWidth};});ok(!panel.overflow&&panel.x>=-.5&&panel.y>=-.5&&panel.right<=width+.5&&panel.bottom<=height+.5,'equipment panel stays inside viewport');await page.locator('#closeCollection').tap();
+  rows.push({width,height,themeCount:20,stagesPerTheme:5,collectionContained:true});if(width===390)await page.screenshot({path:path.join(output,'lobby-390x844.png')});await context.close();
+ }
+ // The only preview action is OK. Combat and save data stay frozen across loops;
+ // the weapon and barrel angle displayed by the HUD match the demonstrated plan.
+ {
+  const {page,context}=await open();await page.locator('#play').tap();await stop(page);ok(await page.evaluate('!!demo'));
+  eq(await page.locator('#tutorial button:visible').count(),1);eq(await page.locator('#previewOK').textContent(),'OK');ok(!await page.locator('#previewPractice').isVisible());ok(!await page.locator('#practiceHint').isVisible());ok(!await page.locator('#trialWeapon').isVisible());
+  const before=await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,ammo:s.ammo,trial:s.trial,pickups:s.pickups,round:s.round,save:save.data})');
+  await page.evaluate('update(demo.duration*3+.1,demo.duration*3+.1);draw()');ok(await page.evaluate('demo.loops>=3'));await page.keyboard.press('Escape');ok(await page.evaluate('!!demo'),'Escape cannot start combat');
+  eq(await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,ammo:s.ammo,trial:s.trial,pickups:s.pickups,round:s.round,save:save.data})'),before);
+  const id=await page.evaluate('"v2:"+demo.seenId');ok(!await page.evaluate(id=>save.data.seenPreviewIds.includes(id),id));await page.locator('#previewOK').tap();ok(await page.evaluate('!demo&&canAim()'));ok(await page.evaluate(id=>save.data.seenPreviewIds.includes(id),id));eq(await page.evaluate('s.shotCount'),0);
+  for(const [n,lesson] of [[6,'reflection'],[3,'pickup'],[23,'W06'],[48,'W11'],[58,'W13'],[61,'V'],[74,'terminal']]){
+   await battle(page,n);const unchanged=await page.evaluate('JSON.stringify({units:s.units,world:s.world,pickups:s.pickups,skills:s.skills,ammo:s.ammo,shots:s.shotCount,save:save.data})');
+   ok(await page.evaluate(id=>runDemo(id),lesson),'a valid teaching example exists for '+lesson);
+   const data=await page.evaluate(()=>{demo.age=Math.min(demo.duration-.1,(demo.flightStart||.45)+.1);hud();draw();const p=activePreview();return {proof:p.proof.valid,title:document.getElementById('tutorialName').textContent,angle:document.getElementById('angleText').textContent,expectedAngle:Math.round(G.muzzle(p.state,0,p.pose.angle).worldAngle)+'°',weapon:document.getElementById('weaponToggle').textContent,expectedWeapon:ArcWeapons.get(p.pose.mode).appearance.label,actualAngle:s.angle,poseAngle:p.pose.angle,waters:p.state.world.waters.length};});
+   ok(data.proof);eq(data.angle,data.expectedAngle);ok(data.weapon.includes(data.expectedWeapon),'weapon label matches preview projectile');ok(data.title.length>2&&!/^[WBCKUFVM]$/.test(data.title));eq(data.waters,0);
+   await page.evaluate('update(demo.duration*2+.2,demo.duration*2+.2);draw()');eq(await page.evaluate('JSON.stringify({units:s.units,world:s.world,pickups:s.pickups,skills:s.skills,ammo:s.ammo,shots:s.shotCount,save:save.data})'),unchanged,'preview never mutates live combat or inventory');
+   if(lesson==='reflection'){await page.evaluate('demo.age=demo.flightStart+.5;hud();draw()');await page.screenshot({path:path.join(output,'reflection-preview-390x844.png')});}
+   await page.locator('#previewOK').tap();eq(await page.evaluate('s.shotCount'),0);
   }
-  assert.equal(seen.size,100,'the map retains all 100 levels');checks++;
-  await page.locator('#closeLevels').tap();await page.locator('#openCollection').tap();
-  assert(await page.locator('#collectionPanel').isVisible());assert.equal(await page.evaluate('save.data.equippedWeaponId'),'W01');checks+=2;
-  const geometry=await page.locator('.collection-panel').evaluate(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,overflow:document.documentElement.scrollWidth>innerWidth};});
-  assert(!geometry.overflow&&geometry.x>=-.5&&geometry.y>=-.5&&geometry.right<=width+.5&&geometry.bottom<=height+.5,'collection stays inside viewport');checks++;
-  await page.locator('#closeCollection').tap();rows.push({width,height,journeyLevels:seen.size,collectionContained:true});
-  if(width===390)await page.screenshot({path:path.join(output,'lobby-390x844.png')});await context.close();
+  eq(await page.evaluate('platformStatus.previewErrors||[]'),[]);await context.close();
  }
- // The demonstration keeps looping until OK. TRY is a genuine sandbox: a
- // real press/release can fly, but no permanent or live-battle resource changes.
+ // Actual gear cards and PLAY/Fire prove that selected equipment produces its own
+ // projectile, rather than merely changing a save field. Unlocks are controlled.
  {
-  const {page,context}=await open();await page.locator('#play').tap();await stopFrames(page);
-  assert(await page.evaluate('!!demo'));const before=await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,ammo:s.ammo,trial:s.trial,pickups:s.pickups,round:s.round,save:save.data})');
-  await page.evaluate('update(demo.duration*3+.1,demo.duration*3+.1);draw()');assert(await page.evaluate('demo.loops>=3'));assert(await page.locator('#previewOK').isVisible());checks+=3;
-  await page.locator('#previewPractice').tap();assert(await page.evaluate('demo.practicing&&!!practiceReturn'),'TRY enters isolated practice');checks++;
-  const practiceBefore=await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,ammo:s.ammo,trial:s.trial,pickups:s.pickups,round:s.round})');
-  const angle=await page.evaluate('s.angle');await page.locator('#aimUp').tap();assert(await page.evaluate('s.angle')>angle,'practice accepts the same aim controls');
-  const fire=await page.locator('#fire').boundingBox();await page.mouse.move(fire.x+fire.width/2,fire.y+fire.height/2);await page.mouse.down();await page.evaluate('update(.5,.5);draw()');assert(await page.evaluate('!!charge'),'practice accepts hold');await page.mouse.up();assert(await page.evaluate('s.phase==="flight"'),'practice release launches a visible shot');
-  await page.evaluate('for(let i=0;i<300;i++)update(.05,.05);draw()');assert.equal(await page.evaluate('s.phase'),'aim');
-  assert.equal(await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,ammo:s.ammo,trial:s.trial,pickups:s.pickups,round:s.round})'),practiceBefore,'practice never consumes or damages');
-  assert.equal(await page.evaluate('JSON.stringify({units:practiceReturn.units,skills:practiceReturn.skills,shots:practiceReturn.shotCount,ammo:practiceReturn.ammo,trial:practiceReturn.trial,pickups:practiceReturn.pickups,round:practiceReturn.round,save:save.data})'),before,'actual duel and save stay untouched');checks+=6;
-  await page.screenshot({path:path.join(output,'practice-390x844.png')});await page.locator('#previewPractice').tap();assert(await page.evaluate('!!demo&&!demo.practicing&&!practiceReturn'),'REPLAY returns to the loop without starting combat');await page.locator('#previewOK').tap();assert(await page.evaluate('!demo&&!practiceReturn&&s.phase==="aim"'));assert.equal(await page.evaluate('s.shotCount'),0);checks+=3;
-  await page.evaluate('runDemo("W03")');await page.locator('#previewPractice').tap();assert.equal(await page.evaluate('s.mode'),'W03','weapon preview lets the player try that weapon');await page.mouse.move(fire.x+fire.width/2,fire.y+fire.height/2);await page.mouse.down();await page.evaluate('update(.4,.4)');await page.mouse.up();await page.evaluate('for(let i=0;i<300;i++)update(.05,.05)');await page.locator('#previewOK').tap();assert.equal(await page.evaluate('s.mode'),'W01','practice never auto-equips the real rover');assert.equal(await page.evaluate('s.ammo'),2);assert.equal(await page.evaluate('s.shotCount'),0);assert(!await page.evaluate('save.data.unlockedWeaponIds.includes("W03")'),'preview is not a free unlock');checks+=5;await context.close();
- }
- // A changing trajectory must not move the camera beneath a charging finger.
- // Lv80 is included because its old high-power camera shrank the field ~17%.
- {
-  const {page,context}=await open();await stopFrames(page);
-  for(const n of [1,42,80,100]){
-   await newBattle(page,n);assert.equal(await page.evaluate('s.power'),20,'idle and first held power agree');
-   const views=await page.evaluate(()=>{for(let i=0;i<50;i++)draw();startCharge('camera-test');const lock={...renderer.view},views=[];for(let i=0;i<12;i++){update(.08,.08);draw();views.push({...renderer.view});}cancelCharge();return {lock,views};});
-   assert(views.views.every(v=>Math.abs(v.scale-views.lock.scale)<1e-8&&Math.abs(v.x-views.lock.x)<1e-8&&Math.abs(v.y-views.lock.y)<1e-8),`Lv${n}: charge camera stays exactly fixed through the power cycle`);assert.equal(await page.evaluate('s.shotCount'),0);checks+=3;
+  const {page,context}=await open();await stop(page);await page.evaluate(()=>{save.data.unlockedWeaponIds=E.weapons.map(w=>w.id);save.data.seenPreviewIds=ArcSave.previewIds||[];save.data.seenPreviewIds.push('v2:controls');syncLobby();});
+  for(const id of Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0'))){
+   await page.evaluate('lobby()');await page.locator('#openCollection').tap();await page.locator('[data-equip-weapon="'+id+'"]').tap();await page.locator('#closeCollection').tap();await page.locator('#play').tap();if(await page.locator('#previewOK').isVisible())await page.locator('#previewOK').tap();
+   eq(await page.evaluate('s.mode'),id,'gear selection is active on entry');ok((await page.locator('#weaponToggle').textContent()).includes(await page.evaluate(id=>ArcWeapons.get(id).appearance.label,id)));
+   await fire(page,.35);eq(await page.evaluate('shot.weaponId'),id,'actual projectile uses selected weapon');eq(await page.evaluate('s.shotCount'),1);eq(await page.evaluate('s.ammo'),id==='W01'?2:1);weapons.push({id,selectedToFired:true});
   }
   await context.close();
  }
- // Pickups name the actual weapon, save immediately and require an explicit
- // own-turn TRY 1. Their collection remains available after a defeat.
+ // A new pickup does not auto-equip and does not hide the previously equipped
+ // special. All three choices remain accessible until the trial is spent.
  {
-  const {page,context}=await open();await stopFrames(page);await newBattle(page,3);
-  await page.evaluate(()=>{s.phase='flight';acquired(s.pickups.find(p=>p.id==='W02'));hud();});
-  assert.equal(await page.locator('#rewardName').textContent(),'Heavy Shell');assert(await page.evaluate('save.data.unlockedWeaponIds.includes("W02")'));assert.equal(await page.evaluate('s.mode'),'W01','pickup does not auto equip');assert(await page.locator('#trialWeapon').isDisabled(),'trial waits for own turn');checks+=4;
-  await page.evaluate(()=>{s.phase='aim';hud();});assert(await page.locator('#trialWeapon').isEnabled());await page.locator('#trialWeapon').tap();assert.equal(await page.evaluate('s.mode'),'W02');assert.equal(await page.evaluate('s.trial.ammo'),1);assert.equal(await page.evaluate('s.shotCount'),0);checks+=4;
-  await page.evaluate(()=>{s.result='lose';s.reason='durability';s.phase='over';finishResult();});assert.equal(await page.locator('#overlay').getAttribute('data-kind'),'lose');await page.locator('#returnLobby').tap();await page.locator('#openCollection').tap();assert((await page.locator('#collectionGrid').textContent()).includes('Heavy Shell'));await page.locator('[data-equip-weapon="W02"]').tap();assert.equal(await page.evaluate('save.data.equippedWeaponId'),'W02','visual weapon card explicitly equips');await page.locator('#closeCollection').tap();
-  const durability=await page.evaluate('E.campaign(3,save.data).units.map(u=>u.maxHp)');await page.evaluate(()=>{save.data.collectedCosmeticIds.push('S01');});await page.locator('#openCollection').tap();await page.locator('[data-collection-tab="finishes"]').tap();await page.locator('[data-equip-cosmetic="S01"]').tap();assert.equal(await page.evaluate('save.data.equippedCosmeticId'),'S01');assert.deepEqual(await page.evaluate('E.campaign(3,save.data).units.map(u=>u.maxHp)'),durability,'appearance adds no durability buff');await page.locator('#closeCollection').tap();
-  await page.reload();await page.waitForFunction('!document.getElementById("play").disabled');assert(await page.evaluate('save.data.unlockedWeaponIds.includes("W02")'),'defeat/reload retains pickup');assert.equal(await page.evaluate('save.data.equippedWeaponId'),'W02');assert.equal(await page.evaluate('save.data.equippedCosmeticId'),'S01');checks+=8;await context.close();
+  const {page,context}=await open();await stop(page);await page.evaluate(()=>{save.data.unlockedWeaponIds=['W01','W14'];save.data.equippedWeaponId='W14';save.data.seenPreviewIds=['v2:controls','v2:W14'];});await battle(page,3);
+  eq(await page.evaluate('s.mode'),'W14');await page.evaluate(()=>{s.phase='flight';acquired(s.pickups.find(p=>p.id==='W02'));hud();});eq(await page.evaluate('s.mode'),'W14','pickup never auto-equips');ok(await page.evaluate('save.data.unlockedWeaponIds.includes("W02")'));eq(await page.locator('#rewardName').textContent(),'Heavy Shell');ok(!await page.locator('#trialWeapon').isVisible());ok(await page.locator('#weaponToggle').isDisabled());
+  await page.evaluate(()=>{s.phase='aim';s.pendingWeaponDemo=null;hud();});await page.locator('#weaponToggle').tap();eq(await page.locator('[data-choose-weapon]').evaluateAll(ns=>ns.map(n=>n.dataset.chooseWeapon)),['W01','W14','W02']);await page.locator('[data-choose-weapon="W02"]').tap();if(await page.locator('#previewOK').isVisible())await page.locator('#previewOK').tap();eq(await page.evaluate('s.mode'),'W02');eq(await page.evaluate('s.trial.ammo'),1);
+  await page.locator('#weaponToggle').tap();await page.locator('[data-choose-weapon="W14"]').tap();eq(await page.evaluate('s.mode'),'W14','equipped special stays selectable while trial exists');await page.locator('#weaponToggle').tap();await page.locator('[data-choose-weapon="W01"]').tap();eq(await page.evaluate('s.mode'),'W01');await page.locator('#weaponToggle').tap();await page.locator('[data-choose-weapon="W02"]').tap();await fire(page,.3);eq(await page.evaluate('shot.weaponId'),'W02');eq(await page.evaluate('s.trial.ammo'),0);eq(await page.evaluate('s.ammo'),2,'trial does not spend equipped stock');eq(await page.evaluate('s.weaponId'),'W14');
+  await page.evaluate(()=>{s.units[0].hp=0;s.result='lose';s.reason='durability';s.phase='over';finishResult();});await page.locator('#returnLobby').tap();ok(await page.locator('#levelPicker').isVisible());await page.locator('#closeLevels').tap();await page.locator('#openCollection').tap();await page.locator('[data-equip-weapon="W02"]').tap();await page.locator('#closeCollection').tap();await page.evaluate(()=>{save.data.collectedCosmeticIds.push('S01');save.save();});await page.locator('#openCollection').tap();await page.locator('[data-collection-tab="finishes"]').tap();await page.locator('[data-equip-cosmetic="S01"]').tap();await page.locator('#closeCollection').tap();
+  await page.reload();await page.waitForFunction('!document.getElementById("play").disabled');ok(await page.evaluate('save.data.unlockedWeaponIds.includes("W02")'));eq(await page.evaluate('save.data.equippedWeaponId'),'W02');eq(await page.evaluate('save.data.equippedCosmeticId'),'S01');eq(await page.evaluate('E.campaign(3,save.data).units[0].maxHp'),5,'cosmetic never adds a combat buff');await context.close();
  }
- // Result presentation retains the battlefield, distinguishes the two loss
- // causes and sends the final win to the journey rather than replaying Lv100.
+ // Fixed camera and the slower global charge cycle across representative worlds.
+ for(const [width,height] of [[390,844],[844,390]]){
+  const {page,context}=await open(width,height);await stop(page);
+  for(const n of [1,6,42,80,100]){await battle(page,n);const result=await page.evaluate(()=>{for(let i=0;i<40;i++)draw();startCharge('camera');const lock={...renderer.view},samples=[];for(let i=0;i<8;i++){update(.4,.4);draw();samples.push({view:{...renderer.view},power:s.power,button:document.getElementById('chargeValue').textContent});}cancelCharge();hud();return {lock,samples,shots:s.shotCount};});ok(result.samples.every(s=>Math.abs(s.view.x-result.lock.x)<1e-8&&Math.abs(s.view.y-result.lock.y)<1e-8&&Math.abs(s.view.scale-result.lock.scale)<1e-8));ok(Math.abs(result.samples[3].power-100)<1e-6,'1.6 seconds reaches maximum');ok(Math.abs(result.samples[7].power-20)<1e-6,'3.2 seconds returns to minimum');ok(result.samples.every(s=>s.button==='FIRE'),'power is shown only on the gauge');eq(result.shots,0);}
+  await context.close();
+ }
+ // Distinct result causes, retry, final journey and entry guard keep their flows.
  {
-  const {page,context}=await open();await stopFrames(page);await newBattle(page,1);
-  await page.locator('#pause').tap();assert.equal(await page.locator('#overlay').getAttribute('data-kind'),'pause');await page.locator('#returnLobby').tap();assert.equal(await page.locator('#overlay').getAttribute('data-kind'),'confirm');await page.locator('#resume').tap();checks+=2;
-  for(const reason of ['shots','durability']){
-   await newBattle(page,1);await page.evaluate(reason=>{s.result='lose';s.reason=reason;s.phase='over';finishResult();},reason);const eyebrow=await page.locator('#modalEyebrow').textContent();assert(reason==='shots'?/SHOTS/.test(eyebrow):/DISABLED|DURABILITY/.test(eyebrow),'loss explains the actual constraint');assert.equal(await page.locator('#overlay').getAttribute('data-kind'),'lose');assert(await page.locator('#resume').isVisible());assert.equal(await page.locator('#resume').textContent(),'TRY AGAIN');assert(!await page.locator('#battleControls').isVisible(),'battle controls do not ghost through results');assert(!await page.locator('#shotBudget').isVisible());await page.locator('#resume').tap();assert(await page.locator('#battleControls').isVisible(),'retry restores playable controls');assert(await page.evaluate('!s.result&&s.stage===1'));checks+=8;
-  }
-  await newBattle(page,100);await page.evaluate(()=>{s.units[1].hp=0;s.result='win';s.reason='defeated';s.phase='over';hud();finishResult();draw();});assert.equal(await page.locator('#overlay').getAttribute('data-kind'),'final');assert(/JOURNEY/.test(await page.locator('#resume').textContent()));assert(await page.locator('#endingCollection').isVisible());assert(!await page.locator('#battleControls').isVisible());assert(!await page.locator('#shotBudget').isVisible());await page.screenshot({path:path.join(output,'ending-390x844.png'),animations:'disabled'});await page.locator('#resume').tap();assert(await page.locator('#levelPicker').isVisible());assert(await page.evaluate('!s'),'final journey leaves the completed duel');checks+=7;await context.close();
+  const {page,context}=await open();await stop(page);await battle(page,1);await page.locator('#pause').tap();eq(await page.locator('#overlay').getAttribute('data-kind'),'pause');await page.locator('#returnLobby').tap();eq(await page.locator('#overlay').getAttribute('data-kind'),'confirm');await page.locator('#resume').tap();
+  for(const reason of ['shots','durability']){await battle(page,1);await page.evaluate(reason=>{s.result='lose';s.reason=reason;s.phase='over';finishResult();},reason);const text=await page.locator('.modal').textContent();ok(reason==='shots'?/shots/i.test(text):/disabled/i.test(text));eq(await page.locator('#overlay').getAttribute('data-kind'),'lose');ok(!await page.locator('#battleControls').isVisible());await page.locator('#resume').tap();ok(await page.locator('#battleControls').isVisible());eq(await page.evaluate('s.result'),null);}
+  await battle(page,100);await page.evaluate(()=>{s.units[1].hp=0;s.result='win';s.reason='defeated';s.phase='over';hud();finishResult();draw();});eq(await page.locator('#overlay').getAttribute('data-kind'),'final');eq(await page.locator('#resume').textContent(),'JOURNEY');ok(await page.locator('#endingCollection').isVisible());ok(!await page.locator('#battleControls').isVisible());await page.screenshot({path:path.join(output,'ending-390x844.png'),animations:'disabled'});await page.locator('#resume').tap();ok(await page.locator('#levelPicker').isVisible());eq(await page.evaluate('s'),null);await page.locator('#closeLevels').tap();
+  await page.evaluate(()=>{save.data.seenPreviewIds=[];selectedMap=9;start();draw();});ok(await page.locator('#encounterBanner').isVisible());ok(await page.locator('#fire').isDisabled());const before=await page.evaluate('JSON.stringify({units:s.units,round:s.round,shots:s.shotCount,power:s.power})');await page.evaluate('startCharge("entry");update(.55,.55);draw()');eq(await page.evaluate('charge'),null);eq(await page.evaluate('JSON.stringify({units:s.units,round:s.round,shots:s.shotCount,power:s.power})'),before);await page.evaluate('update(.54,.54)');ok(await page.evaluate('!!encounter&&!demo'));await page.evaluate('update(.02,.02);draw()');ok(await page.evaluate('!encounter&&!!demo'));ok(!await page.locator('#encounterBanner').isVisible());await page.locator('#previewOK').tap();ok(await page.evaluate('canAim()&&s.round===1&&s.shotCount===0'));await context.close();
  }
- // The guardian's entrance owns a bounded pause. Neither held input nor its
- // staging can consume a shot, move a rover or advance the first round.
+ // Actual shared-physics turn cycle, with only worker readiness injected.
  {
-  const {page,context}=await open();await stopFrames(page);await page.evaluate(()=>{selectedMap=9;start();draw();});
-  assert(await page.locator('#encounterBanner').isVisible());assert(await page.locator('#fire').isDisabled());assert(await page.locator('#aimUp').isDisabled());assert(!await page.evaluate('canAim()'));checks+=4;
-  const before=await page.evaluate('JSON.stringify({units:s.units,round:s.round,shots:s.shotCount,power:s.power})');
-  await page.keyboard.down('ArrowRight');await page.keyboard.down('Space');await page.evaluate('startCharge("entry-guard");update(.55,.55);draw()');await page.keyboard.up('Space');await page.keyboard.up('ArrowRight');
-  assert.equal(await page.evaluate('charge'),null);assert.equal(await page.evaluate('JSON.stringify({units:s.units,round:s.round,shots:s.shotCount,power:s.power})'),before);checks+=2;
-  await page.evaluate('update(.54,.54);draw()');assert(await page.evaluate('!!encounter&&!demo'),'entrance remains distinct until 1.1 seconds');await page.evaluate('update(.02,.02);draw()');assert(await page.evaluate('!encounter&&!!demo'),'first local preview follows the entrance');assert(!await page.locator('#encounterBanner').isVisible());assert(await page.locator('#fire').isDisabled(),'preview still awaits explicit OK');checks+=4;
-  await page.locator('#previewOK').tap();assert(await page.locator('#fire').isEnabled());assert(await page.evaluate('canAim()&&s.round===1&&s.shotCount===0'),'OK begins the unchanged first round');checks+=2;await context.close();
+  const {page,context}=await open();await stop(page);await battle(page,1);
+  const player=await page.evaluate(()=>{const best=E.solve(s,0);s.angle=best.angle;s.power=best.power;launch();const angle=s.angle,damage=shot.damage[1];for(let i=0;i<1000&&s.phase==='flight';i++)update(.05,.05);return {angle,damage,phase:s.phase,turn:s.turn,planning:!!cpuJob,tail:!!tail,time:s.time,shots:s.shotCount};});ok(player.damage>0);eq(player.phase,'impact');eq(player.turn,0);ok(player.planning);ok(player.tail);eq(player.time,1.4);eq(player.shots,1);
+  const tailState=await page.evaluate(()=>{update(.79,.79);update(.6,.6);return {phase:s.phase,turn:s.turn,age:tail?.age};});eq(tailState.phase,'impact');eq(tailState.turn,0);ok(Math.abs(tailState.age-1.39)<1e-8);
+  const enemy=await page.evaluate(()=>{update(.02,.02);const nextPhase=s.phase;cpuReady={target:s.units[1].x,plan:E.trajectory(s,1,48,50)};update(.01,.01);const launched={nextPhase,phase:s.phase,side:shot?.side,shots:s.shotCount};for(let i=0;i<1000&&s.phase==='flight';i++)update(.05,.05);return {...launched,impactPhase:s.phase,turn:s.turn,time:s.time,tail:!!tail};});eq(enemy.nextPhase,'cpu');eq(enemy.phase,'flight');eq(enemy.side,1);eq(enemy.shots,1);eq(enemy.impactPhase,'impact');eq(enemy.turn,1);eq(enemy.time,1.4);ok(enemy.tail);
+  const transitionState=await page.evaluate(()=>{update(.79,.79);const before={phase:s.phase,turn:s.turn};update(.02,.02);return {before,phase:s.phase,turn:s.turn,time:s.time,tail:!!tail,age:transition?.age,round:s.round};});eq(transitionState.before.phase,'impact');eq(transitionState.before.turn,1);eq(transitionState.phase,'transition');eq(transitionState.turn,0);eq(transitionState.time,.6);ok(transitionState.tail);eq(transitionState.age,0);eq(transitionState.round,2);
+  const ready=await page.evaluate(()=>{update(.59,.59);const prior=s.phase;update(.02,.02);draw();return {prior,phase:s.phase,tail:!!tail,angle:s.angle,power:s.power,shots:s.shotCount,round:s.round};});eq(ready.prior,'transition');eq(ready.phase,'aim');ok(!ready.tail);eq(ready.angle,player.angle);eq(ready.power,20);eq(ready.shots,1);eq(ready.round,2);await context.close();
  }
- // Real shared-physics shots exercise the new overlap: CPU planning starts
- // during player aftermath; enemy aftermath shares its last .6s with the next
- // world transition. Only the worker-ready timing is controlled, not damage.
- {
-  const {page,context}=await open();await stopFrames(page);await newBattle(page,1);
-  const player=await page.evaluate(()=>{const best=E.solve(s,0);s.angle=best.angle;s.power=best.power;launch();const angle=s.angle,damage=shot.damage[1];for(let i=0;i<1000&&s.phase==='flight';i++)update(.05,.05);return {angle,damage,phase:s.phase,turn:s.turn,planning:!!cpuJob,tail:!!tail,time:s.time,shots:s.shotCount};});
-  assert(player.damage>0,'solver supplies an actual effective player trajectory');assert.equal(player.phase,'impact');assert.equal(player.turn,0);assert(player.planning,'CPU planning overlaps the player impact while the player still owns the turn');assert(player.tail);assert.equal(player.time,1.4);assert.equal(player.shots,1);checks+=7;
-  const playerTail=await page.evaluate(()=>{update(.79,.79);update(.6,.6);return {phase:s.phase,turn:s.turn,tail:!!tail,age:tail?.age};});assert.equal(playerTail.phase,'impact');assert.equal(playerTail.turn,0);assert(playerTail.tail&&Math.abs(playerTail.age-1.39)<1e-8,'the full 1.4-second player trajectory aftermath is retained');checks+=3;
-  const enemy=await page.evaluate(()=>{update(.02,.02);const nextPhase=s.phase;cpuReady={target:s.units[1].x,plan:E.trajectory(s,1,48,50)};update(.01,.01);const launched={nextPhase,phase:s.phase,side:shot?.side,shots:s.shotCount};for(let i=0;i<1000&&s.phase==='flight';i++)update(.05,.05);return {...launched,impactPhase:s.phase,turn:s.turn,time:s.time,tail:!!tail};});
-  assert.equal(enemy.nextPhase,'cpu');assert.equal(enemy.phase,'flight','stationary enemy has no fake movement wait');assert.equal(enemy.side,1);assert.equal(enemy.shots,1,'enemy fire never spends a player shot');assert.equal(enemy.impactPhase,'impact');assert.equal(enemy.turn,1);assert.equal(enemy.time,1.4);assert(enemy.tail);checks+=8;
-  const transitionState=await page.evaluate(()=>{update(.79,.79);const before={phase:s.phase,turn:s.turn,tail:!!tail};update(.02,.02);return {before,phase:s.phase,turn:s.turn,time:s.time,tail:!!tail,age:transition?.age,round:s.round};});assert.equal(transitionState.before.phase,'impact');assert.equal(transitionState.before.turn,1);assert(transitionState.before.tail);assert.equal(transitionState.phase,'transition','transition starts inside the last .6 seconds of enemy aftermath');assert.equal(transitionState.turn,0);assert.equal(transitionState.time,.6);assert(transitionState.tail);assert.equal(transitionState.age,0);assert.equal(transitionState.round,2);checks+=9;
-  const ready=await page.evaluate(()=>{update(.59,.59);const prior={phase:s.phase,tail:!!tail};update(.02,.02);draw();return {prior,phase:s.phase,tail:!!tail,angle:s.angle,power:s.power,shots:s.shotCount,round:s.round};});assert.equal(ready.prior.phase,'transition');assert(ready.prior.tail);assert.equal(ready.phase,'aim');assert(!ready.tail,'no previous trajectory remains when player aiming resumes');assert.equal(ready.angle,player.angle,'relative barrel angle survives the entire turn cycle');assert.equal(ready.power,20,'fresh aim starts at the same power as a new hold');assert.equal(ready.shots,1);assert.equal(ready.round,2);checks+=8;await context.close();
- }
- assert.deepEqual(errors,[],'no browser exceptions');
- const report={status:'PASS',checks,viewports:rows,errors,method:'Real headless Chromium. Actual touch/click equipment, preview/practice/fire and journey controls; deterministic injected states for camera, rewards, results and enemy timing. Existing runtime/touch tests cover full campaign initialization, host lifecycle and multitouch. Physical devices and human completion remain separate QA.'};fs.writeFileSync(path.join(output,'IMMERSION.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));await browser.close();server.close();
+ eq(errors,[],'no browser exceptions');const report={status:'PASS',recordedAt:new Date().toISOString(),checks,viewports:rows,weapons,errors,method:'Real headless Chromium controls across eight viewport sizes. Controlled unlocks exercise all20 actual gear-to-projectile identities, preview acknowledgement, three-way trial selection and save persistence. Injected states isolate camera/results/turn timing; this is not human completion, enjoyment research or physical-device certification.'};fs.writeFileSync(path.join(output,'IMMERSION.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));await browser.close();server.close();
 })().catch(e=>{console.error(e);server.close();process.exit(1);});

@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "heldMovementLevels": 200,
+  "heldMovementDirections": 2,
+  "rows": [
+    {
+      "width": 390,
+      "height": 844,
+      "records": {
+        "terminal": {
+          "before": {
+            "text": [
+              {
+                "text": "↺",
+                "color": "#ead9ff",
+                "x": 560,
+                "y": 262.15384615384613
+              }
+            ],
+            "cores": []
+          },
+          "after": {
+            "text": [
+              {
+                "text": "↻",
+                "color": "#ead9ff",
+                "x": 560,
+                "y": 262.15384615384613
+              }
+            ],
+            "cores": []
+          },
+          "unchanged": true
+        },
+        "boss-swap": {
+          "before": {
+            "text": [
+              {
+                "text": "↻",
+                "color": "#ead9ff",
+                "x": 550,
+                "y": 243.08196721311475
+              }
+            ],
+            "cores": [
+              [
+                0,
+                -77,
+                22,
+                0,
+                6.283185307179586
+              ]
+            ]
+          },
+          "after": {
+            "text": [
+              {
+                "text": "↻",
+                "color": "#ead9ff",
+                "x": 550,
+                "y": 243.08196721311475
+              },
+              {
+                "text": "CORE ×2",
+                "color": "#e9ffc9",
+                "x": 800,
+                "y": 165.33333333333337
+              }
+            ],
+            "cores": [
+              [
+                -20,
+                -77,
+                30,
+                0,
+                6.283185307179586
+              ],
+              [
+                -20,
+                -77,
+                38.43471218179904,
+                0,
+                6.283185307179586
+              ]
+            ]
+          },
+          "unchanged": true
+        }
+      }
+    }
+  ],
+  "failures": [],
+  "errors": [],
+  "scope": "Real production Canvas instrumentation verifies terminal polarity and boss core are drawn differently after valid demonstrations; live state is immutable. Controlled stage/inventory states and manually advanced preview time. Also checks actual left/right legal movement whilecamera locked on100levels at2smallviewports."
+}

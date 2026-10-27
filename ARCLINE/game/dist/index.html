@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#12384c"><title>ARCLINE — A hundred ways across</title>
-<link rel="stylesheet" href="style.css?v=0.5.0">
+<link rel="stylesheet" href="style.css?v=0.6.0">
 <script src="https://www.youtube.com/game_api/v1"></script>
 </head>
 <body>
@@ -12,16 +12,16 @@
 <canvas id="world" tabindex="0" aria-label="Battlefield. Drag vertically to aim. Arrow keys move and aim; hold space to charge."></canvas>
 <div class="vignette" aria-hidden="true"></div>
 <section id="lobby" aria-label="Campaign and loadout">
-<header class="lobby-top"><div class="brand">arc<span>line</span><i>◆</i></div><span class="build-tag">100 LEVELS</span></header>
-<div class="arena-title"><span id="arenaTag"></span><h1 id="arenaTitle"></h1><p id="stageCaption"></p></div>
+<header class="lobby-top"><div class="brand">arc<span>line</span><i>◆</i></div></header>
+<div class="arena-title"><span id="arenaTag"></span><h1 id="arenaTitle"></h1><p id="stageCaption"></p><div id="themeProgress" aria-label="Theme progress"></div></div>
 <button id="prevMap" class="map-arrow prev" aria-label="Previous level">‹</button><button id="nextMap" class="map-arrow next" aria-label="Next level">›</button>
 <div id="lobbyRover" aria-hidden="true"></div>
 <div class="lobby-dock">
-<div class="dock-caption"><span>YOUR ROVER</span><span id="collectionCount"></span></div>
-<button id="openCollection" class="loadout-summary" aria-label="Open weapon and appearance collection"><i id="equippedWeaponGlyph" aria-hidden="true">●</i><span><strong id="equippedWeapon">Standard</strong><small id="equippedCosmetic">Original</small></span><b>GEAR →</b></button>
+<span id="collectionCount" hidden></span>
+<button id="openCollection" class="loadout-summary" aria-label="Open weapon and appearance collection"><i id="equippedWeaponGlyph" aria-hidden="true">●</i><span><strong id="equippedWeapon">Standard</strong><small id="equippedCosmetic" hidden>Original</small></span><b>GEAR</b></button>
 <div class="loadout" hidden><label>SPECIAL WEAPON<select id="weaponLoadout" aria-label="Equipped special weapon"></select></label><label>APPEARANCE<select id="cosmeticLoadout" aria-label="Cosmetic appearance"></select></label></div>
-<div id="nextReward" class="next-reward"></div>
-<div class="campaign-row"><span id="progressText"></span><button id="chooseLevel">JOURNEY ▦</button></div>
+<div id="nextReward" hidden></div>
+<div class="campaign-row"><span id="progressText"></span><button id="chooseLevel">JOURNEY</button></div>
 <button id="play" class="play-button">PLAY LEVEL 1 <span aria-hidden="true">→</span></button>
 <p class="session-note" id="saveStatus" role="status">Loading progress…</p>
 </div></section>
@@ -30,21 +30,22 @@
 <div class="turn-pill"><span id="turnLabel">YOUR TURN</span><small id="round">LV 1</small></div>
 <div id="shotBudget" role="status">10 SHOTS</div>
 <div id="shotFeedback" role="status" aria-live="polite"></div>
-<div id="tutorial" hidden role="dialog" aria-label="Practice preview" aria-describedby="tutorialName"><div class="preview-copy"><span id="tutorialName"></span><small id="practiceHint" hidden>Practice · no shots spent</small></div><button id="previewPractice" class="preview-try">TRY</button><button id="previewOK">OK · PLAY</button></div>
-<div id="rewardNotice" hidden role="status"><span id="rewardGlyph" aria-hidden="true">◆</span><div><small>ADDED TO YOUR COLLECTION</small><strong id="rewardName"></strong></div><button id="trialWeapon" hidden>TRY 1</button></div>
-<div id="encounterBanner" hidden aria-live="polite"><small>AREA GUARDIAN</small><strong id="encounterName"></strong></div>
+<div id="tutorial" hidden role="dialog" aria-label="Preview" aria-describedby="tutorialName"><span id="tutorialName"></span><button id="previewOK">OK</button><span id="practiceHint" hidden></span><button id="previewPractice" hidden tabindex="-1" aria-hidden="true"></button></div>
+<div id="rewardNotice" hidden role="status"><span id="rewardGlyph" aria-hidden="true">◆</span><strong id="rewardName"></strong><button id="trialWeapon" hidden tabindex="-1" aria-hidden="true"></button></div>
+<div id="encounterBanner" hidden aria-live="polite"><strong id="encounterName"></strong></div>
 <div id="environment" aria-label="Environment preview"></div>
 <div id="battleControls">
-<div id="powerHUD"><div class="power-title"><span>POWER</span><strong id="powerNumber">20%</strong></div><div class="power-track"><i id="powerFill"></i><span class="marks"><b>25</b><b>50</b><b>75</b><b>100</b></span></div></div>
+<div id="powerHUD"><div class="power-title"><span>POWER</span><strong id="powerNumber">20%</strong></div><div class="power-track"><i id="powerFill"></i><span class="marks" aria-hidden="true"></span></div></div>
 <div class="stick-wrap"><div id="stick" role="slider" tabindex="0" aria-label="Move joystick" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0"><span aria-hidden="true">‹　›</span><div id="stickKnob">◆</div></div><span class="control-label">MOVE</span></div>
-<div id="aimControl" role="group" aria-label="Aim angle"><button id="aimDown" aria-label="Lower angle">−</button><input id="aimRange" type="range" min="-12" max="85" step="1" value="48" aria-label="Aim angle"><strong id="angleText">48°</strong><button id="aimUp" aria-label="Raise angle">+</button></div>
+<div id="aimControl" role="group" aria-label="Aim angle"><button id="aimDown" aria-label="Lower angle">−</button><input id="aimRange" type="range" min="-12" max="85" step="1" value="48" aria-label="Aim angle" hidden><strong id="angleText">48°</strong><button id="aimUp" aria-label="Raise angle">+</button></div>
 <button id="weaponToggle" aria-label="Switch basic or special weapon">STANDARD ∞</button>
 <div id="skills" role="group" aria-label="One skill per turn"></div>
 <div class="fire-wrap"><button id="fire" aria-label="Hold to charge; release to fire"><svg class="charge-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-base" cx="60" cy="60" r="55"/><circle id="chargeRing" cx="60" cy="60" r="55"/></svg><span class="bolt" aria-hidden="true">ϟ</span><span id="chargeValue">FIRE</span></button><span class="control-label" id="fireHint"></span></div>
 </div></section>
 <div id="overlay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div id="resultIcon">Ⅱ</div><span id="modalEyebrow">DUEL PAUSED</span><h2 id="modalTitle">Take a breath.</h2><p id="modalDetail"></p><button id="resume" class="play-button">RESUME</button><button id="resultJourney" class="quiet-button" hidden>THE JOURNEY →</button><div id="endingCollection" hidden></div><button id="returnLobby" class="quiet-button">LOADOUT</button></div></div>
-<div id="levelPicker" hidden><div class="level-panel"><header><div><small>THE JOURNEY</small><strong>100 ways across.</strong></div><button id="closeLevels" aria-label="Close level selection">✕</button></header><div id="journeyAreas" role="tablist" aria-label="Journey areas"></div><div id="journeySummary"></div><div id="levelGrid"></div></div></div>
-<div id="collectionPanel" hidden><div class="collection-panel"><header><div><small>YOUR COLLECTION</small><strong>Make it yours.</strong></div><button id="closeCollection" aria-label="Close collection">✕</button></header><div id="collectionGrid"></div></div></div>
+<div id="levelPicker" hidden><div class="level-panel"><header><div><strong>Journey</strong></div><button id="closeLevels" aria-label="Close level selection">✕</button></header><div id="journeyAreas" role="tablist" aria-label="Journey themes"></div><div class="theme-switch"><button id="journeyPrev" aria-label="Previous theme">‹</button><div id="journeySummary"></div><button id="journeyNext" aria-label="Next theme">›</button></div><div id="levelGrid"></div></div></div>
+<div id="collectionPanel" hidden><div class="collection-panel"><header><div><strong>Equipment</strong></div><button id="closeCollection" aria-label="Close collection">✕</button></header><div id="collectionGrid"></div></div></div>
+<div id="weaponPicker" hidden><div class="weapon-panel" role="dialog" aria-modal="true" aria-labelledby="weaponPickerTitle"><header><strong id="weaponPickerTitle">Choose weapon</strong><button id="closeWeapons" aria-label="Close weapon selection">✕</button></header><div id="weaponChoices"></div></div></div>
 </main>
-<script src="levels.js?v=0.5.0"></script><script src="weapons.js?v=0.5.0"></script><script src="geometry.js?v=0.5.0"></script><script src="physics.js?v=0.5.0"></script><script src="save.js?v=0.5.0"></script><script src="engine.js?v=0.5.0"></script><script src="render.js?v=0.5.0"></script><script src="presentation.js?v=0.5.0"></script><script src="game.js?v=0.5.0"></script>
+<script src="levels.js?v=0.6.0"></script><script src="weapons.js?v=0.6.0"></script><script src="geometry.js?v=0.6.0"></script><script src="physics.js?v=0.6.0"></script><script src="save.js?v=0.6.0"></script><script src="engine.js?v=0.6.0"></script><script src="render.js?v=0.6.0"></script><script src="presentation.js?v=0.6.0"></script><script src="preview.js?v=0.6.0"></script><script src="game.js?v=0.6.0"></script>
 </body></html>
