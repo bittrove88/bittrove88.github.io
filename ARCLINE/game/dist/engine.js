@@ -4,17 +4,28 @@ const node=typeof module!=='undefined';
 const G=node?require('./geometry.js'):root.ArcGeometry,L=node?require('./levels.js'):root.ArcLevels,W=node?require('./weapons.js'):root.ArcWeapons,P=node?require('./physics.js'):root.ArcPhysics;
 const clamp=G.clamp;
 const biomes=[
-{name:'Tidal Coast',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0'},
-{name:'Canal Ruins',sky:['#283b52','#d3c49c'],land:'#717763',edge:'#ebdda9'},
-{name:'Cloud Gardens',sky:['#364464','#d5d2eb'],land:'#747c9f',edge:'#e3e5fa'},
-{name:'Crystal Railway',sky:['#282e55','#a0d7dc'],land:'#476f83',edge:'#b3ffeb'},
-{name:'Amber Engines',sky:['#593d4a','#e5b880'],land:'#a07758',edge:'#ffdda1'},
-{name:'Polar Station',sky:['#153b61','#c7dfed'],land:'#7197b4',edge:'#efffff'},
-{name:'Forge Valley',sky:['#3f2844','#df9674'],land:'#825b64',edge:'#ffc18e'},
-{name:'Magnetic Mine',sky:['#292a53','#9eafd7'],land:'#5c6187',edge:'#cdceff'},
-{name:'Sky Ruins',sky:['#2d496a','#d0dcd2'],land:'#728e9a',edge:'#e4fbd8'},
-{name:'Archeart Keep',sky:['#28203e','#b998b1'],land:'#706080',edge:'#f6c6dd'}];
-function chargePower(seconds){const t=(Math.max(0,seconds)/.95)%2;return 20+80*(t<=1?t:2-t);}
+{name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
+{name:'Mirror Flats',sky:['#234454','#bbd5ce'],land:'#527f83',edge:'#c3fff1',material:'mirror',accent:'#9affdf'},
+{name:'Canal Gates',sky:['#283b52','#d3c49c'],land:'#717763',edge:'#ebdda9',material:'stone',accent:'#eac38f'},
+{name:'Sunken Ruins',sky:['#243f4c','#9eb9ac'],land:'#55776c',edge:'#c3d8ad',material:'masonry',accent:'#b9e4b9'},
+{name:'Mist Gardens',sky:['#364464','#d5d2eb'],land:'#747c9f',edge:'#e3e5fa',material:'garden',accent:'#e0c5f4'},
+{name:'Cloud Terraces',sky:['#42547d','#d3e0ee'],land:'#7c91ab',edge:'#f1f0dc',material:'terrace',accent:'#c9f2f2'},
+{name:'Crystal Road',sky:['#282e55','#a0d7dc'],land:'#476f83',edge:'#b3ffeb',material:'crystal',accent:'#a4ffea'},
+{name:'Prism Station',sky:['#403251','#c8b5dd'],land:'#736785',edge:'#e8d3ff',material:'rail',accent:'#d6adff'},
+{name:'Rising Cavern',sky:['#514049','#d6ab82'],land:'#8b6c55',edge:'#f1d59c',material:'cavern',accent:'#f5d99f'},
+{name:'Amber Engines',sky:['#593d4a','#e5b880'],land:'#a07758',edge:'#ffdda1',material:'engine',accent:'#ffc485'},
+{name:'Wind Observatory',sky:['#153b61','#c7dfed'],land:'#7197b4',edge:'#efffff',material:'ice',accent:'#b4eaff'},
+{name:'Frozen Causeway',sky:['#263c60','#b4d3df'],land:'#587e9b',edge:'#dbffff',material:'frost',accent:'#a8ffee'},
+{name:'Volcanic Rim',sky:['#3f2844','#df9674'],land:'#825b64',edge:'#ffc18e',material:'basalt',accent:'#ffb173'},
+{name:'Forge Pass',sky:['#492f3b','#d88f6e'],land:'#76545c',edge:'#ffe0a5',material:'forge',accent:'#ffce7e'},
+{name:'Magnetic Mine',sky:['#292a53','#9eafd7'],land:'#5c6187',edge:'#cdceff',material:'ore',accent:'#c5b6ff'},
+{name:'Polarity Lab',sky:['#263849','#a5cad0'],land:'#53767f',edge:'#d8fff2',material:'lab',accent:'#b9ffe6'},
+{name:'Sky Garden',sky:['#2d496a','#d0dcd2'],land:'#728e9a',edge:'#e4fbd8',material:'island',accent:'#defac3'},
+{name:'Storm Carrier',sky:['#293e5c','#99b3bf'],land:'#536f84',edge:'#d8eced',material:'deck',accent:'#b5d8f4'},
+{name:'Fortress Gates',sky:['#28203e','#b998b1'],land:'#706080',edge:'#f6c6dd',material:'fortress',accent:'#f4b9d2'},
+{name:'Dawn Keep',sky:['#433044','#e7beaa'],land:'#826d81',edge:'#ffebbe',material:'keep',accent:'#ffe3a1'}];
+const chargeDuration=1.6;
+function chargePower(seconds){const t=(Math.max(0,seconds)/chargeDuration)%2;return 20+80*(t<=1?t:2-t);}
 function seeded(seed=1){let x=seed>>>0;return ()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296;};}
 function campaign(stage=1,save={}){
  const spec=L[clamp(Math.floor(stage)||1,1,100)-1],world=G.world(spec);
@@ -30,8 +41,9 @@ function campaign(stage=1,save={}){
  }
  const skills={...spec.skills},skillCaps=Object.fromEntries(Object.entries(skills).map(([k,v])=>[k,v+1]));
  const collected=[...(save.unlockedWeaponIds||['W01']),...(save.collectedCosmeticIds||[])];
- const pickups=spec.pickups.filter(p=>!collected.includes(p.id)).map(p=>({...p,...G.point(p.x,p.h),radius:22,collected:false,skill:p.id[0]==='R'?(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK'):null}));
- const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,skills,skillCaps,pickups,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.boss?18:10,angle:48,power:20,result:null,reason:null,ammo:2,weaponId:save.equippedWeaponId||'W01',mode:'W01',trial:null,last:[null,null],effects:{broken:0,polarity:0},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,random:seeded(spec.id*997),preview:null};
+ const pickups=spec.pickups.filter(p=>!collected.includes(p.id)).map(p=>({...p,...G.point(p.x,p.h),radius:22,collected:false,skill:p.id[0]==='R'?(p.skill||(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK')):null}));
+ const requested=save.equippedWeaponId||'W01',equipped=W.weapons.some(w=>w.id===requested)&&(!Array.isArray(save.unlockedWeaponIds)||save.unlockedWeaponIds.includes(requested))?requested:'W01';
+ const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,skills,skillCaps,pickups,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.boss?18:10,angle:Math.max(48,W.get(equipped).minAngle||-12),power:20,result:null,reason:null,ammo:2,weaponId:equipped,mode:equipped,trial:null,last:[null,null],effects:{broken:0,polarity:0},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,random:seeded(spec.id*997),preview:null};
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
  bossGeometry(s);telegraph(s);return s;
 }
@@ -39,7 +51,19 @@ function telegraph(s){
  if(!s.spec.boss){s.telegraph=null;return;}
  const attacks=s.spec.bossSpec.attacks,kind=attacks[(s.round-1)%attacks.length];
  const targetX=s.units[0].x;
- s.telegraph={kind,targetX,radius:kind==='DROP'||kind==='MARK'||kind==='PREPARE'?55:35,next:attacks[s.round%attacks.length],frozen:true};
+ const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
+ s.telegraph={kind,targetX,targetY:s.units[0].y-22,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,columns,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next:attacks[s.round%attacks.length],frozen:true};
+}
+function availableWeapons(s){
+ const options=[{id:'W01',ammo:Infinity,trial:false}];
+ if(s.weaponId!=='W01'&&W.weapons.some(w=>w.id===s.weaponId)&&s.ammo>0)options.push({id:s.weaponId,ammo:s.ammo,trial:false});
+ if(s.trial?.ammo>0&&s.trial.id!=='W01'&&W.weapons.some(w=>w.id===s.trial.id)){
+  const owned=options.find(w=>w.id===s.trial.id);if(owned){owned.ammo+=s.trial.ammo;owned.trial=true;}else options.push({id:s.trial.id,ammo:s.trial.ammo,trial:true});
+ }return options;
+}
+function selectWeapon(s,id){
+ if(s.result||s.phase!=='aim'||s.turn!==0||!availableWeapons(s).some(w=>w.id===id))return false;
+ s.mode=id;s.angle=Math.max(s.angle,W.get(id).minAngle||-12);return true;
 }
 function selectSkill(s,id){if(s.phase!=='aim'||s.skillUsed||!s.skills[id])return false;s.selectedSkill=s.selectedSkill===id?null:id;return true;}
 function blink(s,index){
@@ -81,15 +105,42 @@ function addReward(s,skill,x=650,h=28,id='R-boss'){
  if(s.pickups.filter(p=>!p.collected).length>=3)return;
  s.pickups.push({id,skill,amount:1,name:skill,...G.point(x,h),radius:22,collected:false});
 }
+function liftLanding(s,side,height,distance){
+ const u=s.units[side],other=s.units[1-side],candidates=[];
+ for(const surface of s.world.surfaces)for(let dx=-distance;dx<=distance;dx+=10){
+  const x=clamp(u.x+dx,u.range[0],u.range[1]),y=G.floorY(surface.points,x);
+  if(y===null||y>u.y-12||y<u.y-height)continue;
+  const p=G.safePosition(s.world,x,y,other,u.range);
+  if(!p||p.y>u.y-12||p.y<u.y-height||Math.abs(p.x-u.x)>distance+1)continue;
+  const apex={x:(u.x+p.x)/2,y:Math.min(u.y,p.y)-48};
+  if(!G.lineClear(s.world,{x:u.x,y:u.y-24},apex)||!G.lineClear(s.world,apex,{x:p.x,y:p.y-24}))continue;
+  candidates.push(p);
+ }return candidates.sort((a,b)=>(u.y-b.y)-(u.y-a.y)||Math.abs(a.x-u.x)-Math.abs(b.x-u.x))[0]||null;
+}
 function displace(s,side,shot){
  const w=W.get(shot.weaponId),u=s.units[1-side],hit=shot.impacts.find(x=>x.hit?.unit===1-side);
  if(!shot.damage[1-side]||!(w.push||w.pull||w.lift||['PUSH','PULL','SWAP'].includes(shot.skill)))return;
- if(s.spec.boss&&side===0){u.exposed=2;u.facingCore=s.units[0].x<u.x?-1:1;return;}
+ const away=Math.sign(u.x-s.units[side].x)||1,before={x:u.x,y:u.y,slope:u.slope,surface:u.surface,floating:u.floating};
+ if(s.spec.boss&&side===0&&shot.skill==='SWAP'){u.exposed=2;u.facingCore=s.units[0].x<u.x?-1:1;u.reactionKind='rotate';return;}
  if(shot.skill==='SWAP'&&hit&&shot.bullets.find(b=>b.id===hit.bullet)?.primary){
   const a=s.units[0],b=s.units[1],pa={x:a.x,y:a.y,slope:a.slope,surface:a.surface,range:a.range},pb={x:b.x,y:b.y,slope:b.slope,surface:b.surface,range:b.range};Object.assign(a,pb);Object.assign(b,pa);a.animation={from:pa,age:0,duration:.6,lift:0};b.animation={from:pb,age:0,duration:.6,lift:0};a.displaced=1;b.displaced=1;
  }else{
-  const before={x:u.x,y:u.y},from=shot.end,sign=Math.sign(u.x-from.x)||1,dx=(w.pull||shot.skill==='PULL'?-sign:sign)*(w.lift?48:72),old=u.x;
-  G.move(s,1-side,dx);u.animation={from:before,age:0,duration:.6,lift:w.lift?60:0};u.displaced=1;u.previousX=old;
+  const pulling=w.pull||shot.skill==='PULL',distance=w.lift?(w.liftDistance||60):pulling?(w.pullDistance||100):(w.pushDistance||110),boss=s.spec.boss&&side===0;
+  const dx=(pulling?-away:away)*Math.min(distance,boss?(pulling?48:36):distance);
+  const landing=w.lift?liftLanding(s,1-side,w.liftHeight||110,boss?80:120):null;
+  if(landing)Object.assign(u,landing);
+  else if(u.floating){const x=clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-s.units[side].x)>110)u.x=x;}
+  else if(w.lift){
+   // A carry can clear a short gap, but may not pass through a wall or roof.
+   const p=G.safePosition(s.world,u.x+dx,u.y,s.units[side],u.range),apex=p&&{x:(u.x+p.x)/2,y:Math.min(u.y,p.y)-(w.liftHeight||110)};
+   if(p&&G.lineClear(s.world,{x:u.x,y:u.y-24},apex)&&G.lineClear(s.world,apex,{x:p.x,y:p.y-24}))Object.assign(u,p);else G.move(s,1-side,dx);
+  }else G.move(s,1-side,dx);
+  if(boss){
+   // Do not trade a useful hit for a boss position without a basic-cannon route.
+   if((Math.abs(u.x-before.x)>1||Math.abs(u.y-before.y)>1)&&(solve(s,0).score<=.1||solve(s,1).score<=.1))Object.assign(u,before);
+   u.slope=0;u.exposed=Math.max(u.exposed,pulling||w.lift?2:1);u.facingCore=s.units[0].x<u.x?-1:1;
+  }
+  u.reactionKind=w.lift?'lift':pulling?'pull':'push';u.animation={from:before,age:0,duration:.5,lift:w.lift?Math.min(45,Math.max(18,(before.y-u.y)*.3)):0};u.displaced=1;u.previousX=before.x;
  }
 }
 function resolve(s,shot,onCollect=()=>{}){
@@ -107,8 +158,8 @@ function resolve(s,shot,onCollect=()=>{}){
   if(s.stage===100){const target=boss.hp<=4?2:boss.hp<=7?1:0;if(target>s.bossPhase)s.pendingChanges.push({type:'phase',value:target});}
   if(s.stage===90&&boss.hp<=5&&!s.effects.stageTwo){s.effects.stageTwo=true;s.pendingChanges.push({type:'altitude'},{type:'cloud'});}
  }
- displace(s,shot.side,shot);
  if(boss.exposed>0&&shot.side===0)boss.exposed--;
+ displace(s,shot.side,shot);
  s.last[shot.side]=shot;s.selectedSkill=null;s.activeShot=null;
  if(s.mode!=='W01'&&!(s.trial?.id===s.mode&&s.trial.ammo>0)&&!(s.mode===s.weaponId&&s.ammo>0))s.mode='W01';
  check(s);return shot.damage;
@@ -140,6 +191,7 @@ function rebuildWorld(s){
 }
 function boundary(s){
  s.round++;
+ if(s.effects.pendingPolarity!==undefined){s.pendingChanges.push({type:'polarity',value:s.effects.pendingPolarity});delete s.effects.pendingPolarity;}
  // Each queued major change gets a separate visual transition; Lv90 defers cloud to next boundary.
  let changes=[];
  if(s.stage===90&&s.pendingChanges.length){changes=[s.pendingChanges.shift()];s.effects.deferEnvironment=true;s.effects.environmentRound=s.effects.environmentRound||s.round-1;}
@@ -154,6 +206,7 @@ function boundary(s){
   if(c.type==='altitude')s.units[1].y+=20;
   if(c.type==='parts'&&s.stage===30){s.units[1].y+=20;s.effects.cloudPending=true;}
   if(c.type==='cloud')s.effects.thinCloud=true;
+  if(c.type==='polarity')s.effects.polarity=c.value;
  }
  // Floating boss motion never changes on the same boundary as cloud motion / part geometry.
  if(!changes.length&&s.spec.boss){const u=s.units[1];
@@ -174,34 +227,49 @@ function next(s){
 function move(s,side,amount){if(s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;return G.move(s,side,amount);}
 const solveCache=new Map();
 function solve(s,side,opts={}){
- const weaponId=opts.weaponId||'W01',skill=opts.skill||null;
- const key=JSON.stringify([s.stage,s.round,s.bossPhase,s.units.map(u=>[Math.round(u.x),Math.round(u.y),u.parts.map(p=>p.hp>0),u.exposed]),s.effects,side,weaponId,skill]);
+ const weaponId=opts.weaponId||'W01',skill=opts.skill||null,minAngle=Math.max(opts.minAngle??-8,W.get(weaponId).minAngle||-12),maxAngle=opts.maxAngle??84;
+ const physics={weaponId,skill,...(opts.curve?{curve:opts.curve}:{})};
+ const key=JSON.stringify([s.stage,s.round,s.bossPhase,s.units.map(u=>[Math.round(u.x),Math.round(u.y),u.parts.map(p=>p.hp>0),u.exposed]),s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,side,physics,minAngle,maxAngle,opts.requireEvent]);
  if(solveCache.has(key))return solveCache.get(key);
  let best={score:-Infinity,angle:48,power:70};
- const score=shot=>shot.damage[1-side]-shot.damage[side]*2- Math.min(2000,Math.hypot(shot.end.x-s.units[1-side].x,shot.end.y-s.units[1-side].y))*.00001;
- for(let a=-8;a<=84;a+=6)for(let power=20;power<=100;power+=5){const shot=trajectory(s,side,a,power,{weaponId,skill}),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
- const coarse={...best};for(let a=Math.max(-12,coarse.angle-5);a<=Math.min(85,coarse.angle+5);a+=2)for(let power=Math.max(20,coarse.power-5);power<=Math.min(100,coarse.power+5);power+=2){const shot=trajectory(s,side,a,power,{weaponId,skill}),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
+ const score=shot=>shot.damage[1-side]-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-s.units[1-side].x,shot.end.y-s.units[1-side].y))*.00001;
+ for(let a=minAngle;a<=maxAngle;a+=6)for(let power=20;power<=100;power+=5){const shot=trajectory(s,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
+ const coarse={...best};for(let a=Math.max(minAngle,coarse.angle-5);a<=Math.min(maxAngle,coarse.angle+5);a+=2)for(let power=Math.max(20,coarse.power-5);power<=Math.min(100,coarse.power+5);power+=2){const shot=trajectory(s,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
  if(solveCache.size>512)solveCache.clear();solveCache.set(key,best);return best;
 }
 function cpuPlan(s,random=s.random){
- const profile=s.spec.enemyProfile,errA=[5,4.5,4,3,2.5,2][profile],errP=[8,7,6,5,4,3.5][profile],best=solve(s,1),u=s.units[1];
+ if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
+ const kind=s.telegraph?.kind,settings=s.spec.boss?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):{};
+ const profile=s.spec.enemyProfile,errA=[5,4.5,4,3,2.5,2][profile],errP=[8,7,6,5,4,3.5][profile],best=solve(s,1,settings);
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
- let plan=trajectory(s,1,angle,clamp(power,20,100));
- const kind=s.telegraph?.kind;
- if(s.spec.boss&&['DROP','MARK','TWIN','TRIPLE','PREPARE'].includes(kind)){
-  const targetX=s.telegraph.targetX,cent={x:targetX,y:s.units[0].y-22};
-  const count=kind==='TRIPLE'?3:kind==='TWIN'?2:1,damage=s.effects.broken? .5:1;
-  const bullets=[],events=[],impacts=[];let hit=false;
-  for(let i=0;i<count;i++){
-   const x=targetX+(i-(count-1)/2)*24,start=i*.16,end=1+start;
-   const path=Array.from({length:91},(_,j)=>({x,y:cent.y-280+280*j/90,t:start+j/90}));
-   bullets.push({id:i,path,start,t:end,budget:1/count,primary:i===0,bounces:0});impacts.push({x,y:cent.y,t:end});events.push({type:'impact',x,y:cent.y,t:end,bullet:i});
-   if(Math.abs(s.units[0].x-x)<s.telegraph.radius)hit=true;
+ angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
+ const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{})};
+ let plan=trajectory(s,1,angle,power,options);
+ if(s.spec.boss&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
+  const shots=[];
+  if(kind==='TRIPLE')for(let i=0;i<3;i++)shots.push(trajectory(s,1,angle+(i-1)*7,power,{weaponId:'W01',startDelay:i*.22}));
+  else{
+   const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;
+   offsets.forEach((offset,i)=>shots.push(trajectory(s,1,90,20,{weaponId:kind==='PREPARE'?'W02':'W01',origin:{x:clamp(target.targetX+offset,25,975),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},startDelay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0})));
   }
-  plan={...plan,bullets,events,impacts,damage:[hit?damage:0,0],partDamage:{},duration:Math.max(...bullets.map(b=>b.t)),appliedEvents:0,resolved:false,end:impacts.at(-1),side:1,angle,power};
+  plan=combineShots(shots);
  }
+ if(s.spec.boss&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));}
+ plan.attackKind=kind||'STANDARD';
  return plan;
+}
+function combineShots(shots){
+ const bullets=[],events=[],impacts=[],damage=[0,0],partDamage={};let nextId=0;
+ for(const shot of shots){const ids=new Map(shot.bullets.map(b=>[b.id,nextId++]));
+  for(const b of shot.bullets)bullets.push({...b,id:ids.get(b.id)});
+  for(const e of shot.events)events.push({...e,...(e.bullet!==undefined?{bullet:ids.get(e.bullet)}:{})});
+  for(const e of shot.impacts)impacts.push({...e,bullet:ids.get(e.bullet)});
+  for(let i=0;i<2;i++)damage[i]+=shot.damage[i];
+  for(const [i,d]of Object.entries(shot.partDamage))partDamage[i]=(partDamage[i]||0)+d;
+ }events.sort((a,b)=>a.t-b.t);impacts.sort((a,b)=>a.t-b.t);
+ const duration=Math.max(...bullets.map(b=>b.t)),end=impacts.at(-1)||bullets.at(-1).path.at(-1);
+ return {...shots[0],bullets,events,impacts,damage:damage.map(d=>Math.min(1,d)),partDamage,duration,appliedEvents:0,resolved:false,path:bullets[0].path,end,hit:impacts.find(i=>i.hit)?.hit?.unit??-1};
 }
 function enemyMoveTarget(s){
  const u=s.units[1],profile=s.spec.enemyProfile;if(s.spec.boss||profile===0||u.floating)return u.x;
@@ -213,6 +281,6 @@ function enemyMoveTarget(s){
  for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
  return target;
 }
-const api={campaign,create:()=>campaign(1),chargePower,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,selectSkill,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);

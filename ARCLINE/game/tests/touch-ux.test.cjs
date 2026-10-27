@@ -46,9 +46,9 @@ const sizes=[[320,568],[360,640],[390,844],[568,320],[640,360],[844,390],[768,10
    scrolled=await page.locator('.level-panel').evaluate(e=>e.scrollTop>0);assert(scrolled,`${width}x${height}: level panel must scroll by touch`);checks++;
   }
   await page.locator('#closeLevels').tap();await page.locator('#play').tap();assert(await page.locator('#previewOK').isVisible(),'preview needs explicit OK');
-  assert.equal(await page.locator('#replayPreview').count(),0,'redundant demo button removed');assert.equal(await page.locator('#skipPreview').count(),0,'old skip button removed');checks+=3;
+  assert.equal(await page.locator('#replayPreview').count(),0,'redundant demo button removed');assert.equal(await page.locator('#skipPreview').count(),0,'old skip button removed');assert(!await page.locator('#previewPractice').isVisible());assert(!await page.locator('#practiceHint').isVisible());assert.equal(await page.locator('#previewOK').textContent(),'OK');checks+=6;
   if(width===390){
-   const previewId=await page.evaluate('demo.id');assert(await page.evaluate(id=>!save.data.seenPreviewIds.includes(id),previewId),'preview is not acknowledged before OK');
+   const previewId=await page.evaluate('"v2:"+demo.seenId');assert(await page.evaluate(id=>!save.data.seenPreviewIds.includes(id),previewId),'preview is not acknowledged before OK');
    const before=await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,round:s.round,angle:s.angle})');
    // A battlefield gesture cannot acknowledge the preview or consume a shot.
    const point={x:width*.3,y:height*.38};await drag(cdp,point,{x:point.x,y:point.y-50});
@@ -72,7 +72,7 @@ const sizes=[[320,568],[360,640],[390,844],[568,320],[640,360],[844,390],[768,10
   const controls=['fire','stick','weaponToggle','aimControl'];for(let i=0;i<controls.length;i++)for(let j=i+1;j<controls.length;j++){const a=geometry[controls[i]],b=geometry[controls[j]];assert(!(Math.min(a.right,b.right)-Math.max(a.x,b.x)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>1),`${width}x${height}: ${controls[i]} overlaps ${controls[j]}`);}
   checks+=8;
   const initial=await page.evaluate('s.angle');await page.locator('#aimUp').tap();const raised=await page.evaluate('s.angle');assert(raised>initial,'visible aim up works');await page.locator('#aimDown').tap();assert(await page.evaluate('s.angle')<raised,'visible aim down works');checks+=2;
-  const range=await page.locator('#aimRange').evaluate(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};}),rangeBefore=await page.evaluate('s.angle');await drag(cdp,{x:range.x+range.w*.8,y:range.y+range.h/2},{x:range.x+range.w*.35,y:range.y+range.h/2});assert(Math.abs(await page.evaluate('s.angle')-rangeBefore)>=4,'real range dragging updates barrel angle');assert.equal(await page.evaluate('s.shotCount'),0);checks+=2;
+  assert(!await page.locator('#aimRange').isVisible(),'redundant angle slider is removed');assert.equal(await page.evaluate('s.shotCount'),0);assert.equal(await page.locator('#chargeValue').textContent(),'FIRE','power value lives only in the gauge');checks+=3;
   const field=await fieldDrag(page);assert(field,`${width}x${height}: visible battlefield receives pointer input`);
   const angle=await page.evaluate('s.angle');await drag(cdp,field.start,field.end);assert(await page.evaluate('s.angle')>=angle+4,'actual battlefield touch drag changes the barrel angle');assert.equal(await page.evaluate('s.shotCount'),0,'aiming does not fire');checks+=3;
   const scale=await page.evaluate('visualViewport.scale');
@@ -94,6 +94,6 @@ const sizes=[[320,568],[360,640],[390,844],[568,320],[640,360],[844,390],[768,10
   assert.equal(await page.evaluate('s.shotCount'),1,'lifting fire finger launches once');await page.waitForFunction('s.phase==="aim"||s.phase==="over"',{},{timeout:25000});assert.equal(await page.evaluate('platformStatus.errors.length'),0);checks+=4;await context.close();
  }
  assert.deepEqual(errors,[],'no browser exceptions');
- const report={status:'PASS',checks,viewports:rows,errors,method:'Real headless Chromium mobile emulation, CDP touch drag/two-finger/double-tap/pinch, explicit preview acknowledgement and touch scrolling; no direct production-handler invocation. Physical iOS/Android zoom behavior remains a device QA item.'};
+ const report={status:'PASS',recordedAt:new Date().toISOString(),checks,viewports:rows,errors,method:'Real headless Chromium mobile emulation, CDP touch drag/two-finger/double-tap/pinch, explicit preview acknowledgement and touch scrolling; no direct production-handler invocation. Physical iOS/Android zoom behavior remains a device QA item.'};
  fs.writeFileSync(path.join(output,'TOUCH_UX.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));await browser.close();server.close();
 })().catch(e=>{console.error(e);server.close();process.exit(1);});

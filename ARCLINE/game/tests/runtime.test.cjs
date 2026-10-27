@@ -10,8 +10,9 @@ const sdkMock=`globalThis.sdkCalls=[];globalThis.sdkCallbacks={};globalThis.ytga
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  const errors=[],rows=[];let flows=0;
  async function pageFor(size,sdk=false,loadFail=false){const context=await browser.newContext({viewport:size,hasTouch:true});await context.route('https://www.youtube.com/**',r=>sdk?r.fulfill({contentType:'text/javascript',body:sdkMock}):r.abort());if(loadFail)await context.addInitScript(()=>globalThis.loadFail=true);const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(url);await page.waitForFunction('!document.getElementById("play").disabled');return {context,page};}
+ async function acknowledge(page){await page.waitForFunction('!encounter');await page.evaluate('endDemo()');}
  for(const [width,height] of [[320,568],[360,640],[390,844],[844,390],[768,1024],[1024,768]]){
-  const {page,context}=await pageFor({width,height});await page.locator('#play').click();await page.evaluate('endDemo()');
+  const {page,context}=await pageFor({width,height});await page.locator('#play').click();await acknowledge(page);
   const geometry=await page.evaluate(()=>{const rect=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};};return {fire:rect('fire'),gauge:rect('powerHUD'),stick:rect('stick'),weapon:rect('weaponToggle'),budget:rect('shotBudget'),overflow:document.documentElement.scrollWidth>innerWidth};});
   assert(!geometry.overflow);assert(geometry.gauge.w>=Math.min(280,width-24),'wide gauge');
   for(const id of ['fire','gauge','stick','weapon']){const r=geometry[id];assert(r.x>=0&&r.y>=0&&r.right<=width+.1&&r.bottom<=height+.1,`${width}/${height}/${id} inside viewport`);}
@@ -28,17 +29,17 @@ const sdkMock=`globalThis.sdkCalls=[];globalThis.sdkCallbacks={};globalThis.ytga
  }
  // Every authored level must actually initialize and render in the production browser bundle.
  {
-  const {page,context}=await pageFor({width:390,height:844});await page.locator('#play').click();await page.evaluate('endDemo()');
-  const count=await page.evaluate(()=>{let count=0;for(let n=1;n<=100;n++){selectedMap=n-1;start();endDemo();draw();if(s.stage!==n||s.phase!=='aim')throw Error('Level '+n+' failed initialization');count++;}return count;});assert.equal(count,100);
-  for(const [n,id] of [[11,'B'],[42,'ceiling-lift'],[96,'gate-choices']]){const unchanged=await page.evaluate(({n,id})=>{selectedMap=n-1;start();endDemo();const before=JSON.stringify({world:s.world,units:s.units,skills:s.skills,round:s.round,shots:s.shotCount});runDemo(id);update(.5,.5);draw();update(.5,.5);draw();const after=JSON.stringify({world:s.world,units:s.units,skills:s.skills,round:s.round,shots:s.shotCount});endDemo();return before===after;},{n,id});assert(unchanged,'local variants cannot advance combat or consume supplies');flows++;}
+  const {page,context}=await pageFor({width:390,height:844});await page.locator('#play').click();await acknowledge(page);
+  const count=await page.evaluate(()=>{let count=0;for(let n=1;n<=100;n++){selectedMap=n-1;start();encounter=null;document.getElementById('encounterBanner').hidden=true;endDemo();hud();draw();if(s.stage!==n||s.phase!=='aim')throw Error('Level '+n+' failed initialization');count++;}return count;});assert.equal(count,100);
+  for(const [n,id] of [[11,'B'],[42,'ceiling-lift'],[96,'gate-choices']]){const unchanged=await page.evaluate(({n,id})=>{selectedMap=n-1;start();encounter=null;document.getElementById('encounterBanner').hidden=true;endDemo();const before=JSON.stringify({world:s.world,units:s.units,skills:s.skills,round:s.round,shots:s.shotCount});runDemo(id);update(.5,.5);draw();update(.5,.5);draw();const after=JSON.stringify({world:s.world,units:s.units,skills:s.skills,round:s.round,shots:s.shotCount});endDemo();return before===after;},{n,id});assert(unchanged,'local variants cannot advance combat or consume supplies');flows++;}
   for(const n of [10,40,60,80,100]){await page.evaluate(`selectedMap=${n-1};start();endDemo();draw()`);await page.screenshot({path:path.join(output,`boss-${n}.png`)});}
   await page.setViewportSize({width:844,height:390});await page.waitForTimeout(100);await page.screenshot({path:path.join(output,'boss-100-landscape.png')});
-  await page.evaluate(`selectedMap=13;start();endDemo();s.weaponId='W04';s.angle=20;document.getElementById('weaponToggle').click()`);assert.equal(await page.evaluate('s.angle'),55,'Mortar legal angle is shown by the barrel');await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate('s.angle'),55);assert(await page.evaluate('(()=>{const m=G.muzzle(s,0,s.angle),p=E.trajectory(s,0,s.angle,70).path[0];return Math.hypot(m.x-p.x,m.y-p.y)<1e-6})()'),'barrel and physics muzzle agree');
+  await page.evaluate(`selectedMap=13;start();encounter=null;document.getElementById('encounterBanner').hidden=true;endDemo();s.weaponId='W04';s.ammo=2;s.angle=20;document.getElementById('weaponToggle').click()`);await page.locator('[data-choose-weapon="W04"]').click();await page.evaluate('endDemo()');assert.equal(await page.evaluate('s.angle'),55,'Mortar legal angle is shown by the barrel');await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate('s.angle'),55);assert(await page.evaluate('(()=>{const m=G.muzzle(s,0,s.angle),p=E.trajectory(s,0,s.angle,70).path[0];return Math.hypot(m.x-p.x,m.y-p.y)<1e-6})()'),'barrel and physics muzzle agree');
   flows+=101;await context.close();
  }
  // Actual browser touch dispatch with two simultaneous fingers; no handler-only simulation.
  {
-  const {page,context}=await pageFor({width:390,height:844});await page.locator('#play').click();await page.evaluate('endDemo()');const cdp=await context.newCDPSession(page);
+  const {page,context}=await pageFor({width:390,height:844});await page.locator('#play').click();await acknowledge(page);const cdp=await context.newCDPSession(page);
   const points=await page.evaluate(()=>{const point=id=>{const r=document.getElementById(id).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};};return {stick:point('stick'),fire:point('fire')};});
   const sx=await page.evaluate('s.units[0].x');
   const a={id:1,x:points.stick.x+23,y:points.stick.y},b={id:2,...points.fire};
@@ -53,7 +54,7 @@ const sdkMock=`globalThis.sdkCalls=[];globalThis.sdkCallbacks={};globalThis.ytga
  for(const loadFail of [false,true]){
   const {page,context}=await pageFor({width:390,height:844},true,loadFail);
   assert.deepEqual(await page.evaluate('sdkCalls.filter(x=>typeof x==="string")'),['first','load','ready']);
-  await page.locator('#play').click();await page.evaluate('endDemo()');
+  await page.locator('#play').click();await acknowledge(page);
   if(!loadFail)assert.equal(await page.evaluate('s.stage'),100);
   await page.keyboard.down('Space');await page.waitForTimeout(120);await page.evaluate('sdkCallbacks.pause()');assert.equal(await page.evaluate('charge'),null);assert(await page.evaluate('document.getElementById("app").inert'));await page.evaluate('sdkCallbacks.resume()');await page.keyboard.up('Space');assert.equal(await page.evaluate('s.shotCount'),0);
   await page.evaluate('sdkCallbacks.audio(false)');await page.keyboard.down('Space');await page.waitForTimeout(80);assert.equal(await page.evaluate('master.gain.value'),0);await page.keyboard.up('Space');
@@ -63,6 +64,6 @@ const sdkMock=`globalThis.sdkCalls=[];globalThis.sdkCallbacks={};globalThis.ytga
   flows+=5;await context.close();
  }
  assert.deepEqual(errors,[],'no page exceptions');
- const report={status:'PASS',flows,viewports:rows,errors,method:'Real headless Chromium; six emulated viewport sizes, CDP two-finger touch, offline fallback and mocked YouTube SDK. No physical-device or actual YouTube certification claim.'};fs.writeFileSync(path.join(output,'BROWSER.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+ const report={status:'PASS',recordedAt:new Date().toISOString(),flows,viewports:rows,errors,method:'Real headless Chromium; six emulated viewport sizes, CDP two-finger touch, offline fallback and mocked YouTube SDK. No physical-device or actual YouTube certification claim.'};fs.writeFileSync(path.join(output,'BROWSER.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
  await browser.close();server.close();
 })().catch(e=>{console.error(e);server.close();process.exit(1);});

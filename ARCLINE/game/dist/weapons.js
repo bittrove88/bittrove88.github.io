@@ -2,27 +2,27 @@
 'use strict';
 const names=['Standard','Heavy Shell','Needle','Mortar','Hopper','Ricochet','Roller','Skipper','Fan Shot','Cluster','Twin','Airburst','Drill','Rail','Archer','Undercut','Impact','Magnet','Lifter','Pinball'];
 const weapons=names.map((name,i)=>({id:'W'+String(i+1).padStart(2,'0'),name,speed:1,gravity:1,damage:1,blast:60,shots:1,bounces:0}));
-weapons[0].blast=64; // Blockout tuning: +4px to preserve a 13-point graze band; no aim correction.
-Object.assign(weapons[1],{speed:.88,gravity:1.1,damage:1.25,blast:40});
-Object.assign(weapons[2],{speed:1.12,damage:1.06,blast:20,needle:true});
-Object.assign(weapons[3],{gravity:.8,minAngle:55,damage:1.06});
-Object.assign(weapons[4],{bounces:1,damage:.97,blast:50});
-Object.assign(weapons[5],{bounces:2,damage:.93,blast:30});
-Object.assign(weapons[6],{roller:true,blast:50});
-Object.assign(weapons[7],{bounces:3,skipper:true,damage:.9,blast:40});
-Object.assign(weapons[8],{fan:true,shots:3,blast:35});
-Object.assign(weapons[9],{split:true,blast:40});
-Object.assign(weapons[10],{twin:true,shots:2,damage:1.06,blast:40});
-Object.assign(weapons[11],{airburst:true,damage:.9,blast:70});
-Object.assign(weapons[12],{phase:30,damage:.9,blast:30});
-Object.assign(weapons[13],{gravity:.2,damage:.93,blast:10});
-Object.assign(weapons[14],{archer:true,damage:1.03,blast:40});
-Object.assign(weapons[15],{wave:true});
-Object.assign(weapons[16],{push:true,damage:.85,blast:30});
-Object.assign(weapons[17],{pull:true,damage:.85});
-Object.assign(weapons[18],{lift:true,damage:.87,blast:40});
-Object.assign(weapons[19],{bounces:3,push:true,damage:.93,blast:30});
-// Appearance only: keeps each weapon recognizable without changing damage or flight.
+weapons[0].blast=64;
+Object.assign(weapons[1],{speed:.82,gravity:1.18,damage:1.25,blast:100});
+Object.assign(weapons[2],{speed:1.45,gravity:.7,damage:1.06,blast:18,needle:true});
+Object.assign(weapons[3],{speed:.8,gravity:.65,minAngle:55,damage:1.08,blast:76});
+Object.assign(weapons[4],{speed:.98,gravity:1.1,bounces:1,hop:true,restitution:.86,blast:54});
+Object.assign(weapons[5],{speed:1.14,gravity:.8,bounces:2,restitution:.96,blast:40});
+Object.assign(weapons[6],{speed:.95,gravity:1.15,roller:true,rollSpeed:180,rollDistance:220,blast:58});
+Object.assign(weapons[7],{speed:1.13,gravity:.85,bounces:3,skipper:true,restitution:.92,blast:46});
+Object.assign(weapons[8],{speed:.94,fan:true,shots:3,blast:44});
+Object.assign(weapons[9],{speed:.88,gravity:1.12,split:true,blast:48});
+Object.assign(weapons[10],{speed:1.08,gravity:.9,twin:true,shots:2,damage:1.06,blast:44});
+Object.assign(weapons[11],{airburst:true,proximity:80,blast:96});
+Object.assign(weapons[12],{speed:1.08,gravity:.9,phase:36,blast:32});
+Object.assign(weapons[13],{speed:1.5,gravity:.08,blast:18});
+Object.assign(weapons[14],{gravity:.82,archer:true,damage:1.03,blast:52});
+Object.assign(weapons[15],{speed:.88,gravity:1.15,wave:true,waveDistance:180});
+Object.assign(weapons[16],{speed:1.08,push:true,pushDistance:110,blast:56});
+Object.assign(weapons[17],{speed:.88,gravity:1.05,pull:true,pullDistance:100,blast:80});
+Object.assign(weapons[18],{speed:.9,gravity:.82,lift:true,liftHeight:110,liftDistance:60,blast:64});
+Object.assign(weapons[19],{speed:1.15,gravity:.8,bounces:3,restitution:.98,push:true,pushDistance:75,blast:46});
+// The same appearance descriptors are used by inventory, previews and live shots.
 const appearances=[
  ['#fff0a9','orb','●','ARC',6],['#ff9a62','shell','⬟','HEAVY',10],
  ['#8af3ff','needle','➤','NEEDLE',5],['#ffb2cf','shell','◆','LOFT',8],

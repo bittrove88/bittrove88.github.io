@@ -1,176 +1,38 @@
-"""Compile authored blockouts, not prose heuristics. Coordinates use design x/h units.
-Run from any cwd. The source design/review files remain immutable provenance.
+"""Compile the explicitly authored 20-theme campaign, without changing provenance.
+
+The 2026-10-27 player revision replaces water with solid reflective ground.
+All 100 geometry records live in design/runtime_campaign_20x5.json; this tool
+validates and serializes those records rather than inferring geometry from prose.
 """
 from pathlib import Path
-import json,re
-ROOT=Path(__file__).resolve().parents[2]
-D=json.loads((ROOT/'design/level_design_data.json').read_text())
-R=json.loads((ROOT/'design/player_review_rows.json').read_text())
-# Each row explicitly authors the walkable floor polyline(s). '|' separates islands.
-FLOORS='''
-0,8 20,8 35,11 50,8 100,8
-0,8 20,8 38,17 52,12 100,12
-0,10 28,10 35,2 65,2 73,10 100,10
-0,14 30,14 44,9 100,9
-0,15 15,15 35,8 100,8
-0,9 22,9 30,1 72,1 80,9 100,9
-0,8 28,8 40,0 65,0 79,8 100,8
-0,9 18,9 38,22 46,22 65,10 80,20 100,20
-0,12 18,12 28,18 55,1 65,1 82,11 100,11
-0,10 18,10 34,21 40,21 50,2 67,2 79,11 100,11
-0,12 35,12 | 65,12 100,12
-0,10 24,10 | 38,18 50,18 | 65,12 100,12
-0,9 15,9 34,21 40,21 60,14 100,14
-0,14 18,14 35,25 43,25 62,14 100,14
-0,24 15,24 40,8 60,8 70,10 100,10
-0,10 25,10 41,0 72,0 88,10 100,10
-0,12 30,12 50,10 100,10
-0,12 18,12 32,21 40,21 62,7 72,12 100,12
-0,13 30,13 | 44,13 57,13 | 71,13 100,13
-0,12 15,12 33,24 40,24 65,1 72,1 80,10 100,10
-0,14 25,14 45,15 60,12 100,12
-0,10 100,10
-0,26 25,26 | 28,6 60,6 | 68,12 100,12
-0,10 100,10
-0,15 28,15 48,8 68,15 100,15
-0,11 25,11 35,8 58,8 65,11 100,11
-0,14 25,14 45,17 60,9 100,9
-0,23 25,23 48,5 80,5 100,17
-0,12 15,12 37,27 44,27 62,15 100,15
-0,14 15,14 32,25 38,25 60,12 100,12
-0,10 15,10 37,25 44,25 68,10 100,10
-0,12 25,12 32,10 100,10
-0,14 35,14 55,12 100,12
-0,19 15,19 35,9 100,9
-0,10 38,10 | 64,10 100,10
-0,11 15,11 32,22 40,22 62,15 100,15
-0,25 14,25 39,10 100,10
-0,13 25,13 38,18 100,18
-0,10 26,10 48,24 54,24 72,12 100,12
-0,14 14,14 24,8 32,8 47,17 100,17
-0,9 18,9 38,22 45,22 64,24 100,24
-0,10 100,10
-0,24 12,24 37,9 100,9
-0,10 18,10 38,22 45,22 62,16 100,16
-0,14 30,14 48,17 65,14 100,14
-0,9 15,9 38,25 45,25 | 50,3 62,3 | 70,21 100,21
-0,13 30,13 48,11 100,11
-0,20 18,20 40,5 70,5 82,10 100,10
-0,11 16,11 38,25 45,25 72,6 100,6
-0,14 20,14 37,25 45,25 | 66,8 79,8 100,22
-0,12 18,12 30,5 40,5 65,12 100,12
-0,12 18,12 36,24 43,24 63,12 100,12
-0,10 100,10
-0,19 30,19 50,14 100,14
-0,24 18,24 42,8 60,8 72,12 100,12
-0,13 18,13 36,25 42,25 62,12 100,12
-0,9 25,9 33,1 68,1 80,10 100,10
-0,14 25,14 48,11 100,11
-0,12 17,12 28,7 38,7 65,16 100,16
-0,13 18,13 30,7 38,7 58,17 100,17
-0,12 20,12 38,6 58,6 75,16 100,16
-0,10 100,10
-0,25 20,25 55,3 72,3 82,6 100,6
-0,9 18,9 42,24 48,24 70,20 100,20
-0,18 16,18 35,12 100,12
-0,10 24,10 31,1 66,1 82,14 100,14
-0,12 34,12 | 58,12 72,15 100,15
-0,11 18,11 42,7 50,7 71,19 100,19
-0,15 18,15 38,27 45,27 66,13 100,13
-0,13 18,13 30,7 38,7 59,18 100,18
-0,12 18,12 28,6 38,6 62,12 100,12
-0,10 18,10 40,25 46,25 65,22 100,22
-0,9 18,9 43,23 100,23
-0,20 25,20 45,10 100,10
-0,18 30,18 48,12 100,12
-0,12 25,12 44,10 100,10
-0,23 20,23 42,9 100,9
-0,10 18,10 40,24 47,24 65,15 100,15
-0,14 30,14 48,17 100,17
-0,14 30,14 50,20 100,20
-0,13 18,13 33,21 40,21 65,15 100,15
-0,9 20,9 28,1 57,1 68,9 84,24 100,24
-0,23 18,23 44,8 63,8 72,10 100,10
-0,10 26,10 | 41,18 53,18 | 72,24 100,24
-0,20 20,20 45,8 65,8 76,14 100,14
-0,12 20,12 34,20 42,20 60,8 72,19 100,19
-0,10 23,10 31,1 62,1 78,13 100,13
-0,9 18,9 39,22 45,22 67,18 100,18
-0,14 25,14 42,16 55,16 65,22 100,22
-0,14 18,14 34,24 42,24 65,18 100,18
-0,10 20,10 35,1 70,1 84,18 100,18
-0,24 20,24 43,9 60,9 80,14 100,14
-0,12 15,12 35,22 42,22 65,10 100,10
-0,11 18,11 37,24 43,24 68,12 100,12
-0,18 18,18 40,10 100,10
-0,9 18,9 43,24 100,24
-0,11 18,11 39,25 46,25 67,14 100,14
-0,14 18,14 37,26 44,26 65,15 100,15
-0,16 18,16 37,25 44,25 64,12 100,12
-0,15 16,15 26,8 34,8 59,20 100,20
-'''.strip().splitlines()
-assert len(FLOORS)==100
-# S: rectangle x1,x2,bottom,top; R: roof; B: hinge x,h,length,initial-open[,slope];
-# W: water x1,x2,height; C/U/F/V: region x1,x2,h1,h2; K: center x,h,angle; M: center x,h,r,sign.
-FEATURES={
-3:'',4:'S,73,77,9,14',6:'W,30,72,5',7:'R,30,55,22;W,35,65,3;R,28,58,6',8:'',9:'S,64,67,7,16;W,35,62,4',10:'W,35,67,4',
-11:'B,35,12,30,0',12:'B,24,10,16,0;S,58,61,10,19',13:'B,30,9,19,1',14:'S,49,54,0,14;S,49,54,26,36',
-16:'R,28,57,24;B,58,10,14,0;W,35,72,3;R,25,60,8',17:'S,75,78,10,15',18:'B,30,21,28,1',19:'B,30,13,14,0;B,57,13,14,1',20:'B,34,12,30,0;W,35,64,3',
-21:'C,48,62,25,36',22:'R,30,57,23;C,61,73,14,30',23:'C,37,58,10,21;S,91,94,12,30',24:'S,58,62,0,32;S,26,29,10,16',
-25:'S,93,96,15,34',26:'B,37,19,21,0;C,65,76,20,34',28:'C,48,66,20,32',29:'R,76,90,29;C,49,64,22,37',30:'C,54,70,25,39',
-31:'S,51,54,10,20;K,49,33,45',32:'S,26,29,10,19;K,63,24,-35;R,31,49,28',33:'S,51,54,12,18;S,65,68,12,18',34:'K,71,31,45',35:'R,38,64,8',
-36:'B,34,11,21,1;K,62,33,45',37:'R,30,67,27;K,55,8,-25',38:'S,49,52,18,25;K,39,31,45;K,70,37,-35',39:'K,61,34,45;S,74,77,12,18',40:'K,53,34,45;K,71,18,-20',
-41:'U,43,57,3,33',42:'R,35,62,24;U,47,58,0,35',43:'R,25,64,24',44:'U,37,48,0,36;S,63,66,16,18',46:'U,35,45,0,36;C,59,70,24,38',47:'U,36,46,0,36;K,58,35,45;S,70,73,11,18',48:'U,31,40,0,35;U,65,73,0,35',49:'U,60,72,0,36',50:'U,51,63,0,36',
-51:'F,40,65,8,34',52:'S,51,53.5,0,27',53:'R,29,62,23;F,37,61,5,20',54:'S,51,55,0,17;S,51,55,29,38;F,65,77,9,29',55:'F,45,63,8,30',56:'S,43,46,0,24;S,63,74,0,19',57:'W,33,68,3',58:'K,56,33,45;F,65,78,10,32',59:'F,47,67,18,38;S,51,54,7,17',60:'F,47,72,0,38',
-61:'V,45,56,0,34',62:'R,35,63,25;V,47,56,0,35',63:'S,91,94,6,22',64:'V,36,45,0,36;R,64,72,29',65:'R,32,58,25;R,40,60,10',66:'W,31,66,3;V,51,59,0,36',67:'B,34,12,24,0;V,64,73,0,36',68:'S,53,61,0,24;V,39,47,0,36;R,66,75,31',69:'R,76,89,28;V,53,63,0,36',70:'V,49,61,0,36',
-71:'M,53,25,13,1',72:'M,53,24,13,-1;T,39,17',74:'R,39,57,28;M,62,23,11,-1',75:'M,53,25,11,1',76:'K,45,34,45;M,68,24,10,1',77:'C,34,45,23,34',78:'M,54,27,12,1;T,40,18;S,67,70,15,20',79:'M,54,25,12,-1;S,67,70,17,24',80:'M,55,27,12,1',
-81:'B,33,13,23,0;C,61,74,24,36',82:'W,28,57,3;U,59,68,0,36;R,35,52,20',83:'K,92,28,-35;F,63,78,8,30',84:'C,56,68,27,38',85:'S,94,98,14,36',86:'B,35,20,22,1;V,62,72,0,36;R,38,57,15',87:'W,31,62,3;K,68,21,-25',88:'U,31,42,0,36;M,67,28,11,1;S,50,53,0,23',89:'R,72,88,32;C,45,57,24,35;B,29,14,13,0',90:'B,33,14,16,0;C,56,68,24,36',
-91:'B,32,10,23,0;W,30,70,3',92:'C,34,46,23,35;M,63,23,11,1',93:'R,29,56,27;K,62,24,45;F,68,79,8,29',94:'K,48,34,45;K,71,19,-25;S,54,57,12,18',95:'K,48,11,-10;K,62,12,-20;K,76,13,-30',96:'B,34,14,24,0,22;R,73,87,34',97:'V,38,48,0,36;K,61,35,45;S,72,75,14,20',98:'B,31,14,21,0;M,64,26,11,1;T,55,12',99:'C,43,55,26,37;K,67,26,-35;R,77,90,29',100:'B,34,16,22,0'
-}
-# Deliberate entry points for revised BLINK routes: low approach / intermediate island.
-BLINK={12:[(44,18),(24,10)],13:[(27,17),(20,12)],16:[(61,10),(23,10)],22:[(60,10),(22,10)],23:[(25,26),(35,6)],26:[(28,8),(20,11)],28:[(38,13),(24,23)],36:[(26,19),(18,14)],41:[(27,15),(20,10)],42:[(65,10),(26,10)],43:[(30,13),(22,18)],46:[(30,20),(20,12)],47:[(29,13),(20,13)],48:[(50,5),(25,15)],51:[(28,5),(20,11)],53:[(62,10),(24,10)],59:[(28,7),(20,11)],60:[(25,9),(30,7)],61:[(28,9),(21,12)],62:[(66,10),(25,10)],67:[(28,12),(20,12)],68:[(40,8),(28,9)],69:[(29,22),(20,16)],70:[(27,9),(31,7)],71:[(28,6),(20,11)],72:[(29,18),(20,11)],74:[(30,17),(20,20)],77:[(35,13),(23,21)],78:[(30,18),(22,12)],83:[(31,16),(23,20)],84:[(47,18),(22,10)],86:[(29,17),(20,12)],89:[(52,16),(23,14)],90:[(28,20),(20,15)],91:[(24,7),(20,10)],92:[(28,19),(20,24)],94:[(26,16),(20,12)],97:[(28,16),(20,12)],98:[(28,20),(20,15)],99:[(29,21),(21,16)],100:[(24,8),(29,25),(38,16)]}
-# Boss descriptors drive distinct silhouettes, weakpoints, parts, attack schedules and rewards.
-BOSSES=[
-('Tideclaw',['LEG','SHELL'],[1,2],['LOW','DROP','ARC'],'BURST'),
-('Gatekeeper',['LOW GUN','HIGH GUN'],[2,2],['LOW','DROP','MARK'],'BLINK'),
-('Cloudray',['LEFT WING','RIGHT WING'],[2,2],['ARC','TRIPLE','FAN'],'BOUNCE'),
-('Prism Guardian',['LEFT RIM','RIGHT RIM'],[2,2],['LOW','REFLECT','DROP'],'PUSH'),
-('Dust Driller',['DRILL','EXHAUST'],[2,2],['LOW','TRIPLE','ARC'],'BLINK'),
-('Whitehowl',['FAN A','FAN B'],[2,2],['TWIN','ARC','LOW'],'PHASE'),
-('Forge Titan',['ARM A','ARM B'],[2,2],['ARC','PREPARE','DROP','LOW'],'BOUNCE'),
-('Polaris Core',['GEN A','GEN B'],[2,2],['CURVE','TWIN','ARC'],'PHASE'),
-('Sky Carrier',['MAIN GUN','THRUSTER A','THRUSTER B'],[2,2,2],['ARC','TWIN','TRIPLE'],'BLINK'),
-('Archeart',['LEFT GATE','RIGHT GATE'],[2,2],['ARC','DROP','LOW'],'BLINK')]
-levels=[]
-for d,r,floor in zip(D,R,FLOORS):
- n=int(d['level']); assert n==r['level']; pe=re.search(r'P\((\d+),(\d+)\)',d['geometry']); ee=re.search(r'(?:E|ボス(?:中心)?|ボス位置A|ボス中心A)\((\d+),(\d+)\)',d['geometry'])
- p=[float(x) for x in pe.groups()]; e=[float(x) for x in ee.groups()] if ee else [81,20]
- if n in [12,18,22,36,56,86,94]:e[0]-=4
- fs=[[[float(v) for v in pair.split(',')] for pair in part.split()] for part in floor.split('|')]
- features=[]
- for item in FEATURES.get(n,'').split(';'):
-  if not item:continue
-  k,*v=item.split(','); features.append({'type':k,'v':[float(x) for x in v]})
- skills={k:int(v) for k,v in re.findall(r'([A-Z]+)×(\d+)',d['skills'])}
- if n==31:skills={'PULL':1}
- if n==73:skills={'SWAP':2}
- if n==81:skills={'PUSH':1,'PHASE':1}
- pickup=[]
- for m in re.finditer(r'([WSBR]\d+)・([^()。]+)\((\d+),(\d+)\)',d['pickup']):
-  id,name,x,h=m.groups();pickup.append({'id':id,'name':name,'x':float(x),'h':float(h)})
- if n==14:
-  for item in pickup:
-   if item['id']=='W04':item.update(x=63,h=33)
- profile=re.search(r'E(\d)',d['enemy']); profile=int(profile[1]) if profile else 3
- if n in [6,49,89,99]: profile=0 if n<90 else 2
- blink=BLINK.get(n,[(max(18,p[0]+8),p[1]),(max(24,p[0]+16),p[1])]) if 'BLINK' in skills else []
- levels.append({'id':n,'name':d['name'].split('／')[0],'theme':(n-1)//10,'boss':n%10==0,'spawn':[p,e], 'floors':fs,'features':features,'skills':skills,'pickups':pickup,'blink':blink,'enemyProfile':profile,'hold':2 if n in [11,39,50,51,58] else 1,'review':r['fix'],'reviewId':n,'sourceGeometry':d['geometry']})
- if n%10==0:
-  name,parts,hp,attacks,reward=BOSSES[n//10-1];levels[-1]['bossSpec']={'name':name,'parts':[{'name':x,'hp':h} for x,h in zip(parts,hp)],'attacks':attacks,'reward':reward}
-  if n==100:levels[-1]['staticFeatures']=[{'type':'R','v':[24,34,23]},{'type':'R','v':[33,43,14]}]
-  if n==100:levels[-1]['phaseFeatures']=[features,[{'type':'C','v':[47,58,25,37]},{'type':'K','v':[66,29,45]}],[{'type':'B','v':[34,16,22,0]},{'type':'K','v':[66,29,45]}]]
-# Explicit geometry is the source of runtime world positions; snap spawn h to its authored floor.
-# v1.0 blockouts overlap steep cliffs/roofs in several places, so collision-safe projection happens at runtime.
-out=ROOT/'game/dist/levels.js'
-out.write_text("(function(root){'use strict';\nconst levels="+json.dumps(levels,ensure_ascii=False,separators=(',',':'))+";\nif(typeof module!=='undefined')module.exports=levels;else root.ArcLevels=levels;\n})(globalThis);\n")
-print(f'Compiled {len(levels)} authored levels, {sum(x["boss"] for x in levels)} bosses, {sum(len(x["pickups"]) for x in levels)} pickups')
+import json
+
+ROOT = Path(__file__).resolve().parents[2]
+source = ROOT / 'design/runtime_campaign_20x5.json'
+campaign = json.loads(source.read_text())
+levels = campaign['levels']
+assert len(campaign['themes']) == 20 and len(levels) == 100
+assert [s['id'] for s in levels] == list(range(1, 101))
+assert sum(s['boss'] for s in levels) == 10
+for level in levels:
+    index = level['id'] - 1
+    assert level['theme'] == index // 5
+    assert level['stageInTheme'] == index % 5 + 1
+    assert level['themeName'] == campaign['themes'][index // 5]['name']
+    assert len(level['skills']) <= 2
+    assert all(len(floor) >= 2 for floor in level['floors'])
+    assert all(all(a[0] < b[0] for a, b in zip(floor, floor[1:])) for floor in level['floors'])
+    assert all(f['type'] in 'SRBWCKUFVMT' for f in level['features'])
+    if any(p['id'].startswith('W') for p in level['pickups']):
+        assert not level['skills'], 'New weapons get a stage without competing skill buttons'
+weapon_ids = [p['id'] for s in levels for p in s['pickups'] if p['id'].startswith('W')]
+cosmetic_ids = [p['id'] for s in levels for p in s['pickups'] if p['id'][0] in 'SB']
+assert sorted(weapon_ids) == [f'W{i:02}' for i in range(2, 21)]
+assert len(cosmetic_ids) == 37 and len(set(cosmetic_ids)) == 37
+assert max(s['id'] for s in levels if any(p['id'] == 'W20' for p in s['pickups'])) <= 85
+out = ROOT / 'game/dist/levels.js'
+out.write_text("(function(root){'use strict';\nconst levels="
+               + json.dumps(levels, ensure_ascii=False, separators=(',', ':'))
+               + ";\nif(typeof module!=='undefined')module.exports=levels;else root.ArcLevels=levels;\n})(globalThis);\n")
+print(f'Compiled {len(levels)} authored levels in 20 themes, 10 bosses, '
+      f'{sum(len(s["pickups"]) for s in levels)} pickups; reflective ground revision')
