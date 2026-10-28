@@ -1,7 +1,7 @@
 'use strict';
 const E=ArcEngine,G=E.geometry,$=id=>document.getElementById(id),sdk=globalThis.ytgame,inYT=!!sdk?.IN_PLAYABLES_ENV;
 const renderer=ArcRender.create($('world')),pauseSources=new Set();
-let selectedMap=0,s=null,preview=E.campaign(1),manualPaused=false,raf=0,previous=0,clock=0,shot=null,flight=0,tail=null,impact=null,charge=null,stick=null,gesture=null,keyMove=0,dialog='pause',feedback='',cpuJob=null,cpuReady=null,gameToken=0,demo=null,lastDemoId='controls',worker=null,jobId=0,previewPress=null,resizeFrame=0,transition=null,pickupEffects=[];
+let selectedMap=0,s=null,preview=E.campaign(1),manualPaused=false,raf=0,previous=0,clock=0,shot=null,flight=0,tail=null,impact=null,charge=null,stick=null,aimStick=null,gesture=null,keyMove=0,dialog='pause',feedback='',cpuJob=null,cpuReady=null,gameToken=0,demo=null,lastDemoId='controls',worker=null,jobId=0,previewPress=null,resizeFrame=0,transition=null,pickupEffects=[];
 let audio=null,master=null,chargeTone=null,userInteracted=false,hostAudio=inYT?sdk.system.isAudioEnabled():true;
 let encounter=null,ending=null,reward=null;
 const reducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -13,14 +13,15 @@ const save=ArcSave.create({
 },state=>{$('saveStatus').dataset.error=['load-failed','save-failed'].includes(state);$('saveStatus').textContent=state==='saved'?(inYT?'Progress synced':'Progress saved on this device'):state==='load-failed'?'Progress unavailable · Session play':'Progress not saved · Retry on resume';});
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?ArcWeapons.get(s.mode).minAngle||-12:-12;}
-function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!encounter&&!demo;}
+function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!encounter&&!demo&&$('weaponPicker').hidden;}
 function audioSync(){if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
 function unlockAudio(){userInteracted=true;if(!audio)try{audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.connect(audio.destination);}catch{}audioSync();}
 function tone(freq=440,duration=.12,type='sine',volume=.08){if(!audio||!hostAudio||hostPaused()||manualPaused)return;const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(40,freq*.5),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g).connect(master);o.start();o.stop(audio.currentTime+duration);}
 function stopChargeTone(){if(chargeTone){try{chargeTone.stop();}catch{}chargeTone=null;}}
 function resetStick(){stick=null;keyMove=0;$('stickKnob').style.transform='translate(0px,0px)';$('stick').setAttribute('aria-valuenow',0);}
+function resetAimStick(){aimStick=null;$('aimStickKnob').style.transform='translate(0px,0px)';}
 function cancelCharge(){if(charge&&s)s.power=charge.previous;charge=null;stopChargeTone();}
-function clearInput(){gesture=null;resetStick();cancelCharge();clearTimeout(previewPress);previewPress=null;}
+function clearInput(){gesture=null;resetStick();resetAimStick();cancelCharge();clearTimeout(previewPress);previewPress=null;}
 function acquired(item){
  pickupEffects.push({x:item.x,y:item.y,id:item.id,age:0});
  const data=save.data;
@@ -69,7 +70,8 @@ function hud(){
  const mode=shown?.pose?.mode||s.mode,look=ArcWeapons.get(mode).appearance,entry=E.availableWeapons(s).find(w=>w.id===mode),ammo=entry?.ammo||0;
  $('weaponToggle').textContent=look.glyph+' '+look.label+(demo?'':' '+(mode==='W01'?'∞':ammo));$('weaponToggle').style.borderColor=look.color;$('weaponToggle').style.color=look.color;$('weaponToggle').setAttribute('aria-label',ArcWeapons.get(mode).name+', choose weapon');$('weaponToggle').classList.toggle('special',mode!=='W01');$('weaponToggle').classList.toggle('new',!!s.trial?.ammo&&s.mode!==s.trial.id);$('weaponToggle').disabled=!enabled;
  for(const b of document.querySelectorAll('[data-skill]')){const id=b.dataset.skill;b.querySelector('small').textContent=s.skills[id];b.disabled=!enabled;b.classList.toggle('spent',s.skillUsed||s.skills[id]<=0);b.setAttribute('aria-disabled',s.skillUsed||s.skills[id]<=0);b.classList.toggle('selected',s.selectedSkill===id);b.setAttribute('aria-pressed',s.selectedSkill===id);}
- $('stick').setAttribute('aria-disabled',!enabled);$('stick').style.opacity=enabled?'1':'.4';
+ for(const id of ['stick','aimStick']){$(id).setAttribute('aria-disabled',!enabled);$(id).style.opacity=enabled?'1':'.4';}
+ $('aimStick').setAttribute('aria-valuemin',minimumAngle());$('aimStick').setAttribute('aria-valuenow',Math.round(s.angle));$('aimStick').setAttribute('aria-valuetext',Math.round(s.angle)+' degrees');
  const rs=s.world.regions.map(r=>r.kind==='F'?(r.direction>0?'WIND →':'WIND ←'):r.kind==='V'?(r.on?'VENT ↑':'VENT · NEXT ↑'):r.kind==='M'?'FIELD '+(r.direction>0?'↻':'↺'):r.kind==='C'?'CLOUD':'UPDRAFT ↑');
  $('environment').textContent=[...new Set([...rs,...(s.world.solids.some(o=>o.kind==='bridge')?['BRIDGE · NEXT ⋯']:[])])].join('　');
  $('rewardNotice').hidden=!reward||!!demo;$('trialWeapon').hidden=true;
@@ -137,7 +139,7 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:s.stage*1000+s.round});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded(s.stage*1000+s.round));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.6.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.6.1');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
  clock+=dt;if(!s||manualPaused||hostPaused())return;
  if(encounter){encounter.age+=dt;if(encounter.age>=encounter.duration){encounter=null;$('encounterBanner').hidden=true;firstDemo();}hud();return;}
@@ -146,6 +148,7 @@ function update(dt,realDt=dt){
   if(s.pendingWeaponDemo){const id=s.pendingWeaponDemo;s.pendingWeaponDemo=null;if(!hasSeen(id)){runDemo(id);return;}}
   if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
   const axis=stick?stick.axis:keyMove;if(axis)E.move(s,0,axis*160*dt);
+  if(aimStick?.axis)s.angle=E.clamp(s.angle+50*aimStick.axis*Math.abs(aimStick.axis)*dt,minimumAngle(),85);
  }else if(s.phase==='cpu'){
   s.time-=dt;if(s.time<=0&&cpuReady){s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;
    if(Math.abs(s.cpuTarget-s.cpuStart)<1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
@@ -191,7 +194,9 @@ $('closeCollection').onclick=()=>{ArcPresentation.closeCollection();$('openColle
 $('pause').onclick=pause;$('resume').onclick=()=>{if(hostPaused())return;if(dialog==='result'){if(s.result==='win'&&s.stage===100){lobby();showLevels();return;}selectedMap=s.result==='win'?Math.min(99,s.stage):s.stage-1;start();}else{manualPaused=false;previous=0;$('overlay').hidden=true;audioSync();hud();$('world').focus({preventScroll:true});}};
 $('returnLobby').onclick=()=>{if(dialog==='result'){const final=s.result==='win'&&s.stage===100;lobby();if(final)$('openCollection').click();else showLevels();return;}if(dialog==='confirm'){lobby();return;}dialog='confirm';$('overlay').dataset.kind='confirm';$('modalTitle').textContent='Leave this duel?';$('modalDetail').textContent='Collected items saved.';$('returnLobby').textContent='LEAVE';};
 $('resultJourney').onclick=()=>{lobby();showLevels();};
-$('weaponToggle').onclick=()=>{if(!canAim())return;const choices=E.availableWeapons(s);if(choices.length<2)return;ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(id!=='W01'&&!hasSeen(id))runDemo(id);}});};
+$('weaponToggle').onclick=()=>{if(!canAim())return;const choices=E.availableWeapons(s);if(choices.length<2)return;clearInput();ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(id!=='W01'&&!hasSeen(id))runDemo(id);}});};
+// Secondary touch contacts do not receive native compatibility clicks on every browser.
+$('weaponToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(stick||aimStick||charge)&&canAim()){e.preventDefault();$('weaponToggle').click();}};
 $('closeWeapons').onclick=()=>ArcPresentation.closeWeapons();
 $('previewOK').onclick=()=>{unlockAudio();endDemo();};
 
@@ -203,28 +208,32 @@ function pointer(e){e.preventDefault();unlockAudio();}
 $('fire').onpointerdown=e=>{pointer(e);if(e.button!==0&&e.pointerType!=='touch')return;startCharge(e.pointerId);try{$('fire').setPointerCapture(e.pointerId);}catch{}};
 $('fire').onpointermove=e=>{if(charge?.id!==e.pointerId)return;const r=$('fire').getBoundingClientRect();charge.cancel=Math.hypot(e.clientX-r.left-r.width/2,e.clientY-r.top-r.height/2)>r.width*.9;hud();};
 $('fire').onpointerup=e=>releaseCharge(e.pointerId);$('fire').onpointercancel=$('fire').onlostpointercapture=e=>{if(charge?.id===e.pointerId)cancelCharge();hud();};
-function stickMove(e){if(stick?.id!==e.pointerId)return;const r=$('stick').getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),mag=Math.hypot(dx,dy),dist=Math.min(mag,27),scale=mag?dist/mag:0;stick.axis=Math.abs(dx)<8?0:E.clamp(dx/27,-1,1);$('stickKnob').style.transform=`translate(${dx*scale}px,${dy*scale}px)`;$('stick').setAttribute('aria-valuenow',Math.round(stick.axis*100));}
+function controlVector(id,e){const r=ArcViewport.rect($(id),$('app')),p=ArcViewport.point(e.clientX,e.clientY,$('app'));return {dx:p.x-r.left-r.width/2,dy:p.y-r.top-r.height/2};}
+function stickMove(e){if(stick?.id!==e.pointerId)return;const {dx,dy}=controlVector('stick',e),mag=Math.hypot(dx,dy),dist=Math.min(mag,27),scale=mag?dist/mag:0;stick.axis=Math.abs(dx)<8?0:E.clamp(dx/27,-1,1);$('stickKnob').style.transform=`translate(${dx*scale}px,${dy*scale}px)`;$('stick').setAttribute('aria-valuenow',Math.round(stick.axis*100));}
 $('stick').onpointerdown=e=>{pointer(e);if(!canAim()||stick)return;stick={id:e.pointerId,axis:0};try{$('stick').setPointerCapture(e.pointerId);}catch{}stickMove(e);};$('stick').onpointermove=stickMove;$('stick').onpointerup=$('stick').onpointercancel=$('stick').onlostpointercapture=e=>{if(stick?.id===e.pointerId)resetStick();};
+// The right stick changes angle continuously, just as the left stick moves continuously.
+// A small neutral zone and curved response allow fine corrections without extra buttons.
+function aimStickMove(e){if(aimStick?.id!==e.pointerId)return;const {dx,dy}=controlVector('aimStick',e),mag=Math.hypot(dx,dy),scale=mag?Math.min(mag,27)/mag:0;aimStick.axis=Math.abs(dy)<=6?0:E.clamp(-Math.sign(dy)*(Math.abs(dy)-6)/21,-1,1);$('aimStickKnob').style.transform=`translate(${dx*scale}px,${dy*scale}px)`;}
+$('aimStick').onpointerdown=e=>{pointer(e);if(!canAim()||aimStick||e.button!==0&&e.pointerType!=='touch')return;aimStick={id:e.pointerId,axis:0};gesture=null;try{$('aimStick').setPointerCapture(e.pointerId);}catch{}aimStickMove(e);};
+$('aimStick').onpointermove=aimStickMove;$('aimStick').onpointerup=$('aimStick').onpointercancel=$('aimStick').onlostpointercapture=e=>{if(aimStick?.id===e.pointerId)resetAimStick();};
 $('world').onpointerdown=e=>{pointer(e);if(demo)return;
  if(s?.selectedSkill==='BLINK'&&canAim()){
   const p=renderer.toWorld(e.clientX,e.clientY),i=s.blink.findIndex(b=>Math.hypot(p.x-b.x,p.y-(b.y-22))<60);
   if(i>=0){if(s.blinkCandidate===i){E.blink(s,i);s.blinkCandidate=null;}else{s.blinkCandidate=i;feedback='TAP AGAIN TO BLINK';}}else{s.selectedSkill=null;s.blinkCandidate=null;feedback='';}hud();return;
  }
- if(gesture||charge)return;gesture={id:e.pointerId,x:e.clientX,y:e.clientY,angle:s?.angle||48,lobby:!s};try{$('world').setPointerCapture(e.pointerId);}catch{}};
-$('world').onpointermove=e=>{if(gesture?.id!==e.pointerId||!canAim())return;setAngle(gesture.angle+(gesture.y-e.clientY)*.4);};
-$('world').onpointerup=e=>{if(gesture?.id!==e.pointerId)return;const g=gesture;gesture=null;if(g.lobby&&Math.abs(e.clientX-g.x)>40)switchMap(e.clientX<g.x?1:-1);};$('world').onpointercancel=$('world').onlostpointercapture=e=>{if(gesture?.id===e.pointerId)gesture=null;};
-for(const id of ['world','stick','fire'])$(id).oncontextmenu=e=>e.preventDefault();
+ if(gesture||charge)return;const p=ArcViewport.point(e.clientX,e.clientY,$('app'));gesture={id:e.pointerId,x:p.x,y:p.y,angle:s?.angle??48,lobby:!s};try{$('world').setPointerCapture(e.pointerId);}catch{}};
+$('world').onpointermove=e=>{if(gesture?.id!==e.pointerId||!canAim())return;const p=ArcViewport.point(e.clientX,e.clientY,$('app'));setAngle(gesture.angle+(gesture.y-p.y)*.4);};
+$('world').onpointerup=e=>{if(gesture?.id!==e.pointerId)return;const g=gesture,p=ArcViewport.point(e.clientX,e.clientY,$('app'));gesture=null;if(g.lobby&&Math.abs(p.x-g.x)>40)switchMap(p.x<g.x?1:-1);};$('world').onpointercancel=$('world').onlostpointercapture=e=>{if(gesture?.id===e.pointerId)gesture=null;};
+for(const id of ['world','stick','aimStick','fire'])$(id).oncontextmenu=e=>e.preventDefault();
 document.addEventListener('keydown',e=>{
  if(hostPaused())return;if(e.key==='Escape'){if(!$('weaponPicker').hidden){$('closeWeapons').click();return;}if(!$('collectionPanel').hidden){$('closeCollection').click();return;}if(!$('levelPicker').hidden){$('levelPicker').hidden=true;return;}if(demo)return;if(!$('overlay').hidden){if(dialog==='result')lobby();else $('resume').click();}else pause();return;}
  if(demo)return;if(e.target?.matches?.('input,select,button')&&e.target.id!=='fire')return;if(!canAim())return;
- if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(!charge&&e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),85);if(!charge&&e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),85);hud();
+ if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),85);if(e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),85);if(e.target?.id==='aimStick'&&['Home','End'].includes(e.key)){e.preventDefault();s.angle=e.key==='Home'?minimumAngle():85;}hud();
 });
 document.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key))keyMove=0;if(e.key===' '){e.preventDefault();releaseCharge('keyboard');}});
-// Gameplay owns multi-touch; browser page zoom must not compete with aim/charge.
-$('app').addEventListener('dblclick',e=>e.preventDefault());
-for(const event of ['gesturestart','gesturechange','gestureend'])document.addEventListener(event,e=>e.preventDefault(),{passive:false});
-document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault();},{passive:false});
-window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;draw();});
+// Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.
+const viewport=ArcViewport.install($('app'),()=>{clearInput();previous=0;draw();});
+window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();draw();});
 document.addEventListener('visibilitychange',()=>document.hidden?pauseHost('visibility'):resumeHost('visibility'));
 if(sdk){sdk.system.onPause(()=>pauseHost('sdk'));sdk.system.onResume(()=>resumeHost('sdk'));sdk.system.onAudioEnabledChange(v=>{hostAudio=v;audioSync();});}
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.

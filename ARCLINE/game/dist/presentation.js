@@ -71,7 +71,7 @@ function closeCollection(){$('collectionPanel').hidden=true;$('openCollection').
 function closeWeapons(){$('weaponPicker').hidden=true;$('weaponToggle').focus({preventScroll:true});}
 function showWeapons(choices,current,onSelect){
  $('weaponChoices').innerHTML=choices.map(choice=>{const w=W.get(choice.id);return `<button data-choose-weapon="${choice.id}" class="${choice.id===current?'selected':''}" aria-pressed="${choice.id===current}" style="--weapon-color:${w.appearance.color}"><i aria-hidden="true">${w.appearance.glyph}</i><strong>${escape(w.name)}</strong><span aria-label="${choice.id==='W01'?'unlimited':choice.ammo+' shots'}">${choice.id==='W01'?'∞':choice.ammo}</span></button>`;}).join('');
- $('weaponChoices').querySelectorAll('[data-choose-weapon]').forEach(button=>button.onclick=()=>{onSelect(button.dataset.chooseWeapon);closeWeapons();});$('closeWeapons').onclick=closeWeapons;$('weaponPicker').hidden=false;$('weaponChoices').querySelector('.selected')?.focus({preventScroll:true});
+ $('weaponChoices').querySelectorAll('[data-choose-weapon]').forEach(button=>button.onclick=()=>{closeWeapons();onSelect(button.dataset.chooseWeapon);});$('closeWeapons').onclick=closeWeapons;$('weaponPicker').hidden=false;$('weaponChoices').querySelector('.selected')?.focus({preventScroll:true});
 }
 root.ArcPresentation={syncLobby,renderJourney,showCollection,closeCollection,showWeapons,closeWeapons,cosmetic,rover};
 })(globalThis);

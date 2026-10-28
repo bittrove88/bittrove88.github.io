@@ -1,6 +1,6 @@
 # ARCLINE
 
-Buildless Canvas artillery campaign. Implementation **0.6.0**, with the player-directed **2.0 redesign**. English UI, one rover, **20 themes × 5 fixed levels** (90 normal / 10 bosses), 20 weapons, 8 skills and 37 collectible appearances. Reflective solid ground replaces water. No permanent combat upgrades.
+Buildless Canvas artillery campaign. Implementation **0.6.1**, with the player-directed **2.0 redesign**. English UI, one rover, **20 themes × 5 fixed levels** (90 normal / 10 bosses), 20 weapons, 8 skills and 37 collectible appearances. Reflective solid ground replaces water. No permanent combat upgrades.
 
 The imported 0.3 implementation is preserved in baseline commit `125c76a`; `EXPORT_MANIFEST.json` describes that import, including the verified distribution ZIP that was deliberately excluded from Git. Historical results in `evidence/current-release/` are **not** evidence for the new implementation.
 
@@ -17,7 +17,9 @@ node game/tests/accessibility.test.cjs
 node game/tests/boss.test.cjs
 ```
 
-Open http://localhost:8000/. No install or build is needed for play. Drag the battlefield or use ± to aim; hold Fire, then release. The wide charge gauge sweeps from 20 to 100 in **1.6 seconds**. The camera stays fixed while charging, with a thin physics-based trajectory and no landing marker. Use the joystick while charging. Keyboard: arrows and Space.
+Open http://localhost:8000/. No install or build is needed for play. Use the left MOVE stick to drive and the right AIM stick to raise/lower the barrel. A small deflection makes fine adjustments; releasing the aim stick keeps the angle. Hold the central FIRE button, then release. The wide charge gauge sweeps from 20 to 100 in **1.6 seconds**. The camera stays fixed while charging, with a thin physics-based trajectory and no landing marker. Movement, aiming and charging accept independent fingers, including simultaneous input. The battlefield drag remains available. Keyboard: arrows and Space; focused AIM also supports Home/End.
+
+Exterior ground now continues to the screen edge visually, without filling intentional interior gaps or changing collision geometry. Safari gesture suppression is paired with a visual-viewport fit: if a browser retains page zoom, the game compensates its scale and offsets so the HUD and controls remain visible and touch positions remain aligned. One-finger menu scrolling is preserved.
 
 Bright, solid reflector strips bounce shots at every incidence angle, with a shared limit of three bounces. They follow the actual ground and can be walked on. There is no underwater slowdown or hidden shallow-angle condition.
 
@@ -31,6 +33,8 @@ Real-browser QA additionally uses Playwright and Chromium provided by the develo
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/runtime.test.cjs
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/touch-ux.test.cjs
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/immersion.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/viewport.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/render-boundary.test.cjs
 ```
 
 This optional QA dependency is not shipped. Production relies only on local HTML/CSS/JS and the YouTube SDK, with offline SDK fallback.
@@ -41,4 +45,4 @@ This optional QA dependency is not shipped. Production relies only on local HTML
 python3 game/tools/build_playables.py --output /tmp/arcline-package
 ```
 
-`evidence/redesign/` records the 0.6.0 behavior, campaign and browser verification. Earlier results in `evidence/v1.1/`, `evidence/touch-ux/` and `evidence/immersion/` describe their respective historical versions. Automated geometry samples and Chromium touch emulation are separate from physical-device QA, human enjoyment and YouTube certification. The existing Sites project is unchanged. GitHub Pages serves the merged main branch.
+`evidence/dual-stick/` records the 0.6.1 input, viewport recovery and terrain-boundary checks. `evidence/redesign/` records the 0.6.0 behavior, campaign and browser verification. Earlier results in `evidence/v1.1/`, `evidence/touch-ux/` and `evidence/immersion/` describe their respective historical versions. Automated geometry samples and Chromium touch emulation are separate from physical-device QA, human enjoyment and YouTube certification. The existing Sites project is unchanged. GitHub Pages serves the merged main branch.
