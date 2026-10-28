@@ -222,7 +222,7 @@ function create(canvas){
   const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=s.units.filter(showsUnit);
   const phoneLandscape=!lobby&&!localDemo&&w>h&&h<=600&&matchMedia('(pointer: coarse)').matches;
   const top=lobby?(wide?100:h*.23):localDemo?16:phoneLandscape?(h<=280?4:h<=340?8:48):Math.max(80,(header?.bottom||64)+20);
-  const bottom=lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):phoneLandscape?h-(h<=280?96:104):Math.max(top+100,(controls?.top||h-210)-12);
+  const bottom=lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):phoneLandscape?h-(h<=280?96:104)-Math.max(0,h-(controls?.bottom||h-4)-4):Math.max(top+100,(controls?.top||h-210)-12);
   const landmarks=[...frameUnits.map(u=>({x:u.x,y:u.y-50})),...(!localDemo?s.pickups.filter(isArenaPickup):[])];
   if(closeFocus)landmarks.push({x:closeFocus.x-closeFocus.radius,y:closeFocus.y-45},{x:closeFocus.x+closeFocus.radius,y:closeFocus.y+45});
   if(demonstration?.after)landmarks.push(...demonstration.after.units.filter(showsUnit).map(u=>({x:u.x,y:u.y-60})));
@@ -246,12 +246,13 @@ function create(canvas){
   includeActors(s);if(demonstration?.after)includeActors(demonstration.after);if(closeFocus)critical.push(closeFocus.x-closeFocus.radius,closeFocus.x+closeFocus.radius);
   // A held shot freezes this view, so reserve the player's legal walking extent first.
   if(planning&&!lobby&&!localDemo&&!phoneLandscape)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
-  const criticalMin=Math.min(...critical),criticalMax=Math.max(...critical),criticalScale=(fieldW-24)/Math.max(100,criticalMax-criticalMin);
+  const leftMargin=phoneLandscape?Math.max(12,controls?.left||12):12,rightMargin=phoneLandscape?Math.max(12,w-(controls?.right||w-12)):12;
+  const criticalMin=Math.min(...critical),criticalMax=Math.max(...critical),criticalScale=(fieldW-leftMargin-rightMargin)/Math.max(100,criticalMax-criticalMin);
   const fit=Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY)),readableScale=phoneLandscape?Math.min(1.25,criticalScale,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY)):lobby?fit:Math.max(baseline.scale*.85,fit),scaleTarget=Math.min(readableScale,criticalScale,closeFocus?2.2:Infinity),clipped=scaleTarget>fit+.00001;
   // Keep the readable battlefield grounded when a high arc continues above the view.
   const frameMinY=phoneLandscape||clipped?baseline.minY:minY,frameMaxY=phoneLandscape||clipped?baseline.maxY:maxY;
   const focusY=top+(bottom-top)*(lobby?.55:.6),offsetY=Math.max(top-frameMinY*scaleTarget,Math.min(bottom-frameMaxY*scaleTarget,focusY-(frameMinY+frameMaxY)*.5*scaleTarget));
-  const constrainX=(x,scale)=>Math.max(12-criticalMin*scale,Math.min(fieldW-12-criticalMax*scale,x));
+  const constrainX=(x,scale)=>Math.max(leftMargin-criticalMin*scale,Math.min(fieldW-rightMargin-criticalMax*scale,x));
   const target={scale:scaleTarget,x:constrainX(fieldW*.5-(phoneLandscape?(criticalMin+criticalMax):(minX+maxX))*.5*scaleTarget,scaleTarget),y:offsetY};
   const nextKey=[s.stage,lobby,w,h,localDemo?'preview':'battle'].join(':');
   if(cameraKey!==nextKey||options.reducedMotion)view=target;
