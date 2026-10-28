@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#12384c"><title>ARCLINE — A hundred ways across</title>
-<link rel="stylesheet" href="style.css?v=0.6.1">
+<link rel="stylesheet" href="style.css?v=0.6.2">
 <script src="https://www.youtube.com/game_api/v1"></script>
 </head>
 <body>
@@ -18,7 +18,7 @@
 <div id="lobbyRover" aria-hidden="true"></div>
 <div class="lobby-dock">
 <span id="collectionCount" hidden></span>
-<button type="button" id="openCollection" class="loadout-summary" aria-label="Open weapon and appearance collection"><i id="equippedWeaponGlyph" aria-hidden="true">●</i><span><strong id="equippedWeapon">Standard</strong><small id="equippedCosmetic" hidden>Original</small></span><b>GEAR</b></button>
+<button type="button" id="openCollection" class="loadout-summary" aria-label="Open weapon and appearance collection"><i id="equippedWeaponGlyph" aria-hidden="true">●</i><span><small class="equipped-label">STARTING WEAPON</small><strong id="equippedWeapon">Standard</strong><small id="equippedCosmetic" hidden>Original</small></span><b>CHANGE</b></button>
 <div class="loadout" hidden><label>SPECIAL WEAPON<select id="weaponLoadout" aria-label="Equipped special weapon"></select></label><label>APPEARANCE<select id="cosmeticLoadout" aria-label="Cosmetic appearance"></select></label></div>
 <div id="nextReward" hidden></div>
 <div class="campaign-row"><span id="progressText"></span><button type="button" id="chooseLevel">JOURNEY</button></div>
@@ -30,7 +30,9 @@
 <div class="turn-pill"><span id="turnLabel">YOUR TURN</span><small id="round">LV 1</small></div>
 <div id="shotBudget" role="status">10 SHOTS</div>
 <div id="shotFeedback" role="status" aria-live="polite"></div>
-<div id="tutorial" hidden role="dialog" aria-label="Preview" aria-describedby="tutorialName"><span id="tutorialName"></span><button type="button" id="previewOK">OK</button><span id="practiceHint" hidden></span><button type="button" id="previewPractice" hidden tabindex="-1" aria-hidden="true"></button></div>
+<div id="tutorial" hidden role="dialog" aria-label="Preview" aria-describedby="tutorialName tutorialInstruction tutorialOutcome">
+<div class="preview-copy"><div class="preview-meta"><span id="tutorialContext">PREVIEW</span><span id="tutorialStep">WATCH</span></div><strong id="tutorialName"></strong><p id="tutorialInstruction"></p><p id="tutorialOutcome" hidden></p><span id="previewWeaponName" hidden></span><div id="previewCharge"><div><b id="previewAction">HOLD</b><span id="previewPowerNumber">20%</span></div><div class="preview-power-track"><i id="previewPowerFill"></i></div></div></div>
+<button type="button" id="previewOK">OK</button><span id="practiceHint" hidden></span><button type="button" id="previewPractice" hidden tabindex="-1" aria-hidden="true"></button></div>
 <div id="rewardNotice" hidden role="status"><span id="rewardGlyph" aria-hidden="true">◆</span><strong id="rewardName"></strong><button type="button" id="trialWeapon" hidden tabindex="-1" aria-hidden="true"></button></div>
 <div id="encounterBanner" hidden aria-live="polite"><strong id="encounterName"></strong></div>
 <div id="environment" aria-label="Environment preview"></div>
@@ -39,13 +41,13 @@
 <div class="stick-wrap"><div id="stick" role="slider" tabindex="0" aria-label="Move joystick" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0"><span aria-hidden="true">‹　›</span><div id="stickKnob">◆</div></div><span class="control-label">MOVE</span></div>
 <div class="aim-stick-wrap"><div id="aimStick" role="slider" tabindex="0" aria-label="Aim joystick" aria-orientation="vertical" aria-valuemin="-12" aria-valuemax="85" aria-valuenow="48"><span class="aim-direction" aria-hidden="true">↑<br>↓</span><div id="aimStickKnob" aria-hidden="true">↕</div><strong id="angleText">48°</strong></div><span class="control-label">AIM</span></div>
 <div id="aimControl" role="group" aria-label="Aim angle" hidden><button type="button" id="aimDown" aria-label="Lower angle" tabindex="-1">−</button><input id="aimRange" type="range" min="-12" max="85" step="1" value="48" aria-label="Aim angle" hidden><button type="button" id="aimUp" aria-label="Raise angle" tabindex="-1">+</button></div>
-<div id="actionRow"><button type="button" id="weaponToggle" aria-label="Switch basic or special weapon">STANDARD ∞</button><div id="skills" role="group" aria-label="One skill per turn"></div></div>
+<div id="actionRow"><button type="button" id="weaponToggle" aria-label="Choose weapon"><span id="weaponGlyph" aria-hidden="true">●</span><span class="weapon-copy"><small id="weaponState">WEAPON</small><strong id="weaponName">Standard</strong><span id="weaponStock">Unlimited</span></span><span class="weapon-chevron" aria-hidden="true">⌄</span></button><div id="skills" role="group" aria-label="Skills: choose one per turn"></div></div>
 <div class="fire-wrap"><button type="button" id="fire" aria-label="Hold to charge; release to fire"><svg class="charge-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-base" cx="60" cy="60" r="55"/><circle id="chargeRing" cx="60" cy="60" r="55"/></svg><span class="bolt" aria-hidden="true">ϟ</span><span id="chargeValue">FIRE</span></button><span class="control-label" id="fireHint"></span></div>
 </div></section>
 <div id="overlay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div id="resultIcon">Ⅱ</div><span id="modalEyebrow">DUEL PAUSED</span><h2 id="modalTitle">Take a breath.</h2><p id="modalDetail"></p><button type="button" id="resume" class="play-button">RESUME</button><button type="button" id="resultJourney" class="quiet-button" hidden>THE JOURNEY →</button><div id="endingCollection" hidden></div><button type="button" id="returnLobby" class="quiet-button">LOADOUT</button></div></div>
 <div id="levelPicker" hidden><div class="level-panel"><header><div><strong>Journey</strong></div><button type="button" id="closeLevels" aria-label="Close level selection">✕</button></header><div id="journeyAreas" role="tablist" aria-label="Journey themes"></div><div class="theme-switch"><button type="button" id="journeyPrev" aria-label="Previous theme">‹</button><div id="journeySummary"></div><button type="button" id="journeyNext" aria-label="Next theme">›</button></div><div id="levelGrid"></div></div></div>
 <div id="collectionPanel" hidden><div class="collection-panel"><header><div><strong>Equipment</strong></div><button type="button" id="closeCollection" aria-label="Close collection">✕</button></header><div id="collectionGrid"></div></div></div>
-<div id="weaponPicker" hidden><div class="weapon-panel" role="dialog" aria-modal="true" aria-labelledby="weaponPickerTitle"><header><strong id="weaponPickerTitle">Choose weapon</strong><button type="button" id="closeWeapons" aria-label="Close weapon selection">✕</button></header><div id="weaponChoices"></div></div></div>
+<div id="weaponPicker" hidden><div class="weapon-panel" role="dialog" aria-modal="true" aria-labelledby="weaponPickerTitle"><header><strong id="weaponPickerTitle">Choose weapon</strong><button type="button" id="closeWeapons" aria-label="Close weapon selection">✕</button></header><p class="weapon-picker-note">Special: 2 shots per level</p><div id="weaponChoices"></div></div></div>
 </main>
-<script src="levels.js?v=0.6.1"></script><script src="weapons.js?v=0.6.1"></script><script src="geometry.js?v=0.6.1"></script><script src="physics.js?v=0.6.1"></script><script src="save.js?v=0.6.1"></script><script src="engine.js?v=0.6.1"></script><script src="render.js?v=0.6.1"></script><script src="presentation.js?v=0.6.1"></script><script src="preview.js?v=0.6.1"></script><script src="viewport.js?v=0.6.1"></script><script src="game.js?v=0.6.1"></script>
+<script src="levels.js?v=0.6.2"></script><script src="weapons.js?v=0.6.2"></script><script src="geometry.js?v=0.6.2"></script><script src="physics.js?v=0.6.2"></script><script src="save.js?v=0.6.2"></script><script src="engine.js?v=0.6.2"></script><script src="lessons.js?v=0.6.2"></script><script src="render.js?v=0.6.2"></script><script src="presentation.js?v=0.6.2"></script><script src="preview.js?v=0.6.2"></script><script src="viewport.js?v=0.6.2"></script><script src="game.js?v=0.6.2"></script>
 </body></html>

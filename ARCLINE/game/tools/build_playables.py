@@ -12,8 +12,9 @@ html=(ROOT/'dist/index.html').read_text()
 for ref in re.findall(r'(?:src|href)="([^"]+)"',html):
  if not ref.startswith('https://'):assert (ROOT/'dist'/ref.split('?',1)[0]).is_file(),ref
 assert html.index('https://www.youtube.com/game_api/v1')<html.index('src="levels.js')
-manifest={'implementation':'0.6.1','design':'2.0 user-directed redesign','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed'}
-zip_path=out/'ARCLINE_0.6.1_Playables.zip'
+assert html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
+manifest={'implementation':'0.6.2','design':'2.0 user-directed redesign','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed'}
+zip_path=out/'ARCLINE_0.6.2_Playables.zip'
 with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
  for f in files:
   info=zipfile.ZipInfo(f.name,date_time=(2026,10,22,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())

@@ -4,7 +4,7 @@
 const {chromium}=require('playwright');
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../dist');
-const output=process.env.ARCLINE_EVIDENCE_DIR||'/workspace/work/arcline-dual-stick/touch';fs.mkdirSync(output,{recursive:true});
+const output=process.env.ARCLINE_EVIDENCE_DIR||'/workspace/work/arcline-clarity/touch';fs.mkdirSync(output,{recursive:true});
 const mime={'.html':'text/html;charset=utf-8','.js':'text/javascript;charset=utf-8','.css':'text/css;charset=utf-8'};
 const server=http.createServer((req,res)=>{
  const name=decodeURIComponent(req.url.split('?')[0]),file=path.resolve(root,'.'+(name==='/'?'/index.html':name));
@@ -49,11 +49,11 @@ const sizes=[[320,568],[360,640],[375,667],[390,844],[430,932],[568,320],[640,36
   await page.locator('#closeLevels').tap();await page.locator('#play').tap();assert(await page.locator('#previewOK').isVisible(),'preview needs explicit OK');
   assert.equal(await page.locator('#replayPreview').count(),0,'redundant demo button removed');assert.equal(await page.locator('#skipPreview').count(),0,'old skip button removed');assert(!await page.locator('#previewPractice').isVisible());assert(!await page.locator('#practiceHint').isVisible());assert.equal(await page.locator('#previewOK').textContent(),'OK');checks+=6;
   if(width===390){
-   const previewId=await page.evaluate('"v2:"+demo.seenId');assert(await page.evaluate(id=>!save.data.seenPreviewIds.includes(id),previewId),'preview is not acknowledged before OK');
+   const previewId=await page.evaluate('demo.seenKey');assert(await page.evaluate(id=>!save.data.seenPreviewIds.includes(id),previewId),'preview is not acknowledged before OK');
    const before=await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,round:s.round,angle:s.angle})');
    // A battlefield gesture cannot acknowledge the preview or consume a shot.
    const point={x:width*.3,y:height*.38};await drag(cdp,point,{x:point.x,y:point.y-50});
-   await page.keyboard.press('Escape');assert(await page.evaluate('!!demo'),'Escape must not silently start combat');await tap(cdp,await center(page,'fire'));assert(await page.evaluate('!!demo'),'Fire cannot acknowledge the preview');assert(await page.evaluate(id=>!save.data.seenPreviewIds.includes(id),previewId),'blocked gestures do not mark preview seen');
+   await page.keyboard.press('Escape');assert(await page.evaluate('!!demo'),'Escape must not silently start combat');assert(!await page.locator('#fire').isVisible(),'live FIRE is hidden during a preview');assert(!await page.locator('#weaponToggle').isVisible(),'live weapon choice is hidden during a preview');assert(await page.locator('#previewCharge').isVisible(),'controls lesson has a separate readable charge example');assert.equal(await page.evaluate('s.shotCount'),0,'preview gestures cannot fire');assert(await page.evaluate(id=>!save.data.seenPreviewIds.includes(id),previewId),'blocked gestures do not mark preview seen');checks+=3;
    const duration=await page.evaluate('demo.duration');await page.waitForTimeout(Math.ceil(duration*2200)+200);
    assert(await page.evaluate('!!demo'),'preview continues after more than two cycles');assert(await page.locator('#previewOK').isVisible());
    assert.equal(await page.evaluate('JSON.stringify({units:s.units,skills:s.skills,shots:s.shotCount,round:s.round,angle:s.angle})'),before,'looping preview cannot advance gameplay');checks+=4;
@@ -157,7 +157,7 @@ const sizes=[[320,568],[360,640],[375,667],[390,844],[430,932],[568,320],[640,36
  // Opening a weapon menu cancels held inputs before the chooser takes focus.
  {
   const {page,context,cdp}=await open(390,844);
-  await page.evaluate(()=>{save.data.unlockedWeaponIds=['W01','W02'];save.data.equippedWeaponId='W02';save.data.seenPreviewIds=['v2:controls','v2:W02'];syncLobby();});
+  await page.evaluate(()=>{save.data.unlockedWeaponIds=['W01','W02'];save.data.equippedWeaponId='W02';save.data.seenPreviewIds=['v2:controls','v2:W02','v3:controls','v3:W02'];syncLobby();});
   await page.locator('#play').tap();await page.waitForFunction('canAim()');
   const aim=await center(page,'aimStick'),fire=await center(page,'fire'),menu=await center(page,'weaponToggle');
   const a={id:31,x:aim.x,y:aim.y-22},b={id:32,...fire},c={id:33,...menu};
@@ -174,7 +174,7 @@ const sizes=[[320,568],[360,640],[375,667],[390,844],[430,932],[568,320],[640,36
  // Weapon-specific elevation limits also apply to the continuous aim stick.
  {
   const {page,context,cdp}=await open(390,844);
-  await page.evaluate(()=>{save.data.unlockedWeaponIds=['W01','W04'];save.data.equippedWeaponId='W04';save.data.seenPreviewIds=['v2:controls','v2:W04'];syncLobby();});
+  await page.evaluate(()=>{save.data.unlockedWeaponIds=['W01','W04'];save.data.equippedWeaponId='W04';save.data.seenPreviewIds=['v2:controls','v2:W04','v3:controls','v3:W04'];syncLobby();});
   await page.locator('#play').tap();await page.waitForFunction('canAim()');assert.equal(await page.evaluate('s.mode'),'W04','equipped Mortar opens the duel');
   await page.locator('#aimStick').focus();await page.keyboard.press('Home');assert.equal(await page.evaluate('s.angle'),55,'Home uses weapon-specific minimum');
   let aim=await center(page,'aimStick');await hold(cdp,{x:aim.x,y:aim.y+22},250);assert.equal(await page.evaluate('s.angle'),55,'downward aim cannot cross Mortar minimum');
@@ -183,6 +183,6 @@ const sizes=[[320,568],[360,640],[375,667],[390,844],[430,932],[568,320],[640,36
   assert.equal(await page.evaluate('s.shotCount'),0,'clamped aim touches do not fire');checks+=6;await context.close();
  }
  assert.deepEqual(errors,[],'no browser exceptions');
- const report={status:'PASS',recordedAt:new Date().toISOString(),checks,viewports:rows,errors,method:'Real headless Chromium mobile emulation, CDP touch drag/three-finger independent movement-aim-charge/double-tap/pinch, pointer cancellation, resize, blur and focused aiming keyboard, explicit preview acknowledgement and touch scrolling; no direct production-handler invocation. Physical iOS/Android zoom behavior remains a device QA item.'};
+ const report={status:'PASS',recordedAt:new Date().toISOString(),checks,viewports:rows,errors,method:'Real headless Chromium mobile emulation, CDP touch drag/three-finger independent movement-aim-charge/double-tap/pinch, pointer cancellation, resize, blur and focused aiming keyboard, separate preview/footer visibility, v3 preview acknowledgement and touch scrolling; no direct production-handler invocation. Physical iOS/Android zoom behavior remains a device QA item.'};
  fs.writeFileSync(path.join(output,'TOUCH_UX.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));await browser.close();server.close();
 })().catch(e=>{console.error(e);server.close();process.exit(1);});

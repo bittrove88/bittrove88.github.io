@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-10-28T08:40:21.080Z",
+  "checks": 152,
+  "flows": [
+    {
+      "flow": "canonical names, owned/equipped/locked and exhausted stock",
+      "status": "PASS"
+    },
+    {
+      "flow": "real capsule pickup, conditional weapon preview and separate trial stock",
+      "status": "PASS"
+    },
+    {
+      "flow": "secondary-touch skill selection cancels FIRE and BLINK consumes only on teleport",
+      "status": "PASS"
+    },
+    {
+      "flow": "long preview acknowledgement followed by first-tap selection",
+      "status": "PASS"
+    },
+    {
+      "flow": "stage-specific entry previews, automatic loop and persistent v3 acknowledgements",
+      "shown": [
+        {
+          "stage": 1,
+          "id": "controls"
+        },
+        {
+          "stage": 2,
+          "id": "aim"
+        },
+        {
+          "stage": 3,
+          "id": "pickup"
+        },
+        {
+          "stage": 6,
+          "id": "reflection"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "flow": "conditional first introduction of selected equipped weapon",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "method": "Real headless Chromium controls, mouse holds, compositor-generated secondary touch, actual cannon/pickup/CPU cycles, long-hold preview and save/reload. Unlocks and stage selection are controlled fixtures; one authored capsule trajectory is selected with shared physics. No production handler invocation, simulated wins, physical-device or human-comprehension claim."
+}

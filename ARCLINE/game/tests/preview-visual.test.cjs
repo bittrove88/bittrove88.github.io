@@ -1,0 +1,53 @@
+'use strict';
+// Production browser rendering at three aspect ratios. Deliberate lesson/stage
+// fixtures isolate presentation; canvas text is observed rather than mocked.
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),http=require('node:http'),fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'../dist'),output=process.env.ARCLINE_EVIDENCE_DIR||'/workspace/work/arcline-clarity/preview-visual';fs.mkdirSync(output,{recursive:true});
+const mime={'.html':'text/html;charset=utf-8','.js':'text/javascript;charset=utf-8','.css':'text/css;charset=utf-8'};
+const server=http.createServer((req,res)=>{const name=decodeURIComponent(req.url.split('?')[0]),file=path.resolve(root,'.'+(name==='/'?'/index.html':name));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(err,data)=>{if(err)res.writeHead(404).end();else{res.setHeader('Content-Type',mime[path.extname(file)]||'text/plain');res.end(data);}});});
+const sizes=[[390,844],[568,320],[1614,892]],gallery=new Set(['controls','aim','reflection','B','BLINK','W02','W04','W13','W17','W19','boss-core']);
+(async()=>{
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});const errors=[],rows=[],failures=[];let checks=0;
+ const check=(condition,message,data)=>{checks++;if(!condition)failures.push({message,...data});};
+ try{
+  for(const [width,height] of sizes){
+   const context=await browser.newContext({viewport:{width,height},hasTouch:true,isMobile:width<1000,reducedMotion:'reduce'});await context.route('https://www.youtube.com/**',r=>r.abort());const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(`http://127.0.0.1:${server.address().port}/`);await page.waitForFunction('!document.getElementById("play").disabled');check(await page.evaluate('!!reducedMotion'),'reduced-motion preference produces deterministic settled camera frames',{width,height});
+   const lessons=await page.evaluate(()=>{cancelAnimationFrame(raf);raf=0;save.data.unlockedWeaponIds=E.weapons.map(w=>w.id);save.data.seenPreviewIds=[...ArcSave.previewIds];const seen=new Set(),rows=[];for(const id of ArcLessons.ids){const canonical=id==='W'?'reflection':id==='ceiling-lift'?'roof':id==='gate-choices'?'B':id==='touch-controls-v2'?'controls':id;if(seen.has(canonical))continue;seen.add(canonical);const stage=canonical==='boss-core'?10:canonical==='boss-swap'?80:canonical==='aim'?2:canonical==='move'?4:ArcLessons.stages.find(r=>r.entry===canonical||r.skillChoices.includes(canonical)||r.weaponCapsules.includes(canonical))?.stage||1;rows.push({id:canonical,stage});}return rows;});
+   await page.evaluate(()=>{const ctx=document.getElementById('world').getContext('2d'),original=ctx.fillText;globalThis.previewTextTrace=[];ctx.fillText=function(text,x,y,...args){const t=this.getTransform(),p=t.transformPoint(new DOMPoint(x,y)),dpr=Math.min(devicePixelRatio||1,2);previewTextTrace.push({text:String(text),x:p.x/dpr,y:p.y/dpr,font:this.font});return original.call(this,text,x,y,...args);};});
+   for(const {id,stage} of lessons){
+    const variants=await page.evaluate(({id,stage})=>{selectedMap=stage-1;start();encounter=null;document.getElementById('encounterBanner').hidden=true;endDemo();if(!runDemo(id))throw Error(`L${stage}/${id}: no preview`);return (demo.variants||[demo]).map((p,index)=>({index,duration:p.duration,flightStart:p.flightStart,flightEnd:p.flightEnd,annotationAt:p.annotationAt,rate:p.playbackRate||1}));},{id,stage});
+    let offset=0;
+    for(const variant of variants){
+     const shotAge=variant.annotationAt===undefined?(variant.flightStart+variant.flightEnd)/2:Math.min(variant.flightEnd-.03,variant.flightStart+variant.annotationAt/variant.rate+.04);
+     const phases=[['WATCH',Math.min(.35,variant.flightStart*.5)],['SHOT',shotAge],['RESULT',Math.min(variant.duration-.05,variant.flightEnd+.55)]];
+     for(const [phase,age] of phases){
+      const data=await page.evaluate(({time})=>{demo.age=time;hud();draw();previewTextTrace.length=0;draw();const p=activePreview(),v=renderer.view,fieldBottom=document.getElementById('tutorial').getBoundingClientRect().top-12,inside=(x,y)=>x>=-.6&&x<=innerWidth+.6&&y>=15.4&&y<=fieldBottom+.6,rect=id=>{const e=document.getElementById(id),r=e.getBoundingClientRect();return {id,left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height,scrollWidth:e.scrollWidth,clientWidth:e.clientWidth,visible:getComputedStyle(e).visibility!=='hidden',text:e.textContent};};const points=p.plan?.bullets.flatMap(b=>b.path).filter(q=>q.x>=0&&q.x<=1000)||[];const outside=p.phase==='RESULT'?[]:points.map(q=>({world:q,x:v.x+q.x*v.scale,y:v.y+q.y*v.scale})).filter(q=>!inside(q.x,q.y));return {phase:p.phase,variantIndex:p.variantIndex,coreCenter:p.id==='boss-core'?{x:p.before.units[1].x+(p.before.units[1].facingCore||0)*20,y:p.before.units[1].y-77}:null,coreContact:p.id==='boss-core'?p.plan?.impacts.find(i=>i.hit?.kind==='weak'):null,view:{...v},cue:p.cue,annotation:p.annotation,context:p.context,fieldBottom,pathOutside:outside.slice(0,3),pathOutsideCount:outside.length,pathCount:points.length,annotationPoint:p.annotation?{x:v.x+p.annotation.x*v.scale,y:v.y+p.annotation.y*v.scale}:null,rects:['tutorial','previewOK','tutorialName','tutorialStep','tutorialContext',p.phase==='RESULT'?'tutorialOutcome':'tutorialInstruction'].map(rect),trace:[...previewTextTrace],fireVisible:getComputedStyle(document.getElementById('fire')).visibility!=='hidden',headerVisible:getComputedStyle(document.querySelector('.battle-top')).visibility!=='hidden'};},{time:offset+age});
+      const meta={id,stage,width,height,variant:variant.index,phase};check(data.phase===phase,'phase shown matches sampled action',meta);check(Object.values(data.view).every(Number.isFinite)&&data.view.scale>0,'camera is finite and positive',{...meta,view:data.view});check(!data.fireVisible&&!data.headerVisible,'preview hides live controls and health',meta);
+      for(const r of data.rects){check(r.left>=-.6&&r.right<=width+.6&&r.top>=-.6&&r.bottom<=height+.6,'preview content stays on screen',{...meta,rect:r});check(r.scrollWidth<=r.clientWidth+1,'preview text is not horizontally clipped',{...meta,rect:r});}
+      const card=data.rects[0],ok=data.rects[1];check(ok.left>=card.left&&ok.right<=card.right&&ok.top>=card.top&&ok.bottom<=card.bottom&&ok.width>=44&&ok.height>=44,'OK has its own full-size space',meta);
+      check(data.pathOutsideCount===0,'entire in-arena example path remains visible before result closeup',{...meta,outside:data.pathOutside,pathOutsideCount:data.pathOutsideCount,pathCount:data.pathCount,view:data.view,fieldBottom:data.fieldBottom});
+      if(phase==='WATCH'){
+       const expected=data.cue?.control==='aimStick'?'AIM':data.cue?.control==='stick'?'MOVE':null;
+       if(expected)check(data.trace.some(t=>t.text===expected),'actual controller demonstration is labelled correctly',{...meta,expected,trace:data.trace});
+       else check(!data.trace.some(t=>t.text==='MOVE'||t.text==='AIM'),'feature/weapon previews do not invent a movement cue',{...meta,trace:data.trace});
+       check(!data.annotation,'outcome annotation is absent before action',meta);
+      }
+      if(id==='boss-core'&&phase==='RESULT')check(data.annotation?.label===(variant.index===0?'ARMOR BROKEN':'CORE ×2'),'boss callout names the actual armor/core contact',{...meta,label:data.annotation?.label});
+      if(id==='boss-core'&&variant.index===1&&phase==='RESULT')check(data.coreContact&&Math.hypot(data.coreContact.x-data.coreCenter.x,data.coreContact.y-data.coreCenter.y)<=44.01,'core lesson projectile really contacts the visible upper core',{...meta,core:data.coreCenter,hit:data.coreContact});
+      if(data.annotation){check(data.annotationPoint.x>=-.6&&data.annotationPoint.x<=width+.6&&data.annotationPoint.y>=15.4&&data.annotationPoint.y<=data.fieldBottom+.6,'named contact is visible above the card',{...meta,point:data.annotationPoint,fieldBottom:data.fieldBottom});check(data.trace.some(t=>t.text===data.annotation.label&&t.y>=16&&t.y<data.fieldBottom),'actual canvas draws the outcome label in the arena',{...meta,label:data.annotation.label,trace:data.trace});}
+      rows.push({...meta,view:data.view,pathOutsideCount:data.pathOutsideCount,annotation:data.annotation?.label||null});
+      if(gallery.has(id))await page.screenshot({path:path.join(output,`${id}${variant.index?'-v'+(variant.index+1):''}-${phase.toLowerCase()}-${width}x${height}.png`)});
+     }
+     offset+=variant.duration;
+    }
+    await page.locator('#previewOK').tap();check(await page.evaluate('!demo&&canAim()'),'actual OK restores play',{id,stage,width,height});
+    const recovery=await page.evaluate(()=>{renderer.draw(s,{canAim:true,reducedMotion:false});const first={...renderer.view};renderer.draw(s,{canAim:true,reducedMotion:true});const settled={...renderer.view};return {first,settled,actors:s.units.map((u,i)=>{const extent=i&&s.spec.boss?105:43;return {left:first.x+(u.x-extent)*first.scale,right:first.x+(u.x+extent)*first.scale};})};});
+    check(Object.keys(recovery.first).every(k=>Math.abs(recovery.first[k]-recovery.settled[k])<1e-7),'OK immediately restores the normal camera without a result-zoom intermediate',{id,stage,width,height,...recovery});
+    check(recovery.actors.every(u=>u.left>=11.9&&u.right<=width-11.9),'both live actors fit after acknowledging preview',{id,stage,width,height,...recovery});
+   }
+   await context.close();
+  }
+  check(errors.length===0,'no browser exceptions',{errors});
+  const report={status:failures.length?'FAIL':'PASS',recordedAt:new Date().toISOString(),checks,viewports:sizes,scenes:rows.length,rows,failures,errors,method:'Production Chromium rendering and actual OK buttons; observed canvas text, named-contact and in-arena trajectory visibility, preview content clipping, and controller cue semantics across all unique supported lessons and each variant at three sizes. State/age fixtures and the actual reduced-motion preference isolate settled frames. No physical-device or human-comprehension claim.'};fs.writeFileSync(path.join(output,'PREVIEW_VISUAL.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checks,scenes:rows.length,failures:failures.length,firstFailures:failures.slice(0,5)},null,2));assert.equal(failures.length,0,'preview rendering regressions');
+ }finally{await browser.close();server.close();}
+})().catch(e=>{console.error(e);server.close();process.exit(1);});
