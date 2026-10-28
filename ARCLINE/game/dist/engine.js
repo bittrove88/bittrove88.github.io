@@ -91,6 +91,8 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
  if(s.result||!['aim','cpu','cpuMove'].includes(s.phase))return null;
  const side=s.turn;if(!side){
   if(s.shotCount>=s.shotLimit)return null;
+  // BLINK commits through its landing confirmation, never through a shot.
+  if(s.selectedSkill==='BLINK')return null;
   if(s.mode!=='W01'&&!(s.trial?.id===s.mode&&s.trial.ammo>0)&&!(s.mode===s.weaponId&&s.ammo>0))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
@@ -99,11 +101,15 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
  }
  s.phase='flight';s.activeShot=shot;return shot;
 }
-function addReward(s,skill,x=650,h=28,id='R-boss'){
+function addReward(s,skill,authoredX=65,authoredHeight=28,id='R-boss'){
  if(!(skill in s.skills))return;
+ const position=G.point(authoredX,authoredHeight);
+ // All reward callers use the same 0..100 authoring coordinates as the maps.
+ // Reject an invalid position instead of creating an off-board camera target.
+ if(!Number.isFinite(position.x+position.y)||position.x<22||position.x>978||position.y<22||position.y>478)return;
  const old=s.pickups.find(p=>p.id[0]==='R'&&p.skill===skill&&!p.collected);if(old){old.amount=(old.amount||1)+1;return;}
  if(s.pickups.filter(p=>!p.collected).length>=3)return;
- s.pickups.push({id,skill,amount:1,name:skill,...G.point(x,h),radius:22,collected:false});
+ s.pickups.push({id,skill,amount:1,name:skill,...position,radius:22,collected:false});
 }
 function liftLanding(s,side,height,distance){
  const u=s.units[side],other=s.units[1-side],candidates=[];
