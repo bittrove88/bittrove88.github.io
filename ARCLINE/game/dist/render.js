@@ -3,6 +3,13 @@
 const E=root.ArcEngine,G=E.geometry;
 function create(canvas){
  const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},cameraKey='',aimCache=null,frameCache=null;
+ function canvasRect(element){
+  if(!element)return null;
+  const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;
+  if(viewport&&app){const r=viewport.rect(element,app),c=viewport.rect(canvas,app);return {x:r.x-c.x,y:r.y-c.y,left:r.left-c.left,top:r.top-c.top,right:r.right-c.left,bottom:r.bottom-c.top,width:r.width,height:r.height};}
+  const r=element.getBoundingClientRect(),c=canvas.getBoundingClientRect(),sx=canvas.clientWidth/c.width,sy=canvas.clientHeight/c.height;
+  return {x:(r.left-c.left)*sx,y:(r.top-c.top)*sy,left:(r.left-c.left)*sx,top:(r.top-c.top)*sy,right:(r.right-c.left)*sx,bottom:(r.bottom-c.top)*sy,width:r.width*sx,height:r.height*sy};
+ }
  const path=(points,color,width=2,dash=[])=>{if(!points.length)return;ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();ctx.setLineDash([]);};
  function circle(x,y,r,color,stroke=null){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);if(color){ctx.fillStyle=color;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}}
  function round(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();}
@@ -186,7 +193,7 @@ function create(canvas){
   }
  }
  function draw(s,options={}){
-  const r=canvas.getBoundingClientRect(),w=r.width,h=r.height;if(!w||!h)return;
+  const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;
   const localDemo=options.demo,variant=localDemo?.variants?.[Math.min(localDemo.variants.length-1,Math.floor(localDemo.age/(localDemo.duration/localDemo.variants.length)))],demonstration=variant?{...localDemo,...variant}:localDemo;
   if(demonstration?.state||demonstration?.before)s=demonstration.state||demonstration.before;
   if(demonstration?.pose)s={...s,...demonstration.pose};
@@ -208,7 +215,7 @@ function create(canvas){
   }
   backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);
   const lobby=options.lobby,wide=w/h>1.5,fieldW=lobby&&w>900?w*.56:w;
-  const controls=document.getElementById('battleControls')?.getBoundingClientRect(),header=document.querySelector('.battle-top')?.getBoundingClientRect();
+  const controls=canvasRect(document.getElementById('battleControls')),header=canvasRect(document.querySelector('.battle-top'));
   const top=lobby?(wide?100:h*.23):Math.max(80,(header?.bottom||64)+20);
   const bottom=lobby?(wide?h-55:h*.63):Math.max(top+100,(controls?.top||h-210)-12);
   const landmarks=[...s.units.map(u=>({x:u.x,y:u.y-50})),...s.pickups.filter(p=>!p.collected)];
@@ -244,15 +251,18 @@ function create(canvas){
   if(options.cameraLock)view={scale:options.cameraLock.scale,x:options.cameraLock.x,y:options.cameraLock.y};
   else{view.scale=Math.min(view.scale,criticalScale);view.x=constrainX(view.x,view.scale);}
   cameraKey=nextKey;const scale=view.scale;
-  const shake=options.impact&&!options.reducedMotion?Math.max(0,1-options.impact.age*5)*5:0;
-  ctx.save();ctx.translate(view.x+Math.sin(time*80)*shake,view.y);ctx.scale(scale,scale);
-  // Walkable and overhead polygons share the actual collision geometry.
+  const shake=options.impact&&!options.reducedMotion?Math.max(0,1-options.impact.age*5)*5:0,shakeX=Math.sin(time*80)*shake;
+  ctx.save();ctx.translate(view.x+shakeX,view.y);ctx.scale(scale,scale);
+  // Continue only exterior soil beyond the world edge. Interior island gaps and
+  // the collision polygons remain unchanged when the camera leaves a margin.
   for(const o of world.solids){
-   const shape=o.poly.map((p,i)=>({x:p.x,y:o.kind==='floor'&&i>=o.poly.length-2?Math.max(p.y,(h-view.y)/scale+50):p.y}));
+   const surface=o.kind==='floor'?o.poly.slice(0,-2).map(p=>({...p})):null;
+   if(surface){const a=surface[0],b=surface.at(-1),left=(-view.x-shakeX-2)/scale,right=(w-view.x-shakeX+2)/scale;if(a.x<=.001&&left<a.x)surface.unshift({x:left,y:a.y});if(b.x>=999.999&&right>b.x)surface.push({x:right,y:b.y});}
+   const bottomY=surface?Math.max(...o.poly.slice(-2).map(p=>p.y),(h-view.y)/scale+50):0,shape=surface?[...surface,{x:surface.at(-1).x,y:bottomY},{x:surface[0].x,y:bottomY}]:o.poly;
    polygon(shape);ctx.fillStyle=o.kind==='reflector'?'#527c94':o.kind==='crystal'?'#69b7ad':o.kind==='bridge'?'#998973':o.kind==='roof'?'#41677c':'#536879';
-   if(o.kind==='floor'){const surface=o.poly.slice(0,-2),topY=Math.min(...surface.map(p=>p.y)),ground=ctx.createLinearGradient(0,topY,0,topY+300/scale);ground.addColorStop(0,blend(biome.land,'#d9e8c5',.15));ground.addColorStop(.22,biome.sky[0]+'d9');ground.addColorStop(1,biome.sky[0]);ctx.fillStyle=ground;}
+   if(surface){const topY=Math.min(...surface.map(p=>p.y)),ground=ctx.createLinearGradient(0,topY,0,topY+300/scale);ground.addColorStop(0,blend(biome.land,'#d9e8c5',.15));ground.addColorStop(.22,biome.sky[0]+'d9');ground.addColorStop(1,biome.sky[0]);ctx.fillStyle=ground;}
    ctx.fill();
-   if(o.kind==='floor'){const surface=o.poly.slice(0,-2);for(const depth of [15,42,88,148,220,300,410]){const points=surface.map((p,i)=>({x:p.x,y:p.y+depth+Math.sin(i*1.7+depth*.05)*6}));path(points,depth<40?'#d8f0d517':'#c1e3df0a',depth<40?2:1.5);}}
+   if(surface){for(const depth of [15,42,88,148,220,300,410]){const points=surface.map((p,i)=>({x:p.x,y:p.y+depth+Math.sin(i*1.7+depth*.05)*6}));path(points,depth<40?'#d8f0d517':'#c1e3df0a',depth<40?2:1.5);}}
    if(!['floor','reflector','crystal'].includes(o.kind)){
     const left=Math.min(...o.poly.map(p=>p.x)),right=Math.max(...o.poly.map(p=>p.x)),topY=Math.min(...o.poly.map(p=>p.y)),bottomY=Math.max(...o.poly.map(p=>p.y));
     ctx.save();polygon(o.poly);ctx.clip();const material=ctx.createLinearGradient(left,topY,right,bottomY);material.addColorStop(0,o.kind==='bridge'?'#b5a483':'#81949f');material.addColorStop(.28,o.kind==='bridge'?'#907f69':'#526c80');material.addColorStop(1,'#253f56');ctx.fillStyle=material;ctx.fillRect(left,topY,right-left,bottomY-topY);
@@ -260,7 +270,7 @@ function create(canvas){
     for(let y=topY+24,row=0;y<bottomY;y+=30,row++){path([{x:left,y},{x:right,y}],'#132d4266',1.4/scale);for(let x=left+(row%2?20:0);x<right;x+=40)path([{x,y:y-29},{x,y}],'#c1d5d52e',1/scale);}
     ctx.restore();path(o.poly.slice(0,2),'#d8ead3',3/scale);path([o.poly[1],o.poly[2]],'#16384e',2/scale);
    }
-   path(o.kind==='floor'?o.poly.slice(0,-2):[...o.poly,o.poly[0]],o.kind==='reflector'?'#dcfff1':o.kind==='crystal'?'#e5fff4':biome.edge,o.kind==='crystal'?5:o.kind==='reflector'?2.5/scale:3);
+   path(surface||[...o.poly,o.poly[0]],o.kind==='reflector'?'#dcfff1':o.kind==='crystal'?'#e5fff4':biome.edge,o.kind==='crystal'?5:o.kind==='reflector'?2.5/scale:3);
    if(o.kind==='reflector'){
     const a=o.poly[0],b=o.poly[1],dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),nx=dy/length,ny=-dx/length;
     path([a,b],'#d9fff2',3.5/scale);
@@ -385,11 +395,11 @@ function create(canvas){
   }
   if(options.impact&&!options.tail&&!shot)explosion(options.impact,options.impact.age,appearance(options.impact.weaponId),scale,options.reducedMotion);
   ctx.restore();
-  const fire=document.getElementById('fire').getBoundingClientRect();
+  const fire=canvasRect(document.getElementById('fire'));
   if(options.demo?.id==='controls'&&options.demo.age<(options.demo.releaseAt||.95)){circle(fire.x+fire.width*.55,fire.y+fire.height*.6,11,'#ffffff88','#ffffff');circle(fire.x+fire.width*.55,fire.y+fire.height*.6,18,null,'#ffffff66');}
-  for(const effect of options.pickupEffects||[]){const t=Math.min(1,effect.age/.8),ease=t*t*(3-2*t),target=document.getElementById(effect.id[0]==='W'?'weaponToggle':'pause').getBoundingClientRect(),x=view.x+effect.x*view.scale,y=view.y+effect.y*view.scale;ctx.globalAlpha=1-t;circle(x+(target.x+target.width/2-x)*ease,y+(target.y+target.height/2-y)*ease-Math.sin(t*Math.PI)*30,9,'#f2ffb4','#ffffff');ctx.globalAlpha=1;}
+  for(const effect of options.pickupEffects||[]){const t=Math.min(1,effect.age/.8),ease=t*t*(3-2*t),target=canvasRect(document.getElementById(effect.id[0]==='W'?'weaponToggle':'pause')),x=view.x+effect.x*view.scale,y=view.y+effect.y*view.scale;ctx.globalAlpha=1-t;circle(x+(target.x+target.width/2-x)*ease,y+(target.y+target.height/2-y)*ease-Math.sin(t*Math.PI)*30,9,'#f2ffb4','#ffffff');ctx.globalAlpha=1;}
  }
- function toWorld(x,y){const r=canvas.getBoundingClientRect();return {x:(x-r.left-view.x)/view.scale,y:(y-r.top-view.y)/view.scale};}
+ function toWorld(x,y){const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;if(viewport&&app){const p=viewport.point(x,y,app),c=viewport.rect(canvas,app);return {x:(p.x-c.x-view.x)/view.scale,y:(p.y-c.y-view.y)/view.scale};}const r=canvas.getBoundingClientRect();return {x:((x-r.left)*canvas.clientWidth/r.width-view.x)/view.scale,y:((y-r.top)*canvas.clientHeight/r.height-view.y)/view.scale};}
  return {draw,toWorld,get view(){return view;}};
 }
 root.ArcRender={create};
