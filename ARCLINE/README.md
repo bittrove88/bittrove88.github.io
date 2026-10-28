@@ -1,6 +1,6 @@
 # ARCLINE
 
-Buildless Canvas artillery campaign. Implementation **0.6.2**, with the player-directed **2.0 redesign**. English UI, one rover, **20 themes × 5 fixed levels** (90 normal / 10 bosses), 20 weapons, 8 skills and 37 collectible appearances. Reflective solid ground replaces water. No permanent combat upgrades.
+Buildless Canvas artillery campaign. Implementation **0.6.3**, with the player-directed **2.0 redesign**. Japanese default with a persistent English toggle, one rover, **20 themes × 5 fixed levels** (90 normal / 10 bosses), 20 weapons, 8 skills and 37 collectible appearances. Reflective solid ground replaces water. No permanent combat upgrades.
 
 The imported 0.3 implementation is preserved in baseline commit `125c76a`; `EXPORT_MANIFEST.json` describes that import, including the verified distribution ZIP that was deliberately excluded from Git. Historical results in `evidence/current-release/` are **not** evidence for the new implementation.
 
@@ -54,3 +54,5 @@ python3 game/tools/build_playables.py --output /tmp/arcline-package
 ```
 
 `evidence/clarity/` records the 0.6.2 stock/selection, curriculum, preview, layout and camera regressions. Boss part-break rewards now spawn at their intended in-arena coordinates, and invalid off-board pickups cannot shrink the camera. `evidence/dual-stick/` records the 0.6.1 input, viewport recovery and terrain-boundary checks. `evidence/redesign/` records the 0.6.0 behavior, campaign and browser verification. Earlier results in `evidence/v1.1/`, `evidence/touch-ux/` and `evidence/immersion/` describe their respective historical versions. Automated geometry samples and Chromium touch emulation are separate from physical-device QA, human enjoyment and YouTube certification. The existing Sites project is unchanged. GitHub Pages serves the merged main branch.
+
+Phones play in landscape. Portrait displays a rotation guide and pauses the duel without spending a shot. Rotation cancels held input and preserves independent SDK/visibility pauses. Language switches are available in the lobby, pause dialog and rotation guide; stage/boss/finish proper names may retain their original spelling. Physical iOS Safari orientation behavior remains unverified.

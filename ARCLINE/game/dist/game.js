@@ -165,7 +165,7 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:s.stage*1000+s.round});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded(s.stage*1000+s.round));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.6.2');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.6.3');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
  clock+=dt;if(!s||manualPaused||hostPaused())return;
  if(encounter){encounter.age+=dt;if(encounter.age>=encounter.duration){encounter=null;$('encounterBanner').hidden=true;firstDemo();}hud();return;}
@@ -208,8 +208,9 @@ function update(dt,realDt=dt){
 function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
-function pauseHost(source='sdk'){pauseSources.add(source);clearInput();$('app').inert=true;cancelAnimationFrame(raf);raf=0;previous=0;audioSync();}
-function resumeHost(source='sdk'){pauseSources.delete(source);if(hostPaused())return;$('app').inert=false;previous=0;audioSync();schedule();if(save.dirty)save.save();}
+function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
+function pauseHost(source='sdk'){pauseSources.add(source);clearInput();syncInert();cancelAnimationFrame(raf);raf=0;previous=0;audioSync();}
+function resumeHost(source='sdk'){pauseSources.delete(source);syncInert();if(hostPaused())return;previous=0;audioSync();schedule();if(save.dirty)save.save();}
 function pause(){if(!s||s.result||hostPaused())return;clearInput();manualPaused=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='DUEL PAUSED';$('modalTitle').textContent='Take a breath.';$('modalDetail').textContent='';$('resume').textContent='RESUME';$('returnLobby').textContent='EQUIPMENT';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();$('resume').focus();}
 function lobby(){clearInput();gameToken++;s=null;shot=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
@@ -261,6 +262,15 @@ const viewport=ArcViewport.install($('app'),()=>{clearInput();previous=0;draw();
 window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();draw();});
 document.addEventListener('visibilitychange',()=>document.hidden?pauseHost('visibility'):resumeHost('visibility'));
 if(sdk){sdk.system.onPause(()=>pauseHost('sdk'));sdk.system.onResume(()=>resumeHost('sdk'));sdk.system.onAudioEnabledChange(v=>{hostAudio=v;audioSync();});}
+function fitOrientation(){
+ const v=viewport.state,phone=matchMedia('(pointer: coarse)').matches&&Math.min(v.width,v.height)<600,blocked=phone&&v.width<v.height;
+ $('rotationGate').hidden=!blocked;
+ if(blocked&&!pauseSources.has('orientation'))pauseHost('orientation');
+ else if(!blocked&&pauseSources.has('orientation'))resumeHost('orientation');
+}
+window.addEventListener('resize',fitOrientation);window.visualViewport?.addEventListener('resize',fitOrientation);
+window.addEventListener('arcline-language',()=>{clearInput();if(s)hud();else syncLobby();draw();});
+ArcI18n.install();fitOrientation();
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
 save.load().then(()=>{selectedMap=Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;sdk?.game.gameReady();});schedule();
