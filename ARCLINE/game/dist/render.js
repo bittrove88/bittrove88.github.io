@@ -220,8 +220,9 @@ function create(canvas){
   const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=1000;
   const closeFocus=demonstration?.phase==='RESULT'&&validFocus?{...lessonFocus,radius:Math.max(100,Math.min(280,lessonFocus.radius||170))}:null;
   const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=s.units.filter(showsUnit);
-  const top=lobby?(wide?100:h*.23):localDemo?16:Math.max(80,(header?.bottom||64)+20);
-  const bottom=lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):Math.max(top+100,(controls?.top||h-210)-12);
+  const phoneLandscape=!lobby&&!localDemo&&w>h&&h<=600&&matchMedia('(pointer: coarse)').matches;
+  const top=lobby?(wide?100:h*.23):localDemo?16:phoneLandscape?(h<=280?4:h<=340?8:48):Math.max(80,(header?.bottom||64)+20);
+  const bottom=lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):phoneLandscape?h-(h<=280?96:104):Math.max(top+100,(controls?.top||h-210)-12);
   const landmarks=[...frameUnits.map(u=>({x:u.x,y:u.y-50})),...(!localDemo?s.pickups.filter(isArenaPickup):[])];
   if(closeFocus)landmarks.push({x:closeFocus.x-closeFocus.radius,y:closeFocus.y-45},{x:closeFocus.x+closeFocus.radius,y:closeFocus.y+45});
   if(demonstration?.after)landmarks.push(...demonstration.after.units.filter(showsUnit).map(u=>({x:u.x,y:u.y-60})));
@@ -232,6 +233,7 @@ function create(canvas){
   let minX=Math.max(-25,Math.min(...landmarks.map(p=>p.x))-85),maxX=Math.min(1025,Math.max(...landmarks.map(p=>p.x))+85);
   const floorPoints=world.surfaces.filter(f=>f.id.startsWith('floor')).flatMap(f=>f.points).filter(p=>p.x>=minX&&p.x<=maxX);
   let minY=Math.min(...landmarks.map(p=>p.y),...frameUnits.map(u=>u.y-100))-28,maxY=Math.max(...frameUnits.map(u=>u.y+24),...floorPoints.map(p=>p.y+16),...(closeFocus?[closeFocus.y+45]:[]));
+  if(phoneLandscape){minY=Math.min(...s.units.map((u,i)=>u.y-(i&&s.spec.boss?105:62)))-4;maxY=Math.max(...s.units.map(u=>u.y+8));}
   const baseline={minX,maxX,minY,maxY,scale:Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY))};
   const planning=!localDemo&&(options.canAim||options.planning),guide=planning?aimPlan(s):null;
   // Off-board miss paths never determine the arena framing.
@@ -240,23 +242,28 @@ function create(canvas){
   if(guidePoints.length){minX=Math.max(-25,Math.min(minX,Math.min(...guidePoints.map(p=>p.x))-24));maxX=Math.min(1025,Math.max(maxX,Math.max(...guidePoints.map(p=>p.x))+24));minY=Math.min(minY,...guidePoints.map(p=>p.y-40));maxY=Math.max(maxY,...guidePoints.map(p=>p.y+24));}
   if(shot)for(const b of shot.bullets)for(const p of b.path)if(p.t<=flight+.4&&p.x>=0&&p.x<=1000)minY=Math.min(minY,p.y-28);
   const critical=[];
-  function includeActors(state){for(let side=0;side<2;side++){const u=state.units[side];if(!showsUnit(u,side))continue;const extent=side&&state.spec.boss?105:43;critical.push(u.x-extent,u.x+extent);const muzzle=G.muzzle(state,side,side?52:state.angle);critical.push(muzzle.x-6,muzzle.x+6);}for(const pickup of state.pickups||[])if(isArenaPickup(pickup)&&!localDemo)critical.push(pickup.x-24,pickup.x+24);}
+  function includeActors(state){for(let side=0;side<2;side++){const u=state.units[side];if(!showsUnit(u,side))continue;const extent=side&&state.spec.boss?105:43;critical.push(u.x-extent,u.x+extent);const muzzle=G.muzzle(state,side,side?52:state.angle);critical.push(muzzle.x-6,muzzle.x+6);}for(const pickup of state.pickups||[])if(isArenaPickup(pickup)&&!localDemo&&!phoneLandscape)critical.push(pickup.x-24,pickup.x+24);}
   includeActors(s);if(demonstration?.after)includeActors(demonstration.after);if(closeFocus)critical.push(closeFocus.x-closeFocus.radius,closeFocus.x+closeFocus.radius);
   // A held shot freezes this view, so reserve the player's legal walking extent first.
-  if(planning&&!lobby&&!localDemo)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
+  if(planning&&!lobby&&!localDemo&&!phoneLandscape)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
   const criticalMin=Math.min(...critical),criticalMax=Math.max(...critical),criticalScale=(fieldW-24)/Math.max(100,criticalMax-criticalMin);
-  const fit=Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY)),readableScale=lobby?fit:Math.max(baseline.scale*.85,fit),scaleTarget=Math.min(readableScale,criticalScale,closeFocus?2.2:Infinity),clipped=scaleTarget>fit+.00001;
+  const fit=Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY)),readableScale=phoneLandscape?Math.min(1.25,criticalScale,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY)):lobby?fit:Math.max(baseline.scale*.85,fit),scaleTarget=Math.min(readableScale,criticalScale,closeFocus?2.2:Infinity),clipped=scaleTarget>fit+.00001;
   // Keep the readable battlefield grounded when a high arc continues above the view.
-  const frameMinY=clipped?baseline.minY:minY,frameMaxY=clipped?baseline.maxY:maxY;
+  const frameMinY=phoneLandscape||clipped?baseline.minY:minY,frameMaxY=phoneLandscape||clipped?baseline.maxY:maxY;
   const focusY=top+(bottom-top)*(lobby?.55:.6),offsetY=Math.max(top-frameMinY*scaleTarget,Math.min(bottom-frameMaxY*scaleTarget,focusY-(frameMinY+frameMaxY)*.5*scaleTarget));
   const constrainX=(x,scale)=>Math.max(12-criticalMin*scale,Math.min(fieldW-12-criticalMax*scale,x));
-  const target={scale:scaleTarget,x:constrainX(fieldW*.5-(minX+maxX)*.5*scaleTarget,scaleTarget),y:offsetY};
+  const target={scale:scaleTarget,x:constrainX(fieldW*.5-(phoneLandscape?(criticalMin+criticalMax):(minX+maxX))*.5*scaleTarget,scaleTarget),y:offsetY};
   const nextKey=[s.stage,lobby,w,h,localDemo?'preview':'battle'].join(':');
   if(cameraKey!==nextKey||options.reducedMotion)view=target;
-  else{const k=shot?.18:.25;view={scale:view.scale+(target.scale-view.scale)*k,x:view.x+(target.x-view.x)*k,y:view.y+(target.y-view.y)*k};}
-  if(options.cameraLock)view={scale:options.cameraLock.scale,x:options.cameraLock.x,y:options.cameraLock.y};
+  else{const k=phoneLandscape?.12:shot?.18:.25;view={scale:view.scale+(target.scale-view.scale)*k,x:view.x+(target.x-view.x)*k,y:view.y+(target.y-view.y)*k};}
+  if(options.cameraLock){view={scale:options.cameraLock.scale,x:options.cameraLock.x,y:options.cameraLock.y};if(phoneLandscape){view.scale=Math.min(view.scale,criticalScale,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY));view.x=constrainX(view.x,view.scale);view.y=Math.max(top-baseline.minY*view.scale,Math.min(bottom-baseline.maxY*view.scale,view.y));}}
   else{view.scale=Math.min(view.scale,criticalScale);view.x=constrainX(view.x,view.scale);}
   cameraKey=nextKey;const scale=view.scale;
+  if(phoneLandscape){
+   const hw=header?.width||280,hh=header?.height||44,high=s.units.map((u,i)=>({x:view.x+u.x*view.scale,y:view.y+(u.y-(i&&s.spec.boss?77:22))*view.scale})).find(p=>p.y<hh+16&&p.x>(w-hw)/2-16&&p.x<(w+hw)/2+16);
+   const align=high?(high.x>w/2?'left':'right'):'center',battle=document.getElementById('battle');if(battle.dataset.hudAlign!==align)battle.dataset.hudAlign=align;
+  }
+
   const shake=options.impact&&!options.reducedMotion?Math.max(0,1-options.impact.age*5)*5:0,shakeX=Math.sin(time*80)*shake;
   ctx.save();ctx.translate(view.x+shakeX,view.y);ctx.scale(scale,scale);
   // Continue only exterior soil beyond the world edge. Interior island gaps and
