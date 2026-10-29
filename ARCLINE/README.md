@@ -1,62 +1,45 @@
 # ARCLINE
 
-Buildless Canvas artillery campaign. Implementation **0.6.4**, with the player-directed **2.0 redesign**. Japanese default with a persistent English toggle, one rover, **20 themes × 5 fixed levels** (90 normal / 10 bosses), 20 weapons, 8 skills and 37 collectible appearances. Reflective solid ground replaces water. No permanent combat upgrades.
-
-The imported 0.3 implementation is preserved in baseline commit `125c76a`; `EXPORT_MANIFEST.json` describes that import, including the verified distribution ZIP that was deliberately excluded from Git. Historical results in `evidence/current-release/` are **not** evidence for the new implementation.
+Buildless Canvas artillery game, implementation **0.7.0** / campaign **4.1**. Japanese is the default; English and mirrored controls are saved preferences. One rover, **20 themes ×5 stages**,90 normal encounters and10 bosses. No permanent combat buffs.
 
 From this directory:
 
 ```sh
 python3 -m http.server 8000 --directory game/dist
-node game/tests/engine.test.cjs
-node game/tests/engine-redesign.test.cjs
-node game/tests/physics-redesign.test.cjs
-node game/tests/preview-redesign.test.cjs
-node game/tests/campaign.test.cjs
-node game/tests/accessibility.test.cjs
-node game/tests/boss.test.cjs
-node game/tests/rewards.test.cjs
-node game/tests/preview-curriculum.test.cjs
 ```
 
-Open http://localhost:8000/. No install or build is needed for play. Use the left MOVE stick to drive and the right AIM stick to raise/lower the barrel. A small deflection makes fine adjustments; releasing the aim stick keeps the angle. Hold the central FIRE button, then release. The wide charge gauge sweeps from 20 to 100 in **1.6 seconds**. The camera stays fixed while charging, with a thin physics-based trajectory and no landing marker. Movement, aiming and charging accept independent fingers, including simultaneous input. The battlefield drag remains available. Keyboard: arrows and Space; focused AIM also supports Home/End.
+Open http://localhost:8000/. No install, bundler or production dependency is needed. The standalone distribution loads only local assets. Its existing adapter can use a host-provided `ytgame`; the external YouTube SDK bootstrap is omitted and YouTube integration requires a separate check.
 
-Exterior ground now continues to the screen edge visually, without filling intentional interior gaps or changing collision geometry. Safari gesture suppression is paired with a visual-viewport fit: if a browser retains page zoom, the game compensates its scale and offsets so the HUD and controls remain visible and touch positions remain aligned. One-finger menu scrolling is preserved.
+Move and aim are adjacent on the **left**. Use one left thumb to alternate between them while the right thumb holds **FIRE**. Releasing movement stops walking; releasing aim keeps the angle; neither releases or resets the charge. FIRE uses the position,angle and power at release, then stops held movement. The gauge takes1.6seconds from20% to100%. A drawn axis and thumb circle identify AIM; no emoji is used. Arrow keys and Space remain available.
 
-Bright, solid reflector strips bounce shots at every incidence angle, with a shared limit of three bounces. They follow the actual ground and can be walked on. There is no underwater slowdown or hidden shallow-angle condition.
+From stage4, **Teleport** switches to a non-damaging projectile with unlimited stock. It spends one action instead of an attack. The rover moves to the first contact: on a wall side or ceiling it falls straight down to a supported floor before the enemy acts. Teleport does not bounce,damage enemies,collect items,break terrain or consume special ammunition. A miss or invalid landing keeps the original position and still spends the action. There is no destination selection menu.
 
-The explicit first-use curriculum is in `design/preview_curriculum.json` and `game/dist/lessons.js`. Each stage offers at most one relevant automatic entry lesson; OK returns directly to play. Level 1 teaches FIRE, level 2 AIM, level 3 capsules, level 4 movement on slopes, level 6 reflective ground and level 10 armor/core attacks. Later first appearances introduce their environmental mechanic. Weapons and skills are introduced when actually selected and stocked, rather than merely acquired.
+Each stage combines finite mountain,cliff,island,cave and shelf components. Cracked purple pieces can be broken with ordinary shots; the opening persists through turn and boss-phase changes. Fixed bedrock,catch floors,reflective surfaces and moving mechanisms remain distinct. Drawing,walking,projectiles,teleport and CPU search use the same collision world. Ordinary direct hits through the enemy center earn1.5×; blast-only hits do not. Boss cores retain2× without stacking.
 
-Previews loop until **OK** in a separate footer, with the live HUD and controls hidden. A setup pause, physics playback at 0.65× and a 1.65-second outcome hold make the action and effect distinct. Context distinguishes this level from weapon/skill practice scenes. Contact labels appear after the actual contact; force comparisons label the dashed path. Skill buttons toggle a skill; hold to replay its preview. BLINK requires a second tap on the destination, and cannot spend its use through a cannon shot.
+Twelve core weapon roles unlock through stage completion,with an unlimited Standard cannon and one equipped special carrying two shots. Optional capsules give two trial shots for that battle without auto-equipping or permanently unlocking the weapon. Ammo boxes appear only with a special equipped. The eight other legacy weapon IDs remain usable for existing owners. BURST,PULL and normal-enemy SWAP remain finite combat skills; teleport has its own button. Existing progress,all weapon ownership and the37 appearance IDs are preserved. New maps do not place appearance pickups or skill-refill capsules.
 
-Gear selects the starting weapon. Battle and Equipment use the same canonical names, including Standard. The battle button shows Unlimited or the remaining shots; the chooser distinguishes the equipped special (two shots per level), pickup trial (one shot) and exhausted stock, which remains visible as Empty. A pickup never silently equips itself. Skill cards show their names, remaining uses and Selected/Used/Empty status; one skill can be used per turn. Opening a choice cancels held input. Clear/result dialogs are centered. Journey shows five large stage cards in each of twenty themes. Collections are saved immediately and survive defeat; previous progress and collection IDs are preserved. Cosmetic flags, muzzle accents, trim and trails add no combat buffs.
+The100 explicit runtime maps are authored in `design/runtime_campaign_20x5.json`; `game/tools/build_levels.py` validates and serializes them. Each has its own components,spawns,devices and action budget. Preparation by teleport or excavation also spends an action. Normal stages allow10–14 actions,bosses20–22,and the finale28. Enemy attacks choose different angle families with stage-dependent error and a new match seed; fixed attack telegraphs do not chase future player input.
 
-Real-browser QA additionally uses Playwright and Chromium provided by the development environment:
+Automatic previews introduce17 relevant first uses and loop until **OK**. Preview contacts and effects use the same simulation; weapon/skill practice scenes are labelled. Inventory shows names,stock and selection. Map pickups use projectile/ammo shapes instead ofW/R/S/B letters. Results are centered. Japanese/English stage names and interface text are supported.
+
+Phones play in landscape,with84px primary controls and a compact92px deck. The camera changes scale with opponent distance; tall encounters retain readable tanks and show an offscreen direction. Stationary charging holds the view; moving while charging follows the rover. High projectiles receive smooth vertical tracking,followed by an impact hold and return. Retained browser zoom is inverse-fitted without reloading the duel. Rotation cancels held input and preserves independent SDK/visibility pauses.
+
+Fullscreen requires a user gesture. Browsers with support use native fullscreen; iPhone fallback explains home-screen launch. No service worker or offline cache is installed. A home-screen app may have storage separate from Safari.
+
+Current checks:
 
 ```sh
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/runtime.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/touch-ux.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/immersion.test.cjs
+node game/tests/integrated.test.cjs
+node game/tests/integrated-campaign.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/integrated-browser.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/orientation-i18n.test.cjs
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/viewport.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/render-boundary.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/camera-framing.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/ui-clarity.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/loadout-lessons.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/preview-visual.test.cjs
-```
-
-This optional QA dependency is not shipped. Production relies only on local HTML/CSS/JS and the YouTube SDK, with offline SDK fallback.
-
-`design/runtime_campaign_20x5.json` is the current explicit 100-level source. `game/tools/build_levels.py` validates and serializes it deterministically. Original v1.0/v1.1 design documents and JSON remain historical provenance; the player's later requests override water, ten-stage themes and the former UI. Package a candidate outside the repository with:
-
-```sh
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/fullscreen.test.cjs
 python3 game/tools/build_playables.py --output /tmp/arcline-package
 ```
 
-`evidence/clarity/` records the 0.6.2 stock/selection, curriculum, preview, layout and camera regressions. Boss part-break rewards now spawn at their intended in-arena coordinates, and invalid off-board pickups cannot shrink the camera. `evidence/dual-stick/` records the 0.6.1 input, viewport recovery and terrain-boundary checks. `evidence/redesign/` records the 0.6.0 behavior, campaign and browser verification. Earlier results in `evidence/v1.1/`, `evidence/touch-ux/` and `evidence/immersion/` describe their respective historical versions. Automated geometry samples and Chromium touch emulation are separate from physical-device QA, human enjoyment and YouTube certification. The existing Sites project is unchanged. GitHub Pages serves the merged main branch.
+The browser checks use the environment's Playwright/Chromium,not a shipped library. Current results are in `evidence/integrated-0.7.0/`. Three recorded seed variants produce300 complete machine-guided battles with real enemy turns,using Standard and teleport; this is not human difficulty validation or exhaustive reachable-state verification. Rendering/input checks cover100 maps at8 viewports,real emulated touch input,orientation,language,zoom recovery and fullscreen fallback. Physical iPhone/Android usability,installation and YouTube certification remain unverified.
 
-Phones play in landscape. Portrait displays a rotation guide and pauses the duel without spending a shot. Rotation cancels held input and preserves independent SDK/visibility pauses. Language switches are available in the lobby, pause dialog and rotation guide; stage/boss/finish proper names may retain their original spelling. Physical iOS Safari orientation behavior remains unverified.
+Automatic publishing review rejected the external YouTube script in the HTML. The standalone release removes that external script; this is not a YouTube-certified package.
 
-Phone landscape 0.6.4 uses a 92px control deck (88px on very short viewports), 84px MOVE/AIM/FIRE targets and actor-based camera framing. Opponent distance drives a smoothed camera scale, capped at1.25; HUD and controls retain their size. Stationary charging holds scale; movement can reframe only as needed to keep both actors visible. The HUD moves aside if it would cover a high target. The readability regression measures all100 initial maps at8usable viewport sizes, including240/256px heights with browser chrome.
-
-Fullscreen is an explicit user action in the lobby, pause dialog or rotation guide. Supported browsers use native fullscreen and optional landscape lock; exiting preserves pause/game state. Rejection or lack of support shows home-screen launch instructions. `app.webmanifest` and iPhone standalone metadata allow home-screen app display without browser bars; installation and storage behavior remain device QA. No service worker/offline cache is installed, and existing Safari-tab progress is preserved (a home-screen app may use separate storage).
+Original0.3 import commit `125c76a`, `EXPORT_MANIFEST.json`,v1.0/v1.1 design documents and earlier evidence/test suites remain historical provenance. Old tests that assume finite tap-to-BLINK,capsule-based weapon unlocks or the previous100 maps are superseded by the current checks above. Historical passes do not certify0.7.0. Distribution ZIPs are created outside Git. The existing Sites project is unchanged; GitHub Pages serves merged main.

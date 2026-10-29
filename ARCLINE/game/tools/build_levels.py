@@ -1,8 +1,7 @@
-"""Compile the explicitly authored 20-theme campaign, without changing provenance.
+"""Validate and compile the explicitly authored4.1 campaign.
 
-The 2026-10-27 player revision replaces water with solid reflective ground.
-All 100 geometry records live in design/runtime_campaign_20x5.json; this tool
-validates and serializes those records rather than inferring geometry from prose.
+Finite polygon components, per-piece destructibility, device features and action
+budgets are runtime data. Original transfer documents remain historical sources.
 """
 from pathlib import Path
 import json
@@ -23,16 +22,17 @@ for level in levels:
     assert all(len(floor) >= 2 for floor in level['floors'])
     assert all(all(a[0] < b[0] for a, b in zip(floor, floor[1:])) for floor in level['floors'])
     assert all(f['type'] in 'SRBWCKUFVMT' for f in level['features'])
-    if any(p['id'].startswith('W') for p in level['pickups']):
-        assert not level['skills'], 'New weapons get a stage without competing skill buttons'
-weapon_ids = [p['id'] for s in levels for p in s['pickups'] if p['id'].startswith('W')]
-cosmetic_ids = [p['id'] for s in levels for p in s['pickups'] if p['id'][0] in 'SB']
-assert sorted(weapon_ids) == [f'W{i:02}' for i in range(2, 21)]
-assert len(cosmetic_ids) == 37 and len(set(cosmetic_ids)) == 37
-assert max(s['id'] for s in levels if any(p['id'] == 'W20' for p in s['pickups'])) <= 85
+    assert level['contentRevision'] == '4.1'
+    assert level['teleport'] == (level['id'] >= 4)
+    assert all(p['kind'] in ('trial','ammo') for p in level['pickups'])
+    assert all(c['poly'] and len(c['poly']) >= 3 for c in level['components'])
+    assert len({c['id'] for c in level['components']}) == len(level['components'])
+    assert not level['boss'] or 'SWAP' not in level['skills']
+assert len({json.dumps(s['components']) for s in levels}) == 100
+assert sum(len(s['pickups']) for s in levels) == 16
 out = ROOT / 'game/dist/levels.js'
 out.write_text("(function(root){'use strict';\nconst levels="
                + json.dumps(levels, ensure_ascii=False, separators=(',', ':'))
                + ";\nif(typeof module!=='undefined')module.exports=levels;else root.ArcLevels=levels;\n})(globalThis);\n")
 print(f'Compiled {len(levels)} authored levels in 20 themes, 10 bosses, '
-      f'{sum(len(s["pickups"]) for s in levels)} pickups; reflective ground revision')
+      f'{sum(len(s["pickups"]) for s in levels)} pickups; finite terrain and destructible geometry revision4.1')

@@ -1,1226 +1,883 @@
 {
-  "revision": "3",
+  "revision": "4",
   "entryPolicy": "At most one unseen relevant entry lesson per stage. OK returns to play. Rest/application stages do not invent a preview.",
   "optionalToolPolicy": "Weapons and skills preview only when available and actually selected. Acquiring a weapon does not auto-equip or open its preview.",
   "playbackPolicy": "Show one named cause and its visible effect, with a setup pause, slower physics playback and an outcome hold. Loop until OK. Practice/demo scenes are labelled.",
   "stages": [
     {
       "stage": 1,
-      "theme": "First Shore",
-      "name": "First Spark",
+      "name": "最初の一射",
+      "theme": "はじまりの入江",
       "entry": "controls",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 2,
-      "theme": "First Shore",
-      "name": "Tilt & Rise",
+      "name": "丘の肩を狙う",
+      "theme": "はじまりの入江",
       "entry": "aim",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 3,
-      "theme": "First Shore",
-      "name": "Heavy Greeting",
-      "entry": "pickup",
+      "name": "山道を下る",
+      "theme": "はじまりの入江",
+      "entry": "move",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W02"
-      ],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 4,
-      "theme": "First Shore",
-      "name": "Through the Capsule",
-      "entry": "slope",
+      "name": "弾で渡る小谷",
+      "theme": "はじまりの入江",
+      "entry": "teleport",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 5,
-      "theme": "First Shore",
-      "name": "Open Horizon",
-      "entry": null,
+      "name": "岬の回り道",
+      "theme": "はじまりの入江",
+      "entry": "wall-fall",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 6,
-      "theme": "Mirror Flats",
-      "name": "Mirror Flats",
+      "name": "鏡の谷底",
+      "theme": "鏡の岸壁",
       "entry": "reflection",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 7,
-      "theme": "Mirror Flats",
-      "name": "Across the Shine",
-      "entry": null,
+      "name": "岩塊と山腹",
+      "theme": "鏡の岸壁",
+      "entry": "destruction",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": [
+        "W02"
+      ]
     },
     {
       "stage": 8,
-      "theme": "Mirror Flats",
-      "name": "Needle Crossing",
+      "name": "片持ちの洞窟",
+      "theme": "鏡の岸壁",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W03"
-      ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 9,
-      "theme": "Mirror Flats",
-      "name": "The Second Angle",
+      "name": "裂けた山の鏡",
+      "theme": "鏡の岸壁",
       "entry": null,
-      "skillChoices": [
-        "BURST"
-      ],
-      "firstSkillChoices": [
-        "BURST"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 10,
-      "theme": "Mirror Flats",
-      "name": "Tideclaw",
+      "name": "タイドクローの崖湾",
+      "theme": "鏡の岸壁",
       "entry": "boss-core",
-      "skillChoices": [
-        "BURST"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 11,
-      "theme": "Canal Gates",
-      "name": "First Lock",
+      "name": "切り通しの橋",
+      "theme": "吊り橋の水路",
       "entry": "B",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 12,
-      "theme": "Canal Gates",
-      "name": "Across the Lock",
+      "name": "岩柱の船着場",
+      "theme": "吊り橋の水路",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": [
+        "W06"
+      ]
     },
     {
       "stage": 13,
-      "theme": "Canal Gates",
-      "name": "Lifted Shield",
+      "name": "崖門をひらく",
+      "theme": "吊り橋の水路",
       "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [
-        "BLINK"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 14,
-      "theme": "Canal Gates",
-      "name": "Over the Gate",
+      "name": "片翼の中継島",
+      "theme": "吊り橋の水路",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W04"
-      ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 15,
-      "theme": "Canal Gates",
-      "name": "Dune Run",
+      "name": "山の裾の一息",
+      "theme": "吊り橋の水路",
       "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 16,
-      "theme": "Sunken Ruins",
-      "name": "Canal Underpass",
-      "entry": "roof",
+      "name": "壊せる遺跡のひさし",
+      "theme": "遺跡の入口",
+      "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 17,
-      "theme": "Sunken Ruins",
-      "name": "Out of Cover",
+      "name": "岩峰の中腹室",
+      "theme": "遺跡の入口",
       "entry": null,
-      "skillChoices": [
-        "PUSH"
-      ],
-      "firstSkillChoices": [
-        "PUSH"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 18,
-      "theme": "Sunken Ruins",
-      "name": "First Hop",
+      "name": "山肌を覆う屋根",
+      "theme": "遺跡の入口",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
       "weaponCapsules": [
-        "W05"
-      ],
-      "role": "apply"
+        "W14"
+      ]
     },
     {
       "stage": 19,
-      "theme": "Sunken Ruins",
-      "name": "Twin Hinges",
+      "name": "崖の上下口",
+      "theme": "遺跡の入口",
       "entry": null,
-      "skillChoices": [
-        "PUSH"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 20,
-      "theme": "Sunken Ruins",
-      "name": "Gatekeeper",
+      "name": "ゲートキーパーの岩門",
+      "theme": "遺跡の入口",
       "entry": null,
-      "skillChoices": [
-        "PUSH",
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 21,
-      "theme": "Mist Gardens",
-      "name": "Soft Landing",
+      "name": "霧の山腹",
+      "theme": "霧の谷",
       "entry": "C",
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "weaponCapsules": []
     },
     {
       "stage": 22,
-      "theme": "Mist Gardens",
-      "name": "Cloud Corridor",
+      "name": "霧の大断層",
+      "theme": "霧の谷",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 23,
-      "theme": "Mist Gardens",
-      "name": "Returning Shot",
+      "name": "雲の山窟をひらく",
+      "theme": "霧の谷",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W06"
-      ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 24,
-      "theme": "Mist Gardens",
-      "name": "One Clean Bounce",
+      "name": "裂けた雲上の峰",
+      "theme": "霧の谷",
       "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [
-        "BOUNCE"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 25,
-      "theme": "Mist Gardens",
-      "name": "Clear Sky",
+      "name": "霧がほどける斜面",
+      "theme": "霧の谷",
       "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 26,
-      "theme": "Cloud Terraces",
-      "name": "The Open Canopy",
+      "name": "雲海の片翼",
+      "theme": "雲の空港",
       "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 27,
-      "theme": "Cloud Terraces",
-      "name": "Gathering Point",
+      "name": "霧の絶壁",
+      "theme": "雲の空港",
       "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 28,
-      "theme": "Cloud Terraces",
-      "name": "Rolling Passage",
+      "name": "山腹の転がる回廊",
+      "theme": "雲の空港",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
       "weaponCapsules": [
         "W07"
-      ],
-      "role": "apply"
+      ]
     },
     {
       "stage": 29,
-      "theme": "Cloud Terraces",
-      "name": "Side of the Ray",
+      "name": "格納庫の斜め口",
+      "theme": "雲の空港",
       "entry": null,
-      "skillChoices": [
-        "PULL"
-      ],
-      "firstSkillChoices": [
-        "PULL"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 30,
-      "theme": "Cloud Terraces",
-      "name": "Cloudray",
+      "name": "クラウドレイの峰",
+      "theme": "雲の空港",
       "entry": null,
-      "skillChoices": [
-        "PULL",
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 31,
-      "theme": "Crystal Road",
-      "name": "First Reflection",
+      "name": "水晶の鞍部",
+      "theme": "水晶の反射路",
       "entry": "K",
-      "skillChoices": [
-        "PULL"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 32,
-      "theme": "Crystal Road",
-      "name": "Behind the Station",
-      "entry": null,
-      "skillChoices": [
-        "PULL"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 33,
-      "theme": "Crystal Road",
-      "name": "Low Skips",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W08"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 34,
-      "theme": "Crystal Road",
-      "name": "Long Rail",
-      "entry": null,
-      "skillChoices": [
-        "SPLIT"
-      ],
-      "firstSkillChoices": [
-        "SPLIT"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 35,
-      "theme": "Crystal Road",
-      "name": "Signal Green",
-      "entry": null,
-      "skillChoices": [
-        "SPLIT"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 36,
-      "theme": "Prism Station",
-      "name": "Mirror Lock",
-      "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 37,
-      "theme": "Prism Station",
-      "name": "The Lower Window",
-      "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 38,
-      "theme": "Prism Station",
-      "name": "Wide Spread",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W09"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 39,
-      "theme": "Prism Station",
-      "name": "Prism Approach",
-      "entry": null,
-      "skillChoices": [
-        "PUSH"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 40,
-      "theme": "Prism Station",
-      "name": "Prism Guardian",
-      "entry": null,
-      "skillChoices": [
-        "PUSH",
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 41,
-      "theme": "Rising Cavern",
-      "name": "Rising Sand",
-      "entry": "U",
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
-    },
-    {
-      "stage": 42,
-      "theme": "Rising Cavern",
-      "name": "Low Ceiling Lift",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 43,
-      "theme": "Rising Cavern",
-      "name": "At the Apex",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W10"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 44,
-      "theme": "Rising Cavern",
-      "name": "Fountain Arc",
-      "entry": null,
-      "skillChoices": [
-        "SPLIT"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 45,
-      "theme": "Rising Cavern",
-      "name": "Golden Straight",
-      "entry": null,
-      "skillChoices": [
-        "SPLIT"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 46,
-      "theme": "Amber Engines",
-      "name": "Mist Elevator",
-      "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 47,
-      "theme": "Amber Engines",
-      "name": "Updraft Mirror",
-      "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 48,
-      "theme": "Amber Engines",
-      "name": "Two Sparks",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W11"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 49,
-      "theme": "Amber Engines",
-      "name": "Crater Rim",
-      "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 50,
-      "theme": "Amber Engines",
-      "name": "Dust Driller",
-      "entry": null,
-      "skillChoices": [
-        "BLINK",
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 51,
-      "theme": "Wind Observatory",
-      "name": "Sidewind",
-      "entry": "F",
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
-    },
-    {
-      "stage": 52,
-      "theme": "Wind Observatory",
-      "name": "Thin Ice Wall",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 53,
-      "theme": "Wind Observatory",
-      "name": "Airborne Burst",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W12"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 54,
-      "theme": "Wind Observatory",
-      "name": "Snow Aperture",
-      "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [
-        "PHASE"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 55,
-      "theme": "Wind Observatory",
-      "name": "Blue Silence",
-      "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 56,
-      "theme": "Frozen Causeway",
-      "name": "Double Bulkhead",
-      "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 57,
-      "theme": "Frozen Causeway",
-      "name": "Frozen Mirror",
-      "entry": null,
-      "skillChoices": [
-        "PUSH"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 58,
-      "theme": "Frozen Causeway",
-      "name": "Through the Ice",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W13"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 59,
-      "theme": "Frozen Causeway",
-      "name": "Fan Service",
-      "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 60,
-      "theme": "Frozen Causeway",
-      "name": "Whitehowl",
-      "entry": null,
-      "skillChoices": [
-        "PHASE",
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 61,
-      "theme": "Volcanic Rim",
-      "name": "First Vent",
-      "entry": "V",
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
-    },
-    {
-      "stage": 62,
-      "theme": "Volcanic Rim",
-      "name": "Overheated Roof",
-      "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 63,
-      "theme": "Volcanic Rim",
-      "name": "Straight Passage",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W14"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 64,
-      "theme": "Volcanic Rim",
-      "name": "Ventline",
-      "entry": null,
-      "skillChoices": [
-        "PULL"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 65,
-      "theme": "Volcanic Rim",
-      "name": "Ember Sprint",
+      "name": "断崖の裏鏡",
+      "theme": "水晶の反射路",
       "entry": null,
       "skillChoices": [
         "BURST"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
+    },
+    {
+      "stage": 33,
+      "name": "水晶山の空洞",
+      "theme": "水晶の反射路",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 34,
+      "name": "二つの山頂",
+      "theme": "水晶の反射路",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 35,
+      "name": "岩針の上の炸裂",
+      "theme": "水晶の反射路",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": [
+        "W12"
+      ]
+    },
+    {
+      "stage": 36,
+      "name": "水晶橋の切れ目",
+      "theme": "プリズム城壁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 37,
+      "name": "山の内部を渡る鏡",
+      "theme": "プリズム城壁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 38,
+      "name": "雲がかかる岩峰",
+      "theme": "プリズム城壁",
+      "entry": null,
+      "skillChoices": [
+        "BURST"
+      ],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 39,
+      "name": "斜面を走る鏡",
+      "theme": "プリズム城壁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 40,
+      "name": "プリズム守護者の岩冠",
+      "theme": "プリズム城壁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 41,
+      "name": "山を貫く上昇路",
+      "theme": "上昇の坑道",
+      "entry": "U",
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 42,
+      "name": "崖の天蓋と上昇",
+      "theme": "上昇の坑道",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 43,
+      "name": "山頂から急降下",
+      "theme": "上昇の坑道",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": [
+        "W15"
+      ]
+    },
+    {
+      "stage": 44,
+      "name": "張り出す二段崖",
+      "theme": "上昇の坑道",
+      "entry": null,
+      "skillChoices": [
+        "BURST"
+      ],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 45,
+      "name": "黄金の山道",
+      "theme": "上昇の坑道",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 46,
+      "name": "雲へ抜ける岩橋",
+      "theme": "琥珀の機関",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 47,
+      "name": "霧を抱く二つの山窟",
+      "theme": "琥珀の機関",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 48,
+      "name": "斜めの空中門",
+      "theme": "琥珀の機関",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": [
+        "W10"
+      ]
+    },
+    {
+      "stage": 49,
+      "name": "雲間の高い肩",
+      "theme": "琥珀の機関",
+      "entry": null,
+      "skillChoices": [
+        "BURST"
+      ],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 50,
+      "name": "ダストドリラーの山釜",
+      "theme": "琥珀の機関",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 51,
+      "name": "風を受ける山口",
+      "theme": "風の観測台",
+      "entry": "F",
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 52,
+      "name": "風下の崖庭",
+      "theme": "風の観測台",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 53,
+      "name": "風の岩庇を切りひらく",
+      "theme": "風の観測台",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 54,
+      "name": "風の二重断層",
+      "theme": "風の観測台",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 55,
+      "name": "青い山の大斜面",
+      "theme": "風の観測台",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 56,
+      "name": "氷壁の橋下",
+      "theme": "凍てつく峡谷",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 57,
+      "name": "氷山の片屋根",
+      "theme": "凍てつく峡谷",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 58,
+      "name": "岩壁の薄い継ぎ目",
+      "theme": "凍てつく峡谷",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": [
+        "W13"
+      ]
+    },
+    {
+      "stage": 59,
+      "name": "返り風の岩庇",
+      "theme": "凍てつく峡谷",
+      "entry": null,
+      "skillChoices": [
+        "BURST"
+      ],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 60,
+      "name": "ホワイトハウルの風峰",
+      "theme": "凍てつく峡谷",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 61,
+      "name": "火山の裂け目",
+      "theme": "火山の外縁",
+      "entry": "V",
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 62,
+      "name": "火口の中央洞を開く",
+      "theme": "火山の外縁",
+      "entry": null,
+      "skillChoices": [
+        "PULL"
+      ],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 63,
+      "name": "溶岩崖の横穴",
+      "theme": "火山の外縁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 64,
+      "name": "噴流が抜ける岩釜",
+      "theme": "火山の外縁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 65,
+      "name": "外輪山の遊歩道",
+      "theme": "火山の外縁",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 66,
-      "theme": "Forge Pass",
-      "name": "Diving Arc",
+      "name": "火山棚の天蓋",
+      "theme": "鍛冶の回廊",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W15"
-      ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 67,
-      "theme": "Forge Pass",
-      "name": "Furnace Bridge",
+      "name": "山裾の地走り道",
+      "theme": "鍛冶の回廊",
       "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": [
+        "W16"
+      ]
     },
     {
       "stage": 68,
-      "theme": "Forge Pass",
-      "name": "Side Exhaust",
+      "name": "三角洞の排気口",
+      "theme": "鍛冶の回廊",
       "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 69,
-      "theme": "Forge Pass",
-      "name": "Ground Pulse",
+      "name": "鍛冶の二つの崖",
+      "theme": "鍛冶の回廊",
       "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W16"
+      "skillChoices": [
+        "PULL"
       ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 70,
-      "theme": "Forge Pass",
-      "name": "Forge Titan",
+      "name": "フォージタイタンの火口壁",
+      "theme": "鍛冶の回廊",
       "entry": null,
-      "skillChoices": [
-        "BOUNCE",
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 71,
-      "theme": "Magnetic Mine",
-      "name": "Magnetic Bend",
+      "name": "磁石の曲がる山道",
+      "theme": "磁石の採掘場",
       "entry": "M",
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 72,
-      "theme": "Magnetic Mine",
-      "name": "Reverse Pole",
+      "name": "鉱山崖の低い採掘室",
+      "theme": "磁石の採掘場",
       "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 73,
-      "theme": "Magnetic Mine",
-      "name": "Impact Lane",
+      "name": "磁石の岩塔",
+      "theme": "磁石の採掘場",
       "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W17"
+      "skillChoices": [
+        "PULL"
       ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 74,
-      "theme": "Magnetic Mine",
-      "name": "Crossed Strata",
+      "name": "山窓の極性スイッチ",
+      "theme": "磁石の採掘場",
       "entry": "terminal",
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 75,
-      "theme": "Magnetic Mine",
-      "name": "Starfield Gap",
+      "name": "衝撃を受ける山棚",
+      "theme": "磁石の採掘場",
       "entry": null,
-      "skillChoices": [
-        "SPLIT"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": [
+        "W17"
+      ]
     },
     {
       "stage": 76,
-      "theme": "Polarity Lab",
-      "name": "Mirror Orbit",
+      "name": "極性の大峡谷",
+      "theme": "極性の実験棟",
       "entry": null,
-      "skillChoices": [
-        "SWAP"
-      ],
-      "firstSkillChoices": [
-        "SWAP"
-      ],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 77,
-      "theme": "Polarity Lab",
-      "name": "Mist & Magnet",
+      "name": "雲を抱く鉱山",
+      "theme": "極性の実験棟",
       "entry": null,
-      "skillChoices": [
-        "SWAP"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 78,
-      "theme": "Polarity Lab",
-      "name": "Pull from Cover",
+      "name": "磁気の縦断崖",
+      "theme": "極性の実験棟",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W18"
-      ],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 79,
-      "theme": "Polarity Lab",
-      "name": "Core Approach",
+      "name": "動かない山と動く入口",
+      "theme": "極性の実験棟",
+      "entry": null,
+      "skillChoices": [
+        "PULL"
+      ],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 80,
+      "name": "ポラリス・コアの裂山",
+      "theme": "極性の実験棟",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 81,
+      "name": "庭園の大岩山",
+      "theme": "空中庭園",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 82,
+      "name": "岩壁の内外を交換",
+      "theme": "空中庭園",
       "entry": null,
       "skillChoices": [
         "SWAP"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 80,
-      "theme": "Polarity Lab",
-      "name": "Polaris Core",
-      "entry": "boss-swap",
-      "skillChoices": [
-        "SWAP",
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "introduce"
-    },
-    {
-      "stage": 81,
-      "theme": "Sky Garden",
-      "name": "Lift to the Garden",
-      "entry": null,
-      "skillChoices": [],
-      "firstSkillChoices": [],
-      "weaponCapsules": [
-        "W19"
-      ],
-      "role": "apply"
-    },
-    {
-      "stage": 82,
-      "theme": "Sky Garden",
-      "name": "The Polished Step",
-      "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 83,
-      "theme": "Sky Garden",
-      "name": "Windmirror",
+      "name": "風が返る双崖",
+      "theme": "空中庭園",
       "entry": null,
-      "skillChoices": [
-        "PULL"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 84,
-      "theme": "Sky Garden",
-      "name": "Pinball Terrace",
+      "name": "空へ持ち上がる庭",
+      "theme": "空中庭園",
       "entry": null,
       "skillChoices": [],
-      "firstSkillChoices": [],
       "weaponCapsules": [
-        "W20"
-      ],
-      "role": "apply"
+        "W19"
+      ]
     },
     {
       "stage": 85,
-      "theme": "Sky Garden",
-      "name": "Sky Parade",
+      "name": "空と山の祝祭",
+      "theme": "空中庭園",
       "entry": null,
-      "skillChoices": [
-        "SPLIT"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 86,
-      "theme": "Storm Carrier",
-      "name": "Rising Gate",
+      "name": "雲上の崩れ甲板",
+      "theme": "嵐の空母",
       "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 87,
-      "theme": "Storm Carrier",
-      "name": "Crystal Current",
+      "name": "結晶が浮く深山",
+      "theme": "嵐の空母",
       "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 88,
-      "theme": "Storm Carrier",
-      "name": "Polar Lift",
-      "entry": null,
-      "skillChoices": [
-        "PHASE",
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 89,
-      "theme": "Storm Carrier",
-      "name": "Carrier Approach",
-      "entry": null,
-      "skillChoices": [
-        "BLINK"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 90,
-      "theme": "Storm Carrier",
-      "name": "Sky Carrier",
-      "entry": null,
-      "skillChoices": [
-        "BLINK",
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 91,
-      "theme": "Fortress Gates",
-      "name": "Fortress Mirrors",
-      "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 92,
-      "theme": "Fortress Gates",
-      "name": "Magnet Curtain",
-      "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
-    },
-    {
-      "stage": 93,
-      "theme": "Fortress Gates",
-      "name": "Counterwind Gallery",
+      "name": "山の空中排気洞",
+      "theme": "嵐の空母",
       "entry": null,
       "skillChoices": [
         "PULL"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
+    },
+    {
+      "stage": 89,
+      "name": "斜め甲板の横腹",
+      "theme": "嵐の空母",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 90,
+      "name": "スカイキャリアの山空域",
+      "theme": "嵐の空母",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 91,
+      "name": "要塞山の下抜け",
+      "theme": "要塞の重層門",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 92,
+      "name": "山のカーテンを見上げる",
+      "theme": "要塞の重層門",
+      "entry": null,
+      "skillChoices": [],
+      "weaponCapsules": []
+    },
+    {
+      "stage": 93,
+      "name": "逆風の岩壁回廊",
+      "theme": "要塞の重層門",
+      "entry": null,
+      "skillChoices": [
+        "BURST"
+      ],
+      "weaponCapsules": []
     },
     {
       "stage": 94,
-      "theme": "Fortress Gates",
-      "name": "Pinball Vault",
+      "name": "峠の三つの抜け方",
+      "theme": "要塞の重層門",
       "entry": null,
       "skillChoices": [
-        "BLINK"
+        "SWAP"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 95,
-      "theme": "Fortress Gates",
-      "name": "Victory Avenue",
+      "name": "勝利の大山道",
+      "theme": "要塞の重層門",
       "entry": null,
-      "skillChoices": [
-        "BURST",
-        "SPLIT"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 96,
-      "theme": "Dawn Keep",
-      "name": "Tilted Fortress",
-      "entry": null,
+      "name": "断崖門の三つの判断",
+      "theme": "夜明けの核",
+      "entry": "choices",
       "skillChoices": [
-        "SWAP",
-        "PHASE"
+        "SWAP"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 97,
-      "theme": "Dawn Keep",
-      "name": "Steam Mirror",
+      "name": "噴流鏡の対面山窟",
+      "theme": "夜明けの核",
       "entry": null,
-      "skillChoices": [
-        "BOUNCE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 98,
-      "theme": "Dawn Keep",
-      "name": "Polar Causeway",
+      "name": "極性が通る裂峰",
+      "theme": "夜明けの核",
       "entry": null,
-      "skillChoices": [
-        "PHASE"
-      ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "skillChoices": [],
+      "weaponCapsules": []
     },
     {
       "stage": 99,
-      "theme": "Dawn Keep",
-      "name": "Heart Approach",
+      "name": "核心の複合山庭",
+      "theme": "夜明けの核",
       "entry": null,
       "skillChoices": [
-        "BLINK"
+        "BURST"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     },
     {
       "stage": 100,
-      "theme": "Dawn Keep",
-      "name": "Archeart",
+      "name": "アークハートの裂山核",
+      "theme": "夜明けの核",
       "entry": null,
       "skillChoices": [
-        "BLINK",
-        "PHASE"
+        "BURST",
+        "PULL"
       ],
-      "firstSkillChoices": [],
-      "weaponCapsules": [],
-      "role": "apply"
+      "weaponCapsules": []
     }
   ],
   "descriptions": {
     "controls": {
-      "title": "FIRE",
-      "instruction": "Hold FIRE, then release.",
-      "outcome": "Release launches the shot.",
-      "context": "CONTROL DEMO"
+      "title": "HOLD · RELEASE",
+      "instruction": "Hold FIRE on the right; move and aim on the left.",
+      "outcome": "Release FIRE to launch from your current position.",
+      "context": "CONTROL"
     },
     "aim": {
-      "title": "AIM",
-      "instruction": "Move the right stick up or down.",
-      "outcome": "Higher aim makes a higher arc.",
-      "context": "CONTROL DEMO"
+      "title": "AIM ON THE LEFT",
+      "instruction": "Use the inner stick on the left to adjust the angle.",
+      "outcome": "Release the aim stick to keep your angle.",
+      "context": "CONTROL"
     },
     "move": {
-      "title": "MOVE",
-      "instruction": "Push the left stick sideways.",
-      "outcome": "Your rover changes position.",
-      "context": "CONTROL DEMO"
+      "title": "MOVE WHILE CHARGING",
+      "instruction": "Hold FIRE; use the outer left stick to move.",
+      "outcome": "Stop moving and adjust aim without releasing FIRE.",
+      "context": "CONTROL"
     },
     "slope": {
       "title": "MOVE",
@@ -1503,6 +1160,30 @@
       "instruction": "Hold FIRE, then release.",
       "outcome": "Release launches the shot.",
       "context": "CONTROL DEMO"
+    },
+    "teleport": {
+      "title": "TELEPORT PROJECTILE",
+      "instruction": "Select Teleport, aim and release FIRE.",
+      "outcome": "Contact moves your rover. Landing ends your action.",
+      "context": "CONTROL"
+    },
+    "wall-fall": {
+      "title": "CONTACT · FALL · LAND",
+      "instruction": "A teleport projectile hits the side of a wall.",
+      "outcome": "Your rover drops straight down before the rival acts.",
+      "context": "CONTROL"
+    },
+    "destruction": {
+      "title": "OPEN THE PURPLE COVER",
+      "instruction": "Shoot one cracked purple piece.",
+      "outcome": "The opening remains for later shots.",
+      "context": "LEVEL"
+    },
+    "choices": {
+      "title": "CHOOSE A WAY THROUGH",
+      "instruction": "Move by teleport, break cover, or use the open route.",
+      "outcome": "Preparation costs an action; the rival still responds.",
+      "context": "LEVEL"
     }
   }
 }

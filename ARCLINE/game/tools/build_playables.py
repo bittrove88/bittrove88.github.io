@@ -10,14 +10,15 @@ files=sorted((ROOT/'dist').glob('*'))
 assert all(x.is_file() and x.suffix in ['.html','.js','.css','.webmanifest','.svg'] for x in files)
 html=(ROOT/'dist/index.html').read_text()
 for ref in re.findall(r'(?:src|href)="([^"]+)"',html):
- if not ref.startswith('https://'):assert (ROOT/'dist'/ref.split('?',1)[0]).is_file(),ref
-assert html.index('https://www.youtube.com/game_api/v1')<html.index('src="levels.js')
+ assert not ref.startswith(('https://','http://')), 'Standalone files must use local assets'
+ assert (ROOT/'dist'/ref.split('?',1)[0]).is_file(),ref
+assert not re.search(r'<script[^>]+src=[\"\']https?://',html)
 assert html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
-manifest={'implementation':'0.6.4','design':'2.0 user-directed redesign','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed'}
-zip_path=out/'ARCLINE_0.6.4_Playables.zip'
+manifest={'implementation':'0.7.0','design':'4.1 integrated finite-terrain campaign','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
+zip_path=out/'ARCLINE_0.7.0_Playables.zip'
 with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
  for f in files:
-  info=zipfile.ZipInfo(f.name,date_time=(2026,10,22,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
+  info=zipfile.ZipInfo(f.name,date_time=(2026,10,29,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
 with zipfile.ZipFile(zip_path) as z:
  assert z.testzip() is None and 'index.html' in z.namelist()
  for name,x in manifest['files'].items():assert hashlib.sha256(z.read(name)).hexdigest()==x['sha256']

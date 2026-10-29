@@ -9,7 +9,7 @@ const eventFor={'boss-core':'part',reflection:'bounce',W:'bounce',B:'impact',C:'
 function snapshot(s){const copy=clone(s);copy.random=E.seeded(s.stage*997);copy.phase='aim';copy.turn=0;copy.result=null;copy.reason=null;return copy;}
 function fixture(source,id){
  const s=snapshot(source),skills=E.skills.includes(id)?{[id]:3}:{};
- const spec={...clone(source.spec),boss:false,floors:[[[0,12],[100,12]]],features:[],staticFeatures:[],phaseFeatures:null,blink:[[33,12],[47,12]],skills,ventStartsOn:true};
+ const spec={...clone(source.spec),boss:false,components:[],teleport:false,floors:[[[0,12],[100,12]]],features:[],staticFeatures:[],phaseFeatures:null,blink:[[33,12],[47,12]],skills,ventStartsOn:true};
  if(['reflection','W','W08','W20'].includes(id))spec.features=[{type:'W',v:[28,68,12]}];
  if(id==='K')spec.features=[{type:'K',v:[54,22,38]}];
  if(['PHASE','W13'].includes(id))spec.features=[{type:'S',v:id==='PHASE'?[43,48,0,32]:[43,45,0,32]}];
@@ -19,7 +19,7 @@ function fixture(source,id){
  if(id==='M'||id==='terminal')spec.features=[{type:'M',v:[48,24,13,1]},...(id==='terminal'?[{type:'T',v:[34,22]}]:[])];
  if(id==='W19')spec.floors=[[[0,12],[60,12]],[[62,21],[100,21]]];
  if(id==='height'||id==='slope')spec.floors=[[[0,12],[22,12],[42,22],[100,22]]];
- s.spec=spec;s.world=G.world(spec);s.stage=source.stage;s.skills=skills;s.skillCaps=Object.fromEntries(Object.entries(skills).map(([k])=>[k,4]));s.selectedSkill=E.skills.includes(id)&&id!=='BLINK'?id:null;s.skillUsed=false;s.bossPhase=0;s.effects={broken:0,polarity:0};s.pendingChanges=[];s.last=[null,null];s.telegraph=null;
+ s.spec=spec;s.world=G.world(spec);s.stage=source.stage;s.skills=skills;s.skillCaps=Object.fromEntries(Object.entries(skills).map(([k])=>[k,4]));s.selectedSkill=E.skills.includes(id)&&id!=='BLINK'?id:null;s.skillUsed=false;s.bossPhase=0;s.effects={broken:0,polarity:0,destroyed:[]};s.teleportMode=false;s.pendingChanges=[];s.last=[null,null];s.telegraph=null;
  const targetX=({W07:500,W11:420,W13:560,PHASE:620,W16:520})[id]||(id==='W19'?575:720);
  s.units=[{...G.safePosition(s.world,160,380),hp:5,maxHp:5,parts:[],range:[35,650],exposed:0},{...G.safePosition(s.world,targetX,380),hp:3,maxHp:3,parts:[],range:[320,965],exposed:0}];
  s.blink=spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
@@ -184,6 +184,18 @@ function at(preview,age=preview?.age||0){
 function create(original,requested){
  let id=requested==='touch-controls-v2'?'controls':requested==='W'?'reflection':requested==='ceiling-lift'?'roof':requested==='gate-choices'?'B':requested;
  if(!Object.prototype.hasOwnProperty.call(titles,id)&&!E.weapons.some(w=>w.id===id))return null;
+ if(['teleport','wall-fall','destruction','choices'].includes(id)){
+  const before=snapshot(original);before.mode='W01';before.selectedSkill=null;before.teleportMode=id==='teleport'||id==='wall-fall';
+  if(id==='choices'){const result=create(original,'destruction');return result?{...result,...L.describe(id),id}:null;}
+  let found=null;
+  for(let angle=-8;angle<=84&&!found;angle+=4)for(let power=25;power<=100;power+=5){const plan=E.trajectory(before,0,angle,power);
+   if(id==='destruction'){const event=plan.events.find(e=>e.type==='break');if(event){found={plan,angle,power,event};break;}}
+   else{const landing=G.teleportLanding(before.world,plan.teleportContact,before.units[1],before.units[0].range);if(landing&&Math.hypot(landing.x-before.units[0].x,landing.y-before.units[0].y)>65&&(id!=='wall-fall'||landing.y-landing.entry.y>45)){found={plan,angle,power,event:plan.events.find(e=>e.type==='teleport-contact')};break;}}
+  }
+  if(!found)return null;before.angle=found.angle;before.power=found.power;const after=snapshot(before);E.resolve(after,clone(found.plan));
+  const description=L.describe(id),releaseAt=.85,flightEnd=releaseAt+found.plan.duration/playbackRate,focus=found.event;
+  return {...description,id,state:before,before,after,pose:{angle:found.angle,power:found.power,mode:before.teleportMode?'TELEPORT':'W01'},plan:found.plan,proof:{event:id,valid:true},source:'stage',releaseAt,flightStart:releaseAt,flightEnd,duration:flightEnd+resultHold,playbackRate,resultHold,focus:{x:focus.x,y:focus.y,radius:210},annotation:{x:focus.x,y:focus.y,label:id==='destruction'?'OPEN':id==='wall-fall'?'FALL · LAND':'LAND'},annotationAt:found.plan.duration,framing:{points:found.plan.path.filter((_,i)=>i%12===0),subjects:[0]},cue:{control:'fire'}};
+ }
  if(id==='controls'){
   const state=fixture(original,id);Object.assign(state.units[1],G.safePosition(state.world,650,380));state.mode='W01';state.selectedSkill=null;
   const found={angle:24,power:65};found.plan=E.trajectory(state,0,found.angle,found.power);
