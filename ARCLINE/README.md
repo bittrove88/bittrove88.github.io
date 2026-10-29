@@ -1,5 +1,7 @@
 # ARCLINE
 
+[0.7.0アップデートのお知らせ](updates/0.7.0/)
+
 Buildless Canvas artillery game, implementation **0.7.0** / campaign **4.1**. Japanese is the default; English and mirrored controls are saved preferences. One rover, **20 themes ×5 stages**,90 normal encounters and10 bosses. No permanent combat buffs.
 
 From this directory:
