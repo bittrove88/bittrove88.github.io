@@ -22,6 +22,23 @@ function floorY(points,x){if(x<points[0].x-EPS||x>points.at(-1).x+EPS)return nul
 function world(spec,round=1,bossPhase=0,effects={}){
  const solids=[],regions=[],waters=[],terminals=[],surfaces=[];const tick=spec.id===11?Math.max(0,round-2):Math.floor((round-1)/(spec.hold||1));
  spec.floors.forEach((f,i)=>{const top=f.map(([x,h])=>point(x,h));const poly=[...top,{x:top.at(-1).x,y:560},{x:top[0].x,y:560}];solids.push({id:'floor'+i,kind:'floor',poly});surfaces.push({id:'floor'+i,points:top});});
+ // Finite polygons retain their undersides: a mountain, an island and a cave
+ // roof all share collision geometry, rather than a single height function.
+ for(const component of spec.components||[]){
+  const poly=component.poly.map(([x,h])=>point(x,h)),xs=poly.map(p=>p.x),left=Math.min(...xs),right=Math.max(...xs);
+  const count=component.destructible?Math.max(1,Math.ceil((right-left)/100)):1;
+  for(let piece=0;piece<count;piece++){
+   const id=component.id+(component.destructible?'@'+piece:'');if(effects.destroyed?.includes(id))continue;
+   const cut=count===1?poly:clipX(clipX(poly,left+(right-left)*piece/count,true),left+(right-left)*(piece+1)/count,false);
+   if(cut.length<3)continue;
+   const o={id,componentId:component.id,kind:component.destructible?'fragile':'bedrock',destructible:!!component.destructible,poly:cut};solids.push(o);
+   for(let edge=0;edge<cut.length;edge++){
+    const a=cut[edge],b=cut[(edge+1)%cut.length];if(Math.abs(a.x-b.x)<EPS)continue;
+    const mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+    if(inside({x:mid.x,y:mid.y+1},cut)&&!inside({x:mid.x,y:mid.y-1},cut))surfaces.push({id:id+':e'+edge,solidId:id,kind:o.kind,points:a.x<b.x?[a,b]:[b,a]});
+   }
+  }
+ }
  const features=[...(spec.phaseFeatures?.[bossPhase]||spec.features),...(spec.staticFeatures||[]).map((f,j)=>({...f,id:'fixed'+j}))];
  features.forEach(({type:k,v,id:featureId},i)=>{
   const id=featureId||k+i;
@@ -39,7 +56,7 @@ function world(spec,round=1,bossPhase=0,effects={}){
    // Its visible top is exactly the existing floor collision edge, never a
    // floating water plane or a second, hidden surface beneath the ground.
    const left=v[0]*10,right=v[1]*10;
-   for(const floor of surfaces.filter(f=>f.id.startsWith('floor'))){
+   for(const floor of surfaces.filter(f=>f.kind!=='fragile')){
     for(let j=1;j<floor.points.length;j++){
      const a=floor.points[j-1],b=floor.points[j],x1=Math.max(left,a.x),x2=Math.min(right,b.x);
      if(x2-x1<.01)continue;
@@ -62,6 +79,22 @@ function world(spec,round=1,bossPhase=0,effects={}){
  });
  return {solids,regions,waters,terminals,surfaces};
 }
+function clipX(poly,x,greater){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],ia=greater?a.x>=x-EPS:a.x<=x+EPS,ib=greater?b.x>=x-EPS:b.x<=x+EPS;if(ia)out.push({...a});if(ia!==ib){const t=(x-a.x)/(b.x-a.x);out.push({x,y:a.y+(b.y-a.y)*t});}}return out;}
+function without(w,ids){const gone=new Set(ids);return {...w,solids:w.solids.filter(o=>!gone.has(o.id)),surfaces:w.surfaces.filter(f=>!gone.has(f.solidId||f.id))};}
+function fallLanding(w,x,startY,other=null,range=[35,965]){
+ if(x<range[0]||x>range[1])return null;
+ const ys=w.surfaces.map(f=>floorY(f.points,x)).filter(y=>y!==null&&y>=startY-2).sort((a,b)=>a-b);
+ for(const y of ys){const p=support(w,x,y);if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>90))return p;}
+ return null;
+}
+function teleportLanding(w,hit,other,range=[35,965]){
+ if(!hit||!Number.isFinite(hit.x+hit.y))return null;
+ const nx=Number(hit.nx)||0,ny=Number(hit.ny)||0;
+ const top=ny<-.4,entry={x:hit.x+(top?0:nx*(hit.unit!==undefined?76:37)),y:hit.y+(top?-26:ny>.4?50:22)};
+ if(!clearBody(w,entry))return null;
+ const landing=fallLanding(w,entry.x,entry.y,other,range);
+ return landing?{...landing,entry}:null;
+}
 function surfaceAt(w,x,near=400,maxDifference=Infinity){let best=null;for(const f of w.surfaces){const y=floorY(f.points,x);if(y!==null&&Math.abs(y-near)<=maxDifference&&(!best||Math.abs(y-near)<Math.abs(best.y-near)))best={x,y,id:f.id};}return best;}
 function support(w,x,y){const a=surfaceAt(w,x-20,y,24),b=surfaceAt(w,x+20,y,24);if(!a||!b)return null;return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:a.id};}
 function clearBody(w,p){const points=[{x:p.x,y:p.y-24},{x:p.x-22,y:p.y-20},{x:p.x+22,y:p.y-20},{x:p.x,y:p.y-45}];return !w.waters.some(r=>p.x>=r.x1&&p.x<=r.x2&&p.y>r.y-2)&&!w.solids.some(o=>points.some(q=>inside(q,o.poly)));}
@@ -71,7 +104,7 @@ function safePosition(w,x,y,other=null,range=[35,965]){
   if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.abs(xx-other.x)>100))return p;
  }return null;
 }
-function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t-EPS||Math.abs(h.t-best.t)<=EPS&&o.kind==='reflector'&&best.solid.kind==='floor'))best={...h,solid:o};}}return best;}
+function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t-EPS||Math.abs(h.t-best.t)<=EPS&&o.kind==='reflector'&&['floor','bedrock'].includes(best.solid.kind)))best={...h,solid:o};}}return best;}
 function lineClear(w,a,b){const h=sweep(w,a,b);return !h||h.t>.98;}
 function move(s,side,amount){
  const u=s.units[side];if(!Number.isFinite(amount)||s.result)return 0;let remaining=clamp(amount,-1000,1000),moved=0;
@@ -82,5 +115,5 @@ function move(s,side,amount){
 }
 function muzzle(s,side,relativeAngle){const u=s.units[side],dir=s.units[1-side].x>=u.x?1:-1,theta=(dir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope;
  const pivot={x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26};return {x:pivot.x+Math.cos(theta)*35,y:pivot.y+Math.sin(theta)*35,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
-const api={clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
+const api={clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
 })(globalThis);

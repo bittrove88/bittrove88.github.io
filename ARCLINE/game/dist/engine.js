@@ -32,7 +32,7 @@ function campaign(stage=1,save={}){
  const units=spec.spawn.map(([x,h],side)=>{
   const raw=G.point(x,h),safe=G.safePosition(world,raw.x,raw.y);
   if(!safe)throw Error('No safe spawn at level '+spec.id+' side '+side);
-  return {...safe,hp:side?(spec.boss?10:3):5,maxHp:side?(spec.boss?10:3):5,range:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
+  return {...safe,hp:side?(spec.boss?10:3):5,maxHp:side?(spec.boss?10:3):5,range:spec.contentRevision==='4.1'?[35,965]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
  });
  if(spec.boss){
   units[1].slope=0;
@@ -43,7 +43,8 @@ function campaign(stage=1,save={}){
  const collected=[...(save.unlockedWeaponIds||['W01']),...(save.collectedCosmeticIds||[])];
  const pickups=spec.pickups.filter(p=>!collected.includes(p.id)).map(p=>({...p,...G.point(p.x,p.h),radius:22,collected:false,skill:p.id[0]==='R'?(p.skill||(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK')):null}));
  const requested=save.equippedWeaponId||'W01',equipped=W.weapons.some(w=>w.id===requested)&&(!Array.isArray(save.unlockedWeaponIds)||save.unlockedWeaponIds.includes(requested))?requested:'W01';
- const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,skills,skillCaps,pickups,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.boss?18:10,angle:Math.max(48,W.get(equipped).minAngle||-12),power:20,result:null,reason:null,ammo:2,weaponId:equipped,mode:equipped,trial:null,last:[null,null],effects:{broken:0,polarity:0},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,random:seeded(spec.id*997),preview:null};
+ const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||equipped!=='W01'),selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(equipped).minAngle||-12),power:20,result:null,reason:null,ammo:2,weaponId:equipped,mode:equipped,trial:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
+ s.random=seeded(s.matchSeed);
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
  bossGeometry(s);telegraph(s);return s;
 }
@@ -63,17 +64,22 @@ function availableWeapons(s){
 }
 function selectWeapon(s,id){
  if(s.result||s.phase!=='aim'||s.turn!==0||!availableWeapons(s).some(w=>w.id===id))return false;
- s.mode=id;s.angle=Math.max(s.angle,W.get(id).minAngle||-12);return true;
+ s.teleportMode=false;s.mode=id;s.angle=Math.max(s.angle,W.get(id).minAngle||-12);return true;
 }
-function selectSkill(s,id){if(s.phase!=='aim'||s.skillUsed||!s.skills[id])return false;s.selectedSkill=s.selectedSkill===id?null:id;return true;}
+function selectSkill(s,id){if(s.phase!=='aim'||s.skillUsed||!s.skills[id]||id==='SWAP'&&s.spec.boss)return false;s.teleportMode=false;s.selectedSkill=s.selectedSkill===id?null:id;return true;}
 function blink(s,index){
  if(s.phase!=='aim'||s.skillUsed||!s.skills.BLINK||s.selectedSkill!=='BLINK')return false;
  const b=s.blink[index];if(!b)return false;const dest=G.safePosition(s.world,b.x,b.y,s.units[1],s.units[0].range);if(!dest)return false;
  Object.assign(s.units[0],dest);s.skills.BLINK--;s.skillUsed=true;s.selectedSkill=null;return true;
 }
-function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.mode,skill:side?null:s.selectedSkill,...opts});}
+function selectTeleport(s){if(s.result||s.turn||s.phase!=='aim'||!s.spec.teleport)return false;s.teleportMode=!s.teleportMode;s.selectedSkill=null;return true;}
+function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.teleportMode?'TELEPORT':s.mode,skill:side||s.teleportMode?null:s.selectedSkill,...opts});}
+function settleUnits(s){for(let side=0;side<2;side++){const u=s.units[side];if(u.floating)continue;const current=G.support(s.world,u.x,u.y);if(current&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current))continue;const pad=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);if(pad){const from={x:u.x,y:u.y,slope:u.slope};Object.assign(u,pad);u.animation={from,age:0,duration:Math.min(1,Math.max(.25,Math.sqrt(Math.max(0,pad.y-from.y)/400))),lift:0,fall:true};}}}
+
 function collect(s,shot,event){
  const item=s.pickups.find(c=>c.id===event.id);if(!item||item.collected)return null;
+ if(item.kind==='trial'){item.collected=true;s.trial={id:item.weaponId,ammo:2};return item;}
+ if(item.kind==='ammo'){if(s.weaponId==='W01')return null;item.collected=true;s.ammo++;return {...item,taken:1};}
  if(item.id[0]==='R'){
   if(!item.skill||!(item.skill in s.skills)||s.skills[item.skill]>=s.skillCaps[item.skill])return null;
   const taken=Math.min(item.amount||1,s.skillCaps[item.skill]-s.skills[item.skill]);s.skills[item.skill]+=taken;item.amount=(item.amount||1)-taken;item.collected=item.amount===0;return {...item,taken};
@@ -81,9 +87,11 @@ function collect(s,shot,event){
  return item;
 }
 function applyEvents(s,shot,time,onCollect=()=>{}){
+ s.effects.destroyed=s.effects.destroyed||[];
  while(shot.appliedEvents<shot.events.length&&shot.events[shot.appliedEvents].t<=time){
   const e=shot.events[shot.appliedEvents++];
   if(e.type==='pickup'){const c=collect(s,shot,e);if(c)onCollect(c);}
+  if(e.type==='break'&&!s.effects.destroyed.includes(e.solidId)){s.effects.destroyed.push(e.solidId);s.world=G.without(s.world,[e.solidId]);}
   if(e.type==='terminal')s.effects.pendingPolarity=-(s.effects.polarity||s.world.regions.find(r=>r.kind==='M')?.direction||1);
  }
 }
@@ -93,11 +101,11 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
   if(s.shotCount>=s.shotLimit)return null;
   // BLINK commits through its landing confirmation, never through a shot.
   if(s.selectedSkill==='BLINK')return null;
-  if(s.mode!=='W01'&&!(s.trial?.id===s.mode&&s.trial.ammo>0)&&!(s.mode===s.weaponId&&s.ammo>0))return null;
+  if(!s.teleportMode&&s.mode!=='W01'&&!(s.trial?.id===s.mode&&s.trial.ammo>0)&&!(s.mode===s.weaponId&&s.ammo>0))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
- if(!side){s.shotCount++;if(s.mode!=='W01'){if(s.trial?.id===s.mode&&s.trial.ammo>0)s.trial.ammo--;else s.ammo--;}
-  if(s.selectedSkill){s.skills[s.selectedSkill]--;s.skillUsed=true;}
+ if(!side){s.shotCount++;if(!s.teleportMode&&s.mode!=='W01'){if(s.trial?.id===s.mode&&s.trial.ammo>0)s.trial.ammo--;else s.ammo--;}
+  if(!s.teleportMode&&s.selectedSkill){s.skills[s.selectedSkill]--;s.skillUsed=true;}
  }
  s.phase='flight';s.activeShot=shot;return shot;
 }
@@ -151,6 +159,10 @@ function displace(s,side,shot){
 }
 function resolve(s,shot,onCollect=()=>{}){
  if(shot.resolved)return [0,0];applyEvents(s,shot,Infinity,onCollect);shot.resolved=true;
+ if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){const entry=landing.entry;Object.assign(u,landing);delete u.entry;u.animation={from:{...entry,slope:u.slope},age:0,duration:Math.min(1,Math.max(.3,Math.sqrt(Math.max(0,landing.y-entry.y)/400))),lift:0,fall:true};u.teleportFlash={age:0};}s.teleportMode=false;}
+ settleUnits(s);
+ if(shot.side===1)s.lastCpuFamily=shot.attackKind;
+
  s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));
  const boss=s.units[1];
  if(s.spec.boss&&shot.side===0){
@@ -158,7 +170,7 @@ function resolve(s,shot,onCollect=()=>{}){
   const broken=boss.parts.filter(p=>p.hp<=0).length;
   if(broken>s.effects.broken){
    s.effects.broken=broken;
-   if(!s.rewardGiven){s.rewardGiven=true;addReward(s,s.spec.bossSpec.reward);}
+   if(!s.rewardGiven){s.rewardGiven=true;if(s.spec.contentRevision!=='4.1')addReward(s,s.spec.bossSpec.reward);}
    s.pendingChanges.push({type:'parts',broken});
   }
   if(s.stage===100){const target=boss.hp<=4?2:boss.hp<=7?1:0;if(target>s.bossPhase)s.pendingChanges.push({type:'phase',value:target});}
@@ -205,7 +217,7 @@ function boundary(s){
  for(const c of changes){
   if(c.type==='phase'){
    const old=s.bossPhase;s.bossPhase=c.value;
-   for(let phase=old+1;phase<=c.value;phase++)addReward(s,phase===1?'BLINK':'PHASE',phase===1?55:63,phase===1?23:29,'R-phase-'+phase);
+   for(let phase=old+1;s.spec.contentRevision!=='4.1'&&phase<=c.value;phase++)addReward(s,phase===1?'BLINK':'PHASE',phase===1?55:63,phase===1?23:29,'R-phase-'+phase);
    if(s.bossPhase===1)s.units[1].parts=[{name:'LEFT SHELL',hp:2,maxHp:2,dx:-58,dy:-22,radius:24},{name:'RIGHT SHELL',hp:2,maxHp:2,dx:45,dy:-62,radius:24}];
    if(s.bossPhase===2)s.units[1].parts=[];
   }
@@ -219,7 +231,7 @@ function boundary(s){
   if(s.stage===10&&s.round===2&&s.effects.broken===0)u.x+=30;
   if(s.stage===30&&s.effects.cloudPending){s.effects.cloudOffset=s.effects.cloudOffset?0:80;s.effects.cloudPending=false;}
   else if(s.stage===30&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
-  if(s.stage===50&&s.round%2===1){const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}
+  if(s.stage===50&&s.round%2===1){if(s.spec.contentRevision==='4.1'){u.exposed=Math.max(1,u.exposed);u.facingCore=s.units[0].x<u.x?-1:1;}else{const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}}
   if(s.stage===90&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
  }
  s.boundaryLog.push({round:s.round,changes:changes.map(c=>c.type)});
@@ -245,24 +257,23 @@ function solve(s,side,opts={}){
 }
 function cpuPlan(s,random=s.random){
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
- const kind=s.telegraph?.kind,settings=s.spec.boss?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):{};
- const profile=s.spec.enemyProfile,errA=[5,4.5,4,3,2.5,2][profile],errP=[8,7,6,5,4,3.5][profile],best=solve(s,1,settings);
+ const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
+ let settings=s.spec.boss?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):families[familyIndex];
+ const profile=s.spec.enemyProfile,errA=[12,10,8,7,6,5][profile],errP=[20,18,16,14,12,10][profile];let best=solve(s,1,settings);if(best.score<=0&&!s.spec.boss){settings={};best=solve(s,1);}
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
  const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{})};
  let plan=trajectory(s,1,angle,power,options);
  if(s.spec.boss&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
-  const shots=[];
-  if(kind==='TRIPLE')for(let i=0;i<3;i++)shots.push(trajectory(s,1,angle+(i-1)*7,power,{weaponId:'W01',startDelay:i*.22}));
-  else{
-   const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;
-   offsets.forEach((offset,i)=>shots.push(trajectory(s,1,90,20,{weaponId:kind==='PREPARE'?'W02':'W01',origin:{x:clamp(target.targetX+offset,25,975),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},startDelay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0})));
-  }
-  plan=combineShots(shots);
+  const volley=[];
+  if(kind==='TRIPLE')for(let i=0;i<3;i++)volley.push({offset:(i-1)*7,delay:i*.22});
+  else{const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;offsets.forEach((offset,i)=>volley.push({origin:{x:clamp(target.targetX+offset,25,975),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},power:20,delay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0}));}
+  plan=P.simulate(s,1,angle,power,{weaponId:kind==='PREPARE'?'W02':'W01',volley});
+
  }
  if(s.spec.boss&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));}
- plan.attackKind=kind||'STANDARD';
+ plan.attackKind=kind||family;
  return plan;
 }
 function combineShots(shots){
@@ -287,6 +298,6 @@ function enemyMoveTarget(s){
  for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
  return target;
 }
-const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);

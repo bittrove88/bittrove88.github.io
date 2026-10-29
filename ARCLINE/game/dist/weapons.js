@@ -14,7 +14,7 @@ Object.assign(weapons[8],{speed:.94,fan:true,shots:3,blast:44});
 Object.assign(weapons[9],{speed:.88,gravity:1.12,split:true,blast:48});
 Object.assign(weapons[10],{speed:1.08,gravity:.9,twin:true,shots:2,damage:1.06,blast:44});
 Object.assign(weapons[11],{airburst:true,proximity:80,blast:96});
-Object.assign(weapons[12],{speed:1.08,gravity:.9,phase:36,blast:32});
+Object.assign(weapons[12],{speed:1.08,gravity:.9,phase:110,blast:32});
 Object.assign(weapons[13],{speed:1.5,gravity:.08,blast:18});
 Object.assign(weapons[14],{gravity:.82,archer:true,damage:1.03,blast:52});
 Object.assign(weapons[15],{speed:.88,gravity:1.15,wave:true,waveDistance:180});
@@ -24,7 +24,7 @@ Object.assign(weapons[18],{speed:.9,gravity:.82,lift:true,liftHeight:110,liftDis
 Object.assign(weapons[19],{speed:1.15,gravity:.8,bounces:3,restitution:.98,push:true,pushDistance:75,blast:46});
 // The same appearance descriptors are used by inventory, previews and live shots.
 const appearances=[
- ['#fff0a9','orb','●','ARC',6],['#ff9a62','shell','⬟','HEAVY',10],
+ ['#fff0a9','orb','●','STANDARD',6],['#ff9a62','shell','⬟','HEAVY',10],
  ['#8af3ff','needle','➤','NEEDLE',5],['#ffb2cf','shell','◆','LOFT',8],
  ['#c6ff87','ring','⌁','HOP',7],['#77ffe5','ring','↗','RICOCHET',7],
  ['#b1fbc7','gear','◉','ROLL',9],['#ffe275','ring','⋯','SKIP',7],
@@ -36,7 +36,9 @@ const appearances=[
  ['#8ee6ff','arrow','↑','LIFT',8],['#edff7e','spark','✧','PINBALL',8]
 ];
 weapons.forEach((weapon,i)=>{const [color,shape,glyph,label,size]=appearances[i];weapon.appearance={color,shape,glyph,label,size};});
+const coreUnlocks={W01:0,W02:7,W06:12,W14:18,W07:28,W12:35,W15:43,W10:48,W13:58,W16:67,W17:75,W19:84};
+const teleport={id:'TELEPORT',name:'Teleport',speed:1,gravity:1,damage:0,blast:0,shots:1,bounces:0,teleport:true,appearance:{color:'#a9e9ff',shape:'ring',glyph:'◎',label:'WARP',size:7}};
 const skills=['BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP'];
-const api={weapons,skills,get:id=>weapons.find(w=>w.id===id)||weapons[0]};
+const api={weapons,skills,coreUnlocks,teleport,get:id=>id==='TELEPORT'?teleport:weapons.find(w=>w.id===id)||weapons[0]};
 if(typeof module!=='undefined')module.exports=api;else root.ArcWeapons=api;
 })(globalThis);
