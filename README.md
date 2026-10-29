@@ -23,6 +23,7 @@ bittrove88.github.io/
 ├── unite-videos/                      # UNITE動画ショーケース
 ├── storymaker/                        # StoryMaker動画ショーケース
 ├── ARCLINE/                           # 100面の砲撃ゲームと設計資料
+│   └── updates/0.7.0/index.html        # アップデート告知
 ├── career/                            # 職務経歴と更新版Word
 ├── AGENTS.md                          # カタログ更新などの共通ルール
 ├── favicon.svg
@@ -72,7 +73,7 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 
 | コンテンツ | URL |
 | --- | --- |
-| ARCLINE | `/ARCLINE/` |
+| ARCLINE | `/ARCLINE/` ・ [0.7.0アップデート告知](ARCLINE/updates/0.7.0/) |
 | UNITE Roulette | `/unite-roulette/` |
 | キャラルーレット30 | `/character-roulette-30/` |
 | Switch 2 RPG Catalog | `/switch2-rpg-catalog/` |
