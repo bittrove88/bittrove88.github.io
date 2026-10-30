@@ -14,11 +14,11 @@ for ref in re.findall(r'(?:src|href)="([^"]+)"',html):
  assert (ROOT/'dist'/ref.split('?',1)[0]).is_file(),ref
 assert not re.search(r'<script[^>]+src=[\"\']https?://',html)
 assert html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
-manifest={'implementation':'0.7.0','design':'4.1 integrated finite-terrain campaign','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
-zip_path=out/'ARCLINE_0.7.0_Playables.zip'
+manifest={'implementation':'0.7.1','design':'4.1 integrated finite-terrain campaign; ten matte machine appearances','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
+zip_path=out/'ARCLINE_0.7.1_Playables.zip'
 with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
  for f in files:
-  info=zipfile.ZipInfo(f.name,date_time=(2026,10,29,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
+  info=zipfile.ZipInfo(f.name,date_time=(2026,10,31,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
 with zipfile.ZipFile(zip_path) as z:
  assert z.testzip() is None and 'index.html' in z.namelist()
  for name,x in manifest['files'].items():assert hashlib.sha256(z.read(name)).hexdigest()==x['sha256']

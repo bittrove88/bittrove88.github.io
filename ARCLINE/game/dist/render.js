@@ -138,6 +138,22 @@ function create(canvas){
   const disabled=u.hp<=0,bright=disabled?'#75868c':side?'#ffd1ac':cosmetic?`hsl(${hue} 60% 78%)`:'#caffd7',dark=disabled?'#445a67':side?'#a16963':'#3d8991';
   const hit=!options.reducedMotion&&u.reaction&&u.reaction.age<.7?Math.sin(u.reaction.age*44)*Math.exp(-u.reaction.age*9)*4:0;
   const kick=!options.reducedMotion&&u.recoil&&u.recoil.age<.22?Math.sin(u.recoil.age/.22*Math.PI)*3:0;
+  if(!side&&root.ArcCharacters){
+   root.ArcCharacters.draw(ctx,options.characterId,{x:u.x,y:u.y,dir,slope:u.slope||0,travel:u.x,hit,kick,disabled,alpha,muzzle:G.muzzle(s,side,angle)});
+   // Legacy collected finishes remain optional overlays; the reference palette stays intact.
+   if(cosmetic){
+    ctx.save();ctx.globalAlpha=alpha;ctx.translate(u.x,u.y);ctx.rotate(u.slope||0);
+    if(cosmetic[0]==='B'){path([{x:-28,y:-17},{x:-23,y:-30},{x:-14,y:-26}],bright,5);path([{x:28,y:-17},{x:23,y:-30},{x:14,y:-26}],bright,5);cosmeticFlag(cosmetic,-24,-67,options.time||0,options.reducedMotion);}
+    else if(flagColors[cosmetic])cosmeticFlag(cosmetic,-25,-67,options.time||0,options.reducedMotion);
+    else if(cosmetic==='S09'){path([{x:-30,y:-18},{x:-22,y:-30},{x:-13,y:-27},{x:-7,y:-41},{x:4,y:-43},{x:16,y:-31},{x:29,y:-24}],'#bfe8a9',2.5);for(const [x,y]of[[-24,-24],[-12,-30],[-4,-40],[13,-34],[23,-27]]){ctx.save();ctx.translate(x,y);ctx.rotate(x*.08);ctx.fillStyle='#a8d89a';ctx.beginPath();ctx.ellipse(0,0,4,2,Math.PI/4,0,Math.PI*2);ctx.fill();ctx.restore();}}
+    ctx.restore();
+    if(['S03','S18'].includes(cosmetic)){
+     const m=G.muzzle(s,side,angle),coral=cosmetic==='S03',color=coral?'#ffbaa8':'#bcefff';ctx.save();ctx.translate(m.x,m.y);ctx.rotate(m.theta);circle(0,0,coral?7:8,null,color);
+     if(coral)for(const a of[-1.4,0,1.4])path([{x:0,y:0},{x:Math.cos(a)*11,y:Math.sin(a)*11}],color,3);else path([{x:-4,y:-8},{x:4,y:-5},{x:7,y:0},{x:4,y:5},{x:-4,y:8}],color,2.5);ctx.restore();
+    }
+   }
+   return;
+  }
   ctx.save();ctx.globalAlpha=alpha*(disabled?.75:1);ctx.translate(u.x-dir*kick+hit,u.y+(disabled?3:0));ctx.rotate((u.slope||0)+(disabled?dir*.07:0)+(options.reducedMotion?0:hit*.002));
   circle(0,1,29,'#11384855');
   if(side&&s.spec.boss){

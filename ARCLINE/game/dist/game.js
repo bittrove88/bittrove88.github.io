@@ -70,6 +70,7 @@ function battleWeaponChoices(){
 }
 function hud(){
  if(!s)return;const shown=activePreview(),displayState=shown?(shown.effectProgress>=.5?shown.after:shown.before)||shown.state:s,[p,e]=displayState.units,enabled=canAim();
+ $('playerName').textContent=ArcCharacters.get(save.data.equippedCharacterId).name;
  $('php').textContent=Number(p.hp.toFixed(2));$('ehp').textContent=Number(e.hp.toFixed(2));$('pbar').style.width=p.hp/5*100+'%';$('ebar').style.width=e.hp/e.maxHp*100+'%';$('pbar').parentElement.style.setProperty('--segments',20);$('ebar').parentElement.style.setProperty('--segments',100/e.maxHp);
  $('ename').textContent=s.spec.boss?s.spec.name:'RIVAL';$('round').textContent='LV '+s.stage;
  $('turnLabel').textContent=demo?'':encounter?'BOSS':s.phase==='over'?'COMPLETE':s.turn?'RIVAL':'YOUR TURN';
@@ -209,7 +210,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
+function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),characterId:save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
@@ -219,7 +220,8 @@ function pause(){if(!s||s.result||hostPaused())return;clearInput();manualPaused=
 function lobby(){clearInput();gameToken++;s=null;shot=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
 $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.target.value;save.save();syncLobby();};$('cosmeticLoadout').onchange=e=>{unlockAudio();save.data.equippedCosmeticId=e.target.value||null;save.save();syncLobby();};
-$('openCollection').onclick=()=>{if(hostPaused())return;ArcPresentation.showCollection(save.data,change=>{if('weaponId' in change)save.data.equippedWeaponId=change.weaponId;if('cosmeticId' in change)save.data.equippedCosmeticId=change.cosmeticId;save.save();syncLobby();});};
+function openEquipment(view){if(hostPaused())return;ArcPresentation.showCollection(save.data,change=>{if('weaponId' in change)save.data.equippedWeaponId=change.weaponId;if('cosmeticId' in change)save.data.equippedCosmeticId=change.cosmeticId;if('characterId' in change)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();},view);}
+$('openCollection').onclick=()=>openEquipment();$('openCharacters').onclick=()=>openEquipment('characters');
 $('closeCollection').onclick=()=>{ArcPresentation.closeCollection();$('openCollection').focus();};
 $('pause').onclick=pause;$('resume').onclick=()=>{if(hostPaused())return;if(dialog==='result'){if(s.result==='win'&&s.stage===100){lobby();showLevels();return;}selectedMap=s.result==='win'?Math.min(99,s.stage):s.stage-1;start();}else{manualPaused=false;previous=0;$('overlay').hidden=true;audioSync();hud();$('world').focus({preventScroll:true});}};
 $('returnLobby').onclick=()=>{if(dialog==='result'){const final=s.result==='win'&&s.stage===100;lobby();if(final)$('openCollection').click();else showLevels();return;}if(dialog==='confirm'){lobby();return;}dialog='confirm';$('overlay').dataset.kind='confirm';$('modalTitle').textContent='Leave this duel?';$('modalDetail').textContent='Collected items saved.';$('returnLobby').textContent='LEAVE';};
