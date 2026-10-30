@@ -2,6 +2,8 @@
 
 [0.7.0アップデートのお知らせ](updates/0.7.0/)
 
+The [ARCLINE service site](./) introduces the game,three physics-based feature previews,the20-theme journey,and10 machine appearances. [The machine viewer](characters/) publishes the previously standalone character preview,with direct HTML and image downloads. [Play the game](game/dist/?v=0.7.1) remains a separate entry; the service site does not modify the game distribution or progress. Both the service site and game support Japanese/English.
+
 Buildless Canvas artillery game, implementation **0.7.1** / campaign **4.1**. Japanese is the default; English and mirrored controls are saved preferences. Ten selectable machine appearances, **20 themes ×5 stages**,90 normal encounters and10 bosses. No permanent combat buffs.
 
 The **Machine** button in the lobby opens GUN,BAN,HIBARI,HANA,RIN,MOGU,KORO,SORA,RICO and YUI. Their matte arcade graphics are drawn in Canvas 2D from individual paths,with distinct chassis,tracks,wheels,weapons and equipment based on the supplied reference. The same drawing is used in selection,lobby,previews and battles. Selection persists alongside existing progress and inventory. This update changes appearances only: current weapons,ammunition,HP,charge timing,collision,controls,enemy graphics and all100 stages retain their0.7.0 behavior. Character-specific combat profiles remain a separate,unimplemented design.
@@ -33,6 +35,7 @@ Fullscreen requires a user gesture. Browsers with support use native fullscreen;
 Current checks:
 
 ```sh
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-site node site-tests/service-site.test.cjs
 node game/tests/integrated.test.cjs
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-characters node game/tests/character-graphics.test.cjs
 node game/tests/integrated-campaign.test.cjs
