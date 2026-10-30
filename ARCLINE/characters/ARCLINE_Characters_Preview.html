@@ -1,0 +1,299 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARCLINE — 10機のキャラ確認</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#12384c;color:#eef3db;font:15px/1.6 system-ui,sans-serif}main{max-width:1380px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid #bad7c544;padding-bottom:20px}h1{font-size:30px;letter-spacing:3px;margin:0}header p{color:#bbd0c5;margin:4px 0}button,input{font:inherit}button{cursor:pointer;color:inherit;background:#224c5c;border:1px solid #a6c8b765;border-radius:7px;min-height:44px;padding:7px 16px}button.active{border-color:#e4f8bf;background:#3b6063}.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:24px 0}.machine{text-align:left;padding:14px}.machine strong{font-size:20px}.machine small{display:block;color:#c8d8c9;font-size:11px}.machine canvas{display:block;width:100%;height:126px}.stage{background:#1b4556;border:1px solid #abcbb844;border-radius:10px;padding:20px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}.hero{width:100%;height:300px}.detail h2{font-size:32px;margin:0}.detail p{color:#d3dfc8;margin:5px 0}.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}.controls label{display:flex;align-items:center;gap:9px}.controls input{width:160px;accent-color:#c7e7a4}.note{margin:22px 0 0;font-size:12px;color:#b5cfc3}.row{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.machine canvas{height:110px}}@media(max-width:600px){main{padding:16px}header{display:block}h1{font-size:25px}header .row{margin-top:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.machine{padding:10px}.machine canvas{height:95px}.stage{grid-template-columns:1fr;padding:14px}.hero{height:230px}.detail h2{font-size:27px}.detail p{font-size:13px}.controls{gap:8px}.controls input{width:120px}}
+</style><main><header><div><h1>ARCLINE / MACHINES</h1><p>光沢を抑えた、10機のコード描画。</p></div><div class="row"><button id="language">English</button></div></header><div id="cards" class="grid"></div><section class="stage"><canvas class="hero" id="hero" role="img" aria-label="選択した機体"></canvas><div class="detail"><h2 id="name"></h2><p id="role"></p><p id="motto"></p><div class="controls"><label><span id="angleLabel">照準</span><input id="angle" type="range" min="-12" max="85" value="32"><output id="degrees">32°</output></label><label><span id="slopeLabel">傾斜</span><input id="slope" type="range" min="-25" max="25" value="0"></label><button id="direction">向き反転</button><button id="walking" aria-pressed="false">走行</button><button id="fire">発射動作</button></div></div></section><p class="note" id="note">ゲーム内と同じCanvas 2Dのコードで描画しています。外観の確認用です。機体別の性能は変更していません。</p></main><script>(function(root){
+'use strict';
+// Original Canvas paths based on the user-supplied ten-machine reference sheet.
+// This module draws appearances only. It never reads or writes combat state.
+const characters=[
+ {id:'gun',name:'GUN',nameJa:'ガン',role:'Heavy assault tank',roleJa:'重装アサルトタンク',motto:'A heavy shot. A path forward.',mottoJa:'重い一撃で、道をつくる。',color:'#eb7928',shade:'#b65329',light:'#f6b04c',trim:'#f1e5c9',accent:'#58bcb1'},
+ {id:'ban',name:'BAN',nameJa:'バン',role:'Breakthrough shock machine',roleJa:'突破型ショックマシン',motto:'Break the wall. Open the way.',mottoJa:'壁を壊し、道を切り拓く。',color:'#da3156',shade:'#9f2548',light:'#f15c76',trim:'#f1e3d5',accent:'#bc8b35'},
+ {id:'hibari',name:'HIBARI',nameJa:'ヒバリ',role:'Recon interceptor',roleJa:'偵察型インターセプター',motto:'Find. Connect. Reach.',mottoJa:'見つける、つながる、導く。',color:'#24a6ad',shade:'#24717f',light:'#58c4c1',trim:'#efe6cf',accent:'#f5bf43'},
+ {id:'hana',name:'HANA',nameJa:'ハナ',role:'Triple-barrel light tank',roleJa:'三連装ライトタンク',motto:'Gentle spirit. A little firepower.',mottoJa:'やさしさも、火力になる。',color:'#ee617e',shade:'#b84064',light:'#ff94a1',trim:'#f5e7cd',accent:'#eab849'},
+ {id:'rin',name:'RIN',nameJa:'リン',role:'Precision tank destroyer',roleJa:'精密狙撃デストロイヤー',motto:'One distant thought. One clear shot.',mottoJa:'遠くの想いも、撃ち抜く。',color:'#9570b7',shade:'#614e82',light:'#b79acc',trim:'#d7c7df',accent:'#c2a2d8'},
+ {id:'mogu',name:'MOGU',nameJa:'モグ',role:'Demolition work machine',roleJa:'解体作業デモリッション',motto:'Break through. Build the way.',mottoJa:'壊して、進んで、またつくる。',color:'#e5a733',shade:'#ac7028',light:'#f4c861',trim:'#ecdfbc',accent:'#6ec6af'},
+ {id:'koro',name:'KORO',nameJa:'コロ',role:'Six-wheel rover',roleJa:'六輪ローバー砲撃車',motto:'Roll onward. Carry the moment.',mottoJa:'走り、運び、夢も届ける。',color:'#a4bd39',shade:'#6c8c35',light:'#c8d951',trim:'#eee3ca',accent:'#e98d33'},
+ {id:'sora',name:'SORA',nameJa:'ソラ',role:'Self-propelled mortar',roleJa:'自走迫撃モーター',motto:'Look up. Let your thoughts fly.',mottoJa:'空を見上げて、想いを届ける。',color:'#287cc1',shade:'#285489',light:'#58a9df',trim:'#eee7d4',accent:'#efae37'},
+ {id:'rico',name:'RICO',nameJa:'リコ',role:'Ricochet trickster',roleJa:'跳躍トリックスター',motto:'One bounce. An unexpected way.',mottoJa:'弾む一撃で、どこまでも。',color:'#d94894',shade:'#963a75',light:'#ed7bb1',trim:'#f1d6d6',accent:'#d6c84c'},
+ {id:'yui',name:'YUI',nameJa:'ユイ',role:'Gravity towing support',roleJa:'重力牽引サポート',motto:'Connect. Support. Move together.',mottoJa:'つなぎ、支え、みんなで進む。',color:'#36b7a4',shade:'#278477',light:'#79d1bc',trim:'#eae8d1',accent:'#e9bd48'}
+];
+for(const c of characters)Object.freeze(c);Object.freeze(characters);
+const byId=new Map(characters.map(c=>[c.id,c])),get=id=>byId.get(id)||characters[0];
+const INK='#142e3b',STEEL='#40525b',STEEL_LIGHT='#6d7d7c',RUBBER='#243742',CREAM='#eee4ca',UNIT=.44;
+function brush(ctx,c){
+ function poly(points,fill,stroke=INK,width=2.2){ctx.beginPath();for(let i=0;i<points.length;i+=2)i?ctx.lineTo(points[i],points[i+1]):ctx.moveTo(points[i],points[i+1]);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}}
+ function line(points,color=INK,width=2){ctx.beginPath();for(let i=0;i<points.length;i+=2)i?ctx.lineTo(points[i],points[i+1]):ctx.moveTo(points[i],points[i+1]);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();}
+ function oval(x,y,rx,ry,fill,stroke=INK,width=2){ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}}
+ function rect(x,y,w,h,r,fill,stroke=INK,width=2){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}}
+ function bolt(x,y,r=1.5){oval(x,y,r,r,CREAM,INK,.75);}
+ function vent(x,y,n=3,vertical=false){for(let i=0;i<n;i++)line(vertical?[x+i*4,y,x+i*4,y+8]:[x,y+i*4,x+9,y+i*4],INK,1.6);}
+ function wheel(x,y,r,phase,trim=c.color){
+  oval(x,y,r,r,RUBBER);oval(x,y,r*.69,r*.69,STEEL_LIGHT,INK,1.5);oval(x,y,r*.44,r*.44,trim,INK,1.2);
+  for(let i=0;i<5;i++){const a=i*Math.PI*2/5+phase;line([x+Math.cos(a)*r*.5,y+Math.sin(a)*r*.5,x+Math.cos(a)*r*.62,y+Math.sin(a)*r*.62],RUBBER,1.3);}
+  oval(x,y,r*.14,r*.14,CREAM,INK,.8);
+ }
+ function track(x,y,w,h,phase,rollers=4){
+  rect(x,y,w,h,h*.44,RUBBER,INK,2.8);rect(x+3,y+3,w-6,h-6,h*.35,STEEL,INK,1);
+  const radius=(h-10)/2;
+  for(let i=0;i<rollers;i++)wheel(x+radius+6+(w-radius*2-12)*i/(rollers-1),y+h/2,radius,phase,STEEL_LIGHT);
+  const shift=((phase*5)%8+8)%8;
+  for(let px=x+9+shift;px<x+w-7;px+=8){line([px,y+1,px-2,y+4],STEEL_LIGHT,1.5);line([px,y+h-4,px-2,y+h-1],STEEL_LIGHT,1.5);}
+ }
+ function plate(points,shadePoints=null){poly(points,c.color);if(shadePoints)poly(shadePoints,c.shade,null);}
+ return {poly,line,oval,rect,bolt,vent,wheel,track,plate};
+}
+function gunBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ // Rear exhaust stack and communications mast.
+ rect(-52,-83,8,38,2,STEEL);rect(-54,-87,12,8,2,STEEL_LIGHT);line([-49,-86,-52,-110],INK,2.4);rect(-58,-69,8,15,2,c.color);line([-55,-63,-52,-63],c.trim,2);
+ track(-73,-30,139,29,phase,5);
+ poly([-75,-31,-60,-58,-13,-67,39,-54,69,-28,63,-14,-60,-13],c.shade);
+ poly([-57,-57,-21,-65,27,-59,51,-40,16,-31,-62,-31],c.color);
+ poly([-16,-63,5,-66,47,-43,29,-33,14,-35],c.trim);
+ poly([-63,-44,-53,-49,-47,-22,-67,-18,-73,-24],c.light);
+ poly([24,-33,43,-40,63,-30,64,-18,43,-18],c.color);
+ poly([-52,-45,-25,-49,-10,-31,-40,-26],c.shade);line([-49,-45,-27,-46,-16,-33],c.light,2);
+ rect(-28,-84,54,29,7,c.color);poly([-26,-82,-9,-91,15,-86,23,-75,4,-71],c.light);poly([4,-71,23,-75,25,-57,7,-54],c.trim);
+ rect(-16,-92,23,8,3,c.trim);line([-12,-88,2,-88],INK,1.5);
+ rect(12,-97,19,13,3,c.color);rect(20,-94,7,7,1,c.accent);bolt(16,-91,1.2);
+ rect(-30,-76,17,10,3,STEEL);vent(-26,-74,3,true);
+ poly([32,-49,43,-43,47,-34,39,-34],c.accent);vent(-36,-40,3,true);
+ for(const [x,y]of[[-60,-27],[-53,-39],[-20,-57],[13,-62],[43,-27],[55,-23]])bolt(x,y);
+ oval(-8,-76,3,4,c.trim);line([-10,-73,-6,-73],INK,1);
+}
+function banBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ poly([-57,-69,-43,-96,-18,-78,-5,-50],c.shade);poly([-40,-86,-29,-91,-9,-76,-3,-61],c.color);
+ poly([-56,-45,-68,-64,-58,-77,-37,-62,-24,-38],c.color);
+ track(-72,-29,141,28,phase,5);
+ poly([-70,-35,-40,-68,11,-61,53,-38,76,-15,35,-12,-18,-27],c.shade);
+ poly([-41,-66,-20,-70,22,-56,57,-32,70,-17,45,-20,-2,-45],c.color);
+ poly([-26,-64,-10,-61,17,-40,10,-26,-18,-31,-40,-51],c.trim);
+ poly([14,-54,31,-49,66,-18,52,-18,36,-33],c.light);
+ poly([-67,-33,-53,-49,-41,-43,-34,-27,-55,-15,-67,-17],c.color);
+ rect(-26,-82,60,26,5,c.shade);poly([-24,-81,-8,-89,24,-82,34,-68,9,-64,-19,-69],c.color);
+ poly([-21,-78,-5,-81,7,-73,-3,-69,-22,-72],STEEL);rect(9,-78,17,8,2,c.trim);rect(17,-76,7,4,1,c.accent);
+ poly([-52,-66,-43,-74,-35,-65,-41,-58],STEEL);oval(-43,-66,3,3,c.light);
+ vent(-12,-48,3,true);line([23,-42,41,-27,47,-26],INK,2);
+ for(const [x,y]of[[-57,-29],[-40,-48],[-20,-61],[3,-54],[36,-29],[60,-21]])bolt(x,y);
+}
+function hibariBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ // Swept sensor fins are part of the reference silhouette, not flight mechanics.
+ poly([-16,-83,-74,-110,-42,-109,8,-92],c.accent);poly([-28,-89,-64,-105,-32,-101,3,-90],c.trim);
+ poly([-4,-91,-42,-120,-16,-113,25,-88],c.light);line([-36,-113,-15,-105],c.shade,2);
+ track(-60,-27,117,26,phase,4);
+ poly([-67,-30,-52,-51,-19,-60,21,-56,61,-31,47,-18,-42,-17],c.shade);
+ poly([-58,-40,-41,-55,-8,-58,22,-49,33,-31,-8,-26],c.color);
+ poly([-35,-51,-19,-57,7,-53,17,-41,5,-36,-22,-40],c.trim);
+ poly([20,-49,38,-46,59,-31,46,-24,32,-29],c.accent);poly([-65,-34,-52,-45,-39,-43,-46,-28],c.accent);
+ rect(-14,-78,15,24,4,STEEL);oval(-6,-64,8,6,c.accent);
+ poly([-25,-91,-14,-103,12,-103,37,-92,35,-73,21,-62,-2,-67,-25,-79],c.accent);
+ poly([-22,-90,-13,-99,10,-98,30,-90,28,-81,4,-84,-10,-76],c.trim);
+ oval(19,-82,12,14,INK);oval(20,-83,8,10,c.color);poly([17,-91,23,-90,25,-84,20,-78,16,-82],c.light,null);
+ rect(-18,-88,11,10,3,c.shade);oval(-12,-83,3,3,c.accent,INK,1);
+ rect(-55,-65,17,8,3,c.color);oval(-51,-61,2,2,c.accent,INK,.8);
+ vent(-29,-40,3,true);for(const [x,y]of[[-47,-33],[-20,-49],[3,-43],[39,-33],[-5,-94]])bolt(x,y,1.3);
+}
+function flower(d,x,y,size,c){
+ for(let i=0;i<5;i++){const a=-Math.PI/2+i*Math.PI*2/5;d.oval(x+Math.cos(a)*size*.55,y+Math.sin(a)*size*.55,size*.4,size*.5,c.trim,c.shade,.7);}
+ d.oval(x,y,size*.22,size*.22,c.accent,c.shade,.6);
+}
+function hanaBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ poly([-34,-79,-49,-108,-27,-96,-14,-77],c.color);poly([-42,-99,-35,-100,-26,-88],c.trim);
+ poly([3,-85,13,-105,29,-88,27,-77],c.color);poly([13,-99,17,-93,11,-93],c.trim);
+ track(-66,-25,132,24,phase,4);
+ poly([-67,-28,-53,-50,-21,-58,25,-56,59,-40,70,-21,46,-15,-38,-16],c.shade);
+ poly([-59,-36,-47,-49,-18,-53,17,-48,31,-29,10,-22,-38,-25],c.color);
+ poly([-18,-52,4,-55,31,-48,42,-34,24,-32,10,-39,-12,-38],c.trim);
+ poly([-63,-32,-54,-42,-42,-38,-39,-26,-54,-21],c.trim);poly([40,-36,56,-35,65,-23,50,-20],c.color);
+ rect(-30,-82,66,30,12,c.color);poly([-26,-78,-18,-89,8,-90,29,-79,25,-70,-5,-68],c.light);
+ poly([-25,-67,-8,-62,22,-67,26,-56,-14,-53,-29,-61],c.trim);
+ flower(d,-2,-79,12,c);flower(d,-18,-37,9,c);
+ rect(-56,-67,20,8,3,c.accent);rect(-59,-66,6,7,2,c.trim);rect(-43,-69,5,12,2,c.trim);
+ oval(18,-67,4,3,INK);vent(-38,-43,2,true);
+ for(const [x,y]of[[-50,-29],[0,-45],[35,-39],[57,-26]])bolt(x,y,1.3);
+}
+function rinBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ line([-41,-48,-54,-103],INK,4);line([-41,-49,-53,-101],c.color,2);line([-26,-56,-28,-111],INK,3.5);line([-26,-56,-28,-108],c.light,1.5);
+ track(-66,-23,126,22,phase,5);
+ poly([-76,-25,-54,-43,-19,-57,20,-48,68,-18,58,-10,-48,-13],c.shade);
+ poly([-68,-30,-46,-42,-20,-50,10,-43,35,-25,-9,-22],c.color);
+ poly([-43,-40,-26,-46,-13,-40,-20,-31,-47,-28],c.light);
+ poly([7,-43,22,-40,58,-18,35,-17,21,-27],c.color);
+ poly([-60,-27,-44,-33,-25,-26,-29,-17,-54,-17],c.shade);
+ rect(-31,-63,56,16,5,c.shade);poly([-30,-62,-19,-71,11,-66,22,-57,-4,-52],c.color);
+ rect(-16,-69,15,7,2,c.trim);rect(-11,-67,8,3,1,c.accent);
+ poly([12,-58,37,-54,27,-48,10,-49],c.trim);vent(-48,-26,3,true);
+ for(const [x,y]of[[-55,-35],[-27,-42],[-9,-62],[12,-36],[47,-21]])bolt(x,y,1.2);
+ line([-15,-29,13,-28],c.shade,2);line([20,-33,37,-21],c.trim,1.2);
+}
+function moguBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ rect(-48,-87,9,45,2,STEEL);rect(-50,-90,13,7,2,STEEL_LIGHT);line([-45,-89,-47,-110],INK,2);
+ track(-71,-26,113,25,phase,4);
+ poly([-72,-28,-61,-61,-20,-74,19,-62,38,-24,12,-14,-56,-14],c.shade);
+ poly([-63,-58,-39,-72,-13,-68,5,-53,-2,-29,-47,-29],c.color);
+ poly([-37,-69,-18,-73,2,-62,4,-49,-17,-48],c.trim);
+ poly([-65,-44,-56,-57,-44,-51,-37,-29,-58,-22],c.light);
+ rect(-19,-86,48,25,5,c.color);poly([-16,-85,-7,-93,18,-89,27,-79,7,-75],c.light);rect(-9,-82,13,7,2,STEEL);
+ poly([-1,-52,32,-61,57,-42,51,-17,25,-19,14,-36],c.color);
+ line([15,-48,34,-35,42,-15],STEEL,9);line([15,-48,34,-35,42,-15],STEEL_LIGHT,4);
+ // Front demolition drum: separate toothed outer ring and fixed hub.
+ const cx=49,cy=-39;
+ for(let i=0;i<12;i++){const a=i*Math.PI/6+phase*.45,r=31;poly([cx+Math.cos(a-.09)*r,cy+Math.sin(a-.09)*r,cx+Math.cos(a+.02)*39,cy+Math.sin(a+.02)*39,cx+Math.cos(a+.17)*37,cy+Math.sin(a+.17)*37,cx+Math.cos(a+.2)*r,cy+Math.sin(a+.2)*r],STEEL_LIGHT);}
+ oval(cx,cy,31,34,STEEL);oval(cx,cy,23,27,c.color);oval(cx,cy,16,21,c.shade);oval(cx,cy,10,16,STEEL_LIGHT);oval(cx,cy,4,7,INK);
+ for(let i=0;i<6;i++){const a=i*Math.PI/3+phase*.45;bolt(cx+Math.cos(a)*20,cy+Math.sin(a)*24,1.8);}
+ vent(-48,-49,3,true);for(const [x,y]of[[-57,-31],[-26,-60],[-13,-35],[8,-59]])bolt(x,y,1.6);
+}
+function koroBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,wheel}=d;
+ line([-62,-36,-65,-66],INK,3);rect(-68,-71,7,13,2,c.color);rect(-66,-69,3,6,1,c.accent);
+ // Three near-side wheels plus the visible far-side partners of the six-wheel chassis.
+ for(const x of[-45,0,45])wheel(x+5,-17,16,phase,STEEL);
+ line([-51,-29,48,-29],STEEL_LIGHT,9);line([-45,-24,-23,-12,0,-24,23,-12,45,-24],INK,4);
+ poly([-66,-33,-49,-55,-12,-65,31,-51,62,-27,42,-17,-42,-20],c.shade);
+ poly([-59,-42,-46,-55,-11,-60,7,-46,2,-29,-38,-29],c.color);
+ poly([-12,-61,8,-61,32,-49,40,-34,15,-33,4,-45],c.trim);
+ poly([31,-47,50,-39,62,-29,47,-25,34,-32],c.color);
+ for(const x of[-48,0,48])wheel(x,-18,18,phase,c.accent);
+ rect(-17,-73,45,20,5,c.shade);poly([-16,-69,-5,-83,16,-78,26,-66,8,-60],c.color);
+ poly([-2,-70,13,-77,31,-66,25,-54,8,-60],c.trim);
+ vent(-33,-44,3,true);for(const [x,y]of[[-43,-45],[-13,-52],[21,-43],[48,-31]])bolt(x,y,1.5);
+}
+function soraBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ track(-61,-26,118,25,phase,4);
+ poly([-62,-29,-45,-53,-12,-60,24,-49,59,-28,48,-16,-46,-16],c.shade);
+ poly([-52,-40,-40,-53,-17,-56,3,-41,-1,-27,-34,-25],c.trim);
+ poly([7,-45,27,-46,49,-32,53,-24,27,-25],c.color);
+ poly([-61,-29,-52,-42,-35,-34,-30,-23,-47,-20],c.color);
+ rect(-19,-65,42,24,5,STEEL);oval(2,-55,16,15,c.accent);oval(2,-55,10,10,c.color);oval(2,-55,4,4,c.trim);
+ line([-18,-53,-32,-71,-34,-94,-27,-104],INK,6);line([-18,-53,-32,-71,-34,-94,-27,-104],c.accent,3);
+ line([18,-51,38,-47,47,-58,42,-81,31,-88],INK,6);line([18,-51,38,-47,47,-58,42,-81,31,-88],c.light,3);
+ poly([-5,-42,12,-44,25,-27,16,-21,1,-24],c.color);rect(-15,-36,11,8,2,c.accent);
+ vent(-37,-42,3,true);for(const [x,y]of[[-48,-28],[-20,-45],[21,-36],[44,-28]])bolt(x,y,1.4);
+}
+function ricoBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,wheel}=d;
+ poly([-33,-47,-69,-88,-59,-91,-21,-70,4,-43],c.accent);poly([-56,-78,-41,-74,-18,-55,-25,-49],c.color);
+ wheel(-47,-15,15,phase,STEEL);wheel(41,-15,15,phase,STEEL);
+ line([-47,-23,-14,-35,18,-29,44,-21],STEEL,9);
+ poly([-65,-35,-39,-49,-5,-47,27,-37,67,-19,42,-14,-14,-25],c.shade);
+ poly([-57,-39,-35,-53,-5,-49,10,-36,-12,-29,-39,-32],c.color);
+ poly([-39,-48,-29,-50,-13,-40,-17,-33,-34,-35],c.light);
+ poly([5,-44,29,-37,58,-23,43,-21,25,-27],c.accent);
+ wheel(-42,-16,18,phase,c.accent);wheel(43,-15,17,phase,c.accent);
+ poly([-10,-48,-7,-69,14,-72,31,-58,24,-46,5,-42],STEEL);
+ oval(4,-57,8,8,c.color);oval(4,-57,3,3,c.accent);
+ poly([9,-65,14,-73,26,-67,24,-56],c.color);
+ vent(-18,-41,3,true);
+ for(const [x,y]of[[-49,-36],[-24,-44],[15,-53],[39,-29]])bolt(x,y,1.4);
+}
+function yuiBody(d,c,phase){
+ const {poly,line,oval,rect,bolt,vent,track}=d;
+ track(-58,-23,114,22,phase,4);
+ poly([-65,-26,-45,-50,-18,-56,24,-47,57,-26,44,-15,-43,-15],c.shade);
+ poly([-56,-36,-40,-50,-18,-52,5,-41,-1,-25,-34,-26],c.color);
+ poly([-36,-45,-18,-50,8,-43,22,-26,7,-22,-6,-30,-31,-30],c.trim);
+ poly([24,-42,40,-36,54,-24,38,-21,26,-27],c.color);
+ rect(-22,-73,35,25,6,c.color);oval(4,-73,24,26,c.trim);oval(7,-73,18,21,INK);oval(9,-73,13,16,c.color);poly([8,-86,16,-83,19,-72,12,-64,4,-69,3,-78],c.light,null);
+ oval(9,-73,5,7,c.accent,INK,1);rect(-41,-74,17,16,4,c.color);rect(-38,-70,11,6,2,STEEL);
+ poly([-45,-60,-56,-67,-68,-57,-65,-48,-49,-48,-36,-52],c.color);line([-60,-57,-51,-57],c.trim,2);
+ vent(-29,-38,3,true);for(const [x,y]of[[-47,-31],[-18,-44],[20,-33],[43,-27]])bolt(x,y,1.4);
+}
+const bodies={gun:gunBody,ban:banBody,hibari:hibariBody,hana:hanaBody,rin:rinBody,mogu:moguBody,koro:koroBody,sora:soraBody,rico:ricoBody,yui:yuiBody};
+// Reuse stationary vector bodies. Small, bounded, in-memory canvases avoid
+// redrawing every tread and bolt during the player's aiming time.
+const bodyCache=new Map(),bodyBox={x:-94,y:-126,w:188,h:132};
+function body(ctx,c,phase){
+ if(!root.OffscreenCanvas&&!root.document){bodies[c.id](brush(ctx,c),c,phase);return;}
+ const m=ctx.getTransform(),pixels=Math.hypot(m.a,m.b),density=pixels>2?4:pixels>1?2:1;
+ const key=c.id+':'+phase.toFixed(4)+':'+density;
+ let bitmap=bodyCache.get(key);
+ if(!bitmap){
+  const w=bodyBox.w*density,h=bodyBox.h*density;
+  bitmap=root.OffscreenCanvas?new root.OffscreenCanvas(w,h):root.document.createElement('canvas');bitmap.width=w;bitmap.height=h;
+  const b=bitmap.getContext('2d');b.setTransform(density,0,0,density,-bodyBox.x*density,-bodyBox.y*density);b.lineCap='round';b.lineJoin='round';bodies[c.id](brush(b,c),c,phase);
+  if(bodyCache.size>=16)bodyCache.delete(bodyCache.keys().next().value);bodyCache.set(key,bitmap);
+ }else{bodyCache.delete(key);bodyCache.set(key,bitmap);}
+ ctx.drawImage(bitmap,bodyBox.x,bodyBox.y,bodyBox.w,bodyBox.h);
+}
+// Weapon art is in a separate pivot space. The central bore always ends at x=35
+// in world units, exactly where geometry.muzzle puts the existing projectile.
+function weapon(ctx,d,c){
+ const {poly,line,oval,rect,bolt}=d,end=35/UNIT;
+ if(c.id==='sora'){
+  rect(-23,-19,end+23,38,7,c.color);poly([-19,1,end-3,1,end-3,16,-15,16],c.shade,null);rect(-18,-21,14,42,4,c.trim);rect(end-30,-22,12,44,3,c.accent);rect(end-8,-20,8,40,3,c.trim);oval(end,0,7,17,STEEL);oval(end+1,0,3.3,10,INK,null);rect(0,-15,19,8,2,c.trim);for(const x of[-12,end-25,end-4])bolt(x,-12,1.4);
+ }else if(c.id==='rin'){
+  poly([-33,-7,-20,-11,5,-8,10,-5,end-7,-4,end,-6,end,6,end-7,4,10,5,5,8,-20,10,-33,5],c.color);poly([-28,1,7,2,end,1,end,5,8,6,-26,7],c.shade,null);rect(-15,-10,17,6,2,c.trim);rect(21,-5,5,10,1,c.trim);rect(end-14,-5,4,10,1,c.trim);line([5,-2,end-17,-2],c.light,1.2);oval(end,0,2.6,4.8,INK,c.trim,1);bolt(-7,-6,1.2);
+ }else if(c.id==='hana'){
+  // Three visible tubes, one active central muzzle. Side tubes are recessed.
+  for(const y of[-11,11]){rect(-2,y-4.5,end-11,9,3,c.trim);rect(end-25,y-6,11,12,2,c.accent);oval(end-14,y,3,5,INK,c.color,1.4);}
+  rect(-14,-7,end+14,14,4,c.trim);rect(4,-8,12,16,2,c.color);rect(end-18,-9,13,18,2,c.accent);oval(end,0,3.5,6,INK,c.color,1.8);line([22,-3,end-24,-3],c.shade,1.5);
+ }else if(c.id==='koro'){
+  rect(-11,-17,end+10,34,5,c.color);rect(-9,-20,17,40,4,c.trim);poly([8,3,end-8,3,end-8,15,8,15],c.shade,null);oval(end-3,0,11,21,c.trim);
+  for(let i=0;i<6;i++){const a=i*Math.PI/3;oval(end-1+Math.cos(a)*3,Math.sin(a)*13,3.4,4.3,INK,c.accent,1.5);}
+  oval(end,0,3,4,INK,c.accent,1.5);rect(16,-15,14,9,2,STEEL);bolt(-3,-12,1.4);
+ }else if(c.id==='yui'){
+  // The reference ring itself aims. No conventional cannon is added to YUI.
+  const cx=7,rx=end-cx,ry=58;
+  for(let i=0;i<12;i++){
+   const a=Math.PI*.93+i*Math.PI*1.58/12,b=a+Math.PI*1.4/12;
+   poly([cx+Math.cos(a)*rx,Math.sin(a)*ry,cx+Math.cos(b)*rx,Math.sin(b)*ry,cx+Math.cos(b)*(rx-8),Math.sin(b)*(ry-8),cx+Math.cos(a)*(rx-8),Math.sin(a)*(ry-8)],i%3===1?c.trim:c.color,INK,1.8);
+   const m=(a+b)/2;oval(cx+Math.cos(m)*(rx-4),Math.sin(m)*(ry-4),2,2,i%3?c.accent:STEEL_LIGHT,INK,.7);
+  }
+  poly([end-10,-5,end-2,-8,end,0,end-5,6,end-12,4],c.color);oval(end,0,2,3,c.accent,INK,1);
+ }else if(c.id==='hibari'){
+  rect(-15,-8,27,16,4,c.trim);poly([7,-6,end-5,-4,end,0,end-5,4,7,6],c.color);rect(end-17,-6,10,12,2,c.accent);oval(end,0,2.5,4,INK);line([15,-2,end-21,-2],c.trim,1.5);
+ }else if(c.id==='rico'){
+  poly([-21,-11,-2,-17,end-8,-10,end,-5,end,6,end-8,11,-2,16,-21,8],c.color);poly([5,3,end-7,2,end-12,9,9,13],c.shade,null);rect(2,-14,9,28,2,c.accent);poly([22,-10,55,-7,61,-2,46,5,19,7],STEEL);poly([29,-6,43,-5,46,-1,34,3],c.trim);oval(end,0,2.6,5,INK,c.accent,1.2);bolt(64,-5,1.5);
+ }else{
+  const wide=c.id==='gun'?11:c.id==='mogu'?13:9;
+  rect(-15,-wide-2,30,wide*2+4,5,c.color);rect(7,-wide+2,end-8,wide*2-4,3,STEEL);poly([15,1,end-6,1,end-6,wide-3,15,wide-3],INK,null);rect(22,-wide+1,11,wide*2-2,2,c.trim);rect(end-12,-wide-2,12,wide*2+4,3,c.light);oval(end,0,4,wide,STEEL);oval(end+1,0,2,wide*.58,INK,null);rect(-10,-wide+2,17,7,2,c.trim);line([39,-wide+4,end-19,-wide+4],STEEL_LIGHT,1.6);bolt(-2,0,1.4);
+ }
+}
+function pose(options={}){
+ const {x=0,y=0,dir=1,slope=0,angle=32}=options,theta=(dir===1?-angle:180+angle)*Math.PI/180+slope;
+ const pivot={x:x+Math.sin(slope)*26,y:y-Math.cos(slope)*26};
+ return {pivot,x:pivot.x+Math.cos(theta)*35,y:pivot.y+Math.sin(theta)*35,theta,dir};
+}
+function draw(ctx,id,options={}){
+ const c=get(id),{x=0,y=0,dir=1,slope=0,travel=0,hit=0,kick=0,disabled=false,alpha=1}=options;
+ const muzzle=options.muzzle||pose(options),phase=travel*.13;
+ ctx.save();ctx.globalAlpha*=alpha*(disabled?.65:1);ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowBlur=0;
+ if(disabled)ctx.filter='grayscale(1)';
+ ctx.save();ctx.translate(x-dir*kick+hit,y+(disabled?3:0));ctx.rotate(slope+(disabled?dir*.07:0));ctx.scale(dir*UNIT,UNIT);body(ctx,c,phase);ctx.restore();
+ ctx.save();ctx.translate(muzzle.pivot.x,muzzle.pivot.y);ctx.rotate(muzzle.theta);ctx.scale(UNIT,dir*UNIT);weapon(ctx,brush(ctx,c),c);ctx.restore();
+ ctx.restore();return {id:c.id,muzzle:{x:muzzle.x,y:muzzle.y},pivot:{...muzzle.pivot}};
+}
+function paint(canvas,id,options={}){
+ const w=options.width||canvas.clientWidth||320,h=options.height||canvas.clientHeight||180,dpr=Math.min(3,root.devicePixelRatio||1);
+ const pixelWidth=Math.round(w*dpr),pixelHeight=Math.round(h*dpr);
+ if(canvas.width!==pixelWidth)canvas.width=pixelWidth;if(canvas.height!==pixelHeight)canvas.height=pixelHeight;
+ const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ // Full steep SORA tube and YUI ring fit as well as a horizontal RIN barrel.
+ const scale=Math.min(w/102,h/78);ctx.translate(w*.49,h*.88);ctx.scale(scale,scale);
+ draw(ctx,id,{angle:id==='sora'?58:16,...options});
+ return canvas;
+}
+function markup(id,extraClass=''){
+ const c=get(id);return `<canvas class="character-art ${extraClass}" data-character-art="${c.id}" role="img" aria-label="${c.name}"></canvas>`;
+}
+function paintAll(parent){for(const canvas of parent.querySelectorAll('canvas[data-character-art]'))paint(canvas,canvas.dataset.characterArt);}
+let resizeFrame=0;
+if(root.addEventListener)root.addEventListener('resize',()=>{root.cancelAnimationFrame(resizeFrame);resizeFrame=root.requestAnimationFrame(()=>paintAll(root.document));});
+const api={characters,get,draw,paint,paintAll,markup,pose};
+if(typeof module!=='undefined')module.exports=api;else root.ArcCharacters=api;
+})(globalThis);
+</script><script>
+let id='gun',dir=1,walk=false,travel=0,kick=0,previous=0,english=false;
+const $=x=>document.getElementById(x);
+function labels(){const c=ArcCharacters.get(id);$('name').textContent=english?c.name:c.nameJa;$('role').textContent=english?c.role:c.roleJa;$('motto').textContent=english?c.motto:c.mottoJa;$('degrees').value=$('angle').value+'°';$('language').textContent=english?'日本語':'English';$('angleLabel').textContent=english?'Aim':'照準';$('slopeLabel').textContent=english?'Slope':'傾斜';$('direction').textContent=english?'Flip':'向き反転';$('walking').textContent=english?'Move':'走行';$('fire').textContent=english?'Recoil':'発射動作';$('note').textContent=english?'The same Canvas 2D code draws these machines in the game. Appearance preview only; combat profiles are unchanged.':'ゲーム内と同じCanvas 2Dのコードで描画しています。外観の確認用です。機体別の性能は変更していません。';}
+function cards(){const root=$('cards');root.replaceChildren();for(const c of ArcCharacters.characters){const b=document.createElement('button');b.className='machine'+(c.id===id?' active':'');b.setAttribute('aria-pressed',String(c.id===id));const name=document.createElement('strong');name.style.color=c.light;name.textContent=english?c.name:c.nameJa;const role=document.createElement('small');role.textContent=english?c.role:c.roleJa;const canvas=document.createElement('canvas');canvas.setAttribute('role','img');canvas.setAttribute('aria-label',c.name);b.append(name,role,canvas);b.onclick=()=>{id=c.id;$('angle').value=id==='sora'?58:32;labels();cards();};root.append(b);ArcCharacters.paint(canvas,c.id);}}
+$('angle').oninput=labels;$('slope').oninput=labels;$('direction').onclick=()=>{dir*=-1};$('walking').onclick=()=>{walk=!walk;$('walking').setAttribute('aria-pressed',String(walk));$('walking').classList.toggle('active',walk);};$('fire').onclick=()=>{kick=.22};$('language').onclick=()=>{english=!english;labels();cards();};
+function frame(t){const dt=previous?Math.min(.05,(t-previous)/1000):0;previous=t;if(walk)travel+=dt*70;kick=Math.max(0,kick-dt);ArcCharacters.paint($('hero'),id,{angle:+$('angle').value,dir,slope:+$('slope').value*Math.PI/180,travel,kick:kick?Math.sin(kick/.22*Math.PI)*3:0});requestAnimationFrame(frame);}
+addEventListener('resize',cards);labels();cards();requestAnimationFrame(frame);
+</script></html>
