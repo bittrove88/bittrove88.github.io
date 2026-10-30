@@ -55,6 +55,19 @@ button{border:1px solid #c4e5d34d;background:#153e50;border-radius:10px;min-heig
 
 .fullscreen-toggle{position:absolute;right:88px;min-width:96px;padding:0 10px;min-height:44px;font-size:13px}.pause-fullscreen{display:none;min-height:44px;padding:0 14px;margin:7px auto;font-size:13px}#overlay[data-kind="pause"] .pause-fullscreen,#overlay[data-kind="confirm"] .pause-fullscreen{display:block}#screenHelp{position:absolute;inset:0;z-index:40;display:grid;place-items:center;padding:18px;background:#082638dd}#screenHelp>div{max-width:430px;max-height:100%;overflow:auto;touch-action:pan-y;padding:20px;border:1px solid #dfffbd55;border-radius:14px;background:#153c4e}#screenHelp h2{font-size:21px}#screenHelp p{font-size:14px;line-height:1.6}#closeScreenHelp{padding:0 24px}
 @media(orientation:landscape) and (max-height:340px){#lobby .language-toggle{position:fixed;left:24px;right:auto;top:auto;bottom:12px;z-index:3}#lobby .fullscreen-toggle{position:fixed;left:112px;right:auto;top:auto;bottom:12px;z-index:3}.lobby-dock{max-height:calc(100% - 24px);overflow:auto;touch-action:pan-y}.arena-title{top:20%}#lobbyRover{opacity:.45}}
+/* Ten reference machines use the same Canvas paths in the lobby and battle. */
+.character-art{display:block;width:100%;height:112px;pointer-events:none}
+#lobbyRover{filter:none}
+#lobbyRover .character-art{height:auto;aspect-ratio:1.6}
+.character-summary{width:100%;min-height:44px;display:flex;align-items:center;gap:12px;padding:6px 12px;margin-top:5px;background:#143e4f;border:1px solid #bcdcc440;border-radius:9px}
+.character-summary>span{font-size:12px;color:#bfd7cc}.character-summary>strong{flex:1;text-align:left;font-size:15px}.character-summary>b{font-size:22px;color:#e7f6c8}
+.character-detail>.character-art{width:165px;min-width:140px;height:105px}.character-detail p{margin:4px 0}
+.character-note{margin:0 0 12px;font-size:12px;line-height:1.5;color:#bed5ca}
+.character-card{min-height:174px;background:#214b5b}.character-card.equipped{background:#335a61;border-color:#edffbd}
+.character-card>.character-art{height:112px}.character-card>small{font-size:11px}
+.collection-tabs>button{min-height:44px}
+@media(max-width:600px){.character-detail>.character-art{width:125px;min-width:110px;height:86px}.character-detail>div{min-width:0}.character-detail p{font-size:12px}.character-card>.character-art{height:90px}.character-card{min-height:148px}.collection-tabs>button{padding:7px 10px}}
+@media(orientation:landscape) and (max-height:500px){#lobbyRover .character-art{max-height:150px}.character-detail>.character-art{width:140px;min-width:120px;height:84px}.character-detail{min-height:0}.character-note{margin-bottom:8px}.character-card{min-height:145px}.character-card>.character-art{height:85px}}
 
 @media(orientation:landscape) and (max-height:600px) and (pointer:coarse){.battle-top{--hud-width:360px;width:min(var(--hud-width),calc(100% - 24px))}#battle[data-hud-align="left"] .battle-top{left:max(12px,env(safe-area-inset-left));right:auto;margin:0}#battle[data-hud-align="right"] .battle-top{right:max(12px,env(safe-area-inset-right));left:auto;margin:0}#battle[data-hud-align="left"] .turn-pill,#battle[data-hud-align="right"] #shotBudget{top:50px}}
 @media(orientation:landscape) and (max-height:340px) and (pointer:coarse){.battle-top{--hud-width:280px}}

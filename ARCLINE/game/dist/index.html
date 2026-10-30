@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <link rel="manifest" href="app.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ARCLINE"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#12384c"><title>ARCLINE — A hundred ways across</title>
-<link rel="stylesheet" href="style.css?v=0.7.0">
+<link rel="stylesheet" href="style.css?v=0.7.1">
 </head>
 <body>
 <div id="loading">ARCLINE</div>
@@ -18,6 +18,7 @@
 <div class="lobby-dock">
 <span id="collectionCount" hidden></span>
 <button type="button" id="openCollection" class="loadout-summary" aria-label="Open weapon and appearance collection"><i id="equippedWeaponGlyph" aria-hidden="true">●</i><span><small class="equipped-label">STARTING WEAPON</small><strong id="equippedWeapon">Standard</strong><small id="equippedCosmetic" hidden>Original</small></span><b>CHANGE</b></button>
+<button type="button" id="openCharacters" class="character-summary" aria-label="Choose machine"><span>Machine</span><strong id="equippedCharacterName">GUN</strong><b aria-hidden="true">›</b></button>
 <div class="loadout" hidden><label>SPECIAL WEAPON<select id="weaponLoadout" aria-label="Equipped special weapon"></select></label><label>APPEARANCE<select id="cosmeticLoadout" aria-label="Cosmetic appearance"></select></label></div>
 <div id="nextReward" hidden></div>
 <div class="campaign-row"><span id="progressText"></span><button type="button" id="chooseLevel">JOURNEY</button></div>
@@ -25,7 +26,7 @@
 <p class="session-note" id="saveStatus" role="status">Loading progress…</p>
 </div></section>
 <section id="battle" hidden aria-label="Battle">
-<div class="battle-top"><div class="health-card player"><div class="hp-title"><strong>ROVER</strong><span id="php">5</span></div><div class="hp-track"><i id="pbar"></i></div></div><button type="button" id="pause" class="round-button" aria-label="Pause">Ⅱ</button><div class="health-card enemy"><div class="hp-title"><strong id="ename">RIVAL</strong><span id="ehp">3</span></div><div class="hp-track"><i id="ebar"></i></div></div></div>
+<div class="battle-top"><div class="health-card player"><div class="hp-title"><strong id="playerName">ROVER</strong><span id="php">5</span></div><div class="hp-track"><i id="pbar"></i></div></div><button type="button" id="pause" class="round-button" aria-label="Pause">Ⅱ</button><div class="health-card enemy"><div class="hp-title"><strong id="ename">RIVAL</strong><span id="ehp">3</span></div><div class="hp-track"><i id="ebar"></i></div></div></div>
 <div class="turn-pill"><span id="turnLabel">YOUR TURN</span><small id="round">LV 1</small></div>
 <div id="shotBudget" role="status">10 SHOTS</div>
 <div id="shotFeedback" role="status" aria-live="polite"></div>
@@ -48,5 +49,5 @@
 <div id="collectionPanel" hidden><div class="collection-panel"><header><div><strong>Equipment</strong></div><button type="button" id="closeCollection" aria-label="Close collection">✕</button></header><div id="collectionGrid"></div></div></div>
 <div id="skillPicker" hidden><div class="weapon-panel" role="dialog" aria-modal="true" aria-labelledby="skillPickerTitle"><header><strong id="skillPickerTitle">Choose combat skill</strong><button type="button" id="closeSkills" aria-label="Close skill selection">✕</button></header><div id="skillChoices"></div></div></div><div id="weaponPicker" hidden><div class="weapon-panel" role="dialog" aria-modal="true" aria-labelledby="weaponPickerTitle"><header><strong id="weaponPickerTitle">Choose weapon</strong><button type="button" id="closeWeapons" aria-label="Close weapon selection">✕</button></header><p class="weapon-picker-note">Special: 2 shots per level</p><div id="weaponChoices"></div></div></div>
 </div><section id="rotationGate" hidden role="dialog" aria-modal="true" aria-labelledby="rotationTitle"><span aria-hidden="true">↻</span><h2 id="rotationTitle">Rotate your phone</h2><p>Play in landscape. Your duel is paused.</p><button type="button" data-fullscreen>Fullscreen</button><button type="button" data-language-button>English</button></section><section id="screenHelp" hidden role="dialog" aria-modal="true" aria-labelledby="screenHelpTitle"><div><h2 id="screenHelpTitle">Play without browser bars</h2><p>On iPhone Safari, use Share → Add to Home Screen, then launch ARCLINE from its icon.</p><p>Your progress stays on this browser. The home-screen app may have separate progress.</p><button type="button" id="closeScreenHelp">Close</button></div></section></main>
-<script src="i18n.js?v=0.7.0"></script><script src="levels.js?v=0.7.0"></script><script src="weapons.js?v=0.7.0"></script><script src="geometry.js?v=0.7.0"></script><script src="physics.js?v=0.7.0"></script><script src="save.js?v=0.7.0"></script><script src="engine.js?v=0.7.0"></script><script src="lessons.js?v=0.7.0"></script><script src="render.js?v=0.7.0"></script><script src="presentation.js?v=0.7.0"></script><script src="preview.js?v=0.7.0"></script><script src="viewport.js?v=0.7.0"></script><script src="game.js?v=0.7.0"></script><script src="fullscreen.js?v=0.7.0"></script>
+<script src="i18n.js?v=0.7.1"></script><script src="levels.js?v=0.7.0"></script><script src="weapons.js?v=0.7.0"></script><script src="geometry.js?v=0.7.0"></script><script src="physics.js?v=0.7.0"></script><script src="save.js?v=0.7.1"></script><script src="engine.js?v=0.7.0"></script><script src="lessons.js?v=0.7.0"></script><script src="characters.js?v=0.7.1"></script><script src="render.js?v=0.7.1"></script><script src="presentation.js?v=0.7.1"></script><script src="preview.js?v=0.7.0"></script><script src="viewport.js?v=0.7.0"></script><script src="game.js?v=0.7.1"></script><script src="fullscreen.js?v=0.7.0"></script>
 </body></html>
