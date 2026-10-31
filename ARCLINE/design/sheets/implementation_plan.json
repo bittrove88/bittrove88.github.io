@@ -1,0 +1,4754 @@
+{
+  "version": "1.0",
+  "dateJst": "2026-10-31",
+  "status": "PLANNED_NO_GAME_CHANGES",
+  "approvedDirection": {
+    "status": "APPROVED_BY_USER",
+    "record": "直前のユーザー発言「内容問題ありません」",
+    "document": "DESIGN_UNIFICATION_PLAN_JA.md",
+    "direction": "マットな精密2D重機。親しみやすいシルエットに、用途の読める機構と少数の面陰影。",
+    "primaryExpression": "S01",
+    "playerIdentity": "S02",
+    "environment": "S08/S10",
+    "devices": "S12/S13/S14",
+    "fxSequence": "S16"
+  },
+  "baseline": {
+    "commit": "f9a8d52bac542412236c0fbae391a9896aca1d44",
+    "implementation": "0.10.0",
+    "campaignRevision": "4.1",
+    "saveSchema": 5,
+    "summary": {
+      "maps": 100,
+      "themes": 20,
+      "normal": 90,
+      "bosses": 10,
+      "midbosses": 0,
+      "pickups": 29,
+      "newSkillIds": [
+        "S_GUARD",
+        "S_BREACH",
+        "S_REPAIR"
+      ]
+    },
+    "files": {
+      "aim-guide.js": {
+        "bytes": 3740,
+        "sha256": "b3e9b11fddbdfa62f0792571bb4744c93e45b6a9f99b3e6ef44f123215f947b2"
+      },
+      "app.webmanifest": {
+        "bytes": 377,
+        "sha256": "694887db852a93fa7cc76d1711f8ad1c60916be30758897a4f2fa6769ca37c47"
+      },
+      "campaign-run.js": {
+        "bytes": 5257,
+        "sha256": "d58d89ac7ea9ee62f910b8a39e64f68d1f00b4cd5f2a65baaa58af8ddc6be966"
+      },
+      "characters.js": {
+        "bytes": 22497,
+        "sha256": "d17f171e1239d6e5f9e18c003ab9647e103169f2e24de7f062e903abd74c1d9e"
+      },
+      "combat.js": {
+        "bytes": 5133,
+        "sha256": "f54a2ec14869eb272523a816196beddd78cae52cf582c39abb03f69bce39a6bf"
+      },
+      "cpu-worker.js": {
+        "bytes": 581,
+        "sha256": "6a500e900f99a6502d5351da1a086779fd34e8d76011215952d2f934bf45d536"
+      },
+      "engine.js": {
+        "bytes": 31455,
+        "sha256": "f28425dcacc04ef46bc9f34dca0243b613010a8d9f95401f0561369ba476f3b4"
+      },
+      "fullscreen.js": {
+        "bytes": 1533,
+        "sha256": "b0f4af033459c5af72e2cef8bbef68a3563509a1211ec30cd067f48fdd679aed"
+      },
+      "game.js": {
+        "bytes": 50802,
+        "sha256": "35072c9b82f52bb28e5de6ed6b9231972f7030edb0e91d435e2c5d83d530ba89"
+      },
+      "geometry.js": {
+        "bytes": 9617,
+        "sha256": "195c2fdd140c47b23b5ab5d96a36f0cc4ffb04e7a067f299de283f421bd3a072"
+      },
+      "i18n.js": {
+        "bytes": 33699,
+        "sha256": "059f8028fbbbdf4fd55d040a45480591ea5e5234ab926651d4eee7ad129830ed"
+      },
+      "icon.svg": {
+        "bytes": 353,
+        "sha256": "67614ce239b389037c958ae69744f00150c30dbe1f64e73719347e9ea9778d56"
+      },
+      "index.html": {
+        "bytes": 15392,
+        "sha256": "492e89fe3bd094c44040d54766f6e749bf43ca17f1c2241c00e33cc77c9b6715"
+      },
+      "inventory.js": {
+        "bytes": 2320,
+        "sha256": "8d2814f6615e3398d3516049ace565081fe65d432b06baa8d7dd9fb2479f0ba8"
+      },
+      "journal.js": {
+        "bytes": 22112,
+        "sha256": "80f3794994b200cde971719a449163b7420243e4ac5b9662054b4ca288d0ea9c"
+      },
+      "lessons.js": {
+        "bytes": 24034,
+        "sha256": "dc2f3ed14f2d973c9faad92da1ece201ea246caa68346819196a354a9b73c066"
+      },
+      "levels.js": {
+        "bytes": 99791,
+        "sha256": "30396e733b3eafd24b775176e209be3599e26b2812cd1fa5f3da9009a8ddd0f1"
+      },
+      "menus.js": {
+        "bytes": 12789,
+        "sha256": "5782f608032bd56e0cefeafc1dd19d8a0750aefe921aa11e4c92fbf2595d38a5"
+      },
+      "physics.js": {
+        "bytes": 19004,
+        "sha256": "9ee9af7d1739271df8d6b4ae6dcee9211b11f482dd4e1d981975959f9498c9d7"
+      },
+      "presentation.js": {
+        "bytes": 18551,
+        "sha256": "2f4f41943809c3db9123dee93298dfb4873eb68376057deef6f5278e1fa107dd"
+      },
+      "preview.js": {
+        "bytes": 30744,
+        "sha256": "7d28a48c615d4f2b3e9cc23c13b3b5c982c2710e0ba2a98e84ae1bdf9f7af801"
+      },
+      "render.js": {
+        "bytes": 60084,
+        "sha256": "454c4e0c4e64e3a7536004416f6140d2ea9b93e244f826e1c3d05163f815b5c8"
+      },
+      "save.js": {
+        "bytes": 4261,
+        "sha256": "21cf9b5c4867fb14a4cc5eb48c9051647d3625983ba0138eee22fd29f904110a"
+      },
+      "skills.js": {
+        "bytes": 1345,
+        "sha256": "ee9576c9c79475e47ac483e3b9c6cbde14832bc09e8b08f31e0118941e3904b6"
+      },
+      "style.css": {
+        "bytes": 59697,
+        "sha256": "d100eb3fdaa3c3669722aaf95608f6d25d516370fbb7b40252d75eea2a851eff"
+      },
+      "viewport.js": {
+        "bytes": 2479,
+        "sha256": "35c305e2c319376a898f34aa37cb99b36c415c6ec9b3782ee10e2e9a92029207"
+      },
+      "weapons.js": {
+        "bytes": 3847,
+        "sha256": "ce5a4c7f0f8dd9fe8ccc8ac2409dbb8fb7aa7c758064af636463b3df694f154d"
+      }
+    },
+    "sourceSha256": {
+      "ARCLINE/design/runtime_campaign_20x5.json": "6636e43da9ad9f38e5372dc20018a2130563683718f0bb367b04eb93fdaa1e77",
+      "ARCLINE/game/tools/build_levels.py": "7a23dccba9f1f78470c04a682098db2635c383f57b89e57aaeae788e8f42d2e2",
+      "ARCLINE/game/tools/build_playables.py": "0e5960b906aa2275edca8a80a1b35830cb530b5663283747855c461ed40f8885",
+      "ARCLINE/characters/index.html": "3aea932a5a9f9d7721d221f1eef2cd41800af351e21f0c0c0cc9105e9661159b",
+      "ARCLINE/characters/ARCLINE_Characters_Preview.html": "c7256b52907ffec50e7078f057942419e443f80443fd173c44dcf3fb079a24b1",
+      "ARCLINE/site/scenes.js": "d5a62f3d8641b8013d84b7a47f267143f6191dbafb5cf7ac173e3b2cf84552c4",
+      "ARCLINE/site/site.js": "fb0ecc55321b327182b18395e41079eded82dc75b6690ed739cff194d0433137",
+      "ARCLINE/index.html": "2df62db7885f4f7182184949d1ef1c466c51e0e5075fbdba3b440795ebe965ab"
+    },
+    "originalSheets": {
+      "S01": {
+        "filename": "0885817F-97A8-459D-8966-34AA3669AF2E.png",
+        "sha256": "2402e70234835c55b2fbab16781e740f1ead94b32abfd871ef554bec25adae89"
+      },
+      "S02": {
+        "filename": "95CB9F45-E52C-4228-9430-3FC587D53F94.png",
+        "sha256": "755efc42465b8f69891c6b86526949189063e5cd109d02416b3a93170e8ccaaf"
+      },
+      "S03": {
+        "filename": "B4B8EF73-B773-4CF1-B7FC-97BBA5140165.png",
+        "sha256": "89e60b38088d4570f07fb5a37a7238869a29a8c3ecc4d00bf46729d93f55a645"
+      },
+      "S04": {
+        "filename": "F6583EC0-F22F-4A5A-8861-ECFF63F442E3.png",
+        "sha256": "c6799d20a39c1af4afe10963c03d2633e3c97cc348a499ac07ec7e1a5c8fce1e"
+      },
+      "S05": {
+        "filename": "B8EFC1B9-9938-40F3-A9BB-26D58CD8E7F7.png",
+        "sha256": "4d6668b868893329f8723711adb6d6b36bd03dcb62c4e16a1ccb066f338f31ec"
+      },
+      "S06": {
+        "filename": "92B9A592-F14B-4FC1-B1D5-82EFE078FE9D.png",
+        "sha256": "df66ed4314f65289487ef5565d5bdbc73c79417fa0b98f99b44b075d838e9d4c"
+      },
+      "S07": {
+        "filename": "35E0AD91-82E9-4C89-A15A-3F5541EAF4B0.png",
+        "sha256": "0de48397e99dd1c35274b450bed48cf04b8f1bab698090e88589e57a120a9935"
+      },
+      "S08": {
+        "filename": "E04D281A-DCC8-4878-9F28-161B22415983.png",
+        "sha256": "4ffe232a32bbe83d2593eec98d153215808555186eff74cb4ea7cfb358c83d7b"
+      },
+      "S09": {
+        "filename": "4647E746-9C77-47EF-A93A-0F1EA27A935C.png",
+        "sha256": "dacdd1ca657fa0637e404d3aeb9ee99d90e45bbfe683a3ab0b4b15d723ab1f07"
+      },
+      "S10": {
+        "filename": "458992B1-BB92-4ADD-9865-64EB930AA483.png",
+        "sha256": "67ca007b8ab3ce5ef06d369ed3f78a1761d51ffb44a0d1361e81cfe81ad13841"
+      },
+      "S11": {
+        "filename": "8DC067F1-6974-4BAE-A623-B8CF1CEBD5DB.png",
+        "sha256": "47e0a22d6bab0b46824e4e158ef9d13d1a083911032f86fa2884bcf06b935bb5"
+      },
+      "S12": {
+        "filename": "5A5F2B38-9AC5-4982-8295-8109B9564781.png",
+        "sha256": "6ebf72c084020528ef0fd25207a5831f322892027db767e4af6a5af9edba1c4b"
+      },
+      "S13": {
+        "filename": "A3A3CE98-BDED-4387-92B5-2491CF366146.png",
+        "sha256": "d74e520c81c5a6022d7e94b4277a93b2dedaf7d18d338118e75250d3c58c3c44"
+      },
+      "S14": {
+        "filename": "2D52F20A-D97B-4709-A367-53B494BFD92A.png",
+        "sha256": "db54fe6c4ac543e40904cd4b0a7b7ca24d659842e4a12c7d6b1ffdafee0e4bc7"
+      },
+      "S15": {
+        "filename": "6E56AAD4-653E-4F16-B8CE-4EBB92A90825.png",
+        "sha256": "44e9938554d70560c3c45f8c9cc69cebce424968601cc9b20563c0a4ddb3317a"
+      },
+      "S16": {
+        "filename": "A4286A7E-B5B2-408C-BC80-A2A77DB4BC4C.png",
+        "sha256": "58f1627afa1ebce7a0cb28e5a2a2714e17a0de101354ab501627744a7d01ab15"
+      },
+      "S17": {
+        "filename": "A65A863C-2873-4504-AEC0-69EB6BF118E9.png",
+        "sha256": "eb5670ae052fc4f5f397dbc30805e3d7f082b2e9241fc150160de8f1f03ad4de"
+      },
+      "S18": {
+        "filename": "74CD7043-9A55-412E-BD1E-267BEC7B732F.png",
+        "sha256": "9d3d33fd17fdefef0fb184f38babf44fe73312025c121235fe5a8fe08f85ff7c"
+      }
+    }
+  },
+  "scope": {
+    "artPass": "見た目・描画接続・資料同期。現在の物理と在庫を保持。",
+    "combatPass": "ボスの必要な部位座標変更、通常敵の行動差、中ボス10戦。戦闘仕様と攻略を別に検証。",
+    "notAdopted": [
+      "水の物理",
+      "多段地形耐久",
+      "風でキャラを流す機能",
+      "60面の新昇降床",
+      "80面の新回転足場",
+      "90面の新可変バリア",
+      "100面の新無敵/回復ループ",
+      "ランダム武器カプセル",
+      "新しい回復弾薬",
+      "全42体の同時出現"
+    ]
+  },
+  "executionBoundary": "次の実装指示ではB01〜B02を最初の区切りとし、代表3画面を示してから全体へ広げる。今回は全24タスクが未着手。",
+  "batches": [
+    {
+      "id": "B01",
+      "title": "基準と接続契約",
+      "boundary": "基準保存のみ。ゲーム挙動の変更なし。",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "tasks": [
+        "T01",
+        "T02"
+      ]
+    },
+    {
+      "id": "B02",
+      "title": "共通描画と代表3画面",
+      "boundary": "3画面の見本確認で区切る。全体展開はここを通過してから。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B01"
+      ],
+      "tasks": [
+        "T03",
+        "T04",
+        "T05"
+      ]
+    },
+    {
+      "id": "B03",
+      "title": "自機10機・通常敵12種の外観",
+      "boundary": "通常敵はこの段階では現行AIのまま。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B02"
+      ],
+      "tasks": [
+        "T06",
+        "T07"
+      ]
+    },
+    {
+      "id": "B04",
+      "title": "100面の地形・20テーマ・9ギミック",
+      "boundary": "100面の形と攻略を保持した美術反映。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B03"
+      ],
+      "tasks": [
+        "T08",
+        "T09",
+        "T10",
+        "T11"
+      ]
+    },
+    {
+      "id": "B05",
+      "title": "エフェクト・補給・スキル・プレビュー",
+      "boundary": "実イベントと見え方を一致させる。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B04"
+      ],
+      "tasks": [
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ]
+    },
+    {
+      "id": "B06",
+      "title": "大ボス10体の外観と部位",
+      "boundary": "部位座標変更は戦闘差分として検証。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B05"
+      ],
+      "tasks": [
+        "T16",
+        "T17"
+      ]
+    },
+    {
+      "id": "B07",
+      "title": "通常敵の個性・中ボス10戦",
+      "boundary": "新しい戦闘の導入。外観だけの完了と区別。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B06"
+      ],
+      "tasks": [
+        "T18",
+        "T19",
+        "T20"
+      ]
+    },
+    {
+      "id": "B08",
+      "title": "100面統合・実機・配布同期",
+      "boundary": "全ての完了条件を満たした範囲だけ公開。",
+      "status": "PLANNED",
+      "dependsOn": [
+        "B07"
+      ],
+      "tasks": [
+        "T21",
+        "T22",
+        "T23",
+        "T24"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01",
+      "batch": "B01",
+      "title": "現行版と比較基準を固定",
+      "track": "BASELINE",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "size": "M",
+      "files": [
+        "game/dist/",
+        "game/tests/",
+        "evidence/journey-ui/"
+      ],
+      "deliverables": [
+        "0.10.0の配布27ファイル、原本18点、100面と保存schema5の固定記録",
+        "同じ入力・乱数で再生する比較ケース"
+      ],
+      "acceptance": [
+        "既存の既知不整合を分離し、新しい合格へ数えない",
+        "ゲーム変更前に基準状態と現在のテスト結果を保存"
+      ]
+    },
+    {
+      "id": "T02",
+      "batch": "B01",
+      "title": "対象ID・対応表・描画契約を定義",
+      "track": "BASELINE",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T01"
+      ],
+      "size": "M",
+      "files": [
+        "design/sheets/implementation_plan.json",
+        "game/dist/characters.js",
+        "game/dist/render.js"
+      ],
+      "deliverables": [
+        "自機10・通常敵12・中ボス10・大ボス10の役割別ID",
+        "100面の外観割当、地形/テーマ/FXの別名前空間、座標の契約"
+      ],
+      "acceptance": [
+        "enemyProfileと外観IDを分離",
+        "中ボスを大ボスのフラグだけで表さない",
+        "未知IDは安全な旧描画へ戻る"
+      ]
+    },
+    {
+      "id": "T03",
+      "batch": "B02",
+      "title": "共通スタイルと描画部品を実装",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T02"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/characters.js",
+        "game/dist/render.js",
+        "game/dist/index.html",
+        "game/tools/build_playables.py"
+      ],
+      "deliverables": [
+        "色・CSSpx線幅・階調・詳細度・塗り順を共有",
+        "既存のカメラ/入力を残した描画専用モジュール"
+      ],
+      "acceptance": [
+        "描画前後で戦闘状態・乱数・保存が同一",
+        "DPR1/2/3で輪郭が安定",
+        "計算結果と砲口/反射面が一致"
+      ]
+    },
+    {
+      "id": "T04",
+      "batch": "B02",
+      "title": "入江の代表画面を作成",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T03"
+      ],
+      "size": "M",
+      "files": [
+        "game/dist/characters.js",
+        "game/dist/render.js",
+        "design/visual-samples/（新規予定）"
+      ],
+      "deliverables": [
+        "ガン＋ペブル、固定/破壊/反射、浮遊箱を同じ描画で表示",
+        "展示サイズと568×240/844×390の実戦サイズ"
+      ],
+      "acceptance": [
+        "輪郭と面密度が共通",
+        "箱が装置に見えず、地面が枠だけにならない",
+        "自機本体32pxと主要操作84pxを維持"
+      ]
+    },
+    {
+      "id": "T05",
+      "batch": "B02",
+      "title": "洞窟と暗所の代表画面を作成",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T04"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "design/visual-samples/（新規予定）"
+      ],
+      "deliverables": [
+        "ハーバー・ノット＋洞窟/W/B/Kの状態見本",
+        "ユイ＋ポラリス/M/T/転移/予告の状態見本",
+        "3画面の新旧比較と参照シートの対応"
+      ],
+      "acceptance": [
+        "ボス/中ボスは状態見本と明記し、新戦闘の実装とは扱わない",
+        "判定のデバッグ重ね合わせが読める",
+        "3見本を確認してから全機体へ展開"
+      ]
+    },
+    {
+      "id": "T06",
+      "batch": "B03",
+      "title": "自機10機の描画を統一",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T05"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/characters.js",
+        "game/dist/presentation.js"
+      ],
+      "deliverables": [
+        "S02の形・色を保持し、線/艶/密度/詳細度をS01基準へ",
+        "左右、照準、歩行、被弾、発射、停止の状態"
+      ],
+      "acceptance": [
+        "選択画面・ロビー・戦闘・プレビューで同じ個体",
+        "砲口が物理のG.muzzleと一致",
+        "10機の性能・通常弾・必殺数値・章在庫が基準と同一"
+      ]
+    },
+    {
+      "id": "T07",
+      "batch": "B03",
+      "title": "通常敵12種の外観と割当を導入",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T06"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/presentation.js",
+        "game/dist/actor-art.js（新規案）",
+        "game/dist/visual-map.js（新規案）"
+      ],
+      "deliverables": [
+        "S05の12形状を同じ密度のコード描画へ",
+        "90通常面の明示的な外観割当、既存AIの保持"
+      ],
+      "acceptance": [
+        "12外観を全て使用し、不適合な地形配置がない",
+        "外観だけで新耐性/新攻撃を示さない",
+        "名前に能力説明を付けるのは戦闘仕様を接続した後"
+      ]
+    },
+    {
+      "id": "T08",
+      "batch": "B04",
+      "title": "有限地形の材質と接触面を統一",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T07"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/geometry.js（読取契約）"
+      ],
+      "deliverables": [
+        "S07の部品語彙を既存100面ポリゴンへ適用",
+        "固定岩/紫の破壊材/硬い反射面/橋の材質と露出断面"
+      ],
+      "acceptance": [
+        "1〜20面で検証後、21〜100へ展開",
+        "左端/底面を満たし、洞窟/浮島/穴を塗り潰さない",
+        "破壊した部品の塗り・反射・キャッシュが残らない"
+      ]
+    },
+    {
+      "id": "T09",
+      "batch": "B04",
+      "title": "20テーマの環境を描き分け",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T08"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/visual-theme.js（新規案）"
+      ],
+      "deliverables": [
+        "S10の20テーマと現行IDを1対1対応",
+        "S08の地形/遠近階層を各テーマへ展開、4役割の背景"
+      ],
+      "acceptance": [
+        "汎用パレットS09の番号をテーマIDへ流用しない",
+        "同じテーマ内でも既存5面の独自形状を保持",
+        "背景を衝突する壁や反射面に見せない"
+      ]
+    },
+    {
+      "id": "T10",
+      "batch": "B04",
+      "title": "W/B/Kの機構と状態を統一",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T09"
+      ],
+      "size": "M",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/geometry.js（読取契約）"
+      ],
+      "deliverables": [
+        "Wは硬い地表、Bは支点/板/支持、Kは枠/反射板",
+        "開/閉、回転、停止を実際のworldから描画"
+      ],
+      "acceptance": [
+        "W/Kの表面と実衝突点が一致",
+        "39面の回転と橋の手番変化が予告と一致",
+        "新たな床や水の物理を導入しない"
+      ]
+    },
+    {
+      "id": "T11",
+      "batch": "B04",
+      "title": "C/U/F/V/M/Tの作用と状態を統一",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T10"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/physics.js（読取契約）",
+        "game/dist/engine.js（読取契約）"
+      ],
+      "deliverables": [
+        "淡い領域、向き、稼働/弱化/予約/停止の状態一式",
+        "背景の雲や光と作用領域を分離"
+      ],
+      "acceptance": [
+        "磁場の曲がりを絶対上下と誤案内しない",
+        "T命中直後は予約、手番境界で反転",
+        "60/80/90面は現行の風/磁場/雲の変化を示す"
+      ]
+    },
+    {
+      "id": "T12",
+      "batch": "B05",
+      "title": "実イベントに同期する共通FXを作成",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T11"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/effect-art.js（新規案）"
+      ],
+      "deliverables": [
+        "S16の段階とS15の分解を基にFX01〜06をコード描画",
+        "一度だけ発生するイベントIDと表示時間の管理"
+      ],
+      "acceptance": [
+        "描画フレーム数で効果や被害が増えない",
+        "弾・接触点・危険範囲を最優先",
+        "低モーション時も結果と方向が判別できる"
+      ]
+    },
+    {
+      "id": "T13",
+      "batch": "B05",
+      "title": "通常/補助弾/10必殺を描き分け",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T12"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/combat.js（読取契約）",
+        "game/dist/weapons.js（読取契約）"
+      ],
+      "deliverables": [
+        "10必殺の異なる形と順序",
+        "転移の接触→移動→落下/接地、クリティカルと部位命中"
+      ],
+      "acceptance": [
+        "発射前の予測線は現行点線、充填中の着弾点を追加しない",
+        "8子弾/遅延3発/反射/牽引の実イベントを同期",
+        "弾速・命中・被害・当たり判定を演出の都合で変更しない"
+      ]
+    },
+    {
+      "id": "T14",
+      "batch": "B05",
+      "title": "29拾得物とスキルの意味を統一",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T13"
+      ],
+      "size": "M",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/skills.js",
+        "game/dist/presentation.js",
+        "game/dist/i18n.js"
+      ],
+      "deliverables": [
+        "武器は弾形＋3目盛り、補助弾薬は箱、スキルは盾/破砕/工具",
+        "装置は接地、拾得物は浮遊。短い取得結果と在庫表示"
+      ],
+      "acceptance": [
+        "自弾通過による取得と入替/スキップを維持",
+        "武器3発まで補充、弾薬/スキル+1を読み違えない",
+        "旧在庫・スキル効果・29配置を保持"
+      ]
+    },
+    {
+      "id": "T15",
+      "batch": "B05",
+      "title": "プレビューを本番と同じ描画へ接続",
+      "track": "ART",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T14"
+      ],
+      "size": "M",
+      "files": [
+        "game/dist/lessons.js",
+        "game/dist/preview.js",
+        "game/dist/render.js",
+        "game/dist/game.js",
+        "game/dist/i18n.js"
+      ],
+      "deliverables": [
+        "67案内×10機の本番イベントと新描画の接続",
+        "何が変わったか1つに絞る比較、ループ＋OKのみ"
+      ],
+      "acceptance": [
+        "本番状態や進行を変更しない",
+        "OKが重要部分に重ならない",
+        "動作の失敗を成功演出で隠さない"
+      ]
+    },
+    {
+      "id": "T16",
+      "batch": "B06",
+      "title": "大ボスの部位・砲口・判定を個別定義",
+      "track": "COMBAT_CONTRACT",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T15"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/engine.js",
+        "game/dist/physics.js",
+        "game/dist/render.js",
+        "game/dist/encounters.js（新規案）",
+        "game/dist/cpu-worker.js"
+      ],
+      "deliverables": [
+        "S03の外観に対応する10体の部位アンカー表",
+        "移動が必要な判定/砲口と、保持するHP/行動/攻撃の差分"
+      ],
+      "acceptance": [
+        "共通座標を無理に絵へ流用しない",
+        "判定の変更は美術差分とは別に明示",
+        "CPU Workerと本体の同じ定義・通常弾攻略経路を確認"
+      ]
+    },
+    {
+      "id": "T17",
+      "batch": "B06",
+      "title": "大ボス10体と破損/露出を完成",
+      "track": "ART_AND_CONTRACT",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T16"
+      ],
+      "size": "XL",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/actor-art.js（新規案）",
+        "game/dist/engine.js"
+      ],
+      "deliverables": [
+        "タイドクローを先に完成し、残る9体へ展開",
+        "部位正常/損傷/破損/露出、アークハート3段階"
+      ],
+      "acceptance": [
+        "部位とコアが見た場所で当たる",
+        "30/40/60/80/90/100面の連動が実状態と一致",
+        "ボスを収めるためだけに自機・操作を縮めない"
+      ]
+    },
+    {
+      "id": "T18",
+      "batch": "B07",
+      "title": "通常敵12種の戦い方を定義・接続",
+      "track": "COMBAT",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T17"
+      ],
+      "size": "XL",
+      "files": [
+        "design/runtime_campaign_20x5.json",
+        "game/tools/build_levels.py",
+        "game/dist/engine.js",
+        "game/dist/physics.js",
+        "game/dist/cpu-worker.js",
+        "game/dist/encounters.js（新規案）",
+        "game/dist/levels.js（生成物）"
+      ],
+      "deliverables": [
+        "一種につき主な戦い方1つ、射角/準備/精度/移動/連射/範囲の表",
+        "段階的な通常敵データと100面の個別割当"
+      ],
+      "acceptance": [
+        "外観IDだけで性能を推測しない",
+        "序盤1〜4面に追加能力を持ち込まない",
+        "必要なギミックが無い面へ専用行動を置かない",
+        "既存通常面の同一入力比較と新攻略を別結果として記録"
+      ]
+    },
+    {
+      "id": "T19",
+      "batch": "B07",
+      "title": "中ボス1体を戦闘として導入",
+      "track": "COMBAT",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T18"
+      ],
+      "size": "XL",
+      "files": [
+        "design/runtime_campaign_20x5.json",
+        "game/tools/build_levels.py",
+        "game/dist/engine.js",
+        "game/dist/physics.js",
+        "game/dist/cpu-worker.js",
+        "game/dist/campaign-run.js",
+        "game/dist/lessons.js",
+        "game/dist/journal.js",
+        "game/dist/i18n.js"
+      ],
+      "deliverables": [
+        "encounterKind normal/midboss/bossの接続、まず5面ハーバー・ノット",
+        "HP・部位・射撃・予告・停止・報酬・10機攻略の戦闘表",
+        "短い日本語案内と任意の記録"
+      ],
+      "acceptance": [
+        "5面勝利で章在庫がリセットされない",
+        "序盤の通常弾と歩行/転移の教えを壊さない",
+        "自機10機に無補給の攻略経路、特殊能力は一度に1つ"
+      ]
+    },
+    {
+      "id": "T20",
+      "batch": "B07",
+      "title": "残る9中ボスを15〜95面へ展開",
+      "track": "COMBAT",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T19"
+      ],
+      "size": "XL",
+      "files": [
+        "design/runtime_campaign_20x5.json",
+        "game/tools/build_levels.py",
+        "game/dist/encounters.js（新規案）",
+        "game/dist/journal.js",
+        "game/dist/i18n.js"
+      ],
+      "deliverables": [
+        "S04の10体と5/15/25/35/45/55/65/75/85/95面の明示対応",
+        "10・20…大ボスと中ボスの役割/強さ/予告を区別",
+        "中ボス10体・大ボス10体の短い物語を既存の旅の記録へ接続"
+      ],
+      "acceptance": [
+        "最終構成は通常80・中ボス10・大ボス10",
+        "5面おきの報酬と10面おきのリセットを別に維持",
+        "原本の番号誤りを実IDへ混入しない"
+      ]
+    },
+    {
+      "id": "T21",
+      "batch": "B08",
+      "title": "100面と全機体の統合回帰",
+      "track": "VALIDATION",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T20"
+      ],
+      "size": "XL",
+      "files": [
+        "game/tests/",
+        "evidence/design-integration/（新規予定）"
+      ],
+      "deliverables": [
+        "100面×8画面、全42外観と全段階の表示記録",
+        "10機×100面の物理/経路確認、戦闘変更は複数乱数の実試合"
+      ],
+      "acceptance": [
+        "初期表示テストと実HP攻略を混ぜない",
+        "無在庫・有限必殺3・詰み/敵必中を検証",
+        "全3難易度、点線、左右、保存、取消、プレビュー、結果を確認"
+      ]
+    },
+    {
+      "id": "T22",
+      "batch": "B08",
+      "title": "スマホ実機と描画負荷を確認",
+      "track": "VALIDATION",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T21"
+      ],
+      "size": "L",
+      "files": [
+        "game/dist/render.js",
+        "game/dist/viewport.js（読取/回帰）",
+        "game/dist/style.css（必要時のみ）"
+      ],
+      "deliverables": [
+        "iPhone Safari/ホーム画面、Android Chromeで操作と回転",
+        "混雑時の描画時間、メモリ、低モーションの測定"
+      ],
+      "acceptance": [
+        "568×240でも32px本体/84px主要操作を維持",
+        "充填中にズームせず、上射の追従が滑らかに戻る",
+        "目標60fps、低負荷時30fps相当の基準は実測まで未合格"
+      ]
+    },
+    {
+      "id": "T23",
+      "batch": "B08",
+      "title": "紹介・確認・配布ファイルを同期",
+      "track": "RELEASE",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T22"
+      ],
+      "size": "L",
+      "files": [
+        "characters/index.html",
+        "characters/ARCLINE_Characters_Preview.html",
+        "characters/ARCLINE_Characters_Preview.png",
+        "site/site.js",
+        "site/scenes.js",
+        "index.html",
+        "game/dist/index.html",
+        "game/tools/build_playables.py"
+      ],
+      "deliverables": [
+        "ゲームと確認/紹介画面に同じ描画を使用",
+        "単体HTMLとPNGを再現可能に生成し、旧版は識別して保持",
+        "変更した依存のcache keyと配布manifestを一括更新"
+      ],
+      "acceptance": [
+        "手書き複製が残らず、ダウンロードと画面が一致",
+        "SDKや解析設定の追加・変更を混ぜない",
+        "ZIP/キャッシュ/原本の切り出しをゲームへ追加しない"
+      ]
+    },
+    {
+      "id": "T24",
+      "batch": "B08",
+      "title": "区切りごとの公開と結果記録",
+      "track": "RELEASE",
+      "status": "PLANNED",
+      "dependsOn": [
+        "T23"
+      ],
+      "size": "M",
+      "files": [
+        "README.md",
+        "evidence/design-integration/（新規予定）",
+        "updates/（必要時）"
+      ],
+      "deliverables": [
+        "各バッチのPR、変更範囲・検証・未確認・戻し方",
+        "配布とPagesの対象コミットを一致させる"
+      ],
+      "acceptance": [
+        "原本18点、進行/所有ID/章在庫を保全",
+        "純粋な美術変更では保存schema5を維持",
+        "戦闘仕様が変わる場合のrevision/互換性を公開前に検証"
+      ]
+    }
+  ],
+  "themes": [
+    {
+      "id": 0,
+      "displayId": 1,
+      "name": "はじまりの入江",
+      "stages": [
+        1,
+        5
+      ],
+      "materialDirection": "淡砂・青緑",
+      "backgroundRule": "低い港影と遠い帆。地面の厚みを先に見せる",
+      "normalVisuals": [
+        "pebble",
+        "slate"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 1,
+      "displayId": 2,
+      "name": "鏡の岸壁",
+      "stages": [
+        6,
+        10
+      ],
+      "materialDirection": "灰岩・ミント",
+      "backgroundRule": "岸壁と板の継ぎ目。水に見える反射面を避ける",
+      "normalVisuals": [
+        "slate",
+        "riff"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 2,
+      "displayId": 3,
+      "name": "吊り橋の水路",
+      "stages": [
+        11,
+        15
+      ],
+      "materialDirection": "砂岩・作業鋼",
+      "backgroundRule": "橋脚と水路の遠景。可動橋だけ支点を強調",
+      "normalVisuals": [
+        "hang",
+        "pebble"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 3,
+      "displayId": 4,
+      "name": "遺跡の入口",
+      "stages": [
+        16,
+        20
+      ],
+      "materialDirection": "黄土・深い青",
+      "backgroundRule": "遺跡の門。背景の柱と実際の壁を区別",
+      "normalVisuals": [
+        "slate",
+        "spike"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 4,
+      "displayId": 5,
+      "name": "霧の谷",
+      "stages": [
+        21,
+        25
+      ],
+      "materialDirection": "青灰・薄緑",
+      "backgroundRule": "霧の奥行き。背景の霧とCの境界を分離",
+      "normalVisuals": [
+        "mist",
+        "flint"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 5,
+      "displayId": 6,
+      "name": "雲の空港",
+      "stages": [
+        26,
+        30
+      ],
+      "materialDirection": "薄い青・クリーム",
+      "backgroundRule": "雲と空港灯。Cは減速領域として輪郭を残す",
+      "normalVisuals": [
+        "gust",
+        "spike"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 6,
+      "displayId": 7,
+      "name": "水晶の反射路",
+      "stages": [
+        31,
+        35
+      ],
+      "materialDirection": "石青・淡い水晶",
+      "backgroundRule": "結晶の遠景。Kの反射面と装飾結晶を分離",
+      "normalVisuals": [
+        "riff",
+        "flint"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 7,
+      "displayId": 8,
+      "name": "プリズム城壁",
+      "stages": [
+        36,
+        40
+      ],
+      "materialDirection": "石灰・青紫",
+      "backgroundRule": "城壁の層。鏡面の枠と紫の破壊材を分離",
+      "normalVisuals": [
+        "riff",
+        "slate"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 8,
+      "displayId": 9,
+      "name": "上昇の坑道",
+      "stages": [
+        41,
+        45
+      ],
+      "materialDirection": "暗い岩・作業黄",
+      "backgroundRule": "坑道の支持具。Uと開口が読める明暗",
+      "normalVisuals": [
+        "mole",
+        "pebble"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 9,
+      "displayId": 10,
+      "name": "琥珀の機関",
+      "stages": [
+        46,
+        50
+      ],
+      "materialDirection": "琥珀・作業鋼",
+      "backgroundRule": "機関と通路。操作対象の装置だけ状態表示",
+      "normalVisuals": [
+        "mole",
+        "blast"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 10,
+      "displayId": 11,
+      "name": "風の観測台",
+      "stages": [
+        51,
+        55
+      ],
+      "materialDirection": "淡石・観測青",
+      "backgroundRule": "風見と観測塔。Fの矢印を主情報にする",
+      "normalVisuals": [
+        "gust",
+        "spike"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 11,
+      "displayId": 12,
+      "name": "凍てつく峡谷",
+      "stages": [
+        56,
+        60
+      ],
+      "materialDirection": "氷灰・濃い青",
+      "backgroundRule": "雪と峡谷。通常の氷をW反射や滑走床に見せない",
+      "normalVisuals": [
+        "mist",
+        "gust"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 12,
+      "displayId": 13,
+      "name": "火山の外縁",
+      "stages": [
+        61,
+        65
+      ],
+      "materialDirection": "赤褐・黒岩",
+      "backgroundRule": "火山の遠景。背景の溶岩を新しい危険床にしない",
+      "normalVisuals": [
+        "blast",
+        "slate"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 13,
+      "displayId": 14,
+      "name": "鍛冶の回廊",
+      "stages": [
+        66,
+        70
+      ],
+      "materialDirection": "煤色・橙",
+      "backgroundRule": "工場と炉。Vの稼働口を背景の発光と分ける",
+      "normalVisuals": [
+        "volt",
+        "blast"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 14,
+      "displayId": 15,
+      "name": "磁石の採掘場",
+      "stages": [
+        71,
+        75
+      ],
+      "materialDirection": "鉱石灰・作業黄",
+      "backgroundRule": "採掘設備。Mと破壊材を形で区別",
+      "normalVisuals": [
+        "pole",
+        "mole"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 15,
+      "displayId": 16,
+      "name": "極性の実験棟",
+      "stages": [
+        76,
+        80
+      ],
+      "materialDirection": "白鋼・極性青赤",
+      "backgroundRule": "実験装置。M/Tの稼働・予約・停止を明示",
+      "normalVisuals": [
+        "pole",
+        "volt"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 16,
+      "displayId": 17,
+      "name": "空中庭園",
+      "stages": [
+        81,
+        85
+      ],
+      "materialDirection": "淡緑・石灰",
+      "backgroundRule": "庭園の遠景。葉で足場や弾を隠さない",
+      "normalVisuals": [
+        "hang",
+        "gust"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 17,
+      "displayId": 18,
+      "name": "嵐の空母",
+      "stages": [
+        86,
+        90
+      ],
+      "materialDirection": "濃青・雨灰",
+      "backgroundRule": "空母と嵐。背景の船体とボス本体を区別",
+      "normalVisuals": [
+        "hang",
+        "volt"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 18,
+      "displayId": 19,
+      "name": "要塞の重層門",
+      "stages": [
+        91,
+        95
+      ],
+      "materialDirection": "石鋼・深青",
+      "backgroundRule": "重層門と支柱。通れる開口を塗りで塞がない",
+      "normalVisuals": [
+        "flint",
+        "slate"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    },
+    {
+      "id": 19,
+      "displayId": 20,
+      "name": "夜明けの核",
+      "stages": [
+        96,
+        100
+      ],
+      "materialDirection": "夜明け砂・空青",
+      "backgroundRule": "核と遠い構造物。核心の状態を背景光から分ける",
+      "normalVisuals": [
+        "volt",
+        "riff"
+      ],
+      "source": [
+        "S08",
+        "S10"
+      ],
+      "status": "PLANNED"
+    }
+  ],
+  "ordinaryEnemies": [
+    {
+      "id": "pebble",
+      "name": "ペブル",
+      "role": "巡回車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "小さく安定した通常弾。最初の4面は追加能力を使わない。"
+    },
+    {
+      "id": "slate",
+      "name": "スレート",
+      "role": "整地車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "低い射角と事前動作。装甲の絵だけで耐性を追加しない。"
+    },
+    {
+      "id": "spike",
+      "name": "スパイク",
+      "role": "高角砲車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "高い弧と長い予告。天井のある面では経路を先に確認。"
+    },
+    {
+      "id": "flint",
+      "name": "フリント",
+      "role": "狙撃車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "細い射撃と長めの準備。確定命中や発射直前の追尾を避ける。"
+    },
+    {
+      "id": "mole",
+      "name": "モール",
+      "role": "掘削車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "破壊材を開く射撃を検討。固定岩・反射装置は貫通させない。"
+    },
+    {
+      "id": "riff",
+      "name": "リフ",
+      "role": "光学車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "W/Kのある面で反射射撃を検討。反射経路のない面では使わない。"
+    },
+    {
+      "id": "gust",
+      "name": "ガスト",
+      "role": "風を読む車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "既存F/Uを利用した弾道。新しい風の発生能力は別機能。"
+    },
+    {
+      "id": "pole",
+      "name": "ポール",
+      "role": "磁気車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "既存Mを利用する曲射。極性と実弾の曲がりを一致させる。"
+    },
+    {
+      "id": "hang",
+      "name": "ハング",
+      "role": "橋梁作業車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "橋の状態に合わせた待機と射撃。無条件の飛行能力は加えない。"
+    },
+    {
+      "id": "mist",
+      "name": "ミスト",
+      "role": "霧の観測車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "Cを利用した射撃。敵だけ透視や必中にはしない。"
+    },
+    {
+      "id": "volt",
+      "name": "ヴォルト",
+      "role": "整備車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "装置に向けた準備動作を検討。味方召喚・回復は未採用。"
+    },
+    {
+      "id": "blast",
+      "name": "ブラスト",
+      "role": "搬送・爆破車",
+      "source": "S05",
+      "visualPass": "既存AIと判定の範囲に収める",
+      "combatProposal": "着弾が遅い範囲攻撃を検討。危険範囲を攻撃確定前に見せる。"
+    }
+  ],
+  "midbosses": [
+    {
+      "id": "harbor-knot",
+      "name": "ハーバー・ノット",
+      "stage": 5,
+      "weakPoint": "巻上げドラム",
+      "source": "S04",
+      "combatProposal": "係留弾の準備→発射→ドラムを狙える時間",
+      "status": "PLANNED"
+    },
+    {
+      "id": "bridge-mender",
+      "name": "ブリッジ・メンダー",
+      "stage": 15,
+      "weakPoint": "補修フレーム",
+      "source": "S04",
+      "combatProposal": "フレーム展開→射撃→収納。通路の完全封鎖はしない",
+      "status": "PLANNED"
+    },
+    {
+      "id": "mist-bell",
+      "name": "ミスト・ベル",
+      "stage": 25,
+      "weakPoint": "送信ホーン",
+      "source": "S04",
+      "combatProposal": "音波の準備と射撃。既存Cとの役割を分ける",
+      "status": "PLANNED"
+    },
+    {
+      "id": "reflect-ram",
+      "name": "リフレクト・ラム",
+      "stage": 35,
+      "weakPoint": "反射フレーム",
+      "source": "S04",
+      "combatProposal": "鏡面と枠の狙い分け。常時全身反射にはしない",
+      "status": "PLANNED"
+    },
+    {
+      "id": "lift-mole",
+      "name": "リフト・モール",
+      "stage": 45,
+      "weakPoint": "昇降ドライブ",
+      "source": "S04",
+      "combatProposal": "昇降の予告と停止。地形を動かす場合は別の足場仕様を先に定義",
+      "status": "PLANNED"
+    },
+    {
+      "id": "gale-scout",
+      "name": "ゲイル・スカウト",
+      "stage": 55,
+      "weakPoint": "観測センサー",
+      "source": "S04",
+      "combatProposal": "風向を読む準備→射撃。Fの状態変化は手番境界に合わせる",
+      "status": "PLANNED"
+    },
+    {
+      "id": "cinder-chef",
+      "name": "シンダー・シェフ",
+      "stage": 65,
+      "weakPoint": "圧力バルブ",
+      "source": "S04",
+      "combatProposal": "加熱の予告→範囲攻撃→冷却",
+      "status": "PLANNED"
+    },
+    {
+      "id": "ore-shepherd",
+      "name": "オア・シェパード",
+      "stage": 75,
+      "weakPoint": "マグネットアーム",
+      "source": "S04",
+      "combatProposal": "磁気の準備→射撃→停止。強制移動の有無を仕様で分ける",
+      "status": "PLANNED"
+    },
+    {
+      "id": "bloom-tender",
+      "name": "ブルーム・テンダー",
+      "stage": 85,
+      "weakPoint": "給水ユニット",
+      "source": "S04",
+      "combatProposal": "散布の予告→射撃→停止。水や回復床の新物理は導入しない",
+      "status": "PLANNED"
+    },
+    {
+      "id": "line-warden",
+      "name": "ライン・ワーデン",
+      "stage": 95,
+      "weakPoint": "シールドドライブ",
+      "source": "S04",
+      "combatProposal": "ゲートの準備→射撃→開口。通常弾の攻略経路を維持",
+      "status": "PLANNED"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "tideclaw",
+      "name": "タイドクロー",
+      "stage": 10,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "LEG",
+          "hp": 1
+        },
+        {
+          "name": "SHELL",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "LEG→爪の支持機構、SHELL→主装甲",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "gatekeeper",
+      "name": "ゲートキーパー",
+      "stage": 20,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "LOW GUN",
+          "hp": 2
+        },
+        {
+          "name": "HIGH GUN",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "LOW/HIGH GUN→下段/上段砲",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "cloudray",
+      "name": "クラウドレイ",
+      "stage": 30,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "LEFT WING",
+          "hp": 2
+        },
+        {
+          "name": "RIGHT WING",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "LEFT/RIGHT WING→左右の翼",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "prism-guardian",
+      "name": "プリズム・ガーディアン",
+      "stage": 40,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "LEFT RIM",
+          "hp": 2
+        },
+        {
+          "name": "RIGHT RIM",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "LEFT/RIGHT RIM→プリズム外枠",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "dust-driller",
+      "name": "ダスト・ドリラー",
+      "stage": 50,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "DRILL",
+          "hp": 2
+        },
+        {
+          "name": "EXHAUST",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "DRILL→ドリル基部、EXHAUST→排気部",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "whitehowl",
+      "name": "ホワイトハウル",
+      "stage": 60,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "FAN A",
+          "hp": 2
+        },
+        {
+          "name": "FAN B",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "FAN A/B→二つの送風機",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "forge-titan",
+      "name": "フォージ・タイタン",
+      "stage": 70,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "ARM A",
+          "hp": 2
+        },
+        {
+          "name": "ARM B",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "ARM A/B→左右の作業腕",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "polaris-core",
+      "name": "ポラリス・コア",
+      "stage": 80,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "GEN A",
+          "hp": 2
+        },
+        {
+          "name": "GEN B",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "GEN A/B→支持発生器",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "skycarrier",
+      "name": "スカイキャリア",
+      "stage": 90,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "MAIN GUN",
+          "hp": 2
+        },
+        {
+          "name": "THRUSTER A",
+          "hp": 2
+        },
+        {
+          "name": "THRUSTER B",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "MAIN GUN→主砲、THRUSTER A/B→推進器",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    },
+    {
+      "id": "archeart",
+      "name": "アークハート",
+      "stage": 100,
+      "source": "S03",
+      "baselineParts": [
+        {
+          "name": "LEFT GATE",
+          "hp": 2
+        },
+        {
+          "name": "RIGHT GATE",
+          "hp": 2
+        }
+      ],
+      "visualBinding": "LEFT/RIGHT GATE→外殻、第二段階のSHELL→内殻、第三段階→核",
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+    }
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "name": "最初の一射",
+      "theme": 0,
+      "themeName": "はじまりの入江",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 1,
+      "destructibleComponents": 0,
+      "initialSolidCount": 2,
+      "initialRegionCount": 0,
+      "teleport": false,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 2,
+      "name": "丘の肩を狙う",
+      "theme": 0,
+      "themeName": "はじまりの入江",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 1,
+      "destructibleComponents": 0,
+      "initialSolidCount": 2,
+      "initialRegionCount": 0,
+      "teleport": false,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 3,
+      "name": "山道を下る",
+      "theme": 0,
+      "themeName": "はじまりの入江",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 1,
+      "destructibleComponents": 0,
+      "initialSolidCount": 2,
+      "initialRegionCount": 0,
+      "teleport": false,
+      "pickups": [
+        {
+          "id": "L003:C01-L003-W01",
+          "kind": "trial",
+          "weaponId": "W02",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 4,
+      "name": "弾で渡る小谷",
+      "theme": 0,
+      "themeName": "はじまりの入江",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 5,
+      "name": "岬の回り道",
+      "theme": 0,
+      "themeName": "はじまりの入江",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L005:C01-L005-W01",
+          "kind": "trial",
+          "weaponId": "W02",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "harbor-knot",
+        "name": "ハーバー・ノット",
+        "weakPoint": "巻上げドラム"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 6,
+      "name": "鏡の谷底",
+      "theme": 1,
+      "themeName": "鏡の岸壁",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 1,
+      "destructibleComponents": 0,
+      "initialSolidCount": 6,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L006:C01-L006-W01",
+          "kind": "trial",
+          "weaponId": "W02",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 7,
+      "name": "岩塊と山腹",
+      "theme": 1,
+      "themeName": "鏡の岸壁",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 10,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L007:C01-L007-S01",
+          "kind": "skill",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 8,
+      "name": "片持ちの洞窟",
+      "theme": 1,
+      "themeName": "鏡の岸壁",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 5,
+      "destructibleComponents": 1,
+      "initialSolidCount": 13,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L008:C01-L008-W01",
+          "kind": "trial",
+          "weaponId": "W06",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 9,
+      "name": "裂けた山の鏡",
+      "theme": 1,
+      "themeName": "鏡の岸壁",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 3,
+      "destructibleComponents": 0,
+      "initialSolidCount": 10,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L009:C01-L009-W01",
+          "kind": "trial",
+          "weaponId": "W02",
+          "skill": null
+        },
+        {
+          "id": "L009:C01-L009-S01",
+          "kind": "skill",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 10,
+      "name": "タイドクローの崖湾",
+      "theme": 1,
+      "themeName": "鏡の岸壁",
+      "baselineKind": "boss",
+      "enemyProfile": 0,
+      "bossSpec": {
+        "name": "Tideclaw",
+        "parts": [
+          {
+            "name": "LEG",
+            "hp": 1
+          },
+          {
+            "name": "SHELL",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "DROP",
+          "ARC"
+        ],
+        "reward": "BURST"
+      },
+      "features": [
+        "W"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 12,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:tideclaw",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 11,
+      "name": "切り通しの橋",
+      "theme": 2,
+      "themeName": "吊り橋の水路",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "B"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 4,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L011:C02-L011-W01",
+          "kind": "trial",
+          "weaponId": "W06",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 12,
+      "name": "岩柱の船着場",
+      "theme": 2,
+      "themeName": "吊り橋の水路",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "B"
+      ],
+      "components": 5,
+      "destructibleComponents": 1,
+      "initialSolidCount": 9,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L012:C02-L012-S01",
+          "kind": "skill",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 13,
+      "name": "崖門をひらく",
+      "theme": 2,
+      "themeName": "吊り橋の水路",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "B"
+      ],
+      "components": 5,
+      "destructibleComponents": 3,
+      "initialSolidCount": 9,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L013:C02-L013-W01",
+          "kind": "trial",
+          "weaponId": "W14",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 14,
+      "name": "片翼の中継島",
+      "theme": 2,
+      "themeName": "吊り橋の水路",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "B"
+      ],
+      "components": 3,
+      "destructibleComponents": 0,
+      "initialSolidCount": 5,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L014:C02-L014-W01",
+          "kind": "trial",
+          "weaponId": "W13",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 15,
+      "name": "山の裾の一息",
+      "theme": 2,
+      "themeName": "吊り橋の水路",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "W"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 12,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "bridge-mender",
+        "name": "ブリッジ・メンダー",
+        "weakPoint": "補修フレーム"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 16,
+      "name": "壊せる遺跡のひさし",
+      "theme": 3,
+      "themeName": "遺跡の入口",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 5,
+      "destructibleComponents": 3,
+      "initialSolidCount": 9,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L016:C02-L016-W01",
+          "kind": "trial",
+          "weaponId": "W13",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 17,
+      "name": "岩峰の中腹室",
+      "theme": 3,
+      "themeName": "遺跡の入口",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 8,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L017:C02-L017-S01",
+          "kind": "skill",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:spike",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 18,
+      "name": "山肌を覆う屋根",
+      "theme": 3,
+      "themeName": "遺跡の入口",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L018:C02-L018-W01",
+          "kind": "trial",
+          "weaponId": "W06",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 19,
+      "name": "崖の上下口",
+      "theme": 3,
+      "themeName": "遺跡の入口",
+      "baselineKind": "normal",
+      "enemyProfile": 0,
+      "bossSpec": null,
+      "features": [],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "L019:C02-L019-W01",
+          "kind": "trial",
+          "weaponId": "W14",
+          "skill": null
+        },
+        {
+          "id": "L019:C02-L019-S01",
+          "kind": "skill",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:spike",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 20,
+      "name": "ゲートキーパーの岩門",
+      "theme": 3,
+      "themeName": "遺跡の入口",
+      "baselineKind": "boss",
+      "enemyProfile": 0,
+      "bossSpec": {
+        "name": "Gatekeeper",
+        "parts": [
+          {
+            "name": "LOW GUN",
+            "hp": 2
+          },
+          {
+            "name": "HIGH GUN",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "DROP",
+          "MARK"
+        ],
+        "reward": "BLINK"
+      },
+      "features": [
+        "B"
+      ],
+      "components": 5,
+      "destructibleComponents": 3,
+      "initialSolidCount": 9,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 22,
+      "visualActorInArtPass": "boss:gatekeeper",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 21,
+      "name": "霧の山腹",
+      "theme": 4,
+      "themeName": "霧の谷",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mist",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 22,
+      "name": "霧の大断層",
+      "theme": 4,
+      "themeName": "霧の谷",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 5,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 23,
+      "name": "雲の山窟をひらく",
+      "theme": 4,
+      "themeName": "霧の谷",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:mist",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 24,
+      "name": "裂けた雲上の峰",
+      "theme": 4,
+      "themeName": "霧の谷",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 25,
+      "name": "霧がほどける斜面",
+      "theme": 4,
+      "themeName": "霧の谷",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "W"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "ammo-25",
+          "kind": "ammo",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mist",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "mist-bell",
+        "name": "ミスト・ベル",
+        "weakPoint": "送信ホーン"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 26,
+      "name": "雲海の片翼",
+      "theme": 5,
+      "themeName": "雲の空港",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 4,
+      "destructibleComponents": 0,
+      "initialSolidCount": 5,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 27,
+      "name": "霧の絶壁",
+      "theme": 5,
+      "themeName": "雲の空港",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 3,
+      "destructibleComponents": 0,
+      "initialSolidCount": 4,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:spike",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 28,
+      "name": "山腹の転がる回廊",
+      "theme": 5,
+      "themeName": "雲の空港",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 2,
+      "destructibleComponents": 1,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W07",
+          "kind": "trial",
+          "weaponId": "W07",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 29,
+      "name": "格納庫の斜め口",
+      "theme": 5,
+      "themeName": "雲の空港",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:spike",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 30,
+      "name": "クラウドレイの峰",
+      "theme": 5,
+      "themeName": "雲の空港",
+      "baselineKind": "boss",
+      "enemyProfile": 1,
+      "bossSpec": {
+        "name": "Cloudray",
+        "parts": [
+          {
+            "name": "LEFT WING",
+            "hp": 2
+          },
+          {
+            "name": "RIGHT WING",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "TRIPLE",
+          "FAN"
+        ],
+        "reward": "BOUNCE"
+      },
+      "features": [
+        "C"
+      ],
+      "components": 5,
+      "destructibleComponents": 1,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:cloudray",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 31,
+      "name": "水晶の鞍部",
+      "theme": 6,
+      "themeName": "水晶の反射路",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "K"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 4,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 32,
+      "name": "断崖の裏鏡",
+      "theme": 6,
+      "themeName": "水晶の反射路",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "K"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 5,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 33,
+      "name": "水晶山の空洞",
+      "theme": 6,
+      "themeName": "水晶の反射路",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "K"
+      ],
+      "components": 5,
+      "destructibleComponents": 3,
+      "initialSolidCount": 11,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 34,
+      "name": "二つの山頂",
+      "theme": 6,
+      "themeName": "水晶の反射路",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "K"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 5,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 35,
+      "name": "岩針の上の炸裂",
+      "theme": 6,
+      "themeName": "水晶の反射路",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "K"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W12",
+          "kind": "trial",
+          "weaponId": "W12",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "reflect-ram",
+        "name": "リフレクト・ラム",
+        "weakPoint": "反射フレーム"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 36,
+      "name": "水晶橋の切れ目",
+      "theme": 7,
+      "themeName": "プリズム城壁",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "K"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 37,
+      "name": "山の内部を渡る鏡",
+      "theme": 7,
+      "themeName": "プリズム城壁",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "K"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 15,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 38,
+      "name": "雲がかかる岩峰",
+      "theme": 7,
+      "themeName": "プリズム城壁",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "K"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 39,
+      "name": "斜面を走る鏡",
+      "theme": 7,
+      "themeName": "プリズム城壁",
+      "baselineKind": "normal",
+      "enemyProfile": 1,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "K"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 8,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 40,
+      "name": "プリズム守護者の岩冠",
+      "theme": 7,
+      "themeName": "プリズム城壁",
+      "baselineKind": "boss",
+      "enemyProfile": 1,
+      "bossSpec": {
+        "name": "Prism Guardian",
+        "parts": [
+          {
+            "name": "LEFT RIM",
+            "hp": 2
+          },
+          {
+            "name": "RIGHT RIM",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "REFLECT",
+          "DROP"
+        ],
+        "reward": "PUSH"
+      },
+      "features": [
+        "K"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 11,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:prism-guardian",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 41,
+      "name": "山を貫く上昇路",
+      "theme": 8,
+      "themeName": "上昇の坑道",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 42,
+      "name": "崖の天蓋と上昇",
+      "theme": 8,
+      "themeName": "上昇の坑道",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 43,
+      "name": "山頂から急降下",
+      "theme": 8,
+      "themeName": "上昇の坑道",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W15",
+          "kind": "trial",
+          "weaponId": "W15",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 44,
+      "name": "張り出す二段崖",
+      "theme": 8,
+      "themeName": "上昇の坑道",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:pebble",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 45,
+      "name": "黄金の山道",
+      "theme": 8,
+      "themeName": "上昇の坑道",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "ammo-45",
+          "kind": "ammo",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "lift-mole",
+        "name": "リフト・モール",
+        "weakPoint": "昇降ドライブ"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 46,
+      "name": "雲へ抜ける岩橋",
+      "theme": 9,
+      "themeName": "琥珀の機関",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "C",
+        "U"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 9,
+      "initialRegionCount": 2,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 47,
+      "name": "霧を抱く二つの山窟",
+      "theme": 9,
+      "themeName": "琥珀の機関",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "U"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 10,
+      "initialRegionCount": 2,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 48,
+      "name": "斜めの空中門",
+      "theme": 9,
+      "themeName": "琥珀の機関",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 6,
+      "destructibleComponents": 1,
+      "initialSolidCount": 9,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W10",
+          "kind": "trial",
+          "weaponId": "W10",
+          "skill": null
+        }
+      ],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 49,
+      "name": "雲間の高い肩",
+      "theme": 9,
+      "themeName": "琥珀の機関",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "U"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 50,
+      "name": "ダストドリラーの山釜",
+      "theme": 9,
+      "themeName": "琥珀の機関",
+      "baselineKind": "boss",
+      "enemyProfile": 2,
+      "bossSpec": {
+        "name": "Dust Driller",
+        "parts": [
+          {
+            "name": "DRILL",
+            "hp": 2
+          },
+          {
+            "name": "EXHAUST",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "TRIPLE",
+          "ARC"
+        ],
+        "reward": "BLINK"
+      },
+      "features": [
+        "U"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:dust-driller",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 51,
+      "name": "風を受ける山口",
+      "theme": 10,
+      "themeName": "風の観測台",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 5,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 52,
+      "name": "風下の崖庭",
+      "theme": 10,
+      "themeName": "風の観測台",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F"
+      ],
+      "components": 4,
+      "destructibleComponents": 0,
+      "initialSolidCount": 5,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:spike",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 53,
+      "name": "風の岩庇を切りひらく",
+      "theme": 10,
+      "themeName": "風の観測台",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 9,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 54,
+      "name": "風の二重断層",
+      "theme": 10,
+      "themeName": "風の観測台",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:spike",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 55,
+      "name": "青い山の大斜面",
+      "theme": 10,
+      "themeName": "風の観測台",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F"
+      ],
+      "components": 1,
+      "destructibleComponents": 0,
+      "initialSolidCount": 2,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "gale-scout",
+        "name": "ゲイル・スカウト",
+        "weakPoint": "観測センサー"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 56,
+      "name": "氷壁の橋下",
+      "theme": 11,
+      "themeName": "凍てつく峡谷",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "F",
+        "W"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 10,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:mist",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 57,
+      "name": "氷山の片屋根",
+      "theme": 11,
+      "themeName": "凍てつく峡谷",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F",
+        "W"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 10,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 10,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 58,
+      "name": "岩壁の薄い継ぎ目",
+      "theme": 11,
+      "themeName": "凍てつく峡谷",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 4,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W13",
+          "kind": "trial",
+          "weaponId": "W13",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:mist",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 59,
+      "name": "返り風の岩庇",
+      "theme": 11,
+      "themeName": "凍てつく峡谷",
+      "baselineKind": "normal",
+      "enemyProfile": 2,
+      "bossSpec": null,
+      "features": [
+        "F",
+        "K"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 9,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 60,
+      "name": "ホワイトハウルの風峰",
+      "theme": 11,
+      "themeName": "凍てつく峡谷",
+      "baselineKind": "boss",
+      "enemyProfile": 2,
+      "bossSpec": {
+        "name": "Whitehowl",
+        "parts": [
+          {
+            "name": "FAN A",
+            "hp": 2
+          },
+          {
+            "name": "FAN B",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "TWIN",
+          "ARC",
+          "LOW"
+        ],
+        "reward": "PHASE"
+      },
+      "features": [
+        "F"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 9,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 22,
+      "visualActorInArtPass": "boss:whitehowl",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 61,
+      "name": "火山の裂け目",
+      "theme": 12,
+      "themeName": "火山の外縁",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 5,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 62,
+      "name": "火口の中央洞を開く",
+      "theme": 12,
+      "themeName": "火山の外縁",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 63,
+      "name": "溶岩崖の横穴",
+      "theme": 12,
+      "themeName": "火山の外縁",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 64,
+      "name": "噴流が抜ける岩釜",
+      "theme": 12,
+      "themeName": "火山の外縁",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 65,
+      "name": "外輪山の遊歩道",
+      "theme": 12,
+      "themeName": "火山の外縁",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "ammo-65",
+          "kind": "ammo",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "cinder-chef",
+        "name": "シンダー・シェフ",
+        "weakPoint": "圧力バルブ"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 66,
+      "name": "火山棚の天蓋",
+      "theme": 13,
+      "themeName": "鍛冶の回廊",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 67,
+      "name": "山裾の地走り道",
+      "theme": 13,
+      "themeName": "鍛冶の回廊",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W16",
+          "kind": "trial",
+          "weaponId": "W16",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 68,
+      "name": "三角洞の排気口",
+      "theme": 13,
+      "themeName": "鍛冶の回廊",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "V"
+      ],
+      "components": 5,
+      "destructibleComponents": 3,
+      "initialSolidCount": 11,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 69,
+      "name": "鍛冶の二つの崖",
+      "theme": 13,
+      "themeName": "鍛冶の回廊",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "K",
+        "V"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:blast",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 70,
+      "name": "フォージタイタンの火口壁",
+      "theme": 13,
+      "themeName": "鍛冶の回廊",
+      "baselineKind": "boss",
+      "enemyProfile": 3,
+      "bossSpec": {
+        "name": "Forge Titan",
+        "parts": [
+          {
+            "name": "ARM A",
+            "hp": 2
+          },
+          {
+            "name": "ARM B",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "PREPARE",
+          "DROP",
+          "LOW"
+        ],
+        "reward": "BOUNCE"
+      },
+      "features": [
+        "V"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:forge-titan",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 71,
+      "name": "磁石の曲がる山道",
+      "theme": 14,
+      "themeName": "磁石の採掘場",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "M"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 3,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:pole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 72,
+      "name": "鉱山崖の低い採掘室",
+      "theme": 14,
+      "themeName": "磁石の採掘場",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "M"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 73,
+      "name": "磁石の岩塔",
+      "theme": 14,
+      "themeName": "磁石の採掘場",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "M"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 4,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:pole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 74,
+      "name": "山窓の極性スイッチ",
+      "theme": 14,
+      "themeName": "磁石の採掘場",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "M",
+        "T"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:mole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 75,
+      "name": "衝撃を受ける山棚",
+      "theme": 14,
+      "themeName": "磁石の採掘場",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "M"
+      ],
+      "components": 5,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W17",
+          "kind": "trial",
+          "weaponId": "W17",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:pole",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "ore-shepherd",
+        "name": "オア・シェパード",
+        "weakPoint": "マグネットアーム"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 76,
+      "name": "極性の大峡谷",
+      "theme": 15,
+      "themeName": "極性の実験棟",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "K",
+        "M"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:pole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 77,
+      "name": "雲を抱く鉱山",
+      "theme": 15,
+      "themeName": "極性の実験棟",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "M"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 2,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 78,
+      "name": "磁気の縦断崖",
+      "theme": 15,
+      "themeName": "極性の実験棟",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "M"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:pole",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 79,
+      "name": "動かない山と動く入口",
+      "theme": 15,
+      "themeName": "極性の実験棟",
+      "baselineKind": "normal",
+      "enemyProfile": 3,
+      "bossSpec": null,
+      "features": [
+        "K",
+        "M",
+        "T"
+      ],
+      "components": 3,
+      "destructibleComponents": 1,
+      "initialSolidCount": 6,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 80,
+      "name": "ポラリス・コアの裂山",
+      "theme": 15,
+      "themeName": "極性の実験棟",
+      "baselineKind": "boss",
+      "enemyProfile": 3,
+      "bossSpec": {
+        "name": "Polaris Core",
+        "parts": [
+          {
+            "name": "GEN A",
+            "hp": 2
+          },
+          {
+            "name": "GEN B",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "CURVE",
+          "TWIN",
+          "ARC"
+        ],
+        "reward": "PHASE"
+      },
+      "features": [
+        "M"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:polaris-core",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 81,
+      "name": "庭園の大岩山",
+      "theme": 16,
+      "themeName": "空中庭園",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 3,
+      "destructibleComponents": 0,
+      "initialSolidCount": 11,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 82,
+      "name": "岩壁の内外を交換",
+      "theme": 16,
+      "themeName": "空中庭園",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [],
+      "components": 5,
+      "destructibleComponents": 1,
+      "initialSolidCount": 8,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 83,
+      "name": "風が返る双崖",
+      "theme": 16,
+      "themeName": "空中庭園",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "F",
+        "K"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 84,
+      "name": "空へ持ち上がる庭",
+      "theme": 16,
+      "themeName": "空中庭園",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "C"
+      ],
+      "components": 6,
+      "destructibleComponents": 1,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "trial-W19",
+          "kind": "trial",
+          "weaponId": "W19",
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:gust",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 85,
+      "name": "空と山の祝祭",
+      "theme": 16,
+      "themeName": "空中庭園",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 5,
+      "destructibleComponents": 0,
+      "initialSolidCount": 14,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "ammo-85",
+          "kind": "ammo",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "bloom-tender",
+        "name": "ブルーム・テンダー",
+        "weakPoint": "給水ユニット"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 86,
+      "name": "雲上の崩れ甲板",
+      "theme": 17,
+      "themeName": "嵐の空母",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "C"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 9,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 87,
+      "name": "結晶が浮く深山",
+      "theme": 17,
+      "themeName": "嵐の空母",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "K",
+        "U"
+      ],
+      "components": 4,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 88,
+      "name": "山の空中排気洞",
+      "theme": 17,
+      "themeName": "嵐の空母",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "M",
+        "U"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 9,
+      "initialRegionCount": 2,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:hang",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 89,
+      "name": "斜め甲板の横腹",
+      "theme": 17,
+      "themeName": "嵐の空母",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "F"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 2,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 90,
+      "name": "スカイキャリアの山空域",
+      "theme": 17,
+      "themeName": "嵐の空母",
+      "baselineKind": "boss",
+      "enemyProfile": 4,
+      "bossSpec": {
+        "name": "Sky Carrier",
+        "parts": [
+          {
+            "name": "MAIN GUN",
+            "hp": 2
+          },
+          {
+            "name": "THRUSTER A",
+            "hp": 2
+          },
+          {
+            "name": "THRUSTER B",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "TWIN",
+          "TRIPLE"
+        ],
+        "reward": "BLINK"
+      },
+      "features": [
+        "C"
+      ],
+      "components": 5,
+      "destructibleComponents": 1,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 20,
+      "visualActorInArtPass": "boss:skycarrier",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    },
+    {
+      "id": 91,
+      "name": "要塞山の下抜け",
+      "theme": 18,
+      "themeName": "要塞の重層門",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 13,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 92,
+      "name": "山のカーテンを見上げる",
+      "theme": 18,
+      "themeName": "要塞の重層門",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "M"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 9,
+      "initialRegionCount": 2,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 93,
+      "name": "逆風の岩壁回廊",
+      "theme": 18,
+      "themeName": "要塞の重層門",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "F",
+        "K"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 94,
+      "name": "峠の三つの抜け方",
+      "theme": 18,
+      "themeName": "要塞の重層門",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "B",
+        "C"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 7,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:slate",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 95,
+      "name": "勝利の大山道",
+      "theme": 18,
+      "themeName": "要塞の重層門",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "W"
+      ],
+      "components": 2,
+      "destructibleComponents": 0,
+      "initialSolidCount": 9,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [
+        {
+          "id": "ammo-95",
+          "kind": "ammo",
+          "weaponId": null,
+          "skill": null
+        }
+      ],
+      "actionLimit": 12,
+      "visualActorInArtPass": "enemy:flint",
+      "encounterAfterCombatPass": "midboss",
+      "midbossTarget": {
+        "id": "line-warden",
+        "name": "ライン・ワーデン",
+        "weakPoint": "シールドドライブ"
+      },
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 96,
+      "name": "断崖門の三つの判断",
+      "theme": 19,
+      "themeName": "夜明けの核",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "B"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 97,
+      "name": "噴流鏡の対面山窟",
+      "theme": 19,
+      "themeName": "夜明けの核",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "K",
+        "V"
+      ],
+      "components": 5,
+      "destructibleComponents": 3,
+      "initialSolidCount": 12,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 98,
+      "name": "極性が通る裂峰",
+      "theme": 19,
+      "themeName": "夜明けの核",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "M",
+        "T"
+      ],
+      "components": 4,
+      "destructibleComponents": 2,
+      "initialSolidCount": 8,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:volt",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 99,
+      "name": "核心の複合山庭",
+      "theme": 19,
+      "themeName": "夜明けの核",
+      "baselineKind": "normal",
+      "enemyProfile": 4,
+      "bossSpec": null,
+      "features": [
+        "C",
+        "K"
+      ],
+      "components": 5,
+      "destructibleComponents": 2,
+      "initialSolidCount": 9,
+      "initialRegionCount": 1,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 14,
+      "visualActorInArtPass": "enemy:riff",
+      "encounterAfterCombatPass": "normal",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "PLANNED"
+    },
+    {
+      "id": 100,
+      "name": "アークハートの裂山核",
+      "theme": 19,
+      "themeName": "夜明けの核",
+      "baselineKind": "boss",
+      "enemyProfile": 4,
+      "bossSpec": {
+        "name": "Archeart",
+        "parts": [
+          {
+            "name": "LEFT GATE",
+            "hp": 2
+          },
+          {
+            "name": "RIGHT GATE",
+            "hp": 2
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "DROP",
+          "LOW"
+        ],
+        "reward": "BLINK"
+      },
+      "features": [
+        "B",
+        "C",
+        "K"
+      ],
+      "components": 6,
+      "destructibleComponents": 3,
+      "initialSolidCount": 13,
+      "initialRegionCount": 0,
+      "teleport": true,
+      "pickups": [],
+      "actionLimit": 28,
+      "visualActorInArtPass": "boss:archeart",
+      "encounterAfterCombatPass": "boss",
+      "midbossTarget": null,
+      "geometryPolicy": "PRESERVE_IN_ART_PASS",
+      "visualStatus": "PLANNED",
+      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+    }
+  ],
+  "validation": {
+    "automatedViewports": [
+      [
+        568,
+        240
+      ],
+      [
+        667,
+        280
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        932,
+        430
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1024,
+        768
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "physicalDevices": [
+      "iPhone Safari",
+      "iPhoneホーム画面起動",
+      "Android Chrome"
+    ],
+    "artReplayCases": "全10機×100面の同一入力・乱数。演出だけで弾道・被害・回収・進行が変わらないこと。",
+    "combatMatchCases": "戦闘差分のある全10機×100面×最低3乱数の実HP試合。攻略を検証するまで合格扱いにしない。",
+    "minBodyCssPx": 32,
+    "minPrimaryControlCssPx": 84,
+    "dprCases": [
+      1,
+      2,
+      3
+    ],
+    "performanceTargets": {
+      "normalFrameP95Ms": 16.7,
+      "drawP95Ms": 8,
+      "lowDetailFrameP95Ms": 33.3,
+      "status": "TARGETS_NOT_MEASURED"
+    },
+    "currentResult": "資料の整合確認のみ。将来の描画・ゲーム回帰・攻略・実機検証は未実施。"
+  }
+}

@@ -1,0 +1,251 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARCLINE｜ゲーム反映変更計画</title><meta name="description" content="承認済みのデザイン統一方針をゲームへ反映する8バッチ・24タスク。100面と42機体の対応、戦闘変更との区分、検証条件。実装前の計画です。"><link rel="stylesheet" href="review.css"><link rel="stylesheet" href="implementation.css"></head><body>
+<header class="site-header"><a class="brand" href="../../">ARCLINE <span>IMPLEMENTATION PLAN</span></a><a class="document-link" href="GAME_IMPLEMENTATION_PLAN_JA.md" download>変更計画を保存 ↓</a></header>
+<nav class="contents" aria-label="ゲーム反映計画の目次"><a href="#scope">反映範囲</a><a href="#batches">8バッチ</a><a href="#samples">最初の3画面</a><a href="#themes">20テーマ</a><a href="#actors">機体・戦闘</a><a href="#stage-coverage">100面確認表</a><a href="#validation">検証・公開</a></nav>
+<main><section class="hero"><p class="eyebrow">IMPLEMENTATION PLAN / 2026.10.31</p><p class="status">統一方針は承認済み · ゲーム反映は未着手</p><h1>描き方を揃え、<br>遊べる形で反映する。</h1><p class="hero-copy">「マットな精密2D重機」を、現在のゲームへつなぐ計画です。<br>まず共通描画と3見本。見た目と戦闘の変更を分け、100面へ段階的に広げます。</p><div class="metrics"><div><strong>8</strong><span>反映バッチ</span></div><div><strong>24</strong><span>実装タスク</span></div><div><strong>100</strong><span>面の確認表</span></div><div><strong>42</strong><span>機体の対象</span></div></div><p class="small">基準：ゲーム0.10.0 / 100面・20テーマ / 保存schema5。今回は計画資料のみ。ゲーム本体・原本画像・進行データは変更していません。</p><a class="plan-link" href="index.html">承認済みの方針・18原本の比較を見る ↗</a></section>
+<section id="scope"><div class="section-heading"><p class="eyebrow">01 / SCOPE</p><h2>美術の完成と、戦闘の完成を分ける。</h2><p>自機は既に専用コード描画。通常敵は共通車体、大ボスは簡略形状、中ボス戦は未導入です。現在の90通常面・10大ボスから、必要な機能を順に接続します。</p></div><div class="scope-grid"><article><p class="eyebrow">A / VISUAL INTEGRATION</p><h3>現在の遊びを保ち、描画を揃える</h3><p>自機10・通常敵12外観、地形・背景20テーマ、9ギミック、29箱、10必殺、FX、案内を反映します。弾道、AI、地形の形、在庫、操作を維持します。</p></article><article><p class="eyebrow">B / COMBAT INTEGRATION</p><h3>判定と戦い方は、別に検証する</h3><p>大ボスの必要な部位座標調整、通常敵12種の行動差、中ボス10戦。外観だけで能力が追加されたように扱わず、数値・予告・攻略・報酬を確認します。</p></article></div><div class="decision-note"><strong>守る条件</strong><p>通常弾無限 / 必殺は1面3発 / 章在庫の持越し / 10面ごとのリセット / 左側の移動・照準 / 取消 / 点線3難易度 / 日本語と英語 / 横向きとズーム復帰。</p><p>Wは硬い反射地面。新しい水の物理、60面の昇降床、80面の回転足場、90面の可変バリア、100面の無敵・回復ループは今回の採用対象にしません。</p></div></section>
+<section id="batches"><div class="section-heading"><p class="eyebrow">02 / EIGHT BATCHES</p><h2>実装の区切りと、完了条件。</h2><p>各バッチを独立したPRと検証記録にします。次の実装指示ではB01〜B02を最初の単位とし、3見本を示してから全体へ展開します。現在は全24タスクが未着手です。</p></div><ol class="batch-list">
+<li class="batch-card" id="batch-B01"><div class="batch-head"><b>B01</b><div><p class="phase-status">未着手 · 2タスク</p><h3>基準と接続契約</h3></div></div><p class="batch-boundary">基準保存のみ。ゲーム挙動の変更なし。</p><details class="task-detail" open><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T01" data-task-id="T01"><p class="task-kind">T01 / 基準・契約 / 規模 M</p><h4>現行版と比較基準を固定</h4><p>0.10.0の配布27ファイル、原本18点、100面と保存schema5の固定記録。同じ入力・乱数で再生する比較ケース。</p><p class="task-pass"><strong>完了条件</strong>既存の既知不整合を分離し、新しい合格へ数えない。ゲーム変更前に基準状態と現在のテスト結果を保存。</p><p class="task-files"><strong>主な変更先</strong>game/dist/ / game/tests/ / evidence/journey-ui/</p></li>
+<li id="task-T02" data-task-id="T02"><p class="task-kind">T02 / 基準・契約 / 規模 M</p><h4>対象ID・対応表・描画契約を定義</h4><p>自機10・通常敵12・中ボス10・大ボス10の役割別ID。100面の外観割当、地形/テーマ/FXの別名前空間、座標の契約。</p><p class="task-pass"><strong>完了条件</strong>enemyProfileと外観IDを分離。中ボスを大ボスのフラグだけで表さない。未知IDは安全な旧描画へ戻る。</p><p class="task-files"><strong>主な変更先</strong>design/sheets/implementation_plan.json / game/dist/characters.js / game/dist/render.js</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B02"><div class="batch-head"><b>B02</b><div><p class="phase-status">未着手 · 3タスク</p><h3>共通描画と代表3画面</h3></div></div><p class="batch-boundary">3画面の見本確認で区切る。全体展開はここを通過してから。</p><details class="task-detail" open><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T03" data-task-id="T03"><p class="task-kind">T03 / 美術 / 規模 L</p><h4>共通スタイルと描画部品を実装</h4><p>色・CSSpx線幅・階調・詳細度・塗り順を共有。既存のカメラ/入力を残した描画専用モジュール。</p><p class="task-pass"><strong>完了条件</strong>描画前後で戦闘状態・乱数・保存が同一。DPR1/2/3で輪郭が安定。計算結果と砲口/反射面が一致。</p><p class="task-files"><strong>主な変更先</strong>game/dist/characters.js / game/dist/render.js / game/dist/index.html / game/tools/build_playables.py</p></li>
+<li id="task-T04" data-task-id="T04"><p class="task-kind">T04 / 美術 / 規模 M</p><h4>入江の代表画面を作成</h4><p>ガン＋ペブル、固定/破壊/反射、浮遊箱を同じ描画で表示。展示サイズと568×240/844×390の実戦サイズ。</p><p class="task-pass"><strong>完了条件</strong>輪郭と面密度が共通。箱が装置に見えず、地面が枠だけにならない。自機本体32pxと主要操作84pxを維持。</p><p class="task-files"><strong>主な変更先</strong>game/dist/characters.js / game/dist/render.js / design/visual-samples/（新規予定）</p></li>
+<li id="task-T05" data-task-id="T05"><p class="task-kind">T05 / 美術 / 規模 L</p><h4>洞窟と暗所の代表画面を作成</h4><p>ハーバー・ノット＋洞窟/W/B/Kの状態見本。ユイ＋ポラリス/M/T/転移/予告の状態見本。3画面の新旧比較と参照シートの対応。</p><p class="task-pass"><strong>完了条件</strong>ボス/中ボスは状態見本と明記し、新戦闘の実装とは扱わない。判定のデバッグ重ね合わせが読める。3見本を確認してから全機体へ展開。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / design/visual-samples/（新規予定）</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B03"><div class="batch-head"><b>B03</b><div><p class="phase-status">未着手 · 2タスク</p><h3>自機10機・通常敵12種の外観</h3></div></div><p class="batch-boundary">通常敵はこの段階では現行AIのまま。</p><details class="task-detail"><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T06" data-task-id="T06"><p class="task-kind">T06 / 美術 / 規模 L</p><h4>自機10機の描画を統一</h4><p>S02の形・色を保持し、線/艶/密度/詳細度をS01基準へ。左右、照準、歩行、被弾、発射、停止の状態。</p><p class="task-pass"><strong>完了条件</strong>選択画面・ロビー・戦闘・プレビューで同じ個体。砲口が物理のG.muzzleと一致。10機の性能・通常弾・必殺数値・章在庫が基準と同一。</p><p class="task-files"><strong>主な変更先</strong>game/dist/characters.js / game/dist/presentation.js</p></li>
+<li id="task-T07" data-task-id="T07"><p class="task-kind">T07 / 美術 / 規模 L</p><h4>通常敵12種の外観と割当を導入</h4><p>S05の12形状を同じ密度のコード描画へ。90通常面の明示的な外観割当、既存AIの保持。</p><p class="task-pass"><strong>完了条件</strong>12外観を全て使用し、不適合な地形配置がない。外観だけで新耐性/新攻撃を示さない。名前に能力説明を付けるのは戦闘仕様を接続した後。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/presentation.js / game/dist/actor-art.js（新規案） / game/dist/visual-map.js（新規案）</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B04"><div class="batch-head"><b>B04</b><div><p class="phase-status">未着手 · 4タスク</p><h3>100面の地形・20テーマ・9ギミック</h3></div></div><p class="batch-boundary">100面の形と攻略を保持した美術反映。</p><details class="task-detail"><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T08" data-task-id="T08"><p class="task-kind">T08 / 美術 / 規模 L</p><h4>有限地形の材質と接触面を統一</h4><p>S07の部品語彙を既存100面ポリゴンへ適用。固定岩/紫の破壊材/硬い反射面/橋の材質と露出断面。</p><p class="task-pass"><strong>完了条件</strong>1〜20面で検証後、21〜100へ展開。左端/底面を満たし、洞窟/浮島/穴を塗り潰さない。破壊した部品の塗り・反射・キャッシュが残らない。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/geometry.js（読取契約）</p></li>
+<li id="task-T09" data-task-id="T09"><p class="task-kind">T09 / 美術 / 規模 L</p><h4>20テーマの環境を描き分け</h4><p>S10の20テーマと現行IDを1対1対応。S08の地形/遠近階層を各テーマへ展開、4役割の背景。</p><p class="task-pass"><strong>完了条件</strong>汎用パレットS09の番号をテーマIDへ流用しない。同じテーマ内でも既存5面の独自形状を保持。背景を衝突する壁や反射面に見せない。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/visual-theme.js（新規案）</p></li>
+<li id="task-T10" data-task-id="T10"><p class="task-kind">T10 / 美術 / 規模 M</p><h4>W/B/Kの機構と状態を統一</h4><p>Wは硬い地表、Bは支点/板/支持、Kは枠/反射板。開/閉、回転、停止を実際のworldから描画。</p><p class="task-pass"><strong>完了条件</strong>W/Kの表面と実衝突点が一致。39面の回転と橋の手番変化が予告と一致。新たな床や水の物理を導入しない。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/geometry.js（読取契約）</p></li>
+<li id="task-T11" data-task-id="T11"><p class="task-kind">T11 / 美術 / 規模 L</p><h4>C/U/F/V/M/Tの作用と状態を統一</h4><p>淡い領域、向き、稼働/弱化/予約/停止の状態一式。背景の雲や光と作用領域を分離。</p><p class="task-pass"><strong>完了条件</strong>磁場の曲がりを絶対上下と誤案内しない。T命中直後は予約、手番境界で反転。60/80/90面は現行の風/磁場/雲の変化を示す。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/physics.js（読取契約） / game/dist/engine.js（読取契約）</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B05"><div class="batch-head"><b>B05</b><div><p class="phase-status">未着手 · 4タスク</p><h3>エフェクト・補給・スキル・プレビュー</h3></div></div><p class="batch-boundary">実イベントと見え方を一致させる。</p><details class="task-detail"><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T12" data-task-id="T12"><p class="task-kind">T12 / 美術 / 規模 L</p><h4>実イベントに同期する共通FXを作成</h4><p>S16の段階とS15の分解を基にFX01〜06をコード描画。一度だけ発生するイベントIDと表示時間の管理。</p><p class="task-pass"><strong>完了条件</strong>描画フレーム数で効果や被害が増えない。弾・接触点・危険範囲を最優先。低モーション時も結果と方向が判別できる。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/effect-art.js（新規案）</p></li>
+<li id="task-T13" data-task-id="T13"><p class="task-kind">T13 / 美術 / 規模 L</p><h4>通常/補助弾/10必殺を描き分け</h4><p>10必殺の異なる形と順序。転移の接触→移動→落下/接地、クリティカルと部位命中。</p><p class="task-pass"><strong>完了条件</strong>発射前の予測線は現行点線、充填中の着弾点を追加しない。8子弾/遅延3発/反射/牽引の実イベントを同期。弾速・命中・被害・当たり判定を演出の都合で変更しない。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/combat.js（読取契約） / game/dist/weapons.js（読取契約）</p></li>
+<li id="task-T14" data-task-id="T14"><p class="task-kind">T14 / 美術 / 規模 M</p><h4>29拾得物とスキルの意味を統一</h4><p>武器は弾形＋3目盛り、補助弾薬は箱、スキルは盾/破砕/工具。装置は接地、拾得物は浮遊。短い取得結果と在庫表示。</p><p class="task-pass"><strong>完了条件</strong>自弾通過による取得と入替/スキップを維持。武器3発まで補充、弾薬/スキル+1を読み違えない。旧在庫・スキル効果・29配置を保持。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/skills.js / game/dist/presentation.js / game/dist/i18n.js</p></li>
+<li id="task-T15" data-task-id="T15"><p class="task-kind">T15 / 美術 / 規模 M</p><h4>プレビューを本番と同じ描画へ接続</h4><p>67案内×10機の本番イベントと新描画の接続。何が変わったか1つに絞る比較、ループ＋OKのみ。</p><p class="task-pass"><strong>完了条件</strong>本番状態や進行を変更しない。OKが重要部分に重ならない。動作の失敗を成功演出で隠さない。</p><p class="task-files"><strong>主な変更先</strong>game/dist/lessons.js / game/dist/preview.js / game/dist/render.js / game/dist/game.js / game/dist/i18n.js</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B06"><div class="batch-head"><b>B06</b><div><p class="phase-status">未着手 · 2タスク</p><h3>大ボス10体の外観と部位</h3></div></div><p class="batch-boundary">部位座標変更は戦闘差分として検証。</p><details class="task-detail"><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T16" data-task-id="T16"><p class="task-kind">T16 / 戦闘の座標契約 / 規模 L</p><h4>大ボスの部位・砲口・判定を個別定義</h4><p>S03の外観に対応する10体の部位アンカー表。移動が必要な判定/砲口と、保持するHP/行動/攻撃の差分。</p><p class="task-pass"><strong>完了条件</strong>共通座標を無理に絵へ流用しない。判定の変更は美術差分とは別に明示。CPU Workerと本体の同じ定義・通常弾攻略経路を確認。</p><p class="task-files"><strong>主な変更先</strong>game/dist/engine.js / game/dist/physics.js / game/dist/render.js / game/dist/encounters.js（新規案） / game/dist/cpu-worker.js</p></li>
+<li id="task-T17" data-task-id="T17"><p class="task-kind">T17 / 美術＋座標契約 / 規模 XL</p><h4>大ボス10体と破損/露出を完成</h4><p>タイドクローを先に完成し、残る9体へ展開。部位正常/損傷/破損/露出、アークハート3段階。</p><p class="task-pass"><strong>完了条件</strong>部位とコアが見た場所で当たる。30/40/60/80/90/100面の連動が実状態と一致。ボスを収めるためだけに自機・操作を縮めない。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/actor-art.js（新規案） / game/dist/engine.js</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B07"><div class="batch-head"><b>B07</b><div><p class="phase-status">未着手 · 3タスク</p><h3>通常敵の個性・中ボス10戦</h3></div></div><p class="batch-boundary">新しい戦闘の導入。外観だけの完了と区別。</p><details class="task-detail"><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T18" data-task-id="T18"><p class="task-kind">T18 / 新しい戦闘 / 規模 XL</p><h4>通常敵12種の戦い方を定義・接続</h4><p>一種につき主な戦い方1つ、射角/準備/精度/移動/連射/範囲の表。段階的な通常敵データと100面の個別割当。</p><p class="task-pass"><strong>完了条件</strong>外観IDだけで性能を推測しない。序盤1〜4面に追加能力を持ち込まない。必要なギミックが無い面へ専用行動を置かない。既存通常面の同一入力比較と新攻略を別結果として記録。</p><p class="task-files"><strong>主な変更先</strong>design/runtime_campaign_20x5.json / game/tools/build_levels.py / game/dist/engine.js / game/dist/physics.js / game/dist/cpu-worker.js / game/dist/encounters.js（新規案） / game/dist/levels.js（生成物）</p></li>
+<li id="task-T19" data-task-id="T19"><p class="task-kind">T19 / 新しい戦闘 / 規模 XL</p><h4>中ボス1体を戦闘として導入</h4><p>encounterKind normal/midboss/bossの接続、まず5面ハーバー・ノット。HP・部位・射撃・予告・停止・報酬・10機攻略の戦闘表。短い日本語案内と任意の記録。</p><p class="task-pass"><strong>完了条件</strong>5面勝利で章在庫がリセットされない。序盤の通常弾と歩行/転移の教えを壊さない。自機10機に無補給の攻略経路、特殊能力は一度に1つ。</p><p class="task-files"><strong>主な変更先</strong>design/runtime_campaign_20x5.json / game/tools/build_levels.py / game/dist/engine.js / game/dist/physics.js / game/dist/cpu-worker.js / game/dist/campaign-run.js / game/dist/lessons.js / game/dist/journal.js / game/dist/i18n.js</p></li>
+<li id="task-T20" data-task-id="T20"><p class="task-kind">T20 / 新しい戦闘 / 規模 XL</p><h4>残る9中ボスを15〜95面へ展開</h4><p>S04の10体と5/15/25/35/45/55/65/75/85/95面の明示対応。10・20…大ボスと中ボスの役割/強さ/予告を区別。中ボス10体・大ボス10体の短い物語を既存の旅の記録へ接続。</p><p class="task-pass"><strong>完了条件</strong>最終構成は通常80・中ボス10・大ボス10。5面おきの報酬と10面おきのリセットを別に維持。原本の番号誤りを実IDへ混入しない。</p><p class="task-files"><strong>主な変更先</strong>design/runtime_campaign_20x5.json / game/tools/build_levels.py / game/dist/encounters.js（新規案） / game/dist/journal.js / game/dist/i18n.js</p></li>
+</ol></details></li>
+<li class="batch-card" id="batch-B08"><div class="batch-head"><b>B08</b><div><p class="phase-status">未着手 · 4タスク</p><h3>100面統合・実機・配布同期</h3></div></div><p class="batch-boundary">全ての完了条件を満たした範囲だけ公開。</p><details class="task-detail"><summary>変更対象・成果物・完了条件を見る</summary><ol>
+<li id="task-T21" data-task-id="T21"><p class="task-kind">T21 / 検証 / 規模 XL</p><h4>100面と全機体の統合回帰</h4><p>100面×8画面、全42外観と全段階の表示記録。10機×100面の物理/経路確認、戦闘変更は複数乱数の実試合。</p><p class="task-pass"><strong>完了条件</strong>初期表示テストと実HP攻略を混ぜない。無在庫・有限必殺3・詰み/敵必中を検証。全3難易度、点線、左右、保存、取消、プレビュー、結果を確認。</p><p class="task-files"><strong>主な変更先</strong>game/tests/ / evidence/design-integration/（新規予定）</p></li>
+<li id="task-T22" data-task-id="T22"><p class="task-kind">T22 / 検証 / 規模 L</p><h4>スマホ実機と描画負荷を確認</h4><p>iPhone Safari/ホーム画面、Android Chromeで操作と回転。混雑時の描画時間、メモリ、低モーションの測定。</p><p class="task-pass"><strong>完了条件</strong>568×240でも32px本体/84px主要操作を維持。充填中にズームせず、上射の追従が滑らかに戻る。目標60fps、低負荷時30fps相当の基準は実測まで未合格。</p><p class="task-files"><strong>主な変更先</strong>game/dist/render.js / game/dist/viewport.js（読取/回帰） / game/dist/style.css（必要時のみ）</p></li>
+<li id="task-T23" data-task-id="T23"><p class="task-kind">T23 / 配布・公開 / 規模 L</p><h4>紹介・確認・配布ファイルを同期</h4><p>ゲームと確認/紹介画面に同じ描画を使用。単体HTMLとPNGを再現可能に生成し、旧版は識別して保持。変更した依存のcache keyと配布manifestを一括更新。</p><p class="task-pass"><strong>完了条件</strong>手書き複製が残らず、ダウンロードと画面が一致。SDKや解析設定の追加・変更を混ぜない。ZIP/キャッシュ/原本の切り出しをゲームへ追加しない。</p><p class="task-files"><strong>主な変更先</strong>characters/index.html / characters/ARCLINE_Characters_Preview.html / characters/ARCLINE_Characters_Preview.png / site/site.js / site/scenes.js / index.html / game/dist/index.html / game/tools/build_playables.py</p></li>
+<li id="task-T24" data-task-id="T24"><p class="task-kind">T24 / 配布・公開 / 規模 M</p><h4>区切りごとの公開と結果記録</h4><p>各バッチのPR、変更範囲・検証・未確認・戻し方。配布とPagesの対象コミットを一致させる。</p><p class="task-pass"><strong>完了条件</strong>原本18点、進行/所有ID/章在庫を保全。純粋な美術変更では保存schema5を維持。戦闘仕様が変わる場合のrevision/互換性を公開前に検証。</p><p class="task-files"><strong>主な変更先</strong>README.md / evidence/design-integration/（新規予定） / updates/（必要時）</p></li>
+</ol></details></li>
+</ol><p class="small">規模M/L/XLは相対的な作業量で、日数や完了の約束ではありません。B03〜B05は合格した範囲で段階公開可能。B06/B07の物理・戦闘差分は別に記録します。</p></section>
+<section id="samples"><div class="section-heading"><p class="eyebrow">03 / FIRST THREE SCENES</p><h2>最初に、実戦サイズで確かめる。</h2><p>以下はこれから作る見本です。展示サイズと568×240 / 844×390の同じ描画で、形・面・材質・座標・弾・操作の大きさを確認します。</p></div><div class="scene-grid"><article><p class="eyebrow">A / DAYLIGHT SHORE</p><h3>ガン＋ペブル</h3><p>固定地盤、紫の破壊材、硬いミントの反射面、浮遊箱。自機と敵の同じ描き込み密度と接地を確認。</p></article><article><p class="eyebrow">B / CAVE &amp; MIRROR</p><h3>ハーバー・ノット＋W/B/K</h3><p>破壊できる天井、開口、板と支点、弱点の状態見本。新中ボス戦の実装完了とは分けて表示。</p></article><article><p class="eyebrow">C / DARK POLARITY</p><h3>ユイ＋ポラリス</h3><p>M/T、転移、予告と露出。暗所でも弾が見え、極性の予約と実反転が区別できる状態見本。</p></article></div><div class="rule-notes"><div><h3>描画の契約</h3><p>接地点・砲口・部位は物理の座標に合わせます。描画前後でstate/world/乱数を変更せず、装飾の範囲だけでカメラを引きません。</p></div><div><h3>自機32px、主要操作84px</h3><p>大きなボスを収めるためだけに戦車と操作を縮小しません。既存の充填中のカメラ固定と、上射後の復帰を保ちます。</p></div></div></section>
+<section id="themes"><div class="section-heading"><p class="eyebrow">04 / TWENTY THEMES</p><h2>100面の形を保ち、材質と遠景を反映。</h2><p>S10を現行テーマへ対応。S07は部品の語彙、S08は遠近と材質の基準です。外観候補と敵能力は別の割当です。</p></div><div class="table-wrap"><table><thead><tr><th>テーマ / 面</th><th>材質と遠景</th><th>通常敵の外観候補</th></tr></thead><tbody>
+<tr data-theme-id="0"><th>01 はじまりの入江<small>1〜5面</small></th><td><strong>淡砂・青緑</strong><br>低い港影と遠い帆。地面の厚みを先に見せる</td><td>ペブル / スレート</td></tr>
+<tr data-theme-id="1"><th>02 鏡の岸壁<small>6〜10面</small></th><td><strong>灰岩・ミント</strong><br>岸壁と板の継ぎ目。水に見える反射面を避ける</td><td>スレート / リフ</td></tr>
+<tr data-theme-id="2"><th>03 吊り橋の水路<small>11〜15面</small></th><td><strong>砂岩・作業鋼</strong><br>橋脚と水路の遠景。可動橋だけ支点を強調</td><td>ハング / ペブル</td></tr>
+<tr data-theme-id="3"><th>04 遺跡の入口<small>16〜20面</small></th><td><strong>黄土・深い青</strong><br>遺跡の門。背景の柱と実際の壁を区別</td><td>スレート / スパイク</td></tr>
+<tr data-theme-id="4"><th>05 霧の谷<small>21〜25面</small></th><td><strong>青灰・薄緑</strong><br>霧の奥行き。背景の霧とCの境界を分離</td><td>ミスト / フリント</td></tr>
+<tr data-theme-id="5"><th>06 雲の空港<small>26〜30面</small></th><td><strong>薄い青・クリーム</strong><br>雲と空港灯。Cは減速領域として輪郭を残す</td><td>ガスト / スパイク</td></tr>
+<tr data-theme-id="6"><th>07 水晶の反射路<small>31〜35面</small></th><td><strong>石青・淡い水晶</strong><br>結晶の遠景。Kの反射面と装飾結晶を分離</td><td>リフ / フリント</td></tr>
+<tr data-theme-id="7"><th>08 プリズム城壁<small>36〜40面</small></th><td><strong>石灰・青紫</strong><br>城壁の層。鏡面の枠と紫の破壊材を分離</td><td>リフ / スレート</td></tr>
+<tr data-theme-id="8"><th>09 上昇の坑道<small>41〜45面</small></th><td><strong>暗い岩・作業黄</strong><br>坑道の支持具。Uと開口が読める明暗</td><td>モール / ペブル</td></tr>
+<tr data-theme-id="9"><th>10 琥珀の機関<small>46〜50面</small></th><td><strong>琥珀・作業鋼</strong><br>機関と通路。操作対象の装置だけ状態表示</td><td>モール / ブラスト</td></tr>
+<tr data-theme-id="10"><th>11 風の観測台<small>51〜55面</small></th><td><strong>淡石・観測青</strong><br>風見と観測塔。Fの矢印を主情報にする</td><td>ガスト / スパイク</td></tr>
+<tr data-theme-id="11"><th>12 凍てつく峡谷<small>56〜60面</small></th><td><strong>氷灰・濃い青</strong><br>雪と峡谷。通常の氷をW反射や滑走床に見せない</td><td>ミスト / ガスト</td></tr>
+<tr data-theme-id="12"><th>13 火山の外縁<small>61〜65面</small></th><td><strong>赤褐・黒岩</strong><br>火山の遠景。背景の溶岩を新しい危険床にしない</td><td>ブラスト / スレート</td></tr>
+<tr data-theme-id="13"><th>14 鍛冶の回廊<small>66〜70面</small></th><td><strong>煤色・橙</strong><br>工場と炉。Vの稼働口を背景の発光と分ける</td><td>ヴォルト / ブラスト</td></tr>
+<tr data-theme-id="14"><th>15 磁石の採掘場<small>71〜75面</small></th><td><strong>鉱石灰・作業黄</strong><br>採掘設備。Mと破壊材を形で区別</td><td>ポール / モール</td></tr>
+<tr data-theme-id="15"><th>16 極性の実験棟<small>76〜80面</small></th><td><strong>白鋼・極性青赤</strong><br>実験装置。M/Tの稼働・予約・停止を明示</td><td>ポール / ヴォルト</td></tr>
+<tr data-theme-id="16"><th>17 空中庭園<small>81〜85面</small></th><td><strong>淡緑・石灰</strong><br>庭園の遠景。葉で足場や弾を隠さない</td><td>ハング / ガスト</td></tr>
+<tr data-theme-id="17"><th>18 嵐の空母<small>86〜90面</small></th><td><strong>濃青・雨灰</strong><br>空母と嵐。背景の船体とボス本体を区別</td><td>ハング / ヴォルト</td></tr>
+<tr data-theme-id="18"><th>19 要塞の重層門<small>91〜95面</small></th><td><strong>石鋼・深青</strong><br>重層門と支柱。通れる開口を塗りで塞がない</td><td>フリント / スレート</td></tr>
+<tr data-theme-id="19"><th>20 夜明けの核<small>96〜100面</small></th><td><strong>夜明け砂・空青</strong><br>核と遠い構造物。核心の状態を背景光から分ける</td><td>ヴォルト / リフ</td></tr>
+</tbody></table></div><p class="small">12形状を繰り返すマップへ作り替えません。山・崖の高さ、洞窟・浮島の接続、庇・窓の遮蔽、固定・破壊・反射の材質を別軸で組み合わせた現行ポリゴンを使います。</p></section>
+<section id="actors"><div class="section-heading"><p class="eyebrow">05 / ACTORS &amp; ENCOUNTERS</p><h2>全42機体を、役割ごとに接続。</h2><p>自機10機はS02の形と色を保持。敵の作業機構を能力へ変える前に、HP・部位・予告・射撃・移動・作用対象・攻略経路を同じ戦闘表で定義します。</p></div><div class="actor-groups"><details open><summary>通常敵12種：外観B03 / 行動B07</summary><div class="table-wrap"><table><thead><tr><th>名称・役割</th><th>B07の戦い方の提案</th></tr></thead><tbody>
+<tr><th>ペブル<small>pebble / 巡回車</small></th><td>小さく安定した通常弾。最初の4面は追加能力を使わない。</td></tr>
+<tr><th>スレート<small>slate / 整地車</small></th><td>低い射角と事前動作。装甲の絵だけで耐性を追加しない。</td></tr>
+<tr><th>スパイク<small>spike / 高角砲車</small></th><td>高い弧と長い予告。天井のある面では経路を先に確認。</td></tr>
+<tr><th>フリント<small>flint / 狙撃車</small></th><td>細い射撃と長めの準備。確定命中や発射直前の追尾を避ける。</td></tr>
+<tr><th>モール<small>mole / 掘削車</small></th><td>破壊材を開く射撃を検討。固定岩・反射装置は貫通させない。</td></tr>
+<tr><th>リフ<small>riff / 光学車</small></th><td>W/Kのある面で反射射撃を検討。反射経路のない面では使わない。</td></tr>
+<tr><th>ガスト<small>gust / 風を読む車</small></th><td>既存F/Uを利用した弾道。新しい風の発生能力は別機能。</td></tr>
+<tr><th>ポール<small>pole / 磁気車</small></th><td>既存Mを利用する曲射。極性と実弾の曲がりを一致させる。</td></tr>
+<tr><th>ハング<small>hang / 橋梁作業車</small></th><td>橋の状態に合わせた待機と射撃。無条件の飛行能力は加えない。</td></tr>
+<tr><th>ミスト<small>mist / 霧の観測車</small></th><td>Cを利用した射撃。敵だけ透視や必中にはしない。</td></tr>
+<tr><th>ヴォルト<small>volt / 整備車</small></th><td>装置に向けた準備動作を検討。味方召喚・回復は未採用。</td></tr>
+<tr><th>ブラスト<small>blast / 搬送・爆破車</small></th><td>着弾が遅い範囲攻撃を検討。危険範囲を攻撃確定前に見せる。</td></tr>
+</tbody></table></div><p class="small">B03の外観だけでは新能力を導入しません。上記は数値未確定の提案です。必要なギミックの無い面へ専用行動を配置しません。</p></details><details><summary>中ボス10体：5〜95面 / B07</summary><div class="table-wrap"><table><thead><tr><th>面 / 名称</th><th>弱点候補</th><th>先に定義する戦闘</th></tr></thead><tbody>
+<tr><th>5面 / ハーバー・ノット</th><td>巻上げドラム</td><td>係留弾の準備→発射→ドラムを狙える時間</td></tr>
+<tr><th>15面 / ブリッジ・メンダー</th><td>補修フレーム</td><td>フレーム展開→射撃→収納。通路の完全封鎖はしない</td></tr>
+<tr><th>25面 / ミスト・ベル</th><td>送信ホーン</td><td>音波の準備と射撃。既存Cとの役割を分ける</td></tr>
+<tr><th>35面 / リフレクト・ラム</th><td>反射フレーム</td><td>鏡面と枠の狙い分け。常時全身反射にはしない</td></tr>
+<tr><th>45面 / リフト・モール</th><td>昇降ドライブ</td><td>昇降の予告と停止。地形を動かす場合は別の足場仕様を先に定義</td></tr>
+<tr><th>55面 / ゲイル・スカウト</th><td>観測センサー</td><td>風向を読む準備→射撃。Fの状態変化は手番境界に合わせる</td></tr>
+<tr><th>65面 / シンダー・シェフ</th><td>圧力バルブ</td><td>加熱の予告→範囲攻撃→冷却</td></tr>
+<tr><th>75面 / オア・シェパード</th><td>マグネットアーム</td><td>磁気の準備→射撃→停止。強制移動の有無を仕様で分ける</td></tr>
+<tr><th>85面 / ブルーム・テンダー</th><td>給水ユニット</td><td>散布の予告→射撃→停止。水や回復床の新物理は導入しない</td></tr>
+<tr><th>95面 / ライン・ワーデン</th><td>シールドドライブ</td><td>ゲートの準備→射撃→開口。通常弾の攻略経路を維持</td></tr>
+</tbody></table></div><p class="small">まず5面を全10機で確認。中ボスを大ボスのbooleanだけで表さず、5面ごとの報酬と10面ごとの章リセットを分離します。</p></details><details><summary>大ボス10体：10〜100面 / B06</summary><div class="table-wrap"><table><thead><tr><th>面 / 名称</th><th>部位と外観の接続方針</th></tr></thead><tbody>
+<tr><th>10面 / タイドクロー</th><td>LEG→爪の支持機構、SHELL→主装甲</td></tr>
+<tr><th>20面 / ゲートキーパー</th><td>LOW/HIGH GUN→下段/上段砲</td></tr>
+<tr><th>30面 / クラウドレイ</th><td>LEFT/RIGHT WING→左右の翼</td></tr>
+<tr><th>40面 / プリズム・ガーディアン</th><td>LEFT/RIGHT RIM→プリズム外枠</td></tr>
+<tr><th>50面 / ダスト・ドリラー</th><td>DRILL→ドリル基部、EXHAUST→排気部</td></tr>
+<tr><th>60面 / ホワイトハウル</th><td>FAN A/B→二つの送風機</td></tr>
+<tr><th>70面 / フォージ・タイタン</th><td>ARM A/B→左右の作業腕</td></tr>
+<tr><th>80面 / ポラリス・コア</th><td>GEN A/B→支持発生器</td></tr>
+<tr><th>90面 / スカイキャリア</th><td>MAIN GUN→主砲、THRUSTER A/B→推進器</td></tr>
+<tr><th>100面 / アークハート</th><td>LEFT/RIGHT GATE→外殻、第二段階のSHELL→内殻、第三段階→核</td></tr>
+</tbody></table></div><p class="small">現在は共通の部位座標です。個体の機構へ合わせた座標変更は物理的な差分として検証。HPや攻撃列を保つ場合も、同じ戦闘とは断定しません。</p></details></div></section>
+<section id="stage-coverage"><div class="section-heading"><p class="eyebrow">06 / ALL ONE HUNDRED STAGES</p><h2>各面の現在と、反映対象。</h2><p>美術反映時の外観を明示し、新しい中ボス化は別列へ分けました。数値は現行データの棚卸しで、実装・攻略の完了印ではありません。全て未着手です。</p></div><div class="stage-groups">
+<details class="stage-group" id="theme-01" open><summary>01 はじまりの入江 <span>1〜5面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="1" data-baseline-kind="normal" data-target-kind="normal"><th>001 最初の一射</th><td>通常<br>ペブル</td><td>なし</td><td>1 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="2" data-baseline-kind="normal" data-target-kind="normal"><th>002 丘の肩を狙う</th><td>通常<br>スレート</td><td>なし</td><td>1 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="3" data-baseline-kind="normal" data-target-kind="normal"><th>003 山道を下る</th><td>通常<br>ペブル</td><td>なし</td><td>1 / 0</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="4" data-baseline-kind="normal" data-target-kind="normal"><th>004 弾で渡る小谷</th><td>通常<br>スレート</td><td>なし</td><td>2 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="5" data-baseline-kind="normal" data-target-kind="midboss"><th>005 岬の回り道</th><td>通常<br>ペブル</td><td>なし</td><td>2 / 0</td><td>1</td><td>中ボス：ハーバー・ノット</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-02"><summary>02 鏡の岸壁 <span>6〜10面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="6" data-baseline-kind="normal" data-target-kind="normal"><th>006 鏡の谷底</th><td>通常<br>スレート</td><td>W</td><td>1 / 0</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="7" data-baseline-kind="normal" data-target-kind="normal"><th>007 岩塊と山腹</th><td>通常<br>リフ</td><td>W</td><td>3 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="8" data-baseline-kind="normal" data-target-kind="normal"><th>008 片持ちの洞窟</th><td>通常<br>スレート</td><td>W</td><td>5 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="9" data-baseline-kind="normal" data-target-kind="normal"><th>009 裂けた山の鏡</th><td>通常<br>リフ</td><td>W</td><td>3 / 0</td><td>2</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="10" data-baseline-kind="boss" data-target-kind="boss"><th>010 タイドクローの崖湾</th><td>大ボス<br>タイドクロー</td><td>W</td><td>3 / 1</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-03"><summary>03 吊り橋の水路 <span>11〜15面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="11" data-baseline-kind="normal" data-target-kind="normal"><th>011 切り通しの橋</th><td>通常<br>ハング</td><td>B</td><td>2 / 0</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="12" data-baseline-kind="normal" data-target-kind="normal"><th>012 岩柱の船着場</th><td>通常<br>ペブル</td><td>B</td><td>5 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="13" data-baseline-kind="normal" data-target-kind="normal"><th>013 崖門をひらく</th><td>通常<br>ハング</td><td>B</td><td>5 / 3</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="14" data-baseline-kind="normal" data-target-kind="normal"><th>014 片翼の中継島</th><td>通常<br>ペブル</td><td>B</td><td>3 / 0</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="15" data-baseline-kind="normal" data-target-kind="midboss"><th>015 山の裾の一息</th><td>通常<br>ハング</td><td>B / W</td><td>2 / 0</td><td>0</td><td>中ボス：ブリッジ・メンダー</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-04"><summary>04 遺跡の入口 <span>16〜20面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="16" data-baseline-kind="normal" data-target-kind="normal"><th>016 壊せる遺跡のひさし</th><td>通常<br>スレート</td><td>なし</td><td>5 / 3</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="17" data-baseline-kind="normal" data-target-kind="normal"><th>017 岩峰の中腹室</th><td>通常<br>スパイク</td><td>なし</td><td>4 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="18" data-baseline-kind="normal" data-target-kind="normal"><th>018 山肌を覆う屋根</th><td>通常<br>スレート</td><td>なし</td><td>3 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="19" data-baseline-kind="normal" data-target-kind="normal"><th>019 崖の上下口</th><td>通常<br>スパイク</td><td>なし</td><td>5 / 2</td><td>2</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="20" data-baseline-kind="boss" data-target-kind="boss"><th>020 ゲートキーパーの岩門</th><td>大ボス<br>ゲートキーパー</td><td>B</td><td>5 / 3</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-05"><summary>05 霧の谷 <span>21〜25面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="21" data-baseline-kind="normal" data-target-kind="normal"><th>021 霧の山腹</th><td>通常<br>ミスト</td><td>C</td><td>2 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="22" data-baseline-kind="normal" data-target-kind="normal"><th>022 霧の大断層</th><td>通常<br>フリント</td><td>C</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="23" data-baseline-kind="normal" data-target-kind="normal"><th>023 雲の山窟をひらく</th><td>通常<br>ミスト</td><td>C</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="24" data-baseline-kind="normal" data-target-kind="normal"><th>024 裂けた雲上の峰</th><td>通常<br>フリント</td><td>C</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="25" data-baseline-kind="normal" data-target-kind="midboss"><th>025 霧がほどける斜面</th><td>通常<br>ミスト</td><td>C / W</td><td>2 / 0</td><td>1</td><td>中ボス：ミスト・ベル</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-06"><summary>06 雲の空港 <span>26〜30面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="26" data-baseline-kind="normal" data-target-kind="normal"><th>026 雲海の片翼</th><td>通常<br>ガスト</td><td>C</td><td>4 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="27" data-baseline-kind="normal" data-target-kind="normal"><th>027 霧の絶壁</th><td>通常<br>スパイク</td><td>C</td><td>3 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="28" data-baseline-kind="normal" data-target-kind="normal"><th>028 山腹の転がる回廊</th><td>通常<br>ガスト</td><td>C</td><td>2 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="29" data-baseline-kind="normal" data-target-kind="normal"><th>029 格納庫の斜め口</th><td>通常<br>スパイク</td><td>C</td><td>5 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="30" data-baseline-kind="boss" data-target-kind="boss"><th>030 クラウドレイの峰</th><td>大ボス<br>クラウドレイ</td><td>C</td><td>5 / 1</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-07"><summary>07 水晶の反射路 <span>31〜35面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="31" data-baseline-kind="normal" data-target-kind="normal"><th>031 水晶の鞍部</th><td>通常<br>リフ</td><td>K</td><td>2 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="32" data-baseline-kind="normal" data-target-kind="normal"><th>032 断崖の裏鏡</th><td>通常<br>フリント</td><td>K</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="33" data-baseline-kind="normal" data-target-kind="normal"><th>033 水晶山の空洞</th><td>通常<br>リフ</td><td>K</td><td>5 / 3</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="34" data-baseline-kind="normal" data-target-kind="normal"><th>034 二つの山頂</th><td>通常<br>フリント</td><td>K</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="35" data-baseline-kind="normal" data-target-kind="midboss"><th>035 岩針の上の炸裂</th><td>通常<br>リフ</td><td>K</td><td>4 / 1</td><td>1</td><td>中ボス：リフレクト・ラム</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-08"><summary>08 プリズム城壁 <span>36〜40面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="36" data-baseline-kind="normal" data-target-kind="normal"><th>036 水晶橋の切れ目</th><td>通常<br>リフ</td><td>B / K</td><td>5 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="37" data-baseline-kind="normal" data-target-kind="normal"><th>037 山の内部を渡る鏡</th><td>通常<br>スレート</td><td>K</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="38" data-baseline-kind="normal" data-target-kind="normal"><th>038 雲がかかる岩峰</th><td>通常<br>リフ</td><td>C / K</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="39" data-baseline-kind="normal" data-target-kind="normal"><th>039 斜面を走る鏡</th><td>通常<br>スレート</td><td>B / K</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="40" data-baseline-kind="boss" data-target-kind="boss"><th>040 プリズム守護者の岩冠</th><td>大ボス<br>プリズム・ガーディアン</td><td>K</td><td>5 / 2</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-09"><summary>09 上昇の坑道 <span>41〜45面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="41" data-baseline-kind="normal" data-target-kind="normal"><th>041 山を貫く上昇路</th><td>通常<br>モール</td><td>U</td><td>2 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="42" data-baseline-kind="normal" data-target-kind="normal"><th>042 崖の天蓋と上昇</th><td>通常<br>ペブル</td><td>U</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="43" data-baseline-kind="normal" data-target-kind="normal"><th>043 山頂から急降下</th><td>通常<br>モール</td><td>U</td><td>2 / 0</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="44" data-baseline-kind="normal" data-target-kind="normal"><th>044 張り出す二段崖</th><td>通常<br>ペブル</td><td>U</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="45" data-baseline-kind="normal" data-target-kind="midboss"><th>045 黄金の山道</th><td>通常<br>モール</td><td>U</td><td>2 / 0</td><td>1</td><td>中ボス：リフト・モール</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-10"><summary>10 琥珀の機関 <span>46〜50面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="46" data-baseline-kind="normal" data-target-kind="normal"><th>046 雲へ抜ける岩橋</th><td>通常<br>モール</td><td>B / C / U</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="47" data-baseline-kind="normal" data-target-kind="normal"><th>047 霧を抱く二つの山窟</th><td>通常<br>ブラスト</td><td>C / U</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="48" data-baseline-kind="normal" data-target-kind="normal"><th>048 斜めの空中門</th><td>通常<br>モール</td><td>U</td><td>6 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="49" data-baseline-kind="normal" data-target-kind="normal"><th>049 雲間の高い肩</th><td>通常<br>ブラスト</td><td>U</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="50" data-baseline-kind="boss" data-target-kind="boss"><th>050 ダストドリラーの山釜</th><td>大ボス<br>ダスト・ドリラー</td><td>U</td><td>4 / 1</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-11"><summary>11 風の観測台 <span>51〜55面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="51" data-baseline-kind="normal" data-target-kind="normal"><th>051 風を受ける山口</th><td>通常<br>ガスト</td><td>F</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="52" data-baseline-kind="normal" data-target-kind="normal"><th>052 風下の崖庭</th><td>通常<br>スパイク</td><td>F</td><td>4 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="53" data-baseline-kind="normal" data-target-kind="normal"><th>053 風の岩庇を切りひらく</th><td>通常<br>ガスト</td><td>F</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="54" data-baseline-kind="normal" data-target-kind="normal"><th>054 風の二重断層</th><td>通常<br>スパイク</td><td>F</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="55" data-baseline-kind="normal" data-target-kind="midboss"><th>055 青い山の大斜面</th><td>通常<br>ガスト</td><td>F</td><td>1 / 0</td><td>0</td><td>中ボス：ゲイル・スカウト</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-12"><summary>12 凍てつく峡谷 <span>56〜60面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="56" data-baseline-kind="normal" data-target-kind="normal"><th>056 氷壁の橋下</th><td>通常<br>ミスト</td><td>B / F / W</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="57" data-baseline-kind="normal" data-target-kind="normal"><th>057 氷山の片屋根</th><td>通常<br>ガスト</td><td>F / W</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="58" data-baseline-kind="normal" data-target-kind="normal"><th>058 岩壁の薄い継ぎ目</th><td>通常<br>ミスト</td><td>F</td><td>3 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="59" data-baseline-kind="normal" data-target-kind="normal"><th>059 返り風の岩庇</th><td>通常<br>ガスト</td><td>F / K</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="60" data-baseline-kind="boss" data-target-kind="boss"><th>060 ホワイトハウルの風峰</th><td>大ボス<br>ホワイトハウル</td><td>F</td><td>5 / 2</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-13"><summary>13 火山の外縁 <span>61〜65面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="61" data-baseline-kind="normal" data-target-kind="normal"><th>061 火山の裂け目</th><td>通常<br>ブラスト</td><td>V</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="62" data-baseline-kind="normal" data-target-kind="normal"><th>062 火口の中央洞を開く</th><td>通常<br>スレート</td><td>V</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="63" data-baseline-kind="normal" data-target-kind="normal"><th>063 溶岩崖の横穴</th><td>通常<br>ブラスト</td><td>V</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="64" data-baseline-kind="normal" data-target-kind="normal"><th>064 噴流が抜ける岩釜</th><td>通常<br>スレート</td><td>V</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="65" data-baseline-kind="normal" data-target-kind="midboss"><th>065 外輪山の遊歩道</th><td>通常<br>ブラスト</td><td>V</td><td>2 / 0</td><td>1</td><td>中ボス：シンダー・シェフ</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-14"><summary>14 鍛冶の回廊 <span>66〜70面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="66" data-baseline-kind="normal" data-target-kind="normal"><th>066 火山棚の天蓋</th><td>通常<br>ヴォルト</td><td>V</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="67" data-baseline-kind="normal" data-target-kind="normal"><th>067 山裾の地走り道</th><td>通常<br>ブラスト</td><td>V</td><td>3 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="68" data-baseline-kind="normal" data-target-kind="normal"><th>068 三角洞の排気口</th><td>通常<br>ヴォルト</td><td>V</td><td>5 / 3</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="69" data-baseline-kind="normal" data-target-kind="normal"><th>069 鍛冶の二つの崖</th><td>通常<br>ブラスト</td><td>B / K / V</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="70" data-baseline-kind="boss" data-target-kind="boss"><th>070 フォージタイタンの火口壁</th><td>大ボス<br>フォージ・タイタン</td><td>V</td><td>5 / 2</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-15"><summary>15 磁石の採掘場 <span>71〜75面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="71" data-baseline-kind="normal" data-target-kind="normal"><th>071 磁石の曲がる山道</th><td>通常<br>ポール</td><td>M</td><td>2 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="72" data-baseline-kind="normal" data-target-kind="normal"><th>072 鉱山崖の低い採掘室</th><td>通常<br>モール</td><td>M</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="73" data-baseline-kind="normal" data-target-kind="normal"><th>073 磁石の岩塔</th><td>通常<br>ポール</td><td>M</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="74" data-baseline-kind="normal" data-target-kind="normal"><th>074 山窓の極性スイッチ</th><td>通常<br>モール</td><td>M / T</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="75" data-baseline-kind="normal" data-target-kind="midboss"><th>075 衝撃を受ける山棚</th><td>通常<br>ポール</td><td>M</td><td>5 / 1</td><td>1</td><td>中ボス：オア・シェパード</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-16"><summary>16 極性の実験棟 <span>76〜80面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="76" data-baseline-kind="normal" data-target-kind="normal"><th>076 極性の大峡谷</th><td>通常<br>ポール</td><td>K / M</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="77" data-baseline-kind="normal" data-target-kind="normal"><th>077 雲を抱く鉱山</th><td>通常<br>ヴォルト</td><td>C / M</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="78" data-baseline-kind="normal" data-target-kind="normal"><th>078 磁気の縦断崖</th><td>通常<br>ポール</td><td>M</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="79" data-baseline-kind="normal" data-target-kind="normal"><th>079 動かない山と動く入口</th><td>通常<br>ヴォルト</td><td>K / M / T</td><td>3 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="80" data-baseline-kind="boss" data-target-kind="boss"><th>080 ポラリス・コアの裂山</th><td>大ボス<br>ポラリス・コア</td><td>M</td><td>5 / 2</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-17"><summary>17 空中庭園 <span>81〜85面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="81" data-baseline-kind="normal" data-target-kind="normal"><th>081 庭園の大岩山</th><td>通常<br>ハング</td><td>W</td><td>3 / 0</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="82" data-baseline-kind="normal" data-target-kind="normal"><th>082 岩壁の内外を交換</th><td>通常<br>ガスト</td><td>なし</td><td>5 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="83" data-baseline-kind="normal" data-target-kind="normal"><th>083 風が返る双崖</th><td>通常<br>ハング</td><td>F / K</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="84" data-baseline-kind="normal" data-target-kind="normal"><th>084 空へ持ち上がる庭</th><td>通常<br>ガスト</td><td>C</td><td>6 / 1</td><td>1</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="85" data-baseline-kind="normal" data-target-kind="midboss"><th>085 空と山の祝祭</th><td>通常<br>ハング</td><td>W</td><td>5 / 0</td><td>1</td><td>中ボス：ブルーム・テンダー</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-18"><summary>18 嵐の空母 <span>86〜90面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="86" data-baseline-kind="normal" data-target-kind="normal"><th>086 雲上の崩れ甲板</th><td>通常<br>ハング</td><td>B / C</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="87" data-baseline-kind="normal" data-target-kind="normal"><th>087 結晶が浮く深山</th><td>通常<br>ヴォルト</td><td>K / U</td><td>4 / 1</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="88" data-baseline-kind="normal" data-target-kind="normal"><th>088 山の空中排気洞</th><td>通常<br>ハング</td><td>M / U</td><td>5 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="89" data-baseline-kind="normal" data-target-kind="normal"><th>089 斜め甲板の横腹</th><td>通常<br>ヴォルト</td><td>C / F</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="90" data-baseline-kind="boss" data-target-kind="boss"><th>090 スカイキャリアの山空域</th><td>大ボス<br>スカイキャリア</td><td>C</td><td>5 / 1</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-19"><summary>19 要塞の重層門 <span>91〜95面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="91" data-baseline-kind="normal" data-target-kind="normal"><th>091 要塞山の下抜け</th><td>通常<br>フリント</td><td>W</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="92" data-baseline-kind="normal" data-target-kind="normal"><th>092 山のカーテンを見上げる</th><td>通常<br>スレート</td><td>C / M</td><td>5 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="93" data-baseline-kind="normal" data-target-kind="normal"><th>093 逆風の岩壁回廊</th><td>通常<br>フリント</td><td>F / K</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="94" data-baseline-kind="normal" data-target-kind="normal"><th>094 峠の三つの抜け方</th><td>通常<br>スレート</td><td>B / C</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="95" data-baseline-kind="normal" data-target-kind="midboss"><th>095 勝利の大山道</th><td>通常<br>フリント</td><td>W</td><td>2 / 0</td><td>1</td><td>中ボス：ライン・ワーデン</td></tr>
+</tbody></table></div></details>
+<details class="stage-group" id="theme-20"><summary>20 夜明けの核 <span>96〜100面 / 未着手</span></summary><div class="table-wrap"><table class="stage-table"><thead><tr><th>面 / 名称</th><th>現在 / 美術時の外観</th><th>ギミック</th><th>部品 / 破壊材</th><th>箱</th><th>戦闘バッチ</th></tr></thead><tbody>
+<tr data-stage-id="96" data-baseline-kind="normal" data-target-kind="normal"><th>096 断崖門の三つの判断</th><td>通常<br>ヴォルト</td><td>B</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="97" data-baseline-kind="normal" data-target-kind="normal"><th>097 噴流鏡の対面山窟</th><td>通常<br>リフ</td><td>K / V</td><td>5 / 3</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="98" data-baseline-kind="normal" data-target-kind="normal"><th>098 極性が通る裂峰</th><td>通常<br>ヴォルト</td><td>M / T</td><td>4 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="99" data-baseline-kind="normal" data-target-kind="normal"><th>099 核心の複合山庭</th><td>通常<br>リフ</td><td>C / K</td><td>5 / 2</td><td>0</td><td>通常敵の戦闘表を接続</td></tr>
+<tr data-stage-id="100" data-baseline-kind="boss" data-target-kind="boss"><th>100 アークハートの裂山核</th><td>大ボス<br>アークハート</td><td>B / C / K</td><td>6 / 3</td><td>0</td><td>部位座標を照合</td></tr>
+</tbody></table></div></details>
+</div><p class="small">W/B/K/C/U/F/V/M/Tは資料用の符号です。ゲームでこの文字を読ませる計画ではありません。部品数は元コンポーネント数で、破壊後の衝突片数ではありません。箱は現在の合計29個。39面は通常のまま、中ボス導入後は通常80・中ボス10・大ボス10です。</p></section>
+<section id="validation"><div class="section-heading"><p class="eyebrow">07 / VALIDATION &amp; RELEASE</p><h2>見えること、当たること、続けて遊べること。</h2><p>見本、描画、物理・攻略、端末の操作感を別の結果として記録します。過去版の合格数を今回の結果へ加えません。</p></div><div class="table-wrap"><table><thead><tr><th>検証</th><th>範囲と完了条件</th></tr></thead><tbody><tr><th>表示と座標</th><td>全42外観、全100面×8画面。左右/斜面/照準/部位/接地、地形の端と底、破壊後の穴、全ギミック状態。</td></tr><tr><th>美術のみの比較</th><td>全10機×100面の同じ入力・乱数で、弾道/HP/破壊/取得/在庫/CPUの結果が変わらない。</td></tr><tr><th>新しい戦闘</th><td>全10機×100面×最低3乱数の実HP試合。部位変更と中ボスを含め、無補給でも通常弾/歩行/使用可能な転移の経路を残す。</td></tr><tr><th>本番と案内</th><td>67案内×10機、10必殺、転移/反射/破壊。自動ループ＋OK、結果が実効果と一致。</td></tr><tr><th>UI・保存</th><td>点線3難易度、日英、左右、取消、一時停止、結果、旧保存・章在庫・既読、保存失敗と再試行。</td></tr><tr><th>スマホ実機</th><td>iPhone Safari/ホーム画面、Android Chrome。回転、バー伸縮、ズーム復帰、長押し発射中の操作。自機32px/主要操作84px。</td></tr><tr><th>負荷と配布</th><td>目標60fps、低負荷表示30fps相当は未測定。物理を間引かず装飾を軽量化。同じ描画を紹介/確認ページと単体配布へ反映。</td></tr></tbody></table></div><div class="scope-box"><h3>現在の状態</h3><p><strong>承認済み：</strong>18原本の比較と統一方針。S01の描き方とS02の機体形状をつなぐ精密なマット表現。</p><p><strong>今回作成：</strong>8バッチ/24タスク、20テーマと100面の対応、敵/ボスの接続、検証・公開条件。</p><p><strong>未実施：</strong>ゲームへの実装、代表3画面の新描画、新戦闘の数値、全機体の新攻略、実機確認。</p></div></section>
+<section class="downloads"><h2>変更計画を保存する</h2><div><a class="primary" href="GAME_IMPLEMENTATION_PLAN_JA.md" download>変更計画 Markdown ↓</a><a href="implementation_plan.json" download>24タスク・100面データ JSON ↓</a><a href="index.html">18原本の比較へ ↗</a><a href="IMPLEMENTATION_PLAN_CHECK.json">資料ページの確認結果 ↗</a></div><p class="small">詳細な描画契約、FX、29箱、保存・配布の互換性はMarkdownにも記載しています。原本とゲームのハッシュはJSONのbaselineに収録。実装前の計画で、全ての将来検証は未実施です。</p></section></main>
+<footer><span>ARCLINE / IMPLEMENTATION PLAN v1.0</span><a href="index.html">統一方針・原本比較</a><a href="../../">ゲーム紹介へ</a><a href="https://github.com/bittrove88/bittrove88.github.io/blob/main/ARCLINE/design/sheets/GAME_IMPLEMENTATION_PLAN_JA.md" target="_blank" rel="noopener">Git上の計画書 ↗</a></footer></body></html>
