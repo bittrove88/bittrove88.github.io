@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined';
-const G=node?require('./geometry.js'):root.ArcGeometry,L=node?require('./levels.js'):root.ArcLevels,W=node?require('./weapons.js'):root.ArcWeapons,P=node?require('./physics.js'):root.ArcPhysics;
+const G=node?require('./geometry.js'):root.ArcGeometry,L=node?require('./levels.js'):root.ArcLevels,W=node?require('./weapons.js'):root.ArcWeapons,P=node?require('./physics.js'):root.ArcPhysics,I=node?require('./inventory.js'):root.ArcInventory;
 const clamp=G.clamp;
 const biomes=[
 {name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
@@ -39,11 +39,14 @@ function campaign(stage=1,save={}){
   units[1].parts=spec.bossSpec.parts.map((p,i)=>({...p,maxHp:p.hp,dx:i===0?-58:i===1?45:0,dy:i===0?-22:i===1?-62:-86,radius:24}));
   if([30,90].includes(spec.id)){units[1].y=500-spec.spawn[1][1]*10;units[1].floating=true;}
  }
- const skills={...spec.skills},skillCaps=Object.fromEntries(Object.entries(skills).map(([k,v])=>[k,v+1]));
+ const skillCaps=Object.fromEntries(W.skills.map(id=>[id,3]));
  const collected=[...(save.unlockedWeaponIds||['W01']),...(save.collectedCosmeticIds||[])];
- const pickups=spec.pickups.filter(p=>!collected.includes(p.id)).map(p=>({...p,...G.point(p.x,p.h),radius:22,collected:false,skill:p.id[0]==='R'?(p.skill||(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK')):null}));
+ const pickupLedger=Array.isArray(save.pickupLedger)?[...save.pickupLedger]:[];
+ const pickups=spec.pickups.filter(p=>!['S','B'].includes(p.id[0])||!collected.includes(p.id)).map(p=>({...p,...G.point(p.x,p.h),placementId:`L${String(spec.id).padStart(3,'0')}:${p.id}`,radius:22,collected:pickupLedger.includes(`L${String(spec.id).padStart(3,'0')}:${p.id}`),skill:p.id[0]==='R'?(p.skill||(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK')):null}));
  const requested=save.equippedWeaponId||'W01',equipped=W.weapons.some(w=>w.id===requested)&&(!Array.isArray(save.unlockedWeaponIds)||save.unlockedWeaponIds.includes(requested))?requested:'W01';
- const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||equipped!=='W01'),selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(equipped).minAngle||-12),power:20,result:null,reason:null,ammo:2,weaponId:equipped,mode:equipped,trial:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
+ const inventory=I.normalize(save.battleInventory||{weapons:equipped==='W01'?{}:{[equipped]:3},skills:spec.skills}),mode=(save.battleMode||equipped)==='W01'||inventory.weapons[save.battleMode||equipped]>0?(save.battleMode||equipped):'W01';
+ const canUseAmmo=Object.keys(inventory.weapons).length>0||pickups.some(p=>p.kind==='trial'||/^W\d\d$/.test(p.id));
+ const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,weaponStock:inventory.weapons,skills:inventory.skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||canUseAmmo),pendingLoot:(save.pendingLoot||[]).map(p=>({...p})),collectedPickupIds:pickupLedger,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(mode).minAngle||-12),power:20,result:null,reason:null,weaponId:mode,mode,lastPickupWeaponId:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
  s.random=seeded(s.matchSeed);
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
  bossGeometry(s);telegraph(s);return s;
@@ -57,14 +60,11 @@ function telegraph(s){
 }
 function availableWeapons(s){
  const options=[{id:'W01',ammo:Infinity,trial:false}];
- if(s.weaponId!=='W01'&&W.weapons.some(w=>w.id===s.weaponId)&&s.ammo>0)options.push({id:s.weaponId,ammo:s.ammo,trial:false});
- if(s.trial?.ammo>0&&s.trial.id!=='W01'&&W.weapons.some(w=>w.id===s.trial.id)){
-  const owned=options.find(w=>w.id===s.trial.id);if(owned){owned.ammo+=s.trial.ammo;owned.trial=true;}else options.push({id:s.trial.id,ammo:s.trial.ammo,trial:true});
- }return options;
+ for(const [id,n] of Object.entries(s.weaponStock||{}))if(I.weaponIds.includes(id)&&n>0)options.push({id,ammo:n,carried:true});return options;
 }
 function selectWeapon(s,id){
  if(s.result||s.phase!=='aim'||s.turn!==0||!availableWeapons(s).some(w=>w.id===id))return false;
- s.teleportMode=false;s.mode=id;s.angle=Math.max(s.angle,W.get(id).minAngle||-12);return true;
+ s.teleportMode=false;s.mode=id;if(id!=='W01')s.weaponId=id;if(s.lastPickupWeaponId===id)s.lastPickupWeaponId=null;s.angle=Math.max(s.angle,W.get(id).minAngle||-12);return true;
 }
 function selectSkill(s,id){if(s.phase!=='aim'||s.skillUsed||!s.skills[id]||id==='SWAP'&&s.spec.boss)return false;s.teleportMode=false;s.selectedSkill=s.selectedSkill===id?null:id;return true;}
 function blink(s,index){
@@ -76,15 +76,35 @@ function selectTeleport(s){if(s.result||s.turn||s.phase!=='aim'||!s.spec.telepor
 function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.teleportMode?'TELEPORT':s.mode,skill:side||s.teleportMode?null:s.selectedSkill,...opts});}
 function settleUnits(s){for(let side=0;side<2;side++){const u=s.units[side];if(u.floating)continue;const current=G.support(s.world,u.x,u.y);if(current&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current))continue;const pad=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);if(pad){const from={x:u.x,y:u.y,slope:u.slope};Object.assign(u,pad);u.animation={from,age:0,duration:Math.min(1,Math.max(.25,Math.sqrt(Math.max(0,pad.y-from.y)/400))),lift:0,fall:true};}}}
 
+function markPickup(s,item){if(item.placementId&&!s.collectedPickupIds.includes(item.placementId))s.collectedPickupIds.push(item.placementId);item.collected=true;}
+function acceptLoot(s,record,result,item){
+ I.apply(s,result.inventory);if(record.kind==='weapons')s.lastPickupWeaponId=s.mode===record.id?null:record.id;
+ if(item)markPickup(s,item);return {...(item||{}),kind:record.kind==='weapons'?'trial':'skill',weaponId:record.kind==='weapons'?record.id:undefined,skill:record.kind==='skills'?record.id:undefined,taken:result.taken,pending:false};
+}
 function collect(s,shot,event){
  const item=s.pickups.find(c=>c.id===event.id);if(!item||item.collected)return null;
- if(item.kind==='trial'){item.collected=true;s.trial={id:item.weaponId,ammo:2};return item;}
- if(item.kind==='ammo'){if(s.weaponId==='W01')return null;item.collected=true;s.ammo++;return {...item,taken:1};}
- if(item.id[0]==='R'){
-  if(!item.skill||!(item.skill in s.skills)||s.skills[item.skill]>=s.skillCaps[item.skill])return null;
-  const taken=Math.min(item.amount||1,s.skillCaps[item.skill]-s.skills[item.skill]);s.skills[item.skill]+=taken;item.amount=(item.amount||1)-taken;item.collected=item.amount===0;return {...item,taken};
- }else item.collected=true;
- return item;
+ let record;
+ if(item.kind==='trial'||/^W\d\d$/.test(item.id))record={kind:'weapons',id:item.weaponId||item.id,amount:3,fill:true};
+ else if(item.kind==='ammo'){
+  const id=s.mode!=='W01'&&I.weaponIds.includes(s.mode)?s.mode:I.weaponIds.includes(s.weaponId)?s.weaponId:Object.keys(s.weaponStock)[0];
+  if(!id)return null;record={kind:'weapons',id,amount:1,fill:false};
+ }else if(item.skill)record={kind:'skills',id:item.skill,amount:item.amount||1,fill:false};
+ else{markPickup(s,item);return item;}
+ record={...record,itemId:item.id,placementId:item.placementId,origin:'pickup'};
+ const result=I.add(I.fromState(s),record.kind,record.id,record.amount,record.fill);
+ if(result.status==='accepted'){const accepted=acceptLoot(s,record,result,item);return item.kind==='ammo'?{...accepted,kind:'ammo'}:accepted;}
+ if(result.status==='pending'){item.collected=true;s.pendingLoot.push(record);return {...item,pending:true};}
+ return null;
+}
+function resolveLoot(s,removeId=null,skip=false){
+ const record=s.pendingLoot[0];if(!record)return null;const item=s.pickups.find(p=>p.id===record.itemId);
+ if(skip){s.pendingLoot.shift();if(item)markPickup(s,item);return {skipped:true,origin:record.origin};}
+ const before=I.fromState(s),result=removeId?I.replace(before,record.kind,record.id,record.amount,record.fill,removeId):I.add(before,record.kind,record.id,record.amount,record.fill);
+ if(result.status==='full'){s.pendingLoot.shift();if(item)item.collected=false;return {full:true,origin:record.origin};}
+ if(result.status!=='accepted')return null;
+ s.pendingLoot.shift();const accepted=acceptLoot(s,record,result,item);
+ if(s.mode!=='W01'&&!s.weaponStock[s.mode])s.mode='W01';if(s.selectedSkill&&!s.skills[s.selectedSkill])s.selectedSkill=null;
+ return {...accepted,...(item?.kind==='ammo'?{kind:'ammo'}:{}),origin:record.origin};
 }
 function applyEvents(s,shot,time,onCollect=()=>{}){
  s.effects.destroyed=s.effects.destroyed||[];
@@ -98,13 +118,14 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
 function launch(s,angle=s.angle,power=s.power,plan=null){
  if(s.result||!['aim','cpu','cpuMove'].includes(s.phase))return null;
  const side=s.turn;if(!side){
+  if(s.pendingLoot.length)return null;
   if(s.shotCount>=s.shotLimit)return null;
   // BLINK commits through its landing confirmation, never through a shot.
   if(s.selectedSkill==='BLINK')return null;
-  if(!s.teleportMode&&s.mode!=='W01'&&!(s.trial?.id===s.mode&&s.trial.ammo>0)&&!(s.mode===s.weaponId&&s.ammo>0))return null;
+  if(!s.teleportMode&&s.mode!=='W01'&&!(s.weaponStock[s.mode]>0))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
- if(!side){s.shotCount++;if(!s.teleportMode&&s.mode!=='W01'){if(s.trial?.id===s.mode&&s.trial.ammo>0)s.trial.ammo--;else s.ammo--;}
+ if(!side){s.shotCount++;if(!s.teleportMode&&s.mode!=='W01'){s.weaponId=s.mode;s.weaponStock[s.mode]--;}
   if(!s.teleportMode&&s.selectedSkill){s.skills[s.selectedSkill]--;s.skillUsed=true;}
  }
  s.phase='flight';s.activeShot=shot;return shot;
@@ -179,7 +200,7 @@ function resolve(s,shot,onCollect=()=>{}){
  if(boss.exposed>0&&shot.side===0)boss.exposed--;
  displace(s,shot.side,shot);
  s.last[shot.side]=shot;s.selectedSkill=null;s.activeShot=null;
- if(s.mode!=='W01'&&!(s.trial?.id===s.mode&&s.trial.ammo>0)&&!(s.mode===s.weaponId&&s.ammo>0))s.mode='W01';
+ if(s.mode!=='W01'&&!(s.weaponStock[s.mode]>0))s.mode='W01';
  check(s);return shot.damage;
 }
 function check(s){
@@ -298,6 +319,6 @@ function enemyMoveTarget(s){
  for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
  return target;
 }
-const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);

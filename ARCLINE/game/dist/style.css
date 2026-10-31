@@ -117,3 +117,29 @@ button{border:1px solid #c4e5d34d;background:#153e50;border-radius:10px;min-heig
  .lobby-dock .difficulty-options strong{font-size:12px;line-height:16px}
  .lobby-dock .play-button{min-height:44px}
 }
+
+/* Chapter stock and isolated practice share the compact start screen. */
+.journey-actions{display:flex;align-items:center;gap:4px;flex:none}
+.campaign-row .journey-actions button{min-height:44px;padding:5px 7px}
+#resumeRun{border:1px solid #badbc36b;border-radius:8px;background:#315c63}
+#restartChapter,#openLibrary{min-height:44px;width:100%;margin-top:10px}
+#chapterSkillStock{font-size:13px;color:#d8ebc8;line-height:1.5;margin:8px 0}
+.weapon-panel>header{position:sticky;top:-1px;z-index:1;background:#173e50;padding-bottom:8px}
+#lootPicker{position:absolute;inset:0;z-index:12;display:grid;place-items:center;padding:12px;background:#082638d9;pointer-events:auto}
+.loot-panel{width:min(430px,100%);max-height:calc(100% - 8px);overflow:auto;padding:20px;border:1px solid #d1efbd;border-radius:16px;background:#173e50;box-shadow:0 16px 50px #09223366;touch-action:pan-y}
+.loot-panel h2{font-size:23px;line-height:1.35;margin:0 0 10px}
+.loot-incoming{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0;padding:10px 12px;border:1px solid #dbefb388;border-radius:9px;background:#456b65}
+.loot-incoming strong{font-size:17px;line-height:1.4}.loot-incoming b{font-size:21px}
+#lootInstruction{font-size:13px;line-height:1.5;color:#bfd7cc;margin:10px 0}
+#lootChoices{display:grid;gap:7px}
+#lootChoices button{display:grid;grid-template-columns:minmax(0,1fr) 32px;gap:1px 8px;align-items:center;min-height:52px;padding:7px 12px;text-align:left;background:#214c5b;border:1px solid #bcdcc455;border-radius:9px}
+#lootChoices strong{font-size:15px;line-height:19px}#lootChoices span{text-align:right;font-weight:700}#lootChoices small{grid-column:1/-1;color:#d7edc4;font-size:11px;line-height:15px}
+#lootSkip{width:100%;min-height:44px;margin-top:8px}
+@media(orientation:landscape) and (max-height:500px){
+ #lootPicker{padding:8px}.loot-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 14px;width:min(620px,100%);padding:12px;align-items:start}
+ .loot-panel h2{grid-column:1;margin:0;font-size:18px;line-height:23px}.loot-incoming{grid-column:1;padding:6px 9px;min-height:36px}.loot-incoming strong{font-size:14px}.loot-incoming b{font-size:18px}
+ #lootInstruction{grid-column:1;margin:0;font-size:12px;line-height:16px}
+ #lootChoices{grid-column:2;grid-row:1/5;align-content:start;gap:6px}#lootChoices button{min-height:46px;padding:5px 9px}#lootChoices strong{font-size:13px;line-height:17px}#lootChoices small{font-size:10px;line-height:13px}
+ #lootSkip{grid-column:1;margin:0}
+}
+@media(orientation:landscape) and (max-height:340px){.lobby-dock .journey-actions{width:100%}.lobby-dock .journey-actions #chooseLevel{width:auto;flex:1;font-size:11px}.lobby-dock #resumeRun{min-width:44px;font-size:11px}}
