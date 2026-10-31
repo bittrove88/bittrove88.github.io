@@ -12,6 +12,14 @@ Object.assign(dictionary,{
 });
 let language='ja';try{if(localStorage.getItem('arcline-language')==='en')language='en';}catch{}
 function t(value){const s=String(value??'');if(language==='en'){const stage=root.ArcLevels?.find(x=>x.name===s);if(stage)return stage.nameEn||s;const theme=root.ArcLevels?.find(x=>x.themeName===s);if(theme)return root.ArcEngine?.biomes[theme.theme]?.name||s;return s;}if(dictionary[s])return dictionary[s];
+ if(s.startsWith('PRACTICE · '))return t('PRACTICE')+'・'+t(s.slice(11));
+ let m;if(m=s.match(/^Chapter (\d+) · LEVEL (\d+)$/))return `第${m[1]}章・${m[2]}面`;
+ if(m=s.match(/^Restart chapter (\d+)\?$/))return `第${m[1]}章をはじめから？`;
+ if(m=s.match(/^Start chapter (\d+) from the beginning$/))return `第${m[1]}章をはじめから`;
+ if(m=s.match(/^Carry forward: (\d+) weapons, (\d+) skills$/))return `持ち越し：武器${m[1]}種・スキル${m[2]}種`;
+ if(m=s.match(/^(\d+) weapons?$/))return `武器${m[1]}種類`;
+ if(m=s.match(/^(\d+) skills?$/))return `スキル${m[1]}種類`;
+ if(m=s.match(/^(.*) \+(\d+)$/))return t(m[1])+' +'+m[2];
  const patterns=[[/^(\d+) ACTIONS$/,m=>`残り${m[1]}行動`],[/^(\d+) actions$/,m=>`${m[1]}行動`],[/^Clear LV (\d+)$/,m=>`${m[1]}面クリアで解放`],[/^(\d+) SHOTS$/,m=>`残り${m[1]}発`],[/^LAST SHOT$/,()=> '最後の1発'],[/^(Trial · )?(\d+) shots?$/,m=>`${m[1]?'お試し・':''}残り${m[2]}発`],[/^Find LV\s+(\d+)$/,m=>`${m[1]}面で入手`],[/^LEVEL (\d+)( · CLEARED)?$/,m=>`${m[1]}面${m[2]?'・クリア':''}`],[/^(\d+) shots$/,m=>`${m[1]}発`],[/^LEVEL (\d+) · (.+)$/,m=>`${m[1]}面・${t(m[2])}`],[/^(\d+) weapons · (\d+) finishes$/,m=>`武器${m[1]}種・外観${m[2]}種`],[/^(.*), choose weapon$/,m=>`${t(m[1])}・武器を選ぶ`]];
  for(const [re,fn] of patterns){const m=s.match(re);if(m)return fn(m);}if(s.includes(', '))return s.split(', ').map(t).join('、');return s;
 }
@@ -19,6 +27,22 @@ Object.assign(dictionary,{
  'Difficulty':'難易度','Easy':'イージー','Normal':'ノーマル','Hard':'ハード',
  'Full line':'射線すべて','Half line':'射線半分','No line':'射線なし',
  'Easy: full trajectory':'イージー：射線すべて','Normal: half trajectory':'ノーマル：射線半分','Hard: no trajectory':'ハード：射線なし'
+});
+Object.assign(dictionary,{
+ 'CHAPTER STOCK':'章の持ち物','PRACTICE WEAPON':'練習用の武器','VIEW':'見る','Skills':'スキル','PRACTICE':'練習','CONTINUE':'つづきから','Back':'再開',
+ 'Chapter inventory':'章の持ち物','Return to current chapter':'本編の続きへ戻る','Carried until boss':'ボス撃破まで持ち越し','Practice weapon':'練習用の武器',
+ 'Weapons and skills carry until the chapter boss.':'武器とスキルは章のボス撃破まで持ち越します。',
+ 'Weapon selection is for practice. Find weapons during your chapter.':'武器選択は練習用です。本編では道中で武器を拾います。',
+ 'Practice selection':'練習用に選択中','Use in practice':'練習で使う','Practice: three shots of your selected weapon.':'練習では選択した武器を3発使えます。',
+ 'Weapon library and finishes':'武器図鑑・外観','Weapon slots full':'武器の所持枠がいっぱい','Skill slots full':'スキルの所持枠がいっぱい',
+ 'Replace one item, or skip.':'入れ替える持ち物を選ぶか、見送る','Replace':'入れ替え','Skip pickup':'見送る','Unavailable on bosses':'ボスには使えません',
+ 'CHAPTER':'章','START CHAPTER':'章をはじめる','Start chapter from the beginning':'この章をはじめから',
+ 'Chapter stock resets. Progress and collection stay saved.':'章の持ち物をリセットします。進行・所持記録は残ります。',
+ 'Chapter clear. Weapon and skill stock resets.':'章クリア。武器とスキルの在庫をリセット。',
+ 'Practice stock does not change your chapter.':'練習の持ち物は本編へ反映されません。','PLAY AGAIN':'もう一度練習',
+ 'Retry restores the stock from the start of this level.':'再挑戦では面開始時の持ち物に戻ります。',
+ 'This level restarts from its entry stock.':'この面の開始時点から再開します。','RETRY SAVE':'保存を再試行',
+ 'Could not save progress. Retry before continuing.':'保存できませんでした。再試行してください。'
 });
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;

@@ -24,7 +24,7 @@ function fixture(source,id){
  s.units=[{...G.safePosition(s.world,160,380),hp:5,maxHp:5,parts:[],range:[35,650],exposed:0},{...G.safePosition(s.world,targetX,380),hp:3,maxHp:3,parts:[],range:[320,965],exposed:0}];
  s.blink=spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
  s.pickups=id==='pickup'?[{id:'S-demo',name:'Capsule',x:380,y:280,radius:24,collected:false}]:[];
- s.mode=/^W\d\d$/.test(id)?id:'W01';s.weaponId=s.mode;s.ammo=2;s.trial=null;s.angle=48;s.power=65;s._preview=true;
+ s.mode=/^W\d\d$/.test(id)?id:'W01';s.weaponId=s.mode;s.weaponStock=s.mode==='W01'?{}:{[s.mode]:3};s.pendingLoot=[];s.angle=48;s.power=65;s._preview=true;
  return s;
 }
 function useful(s,id,plan){
