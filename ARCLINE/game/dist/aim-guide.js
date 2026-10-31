@@ -56,6 +56,14 @@ function paths(plan,mode){
  }
  return bullets.map(b=>({id:b.id,path:prefix(b.path,budgets.get(b.id)||0)})).filter(b=>b.path.length>1);
 }
-const api={modes,ratios,normalize,length,paths};
+// Hard mode shows the barrel direction, independent of power or future contacts.
+// Keep its visible length constant as the camera zooms in and out.
+function direction(muzzle,scale=1){
+ if(!finite(muzzle)||!Number.isFinite(muzzle.dx)||!Number.isFinite(muzzle.dy))return [];
+ const magnitude=Math.hypot(muzzle.dx,muzzle.dy);if(magnitude<EPS)return [];
+ const distance=48/((Number.isFinite(scale)&&scale>0)?scale:1)/magnitude;
+ return [{id:'direction',path:[{x:muzzle.x,y:muzzle.y},{x:muzzle.x+muzzle.dx*distance,y:muzzle.y+muzzle.dy*distance}]}];
+}
+const api={modes,ratios,normalize,length,paths,direction};
 if(typeof module!=='undefined')module.exports=api;else root.ArcAimGuide=api;
 })(globalThis);

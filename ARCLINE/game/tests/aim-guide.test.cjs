@@ -22,6 +22,13 @@ const resampled=simple(Array.from({length:101},(_,i)=>p(i/10,0,i*i)));
 near(A.paths(resampled,'normal')[0].path.at(-1).x,5,'sampling density and nonuniform time do not change boundary');
 ok(A.paths({bullets:[{id:0,path:[p(0,0,0),p(NaN,1,1)]}],events:[]},'normal').length===0,'nonfinite paths never reach Canvas');
 ok(A.paths({bullets:[],events:[]},'easy').length===0,'empty simulation is safe');
+for(const scale of [.4,.52,1,1.8,3])for(const [dx,dy] of [[1,0],[0,-1],[-.6,-.8]]){
+ const muzzle={x:320,y:220,dx,dy},before=JSON.stringify(muzzle),guide=A.direction(muzzle,scale)[0].path;
+ near(A.length(guide)*scale,48,'hard direction stays forty-eight logical pixels at camera scale '+scale);
+ near((guide[1].x-guide[0].x)*dy-(guide[1].y-guide[0].y)*dx,0,'hard direction follows barrel orientation');
+ ok(guide.length===2&&JSON.stringify(muzzle)===before,'hard has no curved forecast and never mutates muzzle');
+}
+ok(!A.direction({x:1,y:2,dx:NaN,dy:1}).length&&!A.direction({x:1,y:2,dx:0,dy:0}).length,'invalid directions never reach Canvas');
 
 let plans=0,splitPlans=0;
 for(const stage of[1,6,13,32,62,80])for(const weapon of E.weapons){
@@ -48,6 +55,8 @@ for(const stage of[4,13,62,100]){
 for(let stage=1;stage<=100;stage++){
  const states=A.modes.map(difficulty=>E.campaign(stage,{matchSeed:42,difficulty}));
  ok(states.every(state=>JSON.stringify(state)===JSON.stringify(states[0])),'difficulty cannot change combat state '+stage);
+ const direction=A.direction(E.geometry.muzzle(states[0],0,48));states[0].power=100;
+ ok(JSON.stringify(A.direction(E.geometry.muzzle(states[0],0,48)))===JSON.stringify(direction),'hard direction never reveals power or landing '+stage);
  // Compare fresh streams, since reading a random value advances the generator.
  const values=A.modes.map(difficulty=>E.campaign(stage,{matchSeed:42,difficulty}).random());
  ok(values.every(value=>value===values[0]),'difficulty cannot change enemy randomness '+stage);
@@ -65,7 +74,7 @@ ok(S.decode(null).difficulty==='normal','new game defaults to normal');
  let raw=JSON.stringify({version:1,cleared:27});const store=S.create({load:async()=>raw,save:async value=>{raw=value;}});await store.load();store.data.difficulty='hard';await store.save();
  const reloaded=S.decode(raw);ok(reloaded.difficulty==='hard'&&reloaded.cleared===27,'setting persists through save adapter');
  let writes=0;const failed=S.create({load:async()=>{throw Error('unavailable');},save:async()=>writes++});await failed.load();failed.data.difficulty='easy';await failed.save();ok(writes===0,'difficulty does not overwrite failed save load');
- const report={status:'PASS',checks,actualWeaponPlans:plans,actualSplitPlans:splitPlans,scope:'Forecast geometry, lineage, immutable simulation, three-mode state/random parity across100 stages, and save migration. Not a difficulty or physical-device playtest.'};
+ const report={status:'PASS',checks,actualWeaponPlans:plans,actualSplitPlans:splitPlans,scope:'Forecast geometry, lineage, constant48px hard direction independent of power, immutable simulation, three-mode state/random parity across100 stages, and save migration. Not a difficulty or physical-device playtest.'};
  if(process.env.ARCLINE_EVIDENCE_DIR){fs.mkdirSync(process.env.ARCLINE_EVIDENCE_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.ARCLINE_EVIDENCE_DIR,'AIM_GUIDE.json'),JSON.stringify(report,null,2)+'\n');}
  console.log(JSON.stringify(report,null,2));
 })().catch(error=>{console.error(error);process.exitCode=1;});

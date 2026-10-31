@@ -370,13 +370,13 @@ function create(canvas){
   if(planning){
    const plan=guide||aimPlan(s),look=appearance(s.teleportMode?'TELEPORT':s.mode),full=!!options.charging,difficulty=root.ArcAimGuide.normalize(options.difficulty||s.difficulty);
    if(!guideCache||guideCache.plan!==plan||guideCache.difficulty!==difficulty)guideCache={plan,difficulty,paths:root.ArcAimGuide.paths(plan,difficulty)};
-   const visible=guideCache.paths;
+   const visible=difficulty==='hard'?root.ArcAimGuide.direction(G.muzzle(s,0,s.angle),scale):guideCache.paths;
    ctx.save();ctx.beginPath();ctx.rect(-view.x/scale,(top-view.y)/scale,fieldW/scale,(bottom-top)/scale);ctx.clip();
    for(const b of visible){const points=b.path;if(!points.length)continue;
-    ctx.save();ctx.globalAlpha=full?.72:.8;path(points,'#102d49aa',4/scale,full?[]:[10/scale,7/scale]);ctx.shadowColor=look.color;ctx.shadowBlur=2;path(points,look.color,2/scale,full?[]:[10/scale,7/scale]);ctx.shadowBlur=0;ctx.restore();
+    const dots=[1/scale,7/scale];ctx.save();ctx.lineCap='round';ctx.globalAlpha=full?.72:.8;path(points,'#102d49aa',4/scale,dots);ctx.shadowColor=look.color;ctx.shadowBlur=2;path(points,look.color,2/scale,dots);ctx.shadowBlur=0;ctx.restore();
    }
    ctx.restore();
-   if(full){
+   if(full&&difficulty!=='hard'){
     const edgeY=(top-view.y)/scale,points=visible[0]?.path||[];let marks=0;
     for(let i=1;i<points.length&&marks<2;i++){const a=points[i-1],b=points[i];if((a.y-edgeY)*(b.y-edgeY)>=0)continue;const ratio=(edgeY-a.y)/(b.y-a.y),x=a.x+(b.x-a.x)*ratio,screenX=view.x+x*scale;if(screenX<10||screenX>fieldW-10)continue;
      const arrow=[{x:x-5/scale,y:edgeY+9/scale},{x,y:edgeY+4/scale},{x:x+5/scale,y:edgeY+9/scale}];path(arrow,'#17344d',5/scale);path(arrow,look.color,2/scale);marks++;

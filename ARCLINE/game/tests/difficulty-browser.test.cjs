@@ -21,7 +21,7 @@ const server=http.createServer((req,res)=>{
     if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify({schemaVersion:2,contentRevision:'4.1.0',cleared:73,unlockedWeaponIds:Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0')),equippedWeaponId:'W20',collectedCosmeticIds:['S01','B10'],equippedCharacterId:'gun',seenPreviewIds:['v4:controls']}));
     const proto=CanvasRenderingContext2D.prototype;globalThis.forecastTrace={active:false,current:[],strokes:[]};
     for(const name of ['beginPath','moveTo','lineTo','stroke']){
-     const original=proto[name];proto[name]=function(...args){const trace=forecastTrace;if(trace.active){if(name==='beginPath')trace.current=[];if(name==='moveTo'||name==='lineTo')trace.current.push({x:args[0],y:args[1]});if(name==='stroke')trace.strokes.push({points:trace.current.map(p=>({...p})),color:this.strokeStyle,width:this.lineWidth*Math.abs(this.getTransform().a)/devicePixelRatio});}return original.apply(this,args);};
+     const original=proto[name];proto[name]=function(...args){const trace=forecastTrace;if(trace.active){if(name==='beginPath')trace.current=[];if(name==='moveTo'||name==='lineTo')trace.current.push({x:args[0],y:args[1]});if(name==='stroke'){const scale=Math.abs(this.getTransform().a)/devicePixelRatio;trace.strokes.push({points:trace.current.map(p=>({...p})),color:this.strokeStyle,width:this.lineWidth*scale,dash:this.getLineDash().map(n=>n*scale),cap:this.lineCap});}}return original.apply(this,args);};
     }
    });
    const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));page.on('response',r=>{if(r.status()>=400)bad.push(r.url());});
@@ -62,14 +62,14 @@ const server=http.createServer((req,res)=>{
      for(const test of cases)for(const mode of ['easy','normal','hard']){
       save.data.difficulty=mode;save.data.equippedWeaponId=test.weapon==='TELEPORT'?'W01':test.weapon;selectedMap=test.stage-1;start();endDemo();encounter=null;document.getElementById('encounterBanner').hidden=true;
       if(test.weapon==='TELEPORT')E.selectTeleport(s);else E.selectWeapon(s,test.weapon);
-      s.angle=test.angle;s.power=test.power;const plan=E.trajectory(s,0,s.angle,s.power),expected=ArcAimGuide.paths(plan,mode),before=JSON.stringify(s),color=ArcWeapons.get(test.weapon).appearance.color;
+      s.angle=test.angle;s.power=test.power;const plan=E.trajectory(s,0,s.angle,s.power),before=JSON.stringify(s),color=ArcWeapons.get(test.weapon).appearance.color;
+      draw();const expected=mode==='hard'?ArcAimGuide.direction(G.muzzle(s,0,s.angle),renderer.view.scale):ArcAimGuide.paths(plan,mode);
+      function verify(actual,phase){for(const segment of expected){const matched=actual.find(a=>a.points.length===segment.path.length&&a.points.every((p,i)=>Math.hypot(p.x-segment.path[i].x,p.y-segment.path[i].y)<1e-6));if(!matched)faults.push({test,mode,issue:phase+'-forecast-differs-from-projected-path',id:segment.id});else if(matched.cap!=='round'||matched.dash.length!==2||Math.abs(matched.dash[0]-1)>.01||Math.abs(matched.dash[1]-7)>.01)faults.push({test,mode,issue:phase+'-guide-is-not-dotted'});}if(mode==='hard'&&(actual.length!==1||actual[0].points.length!==2||Math.abs(ArcAimGuide.length(actual[0].points)*renderer.view.scale-48)>.01))faults.push({test,mode,issue:phase+'-hard-is-not-a-short-direction'});}
       const idle=capture().filter(p=>p.color===color&&Math.abs(p.width-2)<.02&&p.points.length>1);
-      if(mode==='hard'&&idle.length)faults.push({test,mode,issue:'hard-idle-guide-or-edge-marker'});
-      for(const segment of expected)if(!idle.some(actual=>actual.points.length===segment.path.length&&actual.points.every((p,i)=>Math.hypot(p.x-segment.path[i].x,p.y-segment.path[i].y)<1e-6)))faults.push({test,mode,issue:'idle-forecast-differs-from-projected-path',id:segment.id});
+      verify(idle,'idle');
       if(JSON.stringify(s)!==before)faults.push({test,mode,issue:'render-mutated-combat'});
       startCharge('difficulty-test');s.power=test.power;const charging=capture().filter(p=>p.color===color&&Math.abs(p.width-2)<.02&&p.points.length>1);
-      if(mode==='hard'&&charging.length)faults.push({test,mode,issue:'hard-charge-guide-or-edge-marker'});
-      for(const segment of expected)if(!charging.some(actual=>actual.points.length===segment.path.length&&actual.points.every((p,i)=>Math.hypot(p.x-segment.path[i].x,p.y-segment.path[i].y)<1e-6)))faults.push({test,mode,issue:'charge-forecast-differs-from-projected-path',id:segment.id});
+      verify(charging,'charge');
       samples.push({...test,mode,visibleBranches:expected.length,split:plan.events.some(e=>e.type==='split'),bounce:plan.events.some(e=>e.type==='bounce')});cancelCharge();
      }
      save.data.difficulty='easy';save.data.equippedWeaponId='W01';selectedMap=0;start();endDemo();save.data.difficulty='hard';
@@ -96,7 +96,7 @@ const server=http.createServer((req,res)=>{
    rows.push({width,height,touch,languages:2,persistence:true});await context.close();
   }
   ok(!errors.length,errors.join('\n'));ok(!bad.length,'no failed local asset requests '+bad.join(','));
-  const report={status:'PASS',checks,viewports:rows,drawCases,errors,badRequests:bad,scope:'Actual Chromium native difficulty choices, legacy save preservation, language and keyboard, short landscape reachability, real Canvas forecast geometry, immutable battle snapshot, actual hard-mode shot, and preview availability. Emulation, not physical devices or human difficulty validation.'};
+  const report={status:'PASS',checks,viewports:rows,drawCases,errors,badRequests:bad,scope:'Actual Chromium native difficulty choices, legacy save preservation, language and keyboard, short landscape reachability, real Canvas dotted forecasts in idle/charge, hard-mode 48px direction only, immutable battle snapshot, actual hard-mode shot, and preview availability. Emulation, not physical devices or human difficulty validation.'};
   fs.writeFileSync(path.join(out,'DIFFICULTY_BROWSER.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checks,viewports:rows.length,drawCases:drawCases.length,errors},null,2));
  }finally{await browser.close();server.close();}
 })().catch(error=>{console.error(error);server.close();process.exitCode=1;});
