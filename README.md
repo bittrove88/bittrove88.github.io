@@ -73,7 +73,7 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 
 | コンテンツ | URL |
 | --- | --- |
-| ARCLINE | [サービスサイト](ARCLINE/) ・ [ゲーム](ARCLINE/game/dist/) ・ [キャラ確認](ARCLINE/characters/) ・ [デザイン比較・統一計画](ARCLINE/design/sheets/) ・ [アップデート告知](ARCLINE/updates/0.7.0/) |
+| ARCLINE | [サービスサイト](ARCLINE/) ・ [ゲーム](ARCLINE/game/dist/) ・ [キャラ確認](ARCLINE/characters/) ・ [デザイン比較・統一計画](ARCLINE/design/sheets/) ・ [ゲーム反映計画](ARCLINE/design/sheets/implementation.html) ・ [アップデート告知](ARCLINE/updates/0.7.0/) |
 | UNITE Roulette | `/unite-roulette/` |
 | キャラルーレット30 | `/character-roulette-30/` |
 | Switch 2 RPG Catalog | `/switch2-rpg-catalog/` |
