@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "implementation": "0.7.4",
+  "baselineCommit": "26db1d8e12a75617def49639d820583fa9c8b4f8",
+  "tests": {
+    "CHARGE_PAUSE.json": 245,
+    "AIM_GUIDE.json": 1001,
+    "DIFFICULTY_BROWSER.json": 154,
+    "CHAPTER_STOCK.json": 129,
+    "CHAPTER_STOCK_BROWSER.json": 147,
+    "INTEGRATED.json": 598,
+    "BROWSER.json": 3267,
+    "ORIENTATION_I18N.json": 57,
+    "VIEWPORT.json": 179,
+    "FULLSCREEN.json": 13,
+    "SERVICE_SITE.json": 229
+  },
+  "totalChecks": 6019,
+  "currentGameEntries": [
+    {
+      "from": "ARCLINE/index.html",
+      "url": "game/dist/?v=0.7.4"
+    },
+    {
+      "from": "ARCLINE/index.html",
+      "url": "game/dist/?v=0.7.4"
+    },
+    {
+      "from": "ARCLINE/index.html",
+      "url": "game/dist/?v=0.7.4"
+    },
+    {
+      "from": "ARCLINE/index.html",
+      "url": "game/dist/?v=0.7.4"
+    },
+    {
+      "from": "ARCLINE/characters/index.html",
+      "url": "../game/dist/?v=0.7.4"
+    }
+  ],
+  "localAssetLinks": 55,
+  "distributionFiles": 23,
+  "scope": "Charge cancellation, clear pause/retry/title flow, dotted guides in all modes and hard direction only. Next character/skill batch not started.",
+  "limits": [
+    "Chromium mobile emulation; physical iOS/Android usability unverified",
+    "No human difficulty evaluation",
+    "Hard48px is a logical screen length; browser zoom recovery scales the entire game",
+    "Historical render-boundary assertion has a recorded failure at the0.7.2 floor-only baseline and is excluded from passing counts; see ../difficulty/HISTORICAL_RENDER_CHECK.json",
+    "No new300-battle claim for0.7.4: combat source parity is recorded separately"
+  ]
+}

@@ -22,7 +22,7 @@ bittrove88.github.io/
 ├── ai-marketing-frontier/            # 生成AIマーケティング講演
 ├── unite-videos/                      # UNITE動画ショーケース
 ├── storymaker/                        # StoryMaker動画ショーケース
-├── ARCLINE/                           # サービスサイト・キャラ紹介・難易度選択・章内の武器持ち越しに対応する100面の砲撃ゲーム
+├── ARCLINE/                           # サービスサイト・キャラ紹介・点線の照準・難易度選択・章内在庫に対応する100面の砲撃ゲーム
 │   └── updates/0.7.0/index.html        # アップデート告知
 ├── career/                            # 職務経歴と更新版Word
 ├── AGENTS.md                          # カタログ更新などの共通ルール

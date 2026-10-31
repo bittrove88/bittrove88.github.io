@@ -44,6 +44,16 @@ Object.assign(dictionary,{
  'This level restarts from its entry stock.':'この面の開始時点から再開します。','RETRY SAVE':'保存を再試行',
  'Could not save progress. Retry before continuing.':'保存できませんでした。再試行してください。'
 });
+Object.assign(dictionary,{
+ 'Direction only':'方向のみ','Hard: direction only':'ハード：方向のみ',
+ 'Paused':'一時停止','Resume game':'ゲームに戻る','Retry level':'この面をやり直す','Retry this level?':'この面をやり直しますか？',
+ 'Return to title':'タイトルへ戻る','Return to title?':'タイトルへ戻りますか？','Game settings':'ゲーム設定',
+ 'Move / aim → Right':'移動・照準を右へ','Move / aim → Left':'移動・照準を左へ',
+ 'Move and aim on left; switch to right':'移動・照準は左側。右側に切り替え','Move and aim on right; switch to left':'移動・照準は右側。左側に切り替え',
+ 'Slide away to cancel':'外へずらしてキャンセル','Release to cancel':'離してキャンセル','Esc to cancel':'Escでキャンセル','Shot canceled':'発射をキャンセル',
+ 'Hold to charge; release to fire; slide away to cancel':'長押しでチャージ、離して発射。外へずらしてキャンセル',
+ 'Hold to charge teleport; slide away to cancel':'長押しで転移弾をチャージ、離して発射。外へずらしてキャンセル'
+});
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;

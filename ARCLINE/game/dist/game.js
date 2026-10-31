@@ -20,7 +20,7 @@ function tone(freq=440,duration=.12,type='sine',volume=.08){if(!audio||!hostAudi
 function stopChargeTone(){if(chargeTone){try{chargeTone.stop();}catch{}chargeTone=null;}}
 function resetStick(){stick=null;keyMove=0;$('stickKnob').style.transform='translate(0px,0px)';$('stick').setAttribute('aria-valuenow',0);}
 function resetAimStick(){aimStick=null;$('aimStickKnob').style.transform='translate(0px,0px)';}
-function cancelCharge(){if(charge&&s)s.power=charge.previous;charge=null;stopChargeTone();}
+function cancelCharge(notify=false){if(charge&&s){s.power=charge.previous;if(notify)feedback='Shot canceled';}charge=null;stopChargeTone();}
 function clearInput(){gesture=null;resetStick();resetAimStick();cancelCharge();clearTimeout(previewPress);previewPress=null;}
 function acquired(item){
  pickupEffects.push({x:item.x,y:item.y,id:item.id,age:0});
@@ -116,7 +116,9 @@ function hud(){
  const displayPower=shown?.displayPower??shown?.pose?.power??s.power;
  $('powerNumber').textContent=Math.round(displayPower)+'%';$('powerFill').style.width=displayPower+'%';$('powerHUD').classList.toggle('active',!!charge);
  const aimState=shown?.state||s,aimAngle=shown?.pose?.angle??s.angle;
- $('angleText').textContent=Math.round(G.muzzle(aimState,0,aimAngle).worldAngle)+'°';$('aimRange').value=s.angle;$('aimRange').min=minimumAngle();for(const id of ['aimRange','aimUp','aimDown'])$(id).disabled=!enabled;$('fire').disabled=!enabled||s.selectedSkill==='BLINK';$('fire').classList.toggle('charging',!!charge||held);$('fire').classList.toggle('canceling',!!charge?.cancel);$('chargeValue').textContent=charge?.cancel?'CANCEL':s.teleportMode?'TELEPORT':'FIRE';$('fire').setAttribute('aria-label',s.teleportMode?'Hold to charge teleport; release to move':'Hold to charge; release to fire');$('chargeRing').style.strokeDashoffset=345.58*(1-((charge||held)?(displayPower-20)/80:0));
+ $('angleText').textContent=Math.round(G.muzzle(aimState,0,aimAngle).worldAngle)+'°';$('aimRange').value=s.angle;$('aimRange').min=minimumAngle();for(const id of ['aimRange','aimUp','aimDown'])$(id).disabled=!enabled;$('fire').disabled=!enabled||s.selectedSkill==='BLINK';$('fire').classList.toggle('charging',!!charge||held);$('fire').classList.toggle('canceling',!!charge?.cancel);$('chargeValue').textContent=charge?.cancel?'CANCEL':s.teleportMode?'TELEPORT':'FIRE';$('chargeRing').style.strokeDashoffset=345.58*(1-((charge||held)?(displayPower-20)/80:0));
+ $('fireHint').hidden=!charge;$('fireHint').textContent=charge?.cancel?'Release to cancel':charge?.id==='keyboard'?'Esc to cancel':'Slide away to cancel';
+ $('fire').setAttribute('aria-label',s.teleportMode?'Hold to charge teleport; slide away to cancel':'Hold to charge; release to fire; slide away to cancel');
  $('shotFeedback').textContent=feedback||(!demo&&s.selectedSkill==='BLINK'?'Tap a landing spot, then tap again.':'');
  const mode=shown?.pose?.mode||(s.teleportMode?'TELEPORT':s.mode),weapon=ArcWeapons.get(mode),look=weapon.appearance,entry=E.availableWeapons(displayState).find(w=>w.id===mode),ammo=entry?.ammo||0;
  $('weaponGlyph').textContent=look.glyph;$('weaponName').textContent=weapon.name;
@@ -184,7 +186,7 @@ function startCharge(id){
  if(audio&&hostAudio){chargeTone=audio.createOscillator();const g=audio.createGain();g.gain.value=.025;chargeTone.type='triangle';chargeTone.frequency.value=150;chargeTone.connect(g).connect(master);chargeTone.start();}hud();
 }
 function releaseCharge(id){
- if(!charge||charge.id!==id)return;const valid=canAim()&&s.selectedSkill!=='BLINK'&&!charge.cancel,power=s.power,previousPower=charge.previous;charge=null;stopChargeTone();if(valid){s.power=power;launch();}else{s.power=previousPower;hud();}
+ if(!charge||charge.id!==id)return;const valid=canAim()&&s.selectedSkill!=='BLINK'&&!charge.cancel,power=s.power,previousPower=charge.previous,canceled=charge.cancel;charge=null;stopChargeTone();if(valid){s.power=power;launch();}else{s.power=previousPower;if(canceled)feedback='Shot canceled';hud();}
 }
 function launch(plan=null){
  if(hostPaused()||manualPaused||demo)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
@@ -274,7 +276,10 @@ function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
 function pauseHost(source='sdk'){pauseSources.add(source);clearInput();syncInert();cancelAnimationFrame(raf);raf=0;previous=0;audioSync();}
 function resumeHost(source='sdk'){pauseSources.delete(source);syncInert();if(hostPaused())return;previous=0;audioSync();schedule();if(save.dirty)save.save();}
-function pause(){if(!s||s.result||hostPaused()||!$('lootPicker').hidden)return;clearInput();manualPaused=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='DUEL PAUSED';$('modalTitle').textContent='Take a breath.';$('modalDetail').textContent='';$('resume').textContent='RESUME';$('resume').disabled=false;$('returnLobby').textContent='EQUIPMENT';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();$('resume').focus();}
+function pause(){if(!s||s.result||hostPaused()||!$('lootPicker').hidden)return;clearInput();manualPaused=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='LEVEL '+s.stage;$('modalTitle').textContent='Paused';$('modalDetail').textContent='';$('resume').textContent='Resume game';$('resume').disabled=false;$('returnLobby').textContent='Return to title';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();hud();$('resume').focus();}
+function confirmPauseAction(kind){
+ if(!s||!manualPaused||s.result)return;dialog=kind;$('overlay').dataset.kind=kind;$('modalTitle').textContent=kind==='retry'?'Retry this level?':'Return to title?';$('modalDetail').textContent=kind==='retry'?'Retry restores the stock from the start of this level.':'This level restarts from its entry stock.';$('resume').textContent=kind==='retry'?'Retry level':'Return to title';$('returnLobby').textContent='CANCEL';$('resume').focus();
+}
 function lobby(){clearInput();gameToken++;s=null;runContext=null;shot=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;lootContinuation=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lootPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
 $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.target.value;save.save();syncLobby();};$('cosmeticLoadout').onchange=e=>{unlockAudio();save.data.equippedCosmeticId=e.target.value||null;save.save();syncLobby();};
@@ -285,10 +290,13 @@ $('openLibrary').onclick=()=>{ArcPresentation.closeWeapons();openEquipment('weap
 $('lootSkip').onclick=()=>finishLoot(null,true);
 $('closeCollection').onclick=()=>{ArcPresentation.closeCollection();$('openCollection').focus();};
 $('pause').onclick=pause;$('resume').onclick=async()=>{if(hostPaused())return;
+ if(dialog==='retry'){selectedMap=s.stage-1;start(runContext);return;}
+ if(dialog==='confirm'){lobby();return;}
  if(dialog==='chapter'){const token=gameToken;if(!(await persistAdvance())||token!==gameToken)return;const stage=chapterConfirm;if(R.restart(save.data,stage)){chapterConfirm=null;selectedMap=stage-1;start();}return;}
  if(dialog==='result'){const token=gameToken;if(!runContext?.practice&&s.result==='win'&&(!(await persistAdvance())||token!==gameToken))return;if(runContext?.practice){selectedMap=s.stage-1;start(runContext);return;}if(s.result==='win'&&s.stage===100){lobby();showLevels();return;}selectedMap=s.result==='win'?Math.min(99,s.stage):s.stage-1;start();}
  else{manualPaused=false;previous=0;$('overlay').hidden=true;audioSync();hud();$('world').focus({preventScroll:true});}};
-$('returnLobby').onclick=()=>{if(dialog==='chapter'){chapterConfirm=null;$('overlay').hidden=true;showLevels();return;}if(dialog==='result'){const final=s.result==='win'&&s.stage===100&&!runContext?.practice;lobby();if(final)openEquipment();else showLevels();return;}if(dialog==='confirm'){lobby();return;}dialog='confirm';$('overlay').dataset.kind='confirm';$('modalTitle').textContent='Leave this duel?';$('modalDetail').textContent='This level restarts from its entry stock.';$('returnLobby').textContent='LEAVE';};
+$('returnLobby').onclick=()=>{if(dialog==='chapter'){chapterConfirm=null;$('overlay').hidden=true;showLevels();return;}if(dialog==='result'){const final=s.result==='win'&&s.stage===100&&!runContext?.practice;lobby();if(final)openEquipment();else showLevels();return;}if(dialog==='confirm'||dialog==='retry'){pause();return;}confirmPauseAction('confirm');};
+$('retryLevel').onclick=()=>confirmPauseAction('retry');
 $('resultJourney').onclick=()=>{lobby();showLevels();};
 $('weaponToggle').onclick=()=>{if(!canAim())return;const choices=battleWeaponChoices();clearInput();ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(!hasSeen(id)&&ArcLessons.forWeapon(s,id,save.data))runDemo(id,true);}}, {note:runContext?.practice?'Practice: three shots of your selected weapon.':'Weapons and skills carry until the chapter boss.'});};
 // Secondary touch contacts do not receive native compatibility clicks on every browser.
@@ -299,7 +307,7 @@ $('warpToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&charge){e.preventD
 $('skillToggle').onclick=()=>{if(!canAim())return;clearInput();$('skillPicker').hidden=false;hud();$('closeSkills').focus();};
 $('closeSkills').onclick=()=>{$('skillPicker').hidden=true;hud();$('skillToggle').focus();};
 let controlLayout='left';try{if(localStorage.getItem('arcline-control-layout')==='right')controlLayout='right';}catch{}
-function applyControlLayout(){$('app').dataset.controls=controlLayout;$('mirrorControls').textContent=controlLayout==='left'?'Mirror controls':'Restore left controls';}
+function applyControlLayout(){$('app').dataset.controls=controlLayout;$('mirrorControls').textContent=controlLayout==='left'?'Move / aim → Right':'Move / aim → Left';$('mirrorControls').setAttribute('aria-label',controlLayout==='left'?'Move and aim on left; switch to right':'Move and aim on right; switch to left');}
 $('mirrorControls').onclick=()=>{clearInput();controlLayout=controlLayout==='left'?'right':'left';try{localStorage.setItem('arcline-control-layout',controlLayout);}catch{}applyControlLayout();draw();};applyControlLayout();
 
 $('previewOK').onclick=()=>{unlockAudio();endDemo();};
@@ -310,8 +318,12 @@ function setAngle(angle){if(!canAim())return;s.angle=E.clamp(angle,minimumAngle(
 $('aimRange').oninput=e=>setAngle(Number(e.target.value));$('aimUp').onclick=()=>setAngle(s.angle+3);$('aimDown').onclick=()=>setAngle(s.angle-3);
 function pointer(e){e.preventDefault();unlockAudio();}
 $('fire').onpointerdown=e=>{pointer(e);if(charge)return;if(e.button!==0&&e.pointerType!=='touch')return;startCharge(e.pointerId);try{$('fire').setPointerCapture(e.pointerId);}catch{}};
-$('fire').onpointermove=e=>{if(charge?.id===e.pointerId)e.preventDefault();};
-$('fire').onpointerup=e=>releaseCharge(e.pointerId);$('fire').onpointercancel=$('fire').onlostpointercapture=e=>{if(charge?.id===e.pointerId)clearInput();hud();};
+function chargePointer(e){
+ if(charge?.id!==e.pointerId)return;e.preventDefault();const {dx,dy}=controlVector('fire',e),r=ArcViewport.rect($('fire'),$('app')),radius=Math.min(r.width,r.height)/2;
+ charge.cancel=Math.hypot(dx,dy)>radius+(charge.cancel?4:14);hud();
+}
+$('fire').onpointermove=chargePointer;
+$('fire').onpointerup=e=>{chargePointer(e);releaseCharge(e.pointerId);};$('fire').onpointercancel=$('fire').onlostpointercapture=e=>{if(charge?.id===e.pointerId)clearInput();hud();};
 function controlVector(id,e){const r=ArcViewport.rect($(id),$('app')),p=ArcViewport.point(e.clientX,e.clientY,$('app'));return {dx:p.x-r.left-r.width/2,dy:p.y-r.top-r.height/2};}
 function stickMove(e){if(stick?.id!==e.pointerId)return;const {dx,dy}=controlVector('stick',e),mag=Math.hypot(dx,dy),dist=Math.min(mag,27),scale=mag?dist/mag:0;stick.axis=Math.abs(dx)<8?0:E.clamp(dx/27,-1,1);$('stickKnob').style.transform=`translate(${dx*scale}px,${dy*scale}px)`;$('stick').setAttribute('aria-valuenow',Math.round(stick.axis*100));}
 $('stick').onpointerdown=e=>{pointer(e);if(!canAim()||stick)return;stick={id:e.pointerId,axis:0};try{$('stick').setPointerCapture(e.pointerId);}catch{}stickMove(e);};$('stick').onpointermove=stickMove;$('stick').onpointerup=$('stick').onpointercancel=$('stick').onlostpointercapture=e=>{if(stick?.id===e.pointerId)resetStick();};
@@ -330,11 +342,13 @@ $('world').onpointermove=e=>{if(gesture?.id!==e.pointerId||!canAim())return;cons
 $('world').onpointerup=e=>{if(gesture?.id!==e.pointerId)return;const g=gesture,p=ArcViewport.point(e.clientX,e.clientY,$('app'));gesture=null;if(g.lobby&&Math.abs(p.x-g.x)>40)switchMap(p.x<g.x?1:-1);};$('world').onpointercancel=$('world').onlostpointercapture=e=>{if(gesture?.id===e.pointerId)gesture=null;};
 for(const id of ['world','stick','aimStick','fire'])$(id).oncontextmenu=e=>e.preventDefault();
 document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&charge){e.preventDefault();cancelCharge(true);hud();return;}
  if(e.key==='Escape'&&(document.fullscreenElement||document.webkitFullscreenElement))return;
- if(e.key==='Escape'&&!$('screenHelp').hidden){$('closeScreenHelp').click();return;}
+ if(!$('screenHelp').hidden){if(e.key==='Escape')$('closeScreenHelp').click();else if(e.key==='Tab'){e.preventDefault();$('closeScreenHelp').focus();}return;}
  if(hostPaused())return;
  if(!$('lootPicker').hidden){if(e.key==='Escape'){e.preventDefault();return;}if(e.key==='Tab'){const buttons=[...$('lootPicker').querySelectorAll('button:not(:disabled)')],first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}return;}
- if(e.key==='Escape'){if(!$('skillPicker').hidden){$('closeSkills').click();return;}if(!$('weaponPicker').hidden){$('closeWeapons').click();return;}if(!$('collectionPanel').hidden){$('closeCollection').click();return;}if(!$('levelPicker').hidden){$('levelPicker').hidden=true;return;}if(demo)return;if(!$('overlay').hidden){if(dialog==='chapter')$('returnLobby').click();else if(dialog==='result')lobby();else $('resume').click();}else pause();return;}
+ if(!$('overlay').hidden&&e.key==='Tab'){const buttons=[...$('overlay').querySelectorAll('button:not(:disabled)')].filter(b=>b.getClientRects().length),first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}return;}
+ if(e.key==='Escape'){if(!$('skillPicker').hidden){$('closeSkills').click();return;}if(!$('weaponPicker').hidden){$('closeWeapons').click();return;}if(!$('collectionPanel').hidden){$('closeCollection').click();return;}if(!$('levelPicker').hidden){$('levelPicker').hidden=true;return;}if(demo&&$('overlay').hidden)return;if(!$('overlay').hidden){if(dialog==='chapter')$('returnLobby').click();else if(dialog==='result')lobby();else if(dialog==='confirm'||dialog==='retry')pause();else $('resume').click();}else pause();return;}
  if(demo)return;if(e.target?.matches?.('input,select,button')&&e.target.id!=='fire')return;if(!canAim())return;
  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),85);if(e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),85);if(e.target?.id==='aimStick'&&['Home','End'].includes(e.key)){e.preventDefault();s.angle=e.key==='Home'?minimumAngle():85;}hud();
 });
