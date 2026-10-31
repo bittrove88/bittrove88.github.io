@@ -1,5 +1,7 @@
 # ARCLINE
 
+[デザインシート原本・アップロード先](design/sheets/)
+
 [0.7.0アップデートのお知らせ](updates/0.7.0/)
 
 The [ARCLINE service site](./) introduces the game,three physics-based feature previews,the20-theme journey,and10 combat machines. [The machine viewer](characters/) publishes the previously standalone character preview,with direct HTML and image downloads. [Play the game](game/dist/?v=0.10.0) remains a separate entry; the service site does not modify the game distribution or progress. Both the service site and game support Japanese/English.
