@@ -1,0 +1,11 @@
+{
+  "status": "KNOWN_BASELINE_FAILURE",
+  "test": "render-boundary.test.cjs",
+  "baselineCommit": "7113082a2ff62b9bb84de6521a5eed40130ba982",
+  "baselineResult": "fails assert(mapReport.counts.interiorEdges>0)",
+  "workingResult": "fails the identical coverage assertion",
+  "cause": "The older floor-only coverage guard expects interior floor edges. Campaign4.1 uses finite components and full-width catch floors.",
+  "regressionIntroduced": false,
+  "treatedAsPass": false,
+  "replacementCoverage": "integrated-browser.test.cjs passes3267 checks over100 maps at8 viewports, including actual two-touch input and high-flight camera; difficulty-browser checks actual guide paths and short-landscape controls."
+}

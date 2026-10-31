@@ -33,6 +33,7 @@ function acquired(item){
 }
 function syncLobby(){
  preview=E.campaign(selectedMap+1,save.data);const spec=preview.spec;
+ syncDifficultyChoice();
  $('arenaTitle').textContent=spec.name;$('arenaTag').textContent=E.biomes[spec.theme].name;
  $('stageCaption').textContent=`LEVEL ${spec.id} · ${spec.boss?'BOSS · ':''}${Object.entries(spec.skills).map(([k,n])=>k+' ×'+n).join(' / ')||'STANDARD ONLY'}`;
  $('progressText').textContent=`${save.data.cleared} / 100 CLEARED`;$('play').innerHTML=`PLAY LEVEL ${spec.id} <span aria-hidden="true">→</span>`;
@@ -42,6 +43,11 @@ function syncLobby(){
  $('cosmeticLoadout').innerHTML='<option value="">Original</option>'+save.data.collectedCosmeticIds.map(id=>`<option value="${id}">${id} · ${id[0]==='B'?'Boss armor':'Collection'}</option>`).join('');$('cosmeticLoadout').value=save.data.equippedCosmeticId||'';
  ArcPresentation.syncLobby(save.data,selectedMap);
 }
+function syncDifficultyChoice(){for(const input of document.querySelectorAll('input[name="difficulty"]'))input.checked=input.value===save.data.difficulty;}
+for(const input of document.querySelectorAll('input[name="difficulty"]'))input.onchange=()=>{
+ if(s||hostPaused()){syncDifficultyChoice();return;}
+ save.data.difficulty=ArcAimGuide.normalize(input.value);save.save();syncDifficultyChoice();
+};
 function switchMap(delta){if(s||hostPaused())return;selectedMap=E.clamp(selectedMap+delta,0,Math.min(99,save.data.cleared));syncLobby();tone(440,.08);}
 function showLevels(){
  if(hostPaused())return;
@@ -131,7 +137,7 @@ function firstDemo(){
 }
 function start(){
  if(hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();gameToken++;cpuJob=null;cpuReady=null;
- clearInput();s=E.campaign(selectedMap+1,save.data);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
+ clearInput();s=E.campaign(selectedMap+1,save.data);s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
  encounter=s.spec.boss?{age:0,duration:1.1,name:s.spec.name,boss:true}:null;
  $('encounterBanner').hidden=!encounter;$('encounterName').textContent=s.spec.name;
  $('lobby').hidden=true;$('battle').hidden=false;$('battle').classList.remove('resolved');$('overlay').hidden=true;$('levelPicker').hidden=true;$('collectionPanel').hidden=true;$('weaponPicker').hidden=true;$('tutorial').hidden=true;$('skillPicker').hidden=true;audioSync();hud();if(!encounter)firstDemo();if(!demo)$('world').focus({preventScroll:true});tone(s.spec.boss?130:520,s.spec.boss?.4:.15,'triangle');
@@ -210,7 +216,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),characterId:save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
+function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
@@ -272,7 +278,7 @@ document.addEventListener('keydown',e=>{
  if(demo)return;if(e.target?.matches?.('input,select,button')&&e.target.id!=='fire')return;if(!canAim())return;
  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),85);if(e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),85);if(e.target?.id==='aimStick'&&['Home','End'].includes(e.key)){e.preventDefault();s.angle=e.key==='Home'?minimumAngle():85;}hud();
 });
-document.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key))keyMove=0;if(e.key===' '){e.preventDefault();releaseCharge('keyboard');}});
+document.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key))keyMove=0;if(e.key===' '){if(!e.target?.matches?.('input,select,button')||e.target.id==='fire'||charge?.id==='keyboard')e.preventDefault();releaseCharge('keyboard');}});
 // Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.
 const viewport=ArcViewport.install($('app'),()=>{clearInput();previous=0;draw();});
 window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();draw();});
@@ -290,4 +296,4 @@ window.addEventListener('arcline-language',()=>{clearInput();if(s)hud();else syn
 ArcI18n.install();fitOrientation();
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
-save.load().then(()=>{selectedMap=Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;sdk?.game.gameReady();});schedule();
+save.load().then(()=>{selectedMap=Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;sdk?.game.gameReady();});schedule();

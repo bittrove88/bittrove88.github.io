@@ -2,11 +2,11 @@
 
 [0.7.0アップデートのお知らせ](updates/0.7.0/)
 
-The [ARCLINE service site](./) introduces the game,three physics-based feature previews,the20-theme journey,and10 machine appearances. [The machine viewer](characters/) publishes the previously standalone character preview,with direct HTML and image downloads. [Play the game](game/dist/?v=0.7.1) remains a separate entry; the service site does not modify the game distribution or progress. Both the service site and game support Japanese/English.
+The [ARCLINE service site](./) introduces the game,three physics-based feature previews,the20-theme journey,and10 machine appearances. [The machine viewer](characters/) publishes the previously standalone character preview,with direct HTML and image downloads. [Play the game](game/dist/?v=0.7.2) remains a separate entry; the service site does not modify the game distribution or progress. Both the service site and game support Japanese/English.
 
-Buildless Canvas artillery game, implementation **0.7.1** / campaign **4.1**. Japanese is the default; English and mirrored controls are saved preferences. Ten selectable machine appearances, **20 themes ×5 stages**,90 normal encounters and10 bosses. No permanent combat buffs.
+Buildless Canvas artillery game, implementation **0.7.2** / campaign **4.1**. Japanese is the default; English and mirrored controls are saved preferences. Ten selectable machine appearances, **20 themes ×5 stages**,90 normal encounters and10 bosses. No permanent combat buffs.
 
-The **Machine** button in the lobby opens GUN,BAN,HIBARI,HANA,RIN,MOGU,KORO,SORA,RICO and YUI. Their matte arcade graphics are drawn in Canvas 2D from individual paths,with distinct chassis,tracks,wheels,weapons and equipment based on the supplied reference. The same drawing is used in selection,lobby,previews and battles. Selection persists alongside existing progress and inventory. This update changes appearances only: current weapons,ammunition,HP,charge timing,collision,controls,enemy graphics and all100 stages retain their0.7.0 behavior. Character-specific combat profiles remain a separate,unimplemented design.
+The **Machine** button in the lobby opens GUN,BAN,HIBARI,HANA,RIN,MOGU,KORO,SORA,RICO and YUI. Their matte arcade graphics are drawn in Canvas 2D from individual paths,with distinct chassis,tracks,wheels,weapons and equipment based on the supplied reference. The same drawing is used in selection,lobby,previews and battles. Selection persists alongside existing progress and inventory. Version0.7.1 introduced appearances only. Version0.7.2 adds a saved difficulty choice and forecast visibility; weapons,ammunition,HP,charge timing,collision,controls,enemy graphics and all100 stages retain their0.7.0 behavior. Character-specific combat profiles remain a separate,unimplemented design.
 
 From this directory:
 
@@ -15,6 +15,8 @@ python3 -m http.server 8000 --directory game/dist
 ```
 
 Open http://localhost:8000/. No install, bundler or production dependency is needed. The standalone distribution loads only local assets. Its existing adapter can use a host-provided `ytgame`; the external YouTube SDK bootstrap is omitted and YouTube integration requires a separate check.
+
+Choose **Easy / Normal / Hard** in the start menu. Easy shows the full forecast trajectory,Normal shows the first half by world-space arc length,and Hard hides the pre-shot forecast. Normal is the default for new and legacy saves. Split children inherit the parent trajectory distance; delayed volleys remain independent paths. The same rule applies to teleport. The choice is saved and fixed when a duel starts. Actual shots,trails,impacts,enemy telegraphs and instructional previews remain visible in every mode. Difficulty does not alter physics,damage,enemy AI,stock or rewards.
 
 Move and aim are adjacent on the **left**. Use one left thumb to alternate between them while the right thumb holds **FIRE**. Releasing movement stops walking; releasing aim keeps the angle; neither releases or resets the charge. FIRE uses the position,angle and power at release, then stops held movement. The gauge takes1.6seconds from20% to100%. A drawn axis and thumb circle identify AIM; no emoji is used. Arrow keys and Space remain available.
 
@@ -37,6 +39,8 @@ Current checks:
 ```sh
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-site node site-tests/service-site.test.cjs
 node game/tests/integrated.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-difficulty node game/tests/aim-guide.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-difficulty node game/tests/difficulty-browser.test.cjs
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-characters node game/tests/character-graphics.test.cjs
 node game/tests/integrated-campaign.test.cjs
 ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/integrated-browser.test.cjs
@@ -46,7 +50,7 @@ ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/fullscreen.test.cjs
 python3 game/tools/build_playables.py --output /tmp/arcline-package
 ```
 
-The browser checks use the environment's Playwright/Chromium,not a shipped library. Prior combat results are in `evidence/integrated-0.7.0/`; character graphics checks are in `evidence/character-graphics/`. The character suite compares1,000 seeded campaign states and random sequences,checks selection at six viewports,and measures300 real Canvas muzzle poses. Original-image pixel equivalence and physical-phone performance are not claimed. Three prior recorded seed variants produce300 complete machine-guided battles with real enemy turns,using Standard and teleport; this is not human difficulty validation or exhaustive reachable-state verification. Rendering/input checks cover100 maps at8 viewports,real emulated touch input,orientation,language,zoom recovery and fullscreen fallback. Physical iPhone/Android usability,installation and YouTube certification remain unverified.
+The browser checks use the environment's Playwright/Chromium,not a shipped library. Prior combat results are in `evidence/integrated-0.7.0/`; character graphics checks are in `evidence/character-graphics/`. Difficulty and save-preservation checks are in `evidence/difficulty/`. The character suite compares1,000 seeded campaign states and random sequences,checks selection at six viewports,and measures300 real Canvas muzzle poses. Original-image pixel equivalence and physical-phone performance are not claimed. Three prior recorded seed variants produce300 complete machine-guided battles with real enemy turns,using Standard and teleport; this is not human difficulty validation or exhaustive reachable-state verification. Rendering/input checks cover100 maps at8 viewports,real emulated touch input,orientation,language,zoom recovery and fullscreen fallback. Physical iPhone/Android usability,installation and YouTube certification remain unverified.
 
 Automatic publishing review rejected the external YouTube script in the HTML. The standalone release removes that external script; this is not a YouTube-certified package.
 

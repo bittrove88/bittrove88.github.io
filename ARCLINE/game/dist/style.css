@@ -86,3 +86,34 @@ button{border:1px solid #c4e5d34d;background:#153e50;border-radius:10px;min-heig
 @media(orientation:portrait) and (max-width:559px){#battleControls{height:194px}#powerHUD,#app[data-controls=right] #powerHUD{left:0;right:0;top:0}#actionRow,#app[data-controls=right] #actionRow{left:0;right:0;top:52px;bottom:auto}}
 
 #battle[data-enemy-direction=above] .enemy .hp-title,#battle[data-enemy-direction=below] .enemy .hp-title{position:relative;padding-left:12px}#battle[data-enemy-direction=above] .enemy .hp-title:before,#battle[data-enemy-direction=below] .enemy .hp-title:before{content:'';position:absolute;left:1px;top:7px;width:6px;height:6px;border-left:2px solid #ffe6c4;border-top:2px solid #ffe6c4;transform:rotate(45deg)}#battle[data-enemy-direction=below] .enemy .hp-title:before{top:3px;transform:rotate(225deg)}
+
+/* Difficulty changes the forecast only; keep three native radio choices near PLAY. */
+#difficultyChoice{min-width:0;margin:0 0 9px;padding:0;border:0}
+#difficultyChoice legend{padding:0 0 5px;font-size:11px;line-height:15px;color:#c4dccc}
+.difficulty-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.difficulty-options label{position:relative;min-width:0;cursor:pointer;pointer-events:auto}
+.difficulty-options input{position:absolute;inset:0 auto auto 0;width:1px;height:1px;opacity:0}
+.difficulty-options label>span{position:relative;display:flex;min-height:50px;padding:5px 3px;flex-direction:column;align-items:center;justify-content:center;border:1px solid #bcdcc440;border-radius:8px;background:#143e4f;text-align:center}
+.difficulty-options strong{font-size:13px;line-height:18px;font-weight:600}
+.difficulty-options small{font-size:10px;line-height:14px;color:#c4dccc;white-space:nowrap}
+.difficulty-options input:checked+span{background:#456c6b;border-color:#e7f6bd;box-shadow:inset 0 0 0 1px #e7f6bd55}
+.difficulty-options input:checked+span:after{content:'';position:absolute;top:4px;right:4px;width:4px;height:4px;background:#ecffc7;border-radius:50%}
+.difficulty-options input:focus-visible+span{outline:3px solid #f0ffc7;outline-offset:2px}
+#difficultyChoice:disabled{opacity:.6}
+@media(orientation:landscape) and (max-height:340px){
+ .lobby-dock{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px;padding:8px}
+ .lobby-dock>.loadout-summary,.lobby-dock>#difficultyChoice,.lobby-dock>#play,.lobby-dock>#saveStatus{grid-column:1/-1}
+ .lobby-dock>.loadout-summary{min-height:44px;padding:4px 8px}
+ .lobby-dock .equipped-label{display:none}
+ .lobby-dock .character-summary{min-height:44px;margin:0;padding:4px 8px;gap:5px}
+ .lobby-dock .character-summary>span{display:none}
+ .lobby-dock .character-summary>strong{font-size:13px}
+ .lobby-dock .campaign-row{min-height:44px;justify-content:center}
+ .lobby-dock #progressText{display:none}
+ .lobby-dock #chooseLevel{width:100%;min-height:44px;padding:4px 6px;border:1px solid #bcdcc440;background:#143e4f;border-radius:9px}
+ .lobby-dock #difficultyChoice{margin:0}
+ .lobby-dock #difficultyChoice legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .lobby-dock .difficulty-options label>span{min-height:44px;padding:3px}
+ .lobby-dock .difficulty-options strong{font-size:12px;line-height:16px}
+ .lobby-dock .play-button{min-height:44px}
+}

@@ -15,6 +15,11 @@ function t(value){const s=String(value??'');if(language==='en'){const stage=root
  const patterns=[[/^(\d+) ACTIONS$/,m=>`残り${m[1]}行動`],[/^(\d+) actions$/,m=>`${m[1]}行動`],[/^Clear LV (\d+)$/,m=>`${m[1]}面クリアで解放`],[/^(\d+) SHOTS$/,m=>`残り${m[1]}発`],[/^LAST SHOT$/,()=> '最後の1発'],[/^(Trial · )?(\d+) shots?$/,m=>`${m[1]?'お試し・':''}残り${m[2]}発`],[/^Find LV\s+(\d+)$/,m=>`${m[1]}面で入手`],[/^LEVEL (\d+)( · CLEARED)?$/,m=>`${m[1]}面${m[2]?'・クリア':''}`],[/^(\d+) shots$/,m=>`${m[1]}発`],[/^LEVEL (\d+) · (.+)$/,m=>`${m[1]}面・${t(m[2])}`],[/^(\d+) weapons · (\d+) finishes$/,m=>`武器${m[1]}種・外観${m[2]}種`],[/^(.*), choose weapon$/,m=>`${t(m[1])}・武器を選ぶ`]];
  for(const [re,fn] of patterns){const m=s.match(re);if(m)return fn(m);}if(s.includes(', '))return s.split(', ').map(t).join('、');return s;
 }
+Object.assign(dictionary,{
+ 'Difficulty':'難易度','Easy':'イージー','Normal':'ノーマル','Hard':'ハード',
+ 'Full line':'射線すべて','Half line':'射線半分','No line':'射線なし',
+ 'Easy: full trajectory':'イージー：射線すべて','Normal: half trajectory':'ノーマル：射線半分','Hard: no trajectory':'ハード：射線なし'
+});
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
