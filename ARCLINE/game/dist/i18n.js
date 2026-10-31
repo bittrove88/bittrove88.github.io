@@ -12,6 +12,10 @@ Object.assign(dictionary,{
 });
 let language='ja';try{if(localStorage.getItem('arcline-language')==='en')language='en';}catch{}
 function t(value){const s=String(value??'');if(language==='en'){const stage=root.ArcLevels?.find(x=>x.name===s);if(stage)return stage.nameEn||s;const theme=root.ArcLevels?.find(x=>x.themeName===s);if(theme)return root.ArcEngine?.biomes[theme.theme]?.name||s;return s;}if(dictionary[s])return dictionary[s];
+ if(/^Special (\d+)\/3$/.test(s))return s.replace(/^Special (\d+)\/3$/,'必殺 $1/3');
+ if(/^Aux (\d+) shots$/.test(s))return s.replace(/^Aux (\d+) shots$/,'補助 $1発');
+ const hit=s.match(/^(HIT|CORE ×2|CORE|CRITICAL ×1\.5|CRITICAL) · ([\d.]+)$/);if(hit)return t(hit[1])+'・'+hit[2];
+ if(/^[\d.]+s$/.test(s))return s.slice(0,-1)+'秒';
  if(s.startsWith('PRACTICE · '))return t('PRACTICE')+'・'+t(s.slice(11));
  let m;if(m=s.match(/^Chapter (\d+) · LEVEL (\d+)$/))return `第${m[1]}章・${m[2]}面`;
  if(m=s.match(/^Restart chapter (\d+)\?$/))return `第${m[1]}章をはじめから？`;
@@ -53,6 +57,15 @@ Object.assign(dictionary,{
  'Slide away to cancel':'外へずらしてキャンセル','Release to cancel':'離してキャンセル','Esc to cancel':'Escでキャンセル','Shot canceled':'発射をキャンセル',
  'Hold to charge; release to fire; slide away to cancel':'長押しでチャージ、離して発射。外へずらしてキャンセル',
  'Hold to charge teleport; slide away to cancel':'長押しで転移弾をチャージ、離して発射。外へずらしてキャンセル'
+});
+Object.assign(dictionary,{
+ 'Beginner':'初心者向け','Intermediate':'中級者向け','Advanced':'上級者向け','Charge':'チャージ','Normal fire':'通常弾',
+ 'Weapon library':'武器図鑑','Choose attack':'攻撃を選ぶ','Machine weapons':'機体の武器','Picked auxiliary':'拾った補助弾','Normal · Unlimited':'通常弾・無制限','Special · 3 per level':'必殺・各面3発',
+ 'Special: three uses each level. Auxiliary stock carries until the boss.':'必殺は各面3発。補助弾はボス撃破まで持ち越し。','Practice auxiliary':'練習用の補助弾','Not with special':'必殺には併用不可','SPECIAL PREVIEW':'必殺の使い方','CRITICAL':'中心命中',
+ 'Demolition Shell':'大破砕弾','Forward Shockwave':'扇状衝撃砲','Proximity Burst':'空中炸裂弾','Triple Salvo':'三連扇射砲','Focus Cannon':'収束砲','Breach Charges':'集中破砕弾','Rolling Bomb':'転走爆弾','Meteor Rain':'流星雨','Growing Ricochet':'連続跳弾','Compression Core':'牽引核',
+ 'Short-range heavy cannon. Close the distance.':'短射程の重弾。接近して狙う。','Steady mid-range fire.':'素直な中距離弾。','A steady, light arc.':'扱いやすい小さな弧。','One shot from the central barrel.':'中央砲口から一発。','Fast small rounds; a slow, precise charge.':'速い小弾と、じっくり合わせるチャージ。','A steady mid-range arc; all firing angles available.':'中距離の弧。上向きにも撃てる。','A low arc that can still reach high ground.':'低い弧が得意。高所にも届く。','A gentle arc with unrestricted normal elevation.':'山なりの小弾。通常は高角専用ではない。','Steady normal fire without automatic ground bounces.':'通常弾は勝手に地面で反射しない。','A small arc without passive attraction.':'小さな弧。通常弾には吸引なし。',
+ 'A broad blast breaks cover and pushes the target.':'大きな爆風で遮蔽を壊し、相手を押す。','Impact sends a wide shockwave forward.':'着弾点から前方を広くなぎ払う。','Explodes near a visible rival before contact.':'見通せる相手の近くで、接触前に炸裂。','Three delayed shots spread across different angles.':'角度を変えて3発を連射。','A center hit deals up to 96 damage.':'中心命中で最大96ダメージ。','Three blasts advance through breakable cover.':'3回の連続爆破で壊せる遮蔽を掘り進む。','Runs along floors, drops across gaps, then rolls again.':'床を走り、隙間で落下。着地後に走行を再開。','A high shot splits into eight falling bomblets.':'高角弾が頂点で8発に分かれて降り注ぐ。','Up to four bounces grow the damage and blast.':'最大4反射。反射するほど威力と爆風が成長。','Pulls a visible rival toward impact, then explodes.':'見通せる相手を着弾点へ引き寄せて爆発。',
+ 'Land beside the rival and cracked cover.':'相手と紫の遮蔽の近くへ着弾させる。','Land before the rival. The wave travels forward.':'相手の手前へ着弾。衝撃は前方へ広がる。','Send the round close to a visible rival.':'見通せる相手の近くへ弾を通す。','Aim the three-shot spread toward the rival.':'3発の広がりを相手へ重ねる。','Take your time and hit the rival center.':'ゆっくり合わせ、相手の中心を狙う。','Hit cracked purple cover to open a route.':'紫の遮蔽へ当て、連続爆破で道を開く。','Land on the floor before the gap.':'隙間の手前の床へ着弾させる。','Aim at 55° or higher to scatter eight bomblets.':'55度以上へ向け、頂点から8発を散布。','Bounce between the floor and cover.':'床と遮蔽の間を反射させる。','Land near the rival to pull it toward impact.':'相手の近くへ着弾させ、着弾点へ引き寄せる。'
 });
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;

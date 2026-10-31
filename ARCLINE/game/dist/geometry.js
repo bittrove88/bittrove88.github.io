@@ -101,7 +101,7 @@ function clearBody(w,p){const points=[{x:p.x,y:p.y-24},{x:p.x-22,y:p.y-20},{x:p.
 function safePosition(w,x,y,other=null,range=[35,965]){
  for(const dx of [0,-5,5,-12,12,-24,24,-40,40,-70,70,-100,100]){
   const xx=clamp(x+dx,range[0],range[1]),f=surfaceAt(w,xx,y);if(!f)continue;const p=support(w,xx,f.y);
-  if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.abs(xx-other.x)>100))return p;
+  if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(xx-other.x,p.y-other.y)>100))return p;
  }return null;
 }
 function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t-EPS||Math.abs(h.t-best.t)<=EPS&&o.kind==='reflector'&&['floor','bedrock'].includes(best.solid.kind)))best={...h,solid:o};}}return best;}
