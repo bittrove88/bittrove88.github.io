@@ -10,6 +10,7 @@ Object.assign(curriculum.descriptions,{
  S_REPAIR:{title:'Field Repair',instruction:'Repair restores 30 HP and uses one action.',outcome:'The rival acts after the repair.',context:'SKILL DEMO'}
 });
 for(const record of curriculum.stages.filter(r=>r.stage<=20)){const spec=E.levels[record.stage-1];record.weaponCapsules=spec.pickups.filter(p=>p.kind==='trial').map(p=>p.weaponId);record.skillChoices=spec.pickups.filter(p=>p.kind==='skill').map(p=>p.skillId);}
+curriculum.descriptions['boss-swap']={title:'EXPOSE THE CORE',instruction:'Select SWAP, then hit the guardian.',outcome:'Its core opens briefly.',context:'BOSS DEMO'};
 const ids=Object.keys(curriculum.descriptions),keys=ids.map(id=>'v4:'+id);
 const data=value=>value?.data||value||{};
 const key=id=>'v4:'+id;
@@ -20,7 +21,7 @@ function eligibleEntry(s,id){
  if(id==='teleport'||id==='wall-fall')return s.spec.teleport;
  if(id==='destruction')return s.world.solids.some(o=>o.destructible);
  if(id==='pickup')return s.pickups.some(p=>!p.collected);
- if(id==='boss-core')return !!s.spec.boss&&s.units[1].parts.some(p=>p.hp>0);
+ if(id==='boss-core')return E.guardian(s)&&s.units[1].parts.some(p=>p.hp>0);
  if(id==='boss-swap')return !!s.spec.boss&&(s.skills.SWAP||0)>0;
  return true;
 }
@@ -28,6 +29,7 @@ function forWeapon(s,id,save){return id!=='W01'&&s.mode===id&&E.availableWeapons
 function forSkill(s,id,save){return E.skills.includes(id)&&s.selectedSkill===id&&(s.skills[id]||0)>0&&!s.skillUsed&&!seen(id,save)?describe(id):null;}
 function forStage(s,save){
  const record=curriculum.stages[s.stage-1],out=[];
+ if(s.spec.midboss&&!seen('boss-core',save))return [describe('boss-core')];
  // Returning players retain progress, but still learn the new control layout.
  if(!seen('controls',save))return [describe('controls')];
  if(record?.stage===s.stage&&eligibleEntry(s,record.entry)&&!seen(record.entry,save))out.push(describe(record.entry));

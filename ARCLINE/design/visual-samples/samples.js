@@ -1,6 +1,6 @@
 (function(root){
 'use strict';
-const $=id=>document.getElementById(id),S=root.ArcVisualSamples,E=root.ArcEngine,canvas=$('world'),matte=root.ArcRender.create(canvas,{artStyle:'matte'}),legacy=root.ArcRender.create(canvas),cache=new Map();
+const $=id=>document.getElementById(id),S=root.ArcVisualSamples,E=root.ArcEngine,canvas=$('world'),matte=root.ArcRender.create(canvas,{artStyle:'matte'}),legacy=root.ArcRender.create(canvas,{artStyle:'legacy'}),cache=new Map();
 let sceneId='shore',variant=0,style='matte',sample=null,age=0,clock=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,last=0,raf=0,diagnostic=null;
 const freeze=o=>{if(o&&typeof o==='object'&&!Object.isFrozen(o)){Object.freeze(o);for(const v of Object.values(o))freeze(v);}return o;};
 function getSample(id,index){const key=id+':'+index;if(!cache.has(key))cache.set(key,freeze(S.make(id,index)));return cache.get(key);}

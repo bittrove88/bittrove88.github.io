@@ -22,7 +22,7 @@ bittrove88.github.io/
 ├── ai-marketing-frontier/            # 生成AIマーケティング講演
 ├── unite-videos/                      # UNITE動画ショーケース
 ├── storymaker/                        # StoryMaker動画ショーケース
-├── ARCLINE/                           # サービスサイト・10機の物語と旅の記録・通常／必殺弾・序盤の防壁／修理／砕路・章内在庫に対応する100面の砲撃ゲーム
+├── ARCLINE/                           # サービスサイト・42モデル・中ボス10戦・守り手の物語・通常／必殺弾・章内在庫の100面砲撃ゲーム
 │   └── updates/0.7.0/index.html        # アップデート告知
 ├── career/                            # 職務経歴と更新版Word
 ├── AGENTS.md                          # カタログ更新などの共通ルール
@@ -73,7 +73,7 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 
 | コンテンツ | URL |
 | --- | --- |
-| ARCLINE | [サービスサイト](ARCLINE/) ・ [ゲーム](ARCLINE/game/dist/) ・ [キャラ確認](ARCLINE/characters/) ・ [デザイン比較・統一計画](ARCLINE/design/sheets/) ・ [ゲーム反映計画](ARCLINE/design/sheets/implementation.html) ・ [3画面の描画見本](ARCLINE/design/visual-samples/) ・ [アップデート告知](ARCLINE/updates/0.7.0/) |
+| ARCLINE | [サービスサイト](ARCLINE/) ・ [ゲーム](ARCLINE/game/dist/) ・ [キャラ確認](ARCLINE/characters/) ・ [デザイン比較・統一計画](ARCLINE/design/sheets/) ・ [ゲーム反映計画](ARCLINE/design/sheets/implementation.html) ・ [3画面の描画見本](ARCLINE/design/visual-samples/) ・ [アップデート告知](ARCLINE/updates/0.11.0/) |
 | UNITE Roulette | `/unite-roulette/` |
 | キャラルーレット30 | `/character-roulette-30/` |
 | Switch 2 RPG Catalog | `/switch2-rpg-catalog/` |

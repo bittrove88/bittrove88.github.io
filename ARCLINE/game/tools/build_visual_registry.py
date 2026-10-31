@@ -8,7 +8,8 @@ assert len(data['actors']) == 42 and len(data['stages']) == 100
 assert len({a['id'] for a in data['actors']}) == 42
 assert [s['id'] for s in data['stages']] == list(range(1, 101))
 assert sum(s['kind'] == 'boss' for s in data['stages']) == 10
-assert all(s['kind'] in ['normal', 'boss'] for s in data['stages'])
+assert all(s['kind'] in ['normal', 'midboss', 'boss'] for s in data['stages'])
+assert sum(s['kind'] == 'midboss' for s in data['stages']) == 10
 ids = {a['id'] for a in data['actors']}
 assert all(s['actorId'] in ids and (not s['plannedMidboss'] or s['plannedMidboss'] in ids) for s in data['stages'])
 payload = json.dumps(data, ensure_ascii=False, separators=(',', ':'))

@@ -214,3 +214,10 @@ button{border:1px solid #c4e5d34d;background:#153e50;border-radius:10px;min-heig
 .arena-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}#arenaTag{font-size:13px;letter-spacing:1px;color:#d6ebce}.arena-heading #journeyOpening{margin:0;font-size:12px;line-height:1.4}@media(orientation:landscape) and (max-height:500px){#arenaTag{font-size:12px}.arena-heading #journeyOpening{font-size:11px}}
 
 #recordNavigation button{touch-action:pan-y}
+
+/* Story is information beside play, never a loading gate. */
+#encounterBanner{top:84px;left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:min(540px,calc(100% - 250px));padding:8px 18px;background:#153b4ee8;border:1px solid #c2d5b54d;border-radius:8px;text-shadow:none;display:grid;gap:3px}
+#encounterKind{font-size:10px;line-height:13px;letter-spacing:1px;color:#c4d3ac}#encounterName{font-size:22px;line-height:1.2;letter-spacing:0}#encounterFeature{font-size:12px;line-height:1.4;color:#d3e1cf}#encounterLine{margin:1px 0 0;font-size:12px;line-height:1.45;color:#e1dbbb}
+#battle[data-preview=true] #encounterBanner{display:none}#chapterMessage{white-space:pre-line;font-size:13px;line-height:1.55}
+@media(orientation:landscape) and (max-height:500px){#encounterBanner{top:54px;max-width:calc(100% - 300px);padding:6px 12px}#encounterName{font-size:18px}#encounterFeature,#encounterLine{font-size:11px}#encounterKind{font-size:9px}#chapterMessage{font-size:12px}}
+@media(orientation:landscape) and (max-height:340px){#encounterBanner{top:43px;gap:2px;max-width:calc(100% - 200px)}#encounterName{font-size:16px}#encounterKind{display:none}#encounterFeature,#encounterLine{font-size:10px;line-height:1.3}#chapterMessage{grid-row:4!important;grid-column:1/-1;line-height:16px;font-size:11px;margin:0}#overlay:is([data-kind=win],[data-kind=final]) .modal{gap:4px;width:min(580px,100%);padding:8px 14px}#overlay:is([data-kind=win],[data-kind=final]) #clearRewardLine{grid-row:5}#overlay:is([data-kind=win],[data-kind=final]) #endingCollection{display:none}#overlay:is([data-kind=win],[data-kind=final]) #resume,#overlay:is([data-kind=win],[data-kind=final]) #returnLobby{grid-row:6}}

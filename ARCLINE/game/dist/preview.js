@@ -9,7 +9,7 @@ const eventFor={'boss-core':'part',reflection:'bounce',W:'bounce',B:'impact',C:'
 function snapshot(s){const copy=clone(s);copy.random=E.seeded(s.stage*997);copy.phase='aim';copy.turn=0;copy.result=null;copy.reason=null;return copy;}
 function fixture(source,id){
  const s=snapshot(source),skills=E.skills.includes(id)?{[id]:3}:{};
- const spec={...clone(source.spec),boss:false,components:[],teleport:false,floors:[[[0,12],[100,12]]],features:[],staticFeatures:[],phaseFeatures:null,blink:[[33,12],[47,12]],skills,ventStartsOn:true};
+ const spec={...clone(source.spec),boss:false,midboss:false,encounterKind:'normal',encounterId:'enemy:pebble',midbossSpec:null,bossSpec:null,components:[],teleport:false,floors:[[[0,12],[100,12]]],features:[],staticFeatures:[],phaseFeatures:null,blink:[[33,12],[47,12]],skills,ventStartsOn:true};
  if(['reflection','W','W08','W20'].includes(id))spec.features=[{type:'W',v:[28,68,12]}];
  if(id==='K')spec.features=[{type:'K',v:[54,22,38]}];
  if(id==='PHASE')spec.features=[{type:'S',v:[43,48,0,32]}];
@@ -101,7 +101,7 @@ function truncate(plan,time){
  const p=clone(plan);for(const b of p.bullets){b.path=b.path.filter(q=>q.t<=time);b.t=Math.min(b.t,time);}p.bullets=p.bullets.filter(b=>b.path.length);p.events=p.events.filter(e=>e.t<=time);p.impacts=p.impacts.filter(i=>i.t<=time);p.duration=Math.min(p.duration,time);p.damage=[0,0];p.partDamage={};p.end=p.impacts.at(-1)||p.bullets[0].path.at(-1);p.path=p.bullets[0].path;return p;
 }
 const playbackRate=.65,resultHold=1.65;
-const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',slope:'NEW POSITION',height:'HIGH GROUND',pickup:'COLLECTED',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'CLEAR',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE','boss-swap':'CORE TURNED',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
+const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',slope:'NEW POSITION',height:'HIGH GROUND',pickup:'COLLECTED',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'CLEAR',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE','boss-swap':'CORE EXPOSED',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
 function decorate(result,id,source){
  const description=L.describe(id)||{title:titles[id],instruction:'Watch the action.',outcome:'Watch what changes.',context:'DEMO'};
  Object.assign(result,description,{id,title:description.title,source});
@@ -196,14 +196,14 @@ function specialPreview(original,id){
  state.units=[{...G.safePosition(state.world,160,380),hp,maxHp:hp,parts:[],exposed:0,range:[35,965]},{...G.safePosition(state.world,target,weapon.machineId==='koro'?460:380),hp:3,maxHp:3,parts:[],exposed:0,range:[250,965]}];
  const proves=plan=>{
   const events=plan.events,hit=plan.damage[1]>0;
-  if(weapon.machineId==='gun')return plan.damage[1]>=2.99&&plan.destroyed.length>0;
+  if(weapon.machineId==='gun')return plan.damage[1]>.2&&plan.destroyed.length>0;
   if(weapon.machineId==='ban')return hit&&events.some(e=>e.type==='shockwave')&&!plan.impacts.some(i=>i.hit?.unit===1)&&state.units[1].x-plan.end.x>70;
   if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');
-  if(weapon.machineId==='hana')return plan.bullets.length===3&&plan.damage[1]>2.5;
-  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=4.79;
+  if(weapon.machineId==='hana')return plan.bullets.length===3&&plan.damage[1]>1.2;
+  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=3.7;
   if(weapon.machineId==='mogu')return events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
   if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;
-  if(weapon.machineId==='sora')return plan.damage[1]>=2.09&&plan.bullets.length===9&&events.some(e=>e.type==='split');
+  if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.length===9&&events.some(e=>e.type==='split');
   if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length>=2;
   return hit&&events.some(e=>e.type==='pull'&&Math.abs(e.to.x-e.from.x)>60)&&events.some(e=>e.type==='compression');
  };

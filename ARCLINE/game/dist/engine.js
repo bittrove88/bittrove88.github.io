@@ -4,6 +4,8 @@ const node=typeof module!=='undefined';
 const G=node?require('./geometry.js'):root.ArcGeometry,L=node?require('./levels.js'):root.ArcLevels,W=node?require('./weapons.js'):root.ArcWeapons,P=node?require('./physics.js'):root.ArcPhysics,I=node?require('./inventory.js'):root.ArcInventory;
 const clamp=G.clamp;
 const C=W.combat;
+const N=node?require('./encounters.js'):root.ArcEncounters;
+const guardian=state=>N.guardian(state.spec);
 const K=node?require('./skills.js'):root.ArcSkills;
 const biomes=[
 {name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
@@ -30,7 +32,7 @@ const chargeDuration=2.6;
 function chargePower(seconds,state){return C.chargePower(seconds,state);}
 function weapon(s,side=0,id=null){return W.get(id||(side?'W01':s.teleportMode?'TELEPORT':s.mode),side?null:s.characterId);}
 function minimumAngle(s){return weapon(s).minAngle??-12;}
-function maximumAngle(s){return weapon(s).maxAngle??85;}
+function maximumAngle(s){return weapon(s).maxAngle??170;}
 function usable(s,id){if(id==='W01')return true;const w=W.get(id);return w.special?w.machineId===s.characterId&&s.specialAmmo>0:I.weaponIds.includes(id)&&s.weaponStock[id]>0;}
 function seeded(seed=1){let x=seed>>>0;return ()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296;};}
 function campaign(stage=1,save={}){
@@ -39,12 +41,13 @@ function campaign(stage=1,save={}){
  const units=spec.spawn.map(([x,h],side)=>{
   const raw=G.point(x,h),safe=G.safePosition(world,raw.x,raw.y);
   if(!safe)throw Error('No safe spawn at level '+spec.id+' side '+side);
-  return {...safe,hp:side?(spec.boss?10:3):profile?profile.hp/C.pointsPerUnit:5,maxHp:side?(spec.boss?10:3):profile?profile.hp/C.pointsPerUnit:5,range:spec.contentRevision==='4.1'?[35,965]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
+  return {...safe,hp:side?(N.guardian(spec)?N.forSpec(spec).hp:3):profile?profile.hp/C.pointsPerUnit:5,maxHp:side?(N.guardian(spec)?N.forSpec(spec).hp:3):profile?profile.hp/C.pointsPerUnit:5,range:/^4\./.test(spec.contentRevision)?[35,965]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
  });
- if(spec.boss){
-  units[1].slope=0;
-  units[1].parts=spec.bossSpec.parts.map((p,i)=>({...p,maxHp:p.hp,dx:i===0?-58:i===1?45:0,dy:i===0?-22:i===1?-62:-86,radius:24}));
-  if([30,90].includes(spec.id)){units[1].y=500-spec.spawn[1][1]*10;units[1].floating=true;}
+ const encounter=N.forSpec(spec),enemy=units[1];
+ enemy.encounterId=encounter.id;enemy.hitShape={...encounter.body};enemy.core=encounter.core?{...encounter.core}:null;enemy.weaponPivot={x:encounter.muzzle.x,y:encounter.muzzle.y};enemy.muzzleLength=encounter.muzzle.length;
+ if(N.guardian(spec)){
+  const facing=units[0].x>=enemy.x?1:-1;enemy.slope=0;enemy.parts=encounter.parts.map(p=>({...p,localX:p.dx,dx:p.dx*facing,maxHp:p.hp}));
+  if([30,90].includes(spec.id)){enemy.y=500-spec.spawn[1][1]*10;enemy.floating=true;}
  }
  const skillCaps=Object.fromEntries(W.skills.map(id=>[id,3]));
  const collected=[...(save.unlockedWeaponIds||['W01']),...(save.collectedCosmeticIds||[])];
@@ -59,8 +62,8 @@ function campaign(stage=1,save={}){
  bossGeometry(s);telegraph(s);return s;
 }
 function telegraph(s){
- if(!s.spec.boss){s.telegraph=null;return;}
- const attacks=s.spec.bossSpec.attacks,kind=attacks[(s.round-1)%attacks.length];
+ if(!guardian(s)){s.telegraph=null;return;}
+ const attacks=N.forSpec(s.spec).attacks,kind=attacks[(s.round-1)%attacks.length];
  const targetX=s.units[0].x;
  const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
  s.telegraph={kind,targetX,targetY:s.units[0].y-22,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,columns,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next:attacks[s.round%attacks.length],frozen:true};
@@ -183,11 +186,11 @@ function displace(s,side,shot){
  const w=W.get(shot.weaponId),u=s.units[1-side],hit=shot.impacts.find(x=>x.hit?.unit===1-side);
  if(!shot.damage[1-side]||!(w.push||w.pull||w.lift||['PUSH','PULL','SWAP'].includes(shot.skill)))return;
  const away=Math.sign(u.x-s.units[side].x)||1,before={x:u.x,y:u.y,slope:u.slope,surface:u.surface,floating:u.floating};
- if(s.spec.boss&&side===0&&shot.skill==='SWAP'){u.exposed=2;u.facingCore=s.units[0].x<u.x?-1:1;u.reactionKind='rotate';return;}
+ if(guardian(s)&&side===0&&shot.skill==='SWAP'){u.exposed=2;u.facingCore=s.units[0].x<u.x?-1:1;u.reactionKind='rotate';return;}
  if(shot.skill==='SWAP'&&hit&&shot.bullets.find(b=>b.id===hit.bullet)?.primary){
   const a=s.units[0],b=s.units[1],pa={x:a.x,y:a.y,slope:a.slope,surface:a.surface,range:a.range},pb={x:b.x,y:b.y,slope:b.slope,surface:b.surface,range:b.range};Object.assign(a,pb);Object.assign(b,pa);a.animation={from:pa,age:0,duration:.6,lift:0};b.animation={from:pb,age:0,duration:.6,lift:0};a.displaced=1;b.displaced=1;
  }else{
-  const pulling=w.pull||shot.skill==='PULL',distance=w.lift?(w.liftDistance||60):pulling?(w.pullDistance||100):(w.pushDistance||110),boss=s.spec.boss&&side===0;
+  const pulling=w.pull||shot.skill==='PULL',distance=w.lift?(w.liftDistance||60):pulling?(w.pullDistance||100):(w.pushDistance||110),boss=guardian(s)&&side===0;
   const resistance=side===1&&s.characterId?C.get(s.characterId).pushResistance:1,dx=(pulling?-away:away)*Math.min(distance,boss?(w.special?distance*.25:pulling?48:36):distance)*resistance;
   const landing=w.lift?liftLanding(s,1-side,w.liftHeight||110,boss?80:120):null;
   if(landing)Object.assign(u,landing);
@@ -214,12 +217,12 @@ function resolve(s,shot,onCollect=()=>{}){
  s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));
  if(shot.side===1)s.guardActive=false;
  const boss=s.units[1];
- if(s.spec.boss&&shot.side===0){
+ if(guardian(s)&&shot.side===0){
   for(const [i,damage] of Object.entries(shot.partDamage)){const p=boss.parts[i];if(p)p.hp=Math.max(0,p.hp-damage);}
   const broken=boss.parts.filter(p=>p.hp<=0).length;
   if(broken>s.effects.broken){
    s.effects.broken=broken;
-   if(!s.rewardGiven){s.rewardGiven=true;if(s.spec.contentRevision!=='4.1')addReward(s,s.spec.bossSpec.reward);}
+   if(!s.rewardGiven){s.rewardGiven=true;if(!/^4\./.test(s.spec.contentRevision))addReward(s,s.spec.bossSpec.reward);}
    s.pendingChanges.push({type:'parts',broken});
   }
   if(s.stage===100){const target=boss.hp<=4?2:boss.hp<=7?1:0;if(target>s.bossPhase)s.pendingChanges.push({type:'phase',value:target});}
@@ -239,7 +242,7 @@ function check(s){
 }
 function bossGeometry(s){
  if(s.stage===40){
-  const u=s.units[1];u.parts.forEach((p,i)=>{if(p.hp<=0)return;const x=u.x+p.dx,y=u.y-64,d=i===0?-1:1;s.world.solids.push({id:'shoulder'+i,kind:'crystal',poly:[{x:x-17,y:y-12*d},{x:x+17,y:y+12*d},{x:x+17,y:y+12*d+5},{x:x-17,y:y-12*d+5}]});});
+  const u=s.units[1];G.actorParts(s,1).forEach((p,i)=>{if(p.hp<=0)return;const x=u.x+p.dx,y=u.y+p.dy,d=i===0?-1:1;s.world.solids.push({id:'shoulder'+i,kind:'crystal',poly:[{x:x-17,y:y-12*d},{x:x+17,y:y+12*d},{x:x+17,y:y+12*d+5},{x:x-17,y:y-12*d+5}]});});
  }
  if(s.stage===60&&s.effects.broken===0){const u=s.units[1];s.world.solids.push(G.rectangle('front-armor',(u.x-92)/10,(u.x-62)/10,(500-u.y+3)/10,(500-u.y+58)/10));}
 }
@@ -253,7 +256,7 @@ function rebuildWorld(s){
   const [x,h]=s.spec.spawn[side],fallback=G.safePosition(s.world,x*10,500-h*10,s.units[1-side],u.range);if(!fallback)throw Error('Unsafe boundary '+s.stage);Object.assign(u,fallback);
  }});
  s.blink=s.spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
- if(s.spec.boss)s.units[1].slope=0;
+ if(guardian(s))s.units[1].slope=0;
  bossGeometry(s);
 }
 function boundary(s){
@@ -266,8 +269,8 @@ function boundary(s){
  for(const c of changes){
   if(c.type==='phase'){
    const old=s.bossPhase;s.bossPhase=c.value;
-   for(let phase=old+1;s.spec.contentRevision!=='4.1'&&phase<=c.value;phase++)addReward(s,phase===1?'BLINK':'PHASE',phase===1?55:63,phase===1?23:29,'R-phase-'+phase);
-   if(s.bossPhase===1)s.units[1].parts=[{name:'LEFT SHELL',hp:2,maxHp:2,dx:-58,dy:-22,radius:24},{name:'RIGHT SHELL',hp:2,maxHp:2,dx:45,dy:-62,radius:24}];
+   for(let phase=old+1;!/^4\./.test(s.spec.contentRevision)&&phase<=c.value;phase++)addReward(s,phase===1?'BLINK':'PHASE',phase===1?55:63,phase===1?23:29,'R-phase-'+phase);
+   if(s.bossPhase===1)s.units[1].parts=[{name:'LEFT SHELL',hp:2,maxHp:2,localX:-32,dx:-32,dy:-58,radius:22},{name:'RIGHT SHELL',hp:2,maxHp:2,localX:32,dx:32,dy:-58,radius:22}];
    if(s.bossPhase===2)s.units[1].parts=[];
   }
   if(c.type==='altitude')s.units[1].y+=20;
@@ -280,7 +283,7 @@ function boundary(s){
   if(s.stage===10&&s.round===2&&s.effects.broken===0)u.x+=30;
   if(s.stage===30&&s.effects.cloudPending){s.effects.cloudOffset=s.effects.cloudOffset?0:80;s.effects.cloudPending=false;}
   else if(s.stage===30&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
-  if(s.stage===50&&s.round%2===1){if(s.spec.contentRevision==='4.1'){u.exposed=Math.max(1,u.exposed);u.facingCore=s.units[0].x<u.x?-1:1;}else{const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}}
+  if(s.stage===50&&s.round%2===1){if(/^4\./.test(s.spec.contentRevision)){u.exposed=Math.max(1,u.exposed);u.facingCore=s.units[0].x<u.x?-1:1;}else{const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}}
   if(s.stage===90&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
  }
  s.boundaryLog.push({round:s.round,changes:changes.map(c=>c.type)});
@@ -307,21 +310,21 @@ function solve(s,side,opts={}){
 function cpuPlan(s,random=s.random){
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
  const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
- let settings=s.spec.boss?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):families[familyIndex];
- const profile=s.spec.enemyProfile,errA=[12,10,8,7,6,5][profile],errP=[20,18,16,14,12,10][profile];let best=solve(s,1,settings);if(best.score<=0&&!s.spec.boss){settings={};best=solve(s,1);}
+ const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};
+ const profile=s.spec.enemyProfile,errA=guardian(s)?Math.max(6,12-profile):foe.errorAngle,errP=guardian(s)?Math.max(12,22-profile*2):foe.errorPower;let best=solve(s,1,settings);if(best.score<=0){settings={};best=solve(s,1);}
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
  const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{})};
  let plan=trajectory(s,1,angle,power,options);
- if(s.spec.boss&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
+ if(guardian(s)&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
   const volley=[];
   if(kind==='TRIPLE')for(let i=0;i<3;i++)volley.push({offset:(i-1)*7,delay:i*.22});
   else{const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;offsets.forEach((offset,i)=>volley.push({origin:{x:clamp(target.targetX+offset,25,975),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},power:20,delay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0}));}
   plan=P.simulate(s,1,angle,power,{weaponId:kind==='PREPARE'?'W02':'W01',volley});
 
  }
- if(s.spec.boss&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));}
+ if(guardian(s)&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));}
  plan.attackKind=kind||family;
  return plan;
 }
@@ -338,15 +341,15 @@ function combineShots(shots){
  return {...shots[0],bullets,events,impacts,damage:damage.map(d=>Math.min(1,d)),partDamage,duration,appliedEvents:0,resolved:false,path:bullets[0].path,end,hit:impacts.find(i=>i.hit)?.hit?.unit??-1};
 }
 function enemyMoveTarget(s){
- const u=s.units[1],profile=s.spec.enemyProfile;if(s.spec.boss||profile===0||u.floating)return u.x;
+ const u=s.units[1],profile=s.spec.enemyProfile;if(guardian(s)||s.stage<=4||u.floating)return u.x;
  if(u.displaced){u.displaced--;return u.x;}
  if(profile===1&&s.round!==2||profile===2&&s.round%2===1)return u.x;
- const distance=[0,30,60,60,90,90][profile],sign=s.last[0]?.end.x<u.x?1:-1;
+ const distance=N.forSpec(s.spec).move??[0,30,60,60,90,90][profile],sign=s.last[0]?.end.x<u.x?1:-1;
  const original={...u};let target=u.x;
  // Candidate movement must retain a shared-physics attack route; no current charge input is read.
  for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
  return target;
 }
-const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);

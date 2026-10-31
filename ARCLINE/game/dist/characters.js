@@ -264,7 +264,8 @@ function pose(options={}){
  return {pivot,x:pivot.x+Math.cos(theta)*35,y:pivot.y+Math.sin(theta)*35,theta,dir};
 }
 function draw(ctx,id,options={}){
- const c=get(id),{x=0,y=0,dir=1,slope=0,travel=0,hit=0,kick=0,disabled=false,alpha=1}=options;
+ const c=get(id),{x=0,y=0,slope=0,travel=0,hit=0,kick=0,disabled=false,alpha=1}=options,dir=options.muzzle?.dir||options.dir||1;
+ options={...options,artStyle:options.artStyle||'matte'};
  const muzzle=options.muzzle||pose(options),phase=travel*.13;
  ctx.save();ctx.globalAlpha*=alpha*(disabled?.65:1);ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowBlur=0;
  if(disabled)ctx.filter='grayscale(1)';
@@ -285,7 +286,7 @@ function paint(canvas,id,options={}){
 function markup(id,extraClass=''){
  const c=get(id);return `<canvas class="character-art ${extraClass}" data-character-art="${c.id}" role="img" aria-label="${c.name}"></canvas>`;
 }
-function paintAll(parent){for(const canvas of parent.querySelectorAll('canvas[data-character-art]'))paint(canvas,canvas.dataset.characterArt);}
+function paintAll(parent){for(const canvas of parent.querySelectorAll('canvas[data-character-art]'))paint(canvas,canvas.dataset.characterArt,{artStyle:'matte'});}
 let resizeFrame=0;
 if(root.addEventListener)root.addEventListener('resize',()=>{root.cancelAnimationFrame(resizeFrame);resizeFrame=root.requestAnimationFrame(()=>paintAll(root.document));});
 const api={characters,get,draw,paint,paintAll,markup,pose};

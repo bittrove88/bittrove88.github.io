@@ -29,7 +29,7 @@ function renderSettings(){
  $('settingsControlState').textContent=hooks.controls()==='left'?local('移動・照準は左側','Move and aim on the left'):local('移動・照準は右側','Move and aim on the right');
  const control=hooks.controls()==='left'?local('左で移動・照準、右で発射。','Move and aim on the left; fire on the right.'):local('右で移動・照準、左で発射。','Move and aim on the right; fire on the left.');
  const guide=[
-  [local('移動と照準','Move and aim'),control+local('発射を押したまま、移動と照準を切り替えられます。',' Keep FIRE held while switching between movement and aim.')],
+  [local('移動と照準','Move and aim'),control+local('発射を押したまま、移動と照準を切り替えられます。90°を越すと機体ごと後ろを向きます。',' Keep FIRE held while switching between movement and aim. Aim past 90° to turn the machine around.')],
   [local('ためる・撃つ・取り消す','Charge, fire, cancel'),local('発射を長押し、離して発射。指をボタンの外へずらして離すと取消。キーボードは矢印とSpace、取消はEsc。','Hold FIRE and release to shoot. Slide outside the button and release to cancel. Keyboard: arrows and Space; Esc cancels.')],
   [local('通常弾と必殺','Normal and special'),local('通常弾は無制限。機体の必殺は各面3回。チャージは飛距離を変え、威力は増やしません。','Normal fire is unlimited. Each machine has three special uses per stage. Charge changes range, not damage.')],
   [local('転移と行動数','Teleport and actions'),local('転移弾は4面から。着弾先へ移り、1行動を使います。攻撃・転移・修理が残り行動を使い、歩行と照準は使いません。','Teleport unlocks at stage 4. Its contact moves you and costs one action. Attacking, teleporting and repairing use actions; walking and aiming do not.')],
@@ -51,6 +51,7 @@ function renderMachine(){
  else body+=`<p class="record-locked">${escape(local('成長の記録は第'+m.chapter+'章クリア後に開きます。','Their next step opens after chapter '+m.chapter+'.'))}</p>`;
  if(n===100){body+=note(local('旅の、その先','After the journey'),t(m.ending));readIds.push('machine:'+m.id+':ending');}
  else body+=`<p class="record-locked">${escape(local('後日談は100面クリア後に開きます。','The afterword opens after stage 100.'))}</p>`;
+ const relation=J.story.relations.find(r=>r.machines.includes(m.id));if(relation){body+=note(t(relation.title),t(relation.body));readIds.push('relation:'+J.story.relations.indexOf(relation));}
  $('recordBody').innerHTML=body;read(readIds);
  for(const b of $('recordNavigation').querySelectorAll('[data-record-machine]')){b.onclick=()=>{machine=b.dataset.recordMachine;renderJournal();$('recordBody').scrollTop=0;$('recordBody').focus({preventScroll:true});};touchTap(b);}
 }
@@ -63,6 +64,7 @@ function renderJourney(){
  body+=note(local('旅の中で','Along the way'),t(act.body));
  if(n>=c.end){body+=note(local('この章の記録','Chapter reflection'),t(c.reflection));readIds.push('chapter:'+c.id+':cleared');}
  else body+=`<p class="record-locked">${escape(local('この章をクリアすると、旅の記録が続きます。','Complete this chapter to open its reflection.'))}</p>`;
+ for(const g of J.story.guardians.filter(g=>g.chapter===c.id&&n>=g.stage)){body+=note(local((g.kind==='boss'?'章ボス':'中ボス')+'・'+g.stage+'面',g.kind.toUpperCase()+' · LEVEL '+g.stage)+' · '+t(g.name),t(g.work)+local('。',' — ')+t(g.background)+' '+t(g.entrance)+' '+t(g.aftermath));if(g.clue)body+=note(local('残された手掛かり','A clue left behind'),t(g.clue)+(n>=g.payoffStage?local(' — この章のボスの記録で回収。',' — Answered in this chapter’s guardian record.'):local(' — まだ、その続きを確かめている。',' — Its answer is still ahead.')));readIds.push('guardian:'+g.stage);}
  if(c.id===10&&n===100){body+=note(t(J.epilogue.title),J.epilogue.lines.map(t).join(' '));readIds.push('epilogue');}
  $('recordBody').innerHTML=body;read(readIds);
  for(const b of $('recordNavigation').querySelectorAll('[data-record-chapter]')){b.onclick=()=>{chapter=Number(b.dataset.recordChapter);renderJournal();$('recordBody').scrollTop=0;$('recordBody').focus({preventScroll:true});};touchTap(b);}
