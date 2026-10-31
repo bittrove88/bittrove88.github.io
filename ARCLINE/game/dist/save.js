@@ -16,6 +16,7 @@ function decode(raw){
  const out={schemaVersion:2,contentRevision:revision,cleared:Number.isInteger(p.cleared)?Math.max(0,Math.min(100,p.cleared)):0,unlockedWeaponIds:unlocked,collectedCosmeticIds:cosmetics,equippedWeaponId:unlocked.includes(p.equippedWeaponId)?p.equippedWeaponId:'W01',equippedCosmeticId:cosmetics.includes(p.equippedCosmeticId)?p.equippedCosmeticId:null,seenPreviewIds:validIds(p.seenPreviewIds,previewIds)};
  if(p.legacyBackup&&typeof p.legacyBackup==='string')out.legacyBackup=p.legacyBackup;
  out.equippedCharacterId=characterIds.includes(p.equippedCharacterId)?p.equippedCharacterId:'gun';
+ out.difficulty=['easy','normal','hard'].includes(p.difficulty)?p.difficulty:'normal';
  if(raw&&(p.schemaVersion!==2||p.contentRevision&&p.contentRevision!==revision&&!out.legacyBackup))out.legacyBackup=raw;
  return out;
 }
