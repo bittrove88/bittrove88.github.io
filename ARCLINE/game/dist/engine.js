@@ -4,6 +4,7 @@ const node=typeof module!=='undefined';
 const G=node?require('./geometry.js'):root.ArcGeometry,L=node?require('./levels.js'):root.ArcLevels,W=node?require('./weapons.js'):root.ArcWeapons,P=node?require('./physics.js'):root.ArcPhysics,I=node?require('./inventory.js'):root.ArcInventory;
 const clamp=G.clamp;
 const C=W.combat;
+const K=node?require('./skills.js'):root.ArcSkills;
 const biomes=[
 {name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
 {name:'Mirror Flats',sky:['#234454','#bbd5ce'],land:'#527f83',edge:'#c3fff1',material:'mirror',accent:'#9affdf'},
@@ -48,7 +49,7 @@ function campaign(stage=1,save={}){
  const skillCaps=Object.fromEntries(W.skills.map(id=>[id,3]));
  const collected=[...(save.unlockedWeaponIds||['W01']),...(save.collectedCosmeticIds||[])];
  const pickupLedger=Array.isArray(save.pickupLedger)?[...save.pickupLedger]:[];
- const pickups=spec.pickups.filter(p=>!['S','B'].includes(p.id[0])||!collected.includes(p.id)).map(p=>({...p,...G.point(p.x,p.h),placementId:`L${String(spec.id).padStart(3,'0')}:${p.id}`,radius:22,collected:pickupLedger.includes(`L${String(spec.id).padStart(3,'0')}:${p.id}`),skill:p.id[0]==='R'?(p.skill||(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK')):null}));
+ const pickups=spec.pickups.filter(p=>p.kind==='skill'||!['S','B'].includes(p.id[0])||!collected.includes(p.id)).map(p=>{const placementId=p.placementId||`L${String(spec.id).padStart(3,'0')}:${p.id}`;return {...p,...G.point(p.x,p.h),placementId,radius:22,collected:pickupLedger.includes(placementId),skill:p.skillId||p.skill||(p.id[0]==='R'?(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK'):null)};});
  const requested=save.equippedWeaponId||'W01',equipped=W.weapons.some(w=>w.id===requested)&&(!Array.isArray(save.unlockedWeaponIds)||save.unlockedWeaponIds.includes(requested))?requested:'W01';
  const inventory=I.normalize(save.battleInventory||{weapons:equipped==='W01'?{}:{[equipped]:3},skills:spec.skills}),mode=(save.battleMode||equipped)==='W01'||inventory.weapons[save.battleMode||equipped]>0?(save.battleMode||equipped):'W01';
  const canUseAmmo=Object.keys(inventory.weapons).length>0||pickups.some(p=>p.kind==='trial'||/^W\d\d$/.test(p.id));
@@ -71,22 +72,36 @@ function availableWeapons(s){
 }
 function selectWeapon(s,id){
  if(s.result||s.phase!=='aim'||s.turn!==0||!availableWeapons(s).some(w=>w.id===id&&!w.disabled)||!usable(s,id))return false;
- s.teleportMode=false;s.mode=id;if(I.weaponIds.includes(id))s.weaponId=id;if(W.get(id).special)s.selectedSkill=null;if(s.lastPickupWeaponId===id)s.lastPickupWeaponId=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
+ s.teleportMode=false;s.mode=id;if(I.weaponIds.includes(id))s.weaponId=id;if(s.selectedSkill&&skillCompatibility(s,s.selectedSkill))s.selectedSkill=null;if(s.lastPickupWeaponId===id)s.lastPickupWeaponId=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
-function selectSkill(s,id){if(s.phase!=='aim'||s.skillUsed||!s.skills[id]||id==='SWAP'&&s.spec.boss||W.get(s.mode).special)return false;s.teleportMode=false;s.selectedSkill=s.selectedSkill===id?null:id;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
+function skillCompatibility(s,id){if(id==='S_REPAIR')return null;if(K.get(id))return K.compatible(id,weapon(s))?null:weapon(s).teleport?'Not with teleport':'Not with special';return id==='SWAP'&&s.spec.boss?'Unavailable on bosses':W.get(s.mode).special?'Not with special':null;}
+function skillReason(s,id){return s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length?'Next turn':s.skillUsed?'Next turn':!s.skills[id]?'Empty':id==='S_REPAIR'&&s.units[0].hp>=s.units[0].maxHp?'Full HP':skillCompatibility(s,id);}
+function selectSkill(s,id){if(id==='S_REPAIR'||skillReason(s,id))return false;if(id!=='S_GUARD')s.teleportMode=false;s.selectedSkill=s.selectedSkill===id?null:id;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
+function repair(s){
+ if(skillReason(s,'S_REPAIR')||s.shotCount>=s.shotLimit)return null;
+ const u=s.units[0],healed=Math.min(1.5,u.maxHp-u.hp);u.hp+=healed;s.skills.S_REPAIR--;s.skillUsed=true;s.selectedSkill=null;s.teleportMode=false;s.shotCount++;s.phase='repair';s.time=.65;s.repair={healed,age:0,duration:.65};check(s);return {kind:'repair',healed};
+}
 function blink(s,index){
  if(s.phase!=='aim'||s.skillUsed||!s.skills.BLINK||s.selectedSkill!=='BLINK')return false;
  const b=s.blink[index];if(!b)return false;const dest=G.safePosition(s.world,b.x,b.y,s.units[1],s.units[0].range);if(!dest)return false;
  Object.assign(s.units[0],dest);s.skills.BLINK--;s.skillUsed=true;s.selectedSkill=null;return true;
 }
-function selectTeleport(s){if(s.result||s.turn||s.phase!=='aim'||!s.spec.teleport)return false;s.teleportMode=!s.teleportMode;s.selectedSkill=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
-function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.teleportMode?'TELEPORT':s.mode,skill:side||s.teleportMode?null:s.selectedSkill,...opts});}
+function selectTeleport(s){if(s.result||s.turn||s.phase!=='aim'||!s.spec.teleport)return false;s.teleportMode=!s.teleportMode;if(s.selectedSkill!=='S_GUARD')s.selectedSkill=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
+function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.teleportMode?'TELEPORT':s.mode,skill:side||s.teleportMode&&s.selectedSkill!=='S_GUARD'?null:s.selectedSkill,...opts});}
 function settleUnits(s){for(let side=0;side<2;side++){const u=s.units[side];if(u.floating)continue;const current=G.support(s.world,u.x,u.y);if(current&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current))continue;const pad=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);if(pad){const from={x:u.x,y:u.y,slope:u.slope};Object.assign(u,pad);u.animation={from,age:0,duration:Math.min(1,Math.max(.25,Math.sqrt(Math.max(0,pad.y-from.y)/400))),lift:0,fall:true};}}}
 
 function markPickup(s,item){if(item.placementId&&!s.collectedPickupIds.includes(item.placementId))s.collectedPickupIds.push(item.placementId);item.collected=true;}
 function acceptLoot(s,record,result,item){
  I.apply(s,result.inventory);if(record.kind==='weapons')s.lastPickupWeaponId=s.mode===record.id?null:record.id;
- if(item)markPickup(s,item);return {...(item||{}),kind:record.kind==='weapons'?'trial':'skill',weaponId:record.kind==='weapons'?record.id:undefined,skill:record.kind==='skills'?record.id:undefined,taken:result.taken,pending:false};
+ if(item)markPickup(s,item);else if(record.origin==='reward'&&!s.collectedPickupIds.includes(record.placementId))s.collectedPickupIds.push(record.placementId);return {...(item||{}),id:item?.id||record.placementId,kind:record.kind==='weapons'?'trial':'skill',weaponId:record.kind==='weapons'?record.id:undefined,skill:record.kind==='skills'?record.id:undefined,taken:result.taken,pending:false};
+}
+function claimClearRewards(s,practice=false){
+ if(s.result!=='win'||s.clearRewardsClaimed)return [];s.clearRewardsClaimed=true;s.clearRewardSkills=[];if(practice)return [];
+ const accepted=[];for(const reward of s.spec.clearRewards||[]){if(s.collectedPickupIds.includes(reward.placementId))continue;const record={kind:'skills',id:reward.skillId,amount:reward.amount,fill:false,origin:'reward',placementId:reward.placementId},result=I.add(I.fromState(s),'skills',record.id,record.amount);
+  if(result.status==='accepted'){accepted.push(acceptLoot(s,record,result,null));s.clearRewardSkills.push(record.id);}
+  else if(result.status==='pending')s.pendingLoot.push(record);
+  else s.collectedPickupIds.push(record.placementId);
+ }return accepted;
 }
 function collect(s,shot,event){
  const item=s.pickups.find(c=>c.id===event.id);if(!item||item.collected)return null;
@@ -105,11 +120,13 @@ function collect(s,shot,event){
 }
 function resolveLoot(s,removeId=null,skip=false){
  const record=s.pendingLoot[0];if(!record)return null;const item=s.pickups.find(p=>p.id===record.itemId);
- if(skip){s.pendingLoot.shift();if(item)markPickup(s,item);return {skipped:true,origin:record.origin};}
+ const finishReward=()=>{if(record.origin==='reward'&&!s.collectedPickupIds.includes(record.placementId))s.collectedPickupIds.push(record.placementId);};
+ if(skip){finishReward();s.pendingLoot.shift();if(item)markPickup(s,item);return {skipped:true,origin:record.origin};}
  const before=I.fromState(s),result=removeId?I.replace(before,record.kind,record.id,record.amount,record.fill,removeId):I.add(before,record.kind,record.id,record.amount,record.fill);
- if(result.status==='full'){s.pendingLoot.shift();if(item)item.collected=false;return {full:true,origin:record.origin};}
+ if(result.status==='full'){finishReward();s.pendingLoot.shift();if(item)item.collected=false;return {full:true,origin:record.origin};}
  if(result.status!=='accepted')return null;
  s.pendingLoot.shift();const accepted=acceptLoot(s,record,result,item);
+ if(record.origin==='reward')(s.clearRewardSkills||=[]).push(record.id);
  if(!usable(s,s.mode))s.mode='W01';s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));if(s.selectedSkill&&!s.skills[s.selectedSkill])s.selectedSkill=null;
  return {...accepted,...(item?.kind==='ammo'?{kind:'ammo'}:{}),origin:record.origin};
 }
@@ -129,12 +146,14 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
   if(s.pendingLoot.length)return null;
   if(s.shotCount>=s.shotLimit)return null;
   // BLINK commits through its landing confirmation, never through a shot.
-  if(s.selectedSkill==='BLINK')return null;
+  if(['BLINK','S_REPAIR'].includes(s.selectedSkill))return null;
   if(!s.teleportMode&&!usable(s,s.mode))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
+ if(side&&s.guardActive&&!shot.guarded){shot.damage=[shot.damage[0]*.5,shot.damage[1]];shot.guarded=true;}
  if(!side){s.shotCount++;if(!s.teleportMode&&W.get(s.mode).special)s.specialAmmo--;else if(!s.teleportMode&&s.mode!=='W01'){s.weaponId=s.mode;s.weaponStock[s.mode]--;}
-  if(!s.teleportMode&&s.selectedSkill&&!W.get(s.mode).special){s.skills[s.selectedSkill]--;s.skillUsed=true;}
+  if(s.selectedSkill==='S_GUARD'){s.skills.S_GUARD--;s.skillUsed=true;s.guardActive=true;shot.skill='S_GUARD';}
+  else if(!s.teleportMode&&s.selectedSkill&&!W.get(s.mode).special){s.skills[s.selectedSkill]--;s.skillUsed=true;}
  }
  s.phase='flight';s.activeShot=shot;return shot;
 }
@@ -193,6 +212,7 @@ function resolve(s,shot,onCollect=()=>{}){
  if(shot.side===1)s.lastCpuFamily=shot.attackKind;
 
  s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));
+ if(shot.side===1)s.guardActive=false;
  const boss=s.units[1];
  if(s.spec.boss&&shot.side===0){
   for(const [i,damage] of Object.entries(shot.partDamage)){const p=boss.parts[i];if(p)p.hp=Math.max(0,p.hp-damage);}
@@ -276,7 +296,7 @@ const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=W.get(weaponId,side?null:s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
  const physics={weaponId,skill,...(opts.curve?{curve:opts.curve}:{})};
- const key=JSON.stringify([s.stage,s.round,s.bossPhase,w.id,s.units.map(u=>[Math.round(u.x),Math.round(u.y),u.parts.map(p=>p.hp>0),u.exposed]),s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,side,physics,minAngle,maxAngle,opts.requireEvent]);
+ const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,s.units.map(u=>[Math.round(u.x),Math.round(u.y),u.parts.map(p=>p.hp>0),u.exposed]),s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,side,physics,minAngle,maxAngle,opts.requireEvent]);
  if(solveCache.has(key))return solveCache.get(key);
  let best={score:-Infinity,angle:48,power:70};
  const score=shot=>shot.damage[1-side]-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-s.units[1-side].x,shot.end.y-s.units[1-side].y))*.00001;
@@ -327,6 +347,6 @@ function enemyMoveTarget(s){
  for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
  return target;
 }
-const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);

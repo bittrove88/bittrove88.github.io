@@ -12,7 +12,8 @@ function fixture(source,id){
  const spec={...clone(source.spec),boss:false,components:[],teleport:false,floors:[[[0,12],[100,12]]],features:[],staticFeatures:[],phaseFeatures:null,blink:[[33,12],[47,12]],skills,ventStartsOn:true};
  if(['reflection','W','W08','W20'].includes(id))spec.features=[{type:'W',v:[28,68,12]}];
  if(id==='K')spec.features=[{type:'K',v:[54,22,38]}];
- if(['PHASE','W13'].includes(id))spec.features=[{type:'S',v:id==='PHASE'?[43,48,0,32]:[43,45,0,32]}];
+ if(id==='PHASE')spec.features=[{type:'S',v:[43,48,0,32]}];
+ if(id==='W13')spec.components=[{id:'demo-drill',destructible:true,poly:[[43,32],[45,32],[45,0],[43,0]]}];
  if(['W04','roof','ceiling-lift'].includes(id))spec.features=[{type:'R',v:[40,63,25]}];
  if(['B','gate-choices'].includes(id))spec.features=[{type:'B',v:[44,12,20,1]}];
  if(['C','U','F','V'].includes(id))spec.features=[{type:id,v:[36,56,4,34]}];
@@ -25,7 +26,7 @@ function fixture(source,id){
  s.units=[{...G.safePosition(s.world,160,380),hp,maxHp:hp,parts:[],range:[35,650],exposed:0},{...G.safePosition(s.world,targetX,380),hp:3,maxHp:3,parts:[],range:[250,965],exposed:0}];
  s.blink=spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
  s.pickups=id==='pickup'?[{id:'S-demo',name:'Capsule',x:380,y:280,radius:24,collected:false}]:[];
- s.mode=/^W\d\d$/.test(id)?id:'W01';s.weaponId=s.mode;s.weaponStock=s.mode==='W01'?{}:{[s.mode]:3};s.pendingLoot=[];s.angle=48;s.power=65;s._preview=true;
+ s.mode=/^W\d\d$/.test(id)?id:'W01';s.weaponId=s.mode;s.weaponStock=s.mode==='W01'?{}:{[s.mode]:3};s.pendingLoot=[];s.shotCount=0;s.guardActive=false;delete s.repair;s.angle=48;s.power=65;s._preview=true;
  return s;
 }
 function useful(s,id,plan){
@@ -49,8 +50,8 @@ function useful(s,id,plan){
  if(id==='W02')return plan.damage[1]>=1.2;
  if(id==='BURST'){const plain=E.trajectory(s,0,plan.angle,plan.power,{skill:null});return plan.damage[1]>plain.damage[1]+.1;}
  if(['PHASE','W13'].includes(id)){
-  const event=plan.events.find(e=>e.type==='phase'),wall=event&&s.world.solids.find(o=>o.kind==='solid'&&event.x>=o.poly[0].x-1&&event.x<=o.poly[1].x+1);
-  return !!wall&&plan.bullets.some(b=>b.path.some(p=>p.t>event.t&&p.x>wall.poly[1].x+8))&&plan.damage[1]>.1;
+  const event=plan.events.find(e=>e.type==='phase'),wall=event&&s.world.solids.find(o=>(id==='W13'?o.destructible:o.kind==='solid')&&event.x>=Math.min(...o.poly.map(p=>p.x))-1&&event.x<=Math.max(...o.poly.map(p=>p.x))+1);
+  return !!wall&&plan.bullets.some(b=>b.path.some(p=>p.t>event.t&&p.x>Math.max(...wall.poly.map(q=>q.x))+8))&&plan.damage[1]>.1;
  }
  if(['W05','W06','W07','W08','W15','W16','W20'].includes(id)){
   const event=plan.events.find(e=>e.type===eventFor[id]);
@@ -215,7 +216,22 @@ function specialPreview(original,id){
  const result=decorate({id,source:'vignette',state:before,before,after,pose:{angle:found.angle,power:found.power,mode:id,selectedSkill:null},plan,proof:{event:interaction?.type||'impact',valid:true},releaseAt,flightStart:releaseAt,flightEnd:releaseAt+plan.duration/playbackRate,duration:releaseAt+plan.duration/playbackRate+resultHold,playbackRate,resultHold,focus:{x:focus.x,y:focus.y,radius:170}},id,'vignette');
  result.annotationAt=interaction?.t||0;result.framing.subjects=[0,1];result.framing.keepOverview=true;return result;
 }
+function skillPreview(original,id){
+ const state=fixture(original,id);state.skills={[id]:3};state.selectedSkill=null;state.pickups=[];
+ const build=(before,after,plan,label,focus)=>{const d=decorate({id,source:'vignette',state:before,before,after,pose:{angle:before.angle,power:before.power,mode:before.mode,selectedSkill:id},plan,proof:{event:id,valid:true},releaseAt:.8,flightStart:.8,flightEnd:.8+(plan?plan.duration/playbackRate:1),duration:1,playbackRate,resultHold,focus:{...focus,radius:170}},id,'vignette');d.duration=d.flightEnd+resultHold;d.annotation.label=label;d.annotationAt=plan?.duration||0;d.framing.subjects=[0,1];d.framing.keepOverview=true;return d;};
+ if(id==='S_BREACH'){
+  state.spec.components=[{id:'breach-a',destructible:true,poly:[[40,24],[42,24],[42,12],[40,12]]},{id:'breach-b',destructible:true,poly:[[44.4,24],[46.4,24],[46.4,12],[44.4,12]]}];state.world=G.world(state.spec);state.units[1]={...state.units[1],...G.safePosition(state.world,800,380)};E.selectSkill(state,id);
+  let found;for(let angle=-8;angle<=80&&!found;angle+=3)for(let power=25;power<=100;power+=5){const plan=E.trajectory(state,0,angle,power);if(plan.events.some(e=>e.type==='breach')){found=plan;break;}}
+  if(!found)return null;state.angle=found.angle;state.power=found.power;const before=snapshot(state),after=snapshot(state),actual=E.launch(after,found.angle,found.power);E.resolve(after,actual);const event=found.events.find(e=>e.type==='breach');return build(before,after,found,'ONE MORE PIECE',event);
+ }
+ if(id==='S_GUARD'){
+  const after=snapshot(state);E.selectSkill(after,id);let miss;for(let a=-8;a<=80&&!miss;a+=4)for(let power=25;power<=100;power+=5){const p=E.trajectory(after,0,a,power);if(p.damage.every(d=>d===0)&&!p.destroyed.length){miss=p;break;}}if(!miss)return null;E.resolve(after,E.launch(after,miss.angle,miss.power));E.next(after);const aim=E.solve(after,1),plan=E.trajectory(after,1,aim.angle,aim.power),raw=E.trajectory({...after,guardActive:false},1,aim.angle,aim.power);if(!plan.damage[0]||Math.abs(plan.damage[0]*2-raw.damage[0])>1e-6)return null;
+  const before=snapshot(state);before.guardActive=true;E.resolve(after,E.launch(after,aim.angle,aim.power,plan));const result=build(before,after,plan,'DAMAGE '+E.combat.points(raw.damage[0])+' → '+E.combat.points(plan.damage[0]),plan.impacts.find(i=>i.hit?.unit===0)||plan.end);result.proof={event:id,valid:true,damage:plan.damage[0],unprotected:raw.damage[0]};return result;
+ }
+ const before=snapshot(state);before.units[0].hp=Math.max(.5,before.units[0].maxHp-2);const healed=snapshot(before);if(!E.repair(healed))return null;const repair=build(before,snapshot(healed),null,'HP +30',{x:healed.units[0].x,y:healed.units[0].y-30});repair.motion={kind:'repair'};E.next(healed);const aim=E.solve(healed,1),plan=E.trajectory(healed,1,aim.angle,aim.power),after=JSON.parse(JSON.stringify(healed));E.resolve(after,E.launch(after,aim.angle,aim.power,plan));const response=build(snapshot(healed),after,plan,'RIVAL RESPONSE',plan.impacts.find(i=>i.hit?.unit===0)||plan.end);response.instruction='The rival acts after the repair.';return {...repair,variants:[repair,response],duration:repair.duration+response.duration,after,proof:{event:id,valid:after.skills[id]===2&&healed.shotCount===1}};
+}
 function create(original,requested){
+ if(['S_GUARD','S_BREACH','S_REPAIR'].includes(requested))return skillPreview(original,requested);
  if(E.combat.weapons.some(w=>w.special&&w.id===requested))return specialPreview(original,requested);
  let id=requested==='touch-controls-v2'?'controls':requested==='W'?'reflection':requested==='ceiling-lift'?'roof':requested==='gate-choices'?'B':requested;
  if(!Object.prototype.hasOwnProperty.call(titles,id)&&!E.weapons.some(w=>w.id===id))return null;

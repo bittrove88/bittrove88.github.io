@@ -1,0 +1,106 @@
+{
+  "status": "LOCAL_QA_PASS",
+  "implementation": "0.9.0",
+  "batch": "B04-1",
+  "baselineMain": "baff852a892c67de242caba32b4135064345df85",
+  "baselineRelease": "41830b77947a025d9ae79b00557624cd6be597cf",
+  "scope": "Three new skills,16 field supplies and2 clear rewards in stages1-20. Stages21-100 and all100 terrain/encounters remain as before.",
+  "suites": [
+    {
+      "suite": "EARLY_SKILLS",
+      "status": "PASS",
+      "checks": 1556
+    },
+    {
+      "suite": "EARLY_SKILLS_BROWSER",
+      "status": "PASS",
+      "checks": 379
+    },
+    {
+      "suite": "MACHINE_COMBAT",
+      "status": "PASS",
+      "checks": 4152
+    },
+    {
+      "suite": "MACHINE_PREVIEWS",
+      "status": "PASS",
+      "checks": 1340
+    },
+    {
+      "suite": "MACHINE_WORKER",
+      "status": "PASS",
+      "checks": 46
+    },
+    {
+      "suite": "INTEGRATED",
+      "status": "PASS",
+      "checks": 598
+    },
+    {
+      "suite": "AIM_GUIDE",
+      "status": "PASS",
+      "checks": 1001
+    },
+    {
+      "suite": "CHAPTER_STOCK",
+      "status": "PASS",
+      "checks": 129
+    },
+    {
+      "suite": "CHARGE_PAUSE",
+      "status": "PASS",
+      "checks": 245
+    },
+    {
+      "suite": "DIFFICULTY_BROWSER",
+      "status": "PASS",
+      "checks": 154
+    },
+    {
+      "suite": "BROWSER",
+      "status": "PASS",
+      "checks": 3267
+    },
+    {
+      "suite": "ORIENTATION_I18N",
+      "status": "PASS",
+      "checks": 57
+    },
+    {
+      "suite": "VIEWPORT",
+      "status": "PASS",
+      "checks": 179
+    },
+    {
+      "suite": "FULLSCREEN",
+      "status": "PASS",
+      "checks": 13
+    },
+    {
+      "suite": "CHARACTERS",
+      "status": "PASS",
+      "checks": 3338
+    },
+    {
+      "suite": "SERVICE_SITE",
+      "status": "PASS",
+      "checks": 229
+    }
+  ],
+  "assertionCount": 16683,
+  "completedMatches": 200,
+  "pickupRoutes": 160,
+  "newSkillPreviews": 30,
+  "limitations": [
+    "Chromium with emulated touch; physical iPhone/Android unverified.",
+    "Controlled injury/enemy HP isolate native UI and reward/save scenarios;200 separate battles use native HP and real enemy plans.",
+    "Human difficulty and all ten machines across all100 stages are unverified.",
+    "5/15 remain ordinary encounters; no new miniboss or story implementation is included.",
+    "The old floor-only render-boundary test is a known historical failure,not counted as a pass."
+  ],
+  "distribution": {
+    "files": 25,
+    "sha256Manifest": "BUNDLE_CHECK.json",
+    "zipCommitted": false
+  }
+}

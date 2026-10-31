@@ -1,8 +1,10 @@
 'use strict';
 const E=ArcEngine,G=E.geometry,I=ArcInventory,R=ArcCampaignRun,$=id=>document.getElementById(id),sdk=globalThis.ytgame,inYT=!!sdk?.IN_PLAYABLES_ENV;
+const K=ArcSkills;
 const renderer=ArcRender.create($('world')),pauseSources=new Set();
 let selectedMap=0,s=null,preview=E.campaign(1),manualPaused=false,raf=0,previous=0,clock=0,shot=null,flight=0,tail=null,impact=null,charge=null,stick=null,aimStick=null,gesture=null,keyMove=0,dialog='pause',feedback='',cpuJob=null,cpuReady=null,gameToken=0,demo=null,lastDemoId='controls',worker=null,jobId=0,previewPress=null,resizeFrame=0,transition=null,pickupEffects=[];
 let audio=null,master=null,chargeTone=null,userInteracted=false,hostAudio=inYT?sdk.system.isAudioEnabled():true;
+let skillLessonQueue=[];
 let encounter=null,ending=null,reward=null,lastSkill=null,runContext=null,lootContinuation=null,pendingAdvance=false,resultSaving=false,chapterConfirm=null;
 const reducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const platformStatus={cpuJobs:[],workerSupported:typeof Worker!=='undefined',sdk:inYT,errors:[]};
@@ -30,7 +32,7 @@ function acquired(item){
  if(item.kind==='trial'){reward={id:item.weaponId,kind:'weapon',age:0};feedback='';tone(850,.25,'sine');return;}if(item.kind==='ammo'){feedback=ArcWeapons.get(item.weaponId).name+' +1';tone(850,.2,'sine');return;}
  if(item.id[0]==='W'&&!data.unlockedWeaponIds.includes(item.id)){data.unlockedWeaponIds.push(item.id);reward={id:item.id,kind:'weapon',age:0};feedback='';}
  if(['S','B'].includes(item.id[0])&&!data.collectedCosmeticIds.includes(item.id)){data.collectedCosmeticIds.push(item.id);reward={id:item.id,kind:'cosmetic',age:0};feedback='';}
- if(item.skill){feedback=item.skill+' +'+(item.taken||1);buildSkills();}
+ if(item.skill){feedback=(K.get(item.skill)?.name||item.skill)+' +'+(item.taken||1);if(K.get(item.skill)&&!hasSeen(item.skill)&&!skillLessonQueue.includes(item.skill))skillLessonQueue.push(item.skill);buildSkills();}
  save.save();tone(item.id[0]==='W'?850:1046,.25,'sine');
 }
 function syncLobby(){
@@ -74,10 +76,10 @@ function paintLoot(){
  const current=item.kind==='weapons'?s.weaponStock:s.skills;
  const attempt=I.add(I.fromState(s),item.kind,item.id,item.amount,item.fill);
  if(attempt.status!=='pending'){finishLoot(null,false);return;}
- $('lootTitle').textContent=item.kind==='weapons'?'Weapon slots full':'Skill slots full';$('lootName').textContent=item.kind==='weapons'?ArcWeapons.get(item.id).name:item.id;$('lootAmount').textContent='×'+(item.fill?3:item.amount);
+ $('lootTitle').textContent=item.kind==='weapons'?'Weapon slots full':'Skill slots full';$('lootName').textContent=item.kind==='weapons'?ArcWeapons.get(item.id).name:K.get(item.id)?.name||item.id;$('lootAmount').textContent='×'+(item.fill?3:item.amount);
  $('lootChoices').replaceChildren();
  for(const [id,n] of Object.entries(current).filter(([,n])=>n>0)){
-  const b=document.createElement('button'),name=document.createElement('strong'),count=document.createElement('span'),action=document.createElement('small');b.type='button';b.dataset.replaceLoot=id;name.textContent=item.kind==='weapons'?ArcWeapons.get(id).name:id;count.textContent='×'+n;action.textContent='Replace';b.append(name,count,action);b.onclick=()=>finishLoot(id,false);$('lootChoices').append(b);
+  const b=document.createElement('button'),name=document.createElement('strong'),count=document.createElement('span'),action=document.createElement('small');b.type='button';b.dataset.replaceLoot=id;name.textContent=item.kind==='weapons'?ArcWeapons.get(id).name:K.get(id)?.name||id;count.textContent='×'+n;action.textContent='Replace';b.append(name,count,action);b.onclick=()=>finishLoot(id,false);$('lootChoices').append(b);
  }
  $('lootSkip').textContent='Skip pickup';$('lootSkip').focus({preventScroll:true});
 }
@@ -90,19 +92,19 @@ function finishLoot(removeId,skip){
 }
 const icons={BURST:'◉',BLINK:'◇',PUSH:'→',BOUNCE:'⌁',PULL:'←',SPLIT:'⋔',PHASE:'⇥',SWAP:'⇄'};
 function buildSkills(){
- $('skillChoices').innerHTML=Object.keys(s.skills).map(id=>`<button type="button" class="skill" data-skill="${id}" aria-label="${id}, hold for preview"><b class="skill-icon" aria-hidden="true">${icons[id]}</b><span class="skill-name">${id}</span><small class="skill-count">×${s.skills[id]}</small><span class="skill-state"></span></button>`).join('');
+ $('skillPickerTitle').textContent='Choose combat skill';$('repairConfirm').hidden=true;$('skillChoices').hidden=false;
+ $('skillChoices').innerHTML=Object.keys(s.skills).map(id=>{const info=K.get(id);return `<button type="button" class="skill" data-skill="${id}"><b class="skill-icon" aria-hidden="true">${info?K.markup(id):icons[id]}</b><span class="skill-name">${info?.name||id}</span><small class="skill-count">×${s.skills[id]}</small>${info?`<span class="skill-note">${info.note}</span>`:''}<span class="skill-state"></span></button>`;}).join('');
  document.querySelectorAll('[data-skill]').forEach(b=>{
-  b.onpointerdown=e=>{e.stopPropagation();delete b.dataset.long;if(!canAim()||b.disabled)return;
-   if(e.pointerType==='touch'&&(stick||aimStick||charge)){e.preventDefault();b.click();return;}
-   previewPress=setTimeout(()=>{previewPress=null;if(runDemo(b.dataset.skill))b.dataset.long='1';},450);
-  };
-  b.onpointerup=()=>{clearTimeout(previewPress);previewPress=null;};b.onpointercancel=b.onpointerleave=b.onpointerup;
-  b.onclick=()=>{if(!$('skillPicker').hidden)$('skillPicker').hidden=true;if(b.dataset.long){delete b.dataset.long;return;}if(!canAim())return;clearInput();
-   const id=b.dataset.skill,ok=E.selectSkill(s,id);feedback=ok?'':s.skillUsed?'NEXT TURN':'EMPTY';tone(560,.08);hud();
+  b.onclick=()=>{const id=b.dataset.skill;$('skillPicker').hidden=true;if(!canAim())return;clearInput();
+   if(id==='S_REPAIR'){if(E.skillReason(s,id))return;if(!hasSeen(id)&&runDemo(id,true,openRepair))return;openRepair();return;}
+   const ok=E.selectSkill(s,id);feedback=ok?'':E.skillReason(s,id)||'';tone(560,.08);hud();
    if(ok&&s.selectedSkill===id&&!hasSeen(id)&&ArcLessons.forSkill(s,id,save.data))runDemo(id,true);
   };
  });
 }
+function openRepair(){if(!s||E.skillReason(s,'S_REPAIR')||hostPaused()||manualPaused)return;clearInput();$('skillPickerTitle').textContent='Field Repair';$('skillPicker').hidden=false;$('skillChoices').hidden=true;$('repairConfirm').hidden=false;$('repairAmount').textContent='Restore '+E.combat.points(Math.min(1.5,s.units[0].maxHp-s.units[0].hp))+' HP · 1 action';hud();$('repairCommit').focus({preventScroll:true});}
+function commitRepair(){if(hostPaused()||manualPaused||$('repairConfirm').hidden)return;const result=E.repair(s);if(!result)return;clearInput();$('skillPicker').hidden=true;$('repairConfirm').hidden=true;lastSkill='S_REPAIR';feedback='REPAIR +'+E.combat.points(result.healed);tone(640,.25,'sine');if(s.result){s.phase='finish';s.time=.65;}hud();draw();}
+function afterLootAim(){const id=skillLessonQueue.find(id=>(s.skills[id]||0)>0&&!hasSeen(id));skillLessonQueue=[];if(id&&runDemo(id,true))return;$('world').focus({preventScroll:true});}
 function battleWeaponChoices(){
  return E.availableWeapons(s).map(c=>({...c,weapon:E.weapon(s,0,c.id),source:c.category==='machine'?(c.id==='W01'?'Normal · Unlimited':'Special · 3 per level'):runContext?.practice?'Practice auxiliary':'Carried until boss'}));
 }
@@ -128,9 +130,9 @@ function hud(){
  $('weaponToggle').setAttribute('aria-label',weapon.name+', '+$('weaponStock').textContent+', choose weapon');$('weaponToggle').classList.toggle('special',mode!=='W01');$('weaponToggle').classList.toggle('new',!!s.weaponStock[s.lastPickupWeaponId]);$('weaponToggle').disabled=!enabled;$('weaponToggle').dataset.switchable=String(battleWeaponChoices().length>1);
  for(const b of document.querySelectorAll('[data-skill]')){
   const id=b.dataset.skill,count=demo?(displayState.skills[id]??s.skills[id]):s.skills[id],used=!demo&&s.skillUsed,selected=demo?shown.pose?.selectedSkill===id:!used&&s.selectedSkill===id;
-  const blocked=id==='SWAP'&&s.spec.boss||E.weapon(s).special;
-  b.querySelector('.skill-count').textContent='×'+count;b.querySelector('.skill-state').textContent=blocked?(E.weapon(s).special?'Not with special':'Unavailable on bosses'):selected?'Selected':used?(lastSkill===id?'Used':'Next turn'):count<=0?'Empty':'';
-  b.disabled=(!enabled&&$('skillPicker').hidden)||used||count<=0||blocked;b.classList.toggle('spent',used||count<=0||blocked);b.setAttribute('aria-disabled',b.disabled);b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected);b.setAttribute('aria-label',id+', '+count+' uses'+(blocked?(E.weapon(s).special?', Not with special':', Unavailable on bosses'):selected?', selected':used?', used this turn':count<=0?', empty':''));
+  const reason=E.skillReason(s,id),blocked=!!E.skillReason(s,id);
+  b.querySelector('.skill-count').textContent='×'+count;b.querySelector('.skill-state').textContent=selected?'Reserved':reason||'';
+  b.disabled=(!enabled&&$('skillPicker').hidden)||used||count<=0||blocked;b.classList.toggle('spent',used||count<=0||blocked);b.setAttribute('aria-disabled',b.disabled);b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected);b.setAttribute('aria-label',(K.get(id)?.name||id)+', '+count+' uses'+(reason?', '+reason:selected?', reserved':''));
  }
  if(shown){
   $('tutorialContext').textContent=/MACHINE SPECIAL/.test(shown.context)?'SPECIAL PREVIEW':/WEAPON/.test(shown.context)?'WEAPON PREVIEW':/SKILL/.test(shown.context)?'SKILL PREVIEW':/BOSS/.test(shown.context)?'BOSS PREVIEW':/CONTROL/.test(shown.context)?'CONTROL PREVIEW':shown.source==='vignette'?'PRACTICE PREVIEW':'LEVEL PREVIEW';$('tutorialStep').textContent=shown.step;$('tutorialInstruction').textContent=shown.instruction;$('tutorialOutcome').textContent=shown.outcome;
@@ -140,7 +142,7 @@ function hud(){
  for(const id of ['stick','aimStick']){$(id).setAttribute('aria-disabled',!enabled);$(id).style.opacity=enabled?'1':'.4';}
  $('aimStick').setAttribute('aria-valuemin',minimumAngle());$('aimStick').setAttribute('aria-valuemax',maximumAngle());$('aimStick').setAttribute('aria-valuenow',Math.round(s.angle));$('aimStick').setAttribute('aria-valuetext',Math.round(s.angle)+' degrees');
  $('warpToggle').hidden=!s.spec.teleport;$('warpToggle').disabled=!enabled;$('warpToggle').setAttribute('aria-pressed',s.teleportMode);$('fire').classList.toggle('teleport',s.teleportMode);
- const selected=s.selectedSkill;const skillCount=Object.keys(s.skills).filter(k=>s.skills[k]>0).length;$('skills').hidden=!Object.keys(s.skills).length;$('skillName').textContent=selected||'Skill';$('skillStock').textContent=selected?'×'+s.skills[selected]:String(skillCount);$('skillToggle').setAttribute('aria-pressed',!!selected);$('skillToggle').disabled=!enabled||s.skillUsed||skillCount===0;
+ const ownedSkills=Object.keys(s.skills).filter(k=>s.skills[k]>0),selected=s.guardActive?'S_GUARD':s.selectedSkill,displaySkill=selected||(ownedSkills.length===1?ownedSkills[0]:null);const skillCount=ownedSkills.length;$('skills').hidden=!Object.keys(s.skills).length;$('skillName').textContent=K.get(displaySkill)?.shortName||K.get(displaySkill)?.name||displaySkill||'Skill';$('skillStock').textContent=s.guardActive?'Active':displaySkill?'×'+s.skills[displaySkill]:String(skillCount);$('skillToggle').classList.toggle('guard-active',!!s.guardActive);$('skillToggle').setAttribute('aria-pressed',!!selected);$('skillToggle').disabled=!enabled||s.skillUsed||skillCount===0;
  const rs=s.world.regions.map(r=>r.kind==='F'?(r.direction>0?'WIND →':'WIND ←'):r.kind==='V'?(r.on?'VENT ↑':'VENT · NEXT ↑'):r.kind==='M'?'FIELD '+(r.direction>0?'↻':'↺'):r.kind==='C'?'CLOUD':'UPDRAFT ↑');
  $('environment').textContent=[...new Set([...rs,...(s.world.solids.some(o=>o.kind==='bridge')?['BRIDGE · NEXT ⋯']:[])])].join('　');
  $('rewardNotice').hidden=!reward||!!demo;$('trialWeapon').hidden=true;
@@ -152,30 +154,31 @@ function hud(){
 function lessonDescriptor(id){return ArcLessons.describe(id);}
 function hasSeen(id){const lesson=lessonDescriptor(id);return save.data.seenPreviewIds.includes(lesson?.key||'v3:'+id);}
 function activePreview(){return demo?ArcPreview.at(demo,demo.age):null;}
-function runDemo(id,automatic=false){
+function runDemo(id,automatic=false,onComplete=null){
  if(!s||s.phase!=='aim'||hostPaused()||manualPaused||shot||encounter||demo)return false;
  clearInput();const lesson=lessonDescriptor(id),preview=ArcPreview.create(s,id);
  if(!preview?.proof?.valid){platformStatus.previewErrors=platformStatus.previewErrors||[];platformStatus.previewErrors.push({stage:s.stage,id});return false;}
- demo={...preview,seenId:lesson?.id||preview.id,seenKey:lesson?.key||'v3:'+preview.id,age:0,loops:0,automatic};lastDemoId=demo.seenId;
+ demo={...preview,seenId:lesson?.id||preview.id,seenKey:lesson?.key||'v3:'+preview.id,age:0,loops:0,automatic,onComplete};lastDemoId=demo.seenId;
  $('tutorialName').textContent=lesson?.title||preview.title;$('tutorial').hidden=false;$('tutorial').dataset.mode='preview';$('battle').dataset.lesson=preview.id;$('battle').dataset.preview='true';hud();$('previewOK').focus({preventScroll:true});return true;
 }
 function endDemo(){
- if(!demo)return;const ids=[demo.seenKey,'v2:'+(demo.seenId||demo.id)];demo=null;$('tutorial').hidden=true;delete $('battle').dataset.lesson;delete $('battle').dataset.preview;
+ if(!demo)return;const onComplete=demo.onComplete;const ids=[demo.seenKey,'v2:'+(demo.seenId||demo.id)];demo=null;$('tutorial').hidden=true;delete $('battle').dataset.lesson;delete $('battle').dataset.preview;
  for(const b of document.querySelectorAll('[data-skill]'))delete b.dataset.long;
  for(const id of ids)if(!save.data.seenPreviewIds.includes(id))save.data.seenPreviewIds.push(id);
- save.save();hud();draw();$('world').focus({preventScroll:true});
+ save.save();hud();draw();$('world').focus({preventScroll:true});onComplete?.();
 }
 function firstDemo(){
  const lessons=ArcLessons.forStage(s,save.data);
  for(const lesson of lessons)if(!hasSeen(lesson.id)&&runDemo(lesson.id,true))return;
- const weapon=ArcLessons.forWeapon(s,s.mode,save.data);if(weapon&&!hasSeen(weapon.id))runDemo(weapon.id,true);
+ const weapon=ArcLessons.forWeapon(s,s.mode,save.data);if(weapon&&!hasSeen(weapon.id)&&runDemo(weapon.id,true))return;
+ for(const id of K.ids)if(s.skills[id]>0&&!hasSeen(id)&&runDemo(id,true))return;
 }
 function start(retryContext=null){
  if(hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();gameToken++;cpuJob=null;cpuReady=null;
  if(pendingAdvance&&!save.dirty)pendingAdvance=false;
  if(pendingAdvance&&save.ready&&!R.inspect(save.data,selectedMap+1).practice){const token=gameToken,n=selectedMap;persistAdvance().then(ok=>{if(ok&&token===gameToken&&n===selectedMap)start(retryContext);});return;}
  runContext=retryContext?.practice&&retryContext.entry?.stage===selectedMap+1?{practice:true,entry:R.decode(retryContext.entry)}:R.begin(save.data,selectedMap+1);
- const entry=runContext.entry;clearInput();s=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode,matchSeed:entry.seed,pickupLedger:entry.pickupLedger,pendingLoot:entry.pending});s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;lootContinuation=null;$('lootPicker').hidden=true;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
+ const entry=runContext.entry;skillLessonQueue=[];$('clearRewardLine').hidden=true;clearInput();s=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode,matchSeed:entry.seed,pickupLedger:entry.pickupLedger,pendingLoot:entry.pending});s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;lootContinuation=null;$('lootPicker').hidden=true;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
  if(!runContext.practice)save.save();
  encounter=s.spec.boss?{age:0,duration:1.1,name:s.spec.name,boss:true}:null;
  $('encounterBanner').hidden=!encounter;$('encounterName').textContent=s.spec.name;
@@ -194,7 +197,7 @@ function launch(plan=null){
  if(!shot)return;if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';const voice=ArcWeapons.get(shot.weaponId);tone(voice.teleport?620:voice.needle||voice.gravity<.5?540:voice.twin?260:voice.damage>1.1?85:155,voice.damage>1.1?.32:.19,voice.teleport||voice.needle?'sine':'sawtooth');hud();
 }
 function finishResult(){
- if(s.result==='win'&&openLoot(finishResult))return;
+ if(s.result==='win'){E.claimClearRewards(s,runContext?.practice);buildSkills();if(openLoot(finishResult))return;}
  if(s.result!=='win'){s.pendingLoot=[];$('lootPicker').hidden=true;lootContinuation=null;}
  clearInput();dialog='result';const final=s.result==='win'&&s.stage===100;
  ending=ending||{age:0,winner:s.result==='win'?0:s.result==='lose'?1:-1,final};
@@ -203,6 +206,7 @@ function finishResult(){
  if(s.result==='win'&&!s.resultHandled){s.resultHandled=true;const result=R.finish(save.data,runContext,s);s.chapterReset=!!result.reset;advanced=result.advanced;
   if(advanced){for(const [id,level]of Object.entries(ArcWeapons.coreUnlocks))if(s.stage>=level&&!save.data.unlockedWeaponIds.includes(id))save.data.unlockedWeaponIds.push(id);pendingAdvance=save.ready;}
  }
+ $('clearRewardLine').hidden=!(s.result==='win'&&s.clearRewardSkills?.length);$('clearRewardLine').replaceChildren();for(const id of s.clearRewardSkills||[]){const span=document.createElement('span');span.textContent=(K.get(id)?.name||id)+' +1';$('clearRewardLine').append(span);}
  $('modalTitle').textContent=final?'Every arc led here.':s.result==='win'?'Cleared.':s.reason==='shots'?'Out of actions.':s.result==='draw'?'A draw.':'Rover disabled.';
  const inventory=I.fromState(s);
  $('modalDetail').textContent=runContext?.practice?'Practice stock does not change your chapter.':s.result==='win'?(s.chapterReset?'Chapter clear. Weapon and skill stock resets.':`Carry forward: ${Object.keys(inventory.weapons).length} weapons, ${Object.keys(inventory.skills).length} skills`):'Retry restores the stock from the start of this level.';
@@ -229,7 +233,7 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:(s.matchSeed+s.round*1009)>>>0});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.8.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.9.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
  if(!$('lootPicker').hidden)return;
  clock+=dt;if(!s||manualPaused||hostPaused())return;
@@ -260,8 +264,9 @@ function update(dt,realDt=dt){
   s.time-=dt;if(tail)tail.age+=dt;
   if(s.phase==='impact'&&s.turn===1&&s.time<=.6){advanceTurn();}
   else if(s.time<=0){tail=null;if(s.phase==='finish'){s.phase='over';finishResult();}else advanceTurn();}
+ }else if(s.phase==='repair'){s.time-=dt;if(s.repair)s.repair.age+=dt;if(s.time<=0)advanceTurn();
  }else if(s.phase==='transition'){
-  s.time-=dt;if(tail)tail.age+=dt;if(transition)transition.age+=dt;if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;tail=null;openLoot(()=>{$('world').focus({preventScroll:true});});hud();}
+  s.time-=dt;if(tail)tail.age+=dt;if(transition)transition.age+=dt;if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;tail=null;if(!openLoot(afterLootAim))afterLootAim();hud();}
  }
  for(const p of pickupEffects)p.age+=dt;pickupEffects=pickupEffects.filter(p=>p.age<.8);
  for(const u of s.units)if(u.teleportFlash&&(u.teleportFlash.age+=dt)>.8)delete u.teleportFlash;
@@ -277,7 +282,7 @@ function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
 function pauseHost(source='sdk'){pauseSources.add(source);clearInput();syncInert();cancelAnimationFrame(raf);raf=0;previous=0;audioSync();}
 function resumeHost(source='sdk'){pauseSources.delete(source);syncInert();if(hostPaused())return;previous=0;audioSync();schedule();if(save.dirty)save.save();}
-function pause(){if(!s||s.result||hostPaused()||!$('lootPicker').hidden)return;clearInput();manualPaused=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='LEVEL '+s.stage;$('modalTitle').textContent='Paused';$('modalDetail').textContent='';$('resume').textContent='Resume game';$('resume').disabled=false;$('returnLobby').textContent='Return to title';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();hud();$('resume').focus();}
+function pause(){if(!s||s.result||hostPaused()||!$('lootPicker').hidden)return;clearInput();manualPaused=true;$('clearRewardLine').hidden=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='LEVEL '+s.stage;$('modalTitle').textContent='Paused';$('modalDetail').textContent='';$('resume').textContent='Resume game';$('resume').disabled=false;$('returnLobby').textContent='Return to title';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();hud();$('resume').focus();}
 function confirmPauseAction(kind){
  if(!s||!manualPaused||s.result)return;dialog=kind;$('overlay').dataset.kind=kind;$('modalTitle').textContent=kind==='retry'?'Retry this level?':'Return to title?';$('modalDetail').textContent=kind==='retry'?'Retry restores the stock from the start of this level.':'This level restarts from its entry stock.';$('resume').textContent=kind==='retry'?'Retry level':'Return to title';$('returnLobby').textContent='CANCEL';$('resume').focus();
 }
@@ -305,7 +310,9 @@ $('weaponToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(stick||aimStick
 $('closeWeapons').onclick=()=>ArcPresentation.closeWeapons();
 $('warpToggle').onclick=()=>{if(!canAim())return;clearInput();if(E.selectTeleport(s)){tone(700,.08);hud();if(s.teleportMode&&!hasSeen('teleport'))runDemo('teleport',true);}};
 $('warpToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&charge){e.preventDefault();$('warpToggle').click();}};
-$('skillToggle').onclick=()=>{if(!canAim())return;clearInput();$('skillPicker').hidden=false;hud();$('closeSkills').focus();};
+$('skillToggle').onclick=()=>{if(!canAim())return;clearInput();buildSkills();$('skillPicker').hidden=false;hud();$('closeSkills').focus();};
+$('repairCommit').onclick=commitRepair;$('repairCancel').onclick=()=>{buildSkills();hud();$('closeSkills').focus();};
+$('skillToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(charge||stick||aimStick)&&canAim()){e.preventDefault();$('skillToggle').click();}};
 $('closeSkills').onclick=()=>{$('skillPicker').hidden=true;hud();$('skillToggle').focus();};
 let controlLayout='left';try{if(localStorage.getItem('arcline-control-layout')==='right')controlLayout='right';}catch{}
 function applyControlLayout(){$('app').dataset.controls=controlLayout;$('mirrorControls').textContent=controlLayout==='left'?'Move / aim → Right':'Move / aim → Left';$('mirrorControls').setAttribute('aria-label',controlLayout==='left'?'Move and aim on left; switch to right':'Move and aim on right; switch to left');}
