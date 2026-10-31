@@ -31,6 +31,8 @@
 | [FX_FOOTPRINTS](FX_FOOTPRINTS.json) | 旧0.10の関数と新しい実Canvas命令を**240ケース**比較。着弾の楕円と粒子の移動線が一致、旧半径を保持し最大外形も同じ。20弾体の形状命令も一致。バンの衝撃演出260/50°も保持し、ダメージ判定200/40°と分離 |
 | [FINAL_SMOKE](FINAL_SMOKE.json) | 最終描画の小サイズ用詳細度、後ろ向き、32px/84px、日本語の中ボスコア1.5、照準に絵文字無し、更新した3見本の判定重ね表示を追加確認 |
 | [SERVICE_SITE](SERVICE_SITE.json) | **229確認**。紹介ページの4サイズ/日英/10機/3プレビュー、共有キャラHTML/PNGのダウンロード、実ゲームへの遷移と進行の隔離。エラー0 |
+| [TERMINAL_PENDING](TERMINAL_PENDING.json) | 端末の反転予約0/1がともに待機表示になり、未予約の状態と異なることを実Canvasで確認 |
+| [RELEASE_CHECK](RELEASE_CHECK.json) | 最終30 JSの構文、変更9 HTMLの210ローカル参照、34配布ファイルのハッシュ。新/変更ZIP無し、ルートの空白とカタログ1件を確認 |
 | [PRESERVED_SOURCES](PRESERVED_SOURCES.json) | 原本18 PNGのSHA-256が一致。地形/配置の一致は上の統合試験へ |
 | [BUNDLE_CHECK](BUNDLE_CHECK.json) | 34ファイル、ローカル参照のみ、ZIPの整合と全ファイルのSHA-256。ZIPはGit外へ生成し、コミットしない |
 
@@ -59,4 +61,4 @@ B01/B02や0.10以前の合格結果を今回の実行数へ加えていません
 
 [全42モデル](actors42.png) ／ [568横画面](final-battle-568.png) ／ [844横画面](final-battle-844.png) ／ [中ボスの結果568](result5-568.png) ／ [中ボスの結果844](result5-844.png)
 
-公開はこの変更のPRとmainのGitHub Pagesデプロイで記録します。リポジトリ外の配布ZIPにキャッシュ・認証情報・元ZIPは含みません。
+公開結果（マージSHA・Pages実行URL）は[公開PR #25](https://github.com/bittrove88/bittrove88.github.io/pull/25)で記録します。リポジトリ外の配布ZIPにキャッシュ・認証情報・元ZIPは含みません。
