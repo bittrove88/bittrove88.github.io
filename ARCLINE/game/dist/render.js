@@ -220,6 +220,7 @@ function create(canvas){
   let world=demonstration?.world||s.world,display=s;const transition=options.transition;
   if(demonstration?.after){const after=demonstration.after,t=Math.max(0,Math.min(1,demonstration.effectProgress??((demonstration.age-(demonstration.flightEnd||demonstration.plan?.duration||0))/.5))),ease=t*t*(3-2*t);
    display={...s,units:s.units.map((u,i)=>{const target=after.units[i];const warp=['teleport','wall-fall'].includes(demonstration.id)&&i===0&&demonstration.phase==='RESULT',origin=warp?target.animation?.from||u:u;return {...u,x:origin.x+(target.x-origin.x)*(warp?t*t:ease),y:origin.y+(target.y-origin.y)*(warp?t*t:ease),slope:u.slope+(target.slope-u.slope)*ease,hp:t>=.5?target.hp:u.hp,parts:t>=.5?target.parts:u.parts,exposed:t>=.5?target.exposed:u.exposed,facingCore:t>=.5?target.facingCore:u.facingCore,floating:t>=.5?target.floating:u.floating,reactionKind:t>=.5?target.reactionKind:u.reactionKind};})};
+   display={...display,guardActive:t>=.5?after.guardActive:s.guardActive};
    if(t>=.5||['destruction','choices'].includes(demonstration.id)&&t>0){world=after.world||world;s={...s,world,effects:after.effects||s.effects,pickups:after.pickups||s.pickups,bossPhase:after.bossPhase??s.bossPhase};display={...display,world,effects:s.effects,pickups:s.pickups,bossPhase:s.bossPhase};}
   }
   if(demonstration?.plan)for(const e of demonstration.plan.events.filter(e=>e.type==='pull'&&demoFlight>=e.t)){const t=Math.min(1,(demoFlight-e.t)/e.duration),ease=t*t*(3-2*t);display={...display,units:display.units.map((u,i)=>i!==e.unit?u:{...u,x:e.from.x+(e.to.x-e.from.x)*ease,y:e.from.y+(e.to.y-e.from.y)*ease,slope:e.from.slope+(e.to.slope-e.from.slope)*ease,animation:null})};}
@@ -363,8 +364,8 @@ function create(canvas){
    ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#ffe2c2';ctx.fillText('!',t.targetX,y+20/scale);
   }
   for(const item of s.pickups){if(localDemo&&demonstration.id!=='pickup')continue;if(!isArenaPickup(item)||demonstration?.plan?.events.some(e=>e.type==='pickup'&&e.id===item.id&&demoFlight>=e.t))continue;const y=item.y+(options.reducedMotion?0:Math.sin(time*Math.PI+item.x)*4);
-   const trial=item.kind==='trial',ammo=item.kind==='ammo';ctx.save();ctx.translate(item.x,y);round(-22,-18,44,36,7,trial?'#6d7858':'#596b78');ctx.strokeStyle=trial?'#efffb8':'#d5efff';ctx.lineWidth=2/scale;ctx.strokeRect(-20,-16,40,32);
-   if(trial){const look=appearance(item.weaponId);projectile({x:0,y:0},null,{...look,size:7*scale},scale,time);}else if(ammo){for(const x of [-8,2,12]){round(x-3,-10,6,21,2,'#e2f4c6');}}else{circle(0,0,6,'#f0ddff');}ctx.restore();
+   const trial=item.kind==='trial',ammo=item.kind==='ammo',skillBox=item.kind==='skill';ctx.save();ctx.translate(item.x,y);round(-22,-18,44,36,7,skillBox?'#536987':trial?'#6d7858':'#596b78');ctx.strokeStyle=trial?'#efffb8':'#d5efff';ctx.lineWidth=2/scale;ctx.strokeRect(-20,-16,40,32);
+   if(trial){const look=appearance(item.weaponId);projectile({x:0,y:0},null,{...look,size:7*scale},scale,time);}else if(skillBox){root.ArcSkills.draw(ctx,item.skill,0,0,27);}else if(ammo){for(const x of [-8,2,12]){round(x-3,-10,6,21,2,'#e2f4c6');}}else{circle(0,0,6,'#f0ddff');}ctx.restore();
 
   }
   if(s.selectedSkill==='BLINK')s.blink.forEach((b,i)=>{circle(b.x,b.y-22,35,'#c9ffe42b','#efffd6');ctx.font='16px system-ui';ctx.fillStyle='#efffd6';ctx.fillText(String(i+1),b.x,b.y-54);});
@@ -386,7 +387,7 @@ function create(canvas){
   }
   display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t);return {...u,x:a.from.x+(u.x-a.from.x)*ease,y:a.from.y+(u.y-a.from.y)*ease-Math.sin(t*Math.PI)*a.lift};})};
   if(!lobby){for(let side=0;side<2;side++){const u=display.units[side];if(!showsUnit(u,side))continue;ctx.save();ctx.globalAlpha=.38;ctx.strokeStyle=side?'#ffb58f':'#dfffbd';ctx.lineWidth=2/scale;ctx.beginPath();ctx.ellipse(u.x,u.y+5,42,12,0,0,Math.PI*2);ctx.stroke();ctx.restore();}}
-  if(!lobby){const enemyShot=shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,options.cosmetic,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,null,localDemo?.8:1,options);}
+  if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,options.cosmetic,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,null,localDemo?.8:1,options);}
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
   if(options.encounter?.boss){
    const u=display.units[1],t=Math.min(1,options.encounter.age/(options.encounter.duration||1.1));

@@ -60,7 +60,7 @@ const e100=R.begin(overflow,100),b100=battle(e100);ok(!E.launch(b100,45,70),'pre
 for(const bad of [null,[],{version:2},{version:1,stage:300},{version:1,stage:1,seed:-1,runId:'x',inventory:{}}])ok(R.decode(bad)===null,'invalid run rejected');
 const migrated=S.decode(JSON.stringify({version:1,cleared:73}));ok(migrated.cleared===73&&migrated.chapterRun===null&&migrated.legacyBackup,'legacy progress survives without fake stock');
 const decoded=S.decode(JSON.stringify(p));equal(decoded.chapterRun.inventory,p.chapterRun.inventory,'run inventory roundtrips');ok(decoded.unlockedWeaponIds.length===20&&decoded.collectedCosmeticIds.length===2&&decoded.equippedCharacterId==='yui'&&decoded.difficulty==='hard','all profile selections retained');
-ok(decoded.schemaVersion===3,'checkpoint data uses a schema that old clients will not overwrite');assert.throws(()=>S.decode('{"schemaVersion":4}'));checks++;
+ok(decoded.schemaVersion===4,'checkpoint data uses a schema that old clients will not overwrite');assert.throws(()=>S.decode('{"schemaVersion":5}'));checks++;
 
 (async()=>{
  let text=JSON.stringify(p);const store=S.create({load:async()=>text,save:async raw=>{text=raw;}});await store.load();store.data.chapterRun.inventory.weapons={W02:2};await store.save();equal(S.decode(text).chapterRun.inventory.weapons,{W02:2},'checkpoint saved through real adapter');

@@ -17,7 +17,7 @@ function t(value){const s=String(value??'');if(language==='en'){const stage=root
  const hit=s.match(/^(HIT|CORE ×2|CORE|CRITICAL ×1\.5|CRITICAL) · ([\d.]+)$/);if(hit)return t(hit[1])+'・'+hit[2];
  if(/^[\d.]+s$/.test(s))return s.slice(0,-1)+'秒';
  if(s.startsWith('PRACTICE · '))return t('PRACTICE')+'・'+t(s.slice(11));
- let m;if(m=s.match(/^Chapter (\d+) · LEVEL (\d+)$/))return `第${m[1]}章・${m[2]}面`;
+ let m;if(m=s.match(/^Restore ([\d.]+) HP · 1 action$/))return `HPを${m[1]}回復・1行動`; if(m=s.match(/^DAMAGE ([\d.]+) → ([\d.]+)$/))return `被害 ${m[1]} → ${m[2]}`;if(m=s.match(/^Chapter (\d+) · LEVEL (\d+)$/))return `第${m[1]}章・${m[2]}面`;
  if(m=s.match(/^Restart chapter (\d+)\?$/))return `第${m[1]}章をはじめから？`;
  if(m=s.match(/^Start chapter (\d+) from the beginning$/))return `第${m[1]}章をはじめから`;
  if(m=s.match(/^Carry forward: (\d+) weapons, (\d+) skills$/))return `持ち越し：武器${m[1]}種・スキル${m[2]}種`;
@@ -66,6 +66,13 @@ Object.assign(dictionary,{
  'Short-range heavy cannon. Close the distance.':'短射程の重弾。接近して狙う。','Steady mid-range fire.':'素直な中距離弾。','A steady, light arc.':'扱いやすい小さな弧。','One shot from the central barrel.':'中央砲口から一発。','Fast small rounds; a slow, precise charge.':'速い小弾と、じっくり合わせるチャージ。','A steady mid-range arc; all firing angles available.':'中距離の弧。上向きにも撃てる。','A low arc that can still reach high ground.':'低い弧が得意。高所にも届く。','A gentle arc with unrestricted normal elevation.':'山なりの小弾。通常は高角専用ではない。','Steady normal fire without automatic ground bounces.':'通常弾は勝手に地面で反射しない。','A small arc without passive attraction.':'小さな弧。通常弾には吸引なし。',
  'A broad blast breaks cover and pushes the target.':'大きな爆風で遮蔽を壊し、相手を押す。','Impact sends a wide shockwave forward.':'着弾点から前方を広くなぎ払う。','Explodes near a visible rival before contact.':'見通せる相手の近くで、接触前に炸裂。','Three delayed shots spread across different angles.':'角度を変えて3発を連射。','A center hit deals up to 96 damage.':'中心命中で最大96ダメージ。','Three blasts advance through breakable cover.':'3回の連続爆破で壊せる遮蔽を掘り進む。','Runs along floors, drops across gaps, then rolls again.':'床を走り、隙間で落下。着地後に走行を再開。','A high shot splits into eight falling bomblets.':'高角弾が頂点で8発に分かれて降り注ぐ。','Up to four bounces grow the damage and blast.':'最大4反射。反射するほど威力と爆風が成長。','Pulls a visible rival toward impact, then explodes.':'見通せる相手を着弾点へ引き寄せて爆発。',
  'Land beside the rival and cracked cover.':'相手と紫の遮蔽の近くへ着弾させる。','Land before the rival. The wave travels forward.':'相手の手前へ着弾。衝撃は前方へ広がる。','Send the round close to a visible rival.':'見通せる相手の近くへ弾を通す。','Aim the three-shot spread toward the rival.':'3発の広がりを相手へ重ねる。','Take your time and hit the rival center.':'ゆっくり合わせ、相手の中心を狙う。','Hit cracked purple cover to open a route.':'紫の遮蔽へ当て、連続爆破で道を開く。','Land on the floor before the gap.':'隙間の手前の床へ着弾させる。','Aim at 55° or higher to scatter eight bomblets.':'55度以上へ向け、頂点から8発を散布。','Bounce between the floor and cover.':'床と遮蔽の間を反射させる。','Land near the rival to pull it toward impact.':'相手の近くへ着弾させ、着弾点へ引き寄せる。'
+});
+Object.assign(dictionary,{
+ 'Repair':'応急修理','Guard':'防壁','Breach':'砕路','Field Repair':'応急修理','Halve the next rival attack.':'次の敵攻撃を半減','Break one more nearby cover piece.':'近くの遮蔽をもう1片壊す','Restore 30 HP. Costs one action.':'HPを30回復・1行動を消費',
+ 'Reserve Guard, then fire or teleport.':'防壁を予約して、発射または転移','The next rival attack deals half damage.':'次の敵攻撃のダメージが半分になる',
+ 'Fire at cracked cover with Breach reserved.':'砕路を予約し、紫の遮蔽へ着弾させる','One more nearby piece breaks. Damage stays the same.':'近くの1片も壊れる。威力は増えない',
+ 'Repair restores 30 HP and uses one action.':'修理はHP30回復。同時に1行動を使う','The rival acts after the repair.':'修理の後は相手の番になる',
+ 'ONE MORE PIECE':'もう1片を破壊','HP +30':'HP +30','RIVAL RESPONSE':'相手の反撃','REPAIR':'応急修理','Repair now':'修理する','Cancel repair':'キャンセル','Passes through thin breakable cover. Fixed rock stops it.':'薄い破壊材を通過。固定岩盤は通らない。','Aim through thin cracked cover.':'ひびのある薄い遮蔽の向こうを狙う','Full HP':'HP満タン','Not with teleport':'転移には併用不可','Reserved':'予約中','reserved':'予約中','Active':'発動中'
 });
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;

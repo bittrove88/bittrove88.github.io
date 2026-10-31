@@ -24,12 +24,15 @@ for level in levels:
     assert all(f['type'] in 'SRBWCKUFVMT' for f in level['features'])
     assert level['contentRevision'] == '4.1'
     assert level['teleport'] == (level['id'] >= 4)
-    assert all(p['kind'] in ('trial','ammo') for p in level['pickups'])
+    assert all(p['kind'] in ('trial','ammo','skill') for p in level['pickups'])
     assert all(c['poly'] and len(c['poly']) >= 3 for c in level['components'])
     assert len({c['id'] for c in level['components']}) == len(level['components'])
     assert not level['boss'] or 'SWAP' not in level['skills']
+assert sum(len(s['pickups']) for s in levels[:20]) == 16
+assert sum(len(s.get('clearRewards',[])) for s in levels) == 2
+assert all(p.get('skillId') in ('S_GUARD','S_REPAIR','S_BREACH') for s in levels for p in s['pickups'] if p['kind']=='skill')
 assert len({json.dumps(s['components']) for s in levels}) == 100
-assert sum(len(s['pickups']) for s in levels) == 16
+assert sum(len(s['pickups']) for s in levels) == 29
 out = ROOT / 'game/dist/levels.js'
 out.write_text("(function(root){'use strict';\nconst levels="
                + json.dumps(levels, ensure_ascii=False, separators=(',', ':'))

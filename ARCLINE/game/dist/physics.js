@@ -34,12 +34,12 @@ function phaseTravel(a,b,poly,budget){
  return {used,stop:null};
 }
 function simulate(s,side,angle,power,options={}){
- const weapon=W.get(options.weaponId||'W01',side===0?s.characterId:null),skill=weapon.special?null:options.skill||null;
+ const weapon=W.get(options.weaponId||'W01',side===0?s.characterId:null),skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
  if(weapon.machineId)angle=G.clamp(angle,weapon.minAngle,weapon.maxAngle);
  const units=s.units.map(u=>({...u,parts:u.parts.map(p=>({...p}))})),simState={...s,units};
  const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle(s,side,Math.max(weapon.minAngle||-15,angle));
  const startDelay=G.clamp(Number(options.startDelay)||0,0,2),curve=G.clamp(Number(options.curve)||0,-1.5,1.5);
- let simWorld=s.world;const destroyed=new Set();
+ let simWorld=s.world,breachUsed=false;const destroyed=new Set();
  const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
  const damageBudget=weapon.damage;
  const newBullet=(offset=0,delay=0,budget=damageBudget,primary=true,source=origin,powerValue=power)=>{
@@ -57,8 +57,14 @@ function simulate(s,side,angle,power,options={}){
  function clearTo(point,target,solidId=null){const h=G.sweep(simWorld,point,target);return !h||h.t>.98||solidId&&h.solid.id===solidId;}
  function forward(point,target){const dx=(target.x-point.x)*(origin.dir||Math.sign(Math.cos(origin.theta))||1),dy=target.y-point.y;return dx>=-1e-7&&Math.hypot(dx,dy)<=weapon.coneLength&&Math.abs(Math.atan2(dy,Math.max(0,dx)))<=weapon.coneAngle*Math.PI/180;}
  function breakPieces(p,contact,blast){
+  const contacted=simWorld.solids.find(o=>o.id===contact?.solidId),breach=skill==='S_BREACH'&&!breachUsed&&contacted?.destructible;if(breach)breachUsed=true;
   const candidates=simWorld.solids.filter(o=>o.destructible&&(weapon.coneLength?o.id===contact?.solidId||o.poly.some(q=>forward(p,q)&&clearTo({x:p.x,y:p.y-2},q,o.id)):o.id===contact?.solidId||o.poly.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<blast*.65&&(!weapon.special||clearTo({x:p.x,y:p.y-2},q,o.id)))));
   for(const o of candidates){destroyed.add(o.id);events.push({x:p.x,y:p.y,t:p.t,type:'break',solidId:o.id,bullet:p.id});}if(candidates.length)simWorld=G.without(simWorld,candidates.map(o=>o.id));
+  if(breach){
+   const nearest=o=>{let best={distance:Infinity};for(let i=0;i<o.poly.length;i++){const a=o.poly[i],b=o.poly[(i+1)%o.poly.length],dx=b.x-a.x,dy=b.y-a.y,t=G.clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1),0,1),q={x:a.x+dx*t,y:a.y+dy*t},distance=Math.hypot(q.x-p.x,q.y-p.y);if(distance<best.distance)best={...q,distance};}return best;};
+   const from={x:p.x+(contact.nx||0)*.6,y:p.y+(contact.ny||0)*.6},extra=simWorld.solids.filter(o=>o.destructible).map(o=>({o,q:nearest(o)})).filter(({o,q})=>q.distance<=48&&clearTo(from,q,o.id)).sort((a,b)=>a.q.distance-b.q.distance||a.o.id.localeCompare(b.o.id))[0];
+   if(extra){destroyed.add(extra.o.id);events.push({x:p.x,y:p.y,t:p.t,type:'breach',solidId:extra.o.id,bullet:p.id},{x:p.x,y:p.y,t:p.t,type:'break',solidId:extra.o.id,bullet:p.id});simWorld=G.without(simWorld,[extra.o.id]);}
+  }
  }
  function explode(p,hit=null,contact=null){
   const end={x:p.x,y:p.y,t:p.t},blast=(p.blast??weapon.blast)*(skill==='BURST'?1.5:1);impacts.push({...end,hit,contact,bullet:p.id,...(weapon.special?{blast}:{} )});
@@ -113,7 +119,7 @@ function simulate(s,side,angle,power,options={}){
    }
    contacts.sort((a,b)=>a.t-b.t).forEach(({t,c,type})=>{
     if(type==='pickup'){
-     if(c.id[0]==='R'&&s.skills[c.skill]>=s.skillCaps[c.skill])return;
+     if(c.skill&&(s.skills[c.skill]||0)>=s.skillCaps[c.skill])return;
      seenPickups.add(c.id);
     }else seenTerminals.add(c.id);
     events.push({type,id:c.id,x:c.x,y:c.y,t:p.t+DT*t*(stop?.t??1),bullet:p.id});
@@ -121,7 +127,7 @@ function simulate(s,side,angle,power,options={}){
    p.t+=DT;p.age+=DT;
    if(solid&&stop===solid&&!weapon.teleport){
     const material=solid.solid.kind,reflective=material==='reflector'||material==='crystal';
-    const canPhase=material!=='floor'&&material!=='reflector'&&(skill==='PHASE'||['solid','roof','bridge','fragile'].includes(material));
+    const canPhase=material!=='floor'&&material!=='reflector'&&(skill==='PHASE'||(weapon.id==='W13'?!!solid.solid.destructible:['solid','roof','bridge','fragile'].includes(material)));
     if(!p.phaseUsed&&p.phaseRemaining>0&&canPhase){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
     else if(p.bounces<(weapon.maxBounces||3)&&(reflective||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
      const restitution=weapon.restitution||.9,dot=p.vx*solid.nx+p.vy*solid.ny;p.vx=(p.vx-2*dot*solid.nx)*restitution;p.vy=(p.vy-2*dot*solid.ny)*restitution;
@@ -182,10 +188,11 @@ function simulate(s,side,angle,power,options={}){
  // Aggregate once per attack; no part/body double counting, no multi-bullet overkill bonus.
  const cap=weapon.damageCap?(s.spec.boss?weapon.bossDamageCap||weapon.damageCap:weapon.damageCap):s.spec.boss?2:events.some(e=>e.type==='critical')?1.875:1.25;
  damage[1]=Math.min(side===1?1:cap,damage[1]);damage[0]=Math.min(1,damage[0]);
+ const guarded=side===1&&!!s.guardActive;if(guarded)damage[0]*=.5;
  if(weapon.damageCap)for(const id of Object.keys(partDamage))partDamage[id]=Math.min(cap,partDamage[id]);
  const duration=Math.max(...bullets.map(b=>b.t),.01);
  events.sort((a,b)=>a.t-b.t);
- return {destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1};
+ return {destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
 const api={simulate,inRegion,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
 })(globalThis);

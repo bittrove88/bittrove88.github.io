@@ -13,9 +13,9 @@ for ref in re.findall(r'(?:src|href)="([^"]+)"',html):
  assert not ref.startswith(('https://','http://')), 'Standalone files must use local assets'
  assert (ROOT/'dist'/ref.split('?',1)[0]).is_file(),ref
 assert not re.search(r'<script[^>]+src=[\"\']https?://',html)
-assert html.index('src="combat.js')<html.index('src="weapons.js')<html.index('src="physics.js')<html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
-manifest={'implementation':'0.8.0','design':'4.1 campaign; ten machine combat profiles; unlimited normal and three specials per stage; matte machines; dotted forecasts; charge cancel; chapter checkpoints','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
-zip_path=out/'ARCLINE_0.8.0_Playables.zip'
+assert html.index('src="combat.js')<html.index('src="skills.js')<html.index('src="weapons.js')<html.index('src="physics.js')<html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
+manifest={'implementation':'0.9.0','design':'4.1 campaign; ten machine combat profiles; three early skills and16 supply boxes in stages1-20; schema4; midpoint rewards; dotted forecasts; chapter checkpoints','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
+zip_path=out/'ARCLINE_0.9.0_Playables.zip'
 with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
  for f in files:
   info=zipfile.ZipInfo(f.name,date_time=(2026,10,31,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
