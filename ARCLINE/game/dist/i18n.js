@@ -74,6 +74,7 @@ Object.assign(dictionary,{
  'Repair restores 30 HP and uses one action.':'修理はHP30回復。同時に1行動を使う','The rival acts after the repair.':'修理の後は相手の番になる',
  'ONE MORE PIECE':'もう1片を破壊','HP +30':'HP +30','RIVAL RESPONSE':'相手の反撃','REPAIR':'応急修理','Repair now':'修理する','Cancel repair':'キャンセル','Passes through thin breakable cover. Fixed rock stops it.':'薄い破壊材を通過。固定岩盤は通らない。','Aim through thin cracked cover.':'ひびのある薄い遮蔽の向こうを狙う','Full HP':'HP満タン','Not with teleport':'転移には併用不可','Reserved':'予約中','reserved':'予約中','Active':'発動中'
 });
+Object.assign(dictionary,{'Journey records':'旅の記録','Settings':'設定','Lobby menu':'開始メニュー','Close settings':'設定を閉じる','Preferences':'設定','How to play':'操作・道具','Settings category':'設定の項目','Language':'言語','Display':'画面表示','Switch sides':'左右を切り替え','Move and aim on the left':'移動・照準は左側','Move and aim on the right':'移動・照準は右側','Close journey records':'旅の記録を閉じる','Record category':'記録の種類','The journey':'旅の記録','The machines':'機体の記録','Choose record':'記録を選ぶ','Record content':'記録の本文','Unread':'未読','Read their story':'物語を読む'});
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;

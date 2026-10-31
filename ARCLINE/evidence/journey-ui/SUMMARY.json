@@ -1,0 +1,117 @@
+{
+  "status": "LOCAL_QA_PASS",
+  "implementation": "0.10.0",
+  "baseline": "3c49ef94b77f245a02de534d4371b7a62556273b",
+  "suites": [
+    {
+      "suite": "JOURNAL",
+      "status": "PASS",
+      "checks": 5384
+    },
+    {
+      "suite": "JOURNAL_BROWSER",
+      "status": "PASS",
+      "checks": 431
+    },
+    {
+      "suite": "EARLY_SKILLS",
+      "status": "PASS",
+      "checks": 1556
+    },
+    {
+      "suite": "CHAPTER_STOCK",
+      "status": "PASS",
+      "checks": 129
+    },
+    {
+      "suite": "MACHINE_COMBAT",
+      "status": "PASS",
+      "checks": 4152
+    },
+    {
+      "suite": "MACHINE_PREVIEWS",
+      "status": "PASS",
+      "checks": 1340
+    },
+    {
+      "suite": "INTEGRATED",
+      "status": "PASS",
+      "checks": 598
+    },
+    {
+      "suite": "AIM_GUIDE",
+      "status": "PASS",
+      "checks": 1001
+    },
+    {
+      "suite": "FULLSCREEN",
+      "status": "PASS",
+      "checks": 13
+    },
+    {
+      "suite": "ORIENTATION_I18N",
+      "status": "PASS",
+      "checks": 57
+    },
+    {
+      "suite": "CHARGE_PAUSE",
+      "status": "PASS",
+      "checks": 245
+    },
+    {
+      "suite": "DIFFICULTY_BROWSER",
+      "status": "PASS",
+      "checks": 154
+    },
+    {
+      "suite": "EARLY_SKILLS_BROWSER",
+      "status": "PASS",
+      "checks": 379
+    },
+    {
+      "suite": "MACHINE_COMBAT_BROWSER",
+      "status": "PASS",
+      "checks": 1744
+    },
+    {
+      "suite": "CHARACTERS",
+      "status": "PASS",
+      "checks": 3338
+    },
+    {
+      "suite": "BROWSER",
+      "status": "PASS",
+      "checks": 3267
+    },
+    {
+      "suite": "VIEWPORT",
+      "status": "PASS",
+      "checks": 179
+    },
+    {
+      "suite": "MACHINE_WORKER",
+      "status": "PASS",
+      "checks": 46
+    },
+    {
+      "suite": "SERVICE_SITE",
+      "status": "PASS",
+      "checks": 229
+    }
+  ],
+  "assertionCount": 24242,
+  "storyRecords": 57,
+  "playerStories": 10,
+  "chapters": 10,
+  "acts": 5,
+  "preservedModules": 16,
+  "distributionFiles": 27,
+  "scope": "Optional bilingual journey/player records,lobby settings and guide,chapter reflection text,profile preferences/read-state persistence and schema5 migration. No enemy,boss,map,gimmick,weapon,skill or effect redesign.",
+  "limits": [
+    "Actual Chromium and emulated touch; physical iPhone/Android and human difficulty unverified.",
+    "Chapter/finale browser wins use controlled enemy HP to test UI and atomic saving,not full-HP combat completion.",
+    "SDK profile scenarios use a mocked adapter,not YouTube certification.",
+    "Existing0.9.0 full battles and old evidence are historical and not counted as newly executed.",
+    "Historical floor-only render-boundary failure remains excluded."
+  ]
+}
