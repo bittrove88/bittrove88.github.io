@@ -205,7 +205,13 @@ const bodies={gun:gunBody,ban:banBody,hibari:hibariBody,hana:hanaBody,rin:rinBod
 // Reuse stationary vector bodies. Small, bounded, in-memory canvases avoid
 // redrawing every tread and bolt during the player's aiming time.
 const bodyCache=new Map(),bodyBox={x:-94,y:-126,w:188,h:132};
-function body(ctx,c,phase){
+function presentationBrush(ctx,c,options){
+ if(options?.artStyle==='matte'&&root.ArcVisualStyle)return root.ArcVisualStyle.brush(ctx,c,options);
+ return brush(ctx,c);
+}
+function body(ctx,c,phase,options){
+ // The sample opts in; the default production cache and drawing stay intact.
+ if(options?.artStyle==='matte'&&root.ArcVisualStyle){bodies[c.id](presentationBrush(ctx,c,options),c,phase);return;}
  if(!root.OffscreenCanvas&&!root.document){bodies[c.id](brush(ctx,c),c,phase);return;}
  const m=ctx.getTransform(),pixels=Math.hypot(m.a,m.b),density=pixels>2?4:pixels>1?2:1;
  const key=c.id+':'+phase.toFixed(4)+':'+density;
@@ -262,8 +268,8 @@ function draw(ctx,id,options={}){
  const muzzle=options.muzzle||pose(options),phase=travel*.13;
  ctx.save();ctx.globalAlpha*=alpha*(disabled?.65:1);ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowBlur=0;
  if(disabled)ctx.filter='grayscale(1)';
- ctx.save();ctx.translate(x-dir*kick+hit,y+(disabled?3:0));ctx.rotate(slope+(disabled?dir*.07:0));ctx.scale(dir*UNIT,UNIT);body(ctx,c,phase);ctx.restore();
- ctx.save();ctx.translate(muzzle.pivot.x,muzzle.pivot.y);ctx.rotate(muzzle.theta);ctx.scale(UNIT,dir*UNIT);weapon(ctx,brush(ctx,c),c);ctx.restore();
+ ctx.save();ctx.translate(x-dir*kick+hit,y+(disabled?3:0));ctx.rotate(slope+(disabled?dir*.07:0));ctx.scale(dir*UNIT,UNIT);body(ctx,c,phase,options);ctx.restore();
+ ctx.save();ctx.translate(muzzle.pivot.x,muzzle.pivot.y);ctx.rotate(muzzle.theta);ctx.scale(UNIT,dir*UNIT);weapon(ctx,presentationBrush(ctx,c,options),c);ctx.restore();
  ctx.restore();return {id:c.id,muzzle:{x:muzzle.x,y:muzzle.y},pivot:{...muzzle.pivot}};
 }
 function paint(canvas,id,options={}){
