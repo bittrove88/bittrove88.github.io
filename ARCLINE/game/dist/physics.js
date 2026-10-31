@@ -8,13 +8,17 @@ function hitTargets(s,side,a,b,age,weapon){
  let best=null;
  function test(c,r,kind,unit,part=-1){const t=G.circle(a,b,c,r);if(t!==null&&(!best||t<best.t))best={t,x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,kind,unit,part};}
  for(let j=0;j<2;j++){
-  if(j===side&&age<.22)continue;const u=s.units[j];if(j===1&&s.spec.boss){
-   const exposed=u.exposed>0||s.spec.id===100&&s.bossPhase===2;
-   const broken=u.parts.filter(p=>p.hp<=0).length,wide=exposed?44:broken?38:26;
-   test({x:u.x+(u.facingCore||0)*20,y:u.y-77},wide,'weak',j);
-   if(broken>0||exposed)test({x:u.x-35,y:u.y-42},wide,'weak',j);
-   u.parts.forEach((p,i)=>{if(p.hp>0)test({x:u.x+p.dx,y:u.y+p.dy},p.radius,'part',j,i);});
-   test({x:u.x,y:u.y-38},58,'body',j);
+  if(j===side&&age<.22)continue;const u=s.units[j];if(j===1&&(s.spec.boss||s.spec.midboss)){
+   const exposed=u.exposed>0||s.spec.id===100&&s.bossPhase===2,dir=s.units[0].x>=u.x?1:-1,core=u.core||{x:0,y:-77,radius:26,exposedRadius:38},parts=G.actorParts(s,j),broken=parts.some(p=>p.hp<=0);
+   parts.forEach((p,i)=>{if(p.hp>0)test({x:u.x+p.dx,y:u.y+p.dy},p.radius,'part',j,i);});
+   if(!s.spec.midboss||broken||exposed)test(G.actorPoint(s,j,core.x,core.y),exposed?core.exposedRadius:core.radius+(broken?3:0),'weak',j);
+   const h=u.hitShape||{x:0,y:-38,rx:58,ry:58},center=G.actorPoint(s,j,h.x,h.y),slope=u.slope||0,local=p=>({x:((p.x-center.x)*Math.cos(slope)+(p.y-center.y)*Math.sin(slope))/h.rx,y:(-(p.x-center.x)*Math.sin(slope)+(p.y-center.y)*Math.cos(slope))/h.ry}),t=G.circle(local(a),local(b),{x:0,y:0},1);
+   // Visible internal parts and the core remain hittable through the broad chassis
+   // envelope. The projectile still reaches the exact circular target; external
+   // terrain and intact outer parts retain their earlier swept contacts.
+   const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy)||1,reach=Math.max(h.rx,h.ry)*4,ray={x:a.x+dx/length*reach,y:a.y+dy/length*reach};
+   const aperture=parts.some(p=>p.hp>0&&G.circle(a,ray,{x:u.x+p.dx,y:u.y+p.dy},p.radius)!==null)||(!s.spec.midboss||broken||exposed)&&G.circle(a,ray,G.actorPoint(s,j,core.x,core.y),exposed?core.exposedRadius:core.radius+(broken?3:0))!==null;
+   if(t!==null&&!aperture&&(!best||t<best.t))best={t,x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,kind:'body',unit:j,part:-1};
   }else {const before=best;test({x:u.x,y:u.y-22},weapon.needle?25:31,'body',j);if(best!==before&&best?.unit===j&&side===0&&j===1&&!weapon.teleport&&(weapon.criticalMultiplier??1.5)>1){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy),cx=u.x-a.x,cy=u.y-22-a.y;best.critical=len>0&&Math.abs(cx*dy-cy*dx)/len<=15&&(cx*dx+cy*dy)>=0;}}
 
  }
@@ -53,7 +57,7 @@ function simulate(s,side,angle,power,options={}){
  else if(weapon.twin){queue.push(newBullet(-3,0,damageBudget/2));queue.push(newBullet(3,.25,damageBudget/2,false));}
  else queue.push(newBullet());
  if(curve)events.push({type:'curve',x:origin.x,y:origin.y,t:startDelay,bullet:0});
- const centerOf=j=>({x:units[j].x,y:units[j].y-(j===1&&s.spec.boss?38:22)});
+ const centerOf=j=>({x:units[j].x,y:units[j].y+(j===1&&units[j].hitShape?units[j].hitShape.y:-22)});
  function clearTo(point,target,solidId=null){const h=G.sweep(simWorld,point,target);return !h||h.t>.98||solidId&&h.solid.id===solidId;}
  function forward(point,target){const dx=(target.x-point.x)*(origin.dir||Math.sign(Math.cos(origin.theta))||1),dy=target.y-point.y;return dx>=-1e-7&&Math.hypot(dx,dy)<=weapon.coneLength&&Math.abs(Math.atan2(dy,Math.max(0,dx)))<=weapon.coneAngle*Math.PI/180;}
  function breakPieces(p,contact,blast){
@@ -77,9 +81,9 @@ function simulate(s,side,angle,power,options={}){
   for(let j=0;j<2;j++){
    const u=units[j],center=centerOf(j),d=Math.hypot(p.x-center.x,p.y-center.y);
    let value=0;
-   if(hit?.unit===j)value=p.budget*(hit.kind==='weak'?2:hit.critical?(weapon.criticalMultiplier??1.5):1);
-   else if(weapon.coneLength){if(forward(p,center)&&clearTo({x:p.x,y:p.y-2},center))value=p.budget;}
-   else if(d<blast+ (j===1&&s.spec.boss?35:12)&&G.lineClear(simWorld,{x:p.x,y:p.y-2},center))value=p.budget*(weapon.special&&d<blast*.7||skill==='BURST'&&d<blast*.7?1:.5);
+   if(hit?.unit===j)value=p.budget*(hit.kind==='weak'?(u.core?.multiplier||2):hit.critical?(weapon.criticalMultiplier??1.5):1);
+   else if(weapon.coneLength){if(forward(p,center)&&clearTo({x:p.x,y:p.y-2},center))value=p.budget*(.35+.65*Math.max(0,1-d/weapon.coneLength));}
+   else if(d<blast+(j===1&&s.spec.boss?35:12)&&G.lineClear(simWorld,{x:p.x,y:p.y-2},center))value=p.budget*(weapon.special?Math.max(.2,1-d/Math.max(1,blast+12))*.85:skill==='BURST'&&d<blast*.7?1:.5);
    if(weapon.pullToImpact&&d<=weapon.compressionRadius&&value>0)value+=weapon.compressionBonus;
    if(weapon.wave&&waves.some(path=>path.some(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25)))value=Math.max(value,p.budget);
    damage[j]+=value;

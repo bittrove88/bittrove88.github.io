@@ -1,0 +1,1299 @@
+{
+  "revision": "4.2",
+  "enemies": [
+    {
+      "id": "enemy:pebble",
+      "key": "pebble",
+      "name": "ペブル",
+      "nameEn": "PEBBLE",
+      "kind": "normal",
+      "color": "#c7b58d",
+      "attack": {},
+      "errorAngle": 12,
+      "errorPower": 20,
+      "move": 0,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "巡回車"
+    },
+    {
+      "id": "enemy:slate",
+      "key": "slate",
+      "name": "スレート",
+      "nameEn": "SLATE",
+      "kind": "normal",
+      "color": "#8c969d",
+      "attack": {
+        "minAngle": -8,
+        "maxAngle": 38
+      },
+      "errorAngle": 11,
+      "errorPower": 18,
+      "move": 25,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "整地車"
+    },
+    {
+      "id": "enemy:spike",
+      "key": "spike",
+      "name": "スパイク",
+      "nameEn": "SPIKE",
+      "kind": "normal",
+      "color": "#ad6554",
+      "attack": {
+        "minAngle": 50,
+        "maxAngle": 84
+      },
+      "errorAngle": 10,
+      "errorPower": 18,
+      "move": 0,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "高角砲車"
+    },
+    {
+      "id": "enemy:flint",
+      "key": "flint",
+      "name": "フリント",
+      "nameEn": "FLINT",
+      "kind": "normal",
+      "color": "#829064",
+      "attack": {
+        "weaponId": "W14",
+        "minAngle": -8,
+        "maxAngle": 30
+      },
+      "errorAngle": 9,
+      "errorPower": 17,
+      "move": 18,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "狙撃車"
+    },
+    {
+      "id": "enemy:mole",
+      "key": "mole",
+      "name": "モール",
+      "nameEn": "MOLE",
+      "kind": "normal",
+      "color": "#c6994b",
+      "attack": {
+        "weaponId": "W13",
+        "minAngle": -8,
+        "maxAngle": 65
+      },
+      "errorAngle": 10,
+      "errorPower": 18,
+      "move": 20,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "掘削車"
+    },
+    {
+      "id": "enemy:riff",
+      "key": "riff",
+      "name": "リフ",
+      "nameEn": "RIFF",
+      "kind": "normal",
+      "color": "#688998",
+      "attack": {
+        "weaponId": "W06",
+        "requireEvent": "bounce",
+        "minAngle": -8,
+        "maxAngle": 68
+      },
+      "errorAngle": 10,
+      "errorPower": 17,
+      "move": 15,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "光学車"
+    },
+    {
+      "id": "enemy:gust",
+      "key": "gust",
+      "name": "ガスト",
+      "nameEn": "GUST",
+      "kind": "normal",
+      "color": "#629ba7",
+      "attack": {
+        "weaponId": "W09",
+        "minAngle": 20,
+        "maxAngle": 72
+      },
+      "errorAngle": 11,
+      "errorPower": 18,
+      "move": 24,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "風を読む車"
+    },
+    {
+      "id": "enemy:pole",
+      "key": "pole",
+      "name": "ポール",
+      "nameEn": "POLE",
+      "kind": "normal",
+      "color": "#ba954c",
+      "attack": {
+        "curve": -0.55,
+        "minAngle": 12,
+        "maxAngle": 66
+      },
+      "errorAngle": 10,
+      "errorPower": 17,
+      "move": 15,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "磁気車"
+    },
+    {
+      "id": "enemy:hang",
+      "key": "hang",
+      "name": "ハング",
+      "nameEn": "HANG",
+      "kind": "normal",
+      "color": "#8c829f",
+      "attack": {
+        "weaponId": "W04",
+        "minAngle": 48,
+        "maxAngle": 84
+      },
+      "errorAngle": 10,
+      "errorPower": 19,
+      "move": 0,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "橋梁作業車"
+    },
+    {
+      "id": "enemy:mist",
+      "key": "mist",
+      "name": "ミスト",
+      "nameEn": "MIST",
+      "kind": "normal",
+      "color": "#9b95af",
+      "attack": {
+        "weaponId": "W12",
+        "minAngle": 16,
+        "maxAngle": 72
+      },
+      "errorAngle": 11,
+      "errorPower": 19,
+      "move": 25,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "霧の観測車"
+    },
+    {
+      "id": "enemy:volt",
+      "key": "volt",
+      "name": "ヴォルト",
+      "nameEn": "VOLT",
+      "kind": "normal",
+      "color": "#b6a26a",
+      "attack": {
+        "weaponId": "W11",
+        "minAngle": 12,
+        "maxAngle": 76
+      },
+      "errorAngle": 11,
+      "errorPower": 18,
+      "move": 25,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "整備車"
+    },
+    {
+      "id": "enemy:blast",
+      "key": "blast",
+      "name": "ブラスト",
+      "nameEn": "BLAST",
+      "kind": "normal",
+      "color": "#c27549",
+      "attack": {
+        "weaponId": "W02",
+        "minAngle": 18,
+        "maxAngle": 72
+      },
+      "errorAngle": 12,
+      "errorPower": 21,
+      "move": 12,
+      "body": {
+        "x": 0,
+        "y": -22,
+        "rx": 31,
+        "ry": 29
+      },
+      "muzzle": {
+        "x": 0,
+        "y": -26,
+        "length": 35
+      },
+      "feature": "搬送・爆破車"
+    }
+  ],
+  "midbosses": [
+    {
+      "id": "midboss:harbor-knot",
+      "key": "harbor-knot",
+      "name": "ハーバー・ノット",
+      "nameEn": "Harbor Knot",
+      "kind": "midboss",
+      "stage": 5,
+      "hp": 4.0,
+      "color": "#32778b",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 24,
+        "y": -35,
+        "radius": 18,
+        "exposedRadius": 22,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "巻上げドラム",
+          "hp": 1.2,
+          "dx": 24,
+          "dy": -35,
+          "radius": 18
+        }
+      ],
+      "muzzle": {
+        "x": 34,
+        "y": -72,
+        "length": 8
+      },
+      "attacks": [
+        "LOW",
+        "ARC",
+        "LOW"
+      ],
+      "feature": "巻上げドラムを狙うと攻撃が弱まる",
+      "featureEn": "Break the winch drum to weaken attacks."
+    },
+    {
+      "id": "midboss:bridge-mender",
+      "key": "bridge-mender",
+      "name": "ブリッジ・メンダー",
+      "nameEn": "Bridge Mender",
+      "kind": "midboss",
+      "stage": 15,
+      "hp": 4.5,
+      "color": "#c19d4a",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 8,
+        "y": -60,
+        "radius": 18,
+        "exposedRadius": 22,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "補修フレーム",
+          "hp": 1.2,
+          "dx": 8,
+          "dy": -60,
+          "radius": 18
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "LOW",
+        "TWIN",
+        "ARC"
+      ],
+      "feature": "補修フレームを狙うと攻撃が弱まる",
+      "featureEn": "Break the repair frame to weaken attacks."
+    },
+    {
+      "id": "midboss:mist-bell",
+      "key": "mist-bell",
+      "name": "ミスト・ベル",
+      "nameEn": "Mist Bell",
+      "kind": "midboss",
+      "stage": 25,
+      "hp": 5.0,
+      "color": "#9293ad",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 26,
+        "y": -42,
+        "radius": 20,
+        "exposedRadius": 24,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "送信ホーン",
+          "hp": 1.2,
+          "dx": 26,
+          "dy": -42,
+          "radius": 20
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "FAN",
+        "ARC",
+        "LOW"
+      ],
+      "feature": "送信ホーンを狙うと攻撃が弱まる",
+      "featureEn": "Break the signal horn to weaken attacks."
+    },
+    {
+      "id": "midboss:reflect-ram",
+      "key": "reflect-ram",
+      "name": "リフレクト・ラム",
+      "nameEn": "Reflect Ram",
+      "kind": "midboss",
+      "stage": 35,
+      "hp": 5.5,
+      "color": "#a2a0ad",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 12,
+        "y": -64,
+        "radius": 25,
+        "exposedRadius": 29,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "反射フレーム",
+          "hp": 1.2,
+          "dx": 12,
+          "dy": -64,
+          "radius": 25
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "REFLECT",
+        "LOW",
+        "ARC"
+      ],
+      "feature": "反射フレームを狙うと攻撃が弱まる",
+      "featureEn": "Break the reflector frame to weaken attacks."
+    },
+    {
+      "id": "midboss:lift-mole",
+      "key": "lift-mole",
+      "name": "リフト・モール",
+      "nameEn": "Lift Mole",
+      "kind": "midboss",
+      "stage": 45,
+      "hp": 6.0,
+      "color": "#60877b",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 2,
+        "y": -60,
+        "radius": 17,
+        "exposedRadius": 21,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "昇降ドライブ",
+          "hp": 1.2,
+          "dx": 2,
+          "dy": -60,
+          "radius": 17
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "ARC",
+        "LOW",
+        "TWIN"
+      ],
+      "feature": "昇降ドライブを狙うと攻撃が弱まる",
+      "featureEn": "Break the lift drive to weaken attacks."
+    },
+    {
+      "id": "midboss:gale-scout",
+      "key": "gale-scout",
+      "name": "ゲイル・スカウト",
+      "nameEn": "Gale Scout",
+      "kind": "midboss",
+      "stage": 55,
+      "hp": 6.5,
+      "color": "#6d9290",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": -22,
+        "y": -79,
+        "radius": 16,
+        "exposedRadius": 20,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "観測センサー",
+          "hp": 1.5,
+          "dx": -22,
+          "dy": -79,
+          "radius": 16
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "CURVE",
+        "ARC",
+        "LOW"
+      ],
+      "feature": "観測センサーを狙うと攻撃が弱まる",
+      "featureEn": "Break the weather sensor to weaken attacks."
+    },
+    {
+      "id": "midboss:cinder-chef",
+      "key": "cinder-chef",
+      "name": "シンダー・シェフ",
+      "nameEn": "Cinder Chef",
+      "kind": "midboss",
+      "stage": 65,
+      "hp": 7.0,
+      "color": "#cb784e",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 19,
+        "y": -84,
+        "radius": 16,
+        "exposedRadius": 20,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "圧力バルブ",
+          "hp": 1.5,
+          "dx": 19,
+          "dy": -84,
+          "radius": 16
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "PREPARE",
+        "LOW",
+        "ARC"
+      ],
+      "feature": "圧力バルブを狙うと攻撃が弱まる",
+      "featureEn": "Break the pressure valve to weaken attacks."
+    },
+    {
+      "id": "midboss:ore-shepherd",
+      "key": "ore-shepherd",
+      "name": "オア・シェパード",
+      "nameEn": "Ore Shepherd",
+      "kind": "midboss",
+      "stage": 75,
+      "hp": 7.0,
+      "color": "#ae985c",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 34,
+        "y": -40,
+        "radius": 18,
+        "exposedRadius": 22,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "マグネットアーム",
+          "hp": 1.5,
+          "dx": 34,
+          "dy": -40,
+          "radius": 18
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "CURVE",
+        "TWIN",
+        "LOW"
+      ],
+      "feature": "マグネットアームを狙うと攻撃が弱まる",
+      "featureEn": "Break the magnet arm to weaken attacks."
+    },
+    {
+      "id": "midboss:bloom-tender",
+      "key": "bloom-tender",
+      "name": "ブルーム・テンダー",
+      "nameEn": "Bloom Tender",
+      "kind": "midboss",
+      "stage": 85,
+      "hp": 7.0,
+      "color": "#4b9e8e",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 38,
+        "y": -53,
+        "radius": 16,
+        "exposedRadius": 20,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "給水ユニット",
+          "hp": 1.5,
+          "dx": 38,
+          "dy": -53,
+          "radius": 16
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "ARC",
+        "FAN",
+        "LOW"
+      ],
+      "feature": "給水ユニットを狙うと攻撃が弱まる",
+      "featureEn": "Break the watering unit to weaken attacks."
+    },
+    {
+      "id": "midboss:line-warden",
+      "key": "line-warden",
+      "name": "ライン・ワーデン",
+      "nameEn": "Line Warden",
+      "kind": "midboss",
+      "stage": 95,
+      "hp": 7.0,
+      "color": "#657887",
+      "body": {
+        "x": 0,
+        "y": -24,
+        "rx": 35,
+        "ry": 26
+      },
+      "core": {
+        "x": 0,
+        "y": -53,
+        "radius": 19,
+        "exposedRadius": 23,
+        "multiplier": 1.5
+      },
+      "parts": [
+        {
+          "name": "シールドドライブ",
+          "hp": 1.5,
+          "dx": 0,
+          "dy": -53,
+          "radius": 19
+        }
+      ],
+      "muzzle": {
+        "x": 14,
+        "y": -38,
+        "length": 30
+      },
+      "attacks": [
+        "LOW",
+        "MARK",
+        "TWIN"
+      ],
+      "feature": "シールドドライブを狙うと攻撃が弱まる",
+      "featureEn": "Break the shield drive to weaken attacks."
+    }
+  ],
+  "bosses": [
+    {
+      "id": "boss:tideclaw",
+      "key": "tideclaw",
+      "name": "タイドクロー",
+      "nameEn": "Tideclaw",
+      "kind": "boss",
+      "stage": 10,
+      "hp": 10,
+      "color": "#438da5",
+      "body": {
+        "x": 0,
+        "y": -32,
+        "rx": 60,
+        "ry": 32
+      },
+      "core": {
+        "x": 0,
+        "y": -58,
+        "radius": 23,
+        "exposedRadius": 33,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "CLAW",
+          "hp": 1,
+          "dx": 52,
+          "dy": -29,
+          "radius": 23
+        },
+        {
+          "name": "SHELL",
+          "hp": 2,
+          "dx": -26,
+          "dy": -55,
+          "radius": 22
+        }
+      ],
+      "muzzle": {
+        "x": 20,
+        "y": -42,
+        "length": 32
+      },
+      "attacks": [
+        "LOW",
+        "DROP",
+        "ARC"
+      ],
+      "feature": "爪と装甲を崩し、港への道を開く",
+      "featureEn": "Break the claw and shell to open the harbour."
+    },
+    {
+      "id": "boss:gatekeeper",
+      "key": "gatekeeper",
+      "name": "ゲートキーパー",
+      "nameEn": "Gatekeeper",
+      "kind": "boss",
+      "stage": 20,
+      "hp": 10,
+      "color": "#b6a574",
+      "body": {
+        "x": 0,
+        "y": -35,
+        "rx": 60,
+        "ry": 35
+      },
+      "core": {
+        "x": 0,
+        "y": -44,
+        "radius": 23,
+        "exposedRadius": 33,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "LOW GUN",
+          "hp": 2,
+          "dx": 24,
+          "dy": -57,
+          "radius": 22
+        },
+        {
+          "name": "HIGH GUN",
+          "hp": 2,
+          "dx": -19,
+          "dy": -77,
+          "radius": 22
+        }
+      ],
+      "muzzle": {
+        "x": 20,
+        "y": -42,
+        "length": 32
+      },
+      "attacks": [
+        "LOW",
+        "DROP",
+        "MARK"
+      ],
+      "feature": "二つの砲を止めて門を開く",
+      "featureEn": "Disable the two cannons to open the gate."
+    },
+    {
+      "id": "boss:cloudray",
+      "key": "cloudray",
+      "name": "クラウドレイ",
+      "nameEn": "Cloudray",
+      "kind": "boss",
+      "stage": 30,
+      "hp": 10,
+      "color": "#4499b9",
+      "body": {
+        "x": 0,
+        "y": -44,
+        "rx": 83,
+        "ry": 26
+      },
+      "core": {
+        "x": 0,
+        "y": -54,
+        "radius": 23,
+        "exposedRadius": 33,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "LEFT WING",
+          "hp": 2,
+          "dx": 60,
+          "dy": -47,
+          "radius": 24
+        },
+        {
+          "name": "RIGHT WING",
+          "hp": 2,
+          "dx": -60,
+          "dy": -47,
+          "radius": 24
+        }
+      ],
+      "muzzle": {
+        "x": 0,
+        "y": -54,
+        "length": 38
+      },
+      "attacks": [
+        "ARC",
+        "TRIPLE",
+        "FAN"
+      ],
+      "feature": "翼を止めると雲の通り道が変わる",
+      "featureEn": "Broken wings change the cloud route."
+    },
+    {
+      "id": "boss:prism-guardian",
+      "key": "prism-guardian",
+      "name": "プリズム・ガーディアン",
+      "nameEn": "Prism Guardian",
+      "kind": "boss",
+      "stage": 40,
+      "hp": 10,
+      "color": "#ad9bad",
+      "body": {
+        "x": 0,
+        "y": -43,
+        "rx": 57,
+        "ry": 42
+      },
+      "core": {
+        "x": 0,
+        "y": -64,
+        "radius": 24,
+        "exposedRadius": 34,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "LEFT RIM",
+          "hp": 2,
+          "dx": 39,
+          "dy": -66,
+          "radius": 22
+        },
+        {
+          "name": "RIGHT RIM",
+          "hp": 2,
+          "dx": -39,
+          "dy": -66,
+          "radius": 22
+        }
+      ],
+      "muzzle": {
+        "x": 20,
+        "y": -42,
+        "length": 32
+      },
+      "attacks": [
+        "LOW",
+        "REFLECT",
+        "DROP"
+      ],
+      "feature": "鏡面の枠を壊して核を狙う",
+      "featureEn": "Break the mirror rims to expose the core."
+    },
+    {
+      "id": "boss:dust-driller",
+      "key": "dust-driller",
+      "name": "ダスト・ドリラー",
+      "nameEn": "Dust Driller",
+      "kind": "boss",
+      "stage": 50,
+      "hp": 10,
+      "color": "#d4964d",
+      "body": {
+        "x": 0,
+        "y": -32,
+        "rx": 64,
+        "ry": 30
+      },
+      "core": {
+        "x": 0,
+        "y": -44,
+        "radius": 23,
+        "exposedRadius": 33,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "DRILL",
+          "hp": 2,
+          "dx": 60,
+          "dy": -35,
+          "radius": 25
+        },
+        {
+          "name": "EXHAUST",
+          "hp": 2,
+          "dx": -31,
+          "dy": -60,
+          "radius": 20
+        }
+      ],
+      "muzzle": {
+        "x": 20,
+        "y": -42,
+        "length": 32
+      },
+      "attacks": [
+        "LOW",
+        "TRIPLE",
+        "ARC"
+      ],
+      "feature": "ドリルを止めると核を狙いやすくなる",
+      "featureEn": "Stop the drill and expose the core."
+    },
+    {
+      "id": "boss:whitehowl",
+      "key": "whitehowl",
+      "name": "ホワイトハウル",
+      "nameEn": "Whitehowl",
+      "kind": "boss",
+      "stage": 60,
+      "hp": 10,
+      "color": "#7fa2ac",
+      "body": {
+        "x": 0,
+        "y": -33,
+        "rx": 66,
+        "ry": 32
+      },
+      "core": {
+        "x": 0,
+        "y": -43,
+        "radius": 22,
+        "exposedRadius": 32,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "FAN A",
+          "hp": 2,
+          "dx": 43,
+          "dy": -56,
+          "radius": 23
+        },
+        {
+          "name": "FAN B",
+          "hp": 2,
+          "dx": -43,
+          "dy": -56,
+          "radius": 23
+        }
+      ],
+      "muzzle": {
+        "x": 20,
+        "y": -42,
+        "length": 32
+      },
+      "attacks": [
+        "TWIN",
+        "ARC",
+        "LOW"
+      ],
+      "feature": "送風機を止めると風が弱まる",
+      "featureEn": "Disable the fans to weaken the wind."
+    },
+    {
+      "id": "boss:forge-titan",
+      "key": "forge-titan",
+      "name": "フォージ・タイタン",
+      "nameEn": "Forge Titan",
+      "kind": "boss",
+      "stage": 70,
+      "hp": 10,
+      "color": "#c66a3e",
+      "body": {
+        "x": 0,
+        "y": -40,
+        "rx": 55,
+        "ry": 40
+      },
+      "core": {
+        "x": 0,
+        "y": -58,
+        "radius": 23,
+        "exposedRadius": 33,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "ARM A",
+          "hp": 2,
+          "dx": 44,
+          "dy": -38,
+          "radius": 23
+        },
+        {
+          "name": "ARM B",
+          "hp": 2,
+          "dx": -44,
+          "dy": -38,
+          "radius": 23
+        }
+      ],
+      "muzzle": {
+        "x": 20,
+        "y": -42,
+        "length": 32
+      },
+      "attacks": [
+        "ARC",
+        "PREPARE",
+        "DROP",
+        "LOW"
+      ],
+      "feature": "腕を止め、加熱の予告を避ける",
+      "featureEn": "Stop the arms and avoid the heat warning."
+    },
+    {
+      "id": "boss:polaris-core",
+      "key": "polaris-core",
+      "name": "ポラリス・コア",
+      "nameEn": "Polaris Core",
+      "kind": "boss",
+      "stage": 80,
+      "hp": 10,
+      "color": "#308eae",
+      "body": {
+        "x": 0,
+        "y": -66,
+        "rx": 48,
+        "ry": 48
+      },
+      "core": {
+        "x": 0,
+        "y": -77,
+        "radius": 23,
+        "exposedRadius": 33,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "GEN A",
+          "hp": 2,
+          "dx": 58,
+          "dy": -30,
+          "radius": 20
+        },
+        {
+          "name": "GEN B",
+          "hp": 2,
+          "dx": -58,
+          "dy": -30,
+          "radius": 20
+        }
+      ],
+      "muzzle": {
+        "x": 0,
+        "y": -77,
+        "length": 25
+      },
+      "attacks": [
+        "CURVE",
+        "TWIN",
+        "ARC"
+      ],
+      "feature": "発生器を止めると磁場が弱まる",
+      "featureEn": "Disable generators to weaken the field."
+    },
+    {
+      "id": "boss:skycarrier",
+      "key": "skycarrier",
+      "name": "スカイキャリア",
+      "nameEn": "Skycarrier",
+      "kind": "boss",
+      "stage": 90,
+      "hp": 10,
+      "color": "#438daa",
+      "body": {
+        "x": 0,
+        "y": -48,
+        "rx": 83,
+        "ry": 27
+      },
+      "core": {
+        "x": 0,
+        "y": -57,
+        "radius": 24,
+        "exposedRadius": 34,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "MAIN GUN",
+          "hp": 2,
+          "dx": 27,
+          "dy": -62,
+          "radius": 22
+        },
+        {
+          "name": "THRUSTER A",
+          "hp": 2,
+          "dx": 49,
+          "dy": -22,
+          "radius": 20
+        },
+        {
+          "name": "THRUSTER B",
+          "hp": 2,
+          "dx": -49,
+          "dy": -22,
+          "radius": 20
+        }
+      ],
+      "muzzle": {
+        "x": 27,
+        "y": -62,
+        "length": 36
+      },
+      "attacks": [
+        "ARC",
+        "TWIN",
+        "TRIPLE"
+      ],
+      "feature": "砲と推進器を止め、空の航路を開く",
+      "featureEn": "Stop cannons and thrusters to open the skyway."
+    },
+    {
+      "id": "boss:archeart",
+      "key": "archeart",
+      "name": "アークハート",
+      "nameEn": "Archeart",
+      "kind": "boss",
+      "stage": 100,
+      "hp": 10,
+      "color": "#a99d73",
+      "body": {
+        "x": 0,
+        "y": -44,
+        "rx": 58,
+        "ry": 44
+      },
+      "core": {
+        "x": 0,
+        "y": -64,
+        "radius": 24,
+        "exposedRadius": 34,
+        "multiplier": 2
+      },
+      "parts": [
+        {
+          "name": "LEFT GATE",
+          "hp": 2,
+          "dx": 44,
+          "dy": -53,
+          "radius": 23
+        },
+        {
+          "name": "RIGHT GATE",
+          "hp": 2,
+          "dx": -44,
+          "dy": -53,
+          "radius": 23
+        }
+      ],
+      "muzzle": {
+        "x": 0,
+        "y": -64,
+        "length": 28
+      },
+      "attacks": [
+        "ARC",
+        "DROP",
+        "LOW"
+      ],
+      "feature": "外殻・内殻・核の3段階を突破",
+      "featureEn": "Break outer shell, inner shell and core."
+    }
+  ],
+  "anchorConvention": "dx is local forward X, dy is local up/down; slope rotation is shared by collision and drawing"
+}

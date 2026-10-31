@@ -1,7 +1,7 @@
 {
-  "version": "1.0",
-  "dateJst": "2026-10-31",
-  "status": "B01_COMPLETE_B02_SAMPLES_READY_FOR_REVIEW",
+  "version": "1.1",
+  "dateJst": "2026-11-01",
+  "status": "IMPLEMENTED_AUTOMATED_QA_PHYSICAL_DEVICES_PENDING",
   "approvedDirection": {
     "status": "APPROVED_BY_USER",
     "record": "直前のユーザー発言「内容問題ありません」",
@@ -242,13 +242,13 @@
       "全42体の同時出現"
     ]
   },
-  "executionBoundary": "B01完了。B02の共通描画・代表3画面を作成し、表現は確認待ち。B03以降の全体展開は未着手。",
+  "executionBoundary": "2026-11-01：ユーザー承認でB03〜B08を一括反映。弾道幅・着弾演出サイズは0.10を保持。実機確認は未実施で、自動確認と区別する。",
   "batches": [
     {
       "id": "B01",
       "title": "基準と接続契約",
       "boundary": "基準保存のみ。ゲーム挙動の変更なし。",
-      "status": "COMPLETED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [],
       "tasks": [
         "T01",
@@ -258,8 +258,8 @@
     {
       "id": "B02",
       "title": "共通描画と代表3画面",
-      "boundary": "3画面の見本確認で区切る。全体展開はここを通過してから。",
-      "status": "IMPLEMENTED_AWAITING_VISUAL_REVIEW",
+      "boundary": "見本の表現は承認済み。今回のユーザー指示で全体へ展開。",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "B01"
       ],
@@ -273,7 +273,7 @@
       "id": "B03",
       "title": "自機10機・通常敵12種の外観",
       "boundary": "通常敵はこの段階では現行AIのまま。",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "B02"
       ],
@@ -286,7 +286,7 @@
       "id": "B04",
       "title": "100面の地形・20テーマ・9ギミック",
       "boundary": "100面の形と攻略を保持した美術反映。",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "B03"
       ],
@@ -301,7 +301,7 @@
       "id": "B05",
       "title": "エフェクト・補給・スキル・プレビュー",
       "boundary": "実イベントと見え方を一致させる。",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "B04"
       ],
@@ -316,7 +316,7 @@
       "id": "B06",
       "title": "大ボス10体の外観と部位",
       "boundary": "部位座標変更は戦闘差分として検証。",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "B05"
       ],
@@ -329,7 +329,7 @@
       "id": "B07",
       "title": "通常敵の個性・中ボス10戦",
       "boundary": "新しい戦闘の導入。外観だけの完了と区別。",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "B06"
       ],
@@ -342,8 +342,8 @@
     {
       "id": "B08",
       "title": "100面統合・実機・配布同期",
-      "boundary": "全ての完了条件を満たした範囲だけ公開。",
-      "status": "PLANNED",
+      "boundary": "実装・自動確認・配布同期を反映。物理端末QAと人の難易度評価は未確認。",
+      "status": "IMPLEMENTED_AUTOMATED_VERIFIED_DEVICE_PENDING",
       "dependsOn": [
         "B07"
       ],
@@ -361,7 +361,7 @@
       "batch": "B01",
       "title": "現行版と比較基準を固定",
       "track": "BASELINE",
-      "status": "COMPLETED_VERIFIED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [],
       "size": "M",
       "files": [
@@ -383,7 +383,7 @@
       "batch": "B01",
       "title": "対象ID・対応表・描画契約を定義",
       "track": "BASELINE",
-      "status": "COMPLETED_VERIFIED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T01"
       ],
@@ -408,7 +408,7 @@
       "batch": "B02",
       "title": "共通スタイルと描画部品を実装",
       "track": "ART",
-      "status": "COMPLETED_VERIFIED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T02"
       ],
@@ -434,7 +434,7 @@
       "batch": "B02",
       "title": "入江の代表画面を作成",
       "track": "ART",
-      "status": "IMPLEMENTED_AWAITING_VISUAL_REVIEW",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T03"
       ],
@@ -459,7 +459,7 @@
       "batch": "B02",
       "title": "洞窟と暗所の代表画面を作成",
       "track": "ART",
-      "status": "IMPLEMENTED_AWAITING_VISUAL_REVIEW",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T04"
       ],
@@ -484,7 +484,7 @@
       "batch": "B03",
       "title": "自機10機の描画を統一",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T05"
       ],
@@ -500,7 +500,7 @@
       "acceptance": [
         "選択画面・ロビー・戦闘・プレビューで同じ個体",
         "砲口が物理のG.muzzleと一致",
-        "10機の性能・通常弾・必殺数値・章在庫が基準と同一"
+        "通常弾・HP・チャージ・移動・章在庫は維持。追加承認A05の必殺バランス変更を別記録"
       ]
     },
     {
@@ -508,7 +508,7 @@
       "batch": "B03",
       "title": "通常敵12種の外観と割当を導入",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T06"
       ],
@@ -534,7 +534,7 @@
       "batch": "B04",
       "title": "有限地形の材質と接触面を統一",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T07"
       ],
@@ -558,7 +558,7 @@
       "batch": "B04",
       "title": "20テーマの環境を描き分け",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T08"
       ],
@@ -582,7 +582,7 @@
       "batch": "B04",
       "title": "W/B/Kの機構と状態を統一",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T09"
       ],
@@ -606,7 +606,7 @@
       "batch": "B04",
       "title": "C/U/F/V/M/Tの作用と状態を統一",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T10"
       ],
@@ -631,7 +631,7 @@
       "batch": "B05",
       "title": "実イベントに同期する共通FXを作成",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T11"
       ],
@@ -655,7 +655,7 @@
       "batch": "B05",
       "title": "通常/補助弾/10必殺を描き分け",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T12"
       ],
@@ -680,7 +680,7 @@
       "batch": "B05",
       "title": "29拾得物とスキルの意味を統一",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T13"
       ],
@@ -706,7 +706,7 @@
       "batch": "B05",
       "title": "プレビューを本番と同じ描画へ接続",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T14"
       ],
@@ -733,7 +733,7 @@
       "batch": "B06",
       "title": "大ボスの部位・砲口・判定を個別定義",
       "track": "COMBAT_CONTRACT",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T15"
       ],
@@ -760,7 +760,7 @@
       "batch": "B06",
       "title": "大ボス10体と破損/露出を完成",
       "track": "ART_AND_CONTRACT",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T16"
       ],
@@ -785,7 +785,7 @@
       "batch": "B07",
       "title": "通常敵12種の戦い方を定義・接続",
       "track": "COMBAT",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T17"
       ],
@@ -815,7 +815,7 @@
       "batch": "B07",
       "title": "中ボス1体を戦闘として導入",
       "track": "COMBAT",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T18"
       ],
@@ -847,7 +847,7 @@
       "batch": "B07",
       "title": "残る9中ボスを15〜95面へ展開",
       "track": "COMBAT",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T19"
       ],
@@ -875,7 +875,7 @@
       "batch": "B08",
       "title": "100面と全機体の統合回帰",
       "track": "VALIDATION",
-      "status": "PLANNED",
+      "status": "AUTOMATED_SCOPED_VERIFIED_ALL_MATCHUPS_PENDING",
       "dependsOn": [
         "T20"
       ],
@@ -892,14 +892,15 @@
         "初期表示テストと実HP攻略を混ぜない",
         "無在庫・有限必殺3・詰み/敵必中を検証",
         "全3難易度、点線、左右、保存、取消、プレビュー、結果を確認"
-      ]
+      ],
+      "validationScope": "1000機体×面の配置・4000軌跡、全守り手のアンカー/露出。全10機×守り手20戦の200勝、通常面80面を交代機体で80勝。全100面を代表する280勝。全1000組×3乱数は未確認。"
     },
     {
       "id": "T22",
       "batch": "B08",
       "title": "スマホ実機と描画負荷を確認",
       "track": "VALIDATION",
-      "status": "PLANNED",
+      "status": "BROWSER_VERIFIED_PHYSICAL_DEVICES_PENDING",
       "dependsOn": [
         "T21"
       ],
@@ -917,14 +918,15 @@
         "568×240でも32px本体/84px主要操作を維持",
         "充填中にズームせず、上射の追従が滑らかに戻る",
         "目標60fps、低負荷時30fps相当の基準は実測まで未合格"
-      ]
+      ],
+      "validationScope": "Chromiumの8サイズ・DPR1/2/3、実タッチの長押し/照準/取消、描画負荷の参考値。iPhone Safari/ホーム画面/Android実機は未確認。"
     },
     {
       "id": "T23",
       "batch": "B08",
       "title": "紹介・確認・配布ファイルを同期",
       "track": "RELEASE",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED",
       "dependsOn": [
         "T22"
       ],
@@ -955,7 +957,7 @@
       "batch": "B08",
       "title": "区切りごとの公開と結果記録",
       "track": "RELEASE",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_VERIFIED_RELEASE_RECORDED_IN_PR",
       "dependsOn": [
         "T23"
       ],
@@ -1384,96 +1386,235 @@
       "name": "ペブル",
       "role": "巡回車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "小さく安定した通常弾。最初の4面は追加能力を使わない。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "小さく安定した通常弾。最初の4面は追加能力を使わない。",
+      "runtime": {
+        "attack": {},
+        "errorAngle": 12,
+        "errorPower": 20,
+        "movement": 0,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "slate",
       "name": "スレート",
       "role": "整地車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "低い射角と事前動作。装甲の絵だけで耐性を追加しない。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "低い射角と事前動作。装甲の絵だけで耐性を追加しない。",
+      "runtime": {
+        "attack": {
+          "minAngle": -8,
+          "maxAngle": 38
+        },
+        "errorAngle": 11,
+        "errorPower": 18,
+        "movement": 25,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "spike",
       "name": "スパイク",
       "role": "高角砲車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "高い弧と長い予告。天井のある面では経路を先に確認。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "高い弧と長い予告。天井のある面では経路を先に確認。",
+      "runtime": {
+        "attack": {
+          "minAngle": 50,
+          "maxAngle": 84
+        },
+        "errorAngle": 10,
+        "errorPower": 18,
+        "movement": 0,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "flint",
       "name": "フリント",
       "role": "狙撃車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "細い射撃と長めの準備。確定命中や発射直前の追尾を避ける。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "細い射撃と長めの準備。確定命中や発射直前の追尾を避ける。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W14",
+          "minAngle": -8,
+          "maxAngle": 30
+        },
+        "errorAngle": 9,
+        "errorPower": 17,
+        "movement": 18,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "mole",
       "name": "モール",
       "role": "掘削車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "破壊材を開く射撃を検討。固定岩・反射装置は貫通させない。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "破壊材を開く射撃を検討。固定岩・反射装置は貫通させない。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W13",
+          "minAngle": -8,
+          "maxAngle": 65
+        },
+        "errorAngle": 10,
+        "errorPower": 18,
+        "movement": 20,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "riff",
       "name": "リフ",
       "role": "光学車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "W/Kのある面で反射射撃を検討。反射経路のない面では使わない。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "W/Kのある面で反射射撃を検討。反射経路のない面では使わない。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W06",
+          "requireEvent": "bounce",
+          "minAngle": -8,
+          "maxAngle": 68
+        },
+        "errorAngle": 10,
+        "errorPower": 17,
+        "movement": 15,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "gust",
       "name": "ガスト",
       "role": "風を読む車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "既存F/Uを利用した弾道。新しい風の発生能力は別機能。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "既存F/Uを利用した弾道。新しい風の発生能力は別機能。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W09",
+          "minAngle": 20,
+          "maxAngle": 72
+        },
+        "errorAngle": 11,
+        "errorPower": 18,
+        "movement": 24,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "pole",
       "name": "ポール",
       "role": "磁気車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "既存Mを利用する曲射。極性と実弾の曲がりを一致させる。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "既存Mを利用する曲射。極性と実弾の曲がりを一致させる。",
+      "runtime": {
+        "attack": {
+          "curve": -0.55,
+          "minAngle": 12,
+          "maxAngle": 66
+        },
+        "errorAngle": 10,
+        "errorPower": 17,
+        "movement": 15,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "hang",
       "name": "ハング",
       "role": "橋梁作業車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "橋の状態に合わせた待機と射撃。無条件の飛行能力は加えない。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "橋の状態に合わせた待機と射撃。無条件の飛行能力は加えない。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W04",
+          "minAngle": 48,
+          "maxAngle": 84
+        },
+        "errorAngle": 10,
+        "errorPower": 19,
+        "movement": 0,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "mist",
       "name": "ミスト",
       "role": "霧の観測車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "Cを利用した射撃。敵だけ透視や必中にはしない。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "Cを利用した射撃。敵だけ透視や必中にはしない。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W12",
+          "minAngle": 16,
+          "maxAngle": 72
+        },
+        "errorAngle": 11,
+        "errorPower": 19,
+        "movement": 25,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "volt",
       "name": "ヴォルト",
       "role": "整備車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "装置に向けた準備動作を検討。味方召喚・回復は未採用。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "装置に向けた準備動作を検討。味方召喚・回復は未採用。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W11",
+          "minAngle": 12,
+          "maxAngle": 76
+        },
+        "errorAngle": 11,
+        "errorPower": 18,
+        "movement": 25,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "blast",
       "name": "ブラスト",
       "role": "搬送・爆破車",
       "source": "S05",
-      "visualPass": "既存AIと判定の範囲に収める",
-      "combatProposal": "着弾が遅い範囲攻撃を検討。危険範囲を攻撃確定前に見せる。"
+      "visualPass": "S05に基づく専用Canvas外観。通常敵の狙い・弾種・移動量は実データで区別。",
+      "combatProposal": "着弾が遅い範囲攻撃を検討。危険範囲を攻撃確定前に見せる。",
+      "runtime": {
+        "attack": {
+          "weaponId": "W02",
+          "minAngle": 18,
+          "maxAngle": 72
+        },
+        "errorAngle": 12,
+        "errorPower": 21,
+        "movement": 12,
+        "hp": 60,
+        "source": "game/visual/encounters.json"
+      }
     }
   ],
   "midbosses": [
@@ -1484,7 +1625,43 @@
       "weakPoint": "巻上げドラム",
       "source": "S04",
       "combatProposal": "係留弾の準備→発射→ドラムを狙える時間",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 80.0,
+        "attacks": [
+          "LOW",
+          "ARC",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "巻上げドラム",
+            "hp": 1.2,
+            "dx": 24,
+            "dy": -35,
+            "radius": 18
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 24,
+          "y": -35,
+          "radius": 18,
+          "exposedRadius": 22,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 34,
+          "y": -72,
+          "length": 8
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "bridge-mender",
@@ -1493,7 +1670,43 @@
       "weakPoint": "補修フレーム",
       "source": "S04",
       "combatProposal": "フレーム展開→射撃→収納。通路の完全封鎖はしない",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 90.0,
+        "attacks": [
+          "LOW",
+          "TWIN",
+          "ARC"
+        ],
+        "parts": [
+          {
+            "name": "補修フレーム",
+            "hp": 1.2,
+            "dx": 8,
+            "dy": -60,
+            "radius": 18
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 8,
+          "y": -60,
+          "radius": 18,
+          "exposedRadius": 22,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "mist-bell",
@@ -1502,7 +1715,43 @@
       "weakPoint": "送信ホーン",
       "source": "S04",
       "combatProposal": "音波の準備と射撃。既存Cとの役割を分ける",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 100.0,
+        "attacks": [
+          "FAN",
+          "ARC",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "送信ホーン",
+            "hp": 1.2,
+            "dx": 26,
+            "dy": -42,
+            "radius": 20
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 26,
+          "y": -42,
+          "radius": 20,
+          "exposedRadius": 24,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "reflect-ram",
@@ -1511,7 +1760,43 @@
       "weakPoint": "反射フレーム",
       "source": "S04",
       "combatProposal": "鏡面と枠の狙い分け。常時全身反射にはしない",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 110.0,
+        "attacks": [
+          "REFLECT",
+          "LOW",
+          "ARC"
+        ],
+        "parts": [
+          {
+            "name": "反射フレーム",
+            "hp": 1.2,
+            "dx": 12,
+            "dy": -64,
+            "radius": 25
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 12,
+          "y": -64,
+          "radius": 25,
+          "exposedRadius": 29,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "lift-mole",
@@ -1520,7 +1805,43 @@
       "weakPoint": "昇降ドライブ",
       "source": "S04",
       "combatProposal": "昇降の予告と停止。地形を動かす場合は別の足場仕様を先に定義",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 120.0,
+        "attacks": [
+          "ARC",
+          "LOW",
+          "TWIN"
+        ],
+        "parts": [
+          {
+            "name": "昇降ドライブ",
+            "hp": 1.2,
+            "dx": 2,
+            "dy": -60,
+            "radius": 17
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 2,
+          "y": -60,
+          "radius": 17,
+          "exposedRadius": 21,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "gale-scout",
@@ -1529,7 +1850,43 @@
       "weakPoint": "観測センサー",
       "source": "S04",
       "combatProposal": "風向を読む準備→射撃。Fの状態変化は手番境界に合わせる",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 130.0,
+        "attacks": [
+          "CURVE",
+          "ARC",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "観測センサー",
+            "hp": 1.5,
+            "dx": -22,
+            "dy": -79,
+            "radius": 16
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": -22,
+          "y": -79,
+          "radius": 16,
+          "exposedRadius": 20,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "cinder-chef",
@@ -1538,7 +1895,43 @@
       "weakPoint": "圧力バルブ",
       "source": "S04",
       "combatProposal": "加熱の予告→範囲攻撃→冷却",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 140.0,
+        "attacks": [
+          "PREPARE",
+          "LOW",
+          "ARC"
+        ],
+        "parts": [
+          {
+            "name": "圧力バルブ",
+            "hp": 1.5,
+            "dx": 19,
+            "dy": -84,
+            "radius": 16
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 19,
+          "y": -84,
+          "radius": 16,
+          "exposedRadius": 20,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "ore-shepherd",
@@ -1547,7 +1940,43 @@
       "weakPoint": "マグネットアーム",
       "source": "S04",
       "combatProposal": "磁気の準備→射撃→停止。強制移動の有無を仕様で分ける",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 140.0,
+        "attacks": [
+          "CURVE",
+          "TWIN",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "マグネットアーム",
+            "hp": 1.5,
+            "dx": 34,
+            "dy": -40,
+            "radius": 18
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 34,
+          "y": -40,
+          "radius": 18,
+          "exposedRadius": 22,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "bloom-tender",
@@ -1556,7 +1985,43 @@
       "weakPoint": "給水ユニット",
       "source": "S04",
       "combatProposal": "散布の予告→射撃→停止。水や回復床の新物理は導入しない",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 140.0,
+        "attacks": [
+          "ARC",
+          "FAN",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "給水ユニット",
+            "hp": 1.5,
+            "dx": 38,
+            "dy": -53,
+            "radius": 16
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 38,
+          "y": -53,
+          "radius": 16,
+          "exposedRadius": 20,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "line-warden",
@@ -1565,7 +2030,43 @@
       "weakPoint": "シールドドライブ",
       "source": "S04",
       "combatProposal": "ゲートの準備→射撃→開口。通常弾の攻略経路を維持",
-      "status": "PLANNED"
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 140.0,
+        "attacks": [
+          "LOW",
+          "MARK",
+          "TWIN"
+        ],
+        "parts": [
+          {
+            "name": "シールドドライブ",
+            "hp": 1.5,
+            "dx": 0,
+            "dy": -53,
+            "radius": 19
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -24,
+          "rx": 35,
+          "ry": 26
+        },
+        "core": {
+          "x": 0,
+          "y": -53,
+          "radius": 19,
+          "exposedRadius": 23,
+          "multiplier": 1.5
+        },
+        "muzzle": {
+          "x": 14,
+          "y": -38,
+          "length": 30
+        },
+        "source": "game/visual/encounters.json"
+      }
     }
   ],
   "bosses": [
@@ -1585,7 +2086,51 @@
         }
       ],
       "visualBinding": "LEG→爪の支持機構、SHELL→主装甲",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "LOW",
+          "DROP",
+          "ARC"
+        ],
+        "parts": [
+          {
+            "name": "CLAW",
+            "hp": 1,
+            "dx": 52,
+            "dy": -29,
+            "radius": 23
+          },
+          {
+            "name": "SHELL",
+            "hp": 2,
+            "dx": -26,
+            "dy": -55,
+            "radius": 22
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -32,
+          "rx": 60,
+          "ry": 32
+        },
+        "core": {
+          "x": 0,
+          "y": -58,
+          "radius": 23,
+          "exposedRadius": 33,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 20,
+          "y": -42,
+          "length": 32
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "gatekeeper",
@@ -1603,7 +2148,51 @@
         }
       ],
       "visualBinding": "LOW/HIGH GUN→下段/上段砲",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "LOW",
+          "DROP",
+          "MARK"
+        ],
+        "parts": [
+          {
+            "name": "LOW GUN",
+            "hp": 2,
+            "dx": 24,
+            "dy": -57,
+            "radius": 22
+          },
+          {
+            "name": "HIGH GUN",
+            "hp": 2,
+            "dx": -19,
+            "dy": -77,
+            "radius": 22
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -35,
+          "rx": 60,
+          "ry": 35
+        },
+        "core": {
+          "x": 0,
+          "y": -44,
+          "radius": 23,
+          "exposedRadius": 33,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 20,
+          "y": -42,
+          "length": 32
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "cloudray",
@@ -1621,7 +2210,51 @@
         }
       ],
       "visualBinding": "LEFT/RIGHT WING→左右の翼",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "ARC",
+          "TRIPLE",
+          "FAN"
+        ],
+        "parts": [
+          {
+            "name": "LEFT WING",
+            "hp": 2,
+            "dx": 60,
+            "dy": -47,
+            "radius": 24
+          },
+          {
+            "name": "RIGHT WING",
+            "hp": 2,
+            "dx": -60,
+            "dy": -47,
+            "radius": 24
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -44,
+          "rx": 83,
+          "ry": 26
+        },
+        "core": {
+          "x": 0,
+          "y": -54,
+          "radius": 23,
+          "exposedRadius": 33,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 0,
+          "y": -54,
+          "length": 38
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "prism-guardian",
@@ -1639,7 +2272,51 @@
         }
       ],
       "visualBinding": "LEFT/RIGHT RIM→プリズム外枠",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "LOW",
+          "REFLECT",
+          "DROP"
+        ],
+        "parts": [
+          {
+            "name": "LEFT RIM",
+            "hp": 2,
+            "dx": 39,
+            "dy": -66,
+            "radius": 22
+          },
+          {
+            "name": "RIGHT RIM",
+            "hp": 2,
+            "dx": -39,
+            "dy": -66,
+            "radius": 22
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -43,
+          "rx": 57,
+          "ry": 42
+        },
+        "core": {
+          "x": 0,
+          "y": -64,
+          "radius": 24,
+          "exposedRadius": 34,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 20,
+          "y": -42,
+          "length": 32
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "dust-driller",
@@ -1657,7 +2334,51 @@
         }
       ],
       "visualBinding": "DRILL→ドリル基部、EXHAUST→排気部",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "LOW",
+          "TRIPLE",
+          "ARC"
+        ],
+        "parts": [
+          {
+            "name": "DRILL",
+            "hp": 2,
+            "dx": 60,
+            "dy": -35,
+            "radius": 25
+          },
+          {
+            "name": "EXHAUST",
+            "hp": 2,
+            "dx": -31,
+            "dy": -60,
+            "radius": 20
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -32,
+          "rx": 64,
+          "ry": 30
+        },
+        "core": {
+          "x": 0,
+          "y": -44,
+          "radius": 23,
+          "exposedRadius": 33,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 20,
+          "y": -42,
+          "length": 32
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "whitehowl",
@@ -1675,7 +2396,51 @@
         }
       ],
       "visualBinding": "FAN A/B→二つの送風機",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "TWIN",
+          "ARC",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "FAN A",
+            "hp": 2,
+            "dx": 43,
+            "dy": -56,
+            "radius": 23
+          },
+          {
+            "name": "FAN B",
+            "hp": 2,
+            "dx": -43,
+            "dy": -56,
+            "radius": 23
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -33,
+          "rx": 66,
+          "ry": 32
+        },
+        "core": {
+          "x": 0,
+          "y": -43,
+          "radius": 22,
+          "exposedRadius": 32,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 20,
+          "y": -42,
+          "length": 32
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "forge-titan",
@@ -1693,7 +2458,52 @@
         }
       ],
       "visualBinding": "ARM A/B→左右の作業腕",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "ARC",
+          "PREPARE",
+          "DROP",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "ARM A",
+            "hp": 2,
+            "dx": 44,
+            "dy": -38,
+            "radius": 23
+          },
+          {
+            "name": "ARM B",
+            "hp": 2,
+            "dx": -44,
+            "dy": -38,
+            "radius": 23
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -40,
+          "rx": 55,
+          "ry": 40
+        },
+        "core": {
+          "x": 0,
+          "y": -58,
+          "radius": 23,
+          "exposedRadius": 33,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 20,
+          "y": -42,
+          "length": 32
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "polaris-core",
@@ -1711,7 +2521,51 @@
         }
       ],
       "visualBinding": "GEN A/B→支持発生器",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "CURVE",
+          "TWIN",
+          "ARC"
+        ],
+        "parts": [
+          {
+            "name": "GEN A",
+            "hp": 2,
+            "dx": 58,
+            "dy": -30,
+            "radius": 20
+          },
+          {
+            "name": "GEN B",
+            "hp": 2,
+            "dx": -58,
+            "dy": -30,
+            "radius": 20
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -66,
+          "rx": 48,
+          "ry": 48
+        },
+        "core": {
+          "x": 0,
+          "y": -77,
+          "radius": 23,
+          "exposedRadius": 33,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 0,
+          "y": -77,
+          "length": 25
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "skycarrier",
@@ -1733,7 +2587,58 @@
         }
       ],
       "visualBinding": "MAIN GUN→主砲、THRUSTER A/B→推進器",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "ARC",
+          "TWIN",
+          "TRIPLE"
+        ],
+        "parts": [
+          {
+            "name": "MAIN GUN",
+            "hp": 2,
+            "dx": 27,
+            "dy": -62,
+            "radius": 22
+          },
+          {
+            "name": "THRUSTER A",
+            "hp": 2,
+            "dx": 49,
+            "dy": -22,
+            "radius": 20
+          },
+          {
+            "name": "THRUSTER B",
+            "hp": 2,
+            "dx": -49,
+            "dy": -22,
+            "radius": 20
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -48,
+          "rx": 83,
+          "ry": 27
+        },
+        "core": {
+          "x": 0,
+          "y": -57,
+          "radius": 24,
+          "exposedRadius": 34,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 27,
+          "y": -62,
+          "length": 36
+        },
+        "source": "game/visual/encounters.json"
+      }
     },
     {
       "id": "archeart",
@@ -1751,7 +2656,51 @@
         }
       ],
       "visualBinding": "LEFT/RIGHT GATE→外殻、第二段階のSHELL→内殻、第三段階→核",
-      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。"
+      "anchorPolicy": "個別の見た目と判定を同じ部位定義へ接続。位置変更は戦闘差分として計測。",
+      "status": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtime": {
+        "hp": 200,
+        "attacks": [
+          "ARC",
+          "DROP",
+          "LOW"
+        ],
+        "parts": [
+          {
+            "name": "LEFT GATE",
+            "hp": 2,
+            "dx": 44,
+            "dy": -53,
+            "radius": 23
+          },
+          {
+            "name": "RIGHT GATE",
+            "hp": 2,
+            "dx": -44,
+            "dy": -53,
+            "radius": 23
+          }
+        ],
+        "body": {
+          "x": 0,
+          "y": -44,
+          "rx": 58,
+          "ry": 44
+        },
+        "core": {
+          "x": 0,
+          "y": -64,
+          "radius": 24,
+          "exposedRadius": 34,
+          "multiplier": 2
+        },
+        "muzzle": {
+          "x": 0,
+          "y": -64,
+          "length": 28
+        },
+        "source": "game/visual/encounters.json"
+      }
     }
   ],
   "levels": [
@@ -1775,8 +2724,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 2,
@@ -1798,8 +2748,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 3,
@@ -1828,8 +2779,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 4,
@@ -1851,8 +2803,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 5,
@@ -1876,8 +2829,8 @@
           "skill": null
         }
       ],
-      "actionLimit": 10,
-      "visualActorInArtPass": "enemy:pebble",
+      "actionLimit": 12,
+      "visualActorInArtPass": "midboss:harbor-knot",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "harbor-knot",
@@ -1885,8 +2838,26 @@
         "weakPoint": "巻上げドラム"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 80.0,
+      "runtimeMidbossSpec": {
+        "name": "Harbor Knot",
+        "parts": [
+          {
+            "name": "巻上げドラム",
+            "hp": 1.2,
+            "dx": 24,
+            "dy": -35,
+            "radius": 18
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "ARC",
+          "LOW"
+        ]
+      }
     },
     {
       "id": 6,
@@ -1917,8 +2888,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 7,
@@ -1949,8 +2921,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 8,
@@ -1981,8 +2954,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 9,
@@ -2019,8 +2993,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 10,
@@ -2062,8 +3037,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 11,
@@ -2094,8 +3070,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 12,
@@ -2126,8 +3103,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 13,
@@ -2158,8 +3136,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 14,
@@ -2190,8 +3169,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 15,
@@ -2211,8 +3191,8 @@
       "initialRegionCount": 0,
       "teleport": true,
       "pickups": [],
-      "actionLimit": 10,
-      "visualActorInArtPass": "enemy:hang",
+      "actionLimit": 12,
+      "visualActorInArtPass": "midboss:bridge-mender",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "bridge-mender",
@@ -2220,8 +3200,26 @@
         "weakPoint": "補修フレーム"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 90.0,
+      "runtimeMidbossSpec": {
+        "name": "Bridge Mender",
+        "parts": [
+          {
+            "name": "補修フレーム",
+            "hp": 1.2,
+            "dx": 8,
+            "dy": -60,
+            "radius": 18
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "TWIN",
+          "ARC"
+        ]
+      }
     },
     {
       "id": 16,
@@ -2250,8 +3248,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 17,
@@ -2280,8 +3279,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 18,
@@ -2310,8 +3310,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 19,
@@ -2346,8 +3347,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 20,
@@ -2389,8 +3391,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 21,
@@ -2414,8 +3417,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 22,
@@ -2439,8 +3443,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 23,
@@ -2464,8 +3469,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 24,
@@ -2489,8 +3495,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 25,
@@ -2517,8 +3524,8 @@
           "skill": null
         }
       ],
-      "actionLimit": 10,
-      "visualActorInArtPass": "enemy:mist",
+      "actionLimit": 12,
+      "visualActorInArtPass": "midboss:mist-bell",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "mist-bell",
@@ -2526,8 +3533,26 @@
         "weakPoint": "送信ホーン"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 100.0,
+      "runtimeMidbossSpec": {
+        "name": "Mist Bell",
+        "parts": [
+          {
+            "name": "送信ホーン",
+            "hp": 1.2,
+            "dx": 26,
+            "dy": -42,
+            "radius": 20
+          }
+        ],
+        "attacks": [
+          "FAN",
+          "ARC",
+          "LOW"
+        ]
+      }
     },
     {
       "id": 26,
@@ -2551,8 +3576,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 27,
@@ -2576,8 +3602,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 28,
@@ -2608,8 +3635,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 29,
@@ -2633,8 +3661,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 30,
@@ -2676,8 +3705,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 31,
@@ -2701,8 +3731,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 32,
@@ -2726,8 +3757,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 33,
@@ -2751,8 +3783,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 34,
@@ -2776,8 +3809,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 35,
@@ -2803,8 +3837,8 @@
           "skill": null
         }
       ],
-      "actionLimit": 10,
-      "visualActorInArtPass": "enemy:riff",
+      "actionLimit": 12,
+      "visualActorInArtPass": "midboss:reflect-ram",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "reflect-ram",
@@ -2812,8 +3846,26 @@
         "weakPoint": "反射フレーム"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 110.0,
+      "runtimeMidbossSpec": {
+        "name": "Reflect Ram",
+        "parts": [
+          {
+            "name": "反射フレーム",
+            "hp": 1.2,
+            "dx": 12,
+            "dy": -64,
+            "radius": 25
+          }
+        ],
+        "attacks": [
+          "REFLECT",
+          "LOW",
+          "ARC"
+        ]
+      }
     },
     {
       "id": 36,
@@ -2838,8 +3890,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 37,
@@ -2863,8 +3916,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 38,
@@ -2889,8 +3943,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 39,
@@ -2915,8 +3970,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 40,
@@ -2958,8 +4014,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 41,
@@ -2983,8 +4040,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 42,
@@ -3008,8 +4066,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 43,
@@ -3040,8 +4099,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 44,
@@ -3065,8 +4125,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 45,
@@ -3092,8 +4153,8 @@
           "skill": null
         }
       ],
-      "actionLimit": 10,
-      "visualActorInArtPass": "enemy:mole",
+      "actionLimit": 12,
+      "visualActorInArtPass": "midboss:lift-mole",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "lift-mole",
@@ -3101,8 +4162,26 @@
         "weakPoint": "昇降ドライブ"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 120.0,
+      "runtimeMidbossSpec": {
+        "name": "Lift Mole",
+        "parts": [
+          {
+            "name": "昇降ドライブ",
+            "hp": 1.2,
+            "dx": 2,
+            "dy": -60,
+            "radius": 17
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "LOW",
+          "TWIN"
+        ]
+      }
     },
     {
       "id": 46,
@@ -3128,8 +4207,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 47,
@@ -3154,8 +4234,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 48,
@@ -3186,8 +4267,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 49,
@@ -3211,8 +4293,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 50,
@@ -3254,8 +4337,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 51,
@@ -3279,8 +4363,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 52,
@@ -3304,8 +4389,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 53,
@@ -3329,8 +4415,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 54,
@@ -3354,8 +4441,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 55,
@@ -3374,8 +4462,8 @@
       "initialRegionCount": 1,
       "teleport": true,
       "pickups": [],
-      "actionLimit": 10,
-      "visualActorInArtPass": "enemy:gust",
+      "actionLimit": 12,
+      "visualActorInArtPass": "midboss:gale-scout",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "gale-scout",
@@ -3383,8 +4471,26 @@
         "weakPoint": "観測センサー"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 130.0,
+      "runtimeMidbossSpec": {
+        "name": "Gale Scout",
+        "parts": [
+          {
+            "name": "観測センサー",
+            "hp": 1.5,
+            "dx": -22,
+            "dy": -79,
+            "radius": 16
+          }
+        ],
+        "attacks": [
+          "CURVE",
+          "ARC",
+          "LOW"
+        ]
+      }
     },
     {
       "id": 56,
@@ -3410,8 +4516,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 57,
@@ -3436,8 +4543,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 58,
@@ -3468,8 +4576,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 59,
@@ -3494,8 +4603,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 60,
@@ -3537,8 +4647,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 61,
@@ -3562,8 +4673,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 62,
@@ -3587,8 +4699,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 63,
@@ -3612,8 +4725,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 64,
@@ -3637,8 +4751,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 65,
@@ -3665,7 +4780,7 @@
         }
       ],
       "actionLimit": 12,
-      "visualActorInArtPass": "enemy:blast",
+      "visualActorInArtPass": "midboss:cinder-chef",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "cinder-chef",
@@ -3673,8 +4788,26 @@
         "weakPoint": "圧力バルブ"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 140.0,
+      "runtimeMidbossSpec": {
+        "name": "Cinder Chef",
+        "parts": [
+          {
+            "name": "圧力バルブ",
+            "hp": 1.5,
+            "dx": 19,
+            "dy": -84,
+            "radius": 16
+          }
+        ],
+        "attacks": [
+          "PREPARE",
+          "LOW",
+          "ARC"
+        ]
+      }
     },
     {
       "id": 66,
@@ -3698,8 +4831,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 67,
@@ -3730,8 +4864,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 68,
@@ -3755,8 +4890,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 69,
@@ -3782,8 +4918,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 70,
@@ -3826,8 +4963,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 71,
@@ -3851,8 +4989,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 72,
@@ -3876,8 +5015,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 73,
@@ -3901,8 +5041,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 74,
@@ -3927,8 +5068,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 75,
@@ -3955,7 +5097,7 @@
         }
       ],
       "actionLimit": 12,
-      "visualActorInArtPass": "enemy:pole",
+      "visualActorInArtPass": "midboss:ore-shepherd",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "ore-shepherd",
@@ -3963,8 +5105,26 @@
         "weakPoint": "マグネットアーム"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 140.0,
+      "runtimeMidbossSpec": {
+        "name": "Ore Shepherd",
+        "parts": [
+          {
+            "name": "マグネットアーム",
+            "hp": 1.5,
+            "dx": 34,
+            "dy": -40,
+            "radius": 18
+          }
+        ],
+        "attacks": [
+          "CURVE",
+          "TWIN",
+          "LOW"
+        ]
+      }
     },
     {
       "id": 76,
@@ -3989,8 +5149,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 77,
@@ -4015,8 +5176,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 78,
@@ -4040,8 +5202,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 79,
@@ -4067,8 +5230,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 80,
@@ -4110,8 +5274,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 81,
@@ -4135,8 +5300,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 82,
@@ -4158,8 +5324,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 83,
@@ -4184,8 +5351,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 84,
@@ -4216,8 +5384,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 85,
@@ -4244,7 +5413,7 @@
         }
       ],
       "actionLimit": 12,
-      "visualActorInArtPass": "enemy:hang",
+      "visualActorInArtPass": "midboss:bloom-tender",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "bloom-tender",
@@ -4252,8 +5421,26 @@
         "weakPoint": "給水ユニット"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 140.0,
+      "runtimeMidbossSpec": {
+        "name": "Bloom Tender",
+        "parts": [
+          {
+            "name": "給水ユニット",
+            "hp": 1.5,
+            "dx": 38,
+            "dy": -53,
+            "radius": 16
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "FAN",
+          "LOW"
+        ]
+      }
     },
     {
       "id": 86,
@@ -4278,8 +5465,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 87,
@@ -4304,8 +5492,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 88,
@@ -4330,8 +5519,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 89,
@@ -4356,8 +5546,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 90,
@@ -4403,8 +5594,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     },
     {
       "id": 91,
@@ -4428,8 +5620,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 92,
@@ -4454,8 +5647,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 93,
@@ -4480,8 +5674,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 94,
@@ -4506,8 +5701,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 95,
@@ -4534,7 +5730,7 @@
         }
       ],
       "actionLimit": 12,
-      "visualActorInArtPass": "enemy:flint",
+      "visualActorInArtPass": "midboss:line-warden",
       "encounterAfterCombatPass": "midboss",
       "midbossTarget": {
         "id": "line-warden",
@@ -4542,8 +5738,26 @@
         "weakPoint": "シールドドライブ"
       },
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 140.0,
+      "runtimeMidbossSpec": {
+        "name": "Line Warden",
+        "parts": [
+          {
+            "name": "シールドドライブ",
+            "hp": 1.5,
+            "dx": 0,
+            "dy": -53,
+            "radius": 19
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "MARK",
+          "TWIN"
+        ]
+      }
     },
     {
       "id": 96,
@@ -4567,8 +5781,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 97,
@@ -4593,8 +5808,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 98,
@@ -4619,8 +5835,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 99,
@@ -4645,8 +5862,9 @@
       "encounterAfterCombatPass": "normal",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "PLANNED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 60
     },
     {
       "id": 100,
@@ -4690,8 +5908,9 @@
       "encounterAfterCombatPass": "boss",
       "midbossTarget": null,
       "geometryPolicy": "PRESERVE_IN_ART_PASS",
-      "visualStatus": "PLANNED",
-      "combatStatus": "ANCHOR_REVIEW_REQUIRED"
+      "visualStatus": "IMPLEMENTED_BROWSER_VERIFIED",
+      "combatStatus": "IMPLEMENTED_NATIVE_ANCHORS_VERIFIED",
+      "runtimeHp": 200
     }
   ],
   "validation": {
@@ -4734,8 +5953,8 @@
       "iPhoneホーム画面起動",
       "Android Chrome"
     ],
-    "artReplayCases": "全10機×100面の同一入力・乱数。演出だけで弾道・被害・回収・進行が変わらないこと。",
-    "combatMatchCases": "戦闘差分のある全10機×100面×最低3乱数の実HP試合。攻略を検証するまで合格扱いにしない。",
+    "artReplayCases": "歴代B01の比較期待値は固定。100面の形/29箱位置の同一性と、今回のアンカー・FX寸法を直接確認。戦闘変更は別記録。",
+    "combatMatchCases": "今回の実HP試合はGUARDIAN_MATCHES_FINAL.json。全1000組×3乱数の勝利・人の難易度評価は未確認。",
     "minBodyCssPx": 32,
     "minPrimaryControlCssPx": 84,
     "dprCases": [
@@ -4749,25 +5968,82 @@
       "lowDetailFrameP95Ms": 33.3,
       "status": "TARGETS_NOT_MEASURED"
     },
-    "currentResult": "B01の基準確認とB02の3見本・座標・非変更・42既定画像比較を実施。3見本の表現は確認待ち。全体回帰の再実行、全100面の新美術・新攻略・実機確認は未実施。"
+    "currentResult": "今回の自動確認と限界はevidence/visual-b08/README.md。B01/B02は過去版の記録として保持。新しい物理・美術の検証結果へ置き換えない。",
+    "nativeMatchResult": {
+      "guardianAllMachines": 200,
+      "normalEveryStageRotatingMachines": 80,
+      "wins": 280,
+      "distinctStages": 100,
+      "all1000PairsThreeSeeds": "NOT_RUN",
+      "physicalDevices": "NOT_VERIFIED"
+    }
   },
   "progress": {
-    "dateJst": "2026-10-31",
-    "samplePage": "../visual-samples/",
-    "report": "../visual-samples/REPORT_JA.md",
+    "dateJst": "2026-11-01",
     "implementedTasks": [
       "T01",
       "T02",
       "T03",
       "T04",
-      "T05"
+      "T05",
+      "T06",
+      "T07",
+      "T08",
+      "T09",
+      "T10",
+      "T11",
+      "T12",
+      "T13",
+      "T14",
+      "T15",
+      "T16",
+      "T17",
+      "T18",
+      "T19",
+      "T20",
+      "T21",
+      "T22",
+      "T23",
+      "T24"
     ],
-    "awaitingVisualReview": [
-      "T04",
-      "T05"
-    ],
-    "nextBatch": "B03",
-    "defaultGameArtSwitched": false,
-    "evidence": "../../evidence/visual-b02/"
-  }
+    "awaitingVisualReview": [],
+    "nextBatch": null,
+    "defaultGameArtSwitched": true,
+    "evidence": "../../evidence/visual-b08/",
+    "report": "../../evidence/visual-b08/README.md",
+    "publication": "Release merge SHA and exact Pages workflow result are recorded in the linked PR",
+    "publicationReview": "https://github.com/bittrove88/bittrove88.github.io/pull/25"
+  },
+  "amendments": [
+    {
+      "id": "A01",
+      "title": "弾道と着弾の表現",
+      "implementation": "形・塗りをマットに統一。軌跡3px、発光芯5.5/8/10px、弾体サイズ、着弾半径18+76*ease、寿命・粒子の移動距離は0.10のまま。威力用半径と描画用半径を分離。"
+    },
+    {
+      "id": "A02",
+      "title": "登場と撃破後の物語",
+      "implementation": "20戦に種別・名前・一行特徴・短い台詞。操作を止めない3.2秒表示。章導入2.8秒も非ブロッキング。撃破後は既存リザルトに即時表示、次の面を待たせない。"
+    },
+    {
+      "id": "A03",
+      "title": "全体の物語と関係",
+      "implementation": "5幕/10章の既存骨格に20守り手の仕事・過去、10組の伏線→回収、5組の相互関係を接続。詳細は任意の旅の記録。進行前の答えは開かない。"
+    },
+    {
+      "id": "A04",
+      "title": "転移と後ろ向き照準",
+      "implementation": "上面は実機体45pxの空間で着地。隣接する安全な列を探索。壁側面は接触側で落下、斜め天井を側壁と誤分類しない。通常弾−15〜170°、ソラ必殺55〜125°。砲口方向で機体を反転。"
+    },
+    {
+      "id": "A05",
+      "title": "必殺技の威力",
+      "implementation": "広範囲の合計上限40〜52。リンの狭い精密弾のみ中心75。距離減衰・遮蔽・同一行動全弾共通上限を適用。通常弾20、耐久、チャージ、移動係数、各面必殺3発は保持。"
+    },
+    {
+      "id": "A06",
+      "title": "確認の範囲",
+      "implementation": "重複する歴代の全テストは再実行しない。今回の分岐・物理・表示・移行をまとめて確認。1000組の配置と軌跡、全守り手、実Worker、代表実HP試合を記録。実機・全1000組×3乱数の勝利までは検証済みと扱わない。"
+    }
+  ]
 }

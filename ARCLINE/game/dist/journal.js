@@ -1,5 +1,6 @@
 (function(root){
 'use strict';
+const Story=typeof module!=='undefined'?require('./story.js'):root.ArcStory;
 const text=(ja,en)=>Object.freeze({ja,en}),pick=(value,language)=>value[language==='en'?'en':'ja'];
 const introduction={
  title:text('最初の便り','The first letter'),
@@ -99,13 +100,13 @@ const machineRows=[
 ];
 const machines=machineRows.map(([id,name,enName,chapter,desire,enDesire,past,enPast,flaw,enFlaw,choice,enChoice,ending,enEnding,line,enLine])=>Object.freeze({id,name:text(name,enName),chapter,desire:text(desire,enDesire),past:text(past,enPast),flaw:text(flaw,enFlaw),choice:text(choice,enChoice),ending:text(ending,enEnding),line:text(line,enLine)}));
 const epilogue={title:text('道は、またつくれる。','We can build the road again.'),lines:[text('最初の便りを運び終えても、届くのを待つ声はまだある。10機は新しい路線図へ、一本ずつ線を足していく。','The first letter has been delivered, but other voices are still waiting. One by one, the ten machines add lines to a new route map.'),text('先頭の機体が変わっても、この旅はみんなの仕事だ。次の誰かが、自分の道を選べるように。','Whoever leads, the journey belongs to them all. Let the next traveller choose a road of their own.')]};
-const ids=Object.freeze(['introduction',...acts.map(a=>'act:'+a.id),...chapters.flatMap(c=>['chapter:'+c.id+':opening','chapter:'+c.id+':cleared']),...machines.flatMap(m=>['machine:'+m.id+':profile','machine:'+m.id+':choice','machine:'+m.id+':ending']),'epilogue']);
+const ids=Object.freeze([...Story.guardians.map(g=>'guardian:'+g.stage),...Story.relations.map((r,i)=>'relation:'+i),'introduction',...acts.map(a=>'act:'+a.id),...chapters.flatMap(c=>['chapter:'+c.id+':opening','chapter:'+c.id+':cleared']),...machines.flatMap(m=>['machine:'+m.id+':profile','machine:'+m.id+':choice','machine:'+m.id+':ending']),'epilogue']);
 const progress=data=>Math.max(0,Math.min(100,Number.isInteger(data?.cleared)?data.cleared:0));
-function availableIds(data){const n=progress(data);return ['introduction',...acts.filter(a=>n>=a.start-1).map(a=>'act:'+a.id),...chapters.flatMap(c=>[...(n>=c.start-1?['chapter:'+c.id+':opening']:[]),...(n>=c.end?['chapter:'+c.id+':cleared']:[])]),...machines.flatMap(m=>['machine:'+m.id+':profile',...(n>=m.chapter*10?['machine:'+m.id+':choice']:[]),...(n===100?['machine:'+m.id+':ending']:[])]),...(n===100?['epilogue']:[])];}
+function availableIds(data){const n=progress(data);return [...Story.guardians.filter(g=>n>=g.stage).map(g=>'guardian:'+g.stage),...Story.relations.map((r,i)=>'relation:'+i),'introduction',...acts.filter(a=>n>=a.start-1).map(a=>'act:'+a.id),...chapters.flatMap(c=>[...(n>=c.start-1?['chapter:'+c.id+':opening']:[]),...(n>=c.end?['chapter:'+c.id+':cleared']:[])]),...machines.flatMap(m=>['machine:'+m.id+':profile',...(n>=m.chapter*10?['machine:'+m.id+':choice']:[]),...(n===100?['machine:'+m.id+':ending']:[])]),...(n===100?['epilogue']:[])];}
 function normalize(raw,data={}){return {introSeen:typeof raw?.introSeen==='boolean'?raw.introSeen:progress(data)>0||!!data.chapterRun,readIds:[...new Set((Array.isArray(raw?.readIds)?raw.readIds:[]).filter(id=>availableIds(data).includes(id)))]};}
 function markRead(data,list){const journal=normalize(data.journal,data),available=availableIds(data);let changed=false;for(const id of list){if(!available.includes(id))continue;if(id==='introduction'&&!journal.introSeen){journal.introSeen=true;changed=true;}if(journal.readIds.includes(id))continue;journal.readIds.push(id);changed=true;}data.journal=journal;return changed;}
 function unread(data,list=availableIds(data)){const read=normalize(data.journal,data).readIds;return list.filter(id=>!read.includes(id)).length;}
 function chapterMessage(stage,language='ja'){const c=chapters.find(c=>c.end===stage);return c?pick(c.reflection,language):'';}
-const api={introduction,acts:Object.freeze(acts),chapters:Object.freeze(chapters),machines:Object.freeze(machines),epilogue,ids,pick,progress,availableIds,normalize,markRead,unread,chapterMessage};
+const api={story:Story,introduction,acts:Object.freeze(acts),chapters:Object.freeze(chapters),machines:Object.freeze(machines),epilogue,ids,pick,progress,availableIds,normalize,markRead,unread,chapterMessage};
 if(typeof module!=='undefined')module.exports=api;else root.ArcJournal=api;
 })(globalThis);

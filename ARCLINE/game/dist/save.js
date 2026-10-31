@@ -1,9 +1,9 @@
 (function(root){
 'use strict';
-const key='arcline-campaign-v1',revision='4.1.0';
+const key='arcline-campaign-v1',revision='4.2.0';
 const Run=typeof module!=='undefined'?require('./campaign-run.js'):root.ArcCampaignRun;
 const Journal=typeof module!=='undefined'?require('./journal.js'):root.ArcJournal;
-const schemaVersion=5;
+const schemaVersion=6;
 const weaponIds=Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0'));
 const cosmeticIds=[...Array.from({length:27},(_,i)=>'S'+String(i+1).padStart(2,'0')),...Array.from({length:10},(_,i)=>'B'+String(i+1).padStart(2,'0'))];
 const characterIds=['gun','ban','hibari','hana','rin','mogu','koro','sora','rico','yui'];
@@ -13,7 +13,7 @@ const previewIds=[...weaponIds,...lessonIds,...specialIds,...['v2:','v3:','v4:']
 const validIds=(xs,allowed)=>[...new Set((Array.isArray(xs)?xs:[]).filter(x=>allowed.includes(x)))];
 function decode(raw){
  const p=raw?JSON.parse(raw):{};if(!p||typeof p!=='object'||Array.isArray(p))throw Error('Invalid save');
- if(p.schemaVersion!==undefined&&![2,3,4,5].includes(p.schemaVersion))throw Error('Unsupported save version');
+ if(p.schemaVersion!==undefined&&![2,3,4,5,6].includes(p.schemaVersion))throw Error('Unsupported save version');
  const unlocked=validIds(p.unlockedWeaponIds,weaponIds);if(!unlocked.includes('W01'))unlocked.unshift('W01');
  const roles=typeof module!=='undefined'?require('./weapons.js').coreUnlocks:root.ArcWeapons.coreUnlocks;for(const [id,level]of Object.entries(roles))if(Number.isInteger(p.cleared)&&p.cleared>=level&&!unlocked.includes(id))unlocked.push(id);
  const cosmetics=validIds(p.collectedCosmeticIds,cosmeticIds);
@@ -25,7 +25,7 @@ function decode(raw){
  out.preferences={language:['ja','en'].includes(p.preferences?.language)?p.preferences.language:null,controls:['left','right'].includes(p.preferences?.controls)?p.preferences.controls:null};
  out.journal=Journal.normalize(p.journal,out);
  if(p.chapterRun&&!out.chapterRun&&!out.legacyBackup)out.legacyBackup=raw;
- if(raw&&(p.schemaVersion!==schemaVersion||p.contentRevision&&p.contentRevision!==revision))out.legacyBackup=raw;
+ if(raw&&!out.legacyBackup&&(p.schemaVersion!==schemaVersion||p.contentRevision&&p.contentRevision!==revision))out.legacyBackup=raw;
  return out;
 }
 function create(adapter,status=()=>{}){

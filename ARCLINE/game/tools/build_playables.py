@@ -15,12 +15,12 @@ for ref in re.findall(r'(?:src|href)="([^"]+)"',html):
 assert not re.search(r'<script[^>]+src=[\"\']https?://',html)
 assert html.index('src="journal.js')<html.index('src="save.js') and html.index('src="menus.js')<html.index('src="game.js')
 assert html.index('src="combat.js')<html.index('src="skills.js')<html.index('src="weapons.js')<html.index('src="physics.js')<html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
-manifest={'implementation':'0.10.0','design':'4.1 campaign; ten machine combat profiles; unchanged0.9 combat/maps/art/effects; bilingual optional journey and machine records; lobby settings; schema5 profile preferences and reading history','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
-manifest['visualFoundation']={'version':'B02','defaultRenderer':'legacy0.10.0; matte art is opt-in for the separate three-scene review','modules':['visual-registry.js','visual-style.js','visual-art.js'],'newBattleRules':False}
-zip_path=out/'ARCLINE_0.10.0_Playables.zip'
+manifest={'implementation':'0.11.0','design':'4.2 campaign;42 matte code-drawn actors;100 unchanged finite maps/29 pickup placements;12 enemy roles;10 mids/10 main bosses; bilingual nonblocking story; relaxed teleport; rear aim; bounded specials; schema6','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
+manifest['visualFoundation']={'version':'B08','defaultRenderer':'shared production matte Canvas2D','modules':['visual-registry.js','visual-style.js','actor-bodies.js','visual-art.js','effects.js'],'newBattleRules':True,'preservedFxFootprints':'0.10 trajectory widths/projectile sizes/impact radius, duration and particle travel; damage area is separately balanced'}
+zip_path=out/'ARCLINE_0.11.0_Playables.zip'
 with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
  for f in files:
-  info=zipfile.ZipInfo(f.name,date_time=(2026,10,31,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
+  info=zipfile.ZipInfo(f.name,date_time=(2026,11,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,f.read_bytes())
 with zipfile.ZipFile(zip_path) as z:
  assert z.testzip() is None and 'index.html' in z.namelist()
  for name,x in manifest['files'].items():assert hashlib.sha256(z.read(name)).hexdigest()==x['sha256']

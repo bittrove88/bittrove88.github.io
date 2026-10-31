@@ -1,6 +1,6 @@
 {
-  "revision": "4.1",
-  "date": "2026-10-31",
+  "revision": "4.2.0",
+  "date": "2026-11-01",
   "themes": [
     {
       "id": 0,
@@ -161,9 +161,12 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "controls",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble"
     },
     {
       "id": 2,
@@ -242,9 +245,12 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": "aim",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 3,
@@ -337,9 +343,12 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": "move",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble"
     },
     {
       "id": 4,
@@ -452,9 +461,12 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": "teleport",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 5,
@@ -561,7 +573,7 @@
       ],
       "blink": [],
       "teleport": true,
-      "actionLimit": 10,
+      "actionLimit": 12,
       "enemyProfile": 0,
       "hold": 2,
       "themeName": "はじまりの入江",
@@ -569,7 +581,7 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": "wall-fall",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
       "clearRewards": [
         {
@@ -577,7 +589,27 @@
           "amount": 1,
           "placementId": "L005:C01-MID-S01"
         }
-      ]
+      ],
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:harbor-knot",
+      "midbossSpec": {
+        "name": "Harbor Knot",
+        "parts": [
+          {
+            "name": "巻上げドラム",
+            "hp": 1.2,
+            "dx": 24,
+            "dy": -35,
+            "radius": 18
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "ARC",
+          "LOW"
+        ]
+      }
     },
     {
       "id": 6,
@@ -679,9 +711,12 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "reflection",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 7,
@@ -824,9 +859,12 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": "destruction",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 8,
@@ -1036,9 +1074,12 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 9,
@@ -1214,9 +1255,12 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 10,
@@ -1372,17 +1416,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": "boss-core",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Tideclaw",
         "parts": [
           {
-            "name": "LEG",
-            "hp": 1
+            "name": "CLAW",
+            "hp": 1,
+            "dx": 52,
+            "dy": -29,
+            "radius": 23
           },
           {
             "name": "SHELL",
-            "hp": 2
+            "hp": 2,
+            "dx": -26,
+            "dy": -55,
+            "radius": 22
           }
         ],
         "attacks": [
@@ -1393,7 +1443,10 @@
         "reward": "BURST"
       },
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:tideclaw"
     },
     {
       "id": 11,
@@ -1523,9 +1576,12 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "B",
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang"
     },
     {
       "id": 12,
@@ -1714,9 +1770,12 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble"
     },
     {
       "id": 13,
@@ -1912,9 +1971,12 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang"
     },
     {
       "id": 14,
@@ -2078,9 +2140,12 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble"
     },
     {
       "id": 15,
@@ -2192,7 +2257,7 @@
       "pickups": [],
       "blink": [],
       "teleport": true,
-      "actionLimit": 10,
+      "actionLimit": 12,
       "enemyProfile": 0,
       "hold": 2,
       "themeName": "吊り橋の水路",
@@ -2200,7 +2265,7 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
       "clearRewards": [
         {
@@ -2208,7 +2273,27 @@
           "amount": 1,
           "placementId": "L015:C02-MID-S01"
         }
-      ]
+      ],
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:bridge-mender",
+      "midbossSpec": {
+        "name": "Bridge Mender",
+        "parts": [
+          {
+            "name": "補修フレーム",
+            "hp": 1.2,
+            "dx": 8,
+            "dy": -60,
+            "radius": 18
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "TWIN",
+          "ARC"
+        ]
+      }
     },
     {
       "id": 16,
@@ -2401,9 +2486,12 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 17,
@@ -2575,9 +2663,12 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike"
     },
     {
       "id": 18,
@@ -2726,9 +2817,12 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 19,
@@ -2935,9 +3029,12 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike"
     },
     {
       "id": 20,
@@ -3127,17 +3224,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Gatekeeper",
         "parts": [
           {
             "name": "LOW GUN",
-            "hp": 2
+            "hp": 2,
+            "dx": 24,
+            "dy": -57,
+            "radius": 22
           },
           {
             "name": "HIGH GUN",
-            "hp": 2
+            "hp": 2,
+            "dx": -19,
+            "dy": -77,
+            "radius": 22
           }
         ],
         "attacks": [
@@ -3148,7 +3251,10 @@
         "reward": "BLINK"
       },
       "supplyRevision": "early-skills-1",
-      "clearRewards": []
+      "clearRewards": [],
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:gatekeeper"
     },
     {
       "id": 21,
@@ -3275,7 +3381,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "C",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mist"
     },
     {
       "id": 22,
@@ -3432,7 +3541,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint"
     },
     {
       "id": 23,
@@ -3619,7 +3731,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mist"
     },
     {
       "id": 24,
@@ -3798,7 +3913,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint"
     },
     {
       "id": 25,
@@ -3925,7 +4043,7 @@
       ],
       "blink": [],
       "teleport": true,
-      "actionLimit": 10,
+      "actionLimit": 12,
       "enemyProfile": 1,
       "hold": 2,
       "themeName": "霧の谷",
@@ -3933,7 +4051,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:mist-bell",
+      "midbossSpec": {
+        "name": "Mist Bell",
+        "parts": [
+          {
+            "name": "送信ホーン",
+            "hp": 1.2,
+            "dx": 26,
+            "dy": -42,
+            "radius": 20
+          }
+        ],
+        "attacks": [
+          "FAN",
+          "ARC",
+          "LOW"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_BREACH",
+          "placementId": "L025:C03-MID-S01"
+        }
+      ]
     },
     {
       "id": 26,
@@ -4112,7 +4257,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 27,
@@ -4269,7 +4417,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike"
     },
     {
       "id": 28,
@@ -4401,7 +4552,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 29,
@@ -4602,7 +4756,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike"
     },
     {
       "id": 30,
@@ -4803,17 +4960,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Cloudray",
         "parts": [
           {
             "name": "LEFT WING",
-            "hp": 2
+            "hp": 2,
+            "dx": 60,
+            "dy": -47,
+            "radius": 24
           },
           {
             "name": "RIGHT WING",
-            "hp": 2
+            "hp": 2,
+            "dx": -60,
+            "dy": -47,
+            "radius": 24
           }
         ],
         "attacks": [
@@ -4822,7 +4985,10 @@
           "FAN"
         ],
         "reward": "BOUNCE"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:cloudray"
     },
     {
       "id": 31,
@@ -4948,7 +5114,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "K",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 32,
@@ -5102,7 +5271,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint"
     },
     {
       "id": 33,
@@ -5298,7 +5470,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 34,
@@ -5454,7 +5629,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint"
     },
     {
       "id": 35,
@@ -5621,7 +5799,7 @@
       ],
       "blink": [],
       "teleport": true,
-      "actionLimit": 10,
+      "actionLimit": 12,
       "enemyProfile": 1,
       "hold": 2,
       "themeName": "水晶の反射路",
@@ -5629,7 +5807,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:reflect-ram",
+      "midbossSpec": {
+        "name": "Reflect Ram",
+        "parts": [
+          {
+            "name": "反射フレーム",
+            "hp": 1.2,
+            "dx": 12,
+            "dy": -64,
+            "radius": 25
+          }
+        ],
+        "attacks": [
+          "REFLECT",
+          "LOW",
+          "ARC"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_GUARD",
+          "placementId": "L035:C04-MID-S01"
+        }
+      ]
     },
     {
       "id": 36,
@@ -5835,7 +6040,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 37,
@@ -6029,7 +6237,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 38,
@@ -6192,7 +6403,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 39,
@@ -6346,7 +6560,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 40,
@@ -6546,17 +6763,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Prism Guardian",
         "parts": [
           {
             "name": "LEFT RIM",
-            "hp": 2
+            "hp": 2,
+            "dx": 39,
+            "dy": -66,
+            "radius": 22
           },
           {
             "name": "RIGHT RIM",
-            "hp": 2
+            "hp": 2,
+            "dx": -39,
+            "dy": -66,
+            "radius": 22
           }
         ],
         "attacks": [
@@ -6565,7 +6788,10 @@
           "DROP"
         ],
         "reward": "PUSH"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:prism-guardian"
     },
     {
       "id": 41,
@@ -6696,7 +6922,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "U",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole"
     },
     {
       "id": 42,
@@ -6871,7 +7100,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble"
     },
     {
       "id": 43,
@@ -7011,7 +7243,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole"
     },
     {
       "id": 44,
@@ -7174,7 +7409,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble"
     },
     {
       "id": 45,
@@ -7289,7 +7527,7 @@
       ],
       "blink": [],
       "teleport": true,
-      "actionLimit": 10,
+      "actionLimit": 12,
       "enemyProfile": 2,
       "hold": 1,
       "themeName": "上昇の坑道",
@@ -7297,7 +7535,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:lift-mole",
+      "midbossSpec": {
+        "name": "Lift Mole",
+        "parts": [
+          {
+            "name": "昇降ドライブ",
+            "hp": 1.2,
+            "dx": 2,
+            "dy": -60,
+            "radius": 17
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "LOW",
+          "TWIN"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_REPAIR",
+          "placementId": "L045:C05-MID-S01"
+        }
+      ]
     },
     {
       "id": 46,
@@ -7491,7 +7756,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole"
     },
     {
       "id": 47,
@@ -7679,7 +7947,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:blast"
     },
     {
       "id": 48,
@@ -7907,7 +8178,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole"
     },
     {
       "id": 49,
@@ -8058,7 +8332,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:blast"
     },
     {
       "id": 50,
@@ -8237,17 +8514,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Dust Driller",
         "parts": [
           {
             "name": "DRILL",
-            "hp": 2
+            "hp": 2,
+            "dx": 60,
+            "dy": -35,
+            "radius": 25
           },
           {
             "name": "EXHAUST",
-            "hp": 2
+            "hp": 2,
+            "dx": -31,
+            "dy": -60,
+            "radius": 20
           }
         ],
         "attacks": [
@@ -8256,7 +8539,10 @@
           "ARC"
         ],
         "reward": "BLINK"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:dust-driller"
     },
     {
       "id": 51,
@@ -8423,7 +8709,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "F",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 52,
@@ -8598,7 +8887,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike"
     },
     {
       "id": 53,
@@ -8777,7 +9069,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 54,
@@ -8956,7 +9251,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike"
     },
     {
       "id": 55,
@@ -9041,7 +9339,7 @@
       "pickups": [],
       "blink": [],
       "teleport": true,
-      "actionLimit": 10,
+      "actionLimit": 12,
       "enemyProfile": 2,
       "hold": 1,
       "themeName": "風の観測台",
@@ -9049,7 +9347,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:gale-scout",
+      "midbossSpec": {
+        "name": "Gale Scout",
+        "parts": [
+          {
+            "name": "観測センサー",
+            "hp": 1.5,
+            "dx": -22,
+            "dy": -79,
+            "radius": 16
+          }
+        ],
+        "attacks": [
+          "CURVE",
+          "ARC",
+          "LOW"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_BREACH",
+          "placementId": "L055:C06-MID-S01"
+        }
+      ]
     },
     {
       "id": 56,
@@ -9216,7 +9541,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mist"
     },
     {
       "id": 57,
@@ -9377,7 +9705,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 58,
@@ -9539,7 +9870,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mist"
     },
     {
       "id": 59,
@@ -9732,7 +10066,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 60,
@@ -9933,17 +10270,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Whitehowl",
         "parts": [
           {
             "name": "FAN A",
-            "hp": 2
+            "hp": 2,
+            "dx": 43,
+            "dy": -56,
+            "radius": 23
           },
           {
             "name": "FAN B",
-            "hp": 2
+            "hp": 2,
+            "dx": -43,
+            "dy": -56,
+            "radius": 23
           }
         ],
         "attacks": [
@@ -9952,7 +10295,10 @@
           "LOW"
         ],
         "reward": "PHASE"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:whitehowl"
     },
     {
       "id": 61,
@@ -10120,7 +10466,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "V",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:blast"
     },
     {
       "id": 62,
@@ -10302,7 +10651,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 63,
@@ -10474,7 +10826,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:blast"
     },
     {
       "id": 64,
@@ -10666,7 +11021,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 65,
@@ -10798,7 +11156,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:cinder-chef",
+      "midbossSpec": {
+        "name": "Cinder Chef",
+        "parts": [
+          {
+            "name": "圧力バルブ",
+            "hp": 1.5,
+            "dx": 19,
+            "dy": -84,
+            "radius": 16
+          }
+        ],
+        "attacks": [
+          "PREPARE",
+          "LOW",
+          "ARC"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_GUARD",
+          "placementId": "L065:C07-MID-S01"
+        }
+      ]
     },
     {
       "id": 66,
@@ -10970,7 +11355,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 67,
@@ -11129,7 +11517,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:blast"
     },
     {
       "id": 68,
@@ -11335,7 +11726,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 69,
@@ -11505,7 +11899,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:blast"
     },
     {
       "id": 70,
@@ -11707,17 +12104,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Forge Titan",
         "parts": [
           {
             "name": "ARM A",
-            "hp": 2
+            "hp": 2,
+            "dx": 44,
+            "dy": -38,
+            "radius": 23
           },
           {
             "name": "ARM B",
-            "hp": 2
+            "hp": 2,
+            "dx": -44,
+            "dy": -38,
+            "radius": 23
           }
         ],
         "attacks": [
@@ -11727,7 +12130,10 @@
           "LOW"
         ],
         "reward": "BOUNCE"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:forge-titan"
     },
     {
       "id": 71,
@@ -11846,7 +12252,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "M",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pole"
     },
     {
       "id": 72,
@@ -12025,7 +12434,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole"
     },
     {
       "id": 73,
@@ -12172,7 +12584,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pole"
     },
     {
       "id": 74,
@@ -12350,7 +12765,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": "terminal",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole"
     },
     {
       "id": 75,
@@ -12536,7 +12954,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:ore-shepherd",
+      "midbossSpec": {
+        "name": "Ore Shepherd",
+        "parts": [
+          {
+            "name": "マグネットアーム",
+            "hp": 1.5,
+            "dx": 34,
+            "dy": -40,
+            "radius": 18
+          }
+        ],
+        "attacks": [
+          "CURVE",
+          "TWIN",
+          "LOW"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_REPAIR",
+          "placementId": "L075:C08-MID-S01"
+        }
+      ]
     },
     {
       "id": 76,
@@ -12701,7 +13146,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pole"
     },
     {
       "id": 77,
@@ -12897,7 +13345,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 78,
@@ -13076,7 +13527,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pole"
     },
     {
       "id": 79,
@@ -13250,7 +13704,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 80,
@@ -13451,17 +13908,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Polaris Core",
         "parts": [
           {
             "name": "GEN A",
-            "hp": 2
+            "hp": 2,
+            "dx": 58,
+            "dy": -30,
+            "radius": 20
           },
           {
             "name": "GEN B",
-            "hp": 2
+            "hp": 2,
+            "dx": -58,
+            "dy": -30,
+            "radius": 20
           }
         ],
         "attacks": [
@@ -13470,7 +13933,10 @@
           "ARC"
         ],
         "reward": "PHASE"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:polaris-core"
     },
     {
       "id": 81,
@@ -13630,7 +14096,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang"
     },
     {
       "id": 82,
@@ -13799,7 +14268,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 83,
@@ -13982,7 +14454,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang"
     },
     {
       "id": 84,
@@ -14206,7 +14681,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust"
     },
     {
       "id": 85,
@@ -14410,7 +14888,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:bloom-tender",
+      "midbossSpec": {
+        "name": "Bloom Tender",
+        "parts": [
+          {
+            "name": "給水ユニット",
+            "hp": 1.5,
+            "dx": 38,
+            "dy": -53,
+            "radius": 16
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "FAN",
+          "LOW"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_BREACH",
+          "placementId": "L085:C09-MID-S01"
+        }
+      ]
     },
     {
       "id": 86,
@@ -14591,7 +15096,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang"
     },
     {
       "id": 87,
@@ -14782,7 +15290,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 88,
@@ -14998,7 +15509,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang"
     },
     {
       "id": 89,
@@ -15190,7 +15704,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 90,
@@ -15399,21 +15916,30 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Sky Carrier",
         "parts": [
           {
             "name": "MAIN GUN",
-            "hp": 2
+            "hp": 2,
+            "dx": 27,
+            "dy": -62,
+            "radius": 22
           },
           {
             "name": "THRUSTER A",
-            "hp": 2
+            "hp": 2,
+            "dx": 49,
+            "dy": -22,
+            "radius": 20
           },
           {
             "name": "THRUSTER B",
-            "hp": 2
+            "hp": 2,
+            "dx": -49,
+            "dy": -22,
+            "radius": 20
           }
         ],
         "attacks": [
@@ -15422,7 +15948,10 @@
           "TRIPLE"
         ],
         "reward": "BLINK"
-      }
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:skycarrier"
     },
     {
       "id": 91,
@@ -15596,7 +16125,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint"
     },
     {
       "id": 92,
@@ -15810,7 +16342,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 93,
@@ -15995,7 +16530,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint"
     },
     {
       "id": 94,
@@ -16178,7 +16716,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate"
     },
     {
       "id": 95,
@@ -16308,7 +16849,34 @@
       "stageInTheme": 5,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:line-warden",
+      "midbossSpec": {
+        "name": "Line Warden",
+        "parts": [
+          {
+            "name": "シールドドライブ",
+            "hp": 1.5,
+            "dx": 0,
+            "dy": -53,
+            "radius": 19
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "MARK",
+          "TWIN"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_GUARD",
+          "placementId": "L095:C10-MID-S01"
+        }
+      ]
     },
     {
       "id": 96,
@@ -16486,7 +17054,10 @@
       "stageInTheme": 1,
       "themeRole": "Explore",
       "lesson": "choices",
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 97,
@@ -16700,7 +17271,10 @@
       "stageInTheme": 2,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 98,
@@ -16886,7 +17460,10 @@
       "stageInTheme": 3,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt"
     },
     {
       "id": 99,
@@ -17105,7 +17682,10 @@
       "stageInTheme": 4,
       "themeRole": "Explore",
       "lesson": null,
-      "contentRevision": "4.1"
+      "contentRevision": "4.2",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff"
     },
     {
       "id": 100,
@@ -17343,17 +17923,23 @@
       "stageInTheme": 5,
       "themeRole": "Boss",
       "lesson": null,
-      "contentRevision": "4.1",
+      "contentRevision": "4.2",
       "bossSpec": {
         "name": "Archeart",
         "parts": [
           {
             "name": "LEFT GATE",
-            "hp": 2
+            "hp": 2,
+            "dx": 44,
+            "dy": -53,
+            "radius": 23
           },
           {
             "name": "RIGHT GATE",
-            "hp": 2
+            "hp": 2,
+            "dx": -44,
+            "dy": -53,
+            "radius": 23
           }
         ],
         "attacks": [
@@ -17421,7 +18007,10 @@
             ]
           }
         ]
-      ]
+      ],
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:archeart"
     }
   ]
 }

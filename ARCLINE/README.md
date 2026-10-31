@@ -1,112 +1,74 @@
 # ARCLINE
 
-[18点のデザインシート・比較と統一計画（未反映）](design/sheets/)
+Canvas 2Dのターン制砲撃ゲーム。**実装0.11.0／キャンペーン4.2／保存schema6**。
 
-[承認済み方針のゲーム反映変更計画：8バッチ・24タスク（実装前）](design/sheets/implementation.html)
+[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.11.0) ／ [今回のお知らせ](updates/0.11.0/) ／ [キャラ確認・HTML/PNGダウンロード](characters/)
 
-[B01：現行版の固定と描画接続契約](evidence/visual-b01/) ／ [接続契約](design/visual-samples/CONTRACTS_JA.md)
+[8バッチの変更計画と反映結果](design/sheets/implementation.html) ／ [実装・自動確認・未確認](evidence/visual-b08/README.md) ／ [18点のデザイン原本と統一方針](design/sheets/) ／ [代表3画面の比較](design/visual-samples/)
 
-[B02：3画面のコード描画見本](design/visual-samples/) ／ [実装・検証と未確認](design/visual-samples/REPORT_JA.md)
+0.11はB03〜B08を本編へ反映しました。自機10・通常敵12・中ボス10・章ボス10の全42モデルを専用Canvasパスで描画。自機の形と配色を保持し、マットな面塗り・輪郭・機構・破損の表現を揃えています。地形・装置・補給・プレビュー・紹介ページも共通の描画を使います。100面の有限ポリゴンと29箱の位置は4.1から変更していません。
 
-B01–B02 adds an opt-in matte rendering foundation and three authored visual samples. The normal game keeps its existing presentation and battle rules. `characters.js` and `render.js` add explicit sample APIs; 42 representative default frames match the frozen0.10.0 pixels. The other25 original distribution files,maps,physics,AI,save and inventory stay unchanged. The distribution includes30 files with the three foundation modules. Full art rollout starts after review of these samples.
+## 戦闘と操作
 
-[0.7.0アップデートのお知らせ](updates/0.7.0/)
+20テーマ×5面。80通常戦・10中ボス・10章ボス。中ボスは5/15…95面で、固有の機構を壊すと攻撃が半減し、コア倍率1.5を狙えます。章ボスは10/20…100面、コア倍率2、部位・砲口・胴体を個別定義。100面の段階変化など既存のルールを維持します。
 
-The [ARCLINE service site](./) introduces the game,three physics-based feature previews,the20-theme journey,and10 combat machines. [The machine viewer](characters/) publishes the previously standalone character preview,with direct HTML and image downloads. [Play the game](game/dist/?v=0.10.0) remains a separate entry; the service site does not modify the game distribution or progress. Both the service site and game support Japanese/English.
+通常弾は無限、20ダメージ、通常敵の中心直撃は30。章ボスのコアは40で、中心・コア倍率を重ねません。チャージは飛距離を変え、威力を増やしません。全機体の通常照準は−15〜170°、ソラの必殺は55〜125°。90°を越えて後ろへ向けると、機体も砲口方向へ反転します。
 
-Buildless Canvas artillery game, implementation **0.10.0** / campaign **4.1**. Japanese is the default; English and mirrored controls are saved preferences. Ten selectable machines with distinct combat profiles, **20 themes ×5 stages**,90 normal encounters and10 bosses. No permanent combat buffs.
+必殺は各面3発。1回の連射・分裂・連続爆破を1行動として数え、同じ標的への全弾合計に上限を適用します。広範囲は距離で威力が落ち、遮蔽も効きます。0.10の90〜96ダメージを抑えました。通常弾・耐久・チャージ・移動係数は維持しています。
 
-The **Machine** button in the lobby opens GUN,BAN,HIBARI,HANA,RIN,MOGU,KORO,SORA,RICO and YUI. Their matte arcade graphics are drawn in Canvas 2D from individual paths,with distinct chassis,tracks,wheels,weapons and equipment based on the supplied reference. The same drawing is used in selection,lobby,previews and battles. Selection persists alongside existing progress and inventory. Version0.7.1 introduced appearances only. Version0.7.2 added difficulty and forecast visibility. Version0.7.3 added chapter inventory and level-entry checkpoints. Version0.7.4 restored charge cancellation and clear pause actions with dotted forecasts and a short Hard direction guide. Version0.8.0 added individual normal/special weapons,durability,charge and movement. Character paths,palettes,100 maps,enemy HP and attack planning retain their previous definitions. Safe positioning now uses both horizontal and vertical distance so intact upper teleport landings do not move merely because a rival is below them.
-
-Each machine has **unlimited normal fire** and **three special uses per stage**. All normal shots deal20 points,30 for a direct center hit,or40 on an exposed boss core; center/core multipliers do not stack. Charge controls flight power,not damage. Normal shots allow−15° through80° for all machines. Sora’s special alone requires55°–85°. One salvo,cluster or pulse sequence costs one special use and one action,with a per-target aggregate damage cap.
-
-| Machine | HP | Charge to maximum | Special | Maximum damage per use |
+| 機体 | HP | 最大チャージ | 必殺の個性 | 1行動の合計上限 |
 |---|---:|---:|---|---:|
-| GUN |140|2.6s|Broad demolition blast,cover destruction,push|60|
-| BAN |120|2.6s|Forward cone from contact,push|64|
-| HIBARI |120|2.6s|Visible-target proximity burst|58|
-| HANA |100|2.4s|Three delayed barrel shots at different angles|78|
-| RIN |100|3.2s|Fast precision shot,center bonus|96|
-| MOGU |120|2.4s|Three advancing blasts through breakable cover|66|
-| KORO |100|2.4s|Rolling bomb that falls across gaps and resumes|70|
-| SORA |100|2.8s|High-angle carrier splits into eight falling bomblets|84|
-| RICO |80|2.4s|Up to four bounces grow damage and blast|82|
-| YUI |100|2.8s|Pull toward impact,then delayed compression blast|90|
+| ガン |140|2.6秒|遮蔽の破壊・押し出し|48|
+| バン |120|2.6秒|着弾点から前方への扇状衝撃|48|
+| ヒバリ |120|2.6秒|見通せる相手の近くで空中炸裂|40|
+| ハナ |100|2.4秒|3つの砲口から時間差の扇射|48|
+| リン |100|3.2秒|狭い高速弾、精密な中心命中|75（通常直撃60）|
+| モグ |120|2.4秒|3回の爆破で破壊材を掘り進む|42|
+| コロ |100|2.4秒|床を走り、隙間で落ちて再走行|46|
+| ソラ |100|2.8秒|頂点から8発の落下弾|48|
+| リコ |80|2.4秒|反射で威力と作用範囲が成長|50|
+| ユイ |100|2.8秒|着弾点へ牽引して遅延圧縮|52|
 
-Maximum values require the relevant hits; spread,blast falloff,armor,cover and missed projectiles reduce actual damage. Fixed bedrock cannot be destroyed. Detection and attraction respect solid cover. Yui pulls along legal terrain and compresses after0.6seconds; bosses resist displacement. Normal shots have modest flight/range differences; Gun trades range for HP,Rin trades a small blast for speed and a slower charge. Beginner/intermediate/advanced labels describe hitting reliability and setup requirements,not charge speed.
+弾道の線幅（下地3px、主線5.5/8/10px）、弾体サイズ、着弾半径・寿命・粒子の飛距離は0.10を保持。ダメージ範囲と描画範囲を分け、威力調整で演出を縮めていません。
 
-The attack selector separates **machine weapons** from **picked auxiliary**. Empty specials remain visible. Special stock and HP refill on a new stage,retry or interrupted-stage restart; ammo boxes refill auxiliary stock only. Guard can accompany normal,special,auxiliary and teleport actions. Breach and legacy attack skills accompany normal/auxiliary fire; an incompatible weapon selection clears their reservation without consumption. Existing auxiliary IDs,ownership and isolated practice selection remain available. The machine picker shows durability,charge,and both attack descriptions in Japanese and English.
+移動と照準の2スティックは左、長押し発射は右。発射を押したまま左の操作を切り替えられます。発射の指を外へずらして離すと取消、戻せば発射を再予約。キーボードは矢印とSpace、チャージ中のEscで取消。照準に絵文字は使いません。左右反転、日本語/英語、一時停止、点線の難易度別射線を維持します。
 
-Version0.10.0 adds optional **Journey records**: a short introduction,five acts,ten chapter records,and all ten player-machine biographies. Backgrounds are available immediately; each machine's growth opens after its focus chapter,and all afterwords plus the epilogue open after stage100. Records follow the shared party's journey,so switching machines does not discard story progress. The lobby shows one short opening until read or played; chapter clears add one short reflection beside the inventory result. Battles keep their existing previews and screen space. Full stories remain in the optional reader,also reachable from a machine profile.
+転移弾は4面から無限。攻撃の代わりに1行動を使い、最初の接触先へ移動。上面は実機体45pxの空間を確認し、近くの安全な列を探します。側壁や天井への接触は接触側で落下してから敵の手番へ。壁の反対側や壁の上へ不正に抜けません。外れや安全な足場がない場合は移動せず、行動は使います。攻撃・回収・破壊・反射を伴いません。
 
-**Settings** groups language,fullscreen and control side,with an optional **How to play** tab explaining charge cancellation,actions,specials,teleport and chapter stock. Language and control side now persist through the same save adapter as progress. Existing local preferences are imported when the loaded profile has none; an explicit saved profile preference takes priority. Settings and record input wait for initial loading. The save schema is5,and the actual0.9.0 client refuses it. Original data,chapter stock,ownership and reading history remain protected through migration and save retries. The0.10.0 journey release retained its original battle modules. B02 now adds explicit sample APIs tocharacters.js/render.js; the default game presentation is preserved.
+## 在庫と保存
 
-From this directory:
+武器箱は3発まで補充、弾薬箱は補助弾へ1発補充。武器3種類・スキル2種類、各3まで。通常弾・転移・機体固有必殺は章在庫と別枠。拾った武器を勝手に装備しません。
 
-```sh
-python3 -m http.server 8000 --directory game/dist
+中ボスを越えて持ち越し、10面ごとの章ボス撃破で有限在庫をリセット。中ボスの報酬は勝利確定時に1回、練習には持ち帰りません。防壁は次の敵攻撃の全弾を半減、砕路は近くの破壊片を最大1つ追加破壊、修理は30HPまで回復して1行動。予約と取消、満杯時の交換/見送り、互換性のない必殺との併用制限を維持します。
+
+面開始時の在庫・武器・乱数・取得台帳を保存し、敗北や中断復帰は開始時へ戻ります。勝利時は持越しと次の開始位置をまとめて保存。失敗時は再保存が完了するまで次へ進めません。旧schema2〜5を6へ移行し、機体・所有ID・章在庫・言語/左右・既読を保持。最初のバックアップは上書きせず、旧版が新しい保存を書き戻すことも防ぎます。
+
+## 物語
+
+5幕・10章の旅に、20守り手の仕事・過去・登場と撃破後の返答、10組の伏線→回収、5組の相互関係を接続。[物語設計データ](design/narrative_0_11.json)。章の主役は共有の旅の仲間で、操作機体を切り替えても話が変わりません。
+
+章の導入2.8秒、守り手の名前/一行特徴/台詞3.2秒は操作を止めません。撃破後は既存の結果画面に即時表示し、文字送り・追加OK・物語用の待ち時間は設けません。詳しい背景は任意の「旅の記録」へ。未クリアの守り手の答えは開きません。
+
+## 起動・生成・確認
+
+```bash
+python3 -m http.server 8000
+# http://localhost:8000/ARCLINE/game/dist/
+python3 ARCLINE/game/tools/build_levels.py
+python3 ARCLINE/game/tools/build_encounters.py
+python3 ARCLINE/game/tools/build_visual_registry.py
+python3 ARCLINE/game/tools/build_story.py
+python3 ARCLINE/game/tools/build_public_assets.py
+node ARCLINE/game/tools/build_site_scenes.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-0.11 node ARCLINE/game/tests/visual-integration.test.cjs
+ARCLINE_EVIDENCE_DIR=/tmp/arcline-0.11 node ARCLINE/game/tests/visual-integration-browser.test.cjs
+python3 ARCLINE/game/tools/build_playables.py --output /tmp/arcline-package
 ```
 
-Open http://localhost:8000/. No install, bundler or production dependency is needed. The standalone distribution loads only local assets. Its existing adapter can use a host-provided `ytgame`; the external YouTube SDK bootstrap is omitted and YouTube integration requires a separate check.
+ビルドレスで外部SDKを読み込まない34配布ファイル。ZIPはGit外へ生成します。紹介サイトと確認ページは本編の共有コードを参照。オフラインHTMLと一覧PNGも同じコードから生成します。テストと画像生成用のPlaywright/Chromiumは配布物に含みません。
 
-Choose **Easy / Normal / Hard** in the start menu. Easy shows the full forecast trajectory,Normal shows the first half by world-space arc length,and Hard shows only a straight48px barrel-direction guide,independent of power and future contacts. All three modes use round dotted guides both before and during charge; Hard reveals no predicted landing,bounce or curved trajectory. Normal is the default for new and legacy saves. Split children inherit the parent trajectory distance; delayed volleys remain independent paths. The same rule applies to teleport. The choice is saved and fixed when a duel starts. Actual shots,trails,impacts,enemy telegraphs and instructional previews remain visible in every mode. Difficulty does not alter physics,damage,enemy AI,stock or rewards.
+今回の自動確認は[visual-b08](evidence/visual-b08/)。1000機体×面の安全な配置、4000軌跡、8サイズの100面描画、42モデル、20戦の部位/コア、転移、威力、保存移行、実Worker、代表実HP試合を確認。全1000組×3乱数の完走、人の難易度、物理端末のSafari/ホーム画面/Android、YouTube認証は未確認です。
 
-Move and aim are adjacent on the **left**. Use one left thumb to alternate between them while the right thumb holds **FIRE**. Releasing movement stops walking; releasing aim keeps the angle; neither releases or resets the charge. FIRE uses the position,angle and power at release, then stops held movement. The gauge takes2.4–3.2seconds from20% to100%,depending on the machine,with a0.25second maximum hold before returning. Teleport uses the same2.6second charge for every machine. A drawn axis and thumb circle identify AIM; no emoji is used. Slide the FIRE finger outside its circle and release to cancel without spending a shot,weapon stock or skill. Sliding back inside re-arms firing. The hint and button color show the current action. On keyboard,Esc cancels a held charge; a later Space release cannot fire. Arrow keys and Space remain available.
+B01/B02や0.10以前の結果は過去の根拠として保持し、今回の成功数へ加えません。0.10から新しい戦闘・美術へ変えたため、B01の「物理/画素が同一」の期待値を更新して合格させることもしません。[B01](evidence/visual-b01/)／[B02](evidence/visual-b02/)／[0.10](evidence/journey-ui/)。
 
-From stage4, **Teleport** switches to a non-damaging projectile with unlimited stock. It spends one action instead of an attack. The rover moves to the first contact: on a wall side or ceiling it falls straight down to a supported floor before the enemy acts. Teleport does not bounce,damage enemies,collect items,break terrain or consume special ammunition. A miss or invalid landing keeps the original position and still spends the action. There is no destination selection menu.
-
-Each stage combines finite mountain,cliff,island,cave and shelf components. Cracked purple pieces can be broken with ordinary shots; the opening persists through turn and boss-phase changes. Fixed bedrock,catch floors,reflective surfaces and moving mechanisms remain distinct. Drawing,walking,projectiles,teleport and CPU search use the same collision world. Ordinary direct hits through the enemy center earn1.5×; blast-only hits do not. Boss cores retain2× without stacking.
-
-A chapter spans10 stages. Campaign weapon capsules fill that weapon to **three shots**; at most three finite weapon types are held,each capped at three. Weapons do not auto-equip. Ammo boxes add one shot up to the cap. Unspent weapons and skills carry between levels,including the5th level. The10th-level boss victory resets both inventories for the next chapter. Ordinary shots and teleport stay unlimited.
-
-Version0.9.0 introduces three skills in stages1–20. Guard halves the complete next enemy attack sequence,including delayed shots,and expires even if the enemy misses. It does not prevent self-damage,forced movement or lost support. Breach adds at most one nearby destructible piece within48 world units at the first destructive impact of an ordinary/auxiliary shot; it adds no damage and cannot pass a fixed wall. Field Repair restores up to30 HP for one action,then the rival acts. Full HP blocks repair. The confirmation shows actual healing and the action cost; canceling is free. At most two skill types are held,each capped at three. Reservations consume only when a compatible action commits. Old skill quantities retain their original effects; later stages retain their previous supplies during this partial rollout. Overflow offers replacement or skip after the rival response,or before committing a winning result.
-
-The saved level entry holds inventory,selected opening weapon,match seed and pickup ledger. Defeat or an interrupted battle restores that entry. A win commits the unspent stock and next entry together; a failed save offers retry and blocks campaign advancement. Chapter restart starts its first level with no finite weapons while retaining permanent progress. Existing ownership of all20 weapon IDs and37 appearance IDs is preserved. Owned weapons remain selectable in isolated **practice** with three shots; practice does not grant chapter stock or advance campaign progress. Machine-specific special ammunition is independent of chapter inventory. Practice does not grant the new midpoint rewards.
-
-Stages1–20 now contain11 weapon boxes and5 skill boxes,with one skill reward after clearing5 and15. These are ordinary encounters in this release. The first chapter grants Guard for stage6; Repair first appears at12 and Breach at17. Boxes are optional,have typed resource IDs and distinct placement IDs,and can be collected with a normal shot by all ten machines. The first20-stage supply layout replaces the prior three boxes; stages21–100 retain their13 existing boxes and previous encounters/supplies. Total field supplies are29. Weapon records for Heavy Shell,Ricochet,Rail and Drill open after stages3,8,13 and14 respectively; finite campaign stock stays separate from ownership and practice. Drill alone phases only breakable cover,not fixed rock,reflective materials or devices. Version0.9.0 introduced schema4; current saves use schema5 and the actual0.8.0/0.9.0 clients refuse that schema and cannot overwrite new skill stock. The prior save is backed up before migration,and subsequent reloads do not overwrite that backup. A home-screen installation or separate browser may have its own storage.
-
-The100 explicit runtime maps are authored in `design/runtime_campaign_20x5.json`; `game/tools/build_levels.py` validates and serializes them. Each has its own components,spawns,devices and action budget. Preparation by teleport or excavation also spends an action. Normal stages allow10–14 actions,bosses20–22,and the finale28. Enemy attacks choose different angle families with stage-dependent error and a new match seed; fixed attack telegraphs do not chase future player input.
-
-Automatic previews introduce17 relevant first uses,plus each machine special and new skill,and loop until **OK**. Preview contacts and effects use the same simulation; weapon/skill practice scenes are labelled. Inventory shows names,stock and selection. Map pickups use projectile/ammo shapes and drawn shield,tool and fracture symbols instead ofW/R/S/B letters. New skill examples show real protected damage,an additional broken piece,or recovery followed by the rival response. Terrain introductions take priority at entry; a deferred skill lesson appears on first selection. New skill pickups can teach after the rival response and any slot decision. Results are centered. Japanese/English stage names and interface text are supported.
-
-Phones play in landscape,with84px primary controls and a compact92px deck. The camera changes scale with opponent distance; tall encounters retain readable tanks and show an offscreen direction. Stationary charging holds the view; moving while charging follows the rover. High projectiles receive smooth vertical tracking,followed by an impact hold and return. Retained browser zoom is inverse-fitted without reloading the duel. Rotation cancels held input and preserves independent SDK/visibility pauses.
-
-The pause menu keeps **Resume game**,fullscreen,language,control-side switch,**Retry level**,and **Return to title** visible together,including568×240 landscape. Retry and title exit ask for confirmation; cancel/Esc returns to the paused menu. Retry restores the level entry,including its inventory and match seed. Flight and opponent turns stay frozen until resume.
-
-Fullscreen requires a user gesture. Browsers with support use native fullscreen; iPhone fallback explains home-screen launch. No service worker or offline cache is installed. A home-screen app may have storage separate from Safari.
-
-Current checks:
-
-```sh
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-journey node game/tests/journal.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-journey node game/tests/journal-browser.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-skills node game/tests/early-skills.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-skills node game/tests/early-skills-browser.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-machines node game/tests/machine-combat.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-machines node game/tests/machine-previews.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-machines node game/tests/machine-matches.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-machines node game/tests/machine-combat-browser.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-machines node game/tests/machine-worker.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-site node site-tests/service-site.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-controls node game/tests/charge-pause.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-stock node game/tests/chapter-stock.test.cjs
-node game/tests/integrated.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-difficulty node game/tests/aim-guide.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-difficulty node game/tests/difficulty-browser.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-characters node game/tests/character-graphics.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/integrated-browser.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/orientation-i18n.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/viewport.test.cjs
-ARCLINE_EVIDENCE_DIR=/tmp/arcline-qa node game/tests/fullscreen.test.cjs
-python3 game/tools/build_playables.py --output /tmp/arcline-package
-```
-
-The browser checks use the environment's Playwright/Chromium,not a shipped library. Current results are in [evidence/journey-ui/](evidence/journey-ui/):24,242 assertions,including5,384 story/state/migration checks and431 native browser checks at six sizes. Story gates cover every clear count0–100. The browser checks cover real touch/wheel scrolling,immediate taps after scrolling,two-finger rejection,keyboard tabs/focus,language/control persistence,all ten biographies,chapter/final result flows,and atomic record/progress save failure/retry. Three SDK profile scenarios use a mocked adapter. Chapter/final UI scenarios control enemy HP; they do not claim full-HP campaign completion. At the0.10.0 journey release,sixteen battle/map/AI/art/effect/preview/input/platform modules and the authored100-stage JSON were byte-identical to0.9.0; the later opt-in B02 rendering foundation is recorded separately above.
-
-Current regression runs also include1,744 machine-combat browser checks,1,556 early-skill checks and379 early-skill browser checks,160 actual pickup routes,all670 machine/lesson combinations,100 maps at eight viewports,84px controls,dotted forecasts,charge cancellation,pause,orientation,zoom recovery,fullscreen,worker and service-site checks. Physical iPhone/Android usability,installation,human difficulty and YouTube certification remain unverified. Prior0.9.0 combat runs are in `evidence/early-skills/`,including200 full-HP battles across ten machines and stages1–20; those battles are historical,not added to this release's execution totals.
-
-Older evidence remains in `evidence/integrated-0.7.0/`, `evidence/character-graphics/`, `evidence/difficulty/`, `evidence/charge-pause-guides/`, `evidence/chapter-stock/` and `evidence/machine-combat/`. The old chapter-stock-browser fixture assumes the former stage7 pickup; current early-skills-browser covers the actual layout. The historical floor-only render-boundary failure is not counted as a pass. Optional `ARCLINE_PREVIOUS_DIST` points journal tests to immutable0.9.0,early-skills to immutable0.8.0,and machine-combat to immutable0.7.4 for their respective migration/preservation/CPU comparisons. Full ten-machine ×100-stage completion and physical-device performance are not claimed.
-
-Automatic publishing review rejected the external YouTube script in the HTML. The standalone release removes that external script; this is not a YouTube-certified package.
-
-Original0.3 import commit `125c76a`, `EXPORT_MANIFEST.json`,v1.0/v1.1 design documents and earlier evidence/test suites remain historical provenance. Old tests that assume finite tap-to-BLINK,capsule-based weapon unlocks or the previous100 maps are superseded by the current checks above. Historical passes alone do not certify the current release. Distribution ZIPs are created outside Git. The existing Sites project is unchanged; GitHub Pages serves merged main.
+元の引継ぎ書、EXPORT_MANIFEST、設計v1.0/v1.1は歴史資料です。現在の実装と混同しないでください。18枚のデザイン原本は保持。ルートGit・通常push・GitHub Pagesを使い、別Gitの初期化やforce pushはしません。

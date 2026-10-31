@@ -84,16 +84,23 @@ function without(w,ids){const gone=new Set(ids);return {...w,solids:w.solids.fil
 function fallLanding(w,x,startY,other=null,range=[35,965]){
  if(x<range[0]||x>range[1])return null;
  const ys=w.surfaces.map(f=>floorY(f.points,x)).filter(y=>y!==null&&y>=startY-2).sort((a,b)=>a-b);
- for(const y of ys){const p=support(w,x,y);if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>90))return p;}
+ for(const y of ys){const p=support(w,x,y),separation=other?.hitShape?Math.max(70,other.hitShape.rx+28):70;if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>separation))return p;}
  return null;
 }
 function teleportLanding(w,hit,other,range=[35,965]){
  if(!hit||!Number.isFinite(hit.x+hit.y))return null;
  const nx=Number(hit.nx)||0,ny=Number(hit.ny)||0;
- const top=ny<-.4,entry={x:hit.x+(top?0:nx*(hit.unit!==undefined?76:37)),y:hit.y+(top?-26:ny>.4?50:22)};
- if(!clearBody(w,entry))return null;
- const landing=fallLanding(w,entry.x,entry.y,other,range);
- return landing?{...landing,entry}:null;
+ const top=ny<-.4,wall=Math.abs(nx)>.4&&Math.abs(ny)<.7,dir=Math.sign(nx)||1;
+ // Search adjacent safe columns; side contacts fall from their contact height.
+ // A top contact only requires the actual body's45px headroom.
+ const offsets=top?[0,-6,6,-12,12,-20,20,-32,32,-48,48,-64,64]:wall?[37,45,57,73,97].map(n=>dir*(hit.unit!==undefined?n+50:n)):[0,-8,8,-20,20,-36,36,-56,56];
+ for(const offset of offsets){
+  const entry={x:clamp(hit.x+offset,range[0],range[1]),y:hit.y+(top?0:ny>.4?50:24)};
+  if(!clearBody(w,entry))continue;
+  if(wall&&!lineClear(w,{x:hit.x+nx*.6,y:hit.y},{x:entry.x,y:hit.y}))continue;
+  const landing=fallLanding(w,entry.x,entry.y,other,range);
+  if(landing)return {...landing,entry};
+ }return null;
 }
 function surfaceAt(w,x,near=400,maxDifference=Infinity){let best=null;for(const f of w.surfaces){const y=floorY(f.points,x);if(y!==null&&Math.abs(y-near)<=maxDifference&&(!best||Math.abs(y-near)<Math.abs(best.y-near)))best={x,y,id:f.id};}return best;}
 function support(w,x,y){const a=surfaceAt(w,x-20,y,24),b=surfaceAt(w,x+20,y,24);if(!a||!b)return null;return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:a.id};}
@@ -113,7 +120,9 @@ function move(s,side,amount){
   const d=x-u.x;Object.assign(u,p);moved+=d;remaining-=d;
  }return moved;
 }
-function muzzle(s,side,relativeAngle){const u=s.units[side],dir=s.units[1-side].x>=u.x?1:-1,theta=(dir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope;
- const pivot={x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26};return {x:pivot.x+Math.cos(theta)*35,y:pivot.y+Math.sin(theta)*35,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
-const api={clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
+function actorPoint(s,side,x,y){const u=s.units[side],dir=s.units[1-side].x>=u.x?1:-1,a=u.slope||0;return {x:u.x+x*dir*Math.cos(a)-y*Math.sin(a),y:u.y+x*dir*Math.sin(a)+y*Math.cos(a)};}
+function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}
+function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=s.units[1-side].x>=u.x?1:-1,theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
+ const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
+const api={clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
 })(globalThis);
