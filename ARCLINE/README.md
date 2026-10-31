@@ -4,6 +4,8 @@
 
 [承認済み方針のゲーム反映変更計画：8バッチ・24タスク（実装前）](design/sheets/implementation.html)
 
+[B01：現行版の固定と描画接続契約](evidence/visual-b01/) ／ [接続契約](design/visual-samples/CONTRACTS_JA.md)
+
 [0.7.0アップデートのお知らせ](updates/0.7.0/)
 
 The [ARCLINE service site](./) introduces the game,three physics-based feature previews,the20-theme journey,and10 combat machines. [The machine viewer](characters/) publishes the previously standalone character preview,with direct HTML and image downloads. [Play the game](game/dist/?v=0.10.0) remains a separate entry; the service site does not modify the game distribution or progress. Both the service site and game support Japanese/English.
