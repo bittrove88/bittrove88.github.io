@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "dateJst": "2026-10-31",
-  "status": "PLANNED_NO_GAME_CHANGES",
+  "status": "B01_COMPLETE_B02_SAMPLES_READY_FOR_REVIEW",
   "approvedDirection": {
     "status": "APPROVED_BY_USER",
     "record": "直前のユーザー発言「内容問題ありません」",
@@ -242,13 +242,13 @@
       "全42体の同時出現"
     ]
   },
-  "executionBoundary": "次の実装指示ではB01〜B02を最初の区切りとし、代表3画面を示してから全体へ広げる。今回は全24タスクが未着手。",
+  "executionBoundary": "B01完了。B02の共通描画・代表3画面を作成し、表現は確認待ち。B03以降の全体展開は未着手。",
   "batches": [
     {
       "id": "B01",
       "title": "基準と接続契約",
       "boundary": "基準保存のみ。ゲーム挙動の変更なし。",
-      "status": "PLANNED",
+      "status": "COMPLETED",
       "dependsOn": [],
       "tasks": [
         "T01",
@@ -259,7 +259,7 @@
       "id": "B02",
       "title": "共通描画と代表3画面",
       "boundary": "3画面の見本確認で区切る。全体展開はここを通過してから。",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_AWAITING_VISUAL_REVIEW",
       "dependsOn": [
         "B01"
       ],
@@ -361,7 +361,7 @@
       "batch": "B01",
       "title": "現行版と比較基準を固定",
       "track": "BASELINE",
-      "status": "PLANNED",
+      "status": "COMPLETED_VERIFIED",
       "dependsOn": [],
       "size": "M",
       "files": [
@@ -383,7 +383,7 @@
       "batch": "B01",
       "title": "対象ID・対応表・描画契約を定義",
       "track": "BASELINE",
-      "status": "PLANNED",
+      "status": "COMPLETED_VERIFIED",
       "dependsOn": [
         "T01"
       ],
@@ -408,7 +408,7 @@
       "batch": "B02",
       "title": "共通スタイルと描画部品を実装",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "COMPLETED_VERIFIED",
       "dependsOn": [
         "T02"
       ],
@@ -434,7 +434,7 @@
       "batch": "B02",
       "title": "入江の代表画面を作成",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_AWAITING_VISUAL_REVIEW",
       "dependsOn": [
         "T03"
       ],
@@ -459,7 +459,7 @@
       "batch": "B02",
       "title": "洞窟と暗所の代表画面を作成",
       "track": "ART",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED_AWAITING_VISUAL_REVIEW",
       "dependsOn": [
         "T04"
       ],
@@ -4749,6 +4749,25 @@
       "lowDetailFrameP95Ms": 33.3,
       "status": "TARGETS_NOT_MEASURED"
     },
-    "currentResult": "資料の整合確認のみ。将来の描画・ゲーム回帰・攻略・実機検証は未実施。"
+    "currentResult": "B01の基準確認とB02の3見本・座標・非変更・42既定画像比較を実施。3見本の表現は確認待ち。全体回帰の再実行、全100面の新美術・新攻略・実機確認は未実施。"
+  },
+  "progress": {
+    "dateJst": "2026-10-31",
+    "samplePage": "../visual-samples/",
+    "report": "../visual-samples/REPORT_JA.md",
+    "implementedTasks": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05"
+    ],
+    "awaitingVisualReview": [
+      "T04",
+      "T05"
+    ],
+    "nextBatch": "B03",
+    "defaultGameArtSwitched": false,
+    "evidence": "../../evidence/visual-b02/"
   }
 }

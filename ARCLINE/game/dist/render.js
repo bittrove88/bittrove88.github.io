@@ -1,7 +1,8 @@
 (function(root){
 'use strict';
 const E=root.ArcEngine,G=E.geometry;
-function create(canvas){
+function create(canvas,configuration={}){
+ if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const isArenaPickup=item=>!item.collected&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=1000;
  const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
  function canvasRect(element){
@@ -240,8 +241,8 @@ function create(canvas){
   const closeFocus=demonstration?.phase==='RESULT'&&validFocus&&!demonstration.framing?.keepOverview?{...lessonFocus,radius:Math.max(100,Math.min(280,lessonFocus.radius||170))}:null;
   const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=s.units.filter(showsUnit);
   const phoneLandscape=!lobby&&!localDemo&&w>h&&h<=600&&matchMedia('(pointer: coarse)').matches;
-  const top=lobby?(wide?100:h*.23):localDemo?16:phoneLandscape?(h<=280?4:h<=340?8:48):Math.max(80,(header?.bottom||64)+20);
-  const bottom=lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):phoneLandscape?h-(h<=280?96:104)-Math.max(0,h-(controls?.bottom||h-4)-4):Math.max(top+100,(controls?.top||h-210)-12);
+  const top=Number.isFinite(options.presentationFrame?.top)?Math.max(0,Math.min(h-1,options.presentationFrame.top)):lobby?(wide?100:h*.23):localDemo?16:phoneLandscape?(h<=280?4:h<=340?8:48):Math.max(80,(header?.bottom||64)+20);
+  const bottom=Number.isFinite(options.presentationFrame?.bottom)?Math.max(top+1,Math.min(h,options.presentationFrame.bottom)):lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):phoneLandscape?h-(h<=280?96:104)-Math.max(0,h-(controls?.bottom||h-4)-4):Math.max(top+100,(controls?.top||h-210)-12);
   const landmarks=[...frameUnits.map(u=>({x:u.x,y:u.y-50})),...(!localDemo?s.pickups.filter(isArenaPickup):[])];
   if(closeFocus)landmarks.push({x:closeFocus.x-closeFocus.radius,y:closeFocus.y-45},{x:closeFocus.x+closeFocus.radius,y:closeFocus.y+45});
   if(demonstration?.after)landmarks.push(...demonstration.after.units.filter(showsUnit).map(u=>({x:u.x,y:u.y-60})));

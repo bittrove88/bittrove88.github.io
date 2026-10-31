@@ -16,6 +16,7 @@ assert not re.search(r'<script[^>]+src=[\"\']https?://',html)
 assert html.index('src="journal.js')<html.index('src="save.js') and html.index('src="menus.js')<html.index('src="game.js')
 assert html.index('src="combat.js')<html.index('src="skills.js')<html.index('src="weapons.js')<html.index('src="physics.js')<html.index('src="engine.js')<html.index('src="lessons.js')<html.index('src="preview.js')<html.index('src="game.js')
 manifest={'implementation':'0.10.0','design':'4.1 campaign; ten machine combat profiles; unchanged0.9 combat/maps/art/effects; bilingual optional journey and machine records; lobby settings; schema5 profile preferences and reading history','files':{f.name:{'bytes':f.stat().st_size,'sha256':hashlib.sha256(f.read_bytes()).hexdigest()} for f in files},'youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap'}
+manifest['visualFoundation']={'version':'B02','defaultRenderer':'legacy0.10.0; matte art is opt-in for the separate three-scene review','modules':['visual-registry.js','visual-style.js','visual-art.js'],'newBattleRules':False}
 zip_path=out/'ARCLINE_0.10.0_Playables.zip'
 with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED) as z:
  for f in files:
