@@ -12,7 +12,8 @@ const save=ArcSave.create({
  save:raw=>inYT?sdk.game.saveData(raw):localStorage.setItem(ArcSave.key,raw)
 },state=>{$('saveStatus').dataset.error=['load-failed','save-failed'].includes(state);$('saveStatus').textContent=state==='saved'?(inYT?'Progress synced':'Progress saved on this device'):state==='load-failed'?'Progress unavailable · Session play':'Progress not saved · Retry on resume';});
 const hostPaused=()=>pauseSources.size>0;
-function minimumAngle(){if(s?.teleportMode)return -12;return s?ArcWeapons.get(s.mode).minAngle||-12:-12;}
+function minimumAngle(){return s?E.minimumAngle(s):-12;}
+function maximumAngle(){return s?E.maximumAngle(s):85;}
 function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!encounter&&!demo&&!s.pendingLoot.length&&$('lootPicker').hidden&&$('weaponPicker').hidden&&$('skillPicker').hidden;}
 function audioSync(){if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
 function unlockAudio(){userInteracted=true;if(!audio)try{audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.connect(audio.destination);}catch{}audioSync();}
@@ -103,12 +104,12 @@ function buildSkills(){
  });
 }
 function battleWeaponChoices(){
- return E.availableWeapons(s).map(c=>({...c,source:runContext?.practice?'Practice weapon':'Carried until boss'}));
+ return E.availableWeapons(s).map(c=>({...c,weapon:E.weapon(s,0,c.id),source:c.category==='machine'?(c.id==='W01'?'Normal · Unlimited':'Special · 3 per level'):runContext?.practice?'Practice auxiliary':'Carried until boss'}));
 }
 function hud(){
  if(!s)return;const shown=activePreview(),displayState=shown?(shown.effectProgress>=.5?shown.after:shown.before)||shown.state:s,[p,e]=displayState.units,enabled=canAim();
- $('playerName').textContent=ArcCharacters.get(save.data.equippedCharacterId).name;
- $('php').textContent=Number(p.hp.toFixed(2));$('ehp').textContent=Number(e.hp.toFixed(2));$('pbar').style.width=p.hp/5*100+'%';$('ebar').style.width=e.hp/e.maxHp*100+'%';$('pbar').parentElement.style.setProperty('--segments',20);$('ebar').parentElement.style.setProperty('--segments',100/e.maxHp);
+ $('playerName').textContent=ArcCharacters.get(s.characterId||save.data.equippedCharacterId).name;
+ $('php').textContent=E.combat.points(p.hp);$('ehp').textContent=E.combat.points(e.hp);$('pbar').style.width=p.hp/p.maxHp*100+'%';$('ebar').style.width=e.hp/e.maxHp*100+'%';$('pbar').parentElement.style.setProperty('--segments',100/p.maxHp);$('ebar').parentElement.style.setProperty('--segments',100/e.maxHp);
  $('ename').textContent=s.spec.boss?s.spec.name:'RIVAL';$('round').textContent=(runContext?.practice?'PRACTICE · ':'')+'LV '+s.stage;
  $('turnLabel').textContent=demo?'':encounter?'BOSS':s.phase==='over'?'COMPLETE':s.turn?'RIVAL':'YOUR TURN';
  const left=s.shotLimit-s.shotCount;$('shotBudget').textContent=(runContext?.practice?'PRACTICE · ':'')+(left===1?'LAST ACTION':left+' ACTIONS');$('shotBudget').classList.toggle('low',left<=3);$('shotBudget').classList.toggle('last',left===1);
@@ -116,28 +117,28 @@ function hud(){
  const displayPower=shown?.displayPower??shown?.pose?.power??s.power;
  $('powerNumber').textContent=Math.round(displayPower)+'%';$('powerFill').style.width=displayPower+'%';$('powerHUD').classList.toggle('active',!!charge);
  const aimState=shown?.state||s,aimAngle=shown?.pose?.angle??s.angle;
- $('angleText').textContent=Math.round(G.muzzle(aimState,0,aimAngle).worldAngle)+'°';$('aimRange').value=s.angle;$('aimRange').min=minimumAngle();for(const id of ['aimRange','aimUp','aimDown'])$(id).disabled=!enabled;$('fire').disabled=!enabled||s.selectedSkill==='BLINK';$('fire').classList.toggle('charging',!!charge||held);$('fire').classList.toggle('canceling',!!charge?.cancel);$('chargeValue').textContent=charge?.cancel?'CANCEL':s.teleportMode?'TELEPORT':'FIRE';$('chargeRing').style.strokeDashoffset=345.58*(1-((charge||held)?(displayPower-20)/80:0));
+ $('angleText').textContent=Math.round(G.muzzle(aimState,0,aimAngle).worldAngle)+'°';$('aimRange').value=s.angle;$('aimRange').min=minimumAngle();$('aimRange').max=maximumAngle();for(const id of ['aimRange','aimUp','aimDown'])$(id).disabled=!enabled;$('fire').disabled=!enabled||s.selectedSkill==='BLINK';$('fire').classList.toggle('charging',!!charge||held);$('fire').classList.toggle('canceling',!!charge?.cancel);$('chargeValue').textContent=charge?.cancel?'CANCEL':s.teleportMode?'TELEPORT':'FIRE';$('chargeRing').style.strokeDashoffset=345.58*(1-((charge||held)?(displayPower-20)/80:0));
  $('fireHint').hidden=!charge;$('fireHint').textContent=charge?.cancel?'Release to cancel':charge?.id==='keyboard'?'Esc to cancel':'Slide away to cancel';
  $('fire').setAttribute('aria-label',s.teleportMode?'Hold to charge teleport; slide away to cancel':'Hold to charge; release to fire; slide away to cancel');
  $('shotFeedback').textContent=feedback||(!demo&&s.selectedSkill==='BLINK'?'Tap a landing spot, then tap again.':'');
- const mode=shown?.pose?.mode||(s.teleportMode?'TELEPORT':s.mode),weapon=ArcWeapons.get(mode),look=weapon.appearance,entry=E.availableWeapons(displayState).find(w=>w.id===mode),ammo=entry?.ammo||0;
+ const mode=shown?.pose?.mode||(s.teleportMode?'TELEPORT':s.mode),weapon=E.weapon(displayState,0,mode),look=weapon.appearance,entry=E.availableWeapons(displayState).find(w=>w.id===mode),ammo=entry?.ammo||0;
  $('weaponGlyph').textContent=look.glyph;$('weaponName').textContent=weapon.name;
- $('weaponStock').textContent=mode==='W01'||mode==='TELEPORT'?'Unlimited':ammo+(ammo===1?' shot':' shots');
+ $('weaponStock').textContent=mode==='W01'||mode==='TELEPORT'?'Unlimited':weapon.special?'Special '+ammo+'/3':'Aux '+ammo+' shots';
  $('weaponState').textContent='WEAPON';$('weaponToggle').style.borderColor=look.color;$('weaponToggle').style.color=look.color;
  $('weaponToggle').setAttribute('aria-label',weapon.name+', '+$('weaponStock').textContent+', choose weapon');$('weaponToggle').classList.toggle('special',mode!=='W01');$('weaponToggle').classList.toggle('new',!!s.weaponStock[s.lastPickupWeaponId]);$('weaponToggle').disabled=!enabled;$('weaponToggle').dataset.switchable=String(battleWeaponChoices().length>1);
  for(const b of document.querySelectorAll('[data-skill]')){
   const id=b.dataset.skill,count=demo?(displayState.skills[id]??s.skills[id]):s.skills[id],used=!demo&&s.skillUsed,selected=demo?shown.pose?.selectedSkill===id:!used&&s.selectedSkill===id;
-  const blocked=id==='SWAP'&&s.spec.boss;
-  b.querySelector('.skill-count').textContent='×'+count;b.querySelector('.skill-state').textContent=blocked?'Unavailable on bosses':selected?'Selected':used?(lastSkill===id?'Used':'Next turn'):count<=0?'Empty':'';
-  b.disabled=(!enabled&&$('skillPicker').hidden)||used||count<=0||blocked;b.classList.toggle('spent',used||count<=0||blocked);b.setAttribute('aria-disabled',b.disabled);b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected);b.setAttribute('aria-label',id+', '+count+' uses'+(blocked?', Unavailable on bosses':selected?', selected':used?', used this turn':count<=0?', empty':''));
+  const blocked=id==='SWAP'&&s.spec.boss||E.weapon(s).special;
+  b.querySelector('.skill-count').textContent='×'+count;b.querySelector('.skill-state').textContent=blocked?(E.weapon(s).special?'Not with special':'Unavailable on bosses'):selected?'Selected':used?(lastSkill===id?'Used':'Next turn'):count<=0?'Empty':'';
+  b.disabled=(!enabled&&$('skillPicker').hidden)||used||count<=0||blocked;b.classList.toggle('spent',used||count<=0||blocked);b.setAttribute('aria-disabled',b.disabled);b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected);b.setAttribute('aria-label',id+', '+count+' uses'+(blocked?(E.weapon(s).special?', Not with special':', Unavailable on bosses'):selected?', selected':used?', used this turn':count<=0?', empty':''));
  }
  if(shown){
-  $('tutorialContext').textContent=/WEAPON/.test(shown.context)?'WEAPON PREVIEW':/SKILL/.test(shown.context)?'SKILL PREVIEW':/BOSS/.test(shown.context)?'BOSS PREVIEW':/CONTROL/.test(shown.context)?'CONTROL PREVIEW':shown.source==='vignette'?'PRACTICE PREVIEW':'LEVEL PREVIEW';$('tutorialStep').textContent=shown.step;$('tutorialInstruction').textContent=shown.instruction;$('tutorialOutcome').textContent=shown.outcome;
+  $('tutorialContext').textContent=/MACHINE SPECIAL/.test(shown.context)?'SPECIAL PREVIEW':/WEAPON/.test(shown.context)?'WEAPON PREVIEW':/SKILL/.test(shown.context)?'SKILL PREVIEW':/BOSS/.test(shown.context)?'BOSS PREVIEW':/CONTROL/.test(shown.context)?'CONTROL PREVIEW':shown.source==='vignette'?'PRACTICE PREVIEW':'LEVEL PREVIEW';$('tutorialStep').textContent=shown.step;$('tutorialInstruction').textContent=shown.instruction;$('tutorialOutcome').textContent=shown.outcome;
   $('tutorialInstruction').hidden=shown.phase==='RESULT';$('tutorialOutcome').hidden=shown.phase!=='RESULT';
   $('previewPowerFill').style.width=displayPower+'%';$('previewPowerNumber').textContent=Math.round(displayPower)+'%';$('previewAction').textContent=shown.controlAction||shown.step;
  }
  for(const id of ['stick','aimStick']){$(id).setAttribute('aria-disabled',!enabled);$(id).style.opacity=enabled?'1':'.4';}
- $('aimStick').setAttribute('aria-valuemin',minimumAngle());$('aimStick').setAttribute('aria-valuenow',Math.round(s.angle));$('aimStick').setAttribute('aria-valuetext',Math.round(s.angle)+' degrees');
+ $('aimStick').setAttribute('aria-valuemin',minimumAngle());$('aimStick').setAttribute('aria-valuemax',maximumAngle());$('aimStick').setAttribute('aria-valuenow',Math.round(s.angle));$('aimStick').setAttribute('aria-valuetext',Math.round(s.angle)+' degrees');
  $('warpToggle').hidden=!s.spec.teleport;$('warpToggle').disabled=!enabled;$('warpToggle').setAttribute('aria-pressed',s.teleportMode);$('fire').classList.toggle('teleport',s.teleportMode);
  const selected=s.selectedSkill;const skillCount=Object.keys(s.skills).filter(k=>s.skills[k]>0).length;$('skills').hidden=!Object.keys(s.skills).length;$('skillName').textContent=selected||'Skill';$('skillStock').textContent=selected?'×'+s.skills[selected]:String(skillCount);$('skillToggle').setAttribute('aria-pressed',!!selected);$('skillToggle').disabled=!enabled||s.skillUsed||skillCount===0;
  const rs=s.world.regions.map(r=>r.kind==='F'?(r.direction>0?'WIND →':'WIND ←'):r.kind==='V'?(r.on?'VENT ↑':'VENT · NEXT ↑'):r.kind==='M'?'FIELD '+(r.direction>0?'↻':'↺'):r.kind==='C'?'CLOUD':'UPDRAFT ↑');
@@ -228,16 +229,16 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:(s.matchSeed+s.round*1009)>>>0});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.7.3');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.8.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
  if(!$('lootPicker').hidden)return;
  clock+=dt;if(!s||manualPaused||hostPaused())return;
  if(encounter){encounter.age+=dt;if(encounter.age>=encounter.duration){encounter=null;$('encounterBanner').hidden=true;if(!openLoot(firstDemo))firstDemo();}hud();return;}
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
  if(s.phase==='aim'){
-  if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
-  const axis=stick?stick.axis:keyMove;if(axis)E.move(s,0,axis*160*dt);
-  if(aimStick?.axis)s.angle=E.clamp(s.angle+50*aimStick.axis*Math.abs(aimStick.axis)*dt,minimumAngle(),85);
+  if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed,s);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
+  const axis=stick?stick.axis:keyMove;if(axis)E.move(s,0,axis*160*dt,!!charge);
+  if(aimStick?.axis)s.angle=E.clamp(s.angle+50*aimStick.axis*Math.abs(aimStick.axis)*dt,minimumAngle(),maximumAngle());
  }else if(s.phase==='cpu'){
   s.time-=dt;if(s.time<=0&&cpuReady){s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;
    if(Math.abs(s.cpuTarget-s.cpuStart)<1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
@@ -270,7 +271,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
+function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
@@ -298,7 +299,7 @@ $('pause').onclick=pause;$('resume').onclick=async()=>{if(hostPaused())return;
 $('returnLobby').onclick=()=>{if(dialog==='chapter'){chapterConfirm=null;$('overlay').hidden=true;showLevels();return;}if(dialog==='result'){const final=s.result==='win'&&s.stage===100&&!runContext?.practice;lobby();if(final)openEquipment();else showLevels();return;}if(dialog==='confirm'||dialog==='retry'){pause();return;}confirmPauseAction('confirm');};
 $('retryLevel').onclick=()=>confirmPauseAction('retry');
 $('resultJourney').onclick=()=>{lobby();showLevels();};
-$('weaponToggle').onclick=()=>{if(!canAim())return;const choices=battleWeaponChoices();clearInput();ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(!hasSeen(id)&&ArcLessons.forWeapon(s,id,save.data))runDemo(id,true);}}, {note:runContext?.practice?'Practice: three shots of your selected weapon.':'Weapons and skills carry until the chapter boss.'});};
+$('weaponToggle').onclick=()=>{if(!canAim())return;const choices=battleWeaponChoices();clearInput();ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(!hasSeen(id)&&ArcLessons.forWeapon(s,id,save.data))runDemo(id,true);}}, {title:'Choose attack',grouped:true,note:'Special: three uses each level. Auxiliary stock carries until the boss.'});};
 // Secondary touch contacts do not receive native compatibility clicks on every browser.
 $('weaponToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(stick||aimStick||charge)&&canAim()){e.preventDefault();$('weaponToggle').click();}};
 $('closeWeapons').onclick=()=>ArcPresentation.closeWeapons();
@@ -314,7 +315,7 @@ $('previewOK').onclick=()=>{unlockAudio();endDemo();};
 
 
 $('environment').onpointerdown=()=>{if(canAim())previewPress=setTimeout(()=>{const kind=s.spec.features.find(f=>'WBCKUFVM'.includes(f.type))?.type;if(kind)runDemo(kind);},450);};$('environment').onpointerup=$('environment').onpointercancel=()=>clearTimeout(previewPress);
-function setAngle(angle){if(!canAim())return;s.angle=E.clamp(angle,minimumAngle(),85);hud();}
+function setAngle(angle){if(!canAim())return;s.angle=E.clamp(angle,minimumAngle(),maximumAngle());hud();}
 $('aimRange').oninput=e=>setAngle(Number(e.target.value));$('aimUp').onclick=()=>setAngle(s.angle+3);$('aimDown').onclick=()=>setAngle(s.angle-3);
 function pointer(e){e.preventDefault();unlockAudio();}
 $('fire').onpointerdown=e=>{pointer(e);if(charge)return;if(e.button!==0&&e.pointerType!=='touch')return;startCharge(e.pointerId);try{$('fire').setPointerCapture(e.pointerId);}catch{}};
@@ -350,7 +351,7 @@ document.addEventListener('keydown',e=>{
  if(!$('overlay').hidden&&e.key==='Tab'){const buttons=[...$('overlay').querySelectorAll('button:not(:disabled)')].filter(b=>b.getClientRects().length),first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}return;}
  if(e.key==='Escape'){if(!$('skillPicker').hidden){$('closeSkills').click();return;}if(!$('weaponPicker').hidden){$('closeWeapons').click();return;}if(!$('collectionPanel').hidden){$('closeCollection').click();return;}if(!$('levelPicker').hidden){$('levelPicker').hidden=true;return;}if(demo&&$('overlay').hidden)return;if(!$('overlay').hidden){if(dialog==='chapter')$('returnLobby').click();else if(dialog==='result')lobby();else if(dialog==='confirm'||dialog==='retry')pause();else $('resume').click();}else pause();return;}
  if(demo)return;if(e.target?.matches?.('input,select,button')&&e.target.id!=='fire')return;if(!canAim())return;
- if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),85);if(e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),85);if(e.target?.id==='aimStick'&&['Home','End'].includes(e.key)){e.preventDefault();s.angle=e.key==='Home'?minimumAngle():85;}hud();
+ if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),maximumAngle());if(e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),maximumAngle());if(e.target?.id==='aimStick'&&['Home','End'].includes(e.key)){e.preventDefault();s.angle=e.key==='Home'?minimumAngle():maximumAngle();}hud();
 });
 document.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key))keyMove=0;if(e.key===' '){if(!e.target?.matches?.('input,select,button')||e.target.id==='fire'||charge?.id==='keyboard')e.preventDefault();releaseCharge('keyboard');}});
 // Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.

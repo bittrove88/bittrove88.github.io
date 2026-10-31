@@ -12,7 +12,8 @@ for(const id of S.characterIds){
  ok(data.equippedCharacterId===id&&data.equippedWeaponId==='W20'&&data.equippedCosmeticId==='B10'&&data.cleared===100,'visual choice preserves progression and inventory '+id);
  for(let n=1;n<=100;n++){
   const base=E.campaign(n,{...data,equippedCharacterId:'gun',matchSeed:123}),selected=E.campaign(n,{...data,matchSeed:123});
-  assert.equal(JSON.stringify(selected),JSON.stringify(base),'visual id cannot change combat or maps '+id+' stage '+n);checks++;
+  assert.equal(selected.units[0].maxHp,E.combat.get(id).hp/20,'machine combat profile '+id+' stage '+n);checks++;
+  assert.deepEqual({world:selected.world,enemy:selected.units[1],pickups:selected.pickups,spawn:[selected.units[0].x,selected.units[0].y]}, {world:base.world,enemy:base.units[1],pickups:base.pickups,spawn:[base.units[0].x,base.units[0].y]},'machine selection preserves map, enemy, pickups and spawn '+id+' stage '+n);checks++;
   assert.equal(selected.random(),base.random(),'enemy randomness unchanged '+id+' stage '+n);checks++;
  }
 }
@@ -36,10 +37,10 @@ const server=http.createServer((req,res)=>{
     ok(await page.locator('.character-detail strong').innerText()===c.nameJa,'Japanese machine name '+c.id);
     const dimensions=await page.evaluate(()=>{
      const panel=document.querySelector('.collection-panel'),r=panel.getBoundingClientRect();
-     return {overflow:panel.scrollWidth>panel.clientWidth+1,left:r.left,right:r.right,canvases:[...document.querySelectorAll('#collectionGrid canvas')].map(c=>({width:c.clientWidth,height:c.clientHeight,pixels:c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v)}))};
+     return {overflow:panel.scrollWidth>panel.clientWidth+1,left:r.left,right:r.right,canvases:[...document.querySelectorAll('.equipment-grid canvas')].map(c=>({width:c.clientWidth,height:c.clientHeight,pixels:c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v)}))};
     });
     ok(!dimensions.overflow&&dimensions.left>=0&&dimensions.right<=width+1,'machine picker fits '+width);
-    ok(dimensions.canvases.every(c=>c.width>30&&c.height>=70&&c.pixels),'visible rendered thumbnails '+width);
+    ok(dimensions.canvases.length===10&&dimensions.canvases.every(c=>c.width>30&&c.height>=70&&c.pixels),'all ten rendered card thumbnails '+width);
    }
    if(width===844)await page.screenshot({path:path.join(out,'machines-phone.png')});
    await page.locator('#closeCollection').click();await page.evaluate(()=>save.pending);await page.reload();await page.waitForFunction('!document.getElementById("play").disabled');
@@ -89,7 +90,7 @@ const server=http.createServer((req,res)=>{
    }
    viewports.push({width,height,machines:10});await context.close();
   }
-  ok(errors.length===0,errors.join('\n'));const report={status:'PASS',checks,poses,viewports,errors,scope:'Ten code-drawn appearances, six emulated viewports, selection persistence, Japanese/English, 300 actual Canvas muzzle poses, and 1,000 unchanged seeded campaign states. Reference-image fidelity is visually reviewed, not pixel-equivalence. Physical phone performance and additional concept attachments are unverified.'};
+  ok(errors.length===0,errors.join('\n'));const report={status:'PASS',checks,poses,viewports,errors,scope:'Ten code-drawn appearances, six emulated viewports, selection persistence, Japanese/English, 300 actual Canvas muzzle poses, and 1,000 selected-profile campaign states with unchanged map/enemy/spawn/randomness. Reference-image fidelity is visually reviewed, not pixel-equivalence. Physical phone performance and additional concept attachments are unverified.'};
   fs.writeFileSync(path.join(out,'CHARACTERS.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
  }finally{await browser.close();server.close();}
 })().catch(error=>{console.error(error);server.close();process.exit(1);});

@@ -6,7 +6,8 @@ const weaponIds=Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0'));
 const cosmeticIds=[...Array.from({length:27},(_,i)=>'S'+String(i+1).padStart(2,'0')),...Array.from({length:10},(_,i)=>'B'+String(i+1).padStart(2,'0'))];
 const characterIds=['gun','ban','hibari','hana','rin','mogu','koro','sora','rico','yui'];
 const lessonIds=['controls','teleport','wall-fall','destruction','choices','touch-controls-v2','slope','move','aim','charge','pickup','reflection','roof','height','terminal','boss-swap','boss-core','ceiling-lift','gate-choices','bridge','cloud','crystal','updraft','wind','vent','magnet','W','B','C','K','U','F','V','M','BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP'];
-const previewIds=[...weaponIds,...lessonIds,...['v2:','v3:','v4:'].flatMap(prefix=>[...weaponIds,...lessonIds].map(id=>prefix+id))];
+const specialIds=characterIds.map(id=>'S_'+id.toUpperCase());
+const previewIds=[...weaponIds,...lessonIds,...specialIds,...['v2:','v3:','v4:'].flatMap(prefix=>[...weaponIds,...lessonIds,...specialIds].map(id=>prefix+id))];
 const validIds=(xs,allowed)=>[...new Set((Array.isArray(xs)?xs:[]).filter(x=>allowed.includes(x)))];
 function decode(raw){
  const p=raw?JSON.parse(raw):{};if(!p||typeof p!=='object'||Array.isArray(p))throw Error('Invalid save');

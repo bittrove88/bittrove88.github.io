@@ -20,8 +20,9 @@ function fixture(source,id){
  if(id==='W19')spec.floors=[[[0,12],[60,12]],[[62,21],[100,21]]];
  if(id==='height'||id==='slope')spec.floors=[[[0,12],[22,12],[42,22],[100,22]]];
  s.spec=spec;s.world=G.world(spec);s.stage=source.stage;s.skills=skills;s.skillCaps=Object.fromEntries(Object.entries(skills).map(([k])=>[k,4]));s.selectedSkill=E.skills.includes(id)&&id!=='BLINK'?id:null;s.skillUsed=false;s.bossPhase=0;s.effects={broken:0,polarity:0,destroyed:[]};s.teleportMode=false;s.pendingChanges=[];s.last=[null,null];s.telegraph=null;
- const targetX=({W07:500,W11:420,W13:560,PHASE:620,W16:520})[id]||(id==='W19'?575:720);
- s.units=[{...G.safePosition(s.world,160,380),hp:5,maxHp:5,parts:[],range:[35,650],exposed:0},{...G.safePosition(s.world,targetX,380),hp:3,maxHp:3,parts:[],range:[320,965],exposed:0}];
+ const profile=s.characterId?E.combat.get(s.characterId):null,near=profile?Math.max(300,Math.min(720,160+360*profile.normal.speed**2/profile.normal.gravity)):720;
+ const targetX=({W07:500,W11:420,W13:560,PHASE:620,W16:520})[id]||(id==='W19'?575:/^W\d\d$/.test(id)&&id!=='W01'?720:near),hp=profile?profile.hp/E.combat.pointsPerUnit:5;
+ s.units=[{...G.safePosition(s.world,160,380),hp,maxHp:hp,parts:[],range:[35,650],exposed:0},{...G.safePosition(s.world,targetX,380),hp:3,maxHp:3,parts:[],range:[250,965],exposed:0}];
  s.blink=spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
  s.pickups=id==='pickup'?[{id:'S-demo',name:'Capsule',x:380,y:280,radius:24,collected:false}]:[];
  s.mode=/^W\d\d$/.test(id)?id:'W01';s.weaponId=s.mode;s.weaponStock=s.mode==='W01'?{}:{[s.mode]:3};s.pendingLoot=[];s.angle=48;s.power=65;s._preview=true;
@@ -121,7 +122,7 @@ function make(s,id,found,source){
  }
  const after=snapshot(before);if(plan.damage.some(Boolean))E.resolve(after,clone(plan));else E.applyEvents(after,clone(plan),Infinity);
  if(id==='terminal'&&after.effects.pendingPolarity)E.boundary(after);
- const target=teachingEvent||plan.impacts.at(-1)||plan.path.at(-1),releaseAt=id==='controls'?(E.chargeDuration||1.6)*(found.power-20)/80:.85;
+ const target=teachingEvent||plan.impacts.at(-1)||plan.path.at(-1),releaseAt=id==='controls'?(E.combat.get(before.characterId).charge.rise)*(found.power-20)/80:.85;
  const result=decorate({id,source,state:before,before,after,pose:{angle:found.angle,power:found.power,mode:before.mode,selectedSkill:before.selectedSkill},plan,proof:{event:eventFor[id]||'hit',valid:useful(s,id,plan)},releaseAt,flightStart:releaseAt,flightEnd:releaseAt+plan.duration/playbackRate,duration:releaseAt+plan.duration/playbackRate+resultHold,playbackRate,resultHold,focus:{x:target.x,y:target.y,radius:170}},id,source);
  result.annotationAt=teachingEvent?.t??plan.impacts.find(hit=>hit.hit?.unit===1)?.t??plan.duration;
  if(['C','U','F','V','M'].includes(id)){
@@ -176,12 +177,46 @@ function at(preview,age=preview?.age||0){
  const flight=local.plan?E.clamp((time-local.flightStart)*rate,0,local.plan.duration):0;
  const effectProgress=local.plan?E.clamp((time-local.flightEnd)/.35,0,1):E.clamp((time-local.flightStart)/Math.max(.01,local.flightEnd-local.flightStart),0,1);
  const pose={...local.pose};if(local.motion?.kind==='aim'&&phase==='WATCH'){const t=E.clamp(time/Math.max(.01,local.flightStart),0,1),ease=t*t*(3-2*t);pose.angle=local.motion.fromAngle+(local.motion.toAngle-local.motion.fromAngle)*ease;}
- const displayPower=local.id==='controls'&&phase==='WATCH'?E.chargePower(time):pose.power;
+ const displayPower=local.id==='controls'&&phase==='WATCH'?E.chargePower(time,local.state):pose.power;
  const controlAction=local.id==='controls'?(phase==='WATCH'?'HOLD FIRE':phase==='SHOT'?'RELEASE':'HIT'):local.id==='aim'?local.label:phase==='RESULT'?local.outcome:local.instruction;
  const annotation=phase==='RESULT'||phase==='SHOT'&&(local.plan?flight+1e-9>=(local.annotationAt??local.plan.duration):effectProgress>=.5)?local.annotation:null;
  return {...local,variants:undefined,age:time,variantIndex:index,pose,flight,effectProgress,phase,step:local.label||phase,label:local.label||phase,displayPower,controlAction,annotation,cue:{...local.cue,active:phase==='WATCH'},description:phase==='RESULT'?local.outcome:local.instruction};
 }
+function specialPreview(original,id){
+ const weapon=E.combat.weapons.find(w=>w.id===id&&w.special);if(!weapon)return null;
+ const state=fixture(original,id);state.characterId=weapon.machineId;state.specialAmmo=3;state.mode=id;state.selectedSkill=null;state.weaponStock={};
+ const target={gun:520,ban:590,hibari:650,hana:440,rin:720,mogu:650,koro:800,sora:580,rico:760,yui:650}[weapon.machineId];
+ state.spec.components=[];state.spec.features=[];
+ if(weapon.machineId==='gun')state.spec.components=[{id:'demo-cover',destructible:true,poly:[[40,20],[46,20],[46,12],[40,12]]}];
+ if(weapon.machineId==='mogu')state.spec.components=[{id:'demo-cover',destructible:true,poly:[[40,28],[52,28],[52,12],[40,12]]}];
+ if(weapon.machineId==='rico')state.spec.features=[{type:'R',v:[30,85,28]}];
+ if(weapon.machineId==='koro')state.spec.floors=[[[0,12],[48,12]],[[58,4],[100,4]]];
+ state.world=G.world(state.spec);const hp=E.combat.get(state.characterId).hp/E.combat.pointsPerUnit;
+ state.units=[{...G.safePosition(state.world,160,380),hp,maxHp:hp,parts:[],exposed:0,range:[35,965]},{...G.safePosition(state.world,target,weapon.machineId==='koro'?460:380),hp:3,maxHp:3,parts:[],exposed:0,range:[250,965]}];
+ const proves=plan=>{
+  const events=plan.events,hit=plan.damage[1]>0;
+  if(weapon.machineId==='gun')return plan.damage[1]>=2.99&&plan.destroyed.length>0;
+  if(weapon.machineId==='ban')return hit&&events.some(e=>e.type==='shockwave')&&!plan.impacts.some(i=>i.hit?.unit===1)&&state.units[1].x-plan.end.x>70;
+  if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');
+  if(weapon.machineId==='hana')return plan.bullets.length===3&&plan.damage[1]>2.5;
+  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=4.79;
+  if(weapon.machineId==='mogu')return events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
+  if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;
+  if(weapon.machineId==='sora')return plan.damage[1]>=2.09&&plan.bullets.length===9&&events.some(e=>e.type==='split');
+  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length>=2;
+  return hit&&events.some(e=>e.type==='pull'&&Math.abs(e.to.x-e.from.x)>60)&&events.some(e=>e.type==='compression');
+ };
+ let found=null;
+ for(let angle=Math.max(-12,weapon.minAngle);angle<=weapon.maxAngle&&!found;angle+=3)for(let power=25;power<=100&&!found;power+=5){const plan=E.trajectory(state,0,angle,power);if(proves(plan))found={angle,power,plan};}
+ if(!found)return null;
+ state.angle=found.angle;state.power=found.power;const before=snapshot(state),after=snapshot(state),plan=found.plan;
+ E.selectWeapon(after,id);const actual=E.launch(after,found.angle,found.power);E.resolve(after,actual);
+ const interaction=plan.events.find(e=>['shockwave','airburst','critical','breach-pulse','roll-fall','split','pull','bounce','break'].includes(e.type)),focus=interaction||plan.impacts.at(-1)||plan.end,releaseAt=.8;
+ const result=decorate({id,source:'vignette',state:before,before,after,pose:{angle:found.angle,power:found.power,mode:id,selectedSkill:null},plan,proof:{event:interaction?.type||'impact',valid:true},releaseAt,flightStart:releaseAt,flightEnd:releaseAt+plan.duration/playbackRate,duration:releaseAt+plan.duration/playbackRate+resultHold,playbackRate,resultHold,focus:{x:focus.x,y:focus.y,radius:170}},id,'vignette');
+ result.annotationAt=interaction?.t||0;result.framing.subjects=[0,1];result.framing.keepOverview=true;return result;
+}
 function create(original,requested){
+ if(E.combat.weapons.some(w=>w.special&&w.id===requested))return specialPreview(original,requested);
  let id=requested==='touch-controls-v2'?'controls':requested==='W'?'reflection':requested==='ceiling-lift'?'roof':requested==='gate-choices'?'B':requested;
  if(!Object.prototype.hasOwnProperty.call(titles,id)&&!E.weapons.some(w=>w.id===id))return null;
  if(['teleport','wall-fall','destruction','choices'].includes(id)){
@@ -197,8 +232,8 @@ function create(original,requested){
   return {...description,id,state:before,before,after,pose:{angle:found.angle,power:found.power,mode:before.teleportMode?'TELEPORT':'W01'},plan:found.plan,proof:{event:id,valid:true},source:'stage',releaseAt,flightStart:releaseAt,flightEnd,duration:flightEnd+resultHold,playbackRate,resultHold,focus:{x:focus.x,y:focus.y,radius:210},annotation:{x:focus.x,y:focus.y,label:id==='destruction'?'OPEN':id==='wall-fall'?'FALL · LAND':'LAND'},annotationAt:found.plan.duration,framing:{points:found.plan.path.filter((_,i)=>i%12===0),subjects:[0]},cue:{control:'fire'}};
  }
  if(id==='controls'){
-  const state=fixture(original,id);Object.assign(state.units[1],G.safePosition(state.world,650,380));state.mode='W01';state.selectedSkill=null;
-  const found={angle:24,power:65};found.plan=E.trajectory(state,0,found.angle,found.power);
+  const state=fixture(original,id);if(!state.characterId)Object.assign(state.units[1],G.safePosition(state.world,650,380));state.mode='W01';state.selectedSkill=null;
+  const found=state.characterId?find(state,id):{angle:24,power:65};if(!found)return null;if(!found.plan)found.plan=E.trajectory(state,0,found.angle,found.power);
   const result=make(state,id,found,'vignette');result.proof={event:'release',valid:found.plan.damage[1]>0};return result.proof.valid?result:null;
  }
  if(id==='aim')return aimDemo(original);

@@ -4,8 +4,10 @@ const {chromium}=require('playwright'),E=require('../dist/engine.js'),S=require(
 const root=path.resolve(__dirname,'../dist'),out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-chapter-stock';fs.mkdirSync(out,{recursive:true});let checks=0;
 const ok=(v,m)=>{checks++;assert(v,m);},equal=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
 const seed=20261031;
-function initial(){const p=S.decode(JSON.stringify({schemaVersion:2,contentRevision:S.revision,cleared:6,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',equippedCharacterId:'gun',collectedCosmeticIds:['S01','B10'],difficulty:'normal',seenPreviewIds:S.previewIds}));p.chapterRun=R.checkpoint(7,{weapons:{W06:2},skills:{BURST:2}},[],'browser-run',seed);return p;}
-const arena=E.campaign(7,{matchSeed:seed,battleInventory:{},battleMode:'W01'});let pickupAim=null;
+function initial(){const p=S.decode(JSON.stringify({schemaVersion:2,contentRevision:S.revision,cleared:6,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',equippedCharacterId:'hana',collectedCosmeticIds:['S01','B10'],difficulty:'normal',seenPreviewIds:S.previewIds}));p.chapterRun=R.checkpoint(7,{weapons:{W06:2},skills:{BURST:2}},[],'browser-run',seed);return p;}
+// Pickup aim must use the same selected machine as the browser, not a legacy
+// no-character fixture. HANA has the straightforward normal arc for this test.
+const arena=E.campaign(7,{equippedCharacterId:'hana',matchSeed:seed,battleInventory:{},battleMode:'W01'});let pickupAim=null;
 for(let angle=-8;angle<=84;angle+=2)for(let power=20;power<=100;power+=2){const p=E.trajectory(arena,0,angle,power);if(p.events.some(e=>e.type==='pickup')&&(!pickupAim||p.duration<pickupAim.duration))pickupAim={angle,power,duration:p.duration};}
 ok(pickupAim,'existing stage7 capsule has an actual shared-physics pickup path');
 const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http://localhost').pathname,file=path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();fs.readFile(file,(e,b)=>{if(e)return res.writeHead(404).end();res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html');res.end(b);});});
