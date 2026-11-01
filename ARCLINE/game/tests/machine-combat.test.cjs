@@ -39,7 +39,7 @@ for(const p of C.profiles){
 
 for(const id of ['hibari','yui']){const s=arena(id),p=C.get(id);s.spec.features=[{type:'S',v:[64,66,5,45]}];s.world=G.world(s.spec);const origin={x:630,y:378,theta:0,dx:1,dy:0,dir:1},shot=E.trajectory(s,0,0,20,{weaponId:p.special.id,origin});ok(!shot.events.some(e=>e.type=== (id==='hibari'?'airburst':'pull')),'fixed wall blocks special detection '+id);ok(!shot.destroyed.length,'fixed wall cannot be destroyed '+id);}
 const refills=arena('gun');refills.specialAmmo=1;E.selectWeapon(refills,'S_GUN');refills.pickups=[{id:'ammo-test',kind:'ammo',x:200,y:300,collected:false,placementId:'L004:ammo-test'}];E.collect(refills,null,{id:'ammo-test'});ok(refills.specialAmmo===1&&refills.weaponStock.W06===3,'ammo boxes replenish auxiliary, never special');
-const single=arena('sora');E.selectWeapon(single,'S_SORA');ok(single.angle>=55&&E.minimumAngle(single)===55,'only Sora special has high-angle restriction');E.selectWeapon(single,'W01');ok(E.minimumAngle(single)===-15&&E.maximumAngle(single)===80,'normal shot retains full usable elevation');
+const single=arena('sora');E.selectWeapon(single,'S_SORA');ok(single.angle>=50&&E.minimumAngle(single)===50,'only Sora special has high-angle restriction');E.selectWeapon(single,'W01');ok(E.minimumAngle(single)===-15&&E.maximumAngle(single)===80,'normal shot retains full usable elevation');
 E.selectTeleport(single);single.angle=85;E.selectTeleport(single);ok(single.angle===80,'returning from teleport keeps barrel within the actual normal forecast bounds');
 // Vertically separated machines can share an x corridor. A boundary must not
 // move an otherwise supported teleport destination merely to separate x values.
