@@ -414,7 +414,7 @@ function openEndingPreview(){
  $('deleteStartSave').hidden=true;
  $('beginJourney').textContent=ArcI18n.language==='en'?'Play ending':'エンディングを再生';
  ArcScreens.open('journeyStart',{block:['lobby','battle'],onEscape(){},cycleFocus:true});
- $('beginJourney').onclick=()=>{ArcFullscreen?.enter?.();ArcScreens.close('journeyStart',false);playStoryMovie('epilogue',openEndingPreview,true,$('beginJourney'));};
+ $('beginJourney').onclick=()=>{globalThis.ArcFullscreen?.enter?.();ArcScreens.close('journeyStart',false);playStoryMovie('epilogue',openEndingPreview,true,$('beginJourney'));};
  $('beginJourney').focus({preventScroll:true});
 }
 save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||'left';applyControlLayout();ArcI18n.setLanguage(preferences.language||'ja');save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;ArcOnboarding.syncDelete();selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('lobbyDifficulty').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=!save.data.journeyStarted;if(save.ready)save.save();sdk?.game.gameReady();if(endingPreview){openEndingPreview();return;}const proceed=()=>ArcExpeditionUi.open(()=>{if(save.data.journal.pendingMovie)playStoryMovie(save.data.journal.pendingMovie);});if(save.data.onboarding.step!=='done')ArcOnboarding.prepare(()=>start());else proceed();});schedule();
