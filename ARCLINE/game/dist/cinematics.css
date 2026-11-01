@@ -31,3 +31,9 @@
 @media(orientation:landscape) and (max-height:500px){.film-caption{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}}
 @media(orientation:landscape) and (max-height:300px){.film-caption{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}}
 @media(orientation:portrait){.film-caption{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}}
+
+/* v0.14.8: iPhone landscape cinematic safe framing for header and subtitles. */
+#storyCinema .film-header{box-sizing:border-box;padding-left:max(28px,env(safe-area-inset-left));padding-right:max(28px,env(safe-area-inset-right))}
+#storyCinema .film-caption{box-sizing:border-box;padding-left:max(32px,env(safe-area-inset-left));padding-right:max(32px,env(safe-area-inset-right))}
+@media(orientation:landscape) and (max-height:500px){#storyCinema .film-header{padding-left:max(28px,env(safe-area-inset-left));padding-right:max(28px,env(safe-area-inset-right))}#storyCinema .film-caption{padding-left:max(32px,env(safe-area-inset-left));padding-right:max(32px,env(safe-area-inset-right))}}
+@media(orientation:portrait){#storyCinema .film-header{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}#storyCinema .film-caption{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}}
