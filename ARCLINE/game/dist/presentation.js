@@ -48,29 +48,28 @@ function renderJourney(data,selectedMap,onSelect,onRestart){
  $('levelPicker').hidden=false;paint();$('closeLevels').focus({preventScroll:true});
 }
 
-let collectionView='characters',returnTo=null,collectionRefresh=null;
+let collectionView='characters',collectionRefresh=null;
 function showCollection(data,onEquip,initialView='characters',options={}){
- collectionView=initialView==='weapons'?'weapons':'characters';if(options.battle)collectionView='characters';returnTo=options.trigger||document.activeElement;let inspected=data.equippedCharacterId;
+ collectionView=initialView==='weapons'?'weapons':'characters';let inspected=data.equippedCharacterId;
  const owned=id=>Crew.owned(data,id);
  function paint(){
   const previousHero=root.ArcCharacterHero.snapshot($('collectionGrid'));
-  document.querySelector('#collectionPanel header strong').textContent=local(options.battle?'戦闘中の仲間変更':'仲間と持ち物',options.battle?'Change machine':'Companions and inventory');
-  let body=options.battle?'':`<div class="collection-tabs" role="tablist"><button data-collection-tab="characters" role="tab" aria-selected="${collectionView==='characters'}">${local('仲間','Companions')} ${data.unlockedCharacterIds.length}/10</button><button data-collection-tab="weapons" role="tab" aria-selected="${collectionView==='weapons'}">${local('練習用武器','Practice weapons')}</button></div>`;
+  document.querySelector('#collectionPanel header strong').textContent=local('仲間と持ち物','Companions and inventory');
+  let body=`<div class="collection-tabs" role="tablist"><button data-collection-tab="characters" role="tab" aria-selected="${collectionView==='characters'}">${local('仲間','Companions')} ${data.unlockedCharacterIds.length}/10</button><button data-collection-tab="weapons" role="tab" aria-selected="${collectionView==='weapons'}">${local('練習用武器','Practice weapons')}</button></div>`;
   if(collectionView==='characters'){
    const m=A.get(inspected),p=C.get(inspected),r=Crew.get(inspected),selected=data.equippedCharacterId===inspected;
-   body+=`<div class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('10機の仲間','Ten machines')}">${Crew.rows.map(r=>root.ArcCharacterHero.tile(r.id,data,inspected,language())).join('')}</div><section class="machine-profile" aria-label="${m.name}">${root.ArcCharacterHero.markup(m.id,{data,lang:language(),battle:options.battle,description:options.battle?local('HP割合・行動数・必殺残数を引き継ぎます。','HP ratio, actions and special ammo are retained.'):root.ArcStory.pick(r.desire,language())})}</section></div>`;
+   body+=`<div class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('10機の仲間','Ten machines')}">${Crew.rows.map(r=>root.ArcCharacterHero.tile(r.id,data,inspected,language())).join('')}</div><section class="machine-profile" aria-label="${m.name}">${root.ArcCharacterHero.markup(m.id,{data,lang:language(),description:root.ArcStory.pick(r.desire,language())})}</section></div>`;
   }else body+=`<p class="inventory-note">${local('章内で拾った武器・スキルはボスまで持ち越し。ここで選ぶ武器は練習用です。','Picked weapons and skills carry until the chapter boss. This selection is for practice.')}</p><div class="equipment-grid">${W.weapons.filter(w=>w.id in W.coreUnlocks).map(w=>{const unlocked=data.unlockedWeaponIds.includes(w.id);return `<button data-equip-weapon="${w.id}" class="equipment-card ${data.equippedWeaponId===w.id?'equipped':''}" ${unlocked?'':'disabled'}><strong>${root.ArcI18n.t(w.name)}</strong><small>${unlocked?local('練習で使用','Use in practice'):local((W.coreUnlocks[w.id]||1)+'面で解放','Clear LV '+(W.coreUnlocks[w.id]||1))}</small></button>`;}).join('')}</div>`;
   $('collectionGrid').innerHTML=body;A.paintAll($('collectionGrid'));root.ArcCharacterHero.hydrate($('collectionGrid'));const nextHero=$('collectionGrid').querySelector('.machine-profile');if(nextHero)root.ArcCharacterHero.crossfade(nextHero,previousHero);
   for(const b of $('collectionGrid').querySelectorAll('[data-inspect-character]'))b.onclick=()=>{inspected=b.dataset.inspectCharacter;paint();$('collectionGrid').querySelector(`[data-inspect-character="${inspected}"]`).focus({preventScroll:true});};
   for(const b of $('collectionGrid').querySelectorAll('[data-collection-tab]'))b.onclick=()=>{collectionView=b.dataset.collectionTab;paint();};
   for(const b of $('collectionGrid').querySelectorAll('[data-equip-weapon]'))b.onclick=()=>{onEquip({weaponId:b.dataset.equipWeapon});paint();};
-  const b=$('collectionGrid').querySelector('[data-confirm-character]');if(b)b.onclick=()=>{const id=b.dataset.confirmCharacter;if(!owned(id))return;const accepted=onEquip({characterId:id});if(accepted===false)return;if(options.battle)closeCollection();else{data.equippedCharacterId=id;paint();}};
+  const b=$('collectionGrid').querySelector('[data-confirm-character]');if(b)b.onclick=()=>{const id=b.dataset.confirmCharacter;if(!owned(id))return;const accepted=onEquip({characterId:id});if(accepted===false)return;data.equippedCharacterId=id;paint();};
  }
- collectionRefresh=paint;$('collectionPanel').hidden=false;paint();$('closeCollection').focus({preventScroll:true});
+ collectionRefresh=paint;root.ArcScreens.open('collectionPanel',{trigger:options.trigger,onEscape:()=>closeCollection()});paint();$('closeCollection').focus({preventScroll:true});
 }
 root.addEventListener('arcline-language',()=>{if(!$('collectionPanel').hidden)collectionRefresh?.();});
-function closeCollection(){$('collectionPanel').hidden=true;if(returnTo?.isConnected&&!returnTo.closest('[hidden]'))returnTo.focus({preventScroll:true});returnTo=null;}
-document.addEventListener('keydown',e=>{if($('collectionPanel').hidden)return;if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeCollection();}if(e.key==='Tab'){const all=[...$('collectionPanel').querySelectorAll('button:not(:disabled),summary')].filter(e=>e.getClientRects().length&&!e.closest('[inert]')),i=all.indexOf(document.activeElement);if(e.shiftKey&&i<=0||!e.shiftKey&&i===all.length-1){e.preventDefault();all[e.shiftKey?all.length-1:0]?.focus();}}},true);
+function closeCollection(){root.ArcScreens.close('collectionPanel');}
 function closeWeapons(){$('weaponPicker').hidden=true;($('battle').hidden?$('openCollection'):$('weaponToggle')).focus({preventScroll:true});}
 function showWeapons(choices,current,onSelect,options={}){
  $('weaponPickerTitle').textContent=options.title||'Choose weapon';document.querySelector('.weapon-picker-note').textContent=options.note||'Weapons and skills carry until the chapter boss.';$('openLibrary').hidden=!options.library;

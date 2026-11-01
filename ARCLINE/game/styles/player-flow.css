@@ -1,0 +1,286 @@
+/* 0.14.3: visible difficulty, compact machine switcher and story memories. */
+#lobby .difficulty-summary {
+  min-height: 44px;
+  margin: 0;
+  padding: 9px 12px;
+  text-align: left;
+  font-size: 14px;
+  border: 1px solid #d9e7b866;
+  background: #244d59;
+  color: #edf1cd;
+}
+#difficultyIntro,
+#battleMachinePicker {
+  z-index: 22;
+  padding: 16px max(16px, env(safe-area-inset-right)) 16px
+    max(16px, env(safe-area-inset-left));
+}
+.first-difficulty {
+  width: min(680px, 100%);
+  overflow: auto;
+  touch-action: pan-y;
+}
+.first-difficulty > p {
+  margin: 0;
+  color: #c7dcce;
+}
+.first-difficulty .difficulty-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.first-difficulty .difficulty-options label {
+  min-height: 88px;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.first-difficulty .difficulty-options strong {
+  font-size: 18px;
+}
+.first-difficulty .difficulty-options small {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.first-difficulty > button {
+  min-height: 48px;
+  background: #ddecba;
+  color: #14384b;
+  font-size: 16px;
+  font-weight: 700;
+}
+.machine-change-label {
+  display: block;
+  font-size: 10px;
+  line-height: 12px;
+  color: #cce7c2;
+  letter-spacing: 0.03em;
+}
+.quick-machines {
+  width: min(760px, 100%);
+}
+.quick-machines > p {
+  font-size: 13px;
+  color: #c9ddcd;
+  margin: 0;
+}
+#battleMachineChoices {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  min-height: 0;
+  overflow: auto;
+  touch-action: pan-y;
+}
+#battleMachineChoices button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 116px;
+  padding: 8px 5px;
+  background: #234d5b;
+  border: 1px solid #afcfb977;
+}
+#battleMachineChoices button:disabled {
+  opacity: 1;
+  background: #4d695d;
+  border-color: #e5eebc;
+}
+#battleMachineChoices .character-art {
+  height: 45px;
+  width: 100%;
+}
+#battleMachineChoices strong {
+  font-size: 15px;
+}
+#battleMachineChoices span,
+#battleMachineChoices small {
+  font-size: 10px;
+  line-height: 1.3;
+}
+#battleMachineChoices small {
+  color: #e6edc0;
+}
+.memory-list {
+  display: grid;
+  gap: 9px;
+}
+.memory-list button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 5px;
+  min-height: 64px;
+  padding: 10px 14px;
+  text-align: left;
+  background: #244e5c;
+  border: 1px solid #b4ceac66;
+}
+.memory-list small {
+  font-size: 11px;
+  color: #bed6bf;
+}
+.memory-list strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+.memory-list span {
+  grid-column: 2;
+  grid-row: 1/3;
+  align-self: center;
+}
+.memory-replay {
+  padding: 20px;
+  border: 1px solid #b3d4bd66;
+  border-radius: 12px;
+  background: #143747bd;
+}
+.memory-replay > small {
+  display: block;
+  margin-top: 20px;
+  color: #d9eab7;
+}
+.memory-replay h3 {
+  font-size: 25px;
+  margin: 10px 0;
+}
+.memory-replay[data-tier="boss"] {
+  border-color: #eadb9d;
+  background: #314c48cc;
+}
+.memory-replay[data-tier="midboss"] {
+  border-color: #a4ced5;
+}
+.memory-replay #memoryText {
+  font-size: 17px;
+  line-height: 1.9;
+  min-height: 100px;
+}
+.memory-replay button {
+  min-height: 44px;
+  font-size: 13px;
+  padding: 8px 12px;
+}
+.journal-panel > header {
+  flex-wrap: wrap;
+}
+.journal-panel > header > h2 {
+  flex: 1;
+}
+.story-replays {
+  display: none;
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  #lobby .lobby-dock {
+    gap: 5px;
+    padding: 8px;
+  }
+  .home-tools button {
+    min-height: 40px;
+  }
+  #lobby .play-button {
+    min-height: 44px;
+  }
+  #lobby .difficulty-summary {
+    font-size: 12px;
+  }
+  .first-difficulty {
+    gap: 8px;
+    padding: 12px 18px;
+  }
+  .first-difficulty .difficulty-options label {
+    min-height: 65px;
+    padding: 7px;
+  }
+  .quick-machines {
+    padding: 10px 14px;
+    gap: 7px;
+  }
+  #battleMachineChoices {
+    gap: 7px;
+  }
+  #battleMachineChoices button {
+    min-height: 91px;
+  }
+  #battleMachineChoices .character-art {
+    height: 32px;
+  }
+  .memory-replay {
+    padding: 12px;
+  }
+  .memory-replay #memoryText {
+    font-size: 15px;
+  }
+  .machine-change-label {
+    font-size: 9px;
+    line-height: 10px;
+  }
+  .health-card {
+    padding-top: 4px;
+  }
+}
+@media (max-width: 520px) and (orientation: portrait) {
+  .first-difficulty .difficulty-options {
+    grid-template-columns: 1fr;
+  }
+  .first-difficulty .difficulty-options label {
+    min-height: 64px;
+  }
+  #battleMachineChoices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .memory-replay {
+    padding: 12px;
+  }
+  .memory-replay h3 {
+    font-size: 21px;
+  }
+  .memory-replay #memoryText {
+    font-size: 15px;
+  }
+  .journal-panel .utility-tabs button {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+#lobby .home-tools {
+  grid-column: 1/-1;
+}
+#lobby .lobby-dock > * {
+  min-width: 0;
+}
+#battleMachineChoices canvas {
+  flex: none;
+}
+.memory-replay #memoryBack {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #214959;
+}
+@media (orientation: landscape) and (max-height: 340px) {
+  #lobby .lobby-dock {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: 0;
+  }
+  #lobby #openCharacters {
+    grid-column: 1;
+  }
+  #lobby #lobbyDifficulty {
+    grid-column: 2;
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 5px;
+  }
+  #lobby .home-tools {
+    grid-column: 1/-1;
+  }
+  #lobby .home-tools button {
+    font-size: 11px;
+  }
+  #lobby .session-note {
+    font-size: 9px;
+    line-height: 12px;
+  }
+}

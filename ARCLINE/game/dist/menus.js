@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 const $=id=>document.getElementById(id),J=root.ArcJournal,escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let hooks=null,active=null,returnTo=null,tab='scenes',machine='gun',chapter=1,settingsTab='options';
+let hooks=null,active=null,tab='scenes',machine='gun',chapter=1,settingsTab='options';
 const touchBound=new WeakSet();
 let touchActivation=null;
 const touchPointers=new Set();let touchBatch=0;
@@ -18,11 +18,11 @@ const language=()=>root.ArcI18n.language,local=(ja,en)=>language()==='en'?en:ja,
 function read(ids){if(J.markRead(hooks.data(),ids))hooks.persist();}
 function prepare(id,trigger){
  if(!hooks.allowed())return false;
- for(const other of ['levelPicker','collectionPanel','weaponPicker','lobbySettings','journalPanel'])$(other).hidden=true;
- hooks.clearInput();active=id;returnTo=trigger||document.activeElement;$(id).hidden=false;$('app').dataset.utilityOpen=id;
+ for(const other of ['levelPicker','collectionPanel','weaponPicker','lobbySettings','journalPanel'])root.ArcScreens.close(other,false);
+ hooks.clearInput();active=id;root.ArcScreens.open(id,{trigger,onEscape:()=>close()});$('app').dataset.utilityOpen=id;
  return true;
 }
-function close(focus=true){if(!active)return;$(active).hidden=true;active=null;delete $('app').dataset.utilityOpen;if(focus&&returnTo?.isConnected&&returnTo.getClientRects().length)returnTo.focus({preventScroll:true});returnTo=null;}
+function close(focus=true){if(!active)return;root.ArcScreens.close(active,focus);active=null;delete $('app').dataset.utilityOpen;}
 function renderSettings(){
  $('settingsOptions').hidden=settingsTab!=='options';$('settingsGuide').hidden=settingsTab!=='guide';
  for(const b of document.querySelectorAll('[data-settings-tab]')){const selected=b.dataset.settingsTab===settingsTab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
@@ -36,7 +36,7 @@ function renderSettings(){
   [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。5面ごとではなく、10面ごとの章ボスを倒すまで持ち越します。','Weapon boxes refill to three shots. Carry up to three weapon types and two skill types until the chapter boss every ten stages, including across the fifth stage.')],
   [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。練習の取得は本編へ持ち帰りません。','Retrying or returning after interruption restores the level-entry HP and stock. Practice pickups never enter the campaign.')]
  ];
- $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE 0.14.3 · Campaign5.0 · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
+ $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE '+root.ArcRelease.version+' · Campaign'+root.ArcRelease.campaignVersion+' · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
  root.ArcI18n.apply();
 }
 function openSettings(trigger=$('openSettings')){if(!prepare('lobbySettings',trigger))return;settingsTab='options';renderSettings();$('settingsOptions').scrollTop=0;$('closeSettings').focus({preventScroll:true});}
@@ -106,12 +106,6 @@ function install(options){
  for(const b of document.querySelectorAll('#lobbySettings button,#journalPanel button,#openSettings,#openJournal'))touchTap(b);
  document.addEventListener('click',e=>{const a=touchActivation;if(!a||!e.isTrusted||e.detail===0||performance.now()-a.time>500)return;const samePointer=e.pointerType==='touch'&&e.pointerId===a.id,sameLegacyTouch=!e.pointerType&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<4;if(samePointer||sameLegacyTouch){touchActivation=null;e.preventDefault();e.stopImmediatePropagation();}},true);
  bindTabs('[data-settings-tab]','data-settings-tab',value=>{settingsTab=value;renderSettings();});bindTabs('[data-record-tab]','data-record-tab',value=>{tab=value;renderJournal();$('recordBody').scrollTop=0;});
- document.addEventListener('keydown',e=>{
-  if(!active||!$('screenHelp').hidden)return;
-  if(e.key==='Escape'&&(document.fullscreenElement||document.webkitFullscreenElement))return;
-  if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();close();return;}
-  if(e.key==='Tab'){const targets=[...$(active).querySelectorAll('button:not(:disabled):not([tabindex="-1"]),[tabindex="0"]')].filter(b=>b.getClientRects().length),first=targets[0],last=targets.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}
- },true);
  root.addEventListener('arcline-language',()=>{if(active==='lobbySettings')renderSettings();if(active==='journalPanel')renderJournal();});
 }
 root.ArcMenus={update:dt=>{if(active==='journalPanel')memoryTyper?.update(dt);},install,openSettings,openJournal,close,get active(){return active;}};

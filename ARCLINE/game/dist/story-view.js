@@ -2,7 +2,7 @@
 const $=id=>document.getElementById(id),S=root.ArcStory,A=root.ArcCharacters,D=root.ArcCinematicData;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
 let plate=null;
-let hooks=null,film=null,result=null,returnFocus=null,inertBefore=[],filmTyper=null,resultTyper=null,resultClock=0;
+let hooks=null,film=null,result=null,filmTyper=null,resultTyper=null,resultClock=0;
 const language=()=>root.ArcI18n.language,local=(ja,en)=>language()==='en'?en:ja;
 const reduced=()=>root.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function graphemes(text){return root.Intl?.Segmenter?[...new Intl.Segmenter(language(),{granularity:'grapheme'}).segment(text)].map(x=>x.segment):Array.from(text);}
@@ -40,8 +40,7 @@ function finishResultText(){if(result&&!resultTyper){resultClock=Math.max(result
 function hideResult(){result=null;resultTyper=null;$('clearNarrative').hidden=true;delete $('overlay').dataset.storyTier;$('replayClearMovie').hidden=true;}
 function open(id,done=()=>{},replay=false,trigger=null){
  if(film)return false;const access=hooks.progress?{cleared:hooks.progress()}:null,frames=D.movie(String(id),language(),access);if(!frames.length)return false;
- hooks.clearInput();returnFocus=trigger||document.activeElement;inertBefore=[];
- for(const name of ['lobby','battle','overlay','journalPanel','lobbySettings','levelPicker','collectionPanel']){const e=$(name);inertBefore.push([e,e.inert]);e.inert=true;}
+ hooks.clearInput();root.ArcScreens.open('storyCinema',{trigger,block:['lobby','battle','overlay','journalPanel','lobbySettings','levelPicker','collectionPanel'],onEscape:()=>close(true),cycleFocus:true});
  film={id:String(id),frames,index:0,age:0,paused:false,done,replay};$('storyCinema').hidden=false;$('app').dataset.cinematic='true';enterFrame();$('filmNext').focus({preventScroll:true});return true;
 }
 function enterFrame(){
@@ -57,8 +56,8 @@ function syncFilm(){if(!film)return;const f=film.frames[film.index],t=D.clock(f,
 function updateNext(){if(!film)return;const f=film.frames[film.index],next=(film.timeline?.cueIndex??-1)+1;$('filmNext').textContent=filmTyper&&!filmTyper.done?local('全文を表示','Show all'):next<f.cues.length?local('次の文へ','Next line'):film.index<film.frames.length-1?local('次の場面へ','Next scene'):local(film.id==='prologue'?'旅をはじめる':'旅へ戻る',film.id==='prologue'?'Begin the journey':'Return to the journey');}
 function advance(){if(!film)return;if(filmTyper&&!filmTyper.done){filmTyper.complete();updateNext();return;}const f=film.frames[film.index],next=(film.timeline?.cueIndex??-1)+1;if(next<f.cues.length){film.age=f.cues[next].startMs/1000;syncFilm();drawFilm();return;}if(film.index+1<film.frames.length){film.index++;enterFrame();}else close(false);}
 function close(skipped){if(!film)return;const previous=film;film=null;filmTyper=null;plate?.destroy();plate=null;$('storyCinema').hidden=true;delete $('app').dataset.cinematic;
- for(const[e,value]of inertBefore)e.inert=value;inertBefore=[];hooks.finished?.(previous.id,{skipped,replay:previous.replay});
- const target=returnFocus;returnFocus=null;previous.done();if(target?.isConnected&&target.getClientRects().length&&!target.closest('[hidden]'))target.focus({preventScroll:true});
+ root.ArcScreens.close('storyCinema',false);hooks.finished?.(previous.id,{skipped,replay:previous.replay});
+ previous.done();
 }
 function togglePause(){if(!film)return;film.paused=!film.paused;$('filmPause').setAttribute('aria-pressed',String(film.paused));$('filmPause').textContent=film.paused?local('再生','Play'):local('一時停止','Pause');}
 function update(dt){
@@ -103,7 +102,7 @@ function drawFallbackFilm(){
 function drawResult(){if(!result)return;const surf=surface($('resultStoryArt'));if(!surf)return;const{ctx,w,h,dpr}=surf;ctx.clearRect(0,0,w,h);ctx.save();ctx.translate(w*.5,h*.86);const scale=Math.min(w/100,h/82);ctx.scale(scale,scale);A.draw(ctx,result.focus,{angle:result.focus==='sora'?58:18,artStyle:'matte',dpr});ctx.restore();
  const progress=$('clearAreaProgress');progress.hidden=!['boss','final'].includes(result.kind);if(!progress.hidden){if(progress.childElementCount!==10)progress.replaceChildren(...Array.from({length:10},()=>document.createElement('i')));const n=Math.min(10,Math.floor(resultClock*10));[...progress.children].forEach((e,i)=>e.classList.toggle('lit',i<n));}}
 function install(options){hooks=options;$('filmNext').onclick=advance;$('filmSkip').onclick=()=>close(true);$('filmPause').onclick=togglePause;$('filmText').onclick=()=>{filmTyper?.complete();updateNext();};$('chapterMessage').onclick=()=>resultTyper?.complete();
- document.addEventListener('keydown',e=>{if(!film||$('gameSurface').inert||$('app').inert)return;if(['Tab','Escape',' ','Enter','ArrowRight'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();if(e.key==='Escape'){close(true);return;}if(e.key==='Tab'){const list=[$('filmSkip'),$('filmPause'),$('filmNext')],i=list.indexOf(document.activeElement);list[(i+(e.shiftKey?2:1))%3].focus();return;}if(e.key!=='ArrowRight'&&document.activeElement===$('filmPause'))togglePause();else if(e.key!=='ArrowRight'&&document.activeElement===$('filmSkip'))close(true);else advance();}},true);
+ document.addEventListener('keydown',e=>{if(!film||$('gameSurface').inert||$('app').inert)return;if([' ','Enter','ArrowRight'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();if(e.key!=='ArrowRight'&&document.activeElement===$('filmPause'))togglePause();else if(e.key!=='ArrowRight'&&document.activeElement===$('filmSkip'))close(true);else advance();}},true);
  root.addEventListener('arcline-language',()=>{if(film){const age=film.age,paused=film.paused,oldCue=film.timeline?.cue,key=oldCue?.textKey,progress=oldCue?clamp((age*1000-oldCue.startMs)/(oldCue.endMs-oldCue.startMs),0,1):0;film.frames=D.movie(film.id,language());const translated=film.frames[film.index].cues.find(c=>c.textKey===key),mappedAge=translated&&!film.timeline?.quiet?(translated.startMs+progress*(translated.endMs-translated.startMs))/1000:age;enterFrame();film.age=mappedAge;film.paused=paused;syncFilm();$('filmPause').setAttribute('aria-pressed',String(paused));$('filmPause').textContent=paused?local('再生','Play'):local('一時停止','Pause');}if(result)showResult(result.stage);});
 }
 root.ArcStoryView=Object.freeze({typeText:typer,install,open,advance,close,update,showResult,hideResult,finishResultText,drawFilm,drawResult,graphemes,get active(){return !!film;},get state(){return film?{id:film.id,index:film.index,age:film.age,paused:film.paused,textDone:!filmTyper||filmTyper.done,shot:film.frames[film.index].id,cueIndex:film.timeline?.cueIndex,cueKey:film.cueKey,phase:film.timeline?.phase,quiet:film.timeline?.quiet,litCount:film.timeline?.litCount,plate:plate?.state}:null;},get resultDone(){return !result||!!resultTyper?.done;}});

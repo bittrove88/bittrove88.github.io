@@ -1,11 +1,11 @@
 """Export bilingual prose changes against the published 0.14 story."""
 from pathlib import Path
-import json, subprocess
+import json, subprocess, os
 
 root=Path(__file__).resolve().parents[2]
 base='3bdbf4f35367b1e9d2ef611454c681d7b84ce104'
 def previous(name):
-    return json.loads(subprocess.check_output(['git','show',base+':ARCLINE/'+name],cwd=root.parent,text=True))
+    return json.loads(subprocess.check_output(['git','show',base+':ARCLINE/'+name],cwd=Path(os.environ.get("ARCLINE_HISTORY_REPO",root.parent)),text=True))
 old=previous('design/narrative_0_13.json')
 old_shots=previous('design/cinematics_014/shots.json')['shots']
 new=json.loads((root/'design/narrative_0_13.json').read_text())

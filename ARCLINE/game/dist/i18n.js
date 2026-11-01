@@ -80,17 +80,43 @@ Object.assign(dictionary,{
 Object.assign(dictionary,{'Journey records':'旅の記録','Settings':'設定','Lobby menu':'開始メニュー','Close settings':'設定を閉じる','Preferences':'設定','How to play':'操作・道具','Settings category':'設定の項目','Language':'言語','Display':'画面表示','Switch sides':'左右を切り替え','Move and aim on the left':'移動・照準は左側','Move and aim on the right':'移動・照準は右側','Close journey records':'旅の記録を閉じる','Record category':'記録の種類','The journey':'旅の記録','The machines':'機体の記録','Choose record':'記録を選ぶ','Record content':'記録の本文','Unread':'未読','Read their story':'物語を読む'});
 Object.assign(dictionary,{'Change machine':'仲間を変更','Special · Shared charge':'必殺弾 · 残数は共通','Special unlocks on your turns 2, 4 and 6. Guardians start with three. Auxiliary stock carries until the boss.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。補助武器は章ボスまで持越し。'});
 Object.assign(dictionary,{'Aim at 50° or higher to scatter eight bomblets.':'50度以上へ向け、頂点から8発を散布。','The companions':'仲間の記録','The last gate opens.':'最後の扉が開いた。'});
-const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
-function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;
- const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
- while(n=walker.nextNode()){if(n.parentElement?.closest('script,style,[data-language-button],[data-story-raw]'))continue;const v=n.nodeValue,old=textSources.get(n);let source=old&&v===old.output?old.source:v;const trimmed=source.trim(),output=trimmed?source.replace(trimmed,language==='ja'&&n.parentElement?.id==='modalDetail'&&/^\d+ shots$/.test(trimmed)?trimmed.replace(/ shots$/,'発でクリア'):t(trimmed)):source;textSources.set(n,{source,output});if(v!==output)n.nodeValue=output;}
- for(const e of document.querySelectorAll('[aria-label],[title]')){const records=attributeSources.get(e)||{};for(const name of ['aria-label','title']){if(!e.hasAttribute(name))continue;const v=e.getAttribute(name),old=records[name],source=old&&v===old.output?old.source:v,output=t(source);records[name]={source,output};if(v!==output)e.setAttribute(name,output);}attributeSources.set(e,records);}
- for(const b of document.querySelectorAll('[data-language-button]')){const label=language==='ja'?'English':'日本語';if(b.textContent!==label)b.textContent=label;b.setAttribute('aria-label',language==='ja'?'Switch to English':'日本語に切り替え');}
- applying=false;observer?.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title']});
+const textSources=new WeakMap(),attributeSources=new WeakMap();
+let observer,applying=false;
+function translateText(node){
+ if(node.parentElement?.closest('script,style,[data-language-button],[data-story-raw]'))return;
+ const value=node.nodeValue,old=textSources.get(node),source=old&&value===old.output?old.source:value,trimmed=source.trim();
+ const output=trimmed?source.replace(trimmed,language==='ja'&&node.parentElement?.id==='modalDetail'&&/^\d+ shots$/.test(trimmed)?trimmed.replace(/ shots$/,'発でクリア'):t(trimmed)):source;
+ textSources.set(node,{source,output});if(value!==output)node.nodeValue=output;
+}
+function translateAttributes(element){
+ const records=attributeSources.get(element)||{};
+ for(const name of ['aria-label','title']){if(!element.hasAttribute(name))continue;const value=element.getAttribute(name),old=records[name],source=old&&value===old.output?old.source:value,output=t(source);records[name]={source,output};if(value!==output)element.setAttribute(name,output);}
+ attributeSources.set(element,records);
+}
+function translateLanguageButton(button){const label=language==='ja'?'English':'日本語';if(button.textContent!==label)button.textContent=label;button.setAttribute('aria-label',language==='ja'?'Switch to English':'日本語に切り替え');}
+function translate(rootNode){
+ if(rootNode.nodeType===Node.TEXT_NODE){translateText(rootNode);return;}
+ if(rootNode.nodeType!==Node.ELEMENT_NODE)return;
+ if(!rootNode.closest('script,style,[data-language-button],[data-story-raw]')){
+  if(!rootNode.childElementCount){for(const node of rootNode.childNodes)if(node.nodeType===Node.TEXT_NODE)translateText(node);}
+  else{const walker=document.createTreeWalker(rootNode,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode())translateText(node);}
+ }
+ if(rootNode.matches('[aria-label],[title]'))translateAttributes(rootNode);
+ for(const e of rootNode.querySelectorAll('[aria-label],[title]'))translateAttributes(e);
+ if(rootNode.matches('[data-language-button]'))translateLanguageButton(rootNode);
+ for(const e of rootNode.querySelectorAll('[data-language-button]'))translateLanguageButton(e);
+}
+function observe(){observer?.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['aria-label','title']});}
+function apply(container=document.body){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;try{translate(container);}finally{applying=false;observe();}}
+function applyMutations(records){
+ const roots=new Set();
+ for(const record of records){if(record.type==='childList'){for(const node of record.addedNodes)if(node.isConnected)roots.add(node);}else if(record.target.isConnected)roots.add(record.target);}
+ const selected=[...roots].filter(node=>![...roots].some(other=>other!==node&&other.contains(node)));
+ if(!selected.length)return;applying=true;observer.disconnect();try{for(const node of selected)translate(node);}finally{applying=false;observe();}
 }
 function setLanguage(next){language=next==='en'?'en':'ja';try{localStorage.setItem('arcline-language',language);}catch{}apply();root.dispatchEvent(new Event('arcline-language'));}
-function install(){observer=new MutationObserver(apply);for(const b of document.querySelectorAll('[data-language-button]'))b.onclick=()=>setLanguage(language==='ja'?'en':'ja');apply();}
-// Canvas labels use the same vocabulary and measured text as the HTML interface.
+function install(){observer=new MutationObserver(applyMutations);for(const b of document.querySelectorAll('[data-language-button]'))b.onclick=()=>setLanguage(language==='ja'?'en':'ja');apply();}
+// Rendering and text measurement keep the same translation contract.
 if(root.CanvasRenderingContext2D)for(const name of ['fillText','strokeText','measureText']){const original=CanvasRenderingContext2D.prototype[name];CanvasRenderingContext2D.prototype[name]=function(text,...args){return original.call(this,t(text),...args);};}
-root.ArcI18n={t,apply,install,setLanguage,get language(){return language;}};
+root.ArcI18n={t,apply,install,setLanguage,local:(ja,en)=>language==='en'?en:ja,get language(){return language;}};
 })(globalThis);

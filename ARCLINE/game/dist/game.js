@@ -2,7 +2,7 @@
 const E=ArcEngine,G=E.geometry,I=ArcInventory,R=ArcCampaignRun,$=id=>document.getElementById(id),sdk=globalThis.ytgame,inYT=!!sdk?.IN_PLAYABLES_ENV;
 const K=ArcSkills;
 const renderer=ArcRender.create($('world')),pauseSources=new Set();
-let selectedMap=0,s=null,preview=E.campaign(1),manualPaused=false,raf=0,previous=0,clock=0,shot=null,flight=0,tail=null,impact=null,charge=null,stick=null,aimStick=null,gesture=null,keyMove=0,dialog='pause',feedback='',cpuJob=null,cpuReady=null,gameToken=0,demo=null,lastDemoId='controls',worker=null,jobId=0,previewPress=null,resizeFrame=0,transition=null,pickupEffects=[];
+let selectedMap=0,s=null,preview=E.campaign(1),manualPaused=false,raf=0,previous=0,clock=0,shot=null,flight=0,tail=null,impact=null,charge=null,input=null,dialog='pause',feedback='',cpuJob=null,cpuReady=null,gameToken=0,demo=null,lastDemoId='controls',worker=null,jobId=0,previewPress=null,resizeFrame=0,transition=null,pickupEffects=[];
 let audio=null,master=null,chargeTone=null,userInteracted=false,hostAudio=inYT?sdk.system.isAudioEnabled():true;
 let skillLessonQueue=[],preferencesHydrating=true;
 let lastChargeSerial=0;
@@ -17,15 +17,13 @@ const save=ArcSave.create({
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?E.minimumAngle(s):-12;}
 function maximumAngle(){return s?E.maximumAngle(s):85;}
-function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&$('collectionPanel').hidden&&$('battleMachinePicker').hidden&&$('difficultyIntro').hidden&&!s.pendingLoot.length&&$('lootPicker').hidden&&$('weaponPicker').hidden&&$('skillPicker').hidden;}
+function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
 function audioSync(){if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
 function unlockAudio(){userInteracted=true;if(!audio)try{audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.connect(audio.destination);}catch{}audioSync();}
 function tone(freq=440,duration=.12,type='sine',volume=.08){if(!audio||!hostAudio||hostPaused()||manualPaused)return;const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(40,freq*.5),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g).connect(master);o.start();o.stop(audio.currentTime+duration);}
 function stopChargeTone(){if(chargeTone){try{chargeTone.stop();}catch{}chargeTone=null;}}
-function resetStick(){stick=null;keyMove=0;$('stickKnob').style.transform='translate(0px,0px)';$('stick').setAttribute('aria-valuenow',0);}
-function resetAimStick(){aimStick=null;$('aimStickKnob').style.transform='translate(0px,0px)';}
 function cancelCharge(notify=false){if(charge&&s){s.power=charge.previous;if(notify)feedback='Shot canceled';}charge=null;stopChargeTone();}
-function clearInput(){gesture=null;resetStick();resetAimStick();cancelCharge();clearTimeout(previewPress);previewPress=null;}
+function clearInput(){input?.clear();cancelCharge();clearTimeout(previewPress);previewPress=null;}
 function acquired(item){
  pickupEffects.push({x:item.x,y:item.y,id:item.id,age:0});
  if(item.pending)return;
@@ -49,18 +47,11 @@ function syncLobby(){
  $('resumeRun').hidden=!save.data.chapterRun||save.data.chapterRun.stage===selectedMap+1;syncJournalSummary();
 }
 function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('openJournal').disabled=!save.data.journeyStarted;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'Restore the routes. Move the world.':'止まった世界を、もう一度動かす。';}
-const difficultyNames={ja:{easy:'イージー',normal:'ノーマル',hard:'ハード'},en:{easy:'Easy',normal:'Normal',hard:'Hard'}};
-let initialChoice='normal',afterDifficulty=null;
-function syncDifficultyChoice(){for(const input of document.querySelectorAll('input[name="difficulty"]'))input.checked=input.value===save.data.difficulty;const en=ArcI18n.language==='en';$('lobbyDifficulty').textContent=(en?'Difficulty: ':'難易度：')+difficultyNames[en?'en':'ja'][save.data.difficulty]+(en?' · Change ›':' · 変更 ›');}
-function renderDifficultyIntro(){const en=ArcI18n.language==='en';$('difficultyIntroTitle').textContent=en?'Choose your difficulty':'難易度を選んでください';$('difficultyIntroText').textContent=en?'You can change this on the start screen at any time.':'開始画面からいつでも変更できます。';$('initialDifficultyOptions').innerHTML=['easy','normal','hard'].map((id,i)=>`<label><input type="radio" name="initialDifficulty" value="${id}" ${initialChoice===id?'checked':''}><span><strong>${difficultyNames[en?'en':'ja'][id]}</strong><small>${(en?['Full dotted trajectory','Half dotted trajectory','Direction only']:['点線の射線をすべて表示','点線の射線を半分まで表示','発射方向だけ表示'])[i]}</small></span></label>`).join('');for(const input of $('initialDifficultyOptions').querySelectorAll('input'))input.onchange=()=>initialChoice=input.value;$('confirmDifficulty').textContent=en?'Confirm and continue':'この難易度ではじめる';}
-function requestDifficulty(done=()=>{}){clearInput();afterDifficulty=done;initialChoice=save.data.difficulty;$('difficultyIntro').hidden=false;renderDifficultyIntro();$('confirmDifficulty').focus();}
-$('confirmDifficulty').onclick=async()=>{if($('confirmDifficulty').disabled)return;$('confirmDifficulty').disabled=true;save.data.difficulty=initialChoice;save.data.difficultyConfirmed=true;await save.save();$('confirmDifficulty').disabled=false;$('difficultyIntro').hidden=true;syncDifficultyChoice();const done=afterDifficulty;afterDifficulty=null;done?.();if(!$('lobby').hidden)$('play').focus();};
-for(const input of document.querySelectorAll('input[name="difficulty"]'))input.onchange=()=>{if(s||hostPaused()){syncDifficultyChoice();return;}save.data.difficulty=ArcAimGuide.normalize(input.value);save.data.difficultyConfirmed=true;save.save();syncDifficultyChoice();};
-$('lobbyDifficulty').onclick=()=>{ArcMenus.openSettings($('lobbyDifficulty'));document.querySelector('.settings-difficulty').scrollIntoView({block:'nearest'});};
-function closeBattleMachines(){$('battleMachinePicker').hidden=true;hud();draw();if(!manualPaused)$('battleCharacters').focus();}
-function openBattleMachines(){if(!canAim())return;clearInput();const en=ArcI18n.language==='en';$('battleMachineTitle').textContent=en?'Switch machine':'機体を変更';$('battleMachineNote').textContent=en?'Tap to switch. HP ratio and special ammo carry over.':'タップで変更。HPの割合・必殺弾の残数は引き継ぎます。';$('battleMachineChoices').innerHTML=ArcCrew.rows.filter(c=>ArcCrew.owned(save.data,c.id)).map(c=>{const a=ArcCharacters.get(c.id),p=ArcCombat.get(c.id);return `<button type="button" data-quick-machine="${c.id}" ${s.characterId===c.id?'disabled':''}>${ArcCharacters.markup(c.id)}<strong>${en?a.name:a.nameJa}</strong><span>${en?a.role:a.roleJa}</span><small>${s.characterId===c.id?(en?'Current machine':'使用中'):ArcI18n.t(p.special.name)}</small></button>`;}).join('');$('battleMachinePicker').hidden=false;ArcCharacters.paintAll($('battleMachineChoices'));for(const b of $('battleMachineChoices').querySelectorAll('button'))b.onclick=()=>{if(!E.changeCharacter(s,b.dataset.quickMachine,save.data.unlockedCharacterIds))return;save.data.equippedCharacterId=s.characterId;save.save();closeBattleMachines();};$('closeBattleMachines').focus();}
-$('closeBattleMachines').onclick=closeBattleMachines;
-document.addEventListener('keydown',e=>{const id=!$('difficultyIntro').hidden?'difficultyIntro':!$('battleMachinePicker').hidden?'battleMachinePicker':null;if(!id)return;if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();if(id==='battleMachinePicker')closeBattleMachines();return;}if(e.key==='Tab'){const list=[...$(id).querySelectorAll('button:not(:disabled),input:checked')],i=list.indexOf(document.activeElement);if(e.shiftKey&&i<=0||!e.shiftKey&&i===list.length-1){e.preventDefault();list[e.shiftKey?list.length-1:0]?.focus();}}},true);
+const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.save(),clearInput,allowed:()=>!s&&!hostPaused()});
+const machinePicker=ArcMachinePicker.create({data:()=>save.data,state:()=>s,clearInput,allowed:canAim,changed:()=>{hud();draw();},change:id=>{if(!E.changeCharacter(s,id,save.data.unlockedCharacterIds))return false;save.data.equippedCharacterId=id;save.save();return true;}});
+function syncDifficultyChoice(){difficultyUi.sync();}
+function requestDifficulty(done){difficultyUi.request(done);}
+function openBattleMachines(){machinePicker.open();}
 function switchMap(delta){if(s||hostPaused())return;selectedMap=E.clamp(selectedMap+delta,0,Math.min(99,save.data.cleared));syncLobby();tone(440,.08);}
 function showLevels(){
  if(hostPaused())return;
@@ -204,7 +195,7 @@ function start(retryContext=null){
 }
 function startCharge(id){
  if(!canAim()||charge||s.selectedSkill==='BLINK')return;
- unlockAudio();gesture=null;charge={id,elapsed:0,previous:s.power,cancel:false,cameraLock:{...renderer.view}};s.power=20;
+ unlockAudio();input?.cancelGesture();charge={id,elapsed:0,previous:s.power,cancel:false,cameraLock:{...renderer.view}};s.power=20;
  if(audio&&hostAudio){chargeTone=audio.createOscillator();const g=audio.createGain();g.gain.value=.025;chargeTone.type='triangle';chargeTone.frequency.value=150;chargeTone.connect(g).connect(master);chargeTone.start();}hud();
 }
 function releaseCharge(id){
@@ -252,7 +243,7 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:(s.matchSeed+s.round*1009)>>>0});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.14.3');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v='+ArcRelease.cacheVersion);worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
  if(!hostPaused()&&!manualPaused)ArcCharacterHero.updateAll(dt);
  if(!$('lootPicker').hidden||!$('collectionPanel').hidden||ArcExpeditionUi.active)return;
@@ -261,8 +252,8 @@ function update(dt,realDt=dt){
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
  if(s.phase==='aim'){
   if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed,s);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
-  const axis=stick?stick.axis:keyMove;if(axis)E.move(s,0,axis*160*dt,!!charge);
-  if(aimStick?.axis)s.angle=E.clamp(s.angle+50*aimStick.axis*Math.abs(aimStick.axis)*dt,minimumAngle(),maximumAngle());
+  const axis=input.movementAxis;if(axis)E.move(s,0,axis*160*dt,!!charge);
+  if(input.aimAxis)s.angle=E.clamp(s.angle+50*input.aimAxis*Math.abs(input.aimAxis)*dt,minimumAngle(),maximumAngle());
  }else if(s.phase==='cpu'){
   s.time-=dt;if(s.time<=0&&cpuReady){s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;
    if(Math.abs(s.cpuTarget-s.cpuStart)<1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
@@ -296,7 +287,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
+function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
@@ -313,7 +304,7 @@ ArcStoryView.install({clearInput,progress:()=>save.data.cleared,cue:(index,id,sh
 $('replayClearMovie').onclick=()=>{if(s?.result==='win'&&[30,60,100].includes(s.stage))playStoryMovie(s.stage===100?'epilogue':String(s.stage),()=>{},true);};
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
 $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.target.value;save.save();syncLobby();};
-function openEquipment(view='characters',battle=false){if(hostPaused()||ArcStoryView.active||ArcExpeditionUi.active||battle&&!canAim())return;clearInput();const data=battle?{...save.data,equippedCharacterId:s.characterId}:save.data;ArcPresentation.showCollection(data,change=>{if(battle){if(!E.changeCharacter(s,change.characterId,save.data.unlockedCharacterIds))return false;save.data.equippedCharacterId=change.characterId;save.save();hud();draw();return true;}if(change.characterId&&!ArcCrew.owned(save.data,change.characterId))return false;if(change.weaponId)save.data.equippedWeaponId=change.weaponId;if(change.characterId)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();return true;},view,{battle,trigger:battle?$('battleCharacters'):view==='characters'?$('openCharacters'):$('openCollection')});}
+function openEquipment(view='characters'){if(hostPaused()||ArcStoryView.active||ArcExpeditionUi.active)return;clearInput();ArcPresentation.showCollection(save.data,change=>{if(change.characterId&&!ArcCrew.owned(save.data,change.characterId))return false;if(change.weaponId)save.data.equippedWeaponId=change.weaponId;if(change.characterId)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();return true;},view,{trigger:view==='characters'?$('openCharacters'):$('openCollection')});}
 $('openCollection').onclick=openChapterInventory;$('openCharacters').onclick=()=>openEquipment('characters');
 $('resumeRun').onclick=()=>{if(save.data.chapterRun){selectedMap=save.data.chapterRun.stage-1;syncLobby();}};
 $('openLibrary').onclick=()=>{ArcPresentation.closeWeapons();openEquipment('weapons');};
@@ -336,13 +327,13 @@ $('retryLevel').onclick=()=>confirmPauseAction('retry');
 $('resultJourney').onclick=()=>{lobby();showLevels();};
 $('weaponToggle').onclick=()=>{if(!canAim())return;const choices=battleWeaponChoices();clearInput();ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(!hasSeen(id)&&ArcLessons.forWeapon(s,id,save.data))runDemo(id,true);}}, {title:'Choose attack',grouped:true,note:'Special unlocks on your turns 2, 4 and 6. Guardians start with three. Auxiliary stock carries until the boss.'});};
 // Secondary touch contacts do not receive native compatibility clicks on every browser.
-$('weaponToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(stick||aimStick||charge)&&canAim()){e.preventDefault();$('weaponToggle').click();}};
+$('weaponToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(input.active||charge)&&canAim()){e.preventDefault();$('weaponToggle').click();}};
 $('closeWeapons').onclick=()=>ArcPresentation.closeWeapons();
 $('warpToggle').onclick=()=>{if(!canAim())return;clearInput();if(E.selectTeleport(s)){tone(700,.08);hud();if(s.teleportMode&&!hasSeen('teleport'))runDemo('teleport',true);}};
 $('warpToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&charge){e.preventDefault();$('warpToggle').click();}};
 $('skillToggle').onclick=()=>{if(!canAim())return;clearInput();buildSkills();$('skillPicker').hidden=false;hud();$('closeSkills').focus();};
 $('repairCommit').onclick=commitRepair;$('repairCancel').onclick=()=>{buildSkills();hud();$('closeSkills').focus();};
-$('skillToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(charge||stick||aimStick)&&canAim()){e.preventDefault();$('skillToggle').click();}};
+$('skillToggle').onpointerdown=e=>{if(e.pointerType==='touch'&&(charge||input.active)&&canAim()){e.preventDefault();$('skillToggle').click();}};
 $('closeSkills').onclick=()=>{$('skillPicker').hidden=true;hud();$('skillToggle').focus();};
 let controlLayout='left';try{if(localStorage.getItem('arcline-control-layout')==='right')controlLayout='right';}catch{}
 function applyControlLayout(){$('app').dataset.controls=controlLayout;$('mirrorControls').textContent=controlLayout==='left'?'Move / aim → Right':'Move / aim → Left';$('mirrorControls').setAttribute('aria-label',controlLayout==='left'?'Move and aim on left; switch to right':'Move and aim on right; switch to left');}
@@ -356,31 +347,11 @@ $('previewOK').onclick=()=>{unlockAudio();endDemo();};
 $('environment').onpointerdown=()=>{if(canAim())previewPress=setTimeout(()=>{const kind=s.spec.features.find(f=>'WBCKUFVM'.includes(f.type))?.type;if(kind)runDemo(kind);},450);};$('environment').onpointerup=$('environment').onpointercancel=()=>clearTimeout(previewPress);
 function setAngle(angle){if(!canAim())return;s.angle=E.clamp(angle,minimumAngle(),maximumAngle());hud();}
 $('aimRange').oninput=e=>setAngle(Number(e.target.value));$('aimUp').onclick=()=>setAngle(s.angle+3);$('aimDown').onclick=()=>setAngle(s.angle-3);
-function pointer(e){e.preventDefault();unlockAudio();}
-$('fire').onpointerdown=e=>{pointer(e);if(charge)return;if(e.button!==0&&e.pointerType!=='touch')return;startCharge(e.pointerId);try{$('fire').setPointerCapture(e.pointerId);}catch{}};
-function chargePointer(e){
- if(charge?.id!==e.pointerId)return;e.preventDefault();const {dx,dy}=controlVector('fire',e),r=ArcViewport.rect($('fire'),$('app')),radius=Math.min(r.width,r.height)/2;
- charge.cancel=Math.hypot(dx,dy)>radius+(charge.cancel?4:14);hud();
-}
-$('fire').onpointermove=chargePointer;
-$('fire').onpointerup=e=>{chargePointer(e);releaseCharge(e.pointerId);};$('fire').onpointercancel=$('fire').onlostpointercapture=e=>{if(charge?.id===e.pointerId)clearInput();hud();};
-function controlVector(id,e){const r=ArcViewport.rect($(id),$('app')),p=ArcViewport.point(e.clientX,e.clientY,$('app'));return {dx:p.x-r.left-r.width/2,dy:p.y-r.top-r.height/2};}
-function stickMove(e){if(stick?.id!==e.pointerId)return;const {dx,dy}=controlVector('stick',e),mag=Math.hypot(dx,dy),dist=Math.min(mag,27),scale=mag?dist/mag:0;stick.axis=Math.abs(dx)<8?0:E.clamp(dx/27,-1,1);$('stickKnob').style.transform=`translate(${dx*scale}px,${dy*scale}px)`;$('stick').setAttribute('aria-valuenow',Math.round(stick.axis*100));}
-$('stick').onpointerdown=e=>{pointer(e);if(!canAim()||stick)return;stick={id:e.pointerId,axis:0};try{$('stick').setPointerCapture(e.pointerId);}catch{}stickMove(e);};$('stick').onpointermove=stickMove;$('stick').onpointerup=$('stick').onpointercancel=$('stick').onlostpointercapture=e=>{if(stick?.id===e.pointerId)resetStick();};
-// Both sticks sit on the left; releasing either never releases the right FIRE pointer.
-// A small neutral zone and curved response allow fine corrections without extra buttons.
-function aimStickMove(e){if(aimStick?.id!==e.pointerId)return;const {dx,dy}=controlVector('aimStick',e),mag=Math.hypot(dx,dy),scale=mag?Math.min(mag,27)/mag:0;aimStick.axis=Math.abs(dy)<=6?0:E.clamp(-Math.sign(dy)*(Math.abs(dy)-6)/21,-1,1);$('aimStickKnob').style.transform=`translate(${dx*scale}px,${dy*scale}px)`;}
-$('aimStick').onpointerdown=e=>{pointer(e);if(!canAim()||aimStick||e.button!==0&&e.pointerType!=='touch')return;aimStick={id:e.pointerId,axis:0};gesture=null;try{$('aimStick').setPointerCapture(e.pointerId);}catch{}aimStickMove(e);};
-$('aimStick').onpointermove=aimStickMove;$('aimStick').onpointerup=$('aimStick').onpointercancel=$('aimStick').onlostpointercapture=e=>{if(aimStick?.id===e.pointerId)resetAimStick();};
-$('world').onpointerdown=e=>{pointer(e);if(demo)return;
- if(s?.selectedSkill==='BLINK'&&canAim()){
-  const p=renderer.toWorld(e.clientX,e.clientY),i=s.blink.findIndex(b=>Math.hypot(p.x-b.x,p.y-(b.y-22))<60);
-  if(i>=0){if(s.blinkCandidate===i){if(E.blink(s,i)){lastSkill='BLINK';feedback='';}s.blinkCandidate=null;}else{s.blinkCandidate=i;feedback='TAP AGAIN TO BLINK';}}else{s.selectedSkill=null;s.blinkCandidate=null;feedback='';}hud();return;
- }
- if(gesture||charge)return;const p=ArcViewport.point(e.clientX,e.clientY,$('app'));gesture={id:e.pointerId,x:p.x,y:p.y,angle:s?.angle??48,lobby:!s};try{$('world').setPointerCapture(e.pointerId);}catch{}};
-$('world').onpointermove=e=>{if(gesture?.id!==e.pointerId||!canAim())return;const p=ArcViewport.point(e.clientX,e.clientY,$('app'));setAngle(gesture.angle+(gesture.y-p.y)*.4);};
-$('world').onpointerup=e=>{if(gesture?.id!==e.pointerId)return;const g=gesture,p=ArcViewport.point(e.clientX,e.clientY,$('app'));gesture=null;if(g.lobby&&Math.abs(p.x-g.x)>40)switchMap(p.x<g.x?1:-1);};$('world').onpointercancel=$('world').onlostpointercapture=e=>{if(gesture?.id===e.pointerId)gesture=null;};
-for(const id of ['world','stick','aimStick','fire'])$(id).oncontextmenu=e=>e.preventDefault();
+input=ArcBattleInput.create({state:()=>s,charge:()=>charge,allowed:canAim,activate:unlockAudio,startCharge,releaseCharge,clearInput,changed:hud,previewing:()=>!!demo,setAngle,switchMap,minimumAngle,maximumAngle,worldAction:e=>{
+ if(s?.selectedSkill!=='BLINK'||!canAim())return false;
+ const p=renderer.toWorld(e.clientX,e.clientY),i=s.blink.findIndex(b=>Math.hypot(p.x-b.x,p.y-(b.y-22))<60);
+ if(i>=0){if(s.blinkCandidate===i){if(E.blink(s,i)){lastSkill='BLINK';feedback='';}s.blinkCandidate=null;}else{s.blinkCandidate=i;feedback='TAP AGAIN TO BLINK';}}else{s.selectedSkill=null;s.blinkCandidate=null;feedback='';}hud();return true;
+}});
 document.addEventListener('keydown',e=>{
  if(e.key==='Escape'&&charge){e.preventDefault();cancelCharge(true);hud();return;}
  if(e.key==='Escape'&&(document.fullscreenElement||document.webkitFullscreenElement))return;
@@ -389,10 +360,8 @@ document.addEventListener('keydown',e=>{
  if(!$('lootPicker').hidden){if(e.key==='Escape'){e.preventDefault();return;}if(e.key==='Tab'){const buttons=[...$('lootPicker').querySelectorAll('button:not(:disabled)')],first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}return;}
  if(!$('overlay').hidden&&e.key==='Tab'){const buttons=[...$('overlay').querySelectorAll('button:not(:disabled)')].filter(b=>b.getClientRects().length),first=buttons[0],last=buttons.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}return;}
  if(e.key==='Escape'){if(!$('skillPicker').hidden){$('closeSkills').click();return;}if(!$('weaponPicker').hidden){$('closeWeapons').click();return;}if(!$('collectionPanel').hidden){$('closeCollection').click();return;}if(!$('levelPicker').hidden){$('levelPicker').hidden=true;return;}if(demo&&$('overlay').hidden)return;if(!$('overlay').hidden){if(dialog==='chapter')$('returnLobby').click();else if(dialog==='result')lobby();else if(dialog==='confirm'||dialog==='retry')pause();else $('resume').click();}else pause();return;}
- if(demo)return;if(e.target?.matches?.('input,select,button')&&e.target.id!=='fire')return;if(!canAim())return;
- if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key===' '&&!e.repeat)startCharge('keyboard');if(e.key==='ArrowLeft')keyMove=-1;if(e.key==='ArrowRight')keyMove=1;if(e.key==='ArrowUp')s.angle=E.clamp(s.angle+1,minimumAngle(),maximumAngle());if(e.key==='ArrowDown')s.angle=E.clamp(s.angle-1,minimumAngle(),maximumAngle());if(e.target?.id==='aimStick'&&['Home','End'].includes(e.key)){e.preventDefault();s.angle=e.key==='Home'?minimumAngle():maximumAngle();}hud();
+ input.keydown(e);
 });
-document.addEventListener('keyup',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key))keyMove=0;if(e.key===' '){if(!e.target?.matches?.('input,select,button')||e.target.id==='fire'||charge?.id==='keyboard')e.preventDefault();releaseCharge('keyboard');}});
 // Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.
 const viewport=ArcViewport.install($('app'),()=>{clearInput();previous=0;draw();});
 window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();draw();});
@@ -407,7 +376,7 @@ function fitOrientation(){
 window.addEventListener('arcline-fullscreen',()=>{clearInput();previous=0;viewport.fit();fitOrientation();draw();});
 const orientationViews=new MutationObserver(fitOrientation);for(const id of ['lobby','battle','storyCinema','expeditionDialog','collectionPanel'])orientationViews.observe($(id),{attributes:true,attributeFilter:['hidden']});
 window.addEventListener('resize',fitOrientation);window.visualViewport?.addEventListener('resize',fitOrientation);
-window.addEventListener('arcline-language',()=>{clearInput();if(save.ready&&!preferencesHydrating){save.data.preferences.language=ArcI18n.language;save.save();}if(!$('difficultyIntro').hidden)renderDifficultyIntro();syncDifficultyChoice();if(s){hud();if(s.result)paintResultStory();paintEncounter();}else syncLobby();draw();});
+window.addEventListener('arcline-language',()=>{clearInput();if(save.ready&&!preferencesHydrating){save.data.preferences.language=ArcI18n.language;save.save();}difficultyUi.refresh();if(s){hud();if(s.result)paintResultStory();paintEncounter();}else syncLobby();draw();});
 ArcI18n.install();fitOrientation();
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
