@@ -8,7 +8,7 @@ Canvas 2Dの砲撃アドベンチャー。現在の版数・キャッシュ・�
 
 **[ARCLINE 改善変更指示書 v0.15.5・全文21章／13変更要求](docs/change-requests/ARCLINE_CHANGE_REQUEST_v0.15.5.md)**
 
-**[BGM・エンディング実装指示書 v2.1.0（全34章・静的監査反映版）](docs/change-requests/ARCLINE_BGM_ENDING_CHANGE_REQUEST_v2.1.0.md)**：採用済み7曲の再生管理、完全自動エンディング、参照原画切り抜き、配布ZIP・音声停止時の安全設計。**文書のみの登録であり、ゲームには未実装。**
+**[BGM・エンディング実装指示書 v2.2.0（全39章・静的監査反映版）](docs/change-requests/ARCLINE_BGM_ENDING_CHANGE_REQUEST_v2.2.0.md)**：採用済み7曲の再生管理、完全自動エンディング、参照原画切り抜き、配布ZIP・音声停止時の安全設計、必殺技チュートリアルおよび中央チャージ完了通知。**文書のみの登録であり、ゲームには未実装。**
 
 - [AI開発者の作業入口・指示の優先順位](AGENTS.md)
 - [恒久的なアプリ更新・検証・公開ルール](docs/UPDATE_RULES.md)
