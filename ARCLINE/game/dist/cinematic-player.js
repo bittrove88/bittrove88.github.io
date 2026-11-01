@@ -2,17 +2,29 @@
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
 const restricted=()=>!!(root.navigator?.connection?.saveData||root.navigator?.deviceMemory&&root.navigator.deviceMemory<=2||root.navigator?.hardwareConcurrency&&root.navigator.hardwareConcurrency<=2);
 function framing(shot,w,h,t,reduced=false){
- const box=shot.protectedBox,progress=reduced?.5:ease(t),a=shot.camera.start,b=shot.camera.end,maxZoom=Math.max(a.scale,b.scale),cover=Math.max(w/shot.width,h/shot.height),safe=Math.min(w/(shot.width*(box[2]-box[0])*maxZoom),h/(shot.height*(box[3]-box[1])*maxZoom)),base=Math.min(cover,safe),bw=shot.width*base,bh=shot.height*base,z=reduced?1.02:a.scale+(b.scale-a.scale)*progress,iw=bw*z,ih=bh*z;
- const focal=reduced?shot.focalPoint[w/h<1?'mobile':'desktop']:a.focus.map((v,i)=>v+(b.focus[i]-v)*progress);
+ const box=shot.protectedBox,progress=reduced?.5:clamp(t,0,1),a=shot.camera.start,b=shot.camera.end,cover=Math.max(w/shot.width,h/shot.height),maxZoom=Math.max(a.scale,b.scale,1.08),safe=Math.min(w/(shot.width*(box[2]-box[0])*maxZoom),h/(shot.height*(box[3]-box[1])*maxZoom)),base=Math.min(cover,safe),bw=shot.width*base,bh=shot.height*base;
+ // Keep a constant zoom and pan on one axis only; no swaying or direction reversal.
+ const z=reduced?1.02:Math.max(1.04,Math.min(1.1,a.scale)),iw=bw*z,ih=bh*z;
+ const portrait=w/h<1;
+ const reference=portrait?[.30,.50]:[.32,.50];
+ const dx=b.focus[0]-a.focus[0],dy=b.focus[1]-a.focus[1],horizontal=Math.abs(dx)>=Math.abs(dy);
+ const travel=reduced?0:Math.min(.075,Math.max(.025,Math.abs(horizontal?dx:dy)));
+ const focus=[reference[0]+(horizontal?(dx<0?-1:1)*travel*progress:0),reference[1]+(!horizontal?(dy<0?-1:1)*travel*progress:0)];
  function offset(size,image,lo,hi,f){const min=-lo*image,max=size-hi*image;let n=clamp(size/2-f*image,min,max);if(image<size)n=clamp(n,0,size-image);else n=clamp(n,size-image,0);return n;}
- const x=offset(w,iw,box[0],box[2],focal[0]),y=offset(h,ih,box[1],box[3],focal[1]);return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
+ const x=offset(w,iw,box[0],box[2],focus[0]),y=offset(h,ih,box[1],box[3],focus[1]);return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
 }
 function create(host,options={}){
  let current=null,prior=null,token=0,age=0,closed=false;const cache=new Map(),timers=new Set(),stats={loads:0,failures:0,maxCached:0,frames:0},prefix=options.assetBase||root.ArcAssetBase||'../../';host.classList.add('cinematic-plate');
- const url=src=>new URL(prefix+src,document.baseURI).href,reduced=()=>options.reducedMotion?.()||root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,cheap=()=>restricted()||options.lowPerformance===true;
- function load(shot){if(cache.has(shot.id))return cache.get(shot.id);const entry={image:new Image(),shot,ok:false,done:false};entry.image.decoding='async';entry.image.fetchPriority='high';stats.loads++;
-  entry.promise=new Promise(resolve=>{let settled=false;const complete=ok=>{if(settled)return;settled=true;clearTimeout(timer);timers.delete(timer);entry.ok=ok;entry.done=true;if(!ok)stats.failures++;resolve(entry);};const timer=setTimeout(()=>complete(false),4500);timers.add(timer);entry.image.onload=()=>{const p=entry.image.decode?.();if(p)p.then(()=>complete(true),()=>complete(true));else complete(true);};entry.image.onerror=()=>complete(false);entry.image.src=url(shot.src);});cache.set(shot.id,entry);trim(shot.id);stats.maxCached=Math.max(stats.maxCached,cache.size);return entry;}
- function trim(keep){const protectedIds=new Set([keep,current?.shot.id,prior?.shot.id]);for(const [id,e]of cache){if(cache.size<=3)break;if(!protectedIds.has(id)){e.image.removeAttribute('src');cache.delete(id);}}}
+ const url=src=>root.ArcAssetLoader?root.ArcAssetLoader.resolve(src,prefix):new URL(prefix+src,document.baseURI).href,reduced=()=>options.reducedMotion?.()||root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,cheap=()=>restricted()||options.lowPerformance===true;
+ function load(shot){if(cache.has(shot.id))return cache.get(shot.id);
+  const entry={image:null,shot,ok:false,done:false};stats.loads++;
+  entry.promise=root.ArcAssetLoader.load(shot.src,{retries:2,timeout:10000,assetBase:prefix}).then(result=>{
+   entry.ok=result.ok;entry.done=true;entry.image=result.image;
+   if(!result.ok){stats.failures++;cache.delete(shot.id);}
+   return entry;
+  });cache.set(shot.id,entry);trim(shot.id);stats.maxCached=Math.max(stats.maxCached,cache.size);return entry;}
+
+ function trim(keep){const protectedIds=new Set([keep,current?.shot.id,prior?.shot.id]);for(const [id,e]of cache){if(cache.size<=3)break;if(!protectedIds.has(id)){cache.delete(id);}}}
  function image(src,cls){const e=document.createElement('img');e.className=cls;e.alt='';e.setAttribute('aria-hidden','true');e.decoding='async';e.src=src;return e;}
  function build(shot){const el=document.createElement('div');el.className='cp-shot';el.dataset.shot=shot.id;el.dataset.transition=shot.transition.kind;el.setAttribute('role','img');el.setAttribute('aria-label',shot.scene==='E02'?(shot.locale==='en'?'The homecoming':'帰還を伝える場面'):shot.title);const ambient=image(url(shot.src),'cp-ambient'),plane=document.createElement('div');plane.className='cp-plane';plane.append(image(url(shot.src),'cp-master'));el.append(ambient,plane);
   const atmosphere=document.createElement('div');atmosphere.className='cp-atmosphere';atmosphere.setAttribute('aria-hidden','true');for(const [i,name]of shot.effects.entries()){const e=document.createElement('i');e.className='cp-effect fx-'+name;e.dataset.effect=name;e.dataset.depth=i%2?'.45':'.15';if(shot.light){e.style.left=shot.light[0]*100+'%';e.style.top=shot.light[1]*100+'%';}atmosphere.append(e);}plane.append(atmosphere);
@@ -31,7 +43,7 @@ function create(host,options={}){
   for(const e of current.plane.querySelectorAll('[data-answer]'))e.style.opacity=String(.32*ease((effectAge-s.answerBeatsMs[+e.dataset.answer]/1000)/.45));
   if(current.fragment){const f=s.fragment,on=!rm&&!low&&!time.quiet&&effectAge>f.start&&effectAge<f.end,opacity=on?Math.sin(Math.PI*(effectAge-f.start)/(f.end-f.start)):0;current.fragment.style.opacity=String(opacity);current.fragment.style.left=(w/h<1?Math.min(.65,f.at[0]):f.at[0])*100+'%';current.fragment.style.top=f.at[1]*100+'%';current.fragment.style.transform=`translate3d(0,${on?-6*Math.sin(Math.PI*(effectAge-f.start)/(f.end-f.start)):0}px,0)`;}
  }
- function destroy(){closed=true;token++;for(const t of timers)clearTimeout(t);timers.clear();for(const e of cache.values())e.image.removeAttribute('src');cache.clear();dispose(current);dispose(prior);host.replaceChildren();current=prior=null;delete host.dataset.shot;delete host.dataset.asset;}
+ function destroy(){closed=true;token++;for(const t of timers)clearTimeout(t);timers.clear();cache.clear();dispose(current);dispose(prior);host.replaceChildren();current=prior=null;delete host.dataset.shot;delete host.dataset.asset;}
  return {show,update,destroy,get state(){return {shot:current?.shot.id,age,status:host.dataset.asset,geometry:current?.geometry,cached:cache.size,lowPerformance:cheap(),...stats};}};
 }
 const api={create,framing,ease,restricted};if(typeof module!=='undefined')module.exports=api;else root.ArcCinematicPlayer=api;

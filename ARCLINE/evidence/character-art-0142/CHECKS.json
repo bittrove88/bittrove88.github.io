@@ -1,9 +1,16 @@
 {
   "version": "0.14.2",
   "status": "PASS",
-  "recordedAt": "2026-11-01T09:19:16.094856+00:00",
-  "baseline": "ffc8c3f81c02328456c010cd166c08567c07b5ae",
+  "recordedAt": "2026-11-01T09:36:05.261784+00:00",
+  "integrationBaseline": "eccb3a1ff2dc49b03702158957814dc9ca6052d7",
+  "narrativeBaseline": "ffc8c3f81c02328456c010cd166c08567c07b5ae",
   "suites": [
+    {
+      "report": "ASSET_LOADER.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0142 node ARCLINE/game/tests/asset-loader-0142.test.cjs",
+      "checks": 22,
+      "status": "PASS"
+    },
     {
       "report": "CHARACTER_ART_CONTENT.json",
       "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0142 node ARCLINE/game/tests/character-art-0142.test.cjs",
@@ -19,7 +26,7 @@
     {
       "report": "CONTENT.json",
       "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0142 node ARCLINE/game/tests/cinematic-014.test.cjs",
-      "checks": 3624,
+      "checks": 4015,
       "status": "PASS"
     },
     {
@@ -49,21 +56,22 @@
     {
       "report": "RELEASE_WEB.json",
       "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0142 node ARCLINE/site-tests/expedition-release.test.cjs",
-      "checks": 141,
+      "checks": 144,
       "status": "PASS"
     }
   ],
-  "suiteAssertions": 8878,
+  "suiteAssertions": 9294,
   "runtimeSha256": {
     "actor-bodies.js": "30f471236e81e9652b1b0e99fa3760dfbffcb2e6c537992debfd6466318daf33",
     "aim-guide.js": "69a5da10e5b1dde430bfb5b22f99f93aaefd672d7abdd5e381a2701a0fc52eb0",
     "app.webmanifest": "95bcfbf30e34ffe251efefb50b8ed002297ab556546b08e0539339fbd2981580",
+    "asset-loader.js": "b65f9cbc24a51d8559fde0c69b23c25da4427a7b55a5de703d340ee386a5b7f6",
     "campaign-run.js": "cb3cc68d48f7c8104a5e334e53418315a600439093827da6b897b8020bc2f0c9",
-    "character-hero.js": "310dfcfe373300386b6345e983b20e85a1854073e00fa7f4de537fe8a2264e55",
+    "character-hero.js": "2f4482d7808b2611739103f7835e3cfcd706d59ee5661648442b6cb7f2b73250",
     "characters.js": "5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609",
-    "cinematic-data.js": "6875461a4b58150800a8a8292035876f674fc2ba332d60439f2f5a217be70b54",
-    "cinematic-player.js": "153be982f03c189c5c2c46366c62f80ab1fb5f0e48a18b35f628bc4fd71b757f",
-    "cinematics.css": "c3fdf8176bb80c78ad4ad5319bcd4069814060e6eaac339900cdc15f85722bc4",
+    "cinematic-data.js": "cbf88152a89710e563d8c446d12080a8103ce76004aebd237434d847a355091c",
+    "cinematic-player.js": "a7dac78df4bb0033b51adb91df3b4be60a08830df6c9eb0919b75633ae524823",
+    "cinematics.css": "3d3c9424cc7acd0ebbe8a40fbd98476e73943c0bba9d1e5581eb6e4146d4346d",
     "combat.js": "a3873dcc81f040151562bdefc02785bda9776f0e97cdbf684fac42c7a2a0b588",
     "cpu-worker.js": "45e32f475b3ea9b17e779c7ee0e7a49b2ee36bc445a9f19bcff8c4df62cb2c42",
     "crew.js": "11d2627069b6523ae1fbfa436ca9c0f30c4ec8d4596de05304c38bddf8070acb",
@@ -76,7 +84,7 @@
     "geometry.js": "a289db79e07c40dab98600de3bf66cc8a10b8069a2f1a594cabad3db7c9d3ab3",
     "i18n.js": "4e182ddb6a7f7cd3fc25a2bbc94ea41516189f5129586b940cbf05944a526cd2",
     "icon.svg": "67614ce239b389037c958ae69744f00150c30dbe1f64e73719347e9ea9778d56",
-    "index.html": "6861d31e25e21c987a790438d03e1203a5bb277df0f74d3c6231c2125234c4ad",
+    "index.html": "b023bb97c06224f3e4f7f6c15bd4595773fe9d0025d7634662bd1649bf37b68e",
     "inventory.js": "8d2814f6615e3398d3516049ace565081fe65d432b06baa8d7dd9fb2479f0ba8",
     "journal.js": "57d83553f16e954e5a9e82d9fb8bfa8f08db9abf93e5f5525dd652d4f151dd8d",
     "lessons.js": "b86b9927c9ab03d24f80d7342a1117ad141f1e202e6e652878453404587f08a1",
@@ -98,7 +106,7 @@
     "weapons.js": "ce5a4c7f0f8dd9fe8ccc8ac2409dbb8fb7aa7c758064af636463b3df694f154d"
   },
   "generatedOutputs": 19,
-  "bundleEntries": 74,
+  "bundleEntries": 75,
   "characterOriginals": 10,
   "zipKeptOutsideGit": true,
   "screenshots": [
@@ -131,16 +139,14 @@
     {
       "file": "story-view.js",
       "sha256": "ae5d972da929bdcb54d225d36b5abef07bc5a1eb710d00053afc167c15120998"
-    },
-    {
-      "file": "cinematic-player.js",
-      "sha256": "153be982f03c189c5c2c46366c62f80ab1fb5f0e48a18b35f628bc4fd71b757f"
     }
   ],
+  "preservedLatestMain": "Steady one-way cinematic camera and iPhone-safe-area CSS preserved; P03-01 floating letter remains removed. Cinematic player differs from latest main only in two asset-prefix forwarding expressions.",
   "gameJsChange": "Only cache version; byte comparison after version normalization passed.",
   "notVerified": [
     "Physical iPhone Safari/Android,installed PWA,YouTube production SDK/authentication and wide-area load speed.",
     "file:// navigation blocked by managed browser policy; exact downloaded HTML ran offline as a self-contained document.",
-    "Prior full battles not rerun;18 battle/save/terrain/actor modules remain byte-identical."
+    "Prior full battles not rerun;18 battle/save/terrain/actor modules remain byte-identical.",
+    "Direct public-site HTTP inspection blocked by managed network policy; Pages deployment status is recorded separately."
   ]
 }
