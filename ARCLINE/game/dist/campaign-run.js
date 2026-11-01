@@ -1,6 +1,6 @@
 (function(root){
 'use strict';
-const node=typeof module!=='undefined',I=node?require('./inventory.js'):root.ArcInventory,L=node?require('./levels.js'):root.ArcLevels;
+const node=typeof module!=='undefined',I=node?require('./inventory.js'):root.ArcInventory,L=node?require('./levels.js'):root.ArcLevels,Crew=node?require('./crew.js'):root.ArcCrew;
 const chapter=stage=>Math.floor((stage-1)/10)+1;
 const randomSeed=()=>Math.floor(Math.random()*4294967296)>>>0;
 const newId=()=>Date.now().toString(36)+'-'+randomSeed().toString(36);
@@ -57,7 +57,7 @@ function chooseWeapon(data,stage,id){
 function finish(data,context,state,options={}){
  if(!matches(data,context)||state.stage!==context.entry.stage||state.result!=='win')return {advanced:false};
  if(state.pendingLoot?.length)return {advanced:false,pending:true};
- const reset=state.stage%10===0;data.cleared=Math.max(data.cleared,state.stage);
+ const reset=state.stage%10===0;data.cleared=Math.max(data.cleared,state.stage);Crew.join(data,state.stage);
  const inventory=reset?I.normalize({}):I.fromState(state),pickupLedger=reset?[]:ledger(state.collectedPickupIds,state.stage);
  data.chapterRun=state.stage===100?null:checkpoint(state.stage+1,inventory,pickupLedger,reset?newId():context.entry.runId,options.seed??randomSeed());
  if(data.chapterRun&&!reset&&data.chapterRun.inventory.weapons[state.mode]>0)data.chapterRun.mode=state.mode;

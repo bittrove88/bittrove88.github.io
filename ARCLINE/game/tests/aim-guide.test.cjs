@@ -65,14 +65,14 @@ for(let stage=1;stage<=100;stage++){
 for(const difficulty of A.modes){
  const old={schemaVersion:2,contentRevision:S.revision,cleared:87,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',collectedCosmeticIds:['S01','B10'],equippedCosmeticId:'B10',equippedCharacterId:'rin',seenPreviewIds:['v4:controls'],difficulty};
  const decoded=S.decode(JSON.stringify(old));ok(decoded.difficulty===difficulty,'mode saved '+difficulty);
- ok(decoded.cleared===87&&decoded.unlockedWeaponIds.length===20&&decoded.equippedWeaponId==='W20'&&decoded.equippedCharacterId==='rin'&&decoded.collectedCosmeticIds.length===2,'mode preserves progress and ownership '+difficulty);
+ ok(decoded.cleared===0&&decoded.unlockedWeaponIds.join()==='W01'&&decoded.equippedWeaponId==='W01'&&decoded.equippedCharacterId==='gun'&&decoded.unlockedCharacterIds.includes('rin')&&!('collectedCosmeticIds'in decoded),'one-time campaign reset retains machine rights and difficulty '+difficulty);
 }
-ok(S.decode(JSON.stringify({version:1,cleared:40})).difficulty==='normal','legacy save defaults to normal without reset');
+ok(S.decode(JSON.stringify({version:1,cleared:40})).difficulty==='normal','legacy save defaults to normal');
 ok(S.decode(JSON.stringify({schemaVersion:2,difficulty:'invalid'})).difficulty==='normal','invalid saved mode is normalized');
 ok(S.decode(null).difficulty==='normal','new game defaults to normal');
 (async()=>{
  let raw=JSON.stringify({version:1,cleared:27});const store=S.create({load:async()=>raw,save:async value=>{raw=value;}});await store.load();store.data.difficulty='hard';await store.save();
- const reloaded=S.decode(raw);ok(reloaded.difficulty==='hard'&&reloaded.cleared===27,'setting persists through save adapter');
+ const reloaded=S.decode(raw);ok(reloaded.difficulty==='hard'&&reloaded.cleared===0,'setting persists through save adapter');
  let writes=0;const failed=S.create({load:async()=>{throw Error('unavailable');},save:async()=>writes++});await failed.load();failed.data.difficulty='easy';await failed.save();ok(writes===0,'difficulty does not overwrite failed save load');
  const report={status:'PASS',checks,actualWeaponPlans:plans,actualSplitPlans:splitPlans,scope:'Forecast geometry, lineage, constant48px hard direction independent of power, immutable simulation, three-mode state/random parity across100 stages, and save migration. Not a difficulty or physical-device playtest.'};
  if(process.env.ARCLINE_EVIDENCE_DIR){fs.mkdirSync(process.env.ARCLINE_EVIDENCE_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.ARCLINE_EVIDENCE_DIR,'AIM_GUIDE.json'),JSON.stringify(report,null,2)+'\n');}

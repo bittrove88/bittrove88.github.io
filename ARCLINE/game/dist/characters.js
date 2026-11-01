@@ -261,16 +261,16 @@ function weapon(ctx,d,c){
 function pose(options={}){
  const {x=0,y=0,dir=1,slope=0,angle=32}=options,theta=(dir===1?-angle:180+angle)*Math.PI/180+slope;
  const pivot={x:x+Math.sin(slope)*26,y:y-Math.cos(slope)*26};
- return {pivot,x:pivot.x+Math.cos(theta)*35,y:pivot.y+Math.sin(theta)*35,theta,dir};
+ return {pivot,x:pivot.x+Math.cos(theta)*35,y:pivot.y+Math.sin(theta)*35,theta,dir:Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:dir,bodyDir:dir};
 }
 function draw(ctx,id,options={}){
- const c=get(id),{x=0,y=0,slope=0,travel=0,hit=0,kick=0,disabled=false,alpha=1}=options,dir=options.muzzle?.dir||options.dir||1;
+ const c=get(id),{x=0,y=0,slope=0,travel=0,hit=0,kick=0,disabled=false,alpha=1}=options,dir=options.muzzle?.bodyDir||options.dir||options.muzzle?.dir||1;
  options={...options,artStyle:options.artStyle||'matte'};
  const muzzle=options.muzzle||pose(options),phase=travel*.13;
  ctx.save();ctx.globalAlpha*=alpha*(disabled?.65:1);ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowBlur=0;
  if(disabled)ctx.filter='grayscale(1)';
  ctx.save();ctx.translate(x-dir*kick+hit,y+(disabled?3:0));ctx.rotate(slope+(disabled?dir*.07:0));ctx.scale(dir*UNIT,UNIT);body(ctx,c,phase,options);ctx.restore();
- ctx.save();ctx.translate(muzzle.pivot.x,muzzle.pivot.y);ctx.rotate(muzzle.theta);ctx.scale(UNIT,dir*UNIT);weapon(ctx,presentationBrush(ctx,c,options),c);ctx.restore();
+ ctx.save();ctx.translate(muzzle.pivot.x,muzzle.pivot.y);ctx.rotate(muzzle.theta);ctx.scale(UNIT,(muzzle.dir||dir)*UNIT);weapon(ctx,presentationBrush(ctx,c,options),c);ctx.restore();
  ctx.restore();return {id:c.id,muzzle:{x:muzzle.x,y:muzzle.y},pivot:{...muzzle.pivot}};
 }
 function paint(canvas,id,options={}){

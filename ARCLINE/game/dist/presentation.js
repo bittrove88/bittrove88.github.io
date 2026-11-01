@@ -1,34 +1,24 @@
-(function(root){
-'use strict';
-const $=id=>document.getElementById(id),E=root.ArcEngine,W=root.ArcWeapons,A=root.ArcCharacters,C=E.combat;
-const descriptions=['A reliable arc and balanced blast.','A wide blast catches nearby targets.','A fast, narrow shot for small openings.','A high arc falls behind cover.','One high bounce off solid ground.','Two controlled ricochets.','Rolls forward along the ground.','Low, repeated ground bounces.','Three paths spread at launch.','Splits into three at the top.','Two close shots in sequence.','Bursts near the target before contact.','Passes through thin breakable cover. Fixed rock stops it.','A near-straight shot through a clear lane.','Dives sharply after the top.','Impact sends waves along the floor.','Pushes the target away.','Pulls the target toward the impact.','Carries the target to a higher platform.','Ricochets and pushes the target.'];
-const finishNames=['Tidal Teal','Sunset Pennant','Coral Flash','Gold Dust','Scarab Pennant','Dune Ripple','Mist','Rainbow Wake','Ivy','Railway','Route Pennant','Brass Turret','Sandstorm Pennant','Golden Exhaust','Excavator','Aurora','Snowflake Pennant','Glacier Flash','Lava','Spark Wake','Polarity','Stardust Wake','Sky Garden','Meteor Pennant','Daybreak','Festival Wake','Aurora Pennant'];
-const guardianNames=['Tideclaw Armor','Gatekeeper Armor','Cloudray Armor','Prism Armor','Driller Armor','Whitehowl Armor','Forge Armor','Polaris Armor','Carrier Armor','Archeart Armor'];
+(function(root){'use strict';
+const $=id=>document.getElementById(id),E=root.ArcEngine,W=root.ArcWeapons,A=root.ArcCharacters,C=E.combat,Crew=root.ArcCrew;
+const language=()=>root.ArcI18n.language,local=(ja,en)=>language()==='en'?en:ja;
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function cosmetic(id){
- if(!id)return {id:null,name:'Original',color:'#caffd7',source:null,level:null};
- const source=E.levels.find(spec=>spec.pickups.some(p=>p.id===id));
- return {id,name:(id.startsWith('B')?guardianNames:finishNames)[parseInt(id.slice(1),10)-1]||'Rover finish',color:`hsl(${parseInt(id.slice(1),10)*29%360} 60% 78%)`,source:source?.name||null,level:source?.id||null};
-}
-function rover(id,large=false){
- const c=cosmetic(id),flag=(id?.startsWith('B')||['S02','S05','S11','S13','S17','S24','S27'].includes(id))?`<path d="M48 47V12l24 8-24 8" fill="${c.color}" stroke="${c.color}" stroke-width="3"/>`:'';
- return `<svg class="rover-mark${large?' hero-rover':''}" viewBox="0 0 180 110" aria-hidden="true"><ellipse cx="87" cy="96" rx="68" ry="6" fill="#08263755"/>${['S08','S14','S20','S22','S26'].includes(id)?`<path d="M23 77Q-9 55 4 45M17 87Q-9 89 0 70" fill="none" stroke="${c.color}" stroke-width="4" stroke-linecap="round" opacity=".7"/>`:''}${flag}<rect x="24" y="74" width="118" height="20" rx="10" fill="#163d50"/><path d="M23 72l25-27h66l31 27" fill="#3d8991"/><rect x="59" y="30" width="52" height="39" rx="9" fill="${c.color}"/><path d="M89 49l48-23" stroke="#3d8991" stroke-width="15" stroke-linecap="round"/><path d="M89 49l48-23" stroke="${c.color}" stroke-width="8" stroke-linecap="round"/><rect x="91" y="38" width="16" height="8" rx="3" fill="#356478"/>${['S03','S18'].includes(id)?`<path d="M144 23l11-11-2 14 13-2-11 12" fill="${c.color}" opacity=".8"/>`:''}${[46,82,119].map(x=>`<circle cx="${x}" cy="83" r="10" fill="#12384b"/><circle cx="${x}" cy="83" r="4" fill="#6aa39f"/>`).join('')}</svg>`;
-}
-function missing(spec,data){return spec.pickups.filter(p=>!['trial','ammo','skill'].includes(p.kind)&&p.id[0]!=='R'&&!data.unlockedWeaponIds.includes(p.id)&&!data.collectedCosmeticIds.includes(p.id));}
-function themeName(index){const spec=E.levels[index*5];return spec?.themeName||E.biomes[spec?.theme]?.name||'Theme '+(index+1);}
-function syncLobby(data,selectedMap,context=null){
- const spec=E.levels[selectedMap],theme=Math.floor(selectedMap/5),slot=selectedMap%5,weapon=W.get(data.equippedWeaponId),look=weapon.appearance,c=cosmetic(data.equippedCosmeticId);
- $('arenaTag').textContent=String(theme+1).padStart(2,'0')+' / 20';$('arenaTitle').textContent=themeName(theme);$('stageCaption').textContent=(slot+1)+' / 5';
- $('themeProgress').innerHTML=Array.from({length:5},(_,i)=>`<i class="${theme*5+i<data.cleared?'cleared ':''}${i===slot?'current':''}"></i>`).join('');$('themeProgress').setAttribute('aria-label',`Theme ${theme+1}, stage ${slot+1} of 5`);
- $('progressText').textContent='LEVEL '+spec.id;$('play').innerHTML=`PLAY <span aria-hidden="true">→</span>`;
- $('equippedWeapon').textContent=weapon.name;$('equippedCosmetic').textContent=c.name;$('equippedWeaponGlyph').textContent=look.glyph;$('equippedWeaponGlyph').style.color=look.color;$('lobbyRover').innerHTML=A.markup(data.equippedCharacterId,'hero-character');A.paintAll($('lobbyRover'));
- $('equippedCharacterName').textContent=A.get(data.equippedCharacterId).name;
- $('collectionCount').textContent=data.unlockedWeaponIds.length+'/20 · '+data.collectedCosmeticIds.length+'/37';
- $('openCollection').setAttribute('aria-label',`Equipment: ${weapon.name}, ${c.name}`);$('chooseLevel').setAttribute('aria-label',`Journey, theme ${theme+1}, level ${spec.id}`);
- const campaign=context&&!context.practice;
- document.querySelector('#openCollection .equipped-label').textContent=campaign?'CHAPTER STOCK':'PRACTICE WEAPON';$('openCollection').querySelector('b').textContent=campaign?'VIEW':'CHANGE';
- if(campaign){const stock=context.entry.inventory,held=W.get(context.entry.mode||'W01',data.equippedCharacterId),wn=Object.keys(stock.weapons).length,sn=Object.keys(stock.skills).length;$('equippedWeaponGlyph').textContent=held.appearance.glyph;$('equippedWeaponGlyph').style.color=held.appearance.color;$('equippedWeapon').innerHTML=`<span>Weapons</span> ${wn} · <span>Skills</span> ${sn}`;$('openCollection').setAttribute('aria-label',`Chapter inventory, ${wn} weapons, ${sn} skills`);$('progressText').textContent=`Chapter ${Math.floor(selectedMap/10)+1} · LEVEL ${spec.id}`;$('play').innerHTML=(data.chapterRun||data.cleared?'CONTINUE':'PLAY')+' <span aria-hidden="true">→</span>';}
- else{$('progressText').textContent='PRACTICE · LEVEL '+spec.id;$('play').innerHTML='PRACTICE <span aria-hidden="true">→</span>';}
+const missing=()=>[];
+function themeName(index){return language()==='en'?E.biomes[index].name:E.levels[index*5].themeName;}
+function syncLobby(data,selectedMap,context){
+ const spec=E.levels[selectedMap],c=A.get(data.equippedCharacterId),stock=context?.entry.inventory||{weapons:{},skills:{}},practice=context?.practice;
+ $('arenaTag').textContent=local('第'+(Math.floor(selectedMap/10)+1)+'章 · '+themeName(spec.theme),'CHAPTER '+(Math.floor(selectedMap/10)+1)+' · '+themeName(spec.theme));
+ $('arenaTitle').textContent=root.ArcStory.stageName(spec,language(),false,data.cleared);
+ $('stageCaption').textContent=language()==='en'?spec.tacticalGoalEn:spec.tacticalGoal;
+ $('progressText').textContent=local(data.cleared+' / 100 面クリア',''+data.cleared+' / 100 CLEARED');
+ $('themeProgress').innerHTML=Array.from({length:5},(_,i)=>`<i class="${spec.theme*5+i<data.cleared?'cleared ':''}${i===(selectedMap%5)?'current':''}"></i>`).join('');
+ $('play').textContent=practice?local('この面を練習','Practice this stage'):local(data.cleared||data.chapterRun?'冒険を続ける':'冒険をはじめる',data.cleared||data.chapterRun?'Continue the adventure':'Begin the adventure');
+ $('equippedCharacterName').textContent=language()==='en'?c.name:c.nameJa;
+ $('lobbyRover').innerHTML=A.markup(c.id,'hero-character');A.paintAll($('lobbyRover'));
+ $('equippedWeapon').textContent=local('武器 '+Object.keys(stock.weapons).length+' · スキル '+Object.keys(stock.skills).length,'Weapons '+Object.keys(stock.weapons).length+' · Skills '+Object.keys(stock.skills).length);
+ $('collectionCount').textContent=data.unlockedCharacterIds.length+'/10';
+ $('openCollection').setAttribute('aria-label',local('持ち物・練習用武器','Inventory and practice weapons'));
+ $('openCharacters').setAttribute('aria-label',local('仲間を選ぶ。現在 '+c.nameJa,'Choose a companion. Current '+c.name));
+ $('chooseLevel').textContent=local('ステージを選ぶ','Stages');
 }
 function miniature(spec){
  let paths=spec.floors.map(f=>`<polyline points="${f.map(([x,h])=>x+','+(52-h)).join(' ')}" fill="none" stroke="currentColor" stroke-width="2"/>`).join('');
@@ -57,30 +47,28 @@ function renderJourney(data,selectedMap,onSelect,onRestart){
  }
  $('levelPicker').hidden=false;paint();$('closeLevels').focus({preventScroll:true});
 }
-let collectionView='weapons';
-function showCollection(data,onEquip,initialView){
- if(['weapons','finishes','characters'].includes(initialView))collectionView=initialView;
+
+let collectionView='characters',returnTo=null;
+function showCollection(data,onEquip,initialView='characters',options={}){
+ collectionView=initialView==='weapons'?'weapons':'characters';if(options.battle)collectionView='characters';returnTo=options.trigger||document.activeElement;let inspected=data.equippedCharacterId;
+ const owned=id=>Crew.owned(data,id);
  function paint(){
-  const weapon=W.get(data.equippedWeaponId),finish=cosmetic(data.equippedCosmeticId),character=A.get(data.equippedCharacterId),profile=C.get(character.id);document.querySelector('#collectionPanel header strong').textContent=collectionView==='characters'?'Choose machine':collectionView==='weapons'?'Weapon library':'Finishes';
-  let body=`<div class="collection-tabs" role="tablist" aria-label="Equipment category"><button role="tab" data-collection-tab="characters" aria-selected="${collectionView==='characters'}">Machines <small>10</small></button><button role="tab" data-collection-tab="weapons" aria-selected="${collectionView==='weapons'}">Weapons <small>${data.unlockedWeaponIds.filter(id=>id in W.coreUnlocks).length}/12</small></button><button role="tab" data-collection-tab="finishes" aria-selected="${collectionView==='finishes'}">Finishes <small>${data.collectedCosmeticIds.length}/37</small></button></div>`;
-  if(collectionView==='characters')body+=`<div class="equipment-detail character-detail" tabindex="-1">${A.markup(character.id)}<div><strong>${character.name}</strong><p>${escape(character.role)}</p><p>${escape(character.motto)}</p></div></div><div class="combat-summary"><div class="combat-stats"><span><b>HP</b> ${profile.hp}</span><span><b>Charge</b> ${profile.charge.rise}s</span><span>${profile.playerType}</span></div><p><b>Normal fire</b><span>${escape(profile.normalNote)}</span></p><p><b><span>${escape(profile.special.name)}</span> · 3</b><span>${escape(profile.specialNote)}</span></p></div>`;
-  if(collectionView==='characters')body+=`<button type="button" class="machine-story-link" data-machine-story="${character.id}">Read their story</button>`;
-  else body+=collectionView==='weapons'?`<div class="equipment-detail"><i style="--weapon-color:${weapon.appearance.color}" aria-hidden="true">${weapon.appearance.glyph}</i><div><strong>${escape(weapon.name)}</strong><p>${escape(weapon.description||descriptions[W.weapons.indexOf(weapon)])}</p></div></div><p class="character-note">Weapon selection is for practice. Find weapons during your chapter.</p>`:`<div class="equipment-detail">${rover(data.equippedCosmeticId)}<div><strong>${escape(finish.name)}</strong><p>${escape(finish.source||'Original')}</p></div></div>`;
-  body+='<div class="equipment-grid">';
-  if(collectionView==='characters')body+=A.characters.map(c=>{const selected=character.id===c.id;return `<button type="button" class="equipment-card character-card ${selected?'equipped':''}" data-equip-character="${c.id}" aria-pressed="${selected}" aria-label="${c.name}, ${selected?'Selected':'Select'}">${A.markup(c.id)}<strong>${c.name}</strong><small>${C.get(c.id).playerType}</small><small>HP ${C.get(c.id).hp} · ${C.get(c.id).charge.rise}s</small></button>`;}).join('');
-  else if(collectionView==='weapons')body+=W.weapons.filter(w=>w.id in W.coreUnlocks||data.unlockedWeaponIds.includes(w.id)).map(w=>{const owned=data.unlockedWeaponIds.includes(w.id),selected=data.equippedWeaponId===w.id,source={id:W.coreUnlocks[w.id]||1},look=w.appearance;return `<button class="equipment-card weapon-card ${owned?'owned':'locked'} ${selected?'equipped':''}" data-equip-weapon="${w.id}" ${owned?'':'disabled'} aria-label="${escape(w.name)}, ${selected?'Practice selection':owned?'Use in practice':`find at level ${source?.id||1}`}"><i class="weapon-glyph" style="--weapon-color:${look.color}" aria-hidden="true">${look.glyph}</i><strong>${escape(w.name)}</strong><small>${selected?'Practice selection':owned?'Use in practice':`Clear LV ${source?.id||1}`} </small></button>`;}).join('');
-  else body+=[null,...root.ArcSave.cosmeticIds.filter(id=>data.collectedCosmeticIds.includes(id))].map(id=>{const c=cosmetic(id),owned=!id||data.collectedCosmeticIds.includes(id),selected=(data.equippedCosmeticId||null)===id;return `<button class="equipment-card finish-card ${owned?'owned':'locked'} ${selected?'equipped':''}" data-equip-cosmetic="${id||''}" ${owned?'':'disabled'} aria-label="${escape(c.name)}, ${selected?'equipped':owned?'equip':`find at level ${c.level}`}">${rover(id)}<strong>${escape(c.name)}</strong><small>${selected?'Equipped':owned?'Owned':`Find LV ${c.level}`} </small></button>`;}).join('');
-  $('collectionGrid').innerHTML=body+'</div>';
-  A.paintAll($('collectionGrid'));
-  $('collectionGrid').querySelectorAll('[data-collection-tab]').forEach(button=>button.onclick=()=>{collectionView=button.dataset.collectionTab;paint();$('collectionGrid').querySelector('[aria-selected="true"]')?.focus({preventScroll:true});});
-  $('collectionGrid').querySelector('[data-machine-story]')?.addEventListener('click',()=>root.ArcMenus.openJournal(character.id,$('openCharacters')));
-  $('collectionGrid').querySelectorAll('[data-equip-weapon]').forEach(button=>button.onclick=()=>{const id=button.dataset.equipWeapon;onEquip({weaponId:id});paint();$('collectionGrid').querySelector(`[data-equip-weapon="${id}"]`)?.focus({preventScroll:true});});
-  $('collectionGrid').querySelectorAll('[data-equip-cosmetic]').forEach(button=>button.onclick=()=>{const id=button.dataset.equipCosmetic;onEquip({cosmeticId:id||null});paint();$('collectionGrid').querySelector(`[data-equip-cosmetic="${id}"]`)?.focus({preventScroll:true});});
-  $('collectionGrid').querySelectorAll('[data-equip-character]').forEach(button=>button.onclick=()=>{const id=button.dataset.equipCharacter;onEquip({characterId:id});paint();$('collectionPanel').querySelector('.collection-panel').scrollTop=0;$('collectionGrid').querySelector('.character-detail')?.focus({preventScroll:true});});
+  document.querySelector('#collectionPanel header strong').textContent=local(options.battle?'戦闘中の仲間変更':'仲間と持ち物',options.battle?'Change machine':'Companions and inventory');
+  let body=options.battle?'':`<div class="collection-tabs" role="tablist"><button data-collection-tab="characters" role="tab" aria-selected="${collectionView==='characters'}">${local('仲間','Companions')} ${data.unlockedCharacterIds.length}/10</button><button data-collection-tab="weapons" role="tab" aria-selected="${collectionView==='weapons'}">${local('練習用武器','Practice weapons')}</button></div>`;
+  if(collectionView==='characters'){
+   const m=A.get(inspected),p=C.get(inspected),r=Crew.get(inspected),selected=data.equippedCharacterId===inspected;
+   body+=`<div class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('10機の仲間','Ten machines')}">${Crew.rows.map(r=>{const c=A.get(r.id);return `<button type="button" data-inspect-character="${c.id}" aria-pressed="${inspected===c.id}" class="${owned(c.id)?'owned':'locked'} ${data.equippedCharacterId===c.id?'equipped':''}">${A.markup(c.id)}<strong>${language()==='en'?c.name:c.nameJa}</strong><small>${data.equippedCharacterId===c.id?local('選択中','Current'):owned(c.id)?local('所有','Owned'):local(r.stage+'面', 'LV '+r.stage)}</small></button>`;}).join('')}</div><section class="machine-profile" aria-label="${m.name}"><div class="machine-heading">${A.markup(m.id)}<div><h3>${language()==='en'?m.name:m.nameJa}</h3><p>${language()==='en'?m.role:m.roleJa}</p><small>HP ${p.hp} · ${local('チャージ','Charge')} ${p.charge.rise}s</small></div></div><div class="machine-profile-body"><p>${root.ArcStory.pick(r.desire,language())}</p><details><summary>${local('通常弾・必殺技','Normal and special')}</summary><p>${root.ArcI18n.t(p.normalNote)}</p><strong>${root.ArcI18n.t(p.special.name)}</strong><p>${root.ArcI18n.t(p.specialNote)}</p></details><p>${owned(m.id)?options.battle?local('HP割合・行動数・必殺残数を引き継ぎます。','HP ratio, actions and special ammo are retained.'):root.ArcStory.pick(r.line,language()):local(r.stage+'面クリアで仲間になります。','Joins after clearing stage '+r.stage+'.')}</p></div><button type="button" data-confirm-character="${m.id}" ${!owned(m.id)||selected?'disabled':''}>${selected?local('現在の機体','Current machine'):owned(m.id)?local('この機体に変更','Use this machine'):local(r.stage+'面クリアで解放','Clear stage '+r.stage+' to unlock')}</button></section></div>`;
+  }else body+=`<p class="inventory-note">${local('章内で拾った武器・スキルはボスまで持ち越し。ここで選ぶ武器は練習用です。','Picked weapons and skills carry until the chapter boss. This selection is for practice.')}</p><div class="equipment-grid">${W.weapons.filter(w=>w.id in W.coreUnlocks).map(w=>{const unlocked=data.unlockedWeaponIds.includes(w.id);return `<button data-equip-weapon="${w.id}" class="equipment-card ${data.equippedWeaponId===w.id?'equipped':''}" ${unlocked?'':'disabled'}><strong>${root.ArcI18n.t(w.name)}</strong><small>${unlocked?local('練習で使用','Use in practice'):local((W.coreUnlocks[w.id]||1)+'面で解放','Clear LV '+(W.coreUnlocks[w.id]||1))}</small></button>`;}).join('')}</div>`;
+  $('collectionGrid').innerHTML=body;A.paintAll($('collectionGrid'));
+  for(const b of $('collectionGrid').querySelectorAll('[data-inspect-character]'))b.onclick=()=>{inspected=b.dataset.inspectCharacter;paint();$('collectionGrid').querySelector(`[data-inspect-character="${inspected}"]`).focus({preventScroll:true});};
+  for(const b of $('collectionGrid').querySelectorAll('[data-collection-tab]'))b.onclick=()=>{collectionView=b.dataset.collectionTab;paint();};
+  for(const b of $('collectionGrid').querySelectorAll('[data-equip-weapon]'))b.onclick=()=>{onEquip({weaponId:b.dataset.equipWeapon});paint();};
+  const b=$('collectionGrid').querySelector('[data-confirm-character]');if(b)b.onclick=()=>{const id=b.dataset.confirmCharacter;if(!owned(id))return;const accepted=onEquip({characterId:id});if(accepted===false)return;if(options.battle)closeCollection();else{data.equippedCharacterId=id;paint();}};
  }
  $('collectionPanel').hidden=false;paint();$('closeCollection').focus({preventScroll:true});
 }
-function closeCollection(){$('collectionPanel').hidden=true;$('openCollection').focus({preventScroll:true});}
+function closeCollection(){$('collectionPanel').hidden=true;if(returnTo?.isConnected&&!returnTo.closest('[hidden]'))returnTo.focus({preventScroll:true});returnTo=null;}
+document.addEventListener('keydown',e=>{if($('collectionPanel').hidden)return;if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeCollection();}if(e.key==='Tab'){const all=[...$('collectionPanel').querySelectorAll('button:not(:disabled),summary')].filter(e=>e.getClientRects().length),i=all.indexOf(document.activeElement);if(e.shiftKey&&i<=0||!e.shiftKey&&i===all.length-1){e.preventDefault();all[e.shiftKey?all.length-1:0]?.focus();}}},true);
 function closeWeapons(){$('weaponPicker').hidden=true;($('battle').hidden?$('openCollection'):$('weaponToggle')).focus({preventScroll:true});}
 function showWeapons(choices,current,onSelect,options={}){
  $('weaponPickerTitle').textContent=options.title||'Choose weapon';document.querySelector('.weapon-picker-note').textContent=options.note||'Weapons and skills carry until the chapter boss.';$('openLibrary').hidden=!options.library;
@@ -88,5 +76,5 @@ function showWeapons(choices,current,onSelect,options={}){
  let category=null;$('weaponChoices').innerHTML=choices.map(choice=>{const heading=options.grouped&&choice.category!==category?`<h3 class="weapon-group-heading">${choice.category==='machine'?'Machine weapons':'Picked auxiliary'}</h3>`:'';category=choice.category;const w=choice.weapon||W.get(choice.id),selected=choice.id===current,empty=!!choice.disabled||choice.ammo<=0,stock=choice.id==='W01'?'Unlimited':`${choice.ammo} ${choice.ammo===1?'shot':'shots'}`,source=choice.id==='W01'?'Always available':choice.source||'Carried until boss';return heading+`<button type="button" data-choose-weapon="${choice.id}" class="${selected?'selected ':''}${empty?'empty':''}" ${empty?'disabled':''} aria-pressed="${selected}" aria-label="${escape(w.name)}, ${stock}, ${empty?'empty':selected?'selected':source}" style="--weapon-color:${w.appearance.color}"><i aria-hidden="true">${w.appearance.glyph}</i><span class="weapon-choice-copy"><strong>${escape(w.name)}</strong><small>${source}</small></span><span class="weapon-choice-stock"><span>${stock}</span><small>${empty?'Empty':selected?'Selected':'Select'}</small></span></button>`;}).join('');
  $('weaponChoices').querySelectorAll('[data-choose-weapon]').forEach(button=>button.onclick=()=>{if(button.disabled)return;closeWeapons();onSelect(button.dataset.chooseWeapon);});$('closeWeapons').onclick=closeWeapons;$('weaponPicker').hidden=false;$('weaponPicker').querySelector('.weapon-panel').scrollTop=0;const selected=$('weaponChoices').querySelector('.selected:not(:disabled)')||$('weaponChoices').querySelector('button:not(:disabled)');selected?.focus({preventScroll:true});if(selected&&options.grouped&&selected.dataset.chooseWeapon!=='W01'&&!W.get(selected.dataset.chooseWeapon).special)selected.scrollIntoView({block:'nearest'});
 }
-root.ArcPresentation={syncLobby,renderJourney,showCollection,closeCollection,showWeapons,closeWeapons,cosmetic,rover};
+root.ArcPresentation={syncLobby,renderJourney,showCollection,closeCollection,showWeapons,closeWeapons};
 })(globalThis);
