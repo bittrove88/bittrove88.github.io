@@ -2171,8 +2171,11 @@ function framing(shot,w,h,t,reduced=false){
  const focal=shot.focalPoint[w/h<1?'mobile':'desktop'],dx=b.focus[0]-a.focus[0],dy=b.focus[1]-a.focus[1],horizontal=Math.abs(dx)>=Math.abs(dy);
  // A bounded linear pan, centred on this shot's subject. Cover is never reduced.
  const travel=Math.min(.075,Math.abs(horizontal?dx:dy));
- const focus=[focal[0]+(horizontal?Math.sign(dx)*travel*(progress-.5):0),focal[1]+(!horizontal?Math.sign(dy)*travel*(progress-.5):0)];
- const x=clamp(w/2-focus[0]*iw,w-iw,0),y=clamp(h/2-focus[1]*ih,h-ih,0);
+ const baseX=clamp(w/2-focal[0]*iw,w-iw,0),baseY=clamp(h/2-focal[1]*ih,h-ih,0);
+ // Clamp endpoints before interpolation: edge compositions still pan at constant speed.
+ const distance=Math.min((horizontal?iw-w:ih-h)*.8,(horizontal?iw:ih)*travel),sign=Math.sign(horizontal?dx:dy);
+ const interpolate=(center,min,pan)=>{if(!pan||reduced)return center;const start=clamp(center+sign*distance/2,min,0),end=clamp(center-sign*distance/2,min,0);return start+(end-start)*progress;};
+ const x=interpolate(baseX,w-iw,horizontal),y=interpolate(baseY,h-ih,!horizontal);
  return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
 }
 function create(host,options={}){
