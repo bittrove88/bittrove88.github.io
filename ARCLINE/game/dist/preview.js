@@ -200,7 +200,7 @@ function specialPreview(original,id){
   if(weapon.machineId==='ban')return hit&&events.some(e=>e.type==='shockwave')&&!plan.impacts.some(i=>i.hit?.unit===1)&&state.units[1].x-plan.end.x>70;
   if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');
   if(weapon.machineId==='hana')return plan.bullets.length===3&&plan.damage[1]>1.2;
-  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=3.7;
+  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=2.45;
   if(weapon.machineId==='mogu')return events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
   if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;
   if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.length===9&&events.some(e=>e.type==='split');
