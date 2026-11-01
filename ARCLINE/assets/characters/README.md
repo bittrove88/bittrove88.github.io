@@ -38,6 +38,6 @@
 
 ## 表示用データへの接続
 
-今回の整理はPNGの配置・命名と照合記録です。表示用の `design/cinematics_014/character_images.json` はまだこれらのPNGを参照していません。画像表示へ接続する場合は、`src` に上記のPNGパス、元ファイル名、SHA-256、照合済みの状態を登録し、`game/tools/build_cinematic_data.py` を再実行します。
+0.14.2で表示用の `design/cinematics_014/character_images.json` に10枚のPNGパス、元ファイル名、SHA-256、寸法、目視照合記録と被写体の保護領域を登録しました。ゲームの詳細・加入・公開キャラ画面へ接続済みです。読み込み中・失敗時とオフラインHTMLは、正しい機体のCanvas表示を使います。
 
 名前・役割・モットーは `ArcCharacters`、能力と所有はゲームの実データを参照します。集合画からの切り出しを個別原画として登録しません。
