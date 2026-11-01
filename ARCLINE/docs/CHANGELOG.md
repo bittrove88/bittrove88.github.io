@@ -6,7 +6,7 @@
 |---|---|---|---|
 | AR-01 | 実装完了：同じ試射場で3難易度を体験して確定。途中再開、再試行、保存失敗から復帰 | game/ui/difficulty-ui.js、onboarding.js、dist/save.js、game.js | journey-0155、journey-0155-browser、journey-0155-resilience |
 | AR-02 | 実装完了：coverを下回らない縮尺、各ショットの焦点、固定ズーム・単軸一方向パン、回転・演出軽減 | dist/cinematic-player.js、styles/journey-update.css | cinematic-014、journey-0155-browser/resilience |
-| AR-03 | 実装完了：背景の封蝋と追加装飾を削除。原本ZIPは復旧用に維持 | assets/cinematics/edits/P03-01.jpeg、配布JPEG、shots.json、extract_cinematics.py | ハッシュ・生成一致、画像目視、manifestと配布検査 |
+| AR-03 | 実装完了：背景の封蝋と追加装飾を削除。原本ZIPは復旧用に維持。画像ハッシュで旧キャッシュを区別 | assets/cinematics/edits/P03-01.jpeg、配布JPEG、shots.json、extract_cinematics.py | ハッシュ・生成一致、画像目視、manifestと配布検査 |
 | AR-04 | 実装完了：プロローグ後にガンの原画・重い弾の説明を表示し試射へ | ui/onboarding.js、dist/index.html | 初回順序、既存ユーザー回避、試射・中断再開 |
 | AR-05 | 実装完了：モグの通常弾を速度0.78・重力1.5の短距離型へ。固有必殺・他9機は維持 | dist/combat.js、i18n.js | 旧版との全プロフィール比較、同条件弾道、敵AI、既存戦闘・100面進行 |
 | AR-06 | 実装完了：iOS/Android別案内、延期・閉じる・設定から再表示。実際のイベントがある場合だけインストール操作 | ui/device.js、dist/menus.js、fullscreen.js | UA・タッチエミュレーション、standalone判定、案内と進行の分離 |
