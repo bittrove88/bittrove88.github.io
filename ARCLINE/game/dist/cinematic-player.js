@@ -9,10 +9,16 @@ function framing(shot,w,h,t,reduced=false){
 }
 function create(host,options={}){
  let current=null,prior=null,token=0,age=0,closed=false;const cache=new Map(),timers=new Set(),stats={loads:0,failures:0,maxCached:0,frames:0},prefix=options.assetBase||root.ArcAssetBase||'../../';host.classList.add('cinematic-plate');
- const url=src=>new URL(prefix+src,document.baseURI).href,reduced=()=>options.reducedMotion?.()||root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,cheap=()=>restricted()||options.lowPerformance===true;
- function load(shot){if(cache.has(shot.id))return cache.get(shot.id);const entry={image:new Image(),shot,ok:false,done:false};entry.image.decoding='async';entry.image.fetchPriority='high';stats.loads++;
-  entry.promise=new Promise(resolve=>{let settled=false;const complete=ok=>{if(settled)return;settled=true;clearTimeout(timer);timers.delete(timer);entry.ok=ok;entry.done=true;if(!ok)stats.failures++;resolve(entry);};const timer=setTimeout(()=>complete(false),20000);timers.add(timer);entry.image.onload=()=>complete(true);entry.image.onerror=()=>complete(false);entry.image.src=url(shot.src);});cache.set(shot.id,entry);trim(shot.id);stats.maxCached=Math.max(stats.maxCached,cache.size);return entry;}
- function trim(keep){const protectedIds=new Set([keep,current?.shot.id,prior?.shot.id]);for(const [id,e]of cache){if(cache.size<=3)break;if(!protectedIds.has(id)){e.image.removeAttribute('src');cache.delete(id);}}}
+ const url=src=>root.ArcAssetLoader?root.ArcAssetLoader.resolve(src):new URL(prefix+src,document.baseURI).href,reduced=()=>options.reducedMotion?.()||root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,cheap=()=>restricted()||options.lowPerformance===true;
+ function load(shot){if(cache.has(shot.id))return cache.get(shot.id);
+  const entry={image:null,shot,ok:false,done:false};stats.loads++;
+  entry.promise=root.ArcAssetLoader.load(shot.src,{retries:2,timeout:10000}).then(result=>{
+   entry.ok=result.ok;entry.done=true;entry.image=result.image;
+   if(!result.ok){stats.failures++;cache.delete(shot.id);}
+   return entry;
+  });cache.set(shot.id,entry);trim(shot.id);stats.maxCached=Math.max(stats.maxCached,cache.size);return entry;}
+
+ function trim(keep){const protectedIds=new Set([keep,current?.shot.id,prior?.shot.id]);for(const [id,e]of cache){if(cache.size<=3)break;if(!protectedIds.has(id)){cache.delete(id);}}}
  function image(src,cls){const e=document.createElement('img');e.className=cls;e.alt='';e.setAttribute('aria-hidden','true');e.decoding='async';e.src=src;return e;}
  function build(shot){const el=document.createElement('div');el.className='cp-shot';el.dataset.shot=shot.id;el.dataset.transition=shot.transition.kind;el.setAttribute('role','img');el.setAttribute('aria-label',shot.scene==='E02'?(shot.locale==='en'?'The homecoming':'帰還を伝える場面'):shot.title);const ambient=image(url(shot.src),'cp-ambient'),plane=document.createElement('div');plane.className='cp-plane';plane.append(image(url(shot.src),'cp-master'));el.append(ambient,plane);
   const atmosphere=document.createElement('div');atmosphere.className='cp-atmosphere';atmosphere.setAttribute('aria-hidden','true');for(const [i,name]of shot.effects.entries()){const e=document.createElement('i');e.className='cp-effect fx-'+name;e.dataset.effect=name;e.dataset.depth=i%2?'.45':'.15';if(shot.light){e.style.left=shot.light[0]*100+'%';e.style.top=shot.light[1]*100+'%';}atmosphere.append(e);}plane.append(atmosphere);
