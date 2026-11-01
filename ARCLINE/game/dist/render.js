@@ -381,10 +381,29 @@ function create(canvas,configuration={}){
   if(planning){
    const plan=guide||aimPlan(s),look=appearance(E.weapon(s).id),full=!!options.charging,difficulty=root.ArcAimGuide.normalize(options.difficulty||s.difficulty);
    if(!guideCache||guideCache.plan!==plan||guideCache.difficulty!==difficulty)guideCache={plan,difficulty,paths:root.ArcAimGuide.paths(plan,difficulty)};
-   const visible=difficulty==='hard'?root.ArcAimGuide.direction(G.muzzle(s,0,s.angle),scale):guideCache.paths;
+   const splitGuide=root.ArcAimGuide.splitProjection(plan);
+   const baseVisible=difficulty==='hard'?root.ArcAimGuide.direction(G.muzzle(s,0,s.angle),scale):guideCache.paths;
+   // Sora is a special case: even HARD shows the carrier up to its exact split, never its falling children.
+   const visible=splitGuide?[...baseVisible.filter(b=>b.id!==splitGuide.parentId&&b.id!=='direction'),{id:splitGuide.parentId,path:splitGuide.path}]:baseVisible;
    ctx.save();ctx.beginPath();ctx.rect(-view.x/scale,(top-view.y)/scale,fieldW/scale,(bottom-top)/scale);ctx.clip();
    for(const b of visible){const points=b.path;if(!points.length)continue;
     const dots=[1/scale,7/scale];ctx.save();ctx.lineCap='round';ctx.globalAlpha=full?.72:.8;path(points,'#102d49aa',4/scale,dots);ctx.shadowColor=look.color;ctx.shadowBlur=2;path(points,look.color,2/scale,dots);ctx.shadowBlur=0;ctx.restore();
+   }
+   // The marker is tied to the simulated split event, not an estimated apex.
+   // When the split is above the view, pin an upward cue at the arena edge.
+   if(splitGuide){
+    const point=splitGuide.point,margin=18/scale;
+    const left=-view.x/scale+margin,right=(fieldW-view.x)/scale-margin;
+    const ceiling=(top-view.y)/scale+margin,floor=(bottom-view.y)/scale-margin;
+    const x=Math.max(left,Math.min(right,point.x)),y=Math.max(ceiling,Math.min(floor,point.y));
+    const offscreen=Math.abs(x-point.x)>1e-5||Math.abs(y-point.y)>1e-5,r=10/scale;
+    ctx.save();ctx.globalAlpha=.98;ctx.shadowBlur=0;
+    circle(x,y,r,'#19394dcc','#fff0b0');
+    path([{x:x-r*.6,y},{x:x+r*.6,y}],'#fff0b0',2/scale);
+    path([{x,y:y-r*.6},{x,y:y+r*.6}],'#fff0b0',2/scale);
+    ctx.font=`800 ${12/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#fff0b0';
+    ctx.fillText(offscreen&&point.y<ceiling?'↑ ×8':'×8',x,y-15/scale);
+    ctx.restore();
    }
    ctx.restore();
    if(full&&difficulty!=='hard'){
@@ -430,7 +449,7 @@ function create(canvas,configuration={}){
    for(const e of plan.events)if(['cloud','updraft','wind','vent','magnet','phase','bounce','break','teleport-contact'].includes(e.type)&&t>=e.t&&t-e.t<.5){const colors={cloud:'#c6e4ff',updraft:'#f4e6b2',wind:'#b4e7e6',vent:'#ffd0a6',magnet:'#d7baff',phase:'#d0fff2',break:'#e6bdff','teleport-contact':'#bcecff',bounce:e.surface==='reflector'?'#c9fff0':'#ffffff'};ctx.save();ctx.globalAlpha=alpha*(1-(t-e.t)/.5);circle(e.x,e.y,(10+(t-e.t)*38)/scale,null,colors[e.type]);ctx.restore();}
    if(localDemo)for(const e of plan.events)if(e.type==='pickup'&&t>=e.t&&t-e.t<.75){const age=t-e.t;ctx.save();ctx.globalAlpha=1-age/.75;ctx.textAlign='center';ctx.font=`800 ${23/scale}px system-ui`;ctx.fillStyle='#e4ffc0';ctx.fillText('✓',e.x,e.y-(10+age*30)/scale);ctx.restore();}
    for(const e of plan.events)if(e.type==='wave'&&t>=e.t){ctx.save();ctx.globalAlpha=alpha;path(e.path,look.color,7/scale,[8/scale,5/scale]);ctx.restore();}
-   for(const e of plan.events)if(e.type==='shockwave'&&t>=e.t&&t-e.t<.65){const age=(t-e.t)/.65,r=(plan.weaponId==='S_BAN'?260:e.length)*Math.min(1,age*2.5),a=(plan.weaponId==='S_BAN'?50:e.halfAngle)*Math.PI/180,base=e.direction<0?Math.PI:0;ctx.save();ctx.globalAlpha=alpha*(1-age);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.arc(e.x,e.y,r,base-a,base+a);ctx.closePath();ctx.fillStyle=look.color+'30';ctx.fill();ctx.lineWidth=3/scale;ctx.strokeStyle=look.color;ctx.stroke();ctx.restore();}
+   for(const e of plan.events)if(e.type==='shockwave'&&t>=e.t&&t-e.t<.65){const age=(t-e.t)/.65,r=e.length*Math.min(1,age*2.5),a=e.halfAngle*Math.PI/180,base=e.direction<0?Math.PI:0;ctx.save();ctx.globalAlpha=alpha*(1-age);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.arc(e.x,e.y,r,base-a,base+a);ctx.closePath();ctx.fillStyle=look.color+'30';ctx.fill();ctx.lineWidth=3/scale;ctx.strokeStyle=look.color;ctx.stroke();ctx.restore();}
    for(const e of plan.events)if(e.type==='pull'&&t>=e.t&&t-e.t<e.duration){const progress=(t-e.t)/e.duration;ctx.save();ctx.globalAlpha=alpha*(1-progress*.5);path([{x:e.from.x+(e.to.x-e.from.x)*progress,y:e.from.y+(e.to.y-e.from.y)*progress-22},{x:e.x,y:e.y}],look.color,3/scale,[5/scale,4/scale]);circle(e.x,e.y,(10+Math.sin(progress*Math.PI)*10)/scale,look.color+'44',look.color);ctx.restore();}
    for(const hit of plan.teleport?[]:plan.impacts||[])explosion(hit,t-hit.t,{...look,blast:root.ArcEffects?root.ArcEffects.impactBlast(plan,hit,look):look.blast},scale,options.reducedMotion,alpha);
    const enemy=1-plan.side,damage=plan.damage?.[enemy]||0;
