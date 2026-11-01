@@ -12,6 +12,7 @@ Object.assign(dictionary,{
 });
 Object.assign(dictionary,{'A precise center hit deals up to 50 damage.':'精密な中心命中で最大50ダメージ。','CORE ×1.5':'コア ×1.5','EXPOSE THE CORE':'コアを開く','Select SWAP, then hit the guardian.':'入替を選び、守り手に当てる。','Its core opens briefly.':'短い間コアが露出する。','CORE EXPOSED':'コア露出'});
 Object.assign(dictionary,{'Prologue':'プロローグ','Epilogue':'エピローグ','Story film':'物語の映像','Replay scene':'演出をもう一度'});
+Object.assign(dictionary,{'Story mode':'ストーリーモード','Story scenes':'シーン','Change machine ▾':'機体変更 ▾'});
 let language='ja';try{if(localStorage.getItem('arcline-language')==='en')language='en';}catch{}
 function t(value){const s=String(value??'');if(language==='en'){const stage=root.ArcLevels?.find(x=>x.name===s);if(stage)return stage.nameEn||s;const theme=root.ArcLevels?.find(x=>x.themeName===s);if(theme)return root.ArcEngine?.biomes[theme.theme]?.name||s;return s;}if(dictionary[s])return dictionary[s];
  if(/^Special (\d+)\/3$/.test(s))return s.replace(/^Special (\d+)\/3$/,'必殺 $1/3');

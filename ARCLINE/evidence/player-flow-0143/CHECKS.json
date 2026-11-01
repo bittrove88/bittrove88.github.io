@@ -1,0 +1,184 @@
+{
+  "version": "0.14.3",
+  "status": "PASS",
+  "recordedAt": "2026-11-01T09:53:39.007151+00:00",
+  "baseline": "d514f0c4c16c9fdfe04cb68609e0c1ea5661c1e4",
+  "resetVersion": 2,
+  "suites": [
+    {
+      "report": "RESET.json",
+      "checks": 21,
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0143 node ARCLINE/game/tests/player-flow-0143.test.cjs"
+    },
+    {
+      "report": "FOUNDATION.json",
+      "checks": 2201,
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0143 node ARCLINE/game/tests/expedition-foundation.test.cjs"
+    },
+    {
+      "report": "BROWSER.json",
+      "checks": 121,
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0143 node ARCLINE/game/tests/player-flow-0143-browser.test.cjs"
+    },
+    {
+      "report": "PUBLIC_UI.json",
+      "checks": 209,
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0143 node ARCLINE/site-tests/cinematic-014-ui.test.cjs"
+    },
+    {
+      "report": "RELEASE_WEB.json",
+      "checks": 141,
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0143 node ARCLINE/site-tests/expedition-release.test.cjs"
+    },
+    {
+      "report": "DELIVERY.json",
+      "checks": 16,
+      "command": "ARCLINE_PACKAGE_DIR=/tmp/arcline-0143-package ARCLINE_EVIDENCE_DIR=/tmp/arcline-0143 node ARCLINE/site-tests/cinematic-014-delivery.test.cjs"
+    }
+  ],
+  "suiteAssertions": 2709,
+  "runtimeSha256": {
+    "actor-bodies.js": "30f471236e81e9652b1b0e99fa3760dfbffcb2e6c537992debfd6466318daf33",
+    "aim-guide.js": "69a5da10e5b1dde430bfb5b22f99f93aaefd672d7abdd5e381a2701a0fc52eb0",
+    "app.webmanifest": "d2be4897b9a6d599a4e11ba9db98b03a86abddd035700bdcfe917591908548a0",
+    "asset-loader.js": "b65f9cbc24a51d8559fde0c69b23c25da4427a7b55a5de703d340ee386a5b7f6",
+    "campaign-run.js": "cb3cc68d48f7c8104a5e334e53418315a600439093827da6b897b8020bc2f0c9",
+    "character-hero.js": "2f4482d7808b2611739103f7835e3cfcd706d59ee5661648442b6cb7f2b73250",
+    "characters.js": "5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609",
+    "cinematic-data.js": "cbf88152a89710e563d8c446d12080a8103ce76004aebd237434d847a355091c",
+    "cinematic-player.js": "a7dac78df4bb0033b51adb91df3b4be60a08830df6c9eb0919b75633ae524823",
+    "cinematics.css": "3d3c9424cc7acd0ebbe8a40fbd98476e73943c0bba9d1e5581eb6e4146d4346d",
+    "combat.js": "a3873dcc81f040151562bdefc02785bda9776f0e97cdbf684fac42c7a2a0b588",
+    "cpu-worker.js": "45e32f475b3ea9b17e779c7ee0e7a49b2ee36bc445a9f19bcff8c4df62cb2c42",
+    "crew.js": "11d2627069b6523ae1fbfa436ca9c0f30c4ec8d4596de05304c38bddf8070acb",
+    "effects.js": "69d5f8a0f50d229149a9db9a1ecf7da07badf4fca6ea845d889a31b10e1a01bf",
+    "encounters.js": "4ae7357744f55bba6f9d812d1dd23ed7ed566a37a52dcb94d353c1e14df86eb5",
+    "engine.js": "33b19f5f95c4bfac35a57f19aa65e81be2166472c9974e3f80d8c700b100c3f3",
+    "expedition-ui.js": "513850cb72fc8bde07c40a350bc401af0efb8a9ca19ada65288a16c4269bc359",
+    "fullscreen.js": "b0f4af033459c5af72e2cef8bbef68a3563509a1211ec30cd067f48fdd679aed",
+    "game.js": "051e0c783ee7d53d54a1bd4ede6e69febf92845c2d0153a5a0709873701e2b0b",
+    "geometry.js": "a289db79e07c40dab98600de3bf66cc8a10b8069a2f1a594cabad3db7c9d3ab3",
+    "i18n.js": "df9151a92f9a344adf3544e5cbb99fa7a9d08a2ee49cb2dec870b113977bbf41",
+    "icon.svg": "67614ce239b389037c958ae69744f00150c30dbe1f64e73719347e9ea9778d56",
+    "index.html": "ef56dd16d3441c3505f0749c92194e9951f975b8322210398d6420e0e73141b1",
+    "inventory.js": "8d2814f6615e3398d3516049ace565081fe65d432b06baa8d7dd9fb2479f0ba8",
+    "journal.js": "57d83553f16e954e5a9e82d9fb8bfa8f08db9abf93e5f5525dd652d4f151dd8d",
+    "lessons.js": "b86b9927c9ab03d24f80d7342a1117ad141f1e202e6e652878453404587f08a1",
+    "levels.js": "a9ded0cdc1ba018f320d5063c924e49d4a71ec477c80346b4aafcc2d7e59ea8f",
+    "menus.js": "6859ba15edf4cf42ba61c90bcb8b0bee600960082c5b30aecf8678e726d76091",
+    "physics.js": "19f3631422f7f75c83de4e34601a316e1009dadf2d176784d9878181a3d5ffd4",
+    "presentation.js": "55e665991e5dd37e4137fc4163fafad220b3459a5f4c42e2b1cc34c4546e2d64",
+    "preview.js": "25da6240f7ba7fd99d7b24aa391bec298f86aced4fb6252447a47b945ee77452",
+    "render.js": "f301ed71c5354910d4f97690450c6a63399096c9a6e01129742a62e34e3e0a75",
+    "save.js": "72637327e3fd032859b478059bf68fe488b5e7380692dd91c55618512db7926d",
+    "skills.js": "ee9576c9c79475e47ac483e3b9c6cbde14832bc09e8b08f31e0118941e3904b6",
+    "story-view.js": "f5a6a0edaa268c15953d6728ba59bfcdab8379116252fa77c2e70f560bce098e",
+    "story.js": "1240c2faaec41b4966c11b9276371604d78a13124ad992a50c9532fa45569dd1",
+    "style.css": "4bf05597aeee544e15002532de7ed872492c5098a854cf2424e114376d921b55",
+    "viewport.js": "35c305e2c319376a898f34aa37cb99b36c415c6ec9b3782ee10e2e9a92029207",
+    "visual-art.js": "d0a22bec2096e7c88ff8c5d475dd7b83bd0e8ff8983a56348c1dffdf90ebdb80",
+    "visual-registry.js": "7efd90e6673a3cdd0338ad40ec6ffb751474e66facad670ec4d0ce815037acdf",
+    "visual-style.js": "309c3e10ccec0431bc6b4fe8e06e8ea863189986fa92ef7c154106c31a9f7a2e",
+    "weapons.js": "ce5a4c7f0f8dd9fe8ccc8ac2409dbb8fb7aa7c758064af636463b3df694f154d"
+  },
+  "preserved": [
+    {
+      "file": "engine.js",
+      "sha256": "33b19f5f95c4bfac35a57f19aa65e81be2166472c9974e3f80d8c700b100c3f3"
+    },
+    {
+      "file": "geometry.js",
+      "sha256": "a289db79e07c40dab98600de3bf66cc8a10b8069a2f1a594cabad3db7c9d3ab3"
+    },
+    {
+      "file": "combat.js",
+      "sha256": "a3873dcc81f040151562bdefc02785bda9776f0e97cdbf684fac42c7a2a0b588"
+    },
+    {
+      "file": "physics.js",
+      "sha256": "19f3631422f7f75c83de4e34601a316e1009dadf2d176784d9878181a3d5ffd4"
+    },
+    {
+      "file": "weapons.js",
+      "sha256": "ce5a4c7f0f8dd9fe8ccc8ac2409dbb8fb7aa7c758064af636463b3df694f154d"
+    },
+    {
+      "file": "inventory.js",
+      "sha256": "8d2814f6615e3398d3516049ace565081fe65d432b06baa8d7dd9fb2479f0ba8"
+    },
+    {
+      "file": "levels.js",
+      "sha256": "a9ded0cdc1ba018f320d5063c924e49d4a71ec477c80346b4aafcc2d7e59ea8f"
+    },
+    {
+      "file": "crew.js",
+      "sha256": "11d2627069b6523ae1fbfa436ca9c0f30c4ec8d4596de05304c38bddf8070acb"
+    },
+    {
+      "file": "campaign-run.js",
+      "sha256": "cb3cc68d48f7c8104a5e334e53418315a600439093827da6b897b8020bc2f0c9"
+    },
+    {
+      "file": "journal.js",
+      "sha256": "57d83553f16e954e5a9e82d9fb8bfa8f08db9abf93e5f5525dd652d4f151dd8d"
+    },
+    {
+      "file": "encounters.js",
+      "sha256": "4ae7357744f55bba6f9d812d1dd23ed7ed566a37a52dcb94d353c1e14df86eb5"
+    },
+    {
+      "file": "characters.js",
+      "sha256": "5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609"
+    },
+    {
+      "file": "render.js",
+      "sha256": "f301ed71c5354910d4f97690450c6a63399096c9a6e01129742a62e34e3e0a75"
+    },
+    {
+      "file": "effects.js",
+      "sha256": "69d5f8a0f50d229149a9db9a1ecf7da07badf4fca6ea845d889a31b10e1a01bf"
+    },
+    {
+      "file": "story.js",
+      "sha256": "1240c2faaec41b4966c11b9276371604d78a13124ad992a50c9532fa45569dd1"
+    },
+    {
+      "file": "cinematic-data.js",
+      "sha256": "cbf88152a89710e563d8c446d12080a8103ce76004aebd237434d847a355091c"
+    },
+    {
+      "file": "cinematic-player.js",
+      "sha256": "a7dac78df4bb0033b51adb91df3b4be60a08830df6c9eb0919b75633ae524823"
+    },
+    {
+      "file": "character-hero.js",
+      "sha256": "2f4482d7808b2611739103f7835e3cfcd706d59ee5661648442b6cb7f2b73250"
+    },
+    {
+      "file": "cinematics.css",
+      "sha256": "3d3c9424cc7acd0ebbe8a40fbd98476e73943c0bba9d1e5581eb6e4146d4346d"
+    }
+  ],
+  "generatedOutputs": 19,
+  "bundleEntries": 75,
+  "screenshots": [
+    "home-568.jpg",
+    "home-844.jpg",
+    "home-390.jpg",
+    "home-1440.jpg",
+    "switch-568.jpg",
+    "switch-844.jpg",
+    "switch-390.jpg",
+    "switch-1440.jpg",
+    "story-568.jpg",
+    "story-844.jpg",
+    "story-390.jpg",
+    "story-1440.jpg"
+  ],
+  "zipKeptOutsideGit": true,
+  "notVerified": [
+    "Physical Safari/Android,installed PWA,YouTube production SDK authentication,wide-area performance.",
+    "Direct public-site HTTP inspection is unavailable under managed network policy; deployment is checked separately.",
+    "Old tabs and inactive devices apply the one-time reset only when the new build loads."
+  ]
+}
