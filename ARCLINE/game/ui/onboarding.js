@@ -5,7 +5,46 @@
   let hooks,
     active = false,
     after = null,
-    busy = false;
+    busy = false,
+    deleting = false;
+  function syncDelete() {
+    for (const id of ["deleteStartSave", "deleteLobbySave"]) {
+      $(id).textContent = local("セーブデータを削除", "Delete save data");
+      $(id).disabled = deleting || !hooks?.canDelete();
+    }
+    $("deleteSaveTitle").textContent = local(
+      "セーブデータを削除しますか？",
+      "Delete your save data?",
+    );
+    $("deleteSaveDescription").textContent = local(
+      "クリア記録、仲間・武器の解放、章の持ち物、ストーリー閲覧を削除して最初から始めます。この操作は元に戻せません。言語・操作配置とホーム画面への追加案内の設定は維持します。",
+      "Start over by deleting progress, unlocked companions and weapons, chapter stock and story records. This cannot be undone. Language, controls and installation-guide preferences are kept.",
+    );
+    $("cancelDeleteSave").textContent = local("キャンセル", "Cancel");
+    $("confirmDeleteSave").textContent = deleting
+      ? local("削除しています…", "Deleting…")
+      : local("削除して最初から", "Delete and start over");
+    $("cancelDeleteSave").disabled = $("confirmDeleteSave").disabled = deleting;
+    $("deleteSaveError").textContent = local(
+      "セーブデータを削除できませんでした。元の記録を保持しています。もう一度お試しください。",
+      "Could not delete your save data. Your original record is kept. Please retry.",
+    );
+  }
+  function cancelDelete() {
+    if (!deleting) root.ArcScreens.close("deleteSaveDialog");
+  }
+  function requestDelete(event) {
+    if (deleting || !hooks.canDelete()) return;
+    $("deleteSaveError").hidden = true;
+    syncDelete();
+    root.ArcScreens.open("deleteSaveDialog", {
+      trigger: event.currentTarget,
+      block: ["lobby", "battle", "journeyStart"],
+      onEscape: cancelDelete,
+      cycleFocus: true,
+    });
+    $("cancelDeleteSave").focus();
+  }
   function introduce() {
     $("gunIntroTitle").textContent = local("ガン", "GUN");
     $("gunIntroLead").textContent = local(
@@ -64,6 +103,28 @@
   }
   function install(options) {
     hooks = options;
+    for (const id of ["deleteStartSave", "deleteLobbySave"])
+      $(id).onclick = requestDelete;
+    $("cancelDeleteSave").onclick = cancelDelete;
+    $("confirmDeleteSave").onclick = async () => {
+      if (deleting || !hooks.canDelete()) return;
+      deleting = true;
+      syncDelete();
+      const saved = await hooks.deleteSave();
+      deleting = false;
+      syncDelete();
+      if (!saved) {
+        $("deleteSaveError").hidden = false;
+        $("cancelDeleteSave").focus();
+        return;
+      }
+      root.ArcScreens.close("deleteSaveDialog", false);
+      root.ArcScreens.close("journeyStart", false);
+      active = false;
+      after = null;
+      hooks.deleted();
+    };
+    syncDelete();
     $("gunIntroContinue").onclick = async () => {
       if (busy) return;
       busy = true;
@@ -76,6 +137,7 @@
       busy = false;
     };
     root.addEventListener("arcline-language", () => {
+      syncDelete();
       if (root.ArcScreens.isOpen("onboardingIntro")) introduce();
     });
   }
@@ -114,6 +176,7 @@
     install,
     begin,
     prepare,
+    syncDelete,
     get active() {
       return active;
     },

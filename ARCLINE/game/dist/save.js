@@ -37,13 +37,16 @@ function decode(raw){
  return out;
 }
 function create(adapter,status=()=>{}){
- let data=decode(null),ready=false,chain=Promise.resolve(),dirty=false,generation=0,migrationPending=false,resetCleanupPending=false;
+ let data=decode(null),ready=false,chain=Promise.resolve(),dirty=false,generation=0,migrationPending=false,resetCleanupPending=false,resetting=false;
  async function load(){try{const raw=await adapter.load();let previous={};try{previous=JSON.parse(raw)||{};}catch{}data=decode(raw);migrationPending=!!raw&&(previous.schemaVersion!==schemaVersion||previous.campaignResetVersion!==resetVersion);ready=true;resetCleanupPending=!raw||migrationPending;
   if(migrationPending)await save();else status('saved');return data;
  }catch(e){ready=false;status('load-failed');return data;}}
 
- function save(){dirty=true;const ticket=++generation;if(!ready)return chain.then(()=>false);const snapshot=JSON.stringify(data);chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(snapshot);if(resetCleanupPending){await adapter.resetLocal?.();resetCleanupPending=false;}if(ticket===generation){dirty=false;migrationPending=false;status('saved');}return true;}catch(e){if(ticket===generation){dirty=true;status('save-failed');}return false;}});return chain;}
- return {load,save,get data(){return data;},get ready(){return ready;},get dirty(){return dirty;},get pending(){return chain;},get needsMigrationSave(){return migrationPending;}};
+ function save(){if(resetting)return chain.then(()=>false);dirty=true;const ticket=++generation;if(!ready)return chain.then(()=>false);const snapshot=JSON.stringify(data);chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(snapshot);if(resetCleanupPending){await adapter.resetLocal?.();resetCleanupPending=false;}if(ticket===generation){dirty=false;migrationPending=false;status('saved');}return true;}catch(e){if(ticket===generation){dirty=true;status('save-failed');}return false;}});return chain;}
+ // Replace only this game's canonical record, after older writes have finished.
+ // Keep the live record until persistence succeeds; never erase an unread cloud save.
+ function reset(){if(!ready||resetting)return Promise.resolve(false);resetting=true;dirty=true;++generation;chain=chain.catch(()=>{}).then(async()=>{const fresh=decode(null);fresh.preferences={...data.preferences};try{await adapter.save(JSON.stringify(fresh));data=fresh;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=true;status('save-failed');return false;}finally{resetting=false;}});return chain;}
+ return {load,save,reset,get data(){return data;},get ready(){return ready;},get dirty(){return dirty;},get pending(){return chain;},get needsMigrationSave(){return migrationPending;}};
 }
 const api={key,revision,schemaVersion,resetVersion,weaponIds,characterIds,previewIds,decode,create};if(typeof module!=='undefined')module.exports=api;else root.ArcSave=api;
 })(globalThis);
