@@ -1,3 +1,11 @@
+# 0.17.0 追加指示の検証
+
+[原文とAD-01〜AD-07](change-requests/ARCLINE_ADDITIONAL_CHANGE_REQUEST_v0.17.0.md)。単体15スイート・ブラウザ9スイート・生成45ファイルを対象にします。chapter-flow-0170は旧加入途中データ・章全体の順序・1000配置と地形以外の戦闘パラメータ、chapter-flow-0170-browserは初回順序・単一開始ボタン・固定試撃と6サイズ／回転・メニュー変更・全画面章再生・実際のボス音楽再始動を確認します。
+
+地形の実戦はexpedition-routes（300）、expedition-tactics（100）、expedition-showcases（16）。結果を新しいevidence/chapter-flow-0170へ保存し、record_stage_verification.pyでblueprintのSHA256に結び付けます。旧地形の合格を流用しません。最終章のエンディング通しはmedia-220-browser内で章選択から行います。
+
+以下は基礎機能と以前の検証の入口です。
+
 # 0.16.0／正式要求v2.2.0の追加検証
 
 正本は [第0〜39章](change-requests/ARCLINE_BGM_ENDING_CHANGE_REQUEST_v2.2.0.md)。ブラウザの実行前に承認AACを実再生し、対応を確認したインストール済みChromium／Chromeを使用、版数と結果を記録します。`npm test` にmedia-220、`npm run test:browser` にmedia-220-browserを追加。前者は音楽状態・遅延イベント・音声不可時計・全100面の選曲・両言語の尺・元音源ハッシュ・戦闘ソース同一性・保存既読キーを検証。後者はネイティブAAC再生、日英・縦横・低モーション、全11ショットと操作遮断、結果の両保存経路、必殺技実補充と通知を検証し、通常は166秒のエンディングをシークなしで通し再生します。開発時だけ `ARCLINE_FAST_MEDIA=1` で通し再生を省略可能ですが、それを通し検証済みと扱いません。

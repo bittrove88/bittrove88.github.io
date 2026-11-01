@@ -35,7 +35,7 @@ with zipfile.ZipFile(archive) as z:
 manifest['characterPlates']=sum(bool(a['verified'] and a['src']) for a in characters)
 manifest['bgmTracks']=7
 manifest['endingCutouts']=len(media['cutouts'])
-manifest['design']='BGM/automatic ending/special-charge explanation and notice; formal request v2.2.0; save schema8/resetVersion2 retained'
-manifest['preservedBattle']='All combat, engine, geometry, physics, levels, inventory, encounters, machine profiles and special mechanics unchanged from baseline27867f1'
+manifest['design']='Additional user direction0.17.0: chapter playback, first-launch order, fixed trials, explicit machine menu, boss music restarts, recruitment swap and terrain variation; prior BGM/ending retained; schema8/resetVersion2 retained'
+manifest['preservedBattle']='Engine,physics,geometry,AI,profiles,weapons,inventory and special mechanics unchanged from baseline9e04d97. Only explicitly requested terrain/recommendations/recruitment scheduling change; non-terrain stage combat parameters preserved.'
 manifest['zip']={'name':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()}
 (out/'BUNDLE_CHECK.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps({'status':'PASS','runtime':len(files),'plates':23,'entries':len(contents),'zip':str(archive),'bytes':archive.stat().st_size}))

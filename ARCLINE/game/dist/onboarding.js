@@ -84,11 +84,37 @@
     if (active) return;
     active = true;
     after = done;
-    root.ArcDevice.offer(resume);
+    resume();
+  }
+  function prepare(done) {
+    if (
+      hooks.data().onboarding.step !== "prologue" ||
+      hooks.data().journal.moviesSeen.includes("prologue")
+    ) {
+      begin(done);
+      return;
+    }
+    active = true;
+    after = done;
+    root.ArcDevice.offer(() => {
+      $("beginJourney").textContent = local("はじめる。", "Begin.");
+      root.ArcScreens.open("journeyStart", {
+        block: ["lobby", "battle"],
+        onEscape() {},
+        cycleFocus: true,
+      });
+      $("beginJourney").focus();
+      $("beginJourney").onclick = () => {
+        root.ArcFullscreen?.enter?.();
+        root.ArcScreens.close("journeyStart", false);
+        resume();
+      };
+    });
   }
   root.ArcOnboarding = Object.freeze({
     install,
     begin,
+    prepare,
     get active() {
       return active;
     },

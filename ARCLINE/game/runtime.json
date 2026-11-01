@@ -1,6 +1,6 @@
 {
-  "version": "0.16.0",
-  "cacheVersion": "0.16.0",
+  "version": "0.17.0",
+  "cacheVersion": "0.17.0",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -51,6 +51,7 @@
     "expedition-ui.js",
     "device.js",
     "onboarding.js",
+    "chapter-playback.js",
     "game.js",
     "fullscreen.js"
   ],
@@ -59,7 +60,8 @@
     "player-flow.css",
     "cinematics.css",
     "journey-update.css",
-    "media-ending.css"
+    "media-ending.css",
+    "chapter-flow.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -75,7 +77,9 @@
     "audio-manager.js": "ui/audio-manager.js",
     "ending-credits.js": "ui/ending-credits.js",
     "special-ui.js": "ui/special-ui.js",
-    "media-ending.css": "styles/media-ending.css"
+    "media-ending.css": "styles/media-ending.css",
+    "chapter-playback.js": "ui/chapter-playback.js",
+    "chapter-flow.css": "styles/chapter-flow.css"
   },
   "requires": {
     "screens.js": [],
@@ -138,7 +142,8 @@
       "media-data.js",
       "audio-manager.js",
       "ending-credits.js",
-      "special-ui.js"
+      "special-ui.js",
+      "chapter-playback.js"
     ],
     "device.js": [
       "screens.js",
@@ -165,6 +170,13 @@
     "special-ui.js": [
       "screens.js",
       "i18n.js"
+    ],
+    "chapter-playback.js": [
+      "screens.js",
+      "crew.js",
+      "story.js",
+      "story-view.js",
+      "character-hero.js"
     ]
   }
 }

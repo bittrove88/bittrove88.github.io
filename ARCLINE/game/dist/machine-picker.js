@@ -6,7 +6,7 @@
     function close() {
       root.ArcScreens.close("battleMachinePicker", false);
       hooks.changed();
-      $("battleCharacters").focus();
+      $("pauseMachineChange").focus();
     }
     function open() {
       if (!hooks.allowed()) return;
@@ -28,7 +28,12 @@
           return `<button type="button" data-quick-machine="${c.id}" ${s.characterId === c.id ? "disabled" : ""}>${root.ArcCharacters.markup(c.id)}<strong>${en ? a.name : a.nameJa}</strong><span>${en ? a.role : a.roleJa}</span><small>${s.characterId === c.id ? (en ? "Current machine" : "使用中") : root.ArcI18n.t(p.special.name)}</small></button>`;
         })
         .join("");
-      root.ArcScreens.open("battleMachinePicker", { onEscape: close });
+      root.ArcScreens.open("battleMachinePicker", {
+        block: ["battle", "overlay"],
+        trigger: $("pauseMachineChange"),
+        onEscape: close,
+        cycleFocus: true,
+      });
       root.ArcCharacters.paintAll($("battleMachineChoices"));
       for (const b of $("battleMachineChoices").querySelectorAll("button"))
         b.onclick = () => {

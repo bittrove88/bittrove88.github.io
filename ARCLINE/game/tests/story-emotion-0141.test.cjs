@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'../../..'),out=process.env.ARCLINE_EVIDENCE_D
 const baseline=JSON.parse(cp.execFileSync('git',['show','3bdbf4f:ARCLINE/design/narrative_0_13.json'],{cwd:root,encoding:'utf8'}));
 ok(S.revision==='0.14.1'&&S.presentation.saveNarrativeVersion==='0.13.0','editorial revision and existing save namespace are separate');
 for(const key of ['chapters','relations','stageClears','foreshadow','world'])ok(JSON.stringify(S[key])===JSON.stringify(baseline[key]),'approved world/100-stage structure preserved '+key);
-ok(JSON.stringify(S.presentation.returnOrder)===JSON.stringify(Crew.rows.map(r=>r.id)),'return lamps follow established meeting order');
+ok(JSON.stringify(S.presentation.returnOrder)===JSON.stringify(['gun','hana','koro','ban','sora','hibari','rico','mogu','rin','yui']),'approved return-lamp image positions remain stable after the requested recruitment swap');
 ok(S.prologue.frames[0].text.ja===baseline.prologue.frames[0].text.ja&&S.prologue.frames[1].text.en===baseline.prologue.frames[1].text.en,'ordinary life and Divide parent prose kept');
 ok(D.get('P03-02').symbolic&&D.get('P03-02').durationMs===5000&&!/昔|記録|left this harbour/.test(JSON.stringify(D.get('P03-02').text)),'gathering is a brief future image, not a newly invented historical event');
 const timing=[];
@@ -29,7 +29,7 @@ for(const lang of ['ja','en']){
  ok(lang==='ja'?e04.includes('描いた')&&e04.includes('書き添えた'):e04.includes('draws')&&e04.includes('adds a small note'),'drawing and writing are both in canonical ending '+lang);
  ok(!/おかえり|ただいま|Welcome home|We are home/.test(S.result(100,lang).aftermath+S.result(100,lang).response),'final clear does not pre-empt the homecoming dialogue '+lang);
 }
-for(const [id,stage]of [['koro',10],['hibari',25],['rin',60],['yui',80]]){const m=S.machines.find(m=>m.id===id),old=baseline.machines.find(m=>m.id===id);ok(m.joinStage===stage&&m.line.ja===old.line.ja,'joining line does not replace permanent character line '+id);ok(m.joinLine.ja.length>=20&&m.joinLine.ja.length<=35,'one short contextual joining line '+id);}
+for(const [id,stage]of [['koro',10],['hibari',30],['rin',60],['yui',80]]){const m=S.machines.find(m=>m.id===id),old=baseline.machines.find(m=>m.id===id);ok(m.joinStage===stage&&m.line.ja===old.line.ja,'joining line does not replace permanent character line '+id);ok(m.joinLine.ja.length>=20&&m.joinLine.ja.length<=35,'one short contextual joining line '+id);}
 const old=Save.decode(JSON.stringify({schemaVersion:8,campaignResetVersion:Save.resetVersion,cleared:100,equippedCharacterId:'rin',unlockedCharacterIds:Crew.ids,joinedCharacterIds:Crew.ids,journal:{narrativeVersion:'0.13.0',introSeen:true,moviesSeen:['prologue','30','60'],pendingMovie:'epilogue',readIds:['introduction','guardian:90','machine:rin:profile']}}));
 ok(old.cleared===100&&old.equippedCharacterId==='rin'&&old.journal.pendingMovie==='epilogue'&&old.journal.moviesSeen.length===3&&old.journal.readIds.includes('guardian:90'),'existing progress, selection, seen/read and pending ending survive');
 ok(S.result(70).discovery.kind==='blanks'&&S.result(90).discovery.kind==='names'&&S.result(90).discovery.textStartMs>600+9*220,'names match before explanatory subtitles begin');

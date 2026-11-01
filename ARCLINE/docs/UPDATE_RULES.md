@@ -1,7 +1,8 @@
 # ARCLINE アプリ更新ルール
 
 **状態：** リポジトリ内の恒久的な開発・更新ルール。個別変更の要求仕様ではありません。  
-**現行変更指示書：** [ARCLINE 改善変更指示書 v0.15.5（全21章、AR-01～AR-13）](change-requests/ARCLINE_CHANGE_REQUEST_v0.15.5.md)
+**現行の追加要求：** [追加指示v0.17.0](change-requests/ARCLINE_ADDITIONAL_CHANGE_REQUEST_v0.17.0.md)。BGM再開・初回・機体メニュー・試撃・章再生・加入順・地形は最新の明示指示を優先します。
+**基礎となる変更指示書：** [ARCLINE 改善変更指示書 v0.15.5（全21章、AR-01～AR-13）](change-requests/ARCLINE_CHANGE_REQUEST_v0.15.5.md)
 
 ## 1. 更新前に確認すること
 

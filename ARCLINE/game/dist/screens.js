@@ -14,6 +14,8 @@
     "weaponPicker",
     "skillPicker",
     "specialLesson",
+    "journeyStart",
+    "chapterPlayback",
   ];
   const isOpen = (id) => !!$(id) && !$(id).hidden;
   function open(id, options = {}) {
