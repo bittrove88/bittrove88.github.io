@@ -38,4 +38,4 @@ if(typeof module!=='undefined')module.exports=api;else root.ArcCinematicData=api
 })(globalThis);
 """.replace('PAYLOAD',json.dumps(d,ensure_ascii=False,separators=(',',':')))
 (root/'game/dist/cinematic-data.js').write_text(code)
-print('Compiled23 camera/effect scripts; verified character JPEGs:',sum(bool(r['src']) for r in art))
+print('Compiled23 camera/effect scripts; verified character images:',sum(bool(r['src']) for r in art))

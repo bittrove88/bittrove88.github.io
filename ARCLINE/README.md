@@ -1,8 +1,8 @@
 # ARCLINE
 
-Canvas 2Dの砲撃アドベンチャー。**実装0.14.1／キャンペーン5.0／保存schema8**。
+Canvas 2Dの砲撃アドベンチャー。**実装0.14.2／キャンペーン5.0／保存schema8**。
 
-[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.14.1) ／ [お知らせ](updates/0.14.1/) ／ [キャラ確認とHTML/PNGダウンロード](characters/)
+[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.14.2) ／ [お知らせ](updates/0.14.2/) ／ [キャラ確認とHTML/PNGダウンロード](characters/)
 
 
 0.14.1では日本語・英語の字幕を物語正本へ集約し、短い文ごとの読了待ち、十の帰還灯と静寂、返事と余韻を実装。70/80/90/95/100面の情報公開順を整えました。[文章差分と実装](design/story_emotion_0141/IMPLEMENTATION.md) ／ [検証](evidence/story-emotion-0141/README.md)。攻略・既読・所有の追加リセットはありません。
@@ -94,3 +94,5 @@ python3 ARCLINE/game/tools/build_playables.py --output /tmp/arcline-package
 [現行のテスト入口](game/tests/README.md)と[結果](evidence/expedition-013/README.md)を参照。全100面のガン通常弾のみ3条件300戦、推奨機体100戦、加入後の見せ場16戦、1000組の安全な配置、操作・保存・日英・画面回転・実Workerなどを別々の検査で確認する。**人による全100面の通しプレイ、全100面×全10機体の完走、物理端末Safari／Android、YouTube認証は未確認。**
 
 元の引継ぎ書・EXPORT_MANIFEST・初期v1.0/v1.1、[0.12](evidence/story-012/)、[0.11](evidence/visual-b08/)と[18枚のデザイン原本](design/sheets/)は歴史資料として保持。今回の成功数へ過去の検査を加算しない。ルートGitと通常pushを使い、別Gitの初期化・force push・他コンテンツへの無関係な変更はしない。
+
+0.14.2では、照合した10枚の個別PNGを仲間の詳細・加入・公開キャラ画面へ接続しました。機体ごとの保護構図と欠落時のCanvas表示を確認しています。[確認結果と画面](evidence/character-art-0142/README.md)。

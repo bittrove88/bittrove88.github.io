@@ -15,10 +15,10 @@ function framing(shot,w,h,t,reduced=false){
 }
 function create(host,options={}){
  let current=null,prior=null,token=0,age=0,closed=false;const cache=new Map(),timers=new Set(),stats={loads:0,failures:0,maxCached:0,frames:0},prefix=options.assetBase||root.ArcAssetBase||'../../';host.classList.add('cinematic-plate');
- const url=src=>root.ArcAssetLoader?root.ArcAssetLoader.resolve(src):new URL(prefix+src,document.baseURI).href,reduced=()=>options.reducedMotion?.()||root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,cheap=()=>restricted()||options.lowPerformance===true;
+ const url=src=>root.ArcAssetLoader?root.ArcAssetLoader.resolve(src,prefix):new URL(prefix+src,document.baseURI).href,reduced=()=>options.reducedMotion?.()||root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,cheap=()=>restricted()||options.lowPerformance===true;
  function load(shot){if(cache.has(shot.id))return cache.get(shot.id);
   const entry={image:null,shot,ok:false,done:false};stats.loads++;
-  entry.promise=root.ArcAssetLoader.load(shot.src,{retries:2,timeout:10000}).then(result=>{
+  entry.promise=root.ArcAssetLoader.load(shot.src,{retries:2,timeout:10000,assetBase:prefix}).then(result=>{
    entry.ok=result.ok;entry.done=true;entry.image=result.image;
    if(!result.ok){stats.failures++;cache.delete(shot.id);}
    return entry;

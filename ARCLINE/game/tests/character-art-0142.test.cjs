@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const A=require('../dist/characters.js'),D=require('../dist/cinematic-data.js'),P=require('../dist/cinematic-player.js');
+globalThis.ArcCharacters=A;globalThis.ArcCinematicData=D;globalThis.ArcCinematicPlayer=P;require('../dist/character-hero.js');
+const out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-character-art-0142',root=path.resolve(__dirname,'../..');fs.mkdirSync(out,{recursive:true});let checks=0;const ok=(v,m)=>{checks++;assert(v,m);},rows=[];
+for(const a of D.characters){const blob=fs.readFileSync(path.join(root,a.src)),original=fs.readFileSync(path.join(root,'assets/characters',a.sourceFile)),hash=crypto.createHash('sha256').update(blob).digest('hex');ok(a.verified&&a.src.endsWith('/'+a.id+'.png'),'canonical image ID '+a.id);ok(blob.equals(original)&&hash===a.sha256,'original bytes retained '+a.id);ok(a.width===1672&&a.height===941&&a.visualCheck.features.length>8,'verified dimensions and visual identity '+a.id);
+ for(const [w,h]of[[180,180],[320,210],[390,450],[720,420],[220,130],[900,500]])for(const reduced of[false,true]){const start=ArcCharacterHero.framing(a.id,w,h,0,reduced);for(const t of[0,1.5,3,4.5,6]){const g=ArcCharacterHero.framing(a.id,w,h,t,reduced),b=g.protected;ok(Object.values(b).every(Number.isFinite),'finite subject bounds '+a.id);ok(b.left>=-.01&&b.top>=-.01&&b.right<=w+.01&&b.bottom<=h+.01,'whole machine including gun/sensor/arm remains in frame '+a.id);if(reduced)ok(JSON.stringify(g)===JSON.stringify(start),'static reduced composition '+a.id);}}
+ rows.push({id:a.id,src:a.src,sha256:hash,protectedBox:a.protectedBox,visualCheck:a.visualCheck});
+}
+ok(new Set(rows.map(r=>r.sha256)).size===10&&D.characters.map(c=>c.id).join()===A.characters.map(c=>c.id).join(),'ten distinct canonical machines with no duplicate assignments');
+fs.writeFileSync(path.join(out,'CHARACTER_ART_CONTENT.json'),JSON.stringify({status:'PASS',checks,rows,scope:'Ten visually checked original PNG identities and hashes;600 protected hero compositions, including long guns, sensors and arms;static reduced motion. Canvas game-actor modules are checked by the cinematic content regression.'},null,2)+'\n');console.log(JSON.stringify({status:'PASS',checks}));

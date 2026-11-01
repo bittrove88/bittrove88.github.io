@@ -37,3 +37,6 @@
 #storyCinema .film-caption{box-sizing:border-box;padding-left:max(32px,env(safe-area-inset-left));padding-right:max(32px,env(safe-area-inset-right))}
 @media(orientation:landscape) and (max-height:500px){#storyCinema .film-header{padding-left:max(28px,env(safe-area-inset-left));padding-right:max(28px,env(safe-area-inset-right))}#storyCinema .film-caption{padding-left:max(32px,env(safe-area-inset-left));padding-right:max(32px,env(safe-area-inset-right))}}
 @media(orientation:portrait){#storyCinema .film-header{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}#storyCinema .film-caption{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}}
+
+.ch-ambient{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(20px) brightness(.42);opacity:.65;transform:scale(1.1);pointer-events:none}.ch-art[data-source=verified-image] .ch-image{object-fit:fill}.ch-art[data-source=verified-image] .ch-art-plane{overflow:hidden}@media(prefers-reduced-motion:reduce){.ch-ambient{filter:none;opacity:.18}}
+.ch-art[data-low-performance=true] .ch-ambient{filter:none;opacity:.18}

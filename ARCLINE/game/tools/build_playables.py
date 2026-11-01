@@ -15,13 +15,18 @@ contents['index.html']=html.replace('<head>','<head><script>globalThis.ArcAssetB
 assets=json.loads((root/'assets/cinematics/manifest.json').read_text())
 for a in assets['shots']:
  blob=(root/a['src']).read_bytes();assert hashlib.sha256(blob).hexdigest()==a['sha256'];contents[a['src']]=blob
-manifest={'implementation':'0.14.1','design':'0.14.1 canonical subtitle queues and homecoming timing;23 approved masters;campaign5.0 and schema8 unchanged','files':{n:{'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in contents.items()},'sourceDistribution':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in files},'packagingTransform':'Only index.html sets ArcAssetBase to ./ for the flat offline layout; hosted code defaults to ../../. All23 JPEGs remain byte-identical.','youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap','cinematicPlates':23,'runtimeFiles':len(files),'preservedBattle':'0.13 engine,geometry,combat,physics,levels,save,inventory,encounters and Canvas machine sources unchanged'}
-archive=out/'ARCLINE_0.14.1_Playables.zip'
+characters=json.loads((root/'design/cinematics_014/character_images.json').read_text())['characters']
+for a in characters:
+ if a['verified'] and a['src']:
+  blob=(root/a['src']).read_bytes();assert hashlib.sha256(blob).hexdigest()==a['sha256'];contents[a['src']]=blob
+manifest={'implementation':'0.14.2','design':'0.14.2 canonical subtitle queues and homecoming timing;23 approved masters plus10 verified character PNGs;campaign5.0 and schema8 unchanged','files':{n:{'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in contents.items()},'sourceDistribution':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in files},'packagingTransform':'Only index.html sets ArcAssetBase to ./ for the flat offline layout; hosted code defaults to ../../. All23 JPEGs remain byte-identical.','youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap','cinematicPlates':23,'runtimeFiles':len(files),'preservedBattle':'0.13 engine,geometry,combat,physics,levels,save,inventory,encounters and Canvas machine sources unchanged'}
+archive=out/'ARCLINE_0.14.2_Playables.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
  for name,blob in sorted(contents.items()):
   info=zipfile.ZipInfo(name,date_time=(2026,11,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16;z.writestr(info,blob)
 with zipfile.ZipFile(archive) as z:
  assert z.testzip() is None and len(z.namelist())==len(contents)
  for n,b in contents.items():assert z.read(n)==b
+manifest['characterPlates']=sum(bool(a['verified'] and a['src']) for a in characters)
 manifest['zip']={'name':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()}
 (out/'BUNDLE_CHECK.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps({'status':'PASS','runtime':len(files),'plates':23,'entries':len(contents),'zip':str(archive),'bytes':archive.stat().st_size}))
