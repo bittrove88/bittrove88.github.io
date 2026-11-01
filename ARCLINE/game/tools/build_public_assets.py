@@ -1,15 +1,12 @@
-"""Synchronize the offline character viewer from the shared production renderer."""
+"""Build an offline preview with the exact canonical identity, save decoder and Canvas fallback."""
 from pathlib import Path
 import re
-ROOT=Path(__file__).resolve().parents[2]
-p=ROOT/'characters/index.html';s=p.read_text()
-if '<script>(function(root)' in s or re.search(r'<script>\s*\(function\(root\)',s):
- s=re.sub(r'<script>\s*\(function\(root\)[\s\S]*?</script>', '<script src="../game/dist/visual-style.js?v=0.13.0"></script><script src="../game/dist/characters.js?v=0.13.0"></script>', s,count=1)
-s=re.sub(r'v=0\.\d+\.\d+','v=0.13.0',s);p.write_text(s)
-standalone=s
-for name in ['visual-style.js','characters.js']:
- code=(ROOT/'game/dist'/name).read_text()
- standalone=re.sub(r'<script src="../game/dist/'+re.escape(name)+r'\?v=[^"]+"></script>',lambda m:'<script>\n'+code+'\n</script>',standalone)
-standalone=standalone.replace('<title>ARCLINE — 10機のキャラ確認</title>','<title>ARCLINE 0.13 — 10機のキャラ確認（オフライン対応）</title>')
-(ROOT/'characters/ARCLINE_Characters_Preview.html').write_text(standalone)
-print('Shared online viewer and generated offline HTML synchronized')
+root=Path(__file__).resolve().parents[2];p=root/'characters/index.html';source=p.read_text();source=re.sub(r'v=0\.\d+\.\d+','v=0.14.0',source);p.write_text(source)
+def script(m):
+ name=m.group(1);code=(root/'game/dist'/name).read_text();return '<script>\n'+code.replace('</script','<\\/script')+'\n</script>'
+offline=re.sub(r'<script src="../game/dist/([^?"/]+)\?v=[^"]+"></script>',script,source)
+offline=re.sub(r'<link rel="stylesheet" href="../game/dist/cinematics.css\?v=[^"]+">',lambda m:'<style>\n'+(root/'game/dist/cinematics.css').read_text()+'\n</style>',offline)
+offline=offline.replace('<title>ARCLINE — 10機のキャラ確認</title>','<title>ARCLINE 0.14 — 10機のキャラ確認（オフライン対応）</title>')
+assert not re.search(r'<script[^>]+src=',offline)
+(root/'characters/ARCLINE_Characters_Preview.html').write_text(offline)
+print('Built canonical character UI and self-contained offline Canvas fallback')

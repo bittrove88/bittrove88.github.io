@@ -1,10 +1,18 @@
 # ARCLINE
 
-Canvas 2Dの砲撃アドベンチャー。**実装0.13.0／キャンペーン5.0／保存schema8**。
+Canvas 2Dの砲撃アドベンチャー。**実装0.14.0／キャンペーン5.0／保存schema8**。
 
-[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.13.0) ／ [お知らせ](updates/0.13.0/) ／ [キャラ確認とHTML/PNGダウンロード](characters/)
+[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.14.0) ／ [お知らせ](updates/0.14.0/) ／ [キャラ確認とHTML/PNGダウンロード](characters/)
 
 [100面の地形と攻略設計](design/expedition_013/) ／ [変更対応](design/expedition_013/IMPLEMENTATION.md) ／ [加入と物語の対応](design/expedition_013/CREW_STORY.md) ／ [物語全文・ネタバレ](design/expedition_013/STORY_JA.md) ／ [検証結果と未確認](evidence/expedition-013/README.md)
+
+## 0.14の画像演出
+
+[23ショットの確認・ネタバレ](cinematics/) ／ [素材・実装仕様](design/cinematics_014/IMPLEMENTATION.md) ／ [今回の検証](evidence/cinematic-014/README.md)
+
+採用23枚をZIPから個別JPEGへ展開し、元ファイルのSHA-256を保持。プロローグ8、30/60面が各2、結末11のショットに、固有のカメラ、遷移、限定した細部拡大と霧・光を接続した。既存の戦闘と保存schema8は変更せず、0.13移行済みの攻略を再度戻さない。物語とキャラ画面は縦向き、戦闘は横向き。低動作・低能力設定、画像欠落時の代替表示、スキップを用意する。
+
+10機の個別原画は未格納。別の本編画像を誤って割り当てず、正式なCanvas機体描画へフォールバックする。名前・役割・モットーは `ArcCharacters`、所有と能力は実データを使う。個別原画の受入先は [assets/characters](assets/characters/README.md)。
 
 ## 新しい旅と保存
 
@@ -70,13 +78,15 @@ python3 ARCLINE/game/tools/build_levels.py
 python3 ARCLINE/game/tools/build_lessons.py
 python3 ARCLINE/game/tools/build_story.py
 node ARCLINE/game/tools/build_site_scenes.cjs
+python3 ARCLINE/game/tools/extract_cinematics.py
+python3 ARCLINE/game/tools/build_cinematic_data.py
 python3 ARCLINE/game/tools/build_public_assets.py
 python3 ARCLINE/game/tools/export_expedition_story.py
 python3 ARCLINE/game/tools/build_stage_guide.py
 python3 ARCLINE/game/tools/build_playables.py --output /tmp/arcline-package
 ```
 
-外部SDKを読み込まない37配布ファイル。ZIPはGit外へ生成する。紹介サイトの実演は本番エンジンで生成し、キャラ確認のオフラインHTMLも同じ描画を使う。紹介サイトの実画面は `capture_site_gameplay.cjs` で再撮影できる。テスト用のNode・Playwright・Chromiumは配布物に含めない。
+外部SDKを読み込まない41実行ファイルと23原画、計64エントリの配布パッケージ。フラットなZIPでは `ArcAssetBase` だけを切り替え、相対パスを揃える。ZIPはGit外へ生成する。紹介サイトの実演は本番エンジンで生成し、キャラ確認のオフラインHTMLも同じ描画を使う。紹介サイトの実画面は `capture_site_gameplay.cjs` で再撮影できる。テスト用のNode・Playwright・Chromiumは配布物に含めない。
 
 [現行のテスト入口](game/tests/README.md)と[結果](evidence/expedition-013/README.md)を参照。全100面のガン通常弾のみ3条件300戦、推奨機体100戦、加入後の見せ場16戦、1000組の安全な配置、操作・保存・日英・画面回転・実Workerなどを別々の検査で確認する。**人による全100面の通しプレイ、全100面×全10機体の完走、物理端末Safari／Android、YouTube認証は未確認。**
 

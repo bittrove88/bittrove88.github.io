@@ -3,7 +3,7 @@
 ## Status
 - **23 of 23 narrative shots** selected with physical JPEG copies in the local delivery package `ARCLINE_FINAL_23_SCENES_20261101.zip`.
 - **No unresolved shot mappings.** P01-03 is approved as a working harbor exterior with illuminated workshop, not an interior close-up.
-- **GitHub binary asset upload: NOT COMPLETED.** This GitHub document is a selection record only. The local ZIP contains actual selected JPEGs.
+- **GitHub binary asset extraction: COMPLETED on work branch `codex/arcline-cinematic-014`, commit `5a2e398`.** All23 original JPEGs are individually stored under `assets/cinematics/`, with exact manifest SHA-256 matches. Runtime integration and public deployment are tracked separately in [0.14 implementation](cinematics_014/IMPLEMENTATION.md).
 
 ## Final selected shots
 | Shot | Selected source | Status |
@@ -33,9 +33,9 @@
 | E04-03 | batch03 approved road ahead | approved |
 
 ## Packaging
-Local deliverable `ARCLINE_FINAL_23_SCENES_20261101.zip` contains `assets/cinematics/{SHOT_ID}.jpeg`, `manifest.csv`, and `README.md`. It is **not** a GitHub commit or uploaded GitHub release. Source filenames and SHA-256 values are preserved in the package manifest.
+Local deliverable `ARCLINE_FINAL_23_SCENES_20261101.zip` contains `assets/cinematics/{SHOT_ID}.jpeg`, `manifest.csv`, and `README.md`. The original ZIP is stored in Git; the23 JPEGs have now also been extracted individually on the work branch. The runtime loads JPEG URLs, never paths inside the ZIP. Source filenames and SHA-256 values are preserved in the package manifest.
 
 ## Remaining
-1. Upload all 23 selected JPEGs to GitHub; GitHub currently stores only this selection manifest.
+1. Asset extraction and upload are complete. Retain exact source hashes; no original JPEG was edited.
 2. Map and upload ten character unlock JPEGs separately after exact character-to-source validation.
-3. Maintain the E01-03 / P03-01 wax-seal consistency check.
+3. P03-01 receives a non-destructive red wax tint and matching2D emblem overlay at runtime, also inside its detail crop; E01-03 already contains the approved matching symbols. Original JPEGs remain unchanged.

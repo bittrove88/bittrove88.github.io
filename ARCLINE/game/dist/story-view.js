@@ -1,6 +1,7 @@
 (function(root){'use strict';
 const $=id=>document.getElementById(id),S=root.ArcStory,A=root.ArcCharacters;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
+let plate=null;
 let hooks=null,film=null,result=null,returnFocus=null,inertBefore=[],filmTyper=null,resultTyper=null,resultClock=0;
 const language=()=>root.ArcI18n.language,local=(ja,en)=>language()==='en'?en:ja;
 const reduced=()=>root.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -26,7 +27,7 @@ function showResult(stage){
 function finishResultText(){if(resultTyper&&!resultTyper.done){resultTyper.complete();return false;}return true;}
 function hideResult(){result=null;resultTyper=null;$('clearNarrative').hidden=true;delete $('overlay').dataset.storyTier;$('replayClearMovie').hidden=true;}
 function open(id,done=()=>{},replay=false,trigger=null){
- if(film)return false;const frames=S.movie(String(id),language());if(!frames.length)return false;
+ if(film)return false;const frames=root.ArcCinematicData.movie(String(id),language());if(!frames.length)return false;
  hooks.clearInput();returnFocus=trigger||document.activeElement;inertBefore=[];
  for(const name of ['lobby','battle','overlay','journalPanel','lobbySettings','levelPicker','collectionPanel']){const e=$(name);inertBefore.push([e,e.inert]);e.inert=true;}
  film={id:String(id),frames,index:0,age:0,paused:false,done,replay};$('storyCinema').hidden=false;$('app').dataset.cinematic='true';enterFrame();$('filmNext').focus({preventScroll:true});return true;
@@ -34,17 +35,17 @@ function open(id,done=()=>{},replay=false,trigger=null){
 function enterFrame(){
  const f=film.frames[film.index];film.age=0;$('filmTitle').textContent=f.title;$('filmCount').textContent=(film.index+1)+' / '+film.frames.length;
  $('filmSkip').textContent=local('スキップ','Skip');$('filmPause').textContent=local('一時停止','Pause');$('filmPause').setAttribute('aria-pressed','false');film.paused=false;
- filmTyper=typer($('filmText'),[f.text]);hooks.cue?.(film.index,film.id);updateNext();drawFilm();
+ filmTyper=typer($('filmText'),[f.text]);if(!plate)plate=root.ArcCinematicPlayer.create($('filmPlate'),{onStatus:status=>{const e=$('filmImageStatus');e.hidden=status==='ready';e.textContent=local('イラストを読み込めませんでした。物語と操作は続けられます。','Illustration unavailable. The story and controls still work.');}});$('filmImageStatus').hidden=true;plate.show(f,film.frames[film.index+1]);hooks.cue?.(film.index,film.id);updateNext();drawFilm();
 }
 function updateNext(){if(!film)return;$('filmNext').textContent=!filmTyper.done?local('全文を表示','Show all'):film.index<film.frames.length-1?local('次の場面へ','Next scene'):local(film.id==='prologue'?'旅をはじめる':'旅へ戻る',film.id==='prologue'?'Begin the journey':'Return to the journey');}
 function advance(){if(!film)return;if(!filmTyper.done){filmTyper.complete();updateNext();return;}if(film.index+1<film.frames.length){film.index++;enterFrame();}else close(false);}
-function close(skipped){if(!film)return;const previous=film;film=null;filmTyper=null;$('storyCinema').hidden=true;delete $('app').dataset.cinematic;
+function close(skipped){if(!film)return;const previous=film;film=null;filmTyper=null;plate?.destroy();plate=null;$('storyCinema').hidden=true;delete $('app').dataset.cinematic;
  for(const[e,value]of inertBefore)e.inert=value;inertBefore=[];hooks.finished?.(previous.id,{skipped,replay:previous.replay});
  const target=returnFocus;returnFocus=null;previous.done();if(target?.isConnected&&target.getClientRects().length&&!target.closest('[hidden]'))target.focus({preventScroll:true});
 }
 function togglePause(){if(!film)return;film.paused=!film.paused;$('filmPause').setAttribute('aria-pressed',String(film.paused));$('filmPause').textContent=film.paused?local('再生','Play'):local('一時停止','Pause');}
 function update(dt){
- if(film){if(!film.paused){const f=film.frames[film.index];film.age+=dt;filmTyper.update(film.age>=f.leadIn?dt:0);updateNext();if(film.age>=f.leadIn+filmTyper.duration+f.hold&&filmTyper.done)advance();}drawFilm();return;}
+ if(film){if(!film.paused){const f=film.frames[film.index];film.age+=dt;filmTyper.update(film.age>=f.leadIn?dt:0);updateNext();if(film.age>=Math.max(f.durationMs/1000,f.leadIn+filmTyper.duration+f.hold)&&filmTyper.done&&plate?.state.status!=='loading')advance();}drawFilm();return;}
  if(result){resultClock+=dt;resultTyper.update(dt);drawResult();}
 }
 function surface(canvas){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return null;const dpr=Math.min(2,root.devicePixelRatio||1);if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';return {ctx,w,h,dpr};}
@@ -62,7 +63,8 @@ function route(ctx,w,h,age,mode){const floor=h*(h<=340?.48:.66),left=w*.28,right
  if(mode==='moving'||mode==='restored'){for(let i=0;i<3;i++){const x=((age*25+i*w*.3)%(w+80))-40;ctx.fillStyle='#b9b69b';ctx.fillRect(x,floor-15,21,12);ctx.fillStyle='#405965';ctx.fillRect(x+4,floor-20,13,6);}}
  return floor;}
 function heart(ctx,x,y,scale,dim,dpr){const def=root.ArcEncounters.get('boss:archeart'),u={x:0,y:0,slope:0,hp:10,core:def.core,parts:[]};ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);ctx.globalAlpha=1-dim*.6;root.ArcVisualArt.drawActor(ctx,def.id,u,{kind:'boss',dir:-1,dpr,muzzle:A.pose({dir:-1,angle:32}),state:{spec:{boss:true},bossPhase:2}});ctx.restore();}
-function drawFilm(){
+function drawFilm(){if(!film)return;plate?.update(film.age);$('storyFilm').hidden=plate?.state.status==='ready';if($('storyFilm').hidden)return;drawFallbackFilm();}
+function drawFallbackFilm(){
  if(!film)return;const surf=surface($('storyFilm'));if(!surf)return;const{ctx,w,h,dpr}=surf,f=film.frames[film.index],age=reduced()?5:film.age,scene=f.scene,scale=Math.min(w/1000,h/530),drift=reduced()?0:ease(age/10)*w*.018;
  background(ctx,w,h,age,['P02','E01','E02','E03'].includes(scene));ctx.save();ctx.translate(-drift,0);
  if(['P01','P02','I30','I60','E04'].includes(scene)){
@@ -85,7 +87,7 @@ function drawResult(){if(!result)return;const surf=surface($('resultStoryArt'));
  const progress=$('clearAreaProgress');progress.hidden=!['boss','final'].includes(result.kind);if(!progress.hidden){if(progress.childElementCount!==10)progress.replaceChildren(...Array.from({length:10},()=>document.createElement('i')));const n=Math.min(10,Math.floor(resultClock*10));[...progress.children].forEach((e,i)=>e.classList.toggle('lit',i<n));}}
 function install(options){hooks=options;$('filmNext').onclick=advance;$('filmSkip').onclick=()=>close(true);$('filmPause').onclick=togglePause;$('filmText').onclick=()=>{filmTyper?.complete();updateNext();};$('chapterMessage').onclick=()=>resultTyper?.complete();
  document.addEventListener('keydown',e=>{if(!film||$('gameSurface').inert||$('app').inert)return;if(['Tab','Escape',' ','Enter','ArrowRight'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();if(e.key==='Escape'){close(true);return;}if(e.key==='Tab'){const list=[$('filmSkip'),$('filmPause'),$('filmNext')],i=list.indexOf(document.activeElement);list[(i+(e.shiftKey?2:1))%3].focus();return;}if(e.key!=='ArrowRight'&&document.activeElement===$('filmPause'))togglePause();else if(e.key!=='ArrowRight'&&document.activeElement===$('filmSkip'))close(true);else advance();}},true);
- root.addEventListener('arcline-language',()=>{if(film){const age=film.age,index=film.index,paused=film.paused;film.frames=S.movie(film.id,language());enterFrame();film.age=age;film.paused=paused;filmTyper.update(Math.max(0,age-film.frames[index].leadIn));$('filmPause').setAttribute('aria-pressed',String(paused));$('filmPause').textContent=paused?local('再生','Play'):local('一時停止','Pause');updateNext();}if(result)showResult(result.stage);});
+ root.addEventListener('arcline-language',()=>{if(film){const age=film.age,index=film.index,paused=film.paused;film.frames=root.ArcCinematicData.movie(film.id,language());enterFrame();film.age=age;film.paused=paused;filmTyper.update(Math.max(0,age-film.frames[index].leadIn));$('filmPause').setAttribute('aria-pressed',String(paused));$('filmPause').textContent=paused?local('再生','Play'):local('一時停止','Pause');updateNext();}if(result)showResult(result.stage);});
 }
-root.ArcStoryView=Object.freeze({install,open,advance,close,update,showResult,hideResult,finishResultText,drawFilm,drawResult,graphemes,get active(){return !!film;},get state(){return film?{id:film.id,index:film.index,age:film.age,paused:film.paused,textDone:filmTyper.done}:null;},get resultDone(){return !resultTyper||resultTyper.done;}});
+root.ArcStoryView=Object.freeze({install,open,advance,close,update,showResult,hideResult,finishResultText,drawFilm,drawResult,graphemes,get active(){return !!film;},get state(){return film?{id:film.id,index:film.index,age:film.age,paused:film.paused,textDone:filmTyper.done,shot:film.frames[film.index].id,plate:plate?.state}:null;},get resultDone(){return !resultTyper||resultTyper.done;}});
 })(globalThis);
