@@ -28,7 +28,7 @@
 
 ## Git・公開状態
 
-作業ブランチ：`codex/arcline-v0155`。コミットとPR、CI、デプロイはGitHub上の履歴を参照し、最終状態は本書へ追記する。
+作業ブランチ：`codex/arcline-v0155`。実装コミット：`28939cc`。画像キャッシュ修正：`351675e`。[PR #35](https://github.com/bittrove88/bittrove88.github.io/pull/35) に全変更を集約する。[CIの最新状態](https://github.com/bittrove88/bittrove88.github.io/pull/35/checks) と [Pagesデプロイ](https://github.com/bittrove88/bittrove88.github.io/actions) はGitHubの対象head_shaと結果を参照する。evidence内は公開前のローカル検証記録であり、公開URLや実機で確認済みという意味ではない。
 
 公開URLの直接アクセスは、この作業環境のネットワーク許可に `bittrove88.github.io` が含まれず、CONNECT時に403となった。CI・デプロイ成功とは区別し、通信許可が追加されるまで公開URLでの実表示は未確認とする。
 
