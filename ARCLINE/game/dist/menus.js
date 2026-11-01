@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 const $=id=>document.getElementById(id),J=root.ArcJournal,escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let hooks=null,active=null,returnTo=null,tab='journey',machine='gun',chapter=1,settingsTab='options';
+let hooks=null,active=null,returnTo=null,tab='scenes',machine='gun',chapter=1,settingsTab='options';
 const touchBound=new WeakSet();
 let touchActivation=null;
 const touchPointers=new Set();let touchBatch=0;
@@ -36,7 +36,7 @@ function renderSettings(){
   [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。5面ごとではなく、10面ごとの章ボスを倒すまで持ち越します。','Weapon boxes refill to three shots. Carry up to three weapon types and two skill types until the chapter boss every ten stages, including across the fifth stage.')],
   [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。練習の取得は本編へ持ち帰りません。','Retrying or returning after interruption restores the level-entry HP and stock. Practice pickups never enter the campaign.')]
  ];
- $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE 0.14.2 · Campaign5.0 · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
+ $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE 0.14.3 · Campaign5.0 · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
  root.ArcI18n.apply();
 }
 function openSettings(trigger=$('openSettings')){if(!prepare('lobbySettings',trigger))return;settingsTab='options';renderSettings();$('settingsOptions').scrollTop=0;$('closeSettings').focus({preventScroll:true});}
@@ -63,17 +63,36 @@ function renderJourney(){
  $('recordBody').innerHTML=body;
  for(const b of $('recordNavigation').querySelectorAll('[data-record-chapter]')){b.onclick=()=>{chapter=+b.dataset.recordChapter;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
 }
+let memory=null,memoryTyper=null;
+function replayMovie(id,trigger){if(!hooks.data().journeyStarted)return;const panel=active;$('journalPanel').hidden=true;active=null;hooks.playMovie(id,trigger,()=>{active=panel;$('journalPanel').hidden=false;trigger?.focus({preventScroll:true});});}
+function renderScenes(){
+ const data=hooks.data(),n=J.progress(data),c=J.chapters.find(c=>c.id===chapter)||J.chapters[0];chapter=c.id;memoryTyper=null;
+ $('recordNavigation').innerHTML=J.chapters.map(c=>`<button type="button" data-story-chapter="${c.id}" aria-pressed="${chapter===c.id}" ${n<c.start-1?'disabled':''}>${local('第'+c.id+'章','Chapter '+c.id)}<small>${c.start}–${c.end}</small></button>`).join('');
+ for(const b of $('recordNavigation').querySelectorAll('button')){b.onclick=()=>{chapter=+b.dataset.storyChapter;memory=null;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
+ if(memory&&memory<=n){const r=J.story.result(memory,language()),person=J.machines.find(m=>m.id===r.focus);$('recordBody').innerHTML=`<div class="memory-replay" data-tier="${r.kind}" data-story-raw><button type="button" id="memoryBack">${local('← 一覧へ','← All scenes')}</button><small>${local(memory+'面 クリア','STAGE '+memory+' CLEAR')}</small><h3>${escape(r.title)}</h3><p>${escape(r.area)}</p><div id="memoryText"></div><button type="button" id="memoryShowAll">${local('全文を表示','Show all')}</button></div>`;memoryTyper=root.ArcStoryView.typeText($('memoryText'),[r.aftermath,r.response?t(person.name)+' '+r.response:'']);$('memoryBack').onclick=()=>{memory=null;renderJournal();};$('memoryShowAll').onclick=()=>memoryTyper?.complete();return;}
+ memory=null;
+ let body=`<h3 class="record-title">${local('クリアした物語を、もう一度。','Return to the stories you have cleared.')}</h3><p>${local('各面のメッセージと仲間との出会いを振り返れます。','Replay clear messages and meetings with companions.')}</p><div class="memory-list">`;
+ const movieButton=(id,label)=>`<button type="button" data-story-movie="${id}"><small>${local('映像','FILM')}</small><strong>${escape(label)}</strong><span>▶</span></button>`;
+ if(chapter===1&&data.journeyStarted)body+=movieButton('prologue',local('プロローグ','Prologue'));
+ for(let stage=c.start;stage<=Math.min(c.end,n);stage++){const r=J.story.result(stage,language()),crew=root.ArcCrew.at(stage);body+=`<button type="button" data-clear-memory="${stage}"><small>${stage} · ${local(r.kind==='boss'?'エリア復旧':r.kind==='midboss'?'中ボス':'クリア',r.kind==='boss'?'AREA':r.kind==='midboss'?'MID-BOSS':'CLEAR')}</small><strong>${escape(r.title)}</strong><span>›</span></button>`;if(crew)body+=`<button type="button" data-recruit-memory="${crew.id}"><small>${local('仲間との出会い','COMPANION')}</small><strong>${escape(t(crew.name))}</strong><span>▶</span></button>`;if([30,60,100].includes(stage))body+=movieButton(stage===100?'epilogue':String(stage),local(stage===100?'エピローグ':stage+'面の幕間',stage===100?'Epilogue':'Stage '+stage+' interlude'));}
+ if(n<c.start)body+=`<p>${local('クリアした面の物語がここに追加されます。','Cleared stages will appear here.')}</p>`;
+ $('recordBody').innerHTML=body+'</div>';
+ for(const b of $('recordBody').querySelectorAll('[data-clear-memory]'))b.onclick=()=>{memory=+b.dataset.clearMemory;renderJournal();$('recordBody').scrollTop=0;};
+ for(const b of $('recordBody').querySelectorAll('[data-story-movie]'))b.onclick=()=>replayMovie(b.dataset.storyMovie,b);
+ for(const b of $('recordBody').querySelectorAll('[data-recruit-memory]'))b.onclick=()=>{const panel=active;active=null;$('journalPanel').hidden=true;hooks.replayRecruit(b.dataset.recruitMemory,()=>{active=panel;$('journalPanel').hidden=false;b.focus({preventScroll:true});});};
+ for(const b of $('recordBody').querySelectorAll('button'))touchTap(b);
+}
 function renderJournal(){
  $('replay30').hidden=J.progress(hooks.data())<30;$('replay60').hidden=J.progress(hooks.data())<60;$('replay30').textContent=local('30面の幕間','Stage30 scene');$('replay60').textContent=local('60面の幕間','Stage60 scene');$('replayEpilogue').hidden=J.progress(hooks.data())<100;
  for(const b of document.querySelectorAll('[data-record-tab]')){const selected=b.dataset.recordTab===tab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
- if(tab==='machines')renderMachine();else renderJourney();for(const d of $('recordBody').querySelectorAll('[data-read-ids]'))d.addEventListener('toggle',()=>{if(d.open)read(d.dataset.readIds.split(','));});root.ArcI18n.apply();
+ if(tab==='scenes')renderScenes();else if(tab==='machines')renderMachine();else renderJourney();for(const d of $('recordBody').querySelectorAll('[data-read-ids]'))d.addEventListener('toggle',()=>{if(d.open)read(d.dataset.readIds.split(','));});root.ArcI18n.apply();
  // Repaint the selected record's unread mark without rebuilding its content.
  const data=hooks.data();for(const b of $('recordNavigation').querySelectorAll('button[aria-pressed="true"]'))b.querySelector('.unread-dot')?.remove();
  hooks.summary?.(data);
 }
 function openJournal(machineId=null,trigger=$('openJournal')){
- if(!prepare('journalPanel',trigger))return;
- tab=machineId?'machines':'journey';machine=machineId||hooks.data().equippedCharacterId||'gun';chapter=Math.min(10,Math.floor(J.progress(hooks.data())/10)+1);
+ if(!hooks.data().journeyStarted||!prepare('journalPanel',trigger))return;
+ tab=machineId?'machines':'scenes';memory=null;machine=machineId||hooks.data().equippedCharacterId||'gun';chapter=Math.min(10,Math.max(1,Math.ceil(J.progress(hooks.data())/10)));
  renderJournal();$('recordBody').scrollTop=0;$('closeJournal').focus({preventScroll:true});
 }
 function bindTabs(selector,attribute,choose){
@@ -83,7 +102,7 @@ function install(options){
  document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){touchPointers.add(e.pointerId);if(touchPointers.size>1)touchBatch++;}},true);
  for(const event of ['pointerup','pointercancel'])document.addEventListener(event,e=>touchPointers.delete(e.pointerId),true);
  root.addEventListener('blur',()=>{touchPointers.clear();touchBatch++;});
- hooks=options;for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;const panel=active;$('journalPanel').hidden=true;active=null;hooks.playMovie(movie,$(id),()=>{active=panel;$('journalPanel').hidden=false;$(id).focus({preventScroll:true});});};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
+ hooks=options;for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;replayMovie(movie,$(id));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
  for(const b of document.querySelectorAll('#lobbySettings button,#journalPanel button,#openSettings,#openJournal'))touchTap(b);
  document.addEventListener('click',e=>{const a=touchActivation;if(!a||!e.isTrusted||e.detail===0||performance.now()-a.time>500)return;const samePointer=e.pointerType==='touch'&&e.pointerId===a.id,sameLegacyTouch=!e.pointerType&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<4;if(samePointer||sameLegacyTouch){touchActivation=null;e.preventDefault();e.stopImmediatePropagation();}},true);
  bindTabs('[data-settings-tab]','data-settings-tab',value=>{settingsTab=value;renderSettings();});bindTabs('[data-record-tab]','data-record-tab',value=>{tab=value;renderJournal();$('recordBody').scrollTop=0;});
@@ -95,5 +114,5 @@ function install(options){
  },true);
  root.addEventListener('arcline-language',()=>{if(active==='lobbySettings')renderSettings();if(active==='journalPanel')renderJournal();});
 }
-root.ArcMenus={install,openSettings,openJournal,close,get active(){return active;}};
+root.ArcMenus={update:dt=>{if(active==='journalPanel')memoryTyper?.update(dt);},install,openSettings,openJournal,close,get active(){return active;}};
 })(globalThis);
