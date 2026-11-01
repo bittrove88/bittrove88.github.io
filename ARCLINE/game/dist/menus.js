@@ -26,6 +26,7 @@ function close(focus=true){if(!active)return;root.ArcScreens.close(active,focus)
 function renderSettings(){
  $('settingsOptions').hidden=settingsTab!=='options';$('settingsGuide').hidden=settingsTab!=='guide';
  for(const b of document.querySelectorAll('[data-settings-tab]')){const selected=b.dataset.settingsTab===settingsTab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
+ $('installationGuide').textContent=local('ホーム画面への追加案内','Home-screen installation guide');
  $('settingsControlState').textContent=hooks.controls()==='left'?local('移動・照準は左側','Move and aim on the left'):local('移動・照準は右側','Move and aim on the right');
  const control=hooks.controls()==='left'?local('左で移動・照準、右で発射。','Move and aim on the left; fire on the right.'):local('右で移動・照準、左で発射。','Move and aim on the right; fire on the left.');
  const guide=[
@@ -33,7 +34,7 @@ function renderSettings(){
   [local('ためる・撃つ・取り消す','Charge, fire, cancel'),local('発射を長押し、離して発射。指をボタンの外へずらして離すと取消。キーボードは矢印とSpace、取消はEsc。','Hold FIRE and release to shoot. Slide outside the button and release to cancel. Keyboard: arrows and Space; Esc cancels.')],
   [local('通常弾と必殺','Normal and special'),local('通常弾は無制限。通常戦の必殺は自分の第2・4・6ターンに1発ずつ。中ボス・大ボスは最初から3発。機体を変えても残数は共通です。','Normal fire is unlimited. Normal battles unlock one special on player turns2,4,6. Guardians start with3. Switching machines shares the same ammo.')],
   [local('転移と行動数','Teleport and actions'),local('転移弾は4面から。着弾先へ移り、1行動を使います。攻撃・転移・修理が残り行動を使い、歩行と照準は使いません。','Teleport unlocks at stage 4. Its contact moves you and costs one action. Attacking, teleporting and repairing use actions; walking and aiming do not.')],
-  [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。5面ごとではなく、10面ごとの章ボスを倒すまで持ち越します。','Weapon boxes refill to three shots. Carry up to three weapon types and two skill types until the chapter boss every ten stages, including across the fifth stage.')],
+  [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。','Weapon boxes refill to three shots. Remaining auxiliary ammunition and skills can be carried into the chapter boss battle. Chapter stock resets after defeating that boss.')],
   [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。練習の取得は本編へ持ち帰りません。','Retrying or returning after interruption restores the level-entry HP and stock. Practice pickups never enter the campaign.')]
  ];
  $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE '+root.ArcRelease.version+' · Campaign'+root.ArcRelease.campaignVersion+' · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
@@ -102,7 +103,7 @@ function install(options){
  document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){touchPointers.add(e.pointerId);if(touchPointers.size>1)touchBatch++;}},true);
  for(const event of ['pointerup','pointercancel'])document.addEventListener(event,e=>touchPointers.delete(e.pointerId),true);
  root.addEventListener('blur',()=>{touchPointers.clear();touchBatch++;});
- hooks=options;for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;replayMovie(movie,$(id));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
+ hooks=options;const installButton=document.createElement('button');installButton.id='installationGuide';installButton.type='button';installButton.textContent=local('ホーム画面への追加案内','Home-screen installation guide');$('settingsOptions').append(installButton);installButton.onclick=()=>root.ArcDevice.offer(()=>{},true);for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;replayMovie(movie,$(id));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
  for(const b of document.querySelectorAll('#lobbySettings button,#journalPanel button,#openSettings,#openJournal'))touchTap(b);
  document.addEventListener('click',e=>{const a=touchActivation;if(!a||!e.isTrusted||e.detail===0||performance.now()-a.time>500)return;const samePointer=e.pointerType==='touch'&&e.pointerId===a.id,sameLegacyTouch=!e.pointerType&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<4;if(samePointer||sameLegacyTouch){touchActivation=null;e.preventDefault();e.stopImmediatePropagation();}},true);
  bindTabs('[data-settings-tab]','data-settings-tab',value=>{settingsTab=value;renderSettings();});bindTabs('[data-record-tab]','data-record-tab',value=>{tab=value;renderJournal();$('recordBody').scrollTop=0;});

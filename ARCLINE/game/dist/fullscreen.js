@@ -1,7 +1,7 @@
 (function(root){'use strict';
 let locked=false,helpReturn=null;const active=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
 function sync(){for(const b of document.querySelectorAll('[data-fullscreen]'))b.textContent=active()?'Exit fullscreen':'Fullscreen';root.ArcI18n?.apply();root.dispatchEvent(new Event('arcline-fullscreen'));}
-function help(trigger){helpReturn=trigger;document.getElementById('screenHelp').hidden=false;document.getElementById('closeScreenHelp').focus({preventScroll:true});}
+function help(trigger){if(root.ArcDevice){root.ArcDevice.offer(()=>trigger?.focus({preventScroll:true}),true);return;}helpReturn=trigger;document.getElementById('screenHelp').hidden=false;document.getElementById('closeScreenHelp').focus({preventScroll:true});}
 async function toggle(event){
  const trigger=event?.currentTarget||document.activeElement;
  try{if(active()){await(document.exitFullscreen?.()||document.webkitExitFullscreen?.());return;}

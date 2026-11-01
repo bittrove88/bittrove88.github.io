@@ -1,6 +1,12 @@
 (function(root){'use strict';
 const records=[],cache=new Map();
-const resolve=(src,prefix=root.ArcAssetBase||'../../')=>new URL(String(src).replace(/^\/+/,''),new URL(prefix,document.baseURI)).href;
+const resolve=(src,prefix=root.ArcAssetBase||'../../')=>{
+ const url=new URL(String(src).replace(/^\/+/,''),new URL(prefix,document.baseURI));
+ // The edited master retains its public path, but cannot reuse the old sealed JPEG cache.
+ const plate=root.ArcCinematicData?.shots?.find(shot=>shot.id==='P03-01'&&shot.src===src);
+ if(plate?.sha256)url.searchParams.set('v',plate.sha256.slice(0,12));
+ return url.href;
+};
 const log=(kind,src,url,detail={})=>{const record={at:new Date().toISOString(),kind,src,url,...detail};records.push(record);if(records.length>150)records.shift();return record;};
 function load(src,options={}){
  const url=resolve(src,options.assetBase),key=url;

@@ -8,7 +8,7 @@ const rows=[
  ['hibari',120,1.05,.75,1,2.6,1.05,1,45,'Beginner','A steady, light arc.','Proximity Burst','Explodes near a visible rival before contact.','#24a6ad','ring'],
  ['hana',100,1,.75,1,2.4,1,1,50,'Beginner','One shot from the central barrel.','Triple Salvo','Three delayed shots spread across different angles.','#ee617e','spark'],
  ['rin',100,1,.75,1,3.2,1.2,1.05,28,'Intermediate','Fast small rounds; a slow, precise charge.','Focus Cannon','A precise center hit deals up to 50 damage.','#9570b7','needle'],
- ['mogu',120,.9,.75,.8,2.4,.95,1.05,50,'Intermediate','A steady mid-range arc; all firing angles available.','Breach Charges','Three blasts advance through breakable cover.','#e5a733','drill'],
+ ['mogu',120,.9,.75,.8,2.4,.78,1.5,50,'Intermediate','Short-range heavy arc; preserve supports while digging.','Breach Charges','Three blasts advance through breakable cover.','#e5a733','drill'],
  ['koro',100,1.15,1,1,2.4,1.05,1.15,45,'Intermediate','A low arc that can still reach high ground.','Rolling Bomb','Runs along floors, drops across gaps, then rolls again.','#a4bd39','gear'],
  ['sora',100,.95,.75,1,2.8,.9,.8,45,'Intermediate','A gentle arc with unrestricted normal elevation.','Meteor Rain','A high shot splits into eight falling bomblets.','#287cc1','diamond'],
  ['rico',80,1.2,.75,1.2,2.4,1,1,45,'Advanced','Steady normal fire without automatic ground bounces.','Growing Ricochet','Up to four bounces grow the damage and blast.','#d94894','ring'],

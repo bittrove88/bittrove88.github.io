@@ -11,7 +11,7 @@ const reducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matc
 const platformStatus={cpuJobs:[],workerSupported:typeof Worker!=='undefined',sdk:inYT,errors:[]};
 const save=ArcSave.create({
  load:()=>inYT?Promise.race([sdk.game.loadData(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),4000))]):localStorage.getItem(ArcSave.key),
- resetLocal:()=>{if(!inYT)for(const key of Object.keys(localStorage))if(key.startsWith('arcline-')&&key!==ArcSave.key)localStorage.removeItem(key);},
+ resetLocal:()=>{if(!inYT)for(const key of Object.keys(localStorage))if(key.startsWith('arcline-')&&key!==ArcSave.key&&key!==ArcDevice.key)localStorage.removeItem(key);},
  save:raw=>inYT?sdk.game.saveData(raw):localStorage.setItem(ArcSave.key,raw)
 },state=>{$('saveStatus').dataset.error=['load-failed','save-failed'].includes(state);$('saveStatus').textContent=state==='saved'?(inYT?'Progress synced':'Progress saved on this device'):state==='load-failed'?'Progress unavailable · Session play':'Progress not saved · Retry on resume';});
 const hostPaused=()=>pauseSources.size>0;
@@ -47,7 +47,7 @@ function syncLobby(){
  $('resumeRun').hidden=!save.data.chapterRun||save.data.chapterRun.stage===selectedMap+1;syncJournalSummary();
 }
 function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('openJournal').disabled=!save.data.journeyStarted;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'Restore the routes. Move the world.':'止まった世界を、もう一度動かす。';}
-const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.save(),clearInput,allowed:()=>!s&&!hostPaused()});
+const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),clearInput,allowed:()=>!s&&!hostPaused()});
 const machinePicker=ArcMachinePicker.create({data:()=>save.data,state:()=>s,clearInput,allowed:canAim,changed:()=>{hud();draw();},change:id=>{if(!E.changeCharacter(s,id,save.data.unlockedCharacterIds))return false;save.data.equippedCharacterId=id;save.save();return true;}});
 function syncDifficultyChoice(){difficultyUi.sync();}
 function requestDifficulty(done){difficultyUi.request(done);}
@@ -63,8 +63,8 @@ function confirmChapter(stage){
 function openChapterInventory(){
  if(hostPaused())return;const context=R.inspect(save.data,selectedMap+1);
  if(context.practice){openEquipment('weapons');return;}
- const choices=[{id:'W01',ammo:Infinity},...Object.entries(context.entry.inventory.weapons).map(([id,ammo])=>({id,ammo,source:'Carried until boss'}))];
- ArcPresentation.showWeapons(choices,context.entry.mode||'W01',id=>{if(R.chooseWeapon(save.data,selectedMap+1,id))save.save();syncLobby();},{title:'Chapter inventory',note:'Weapons and skills carry until the chapter boss.',library:true,skills:context.entry.inventory.skills});
+ const choices=[{id:'W01',ammo:Infinity},...Object.entries(context.entry.inventory.weapons).map(([id,ammo])=>({id,ammo,source:'Can be carried into the chapter boss battle'}))];
+ ArcPresentation.showWeapons(choices,context.entry.mode||'W01',id=>{if(R.chooseWeapon(save.data,selectedMap+1,id))save.save();syncLobby();},{title:'Chapter inventory',note:'Remaining auxiliary ammunition and skills can be carried into the chapter boss battle. Chapter stock resets after defeating that boss.',library:true,skills:context.entry.inventory.skills});
 }
 function openLoot(continuation){
  if(!s?.pendingLoot.length)return false;clearInput();lootContinuation=continuation;$('lootPicker').hidden=false;paintLoot();hud();return true;
@@ -104,7 +104,7 @@ function openRepair(){if(!s||E.skillReason(s,'S_REPAIR')||hostPaused()||manualPa
 function commitRepair(){if(hostPaused()||manualPaused||$('repairConfirm').hidden)return;const result=E.repair(s);if(!result)return;clearInput();$('skillPicker').hidden=true;$('repairConfirm').hidden=true;lastSkill='S_REPAIR';feedback='REPAIR +'+E.combat.points(result.healed);tone(640,.25,'sine');if(s.result){s.phase='finish';s.time=.65;}hud();draw();}
 function afterLootAim(){const id=skillLessonQueue.find(id=>(s.skills[id]||0)>0&&!hasSeen(id));skillLessonQueue=[];if(id&&runDemo(id,true))return;$('world').focus({preventScroll:true});}
 function battleWeaponChoices(){
- return E.availableWeapons(s).map(c=>({...c,weapon:E.weapon(s,0,c.id),source:c.category==='machine'?(c.id==='W01'?'Normal · Unlimited':'Special · Shared charge'):runContext?.practice?'Practice auxiliary':'Carried until boss'}));
+ return E.availableWeapons(s).map(c=>({...c,weapon:E.weapon(s,0,c.id),source:c.category==='machine'?(c.id==='W01'?'Normal · Unlimited':'Special · Shared charge'):runContext?.practice?'Practice auxiliary':'Can be carried into the chapter boss battle'}));
 }
 function hud(){
  if(!s)return;$('battleCharacters').disabled=!canAim();const nextSpecial=E.nextSpecialTurn(s),english=ArcI18n.language==='en';const specialCopy=english?'SPECIAL '+s.specialAmmo+'/3'+(nextSpecial?' · turn '+nextSpecial:''):'必殺 '+s.specialAmmo+'/3'+(nextSpecial?' · 次は第'+nextSpecial+'ターン':s.specialAmmo===3?' · 準備完了':'');if($('specialHUD').textContent!==specialCopy)$('specialHUD').textContent=specialCopy;if(s.specialChargeSerial!==lastChargeSerial){lastChargeSerial=s.specialChargeSerial;$('specialHUD').classList.remove('charged');void $('specialHUD').offsetWidth;$('specialHUD').classList.add('charged');tone(740,.12,'sine',.04);}
@@ -146,7 +146,7 @@ function hud(){
  $('environment').textContent=[...new Set([...rs,...(s.world.solids.some(o=>o.kind==='bridge')?['BRIDGE · NEXT ⋯']:[])])].join('　');
  $('rewardNotice').hidden=!reward||!!demo;$('trialWeapon').hidden=true;
  if(reward){const id=reward.id,isWeapon=id[0]==='W',look=isWeapon?ArcWeapons.get(id).appearance:null;
-  $('rewardName').textContent=isWeapon?ArcWeapons.get(id).name:'';
+  $('rewardName').textContent=isWeapon?ArcI18n.t(ArcWeapons.get(id).name)+(runContext?.practice?'':' · '+(ArcI18n.language==='en'?'Can be carried into the chapter boss battle':'章ボス戦まで持ち越し可能')):'';
   $('rewardGlyph').textContent=look?.glyph||'◆';$('rewardNotice').style.setProperty('--reward-color',look?.color||'#cce5b2');
  }
 }
@@ -180,7 +180,7 @@ function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage
 function start(retryContext=null){
  if(hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();
  if(ArcStoryView.active||ArcExpeditionUi.active)return;
- if(!save.data.difficultyConfirmed){requestDifficulty(()=>start(retryContext));return;}
+ if(save.data.onboarding.step!=='done'){ArcOnboarding.begin(()=>start(retryContext));return;}
  if(!save.data.journeyStarted){save.data.journeyStarted=true;save.save();syncJournalSummary();}
  if(save.data.updateNoticePending||save.data.pendingRecruit){ArcExpeditionUi.open(()=>start(retryContext));return;}
  if(!save.data.journal.moviesSeen.includes('prologue')&&!retryContext?.skipStory){playStoryMovie('prologue',()=>start({...retryContext,skipStory:true}));return;}
@@ -219,7 +219,7 @@ function finishResult(){
  $('clearRewardLine').hidden=!(s.result==='win'&&s.clearRewardSkills?.length);$('clearRewardLine').replaceChildren();for(const id of s.clearRewardSkills||[]){const span=document.createElement('span');span.textContent=(K.get(id)?.name||id)+' +1';$('clearRewardLine').append(span);}
  $('modalTitle').textContent=final?'The last gate opens.':s.result==='win'?'Cleared.':s.reason==='shots'?'Out of actions.':s.result==='draw'?'A draw.':'Rover disabled.';
  const inventory=I.fromState(s);
- $('modalDetail').textContent=runContext?.practice?'Practice stock does not change your chapter.':s.result==='win'?(s.chapterReset?'Chapter clear. Weapon and skill stock resets.':`Carry forward: ${Object.keys(inventory.weapons).length} weapons, ${Object.keys(inventory.skills).length} skills`):'Retry restores the stock from the start of this level.';
+ $('modalDetail').textContent=runContext?.practice?'Practice stock does not change your chapter.':s.result==='win'?(s.chapterReset?'Chapter clear. Weapon and skill stock resets.':(ArcI18n.language==='en'?`Can be carried into the chapter boss battle: ${Object.keys(inventory.weapons).length} weapons, ${Object.keys(inventory.skills).length} skills`:`章ボス戦まで持ち越し可能：武器${Object.keys(inventory.weapons).length}種・スキル${Object.keys(inventory.skills).length}種`)):'Retry restores the stock from the start of this level.';
  $('resume').disabled=false;$('resume').textContent=final?(ArcI18n.language==='en'?'Watch the epilogue':'エピローグへ'):[30,60].includes(s.stage)&&s.result==='win'?(ArcI18n.language==='en'?'See what follows':'その後を見る'):runContext?.practice?'PLAY AGAIN':s.result==='win'?'NEXT LEVEL':'TRY AGAIN';$('returnLobby').textContent=final&&!runContext?.practice?'COLLECTION':'JOURNEY';$('resultJourney').hidden=true;
  $('endingCollection').hidden=!final;$('endingCollection').textContent=final?save.data.unlockedWeaponIds.map(id=>ArcWeapons.get(id).appearance.glyph).join('　'):'';
  $('battle').classList.add('resolved');$('overlay').hidden=false;$('resume').focus();tone(s.result==='win'?660:220,.4,'triangle');
@@ -380,4 +380,5 @@ window.addEventListener('arcline-language',()=>{clearInput();if(save.ready&&!pre
 ArcI18n.install();fitOrientation();
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
-save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||'left';applyControlLayout();ArcI18n.setLanguage(preferences.language||'ja');save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('lobbyDifficulty').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=!save.data.journeyStarted;if(save.ready)save.save();sdk?.game.gameReady();const proceed=()=>ArcExpeditionUi.open(()=>{if(save.data.journal.pendingMovie)playStoryMovie(save.data.journal.pendingMovie);});if(!save.data.difficultyConfirmed)requestDifficulty(proceed);else proceed();});schedule();
+ArcOnboarding.install({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),playMovie:done=>playStoryMovie('prologue',done),trial:done=>difficultyUi.request(done)});
+save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||'left';applyControlLayout();ArcI18n.setLanguage(preferences.language||'ja');save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('lobbyDifficulty').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=!save.data.journeyStarted;if(save.ready)save.save();sdk?.game.gameReady();const proceed=()=>ArcExpeditionUi.open(()=>{if(save.data.journal.pendingMovie)playStoryMovie(save.data.journal.pendingMovie);});if(save.data.onboarding.step!=='done')ArcOnboarding.begin(()=>start());else proceed();});schedule();
