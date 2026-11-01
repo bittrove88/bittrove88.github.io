@@ -1,3 +1,7 @@
+# 最新：ARCLINE 0.16.0
+
+正式要求v2.2.0（第0〜39章）のBGM・自動エンディング・必殺技説明／通知を実装。保存schema8/resetVersion2、既存URLと戦闘モジュールを維持。[今回の実装・検証・未確認事項](releases/0.16.0.md) を参照してください。以下の前回履歴は保持します。
+
 # ARCLINE 0.15.5 実装・検証記録
 
 復旧元：`9f908c38880922b78c4a767663abdbdc4b2bc267`。要求の正本は [全21章のv0.15.5仕様書](change-requests/ARCLINE_CHANGE_REQUEST_v0.15.5.md)。仕様書の原文は維持する。

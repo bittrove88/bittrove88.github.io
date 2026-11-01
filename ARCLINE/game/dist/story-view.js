@@ -2,6 +2,7 @@
 const $=id=>document.getElementById(id),S=root.ArcStory,A=root.ArcCharacters,D=root.ArcCinematicData;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
 let plate=null;
+let endingSession=0;
 let hooks=null,film=null,result=null,filmTyper=null,resultTyper=null,resultClock=0;
 const language=()=>root.ArcI18n.language,local=(ja,en)=>language()==='en'?en:ja;
 const reduced=()=>root.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,7 +42,15 @@ function hideResult(){result=null;resultTyper=null;$('clearNarrative').hidden=tr
 function open(id,done=()=>{},replay=false,trigger=null){
  if(film)return false;const access=hooks.progress?{cleared:hooks.progress()}:null,frames=D.movie(String(id),language(),access);if(!frames.length)return false;
  hooks.clearInput();root.ArcScreens.open('storyCinema',{trigger,block:['lobby','battle','overlay','journalPanel','lobbySettings','levelPicker','collectionPanel'],onEscape:()=>close(true),cycleFocus:true});
- film={id:String(id),frames,index:0,age:0,paused:false,done,replay};$('storyCinema').hidden=false;$('app').dataset.cinematic='true';enterFrame();$('filmNext').focus({preventScroll:true});return true;
+ film={id:String(id),frames,index:0,age:0,paused:false,done,replay};$('storyCinema').hidden=false;$('app').dataset.cinematic='true';
+ if(film.id==='epilogue'){
+  film.ending=true;film.session=++endingSession;film.locale=language();film.started=false;film.completed=false;
+  film.languageButtons=[...document.querySelectorAll('[data-language-button]')].map(e=>[e,e.disabled]);for(const[e]of film.languageButtons)e.disabled=true;
+  $('storyCinema').dataset.ending='true';for(const id of ['filmNext','filmSkip','filmPause'])$(id).hidden=true;
+  film.credits=root.ArcEnding.create($('storyCinema'),frames,root.ArcMediaData.tracks.ENDING.duration,film.locale);
+  const own=film;Promise.race([root.ArcAssetLoader.load(frames[0].src,{retries:0,timeout:2500}).then(r=>r.image?.decode?.().catch(()=>{})),new Promise(resolve=>setTimeout(resolve,2500))]).then(()=>{if(film!==own)return;hooks.beginEnding();own.started=true;});
+ }
+ enterFrame();if(!film.ending)$('filmNext').focus({preventScroll:true});else{$('storyCinema').tabIndex=-1;$('storyCinema').focus({preventScroll:true});}return true;
 }
 function enterFrame(){
  const f=film.frames[film.index];film.age=0;$('filmTitle').textContent=f.title;$('filmCount').textContent=(film.index+1)+' / '+film.frames.length;
@@ -54,13 +63,23 @@ function syncFilm(){if(!film)return;const f=film.frames[film.index],t=D.clock(f,
  const caption=$('filmText').closest('.film-caption');caption.dataset.shot=f.id;caption.dataset.emphasis=cue?.emphasis||'';caption.classList.toggle('film-silence',t.quiet);$('storyCinema').dataset.phase=t.phase;updateNext();
 }
 function updateNext(){if(!film)return;const f=film.frames[film.index],next=(film.timeline?.cueIndex??-1)+1;$('filmNext').textContent=filmTyper&&!filmTyper.done?local('全文を表示','Show all'):next<f.cues.length?local('次の文へ','Next line'):film.index<film.frames.length-1?local('次の場面へ','Next scene'):local(film.id==='prologue'?'旅をはじめる':'旅へ戻る',film.id==='prologue'?'Begin the journey':'Return to the journey');}
-function advance(){if(!film)return;if(filmTyper&&!filmTyper.done){filmTyper.complete();updateNext();return;}const f=film.frames[film.index],next=(film.timeline?.cueIndex??-1)+1;if(next<f.cues.length){film.age=f.cues[next].startMs/1000;syncFilm();drawFilm();return;}if(film.index+1<film.frames.length){film.index++;enterFrame();}else close(false);}
-function close(skipped){if(!film)return;const previous=film;film=null;filmTyper=null;plate?.destroy();plate=null;$('storyCinema').hidden=true;delete $('app').dataset.cinematic;
+function advance(){if(!film||film.ending)return;if(filmTyper&&!filmTyper.done){filmTyper.complete();updateNext();return;}const f=film.frames[film.index],next=(film.timeline?.cueIndex??-1)+1;if(next<f.cues.length){film.age=f.cues[next].startMs/1000;syncFilm();drawFilm();return;}if(film.index+1<film.frames.length){film.index++;enterFrame();}else close(false);}
+function close(skipped){if(!film||film.ending&&!film.completed)return;const previous=film;film=null;filmTyper=null;plate?.destroy();plate=null;previous.credits?.destroy();for(const[e,disabled]of previous.languageButtons||[])e.disabled=disabled;for(const id of ['filmNext','filmSkip','filmPause'])$(id).hidden=false;delete $('storyCinema').dataset.ending;delete $('storyCinema').dataset.credits;$('storyCinema').hidden=true;delete $('app').dataset.cinematic;
  root.ArcScreens.close('storyCinema',false);hooks.finished?.(previous.id,{skipped,replay:previous.replay});
  previous.done();
 }
-function togglePause(){if(!film)return;film.paused=!film.paused;$('filmPause').setAttribute('aria-pressed',String(film.paused));$('filmPause').textContent=film.paused?local('再生','Play'):local('一時停止','Pause');}
+function togglePause(){if(!film||film.ending)return;film.paused=!film.paused;$('filmPause').setAttribute('aria-pressed',String(film.paused));$('filmPause').textContent=film.paused?local('再生','Play'):local('一時停止','Pause');}
 function update(dt){
+ if(film?.ending){
+  if(!film.started)return;
+  const state=hooks.endingClock(),time=state.position,located=film.credits.update(time),cue=located.cue;film.globalTime=time;film.creditKind=cue.kind;
+  $('storyCinema').dataset.credits=String(cue.kind!=='scene');
+  if(cue.kind==='scene'){
+   const index=film.frames.indexOf(cue.shot);if(index!==film.index){film.index=index;enterFrame();}
+   film.age=Math.max(0,time-cue.start);syncFilm();drawFilm();
+  }
+  if(located.done&&!film.completed){film.completed=true;close(false);}return;
+ }
  if(film){if(!film.paused&&plate?.state.status!=='loading'){const f=film.frames[film.index];film.age+=dt;syncFilm();if(film.age*1000>=f.durationMs&&(!filmTyper||filmTyper.done))advance();}drawFilm();return;}
  if(result){resultClock+=dt;syncResult();drawResult();}
 }
@@ -79,7 +98,7 @@ function route(ctx,w,h,age,mode){const floor=h*(h<=340?.48:.66),left=w*.28,right
  if(mode==='moving'||mode==='restored'){for(let i=0;i<3;i++){const x=((age*25+i*w*.3)%(w+80))-40;ctx.fillStyle='#b9b69b';ctx.fillRect(x,floor-15,21,12);ctx.fillStyle='#405965';ctx.fillRect(x+4,floor-20,13,6);}}
  return floor;}
 function heart(ctx,x,y,scale,dim,dpr){const def=root.ArcEncounters.get('boss:archeart'),u={x:0,y:0,slope:0,hp:10,core:def.core,parts:[]};ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);ctx.globalAlpha=1-dim*.6;root.ArcVisualArt.drawActor(ctx,def.id,u,{kind:'boss',dir:-1,dpr,muzzle:A.pose({dir:-1,angle:32}),state:{spec:{boss:true},bossPhase:2}});ctx.restore();}
-function drawFilm(){if(!film)return;syncFilm();plate?.update(film.age);$('storyFilm').hidden=plate?.state.status==='ready';if($('storyFilm').hidden)return;drawFallbackFilm();}
+function drawFilm(){if(!film)return;if(film.ending&&film.creditKind&&film.creditKind!=='scene')return;syncFilm();plate?.update(film.age);$('storyFilm').hidden=film.ending||plate?.state.status==='ready';if($('storyFilm').hidden)return;drawFallbackFilm();}
 function drawFallbackFilm(){
  if(!film)return;const surf=surface($('storyFilm'));if(!surf)return;const{ctx,w,h,dpr}=surf,f=film.frames[film.index],age=reduced()?5:(film.timeline?.cameraMs||0)/1000,scene=f.scene,scale=Math.min(w/1000,h/530),drift=reduced()?0:ease(age/10)*w*.018;
  background(ctx,w,h,age,['P02','E01','E02','E03'].includes(scene));ctx.save();ctx.translate(-drift,0);
@@ -101,9 +120,9 @@ function drawFallbackFilm(){
 }
 function drawResult(){if(!result)return;const surf=surface($('resultStoryArt'));if(!surf)return;const{ctx,w,h,dpr}=surf;ctx.clearRect(0,0,w,h);ctx.save();ctx.translate(w*.5,h*.86);const scale=Math.min(w/100,h/82);ctx.scale(scale,scale);A.draw(ctx,result.focus,{angle:result.focus==='sora'?58:18,artStyle:'matte',dpr});ctx.restore();
  const progress=$('clearAreaProgress');progress.hidden=!['boss','final'].includes(result.kind);if(!progress.hidden){if(progress.childElementCount!==10)progress.replaceChildren(...Array.from({length:10},()=>document.createElement('i')));const n=Math.min(10,Math.floor(resultClock*10));[...progress.children].forEach((e,i)=>e.classList.toggle('lit',i<n));}}
-function install(options){hooks=options;$('filmNext').onclick=advance;$('filmSkip').onclick=()=>close(true);$('filmPause').onclick=togglePause;$('filmText').onclick=()=>{filmTyper?.complete();updateNext();};$('chapterMessage').onclick=()=>resultTyper?.complete();
- document.addEventListener('keydown',e=>{if(!film||$('gameSurface').inert||$('app').inert)return;if([' ','Enter','ArrowRight'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();if(e.key!=='ArrowRight'&&document.activeElement===$('filmPause'))togglePause();else if(e.key!=='ArrowRight'&&document.activeElement===$('filmSkip'))close(true);else advance();}},true);
- root.addEventListener('arcline-language',()=>{if(film){const age=film.age,paused=film.paused,oldCue=film.timeline?.cue,key=oldCue?.textKey,progress=oldCue?clamp((age*1000-oldCue.startMs)/(oldCue.endMs-oldCue.startMs),0,1):0;film.frames=D.movie(film.id,language());const translated=film.frames[film.index].cues.find(c=>c.textKey===key),mappedAge=translated&&!film.timeline?.quiet?(translated.startMs+progress*(translated.endMs-translated.startMs))/1000:age;enterFrame();film.age=mappedAge;film.paused=paused;syncFilm();$('filmPause').setAttribute('aria-pressed',String(paused));$('filmPause').textContent=paused?local('再生','Play'):local('一時停止','Pause');}if(result)showResult(result.stage);});
+function install(options){hooks=options;$('filmNext').onclick=advance;$('filmSkip').onclick=()=>close(true);$('filmPause').onclick=togglePause;$('filmText').onclick=()=>{if(film?.ending)return;filmTyper?.complete();updateNext();};$('chapterMessage').onclick=()=>resultTyper?.complete();
+ document.addEventListener('keydown',e=>{if(!film||$('gameSurface').inert||$('app').inert)return;if(film.ending&&[' ','Enter','ArrowRight','Escape'].includes(e.key)){if(e.key!=='Escape')e.preventDefault();e.stopImmediatePropagation();return;}if([' ','Enter','ArrowRight'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();if(e.key!=='ArrowRight'&&document.activeElement===$('filmPause'))togglePause();else if(e.key!=='ArrowRight'&&document.activeElement===$('filmSkip'))close(true);else advance();}},true);
+ root.addEventListener('arcline-language',()=>{if(film&&!film.ending){const age=film.age,paused=film.paused,oldCue=film.timeline?.cue,key=oldCue?.textKey,progress=oldCue?clamp((age*1000-oldCue.startMs)/(oldCue.endMs-oldCue.startMs),0,1):0;film.frames=D.movie(film.id,language());const translated=film.frames[film.index].cues.find(c=>c.textKey===key),mappedAge=translated&&!film.timeline?.quiet?(translated.startMs+progress*(translated.endMs-translated.startMs))/1000:age;enterFrame();film.age=mappedAge;film.paused=paused;syncFilm();$('filmPause').setAttribute('aria-pressed',String(paused));$('filmPause').textContent=paused?local('再生','Play'):local('一時停止','Pause');}if(result)showResult(result.stage);});
 }
-root.ArcStoryView=Object.freeze({typeText:typer,install,open,advance,close,update,showResult,hideResult,finishResultText,drawFilm,drawResult,graphemes,get active(){return !!film;},get state(){return film?{id:film.id,index:film.index,age:film.age,paused:film.paused,textDone:!filmTyper||filmTyper.done,shot:film.frames[film.index].id,cueIndex:film.timeline?.cueIndex,cueKey:film.cueKey,phase:film.timeline?.phase,quiet:film.timeline?.quiet,litCount:film.timeline?.litCount,plate:plate?.state}:null;},get resultDone(){return !result||!!resultTyper?.done;}});
+root.ArcStoryView=Object.freeze({typeText:typer,install,open,advance,close,update,showResult,hideResult,finishResultText,drawFilm,drawResult,graphemes,get active(){return !!film;},get state(){return film?{id:film.id,ending:!!film.ending,session:film.session,globalTime:film.globalTime,credits:film.creditKind,locale:film.locale,index:film.index,age:film.age,paused:film.paused,textDone:!filmTyper||filmTyper.done,shot:film.frames[film.index].id,cueIndex:film.timeline?.cueIndex,cueKey:film.cueKey,phase:film.timeline?.phase,quiet:film.timeline?.quiet,litCount:film.timeline?.litCount,plate:plate?.state}:null;},get resultDone(){return !result||!!resultTyper?.done;}});
 })(globalThis);

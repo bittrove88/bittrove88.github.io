@@ -8,7 +8,7 @@ def snapshot(root):return {n:hashlib.sha256((root/n).read_bytes()).hexdigest() f
 before=snapshot(ROOT)
 with tempfile.TemporaryDirectory(prefix='arcline-generated-') as temporary:
     isolated=Path(temporary)/'ARCLINE'
-    shutil.copytree(ROOT,isolated,ignore=shutil.ignore_patterns('node_modules','.git','.cache','__pycache__','evidence','sheets','ARCLINE_Codex_Transfer_*.zip'))
+    shutil.copytree(ROOT,isolated,ignore=shutil.ignore_patterns('node_modules','.git','.cache','__pycache__','evidence','ARCLINE_Codex_Transfer_*.zip'))
     rebuild(isolated,ROOT.parent);after=snapshot(isolated)
     rebuild(isolated,ROOT.parent);second=snapshot(isolated)
 changed=[n for n in OUTPUTS if before[n]!=after[n]]

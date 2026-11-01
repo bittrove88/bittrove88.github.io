@@ -20,6 +20,10 @@ characters=json.loads((root/'design/cinematics_014/character_images.json').read_
 for a in characters:
  if a['verified'] and a['src']:
   blob=(root/a['src']).read_bytes();assert hashlib.sha256(blob).hexdigest()==a['sha256'];contents[a['src']]=blob
+media=json.loads((root/'assets/ending/manifest.json').read_text())
+for a in [*media['tracks'].values(),*media['cutouts'],media['scenery'],*[i for c in media['cards'] for i in c['images']]]:
+ blob=(root/a['src']).read_bytes();assert hashlib.sha256(blob).hexdigest()==a['sha256'];contents[a['src']]=blob
+contents['assets/ending/manifest.json']=(root/'assets/ending/manifest.json').read_bytes()
 manifest={'implementation':CONFIG['version'],'design':'First journey,cinematic and original-character UI update;resetVersion2 retained;one authorized seal edit plus22 original plates and10 verified PNGs','files':{n:{'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in contents.items()},'sourceDistribution':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in files},'packagingTransform':'Only index.html sets ArcAssetBase to ./ for the flat offline layout; hosted code defaults to ../../. 22 JPEGs remain byte-identical;P03-01 uses the authorized seal-removal master.','youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap','cinematicPlates':23,'runtimeFiles':len(files),'preservedBattle':'Engine,geometry,physics,levels,inventory,encounters and Canvas machine sources unchanged;only Mogu normal speed/gravity and note change in combat;all special profiles preserved'}
 archive=out/f"ARCLINE_{CONFIG['version']}_Playables.zip"
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
@@ -29,5 +33,9 @@ with zipfile.ZipFile(archive) as z:
  assert z.testzip() is None and len(z.namelist())==len(contents)
  for n,b in contents.items():assert z.read(n)==b
 manifest['characterPlates']=sum(bool(a['verified'] and a['src']) for a in characters)
+manifest['bgmTracks']=7
+manifest['endingCutouts']=len(media['cutouts'])
+manifest['design']='BGM/automatic ending/special-charge explanation and notice; formal request v2.2.0; save schema8/resetVersion2 retained'
+manifest['preservedBattle']='All combat, engine, geometry, physics, levels, inventory, encounters, machine profiles and special mechanics unchanged from baseline27867f1'
 manifest['zip']={'name':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()}
 (out/'BUNDLE_CHECK.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps({'status':'PASS','runtime':len(files),'plates':23,'entries':len(contents),'zip':str(archive),'bytes':archive.stat().st_size}))

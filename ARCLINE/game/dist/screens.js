@@ -13,6 +13,7 @@
     "lootPicker",
     "weaponPicker",
     "skillPicker",
+    "specialLesson",
   ];
   const isOpen = (id) => !!$(id) && !$(id).hidden;
   function open(id, options = {}) {
@@ -34,6 +35,7 @@
     element.hidden = false;
   }
   function close(id, restoreFocus = true) {
+    if (id === "storyCinema" && root.ArcStoryView?.state?.ending) return;
     const entry = entries.get(id);
     $(id).hidden = true;
     if (!entry) return;
