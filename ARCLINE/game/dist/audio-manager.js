@@ -28,6 +28,7 @@
     function fallback(a, error) {
       if (!own(a) || a.fallback) return;
       a.fallback = true;
+      a.duration = tracks[a.id].duration;
       a.error = String(error);
       a.blocked = true;
       a.media.pause();
@@ -141,6 +142,8 @@
           fallback(a, "unexpected ending duration");
           return;
         }
+        if (id === "ENDING" && Number.isFinite(duration) && duration > 0)
+          a.duration = duration;
         try {
           media.currentTime = a.position;
         } catch {

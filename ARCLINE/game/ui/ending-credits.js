@@ -38,8 +38,8 @@
     );
   }
   function create(host, frames, duration, locale) {
-    const data = root.ArcMediaData,
-      plan = timeline(frames, duration, data.cards);
+    const data = root.ArcMediaData;
+    let plan = timeline(frames, duration, data.cards);
     const layer = document.createElement("div");
     layer.className = "ending-album";
     layer.hidden = true;
@@ -114,7 +114,15 @@
       destroy() {
         layer.remove();
       },
-      plan,
+      setDuration(seconds) {
+        if (!Number.isFinite(seconds) || seconds <= 0 || seconds === duration)
+          return;
+        duration = seconds;
+        plan = timeline(frames, duration, data.cards);
+      },
+      get plan() {
+        return plan;
+      },
     };
   }
   const api = { timeline, locate, create };

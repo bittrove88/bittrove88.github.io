@@ -72,7 +72,7 @@ function togglePause(){if(!film||film.ending)return;film.paused=!film.paused;$('
 function update(dt){
  if(film?.ending){
   if(!film.started)return;
-  const state=hooks.endingClock(),time=state.position,located=film.credits.update(time),cue=located.cue;film.globalTime=time;film.creditKind=cue.kind;
+  const state=hooks.endingClock(),time=state.position;film.credits.setDuration(state.duration);const located=film.credits.update(time),cue=located.cue;film.globalTime=time;film.creditKind=cue.kind;
   $('storyCinema').dataset.credits=String(cue.kind!=='scene');
   if(cue.kind==='scene'){
    const index=film.frames.indexOf(cue.shot);if(index!==film.index){film.index=index;enterFrame();}
