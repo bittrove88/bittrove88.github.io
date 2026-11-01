@@ -84,7 +84,7 @@ function without(w,ids){const gone=new Set(ids);return {...w,solids:w.solids.fil
 function fallLanding(w,x,startY,other=null,range=[35,965]){
  if(x<range[0]||x>range[1])return null;
  const ys=w.surfaces.map(f=>floorY(f.points,x)).filter(y=>y!==null&&y>=startY-2).sort((a,b)=>a-b);
- for(const y of ys){const p=support(w,x,y),separation=other?.hitShape?Math.max(70,other.hitShape.rx+28):70;if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>separation))return p;}
+ for(const y of ys){const p=support(w,x,y),separation=other?.hitShape?Math.max(100,other.hitShape.rx+28):100;if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>separation))return p;}
  return null;
 }
 function teleportLanding(w,hit,other,range=[35,965]){
@@ -118,11 +118,11 @@ function move(s,side,amount){
  while(Math.abs(remaining)>.01){const dx=clamp(remaining,-2,2),x=clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-u.x)<.01)break;
   const f=surfaceAt(s.world,x,u.y,24),p=f&&support(s.world,x,f.y);if(!p||Math.abs(p.y-u.y)>7||Math.abs(p.slope)>35*Math.PI/180||!clearBody(s.world,p)||Math.abs(x-s.units[1-side].x)<100)break;
   const d=x-u.x;Object.assign(u,p);moved+=d;remaining-=d;
- }return moved;
+ }if(moved)u.facing=moved>0?1:-1;return moved;
 }
-function actorPoint(s,side,x,y){const u=s.units[side],dir=s.units[1-side].x>=u.x?1:-1,a=u.slope||0;return {x:u.x+x*dir*Math.cos(a)-y*Math.sin(a),y:u.y+x*dir*Math.sin(a)+y*Math.cos(a)};}
+function actorPoint(s,side,x,y){const u=s.units[side],dir=u.facing||(s.units[1-side].x>=u.x?1:-1),a=u.slope||0;return {x:u.x+x*dir*Math.cos(a)-y*Math.sin(a),y:u.y+x*dir*Math.sin(a)+y*Math.cos(a)};}
 function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}
-function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=s.units[1-side].x>=u.x?1:-1,theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
- const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
+function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1),theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
+ const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
 const api={clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
 })(globalThis);

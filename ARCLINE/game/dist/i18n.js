@@ -40,7 +40,7 @@ Object.assign(dictionary,{
  'Weapons and skills carry until the chapter boss.':'武器とスキルは章のボス撃破まで持ち越します。',
  'Weapon selection is for practice. Find weapons during your chapter.':'武器選択は練習用です。本編では道中で武器を拾います。',
  'Practice selection':'練習用に選択中','Use in practice':'練習で使う','Practice: three shots of your selected weapon.':'練習では選択した武器を3発使えます。',
- 'Weapon library and finishes':'武器図鑑・外観','Weapon slots full':'武器の所持枠がいっぱい','Skill slots full':'スキルの所持枠がいっぱい',
+ 'Practice weapon library':'練習用武器','Weapon slots full':'武器の所持枠がいっぱい','Skill slots full':'スキルの所持枠がいっぱい',
  'Replace one item, or skip.':'入れ替える持ち物を選ぶか、見送る','Replace':'入れ替え','Skip pickup':'見送る','Unavailable on bosses':'ボスには使えません',
  'CHAPTER':'章','START CHAPTER':'章をはじめる','Start chapter from the beginning':'この章をはじめから',
  'Chapter stock resets. Progress and collection stay saved.':'章の持ち物をリセットします。進行・所持記録は残ります。',
@@ -77,6 +77,8 @@ Object.assign(dictionary,{
  'ONE MORE PIECE':'もう1片を破壊','HP +30':'HP +30','RIVAL RESPONSE':'相手の反撃','REPAIR':'応急修理','Repair now':'修理する','Cancel repair':'キャンセル','Passes through thin breakable cover. Fixed rock stops it.':'薄い破壊材を通過。固定岩盤は通らない。','Aim through thin cracked cover.':'ひびのある薄い遮蔽の向こうを狙う','Full HP':'HP満タン','Not with teleport':'転移には併用不可','Reserved':'予約中','reserved':'予約中','Active':'発動中'
 });
 Object.assign(dictionary,{'Journey records':'旅の記録','Settings':'設定','Lobby menu':'開始メニュー','Close settings':'設定を閉じる','Preferences':'設定','How to play':'操作・道具','Settings category':'設定の項目','Language':'言語','Display':'画面表示','Switch sides':'左右を切り替え','Move and aim on the left':'移動・照準は左側','Move and aim on the right':'移動・照準は右側','Close journey records':'旅の記録を閉じる','Record category':'記録の種類','The journey':'旅の記録','The machines':'機体の記録','Choose record':'記録を選ぶ','Record content':'記録の本文','Unread':'未読','Read their story':'物語を読む'});
+Object.assign(dictionary,{'Change machine':'仲間を変更','Special · Shared charge':'必殺弾 · 残数は共通','Special unlocks on your turns 2, 4 and 6. Guardians start with three. Auxiliary stock carries until the boss.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。補助武器は章ボスまで持越し。'});
+Object.assign(dictionary,{'Aim at 50° or higher to scatter eight bomblets.':'50度以上へ向け、頂点から8発を散布。','The companions':'仲間の記録'});
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;

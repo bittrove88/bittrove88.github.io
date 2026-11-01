@@ -50,7 +50,7 @@ near(highStep,mogu.pulseAdvance,'maximum charge spacing');
 const sora=C.get('sora').special,scene=flat('sora');
 near(sora.minAngle,50,'Sora special can aim as low as 50 degrees');
 near(sora.maxAngle,125,'Sora special upper aim bound stays 125 degrees');
-E.selectWeapon(scene,sora.id);
+scene.playerTurn=2;E.chargeSpecial(scene);E.selectWeapon(scene,sora.id);
 near(E.minimumAngle(scene),50,'Sora UI selection exposes 50 degrees');
 near(E.maximumAngle(scene),125,'Sora UI selection keeps 125 degrees');
 E.selectWeapon(scene,'W01');

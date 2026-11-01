@@ -1,8 +1,8 @@
-"""Compile 0.12 story slots; handoff prose never overwrites gameplay data."""
+"""Compile 0.13 story slots; handoff prose never overwrites gameplay data."""
 from pathlib import Path
 import json
 ROOT=Path(__file__).resolve().parents[1]
-d=json.loads((ROOT.parent/'design/narrative_0_12.json').read_text())
+d=json.loads((ROOT.parent/'design/narrative_0_13.json').read_text())
 assert len(d['chapters'])==10 and len(d['guardians'])==20 and len(d['machines'])==10
 assert len(d['stageClears'])==80 and sorted([x['stage'] for x in d['stageClears']]+[g['stage'] for g in d['guardians']])==list(range(1,101))
 js="""(function(root){'use strict';
@@ -20,4 +20,4 @@ const api=Object.freeze({...data,pick,chapter,guardian,entry,result,movie,past,a
 })(globalThis);
 """.replace('PAYLOAD',json.dumps(d,ensure_ascii=False,separators=(',',':')))
 (ROOT/'dist/story.js').write_text(js)
-print('Compiled0.12:100 clear slots /20 guardians /3 opening+4 ending frames /30,60 interludes')
+print('Compiled0.13:100 clear slots /20 guardians /3 opening+4 ending frames /30,60 interludes')

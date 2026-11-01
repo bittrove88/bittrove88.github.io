@@ -53,7 +53,7 @@ function legacy(d,c,u,kind,m,options){
  else{d.track(-32,-18,64,18,0,4);d.poly([-33,-19,-19,-34,19,-34,33,-19],c.shade);d.rect(-15,-45,30,24,6,c.color);}
 }
 function drawActor(ctx,id,u,options={}){
- const kind=options.kind||id.split(':')[0],actor=R.resolve(id,kind),state=options.state,G=root.ArcEngine?.geometry,side=options.side||0,dir=options.muzzle?.dir||options.dir||(state?(state.units[1-side].x>=u.x?1:-1):1),slope=u.slope||0;
+ const kind=options.kind||id.split(':')[0],actor=R.resolve(id,kind),state=options.state,G=root.ArcEngine?.geometry,side=options.side||0,dir=options.muzzle?.bodyDir||u.facing||options.dir||options.muzzle?.dir||(state?(state.units[1-side].x>=u.x?1:-1):1),slope=u.slope||0;
  const muzzle=options.muzzle||(state&&G?G.muzzle(state,side,options.angle??48):root.ArcCharacters?.pose({x:u.x,y:u.y,dir,slope,angle:options.angle??32}));
  ctx.save();try{
   ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowBlur=0;

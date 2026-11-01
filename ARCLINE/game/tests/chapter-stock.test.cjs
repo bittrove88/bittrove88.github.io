@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const I=require('../dist/inventory.js'),R=require('../dist/campaign-run.js'),S=require('../dist/save.js'),E=require('../dist/engine.js');
 let checks=0;const ok=(v,m)=>{checks++;assert(v,m);},equal=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
-const profile=cleared=>S.decode(JSON.stringify({schemaVersion:2,contentRevision:S.revision,cleared,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',collectedCosmeticIds:['S01','B10'],equippedCharacterId:'yui',difficulty:'hard'}));
+const profile=cleared=>S.decode(JSON.stringify({schemaVersion:8,campaignResetVersion:1,contentRevision:S.revision,unlockedCharacterIds:S.characterIds,cleared,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',equippedCharacterId:'yui',difficulty:'hard'}));
 const battle=context=>E.campaign(context.entry.stage,{battleInventory:context.entry.inventory,battleMode:context.entry.mode,matchSeed:context.entry.seed,pickupLedger:context.entry.pickupLedger,pendingLoot:context.entry.pending});
 const victory=(s,stock)=>Object.assign(s,{result:'win',...(stock?{weaponStock:stock.weapons,skills:stock.skills}:{}),pendingLoot:[]});
 const pickup=(s,id,kind,extras={})=>{const item={id,kind,x:200,y:250,placementId:`L${String(s.stage).padStart(3,'0')}:${id}`,collected:false,...extras};s.pickups.push(item);return item;};
@@ -31,13 +31,10 @@ for(let chapter=1;chapter<=10;chapter++){
 for(const n of[5,15,25,35,45,55,65,75,85,95]){
  all.chapterRun=R.checkpoint(n,{weapons:{W02:2},skills:{BURST:1}},[],`half-${n}`,123);
  const ctx=R.begin(all,n),state=battle(ctx);victory(state,{weapons:{W02:2},skills:{BURST:1}});const r=R.finish(all,ctx,state);
- ok(r.advanced&&!r.reset,'stage5 boundary is not a reset '+n);equal(all.chapterRun.inventory.weapons,{W02:2},'weapon survives midpoint '+n);equal(all.chapterRun.inventory.skills,n===95?{BURST:1,SWAP:1}:{BURST:1},'skill survives midpoint and authored next-stage supplies '+n);
+ ok(r.advanced&&!r.reset,'stage5 boundary is not a reset '+n);equal(all.chapterRun.inventory.weapons,{W02:2},'weapon survives midpoint '+n);equal(all.chapterRun.inventory.skills,{BURST:1},'skill survives midpoint and authored next-stage supplies '+n);
 }
 
-const supplies=profile(31),entry32=R.begin(supplies,32,{seed:32}),sk=battle(entry32);
-equal(sk.skills,{BURST:2},'existing authored supply is applied once');E.selectSkill(sk,'BURST');E.launch(sk,45,50);ok(sk.skills.BURST===1,'selected skill is consumed once');equal(battle(R.begin(supplies,32)).skills,{BURST:2},'retry does not resupply a second time');
-victory(sk);R.finish(supplies,entry32,sk);equal(supplies.chapterRun.inventory.skills,{BURST:1},'remaining skill carries to unsupplied stage33');
-supplies.cleared=37;supplies.chapterRun=R.checkpoint(37,{skills:{BURST:1}},[],'supply-test',37);const e37=R.begin(supplies,37),b37=battle(e37);victory(b37);R.finish(supplies,e37,b37);equal(supplies.chapterRun.inventory.skills,{BURST:3},'repeat supply adds only up to three');
+const supplies=profile(31);supplies.chapterRun=R.checkpoint(32,{skills:{BURST:2}},[],'supply-fixture',32);const entry32=R.begin(supplies,32,{seed:32}),sk=battle(entry32);equal(sk.skills,{BURST:2},'explicit chapter supply is applied once');E.selectSkill(sk,'BURST');E.launch(sk,45,50);ok(sk.skills.BURST===1,'selected skill consumed once');equal(battle(R.begin(supplies,32)).skills,{BURST:2},'retry does not resupply twice');victory(sk);R.finish(supplies,entry32,sk);equal(supplies.chapterRun.inventory.skills,{BURST:1},'remaining skill carries to next stage');
 
 const full=E.campaign(4,{battleInventory:{weapons:{W02:3,W06:2,W07:1},skills:{BURST:3,PULL:2}},battleMode:'W01'});
 const newWeapon=pickup(full,'new-drill','trial',{weaponId:'W13'});const queued=E.collect(full,null,{id:newWeapon.id});ok(queued.pending&&full.pendingLoot.length===1,'fourth type queues a choice');ok(!full.weaponStock.W13,'queued item not usable');ok(!E.launch(full,45,60),'pending choice prevents a launch');
@@ -53,14 +50,12 @@ const trip=E.campaign(4,{battleInventory:{weapons:{W02:2},skills:{BURST:2}},batt
 const beforePractice=JSON.stringify(p.chapterRun),practice=R.begin(p,1,{seed:11}),training=battle(practice);ok(practice.practice,'old level is practice');equal(training.weaponStock,{W20:3},'legacy selected weapon remains usable in isolated practice');victory(training,{weapons:{W02:3},skills:{BURST:3}});ok(!R.finish(p,practice,training).advanced,'practice cannot commit chapter rewards');equal(JSON.stringify(p.chapterRun),beforePractice,'practice cannot farm the live chapter');
 const progressBefore=p.cleared,ownedBefore=JSON.stringify(p.unlockedWeaponIds);R.restart(p,1,{seed:9});equal(p.chapterRun.inventory.weapons,{},'explicit chapter restart begins empty');ok(p.cleared===progressBefore&&JSON.stringify(p.unlockedWeaponIds)===ownedBefore,'restart retains progress and ownership');ok(!R.restart(p,91),'locked chapter cannot be started');
 
-const overflow=profile(99);overflow.chapterRun=R.checkpoint(99,{skills:{BURST:1,SWAP:1}},[],'overflow',100);
-const e99=R.begin(overflow,99),b99=battle(e99);victory(b99);R.finish(overflow,e99,b99);ok(overflow.chapterRun.pending.some(p=>p.id==='PULL'),'stage100 supply cannot silently displace held skills');
-const e100=R.begin(overflow,100),b100=battle(e100);ok(!E.launch(b100,45,70),'preparation choice blocks first shot');E.resolveLoot(b100,'SWAP');ok(R.updatePreparation(overflow,e100,b100),'preparation decision updates the entry');const retry100=battle(R.begin(overflow,100));ok(retry100.skills.PULL===2&&!retry100.skills.SWAP&&!retry100.pendingLoot.length,'chosen supplies persist across retry');
+const overflow=profile(99);overflow.chapterRun=R.checkpoint(99,{skills:{BURST:1,SWAP:1}},[],'overflow',100);const e99=R.begin(overflow,99),b99=battle(e99);victory(b99);R.finish(overflow,e99,b99);const e100=R.begin(overflow,100),b100=battle(e100);equal(b100.skills,{BURST:1,SWAP:1},'no invented final-stage refill displaces carried skills');
 
 for(const bad of [null,[],{version:2},{version:1,stage:300},{version:1,stage:1,seed:-1,runId:'x',inventory:{}}])ok(R.decode(bad)===null,'invalid run rejected');
-const migrated=S.decode(JSON.stringify({version:1,cleared:73}));ok(migrated.cleared===73&&migrated.chapterRun===null&&migrated.legacyBackup,'legacy progress survives without fake stock');
-const decoded=S.decode(JSON.stringify(p));equal(decoded.chapterRun.inventory,p.chapterRun.inventory,'run inventory roundtrips');ok(decoded.unlockedWeaponIds.length===20&&decoded.collectedCosmeticIds.length===2&&decoded.equippedCharacterId==='yui'&&decoded.difficulty==='hard','all profile selections retained');
-ok(decoded.schemaVersion===S.schemaVersion,'checkpoint data uses a schema that old clients will not overwrite');assert.throws(()=>S.decode('{"schemaVersion":6}'));checks++;
+const migrated=S.decode(JSON.stringify({version:1,cleared:73}));ok(migrated.cleared===0&&migrated.chapterRun===null&&migrated.legacyBackup&&migrated.unlockedCharacterIds.length===10,'legacy progress resets once while machine rights and raw backup survive');
+const decoded=S.decode(JSON.stringify(p));equal(decoded.chapterRun.inventory,p.chapterRun.inventory,'run inventory roundtrips');ok(decoded.unlockedWeaponIds.length===20&&!('collectedCosmeticIds'in decoded)&&decoded.equippedCharacterId==='yui'&&decoded.difficulty==='hard','all profile selections retained');
+ok(decoded.schemaVersion===S.schemaVersion,'checkpoint data uses a schema that old clients will not overwrite');assert.throws(()=>S.decode('{"schemaVersion":9}'));checks++;
 
 (async()=>{
  let text=JSON.stringify(p);const store=S.create({load:async()=>text,save:async raw=>{text=raw;}});await store.load();store.data.chapterRun.inventory.weapons={W02:2};await store.save();equal(S.decode(text).chapterRun.inventory.weapons,{W02:2},'checkpoint saved through real adapter');

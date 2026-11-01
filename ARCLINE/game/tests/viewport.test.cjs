@@ -19,7 +19,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+(req
  for(const [width,height] of [[844,390],[568,320]]){
   const context=await browser.newContext({viewport:{width,height},hasTouch:true,isMobile:true});await context.route('https://www.youtube.com/**',r=>r.abort());const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));
   await page.goto(`http://127.0.0.1:${server.address().port}/`);await page.waitForFunction('!document.getElementById("play").disabled&&document.getElementById("app").style.position==="fixed"');const cdp=await context.newCDPSession(page);
-  await page.locator('#play').tap();await page.locator('#previewOK').tap();
+  await page.locator('#play').tap();if(await page.evaluate('ArcStoryView.active'))await page.locator('#filmSkip').tap();await page.locator('#previewOK').tap();
   const before=await page.evaluate('({hp:s.units[0].hp,shots:s.shotCount,phase:s.phase,stage:s.stage})');
   // The test server relaxes only the viewport meta limits to emulate Safari
   // retaining zoom despite those production limits; gesture guards stay intact.

@@ -1,0 +1,194 @@
+{
+  "implementation": "0.13.0",
+  "campaignRevision": "5.0",
+  "saveSchema": 8,
+  "status": "PASS",
+  "testCommands": 22,
+  "nativeFullMatches": 416,
+  "checks": [
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/expedition-foundation.test.cjs",
+      "report": "FOUNDATION.json",
+      "status": "PASS",
+      "checks": 2228,
+      "matches": null,
+      "scope": "Save migration/retry through local and SDK adapter contracts;100 real campaign advancement records;9 idempotent recruits;50×10 HP-ratio switches;normal player-turn2/4/6 and20 guardians;300 facing/slope/angle origins. Real-browser UI and native full matches are separate."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/chapter-stock.test.cjs",
+      "report": "CHAPTER_STOCK.json",
+      "status": "PASS",
+      "checks": 125,
+      "matches": null,
+      "scope": "Actual inventory consumption and pickup limits; all10 boss/midpoint boundaries; entry snapshots, supplies, practice isolation, idempotent progression, legacy preservation and save-failure ordering. Not human balance or physical-device validation."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/machine-combat.test.cjs",
+      "report": "MACHINE_COMBAT.json",
+      "status": "PASS",
+      "checks": 4052,
+      "matches": null,
+      "scope": "Actual ten machine profiles, center/core caps, charge/walk, all100 safe map entries, bounded immutable trajectories, all ten causal special previews, single-use multi-shot accounting, fixed-wall protection, chapter separation, legacy preservation and optional seeded CPU parity. Full character campaign wins are recorded separately; physical phones and human difficulty are unverified."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/special-damage.test.cjs",
+      "report": "SPECIAL_DAMAGE.json",
+      "status": "PASS",
+      "checks": 83,
+      "matches": null,
+      "scope": "Ten special damage profiles, real single-hit and volley contacts, Ricochet scaling, Sora split, tutorial previews and per-action caps. Synthetic origins are damage fixtures, not playable aim scenarios."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/special-targeting.test.cjs",
+      "report": "SPECIAL_TARGETING.json",
+      "status": "PASS",
+      "checks": 37,
+      "matches": null,
+      "scope": "BAN cone/FX, MOGU power-scaled progression, SORA exact split guide. Not a browser rendering test."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/aim-guide.test.cjs",
+      "report": "AIM_GUIDE.json",
+      "status": "PASS",
+      "checks": 1000,
+      "matches": null,
+      "scope": "Forecast geometry, lineage, constant48px hard direction independent of power, immutable simulation, three-mode state/random parity across100 stages, and save migration. Not a difficulty or physical-device playtest."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/expedition-routes.test.cjs",
+      "report": "CAMPAIGN_MATCHES.json",
+      "status": "PASS",
+      "checks": null,
+      "matches": 300,
+      "scope": "Native full matches with actual enemy turns, original HP and damage, normal fire, free walking, breaking and teleport. Search-based aim is not a human difficulty measurement."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/expedition-tactics.test.cjs",
+      "report": "TACTICAL_MATCHES.json",
+      "status": "PASS",
+      "checks": null,
+      "matches": 100,
+      "scope": "100 full production matches using the currently available recommended machine; prefers opening useful cover, safe long teleport and an available signature attack, then normal alternatives. Search aim is not human difficulty or proof of every authored narrative tactic."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/expedition-showcases.test.cjs",
+      "report": "FEATURED_ROUTES.json",
+      "status": "PASS",
+      "checks": 116,
+      "matches": 16,
+      "scope": "16 native full matches with actual enemy turns, legal player-turn charge timing, matching newly joined machines, rolling/falling/bounce/apex-split events and ordered precision preparation. Search aim is not human playability."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/expedition-early-tolerance.test.cjs",
+      "report": "EARLY_TOLERANCE.json",
+      "status": "PASS",
+      "checks": null,
+      "matches": null,
+      "scope": "24 early normal stages. At least5/9 neighboring aim inputs damage the real enemy without self-damage from a reachable position, after up to3 legal setup actions with actual enemy responses. A local tolerance witness, not measured human completion or a guarantee for every input."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/story-012.test.cjs",
+      "report": "STORY_CONTENT.json",
+      "status": "PASS",
+      "checks": 6268,
+      "matches": null,
+      "scope": "Current0.13 authored prose and chronology;100 bilingual clear slots;all101 progression/ownership/growth/relationship/spoiler gates;complete4-scene ending;retryable story persistence;old-client write protection;13 battle/art/FX modules unchanged from latest merged damage balance. Full matches and browser flows are separate."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/expedition-browser.test.cjs",
+      "report": "BROWSER.json",
+      "status": "PASS",
+      "checks": 286,
+      "matches": null,
+      "scope": "Chromium native touch/keyboard:6 landscape sizes,all100 maps at every size,owned machine switching,all9 join points at844px,representative joins at5 other sizes,summary/detail menus,English,migration and mocked SDK save failure. No physical Safari/Android claim."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/story-012-browser.test.cjs",
+      "report": "STORY_BROWSER.json",
+      "status": "PASS",
+      "checks": 1262,
+      "matches": null,
+      "scope": "Actual Chromium touch/keyboard in6 landscape sizes;100 result fixtures at844px and10 each at5 other sizes; all4 ending scenes at every size; real first-play/next/replay/save failure/pending reload, English, portrait/SDK pause and reduced motion. Six real projectile resolutions use unchanged engine. Results use controlled win fixtures, not100 actual human or native full-match completions. Physical iOS Safari/Android devices are not tested."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/charge-pause.test.cjs",
+      "report": "CHARGE_PAUSE.json",
+      "status": "PASS",
+      "checks": 245,
+      "matches": null,
+      "scope": "Actual Chromium touch/mouse drag-out cancellation and return-inside firing, keyboard Escape, two-finger independence, stock/skill/action preservation, flight pause, six visible actions without scroll in Japanese/English, focus traps, retry/exit confirmation and entry restoration, persisted control/language settings and fullscreen fallback. Physical iOS/Android unverified."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/camera-framing.test.cjs",
+      "report": "CAMERA_FRAMING.json",
+      "status": "PASS",
+      "checks": 5625,
+      "matches": null,
+      "scope": "Actual production Chromium renderer across100maps and8sizes. The current Tideclaw angle-6 power95 shared-physics shot breaks CLAW and leaveshp9, without creating an obsolete legacy reward. Injected stale6500x/malformed capsule/focus states exercise camera recovery independently. No physical-device claim."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/machine-worker.test.cjs",
+      "report": "MACHINE_WORKER.json",
+      "status": "PASS",
+      "checks": 46,
+      "matches": null,
+      "scope": "Actual Chromium: all ten special shots through Game launch/update and the real Web Worker, then one intentional no-worker fallback. Native HP, a controlled miss and real seeded enemy response; special stock, chapter isolation, translated descriptions and accessibility reason. Pointer input is covered separately by machine-combat-browser."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/viewport.test.cjs",
+      "report": "VIEWPORT.json",
+      "status": "PASS",
+      "checks": 179,
+      "matches": null,
+      "scope": "Chromium CDP forced visual viewport scales 1.5/2/1, recovered UI bounds and hit testing, actual double-tap/pinch, native button taps, and one-finger panel scrolling; synthetic proprietary Safari gesture cancellation only. Browser scale remains present but game is inverse-fitted; physical iOS Safari unverified."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/orientation-i18n.test.cjs",
+      "report": "ORIENTATION_I18N.json",
+      "status": "PASS",
+      "checks": 57,
+      "matches": null,
+      "scope": "Actual Chromium touch/mobile rotation, held charge cancellation, paused-state preservation, Japanese/English UI and persistence, four landscape sizes, SDK pause overlap. Physical iPhone Safari unverified."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/game/tests/fullscreen.test.cjs",
+      "report": "FULLSCREEN.json",
+      "status": "PASS",
+      "checks": 13,
+      "matches": null,
+      "scope": "Actual Chromium native requestFullscreen/exitFullscreen user-tap flows, paused-duel preservation, rejection fallback and manifest checks. Safari native fullscreen and home-screen installation remain device QA."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> ARCLINE_BASELINE_DIR=<Git05a0a72の配布元> node ARCLINE/game/tests/effects-footprint.test.cjs",
+      "report": "FX_FOOTPRINTS.json",
+      "status": "PASS",
+      "checks": null,
+      "matches": null,
+      "scope": "Actual old/new Canvas drawing calls: every impact ellipse and particle path identical; every historical arc radius retained; no larger maximum radius; all20 machine projectile geometries identical. Flat flash adds a smaller12px core. BAN wave visual and damage cone both use140world units/28degree half-angle. Shared production trail widths retain3/5.5/8/10CSSpx."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/site-tests/service-site.test.cjs",
+      "report": "SERVICE_SITE.json",
+      "status": "PASS",
+      "checks": 555,
+      "matches": null,
+      "scope": "Real Chromium: five responsive sizes, Japanese/English, ten machine profiles, three multi-step native-physics demonstrations, pause, keyboard tabs/menu, actual standalone HTML download, and launch to the current game. Physical Safari/Android remains unverified."
+    },
+    {
+      "command": "ARCLINE_EVIDENCE_DIR=<Git外の出力先> node ARCLINE/site-tests/expedition-release.test.cjs",
+      "report": "RELEASE_WEB.json",
+      "status": "PASS",
+      "checks": 190,
+      "matches": null,
+      "scope": "Active local references/cache keys, stable manifest ID, blank root/.nojekyll/no CNAME, every ARCLINE HTML/JS literal cross-content transition,100 actual atlas diagrams and disclosures,release reset notice,and4-size catalog layout."
+    }
+  ],
+  "generated": "GENERATED.json",
+  "bundle": "BUNDLE_CHECK.json",
+  "unverified": [
+    "Physical Safari/Android and home-screen installation",
+    "Live YouTube SDK storage and certification",
+    "Human100-stage completion/difficulty/variety",
+    "All100 maps with all10 machines; all random seeds; all possible solution routes"
+  ]
+}

@@ -11,7 +11,7 @@ const sizes=[[1614,892],[1366,768],[390,844],[320,568],[568,320],[844,390],[768,
  try{
   for(const [width,height] of sizes){
    const context=await browser.newContext({viewport:{width,height},hasTouch:true,isMobile:width<900});await context.route('https://www.youtube.com/**',r=>r.abort());const page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(`http://127.0.0.1:${server.address().port}/`);await page.waitForFunction('!document.getElementById("play").disabled');
-   await page.evaluate(()=>{cancelAnimationFrame(raf);raf=0;selectedMap=0;start();encounter=null;endDemo();hud();});
+   await page.evaluate(()=>{cancelAnimationFrame(raf);raf=0;});
    const sample=await page.evaluate(()=>{
     const failures=[],samples=[];let rendered=0,checks=0;
     const check=(v,d)=>{checks++;if(!v)failures.push(d);};
@@ -34,21 +34,17 @@ const sizes=[[1614,892],[1366,768],[390,844],[320,568],[568,320],[844,390],[768,
      check(state.units.every((u,i)=>{const extent=i&&state.spec.boss?105:43;return clean.x+(u.x-extent)*clean.scale>=11.9&&clean.x+(u.x+extent)*clean.scale<=w-11.9;}),{stage:n,issue:'actor-outside-horizontal-frame',clean});
      samples.push({stage:n,scale:clean.scale,actorSeparationPx:Math.abs(state.units[1].x-state.units[0].x)*clean.scale});
     }
-    const boss=E.campaign(10),before=frame(boss,{canAim:true}),shot=E.launch(boss,10,50);E.resolve(boss,shot);boss.phase='aim';const reward=boss.pickups.find(p=>p.id==='R-boss'),after=frame(boss,{canAim:true});
+    const boss=E.campaign(10),before=frame(boss,{canAim:true}),shot=E.launch(boss,-6,95);E.resolve(boss,shot);boss.phase='aim';const reward=boss.pickups.find(p=>p.id==='R-boss'),after=frame(boss,{canAim:true});
     check(boss.shotCount===1&&boss.units[1].hp===9&&boss.effects.broken===1,{issue:'exact-Tideclaw-sequence-changed',shots:boss.shotCount,hp:boss.units[1].hp,broken:boss.effects.broken});
-    check(!!reward&&reward.x>=0&&reward.x<=1000,{issue:'boss-reward-outside-arena',reward});
+    check(!reward,{issue:'authored-campaign-must-not-create-obsolete-reward-capsule',reward});
     check(after.scale>=before.scale*.6,{issue:'actual-boss-reward-collapses-view',before,after,reward});
     if(reward)check(after.x+reward.x*after.scale>=0&&after.x+reward.x*after.scale<=document.getElementById('world').clientWidth,{issue:'valid-reward-hidden',reward,after});
     return {failures,checks,rendered,samples,boss:{before,after,reward,shots:boss.shotCount,hp:boss.units[1].hp,broken:boss.effects.broken}};
    });
    if(sample.failures.length){fs.writeFileSync(path.join(output,`FAIL-${width}x${height}.json`),JSON.stringify(sample,null,2));throw Error(`${width}x${height}: ${JSON.stringify(sample.failures.slice(0,3))}`);}
    checks+=sample.checks;rows.push({width,height,...sample});
-   if([[1614,892],[390,844]].some(([w,h])=>w===width&&h===height)){
-    await page.evaluate(()=>{selectedMap=9;start();encounter=null;document.getElementById('encounterBanner').hidden=true;endDemo();s.angle=10;s.power=50;const hit=E.launch(s,10,50);E.resolve(s,hit);s.phase='aim';shot=null;impact=null;tail=null;hud();for(let i=0;i<120;i++)draw();});
-    await page.screenshot({path:path.join(output,`tideclaw-reward-${width}x${height}.png`)});
-   }
    await context.close();
   }
-  assert.deepEqual(errors,[]);checks++;const report={status:'PASS',recordedAt:new Date().toISOString(),checks,rows,errors,method:'Actual production Chromium renderer across100maps and8sizes. The Tideclaw angle10 power50 shared-physics shot breaks LEG, leaveshp9 andcreates an in-arena reward. Injected stale6500x/malformed capsule/focus states exercise camera recovery independently. No physical-device claim.'};fs.writeFileSync(path.join(output,'CAMERA_FRAMING.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:'PASS',checks,viewports:rows.length,rendered:rows.reduce((n,r)=>n+r.rendered,0)},null,2));
+  assert.deepEqual(errors,[]);checks++;const report={status:'PASS',recordedAt:new Date().toISOString(),checks,rows,errors,method:'Actual production Chromium renderer across100maps and8sizes. The current Tideclaw angle-6 power95 shared-physics shot breaks CLAW and leaveshp9, without creating an obsolete legacy reward. Injected stale6500x/malformed capsule/focus states exercise camera recovery independently. No physical-device claim.'};fs.writeFileSync(path.join(output,'CAMERA_FRAMING.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:'PASS',checks,viewports:rows.length,rendered:rows.reduce((n,r)=>n+r.rendered,0)},null,2));
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exit(1);});

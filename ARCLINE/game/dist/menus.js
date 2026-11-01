@@ -29,50 +29,44 @@ function renderSettings(){
  $('settingsControlState').textContent=hooks.controls()==='left'?local('移動・照準は左側','Move and aim on the left'):local('移動・照準は右側','Move and aim on the right');
  const control=hooks.controls()==='left'?local('左で移動・照準、右で発射。','Move and aim on the left; fire on the right.'):local('右で移動・照準、左で発射。','Move and aim on the right; fire on the left.');
  const guide=[
-  [local('移動と照準','Move and aim'),control+local('発射を押したまま、移動と照準を切り替えられます。90°を越すと機体ごと後ろを向きます。',' Keep FIRE held while switching between movement and aim. Aim past 90° to turn the machine around.')],
+  [local('移動と照準','Move and aim'),control+local('歩いた方向へ車体が向きます。停止中も向きを保ち、砲身だけ後ろへ狙えます。',' Walking sets chassis direction; stopping preserves it. Aim past90° to fire backward without turning the chassis.')],
   [local('ためる・撃つ・取り消す','Charge, fire, cancel'),local('発射を長押し、離して発射。指をボタンの外へずらして離すと取消。キーボードは矢印とSpace、取消はEsc。','Hold FIRE and release to shoot. Slide outside the button and release to cancel. Keyboard: arrows and Space; Esc cancels.')],
-  [local('通常弾と必殺','Normal and special'),local('通常弾は無制限。機体の必殺は各面3回。チャージは飛距離を変え、威力は増やしません。','Normal fire is unlimited. Each machine has three special uses per stage. Charge changes range, not damage.')],
+  [local('通常弾と必殺','Normal and special'),local('通常弾は無制限。通常戦の必殺は自分の第2・4・6ターンに1発ずつ。中ボス・大ボスは最初から3発。機体を変えても残数は共通です。','Normal fire is unlimited. Normal battles unlock one special on player turns2,4,6. Guardians start with3. Switching machines shares the same ammo.')],
   [local('転移と行動数','Teleport and actions'),local('転移弾は4面から。着弾先へ移り、1行動を使います。攻撃・転移・修理が残り行動を使い、歩行と照準は使いません。','Teleport unlocks at stage 4. Its contact moves you and costs one action. Attacking, teleporting and repairing use actions; walking and aiming do not.')],
   [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。5面ごとではなく、10面ごとの章ボスを倒すまで持ち越します。','Weapon boxes refill to three shots. Carry up to three weapon types and two skill types until the chapter boss every ten stages, including across the fifth stage.')],
   [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。練習の取得は本編へ持ち帰りません。','Retrying or returning after interruption restores the level-entry HP and stock. Practice pickups never enter the campaign.')]
  ];
- $('settingsGuide').innerHTML=guide.map(([title,body])=>`<article><h3>${escape(title)}</h3><p>${escape(body)}</p></article>`).join('');
+ $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE 0.13.0 · Campaign5.0 · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
  root.ArcI18n.apply();
 }
-function openSettings(trigger=$('openSettings')){if(!prepare('lobbySettings',trigger))return;settingsTab='options';renderSettings();$('closeSettings').focus({preventScroll:true});}
+function openSettings(trigger=$('openSettings')){if(!prepare('lobbySettings',trigger))return;settingsTab='options';renderSettings();$('settingsOptions').scrollTop=0;$('closeSettings').focus({preventScroll:true});}
 function note(title,body){return `<section class="record-section"><h3>${escape(title)}</h3><p>${escape(body)}</p></section>`;}
+function disclosure(title,body,readIds=[]){return `<details class="record-detail" data-read-ids="${readIds.join(',')}"><summary>${escape(title)}</summary>${body}</details>`;}
 function renderMachine(){
- const data=hooks.data(),n=J.progress(data),m=J.machines.find(m=>m.id===machine)||J.machines[0];machine=m.id;
- $('recordNavigation').innerHTML=J.machines.map(item=>{const current=item.id===machine,keys=['machine:'+item.id+':profile',...(n>=item.chapter*10?['machine:'+item.id+':choice']:[]),...(n===100?['machine:'+item.id+':ending']:[])];return `<button type="button" data-record-machine="${item.id}" aria-pressed="${current}"><span>${escape(t(item.name))}</span>${J.unread(data,keys)?'<i class="unread-dot" aria-label="Unread"></i>':''}</button>`;}).join('');
- let body=`<p class="record-kicker">${escape(local('機体の記録','MACHINE RECORD'))}</p><h3 class="record-title">${escape(t(m.name))}</h3><blockquote>${escape(t(m.line))}</blockquote>`;
- body+=note(local('届けたいもの','What drives them'),t(m.desire))+note(local('これまで','Before the journey'),t(J.story.past(m,n)))+note(local('弱さと向き合う','A weakness to face'),t(m.flaw));
- const readIds=['machine:'+m.id+':profile'];
- if(n>=m.chapter*10){body+=note(local('選んだ一歩','A step they chose'),t(m.choice));readIds.push('machine:'+m.id+':choice');}
- else body+=`<p class="record-locked">${escape(local('成長の記録は第'+m.chapter+'章クリア後に開きます。','Their next step opens after chapter '+m.chapter+'.'))}</p>`;
- if(n===100){body+=note(local('旅の、その先','After the journey'),t(m.ending));readIds.push('machine:'+m.id+':ending');}
- else body+=`<p class="record-locked">${escape(local('後日談は100面クリア後に開きます。','The afterword opens after stage 100.'))}</p>`;
- const relation=J.story.relations.find(r=>r.machines.includes(m.id));if(relation){body+=note(t(relation.title),t(relation.body));readIds.push('relation:'+J.story.relations.indexOf(relation));}
- $('recordBody').innerHTML=body;read(readIds);
- for(const b of $('recordNavigation').querySelectorAll('[data-record-machine]')){b.onclick=()=>{machine=b.dataset.recordMachine;renderJournal();$('recordBody').scrollTop=0;$('recordBody').focus({preventScroll:true});};touchTap(b);}
+ const data=hooks.data(),n=J.progress(data),m=J.machines.find(m=>m.id===machine)||J.machines[0],crew=root.ArcCrew.get(m.id),owned=root.ArcCrew.owned(data,m.id),joined=(data.joinedCharacterIds||[]).includes(m.id);machine=m.id;
+ $('recordNavigation').innerHTML=root.ArcCrew.rows.map(r=>`<button type="button" data-record-machine="${r.id}" aria-pressed="${r.id===machine}">${escape(t(r.name))}<small>${root.ArcCrew.owned(data,r.id)?local('所有','Owned'):local(r.stage+'面','LV '+r.stage)}</small></button>`).join('');
+ let body=`<p class="record-kicker">${escape(local(joined?'この旅で合流済み':owned?'以前から所有':crew.stage+'面で合流',joined?'Joined this journey':owned?'Previously owned':'Joins at stage '+crew.stage))}</p><h3 class="record-title">${escape(t(m.name))}</h3><blockquote>${escape(t(m.line))}</blockquote><p>${escape(t(m.desire))}</p>`;
+ if(owned){body+=disclosure(local('背景と個性','Background and personality'),note(local('これまで','Before the journey'),t(J.story.past(m,n)))+note(local('弱さと向き合う','Facing a weakness'),t(m.flaw)),['machine:'+m.id+':profile']);if(n>=m.growthStage)body+=disclosure(local('旅で選んだこと','A choice on the journey'),`<p>${escape(t(m.choice))}</p>`,['machine:'+m.id+':choice']);if(n===100)body+=disclosure(local('旅の、その先','After the journey'),`<p>${escape(t(m.ending))}</p>`,['machine:'+m.id+':ending']);}
+ else body+=`<p class="record-locked">${escape(local(crew.stage+'面をクリアすると、仲間の背景と旅の出来事が開きます。','Clear stage '+crew.stage+' to open this companion’s story.'))}</p>`;
+ const relation=J.story.relations.find(r=>r.machines.includes(m.id)&&r.machines.every(id=>(data.joinedCharacterIds||[]).includes(id)));if(relation)body+=disclosure(t(relation.title),`<p>${escape(t(relation.body))}</p>`,['relation:'+J.story.relations.indexOf(relation)]);
+ $('recordBody').innerHTML=body;
+ for(const b of $('recordNavigation').querySelectorAll('[data-record-machine]')){b.onclick=()=>{machine=b.dataset.recordMachine;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
 }
 function renderJourney(){
- const data=hooks.data(),n=J.progress(data),c=J.chapters.find(c=>c.id===chapter)||J.chapters[0];chapter=c.id;
- $('recordNavigation').innerHTML=J.chapters.map(item=>{const unlocked=n>=item.start-1,keys=['chapter:'+item.id+':opening',...(n>=item.end?['chapter:'+item.id+':cleared']:[])];return `<button type="button" data-record-chapter="${item.id}" aria-pressed="${item.id===chapter}" ${unlocked?'':'disabled'}><span>${escape(local('第'+item.id+'章','Chapter '+item.id))}</span><small>${item.start}–${item.end}</small>${unlocked&&J.unread(data,keys)?'<i class="unread-dot" aria-label="Unread"></i>':''}</button>`;}).join('');
- const act=J.acts.find(a=>c.start>=a.start&&c.start<a.start+20),readIds=['chapter:'+c.id+':opening','act:'+act.id];
- let body=`<p class="record-kicker">${escape(local('第'+act.id+'幕','ACT '+act.id))} · ${escape(t(act.title))}</p><h3 class="record-title">${escape(t(c.title))}</h3><p class="record-lead">${escape(t(c.opening))}</p><blockquote>${escape(t(c.question))}</blockquote>`;
- if(c.id===1){body+=note(t(J.introduction.title),J.introduction.lines.map(t).join(' '));readIds.push('introduction');}
- body+=note(local('旅の中で','Along the way'),J.story.actBody(act,n,language()));
- if(n>=c.end){body+=note(local('この章の記録','Chapter reflection'),t(c.reflection));readIds.push('chapter:'+c.id+':cleared');}
- else body+=`<p class="record-locked">${escape(local('この章をクリアすると、旅の記録が続きます。','Complete this chapter to open its reflection.'))}</p>`;
- for(const g of J.story.guardians.filter(g=>g.chapter===c.id&&n>=g.stage)){body+=note(local((g.kind==='boss'?'章ボス':'中ボス')+'・'+g.stage+'面',g.kind.toUpperCase()+' · LEVEL '+g.stage)+' · '+t(g.name),t(g.work)+local('。',' — ')+t(g.background)+' '+t(g.entrance)+' '+t(g.aftermath));if(g.clue)body+=note(local('残された手掛かり','A clue left behind'),t(g.clue)+(n>=g.payoffStage?local(' — この章のボスの記録で回収。',' — Answered in this chapter’s guardian record.'):local(' — まだ、その続きを確かめている。',' — Its answer is still ahead.')));readIds.push('guardian:'+g.stage);}
- if(c.id===10&&n===100){body+=note(t(J.epilogue.title),J.epilogue.lines.map(t).join(' '));readIds.push('epilogue');}
- $('recordBody').innerHTML=body;read(readIds);
- for(const b of $('recordNavigation').querySelectorAll('[data-record-chapter]')){b.onclick=()=>{chapter=Number(b.dataset.recordChapter);renderJournal();$('recordBody').scrollTop=0;$('recordBody').focus({preventScroll:true});};touchTap(b);}
+ const data=hooks.data(),n=J.progress(data),c=J.chapters.find(c=>c.id===chapter)||J.chapters[0];chapter=c.id;const act=J.acts.find(a=>c.start>=a.start&&c.start<a.start+20);
+ $('recordNavigation').innerHTML=J.chapters.map(c=>`<button type="button" data-record-chapter="${c.id}" aria-pressed="${c.id===chapter}" ${n<c.start-1?'disabled':''}>${escape(local('第'+c.id+'章','Chapter '+c.id))}<small>${c.start}–${c.end}</small></button>`).join('');
+ let body=`<p class="record-kicker">${escape(local(n+' / 100 面クリア',n+' / 100 stages cleared'))}</p><h3 class="record-title">${escape(t(c.title))}</h3><p class="record-lead">${escape(t(J.story.chapter(c.start).opening))}</p><blockquote>${escape(t(c.question))}</blockquote>`;
+ const recent=root.ArcCrew.rows.filter(r=>r.stage>0&&r.stage<=n).slice(-3);if(recent.length)body+=`<section class="record-section"><h3>${local('最近の出会い','Recent companions')}</h3>${recent.map(r=>`<p>${r.stage} · ${escape(t(r.name))}</p>`).join('')}</section>`;
+ body+=disclosure(local('この章の物語を読む','Read this chapter'),`<p>${escape(t(n>=c.end?c.opening:J.story.chapter(c.start).opening))}</p><p>${escape(J.story.actBody(act,n,language()))}</p>`+(n>=c.end?`<blockquote>${escape(t(c.reflection))}</blockquote>`:''),['chapter:'+c.id+':opening','act:'+act.id,...(n>=c.end?['chapter:'+c.id+':cleared']:[])]);
+ const guardians=J.story.guardians.filter(g=>g.chapter===c.id&&n>=g.stage);for(const g of guardians)body+=disclosure(local(g.stage+'面 · '+t(g.name),'LEVEL '+g.stage+' · '+t(g.name)),`<p>${escape(t(g.work))}</p><p>${escape(t(g.background))}</p><blockquote>${escape(t(g.aftermath))}</blockquote>`,['guardian:'+g.stage]);
+ if(n===100&&c.id===10)body+=disclosure(t(J.epilogue.title),J.epilogue.lines.map(line=>`<p>${escape(t(line))}</p>`).join(''),['epilogue']);
+ $('recordBody').innerHTML=body;
+ for(const b of $('recordNavigation').querySelectorAll('[data-record-chapter]')){b.onclick=()=>{chapter=+b.dataset.recordChapter;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
 }
 function renderJournal(){
- $('replayEpilogue').hidden=J.progress(hooks.data())<100;
+ $('replay30').hidden=J.progress(hooks.data())<30;$('replay60').hidden=J.progress(hooks.data())<60;$('replay30').textContent=local('30面の幕間','Stage30 scene');$('replay60').textContent=local('60面の幕間','Stage60 scene');$('replayEpilogue').hidden=J.progress(hooks.data())<100;
  for(const b of document.querySelectorAll('[data-record-tab]')){const selected=b.dataset.recordTab===tab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
- if(tab==='machines')renderMachine();else renderJourney();root.ArcI18n.apply();
+ if(tab==='machines')renderMachine();else renderJourney();for(const d of $('recordBody').querySelectorAll('[data-read-ids]'))d.addEventListener('toggle',()=>{if(d.open)read(d.dataset.readIds.split(','));});root.ArcI18n.apply();
  // Repaint the selected record's unread mark without rebuilding its content.
  const data=hooks.data();for(const b of $('recordNavigation').querySelectorAll('button[aria-pressed="true"]'))b.querySelector('.unread-dot')?.remove();
  hooks.summary?.(data);
@@ -89,7 +83,7 @@ function install(options){
  document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){touchPointers.add(e.pointerId);if(touchPointers.size>1)touchBatch++;}},true);
  for(const event of ['pointerup','pointercancel'])document.addEventListener(event,e=>touchPointers.delete(e.pointerId),true);
  root.addEventListener('blur',()=>{touchPointers.clear();touchBatch++;});
- hooks=options;$('replayPrologue').onclick=()=>hooks.playMovie('prologue',$('replayPrologue'));$('replayEpilogue').onclick=()=>{if(J.progress(hooks.data())===100)hooks.playMovie('epilogue',$('replayEpilogue'));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
+ hooks=options;for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;const panel=active;$('journalPanel').hidden=true;active=null;hooks.playMovie(movie,$(id),()=>{active=panel;$('journalPanel').hidden=false;$(id).focus({preventScroll:true});});};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
  for(const b of document.querySelectorAll('#lobbySettings button,#journalPanel button,#openSettings,#openJournal'))touchTap(b);
  document.addEventListener('click',e=>{const a=touchActivation;if(!a||!e.isTrusted||e.detail===0||performance.now()-a.time>500)return;const samePointer=e.pointerType==='touch'&&e.pointerId===a.id,sameLegacyTouch=!e.pointerType&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<4;if(samePointer||sameLegacyTouch){touchActivation=null;e.preventDefault();e.stopImmediatePropagation();}},true);
  bindTabs('[data-settings-tab]','data-settings-tab',value=>{settingsTab=value;renderSettings();});bindTabs('[data-record-tab]','data-record-tab',value=>{tab=value;renderJournal();$('recordBody').scrollTop=0;});

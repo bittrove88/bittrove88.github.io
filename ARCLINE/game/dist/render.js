@@ -19,34 +19,6 @@ function create(canvas,configuration={}){
  function blend(a,b,t){const hex=value=>/^#[0-9a-f]{6}$/i.test(value)?[1,3,5].map(i=>parseInt(value.slice(i,i+2),16)):[70,100,115],aa=hex(a),bb=hex(b);return '#'+aa.map((v,i)=>Math.round(v+(bb[i]-v)*t).toString(16).padStart(2,'0')).join('');}
  function polygon(points){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();}
  function appearance(id){const weapon=ArcWeapons.get(id||'W01');return {...(weapon.appearance||{color:'#fff0a9',shape:'orb',size:6}),blast:({S_GUN:165,S_BAN:0,S_HIBARI:145,S_HANA:90,S_RIN:45,S_MOGU:65,S_KORO:125,S_SORA:60,S_RICO:70,S_YUI:100})[weapon.id]??weapon.blast,weaponId:weapon.id};}
- const flagColors={S02:'#ffbb83',S05:'#f0d989',S11:'#ffabb0',S13:'#ffd485',S17:'#cdf8ff',S24:'#d8c1ff',S27:'#aff3d6'};
- const trailColors={S08:['#ffb5c5','#ffe4a4','#bbf3b9','#a8ddff','#d6bcff'],S14:['#ffdc87','#fff4bf'],S20:['#ffb482','#ffe3a8'],S22:['#d2c0ff','#eaf9ff'],S26:['#ffd98e','#b7e7ff','#ffbcd9','#bbf3c5']};
- function cosmeticFlag(id,x,y,time,reducedMotion){
-  const color=flagColors[id]||'#e9d8ff',flutter=reducedMotion?0:Math.sin(time*3)*3;
-  path([{x,y:y+36},{x,y}],color,2.3);ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+29,y+5+flutter);ctx.lineTo(x+24,y+15);ctx.lineTo(x,y+19);ctx.closePath();ctx.fill();
-  ctx.strokeStyle='#315269';ctx.fillStyle='#315269';ctx.lineWidth=2;
-  if(id==='S02'){circle(x+11,y+9,5,'#fceac2');}
-  else if(id==='S05'){ctx.beginPath();ctx.ellipse(x+12,y+10,4,6,0,0,Math.PI*2);ctx.fill();path([{x:x+6,y:y+5},{x:x+17,y:y+15}],'#315269',1.5);}
-  else if(id==='S11'){path([{x:x+6,y:y+4},{x:x+6,y:y+15},{x:x+17,y:y+15},{x:x+17,y:y+5}],'#315269',1.5);path([{x:x+4,y:y+8},{x:x+20,y:y+8}],'#315269',1.5);}
-  else if(id==='S13'){path([{x:x+4,y:y+8},{x:x+12,y:y+6},{x:x+22,y:y+9}],'#8c684e',2);path([{x:x+4,y:y+13},{x:x+14,y:y+11},{x:x+23,y:y+14}],'#8c684e',2);}
-  else if(id==='S17'){for(let i=0;i<3;i++){const a=i*Math.PI/3;path([{x:x+12-Math.cos(a)*7,y:y+10-Math.sin(a)*7},{x:x+12+Math.cos(a)*7,y:y+10+Math.sin(a)*7}],'#5782a6',1.5);}}
-  else if(id==='S24'){path([{x:x+5,y:y+5},{x:x+19,y:y+14}],'#6e5b99',3);circle(x+18,y+13,3,'#fbf5d1');}
-  else if(id==='S27'){path([{x:x+4,y:y+15},{x:x+10,y:y+5},{x:x+17,y:y+12},{x:x+24,y:y+7}],'#7d8ac4',3);}
- }
- function cosmeticTrail(points,time,id,scale,reducedMotion,alpha){
-  const palette=trailColors[id];if(!palette||points.length<2)return;
-  ctx.save();ctx.globalAlpha=alpha*.65;
-  if(reducedMotion){path(points,palette[0],1.4/scale,[2/scale,12/scale]);ctx.restore();return;}
-  const step=Math.max(6,Math.ceil(points.length/12));
-  for(let i=1;i<points.length;i+=step){const p=points[i],age=Math.max(0,time-p.t);if(age>.5)continue;const color=palette[Math.floor(i/step)%palette.length],x=p.x+Math.sin(i)*age*12/scale,y=p.y+age*age*18/scale;ctx.globalAlpha=alpha*(1-age/.5)*.8;
-   if(id==='S14'){circle(x,y,(2+age*5)/scale,color+'55',color);}
-   else if(id==='S20'){path([{x:x-3/scale,y:y+3/scale},{x:x+3/scale,y:y-3/scale}],color,1.6/scale);}
-   else if(id==='S22'){path([{x:x-3/scale,y},{x:x+3/scale,y}],color,1.4/scale);path([{x,y:y-3/scale},{x,y:y+3/scale}],color,1.4/scale);}
-   else if(id==='S26'){ctx.fillStyle=color;ctx.fillRect(x,y,3/scale,2/scale);}
-   else circle(x,y,2/scale,color);
-  }
-  ctx.restore();
- }
  function projectile(p,previous,look,scale,time){
   if(unified&&root.ArcEffects)return root.ArcEffects.forContext(ctx).projectile(p,previous,look,scale,time);
   const radius=look.size/scale,angle=previous?Math.atan2(p.y-previous.y,p.x-previous.x):0;
@@ -80,7 +52,7 @@ function create(canvas,configuration={}){
   for(let i=0;i<count;i++){const a=i*2.399,dist=(14+66*t)*(1+(i%3)*.17)/scale;const x=Math.cos(a)*dist,y=Math.sin(a)*dist-35*t*(1-t)/scale;path([{x:x-Math.cos(a)*10*(1-t)/scale,y:y-Math.sin(a)*10*(1-t)/scale},{x,y}],i%3?'#fff1b8':look.color,Math.max(1,3*(1-t))/scale);}
   ctx.restore();
  }
- function aimKey(s){return [s.stage,s.round,s.bossPhase,s.characterId,s.mode,s.teleportMode,s.selectedSkill,s.angle.toFixed(2),...s.units.flatMap(u=>[u.x.toFixed(1),u.y.toFixed(1),u.slope.toFixed(3),u.exposed,...u.parts.map(p=>p.hp)])].join(':');}
+ function aimKey(s){return [s.stage,s.round,s.bossPhase,s.characterId,s.mode,s.teleportMode,s.selectedSkill,s.angle.toFixed(2),...s.units.flatMap(u=>[u.x.toFixed(1),u.y.toFixed(1),u.slope.toFixed(3),u.exposed,u.facing,...u.parts.map(p=>p.hp)])].join(':');}
  function aimPlan(s){
   const key=aimKey(s)+':'+s.power.toFixed(1);
   if(!aimCache||aimCache.key!==key||aimCache.world!==s.world)aimCache={key,world:s.world,plan:E.trajectory(s,0,s.angle,s.power)};
@@ -126,7 +98,7 @@ function create(canvas,configuration={}){
    ctx.save();ctx.globalAlpha=1-t;const look=appearance(E.weapon(s,side).id);
    circle(m.x,m.y,(5+14*t)/scale,look.color+'33',look.color);
    if(t<.35)path([{x:m.x-m.dx*2/scale,y:m.y-m.dy*2/scale},{x:m.x+m.dx*15/scale,y:m.y+m.dy*15/scale}],'#fff7d4',4/scale);
-   if(!side&&['S03','S18'].includes(options.cosmetic)&&!options.reducedMotion){const coral=options.cosmetic==='S03';for(let i=0;i<6;i++){const a=i*Math.PI/3,dist=(5+24*t)/scale,x=m.x+Math.cos(a)*dist,y=m.y+Math.sin(a)*dist;if(coral)circle(x,y,(2+2*(1-t))/scale,'#ffc1ad');else path([{x:x-Math.cos(a)*4/scale,y:y-Math.sin(a)*4/scale},{x:x+Math.cos(a)*4/scale,y:y+Math.sin(a)*4/scale}],'#c2f6ff',2/scale);}}
+
    ctx.restore();
   }
   if(reaction&&reaction.age<.7){
@@ -137,26 +109,14 @@ function create(canvas,configuration={}){
    ctx.restore();
   }
  }
- function rover(s,side,angle,cosmetic=null,alpha=1,options={}){
-  const u=s.units[side],muzzle=G.muzzle(s,side,angle),dir=muzzle.dir;
-  const hue=cosmetic?parseInt(cosmetic.slice(1))*29%360:155;
-  const disabled=u.hp<=0,bright=disabled?'#75868c':side?'#ffd1ac':cosmetic?`hsl(${hue} 60% 78%)`:'#caffd7',dark=disabled?'#445a67':side?'#a16963':'#3d8991';
+ function rover(s,side,angle,alpha=1,options={}){
+  const u=s.units[side],muzzle=G.muzzle(s,side,angle),dir=muzzle.bodyDir;
+  const disabled=u.hp<=0,bright=disabled?'#75868c':side?'#ffd1ac':'#caffd7',dark=disabled?'#445a67':side?'#a16963':'#3d8991';
   const hit=!options.reducedMotion&&u.reaction&&u.reaction.age<.7?Math.sin(u.reaction.age*44)*Math.exp(-u.reaction.age*9)*4:0;
   const kick=!options.reducedMotion&&u.recoil&&u.recoil.age<.22?Math.sin(u.recoil.age/.22*Math.PI)*3:0;
   if(!side&&root.ArcCharacters){
    root.ArcCharacters.draw(ctx,options.characterId,{x:u.x,y:u.y,dir,slope:u.slope||0,travel:u.x,hit,kick,disabled,alpha,muzzle,artStyle:unified?'matte':'legacy',dpr:Math.min(root.devicePixelRatio||1,2),detail:view.scale<.65?'distant':'battle'});
-   // Legacy collected finishes remain optional overlays; the reference palette stays intact.
-   if(cosmetic){
-    ctx.save();ctx.globalAlpha=alpha;ctx.translate(u.x,u.y);ctx.rotate(u.slope||0);
-    if(cosmetic[0]==='B'){path([{x:-28,y:-17},{x:-23,y:-30},{x:-14,y:-26}],bright,5);path([{x:28,y:-17},{x:23,y:-30},{x:14,y:-26}],bright,5);cosmeticFlag(cosmetic,-24,-67,options.time||0,options.reducedMotion);}
-    else if(flagColors[cosmetic])cosmeticFlag(cosmetic,-25,-67,options.time||0,options.reducedMotion);
-    else if(cosmetic==='S09'){path([{x:-30,y:-18},{x:-22,y:-30},{x:-13,y:-27},{x:-7,y:-41},{x:4,y:-43},{x:16,y:-31},{x:29,y:-24}],'#bfe8a9',2.5);for(const [x,y]of[[-24,-24],[-12,-30],[-4,-40],[13,-34],[23,-27]]){ctx.save();ctx.translate(x,y);ctx.rotate(x*.08);ctx.fillStyle='#a8d89a';ctx.beginPath();ctx.ellipse(0,0,4,2,Math.PI/4,0,Math.PI*2);ctx.fill();ctx.restore();}}
-    ctx.restore();
-    if(['S03','S18'].includes(cosmetic)){
-     const m=G.muzzle(s,side,angle),coral=cosmetic==='S03',color=coral?'#ffbaa8':'#bcefff';ctx.save();ctx.translate(m.x,m.y);ctx.rotate(m.theta);circle(0,0,coral?7:8,null,color);
-     if(coral)for(const a of[-1.4,0,1.4])path([{x:0,y:0},{x:Math.cos(a)*11,y:Math.sin(a)*11}],color,3);else path([{x:-4,y:-8},{x:4,y:-5},{x:7,y:0},{x:4,y:5},{x:-4,y:8}],color,2.5);ctx.restore();
-    }
-   }
+
    return;
   }
   if(side&&unified){root.ArcVisualArt.drawActor(ctx,s.spec.encounterId||root.ArcEncounters.forSpec(s.spec).id,u,{...options,state:s,side,dir,muzzle,angle,alpha:alpha*(disabled?.65:1),dpr:Math.min(root.devicePixelRatio||1,2),detail:view.scale<.65?'distant':'battle',kind:s.spec.boss?'boss':s.spec.midboss?'midboss':'enemy'});return;}
@@ -192,13 +152,7 @@ function create(canvas,configuration={}){
    round(-32,-16,64,18,8,'#153e51');for(const x of [-21,0,21]){circle(x,-6,8,'#14384b');circle(x,-6,3,dark);}
    ctx.fillStyle=dark;ctx.beginPath();ctx.moveTo(-34,-18);ctx.lineTo(-20,-33);ctx.lineTo(20,-33);ctx.lineTo(34,-18);ctx.closePath();ctx.fill();round(-15,-45,30,24,6,bright);round(dir===1?1:-14,-40,13,6,2,'#356478');if(side&&!disabled){circle(0,-22,12,'#fff5c31a','#ffe7ae99');circle(0,-22,3,'#fff1bb');}
 
-   if(cosmetic?.[0]==='B'){
-    path([{x:-28,y:-17},{x:-23,y:-30},{x:-14,y:-26}],bright,5);path([{x:28,y:-17},{x:23,y:-30},{x:14,y:-26}],bright,5);cosmeticFlag(cosmetic,-24,-67,options.time||0,options.reducedMotion);circle(-12,-58,3,'#f9f1c4');
-   }else if(flagColors[cosmetic])cosmeticFlag(cosmetic,-25,-67,options.time||0,options.reducedMotion);
-   else if(cosmetic==='S09'){
-    path([{x:-30,y:-18},{x:-22,y:-30},{x:-13,y:-27},{x:-7,y:-41},{x:4,y:-43},{x:16,y:-31},{x:29,y:-24}],'#bfe8a9',2.5);
-    for(const [x,y] of [[-24,-24],[-12,-30],[-4,-40],[13,-34],[23,-27]]){ctx.save();ctx.translate(x,y);ctx.rotate(x*.08);ctx.fillStyle='#a8d89a';ctx.beginPath();ctx.ellipse(0,0,4,2,Math.PI/4,0,Math.PI*2);ctx.fill();ctx.restore();}
-   }
+
   }
   ctx.restore();
   // The barrel stays anchored to the exact physics pivot and muzzle while the chassis reacts.
@@ -207,12 +161,7 @@ function create(canvas,configuration={}){
    path([m.pivot,m],dark,barrelWidth);path([m.pivot,m],!side&&weapon.id!=='W01'?weaponLook.color:bright,Math.max(3,barrelWidth-4));
    if(!side&&['W09','W10','W11'].includes(weapon.id))for(const offset of [-5,5])path([{x:m.x-m.dx*12-m.dy*offset,y:m.y-m.dy*12+m.dx*offset},{x:m.x-m.dy*offset,y:m.y+m.dx*offset}],weaponLook.color,2.5);
    if(!side&&['W13','W14','W18'].includes(weapon.id))for(const distance of [12,21]){const x=m.pivot.x+m.dx*distance,y=m.pivot.y+m.dy*distance;path([{x:x-m.dy*6,y:y+m.dx*6},{x:x+m.dy*6,y:y-m.dx*6}],weaponLook.color,2);}
-   if(!side&&['S03','S18'].includes(cosmetic)){
-    ctx.save();ctx.translate(m.x,m.y);ctx.rotate(m.theta);const coral=cosmetic==='S03',color=coral?'#ffbaa8':'#bcefff',radius=coral?7:8;circle(0,0,radius,null,color);
-    if(coral){for(const a of [-1.4,0,1.4])path([{x:0,y:0},{x:Math.cos(a)*11,y:Math.sin(a)*11}],color,3);}
-    else{path([{x:-4,y:-8},{x:4,y:-5},{x:7,y:0},{x:4,y:5},{x:-4,y:8}],color,2.5);}
-    ctx.restore();
-   }
+
    ctx.restore();
   }
  }
@@ -415,7 +364,7 @@ function create(canvas,configuration={}){
   }
   display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t);return {...u,x:a.from.x+(u.x-a.from.x)*ease,y:a.from.y+(u.y-a.from.y)*ease-Math.sin(t*Math.PI)*a.lift};})};
   if(!lobby){for(let side=0;side<2;side++){const u=display.units[side];if(!showsUnit(u,side))continue;ctx.save();ctx.globalAlpha=.38;ctx.strokeStyle=side?'#ffb58f':'#dfffbd';ctx.lineWidth=2/scale;ctx.beginPath();ctx.ellipse(u.x,u.y+5,42,12,0,0,Math.PI*2);ctx.stroke();ctx.restore();}}
-  if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,options.cosmetic,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,null,localDemo?.8:1,options);}
+  if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,localDemo?.8:1,options);}
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
   if(options.encounter?.boss){
    const u=display.units[1],t=Math.min(1,options.encounter.age/(options.encounter.duration||1.1));
@@ -443,7 +392,6 @@ function create(canvas,configuration={}){
     ctx.globalAlpha=alpha;ctx.shadowColor=look.color;ctx.shadowBlur=unified?0:rail?22:13;
     path(hot,look.color,(rail?10:look.shape==='shell'?8:5.5)/scale);ctx.shadowBlur=0;
     path(hot,'#fffdf0',(rail?3:1.6)/scale);ctx.restore();
-    if(plan.side===0&&trailColors[options.cosmetic])cosmeticTrail(hot,t,options.cosmetic,scale,options.reducedMotion,alpha);
     if(alive){const p=points.at(-1);projectile(p,points.at(-2),look,scale,Number.isFinite(t)?t:0);}
    }
    for(const e of plan.events)if(['cloud','updraft','wind','vent','magnet','phase','bounce','break','teleport-contact'].includes(e.type)&&t>=e.t&&t-e.t<.5){const colors={cloud:'#c6e4ff',updraft:'#f4e6b2',wind:'#b4e7e6',vent:'#ffd0a6',magnet:'#d7baff',phase:'#d0fff2',break:'#e6bdff','teleport-contact':'#bcecff',bounce:e.surface==='reflector'?'#c9fff0':'#ffffff'};ctx.save();ctx.globalAlpha=alpha*(1-(t-e.t)/.5);circle(e.x,e.y,(10+(t-e.t)*38)/scale,null,colors[e.type]);ctx.restore();}
