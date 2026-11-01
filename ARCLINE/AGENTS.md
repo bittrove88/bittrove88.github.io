@@ -7,7 +7,7 @@
 1. **今回のユーザーの明示的な依頼と変更禁止条件。** 「指示書のみ」「アプリには反映しない」等を最優先する。
 2. **本ファイル \`ARCLINE/AGENTS.md\` と [更新ルール](docs/UPDATE_RULES.md)。**
 3. **現行の変更指示書 [v0.15.5／全21章・AR-01～AR-13](docs/change-requests/ARCLINE_CHANGE_REQUEST_v0.15.5.md)。** 13項目の実装を依頼された場合は、第1章から第21章をすべて読み、共通制約、テスト、完了条件まで遵守する。未実装の指示を現在のアプリの挙動として説明しない。
-   **BGMとエンディングの個別実装依頼**は、[BGM・エンディング変更指示書 v2.1.0／全34章](docs/change-requests/ARCLINE_BGM_ENDING_CHANGE_REQUEST_v2.1.0.md)を併読する。これはAR-01～AR-13とは別の未実装要求であり、文書登録だけでゲームへの実装を始めてはいけない。
+   **BGM・エンディング・必殺技のチュートリアル／中央通知の個別実装依頼**は、[BGM・エンディング変更指示書 v2.2.0／全39章](docs/change-requests/ARCLINE_BGM_ENDING_CHANGE_REQUEST_v2.2.0.md)を併読する。これはAR-01～AR-13とは別の未実装要求であり、文書登録だけでゲームへの実装を始めてはいけない。
 4. **現在の実装と生成元：** [README](README.md)、[ゲーム編集入口](game/README.md)、\`game/runtime.json\`、現行コード・テスト。
 5. **過去の履歴資料：** \`CODEX_HANDOFF.md\`、\`CODEX_START_PROMPT.md\`、\`EXPORT_MANIFEST.json\`、旧 \`updates/\`。当時の実装・URL・バージョン記述は履歴であり、現在の正本に優先しない。
 
