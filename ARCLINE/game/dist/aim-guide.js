@@ -56,7 +56,22 @@ function paths(plan,mode){
  }
  return bullets.map(b=>({id:b.id,path:prefix(b.path,budgets.get(b.id)||0)})).filter(b=>b.path.length>1);
 }
-// Hard mode shows the barrel direction, independent of power or future contacts.
+// The Sora carrier must be visible through its actual split in every difficulty.
+ // This is a read-only projection of the physics event; children are unchanged.
+ function splitProjection(plan){
+  if(plan?.weaponId!=='S_SORA')return null;
+  const event=(plan.events||[]).find(e=>e.type==='split'&&finite(e));
+  if(!event)return null;
+  const bullet=(plan.bullets||[]).find(b=>b.id===event.bullet&&Array.isArray(b.path)&&b.path.every(finite));
+  if(!bullet)return null;
+  const traced=until(bullet.path,event.t);
+  if(!traced.length)return null;
+  const point={x:event.x,y:event.y,t:event.t},last=traced.at(-1);
+  if(Math.hypot(last.x-point.x,last.y-point.y)>EPS)traced.push(point);
+  else traced[traced.length-1]=point;
+  return {parentId:bullet.id,path:traced,point};
+ }
+ // Hard mode shows the barrel direction, independent of power or future contacts.
 // Keep its visible length constant as the camera zooms in and out.
 function direction(muzzle,scale=1){
  if(!finite(muzzle)||!Number.isFinite(muzzle.dx)||!Number.isFinite(muzzle.dy))return [];
@@ -64,6 +79,6 @@ function direction(muzzle,scale=1){
  const distance=48/((Number.isFinite(scale)&&scale>0)?scale:1)/magnitude;
  return [{id:'direction',path:[{x:muzzle.x,y:muzzle.y},{x:muzzle.x+muzzle.dx*distance,y:muzzle.y+muzzle.dy*distance}]}];
 }
-const api={modes,ratios,normalize,length,paths,direction};
+const api={modes,ratios,normalize,length,paths,splitProjection,direction};
 if(typeof module!=='undefined')module.exports=api;else root.ArcAimGuide=api;
 })(globalThis);

@@ -90,7 +90,9 @@ function simulate(s,side,angle,power,options={}){
   }
   if(hit?.kind==='part')partDamage[hit.part]=(partDamage[hit.part]||0)+p.budget;
   if(weapon.breachPulses&&(p.pulseIndex||0)<weapon.breachPulses-1){
-   const speed=Math.hypot(p.vx,p.vy)||1,next={x:p.x+p.vx/speed*weapon.pulseAdvance,y:p.y+p.vy/speed*weapon.pulseAdvance},blocked=G.sweep(simWorld,p,next),point=blocked?{x:blocked.x+blocked.nx*.6,y:blocked.y+blocked.ny*.6}:next,time=p.t+weapon.pulseDelay;
+   // Each of the three blast positions advances in the firing direction. Charge controls spacing, never damage.
+   const distance=(weapon.pulseAdvance||22)*(.4+.6*G.clamp((power-20)/80,0,1)),direction=origin.dir||Math.sign(p.vx)||1;
+   const next={x:p.x+direction*distance,y:p.y},blocked=G.sweep(simWorld,p,next),point=blocked?{x:blocked.x+blocked.nx*.6,y:blocked.y+blocked.ny*.6}:next,time=p.t+weapon.pulseDelay;
    queue.push({...p,...point,id:bulletId++,t:time,start:time,effect:'pulse',pulseIndex:(p.pulseIndex||0)+1,path:[{...point,t:time}],pulseContact:blocked?{solidId:blocked.solid.id}:null});
   }
  }

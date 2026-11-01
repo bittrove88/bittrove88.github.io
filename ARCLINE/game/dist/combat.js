@@ -7,7 +7,7 @@ const rows=[
  ['ban',120,.95,.75,.4,2.6,.95,1.05,50,'Beginner','Steady mid-range fire.','Forward Shockwave','Impact sends a wide shockwave forward.','#da3156','shell'],
  ['hibari',120,1.05,.75,1,2.6,1.05,1,45,'Beginner','A steady, light arc.','Proximity Burst','Explodes near a visible rival before contact.','#24a6ad','ring'],
  ['hana',100,1,.75,1,2.4,1,1,50,'Beginner','One shot from the central barrel.','Triple Salvo','Three delayed shots spread across different angles.','#ee617e','spark'],
- ['rin',100,1,.75,1,3.2,1.2,1.05,28,'Intermediate','Fast small rounds; a slow, precise charge.','Focus Cannon','A precise center hit deals up to 75 damage.','#9570b7','needle'],
+ ['rin',100,1,.75,1,3.2,1.2,1.05,28,'Intermediate','Fast small rounds; a slow, precise charge.','Focus Cannon','A precise center hit deals up to 50 damage.','#9570b7','needle'],
  ['mogu',120,.9,.75,.8,2.4,.95,1.05,50,'Intermediate','A steady mid-range arc; all firing angles available.','Breach Charges','Three blasts advance through breakable cover.','#e5a733','drill'],
  ['koro',100,1.15,1,1,2.4,1.05,1.15,45,'Intermediate','A low arc that can still reach high ground.','Rolling Bomb','Runs along floors, drops across gaps, then rolls again.','#a4bd39','gear'],
  ['sora',100,.95,.75,1,2.8,.9,.8,45,'Intermediate','A gentle arc with unrestricted normal elevation.','Meteor Rain','A high shot splits into eight falling bomblets.','#287cc1','diamond'],
@@ -15,16 +15,16 @@ const rows=[
  ['yui',100,1.05,.75,1,2.8,.95,.9,45,'Advanced','A small arc without passive attraction.','Compression Core','Pulls a visible rival toward impact, then explodes.','#36b7a4','orbit']
 ];
 const specials={
- gun:{speed:.72,gravity:1.45,damage:2.4,blast:110,damageCap:2.4,push:true,pushDistance:60},
- ban:{speed:.95,gravity:1,damage:2.4,blast:0,damageCap:2.4,coneLength:200,coneAngle:40,push:true,pushDistance:120},
- hibari:{speed:1.1,gravity:.85,damage:2,blast:100,damageCap:2,airburst:true,proximity:75},
- hana:{speed:.98,gravity:1,damage:.8,blast:65,damageCap:2.4,volley:[{offset:-7,delay:0,barrel:-1},{offset:0,delay:.18,barrel:0},{offset:7,delay:.36,barrel:1}]},
- rin:{speed:1.55,gravity:.28,damage:3,blast:22,damageCap:3.75,criticalMultiplier:1.25,needle:true},
- mogu:{speed:.95,gravity:1,damage:.7,blast:55,damageCap:2.1,breachPulses:3,pulseDelay:.22,pulseAdvance:22},
- koro:{speed:.95,gravity:1.1,damage:2.3,blast:90,damageCap:2.3,roller:true,rollSpeed:220,rollDistance:600,rollSeconds:3,resumeRoll:true,contactBreak:32},
- sora:{speed:.9,gravity:.7,damage:.35,blast:45,damageCap:2.4,minAngle:55,maxAngle:125,split:true,splitCount:8,splitSpread:28,splitChildDamage:.35,fallingChildren:true},
- rico:{speed:1.1,gravity:.9,damage:1.3,blast:70,damageCap:2.5,bounces:4,maxBounces:4,restitution:.95,bounceDamage:.3,bounceBlast:10,maxBlast:110},
- yui:{speed:.95,gravity:1,damage:2,blast:80,damageCap:2.6,pullToImpact:true,pullRadius:160,pullDistance:120,pullSeconds:.6,compressionRadius:45,compressionBonus:.6}
+ gun:{speed:.72,gravity:1.45,damage:1.75,blast:110,damageCap:1.75,push:true,pushDistance:60},
+ ban:{speed:.95,gravity:1,damage:1.75,blast:0,damageCap:1.75,coneLength:140,coneAngle:28,push:true,pushDistance:120},
+ hibari:{speed:1.1,gravity:.85,damage:1.5,blast:100,damageCap:1.5,airburst:true,proximity:75},
+ hana:{speed:.98,gravity:1,damage:.9,blast:65,damageCap:2.4,volley:[{offset:-7,delay:0,barrel:-1},{offset:0,delay:.18,barrel:0},{offset:7,delay:.36,barrel:1}]},
+ rin:{speed:1.55,gravity:.28,damage:2,blast:22,damageCap:2.5,criticalMultiplier:1.25,needle:true},
+ mogu:{speed:.95,gravity:1,damage:.65,blast:55,damageCap:1.95,breachPulses:3,pulseDelay:.22,pulseAdvance:42},
+ koro:{speed:.95,gravity:1.1,damage:1.5,blast:90,damageCap:1.5,roller:true,rollSpeed:220,rollDistance:600,rollSeconds:3,resumeRoll:true,contactBreak:32},
+ sora:{speed:.9,gravity:.7,damage:.9,blast:45,damageCap:2.25,minAngle:50,maxAngle:125,split:true,splitCount:8,splitSpread:28,splitChildDamage:.9,fallingChildren:true},
+ rico:{speed:1.1,gravity:.9,damage:1.2,blast:70,damageCap:2,bounces:4,maxBounces:4,restitution:.95,bounceDamage:.2,bounceBlast:10,maxBlast:110},
+ yui:{speed:.95,gravity:1,damage:1.5,blast:80,damageCap:2.1,pullToImpact:true,pullRadius:160,pullDistance:120,pullSeconds:.6,compressionRadius:45,compressionBonus:.6}
 };
 const profiles=rows.map(([id,hp,walk,climb,pushResistance,seconds,speed,gravity,blast,playerType,normalNote,specialName,specialNote,color,shape])=>({
  id,hp,walk,chargeWalk:id==='yui'?1.15:1,climb,pushResistance,hitbox:1,playerType,
