@@ -29,6 +29,10 @@ function decode(raw){
  out.joinedCharacterIds=Crew.joinedAt(out.cleared);out.unlockedCharacterIds=Crew.normalize([...owned,...out.joinedCharacterIds]);
  const pending=p.pendingRecruit,r=Crew.at(pending?.stage);
  out.pendingRecruit=r&&r.id===pending.id&&r.stage<=out.cleared?{id:r.id,stage:r.stage,alreadyOwned:!!pending.alreadyOwned}:null;
+ // Additive first-journey state. Established records never repeat onboarding.
+ const steps=['prologue','gun','trial','done'],o=p.onboarding;
+ const established=out.cleared>0||out.difficultyConfirmed||out.journeyStarted;
+ out.onboarding={version:1,step:o&&steps.includes(o.step)?o.step:established?'done':'prologue',tried:validIds(o?.tried,['easy','normal','hard'])};
  out.updateNoticePending=false;out.journal=Journal.normalize(p.journal,out);
  return out;
 }

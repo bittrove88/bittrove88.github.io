@@ -23,7 +23,7 @@ function t(value){const s=String(value??'');if(language==='en'){const stage=root
  let m;if(m=s.match(/^Restore ([\d.]+) HP · 1 action$/))return `HPを${m[1]}回復・1行動`; if(m=s.match(/^DAMAGE ([\d.]+) → ([\d.]+)$/))return `被害 ${m[1]} → ${m[2]}`;if(m=s.match(/^Chapter (\d+) · LEVEL (\d+)$/))return `第${m[1]}章・${m[2]}面`;
  if(m=s.match(/^Restart chapter (\d+)\?$/))return `第${m[1]}章をはじめから？`;
  if(m=s.match(/^Start chapter (\d+) from the beginning$/))return `第${m[1]}章をはじめから`;
- if(m=s.match(/^Carry forward: (\d+) weapons, (\d+) skills$/))return `持ち越し：武器${m[1]}種・スキル${m[2]}種`;
+ if(m=s.match(/^Carry forward: (\d+) weapons, (\d+) skills$/))return `章ボス戦まで持ち越し可能：武器${m[1]}種・スキル${m[2]}種`;
  if(m=s.match(/^(\d+) weapons?$/))return `武器${m[1]}種類`;
  if(m=s.match(/^(\d+) skills?$/))return `スキル${m[1]}種類`;
  if(m=s.match(/^(.*) \+(\d+)$/))return t(m[1])+' +'+m[2];
@@ -37,11 +37,11 @@ Object.assign(dictionary,{
 });
 Object.assign(dictionary,{
  'CHAPTER STOCK':'章の持ち物','PRACTICE WEAPON':'練習用の武器','VIEW':'見る','Skills':'スキル','PRACTICE':'練習','CONTINUE':'つづきから','Back':'再開',
- 'Chapter inventory':'章の持ち物','Return to current chapter':'本編の続きへ戻る','Carried until boss':'ボス撃破まで持ち越し','Practice weapon':'練習用の武器',
- 'Weapons and skills carry until the chapter boss.':'武器とスキルは章のボス撃破まで持ち越します。',
+ 'Chapter inventory':'章の持ち物','Return to current chapter':'本編の続きへ戻る','Carried until boss':'章ボス戦まで持ち越し可能','Practice weapon':'練習で使う武器',
+ 'Weapons and skills carry until the chapter boss.':'入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。',
  'Weapon selection is for practice. Find weapons during your chapter.':'武器選択は練習用です。本編では道中で武器を拾います。',
- 'Practice selection':'練習用に選択中','Use in practice':'練習で使う','Practice: three shots of your selected weapon.':'練習では選択した武器を3発使えます。',
- 'Practice weapon library':'練習用武器','Weapon slots full':'武器の所持枠がいっぱい','Skill slots full':'スキルの所持枠がいっぱい',
+ 'Practice selection':'練習で選択中','Use in practice':'練習で使う','Practice: three shots of your selected weapon.':'練習では選択した武器を3発使えます。',
+ 'Practice weapon library':'練習で使う武器','Weapon slots full':'武器の所持枠がいっぱい','Skill slots full':'スキルの所持枠がいっぱい',
  'Replace one item, or skip.':'入れ替える持ち物を選ぶか、見送る','Replace':'入れ替え','Skip pickup':'見送る','Unavailable on bosses':'ボスには使えません',
  'CHAPTER':'章','START CHAPTER':'章をはじめる','Start chapter from the beginning':'この章をはじめから',
  'Chapter stock resets. Progress and collection stay saved.':'章の持ち物をリセットします。進行・所持記録は残ります。',
@@ -64,7 +64,7 @@ Object.assign(dictionary,{
 Object.assign(dictionary,{
  'Beginner':'初心者向け','Intermediate':'中級者向け','Advanced':'上級者向け','Charge':'チャージ','Normal fire':'通常弾',
  'Weapon library':'武器図鑑','Choose attack':'攻撃を選ぶ','Machine weapons':'機体の武器','Picked auxiliary':'拾った補助弾','Normal · Unlimited':'通常弾・無制限','Special · 3 per level':'必殺・各面3発',
- 'Special: three uses each level. Auxiliary stock carries until the boss.':'必殺は各面3発。補助弾はボス撃破まで持ち越し。','Practice auxiliary':'練習用の補助弾','Not with special':'必殺には併用不可','SPECIAL PREVIEW':'必殺の使い方','CRITICAL':'中心命中',
+ 'Special: three uses each level. Auxiliary stock carries until the boss.':'必殺は各面3発。補助弾は章ボス戦まで持ち越し可能。','Practice auxiliary':'練習用の補助弾','Not with special':'必殺には併用不可','SPECIAL PREVIEW':'必殺の使い方','CRITICAL':'中心命中',
  'Demolition Shell':'大破砕弾','Forward Shockwave':'扇状衝撃砲','Proximity Burst':'空中炸裂弾','Triple Salvo':'三連扇射砲','Focus Cannon':'収束砲','Breach Charges':'集中破砕弾','Rolling Bomb':'転走爆弾','Meteor Rain':'流星雨','Growing Ricochet':'連続跳弾','Compression Core':'牽引核',
  'Short-range heavy cannon. Close the distance.':'短射程の重弾。接近して狙う。','Steady mid-range fire.':'素直な中距離弾。','A steady, light arc.':'扱いやすい小さな弧。','One shot from the central barrel.':'中央砲口から一発。','Fast small rounds; a slow, precise charge.':'速い小弾と、じっくり合わせるチャージ。','A steady mid-range arc; all firing angles available.':'中距離の弧。上向きにも撃てる。','A low arc that can still reach high ground.':'低い弧が得意。高所にも届く。','A gentle arc with unrestricted normal elevation.':'山なりの小弾。通常は高角専用ではない。','Steady normal fire without automatic ground bounces.':'通常弾は勝手に地面で反射しない。','A small arc without passive attraction.':'小さな弧。通常弾には吸引なし。',
  'A broad blast breaks cover and pushes the target.':'大きな爆風で遮蔽を壊し、相手を押す。','Impact sends a wide shockwave forward.':'着弾点から前方を広くなぎ払う。','Explodes near a visible rival before contact.':'見通せる相手の近くで、接触前に炸裂。','Three delayed shots spread across different angles.':'角度を変えて3発を連射。','A center hit deals up to 96 damage.':'中心命中で最大96ダメージ。','Three blasts advance through breakable cover.':'3回の連続爆破で壊せる遮蔽を掘り進む。','Runs along floors, drops across gaps, then rolls again.':'床を走り、隙間で落下。着地後に走行を再開。','A high shot splits into eight falling bomblets.':'高角弾が頂点で8発に分かれて降り注ぐ。','Up to four bounces grow the damage and blast.':'最大4反射。反射するほど威力と爆風が成長。','Pulls a visible rival toward impact, then explodes.':'見通せる相手を着弾点へ引き寄せて爆発。',
@@ -78,7 +78,8 @@ Object.assign(dictionary,{
  'ONE MORE PIECE':'もう1片を破壊','HP +30':'HP +30','RIVAL RESPONSE':'相手の反撃','REPAIR':'応急修理','Repair now':'修理する','Cancel repair':'キャンセル','Passes through thin breakable cover. Fixed rock stops it.':'薄い破壊材を通過。固定岩盤は通らない。','Aim through thin cracked cover.':'ひびのある薄い遮蔽の向こうを狙う','Full HP':'HP満タン','Not with teleport':'転移には併用不可','Reserved':'予約中','reserved':'予約中','Active':'発動中'
 });
 Object.assign(dictionary,{'Journey records':'旅の記録','Settings':'設定','Lobby menu':'開始メニュー','Close settings':'設定を閉じる','Preferences':'設定','How to play':'操作・道具','Settings category':'設定の項目','Language':'言語','Display':'画面表示','Switch sides':'左右を切り替え','Move and aim on the left':'移動・照準は左側','Move and aim on the right':'移動・照準は右側','Close journey records':'旅の記録を閉じる','Record category':'記録の種類','The journey':'旅の記録','The machines':'機体の記録','Choose record':'記録を選ぶ','Record content':'記録の本文','Unread':'未読','Read their story':'物語を読む'});
-Object.assign(dictionary,{'Change machine':'仲間を変更','Special · Shared charge':'必殺弾 · 残数は共通','Special unlocks on your turns 2, 4 and 6. Guardians start with three. Auxiliary stock carries until the boss.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。補助武器は章ボスまで持越し。'});
+Object.assign(dictionary,{'Change machine':'仲間を変更','Special · Shared charge':'必殺弾 · 残数は共通','Special unlocks on your turns 2, 4 and 6. Guardians start with three. Auxiliary stock carries until the boss.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。'});
+Object.assign(dictionary,{'Can be carried into the chapter boss battle':'章ボス戦まで持ち越し可能','Remaining auxiliary ammunition and skills can be carried into the chapter boss battle. Chapter stock resets after defeating that boss.':'入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。','Short-range heavy arc; preserve supports while digging.':'重い弾の短距離型。支えを残しながら掘り進もう。'});
 Object.assign(dictionary,{'Aim at 50° or higher to scatter eight bomblets.':'50度以上へ向け、頂点から8発を散布。','The companions':'仲間の記録','The last gate opens.':'最後の扉が開いた。'});
 const textSources=new WeakMap(),attributeSources=new WeakMap();
 let observer,applying=false;

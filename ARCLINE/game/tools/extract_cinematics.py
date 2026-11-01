@@ -14,11 +14,16 @@ with zipfile.ZipFile(archive) as z:
   assert r['package_path']=='assets/cinematics/'+r['shot']+'.jpeg'
   blob=z.read(r['package_path']);assert hashlib.sha256(blob).hexdigest()==r['sha256']
   im=Image.open(io.BytesIO(blob));im.verify();im=Image.open(io.BytesIO(blob));assert im.format=='JPEG' and im.size==(1536,864)
+  # v0.15.5: one explicitly authorized seal removal; archive remains the recovery source.
+  override=target/'edits'/(r['shot']+'.jpeg')
+  if r['shot']=='P03-01' and override.exists():
+   blob=override.read_bytes();im=Image.open(io.BytesIO(blob));assert im.format=='JPEG' and im.size==(1536,864)
+   r={**r,'sha256':hashlib.sha256(blob).hexdigest()}
   dest=target/(r['shot']+'.jpeg')
   if dest.exists() and dest.read_bytes()!=blob:
    old=dest.read_bytes();backup=target/'previous'/(r['shot']+'-'+hashlib.sha256(old).hexdigest()[:12]+'.jpeg');backup.parent.mkdir(exist_ok=True);backup.write_bytes(old)
   dest.write_bytes(blob);rows.append({**r,'width':1536,'height':864,'bytes':len(blob),'src':'assets/cinematics/'+dest.name})
- (target/'manifest.csv').write_bytes(raw)
+ output=io.StringIO();writer=csv.DictWriter(output,fieldnames=manifest[0].keys(),lineterminator="\n");writer.writeheader();writer.writerows([{k:r[k] for k in manifest[0]} for r in rows]);(target/'manifest.csv').write_text(output.getvalue())
 report={'status':'PASS','count':23,'archiveSha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'duplicateHashes':False,'latestReplacements':['E01-03','E04-01'],'shots':rows,'characterArt':'No separately verified character JPEGs are present. Do not extract character portraits from story scenes.'}
 (target/'manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print('PASS:23 unique1536x864 JPEG masters; exact CSV SHA256; two replacement originals retained')

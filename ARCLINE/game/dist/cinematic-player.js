@@ -2,16 +2,15 @@
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
 const restricted=()=>!!(root.navigator?.connection?.saveData||root.navigator?.deviceMemory&&root.navigator.deviceMemory<=2||root.navigator?.hardwareConcurrency&&root.navigator.hardwareConcurrency<=2);
 function framing(shot,w,h,t,reduced=false){
- const box=shot.protectedBox,progress=reduced?.5:clamp(t,0,1),a=shot.camera.start,b=shot.camera.end,cover=Math.max(w/shot.width,h/shot.height),maxZoom=Math.max(a.scale,b.scale,1.08),safe=Math.min(w/(shot.width*(box[2]-box[0])*maxZoom),h/(shot.height*(box[3]-box[1])*maxZoom)),base=Math.min(cover,safe),bw=shot.width*base,bh=shot.height*base;
- // Keep a constant zoom and pan on one axis only; no swaying or direction reversal.
- const z=reduced?1.02:Math.max(1.04,Math.min(1.1,a.scale)),iw=bw*z,ih=bh*z;
- const portrait=w/h<1;
- const reference=portrait?[.30,.50]:[.32,.50];
- const dx=b.focus[0]-a.focus[0],dy=b.focus[1]-a.focus[1],horizontal=Math.abs(dx)>=Math.abs(dy);
- const travel=reduced?0:Math.min(.075,Math.max(.025,Math.abs(horizontal?dx:dy)));
- const focus=[reference[0]+(horizontal?(dx<0?-1:1)*travel*progress:0),reference[1]+(!horizontal?(dy<0?-1:1)*travel*progress:0)];
- function offset(size,image,lo,hi,f){const min=-lo*image,max=size-hi*image;let n=clamp(size/2-f*image,min,max);if(image<size)n=clamp(n,0,size-image);else n=clamp(n,size-image,0);return n;}
- const x=offset(w,iw,box[0],box[2],focus[0]),y=offset(h,ih,box[1],box[3],focus[1]);return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
+ const box=shot.protectedBox,progress=reduced?.5:clamp(t,0,1),a=shot.camera.start,b=shot.camera.end;
+ const base=Math.max(w/shot.width,h/shot.height),bw=shot.width*base,bh=shot.height*base;
+ const z=Math.max(1.04,Math.min(1.1,a.scale)),iw=bw*z,ih=bh*z;
+ const focal=shot.focalPoint[w/h<1?'mobile':'desktop'],dx=b.focus[0]-a.focus[0],dy=b.focus[1]-a.focus[1],horizontal=Math.abs(dx)>=Math.abs(dy);
+ // A bounded linear pan, centred on this shot's subject. Cover is never reduced.
+ const travel=Math.min(.075,Math.abs(horizontal?dx:dy));
+ const focus=[focal[0]+(horizontal?Math.sign(dx)*travel*(progress-.5):0),focal[1]+(!horizontal?Math.sign(dy)*travel*(progress-.5):0)];
+ const x=clamp(w/2-focus[0]*iw,w-iw,0),y=clamp(h/2-focus[1]*ih,h-ih,0);
+ return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
 }
 function create(host,options={}){
  let current=null,prior=null,token=0,age=0,closed=false;const cache=new Map(),timers=new Set(),stats={loads:0,failures:0,maxCached:0,frames:0},prefix=options.assetBase||root.ArcAssetBase||'../../';host.classList.add('cinematic-plate');
@@ -30,7 +29,6 @@ function create(host,options={}){
   const atmosphere=document.createElement('div');atmosphere.className='cp-atmosphere';atmosphere.setAttribute('aria-hidden','true');for(const [i,name]of shot.effects.entries()){const e=document.createElement('i');e.className='cp-effect fx-'+name;e.dataset.effect=name;e.dataset.depth=i%2?'.45':'.15';if(shot.light){e.style.left=shot.light[0]*100+'%';e.style.top=shot.light[1]*100+'%';}atmosphere.append(e);}plane.append(atmosphere);
   if(shot.homecoming){const centres=[[.300,.382],[.416,.411],[.524,.448],[.625,.478],[.713,.507],[.311,.603],[.431,.636],[.540,.667],[.645,.692],[.736,.711]];for(let i=0;i<10;i++){const e=document.createElement('i');e.className='cp-return-signal';e.dataset.signal=i;e.dataset.machine=root.ArcCinematicData.returnOrder[i];e.style.left=centres[i][0]*100+'%';e.style.top=centres[i][1]*100+'%';e.style.width=(7.2-(i%5)*.4)+'%';e.style.height=(10.8-(i%5)*.6)+'%';plane.append(e);}}
   if(shot.answerBeatsMs)for(let i=0;i<2;i++){const e=document.createElement('i');e.className='cp-answer-light';e.dataset.answer=i;e.style.left=(shot.light[0]-.04*i)*100+'%';e.style.top=(shot.light[1]-.10*i)*100+'%';plane.append(e);}
-  if(shot.effects.includes('seal')){const e=document.createElement('div');e.className='cp-seal';e.setAttribute('aria-hidden','true');e.innerHTML='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="20"/><path d="M50 10V24M50 76V90M10 50H24M76 50H90"/></svg>';plane.append(e);}
   let fragment=null;if(shot.fragment){fragment=document.createElement('figure');fragment.className='cp-fragment';fragment.setAttribute('aria-hidden','true');const crop=document.createElement('div');crop.className='cp-fragment-crop';const im=image(url(shot.src),'cp-fragment-image');crop.append(im);const c=shot.fragment.crop;im.style.width=100/(c[2]-c[0])+'%';im.style.height=100/(c[3]-c[1])+'%';im.style.left=-c[0]/(c[2]-c[0])*100+'%';im.style.top=-c[1]/(c[3]-c[1])*100+'%';fragment.style.aspectRatio=String((c[2]-c[0])*shot.width/((c[3]-c[1])*shot.height));if(shot.effects.includes('seal')){const seal=plane.querySelector('.cp-seal').cloneNode(true);seal.style.left=(.495-c[0])/(c[2]-c[0])*100+'%';seal.style.top=(.555-c[1])/(c[3]-c[1])*100+'%';seal.style.width=.055/(c[2]-c[0])*100+'%';seal.style.height=.085/(c[3]-c[1])*100+'%';crop.append(seal);}fragment.append(crop);el.append(fragment);}
   return {el,plane,ambient,atmosphere,fragment,shot,geometry:null};
  }

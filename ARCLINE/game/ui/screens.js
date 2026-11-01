@@ -7,6 +7,8 @@
     "collectionPanel",
     "battleMachinePicker",
     "difficultyIntro",
+    "onboardingIntro",
+    "installGuide",
     "lootPicker",
     "weaponPicker",
     "skillPicker",
