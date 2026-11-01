@@ -21,3 +21,5 @@ P4: Test all 23 shots, all ten machines, JA/EN, desktop/mobile, keyboard/touch, 
 ## Important state boundary
 
 The **23 scene selections are approved** and the **ZIP was observed in GitHub**. This does **not** establish that individual JPEGs have been extracted or that the cinematic and character UI features have been implemented. The repository directives are specifications, not implementation evidence.
+
+現在の文章改訂と感情タイミングは [0.14.1の実装記録](story_emotion_0141/IMPLEMENTATION.md) を参照。正本と27字幕キュー、差分、保存互換、未確認事項を整理しています。

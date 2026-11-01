@@ -1,5 +1,5 @@
 {
-  "revision": "0.13.0",
+  "revision": "0.14.1",
   "premise": {
     "ja": "止まった世界を、仲間ともう一度動かす。",
     "en": "Restore the stopped world, one new companion at a time."
@@ -41,7 +41,69 @@
         "visual": "橋が下り、貨物と灯りが町を行き交う。",
         "scene": "P01",
         "leadIn": 0.9,
-        "hold": 2.5
+        "hold": 2.5,
+        "subtitleCues": [
+          {
+            "sceneId": "P01",
+            "shotId": "P01-01",
+            "textKey": "p01.world",
+            "text": {
+              "ja": "かつてアークラインは、",
+              "en": "Once, ARCLINE carried cargo and light,"
+            },
+            "title": {
+              "ja": "つながっていた道",
+              "en": "The connected harbour"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "P01",
+            "shotId": "P01-02",
+            "textKey": "p01.cargo",
+            "text": {
+              "ja": "港から山へ、地下から空へ、荷物と灯りを届けていた。",
+              "en": "from harbours to mountains, from underground to the sky."
+            },
+            "title": {
+              "ja": "今日も、次の町へ",
+              "en": "Another delivery"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "P01",
+            "shotId": "P01-03",
+            "textKey": "p01.workshop",
+            "text": {
+              "ja": "離れた町も、一本の道でつながっていた。",
+              "en": "One road joined distant towns."
+            },
+            "title": {
+              "ja": "港の工房",
+              "en": "The working harbour"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       },
       {
         "id": "P02",
@@ -56,7 +118,49 @@
         "visual": "同じ構図の道が止まり、遠くの灯りが消える。",
         "scene": "P02",
         "leadIn": 0.9,
-        "hold": 2.5
+        "hold": 2.5,
+        "subtitleCues": [
+          {
+            "sceneId": "P02",
+            "shotId": "P02-01",
+            "textKey": "p02.divide",
+            "text": {
+              "ja": "ある日、巨大な輸送路が崩れ、アークラインが一斉に止まった。",
+              "en": "One day, vast transport routes collapsed and ARCLINE stopped."
+            },
+            "title": {
+              "ja": "大分断",
+              "en": "The Great Divide"
+            },
+            "startAfterMs": 1100,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "P02",
+            "shotId": "P02-02",
+            "textKey": "p02.silence",
+            "text": {
+              "ja": "荷は届かず、修理も進まない。世界の灯りは、少しずつ消えていった。",
+              "en": "Cargo failed to arrive. Repairs stalled. The lights of the world slowly went out."
+            },
+            "title": {
+              "ja": "届かなくなったもの",
+              "en": "What could no longer arrive"
+            },
+            "startAfterMs": 1100,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       },
       {
         "id": "P03",
@@ -71,7 +175,89 @@
         "visual": "便りを携えたガンが一機で港を出発する。",
         "scene": "P03",
         "leadIn": 0.9,
-        "hold": 2.5
+        "hold": 2.5,
+        "subtitleCues": [
+          {
+            "sceneId": "P03",
+            "shotId": "P03-01",
+            "textKey": "p03.letter",
+            "text": {
+              "ja": "止まった港で、ガンは古い便りを拾った。",
+              "en": "Gun finds an old letter at the silent harbour."
+            },
+            "title": {
+              "ja": "最初の便り",
+              "en": "The first letter"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 1600,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "P03",
+            "shotId": "P03-01",
+            "textKey": "p03.promise",
+            "text": {
+              "ja": "「道が開いたら、また会おう。」",
+              "en": "“When the road opens, let us meet again.”"
+            },
+            "title": {
+              "ja": "最初の便り",
+              "en": "The first letter"
+            },
+            "startAfterMs": 3800,
+            "minHoldMs": 3000,
+            "emphasis": "promise",
+            "pauseCamera": true,
+            "pauseEffects": true,
+            "skippable": true,
+            "mode": "full"
+          },
+          {
+            "sceneId": "P03",
+            "shotId": "P03-02",
+            "textKey": "p03.possibility",
+            "text": {
+              "ja": "いつか、道の先で。",
+              "en": "Someday, beyond this road."
+            },
+            "title": {
+              "ja": "道の先に",
+              "en": "Beyond the road"
+            },
+            "startAfterMs": 900,
+            "minHoldMs": 2600,
+            "emphasis": "vision",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "full"
+          },
+          {
+            "sceneId": "P03",
+            "shotId": "P03-03",
+            "textKey": "p03.alone",
+            "text": {
+              "ja": "直した道さえ守り手が閉ざす。それでも、待つ相手へ返事を届けたい。一機の旅が始まる。",
+              "en": "Guardians close even repaired roads. Still, someone is waiting for a reply. One machine sets out."
+            },
+            "title": {
+              "ja": "一機の出発",
+              "en": "One machine sets out"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       }
     ]
   },
@@ -94,7 +280,69 @@
         "visual": "",
         "scene": "E01",
         "leadIn": 0.9,
-        "hold": 3.2
+        "hold": 3.2,
+        "subtitleCues": [
+          {
+            "sceneId": "E01",
+            "shotId": "E01-01",
+            "textKey": "e01.waiting",
+            "text": {
+              "ja": "アークハートは、長い間、十機の帰還の返事を待ち続けていた。",
+              "en": "Archeart has waited a long time for the ten machines to report their return."
+            },
+            "title": {
+              "ja": "待ち続けた中枢",
+              "en": "The waiting core"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E01",
+            "shotId": "E01-02",
+            "textKey": "e01.connection",
+            "text": {
+              "ja": "安全の知らせも、帰還の返事も届かなかった。ユイは中枢の古い端子へ、直接つなぐ。",
+              "en": "Neither safety reports nor return messages arrived. Yui connects directly to the core’s old terminal."
+            },
+            "title": {
+              "ja": "届かなかった、その後",
+              "en": "The messages that followed"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E01",
+            "shotId": "E01-03",
+            "textKey": "e01.sender",
+            "text": {
+              "ja": "封蝋と、胸部の同じ紋章。あの便りの差出人は、アークハートだった。",
+              "en": "The same emblem on the wax seal and the chest. The letter came from Archeart."
+            },
+            "title": {
+              "ja": "便りの差出人",
+              "en": "The sender of the letter"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 3600,
+            "emphasis": "revelation",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       },
       {
         "id": "E02",
@@ -109,7 +357,69 @@
         "visual": "",
         "scene": "E02",
         "leadIn": 0.9,
-        "hold": 3.2
+        "hold": 3.2,
+        "subtitleCues": [
+          {
+            "sceneId": "E02",
+            "shotId": "E02-01",
+            "textKey": "e02.register",
+            "text": {
+              "ja": "一機ずつ、帰還が記録される。",
+              "en": "One by one, their returns are registered."
+            },
+            "title": {
+              "ja": "帰還の灯り",
+              "en": "Lights of return"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2200,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E02",
+            "shotId": "E02-02",
+            "textKey": "e02.welcome",
+            "text": {
+              "ja": "「おかえり」",
+              "en": "“Welcome home.”"
+            },
+            "title": {
+              "ja": "帰ってきた十機",
+              "en": "The ten who returned"
+            },
+            "startAfterMs": 700,
+            "minHoldMs": 3000,
+            "emphasis": "greeting",
+            "pauseCamera": true,
+            "pauseEffects": true,
+            "skippable": true,
+            "mode": "full"
+          },
+          {
+            "sceneId": "E02",
+            "shotId": "E02-03",
+            "textKey": "e02.reply",
+            "text": {
+              "ja": "「ただいま。遅くなって、ごめんね。」",
+              "en": "“We are home. Sorry we took so long.”"
+            },
+            "title": {
+              "ja": "ただいま",
+              "en": "We are home"
+            },
+            "startAfterMs": 2200,
+            "minHoldMs": 2800,
+            "emphasis": "reply",
+            "pauseCamera": true,
+            "pauseEffects": true,
+            "skippable": true,
+            "mode": "full"
+          }
+        ]
       },
       {
         "id": "E03",
@@ -124,7 +434,49 @@
         "visual": "",
         "scene": "E03",
         "leadIn": 0.9,
-        "hold": 3.2
+        "hold": 3.2,
+        "subtitleCues": [
+          {
+            "sceneId": "E03",
+            "shotId": "E03-01",
+            "textKey": "e03.rest",
+            "text": {
+              "ja": "安全記録と帰還を受け取り、アークハートは停止の権限を各地へ返す。「道が、開いたね。」古い中枢は静かに休止した。",
+              "en": "With the safety records and returns received, Archeart gives stop authority back to each region. “The road has opened.” The old core quietly rests."
+            },
+            "title": {
+              "ja": "役目を終えた光",
+              "en": "A light at rest"
+            },
+            "startAfterMs": 1100,
+            "minHoldMs": 3200,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E03",
+            "shotId": "E03-02",
+            "textKey": "e03.restart",
+            "text": {
+              "ja": "橋と昇降機が動き始める。荷が届き、暮らしの灯りが戻ってくる。",
+              "en": "Bridges and lifts begin to move. Cargo arrives, and the lights of everyday life return."
+            },
+            "title": {
+              "ja": "世界が、また動く",
+              "en": "The world moves again"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       },
       {
         "id": "E04",
@@ -133,13 +485,95 @@
           "en": "For the next traveller"
         },
         "text": {
-          "ja": "ガンは古い便りの裏に書き足した。「ただいま。今度は、ぼくらが道をつくるよ。」10機はそれぞれの仕事へ戻る。新しい旅人が、自分で選んだ道へ走り出す。",
-          "en": "Gun writes on the back of the old letter: We are home. This time, we will build the roads. The ten return to their own work. A new traveller sets out along a road of their own choosing."
+          "ja": "ガンは古い便りの裏に、つながった橋と十の灯りを描いた。そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」十機はそれぞれの仕事へ戻っていく。その道を、新しい旅人が走り出した。",
+          "en": "Gun draws a connected bridge and ten lights on the back of the old letter. Then Gun adds a small note: “We are home. This time, we will build the roads.” The ten machines return to their own work. Along that road, a new traveller sets out."
         },
         "visual": "",
         "scene": "E04",
         "leadIn": 0.9,
-        "hold": 3.2
+        "hold": 3.2,
+        "subtitleCues": [
+          {
+            "sceneId": "E04",
+            "shotId": "E04-01",
+            "textKey": "e04.drawing",
+            "text": {
+              "ja": "ガンは古い便りの裏に、つながった橋と十の灯りを描いた。",
+              "en": "Gun draws a connected bridge and ten lights on the back of the old letter."
+            },
+            "title": {
+              "ja": "便りの、その裏に",
+              "en": "On the other side"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E04",
+            "shotId": "E04-01",
+            "textKey": "e04.words",
+            "text": {
+              "ja": "そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」",
+              "en": "Then Gun adds a small note: “We are home. This time, we will build the roads.”"
+            },
+            "title": {
+              "ja": "便りの、その裏に",
+              "en": "On the other side"
+            },
+            "startAfterMs": 6500,
+            "minHoldMs": 3000,
+            "emphasis": "promise",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E04",
+            "shotId": "E04-02",
+            "textKey": "e04.work",
+            "text": {
+              "ja": "十機はそれぞれの仕事へ戻っていく。",
+              "en": "The ten machines return to their own work."
+            },
+            "title": {
+              "ja": "明日も、ここで",
+              "en": "Work for tomorrow"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 3000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "E04",
+            "shotId": "E04-03",
+            "textKey": "e04.future",
+            "text": {
+              "ja": "その道を、新しい旅人が走り出した。",
+              "en": "Along that road, a new traveller sets out."
+            },
+            "title": {
+              "ja": "その先へ続く道",
+              "en": "The road ahead"
+            },
+            "startAfterMs": 1000,
+            "minHoldMs": 4000,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       }
     ],
     "lines": [
@@ -156,8 +590,8 @@
         "en": "Receiving the safety records, Archeart returns stop authority to each region. The road has opened, it says. The old core quietly dims as bridges and lifts move around the world."
       },
       {
-        "ja": "ガンは古い便りの裏に書き足した。「ただいま。今度は、ぼくらが道をつくるよ。」10機はそれぞれの仕事へ戻る。新しい旅人が、自分で選んだ道へ走り出す。",
-        "en": "Gun writes on the back of the old letter: We are home. This time, we will build the roads. The ten return to their own work. A new traveller sets out along a road of their own choosing."
+        "ja": "ガンは古い便りの裏に、つながった橋と十の灯りを描いた。そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」十機はそれぞれの仕事へ戻っていく。その道を、新しい旅人が走り出した。",
+        "en": "Gun draws a connected bridge and ten lights on the back of the old letter. Then Gun adds a small note: “We are home. This time, we will build the roads.” The ten machines return to their own work. Along that road, a new traveller sets out."
       }
     ]
   },
@@ -1342,12 +1776,12 @@
         "en": "Restart detected. Blocking entry to the danger zone."
       },
       "aftermath": {
-        "ja": "10機の帰還が届いた。中枢は初めて「おかえり」と返した。",
-        "en": "The ten returns arrive. For the first time, the core says: Welcome home."
+        "ja": "古い便りの差出人は、アークハートだった。十機の返事を、今度こそ直接届けよう。",
+        "en": "The old letter came from Archeart. This time, the ten can deliver their reply directly."
       },
       "response": {
-        "ja": "「ただいま。今度は、ぼくらが道をつくる。」",
-        "en": "“We are home. This time, we will build the roads.”"
+        "ja": "「ユイ、つないで。みんなの返事を届けよう。」",
+        "en": "“Connect us, Yui. Let us deliver everyone’s reply.”"
       },
       "work": {
         "ja": "アークラインの保全中枢",
@@ -1427,8 +1861,8 @@
         "en": "The final reply"
       },
       "body": {
-        "ja": "古い記録にある未帰還10機は自分たちだった。差出人を訪ねた先で、世界の心臓へ「ただいま」を届ける。",
-        "en": "The old unreturned machines were the ten themselves. Following the letter leads them to say we are home to the heart of the world."
+        "ja": "古い記録にある未帰還10機は自分たちだった。便りの宛先を確かめ、待つ相手へ、今度は全員の返事を届ける。",
+        "en": "The ten unreturned machines in the old records were the ten themselves. They follow the letter’s address to carry everyone’s reply to the one still waiting."
       },
       "revealAt": 90,
       "publicBody": {
@@ -1548,7 +1982,11 @@
         "en": "I heard you. This time, I will send something back."
       },
       "joinStage": 25,
-      "growthStage": 30
+      "growthStage": 30,
+      "joinLine": {
+        "ja": "返事がなくても、誰もいないとは限らない。もう一度、呼んでみよう。",
+        "en": "No answer does not mean nobody is there. Let us call once more."
+      }
     },
     {
       "id": "hana",
@@ -1650,7 +2088,11 @@
         "en": "I am not certain. But there is a way through."
       },
       "joinStage": 60,
-      "growthStage": 70
+      "growthStage": 70,
+      "joinLine": {
+        "ja": "確かなところと、まだ分からないところ。両方を添えて知らせるよ。",
+        "en": "I will share what is known, and what is still uncertain."
+      }
     },
     {
       "id": "koro",
@@ -1684,7 +2126,11 @@
         "en": "Better than first place: everyone arriving!"
       },
       "joinStage": 10,
-      "growthStage": 20
+      "growthStage": 20,
+      "joinLine": {
+        "ja": "待ってる荷物があるんだ。最後の荷まで、一緒に運ぼう。",
+        "en": "There is cargo still waiting. Let us carry every last load together."
+      }
     },
     {
       "id": "yui",
@@ -1718,7 +2164,11 @@
         "en": "I will keep us connected, with room to let go when you move."
       },
       "joinStage": 80,
-      "growthStage": 90
+      "growthStage": 90,
+      "joinLine": {
+        "ja": "離れていても、声はつなげる。今度は、返事までちゃんと届けたい。",
+        "en": "We can link voices across the distance. This time, I want the reply to arrive too."
+      }
     },
     {
       "id": "sora",
@@ -3146,7 +3596,40 @@
     "userOverrides": [
       "Typewriter and cinematic UI replace the attached guide no-typewriter fallback.",
       "Every stage receives a message; ordinary-stage lines are new connective writing."
-    ]
+    ],
+    "saveNarrativeVersion": "0.13.0",
+    "returnOrder": [
+      "gun",
+      "hana",
+      "koro",
+      "ban",
+      "sora",
+      "hibari",
+      "rico",
+      "mogu",
+      "rin",
+      "yui"
+    ],
+    "discoveries": {
+      "70": {
+        "kind": "blanks",
+        "textStartMs": 1800
+      },
+      "80": {
+        "kind": "signal",
+        "textStartMs": 1600
+      },
+      "90": {
+        "kind": "names",
+        "matchStartMs": 600,
+        "intervalMs": 220,
+        "textStartMs": 3600
+      },
+      "95": {
+        "kind": "letter",
+        "textStartMs": 1400
+      }
+    }
   },
   "movies": {
     "30": [
@@ -3157,12 +3640,74 @@
           "en": "A sky that answers"
         },
         "text": {
-          "ja": "ヒバリが返した呼出しに、町の灯りが応えた。リコの地図には、失敗した道も残っている。仲間が増え、進む道も一つではなくなった。",
-          "en": "The town lights answer Hibari’s call. Rico’s map keeps the failed roads too. With a new companion, there is more than one way forward."
+          "ja": "ヒバリが、霧の向こうへ呼びかける。まだ、返事は見えない。町の灯りが応えた。空白じゃなかった。ちゃんと、そこにいた。リコの地図には、失敗した道も残っている。仲間が増え、進む道も一つではなくなった。",
+          "en": "Hibari calls beyond the mist. No answer is visible yet. Then the town lights answer. It was not an empty place. Someone was there. Rico’s map keeps the failed roads too. With a new companion, there is more than one way forward."
         },
         "scene": "I30",
         "leadIn": 0.8,
-        "hold": 2.8
+        "hold": 2.8,
+        "subtitleCues": [
+          {
+            "sceneId": "I30",
+            "shotId": "I30-01",
+            "textKey": "i30.call",
+            "text": {
+              "ja": "ヒバリが、霧の向こうへ呼びかける。まだ、返事は見えない。",
+              "en": "Hibari calls beyond the mist. No answer is visible yet."
+            },
+            "title": {
+              "ja": "霧の向こうの呼出し",
+              "en": "A call beyond the mist"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "I30",
+            "shotId": "I30-02",
+            "textKey": "i30.answer",
+            "text": {
+              "ja": "空白じゃなかった。ちゃんと、そこにいた。",
+              "en": "It was not an empty place. Someone was there."
+            },
+            "title": {
+              "ja": "返事のある空",
+              "en": "A sky that answers"
+            },
+            "startAfterMs": 2700,
+            "minHoldMs": 2300,
+            "emphasis": "discovery",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "I30",
+            "shotId": "I30-02",
+            "textKey": "i30.map",
+            "text": {
+              "ja": "リコの地図には、失敗した道も残っている。仲間が増え、進む道も一つではなくなった。",
+              "en": "Rico’s map keeps the failed roads too. With a new companion, there is more than one way forward."
+            },
+            "title": {
+              "ja": "返事のある空",
+              "en": "A sky that answers"
+            },
+            "startAfterMs": 6500,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       }
     ],
     "60": [
@@ -3173,12 +3718,74 @@
           "en": "Guidance we can share"
         },
         "text": {
-          "ja": "ヒバリが拾った観測と、リンが添えた確度。不完全でも、迂回路は誰かを運べた。リンも仲間に加わり、一行は確かめながら進んでいく。",
-          "en": "Hibari’s observations and Rin’s confidence notes made an imperfect detour useful. Rin joins the party. Together, they will keep checking the road ahead."
+          "ja": "ヒバリの観測に、リンが確かな範囲と不確かな範囲を添える。確度を伝えれば、不完全でも誰かの道しるべになれる。迂回路は、待つ誰かを運べた。リンも仲間に加わり、一行は確かめながら進んでいく。",
+          "en": "Rin adds what is known and what remains uncertain to Hibari’s observations. Sharing confidence makes imperfect guidance useful. The detour carries someone who had been waiting. Rin joins the party. Together, they keep checking the road ahead."
         },
         "scene": "I60",
         "leadIn": 0.8,
-        "hold": 2.8
+        "hold": 2.8,
+        "subtitleCues": [
+          {
+            "sceneId": "I60",
+            "shotId": "I60-01",
+            "textKey": "i60.wait",
+            "text": {
+              "ja": "雪の峡谷は、まだ危険だった。一行は無理に進まず、通れる道を確かめる。",
+              "en": "The snowy gorge is still dangerous. The party stops to check a safer way through."
+            },
+            "title": {
+              "ja": "止まっていた予報",
+              "en": "The withheld forecast"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "I60",
+            "shotId": "I60-02",
+            "textKey": "i60.confidence",
+            "text": {
+              "ja": "ヒバリの観測に、リンが確かな範囲と不確かな範囲を添える。",
+              "en": "Rin adds what is known and what remains uncertain to Hibari’s observations."
+            },
+            "title": {
+              "ja": "伝えられる道",
+              "en": "Guidance we can share"
+            },
+            "startAfterMs": 600,
+            "minHoldMs": 2400,
+            "emphasis": "narration",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          },
+          {
+            "sceneId": "I60",
+            "shotId": "I60-02",
+            "textKey": "i60.guide",
+            "text": {
+              "ja": "確かじゃなくても、誰かの道しるべになれる。迂回路は、待つ誰かを運べた。",
+              "en": "Even without certainty, we can guide someone. The detour carries someone who had been waiting."
+            },
+            "title": {
+              "ja": "伝えられる道",
+              "en": "Guidance we can share"
+            },
+            "startAfterMs": 6500,
+            "minHoldMs": 2400,
+            "emphasis": "discovery",
+            "pauseCamera": false,
+            "pauseEffects": false,
+            "skippable": true,
+            "mode": "type"
+          }
+        ]
       }
     ]
   }
