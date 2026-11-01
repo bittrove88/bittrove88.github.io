@@ -1,6 +1,6 @@
 # ARCLINE — Session-wide integration directive (2026-11-01)
 
-This is the implementation entry point for all changes approved in the session. The full consolidated deliverable is `ARCLINE_SESSION_CHANGE_DIRECTIVE_20261101.md` (supplied as a downloadable file in the conversation). Until that full document is committed, use the three repository sources below as normative details:
+This is the implementation entry point for all changes approved in the session. The full consolidated deliverable is `ARCLINE_SESSION_CHANGE_DIRECTIVE_20261101.md` (supplied as a downloadable file in the conversation). The implemented response, reproduction commands and remaining asset gaps are recorded in [0.14 implementation](cinematics_014/IMPLEMENTATION.md). The three repository sources below remain the selection and creative specifications:
 
 1. [23-shot final selection](cinematic_final_approved_manifest.md)
 2. [23-shot cinematic camera, cutout, parallax and transition plan](cinematic_presentation_change_directive_2026-11-01.md)

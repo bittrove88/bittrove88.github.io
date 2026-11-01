@@ -243,8 +243,9 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:(s.matchSeed+s.round*1009)>>>0});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.13.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.14.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
+ if(!hostPaused()&&!manualPaused)ArcCharacterHero.updateAll(dt);
  if(!$('lootPicker').hidden||!$('collectionPanel').hidden||ArcExpeditionUi.active)return;
  clock+=dt;if(manualPaused||hostPaused())return;ArcStoryView.update(dt);if(ArcStoryView.active||ArcExpeditionUi.active)return;if(!s)return;
  if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration)encounter=null;}paintEncounter();
@@ -389,12 +390,13 @@ window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>
 document.addEventListener('visibilitychange',()=>document.hidden?pauseHost('visibility'):resumeHost('visibility'));
 if(sdk){sdk.system.onPause(()=>pauseHost('sdk'));sdk.system.onResume(()=>resumeHost('sdk'));sdk.system.onAudioEnabledChange(v=>{hostAudio=v;audioSync();});}
 function fitOrientation(){
- const v=viewport.state,phone=matchMedia('(pointer: coarse)').matches&&Math.min(v.width,v.height)<600,blocked=phone&&v.width<v.height;
+ const v=viewport.state,phone=matchMedia('(pointer: coarse)').matches&&Math.min(v.width,v.height)<600,blocked=phone&&v.width<v.height&&!!s&&!ArcStoryView.active&&!ArcExpeditionUi.active&&$('collectionPanel').hidden;
  $('rotationGate').hidden=!blocked;
  if(blocked&&!pauseSources.has('orientation'))pauseHost('orientation');
  else if(!blocked&&pauseSources.has('orientation'))resumeHost('orientation');
 }
 window.addEventListener('arcline-fullscreen',()=>{clearInput();previous=0;viewport.fit();fitOrientation();draw();});
+const orientationViews=new MutationObserver(fitOrientation);for(const id of ['lobby','battle','storyCinema','expeditionDialog','collectionPanel'])orientationViews.observe($(id),{attributes:true,attributeFilter:['hidden']});
 window.addEventListener('resize',fitOrientation);window.visualViewport?.addEventListener('resize',fitOrientation);
 window.addEventListener('arcline-language',()=>{clearInput();if(save.ready&&!preferencesHydrating){save.data.preferences.language=ArcI18n.language;save.save();}if(s){hud();if(s.result)paintResultStory();paintEncounter();}else syncLobby();draw();});
 ArcI18n.install();fitOrientation();

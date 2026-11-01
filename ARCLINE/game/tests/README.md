@@ -1,4 +1,8 @@
-# 現行0.13の検証入口
+# 現行0.14の検証入口
+
+0.14の専用入口は `cinematic-014.test.cjs`（23原本・1,380構図・戦闘/保存19モジュール保持）、`cinematic-014-browser.test.cjs`（6横縦サイズ×23場面×10機、9加入、低動作と画像欠落）、`site-tests/cinematic-014-ui.test.cjs`（公開10機・実保存・ダウンロード・通信を切った自己完結HTML）、`site-tests/cinematic-014-delivery.test.cjs`（4倍CPU制限と配布ZIP）です。最後のテストは `ARCLINE_PACKAGE_DIR` に `build_playables.py` のGit外出力先を指定します。file://での起動は環境のブラウザー管理ポリシーで確認できず、HTTP不要の自己完結文書として実行を確認します。
+
+以下の0.13からの重要な回帰も引き続き使います。戦闘と保存の仕様は0.14で変更していません。
 
 各テストはリポジトリのルートから `node ARCLINE/game/tests/<名前>.test.cjs` で起動する。`ARCLINE_EVIDENCE_DIR` をGit外の出力ディレクトリに設定する。ブラウザー検査はNodeから `playwright` を解決でき、Chromiumが `/usr/bin/chromium` にある環境を使う。配布ゲームには含めない。
 
@@ -15,7 +19,7 @@
 |`expedition-early-tolerance`|序盤24通常面の角度±3°・出力±5の近傍9入力。合法な準備後の広い解|
 |`story-012`|0.13へ更新した物語回帰。100結果・加入と話者・進行ゲート・四場面の結末・保護モジュール|
 |`expedition-browser`|6サイズ、全100面描画、加入選択、戦闘中変更、設定、記録、ローカル／SDK移行|
-|`story-012-browser`|0.13へ更新した映像回帰。6サイズの結果、4場面のエピローグ、保存再開、日英、動作軽減|
+|`story-012-browser`|0.14の画像演出へ更新した映像回帰。6サイズの結果、11ショットのエピローグ、保存再開、日英、動作軽減|
 |`charge-pause`|実タッチのチャージ取消、2本指、左右操作、一時停止、在庫復帰、日英|
 |`orientation-i18n` / `viewport` / `fullscreen`|回転・残留ズーム・実フルスクリーン・SDK停止の重なり|
 |`machine-worker`|10機とフォールバックで実Web Workerを通る敵応答|
