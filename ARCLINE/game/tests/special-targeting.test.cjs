@@ -48,6 +48,13 @@ near(highStep,mogu.pulseAdvance,'maximum charge spacing');
 // SORA: the projected carrier line finishes at the real eight-way split,
 // even if the global difficulty would hide or shorten the ordinary trajectory.
 const sora=C.get('sora').special,scene=flat('sora');
+near(sora.minAngle,50,'Sora special can aim as low as 50 degrees');
+near(sora.maxAngle,125,'Sora special upper aim bound stays 125 degrees');
+E.selectWeapon(scene,sora.id);
+near(E.minimumAngle(scene),50,'Sora UI selection exposes 50 degrees');
+near(E.maximumAngle(scene),125,'Sora UI selection keeps 125 degrees');
+E.selectWeapon(scene,'W01');
+near(E.minimumAngle(scene),-15,'Sora normal weapon retains full low-angle aiming');
 const plan=E.trajectory(scene,0,80,90,{weaponId:sora.id});
 const before=JSON.stringify(plan),event=plan.events.find(e=>e.type==='split');
 ok(!!event,'Sora splits at the apex');
