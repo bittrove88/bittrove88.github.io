@@ -22,7 +22,7 @@ const specials={
  rin:{speed:1.55,gravity:.28,damage:3,blast:22,damageCap:3.75,criticalMultiplier:1.25,needle:true},
  mogu:{speed:.95,gravity:1,damage:.7,blast:55,damageCap:2.1,breachPulses:3,pulseDelay:.22,pulseAdvance:42},
  koro:{speed:.95,gravity:1.1,damage:2.3,blast:90,damageCap:2.3,roller:true,rollSpeed:220,rollDistance:600,rollSeconds:3,resumeRoll:true,contactBreak:32},
- sora:{speed:.9,gravity:.7,damage:.35,blast:45,damageCap:2.4,minAngle:55,maxAngle:125,split:true,splitCount:8,splitSpread:28,splitChildDamage:.35,fallingChildren:true},
+ sora:{speed:.9,gravity:.7,damage:.35,blast:45,damageCap:2.4,minAngle:50,maxAngle:125,split:true,splitCount:8,splitSpread:28,splitChildDamage:.35,fallingChildren:true},
  rico:{speed:1.1,gravity:.9,damage:1.3,blast:70,damageCap:2.5,bounces:4,maxBounces:4,restitution:.95,bounceDamage:.3,bounceBlast:10,maxBlast:110},
  yui:{speed:.95,gravity:1,damage:2,blast:80,damageCap:2.6,pullToImpact:true,pullRadius:160,pullDistance:120,pullSeconds:.6,compressionRadius:45,compressionBonus:.6}
 };
