@@ -45,7 +45,7 @@ function renderMachine(){
  const data=hooks.data(),n=J.progress(data),m=J.machines.find(m=>m.id===machine)||J.machines[0];machine=m.id;
  $('recordNavigation').innerHTML=J.machines.map(item=>{const current=item.id===machine,keys=['machine:'+item.id+':profile',...(n>=item.chapter*10?['machine:'+item.id+':choice']:[]),...(n===100?['machine:'+item.id+':ending']:[])];return `<button type="button" data-record-machine="${item.id}" aria-pressed="${current}"><span>${escape(t(item.name))}</span>${J.unread(data,keys)?'<i class="unread-dot" aria-label="Unread"></i>':''}</button>`;}).join('');
  let body=`<p class="record-kicker">${escape(local('機体の記録','MACHINE RECORD'))}</p><h3 class="record-title">${escape(t(m.name))}</h3><blockquote>${escape(t(m.line))}</blockquote>`;
- body+=note(local('届けたいもの','What drives them'),t(m.desire))+note(local('これまで','Before the journey'),t(m.past))+note(local('弱さと向き合う','A weakness to face'),t(m.flaw));
+ body+=note(local('届けたいもの','What drives them'),t(m.desire))+note(local('これまで','Before the journey'),t(J.story.past(m,n)))+note(local('弱さと向き合う','A weakness to face'),t(m.flaw));
  const readIds=['machine:'+m.id+':profile'];
  if(n>=m.chapter*10){body+=note(local('選んだ一歩','A step they chose'),t(m.choice));readIds.push('machine:'+m.id+':choice');}
  else body+=`<p class="record-locked">${escape(local('成長の記録は第'+m.chapter+'章クリア後に開きます。','Their next step opens after chapter '+m.chapter+'.'))}</p>`;
@@ -61,7 +61,7 @@ function renderJourney(){
  const act=J.acts.find(a=>c.start>=a.start&&c.start<a.start+20),readIds=['chapter:'+c.id+':opening','act:'+act.id];
  let body=`<p class="record-kicker">${escape(local('第'+act.id+'幕','ACT '+act.id))} · ${escape(t(act.title))}</p><h3 class="record-title">${escape(t(c.title))}</h3><p class="record-lead">${escape(t(c.opening))}</p><blockquote>${escape(t(c.question))}</blockquote>`;
  if(c.id===1){body+=note(t(J.introduction.title),J.introduction.lines.map(t).join(' '));readIds.push('introduction');}
- body+=note(local('旅の中で','Along the way'),t(act.body));
+ body+=note(local('旅の中で','Along the way'),J.story.actBody(act,n,language()));
  if(n>=c.end){body+=note(local('この章の記録','Chapter reflection'),t(c.reflection));readIds.push('chapter:'+c.id+':cleared');}
  else body+=`<p class="record-locked">${escape(local('この章をクリアすると、旅の記録が続きます。','Complete this chapter to open its reflection.'))}</p>`;
  for(const g of J.story.guardians.filter(g=>g.chapter===c.id&&n>=g.stage)){body+=note(local((g.kind==='boss'?'章ボス':'中ボス')+'・'+g.stage+'面',g.kind.toUpperCase()+' · LEVEL '+g.stage)+' · '+t(g.name),t(g.work)+local('。',' — ')+t(g.background)+' '+t(g.entrance)+' '+t(g.aftermath));if(g.clue)body+=note(local('残された手掛かり','A clue left behind'),t(g.clue)+(n>=g.payoffStage?local(' — この章のボスの記録で回収。',' — Answered in this chapter’s guardian record.'):local(' — まだ、その続きを確かめている。',' — Its answer is still ahead.')));readIds.push('guardian:'+g.stage);}
@@ -70,6 +70,7 @@ function renderJourney(){
  for(const b of $('recordNavigation').querySelectorAll('[data-record-chapter]')){b.onclick=()=>{chapter=Number(b.dataset.recordChapter);renderJournal();$('recordBody').scrollTop=0;$('recordBody').focus({preventScroll:true});};touchTap(b);}
 }
 function renderJournal(){
+ $('replayEpilogue').hidden=J.progress(hooks.data())<100;
  for(const b of document.querySelectorAll('[data-record-tab]')){const selected=b.dataset.recordTab===tab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
  if(tab==='machines')renderMachine();else renderJourney();root.ArcI18n.apply();
  // Repaint the selected record's unread mark without rebuilding its content.
@@ -88,7 +89,7 @@ function install(options){
  document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){touchPointers.add(e.pointerId);if(touchPointers.size>1)touchBatch++;}},true);
  for(const event of ['pointerup','pointercancel'])document.addEventListener(event,e=>touchPointers.delete(e.pointerId),true);
  root.addEventListener('blur',()=>{touchPointers.clear();touchBatch++;});
- hooks=options;$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
+ hooks=options;$('replayPrologue').onclick=()=>hooks.playMovie('prologue',$('replayPrologue'));$('replayEpilogue').onclick=()=>{if(J.progress(hooks.data())===100)hooks.playMovie('epilogue',$('replayEpilogue'));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
  for(const b of document.querySelectorAll('#lobbySettings button,#journalPanel button,#openSettings,#openJournal'))touchTap(b);
  document.addEventListener('click',e=>{const a=touchActivation;if(!a||!e.isTrusted||e.detail===0||performance.now()-a.time>500)return;const samePointer=e.pointerType==='touch'&&e.pointerId===a.id,sameLegacyTouch=!e.pointerType&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<4;if(samePointer||sameLegacyTouch){touchActivation=null;e.preventDefault();e.stopImmediatePropagation();}},true);
  bindTabs('[data-settings-tab]','data-settings-tab',value=>{settingsTab=value;renderSettings();});bindTabs('[data-record-tab]','data-record-tab',value=>{tab=value;renderJournal();$('recordBody').scrollTop=0;});

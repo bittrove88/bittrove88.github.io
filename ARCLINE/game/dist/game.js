@@ -16,7 +16,7 @@ const save=ArcSave.create({
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?E.minimumAngle(s):-12;}
 function maximumAngle(){return s?E.maximumAngle(s):85;}
-function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!demo&&!s.pendingLoot.length&&$('lootPicker').hidden&&$('weaponPicker').hidden&&$('skillPicker').hidden;}
+function canAim(){return !!s&&s.phase==='aim'&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!s.pendingLoot.length&&$('lootPicker').hidden&&$('weaponPicker').hidden&&$('skillPicker').hidden;}
 function audioSync(){if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
 function unlockAudio(){userInteracted=true;if(!audio)try{audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.connect(audio.destination);}catch{}audioSync();}
 function tone(freq=440,duration=.12,type='sine',volume=.08){if(!audio||!hostAudio||hostPaused()||manualPaused)return;const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(40,freq*.5),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g).connect(master);o.start();o.stop(audio.currentTime+duration);}
@@ -39,7 +39,7 @@ function syncLobby(){
  const context=R.inspect(save.data,selectedMap+1),entry=context.entry;
  preview=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode||'W01',matchSeed:entry.seed});const spec=preview.spec;
  syncDifficultyChoice();
- $('arenaTitle').textContent=spec.name;$('arenaTag').textContent=E.biomes[spec.theme].name;
+ $('arenaTitle').textContent=ArcStory.stageName(spec,ArcI18n.language,false,save.data.cleared);$('arenaTag').textContent=E.biomes[spec.theme].name;
  $('stageCaption').textContent=`LEVEL ${spec.id} · ${spec.boss?'BOSS · ':''}${Object.entries(spec.skills).map(([k,n])=>k+' ×'+n).join(' / ')||'STANDARD ONLY'}`;
  $('progressText').textContent=`${save.data.cleared} / 100 CLEARED`;$('play').innerHTML=`PLAY LEVEL ${spec.id} <span aria-hidden="true">→</span>`;
  $('collectionCount').textContent=`${save.data.unlockedWeaponIds.length}/20 · ${save.data.collectedCosmeticIds.length}/37`;
@@ -49,7 +49,7 @@ function syncLobby(){
  ArcPresentation.syncLobby(save.data,selectedMap,context);
  $('resumeRun').hidden=!save.data.chapterRun||save.data.chapterRun.stage===selectedMap+1;syncJournalSummary();
 }
-function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'An old letter. A new road.':'古い便りを、次の町へ。';}
+function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'Restore the routes. Move the world.':'止まった世界を、もう一度動かす。';}
 function syncDifficultyChoice(){for(const input of document.querySelectorAll('input[name="difficulty"]'))input.checked=input.value===save.data.difficulty;}
 for(const input of document.querySelectorAll('input[name="difficulty"]'))input.onchange=()=>{
  if(s||hostPaused()){syncDifficultyChoice();return;}
@@ -178,13 +178,12 @@ function paintEncounter(){
  const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
  if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id);if(e.textContent!==data[key])e.textContent=data[key];e.hidden=!data[key];}
 }
-function paintResultStory(){
- const story=s?.result==='win'&&ArcStory.result(s.stage,ArcI18n.language);
- const focus=story&&ArcJournal.machines.find(m=>m.id===story.focus),name=focus&&ArcJournal.pick(focus.name,ArcI18n.language);
- const value=story?story.aftermath+'\n'+name+' '+story.response:'';$('chapterMessage').hidden=!value;$('chapterMessage').textContent=value;
-}
+function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
 function start(retryContext=null){
- if(hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();gameToken++;cpuJob=null;cpuReady=null;
+ if(hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();
+ if(ArcStoryView.active)return;
+ if(!save.data.journal.moviesSeen.includes('prologue')&&!retryContext?.skipStory){playStoryMovie('prologue',()=>start({...retryContext,skipStory:true}));return;}
+ ArcStoryView.hideResult();gameToken++;cpuJob=null;cpuReady=null;
  if(pendingAdvance&&!save.dirty)pendingAdvance=false;
  if(pendingAdvance&&save.ready&&!R.inspect(save.data,selectedMap+1).practice){const token=gameToken,n=selectedMap;persistAdvance().then(ok=>{if(ok&&token===gameToken&&n===selectedMap)start(retryContext);});return;}
  runContext=retryContext?.practice&&retryContext.entry?.stage===selectedMap+1?{practice:true,entry:R.decode(retryContext.entry)}:R.begin(save.data,selectedMap+1);
@@ -202,7 +201,7 @@ function releaseCharge(id){
  if(!charge||charge.id!==id)return;const valid=canAim()&&s.selectedSkill!=='BLINK'&&!charge.cancel,power=s.power,previousPower=charge.previous,canceled=charge.cancel;charge=null;stopChargeTone();if(valid){s.power=power;launch();}else{s.power=previousPower;if(canceled)feedback='Shot canceled';hud();}
 }
 function launch(plan=null){
- if(hostPaused()||manualPaused||demo)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
+ if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
  if(!shot)return;if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';const voice=ArcWeapons.get(shot.weaponId);tone(voice.teleport?620:voice.needle||voice.gravity<.5?540:voice.twin?260:voice.damage>1.1?85:155,voice.damage>1.1?.32:.19,voice.teleport||voice.needle?'sine':'sawtooth');hud();
 }
 function finishResult(){
@@ -217,13 +216,13 @@ function finishResult(){
  }
  paintResultStory();if(advanced&&s.stage%10===0)ArcJournal.markRead(save.data,['chapter:'+Math.ceil(s.stage/10)+':cleared']);
  $('clearRewardLine').hidden=!(s.result==='win'&&s.clearRewardSkills?.length);$('clearRewardLine').replaceChildren();for(const id of s.clearRewardSkills||[]){const span=document.createElement('span');span.textContent=(K.get(id)?.name||id)+' +1';$('clearRewardLine').append(span);}
- $('modalTitle').textContent=final?'Every arc led here.':s.result==='win'?'Cleared.':s.reason==='shots'?'Out of actions.':s.result==='draw'?'A draw.':'Rover disabled.';
+ $('modalTitle').textContent=final?(ArcI18n.language==='en'?'Welcome home.':'おかえり。'):s.result==='win'?'Cleared.':s.reason==='shots'?'Out of actions.':s.result==='draw'?'A draw.':'Rover disabled.';
  const inventory=I.fromState(s);
  $('modalDetail').textContent=runContext?.practice?'Practice stock does not change your chapter.':s.result==='win'?(s.chapterReset?'Chapter clear. Weapon and skill stock resets.':`Carry forward: ${Object.keys(inventory.weapons).length} weapons, ${Object.keys(inventory.skills).length} skills`):'Retry restores the stock from the start of this level.';
- $('resume').disabled=false;$('resume').textContent=runContext?.practice?'PLAY AGAIN':final?'JOURNEY':s.result==='win'?'NEXT LEVEL':'TRY AGAIN';$('returnLobby').textContent=final&&!runContext?.practice?'COLLECTION':'JOURNEY';$('resultJourney').hidden=true;
+ $('resume').disabled=false;$('resume').textContent=final?(ArcI18n.language==='en'?'Watch the epilogue':'エピローグへ'):[30,60].includes(s.stage)&&s.result==='win'?(ArcI18n.language==='en'?'See what follows':'その後を見る'):runContext?.practice?'PLAY AGAIN':s.result==='win'?'NEXT LEVEL':'TRY AGAIN';$('returnLobby').textContent=final&&!runContext?.practice?'COLLECTION':'JOURNEY';$('resultJourney').hidden=true;
  $('endingCollection').hidden=!final;$('endingCollection').textContent=final?save.data.unlockedWeaponIds.map(id=>ArcWeapons.get(id).appearance.glyph).join('　'):'';
  $('battle').classList.add('resolved');$('overlay').hidden=false;$('resume').focus();tone(s.result==='win'?660:220,.4,'triangle');
- if(advanced)persistAdvance();
+ if(advanced){if([30,60,100].includes(s.stage))save.data.journal.pendingMovie=s.stage===100?'epilogue':String(s.stage);persistAdvance();}
 }
 async function persistAdvance(){
  if(!pendingAdvance||!save.ready){pendingAdvance=false;return true;}
@@ -243,10 +242,10 @@ function requestCPU(){
  if(worker){worker.postMessage({id,state,seed:(s.matchSeed+s.round*1009)>>>0});return;}
  setTimeout(()=>{if(cpuJob?.id!==id||gameToken!==token)return;const start=performance.now(),target=E.enemyMoveTarget(s),u={...s.units[1]};G.move(s,1,target-s.units[1].x);const plan=E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0));Object.assign(s.units[1],u);cpuReady={target,plan};platformStatus.cpuJobs.push({worker:false,elapsed:performance.now()-start});},0);
 }
-if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.11.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
+if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v=0.12.0');worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
  if(!$('lootPicker').hidden)return;
- clock+=dt;if(!s||manualPaused||hostPaused())return;
+ clock+=dt;if(manualPaused||hostPaused())return;ArcStoryView.update(dt);if(ArcStoryView.active)return;if(!s)return;
  if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration)encounter=null;}paintEncounter();
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
  if(s.phase==='aim'){
@@ -286,17 +285,20 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
+function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,cosmetic:save.data.equippedCosmeticId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&(!!stick?.axis||!!keyMove),encounter,ending,collection:{weapons:save.data.unlockedWeaponIds,cosmetics:save.data.collectedCosmeticIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=[...pauseSources].some(x=>x!=='orientation');$('gameSurface').inert=pauseSources.has('orientation');}
 function pauseHost(source='sdk'){pauseSources.add(source);clearInput();syncInert();cancelAnimationFrame(raf);raf=0;previous=0;audioSync();}
 function resumeHost(source='sdk'){pauseSources.delete(source);syncInert();if(hostPaused())return;previous=0;audioSync();schedule();if(save.dirty)save.save();}
-function pause(){if(!s||s.result||hostPaused()||!$('lootPicker').hidden)return;clearInput();manualPaused=true;$('chapterMessage').hidden=true;$('clearRewardLine').hidden=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='LEVEL '+s.stage;$('modalTitle').textContent='Paused';$('modalDetail').textContent='';$('resume').textContent='Resume game';$('resume').disabled=false;$('returnLobby').textContent='Return to title';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();hud();$('resume').focus();}
+function pause(){if(ArcStoryView.active)return;if(!s||s.result||hostPaused()||!$('lootPicker').hidden)return;clearInput();manualPaused=true;$('chapterMessage').hidden=true;$('clearRewardLine').hidden=true;dialog='pause';$('overlay').dataset.kind='pause';$('resultIcon').textContent='Ⅱ';$('modalEyebrow').textContent='LEVEL '+s.stage;$('modalTitle').textContent='Paused';$('modalDetail').textContent='';$('resume').textContent='Resume game';$('resume').disabled=false;$('returnLobby').textContent='Return to title';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;audioSync();hud();$('resume').focus();}
 function confirmPauseAction(kind){
  if(!s||!manualPaused||s.result)return;dialog=kind;$('overlay').dataset.kind=kind;$('modalTitle').textContent=kind==='retry'?'Retry this level?':'Return to title?';$('modalDetail').textContent=kind==='retry'?'Retry restores the stock from the start of this level.':'This level restarts from its entry stock.';$('resume').textContent=kind==='retry'?'Retry level':'Return to title';$('returnLobby').textContent='CANCEL';$('resume').focus();
 }
-function lobby(){ArcMenus.close(false);$('chapterMessage').hidden=true;clearInput();gameToken++;s=null;runContext=null;shot=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;lootContinuation=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lootPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
+function lobby(){ArcStoryView.hideResult();ArcMenus.close(false);$('chapterMessage').hidden=true;clearInput();gameToken++;s=null;runContext=null;shot=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;lootContinuation=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lootPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
+function playStoryMovie(id,onDone=()=>{},replay=false,trigger=null){unlockAudio();ArcStoryView.open(String(id),()=>{previous=0;onDone();draw();},replay,trigger);}
+ArcStoryView.install({clearInput,cue:(index,id)=>tone(id==='epilogue'?262+index*65:196+index*49,.3,'triangle',.045),finished:(id)=>{const j=save.data.journal;if(!j.moviesSeen.includes(id))j.moviesSeen.push(id);if(j.pendingMovie===id)j.pendingMovie=null;if(id==='prologue'){j.introSeen=true;ArcJournal.markRead(save.data,['introduction']);}save.save();}});
+$('replayClearMovie').onclick=()=>{if(s?.result==='win'&&[30,60,100].includes(s.stage))playStoryMovie(s.stage===100?'epilogue':String(s.stage),()=>{},true);};
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
 $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.target.value;save.save();syncLobby();};$('cosmeticLoadout').onchange=e=>{unlockAudio();save.data.equippedCosmeticId=e.target.value||null;save.save();syncLobby();};
 function openEquipment(view){if(hostPaused())return;ArcPresentation.showCollection(save.data,change=>{if('weaponId' in change)save.data.equippedWeaponId=change.weaponId;if('cosmeticId' in change)save.data.equippedCosmeticId=change.cosmeticId;if('characterId' in change)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();},view);}
@@ -309,9 +311,15 @@ $('pause').onclick=pause;$('resume').onclick=async()=>{if(hostPaused())return;
  if(dialog==='retry'){selectedMap=s.stage-1;start(runContext);return;}
  if(dialog==='confirm'){lobby();return;}
  if(dialog==='chapter'){const token=gameToken;if(!(await persistAdvance())||token!==gameToken)return;const stage=chapterConfirm;if(R.restart(save.data,stage)){chapterConfirm=null;selectedMap=stage-1;start();}return;}
- if(dialog==='result'){const token=gameToken;if(!runContext?.practice&&s.result==='win'&&(!(await persistAdvance())||token!==gameToken))return;if(runContext?.practice){selectedMap=s.stage-1;start(runContext);return;}if(s.result==='win'&&s.stage===100){lobby();showLevels();return;}selectedMap=s.result==='win'?Math.min(99,s.stage):s.stage-1;start();}
+ if(dialog==='result'){
+  if(s.result==='win'&&!ArcStoryView.finishResultText())return;
+  const token=gameToken;if(!runContext?.practice&&s.result==='win'&&(!(await persistAdvance())||token!==gameToken))return;
+  const moveOn=()=>{if(runContext?.practice){selectedMap=s.stage-1;start(runContext);return;}if(s.result==='win'&&s.stage===100){lobby();showLevels();return;}selectedMap=s.result==='win'?Math.min(99,s.stage):s.stage-1;start();};
+  const id=s.result==='win'&&([30,60,100].includes(s.stage))?(s.stage===100?'epilogue':String(s.stage)):null;
+  if(id){playStoryMovie(id,moveOn);return;}moveOn();
+ }
  else{manualPaused=false;previous=0;$('overlay').hidden=true;audioSync();hud();$('world').focus({preventScroll:true});}};
-$('returnLobby').onclick=()=>{if(dialog==='chapter'){chapterConfirm=null;$('overlay').hidden=true;showLevels();return;}if(dialog==='result'){const final=s.result==='win'&&s.stage===100&&!runContext?.practice;lobby();if(final)openEquipment();else showLevels();return;}if(dialog==='confirm'||dialog==='retry'){pause();return;}confirmPauseAction('confirm');};
+$('returnLobby').onclick=()=>{if(dialog==='chapter'){chapterConfirm=null;$('overlay').hidden=true;showLevels();return;}if(dialog==='result'){const final=s.result==='win'&&s.stage===100&&!runContext?.practice,depart=()=>{lobby();if(final)openEquipment();else showLevels();};if(save.data.journal.pendingMovie&&!runContext?.practice)playStoryMovie(save.data.journal.pendingMovie,depart);else depart();return;}if(dialog==='confirm'||dialog==='retry'){pause();return;}confirmPauseAction('confirm');};
 $('retryLevel').onclick=()=>confirmPauseAction('retry');
 $('resultJourney').onclick=()=>{lobby();showLevels();};
 $('weaponToggle').onclick=()=>{if(!canAim())return;const choices=battleWeaponChoices();clearInput();ArcPresentation.showWeapons(choices,s.mode,id=>{if(E.selectWeapon(s,id)){s.angle=Math.max(minimumAngle(),s.angle);tone(620,.08);hud();if(!hasSeen(id)&&ArcLessons.forWeapon(s,id,save.data))runDemo(id,true);}}, {title:'Choose attack',grouped:true,note:'Special: three uses each level. Auxiliary stock carries until the boss.'});};
@@ -328,7 +336,7 @@ let controlLayout='left';try{if(localStorage.getItem('arcline-control-layout')==
 function applyControlLayout(){$('app').dataset.controls=controlLayout;$('mirrorControls').textContent=controlLayout==='left'?'Move / aim → Right':'Move / aim → Left';$('mirrorControls').setAttribute('aria-label',controlLayout==='left'?'Move and aim on left; switch to right':'Move and aim on right; switch to left');}
 function toggleControlLayout(){clearInput();controlLayout=controlLayout==='left'?'right':'left';try{localStorage.setItem('arcline-control-layout',controlLayout);}catch{}if(save.ready&&!preferencesHydrating){save.data.preferences.controls=controlLayout;save.save();}applyControlLayout();draw();}
 $('mirrorControls').onclick=toggleControlLayout;applyControlLayout();
-ArcMenus.install({data:()=>save.data,persist:()=>save.save(),controls:()=>controlLayout,toggleControls:toggleControlLayout,allowed:()=>!s&&!hostPaused()&&!resultSaving&&!$('openJournal').disabled,clearInput,summary:syncJournalSummary});
+ArcMenus.install({data:()=>save.data,persist:()=>save.save(),controls:()=>controlLayout,toggleControls:toggleControlLayout,allowed:()=>!s&&!hostPaused()&&!resultSaving&&!$('openJournal').disabled,clearInput,summary:syncJournalSummary,playMovie:(id,trigger)=>playStoryMovie(id,()=>{},true,trigger)});
 
 $('previewOK').onclick=()=>{unlockAudio();endDemo();};
 
@@ -390,4 +398,4 @@ window.addEventListener('arcline-language',()=>{clearInput();if(save.ready&&!pre
 ArcI18n.install();fitOrientation();
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
-save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||controlLayout;applyControlLayout();ArcI18n.setLanguage(preferences.language||ArcI18n.language);save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=false;if(save.ready)save.save();sdk?.game.gameReady();});schedule();
+save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||controlLayout;applyControlLayout();ArcI18n.setLanguage(preferences.language||ArcI18n.language);save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=false;if(save.ready)save.save();sdk?.game.gameReady();if(save.data.journal.pendingMovie)playStoryMovie(save.data.journal.pendingMovie,()=>{},true);});schedule();
