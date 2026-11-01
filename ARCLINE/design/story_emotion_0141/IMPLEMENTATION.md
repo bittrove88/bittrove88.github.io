@@ -77,4 +77,4 @@ python3 ARCLINE/game/tools/check_generated.py --output /tmp/arcline-0141/GENERAT
 
 [検証記録](../../evidence/story-emotion-0141/README.md) ／ [物語全文・全キュー](../expedition_013/STORY_JA.md)。Chromiumの端末設定と物理端末を区別する。初見プレイヤーの通し視聴、感情の伝達、物理Safari／Android、YouTube本番認証は未確認。自動合格を「感動の検証済み」とは報告しない。
 
-同時期にmainへ追加された候補キャラPNG10枚（`b9d718a`）を保持して取り込んだ。機体IDとの対応と採用表の登録は未検収。今回の文章改訂では割り当てを推測せず、Canvas表示を継続する。
+同時期にmainへ追加されたキャラPNG10枚は、`28276f6` で機体ID別に整理された。その最新版の対応表と画像を保持して統合した。表示用台帳はまだPNGを参照しておらず、今回の文章改訂ではCanvas表示を継続する。
