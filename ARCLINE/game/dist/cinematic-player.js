@@ -37,7 +37,7 @@ function create(host,options={}){
   for(const e of current.plane.querySelectorAll('[data-answer]'))e.style.opacity=String(.32*ease((effectAge-s.answerBeatsMs[+e.dataset.answer]/1000)/.45));
   if(current.fragment){const f=s.fragment,on=!rm&&!low&&!time.quiet&&effectAge>f.start&&effectAge<f.end,opacity=on?Math.sin(Math.PI*(effectAge-f.start)/(f.end-f.start)):0;current.fragment.style.opacity=String(opacity);current.fragment.style.left=(w/h<1?Math.min(.65,f.at[0]):f.at[0])*100+'%';current.fragment.style.top=f.at[1]*100+'%';current.fragment.style.transform=`translate3d(0,${on?-6*Math.sin(Math.PI*(effectAge-f.start)/(f.end-f.start)):0}px,0)`;}
  }
- function destroy(){closed=true;token++;for(const t of timers)clearTimeout(t);timers.clear();for(const e of cache.values())e.image.removeAttribute('src');cache.clear();dispose(current);dispose(prior);host.replaceChildren();current=prior=null;delete host.dataset.shot;delete host.dataset.asset;}
+ function destroy(){closed=true;token++;for(const t of timers)clearTimeout(t);timers.clear();cache.clear();dispose(current);dispose(prior);host.replaceChildren();current=prior=null;delete host.dataset.shot;delete host.dataset.asset;}
  return {show,update,destroy,get state(){return {shot:current?.shot.id,age,status:host.dataset.asset,geometry:current?.geometry,cached:cache.size,lowPerformance:cheap(),...stats};}};
 }
 const api={create,framing,ease,restricted};if(typeof module!=='undefined')module.exports=api;else root.ArcCinematicPlayer=api;
