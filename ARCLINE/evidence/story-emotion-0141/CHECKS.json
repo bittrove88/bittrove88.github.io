@@ -1,0 +1,377 @@
+{
+  "version": "0.14.1",
+  "status": "PASS",
+  "recordedAt": "2026-11-01T07:30:35.323324+00:00",
+  "narrativeBaseline": "3bdbf4f35367b1e9d2ef611454c681d7b84ce104",
+  "integrationBase": "b9d718a86d49828c18a65fe1163b348f0dbd2b4e",
+  "suites": [
+    {
+      "report": "EMOTION_CONTENT.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/story-emotion-0141.test.cjs",
+      "checks": 1632,
+      "status": "PASS"
+    },
+    {
+      "report": "EMOTION_BROWSER.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/story-emotion-0141-browser.test.cjs",
+      "checks": 236,
+      "status": "PASS"
+    },
+    {
+      "report": "CONTENT.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/cinematic-014.test.cjs",
+      "checks": 3624,
+      "status": "PASS"
+    },
+    {
+      "report": "CINEMATIC_BROWSER.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/cinematic-014-browser.test.cjs",
+      "checks": 1276,
+      "status": "PASS"
+    },
+    {
+      "report": "STORY_CONTENT.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/story-012.test.cjs",
+      "checks": 6270,
+      "status": "PASS"
+    },
+    {
+      "report": "STORY_BROWSER.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/story-012-browser.test.cjs",
+      "checks": 1454,
+      "status": "PASS"
+    },
+    {
+      "report": "CHARGE_PAUSE.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/charge-pause.test.cjs",
+      "checks": 245,
+      "status": "PASS"
+    },
+    {
+      "report": "ORIENTATION_I18N.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/game/tests/orientation-i18n.test.cjs",
+      "checks": 57,
+      "status": "PASS"
+    },
+    {
+      "report": "PUBLIC_UI.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/site-tests/cinematic-014-ui.test.cjs",
+      "checks": 209,
+      "status": "PASS"
+    },
+    {
+      "report": "DELIVERY.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 ARCLINE_PACKAGE_DIR=/tmp/arcline-0141-package node ARCLINE/site-tests/cinematic-014-delivery.test.cjs",
+      "checks": 14,
+      "status": "PASS"
+    },
+    {
+      "report": "RELEASE_WEB.json",
+      "command": "ARCLINE_EVIDENCE_DIR=/tmp/arcline-0141 node ARCLINE/site-tests/expedition-release.test.cjs",
+      "checks": 142,
+      "status": "PASS"
+    }
+  ],
+  "suiteAssertions": 15159,
+  "generated": {
+    "status": "PASS",
+    "outputs": 19,
+    "command": "python3 ARCLINE/game/tools/check_generated.py --output /tmp/arcline-0141/GENERATED.json"
+  },
+  "bundle": {
+    "status": "PASS",
+    "entries": 64,
+    "runtimeFiles": 41,
+    "masterJpegs": 23,
+    "command": "python3 ARCLINE/game/tools/build_playables.py --output /tmp/arcline-0141-package",
+    "zipKeptOutsideGit": true
+  },
+  "runtimeSha256": {
+    "actor-bodies.js": "30f471236e81e9652b1b0e99fa3760dfbffcb2e6c537992debfd6466318daf33",
+    "aim-guide.js": "69a5da10e5b1dde430bfb5b22f99f93aaefd672d7abdd5e381a2701a0fc52eb0",
+    "app.webmanifest": "7c278bbd5ee5ffc2046e356039cc6fb50d1056c3253bfddfa3774921a5b2d8fc",
+    "campaign-run.js": "cb3cc68d48f7c8104a5e334e53418315a600439093827da6b897b8020bc2f0c9",
+    "character-hero.js": "a6f73e9197f60f0512df8339efff994a4e3c4c3a79ceeb6e414c003a9aedd212",
+    "characters.js": "5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609",
+    "cinematic-data.js": "19d5a8b4f75d69451f4cc8a8c2872c73e4659811cea15d687cb0529b1e41acc2",
+    "cinematic-player.js": "153be982f03c189c5c2c46366c62f80ab1fb5f0e48a18b35f628bc4fd71b757f",
+    "cinematics.css": "71e78ca5c4ea2366b732c9ce00813be59794540041bac90aee3964e98a7f1af1",
+    "combat.js": "a3873dcc81f040151562bdefc02785bda9776f0e97cdbf684fac42c7a2a0b588",
+    "cpu-worker.js": "45e32f475b3ea9b17e779c7ee0e7a49b2ee36bc445a9f19bcff8c4df62cb2c42",
+    "crew.js": "11d2627069b6523ae1fbfa436ca9c0f30c4ec8d4596de05304c38bddf8070acb",
+    "effects.js": "69d5f8a0f50d229149a9db9a1ecf7da07badf4fca6ea845d889a31b10e1a01bf",
+    "encounters.js": "4ae7357744f55bba6f9d812d1dd23ed7ed566a37a52dcb94d353c1e14df86eb5",
+    "engine.js": "33b19f5f95c4bfac35a57f19aa65e81be2166472c9974e3f80d8c700b100c3f3",
+    "expedition-ui.js": "31b8b9ffde6e2a3b7b4cdbd0c7a65bc8e6066e63a6e0acd47c34ffe10ba51bc0",
+    "fullscreen.js": "b0f4af033459c5af72e2cef8bbef68a3563509a1211ec30cd067f48fdd679aed",
+    "game.js": "be8d53612bbc648fdc41ea60d881638d09965f98e95978c0a5ae2f3894dbcdb2",
+    "geometry.js": "a289db79e07c40dab98600de3bf66cc8a10b8069a2f1a594cabad3db7c9d3ab3",
+    "i18n.js": "4e182ddb6a7f7cd3fc25a2bbc94ea41516189f5129586b940cbf05944a526cd2",
+    "icon.svg": "67614ce239b389037c958ae69744f00150c30dbe1f64e73719347e9ea9778d56",
+    "index.html": "09eb9694fbf2721a96ec6e6e7839e1469856fa061f9f6c1292d1f1dec74e6c94",
+    "inventory.js": "8d2814f6615e3398d3516049ace565081fe65d432b06baa8d7dd9fb2479f0ba8",
+    "journal.js": "57d83553f16e954e5a9e82d9fb8bfa8f08db9abf93e5f5525dd652d4f151dd8d",
+    "lessons.js": "b86b9927c9ab03d24f80d7342a1117ad141f1e202e6e652878453404587f08a1",
+    "levels.js": "a9ded0cdc1ba018f320d5063c924e49d4a71ec477c80346b4aafcc2d7e59ea8f",
+    "menus.js": "e6cd09d280df49ea0fbe88bc657d095de04f6e15f41df50ff48e701a0cc7025b",
+    "physics.js": "19f3631422f7f75c83de4e34601a316e1009dadf2d176784d9878181a3d5ffd4",
+    "presentation.js": "55e665991e5dd37e4137fc4163fafad220b3459a5f4c42e2b1cc34c4546e2d64",
+    "preview.js": "25da6240f7ba7fd99d7b24aa391bec298f86aced4fb6252447a47b945ee77452",
+    "render.js": "f301ed71c5354910d4f97690450c6a63399096c9a6e01129742a62e34e3e0a75",
+    "save.js": "db27ee201b7598def5e9ab59cc40efacf3d31b65232ed559d0d82cd85036d677",
+    "skills.js": "ee9576c9c79475e47ac483e3b9c6cbde14832bc09e8b08f31e0118941e3904b6",
+    "story-view.js": "ae5d972da929bdcb54d225d36b5abef07bc5a1eb710d00053afc167c15120998",
+    "story.js": "1240c2faaec41b4966c11b9276371604d78a13124ad992a50c9532fa45569dd1",
+    "style.css": "8f7a38c82852ef446c908c8d30e3260cbbd6d35340f80194458a13422cd83e89",
+    "viewport.js": "35c305e2c319376a898f34aa37cb99b36c415c6ec9b3782ee10e2e9a92029207",
+    "visual-art.js": "d0a22bec2096e7c88ff8c5d475dd7b83bd0e8ff8983a56348c1dffdf90ebdb80",
+    "visual-registry.js": "7efd90e6673a3cdd0338ad40ec6ffb751474e66facad670ec4d0ce815037acdf",
+    "visual-style.js": "309c3e10ccec0431bc6b4fe8e06e8ea863189986fa92ef7c154106c31a9f7a2e",
+    "weapons.js": "ce5a4c7f0f8dd9fe8ccc8ac2409dbb8fb7aa7c758064af636463b3df694f154d"
+  },
+  "preservedModules": [
+    {
+      "file": "engine.js",
+      "sha256": "33b19f5f95c4bfac35a57f19aa65e81be2166472c9974e3f80d8c700b100c3f3"
+    },
+    {
+      "file": "geometry.js",
+      "sha256": "a289db79e07c40dab98600de3bf66cc8a10b8069a2f1a594cabad3db7c9d3ab3"
+    },
+    {
+      "file": "combat.js",
+      "sha256": "a3873dcc81f040151562bdefc02785bda9776f0e97cdbf684fac42c7a2a0b588"
+    },
+    {
+      "file": "physics.js",
+      "sha256": "19f3631422f7f75c83de4e34601a316e1009dadf2d176784d9878181a3d5ffd4"
+    },
+    {
+      "file": "weapons.js",
+      "sha256": "ce5a4c7f0f8dd9fe8ccc8ac2409dbb8fb7aa7c758064af636463b3df694f154d"
+    },
+    {
+      "file": "inventory.js",
+      "sha256": "8d2814f6615e3398d3516049ace565081fe65d432b06baa8d7dd9fb2479f0ba8"
+    },
+    {
+      "file": "save.js",
+      "sha256": "db27ee201b7598def5e9ab59cc40efacf3d31b65232ed559d0d82cd85036d677"
+    },
+    {
+      "file": "campaign-run.js",
+      "sha256": "cb3cc68d48f7c8104a5e334e53418315a600439093827da6b897b8020bc2f0c9"
+    },
+    {
+      "file": "encounters.js",
+      "sha256": "4ae7357744f55bba6f9d812d1dd23ed7ed566a37a52dcb94d353c1e14df86eb5"
+    },
+    {
+      "file": "characters.js",
+      "sha256": "5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609"
+    },
+    {
+      "file": "actor-bodies.js",
+      "sha256": "30f471236e81e9652b1b0e99fa3760dfbffcb2e6c537992debfd6466318daf33"
+    },
+    {
+      "file": "skills.js",
+      "sha256": "ee9576c9c79475e47ac483e3b9c6cbde14832bc09e8b08f31e0118941e3904b6"
+    },
+    {
+      "file": "aim-guide.js",
+      "sha256": "69a5da10e5b1dde430bfb5b22f99f93aaefd672d7abdd5e381a2701a0fc52eb0"
+    },
+    {
+      "file": "effects.js",
+      "sha256": "69d5f8a0f50d229149a9db9a1ecf7da07badf4fca6ea845d889a31b10e1a01bf"
+    },
+    {
+      "file": "levels.js",
+      "sha256": "a9ded0cdc1ba018f320d5063c924e49d4a71ec477c80346b4aafcc2d7e59ea8f"
+    },
+    {
+      "file": "crew.js",
+      "sha256": "11d2627069b6523ae1fbfa436ca9c0f30c4ec8d4596de05304c38bddf8070acb"
+    },
+    {
+      "file": "journal.js",
+      "sha256": "57d83553f16e954e5a9e82d9fb8bfa8f08db9abf93e5f5525dd652d4f151dd8d"
+    },
+    {
+      "file": "render.js",
+      "sha256": "f301ed71c5354910d4f97690450c6a63399096c9a6e01129742a62e34e3e0a75"
+    }
+  ],
+  "screenshots": [
+    "reveal-70-568.jpg",
+    "reveal-80-568.jpg",
+    "reveal-90-568.jpg",
+    "reveal-95-568.jpg",
+    "symbolic-gathering-568.jpg",
+    "tenth-lamp-568.jpg",
+    "quiet-568.jpg",
+    "welcome-568.jpg",
+    "reply-568.jpg",
+    "reveal-70-844.jpg",
+    "reveal-80-844.jpg",
+    "reveal-90-844.jpg",
+    "reveal-95-844.jpg",
+    "symbolic-gathering-844.jpg",
+    "tenth-lamp-844.jpg",
+    "quiet-844.jpg",
+    "welcome-844.jpg",
+    "reply-844.jpg",
+    "symbolic-gathering-390.jpg",
+    "tenth-lamp-390.jpg",
+    "quiet-390.jpg",
+    "welcome-390.jpg",
+    "reply-390.jpg",
+    "reveal-70-1440.jpg",
+    "reveal-80-1440.jpg",
+    "reveal-90-1440.jpg",
+    "reveal-95-1440.jpg",
+    "symbolic-gathering-1440.jpg",
+    "tenth-lamp-1440.jpg",
+    "quiet-1440.jpg",
+    "welcome-1440.jpg",
+    "reply-1440.jpg",
+    "shot-P01-01-844.jpg",
+    "shot-P01-02-844.jpg",
+    "shot-P01-03-844.jpg",
+    "shot-P02-01-844.jpg",
+    "shot-P02-02-844.jpg",
+    "shot-P03-01-844.jpg",
+    "shot-P03-02-844.jpg",
+    "shot-P03-03-844.jpg",
+    "shot-I30-01-844.jpg",
+    "shot-I30-02-844.jpg",
+    "shot-I60-01-844.jpg",
+    "shot-I60-02-844.jpg",
+    "shot-E01-01-844.jpg",
+    "shot-E01-02-844.jpg",
+    "shot-E01-03-844.jpg",
+    "shot-E02-01-844.jpg",
+    "shot-E02-02-844.jpg",
+    "shot-E02-03-844.jpg",
+    "shot-E03-01-844.jpg",
+    "shot-E03-02-844.jpg",
+    "shot-E04-01-844.jpg",
+    "shot-E04-02-844.jpg",
+    "shot-E04-03-844.jpg",
+    "shot-P01-01-390.jpg",
+    "shot-P01-02-390.jpg",
+    "shot-P01-03-390.jpg",
+    "shot-P02-01-390.jpg",
+    "shot-P02-02-390.jpg",
+    "shot-P03-01-390.jpg",
+    "shot-P03-02-390.jpg",
+    "shot-P03-03-390.jpg",
+    "shot-I30-01-390.jpg",
+    "shot-I30-02-390.jpg",
+    "shot-I60-01-390.jpg",
+    "shot-I60-02-390.jpg",
+    "shot-E01-01-390.jpg",
+    "shot-E01-02-390.jpg",
+    "shot-E01-03-390.jpg",
+    "shot-E02-01-390.jpg",
+    "shot-E02-02-390.jpg",
+    "shot-E02-03-390.jpg",
+    "shot-E03-01-390.jpg",
+    "shot-E03-02-390.jpg",
+    "shot-E04-01-390.jpg",
+    "shot-E04-02-390.jpg",
+    "shot-E04-03-390.jpg"
+  ],
+  "receivedCharacterPngFilesPreserved": [
+    {
+      "file": "ARCLINE/assets/characters/03C30A41-D5F8-4AB9-94AD-4C3586F0F11F.png",
+      "sha256": "fb2cd75ad56ddcf2ad55a137e35be688f721af76528c29138fdf54b60c2f87e1"
+    },
+    {
+      "file": "ARCLINE/assets/characters/53404E69-D635-4853-A671-41463DFE6F6E.png",
+      "sha256": "e2d676c9e9c768b2fd4a89fd0a1d1bb0a3a124752476893312800561efbb13e9"
+    },
+    {
+      "file": "ARCLINE/assets/characters/69A445CC-631A-4A74-A2AB-1F06AEA7EA99.png",
+      "sha256": "54b6a6aebe917aa5adab33cd8b09fed91c24c30ee2cd18e5a323d5e93e9e9c0f"
+    },
+    {
+      "file": "ARCLINE/assets/characters/6AA3B104-60A5-4C30-AA2F-3A02FF5681EB.png",
+      "sha256": "8da2cb2370e28d30f41fc7123592c9253c88341f57c89e9421b62facc5610ac0"
+    },
+    {
+      "file": "ARCLINE/assets/characters/78AE5BB6-0349-42DE-8117-0C363ED9525C.png",
+      "sha256": "64593b2e33b9bc482535a3714a6d07b131d02560736d38116c93763b526b02a0"
+    },
+    {
+      "file": "ARCLINE/assets/characters/A9C44CC2-8B71-4FD3-BB4E-6EC68036FE8B.png",
+      "sha256": "3c75ecb9675a162370c669e5d753fcb4645113d56189ddd70521db8c7b74b37e"
+    },
+    {
+      "file": "ARCLINE/assets/characters/AAAA67D7-C49F-439A-A658-6192D871AA3A.png",
+      "sha256": "8aebfb5d4c8c66eb5cfb0ab2fb690307c33c32dbe2074acb8603e70091ea6e49"
+    },
+    {
+      "file": "ARCLINE/assets/characters/BB0CC583-327B-45F7-8354-82E46E0948FD.png",
+      "sha256": "7e839c32f6507766eec8e7e365eba796c8cb6b82e866de67e0ca543af7a6c19d"
+    },
+    {
+      "file": "ARCLINE/assets/characters/C1FCFFF4-9BA7-4B74-A5FE-DEF4EEF6D31B.png",
+      "sha256": "5ba72b0c8a7b40308f8035a2c0e674451162716d6b10d27fd951e13bc131b8b3"
+    },
+    {
+      "file": "ARCLINE/assets/characters/DE47956B-6517-4E44-9808-BCB83A2D9C0D.png",
+      "sha256": "98ec9346642b3d9a23470bb72f51d1be78348ff1be188320adaf0504fe58f24e"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/03C30A41-D5F8-4AB9-94AD-4C3586F0F11F.png",
+      "sha256": "fb2cd75ad56ddcf2ad55a137e35be688f721af76528c29138fdf54b60c2f87e1"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/53404E69-D635-4853-A671-41463DFE6F6E.png",
+      "sha256": "e2d676c9e9c768b2fd4a89fd0a1d1bb0a3a124752476893312800561efbb13e9"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/69A445CC-631A-4A74-A2AB-1F06AEA7EA99.png",
+      "sha256": "54b6a6aebe917aa5adab33cd8b09fed91c24c30ee2cd18e5a323d5e93e9e9c0f"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/6AA3B104-60A5-4C30-AA2F-3A02FF5681EB.png",
+      "sha256": "8da2cb2370e28d30f41fc7123592c9253c88341f57c89e9421b62facc5610ac0"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/78AE5BB6-0349-42DE-8117-0C363ED9525C.png",
+      "sha256": "64593b2e33b9bc482535a3714a6d07b131d02560736d38116c93763b526b02a0"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/A9C44CC2-8B71-4FD3-BB4E-6EC68036FE8B.png",
+      "sha256": "3c75ecb9675a162370c669e5d753fcb4645113d56189ddd70521db8c7b74b37e"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/AAAA67D7-C49F-439A-A658-6192D871AA3A.png",
+      "sha256": "8aebfb5d4c8c66eb5cfb0ab2fb690307c33c32dbe2074acb8603e70091ea6e49"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/BB0CC583-327B-45F7-8354-82E46E0948FD.png",
+      "sha256": "7e839c32f6507766eec8e7e365eba796c8cb6b82e866de67e0ca543af7a6c19d"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/C1FCFFF4-9BA7-4B74-A5FE-DEF4EEF6D31B.png",
+      "sha256": "5ba72b0c8a7b40308f8035a2c0e674451162716d6b10d27fd951e13bc131b8b3"
+    },
+    {
+      "file": "ARCLINE/assets/characters/unlock/unverified/DE47956B-6517-4E44-9808-BCB83A2D9C0D.png",
+      "sha256": "98ec9346642b3d9a23470bb72f51d1be78348ff1be188320adaf0504fe58f24e"
+    }
+  ],
+  "notVerified": [
+    "Physical iPhone Safari/Android and installed PWA.",
+    "First-time-player emotional response and uninterrupted full viewing review.",
+    "YouTube production SDK/authentication and wide-area load speed.",
+    "Ten staged candidate PNGs have no verified per-machine binding; canonical Canvas fallback remains.",
+    "Dedicated foreground alpha assets.",
+    "Managed browser denies file:// navigation; exact downloaded HTML was tested with networking disabled.",
+    "The 416 native battles from0.13 were not rerun;18 gameplay/save modules remain byte-identical."
+  ]
+}

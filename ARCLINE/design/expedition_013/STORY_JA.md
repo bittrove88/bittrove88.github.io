@@ -1,4 +1,4 @@
-# ARCLINE 0.13 — 物語全文
+# ARCLINE 0.14.1 — 物語全文
 
 **結末までのネタバレを含む制作者向け資料。** ゲームが使う `narrative_0_13.json` と `crew.json` から生成。操作機体と、物語上で同行している仲間は別に管理する。
 
@@ -230,7 +230,7 @@
 
 **幕間：返事のある空**
 
-ヒバリが返した呼出しに、町の灯りが応えた。リコの地図には、失敗した道も残っている。仲間が増え、進む道も一つではなくなった。
+ヒバリが、霧の向こうへ呼びかける。まだ、返事は見えない。町の灯りが応えた。空白じゃなかった。ちゃんと、そこにいた。リコの地図には、失敗した道も残っている。仲間が増え、進む道も一つではなくなった。
 
 区間復旧：無人と記された高地に灯りが戻った。途切れたのは、暮らしではなく声だった。
 
@@ -372,7 +372,7 @@
 
 **幕間：伝えられる道**
 
-ヒバリが拾った観測と、リンが添えた確度。不完全でも、迂回路は誰かを運べた。リンも仲間に加わり、一行は確かめながら進んでいく。
+ヒバリの観測に、リンが確かな範囲と不確かな範囲を添える。確度を伝えれば、不完全でも誰かの道しるべになれる。迂回路は、待つ誰かを運べた。リンも仲間に加わり、一行は確かめながら進んでいく。
 
 区間復旧：「分からない」を添えた案内が、新しい通行を生んだ。完璧でなくても届く情報がある。
 
@@ -543,8 +543,8 @@
 
 登場：再稼働を検知。危険区域への進入を阻止する。
 特徴：外殻・内殻・核の3段階を突破
-停止後：10機の帰還が届いた。中枢は初めて「おかえり」と返した。
-返答：「ただいま。今度は、ぼくらが道をつくる。」
+停止後：古い便りの差出人は、アークハートだった。十機の返事を、今度こそ直接届けよう。
+返答：「ユイ、つないで。みんなの返事を届けよう。」
 本来の仕事：アークラインの保全中枢
 背景：大分断当日に連鎖事故を防ぐため全路線を停止させた。双方向通信が失われ、安全の返事と10機の帰還を受け取れず、古い危険状態を守り続けた。
 
@@ -572,9 +572,229 @@
 
 ### E04 次の旅人へ
 
-ガンは古い便りの裏に書き足した。「ただいま。今度は、ぼくらが道をつくるよ。」10機はそれぞれの仕事へ戻る。新しい旅人が、自分で選んだ道へ走り出す。
+ガンは古い便りの裏に、つながった橋と十の灯りを描いた。そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」十機はそれぞれの仕事へ戻っていく。その道を、新しい旅人が走り出した。
 
 場面：
+
+## 23画像の字幕キュー（日英）
+
+本文の正本と同じ親シーンに保存。最小保持時間は全文が出た後の時間。実際の自動送りは翻訳の長さ・読了余裕も待ち、手動送りとスキップはいつでも使える。
+
+### P01-01 / p01.world
+
+かつてアークラインは、
+
+Once, ARCLINE carried cargo and light,
+
+初期開始：600ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P01-02 / p01.cargo
+
+港から山へ、地下から空へ、荷物と灯りを届けていた。
+
+from harbours to mountains, from underground to the sky.
+
+初期開始：600ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P01-03 / p01.workshop
+
+離れた町も、一本の道でつながっていた。
+
+One road joined distant towns.
+
+初期開始：600ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P02-01 / p02.divide
+
+ある日、巨大な輸送路が崩れ、アークラインが一斉に止まった。
+
+One day, vast transport routes collapsed and ARCLINE stopped.
+
+初期開始：1100ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P02-02 / p02.silence
+
+荷は届かず、修理も進まない。世界の灯りは、少しずつ消えていった。
+
+Cargo failed to arrive. Repairs stalled. The lights of the world slowly went out.
+
+初期開始：1100ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P03-01 / p03.letter
+
+止まった港で、ガンは古い便りを拾った。
+
+Gun finds an old letter at the silent harbour.
+
+初期開始：600ms／最小保持：1600ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P03-01 / p03.promise
+
+「道が開いたら、また会おう。」
+
+“When the road opens, let us meet again.”
+
+初期開始：3800ms／最小保持：3000ms／promise。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P03-02 / p03.possibility
+
+いつか、道の先で。
+
+Someday, beyond this road.
+
+初期開始：900ms／最小保持：2600ms／vision。複数文は前文の読了余裕の後へ繰り下げる。
+
+### P03-03 / p03.alone
+
+直した道さえ守り手が閉ざす。それでも、待つ相手へ返事を届けたい。一機の旅が始まる。
+
+Guardians close even repaired roads. Still, someone is waiting for a reply. One machine sets out.
+
+初期開始：600ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### I30-01 / i30.call
+
+ヒバリが、霧の向こうへ呼びかける。まだ、返事は見えない。
+
+Hibari calls beyond the mist. No answer is visible yet.
+
+初期開始：600ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### I30-02 / i30.answer
+
+空白じゃなかった。ちゃんと、そこにいた。
+
+It was not an empty place. Someone was there.
+
+初期開始：2700ms／最小保持：2300ms／discovery。複数文は前文の読了余裕の後へ繰り下げる。
+
+### I30-02 / i30.map
+
+リコの地図には、失敗した道も残っている。仲間が増え、進む道も一つではなくなった。
+
+Rico’s map keeps the failed roads too. With a new companion, there is more than one way forward.
+
+初期開始：6500ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### I60-01 / i60.wait
+
+雪の峡谷は、まだ危険だった。一行は無理に進まず、通れる道を確かめる。
+
+The snowy gorge is still dangerous. The party stops to check a safer way through.
+
+初期開始：600ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### I60-02 / i60.confidence
+
+ヒバリの観測に、リンが確かな範囲と不確かな範囲を添える。
+
+Rin adds what is known and what remains uncertain to Hibari’s observations.
+
+初期開始：600ms／最小保持：2400ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### I60-02 / i60.guide
+
+確かじゃなくても、誰かの道しるべになれる。迂回路は、待つ誰かを運べた。
+
+Even without certainty, we can guide someone. The detour carries someone who had been waiting.
+
+初期開始：6500ms／最小保持：2400ms／discovery。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E01-01 / e01.waiting
+
+アークハートは、長い間、十機の帰還の返事を待ち続けていた。
+
+Archeart has waited a long time for the ten machines to report their return.
+
+初期開始：600ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E01-02 / e01.connection
+
+安全の知らせも、帰還の返事も届かなかった。ユイは中枢の古い端子へ、直接つなぐ。
+
+Neither safety reports nor return messages arrived. Yui connects directly to the core’s old terminal.
+
+初期開始：600ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E01-03 / e01.sender
+
+封蝋と、胸部の同じ紋章。あの便りの差出人は、アークハートだった。
+
+The same emblem on the wax seal and the chest. The letter came from Archeart.
+
+初期開始：600ms／最小保持：3600ms／revelation。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E02-01 / e02.register
+
+一機ずつ、帰還が記録される。
+
+One by one, their returns are registered.
+
+初期開始：600ms／最小保持：2200ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E02-02 / e02.welcome
+
+「おかえり」
+
+“Welcome home.”
+
+初期開始：700ms／最小保持：3000ms／greeting。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E02-03 / e02.reply
+
+「ただいま。遅くなって、ごめんね。」
+
+“We are home. Sorry we took so long.”
+
+初期開始：2200ms／最小保持：2800ms／reply。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E03-01 / e03.rest
+
+安全記録と帰還を受け取り、アークハートは停止の権限を各地へ返す。「道が、開いたね。」古い中枢は静かに休止した。
+
+With the safety records and returns received, Archeart gives stop authority back to each region. “The road has opened.” The old core quietly rests.
+
+初期開始：1100ms／最小保持：3200ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E03-02 / e03.restart
+
+橋と昇降機が動き始める。荷が届き、暮らしの灯りが戻ってくる。
+
+Bridges and lifts begin to move. Cargo arrives, and the lights of everyday life return.
+
+初期開始：600ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E04-01 / e04.drawing
+
+ガンは古い便りの裏に、つながった橋と十の灯りを描いた。
+
+Gun draws a connected bridge and ten lights on the back of the old letter.
+
+初期開始：600ms／最小保持：2000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E04-01 / e04.words
+
+そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」
+
+Then Gun adds a small note: “We are home. This time, we will build the roads.”
+
+初期開始：6500ms／最小保持：3000ms／promise。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E04-02 / e04.work
+
+十機はそれぞれの仕事へ戻っていく。
+
+The ten machines return to their own work.
+
+初期開始：600ms／最小保持：3000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
+
+### E04-03 / e04.future
+
+その道を、新しい旅人が走り出した。
+
+Along that road, a new traveller sets out.
+
+初期開始：1000ms／最小保持：4000ms／narration。複数文は前文の読了余裕の後へ繰り下げる。
 
 ## 10機それぞれの願い、迷い、選択
 
@@ -630,6 +850,8 @@
 
 **旅の先**：定期便を復活させ、記録欄に「全車到着」と書く。
 
+**この旅の加入時の一言**：待ってる荷物があるんだ。最後の荷まで、一緒に運ぼう。
+
 成長記録の解放：20面。帰還の核心を含む過去は90面以降。
 
 ### バン — 15面で加入
@@ -683,6 +905,8 @@
 **旅で選んだこと**：こちらの場所も知らせ、分からないところを確かめに行く。
 
 **旅の先**：各地の声を結ぶ観測網をつくる。沈黙を不在と決めない。
+
+**この旅の加入時の一言**：返事がなくても、誰もいないとは限らない。もう一度、呼んでみよう。
 
 成長記録の解放：30面。帰還の核心を含む過去は90面以降。
 
@@ -738,6 +962,8 @@
 
 **旅の先**：予報に確度と迂回路を添え、動ける判断材料を届ける。
 
+**この旅の加入時の一言**：確かなところと、まだ分からないところ。両方を添えて知らせるよ。
+
 成長記録の解放：70面。帰還の核心を含む過去は90面以降。
 
 ### ユイ — 80面で加入
@@ -755,6 +981,8 @@
 **旅で選んだこと**：返事を各地へ戻し、判断も仕事も一機で抱えない。
 
 **旅の先**：工房同士が直接頼り合える網をつくる。
+
+**この旅の加入時の一言**：離れていても、声はつなげる。今度は、返事までちゃんと届けたい。
 
 成長記録の解放：90面。帰還の核心を含む過去は90面以降。
 

@@ -1,8 +1,11 @@
 # ARCLINE
 
-Canvas 2Dの砲撃アドベンチャー。**実装0.14.0／キャンペーン5.0／保存schema8**。
+Canvas 2Dの砲撃アドベンチャー。**実装0.14.1／キャンペーン5.0／保存schema8**。
 
-[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.14.0) ／ [お知らせ](updates/0.14.0/) ／ [キャラ確認とHTML/PNGダウンロード](characters/)
+[紹介サイト](./) ／ [ゲーム](game/dist/?v=0.14.1) ／ [お知らせ](updates/0.14.1/) ／ [キャラ確認とHTML/PNGダウンロード](characters/)
+
+
+0.14.1では日本語・英語の字幕を物語正本へ集約し、短い文ごとの読了待ち、十の帰還灯と静寂、返事と余韻を実装。70/80/90/95/100面の情報公開順を整えました。[文章差分と実装](design/story_emotion_0141/IMPLEMENTATION.md) ／ [検証](evidence/story-emotion-0141/README.md)。攻略・既読・所有の追加リセットはありません。
 
 [100面の地形と攻略設計](design/expedition_013/) ／ [変更対応](design/expedition_013/IMPLEMENTATION.md) ／ [加入と物語の対応](design/expedition_013/CREW_STORY.md) ／ [物語全文・ネタバレ](design/expedition_013/STORY_JA.md) ／ [検証結果と未確認](evidence/expedition-013/README.md)
 

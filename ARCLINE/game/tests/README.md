@@ -1,6 +1,8 @@
-# 現行0.14の検証入口
+# 現行0.14.1の検証入口
 
-0.14の専用入口は `cinematic-014.test.cjs`（23原本・1,380構図・戦闘/保存19モジュール保持）、`cinematic-014-browser.test.cjs`（6横縦サイズ×23場面×10機、9加入、低動作と画像欠落）、`site-tests/cinematic-014-ui.test.cjs`（公開10機・実保存・ダウンロード・通信を切った自己完結HTML）、`site-tests/cinematic-014-delivery.test.cjs`（4倍CPU制限と配布ZIP）です。最後のテストは `ARCLINE_PACKAGE_DIR` に `build_playables.py` のGit外出力先を指定します。file://での起動は環境のブラウザー管理ポリシーで確認できず、HTTP不要の自己完結文書として実行を確認します。
+専用検査は `story-emotion-0141.test.cjs`（正本キュー・読了待ち・十灯と静寂・公開順・保存互換）と `story-emotion-0141-browser.test.cjs`（4サイズの実画像・段階開示・日英の文の保持・音あり／なし・上映中断と再開）です。[今回の結果と限界](../../evidence/story-emotion-0141/README.md)を参照してください。
+
+0.14の専用入口は `cinematic-014.test.cjs`（23原本・1,380構図・戦闘/保存18モジュール保持）、`cinematic-014-browser.test.cjs`（6横縦サイズ×23場面×10機、9加入、低動作と画像欠落）、`site-tests/cinematic-014-ui.test.cjs`（公開10機・実保存・ダウンロード・通信を切った自己完結HTML）、`site-tests/cinematic-014-delivery.test.cjs`（4倍CPU制限と配布ZIP）です。最後のテストは `ARCLINE_PACKAGE_DIR` に `build_playables.py` のGit外出力先を指定します。file://での起動は環境のブラウザー管理ポリシーで確認できず、HTTP不要の自己完結文書として実行を確認します。
 
 以下の0.13からの重要な回帰も引き続き使います。戦闘と保存の仕様は0.14で変更していません。
 

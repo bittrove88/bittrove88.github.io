@@ -78,7 +78,7 @@ Object.assign(dictionary,{
 });
 Object.assign(dictionary,{'Journey records':'旅の記録','Settings':'設定','Lobby menu':'開始メニュー','Close settings':'設定を閉じる','Preferences':'設定','How to play':'操作・道具','Settings category':'設定の項目','Language':'言語','Display':'画面表示','Switch sides':'左右を切り替え','Move and aim on the left':'移動・照準は左側','Move and aim on the right':'移動・照準は右側','Close journey records':'旅の記録を閉じる','Record category':'記録の種類','The journey':'旅の記録','The machines':'機体の記録','Choose record':'記録を選ぶ','Record content':'記録の本文','Unread':'未読','Read their story':'物語を読む'});
 Object.assign(dictionary,{'Change machine':'仲間を変更','Special · Shared charge':'必殺弾 · 残数は共通','Special unlocks on your turns 2, 4 and 6. Guardians start with three. Auxiliary stock carries until the boss.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。補助武器は章ボスまで持越し。'});
-Object.assign(dictionary,{'Aim at 50° or higher to scatter eight bomblets.':'50度以上へ向け、頂点から8発を散布。','The companions':'仲間の記録'});
+Object.assign(dictionary,{'Aim at 50° or higher to scatter eight bomblets.':'50度以上へ向け、頂点から8発を散布。','The companions':'仲間の記録','The last gate opens.':'最後の扉が開いた。'});
 const textSources=new WeakMap(),attributeSources=new WeakMap();let observer,applying=false;
 function apply(){if(applying)return;applying=true;observer?.disconnect();document.documentElement.lang=language;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
