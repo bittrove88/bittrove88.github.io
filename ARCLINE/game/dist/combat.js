@@ -16,11 +16,11 @@ const rows=[
 ];
 const specials={
  gun:{speed:.72,gravity:1.45,damage:2.4,blast:110,damageCap:2.4,push:true,pushDistance:60},
- ban:{speed:.95,gravity:1,damage:2.4,blast:0,damageCap:2.4,coneLength:200,coneAngle:40,push:true,pushDistance:120},
+ ban:{speed:.95,gravity:1,damage:2.4,blast:0,damageCap:2.4,coneLength:140,coneAngle:28,push:true,pushDistance:120},
  hibari:{speed:1.1,gravity:.85,damage:2,blast:100,damageCap:2,airburst:true,proximity:75},
  hana:{speed:.98,gravity:1,damage:.8,blast:65,damageCap:2.4,volley:[{offset:-7,delay:0,barrel:-1},{offset:0,delay:.18,barrel:0},{offset:7,delay:.36,barrel:1}]},
  rin:{speed:1.55,gravity:.28,damage:3,blast:22,damageCap:3.75,criticalMultiplier:1.25,needle:true},
- mogu:{speed:.95,gravity:1,damage:.7,blast:55,damageCap:2.1,breachPulses:3,pulseDelay:.22,pulseAdvance:22},
+ mogu:{speed:.95,gravity:1,damage:.7,blast:55,damageCap:2.1,breachPulses:3,pulseDelay:.22,pulseAdvance:42},
  koro:{speed:.95,gravity:1.1,damage:2.3,blast:90,damageCap:2.3,roller:true,rollSpeed:220,rollDistance:600,rollSeconds:3,resumeRoll:true,contactBreak:32},
  sora:{speed:.9,gravity:.7,damage:.35,blast:45,damageCap:2.4,minAngle:55,maxAngle:125,split:true,splitCount:8,splitSpread:28,splitChildDamage:.35,fallingChildren:true},
  rico:{speed:1.1,gravity:.9,damage:1.3,blast:70,damageCap:2.5,bounces:4,maxBounces:4,restitution:.95,bounceDamage:.3,bounceBlast:10,maxBlast:110},
