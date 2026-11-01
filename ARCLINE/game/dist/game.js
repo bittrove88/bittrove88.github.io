@@ -1,6 +1,8 @@
 'use strict';
 const E=ArcEngine,G=E.geometry,I=ArcInventory,R=ArcCampaignRun,$=id=>document.getElementById(id),sdk=globalThis.ytgame,inYT=!!sdk?.IN_PLAYABLES_ENV;
 const K=ArcSkills;
+// Temporary, opt-in ending review. Its synthetic progress never reaches storage.
+const endingPreview=new URLSearchParams(location.search).get('preview')==='ending';
 const bgm=ArcAudio.create(),specialLesson=ArcSpecialUi.createLesson(),specialNotice=ArcSpecialUi.createNotice($('battle'));
 let movieOpening=false;
 bgm.request('TITLE');
@@ -15,9 +17,9 @@ let encounter=null,ending=null,reward=null,lastSkill=null,runContext=null,lootCo
 const reducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const platformStatus={cpuJobs:[],workerSupported:typeof Worker!=='undefined',sdk:inYT,errors:[]};
 const save=ArcSave.create({
- load:()=>inYT?Promise.race([sdk.game.loadData(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),4000))]):localStorage.getItem(ArcSave.key),
- resetLocal:()=>{if(!inYT)for(const key of Object.keys(localStorage))if(key.startsWith('arcline-')&&key!==ArcSave.key&&key!==ArcDevice.key)localStorage.removeItem(key);},
- save:raw=>inYT?sdk.game.saveData(raw):localStorage.setItem(ArcSave.key,raw)
+ load:()=>endingPreview?JSON.stringify({schemaVersion:ArcSave.schemaVersion,campaignResetVersion:ArcSave.resetVersion,cleared:100,journeyStarted:true,difficultyConfirmed:true,preferences:{language:ArcI18n.language,controls:controlLayout}}):inYT?Promise.race([sdk.game.loadData(),new Promise((_,reject)=>setTimeout(()=>reject(Error('timeout')),4000))]):localStorage.getItem(ArcSave.key),
+ resetLocal:()=>{if(!endingPreview&&!inYT)for(const key of Object.keys(localStorage))if(key.startsWith('arcline-')&&key!==ArcSave.key&&key!==ArcDevice.key)localStorage.removeItem(key);},
+ save:raw=>endingPreview?undefined:inYT?sdk.game.saveData(raw):localStorage.setItem(ArcSave.key,raw)
 },state=>{$('saveStatus').dataset.error=['load-failed','save-failed'].includes(state);$('saveStatus').textContent=state==='saved'?(inYT?'Progress synced':'Progress saved on this device'):state==='load-failed'?'Progress unavailable · Session play':'Progress not saved · Retry on resume';});
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?E.minimumAngle(s):-12;}
@@ -408,4 +410,11 @@ ArcI18n.install();fitOrientation();
 // firstFrameReady is sent after a real frame; saveData is gated by successful loadData.
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
 ArcOnboarding.install({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),playMovie:done=>playStoryMovie('prologue',done),trial:done=>difficultyUi.request(done),deleteAvailable:()=>save.ready,canDelete:()=>save.ready&&!s&&!hostPaused()&&!ArcStoryView.active&&!ArcChapterPlayback.active&&(ArcScreens.isOpen('journeyStart')||!ArcOnboarding.active&&!$('lobby').hidden),deleteSave:()=>save.reset(),deleted:()=>{selectedMap=0;lobby();ArcOnboarding.prepare(()=>start());}});
-save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||'left';applyControlLayout();ArcI18n.setLanguage(preferences.language||'ja');save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;ArcOnboarding.syncDelete();selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('lobbyDifficulty').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=!save.data.journeyStarted;if(save.ready)save.save();sdk?.game.gameReady();const proceed=()=>ArcExpeditionUi.open(()=>{if(save.data.journal.pendingMovie)playStoryMovie(save.data.journal.pendingMovie);});if(save.data.onboarding.step!=='done')ArcOnboarding.prepare(()=>start());else proceed();});schedule();
+function openEndingPreview(){
+ $('deleteStartSave').hidden=true;
+ $('beginJourney').textContent=ArcI18n.language==='en'?'Play ending':'エンディングを再生';
+ ArcScreens.open('journeyStart',{block:['lobby','battle'],onEscape(){},cycleFocus:true});
+ $('beginJourney').onclick=()=>{ArcFullscreen?.enter?.();ArcScreens.close('journeyStart',false);playStoryMovie('epilogue',openEndingPreview,true,$('beginJourney'));};
+ $('beginJourney').focus({preventScroll:true});
+}
+save.load().then(()=>{const preferences=save.data.preferences;controlLayout=preferences.controls||'left';applyControlLayout();ArcI18n.setLanguage(preferences.language||'ja');save.data.preferences={language:ArcI18n.language,controls:controlLayout};preferencesHydrating=false;ArcOnboarding.syncDelete();selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);syncLobby();$('play').disabled=false;$('difficultyChoice').disabled=false;$('lobbyDifficulty').disabled=false;$('openSettings').disabled=false;$('openJournal').disabled=!save.data.journeyStarted;if(save.ready)save.save();sdk?.game.gameReady();if(endingPreview){openEndingPreview();return;}const proceed=()=>ArcExpeditionUi.open(()=>{if(save.data.journal.pendingMovie)playStoryMovie(save.data.journal.pendingMovie);});if(save.data.onboarding.step!=='done')ArcOnboarding.prepare(()=>start());else proceed();});schedule();
