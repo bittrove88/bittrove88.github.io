@@ -1,8 +1,8 @@
 (function(root){'use strict';
-// Historical 0.10 screen-space footprints are independent of 0.11 damage balance.
+// Impact footprints retain the historical style; Ban shockwave follows its current collision cone.
 const W=typeof module!=='undefined'?require('./weapons.js'):root.ArcWeapons;
 const blastById=Object.freeze({S_GUN:165,S_BAN:0,S_HIBARI:145,S_HANA:90,S_RIN:45,S_MOGU:65,S_KORO:125,S_SORA:60,S_RICO:70,S_YUI:100});
-const metrics=Object.freeze({trail:3,hot:5.5,shell:8,rail:10,core:1.6,railCore:3,impactStart:18,impactGrowth:76,sparkTravel:66,flashRadius:36,banWaveLength:260,banWaveHalfAngle:50});
+const metrics=Object.freeze({trail:3,hot:5.5,shell:8,rail:10,core:1.6,railCore:3,impactStart:18,impactGrowth:76,sparkTravel:66,flashRadius:36,banWaveLength:140,banWaveHalfAngle:28});
 function appearance(id){const w=W.get(id),a=w.appearance||{};return {...a,blast:blastById[id]??w.blast,weaponId:id};}
 function impactBlast(plan,hit,look=appearance(plan.weaponId)){return plan.weaponId==='S_RICO'?Math.min(150,70+20*plan.events.filter(e=>e.type==='bounce'&&e.bullet===hit.bullet&&e.t<=hit.t).length):W.get(plan.weaponId).special?look.blast:hit.blast??look.blast;}
 function footprint(id,age,blast){const look=appearance(id),duration=look.shape==='shell'?1:look.shape==='needle'?.65:.9,t=Math.max(0,Math.min(1,age/duration)),size=Math.max(.55,Math.min(1.65,((blast??look.blast)||64)/64));return {duration,radius:(18+76*(1-Math.pow(1-t,3)))*size,trail:id==='W14'||id==='S_RIN'?10:look.shape==='shell'?8:5.5,projectile:look.size};}
@@ -51,7 +51,7 @@ function forContext(ctx){if(brushes.has(ctx))return brushes.get(ctx);
   for(const e of plan.events){const age=t-e.t;if(age<0)continue;
    if(['bounce','break','teleport-contact','terminal','magnet','wind','phase','cloud','updraft','vent'].includes(e.type)&&age<.5){ctx.save();ctx.globalAlpha=alpha*(1-age/.5);circle(e.x,e.y,(10+age*38)/scale,null,e.type==='break'?'#d4b6e5':e.type==='terminal'?'#f2b45f':'#8dddd0');ctx.restore();}
    if(e.type==='wave'){ctx.save();ctx.globalAlpha=alpha;path(e.path,look.color,7/scale,[8/scale,5/scale]);ctx.restore();}
-   if(e.type==='shockwave'&&age<.65){const a=age/.65,r=(plan.weaponId==='S_BAN'?260:e.length)*Math.min(1,a*2.5),half=(plan.weaponId==='S_BAN'?50:e.halfAngle)*Math.PI/180,base=e.direction<0?Math.PI:0;ctx.save();ctx.globalAlpha=alpha*(1-a);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.arc(e.x,e.y,r,base-half,base+half);ctx.closePath();ctx.fillStyle=look.color+'30';ctx.fill();ctx.lineWidth=3/scale;ctx.strokeStyle=look.color;ctx.stroke();ctx.restore();}
+   if(e.type==='shockwave'&&age<.65){const a=age/.65,r=e.length*Math.min(1,a*2.5),half=e.halfAngle*Math.PI/180,base=e.direction<0?Math.PI:0;ctx.save();ctx.globalAlpha=alpha*(1-a);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.arc(e.x,e.y,r,base-half,base+half);ctx.closePath();ctx.fillStyle=look.color+'30';ctx.fill();ctx.lineWidth=3/scale;ctx.strokeStyle=look.color;ctx.stroke();ctx.restore();}
    if(e.type==='pull'&&age<e.duration){const a=age/e.duration;ctx.save();ctx.globalAlpha=alpha*(1-a*.5);path([{x:e.from.x+(e.to.x-e.from.x)*a,y:e.from.y+(e.to.y-e.from.y)*a-22},{x:e.x,y:e.y}],look.color,3/scale,[5/scale,4/scale]);circle(e.x,e.y,(10+Math.sin(a*Math.PI)*10)/scale,look.color+'44',look.color);ctx.restore();}
   }
   for(const hit of plan.teleport?[]:plan.impacts||[])explosion(hit,t-hit.t,{...look,blast:impactBlast(plan,hit,look)},scale,options.reducedMotion,alpha);
