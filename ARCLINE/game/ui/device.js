@@ -141,7 +141,7 @@
   function offer(done = () => {}, force = false) {
     const e = environment();
     if (root.ArcScreens.isOpen("installGuide")) return;
-    if (!force && (e.os === "desktop" || e.standalone || read().state)) {
+    if (!force && (e.standalone || read().state)) {
       done();
       return;
     }

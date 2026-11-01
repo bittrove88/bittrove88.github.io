@@ -1,5 +1,6 @@
 (function(root){'use strict';
 let locked=false,helpReturn=null;const active=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+async function enter(){if(active())return true;const el=document.documentElement,fn=el.requestFullscreen||el.webkitRequestFullscreen;if(!fn)return false;try{await fn.call(el,{navigationUI:'hide'});sync();return active();}catch{return false;}}
 function sync(){for(const b of document.querySelectorAll('[data-fullscreen]'))b.textContent=active()?'Exit fullscreen':'Fullscreen';root.ArcI18n?.apply();root.dispatchEvent(new Event('arcline-fullscreen'));}
 function help(trigger){if(root.ArcDevice){root.ArcDevice.offer(()=>trigger?.focus({preventScroll:true}),true);return;}helpReturn=trigger;document.getElementById('screenHelp').hidden=false;document.getElementById('closeScreenHelp').focus({preventScroll:true});}
 async function toggle(event){
@@ -14,5 +15,5 @@ async function toggle(event){
 for(const b of document.querySelectorAll('[data-fullscreen]'))b.onclick=toggle;
 document.getElementById('closeScreenHelp').onclick=()=>{document.getElementById('screenHelp').hidden=true;if(helpReturn?.isConnected&&helpReturn.getClientRects().length)helpReturn.focus({preventScroll:true});helpReturn=null;};
 for(const e of ['fullscreenchange','webkitfullscreenchange'])document.addEventListener(e,()=>{if(!active()&&locked){try{screen.orientation?.unlock();}catch{}locked=false;}sync();});
-root.ArcFullscreen={toggle,active};sync();
+root.ArcFullscreen={toggle,enter,active};sync();
 })(globalThis);

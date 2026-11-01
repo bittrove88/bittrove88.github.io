@@ -52,8 +52,8 @@
         exposed: 0,
         facing: i ? -1 : 1,
       }));
-      s.angle = Number($("trialAngle").value);
-      s.power = Number($("trialPower").value);
+      s.angle = 48;
+      s.power = 70;
       s.difficulty = choice;
       return s;
     }
@@ -75,7 +75,17 @@
       if (!w || !h) return;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
-      ctx.scale((dpr * w) / 750, (dpr * h) / 500);
+      const scale = Math.min(w / 460, h / 220);
+      ctx.fillStyle = "#102d3e";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.setTransform(
+        dpr * scale,
+        0,
+        0,
+        dpr * scale,
+        dpr * ((w - 460 * scale) / 2 - 80 * scale),
+        dpr * ((h - 220 * scale) / 2 - 230 * scale),
+      );
       ctx.fillStyle = "#163e50";
       ctx.fillRect(0, 0, 750, 500);
       ctx.fillStyle = "#627f70";
@@ -134,11 +144,11 @@
     }
     function render() {
       $("difficultyIntroTitle").textContent = en()
-        ? "Aim, fire, then choose your guide"
-        : "狙って、撃って、射線を選ぼう";
+        ? "Compare the guides"
+        : "射線を比べて選ぼう";
       $("difficultyIntroText").textContent = en()
-        ? "Gun’s heavy shot falls quickly. Adjust the angle and power, fire, then compare all three guides on the same range. Enemy strength and physics do not change."
-        : "ガンの重い弾は早めに落ちます。照準と強さを調整して試射し、同じ目標で3つの射線を比べましょう。敵の強さと弾道は変わりません。";
+        ? "Fire the same shot in all three modes. Aim and power are fixed; only the guide changes. Enemy strength and physics stay the same."
+        : "同じ照準・同じ威力で試し撃ちし、3つの射線を比べましょう。変わるのはガイドだけ。敵の強さと弾道は変わりません。";
       $("initialDifficultyOptions").innerHTML = modes
         .map(
           (id, i) =>
@@ -157,20 +167,15 @@
         : "この難易度で冒険を始める";
       $("confirmDifficulty").disabled =
         !!flight || busy || hooks.data().onboarding.tried.length !== 3;
-      $("trialFire").textContent = en() ? "Fire" : "試射";
-      $("trialRetry").textContent = en() ? "Retry" : "再試行";
-      $("trialFire").disabled =
-        $("trialRetry").disabled =
-        $("trialAngle").disabled =
-        $("trialPower").disabled =
-          !!flight || busy;
+      $("trialFire").textContent = en() ? "Test shot" : "試撃";
+      $("trialFire").disabled = !!flight || busy;
       $("trialResult").textContent =
         title() +
         " · " +
         (result ||
           (en()
-            ? "Adjust aim, then fire. Try each guide."
-            : "照準を合わせて試射。3つの射線を試そう。"));
+            ? "Fire once in each mode to compare the guides."
+            : "試撃して、3つの射線を比べよう。"));
       draw();
     }
     async function finishShot() {
@@ -184,8 +189,8 @@
       if (!ok) data.onboarding.tried = previous;
       result = ok
         ? en()
-          ? "Contact confirmed. Retry or try another guide."
-          : "着弾を確認。再試行するか、別の射線を試そう。"
+          ? "Shot complete. Compare another guide or choose your mode."
+          : "着弾を確認。別の射線を比べて、難易度を選ぼう。"
         : en()
           ? "Could not save. Retry this shot."
           : "保存できませんでした。もう一度試射してください。";
@@ -203,16 +208,8 @@
         onEscape: () => {},
       });
       reset();
-      $("trialAngle").focus();
+      $("trialFire").focus();
     }
-    $("trialAngle").oninput = $("trialPower").oninput = () => {
-      if (!flight && !busy) reset();
-    };
-    $("trialRetry").onclick = () => {
-      $("trialAngle").value = "48";
-      $("trialPower").value = "70";
-      reset();
-    };
     $("trialFire").onclick = () => {
       if (flight || busy) return;
       state = arena();
@@ -235,12 +232,8 @@
       data.difficulty = choice;
       data.difficultyConfirmed = true;
       data.onboarding.step = "done";
-      const controls = root.ArcLessons.forStage(
-        root.ArcEngine.campaign(1, data),
-        data,
-      ).find((x) => x.id === "controls");
-      if (controls && !data.seenPreviewIds.includes(controls.key))
-        data.seenPreviewIds.push(controls.key);
+      // A fixed comparison shot does not teach movement or holding FIRE.
+      // Keep the existing controls lesson unread until its own completion.
       if (!(await hooks.persist())) {
         data.difficulty = old.difficulty;
         data.difficultyConfirmed = old.confirmed;
@@ -278,12 +271,29 @@
         .querySelector(".settings-difficulty")
         .scrollIntoView({ block: "nearest" });
     };
-    root.addEventListener("resize", () => {
-      if (root.ArcScreens.isOpen("difficultyIntro")) draw();
-    });
+    function resized() {
+      if (!root.ArcScreens.isOpen("difficultyIntro")) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(draw);
+    }
+    root.addEventListener("resize", resized);
+    if (root.ResizeObserver)
+      new root.ResizeObserver(resized).observe(
+        $("difficultyTrial").parentElement,
+      );
     return {
       sync,
       request,
+      get trial() {
+        return state
+          ? {
+              angle: state.angle,
+              power: state.power,
+              difficulty: choice,
+              flying: !!flight,
+            }
+          : null;
+      },
       refresh() {
         if (root.ArcScreens.isOpen("difficultyIntro")) render();
         sync();

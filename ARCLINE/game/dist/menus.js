@@ -67,24 +67,16 @@ function renderJourney(){
 let memory=null,memoryTyper=null;
 function replayMovie(id,trigger){if(!hooks.data().journeyStarted)return;const panel=active;$('journalPanel').hidden=true;active=null;hooks.playMovie(id,trigger,()=>{active=panel;$('journalPanel').hidden=false;trigger?.focus({preventScroll:true});});}
 function renderScenes(){
- const data=hooks.data(),n=J.progress(data),c=J.chapters.find(c=>c.id===chapter)||J.chapters[0];chapter=c.id;memoryTyper=null;
+ const data=hooks.data(),n=J.progress(data),c=J.chapters.find(c=>c.id===chapter)||J.chapters[0];chapter=c.id;memoryTyper=null;memory=null;
  $('recordNavigation').innerHTML=J.chapters.map(c=>`<button type="button" data-story-chapter="${c.id}" aria-pressed="${chapter===c.id}" ${n<c.start-1?'disabled':''}>${local('第'+c.id+'章','Chapter '+c.id)}<small>${c.start}–${c.end}</small></button>`).join('');
- for(const b of $('recordNavigation').querySelectorAll('button')){b.onclick=()=>{chapter=+b.dataset.storyChapter;memory=null;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
- if(memory&&memory<=n){const r=J.story.result(memory,language()),person=J.machines.find(m=>m.id===r.focus);$('recordBody').innerHTML=`<div class="memory-replay" data-tier="${r.kind}" data-story-raw><button type="button" id="memoryBack">${local('← 一覧へ','← All scenes')}</button><small>${local(memory+'面 クリア','STAGE '+memory+' CLEAR')}</small><h3>${escape(r.title)}</h3><p>${escape(r.area)}</p><div id="memoryText"></div><button type="button" id="memoryShowAll">${local('全文を表示','Show all')}</button></div>`;memoryTyper=root.ArcStoryView.typeText($('memoryText'),[r.aftermath,r.response?t(person.name)+' '+r.response:'']);$('memoryBack').onclick=()=>{memory=null;renderJournal();};$('memoryShowAll').onclick=()=>memoryTyper?.complete();return;}
- memory=null;
- let body=`<h3 class="record-title">${local('クリアした物語を、もう一度。','Return to the stories you have cleared.')}</h3><p>${local('各面のメッセージと仲間との出会いを振り返れます。','Replay clear messages and meetings with companions.')}</p><div class="memory-list">`;
- const movieButton=(id,label)=>`<button type="button" data-story-movie="${id}"><small>${local('映像','FILM')}</small><strong>${escape(label)}</strong><span>▶</span></button>`;
- if(chapter===1&&data.journeyStarted)body+=movieButton('prologue',local('プロローグ','Prologue'));
- for(let stage=c.start;stage<=Math.min(c.end,n);stage++){const r=J.story.result(stage,language()),crew=root.ArcCrew.at(stage);body+=`<button type="button" data-clear-memory="${stage}"><small>${stage} · ${local(r.kind==='boss'?'エリア復旧':r.kind==='midboss'?'中ボス':'クリア',r.kind==='boss'?'AREA':r.kind==='midboss'?'MID-BOSS':'CLEAR')}</small><strong>${escape(r.title)}</strong><span>›</span></button>`;if(crew)body+=`<button type="button" data-recruit-memory="${crew.id}"><small>${local('仲間との出会い','COMPANION')}</small><strong>${escape(t(crew.name))}</strong><span>▶</span></button>`;if([30,60,100].includes(stage))body+=movieButton(stage===100?'epilogue':String(stage),local(stage===100?'エピローグ':stage+'面の幕間',stage===100?'Epilogue':'Stage '+stage+' interlude'));}
- if(n<c.start)body+=`<p>${local('クリアした面の物語がここに追加されます。','Cleared stages will appear here.')}</p>`;
- $('recordBody').innerHTML=body+'</div>';
- for(const b of $('recordBody').querySelectorAll('[data-clear-memory]'))b.onclick=()=>{memory=+b.dataset.clearMemory;renderJournal();$('recordBody').scrollTop=0;};
- for(const b of $('recordBody').querySelectorAll('[data-story-movie]'))b.onclick=()=>replayMovie(b.dataset.storyMovie,b);
- for(const b of $('recordBody').querySelectorAll('[data-recruit-memory]'))b.onclick=()=>{const panel=active;active=null;$('journalPanel').hidden=true;hooks.replayRecruit(b.dataset.recruitMemory,()=>{active=panel;$('journalPanel').hidden=false;b.focus({preventScroll:true});});};
- for(const b of $('recordBody').querySelectorAll('button'))touchTap(b);
+ for(const b of $('recordNavigation').querySelectorAll('button')){b.onclick=()=>{chapter=+b.dataset.storyChapter;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
+ const available=n>=c.start||chapter===1&&data.journeyStarted;
+ $('recordBody').innerHTML=`<h3 class="record-title">${escape(t(c.title))}</h3><p>${local('台詞・映像・仲間との出会いを、章ごとに続けて再生します。','Play the dialogue, films and meetings as one chapter.')}</p><p>${c.start}–${c.end} · ${local('クリア済みの物語のみ','Cleared stories only')}</p><button type="button" id="playStoryChapter" data-play-chapter="${chapter}" ${available?'':'disabled'}>${local('この章を再生','Play this chapter')} ▶</button>`;
+ const b=$('playStoryChapter');b.onclick=()=>{root.ArcFullscreen?.enter?.();const panel=active;active=null;$('journalPanel').hidden=true;const done=()=>{active=panel;$('journalPanel').hidden=false;b.focus({preventScroll:true});};if(!hooks.playChapter(chapter,b,done))done();};touchTap(b);
 }
+
 function renderJournal(){
- $('replay30').hidden=J.progress(hooks.data())<30;$('replay60').hidden=J.progress(hooks.data())<60;$('replay30').textContent=local('30面の幕間','Stage30 scene');$('replay60').textContent=local('60面の幕間','Stage60 scene');$('replayEpilogue').hidden=J.progress(hooks.data())<100;
+ for(const id of ['replayPrologue','replay30','replay60','replayEpilogue'])$(id).hidden=true;$('replay30').textContent=local('30面の幕間','Stage30 scene');$('replay60').textContent=local('60面の幕間','Stage60 scene');
  for(const b of document.querySelectorAll('[data-record-tab]')){const selected=b.dataset.recordTab===tab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
  if(tab==='scenes')renderScenes();else if(tab==='machines')renderMachine();else renderJourney();for(const d of $('recordBody').querySelectorAll('[data-read-ids]'))d.addEventListener('toggle',()=>{if(d.open)read(d.dataset.readIds.split(','));});root.ArcI18n.apply();
  // Repaint the selected record's unread mark without rebuilding its content.

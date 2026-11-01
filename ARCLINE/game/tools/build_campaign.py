@@ -1,6 +1,6 @@
 """Compile individually authored5.0 terrain and its tactical design catalogue."""
 from pathlib import Path
-import json,copy
+import json,copy,hashlib
 root=Path(__file__).resolve().parents[2]
 blueprints=json.loads((root/'design/expedition_013/stage_blueprints.json').read_text())
 source=root/'design/runtime_campaign_20x5.json'
@@ -28,6 +28,8 @@ for bp,previous in zip(blueprints,campaign['levels']):
     if level.get('midboss'):level['actionLimit']=18 if n<50 else 24
     if bp.get('separatedFloors'):
         f=bp['floor'];level['floors']=[f[:2],f[-2:]]
+    if bp.get('floorSegments'):level['floors']=copy.deepcopy(bp['floorSegments'])
+    level['terrainRevision']=bp.get('terrainRevision','5.0')
     level['spawn']=[[x,interpolate(bp['floor'],x)] for x in bp['spawn']]
     if bp.get('enemyAirHeight'):level['spawn'][1][1]+=bp['enemyAirHeight']
     if n==100:level['phaseFeatures']=[bp['features'],[{'type':'C','v':[48,62,22,41]},{'type':'K','v':[69,33,28]}],[{'type':'W','v':[34,70,8]},{'type':'M','v':[58,26,12,1]}]]
@@ -47,7 +49,7 @@ for bp,previous in zip(blueprints,campaign['levels']):
     records.append({'stage':n,'difficultyBand':band(n),'theme':level['themeName'],'learningGoal':bp['goal'],'mainGimmicks':sorted(set(f['type'] for f in bp['features'])),'terrainIntent':bp['route'],'basicRoute':bp['route'],'alternativeRoute':'割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。','advantage':{'character':bp['recommended'],'reason':bp['goal']},'hint':bp['goal'],'enemyInteraction':{'spawn':level['spawn'][1],'movement':'守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。','counterplay':'準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。'},'actionBudget':level['actionLimit'],'expectedActions':[3,7] if n<=30 else [5,12] if n<80 else [7,18],'tolerance':'初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。','availableStoryCrew':[c['id'] for c in crew if c['stage']<n or c['stage']==0],'testResult':{'status':'pending','report':'stage_verification.json','stage':n}})
     record=records[-1]
     changes=[]
-    if bp.get('separatedFloors'):changes.append('両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く')
+    if bp.get('separatedFloors') or bp.get('floorSegments'):changes.append('両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く')
     heights=[p[1] for p in bp['floor']]
     if max(heights)>min(heights):changes.append(f'床の高低差{max(heights)-min(heights):g}。坂の肩と裾で砲口の高さと遮蔽が変わる')
     for kind,label in [('wall','割れた壁'),('roof','天井片'),('island','中継棚')]:
@@ -57,13 +59,13 @@ for bp,previous in zip(blueprints,campaign['levels']):
     notes={'gun':'耐久に余裕を持ち、通常弾の弧で経路を確かめられる。','hana':'時間差の三連射で広い足元を覆える。','koro':'床で走り、短い空隙では落下して再び接地する必殺が連続面を活かす。','ban':'着弾点から前方の扇状衝撃で、開口の先へ作用する。','sora':'高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。','hibari':'視線が通る相手の近くで炸裂し、窓からの距離の誤差を補える。','rico':'実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。','mogu':'出力で前進間隔を変える連続爆破で、外す地形を選べる。','rin':'狭く速い精密弾を、破壊後に開いた長い射線へ通せる。','yui':'着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。'}
     record['advantage']['reason']=notes[bp['recommended']]
     verified=verification.get(n)
-    if verified:
+    if verified and verified.get('blueprintSha256')==hashlib.sha256(json.dumps(bp,sort_keys=True,separators=(',',':')).encode()).hexdigest():
         record['testResult']={k:v for k,v in verified.items() if k not in ['normalWitness','recommendedWitness','featuredWitness']}
         record['basicRouteProof']=verified.get('featuredWitness') or verified.get('recommendedWitness')
         record['alternativeRoute']=verified['normalWitness']['description']
         record['alternativeRouteProof']=verified['normalWitness']
     campaign['levels'][n-1]=level
-campaign['revision']='5.0';campaign['date']='2026-11-01'
+campaign['revision']='5.0';campaign['date']='2026-11-02'
 source.write_text(json.dumps(campaign,ensure_ascii=False,indent=2)+'\n')
 (root/'design/expedition_013/stage_design.json').write_text(json.dumps({'revision':'5.0','stages':records},ensure_ascii=False,indent=2)+'\n')
 print('Compiled100 authored tactical designs;20 themes;40 weapon boxes;10 skill boxes')

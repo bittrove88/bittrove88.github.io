@@ -66,6 +66,26 @@ Gun draws a connected bridge and ten lights on the back of the old letter. Then 
 
 ガンは古い便りの裏に、つながった橋と十の灯りを描いた。そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」十機はそれぞれの仕事へ戻っていく。その道を、新しい旅人が走り出した。
 
+### `/guardians/4/response/en`
+
+**変更前**
+
+“The call never stopped. Hibari, let us send an answer.”
+
+**変更後**
+
+“The call never stopped. Rico, let us send an answer.”
+
+### `/guardians/4/response/ja`
+
+**変更前**
+
+「呼出しは続いていた。ヒバリ、今度はこっちから返そう。」
+
+**変更後**
+
+「呼出しは続いていた。リコ、今度はこっちから返そう。」
+
 ### `/guardians/19/aftermath/en`
 
 **変更前**

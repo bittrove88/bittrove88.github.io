@@ -26,9 +26,9 @@ function decode(raw){
  out.journeyStarted=p.journeyStarted===true||out.cleared>0||!!p.chapterRun;
  out.preferences={language:['ja','en'].includes(p.preferences?.language)?p.preferences.language:null,controls:['left','right'].includes(p.preferences?.controls)?p.preferences.controls:null};
  out.chapterRun=Run.decode(p.chapterRun,Math.min(100,out.cleared+1));
- out.joinedCharacterIds=Crew.joinedAt(out.cleared);out.unlockedCharacterIds=Crew.normalize([...owned,...out.joinedCharacterIds]);
- const pending=p.pendingRecruit,r=Crew.at(pending?.stage);
- out.pendingRecruit=r&&r.id===pending.id&&r.stage<=out.cleared?{id:r.id,stage:r.stage,alreadyOwned:!!pending.alreadyOwned}:null;
+ out.joinedCharacterIds=Crew.normalize([...Crew.joinedAt(out.cleared),...(Array.isArray(p.joinedCharacterIds)?p.joinedCharacterIds:[]).filter(id=>owned.includes(id))]);out.unlockedCharacterIds=Crew.normalize([...owned,...out.joinedCharacterIds]);
+ const pending=p.pendingRecruit,r=Crew.get(pending?.id),legacyPair=r&&(r.id==='hibari'&&pending.stage===25||r.id==='rico'&&pending.stage===30),validPending=r&&Number.isInteger(pending.stage)&&pending.stage>0&&pending.stage<=out.cleared&&(r.stage===pending.stage||legacyPair);
+ out.pendingRecruit=validPending?{id:r.id,stage:pending.stage,alreadyOwned:!!pending.alreadyOwned}:null;
  // Additive first-journey state. Established records never repeat onboarding.
  const steps=['prologue','gun','trial','done'],o=p.onboarding;
  const established=out.cleared>0||out.difficultyConfirmed||out.journeyStarted;
