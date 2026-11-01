@@ -2,10 +2,16 @@
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),ease=t=>{t=clamp(t,0,1);return t*t*(3-2*t);};
 const restricted=()=>!!(root.navigator?.connection?.saveData||root.navigator?.deviceMemory&&root.navigator.deviceMemory<=2||root.navigator?.hardwareConcurrency&&root.navigator.hardwareConcurrency<=2);
 function framing(shot,w,h,t,reduced=false){
- const box=shot.protectedBox,progress=reduced?.5:ease(t),a=shot.camera.start,b=shot.camera.end,maxZoom=Math.max(a.scale,b.scale),cover=Math.max(w/shot.width,h/shot.height),safe=Math.min(w/(shot.width*(box[2]-box[0])*maxZoom),h/(shot.height*(box[3]-box[1])*maxZoom)),base=Math.min(cover,safe),bw=shot.width*base,bh=shot.height*base,z=reduced?1.02:a.scale+(b.scale-a.scale)*progress,iw=bw*z,ih=bh*z;
- const focal=reduced?shot.focalPoint[w/h<1?'mobile':'desktop']:a.focus.map((v,i)=>v+(b.focus[i]-v)*progress);
+ const box=shot.protectedBox,progress=reduced?.5:clamp(t,0,1),a=shot.camera.start,b=shot.camera.end,cover=Math.max(w/shot.width,h/shot.height),maxZoom=Math.max(a.scale,b.scale,1.08),safe=Math.min(w/(shot.width*(box[2]-box[0])*maxZoom),h/(shot.height*(box[3]-box[1])*maxZoom)),base=Math.min(cover,safe),bw=shot.width*base,bh=shot.height*base;
+ // Keep a constant zoom and pan on one axis only; no swaying or direction reversal.
+ const z=reduced?1.02:Math.max(1.04,Math.min(1.1,a.scale)),iw=bw*z,ih=bh*z;
+ const portrait=w/h<1;
+ const reference=portrait?[.30,.50]:[.32,.50];
+ const dx=b.focus[0]-a.focus[0],dy=b.focus[1]-a.focus[1],horizontal=Math.abs(dx)>=Math.abs(dy);
+ const travel=reduced?0:Math.min(.075,Math.max(.025,Math.abs(horizontal?dx:dy)));
+ const focus=[reference[0]+(horizontal?(dx<0?-1:1)*travel*progress:0),reference[1]+(!horizontal?(dy<0?-1:1)*travel*progress:0)];
  function offset(size,image,lo,hi,f){const min=-lo*image,max=size-hi*image;let n=clamp(size/2-f*image,min,max);if(image<size)n=clamp(n,0,size-image);else n=clamp(n,size-image,0);return n;}
- const x=offset(w,iw,box[0],box[2],focal[0]),y=offset(h,ih,box[1],box[3],focal[1]);return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
+ const x=offset(w,iw,box[0],box[2],focus[0]),y=offset(h,ih,box[1],box[3],focus[1]);return {x,y,scale:z,baseWidth:bw,baseHeight:bh,protected:{left:x+box[0]*iw,top:y+box[1]*ih,right:x+box[2]*iw,bottom:y+box[3]*ih}};
 }
 function create(host,options={}){
  let current=null,prior=null,token=0,age=0,closed=false;const cache=new Map(),timers=new Set(),stats={loads:0,failures:0,maxCached:0,frames:0},prefix=options.assetBase||root.ArcAssetBase||'../../';host.classList.add('cinematic-plate');
