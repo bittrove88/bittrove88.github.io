@@ -55,5 +55,12 @@ for(const id of Object.keys(configured)){
  const p=C.get(id).special;
  const scenario=direct(id);
  ok(scenario.damage[1]<=p.damageCap+1e-7,'aggregate cap cannot be bypassed '+id);
+ // Chapter boss cores multiply weak-spot hits, but must respect each machine's
+ // agreed per-action cap. The separate boss-only cap proposal was not adopted.
+ const boss=arena(id,true),u=boss.units[1];
+ boss.units[1].core={x:0,y:-77,radius:23,exposedRadius:33,multiplier:2};
+ const core=E.trajectory(boss,0,0,100,{weaponId:p.id,
+  origin:{x:u.x-48,y:u.y-77,theta:0,dx:1,dy:0,dir:1}});
+ ok(core.damage[1]<=p.damageCap+1e-7,'boss core cannot bypass special cap '+id);
 }
 console.log(JSON.stringify({status:'PASS',checks,scope:'Ten special damage profiles, real single-hit and volley contacts, Ricochet scaling, Sora split, tutorial previews and per-action caps. Synthetic origins are damage fixtures, not playable aim scenarios.'}));
