@@ -1,0 +1,15 @@
+{
+  "name": "arcline-dev",
+  "private": true,
+  "scripts": {
+    "test": "node game/tools/test.cjs unit",
+    "test:browser": "node game/tools/test.cjs browser",
+    "check:generated": "python3 game/tools/check_generated.py --output /tmp/arcline-generated.json",
+    "build": "python3 game/tools/build_all.py",
+    "format:check": "prettier --check \"game/ui/*.js\" \"game/styles/*.css\""
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "prettier": "3.6.2"
+  }
+}

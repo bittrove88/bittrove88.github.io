@@ -1,12 +1,12 @@
 (function(root){'use strict';
 const $=id=>document.getElementById(id),local=(ja,en)=>root.ArcI18n.language==='en'?en:ja;
-let hooks=null,active=null,after=null,busy=false,previousFocus=null,inert=[],replayInfo=null;
+let hooks=null,active=null,after=null,busy=false,replayInfo=null;
 function open(done=()=>{},replayId=null){
  if(active)return false;const d=hooks.data();replayInfo=replayId?root.ArcCrew.get(replayId):null;if(replayId&&(!replayInfo||replayInfo.stage>d.cleared||!replayInfo.stage))return false;const pending=replayInfo||d.pendingRecruit;
  if(!replayInfo&&!d.updateNoticePending&&!pending){done();return false;}
- active=replayInfo?'replay':d.updateNoticePending?'update':'join';after=done;previousFocus=document.activeElement;inert=[];hooks.clearInput();
- for(const id of ['lobby','battle','overlay','collectionPanel','journalPanel','lobbySettings']){const e=$(id);inert.push([e,e.inert]);e.inert=true;}
- $('expeditionDialog').hidden=false;document.querySelector('.expedition-copy').scrollTop=0;document.querySelector('.expedition-copy details').open=false;$('expeditionError').hidden=true;
+ active=replayInfo?'replay':d.updateNoticePending?'update':'join';after=done;hooks.clearInput();
+ root.ArcScreens.open('expeditionDialog',{block:['lobby','battle','overlay','collectionPanel','journalPanel','lobbySettings'],onEscape:()=>finish(false),cycleFocus:true});
+ document.querySelector('.expedition-copy').scrollTop=0;document.querySelector('.expedition-copy details').open=false;$('expeditionError').hidden=true;
  const c=['join','replay'].includes(active)?root.ArcCrew.get(pending.id):null;
  $('expeditionTitle').textContent=active==='update'?local('新しい旅が始まります','A new adventure begins'):local(pending.alreadyOwned?'仲間と合流':'新しい仲間',pending.alreadyOwned?'A companion rejoins':'A new companion');
  $('expeditionDialog').dataset.recruit=String(!!c);$('expeditionDialog').classList.remove('reveal-complete');$('expeditionArt').hidden=!c;document.querySelector('.expedition-copy details').hidden=!c;
@@ -22,9 +22,8 @@ async function finish(change=false){
  if(!ok){d.pendingRecruit=pending;d.updateNoticePending=notice;d.equippedCharacterId=equipped;$('expeditionError').textContent=local('保存できませんでした。もう一度選択してください。','Could not save. Please choose again to retry.');$('expeditionError').hidden=false;return;}
  dismiss();
 }
-function dismiss(){ active=null;replayInfo=null;$('expeditionDialog').hidden=true;for(const[e,value]of inert)e.inert=value;inert=[];const done=after;after=null;hooks.changed();done();if(previousFocus?.isConnected&&!previousFocus.closest('[hidden]'))previousFocus.focus({preventScroll:true});previousFocus=null;}
+function dismiss(){active=null;replayInfo=null;root.ArcScreens.close('expeditionDialog');const done=after;after=null;hooks.changed();done();}
 function install(options){hooks=options;$('expeditionRevealSkip').onclick=()=>root.ArcCharacterHero.skip($('expeditionDialog'));$('expeditionUse').onclick=()=>finish(true);$('expeditionStay').onclick=()=>finish(false);
- document.addEventListener('keydown',e=>{if(!active||$('gameSurface').inert||$('app').inert)return;if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();finish(false);}if(e.key==='Tab'){e.preventDefault();e.stopImmediatePropagation();const list=[...$('expeditionDialog').querySelectorAll('button:not(:disabled),summary')].filter(e=>!e.hidden&&e.getClientRects().length);if(list.length)list[(list.indexOf(document.activeElement)+(e.shiftKey?-1:1)+list.length)%list.length].focus();}},true);
 }
 root.addEventListener('arcline-language',()=>{
  if(!active)return;const d=hooks.data(),pending=replayInfo||d.pendingRecruit,c=['join','replay'].includes(active)?root.ArcCrew.get(pending.id):null;

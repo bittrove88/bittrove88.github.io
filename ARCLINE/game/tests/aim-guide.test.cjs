@@ -63,9 +63,9 @@ for(let stage=1;stage<=100;stage++){
 }
 
 for(const difficulty of A.modes){
- const old={schemaVersion:2,contentRevision:S.revision,cleared:87,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',collectedCosmeticIds:['S01','B10'],equippedCosmeticId:'B10',equippedCharacterId:'rin',seenPreviewIds:['v4:controls'],difficulty};
- const decoded=S.decode(JSON.stringify(old));ok(decoded.difficulty===difficulty,'mode saved '+difficulty);
- ok(decoded.cleared===0&&decoded.unlockedWeaponIds.join()==='W01'&&decoded.equippedWeaponId==='W01'&&decoded.equippedCharacterId==='gun'&&decoded.unlockedCharacterIds.includes('rin')&&!('collectedCosmeticIds'in decoded),'one-time campaign reset retains machine rights and difficulty '+difficulty);
+ const current=S.decode(JSON.stringify({schemaVersion:S.schemaVersion,campaignResetVersion:S.resetVersion,difficulty}));ok(current.difficulty===difficulty,'current mode roundtrips '+difficulty);
+ const decoded=S.decode(JSON.stringify({schemaVersion:2,difficulty,cleared:87,equippedCharacterId:'rin'}));ok(decoded.difficulty==='normal'&&!decoded.difficultyConfirmed,'explicit reset requests a fresh difficulty choice '+difficulty);
+ ok(decoded.cleared===0&&decoded.unlockedWeaponIds.join()==='W01'&&decoded.equippedCharacterId==='gun'&&decoded.unlockedCharacterIds.join()==='gun','explicit reset removes prior selections '+difficulty);
 }
 ok(S.decode(JSON.stringify({version:1,cleared:40})).difficulty==='normal','legacy save defaults to normal');
 ok(S.decode(JSON.stringify({schemaVersion:2,difficulty:'invalid'})).difficulty==='normal','invalid saved mode is normalized');

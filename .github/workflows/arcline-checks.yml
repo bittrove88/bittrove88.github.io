@@ -1,0 +1,47 @@
+name: ARCLINE checks
+on:
+  pull_request:
+    paths: ['ARCLINE/**', '.github/workflows/arcline-checks.yml']
+  push:
+    branches: [main]
+    paths: ['ARCLINE/**', '.github/workflows/arcline-checks.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ARCLINE
+    env:
+      ARCLINE_EVIDENCE_DIR: /tmp/arcline-ci
+      ARCLINE_PACKAGE_DIR: /tmp/arcline-package
+      ARCLINE_BASELINE_ROOT: /tmp/arcline-baseline
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ARCLINE/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: pip install -r requirements-dev.txt
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: npm run check:generated
+      - run: npm run test:browser
+      - run: python3 game/tools/create_layout_baseline.py --output /tmp/arcline-baseline
+      - run: node game/tools/test.cjs visual
+      - run: python3 game/tools/build_playables.py --output /tmp/arcline-package
+      - run: node game/tools/test.cjs delivery
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: arcline-checks
+          path: /tmp/arcline-ci

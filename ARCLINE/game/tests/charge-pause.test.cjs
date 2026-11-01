@@ -4,7 +4,7 @@ const S=require('../dist/save.js'),R=require('../dist/campaign-run.js');
 const root=path.resolve(__dirname,'../dist'),out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-charge-pause';fs.mkdirSync(out,{recursive:true});
 let checks=0;const ok=(v,m)=>{checks++;assert(v,m);},equal=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
 const server=http.createServer((q,r)=>{const file=path.resolve(root,'.'+(new URL(q.url,'http://localhost').pathname==='/'?'/index.html':new URL(q.url,'http://localhost').pathname));if(!file.startsWith(root+path.sep))return r.writeHead(403).end();fs.readFile(file,(e,b)=>{if(e)return r.writeHead(404).end();r.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html');r.end(b);});});
-function profile(){const p=S.decode(JSON.stringify({schemaVersion:8,campaignResetVersion:1,cleared:6,seenPreviewIds:S.previewIds,unlockedWeaponIds:S.weaponIds,unlockedCharacterIds:['gun','rin'],equippedCharacterId:'rin',journal:{narrativeVersion:'0.13.0',moviesSeen:['prologue']}}));p.chapterRun=R.checkpoint(7,{weapons:{W06:2},skills:{BURST:2}},[],'charge-pause',20261031);p.chapterRun.mode='W06';return p;}
+function profile(){const p=S.decode(JSON.stringify({schemaVersion:8,campaignResetVersion:S.resetVersion,difficultyConfirmed:true,journeyStarted:true,cleared:6,seenPreviewIds:S.previewIds,unlockedWeaponIds:S.weaponIds,unlockedCharacterIds:['gun','rin'],equippedCharacterId:'rin',journal:{narrativeVersion:'0.13.0',moviesSeen:['prologue']}}));p.chapterRun=R.checkpoint(7,{weapons:{W06:2},skills:{BURST:2}},[],'charge-pause',20261031);p.chapterRun.mode='W06';return p;}
 const center=async(page,id)=>{const r=await page.locator('#'+id).boundingBox();return {x:r.x+r.width/2,y:r.y+r.height/2};};
 const snapshot=page=>page.evaluate(()=>JSON.stringify({stock:I.fromState(s),shots:s.shotCount,round:s.round,seed:s.matchSeed,entry:save.data.chapterRun}));
 const geometry=page=>page.evaluate(()=>[...document.querySelectorAll('#overlay button')].filter(b=>b.getClientRects().length).map(b=>{const r=b.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {id:b.id||b.className,w:r.width,h:r.height,left:r.left,top:r.top,right:r.right,bottom:r.bottom,reachable:hit===b||b.contains(hit),width:innerWidth,height:innerHeight};}));
@@ -12,7 +12,7 @@ function fits(rows,label){ok(rows.length>=2&&rows.every(r=>r.w>=44&&r.h>=44&&r.l
 async function noScroll(page){await page.locator('.modal').evaluate(e=>{e.scrollTop=0;});}
 async function retry(page){if(await page.locator('#overlay').isHidden())await page.locator('#pause').click();await page.locator('#retryLevel').click();await page.locator('#resume').click();await page.waitForFunction('canAim()');}
 (async()=>{
- await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']}),rows=[],errors=[],bad=[];
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({executablePath:process.env.ARCLINE_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox']}),rows=[],errors=[],bad=[];
  try{for(const [width,height,touch] of [[568,240,true],[667,280,true],[844,390,true],[932,430,true],[1440,900,false]]){
   const c=await browser.newContext({viewport:{width,height},hasTouch:touch,isMobile:touch,deviceScaleFactor:2});await c.addInitScript(p=>{if(!localStorage.getItem('arcline-campaign-v1'))localStorage.setItem('arcline-campaign-v1',JSON.stringify(p));},profile());const p=await c.newPage();p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(r.status()>=400)bad.push(r.url());});await p.goto('http://127.0.0.1:'+server.address().port);await p.waitForFunction('!document.getElementById("play").disabled');await p.locator('#play').click();await p.waitForFunction('canAim()');
   const cdp=touch?await c.newCDPSession(p):null;
@@ -39,7 +39,7 @@ async function retry(page){if(await page.locator('#overlay').isHidden())await pa
   for(const lang of ['ja','en']){
    if(await p.evaluate('ArcI18n.language')!==lang)await p.locator('.pause-language').click();await noScroll(p);const controls=await geometry(p);ok(controls.length===6,'pause has six clear reachable actions '+width+' '+lang);fits(controls,'entire pause menu fits without scroll '+width+' '+lang);
    equal(await p.locator('#modalTitle').innerText(),lang==='ja'?'一時停止':'Paused','pause title '+lang);equal(await p.locator('#returnLobby').innerText(),lang==='ja'?'タイトルへ戻る':'Return to title','exit names actual destination '+lang);
-   ok(await p.evaluate('manualPaused&&!canAim()&&!charge&&!stick&&!aimStick'),'settings never unpause or retain inputs '+width+' '+lang);
+   ok(await p.evaluate('manualPaused&&!canAim()&&!charge&&!input.active&&!input.movementAxis'),'settings never unpause or retain inputs '+width+' '+lang);
    if(width===568||width===844)await p.screenshot({path:path.join(out,'pause-'+lang+'-'+width+'.png')});
   }
   await p.locator('#returnLobby').focus();await p.keyboard.press('Tab');ok(await p.locator('#resume').evaluate(e=>e===document.activeElement),'pause Tab wraps to first action '+width);await p.keyboard.press('Shift+Tab');ok(await p.locator('#returnLobby').evaluate(e=>e===document.activeElement),'pause reverse Tab wraps '+width);
