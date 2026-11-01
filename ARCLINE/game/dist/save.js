@@ -9,7 +9,7 @@ const weaponIds=Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0'));
 const characterIds=Crew.ids;
 const lessonIds=['controls','teleport','wall-fall','destruction','choices','touch-controls-v2','slope','move','aim','charge','pickup','reflection','roof','height','terminal','boss-swap','boss-core','ceiling-lift','gate-choices','bridge','cloud','crystal','updraft','wind','vent','magnet','W','B','C','K','U','F','V','M','BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP','S_GUARD','S_BREACH','S_REPAIR'];
 const specialIds=characterIds.map(id=>'S_'+id.toUpperCase());
-const previewIds=[...weaponIds,...lessonIds,...specialIds,...['v2:','v3:','v4:','v5:'].flatMap(prefix=>[...weaponIds,...lessonIds,...specialIds].map(id=>prefix+id))];
+const previewIds=['v6:special-charge',...weaponIds,...lessonIds,...specialIds,...['v2:','v3:','v4:','v5:'].flatMap(prefix=>[...weaponIds,...lessonIds,...specialIds].map(id=>prefix+id))];
 const validIds=(xs,allowed)=>[...new Set((Array.isArray(xs)?xs:[]).filter(x=>allowed.includes(x)))];
 function decode(raw){
  let p={};try{p=raw?JSON.parse(raw):{};}catch{}if(!p||typeof p!=='object'||Array.isArray(p))p={};

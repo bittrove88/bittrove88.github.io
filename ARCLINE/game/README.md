@@ -16,3 +16,5 @@
 `npm run build` で生成、`npm run check:generated` で作業ツリーを変更せず一致を確認する。npmの依存は開発・検査用だけで、ブラウザの本番コードは外部ライブラリを必要としない。
 
 画面制御はArcScreensがフォーカス・Escape・inertの復帰を所有し、各画面は内容と完了動作を所有する。ArcBattleInputは入力状態を所有し、ゲーム進行へ軸と操作意図を渡す。物理計算・HP・在庫の正本は既存エンジンのまま。
+
+BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-credits.js`、必殺技説明・通知は `ui/special-ui.js`、追加CSSは `styles/media-ending.css` が正本です。`design/ending_media.json` が採用音源ハッシュ・検証済み尺・切抜き矩形・使用カードの正本で、`tools/build_media.py` が指定シートから派生PNG、監査台帳、`dist/media-data.js` を再生成します。元のM4Aやシートを変更しません。任意の全音源デコード検査は `python3 game/tools/validate_media.py --output /tmp/arcline-audio.json`（ffmpeg/ffprobeが必要）。

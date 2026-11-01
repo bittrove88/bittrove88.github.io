@@ -1,0 +1,295 @@
+{
+  "specification": "2.2.0",
+  "tracks": {
+    "TITLE": {
+      "src": "assets/audio/bgm/bgm_title.m4a",
+      "bytes": 2272039,
+      "sha256": "1f86883f613a579b503ab1d33af9daaa2e55437e994556f81467831515a69baa",
+      "duration": 160.661333,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "whole-file",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+    },
+    "BATTLE_A": {
+      "src": "assets/audio/bgm/bgm_battle_a.m4a",
+      "bytes": 2336259,
+      "sha256": "b7225957fc2f0e5ebc89b926343ac728c702fae3a99aa1d7cc465c153b9a9d30",
+      "duration": 167.573333,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "whole-file",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed",
+      "loopNote": "Provisional whole-track loop permitted by chapter 6; no unverified custom loop cue. Machine intro repeats until an acoustically verified loop point is approved."
+    },
+    "BATTLE_B": {
+      "src": "assets/audio/bgm/bgm_battle_b.m4a",
+      "bytes": 2236618,
+      "sha256": "05169d0af5c088b4053a2885529da461c20d15a3b591a9216a8432bef8b8d354",
+      "duration": 180.8,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "whole-file",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+    },
+    "BATTLE_C": {
+      "src": "assets/audio/bgm/bgm_battle_c.m4a",
+      "bytes": 2190340,
+      "sha256": "ae983246608a4b0ce63cdb88c8906752b357ec7098790537ed00274432327266",
+      "duration": 180.8,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "whole-file",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+    },
+    "BOSS": {
+      "src": "assets/audio/bgm/bgm_boss.m4a",
+      "bytes": 2230390,
+      "sha256": "793f25e371c62b386112e79dd0cc6c3225a5fce985efc105ef54501228f93653",
+      "duration": 183.466667,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "whole-file",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+    },
+    "FINAL_BOSS": {
+      "src": "assets/audio/bgm/bgm_final_boss.m4a",
+      "bytes": 2232645,
+      "sha256": "7921824e4b66c1755fa2ed754cb7e496b8a1b31c816c0a5f5d1c6453538647c3",
+      "duration": 182.336,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "whole-file",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+    },
+    "ENDING": {
+      "src": "assets/audio/bgm/bgm_ending.m4a",
+      "bytes": 1919711,
+      "sha256": "73ee43cec9655eaae0290124b8bdce8df3577d523b5de32864d39d52620f6363",
+      "duration": 166.250667,
+      "codec": "aac",
+      "sampleRate": "48000",
+      "channels": 2,
+      "loopStart": null,
+      "loopPolicy": "once",
+      "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+    }
+  },
+  "cutouts": [
+    {
+      "id": "enemy_pebble",
+      "name": {
+        "ja": "ペブル",
+        "en": "PEBBLE"
+      },
+      "sourceId": "S05",
+      "source": "design/sheets/B8EFC1B9-9938-40F3-A9BB-26D58CD8E7F7.png",
+      "sourceSha256": "4d6668b868893329f8723711adb6d6b36bd03dcb62c4e16a1ccb066f338f31ec",
+      "crop": [
+        22,
+        196,
+        204,
+        302
+      ],
+      "src": "assets/ending/cutouts/enemies/enemy_pebble.png",
+      "width": 182,
+      "height": 106,
+      "mask": "none; original paper retained",
+      "visualCheck": "2026-11-02: compared crop with approved source sheet; identity and full main silhouette verified"
+    },
+    {
+      "id": "midboss_harbor_knot",
+      "name": {
+        "ja": "ハーバー・ノット",
+        "en": "HARBOR KNOT"
+      },
+      "sourceId": "S04",
+      "source": "design/sheets/F6583EC0-F22F-4A5A-8861-ECFF63F442E3.png",
+      "sourceSha256": "c6799d20a39c1af4afe10963c03d2633e3c97cc348a499ac07ec7e1a5c8fce1e",
+      "crop": [
+        18,
+        164,
+        285,
+        331
+      ],
+      "src": "assets/ending/cutouts/midbosses/midboss_harbor_knot.png",
+      "width": 267,
+      "height": 167,
+      "mask": "none; original paper retained",
+      "visualCheck": "2026-11-02: compared crop with approved source sheet; identity and full main silhouette verified"
+    },
+    {
+      "id": "boss_tideclaw",
+      "name": {
+        "ja": "タイドクロー",
+        "en": "TIDECLAW"
+      },
+      "sourceId": "S03",
+      "source": "design/sheets/B4B8EF73-B773-4CF1-B7FC-97BBA5140165.png",
+      "sourceSha256": "89e60b38088d4570f07fb5a37a7238869a29a8c3ecc4d00bf46729d93f55a645",
+      "crop": [
+        15,
+        135,
+        300,
+        302
+      ],
+      "src": "assets/ending/cutouts/bosses/boss_tideclaw.png",
+      "width": 285,
+      "height": 167,
+      "mask": "exclude-palette",
+      "visualCheck": "2026-11-02: compared crop with approved source sheet; identity and full main silhouette verified"
+    },
+    {
+      "id": "logo_arcline",
+      "name": {
+        "ja": "ARCLINE",
+        "en": "ARCLINE"
+      },
+      "sourceId": "S03",
+      "source": "design/sheets/B4B8EF73-B773-4CF1-B7FC-97BBA5140165.png",
+      "sourceSha256": "89e60b38088d4570f07fb5a37a7238869a29a8c3ecc4d00bf46729d93f55a645",
+      "crop": [
+        23,
+        11,
+        392,
+        65
+      ],
+      "src": "assets/ending/cutouts/brand/logo_arcline.png",
+      "width": 369,
+      "height": 54,
+      "mask": "paper-to-alpha",
+      "visualCheck": "2026-11-02: compared crop with approved source sheet; identity and full main silhouette verified"
+    }
+  ],
+  "cards": [
+    {
+      "id": "gun-hana",
+      "name": {
+        "ja": "ガン・ハナ",
+        "en": "GUN · HANA"
+      },
+      "images": [
+        {
+          "src": "assets/characters/unlock/gun.png"
+        },
+        {
+          "src": "assets/characters/unlock/hana.png"
+        }
+      ]
+    },
+    {
+      "id": "koro-ban",
+      "name": {
+        "ja": "コロ・バン",
+        "en": "KORO · BAN"
+      },
+      "images": [
+        {
+          "src": "assets/characters/unlock/koro.png"
+        },
+        {
+          "src": "assets/characters/unlock/ban.png"
+        }
+      ]
+    },
+    {
+      "id": "sora-hibari",
+      "name": {
+        "ja": "ソラ・ヒバリ",
+        "en": "SORA · HIBARI"
+      },
+      "images": [
+        {
+          "src": "assets/characters/unlock/sora.png"
+        },
+        {
+          "src": "assets/characters/unlock/hibari.png"
+        }
+      ]
+    },
+    {
+      "id": "rico-mogu",
+      "name": {
+        "ja": "リコ・モグ",
+        "en": "RICO · MOGU"
+      },
+      "images": [
+        {
+          "src": "assets/characters/unlock/rico.png"
+        },
+        {
+          "src": "assets/characters/unlock/mogu.png"
+        }
+      ]
+    },
+    {
+      "id": "rin-yui",
+      "name": {
+        "ja": "リン・ユイ",
+        "en": "RIN · YUI"
+      },
+      "images": [
+        {
+          "src": "assets/characters/unlock/rin.png"
+        },
+        {
+          "src": "assets/characters/unlock/yui.png"
+        }
+      ]
+    },
+    {
+      "id": "enemy_pebble",
+      "name": {
+        "ja": "ペブル",
+        "en": "PEBBLE"
+      },
+      "images": [
+        {
+          "cutout": "enemy_pebble"
+        }
+      ]
+    },
+    {
+      "id": "midboss_harbor_knot",
+      "name": {
+        "ja": "ハーバー・ノット",
+        "en": "HARBOR KNOT"
+      },
+      "images": [
+        {
+          "cutout": "midboss_harbor_knot"
+        }
+      ]
+    },
+    {
+      "id": "boss_tideclaw",
+      "name": {
+        "ja": "タイドクロー",
+        "en": "TIDECLAW"
+      },
+      "images": [
+        {
+          "cutout": "boss_tideclaw"
+        }
+      ]
+    }
+  ],
+  "scenery": {
+    "src": "assets/cinematics/E04-03.jpeg",
+    "width": 1536,
+    "height": 864,
+    "sha256": "84e28ef0a9384edad9c54fd1bae4afe5a5ddc9ae610b7d0ccbe5163ee553a3eb"
+  }
+}

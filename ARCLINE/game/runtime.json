@@ -1,6 +1,6 @@
 {
-  "version": "0.15.5",
-  "cacheVersion": "0.15.5",
+  "version": "0.16.0",
+  "cacheVersion": "0.16.0",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -43,6 +43,10 @@
     "asset-loader.js",
     "cinematic-player.js",
     "character-hero.js",
+    "media-data.js",
+    "audio-manager.js",
+    "ending-credits.js",
+    "special-ui.js",
     "story-view.js",
     "expedition-ui.js",
     "device.js",
@@ -54,7 +58,8 @@
     "style.css",
     "player-flow.css",
     "cinematics.css",
-    "journey-update.css"
+    "journey-update.css",
+    "media-ending.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -66,7 +71,11 @@
     "difficulty-ui.js": "ui/difficulty-ui.js",
     "device.js": "ui/device.js",
     "onboarding.js": "ui/onboarding.js",
-    "journey-update.css": "styles/journey-update.css"
+    "journey-update.css": "styles/journey-update.css",
+    "audio-manager.js": "ui/audio-manager.js",
+    "ending-credits.js": "ui/ending-credits.js",
+    "special-ui.js": "ui/special-ui.js",
+    "media-ending.css": "styles/media-ending.css"
   },
   "requires": {
     "screens.js": [],
@@ -125,7 +134,11 @@
       "story-view.js",
       "expedition-ui.js",
       "device.js",
-      "onboarding.js"
+      "onboarding.js",
+      "media-data.js",
+      "audio-manager.js",
+      "ending-credits.js",
+      "special-ui.js"
     ],
     "device.js": [
       "screens.js",
@@ -136,6 +149,22 @@
       "character-hero.js",
       "story-view.js",
       "difficulty-ui.js"
+    ],
+    "story-view.js": [
+      "media-data.js",
+      "ending-credits.js",
+      "cinematic-player.js"
+    ],
+    "audio-manager.js": [
+      "media-data.js"
+    ],
+    "ending-credits.js": [
+      "media-data.js",
+      "asset-loader.js"
+    ],
+    "special-ui.js": [
+      "screens.js",
+      "i18n.js"
     ]
   }
 }
