@@ -10,7 +10,7 @@
   function syncDelete() {
     for (const id of ["deleteStartSave", "deleteLobbySave"]) {
       $(id).textContent = local("セーブデータを削除", "Delete save data");
-      $(id).disabled = deleting || !hooks?.canDelete();
+      $(id).disabled = deleting || !hooks?.deleteAvailable();
     }
     $("deleteSaveTitle").textContent = local(
       "セーブデータを削除しますか？",
