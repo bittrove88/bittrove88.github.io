@@ -2,6 +2,8 @@
 #journeyStart {
   z-index: 24;
   background: #0c283b;
+  align-content: center;
+  gap: 22px;
 }
 #beginJourney {
   min-width: 220px;
@@ -353,4 +355,65 @@
   border: 0;
   border-radius: 0;
   background: #14384b;
+}
+
+.delete-save-button {
+  min-height: 44px;
+  padding: 8px 14px;
+  color: #ebc6bb;
+  border-color: #d8a89766;
+  background: #153745;
+  font-size: 13px;
+}
+.home-tools {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+#deleteSaveDialog {
+  z-index: 28;
+  background: #092333ef;
+}
+.delete-save-panel {
+  width: min(560px, 100%);
+  overflow: auto;
+  touch-action: pan-y;
+}
+.delete-save-panel h2,
+.delete-save-panel p {
+  margin: 0;
+  line-height: 1.6;
+}
+.delete-save-panel h2 {
+  font-size: 22px;
+}
+.delete-save-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.delete-save-actions button {
+  min-height: 44px;
+  padding: 8px 14px;
+}
+#confirmDeleteSave {
+  background: #71483e;
+  border-color: #e7b49e;
+}
+#deleteSaveError {
+  color: #ffd2bf;
+}
+@media (orientation: landscape) and (max-height: 340px) {
+  #deleteSaveDialog {
+    padding: 8px max(12px, env(safe-area-inset-right)) 8px
+      max(12px, env(safe-area-inset-left));
+  }
+  .delete-save-panel {
+    gap: 6px;
+    padding: 10px 14px;
+  }
+  .delete-save-panel h2 {
+    font-size: 18px;
+  }
+  .delete-save-panel p {
+    font-size: 12px;
+  }
 }

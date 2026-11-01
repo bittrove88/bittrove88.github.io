@@ -15,6 +15,7 @@
     "specialLesson",
     "journeyStart",
     "chapterPlayback",
+    "deleteSaveDialog",
   ];
   const isOpen = (id) => !!$(id) && !$(id).hidden;
   function open(id, options = {}) {
