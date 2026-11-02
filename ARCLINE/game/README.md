@@ -22,3 +22,7 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.17.0の章再生は `ui/chapter-playback.js`、表示は `styles/chapter-flow.css`。地形の正本は `design/expedition_013/stage_blueprints.json`。実戦で再確認した証拠だけを `record_stage_verification.py` で記録し、blueprintのSHA256が一致する結果をガイドへ反映します。保存のcampaignVersionは変えず、地形更新はterrainRevisionで区別します。
 
 0.17.1の開始画面の削除確認は `ui/onboarding.js`、明示削除の保存順序と失敗保護は `dist/save.js`。プロローグ／エンディングの回転停止は `dist/game.js` のhost pause sourcesと `dist/story-view.js` の同期フックが所有します。削除はcanonical保存だけを初期状態で置換し、言語・操作配置・インストール案内と他アプリの保存領域を保持します。
+
+0.18.0のエンディング正本は `../design/ending_roll.json`（固定境界、グループ、10機の加入順、動きの基準）。`tools/build_ending_roll.py` が、出典台帳と `../design/ending-roll-preparation/player-masks.json`・承認済みalpha PNGから42体と `dist/ending-roll-data.js`、`assets/ending/roll-manifest.json`、`player-cutouts.json` を再生成します。通常ビルドはPillowのみ。マスクの準備手順は `tools/prepare_player_masks.py`（OpenCV 5.0.0.93の任意の別環境）へ保存。元RGBと元画像SHAは検査し、派生PNGも全画素を照合します。
+
+`ui/ending-credits.js` が本編・`ending-preview/` 共通の時刻／出演／ポーズを所有し、`dist/story-view.js` と `ending-preview/review.js` は同じrateで元字幕とカメラの時計を進めます。旧 `ending_media.json` の静止カード・風景と小切り抜きは履歴として保持し、新ロールでは参照しません。ロゴと承認7音源は引き続き同台帳を使用。正式生成の90出力と配布ZIPへ全42体を登録しています。

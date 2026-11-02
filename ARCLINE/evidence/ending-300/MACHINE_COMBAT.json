@@ -1,0 +1,231 @@
+{
+  "status": "PASS",
+  "checks": 4052,
+  "safeStates": 1000,
+  "physicalPlans": 560,
+  "damageRows": [
+    {
+      "id": "gun",
+      "hp": 140,
+      "charge": {
+        "rise": 2.6,
+        "fall": 2.6,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 35
+    },
+    {
+      "id": "ban",
+      "hp": 120,
+      "charge": {
+        "rise": 2.6,
+        "fall": 2.6,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 35
+    },
+    {
+      "id": "hibari",
+      "hp": 120,
+      "charge": {
+        "rise": 2.6,
+        "fall": 2.6,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 30
+    },
+    {
+      "id": "hana",
+      "hp": 100,
+      "charge": {
+        "rise": 2.4,
+        "fall": 2.4,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 48
+    },
+    {
+      "id": "rin",
+      "hp": 100,
+      "charge": {
+        "rise": 3.2,
+        "fall": 3.2,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 50
+    },
+    {
+      "id": "mogu",
+      "hp": 120,
+      "charge": {
+        "rise": 2.4,
+        "fall": 2.4,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 39
+    },
+    {
+      "id": "koro",
+      "hp": 100,
+      "charge": {
+        "rise": 2.4,
+        "fall": 2.4,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 30
+    },
+    {
+      "id": "sora",
+      "hp": 100,
+      "charge": {
+        "rise": 2.8,
+        "fall": 2.8,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 45
+    },
+    {
+      "id": "rico",
+      "hp": 80,
+      "charge": {
+        "rise": 2.4,
+        "fall": 2.4,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 40
+    },
+    {
+      "id": "yui",
+      "hp": 100,
+      "charge": {
+        "rise": 2.8,
+        "fall": 2.8,
+        "hold": 0.25
+      },
+      "normal": 20,
+      "center": 30,
+      "core": 40,
+      "specialCap": 42
+    }
+  ],
+  "previews": [
+    {
+      "id": "gun",
+      "event": "break",
+      "damage": 5.95,
+      "projectiles": 1,
+      "impacts": 1,
+      "destroyed": 1
+    },
+    {
+      "id": "ban",
+      "event": "shockwave",
+      "damage": 14.14,
+      "projectiles": 1,
+      "impacts": 1,
+      "destroyed": 0
+    },
+    {
+      "id": "hibari",
+      "event": "airburst",
+      "damage": 30,
+      "projectiles": 1,
+      "impacts": 1,
+      "destroyed": 0
+    },
+    {
+      "id": "hana",
+      "event": "impact",
+      "damage": 24.71,
+      "projectiles": 3,
+      "impacts": 3,
+      "destroyed": 0
+    },
+    {
+      "id": "rin",
+      "event": "critical",
+      "damage": 50,
+      "projectiles": 1,
+      "impacts": 1,
+      "destroyed": 0
+    },
+    {
+      "id": "mogu",
+      "event": "breach-pulse",
+      "damage": 0,
+      "projectiles": 3,
+      "impacts": 3,
+      "destroyed": 2
+    },
+    {
+      "id": "koro",
+      "event": "roll-fall",
+      "damage": 30,
+      "projectiles": 1,
+      "impacts": 1,
+      "destroyed": 0
+    },
+    {
+      "id": "sora",
+      "event": "split",
+      "damage": 22.94,
+      "projectiles": 9,
+      "impacts": 8,
+      "destroyed": 0
+    },
+    {
+      "id": "rico",
+      "event": "bounce",
+      "damage": 40,
+      "projectiles": 1,
+      "impacts": 1,
+      "destroyed": 0
+    },
+    {
+      "id": "yui",
+      "event": "pull",
+      "damage": 29.07,
+      "projectiles": 2,
+      "impacts": 1,
+      "destroyed": 0
+    }
+  ],
+  "rinComparison": {
+    "normalEnemyHP": 60,
+    "bossHP": 200,
+    "newCenter": 50,
+    "newBody": 40,
+    "normalRemainingAfterCenter": 10,
+    "bossRemainingAfterTwoCenter": 100,
+    "scope": "Agreed Rin 40 body and 50 critical using real trajectories; the HP arithmetic is illustrative, not a win-rate claim."
+  },
+  "cpuParity": null,
+  "scope": "Actual ten machine profiles, center/core caps, charge/walk, all100 safe map entries, bounded immutable trajectories, all ten causal special previews, single-use multi-shot accounting, fixed-wall protection, chapter separation, legacy preservation and optional seeded CPU parity. Full character campaign wins are recorded separately; physical phones and human difficulty are unverified."
+}
