@@ -4,6 +4,10 @@ Canvas 2Dの砲撃アドベンチャー。現在の版数・キャッシュ・�
 
 [サービスサイト](./) ／ [ゲーム](game/dist/?v=0.17.1) ／ [今回の更新](updates/0.17.1/) ／ [10機の原画](characters/) ／ [100面の設計](design/expedition_013/)
 
+## エンドロール素材の準備
+
+[コンセプト原画の切り抜き32体を確認](design/ending-roll-preparation/) ／ [透過PNG一括ZIP](assets/ending/roll-cutouts/ARCLINE_Ending_Concept_Cutouts.zip)。通常敵12・中ボス10・大ボス9＋アークハートを準備しました。原画RGBを保持し、ゲーム用の縮小例は使っていません。演出への組み込みと自機10機の被写体透過化は未実施です。[作業範囲と残件](design/ending-roll-preparation/README.md)。
+
 ## 一時的なエンディング確認
 
 [エンディングだけを再生](ending-preview/?v=2)。横向きで「エンディングを再生」を押すと、本編と同じBGM・映像・アルバム・最後の演出を再生します。このURLでは攻略記録の読み込み・保存を行わず、一時的なデータだけを使います。通常のゲームは従来のURLのままです。依頼により、この追加分のテストは省略しています。

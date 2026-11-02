@@ -1,0 +1,130 @@
+{
+  "status": "DESIGN_DRAFT_NOT_IMPLEMENTED",
+  "audio": {
+    "src": "assets/audio/bgm/bgm_ending.m4a",
+    "bytes": 1919711,
+    "sha256": "73ee43cec9655eaae0290124b8bdce8df3577d523b5de32864d39d52620f6363",
+    "duration": 166.250667,
+    "codec": "aac",
+    "sampleRate": "48000",
+    "channels": 2,
+    "loopStart": null,
+    "loopPolicy": "once",
+    "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+  },
+  "storySpeed": 1.15,
+  "audioPlaybackRate": 1,
+  "groups": {
+    "enemies-1": [
+      "enemy:pebble",
+      "enemy:slate",
+      "enemy:spike",
+      "enemy:flint",
+      "enemy:mole",
+      "enemy:riff"
+    ],
+    "enemies-2": [
+      "enemy:gust",
+      "enemy:pole",
+      "enemy:hang",
+      "enemy:mist",
+      "enemy:volt",
+      "enemy:blast"
+    ],
+    "midbosses-1": [
+      "midboss:harbor-knot",
+      "midboss:bridge-mender",
+      "midboss:mist-bell",
+      "midboss:reflect-ram",
+      "midboss:lift-mole"
+    ],
+    "midbosses-2": [
+      "midboss:gale-scout",
+      "midboss:cinder-chef",
+      "midboss:ore-shepherd",
+      "midboss:bloom-tender",
+      "midboss:line-warden"
+    ],
+    "bosses-1": [
+      "boss:tideclaw",
+      "boss:gatekeeper",
+      "boss:cloudray"
+    ],
+    "bosses-2": [
+      "boss:prism-guardian",
+      "boss:dust-driller",
+      "boss:whitehowl"
+    ],
+    "bosses-3": [
+      "boss:forge-titan",
+      "boss:polaris-core",
+      "boss:skycarrier"
+    ],
+    "archeart": [
+      "boss:archeart"
+    ]
+  },
+  "segments": [
+    {
+      "kind": "story",
+      "start": 0,
+      "end": 85.3913043478261
+    },
+    {
+      "kind": "players_roll",
+      "start": 85.3913043478261,
+      "end": 98
+    },
+    {
+      "kind": "enemies",
+      "start": 98,
+      "end": 110,
+      "groups": [
+        "enemies-1",
+        "enemies-2"
+      ]
+    },
+    {
+      "kind": "midbosses",
+      "start": 110,
+      "end": 124,
+      "groups": [
+        "midbosses-1",
+        "midbosses-2"
+      ]
+    },
+    {
+      "kind": "bosses",
+      "start": 124,
+      "end": 145,
+      "groups": [
+        "bosses-1",
+        "bosses-2",
+        "bosses-3"
+      ]
+    },
+    {
+      "kind": "archeart",
+      "start": 145,
+      "end": 149.5,
+      "groups": [
+        "archeart"
+      ]
+    },
+    {
+      "kind": "players_gather",
+      "start": 149.5,
+      "end": 160.250667
+    },
+    {
+      "kind": "logo",
+      "start": 160.250667,
+      "end": 166.250667
+    },
+    {
+      "kind": "silence",
+      "start": 166.250667,
+      "end": 168.750667
+    }
+  ]
+}
