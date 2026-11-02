@@ -1,0 +1,145 @@
+{
+  "audio": {
+    "src": "assets/audio/bgm/bgm_ending.m4a",
+    "bytes": 1919711,
+    "sha256": "73ee43cec9655eaae0290124b8bdce8df3577d523b5de32864d39d52620f6363",
+    "duration": 166.250667,
+    "codec": "aac",
+    "sampleRate": "48000",
+    "channels": 2,
+    "loopStart": null,
+    "loopPolicy": "once",
+    "verification": "ffprobe metadata and complete ffmpeg decode; perceptual take/loop listening not performed"
+  },
+  "storySpeed": 1.15,
+  "audioPlaybackRate": 1,
+  "groups": {
+    "enemies-1": [
+      "enemy:pebble",
+      "enemy:slate",
+      "enemy:spike",
+      "enemy:flint",
+      "enemy:mole",
+      "enemy:riff"
+    ],
+    "enemies-2": [
+      "enemy:gust",
+      "enemy:pole",
+      "enemy:hang",
+      "enemy:mist",
+      "enemy:volt",
+      "enemy:blast"
+    ],
+    "midbosses-1": [
+      "midboss:harbor-knot",
+      "midboss:bridge-mender",
+      "midboss:mist-bell",
+      "midboss:reflect-ram",
+      "midboss:lift-mole"
+    ],
+    "midbosses-2": [
+      "midboss:gale-scout",
+      "midboss:cinder-chef",
+      "midboss:ore-shepherd",
+      "midboss:bloom-tender",
+      "midboss:line-warden"
+    ],
+    "bosses-1": [
+      "boss:tideclaw",
+      "boss:gatekeeper",
+      "boss:cloudray"
+    ],
+    "bosses-2": [
+      "boss:prism-guardian",
+      "boss:dust-driller",
+      "boss:whitehowl"
+    ],
+    "bosses-3": [
+      "boss:forge-titan",
+      "boss:polaris-core",
+      "boss:skycarrier"
+    ],
+    "archeart": [
+      "boss:archeart"
+    ]
+  },
+  "storyEnd": 85.3913043478261,
+  "players": [
+    "player:gun",
+    "player:hana",
+    "player:koro",
+    "player:ban",
+    "player:sora",
+    "player:rico",
+    "player:hibari",
+    "player:mogu",
+    "player:rin",
+    "player:yui"
+  ],
+  "segments": [
+    {
+      "kind": "players_roll",
+      "start": "storyEnd",
+      "end": 98
+    },
+    {
+      "kind": "enemies",
+      "start": 98,
+      "end": 110,
+      "groups": [
+        "enemies-1",
+        "enemies-2"
+      ]
+    },
+    {
+      "kind": "midbosses",
+      "start": 110,
+      "end": 124,
+      "groups": [
+        "midbosses-1",
+        "midbosses-2"
+      ]
+    },
+    {
+      "kind": "bosses",
+      "start": 124,
+      "end": 145,
+      "groups": [
+        "bosses-1",
+        "bosses-2",
+        "bosses-3"
+      ]
+    },
+    {
+      "kind": "archeart",
+      "start": 145,
+      "end": 149.5,
+      "groups": [
+        "archeart"
+      ]
+    },
+    {
+      "kind": "players_gather",
+      "start": 149.5,
+      "end": "duration-6"
+    },
+    {
+      "kind": "logo",
+      "start": "duration-6",
+      "end": "duration"
+    },
+    {
+      "kind": "silence",
+      "start": "duration",
+      "end": "duration+2.5"
+    }
+  ],
+  "motion": {
+    "playerStagger": 0.9,
+    "playerPassage": 4.5,
+    "groupOverlap": 0.7,
+    "memberStagger": 0.09,
+    "gatherMerge": 3,
+    "gatherHold": 4
+  }
+}

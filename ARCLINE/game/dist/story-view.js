@@ -77,7 +77,7 @@ function update(dt){
   $('storyCinema').dataset.credits=String(cue.kind!=='scene');
   if(cue.kind==='scene'){
    const index=film.frames.indexOf(cue.shot);if(index!==film.index){film.index=index;enterFrame();}
-   film.age=Math.max(0,time-cue.start);syncFilm();drawFilm();
+   film.age=Math.max(0,time-cue.start)*cue.rate;syncFilm();drawFilm();
   }
   if(located.done&&!film.completed){film.completed=true;close(false);}return;
  }

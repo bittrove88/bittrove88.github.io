@@ -72,78 +72,59 @@
   overflow: hidden;
   background: #081c2a;
 }
-.ending-card {
+/* All motion is sampled from the shared media clock, including reduced motion. */
+.ending-roll-stage {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 75%, #183c49, #081c2a 75%);
+}
+.ending-actor {
+  position: absolute;
+  margin: 0;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(10px, 3vh, 30px);
-  padding: clamp(18px, 5vw, 64px);
-  opacity: 0;
+  gap: 5px;
+  pointer-events: none;
 }
-.ending-pictures {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(10px, 3vw, 30px);
-  width: 100%;
-  height: 74%;
-}
-.ending-card img {
+.ending-actor img {
   display: block;
+  flex: none;
   object-fit: contain;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  min-width: 0;
+  filter: drop-shadow(0 5px 7px #0005);
 }
-.ending-pictures img {
-  width: auto;
-  height: auto;
-  max-width: 46%;
-  max-height: 100%;
-  border-radius: 6px;
-}
-.ending-card p {
+.ending-actor figcaption {
   color: #ecedda;
-  margin: 0;
+  font: 500 clamp(10px, 1.4vw, 17px) / 1.15 system-ui;
   text-align: center;
-  font-size: clamp(15px, 2.5vw, 24px);
-  letter-spacing: 0.12em;
+  max-width: 100%;
+  text-wrap: balance;
+  min-height: 1.15em;
+  text-shadow: 0 1px 3px #000;
 }
-.ending-card[data-kind="scenery"] {
-  padding: 0;
+.ending-roll-stage[data-kind="players_gather"] .ending-actor figcaption {
+  font-size: clamp(10px, 1.15vw, 15px);
 }
-.ending-card[data-kind="logo"] img,
-.ending-card[data-kind="silence"] img {
-  /* The approved wordmark silhouette in the game's light ink on deep navy. */
-  filter: brightness(0) invert(0.94);
+.ending-roll-stage[data-kind="logo"] {
+  display: grid;
+  place-items: center;
+  background: transparent;
 }
-.ending-card .ending-scenery {
-  width: 100%;
-  height: 100%;
+.ending-roll-stage[data-kind="logo"] > img {
+  width: 60%;
+  height: auto;
   object-fit: contain;
-}
-@media (max-aspect-ratio: 3/4) {
-  .ending-pictures {
-    flex-direction: column;
-    height: 80%;
-  }
-  .ending-pictures img {
-    max-width: 100% !important;
-    max-height: 46% !important;
-  }
-  .special-charge-notice {
-    font-size: 16px;
-    padding: 10px 12px;
-  }
+  filter: brightness(0) invert(0.94);
 }
 @media (prefers-reduced-motion: reduce) {
   .special-charge-notice {
     text-shadow: none;
     box-shadow: none;
   }
+}
+
+.ending-roll-stage[data-kind="players_gather"] .ending-actor {
+  transform: translate(-50%, -100%);
 }
