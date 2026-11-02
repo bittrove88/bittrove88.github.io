@@ -5,13 +5,13 @@ const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 const missing=()=>[];
 function themeName(index){return language()==='en'?E.biomes[index].name:E.levels[index*5].themeName;}
 function syncLobby(data,selectedMap,context){
- const spec=E.levels[selectedMap],c=A.get(data.equippedCharacterId),stock=context?.entry.inventory||{weapons:{},skills:{}},practice=context?.practice;
+ const spec=E.levels[selectedMap],c=A.get(data.equippedCharacterId),stock=context?.entry.inventory||{weapons:{},skills:{}};
  $('arenaTag').textContent=local('第'+(Math.floor(selectedMap/10)+1)+'章 · '+themeName(spec.theme),'CHAPTER '+(Math.floor(selectedMap/10)+1)+' · '+themeName(spec.theme));
  $('arenaTitle').textContent=root.ArcStory.stageName(spec,language(),false,data.cleared);
  $('stageCaption').textContent=language()==='en'?spec.tacticalGoalEn:spec.tacticalGoal;
  $('progressText').textContent=local(data.cleared+' / 100 面クリア',''+data.cleared+' / 100 CLEARED');
  $('themeProgress').innerHTML=Array.from({length:5},(_,i)=>`<i class="${spec.theme*5+i<data.cleared?'cleared ':''}${i===(selectedMap%5)?'current':''}"></i>`).join('');
- $('play').textContent=practice?local('この面を練習','Practice this stage'):local(data.cleared||data.chapterRun?'冒険を続ける':'冒険をはじめる',data.cleared||data.chapterRun?'Continue the adventure':'Begin the adventure');
+ $('play').textContent=local('ステージ'+spec.id+'を開始','Start stage '+spec.id);
  $('equippedCharacterName').textContent=language()==='en'?c.name:c.nameJa;
  $('lobbyRover').innerHTML=A.markup(c.id,'hero-character');A.paintAll($('lobbyRover'));
  $('equippedWeapon').textContent=local('武器 '+Object.keys(stock.weapons).length+' · スキル '+Object.keys(stock.skills).length,'Weapons '+Object.keys(stock.weapons).length+' · Skills '+Object.keys(stock.skills).length);
