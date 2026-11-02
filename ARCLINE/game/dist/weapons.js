@@ -3,7 +3,7 @@
 const C=typeof module!=='undefined'?require('./combat.js'):root.ArcCombat;
 const K=typeof module!=='undefined'?require('./skills.js'):root.ArcSkills;
 const names=['Standard','Heavy Shell','Needle','Mortar','Hopper','Ricochet','Roller','Skipper','Fan Shot','Cluster','Twin','Airburst','Drill','Rail','Archer','Undercut','Impact','Magnet','Lifter','Pinball'];
-const weapons=names.map((name,i)=>({id:'W'+String(i+1).padStart(2,'0'),name,speed:1,gravity:1,damage:1,blast:60,shots:1,bounces:0}));
+const weapons=names.map((name,i)=>({id:'W'+String(i+1).padStart(2,'0'),name,...C.ballistics,damage:1,blast:60,shots:1,bounces:0}));
 weapons[0].blast=64;
 Object.assign(weapons[1],{speed:.82,gravity:1.18,damage:1.25,blast:100});
 Object.assign(weapons[2],{speed:1.45,gravity:.7,damage:1.06,blast:18,needle:true});
@@ -39,7 +39,7 @@ const appearances=[
 ];
 weapons.forEach((weapon,i)=>{const [color,shape,glyph,label,size]=appearances[i];weapon.appearance={color,shape,glyph,label,size};});
 const coreUnlocks={W01:0,W02:3,W06:8,W14:13,W07:28,W12:35,W15:43,W10:48,W13:14,W16:67,W17:75,W19:84};
-const teleport={id:'TELEPORT',name:'Teleport',speed:1,gravity:1,damage:0,blast:0,shots:1,bounces:0,teleport:true,appearance:{color:'#a9e9ff',shape:'ring',glyph:'◎',label:'WARP',size:7}};
+const teleport={id:'TELEPORT',name:'Teleport',...C.ballistics,damage:0,blast:0,shots:1,bounces:0,teleport:true,appearance:{color:'#a9e9ff',shape:'ring',glyph:'◎',label:'WARP',size:7}};
 const skills=['BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP',...K.ids];
 function get(id,characterId){if(id==='TELEPORT')return teleport;if(id==='W01'&&characterId)return C.get(characterId).normal;return weapons.find(w=>w.id===id)||C.weapons.find(w=>w.id===id)||weapons[0];}
 const api={weapons,skills,coreUnlocks,teleport,combat:C,get};

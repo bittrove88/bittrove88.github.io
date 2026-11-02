@@ -28,6 +28,10 @@ for a in roll['actors']:
  blob=(root/a['src']).read_bytes();assert hashlib.sha256(blob).hexdigest()==a['sha256'];contents[a['src']]=blob
 contents['assets/ending/roll-manifest.json']=(root/'assets/ending/roll-manifest.json').read_bytes()
 contents['assets/ending/manifest.json']=(root/'assets/ending/manifest.json').read_bytes()
+sfx=json.loads((root/'assets/audio/sfx/manifest.json').read_text())
+for a in sfx['assets'].values():
+ blob=(root/a['src']).read_bytes();assert hashlib.sha256(blob).hexdigest()==a['sha256'];contents[a['src']]=blob
+contents['assets/audio/sfx/manifest.json']=(root/'assets/audio/sfx/manifest.json').read_bytes()
 manifest={'implementation':CONFIG['version'],'design':'First journey,cinematic and original-character UI update;resetVersion2 retained;one authorized seal edit plus22 original plates and10 verified PNGs','files':{n:{'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in contents.items()},'sourceDistribution':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in files},'packagingTransform':'Only index.html sets ArcAssetBase to ./ for the flat offline layout; hosted code defaults to ../../. 22 JPEGs remain byte-identical;P03-01 uses the authorized seal-removal master.','youtubeCertification':'not performed; standalone distribution omits external SDK bootstrap','cinematicPlates':23,'runtimeFiles':len(files),'preservedBattle':'Engine,geometry,physics,levels,inventory,encounters and Canvas machine sources unchanged;only Mogu normal speed/gravity and note change in combat;all special profiles preserved'}
 archive=out/f"ARCLINE_{CONFIG['version']}_Playables.zip"
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
@@ -42,5 +46,7 @@ manifest['endingCutouts']=len(roll['actors'])
 manifest['endingTimeline']='ER-01–ER-13 v3.0.0 + flight adjustment v3.0.1; 7 seconds reallocated to players; shared native-clock timeline, 11 accelerated scenes, 10 players and 32 concept cutouts, gather and logo; original audio unchanged'
 manifest['design']='Additional user direction0.17.1: confirmed start-screen save deletion and landscape-only prologue/ending; prior0.17.0: chapter playback, first-launch order, fixed trials, explicit machine menu, boss music restarts, recruitment swap and terrain variation; prior BGM/ending retained; schema8/resetVersion2 retained'
 manifest['preservedBattle']='Engine,physics,geometry,AI,profiles,weapons,inventory and special mechanics unchanged from baseline9e04d97. Only explicitly requested terrain/recommendations/recruitment scheduling change; non-terrain stage combat parameters preserved.'
+manifest['battleSFX']={'adoptedWAVs':37,'r1Replacements':7,'archiveInBundle':False,'prototypesInBundle':False,'recruitmentSound':False}
+manifest['preservedBattle']='Requested common character launch speed/gravity; explicit weapon/special trajectory effects retained. Engine,physics,geometry,AI,damage,inventory,save schema8/reset2 unchanged.'
 manifest['zip']={'name':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()}
 (out/'BUNDLE_CHECK.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps({'status':'PASS','runtime':len(files),'plates':23,'entries':len(contents),'zip':str(archive),'bytes':archive.stat().st_size}))
