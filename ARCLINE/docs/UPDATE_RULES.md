@@ -1,7 +1,8 @@
 # ARCLINE アプリ更新ルール
 
 **状態：** リポジトリ内の恒久的な開発・更新ルール。個別変更の要求仕様ではありません。  
-**最新の追加要求：** [追加指示v0.17.1](change-requests/ARCLINE_START_SAVE_LANDSCAPE_v0.17.1.md)。開始画面のセーブ削除とプロローグ／エンディングの横向き再生制限を追加します。
+**エンディング変更の差分正本：** [v3.0.0／ER-01〜ER-13](change-requests/ARCLINE_ENDING_CHANGE_REQUEST_v3.0.0.md)。今回は文書登録のみ。実装依頼時には旧v2.2.0の人数・速度・カード演出・終盤構成を該当範囲で上書きし、勝利BGM指示は独立して維持します。
+**実装済みの追加要求：** [追加指示v0.17.1](change-requests/ARCLINE_START_SAVE_LANDSCAPE_v0.17.1.md)。開始画面のセーブ削除とプロローグ／エンディングの横向き再生制限を追加します。
 **従前の追加要求：** [追加指示v0.17.0](change-requests/ARCLINE_ADDITIONAL_CHANGE_REQUEST_v0.17.0.md)。BGM再開・初回・機体メニュー・試撃・章再生・加入順・地形は最新の明示指示を優先します。
 **基礎となる変更指示書：** [ARCLINE 改善変更指示書 v0.15.5（全21章、AR-01～AR-13）](change-requests/ARCLINE_CHANGE_REQUEST_v0.15.5.md)
 

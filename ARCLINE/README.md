@@ -4,6 +4,10 @@ Canvas 2Dの砲撃アドベンチャー。現在の版数・キャッシュ・�
 
 [サービスサイト](./) ／ [ゲーム](game/dist/?v=0.17.1) ／ [今回の更新](updates/0.17.1/) ／ [10機の原画](characters/) ／ [100面の設計](design/expedition_013/)
 
+## エンディング変更指示書
+
+[エンディング・エンドロール変更指示書 v3.0.0](docs/change-requests/ARCLINE_ENDING_CHANGE_REQUEST_v3.0.0.md)（第0〜16章、ER-01〜ER-13）。合意した全体タイムライン、コンセプト素材、残る自機切り抜き、動き、停止・保存・配布・検収条件を文書化しました。**指示書の保存のみで、新エンドロールは未実装です。**
+
 ## エンドロール素材の準備
 
 [コンセプト原画の切り抜き32体を確認](design/ending-roll-preparation/) ／ [透過PNG一括ZIP](assets/ending/roll-cutouts/ARCLINE_Ending_Concept_Cutouts.zip)。通常敵12・中ボス10・大ボス9＋アークハートを準備しました。原画RGBを保持し、ゲーム用の縮小例は使っていません。演出への組み込みと自機10機の被写体透過化は未実施です。[作業範囲と残件](design/ending-roll-preparation/README.md)。
