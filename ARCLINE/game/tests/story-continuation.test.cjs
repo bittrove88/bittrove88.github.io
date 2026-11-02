@@ -1,0 +1,35 @@
+'use strict';
+const assert = require('node:assert/strict');
+const Save = require('../dist/save.js'), Run = require('../dist/campaign-run.js'), E = require('../dist/engine.js');
+let checks = 0;
+const ok = (value, message) => { checks++; assert(value, message); };
+for (let stage = 1; stage <= 100; stage++) {
+  const data = Save.decode(JSON.stringify({ schemaVersion: 8, campaignResetVersion: 2, cleared: 100, unlockedCharacterIds: Save.characterIds, difficulty: 'hard' }));
+  data.chapterRun = Run.checkpoint(91, { weapons: { W06: 2 }, skills: { BURST: 1 } }, [], 'original', 91);
+  const before = JSON.stringify(data), preview = Run.inspect(data, stage);
+  ok(!preview.practice && JSON.stringify(data) === before, 'inspecting any unlocked stage is read-only campaign preview ' + stage);
+  const context = Run.begin(data, stage, { seed: stage });
+  ok(!context.practice && data.chapterRun.stage === stage, 'selected stage becomes active campaign ' + stage);
+  const state = E.campaign(stage, { battleInventory: context.entry.inventory, battleMode: context.entry.mode, matchSeed: context.entry.seed });
+  state.result = 'win'; state.pendingLoot = [];
+  const result = Run.finish(data, context, state, { seed: stage + 1 });
+  ok(result.advanced && result.nextStage === (stage === 100 ? null : stage + 1), 'every selected cleared stage advances ' + stage);
+  ok(data.cleared === 100 && data.unlockedCharacterIds.length === 10 && data.difficulty === 'hard', 'past progress and companions never reset ' + stage);
+  ok(stage === 100 ? data.chapterRun === null : data.chapterRun.stage === stage + 1, 'save resumes the next stage ' + stage);
+  const saved = JSON.stringify(data);
+  ok(!Run.finish(data, context, state).advanced && JSON.stringify(data) === saved, 'repeated result cannot advance twice ' + stage);
+  ok(JSON.stringify(Save.decode(saved).chapterRun) === JSON.stringify(data.chapterRun), 'selected-stage checkpoint survives save decoding ' + stage);
+}
+const data = Save.decode(JSON.stringify({ schemaVersion: 8, campaignResetVersion: 2, cleared: 30 }));
+data.chapterRun = Run.checkpoint(7, { weapons: { W06: 2 }, skills: { BURST: 1 } }, [], 'stock', 7);
+const selected = Run.begin(data, 3, { seed: 3 });
+assert.deepEqual(selected.entry.inventory, { weapons: { W06: 2 }, skills: { BURST: 1 } }); checks++;
+ok(Run.chooseWeapon(data, 4, 'W06') && data.chapterRun.stage === 4 && data.chapterRun.mode === 'W06', 'weapon choice works for a newly selected campaign stage');
+const entry = JSON.stringify(data.chapterRun);
+Run.begin(data, 4);
+ok(JSON.stringify(data.chapterRun) === entry, 'retry resumes exactly the same seed and stock');
+const otherChapter = Run.begin(data, 11, { seed: 11 });
+assert.deepEqual(otherChapter.entry.inventory.weapons, {}); checks++;
+ok(data.cleared === 30, 'changing chapter keeps maximum clear progress');
+assert.throws(() => Run.begin(data, 32), /not unlocked/); checks++;
+console.log(JSON.stringify({ status: 'PASS', checks, scope: 'All100 already-cleared stages continue a saved campaign, idempotent results, max progress/companions/difficulty preservation, same-chapter stock, chapter reset, retries, locked stages and save roundtrips.' }));

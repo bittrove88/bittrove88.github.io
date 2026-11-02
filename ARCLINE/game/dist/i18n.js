@@ -37,7 +37,7 @@ Object.assign(dictionary,{
 });
 Object.assign(dictionary,{
  'CHAPTER STOCK':'章の持ち物','PRACTICE WEAPON':'練習用の武器','VIEW':'見る','Skills':'スキル','PRACTICE':'練習','CONTINUE':'つづきから','Back':'再開',
- 'Chapter inventory':'章の持ち物','Return to current chapter':'本編の続きへ戻る','Carried until boss':'章ボス戦まで持ち越し可能','Practice weapon':'練習で使う武器',
+ 'Weapon records':'武器一覧','Chapter inventory':'章の持ち物','Return to current chapter':'本編の続きへ戻る','Carried until boss':'章ボス戦まで持ち越し可能','Practice weapon':'練習で使う武器',
  'Weapons and skills carry until the chapter boss.':'入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。',
  'Weapon selection is for practice. Find weapons during your chapter.':'武器選択は練習用です。本編では道中で武器を拾います。',
  'Practice selection':'練習で選択中','Use in practice':'練習で使う','Practice: three shots of your selected weapon.':'練習では選択した武器を3発使えます。',
@@ -46,7 +46,7 @@ Object.assign(dictionary,{
  'CHAPTER':'章','START CHAPTER':'章をはじめる','Start chapter from the beginning':'この章をはじめから',
  'Chapter stock resets. Progress and collection stay saved.':'章の持ち物をリセットします。進行・所持記録は残ります。',
  'Chapter clear. Weapon and skill stock resets.':'章クリア。武器とスキルの在庫をリセット。',
- 'Practice stock does not change your chapter.':'練習の持ち物は本編へ反映されません。','PLAY AGAIN':'もう一度練習',
+ 'Practice stock does not change your chapter.':'練習の持ち物は本編へ反映されません。','PLAY AGAIN':'もう一度',
  'Retry restores the stock from the start of this level.':'再挑戦では面開始時の持ち物に戻ります。',
  'This level restarts from its entry stock.':'この面の開始時点から再開します。','RETRY SAVE':'保存を再試行',
  'Could not save progress. Retry before continuing.':'保存できませんでした。再試行してください。'

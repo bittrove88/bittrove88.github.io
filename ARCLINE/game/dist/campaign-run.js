@@ -22,20 +22,22 @@ function checkpoint(stage,inventory={},pickupLedger=[],runId=newId(),seed=random
  const supplied=I.supply(inventory,L[stage-1].skills,stage);
  return {version:1,runId,stage,chapter:chapter(stage),seed:seed>>>0,inventory:supplied.inventory,mode:'W01',pickupLedger:ledger(pickupLedger,stage),pending:supplied.pending};
 }
-function practice(data,stage,seed=randomSeed()){
- const weapon=I.weaponIds.includes(data.equippedWeaponId)&&(data.unlockedWeaponIds||[]).includes(data.equippedWeaponId)?data.equippedWeaponId:null;
- const entry=checkpoint(stage,{weapons:weapon?{[weapon]:3}:{},skills:{}},[],newId(),seed);entry.mode=weapon||'W01';return {practice:true,entry};
+function selectedEntry(data,stage,runId,seed){
+ if(!Number.isInteger(stage)||stage<1||stage>Math.min(100,data.cleared+1))throw RangeError('Stage is not unlocked');
+ const active=decode(data.chapterRun,Math.min(100,data.cleared+1)),sameChapter=active&&chapter(active.stage)===chapter(stage);
+ const entry=checkpoint(stage,sameChapter?active.inventory:{},sameChapter?active.pickupLedger:[],runId,seed);
+ if(sameChapter&&entry.inventory.weapons[active.mode]>0)entry.mode=active.mode;
+ return entry;
 }
 function inspect(data,stage){
  if(data.chapterRun?.stage===stage)return {practice:false,entry:decode(data.chapterRun)};
- if(!data.chapterRun&&data.cleared<100&&stage===data.cleared+1)return {practice:false,entry:{stage,chapter:chapter(stage),...I.supply({},L[stage-1].skills,stage)}};
- return practice(data,stage,0);
+ return {practice:false,entry:selectedEntry(data,stage,'selection-preview',0)};
 }
 function begin(data,stage,options={}){
  const active=decode(data.chapterRun,Math.min(100,data.cleared+1));
  if(active?.stage===stage){data.chapterRun=active;return {practice:false,entry:decode(active)};}
- if(!active&&data.cleared<100&&stage===data.cleared+1){data.chapterRun=checkpoint(stage,{},[],newId(),options.seed??randomSeed());return {practice:false,entry:decode(data.chapterRun)};}
- return practice(data,stage,options.seed??randomSeed());
+ data.chapterRun=selectedEntry(data,stage,newId(),options.seed??randomSeed());
+ return {practice:false,entry:decode(data.chapterRun)};
 }
 function restart(data,stage,options={}){
  if(!Number.isInteger(stage)||stage<1||stage>100)return null;
@@ -50,7 +52,8 @@ function updatePreparation(data,context,state){
  context.entry=decode(active);return true;
 }
 function chooseWeapon(data,stage,id){
- const active=data.chapterRun;if(active?.stage!==stage||id!=='W01'&&!active.inventory.weapons[id])return false;
+ const selected=inspect(data,stage);if(id!=='W01'&&!selected.entry.inventory.weapons[id])return false;
+ begin(data,stage);const active=data.chapterRun;
  // The selected opening shot is a preference, never a source of ammunition.
  active.mode=id;return true;
 }

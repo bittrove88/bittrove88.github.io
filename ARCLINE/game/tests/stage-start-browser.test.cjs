@@ -63,8 +63,8 @@ const server = http.createServer((req, res) => {
       await page.screenshot({ path: path.join(out, 'stage-selected-' + width + '-' + lang + '.png') });
       await activate('#play');
       await page.waitForFunction('!!s');
-      ok(await page.evaluate('s.stage===3&&selectedMap===2&&runContext.practice&&!document.getElementById("battle").hidden'), 'one activation starts chosen cleared stage, never resets to chapter stage');
-      ok(await page.evaluate('JSON.stringify(save.data.chapterRun)') === checkpoint, 'replaying chosen stage preserves campaign checkpoint and stock');
+      ok(await page.evaluate('s.stage===3&&selectedMap===2&&!runContext.practice&&!document.getElementById("battle").hidden'), 'one activation starts chosen cleared stage, never resets to chapter stage');
+      ok(await page.evaluate('save.data.chapterRun.stage===3&&save.data.cleared===6'), 'chosen cleared stage becomes the resumable campaign stage without losing clear progress');
       await activate('#pause');
       await activate('#resume');
       ok(await page.evaluate('s.stage===3&&!manualPaused&&document.getElementById("overlay").hidden'), 'pause resumes the same running stage');
@@ -78,7 +78,7 @@ const server = http.createServer((req, res) => {
       ok(await page.evaluate('s.stage===7&&!runContext.practice'), 'same button starts the selected campaign stage');
       assert.deepEqual(await page.evaluate('({weapons:s.weaponStock,skills:s.skills})'), { weapons: { W06: 2 }, skills: { BURST: 2 } }); checks++;
       await page.evaluate(() => save.pending);
-      ok(await page.evaluate('JSON.stringify(save.data.chapterRun)') === checkpoint, 'campaign start preserves exact entry checkpoint');
+      ok(await page.evaluate('save.data.chapterRun.stage===7&&save.data.cleared===6'), 'selected campaign stage and prior clear progress are saved');
       await page.reload();
       await page.waitForFunction('!document.getElementById("play").disabled');
       ok(await page.evaluate('selectedMap===6&&save.data.cleared===6'), 'reload still offers actual campaign checkpoint and preserves progress');
@@ -87,7 +87,7 @@ const server = http.createServer((req, res) => {
       await context.close();
     }
     ok(errors.length === 0, errors.join('\n'));
-    const report = { status: 'PASS', checks, rows, errors, scope: 'Real browser UI stage selection and a single start action; Japanese/English; touch and desktop; isolated replay; exact campaign inventory; pause/resume; reload. Physical Safari/Android unverified.' };
+    const report = { status: 'PASS', checks, rows, errors, scope: 'Real browser UI stage selection and a single start action; Japanese/English; touch and desktop; selected-stage continuation; campaign inventory; pause/resume; reload. Physical Safari/Android unverified.' };
     fs.writeFileSync(path.join(out, 'STAGE_START_BROWSER.json'), JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify(report));
   } finally {
