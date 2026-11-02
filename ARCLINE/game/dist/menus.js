@@ -35,7 +35,7 @@ function renderSettings(){
   [local('通常弾と必殺','Normal and special'),local('通常弾は無制限。通常戦の必殺は自分の第2・4・6ターンに1発ずつ。中ボス・大ボスは最初から3発。機体を変えても残数は共通です。','Normal fire is unlimited. Normal battles unlock one special on player turns2,4,6. Guardians start with3. Switching machines shares the same ammo.')],
   [local('転移と行動数','Teleport and actions'),local('転移弾は4面から。着弾先へ移り、1行動を使います。攻撃・転移・修理が残り行動を使い、歩行と照準は使いません。','Teleport unlocks at stage 4. Its contact moves you and costs one action. Attacking, teleporting and repairing use actions; walking and aiming do not.')],
   [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。','Weapon boxes refill to three shots. Remaining auxiliary ammunition and skills can be carried into the chapter boss battle. Chapter stock resets after defeating that boss.')],
-  [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。練習の取得は本編へ持ち帰りません。','Retrying or returning after interruption restores the level-entry HP and stock. Practice pickups never enter the campaign.')]
+  [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。選んだ面をクリアすると次の面へ進み、物語が続きます。','Retrying or returning after interruption restores the level-entry HP and stock. Clear the selected stage to continue to the next stage and its story.')]
  ];
  $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE '+root.ArcRelease.version+' · Campaign'+root.ArcRelease.campaignVersion+' · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
  root.ArcI18n.apply();
