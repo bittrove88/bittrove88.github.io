@@ -10,7 +10,7 @@ for(const lang of ['ja','en']){
  const rate=scenes[0].rate;ok(rate>=1.1&&rate<=1.2,'localized speed range');close(scenes.at(-1).end,98.2/1.15,'common story end');
  for(const cue of scenes){close((cue.end-cue.start)*rate,cue.shot.durationMs/1000,'one rate scales all scene/cue/camera time');for(const line of cue.shot.cues)ok(line.endMs<=cue.shot.durationMs,'no localized subtitle clipped');}
  for(let i=1;i<plan.length;i++){close(plan[i].start,plan[i-1].end,'gapless half-open timeline');ok(Ending.locate(plan,plan[i].start)===plan[i],'boundary belongs only to new cue');ok(Ending.locate(plan,plan[i].start-1e-6)===plan[i-1],'before boundary retains previous cue');}
- const roll=plan.find(c=>c.kind==='players_roll'),players=Ending.entries(roll);ok(players.length===10&&new Set(players.map(e=>e.id)).size===10,'ten unique player roll entries');ok(players.every(e=>e.end<=98),'all ten pass within fixed interval');
+ const roll=plan.find(c=>c.kind==='players_roll'),players=Ending.entries(roll);ok(players.length===10&&new Set(players.map(e=>e.id)).size===10,'ten unique player roll entries');ok(players.every(e=>e.end<=roll.end),'all ten pass within fixed interval');
  const enemies=plan.filter(c=>['enemies','midbosses','bosses','archeart'].includes(c.kind)).flatMap(Ending.entries);
  ok(enemies.length===32&&new Set(enemies.map(e=>e.id)).size===32,'each concept enemy appears once');ok(!Ending.entries(plan.find(c=>c.kind==='bosses')).some(e=>e.id==='boss:archeart'),'Archeart excluded from three boss groups');
  for(const cue of plan.filter(c=>['enemies','midbosses','bosses'].includes(c.kind))){const entries=Ending.entries(cue).filter(e=>e.index===0);for(let t=cue.start;t<cue.end;t+=.05)ok(entries.filter(e=>t>=e.start&&t<e.end&&Ending.pose(cue,e,t,true).opacity>.01).length<=1,'reduced-motion groups never superimpose labels');}
@@ -19,6 +19,11 @@ for(const lang of ['ja','en']){
  for(const cue of plan.filter(c=>c.groups||c.kind==='players_roll'))for(const e of Ending.entries(cue)){
   const a=Ending.pose(cue,e,(e.start+e.end)/2),b=Ending.pose(cue,e,(e.start+e.end)/2+.1);ok(a.y>b.y||cue.kind==='archeart','continuous upward passage or singular focal shot');ok(a.opacity>.9,'individual visible midway');
  }
+ const normal=plan.find(c=>c.kind==='enemies'),mid=plan.find(c=>c.kind==='midbosses'),boss=plan.find(c=>c.kind==='bosses');
+ close(roll.end,105,'seven seconds reassigned to player introductions');close(normal.end-normal.start,10,'normal groups compressed');close(mid.end-mid.start,12,'midboss groups compressed');close(boss.end-boss.start,18,'boss groups compressed');close(roll.end-roll.start-(98-D.storyEnd),7,'every saved enemy second goes to players');
+ for(const e of players){close(e.end-e.start,6.6,'each player gets a complete6.6 second passage');const intro=Ending.pose(roll,e,e.start+.7),center=Ending.pose(roll,e,(e.start+e.end)/2),quiet=Ending.pose(roll,e,e.start+.7,true);ok(Math.abs(intro.x-center.x)>.05&&Math.abs(intro.rotation)>.5,'visible diagonal flight and bank');ok(quiet.rotation===0&&quiet.scale===1,'reduced motion removes flight transforms');assert.deepEqual(Ending.pose(roll,e,e.start+.7),intro,'pose depends only on absolute time');}
+ close(players.at(-1).end,roll.end,'last introduction uses the expanded interval');
+ for(const cue of [normal,mid,boss]){const all=Ending.entries(cue);for(const first of all.filter(e=>e.index===0&&e.groupIndex>0)){for(let t=first.groupStart-.35;t<=first.groupStart+2.1;t+=.05)ok(all.some(e=>{if(t<e.start||t>=e.end)return false;const q=Ending.pose(cue,e,t);return q.opacity>.15&&q.y+q.height/2>.35&&q.y-q.height/2<.65;}),'no empty central band between enemy formations');}}
  langs.push({lang,originalSeconds:frames.reduce((n,f)=>n+f.durationMs/1000,0),rate,storyEnd:scenes.at(-1).end});
 }
 ok(D.actors.length===42,'complete runtime roster');for(const a of D.actors){const b=fs.readFileSync(path.resolve(__dirname,'../..',a.src));ok(crypto.createHash('sha256').update(b).digest('hex')===a.sha256,'adopted cutout hash '+a.id);ok(a.rgbPixelsUnchanged&&a.sourceSha256.length===64,'auditable original pixels '+a.id);}

@@ -15,10 +15,25 @@ try{
   await p.evaluate(()=>{document.querySelectorAll('.ending-album').forEach(e=>e.remove());document.getElementById('plate').hidden=document.getElementById('caption').hidden=true;window.layoutEnding=ArcEnding.create(document.getElementById('storyCinema'),ArcCinematicData.movie('epilogue',new URLSearchParams(location.search).get('lang'),{spoilers:true}),ArcEndingData.audio.duration,new URLSearchParams(location.search).get('lang'));});
   for(const [width,height]of [[568,240],[844,390],[932,430],[1280,720]]){
    await p.setViewportSize({width,height});
-   for(const [kind,time]of [['players',90],['enemies',101.3],['midbosses',113.7],['bosses',127.8],['archeart',147],['gather',154]]){
+   for(const [kind,time]of await p.evaluate(()=>['players_roll','enemies','midbosses','bosses','archeart','players_gather'].map(kind=>{const cue=layoutEnding.plan.find(c=>c.kind===kind),entry=ArcEnding.entries(cue)[0];return [kind,(entry.start+entry.end)/2];}))){
     await p.evaluate(t=>layoutEnding.update(t),time);await p.waitForTimeout(70);const result=await p.evaluate(()=>[...document.querySelectorAll('.ending-album:last-child .ending-actor')].filter(e=>Number(e.style.opacity)>.5).map(e=>{const img=e.firstElementChild,r=img.getBoundingClientRect(),name=e.lastElementChild.getBoundingClientRect();return {id:e.dataset.actor,loaded:img.complete&&img.naturalWidth>0&&!img.hidden,native:r.width<=img.naturalWidth+1&&r.height<=img.naturalHeight+1,body:{x:r.x,y:r.y,w:r.width,h:r.height},label:{x:name.x,y:name.y,w:name.width,h:name.height}};}));
-    ok(result.length>0&&result.every(a=>a.loaded&&a.native),'layout loaded/native '+lang+'/'+width+'/'+kind);if(kind==='gather')ok(result.length===10&&result.every(a=>a.body.x>=0&&a.body.y>=0&&a.body.x+a.body.w<=width&&a.label.y+a.label.h<=height),'all ten fit gather '+width);
-    if(kind==='gather'||width===568)await p.screenshot({path:path.join(out,'ending-'+kind+'-'+lang+'-'+width+'.png')});rows.push({lang,width,height,kind,time,actors:result});
+    ok(result.length>0&&result.every(a=>a.loaded&&a.native),'layout loaded/native '+lang+'/'+width+'/'+kind);if(kind==='players_gather')ok(result.length===10&&result.every(a=>a.body.x>=0&&a.body.y>=0&&a.body.x+a.body.w<=width&&a.label.y+a.label.h<=height),'all ten fit gather '+width);
+    if(lang==='ja'){
+     const cue=await p.evaluate(kind=>layoutEnding.plan.find(c=>c.kind===kind),kind);
+     if(['players_roll','enemies','midbosses','bosses'].includes(kind)){
+      const times=await p.evaluate(cue=>[cue.start+.75,cue.start+1.5,...ArcEnding.entries(cue).filter(e=>e.index===0&&e.groupIndex>0).flatMap(e=>[e.groupStart-.2,e.groupStart+.35,e.groupStart+.9,e.groupStart+1.6,e.groupStart+2.1])],cue);
+      for(let n=0;n<times.length;n++){
+       await p.evaluate(t=>layoutEnding.update(t),times[n]);await p.waitForTimeout(60);
+       const poses=await p.evaluate(()=>[...document.querySelectorAll('.ending-album:last-child .ending-actor')].map(e=>{const img=e.firstElementChild,r=img.getBoundingClientRect(),label=e.lastElementChild.getBoundingClientRect();return {id:e.dataset.actor,opacity:Number(e.style.opacity),transform:img.style.transform,native:r.width<=img.naturalWidth+1&&r.height<=img.naturalHeight+1,body:{x:r.x,y:r.y,w:r.width,h:r.height},label:{x:label.x,y:label.y,w:label.width,h:label.height}};}));
+       ok(poses.every(a=>a.native),'banking preserves native-resolution cap '+kind);
+       const labels=poses.filter(a=>a.opacity>.55&&a.label.x>=0&&a.label.y>=0&&a.label.x+a.label.w<=width&&a.label.y+a.label.h<=height);
+       for(let i=0;i<labels.length;i++)for(let j=i+1;j<labels.length;j++){const a=labels[i].label,b=labels[j].label;ok(a.x+a.w<=b.x||b.x+b.w<=a.x||a.y+a.h<=b.y||b.y+b.h<=a.y,'flight labels stay distinct '+labels[i].id+'/'+labels[j].id);}
+       if(width===844)await p.screenshot({path:path.join(out,'flight-'+kind+'-'+n+'.png')});rows.push({lang,width,height,kind,time:times[n],transition:true,actors:poses});
+      }
+      await p.evaluate(t=>layoutEnding.update(t),time);
+     }
+    }
+    if(kind==='players_gather'||width===568)await p.screenshot({path:path.join(out,'ending-'+kind+'-'+lang+'-'+width+'.png')});rows.push({lang,width,height,kind,time,actors:result});
    }
   }
   await ctx.close();
