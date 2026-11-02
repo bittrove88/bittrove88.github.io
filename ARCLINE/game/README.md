@@ -26,3 +26,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.18.0のエンディング正本は `../design/ending_roll.json`（固定境界、グループ、10機の加入順、動きの基準）。`tools/build_ending_roll.py` が、出典台帳と `../design/ending-roll-preparation/player-masks.json`・承認済みalpha PNGから42体と `dist/ending-roll-data.js`、`assets/ending/roll-manifest.json`、`player-cutouts.json` を再生成します。通常ビルドはPillowのみ。マスクの準備手順は `tools/prepare_player_masks.py`（OpenCV 5.0.0.93の任意の別環境）へ保存。元RGBと元画像SHAは検査し、派生PNGも全画素を照合します。
 
 `ui/ending-credits.js` が本編・`ending-preview/` 共通の時刻／出演／ポーズを所有し、`dist/story-view.js` と `ending-preview/review.js` は同じrateで元字幕とカメラの時計を進めます。旧 `ending_media.json` の静止カード・風景と小切り抜きは履歴として保持し、新ロールでは参照しません。ロゴと承認7音源は引き続き同台帳を使用。正式生成の90出力と配布ZIPへ全42体を登録しています。
+
+0.18.1は `design/ending_roll.json` のER-02〜05だけを再配分（敵7秒短縮→自機へ）。自機の登場間隔は区間長と6.6秒の通過から算出します。`ending-credits.js` の共通poseで斜め進入・旋回・加速・フェードを計算し、回転後の外接範囲と名前の余白も確保。CSS側に独立したアニメーション時計を作りません。

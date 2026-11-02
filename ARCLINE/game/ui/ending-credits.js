@@ -44,16 +44,16 @@
   }
   // Every appearance and pose derives from the same media time; no animation timers.
   function entries(cue) {
-    if (cue.kind === "players_roll")
+    if (cue.kind === "players_roll") {
+      const passage = Math.min(data.motion.playerPassage, cue.end - cue.start),
+        stagger = (cue.end - cue.start - passage) / (data.players.length - 1);
       return data.players.map((id, i) => ({
         id,
         index: i,
-        start: cue.start + i * data.motion.playerStagger,
-        end: Math.min(
-          cue.end,
-          cue.start + i * data.motion.playerStagger + data.motion.playerPassage,
-        ),
+        start: cue.start + i * stagger,
+        end: Math.min(cue.end, cue.start + i * stagger + passage),
       }));
+    }
     if (cue.kind === "players_gather")
       return data.players.map((id, i) => ({
         id,
@@ -62,7 +62,7 @@
         end: cue.end,
       }));
     if (!cue.groups) return [];
-    const overlap = data.motion.groupOverlap,
+    const overlap = cue.overlap || 0,
       length =
         (cue.end - cue.start + (cue.groups.length - 1) * overlap) /
         cue.groups.length;
@@ -71,6 +71,7 @@
         id,
         index: i,
         group: key,
+        overlap,
         groupIndex: g,
         groupCount: cue.groups.length,
         groupStart: cue.start + g * (length - overlap),
@@ -86,22 +87,68 @@
       })),
     );
   }
+  function flight(entry, seconds, player, reduced) {
+    const age = seconds - entry.start,
+      p = clamp(age / (entry.end - entry.start));
+    if (reduced)
+      return {
+        progress: p,
+        x: 0,
+        rotation: 0,
+        scale: 1,
+        opacity: Math.min(clamp(age / 0.3), clamp((entry.end - seconds) / 0.3)),
+      };
+    // A formation shares its horizontal path; staggered members keep their lanes.
+    const begin = entry.groupStart ?? entry.start,
+      end = entry.groupEnd ?? entry.end,
+      incoming = 1 - smooth((seconds - begin) / data.motion.flightDuration),
+      outgoing = smooth(
+        (seconds - end + data.motion.flightDuration) /
+          data.motion.flightDuration,
+      ),
+      phase = clamp((seconds - begin) / (end - begin)),
+      direction = (player ? entry.index % 2 : entry.groupIndex % 2) ? 1 : -1,
+      offset = player
+        ? data.motion.flightOffsetPlayer
+        : data.motion.flightOffsetEnemy,
+      ease = player
+        ? data.motion.flightEasePlayer
+        : data.motion.flightEaseEnemy;
+    return {
+      progress: p + ease * Math.sin(2 * Math.PI * p),
+      x:
+        direction *
+        (offset * (incoming - outgoing) +
+          data.motion.flightDrift * Math.sin(2 * Math.PI * phase)),
+      rotation:
+        direction *
+        (data.motion.flightBank * (incoming - outgoing) +
+          data.motion.flightSway * Math.sin(2 * Math.PI * phase)),
+      scale: 1 - 0.12 * incoming - 0.08 * outgoing,
+      opacity: Math.min(
+        smooth(age / data.motion.flightFade),
+        smooth((entry.end - seconds) / data.motion.flightFade),
+      ),
+    };
+  }
   function pose(cue, entry, seconds, reduced = false) {
     const age = seconds - entry.start,
-      p = clamp(age / (entry.end - entry.start)),
       fade = Math.min(clamp(age / 0.3), clamp((entry.end - seconds) / 0.3));
     const i = entry.index;
-    if (cue.kind === "players_roll")
+    if (cue.kind === "players_roll") {
+      const f = flight(entry, seconds, true, reduced);
       return {
-        x: i % 2 ? 0.69 : 0.31,
+        x: (i % 2 ? 0.69 : 0.31) + f.x,
         y: reduced
           ? 0.2 + Math.floor((i % 6) / 2) * 0.3
-          : 1.22 - 1.44 * p + Math.sin(age * 2.4 + i) * 0.006,
+          : 1.22 - 1.44 * f.progress + Math.sin(age * 2.4 + i) * 0.006,
         width: 0.31,
         height: reduced ? 0.22 : 0.3,
-        opacity: fade,
-        scale: 1,
+        opacity: f.opacity,
+        scale: f.scale,
+        rotation: f.rotation,
       };
+    }
     if (cue.kind === "players_gather") {
       const merge = smooth(age / data.motion.gatherMerge),
         pull = reduced ? 0 : smooth((age - 7) / (cue.end - cue.start - 7));
@@ -133,7 +180,8 @@
         opacity: Math.min(smooth(age), clamp(4.5 - age)),
         scale: reduced ? 1 : 1 + 0.025 * smooth((age - 1) / 2.5),
       };
-    const boss = cue.kind === "bosses",
+    const f = flight(entry, seconds, false, reduced),
+      boss = cue.kind === "bosses",
       row = Math.floor(i / 3),
       col = i % 3,
       last = entry.count === 5 && row === 1;
@@ -143,31 +191,32 @@
           clamp(
             (seconds -
               entry.groupStart -
-              (entry.groupIndex ? data.motion.groupOverlap / 2 : 0) -
+              (entry.groupIndex ? entry.overlap / 2 : 0) -
               i * 0.03) /
               0.18,
           ),
           clamp(
             (entry.groupEnd -
               (entry.groupIndex < entry.groupCount - 1
-                ? data.motion.groupOverlap / 2
+                ? entry.overlap / 2
                 : 0) -
               seconds) /
               0.18,
           ),
         )
-      : fade;
+      : f.opacity;
     return {
-      x: last ? 0.34 + (i - 3) * 0.32 : 0.18 + col * 0.32,
+      x: (last ? 0.34 + (i - 3) * 0.32 : 0.18 + col * 0.32) + f.x,
       y: reduced
         ? boss
           ? 0.48
           : 0.31 + row * 0.38
-        : 1.25 - 1.5 * p + (boss ? 0 : (row - 0.5) * 0.36),
+        : 1.25 - 1.5 * f.progress + (boss ? 0 : (row - 0.5) * 0.36),
       width: 0.28,
       height: boss ? 0.5 : 0.27,
       opacity,
-      scale: 1,
+      scale: f.scale,
+      rotation: f.rotation,
     };
   }
   function create(host, frames, duration, locale) {
@@ -260,18 +309,32 @@
         const node = actorNode(entry),
           asset = actors.get(entry.id),
           p = pose(cue, entry, seconds, !!reduced?.matches);
-        const scale = Math.min(
-          1,
-          Math.min((w * p.width) / asset.width, (h * p.height) / asset.height) *
-            p.scale,
-        );
+        const rotation = p.rotation || 0,
+          angle = (Math.abs(rotation) * Math.PI) / 180,
+          rotatedWidth =
+            asset.width * Math.cos(angle) + asset.height * Math.sin(angle),
+          rotatedHeight =
+            asset.height * Math.cos(angle) + asset.width * Math.sin(angle),
+          scale = Math.min(
+            1,
+            Math.min(
+              (w * p.width) / rotatedWidth,
+              (h * p.height) / rotatedHeight,
+            ) * p.scale,
+            asset.width / rotatedWidth,
+            asset.height / rotatedHeight,
+          );
         const image = node.firstElementChild;
         image.style.width = asset.width * scale + "px";
         image.style.height = asset.height * scale + "px";
+        image.style.transform = `rotate(${rotation}deg)`;
+        // Reserve the banked silhouette's height so the name stays below it.
+        image.style.marginBlock =
+          Math.max(0, ((rotatedHeight - asset.height) * scale) / 2) + "px";
         node.style.left = p.x * w + "px";
         node.style.top = p.y * h + "px";
         node.style.width =
-          Math.min(w * 0.3, Math.max(asset.width * scale, w * 0.13)) + "px";
+          Math.min(w * 0.3, Math.max(rotatedWidth * scale, w * 0.13)) + "px";
         node.style.opacity = p.opacity;
       }
       // Decode only the current and imminent groups. Evict image references as they leave.

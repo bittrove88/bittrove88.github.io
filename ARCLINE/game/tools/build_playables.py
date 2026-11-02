@@ -39,7 +39,7 @@ with zipfile.ZipFile(archive) as z:
 manifest['characterPlates']=sum(bool(a['verified'] and a['src']) for a in characters)
 manifest['bgmTracks']=7
 manifest['endingCutouts']=len(roll['actors'])
-manifest['endingTimeline']='ER-01–ER-13 v3.0.0; shared native-clock timeline, 11 accelerated scenes, 10 players and 32 concept cutouts, gather and logo; original audio unchanged'
+manifest['endingTimeline']='ER-01–ER-13 v3.0.0 + flight adjustment v3.0.1; 7 seconds reallocated to players; shared native-clock timeline, 11 accelerated scenes, 10 players and 32 concept cutouts, gather and logo; original audio unchanged'
 manifest['design']='Additional user direction0.17.1: confirmed start-screen save deletion and landscape-only prologue/ending; prior0.17.0: chapter playback, first-launch order, fixed trials, explicit machine menu, boss music restarts, recruitment swap and terrain variation; prior BGM/ending retained; schema8/resetVersion2 retained'
 manifest['preservedBattle']='Engine,physics,geometry,AI,profiles,weapons,inventory and special mechanics unchanged from baseline9e04d97. Only explicitly requested terrain/recommendations/recruitment scheduling change; non-terrain stage combat parameters preserved.'
 manifest['zip']={'name':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()}
