@@ -204,7 +204,7 @@ function specialPreview(original,id){
   if(weapon.machineId==='mogu')return events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
   if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;
   if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.length===9&&events.some(e=>e.type==='split');
-  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length>=2;
+  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length===4&&plan.damage[1]>=weapon.damageCap-1e-6;
   return hit&&events.some(e=>e.type==='pull'&&Math.abs(e.to.x-e.from.x)>60)&&events.some(e=>e.type==='compression');
  };
  let found=null;

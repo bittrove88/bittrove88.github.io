@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 // One internal HP/damage unit is twenty displayed points. Geometry stays in world units.
-const pointsPerUnit=20,teleportCharge={rise:2.6,fall:2.6,hold:.25};
+const pointsPerUnit=20,ballistics=Object.freeze({speed:1,gravity:1}),teleportCharge={rise:2.6,fall:2.6,hold:.25};
 const rows=[
  ['gun',140,.8,.75,.65,2.6,.75,1.55,55,'Intermediate','Short-range heavy cannon. Close the distance.', 'Demolition Shell','A broad blast breaks cover and pushes the target.','#eb7928','shell'],
  ['ban',120,.95,.75,.4,2.6,.95,1.05,50,'Beginner','Steady mid-range fire.','Forward Shockwave','Impact sends a wide shockwave forward.','#da3156','shell'],
@@ -26,11 +26,13 @@ const specials={
  rico:{speed:1.1,gravity:.9,damage:1.2,blast:70,damageCap:2,bounces:4,maxBounces:4,restitution:.95,bounceDamage:.2,bounceBlast:10,maxBlast:110},
  yui:{speed:.95,gravity:1,damage:1.5,blast:80,damageCap:2.1,pullToImpact:true,pullRadius:160,pullDistance:120,pullSeconds:.6,compressionRadius:45,compressionBonus:.6}
 };
+// Shared launch ballistics override the earlier per-machine tuning.
+// Weapon/skill effects remain explicit action modifiers, independent of the pilot.
 const profiles=rows.map(([id,hp,walk,climb,pushResistance,seconds,speed,gravity,blast,playerType,normalNote,specialName,specialNote,color,shape])=>({
  id,hp,walk,chargeWalk:id==='yui'?1.15:1,climb,pushResistance,hitbox:1,playerType,
- charge:{rise:seconds,fall:seconds,hold:.25},normalNote,specialNote,
- normal:{id:'N_'+id.toUpperCase(),name:'Standard',machineId:id,normal:true,speed,gravity,damage:1,blast,minAngle:-15,maxAngle:170,criticalMultiplier:1.5,damageCap:1.5,bossDamageCap:2,bounces:0,shots:1,appearance:{color:'#fff0a9',shape:id==='gun'?'shell':id==='rin'?'needle':'orb',glyph:'●',label:'NORMAL',size:id==='gun'?7:5}},
- special:{id:'S_'+id.toUpperCase(),name:specialName,machineId:id,special:true,shots:1,bounces:0,minAngle:-15,maxAngle:170,criticalMultiplier:1,...specials[id],appearance:{color,shape,glyph:'◆',label:'SPECIAL',size:10}}
+ charge:{rise:seconds,fall:seconds,hold:.25},normalNote:'All machines share the same base trajectory.',specialNote,
+ normal:{id:'N_'+id.toUpperCase(),name:'Standard',machineId:id,normal:true,...ballistics,damage:1,blast,minAngle:-15,maxAngle:170,criticalMultiplier:1.5,damageCap:1.5,bossDamageCap:2,bounces:0,shots:1,appearance:{color:'#fff0a9',shape:id==='gun'?'shell':id==='rin'?'needle':'orb',glyph:'●',label:'NORMAL',size:id==='gun'?7:5}},
+ special:{id:'S_'+id.toUpperCase(),name:specialName,machineId:id,special:true,shots:1,bounces:0,minAngle:-15,maxAngle:170,criticalMultiplier:1,...specials[id],...ballistics,appearance:{color,shape,glyph:'◆',label:'SPECIAL',size:10}}
 }));
 const deepFreeze=o=>{Object.freeze(o);for(const value of Object.values(o))if(value&&typeof value==='object'&&!Object.isFrozen(value))deepFreeze(value);return o;};
 profiles.forEach(deepFreeze);Object.freeze(profiles);deepFreeze(teleportCharge);
@@ -40,6 +42,6 @@ function chargePower(seconds,profileOrState){
  const t=Math.max(0,seconds)%(timing.rise+timing.hold+timing.fall);
  return t<timing.rise?20+80*t/timing.rise:t<timing.rise+timing.hold?100:100-80*(t-timing.rise-timing.hold)/timing.fall;
 }
-const api={profiles,weapons,get,pointsPerUnit,teleportCharge,chargePower,points:n=>Math.round(n*pointsPerUnit*100)/100};
+const api={profiles,weapons,get,ballistics,pointsPerUnit,teleportCharge,chargePower,points:n=>Math.round(n*pointsPerUnit*100)/100};
 if(typeof module!=='undefined')module.exports=api;else root.ArcCombat=api;
 })(globalThis);

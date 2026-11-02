@@ -276,7 +276,7 @@
   // Latest user direction: every guardian and each post-boss chapter entry
   // starts its selected track at zero. Same-track continuity elsewhere remains.
   const restartForStage = (stage, spec = {}) =>
-    !!(spec.boss || spec.midboss || (stage > 1 && stage % 10 === 1));
+    !!((spec.boss && !spec.midboss) || (stage > 1 && stage % 10 === 1));
   const api = { create, forStage, restartForStage };
   if (typeof module !== "undefined") module.exports = api;
   else root.ArcAudio = api;

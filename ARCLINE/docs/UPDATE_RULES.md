@@ -1,5 +1,7 @@
 # ARCLINE アプリ更新ルール
 
+**最新の追加修正：** [0.19.0](change-requests/ARCLINE_COMBAT_AUDIO_FIX_v0.19.0.md)。本文位置・基本弾道・ライト・中ボスBGM・戦闘効果音を明示依頼に従って更新。[実装記録](releases/0.19.0.md)。
+
 **状態：** リポジトリ内の恒久的な開発・更新ルール。個別変更の要求仕様ではありません。  
 **最新のエンディング追加調整：** [v3.0.1](change-requests/ARCLINE_ENDING_FLIGHT_ADJUSTMENT_v3.0.1.md)。敵の組間を詰めて7秒を自機紹介へ配分し、飛行トランジションを追加。その他はv3.0.0を維持。
 **エンディング変更の差分正本：** [v3.0.0／ER-01〜ER-13](change-requests/ARCLINE_ENDING_CHANGE_REQUEST_v3.0.0.md)。最新の明示実装依頼に基づきゲーム0.18.0へ反映。[実装記録](releases/0.18.0.md) を参照。旧v2.2.0の人数・速度・カード演出・終盤構成を該当範囲で上書きし、勝利BGM指示は独立して維持します。

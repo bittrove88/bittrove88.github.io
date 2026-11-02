@@ -49,12 +49,12 @@
   function introduce() {
     $("gunIntroTitle").textContent = local("ガン", "GUN");
     $("gunIntroLead").textContent = local(
-      "重い一撃を放つ、最初の仲間。",
-      "Your first companion, with a heavy shot.",
+      "大きな一撃を放つ、最初の仲間。",
+      "Your first companion, with a powerful blast.",
     );
     $("gunIntroText").textContent = local(
-      "ガンの弾は重く、遠くまでは飛びにくい。角度と距離を見極めて、近くの目標を狙おう。",
-      "Gun’s heavy shot falls quickly and travels a shorter distance. Judge the angle and distance, and aim at a nearby target.",
+      "基本の弾の重さは全機体で共通。角度と距離を見極めて、近くの目標を狙おう。",
+      "Every machine shares the same base projectile weight. Judge the angle and distance, and aim at a nearby target.",
     );
     $("gunIntroContinue").textContent = local(
       "照準と発射を体験する",
