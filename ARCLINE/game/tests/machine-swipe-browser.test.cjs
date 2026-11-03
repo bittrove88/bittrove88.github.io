@@ -138,7 +138,7 @@ async function reach(page, cdp, selector, scroller) {
       }
       await page.screenshot({ path: path.join(out, 'roster-' + width + '-' + lang + '.png') });
       await tap(page, '#closeCollection');
-      if (height > width) await page.setViewportSize({ width: 844, height: 390 });
+      await page.locator('#collectionPanel').waitFor({ state: 'hidden' });
       await tap(page, '#play'); await page.waitForFunction('!!s');
       await tap(page, '#pause'); await tap(page, '#pauseMachineChange');
       const battleBefore = await page.evaluate('({hp:s.units[0].hp/s.units[0].maxHp,ammo:s.specialAmmo,stage:s.stage,shots:s.shotCount})');
