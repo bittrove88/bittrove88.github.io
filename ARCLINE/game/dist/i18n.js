@@ -34,7 +34,12 @@ Object.assign(dictionary,{
  'Difficulty':'難易度','Easy':'イージー','Normal':'ノーマル','Hard':'ハード',
  'Less accurate enemy aim':'敵の狙い：ゆるめ','Standard enemy aim':'敵の狙い：標準','More accurate enemy aim':'敵の狙い：正確',
  'Easy: less accurate enemy aim':'イージー：敵の狙いはゆるめ','Normal: standard enemy aim':'ノーマル：敵の狙いは標準','Hard: more accurate enemy aim':'ハード：敵の狙いは正確',
- 'Full trajectory in every mode. Progress and machines are saved per difficulty.':'全モードで射線を全表示。攻略記録と保有機体は難易度ごとに保存。'
+ 'Full line':'射線すべて','Half line':'射線半分','Direction only':'発射方向のみ',
+ 'Easy: less accurate enemy aim, full line':'イージー：敵の狙いはゆるめ、射線は全軌道',
+ 'Normal: standard enemy aim, half line':'ノーマル：敵の狙いは標準、射線は半分',
+ 'Hard: more accurate enemy aim, direction only':'ハード：敵の狙いは正確、発射方向のみ',
+ 'Easy: full line; Normal: half line; Hard: direction only.':'イージー：全軌道、ノーマル：半分、ハード：発射方向のみ。',
+ 'Enemy aim gets more accurate from Easy to Hard. Progress and machines are saved per difficulty.':'敵の狙いはイージーからハードへ正確になります。攻略記録と保有機体は難易度別に保存。'
 });
 Object.assign(dictionary,{
  'CHAPTER STOCK':'章の持ち物','PRACTICE WEAPON':'練習用の武器','VIEW':'見る','Skills':'スキル','PRACTICE':'練習','CONTINUE':'つづきから','Back':'再開',
