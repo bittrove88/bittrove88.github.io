@@ -188,7 +188,7 @@ function paintEncounter(){
  const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('bossIntroSkip').hidden=!encounter?.boss||!!demo||!!s?.result||manualPaused||reducedMotion;$('bossIntroSkip').textContent=ArcI18n.language==='en'?'Skip intro':'登場演出をスキップ';$('encounterBanner').dataset.phase=encounter?.boss?ArcExperience.introPhase(encounter.age):'name';$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
  if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id);if(e.textContent!==data[key])e.textContent=data[key];e.hidden=!data[key];}
 }
-$('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();renderer.resetCamera();paintEncounter();hud();$('world').focus({preventScroll:true});}};
+$('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();renderer.resetCamera();paintEncounter();hud();draw();$('world').focus({preventScroll:true});}};
 function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
 function start(retryContext=null){
  mapCamera?.close(false);
@@ -266,7 +266,7 @@ function update(dt,realDt=dt){
  if(!hostPaused()&&!manualPaused)ArcCharacterHero.updateAll(dt);
  if(!$('lootPicker').hidden||!$('collectionPanel').hidden||ArcExpeditionUi.active)return;
  clock+=dt;if(manualPaused||hostPaused())return;ArcStoryView.update(dt);ArcMenus.update(dt);ArcChapterPlayback.update(dt);if(!$('battleMachinePicker').hidden)return;if(ArcStoryView.active||ArcExpeditionUi.active)return;if(!s||specialLesson.active)return;
- if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration)encounter=null;}paintEncounter();
+ if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration){const boss=encounter.boss;encounter=null;if(boss)renderer.resetCamera();}}paintEncounter();
  if(encounter?.boss&&!demo&&!reducedMotion){clearInput();hud();return;}
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
  if(s.phase==='aim'){
