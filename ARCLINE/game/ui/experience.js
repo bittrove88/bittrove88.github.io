@@ -54,6 +54,10 @@
         '<canvas aria-hidden="true"></canvas><div><small></small><strong></strong><span class="chapter-route" aria-hidden="true">● ━━━ ● ━━━ ◇</span></div>';
       document.getElementById("clearNarrative").append(horizon);
       renderer = root.ArcRender.create(horizon.querySelector("canvas"));
+      if (root.ResizeObserver)
+        new ResizeObserver(() => requestAnimationFrame(drawChapter)).observe(
+          document.getElementById("resultStoryArt"),
+        );
     }
     const spec = root.ArcLevels[stage - 1];
     horizon.hidden = !(stage < 100 && spec?.boss && !spec.midboss);
@@ -82,6 +86,9 @@
   function drawChapter() {
     if (!nextState || horizon?.hidden || !horizon?.getClientRects().length)
       return;
+    const art = document.getElementById("resultStoryArt");
+    horizon.style.width = art.clientWidth + "px";
+    horizon.style.left = art.offsetLeft + "px";
     const canvas = horizon.querySelector("canvas");
     renderer.draw(nextState, {
       lobby: true,
@@ -97,7 +104,7 @@
         "assets/ending/cutouts/brand/logo_arcline.png",
         new URL(root.ArcAssetBase || "../../", document.baseURI),
       ).href;
-    root.addEventListener("resize", drawChapter);
+    root.addEventListener("resize", () => requestAnimationFrame(drawChapter));
   }
   const api = { bossView, introPhase, chapter };
   if (typeof module !== "undefined") module.exports = api;
