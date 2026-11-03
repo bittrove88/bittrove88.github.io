@@ -109,7 +109,12 @@
         }
         ctx.restore();
       }
-      const guides = root.ArcAimGuide.paths(plan, choice);
+      const guides =
+        choice === "hard"
+          ? root.ArcAimGuide.direction(
+              root.ArcEngine.geometry.muzzle(state, 0, state.angle),
+            )
+          : root.ArcAimGuide.paths(plan, choice);
       ctx.strokeStyle = "#e5edb6";
       ctx.lineWidth = 3;
       ctx.setLineDash([3, 8]);
@@ -140,15 +145,15 @@
     }
     function render() {
       $("difficultyIntroTitle").textContent = en()
-        ? "Choose enemy aim precision"
-        : "敵の照準精度を選ぼう";
+        ? "Choose difficulty and aim guide"
+        : "敵の狙いと射線で難易度を選ぼう";
       $("difficultyIntroText").textContent = en()
-        ? "Enemy aim becomes more accurate from Easy to Hard. All modes show the full trajectory. Progress and machines are saved separately for each mode. A test shot is optional."
-        : "イージーからハードへ、敵の狙いが正確になります。射線は全モードで全表示。攻略記録と保有機体は難易度ごとに保存します。試撃は任意です。";
+        ? "Enemy aim gets more accurate from Easy to Hard. Easy shows the full trajectory, Normal shows half, and Hard shows only the launch direction. Progress and machines are saved separately for each mode. Test shots are optional."
+        : "敵の狙いはイージーからハードへ正確になります。射線はイージーが全軌道、ノーマルが半分、ハードが発射方向のみ。攻略記録と保有機体は難易度ごとに保存。試撃は任意です。";
       $("initialDifficultyOptions").innerHTML = modes
         .map(
           (id, i) =>
-            `<label><input type="radio" name="initialDifficulty" value="${id}" ${id === choice ? "checked" : ""} ${flight || busy ? "disabled" : ""}><span><strong>${names[en() ? "en" : "ja"][i]}</strong><small>${(en() ? ["Enemy aim: less accurate", "Enemy aim: standard", "Enemy aim: more accurate"] : ["敵の狙い：ゆるめ", "敵の狙い：標準", "敵の狙い：正確"])[i]}</small></span></label>`,
+            `<label><input type="radio" name="initialDifficulty" value="${id}" ${id === choice ? "checked" : ""} ${flight || busy ? "disabled" : ""}><span><strong>${names[en() ? "en" : "ja"][i]}</strong><small>${(en() ? ["Full path · easier enemy aim", "Half path · standard enemy aim", "Direction only · sharper enemy aim"] : ["全軌道・敵の狙いゆるめ", "半分・敵の狙い標準", "方向のみ・敵の狙い正確"])[i]}</small></span></label>`,
         )
         .join("");
       for (const input of $("initialDifficultyOptions").querySelectorAll(
@@ -169,8 +174,8 @@
         " · " +
         (result ||
           (en()
-            ? "Optional test shot. The full guide is identical in all modes."
-            : "試撃は任意です。どの難易度でも射線は全表示。"));
+            ? "Optional test shot. Compare the different guides."
+            : "試撃は任意です。難易度ごとの射線を比較できます。"));
       draw();
     }
     async function finishShot() {
