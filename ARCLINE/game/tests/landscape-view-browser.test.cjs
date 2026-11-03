@@ -18,7 +18,7 @@ async function drag(page,cdp,from,to){await touch(cdp,'touchStart',[{id:1,...awa
    await page.goto('http://127.0.0.1:'+server.address().port+'/ARCLINE/game/dist/');await page.waitForFunction('!document.getElementById("play").disabled');await page.evaluate(()=>{globalThis.pointerEvents=[];for(const type of ['pointerdown','pointerup','pointercancel','lostpointercapture','click'])document.addEventListener(type,e=>pointerEvents.push({type,target:e.target.id,x:e.clientX,y:e.clientY,id:e.pointerId,prevented:e.defaultPrevented}));});await tap('#play');await page.waitForFunction('!!s');
    await page.waitForFunction('!hostPaused()&&viewport.state.rotation===90');
    ok(await page.locator('[data-landscape-toggle],[data-landscape-flip]').count()===0,'landscape is mandatory without an off toggle');
-   ok(await page.evaluate('viewport.state.width>viewport.state.height&&canAim()&&document.getElementById("rotationGate").hidden'),'portrait launch automatically stays landscape');
+   ok(await page.evaluate('viewport.state.width>viewport.state.height&&canAim()&&!document.getElementById("rotationGate")'),'portrait launch automatically stays landscape');
    ok(await page.evaluate('document.getElementById("world").clientWidth')===height,'logical canvas width follows landscape, not browser portrait');
    ok(await page.evaluate('getComputedStyle(document.getElementById("stick")).width')=== '84px','landscape CSS stays active in portrait browser');
    for(const id of ['stick','aimStick','fire','pause','mapCameraToggle']){
