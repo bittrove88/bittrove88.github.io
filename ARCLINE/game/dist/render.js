@@ -240,6 +240,7 @@ function create(canvas,configuration={}){
   const trackedShot=shot||(options.tail?.age<.55?options.tail.shot:null);
   if(trackedShot&&!localDemo){const trackTime=shot?flight:trackedShot.duration,bullet=trackedShot.bullets.find(b=>trackTime>=b.start&&trackTime<=b.t)||trackedShot.bullets[0],points=bullet?.path||[],p=points.find(q=>q.t>=trackTime+.22)||points.at(-1);if(p){const dt=Math.max(1/120,Math.min(.05,time-lastCameraTime||1/60)),screenY=view.y+p.y*view.scale,bandTop=top+22,bandBottom=bottom-22;let dy=screenY<bandTop?bandTop-screenY:screenY>bandBottom?bandBottom-screenY:0;view.y+=Math.max(-480*dt,Math.min(480*dt,dy*(1-Math.exp(-dt*7))));}}
   // Inspection owns only the display transform; physics and aiming stay in world coordinates.
+  if(options.encounter?.boss&&!lobby&&!localDemo&&!options.reducedMotion&&root.ArcExperience)view=root.ArcExperience.bossView(target,s,options.encounter.age,{width:fieldW,top,bottom});
   if(options.cameraView)view={...options.cameraView};
   lastCameraTime=time;cameraKey=nextKey;const scale=view.scale;
   if(phoneLandscape){

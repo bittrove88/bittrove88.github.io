@@ -1,0 +1,243 @@
+/* Generated from game/styles/experience.css. Edit the source. */
+/* Light and forward travel connect the film, entry and chapter boundaries. */
+.journey-brand {
+  position: relative;
+  width: min(64vw, 369px);
+  margin: 0 auto 28px;
+}
+.journey-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.journey-brand i {
+  display: block;
+  height: 1px;
+  margin: 22px 10% 0;
+  background: linear-gradient(90deg, transparent, #d9edbb, transparent);
+  transform-origin: left;
+  animation: arc-connect 1.2s ease-out both;
+}
+#journeyStart {
+  background: radial-gradient(ellipse at 50% 35%, #315563, #112e3c 70%);
+}
+#journeyStart:not([hidden]) .journey-brand {
+  animation: arc-arrive 0.7s ease-out both;
+}
+#storyCinema[data-scene="P02"]:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: #091a23;
+  animation: arc-blackout 0.75s ease-out both;
+}
+#storyCinema .film-caption:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(transparent, #d9edbb, transparent);
+  opacity: 0.6;
+}
+#expeditionArt .ch-art[data-flight="true"] .ch-image {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+#expeditionArt .ch-art[data-flight="true"] {
+  overflow: hidden;
+  background: radial-gradient(ellipse at 65% 45%, #547c78, #173b49 70%);
+}
+#expeditionArt .ch-art[data-flight="true"]:before {
+  content: "";
+  position: absolute;
+  inset: 38% 0 38% 30%;
+  opacity: var(--flight-trail, 0);
+  background: repeating-linear-gradient(
+    -8deg,
+    transparent 0 18px,
+    #d4e9bc88 19px 20px,
+    transparent 21px 30px
+  );
+  transform: skewY(-7deg);
+  pointer-events: none;
+}
+#expeditionArt .ch-art[data-flight="true"] .ch-ambient {
+  display: none;
+}
+#bossIntroSkip {
+  position: absolute;
+  z-index: 7;
+  right: max(14px, env(safe-area-inset-right));
+  top: 62px;
+  min-height: 44px;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: #e5edcf;
+  background: #123541e8;
+  border: 1px solid #d2e6bb66;
+  border-radius: 8px;
+}
+#encounterBanner[data-phase="field"] {
+  opacity: 0;
+}
+#encounterBanner[data-phase="name"] {
+  border-left: 3px solid #e2d3a2;
+}
+#encounterBanner[data-phase="return"] {
+  opacity: 0.4;
+}
+.chapter-horizon {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 8px 0;
+  padding: 7px;
+  border-top: 1px solid #c8d9b744;
+}
+.chapter-horizon[hidden] {
+  display: none;
+}
+.chapter-horizon canvas {
+  width: 116px;
+  height: 64px;
+  flex: none;
+  border-radius: 5px;
+}
+.chapter-horizon > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 3px;
+}
+.chapter-horizon small {
+  font-size: 10px;
+  color: #bad3b9;
+  letter-spacing: 0.08em;
+}
+.chapter-horizon strong {
+  font-size: 13px;
+  line-height: 1.35;
+}
+.chapter-route {
+  font-size: 10px;
+  color: #d7e8ab;
+  letter-spacing: 0.12em;
+}
+@keyframes arc-connect {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+@keyframes arc-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes arc-blackout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (max-height: 340px) {
+  #journeyStart {
+    gap: 12px;
+    padding: 12px;
+  }
+  .journey-brand {
+    width: 190px;
+    margin-bottom: 8px;
+  }
+  .journey-brand i {
+    margin-top: 8px;
+  }
+  .chapter-horizon {
+    gap: 8px;
+    padding: 4px;
+    margin: 4px 0;
+  }
+  .chapter-horizon canvas {
+    width: 84px;
+    height: 42px;
+  }
+  #bossIntroSkip {
+    top: 48px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journey-brand,
+  .journey-brand i {
+    animation: none !important;
+  }
+  #storyCinema[data-scene="P02"]:after {
+    display: none;
+  }
+}
+
+.journey-brand img {
+  filter: brightness(0) invert(1);
+}
+
+/* Use the existing illustration column; never take space from the story text. */
+#app #overlay[data-story-tier] #clearNarrative {
+  position: relative;
+}
+#clearNarrative[data-next-chapter="true"] #resultStoryArt {
+  visibility: hidden;
+}
+#clearNarrative .chapter-horizon {
+  position: absolute;
+  left: clamp(10px, 2vw, 24px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(64px, 18vw, 220px);
+  max-height: calc(100% - 20px);
+  overflow: auto;
+  touch-action: pan-y;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: center;
+}
+#clearNarrative .chapter-horizon canvas {
+  width: 100%;
+  height: 80px;
+}
+#clearNarrative .chapter-horizon strong {
+  font-size: 12px;
+}
+@media (max-height: 340px) {
+  #clearNarrative .chapter-horizon {
+    gap: 3px;
+  }
+  #clearNarrative .chapter-horizon canvas {
+    height: 42px;
+  }
+  #clearNarrative .chapter-horizon strong {
+    font-size: 10px;
+  }
+  #clearNarrative .chapter-route {
+    display: none;
+  }
+}

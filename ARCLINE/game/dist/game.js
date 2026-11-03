@@ -3,6 +3,7 @@ const E=ArcEngine,G=E.geometry,I=ArcInventory,R=ArcCampaignRun,$=id=>document.ge
 const K=ArcSkills;
 // Temporary, opt-in ending review. Its synthetic progress never reaches storage.
 const endingPreview=new URLSearchParams(location.search).get('preview')==='ending';
+let victoryToken=-1;
 const bgm=ArcAudio.create(),specialLesson=ArcSpecialUi.createLesson(),specialNotice=ArcSpecialUi.createNotice($('battle'));
 let movieOpening=false,mapCamera=null,viewport=null;
 bgm.request('TITLE');
@@ -25,7 +26,7 @@ const save=ArcSave.create({
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?E.minimumAngle(s):-12;}
 function maximumAngle(){return s?E.maximumAngle(s):85;}
-function canAim(){return !!s&&s.phase==='aim'&&!mapCamera?.active&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
+function canAim(){return !!s&&s.phase==='aim'&&!(encounter?.boss&&!reducedMotion)&&!mapCamera?.active&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
 function updateSpecialNotice(){specialNotice.update({paused:hostPaused()||manualPaused,suppressed:!s||!!demo||ArcStoryView.active||ArcExpeditionUi.active||ArcScreens.controlsBlocked(),aim:canAim(),enemy:s?.turn===1,result:!!s?.result,token:gameToken});}
 function sfxSync(){sfx.sync({token:gameToken,muted:!hostAudio,paused:hostPaused()||manualPaused||document.hidden||!s||!!demo||ArcStoryView.active||ArcExpeditionUi.active||ArcScreens.controlsBlocked()});}
 function audioSync(){sfxSync();bgm.sync({paused:hostPaused()||manualPaused,muted:!hostAudio});updateSpecialNotice();if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
@@ -184,9 +185,10 @@ function firstDemo(){
  showSpecialLesson();
 }
 function paintEncounter(){
- const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
+ const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('bossIntroSkip').hidden=!encounter?.boss||!!demo||!!s?.result||manualPaused||reducedMotion;$('bossIntroSkip').textContent=ArcI18n.language==='en'?'Skip intro':'登場演出をスキップ';$('encounterBanner').dataset.phase=encounter?.boss?ArcExperience.introPhase(encounter.age):'name';$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
  if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id);if(e.textContent!==data[key])e.textContent=data[key];e.hidden=!data[key];}
 }
+$('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();renderer.resetCamera();paintEncounter();hud();draw();$('world').focus({preventScroll:true});}};
 function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
 function start(retryContext=null){
  mapCamera?.close(false);
@@ -217,7 +219,9 @@ function launch(plan=null){
  if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
  if(!shot)return;if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
 }
+function beginVictory(){if(victoryToken===gameToken||!ArcAudio.victoryFor(s,runContext||{}))return;victoryToken=gameToken;bgm.request('VICTORY',{restart:true});audioSync();}
 function finishResult(){
+ beginVictory();
  if(s.result==='win'){E.claimClearRewards(s);buildSkills();if(openLoot(finishResult))return;}
  if(s.result!=='win'){s.pendingLoot=[];$('lootPicker').hidden=true;lootContinuation=null;}
  clearInput();dialog='result';const final=s.result==='win'&&s.stage===100;
@@ -234,7 +238,7 @@ function finishResult(){
  $('modalDetail').textContent=s.result==='win'?(s.chapterReset?'Chapter clear. Weapon and skill stock resets.':(ArcI18n.language==='en'?`Can be carried into the chapter boss battle: ${Object.keys(inventory.weapons).length} weapons, ${Object.keys(inventory.skills).length} skills`:`章ボス戦まで持ち越し可能：武器${Object.keys(inventory.weapons).length}種・スキル${Object.keys(inventory.skills).length}種`)):'Retry restores the stock from the start of this level.';
  $('resume').disabled=false;$('resume').textContent=final?(ArcI18n.language==='en'?'Watch the epilogue':'エピローグへ'):[30,60].includes(s.stage)&&s.result==='win'?(ArcI18n.language==='en'?'See what follows':'その後を見る'):s.result==='win'?'NEXT LEVEL':'TRY AGAIN';$('returnLobby').textContent=final?'COLLECTION':'JOURNEY';$('resultJourney').hidden=true;
  $('endingCollection').hidden=!final;$('endingCollection').textContent=final?save.data.unlockedWeaponIds.map(id=>ArcWeapons.get(id).appearance.glyph).join('　'):'';
- $('battle').classList.add('resolved');$('overlay').hidden=false;$('resume').focus();tone(s.result==='win'?660:220,.4,'triangle');
+ $('battle').classList.add('resolved');$('overlay').hidden=false;$('resume').focus();if(!(s.result==='win'&&victoryToken===gameToken))tone(s.result==='win'?660:220,.4,'triangle');
  if(advanced){if([30,60,100].includes(s.stage))save.data.journal.pendingMovie=s.stage===100?'epilogue':String(s.stage);persistAdvance();}
 }
 async function persistAdvance(){
@@ -262,7 +266,8 @@ function update(dt,realDt=dt){
  if(!hostPaused()&&!manualPaused)ArcCharacterHero.updateAll(dt);
  if(!$('lootPicker').hidden||!$('collectionPanel').hidden||ArcExpeditionUi.active)return;
  clock+=dt;if(manualPaused||hostPaused())return;ArcStoryView.update(dt);ArcMenus.update(dt);ArcChapterPlayback.update(dt);if(!$('battleMachinePicker').hidden)return;if(ArcStoryView.active||ArcExpeditionUi.active)return;if(!s||specialLesson.active)return;
- if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration)encounter=null;}paintEncounter();
+ if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration){const boss=encounter.boss;encounter=null;if(boss)renderer.resetCamera();}}paintEncounter();
+ if(encounter?.boss&&!demo&&!reducedMotion){clearInput();hud();return;}
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
  if(s.phase==='aim'){
   if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed,s);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
@@ -283,7 +288,7 @@ function update(dt,realDt=dt){
    const last=shot,parts=s.units.map(u=>u.parts.map(p=>p.hp));E.resolve(s,last,acquired);tail={shot:last,age:0};impact={...last.end,age:0,weaponId:last.weaponId,shot:last,damage:last.damage};shot=null;
    s.units.forEach((u,i)=>{const broken=u.parts.flatMap((p,j)=>p.hp<=0&&parts[i][j]>0?[j]:[]);if(last.damage[i]>0||broken.length)u.reaction={age:0,damage:last.damage[i],side:last.side,broken};});
    if(!last.events.some(e=>e.type==='pickup'))feedback=last.teleport&&!last.teleportSuccess?'No landing':'';sfx.finish();if(last.teleport)tone(580,.3,'sine',.15);
-   if(s.phase==='over'){ending={age:0,winner:s.result==='win'?0:s.result==='lose'?1:-1,final:s.stage===100&&s.result==='win'};s.phase='finish';}else{s.phase='impact';if(s.turn===0)requestCPU();}s.time=s.phase==='finish'?.8:1.4;
+   if(s.phase==='over'){beginVictory();ending={age:0,winner:s.result==='win'?0:s.result==='lose'?1:-1,final:s.stage===100&&s.result==='win'};s.phase='finish';}else{s.phase='impact';if(s.turn===0)requestCPU();}s.time=s.phase==='finish'?.8:1.4;
   }
  }else if(s.phase==='impact'||s.phase==='finish'){
   s.time-=dt;if(tail)tail.age+=dt;
@@ -323,7 +328,7 @@ async function playStoryMovie(id,onDone=()=>{},replay=false,trigger=null){
   unlockAudio();
   const prior=replay?bgm.snapshot():null;
   const opened=ArcStoryView.open(String(id),()=>{previous=0;if(prior)bgm.restore(prior);else if(id==='epilogue')bgm.request('TITLE');onDone();draw();},replay,trigger);
-  if(opened&&id!=='epilogue')bgm.request(id==='30'?'BATTLE_A':id==='60'?'BATTLE_B':'TITLE');
+  if(opened&&id!=='epilogue'&&!(!replay&&['30','60'].includes(String(id))&&victoryToken===gameToken&&bgm.state().id==='VICTORY'))bgm.request(id==='30'?'BATTLE_A':id==='60'?'BATTLE_B':'TITLE');
   return opened;
  }finally{movieOpening=false;}
 }

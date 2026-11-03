@@ -278,7 +278,8 @@
   // starts its selected track at zero. Same-track continuity elsewhere remains.
   const restartForStage = (stage, spec = {}) =>
     !!((spec.boss && !spec.midboss) || (stage > 1 && stage % 10 === 1));
-  const api = { create, forStage, restartForStage };
+  const victoryFor = (state, context = {}) => !!(state?.result === "win" && state.stage >= 10 && state.stage < 100 && state.stage % 10 === 0 && state.spec?.boss && !state.spec.midboss && !context.practice);
+  const api = { create, forStage, restartForStage, victoryFor };
   if (typeof module !== "undefined") module.exports = api;
   else root.ArcAudio = api;
 })(globalThis);

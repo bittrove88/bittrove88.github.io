@@ -32,4 +32,4 @@ manifest=ROOT/'assets/ending/manifest.json'
 manifest.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 js='/* Generated from design/ending_media.json and approved originals. */\n(function(root){const data='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';if(typeof module!=="undefined")module.exports=data;else root.ArcMediaData=data;})(globalThis);\n'
 (ROOT/'game/dist/media-data.js').write_text(js)
-print('Verified seven original AAC files; reproduced four approved sheet crops')
+print('Verified', len(data['tracks']), 'original AAC files; reproduced four approved sheet crops')

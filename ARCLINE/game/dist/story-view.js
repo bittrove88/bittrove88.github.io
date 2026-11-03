@@ -19,7 +19,7 @@ function typer(container,lines){
 }
 function showResult(stage){
  const age=result?.stage===stage?resultClock:0;result=S.result(stage,language());resultClock=age;resultTyper=null;
- const box=$('clearNarrative');box.hidden=false;box.dataset.tier=result.kind;
+ const box=$('clearNarrative');box.hidden=false;box.dataset.tier=result.kind;root.ArcExperience?.chapter(stage,language());
  $('clearStoryTitle').textContent=result.title;$('clearStoryArea').textContent=result.area;$('clearStoryArea').hidden=!result.area;
  $('chapterMessage').replaceChildren();$('chapterMessage').hidden=false;
  let discovery=$('clearDiscovery');if(!discovery){discovery=document.createElement('div');discovery.id='clearDiscovery';$('chapterMessage').before(discovery);}discovery.replaceChildren();discovery.hidden=!result.discovery;
@@ -42,7 +42,7 @@ function hideResult(){result=null;resultTyper=null;$('clearNarrative').hidden=tr
 function open(id,done=()=>{},replay=false,trigger=null){
  if(film)return false;const access=hooks.progress?{cleared:hooks.progress()}:null,frames=D.movie(String(id),language(),access);if(!frames.length)return false;
  hooks.clearInput();root.ArcScreens.open('storyCinema',{trigger,block:['lobby','battle','overlay','journalPanel','lobbySettings','levelPicker','collectionPanel'],onEscape:()=>close(true),cycleFocus:true});
- film={id:String(id),frames,index:0,age:0,paused:false,done,replay};$('storyCinema').hidden=false;$('app').dataset.cinematic='true';
+ film={id:String(id),frames,index:0,age:0,paused:false,done,replay};$('storyCinema').dataset.movie=String(id);$('storyCinema').hidden=false;$('app').dataset.cinematic='true';
  if(film.id==='epilogue'){
   film.ending=true;film.session=++endingSession;film.locale=language();film.started=false;film.completed=false;
   film.languageButtons=[...document.querySelectorAll('[data-language-button]')].map(e=>[e,e.disabled]);for(const[e]of film.languageButtons)e.disabled=true;
@@ -53,7 +53,7 @@ function open(id,done=()=>{},replay=false,trigger=null){
  enterFrame();if(!film.ending)$('filmNext').focus({preventScroll:true});else{$('storyCinema').tabIndex=-1;$('storyCinema').focus({preventScroll:true});}return true;
 }
 function enterFrame(){
- const f=film.frames[film.index];film.age=0;$('filmTitle').textContent=f.title;$('filmCount').textContent=(film.index+1)+' / '+film.frames.length;
+ const f=film.frames[film.index];film.age=0;$('storyCinema').dataset.scene=f.scene;$('filmTitle').textContent=f.title;$('filmCount').textContent=(film.index+1)+' / '+film.frames.length;
  $('filmSkip').textContent=local('スキップ','Skip');$('filmPause').textContent=local('一時停止','Pause');$('filmPause').setAttribute('aria-pressed','false');film.paused=false;
  film.cueKey=null;filmTyper=null;$('filmText').replaceChildren();if(!plate)plate=root.ArcCinematicPlayer.create($('filmPlate'),{onStatus:status=>{const e=$('filmImageStatus');e.hidden=status==='ready';e.textContent=local('イラストを読み込めませんでした。物語と操作は続けられます。','Illustration unavailable. The story and controls still work.');}});$('filmImageStatus').hidden=true;plate.show(f,film.frames[film.index+1]);hooks.cue?.(film.index,film.id,f);syncFilm();drawFilm();
 }
