@@ -8043,23 +8043,25 @@
       "stage": 100,
       "difficultyBand": "最終試練",
       "theme": "夜明けの核",
-      "learningGoal": "外殻を止め、変化する環境ごとに射点を選び直す",
+      "learningGoal": "外殻を止め、崖と天井の間に射線を作り、段階ごとに射点を選び直す",
       "mainGimmicks": [
+        "C",
         "K",
+        "M",
         "W"
       ],
-      "terrainIntent": "床の高低差12。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。外殻を止め、変化する環境ごとに射点を選び直す。",
-      "basicRoute": "外殻を止め、変化する環境ごとに射点を選び直す",
-      "alternativeRoute": "通常 48°/85% → 通常 78°/95% → 左へ12.0歩行 → 通常 126°/100% → 通常 102°/90% → 通常 42°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差17。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁3箇所を独立配置。天井片3箇所を独立配置。中継棚2箇所を独立配置。左岸の壁と屋根を崩し、残る窓から高弾道を通す。中継棚への転移も選べる。内殻では雲、核では磁場に合わせて射角を調整する。。",
+      "basicRoute": "左岸の壁と屋根を崩し、残る窓から高弾道を通す。中継棚への転移も選べる。内殻では雲、核では磁場に合わせて射角を調整する。",
+      "alternativeRoute": "破壊 -12°/55% → 通常 84°/70% → 通常 84°/70% → 通常 90°/70% → 通常 84°/85% → 通常 90°/70% → 通常 24°/65%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
       "advantage": {
         "character": "gun",
         "reason": "耐久に余裕を持ち、通常弾の弧で経路を確かめられる。"
       },
-      "hint": "外殻を止め、変化する環境ごとに射点を選び直す",
+      "hint": "外殻を止め、崖と天井の間に射線を作り、段階ごとに射点を選び直す",
       "enemyInteraction": {
         "spawn": [
-          82,
-          20.0
+          89,
+          22.0
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -8087,38 +8089,38 @@
         "status": "PASS",
         "gunSeedWins": 3,
         "gunActions": [
-          5,
-          5
+          7,
+          8
         ],
         "recommendedCharacter": "gun",
         "recommendedWin": true,
         "recommendedActions": 7,
         "nativeActionLimit": 28,
-        "minimumRemainingHp": 6,
+        "minimumRemainingHp": 6.5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未確認。自動探索による実戦成立を人の操作難易度や勝率と混同しない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
+          "../../evidence/final-battle-0211/AIRBORNE_MATCHES.json",
+          "../../evidence/final-battle-0211/TACTICAL_MATCHES.json"
         ],
-        "blueprintSha256": "543f534988592a3a830876cc517d5f0047c2cd05f8f4fbdf791d9d022a9ca8f8"
+        "blueprintSha256": "665741c9f4ef6cc24cfa91244172c84862ff29708a6f80cb44db2b013d5a3463"
       },
       "basicRouteProof": {
         "character": "gun",
         "actions": 7,
-        "description": "必殺 48°/85% → 必殺 84°/90% → 必殺 84°/100% → 左へ12.0歩行 → 通常 126°/100% → 左へ12.0歩行 → 通常 126°/100% → 通常 108°/100% → 通常 108°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "破壊 -12°/55% → 必殺 84°/70% → 必殺 84°/70% → 必殺 84°/85% → 通常 84°/85% → 通常 90°/70% → 通常 90°/70%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/TACTICAL_MATCHES.json",
           "stage": 100,
           "seedVariant": null
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 5,
-        "description": "通常 48°/85% → 通常 78°/95% → 左へ12.0歩行 → 通常 126°/100% → 通常 102°/90% → 通常 42°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 7,
+        "description": "破壊 -12°/55% → 通常 84°/70% → 通常 84°/70% → 通常 90°/70% → 通常 84°/85% → 通常 90°/70% → 通常 24°/65%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/AIRBORNE_MATCHES.json",
           "stage": 100,
           "seedVariant": 1
         }

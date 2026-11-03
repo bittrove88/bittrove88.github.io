@@ -4254,20 +4254,20 @@
       "status": "PASS",
       "gunSeedWins": 3,
       "gunActions": [
-        5,
-        5
+        7,
+        8
       ],
       "recommendedCharacter": "gun",
       "recommendedWin": true,
       "recommendedActions": 7,
       "nativeActionLimit": 28,
-      "minimumRemainingHp": 6,
+      "minimumRemainingHp": 6.5,
       "normalWitness": {
         "character": "gun",
-        "actions": 5,
-        "description": "通常 48°/85% → 通常 78°/95% → 左へ12.0歩行 → 通常 126°/100% → 通常 102°/90% → 通常 42°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 7,
+        "description": "破壊 -12°/55% → 通常 84°/70% → 通常 84°/70% → 通常 90°/70% → 通常 84°/85% → 通常 90°/70% → 通常 24°/65%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/AIRBORNE_MATCHES.json",
           "stage": 100,
           "seedVariant": 1
         }
@@ -4275,21 +4275,33 @@
       "recommendedWitness": {
         "character": "gun",
         "actions": 7,
-        "description": "必殺 48°/85% → 必殺 84°/90% → 必殺 84°/100% → 左へ12.0歩行 → 通常 126°/100% → 左へ12.0歩行 → 通常 126°/100% → 通常 108°/100% → 通常 108°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "破壊 -12°/55% → 必殺 84°/70% → 必殺 84°/70% → 必殺 84°/85% → 通常 84°/85% → 通常 90°/70% → 通常 90°/70%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/TACTICAL_MATCHES.json",
           "stage": 100,
           "seedVariant": null
         }
       },
       "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+      "humanDifficulty": "未確認。自動探索による実戦成立を人の操作難易度や勝率と混同しない。",
       "reports": [
-        "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-        "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
+        "../../evidence/final-battle-0211/AIRBORNE_MATCHES.json",
+        "../../evidence/final-battle-0211/TACTICAL_MATCHES.json"
       ],
-      "blueprintSha256": "543f534988592a3a830876cc517d5f0047c2cd05f8f4fbdf791d9d022a9ca8f8"
+      "blueprintSha256": "665741c9f4ef6cc24cfa91244172c84862ff29708a6f80cb44db2b013d5a3463"
     }
   ],
-  "terrainRevision": "0.17.0"
+  "terrainRevision": "0.17.0",
+  "partialRevalidation": {
+    "stages": [
+      100
+    ],
+    "terrainRevision": "5.2",
+    "matches": 4,
+    "scope": "Only stage100 rerun:3 Gun/no-special enemy seeds and1 recommended-machine match. The other99 records are retained historical evidence; their blueprints and runtime combat data are unchanged.",
+    "evidenceSha256": {
+      "AIRBORNE_MATCHES.json": "7330f7775e9e81feeb942b4c5e67dd2332040b6a9e2701cceb1b9fea6cec630a",
+      "TACTICAL_MATCHES.json": "586fe0493c13431cdfbbdbee0c42e3425b86715140128824a3ab1c205b059b9d"
+    }
+  }
 }

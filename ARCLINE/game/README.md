@@ -36,3 +36,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 常時横向き表示は手書きの `dist/viewport.js`。スマホ右側を上に固定し、ネイティブ角に応じた90／逆90／180度の補正と逆座標変換を共有します。元CSSを同じ順序で複製し、寸法メディアクエリ・viewport単位・セーフエリアを論理画面へ対応。固定オフや反転の選択、好みの保存は追加しません。
 
 0.21.0の追加演出は `ui/experience.js` と `styles/experience.css` が正本。ボスカメラは表示変換のみで、操作前に通常へ戻します。`dist/character-hero.js` は加入時だけ承認済み透過カットを飛行表示。勝利BGMは `audio-manager.js` の対象判定と `game.js` の勝利tokenで一度だけ開始し、`design/ending_media.json` の採用②を全曲ループ。30/60の通常クリア幕間は同一曲、回想と100面は旧ルール。
+
+0.21.1の100面調整は `design/expedition_013/stage_blueprints.json` が正本。`build_campaign.py` が当該面のphaseFeatures／enemyProfileを反映します。`record_final_stage.py` は今回の4実戦だけを記録し、99面の履歴は保持。`build_map_atlas.py` が既存総覧の100面と20テーマ目だけを同期する正式生成処理。共通engine／physics／AI／saveは変更しません。

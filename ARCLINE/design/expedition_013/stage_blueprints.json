@@ -6360,74 +6360,249 @@
   {
     "stage": 100,
     "name": "アークハート — 最後の帰還",
-    "goal": "外殻を止め、変化する環境ごとに射点を選び直す",
+    "goal": "外殻を止め、崖と天井の間に射線を作り、段階ごとに射点を選び直す",
     "floor": [
       [
         0,
-        20
+        18
       ],
       [
-        31,
-        20
+        24,
+        18
       ],
       [
-        47,
-        8
+        30,
+        12
       ],
       [
-        65,
-        8
+        39,
+        12
       ],
       [
-        81,
-        20
+        46,
+        5
+      ],
+      [
+        60,
+        5
+      ],
+      [
+        68,
+        12
+      ],
+      [
+        76,
+        12
+      ],
+      [
+        83,
+        22
       ],
       [
         100,
-        20
+        22
       ]
     ],
     "parts": [
       {
         "kind": "wall",
-        "x": 42,
-        "top": 29,
+        "x": 30,
+        "top": 35,
         "width": 4,
-        "bottom": 8
+        "bottom": 12
       },
       {
         "kind": "island",
-        "x": 51,
-        "end": 65,
-        "top": 29,
+        "x": 39,
+        "end": 53,
+        "top": 30,
+        "thickness": 4
+      },
+      {
+        "kind": "roof",
+        "x": 42,
+        "end": 54,
+        "top": 53,
+        "thickness": 3
+      },
+      {
+        "kind": "wall",
+        "x": 58,
+        "top": 41,
+        "width": 4,
+        "bottom": 5
+      },
+      {
+        "kind": "island",
+        "x": 66,
+        "end": 78,
+        "top": 38,
         "thickness": 5
+      },
+      {
+        "kind": "wall",
+        "x": 75,
+        "top": 51,
+        "width": 3,
+        "bottom": 12
+      },
+      {
+        "kind": "roof",
+        "x": 79,
+        "end": 94,
+        "top": 56,
+        "thickness": 3,
+        "breakable": true
+      },
+      {
+        "kind": "roof",
+        "x": 0,
+        "end": 29,
+        "top": 46,
+        "thickness": 4
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          36,
-          70,
-          8
+          37,
+          63,
+          5
         ]
       },
       {
         "type": "K",
         "v": [
-          68,
-          31,
-          30
+          66,
+          36,
+          25
         ]
       }
     ],
     "recommended": "gun",
     "spawn": [
-      16,
-      82
+      14,
+      89
     ],
-    "route": "外殻を止め、変化する環境ごとに射点を選び直す",
+    "route": "左岸の壁と屋根を崩し、残る窓から高弾道を通す。中継棚への転移も選べる。内殻では雲、核では磁場に合わせて射角を調整する。",
     "nameEn": "Archeart — The Last Return",
-    "goalEn": "Stop the shells and choose a new firing point as the environment changes."
+    "goalEn": "Break the gates, open a route between cliffs and ceilings, and reposition as each phase changes.",
+    "terrainRevision": "5.2",
+    "floorSegments": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          24,
+          18
+        ],
+        [
+          30,
+          12
+        ]
+      ],
+      [
+        [
+          37,
+          12
+        ],
+        [
+          39,
+          12
+        ],
+        [
+          46,
+          5
+        ],
+        [
+          60,
+          5
+        ],
+        [
+          63,
+          8
+        ]
+      ],
+      [
+        [
+          71,
+          12
+        ],
+        [
+          76,
+          12
+        ],
+        [
+          83,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "enemyProfile": 6,
+    "phaseFeatures": [
+      [
+        {
+          "type": "W",
+          "v": [
+            37,
+            63,
+            5
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            66,
+            36,
+            25
+          ]
+        }
+      ],
+      [
+        {
+          "type": "C",
+          "v": [
+            40,
+            70,
+            23,
+            47
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            70,
+            43,
+            -25
+          ]
+        }
+      ],
+      [
+        {
+          "type": "W",
+          "v": [
+            38,
+            64,
+            5
+          ]
+        },
+        {
+          "type": "M",
+          "v": [
+            59,
+            27,
+            10,
+            1
+          ]
+        }
+      ]
+    ]
   }
 ]
