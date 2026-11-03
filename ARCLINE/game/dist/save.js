@@ -12,9 +12,9 @@ const lessonIds=['controls','teleport','wall-fall','destruction','choices','touc
 const specialIds=characterIds.map(id=>'S_'+id.toUpperCase());
 const previewIds=['v6:special-charge',...weaponIds,...lessonIds,...specialIds,...['v2:','v3:','v4:','v5:'].flatMap(prefix=>[...weaponIds,...lessonIds,...specialIds].map(id=>prefix+id))];
 const validIds=(xs,allowed)=>[...new Set((Array.isArray(xs)?xs:[]).filter(x=>allowed.includes(x)))];
-function decode(raw){
+function decodeBase(raw){
  let p={};try{p=raw?JSON.parse(raw):{};}catch{}if(!p||typeof p!=='object'||Array.isArray(p))p={};
- if(raw&&p.campaignResetVersion!==resetVersion){if(p.campaignResetVersion>resetVersion)throw Error('Unsupported campaign revision');return decode(null);}
+ if(raw&&p.campaignResetVersion!==resetVersion){if(p.campaignResetVersion>resetVersion)throw Error('Unsupported campaign revision');return decodeBase(null);}
  if(p.schemaVersion!==undefined&&![2,3,4,5,6,7,8].includes(p.schemaVersion))throw Error('Unsupported save version');
  if(p.schemaVersion===8&&p.campaignResetVersion>resetVersion)throw Error('Unsupported campaign revision');
  const unlocked=validIds(p.unlockedWeaponIds,weaponIds);if(!unlocked.includes('W01'))unlocked.unshift('W01');
@@ -38,9 +38,36 @@ function decode(raw){
  out.updateNoticePending=false;out.journal=Journal.normalize(p.journal,out);
  return out;
 }
+const modes=['easy','normal','hard'];
+// Preferences and the first-use controls lesson remain device-wide. Everything
+// earned/consumed in a campaign (including its journal and supply clock) is local.
+const progressFields=['cleared','unlockedCharacterIds','joinedCharacterIds','equippedCharacterId','unlockedWeaponIds','equippedWeaponId','chapterRun','pendingRecruit','machineUsage','journal'];
+const copy=value=>JSON.parse(JSON.stringify(value));
+function progress(data){return Object.fromEntries(progressFields.filter(k=>data[k]!==undefined).map(k=>[k,copy(data[k])]));}
+function decode(raw){
+ const out=decodeBase(raw);let p;try{p=JSON.parse(raw);}catch{}
+ const slots=p?.difficultyProgress;
+ out.difficultyProgress={};
+ for(const mode of modes){
+  if(mode===out.difficulty)continue;
+  const stored=slots?.[mode],valid=stored&&typeof stored==='object'&&!Array.isArray(stored);
+  out.difficultyProgress[mode]=progress(decodeBase(valid?JSON.stringify({...stored,schemaVersion,campaignResetVersion:resetVersion,difficulty:mode,journeyStarted:out.journeyStarted,difficultyConfirmed:out.difficultyConfirmed}):null));
+ }
+ // The active campaign lives only at top level; archive the other two modes.
+ // This prevents a stale duplicate checkpoint after ordinary in-place updates.
+ return out;
+}
+function prepareDifficulty(data,mode){
+ if(!modes.includes(mode))throw Error('Invalid difficulty');
+ const next=decode(JSON.stringify(data)),target=mode===next.difficulty?progress(next):copy(next.difficultyProgress[mode]);
+ next.difficultyProgress[next.difficulty]=progress(next);delete next.difficultyProgress[mode];
+ for(const key of progressFields)delete next[key];
+ Object.assign(next,target);next.difficulty=mode;next.difficultyConfirmed=true;
+ return decode(JSON.stringify(next));
+}
 function create(adapter,status=()=>{}){
  let data=decode(null),ready=false,chain=Promise.resolve(),dirty=false,generation=0,migrationPending=false,resetCleanupPending=false,resetting=false;
- async function load(){try{const raw=await adapter.load();let previous={};try{previous=JSON.parse(raw)||{};}catch{}data=decode(raw);migrationPending=!!raw&&(previous.schemaVersion!==schemaVersion||previous.campaignResetVersion!==resetVersion);ready=true;resetCleanupPending=!raw||migrationPending;
+ async function load(){try{const raw=await adapter.load();let previous={};try{previous=JSON.parse(raw)||{};}catch{}data=decode(raw);const legacyMigration=!!raw&&(previous.schemaVersion!==schemaVersion||previous.campaignResetVersion!==resetVersion);migrationPending=legacyMigration||!!raw&&!previous.difficultyProgress;ready=true;resetCleanupPending=!raw||legacyMigration;
   if(migrationPending)await save();else status('saved');return data;
  }catch(e){ready=false;status('load-failed');return data;}}
 
@@ -52,5 +79,5 @@ function create(adapter,status=()=>{}){
  function replace(candidate){if(!ready||resetting)return Promise.resolve(false);let next;try{next=decode(JSON.stringify(candidate));}catch{return Promise.resolve(false);}resetting=true;const wasDirty=dirty;++generation;chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(JSON.stringify(next));data=next;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=wasDirty;status('save-failed');return false;}finally{resetting=false;}});return chain;}
  return {load,save,reset,replace,get data(){return data;},get ready(){return ready;},get dirty(){return dirty;},get pending(){return chain;},get needsMigrationSave(){return migrationPending;}};
 }
-const api={key,revision,schemaVersion,resetVersion,weaponIds,characterIds,previewIds,decode,create};if(typeof module!=='undefined')module.exports=api;else root.ArcSave=api;
+const api={key,revision,schemaVersion,resetVersion,weaponIds,characterIds,previewIds,progressFields,prepareDifficulty,decode,create};if(typeof module!=='undefined')module.exports=api;else root.ArcSave=api;
 })(globalThis);

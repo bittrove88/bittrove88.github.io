@@ -108,12 +108,7 @@
         }
         ctx.restore();
       }
-      const guides =
-        choice === "hard"
-          ? root.ArcAimGuide.direction(
-              root.ArcEngine.geometry.muzzle(state, 0, state.angle),
-            )
-          : root.ArcAimGuide.paths(plan, choice);
+      const guides = root.ArcAimGuide.paths(plan, choice);
       ctx.strokeStyle = "#e5edb6";
       ctx.lineWidth = 3;
       ctx.setLineDash([3, 8]);
@@ -144,15 +139,15 @@
     }
     function render() {
       $("difficultyIntroTitle").textContent = en()
-        ? "Compare the guides"
-        : "射線を比べて選ぼう";
+        ? "Choose enemy aim precision"
+        : "敵の照準精度を選ぼう";
       $("difficultyIntroText").textContent = en()
-        ? "Fire the same shot in all three modes. Aim and power are fixed; only the guide changes. Enemy strength and physics stay the same."
-        : "同じ照準・同じ威力で試し撃ちし、3つの射線を比べましょう。変わるのはガイドだけ。敵の強さと弾道は変わりません。";
+        ? "Enemy aim becomes more accurate from Easy to Hard. All modes show the full trajectory. Progress and machines are saved separately for each mode. A test shot is optional."
+        : "イージーからハードへ、敵の狙いが正確になります。射線は全モードで全表示。攻略記録と保有機体は難易度ごとに保存します。試撃は任意です。";
       $("initialDifficultyOptions").innerHTML = modes
         .map(
           (id, i) =>
-            `<label><input type="radio" name="initialDifficulty" value="${id}" ${id === choice ? "checked" : ""} ${flight || busy ? "disabled" : ""}><span><strong>${names[en() ? "en" : "ja"][i]}${hooks.data().onboarding.tried.includes(id) ? " ✓" : ""}</strong><small>${(en() ? ["Full dotted trajectory", "Half dotted trajectory", "Direction only"] : ["点線をすべて表示", "点線を半分まで表示", "発射方向のみ"])[i]}</small></span></label>`,
+            `<label><input type="radio" name="initialDifficulty" value="${id}" ${id === choice ? "checked" : ""} ${flight || busy ? "disabled" : ""}><span><strong>${names[en() ? "en" : "ja"][i]}</strong><small>${(en() ? ["Enemy aim: less accurate", "Enemy aim: standard", "Enemy aim: more accurate"] : ["敵の狙い：ゆるめ", "敵の狙い：標準", "敵の狙い：正確"])[i]}</small></span></label>`,
         )
         .join("");
       for (const input of $("initialDifficultyOptions").querySelectorAll(
@@ -165,8 +160,7 @@
       $("confirmDifficulty").textContent = en()
         ? "Start the adventure with this difficulty"
         : "この難易度で冒険を始める";
-      $("confirmDifficulty").disabled =
-        !!flight || busy || hooks.data().onboarding.tried.length !== 3;
+      $("confirmDifficulty").disabled = !!flight || busy;
       $("trialFire").textContent = en() ? "Test shot" : "試撃";
       $("trialFire").disabled = !!flight || busy;
       $("trialResult").textContent =
@@ -174,41 +168,31 @@
         " · " +
         (result ||
           (en()
-            ? "Fire once in each mode to compare the guides."
-            : "試撃して、3つの射線を比べよう。"));
+            ? "Optional test shot. The full guide is identical in all modes."
+            : "試撃は任意です。どの難易度でも射線は全表示。"));
       draw();
     }
     async function finishShot() {
       flight = null;
       busy = true;
       root.ArcEngine.resolve(state, plan);
-      const data = hooks.data(),
-        previous = [...data.onboarding.tried];
-      if (!previous.includes(choice)) data.onboarding.tried.push(choice);
-      const ok = await hooks.persist();
-      if (!ok) data.onboarding.tried = previous;
-      result = ok
-        ? en()
-          ? "Shot complete. Compare another guide or choose your mode."
-          : "着弾を確認。別の射線を比べて、難易度を選ぼう。"
-        : en()
-          ? "Could not save. Retry this shot."
-          : "保存できませんでした。もう一度試射してください。";
+      result = en()
+        ? "Shot complete. Choose your difficulty."
+        : "着弾を確認。難易度を選んで始めよう。";
       busy = false;
       render();
     }
     function request(done = () => {}) {
       hooks.clearInput();
       after = done;
-      choice =
-        modes.find((id) => !hooks.data().onboarding.tried.includes(id)) ||
-        hooks.data().difficulty;
+      choice = hooks.data().difficulty;
       root.ArcScreens.open("difficultyIntro", {
         block: ["lobby", "battle"],
         onEscape: () => {},
       });
+      $("difficultySaveError").hidden = true;
       reset();
-      $("trialFire").focus();
+      $("confirmDifficulty").focus();
     }
     $("trialFire").onclick = () => {
       if (flight || busy) return;
@@ -222,23 +206,7 @@
       if ($("confirmDifficulty").disabled) return;
       busy = true;
       render();
-      const data = hooks.data(),
-        old = {
-          difficulty: data.difficulty,
-          confirmed: data.difficultyConfirmed,
-          step: data.onboarding.step,
-          seen: [...data.seenPreviewIds],
-        };
-      data.difficulty = choice;
-      data.difficultyConfirmed = true;
-      data.onboarding.step = "done";
-      // A fixed comparison shot does not teach movement or holding FIRE.
-      // Keep the existing controls lesson unread until its own completion.
-      if (!(await hooks.persist())) {
-        data.difficulty = old.difficulty;
-        data.difficultyConfirmed = old.confirmed;
-        data.onboarding.step = old.step;
-        data.seenPreviewIds = old.seen;
+      if (!(await hooks.change(choice, true))) {
         $("difficultySaveError").hidden = false;
         $("difficultySaveError").textContent = en()
           ? "Could not save. Please retry."
@@ -255,14 +223,19 @@
       done?.();
     };
     for (const input of document.querySelectorAll('input[name="difficulty"]'))
-      input.onchange = () => {
-        if (!hooks.allowed()) {
+      input.onchange = async () => {
+        if (busy || !hooks.allowed()) {
           sync();
           return;
         }
-        hooks.data().difficulty = root.ArcAimGuide.normalize(input.value);
-        hooks.data().difficultyConfirmed = true;
-        hooks.persist();
+        const mode = input.value;
+        busy = true;
+        $("difficultyChoice").disabled = true;
+        $("closeSettings").disabled = true;
+        await hooks.change(mode, false);
+        busy = false;
+        $("difficultyChoice").disabled = false;
+        $("closeSettings").disabled = false;
         sync();
       };
     $("lobbyDifficulty").onclick = () => {
@@ -284,6 +257,9 @@
     return {
       sync,
       request,
+      get busy() {
+        return busy;
+      },
       get trial() {
         return state
           ? {
