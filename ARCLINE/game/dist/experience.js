@@ -53,11 +53,14 @@
       horizon.className = "chapter-horizon";
       horizon.innerHTML =
         '<canvas aria-hidden="true"></canvas><div><small></small><strong></strong><span class="chapter-route" aria-hidden="true">● ━━━ ● ━━━ ◇</span></div>';
-      document.getElementById("chapterMessage").before(horizon);
+      document.getElementById("clearNarrative").append(horizon);
       renderer = root.ArcRender.create(horizon.querySelector("canvas"));
     }
     const spec = root.ArcLevels[stage - 1];
     horizon.hidden = !(stage < 100 && spec?.boss && !spec.midboss);
+    document.getElementById("clearNarrative").dataset.nextChapter = String(
+      !horizon.hidden,
+    );
     if (horizon.hidden) return;
     const next = stage + 1,
       key = next + ":" + lang;

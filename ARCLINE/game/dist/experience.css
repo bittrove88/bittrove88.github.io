@@ -193,4 +193,51 @@
   }
 }
 
-.journey-brand img{filter:brightness(0) invert(1)}
+.journey-brand img {
+  filter: brightness(0) invert(1);
+}
+
+/* Use the existing illustration column; never take space from the story text. */
+#app #overlay[data-story-tier] #clearNarrative {
+  position: relative;
+}
+#clearNarrative[data-next-chapter="true"] #resultStoryArt {
+  visibility: hidden;
+}
+#clearNarrative .chapter-horizon {
+  position: absolute;
+  left: clamp(10px, 2vw, 24px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(64px, 18vw, 220px);
+  max-height: calc(100% - 20px);
+  overflow: auto;
+  touch-action: pan-y;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: center;
+}
+#clearNarrative .chapter-horizon canvas {
+  width: 100%;
+  height: 80px;
+}
+#clearNarrative .chapter-horizon strong {
+  font-size: 12px;
+}
+@media (max-height: 340px) {
+  #clearNarrative .chapter-horizon {
+    gap: 3px;
+  }
+  #clearNarrative .chapter-horizon canvas {
+    height: 42px;
+  }
+  #clearNarrative .chapter-horizon strong {
+    font-size: 10px;
+  }
+  #clearNarrative .chapter-route {
+    display: none;
+  }
+}
