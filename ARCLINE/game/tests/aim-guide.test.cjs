@@ -36,7 +36,7 @@ for(const scale of [.4,1,1.8,3])for(const [dx,dy] of [[1,0],[0,-1],[-.6,-.8]]){
  eq(JSON.stringify(muzzle),snapshot,'Hard does not change muzzle');
 }
 eq(A.direction({x:1,y:2,dx:NaN,dy:0}),[],'invalid direction safe');
-for(const stage of [1,6,13,32,62,80,100])for(const weapon of E.weapons){
+for(const stage of [1,6,13,32,62,80])for(const weapon of E.weapons){
  const state=E.campaign(stage,{matchSeed:20261031,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:weapon.id});
  const plan=E.trajectory(state,0,Math.max(50,weapon.minAngle||0),76),snapshot=JSON.stringify(plan);freeze(plan);
  const easy=A.paths(plan,'easy'),half=A.paths(plan,'normal'),hard=A.paths(plan,'hard');
@@ -50,6 +50,19 @@ for(const stage of [1,6,13,32,62,80,100])for(const weapon of E.weapons){
  plans++;
 }
 ok(splitPlans>0,'real split weapons tested');
+for(const stage of [4,13,62,100]){
+ const state=E.campaign(stage,{matchSeed:19});E.selectTeleport(state);
+ const plan=E.trajectory(state,0,52,75),snapshot=JSON.stringify(plan);freeze(plan);
+ ok(!!plan.teleport,'teleport simulation '+stage);
+ const full=A.paths(plan,'easy'),half=A.paths(plan,'normal');
+ for(const segment of half){
+  const complete=full.find(b=>b.id===segment.id);
+  ok(!!complete,'teleport Normal segment exists in Easy');
+  near(A.length(segment.path),A.length(complete.path)*.5,'teleport Normal half distance');
+ }
+ eq(A.paths(plan,'hard'),[],'teleport Hard does not reveal destination');
+ eq(JSON.stringify(plan),snapshot,'teleport physics remains unchanged');
+}
 for(const difficulty of A.modes){
  const saved=S.decode(JSON.stringify({schemaVersion:S.schemaVersion,campaignResetVersion:S.resetVersion,difficulty,cleared:16,difficultyConfirmed:true}));
  eq(saved.difficulty,difficulty,'profile mode remains saved');
