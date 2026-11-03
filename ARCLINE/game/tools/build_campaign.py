@@ -33,6 +33,13 @@ for bp,previous in zip(blueprints,campaign['levels']):
     level['spawn']=[[x,interpolate(bp['floor'],x)] for x in bp['spawn']]
     if bp.get('enemyAirHeight'):level['spawn'][1][1]+=bp['enemyAirHeight']
     if n==100:level['phaseFeatures']=copy.deepcopy(bp.get('phaseFeatures',[bp['features'],[{'type':'C','v':[48,62,22,41]},{'type':'K','v':[69,33,28]}],[{'type':'W','v':[34,70,8]},{'type':'M','v':[58,26,12,1]}]]))
+    if n==100 and bp.get('finalBattle'):
+        relay=copy.deepcopy(bp['finalBattle'])
+        for j,m in enumerate(relay['maps']):
+            m['floors']=m.get('floorSegments',[m['floor']])
+            m['components']=[dict(part(p,n,i+1),id=f'{n:03d}-M{j}-C{i+1:02d}') for i,p in enumerate(m['parts'])]
+        level['finalBattle']=relay;level['worldWidth']=bp['worldWidth'];level['actionLimit']=bp['actionLimit']
+        level['components']=copy.deepcopy(relay['maps'][0]['components']);level.pop('phaseFeatures',None)
     level['lesson']={1:'controls',2:'aim',3:'move',4:'teleport',6:'reflection',7:'destruction',8:'roof',10:'boss-core',23:'C',35:'K',37:'B',41:'U',51:'F',65:'V',71:'M',73:'terminal'}.get(n)
     # Supplies remain chapter stock; every theme has2 weapon placements.
     level['pickups']=[]
@@ -46,7 +53,7 @@ for bp,previous in zip(blueprints,campaign['levels']):
         sid=['S_GUARD','S_REPAIR','S_BREACH'][((n-1)//10)%3];x=bp['spawn'][0]+4
         level['pickups'].append({'id':f'SK{n:03d}','kind':'skill','skillId':sid,'amount':1,'x':x,'h':interpolate(bp['floor'],x)+9,'placementId':f'L{n:03d}:skill:{sid}'})
     level['enemyHp']=3 if n<=30 else 4 if n<=49 else 5 if n<=79 else 6 if n<=89 else 7;level['recommendedCharacter']=bp['recommended'];level['tacticalGoal']=bp['goal'];level['tacticalGoalEn']=bp.get('goalEn','Choose a firing position and prepare a clear route.');level['enemyProfile']=bp.get('enemyProfile',min(5,(n-1)//20))
-    records.append({'stage':n,'difficultyBand':band(n),'theme':level['themeName'],'learningGoal':bp['goal'],'mainGimmicks':sorted(set(f['type'] for f in [*bp['features'],*[f for phase in bp.get('phaseFeatures',[]) for f in phase]])),'terrainIntent':bp['route'],'basicRoute':bp['route'],'alternativeRoute':'割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。','advantage':{'character':bp['recommended'],'reason':bp['goal']},'hint':bp['goal'],'enemyInteraction':{'spawn':level['spawn'][1],'movement':'守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。','counterplay':'準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。'},'actionBudget':level['actionLimit'],'expectedActions':[3,7] if n<=30 else [5,12] if n<80 else [7,18],'tolerance':'初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。','availableStoryCrew':[c['id'] for c in crew if c['stage']<n or c['stage']==0],'testResult':{'status':'pending','report':'stage_verification.json','stage':n}})
+    records.append({'stage':n,'difficultyBand':band(n),'theme':level['themeName'],'learningGoal':bp['goal'],'mainGimmicks':sorted(set(f['type'] for f in [*bp['features'],*[f for phase in bp.get('phaseFeatures',[]) for f in phase],*[f for m in bp.get('finalBattle',{}).get('maps',[]) for f in m.get('features',[])]])),'terrainIntent':bp['route'],'basicRoute':bp['route'],'alternativeRoute':'割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。','advantage':{'character':bp['recommended'],'reason':bp['goal']},'hint':bp['goal'],'enemyInteraction':{'spawn':level['spawn'][1],'movement':'守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。','counterplay':'準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。'},'actionBudget':level['actionLimit'],'expectedActions':[3,7] if n<=30 else [5,12] if n<80 else [7,18],'tolerance':'初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。','availableStoryCrew':[c['id'] for c in crew if c['stage']<n or c['stage']==0],'testResult':{'status':'pending','report':'stage_verification.json','stage':n}})
     record=records[-1]
     changes=[]
     if bp.get('separatedFloors') or bp.get('floorSegments'):changes.append('両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く')

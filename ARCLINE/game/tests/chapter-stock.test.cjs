@@ -1,10 +1,11 @@
+const completeFinalTeam=require('./final-team-fixture.cjs');
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const I=require('../dist/inventory.js'),R=require('../dist/campaign-run.js'),S=require('../dist/save.js'),E=require('../dist/engine.js');
 let checks=0;const ok=(v,m)=>{checks++;assert(v,m);},equal=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
 const profile=cleared=>S.decode(JSON.stringify({schemaVersion:8,campaignResetVersion:S.resetVersion,contentRevision:S.revision,unlockedCharacterIds:S.characterIds,cleared,unlockedWeaponIds:E.weapons.map(w=>w.id),equippedWeaponId:'W20',equippedCharacterId:'yui',difficulty:'hard'}));
 const battle=context=>E.campaign(context.entry.stage,{battleInventory:context.entry.inventory,battleMode:context.entry.mode,matchSeed:context.entry.seed,pickupLedger:context.entry.pickupLedger,pendingLoot:context.entry.pending});
-const victory=(s,stock)=>Object.assign(s,{result:'win',...(stock?{weaponStock:stock.weapons,skills:stock.skills}:{}),pendingLoot:[]});
+const victory=(s,stock)=>Object.assign(completeFinalTeam(s),{result:'win',...(stock?{weaponStock:stock.weapons,skills:stock.skills}:{}),pendingLoot:[]});
 const pickup=(s,id,kind,extras={})=>{const item={id,kind,x:200,y:250,placementId:`L${String(s.stage).padStart(3,'0')}:${id}`,collected:false,...extras};s.pickups.push(item);return item;};
 
 equal(I.normalize({weapons:{W01:3,W02:999,W06:2,W13:1,W14:3,BAD:1},skills:{BURST:2,PULL:3,SWAP:1,BAD:2}}),{weapons:{W02:3,W06:2,W13:1},skills:{BURST:2,PULL:3}},'sanitize ids, counts, and type limits');

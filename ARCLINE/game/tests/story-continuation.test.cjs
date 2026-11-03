@@ -1,3 +1,4 @@
+const completeFinalTeam=require('./final-team-fixture.cjs');
 'use strict';
 const assert = require('node:assert/strict');
 const Save = require('../dist/save.js'), Run = require('../dist/campaign-run.js'), E = require('../dist/engine.js');
@@ -11,7 +12,7 @@ for (let stage = 1; stage <= 100; stage++) {
   const context = Run.begin(data, stage, { seed: stage });
   ok(!context.practice && data.chapterRun.stage === stage, 'selected stage becomes active campaign ' + stage);
   const state = E.campaign(stage, { battleInventory: context.entry.inventory, battleMode: context.entry.mode, matchSeed: context.entry.seed });
-  state.result = 'win'; state.pendingLoot = [];
+  completeFinalTeam(state);state.result = 'win'; state.pendingLoot = [];
   const result = Run.finish(data, context, state, { seed: stage + 1 });
   ok(result.advanced && result.nextStage === (stage === 100 ? null : stage + 1), 'every selected cleared stage advances ' + stage);
   ok(data.cleared === 100 && data.unlockedCharacterIds.length === 10 && data.difficulty === 'hard', 'past progress and companions never reset ' + stage);

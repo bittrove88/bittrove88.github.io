@@ -5,7 +5,7 @@
   function bounds(state) {
     const points = [
       { x: 0, y: 400 },
-      { x: 1000, y: 400 },
+      { x: state.spec.worldWidth || 1000, y: 400 },
     ];
     const add = (p) => {
       if (Number.isFinite(p?.x) && Number.isFinite(p?.y)) points.push(p);

@@ -50,7 +50,7 @@ const flat=arena('gun');ok(Math.abs(G.safePosition(flat.world,flat.units[1].x-30
 
 let safeStates=0,physicalPlans=0;
 for(const p of C.profiles)for(let n=1;n<=100;n++){
- const s=E.campaign(n,{equippedCharacterId:p.id,matchSeed:42,battleInventory:{}});ok(s.units.every(u=>G.clearBody(s.world,u)&&(u.floating||G.support(s.world,u.x,u.y))),'safe supported spawn '+p.id+' '+n);ok(s.specialAmmo===(n%5===0?3:0)&&s.units[0].maxHp===p.hp/20,'new normal starts empty, guardians full '+p.id+' '+n);safeStates++;
+ const s=E.campaign(n,{equippedCharacterId:p.id,matchSeed:42,battleInventory:{}});ok(s.units.every(u=>G.clearBody(s.world,u)&&(u.floating||G.support(s.world,u.x,u.y))),'safe supported spawn '+p.id+' '+n);ok(s.specialAmmo===(n===100?1:n%5===0?3:0)&&s.units[0].maxHp===(n===100?C.get('hana').hp/20*.7:p.hp/20),'new normal starts empty, guardians full '+p.id+' '+n);safeStates++;
  if(n%5===0||[1,4,7,13,23,33,53,62].includes(n))for(const id of['W01',p.special.id]){const before=JSON.stringify(s),shot=E.trajectory(s,0,60,70,{weaponId:id});ok(JSON.stringify(s)===before,'aim simulation is immutable '+p.id+' '+n+' '+id);ok(shot.bullets.every(b=>b.path.every(q=>Number.isFinite(q.x+q.y+q.t)))&&shot.iterations<20000,'finite bounded projectile work '+p.id+' '+n+' '+id);ok(shot.damage[1]<=(s.spec.boss?(W.get(id,p.id).bossDamageCap||W.get(id,p.id).damageCap):W.get(id,p.id).damageCap)+1e-6,'bounded aggregate in real map '+p.id+' '+n+' '+id);physicalPlans++;}
 }
 

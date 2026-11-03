@@ -1,0 +1,183 @@
+{
+  "game/dist/engine.js": [
+    {
+      "before": "const guardian=state=>N.guardian(state.spec);",
+      "after": "const guardian=state=>N.guardian(state.spec);\nconst FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;",
+      "count": 1
+    },
+    {
+      "before": "range:/^[45]\\./.test(spec.contentRevision)?[35,965]",
+      "after": "range:/^[45]\\./.test(spec.contentRevision)?[35,(spec.worldWidth||1000)-35]",
+      "count": 1
+    },
+    {
+      "before": "bossGeometry(s);telegraph(s);return s;",
+      "after": "FinalTeam.init(s);bossGeometry(s);telegraph(s);return s;",
+      "count": 1
+    },
+    {
+      "before": "const shot=plan||trajectory(s,side,angle,power);",
+      "after": "const shot=plan||trajectory(s,side,angle,power);\n if(FinalTeam.active(s)&&side===0)shot.finalOwner=s.characterId;",
+      "count": 1
+    },
+    {
+      "before": "s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));",
+      "after": "if(shot.side===0)shot.damage[1]=FinalTeam.credit(s,shot.finalOwner||s.characterId,shot.damage[1]);\n s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));",
+      "count": 1
+    },
+    {
+      "before": "function check(s){",
+      "after": "function check(s){\n FinalTeam.guard(s);",
+      "count": 1
+    },
+    {
+      "before": "else{s.turn=0;boundary(s);s.skillUsed=false;",
+      "after": "else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;",
+      "count": 1
+    },
+    {
+      "before": "if(!Crew.ids.includes(id)||!owned?.includes(id)",
+      "after": "if(!FinalTeam.canChange(s)||!Crew.ids.includes(id)||!owned?.includes(id)",
+      "count": 1
+    },
+    {
+      "before": "clamp(target.targetX+offset,25,975)",
+      "after": "clamp(target.targetX+offset,25,(s.spec.worldWidth||1000)-25)",
+      "count": 1
+    },
+    {
+      "before": "const target=boss.hp<=4?2:boss.hp<=7?1:0;",
+      "after": "const phaseHp=FinalTeam.active(s)?boss.hp/boss.maxHp*10:boss.hp;const target=phaseHp<=4+1e-7?2:phaseHp<=7+1e-7?1:0;",
+      "count": 1
+    }
+  ],
+  "game/dist/campaign-run.js": [
+    {
+      "before": "const chapter=stage=>",
+      "after": "const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;\nconst chapter=stage=>",
+      "count": 1
+    },
+    {
+      "before": "state.result!=='win')return {advanced:false};",
+      "after": "state.result!=='win'||!FinalTeam.complete(state))return {advanced:false};",
+      "count": 1
+    }
+  ],
+  "game/dist/geometry.js": [
+    {
+      "before": "return {solids,regions,waters,terminals,surfaces};",
+      "after": "return {solids,regions,waters,terminals,surfaces,...(spec.worldWidth?{width:spec.worldWidth}:{})};",
+      "count": 1
+    },
+    {
+      "before": "range=[35,965]",
+      "after": "range=[35,(w.width||1000)-35]",
+      "count": 3
+    }
+  ],
+  "game/dist/physics.js": [
+    {
+      "before": "p.x>1040",
+      "after": "p.x>(s.spec.worldWidth||1000)+40",
+      "count": 1
+    }
+  ],
+  "game/ui/map-camera.js": [
+    {
+      "before": "{ x: 1000, y: 400 }",
+      "after": "{ x: state.spec.worldWidth || 1000, y: 400 }",
+      "count": 1
+    }
+  ],
+  "game/dist/render.js": [
+    {
+      "before": "const isArenaPickup=item=>",
+      "after": "let arenaWidth=1000;\n const isArenaPickup=item=>",
+      "count": 1
+    },
+    {
+      "before": "item.x<=1000",
+      "after": "item.x<=arenaWidth",
+      "count": 1
+    },
+    {
+      "before": "const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width",
+      "after": "arenaWidth=s.spec.worldWidth||1000;\n  const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width",
+      "count": 1
+    },
+    {
+      "before": "lessonFocus.x<=1000",
+      "after": "lessonFocus.x<=arenaWidth",
+      "count": 1
+    },
+    {
+      "before": "p.x<=1000",
+      "after": "p.x<=arenaWidth",
+      "count": 3
+    },
+    {
+      "before": "annotation.x<=1000",
+      "after": "annotation.x<=arenaWidth",
+      "count": 1
+    },
+    {
+      "before": "Math.min(1025,",
+      "after": "Math.min(arenaWidth+25,",
+      "count": 2
+    },
+    {
+      "before": "b.x>=999.999",
+      "after": "b.x>=arenaWidth-.001",
+      "count": 1
+    },
+    {
+      "before": "p.x>=999.999",
+      "after": "p.x>=arenaWidth-.001",
+      "count": 1
+    },
+    {
+      "before": "[right,1000,(w-view.x-shakeX+2)/scale-1000]",
+      "after": "[right,arenaWidth,(w-view.x-shakeX+2)/scale-arenaWidth]",
+      "count": 1
+    },
+    {
+      "before": "ctx.fillRect(1000,yy,width",
+      "after": "ctx.fillRect(arenaWidth,yy,width",
+      "count": 1
+    },
+    {
+      "before": "if(planning&&!lobby&&!localDemo&&!phoneLandscape)critical.push",
+      "after": "if(planning&&!lobby&&!localDemo&&!phoneLandscape&&arenaWidth<=1000)critical.push",
+      "count": 1
+    }
+  ],
+  "game/ui/experience.js": [
+    {
+      "before": "width / 1060",
+      "after": "width / ((state.spec.worldWidth || 1000) + 60)",
+      "count": 1
+    },
+    {
+      "before": "500 * scale",
+      "after": "((state.spec.worldWidth || 1000) / 2) * scale",
+      "count": 1
+    }
+  ],
+  "game/dist/visual-art.js": [
+    {
+      "before": "surface.at(-1).x>=999.999",
+      "after": "surface.at(-1).x>=(world.width||1000)-.001",
+      "count": 1
+    },
+    {
+      "before": "q.x>=999.999",
+      "after": "q.x>=(world.width||1000)-.001",
+      "count": 2
+    },
+    {
+      "before": "right>1000",
+      "after": "right>(world.width||1000)",
+      "count": 1
+    }
+  ]
+}

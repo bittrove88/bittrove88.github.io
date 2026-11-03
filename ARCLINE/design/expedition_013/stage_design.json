@@ -8043,30 +8043,30 @@
       "stage": 100,
       "difficultyBand": "最終試練",
       "theme": "夜明けの核",
-      "learningGoal": "外殻を止め、崖と天井の間に射線を作り、段階ごとに射点を選び直す",
+      "learningGoal": "10機が固定順で本体へ各10ダメージ。3機ごとに戦場を変え、最後はガンが核を止める",
       "mainGimmicks": [
         "C",
         "K",
         "M",
         "W"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差17。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁3箇所を独立配置。天井片3箇所を独立配置。中継棚2箇所を独立配置。左岸の壁と屋根を崩し、残る窓から高弾道を通す。中継棚への転移も選べる。内殻では雲、核では磁場に合わせて射角を調整する。。",
-      "basicRoute": "左岸の壁と屋根を崩し、残る窓から高弾道を通す。中継棚への転移も選べる。内殻では雲、核では磁場に合わせて射角を調整する。",
-      "alternativeRoute": "破壊 -12°/55% → 通常 84°/70% → 通常 84°/70% → 通常 90°/70% → 通常 84°/85% → 通常 90°/70% → 通常 24°/65%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
+      "terrainIntent": "床の高低差22。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片2箇所を独立配置。中継棚2箇所を独立配置。ハナ→コロ→バン／ソラ→リコ→ヒバリ／モグ→リン→ユイ／ガン。担当ごとの射点から遮蔽とギミックを読み、本体へ合計10ダメージを与える。。",
+      "basicRoute": "ハナ→コロ→バン／ソラ→リコ→ヒバリ／モグ→リン→ユイ／ガン。担当ごとの射点から遮蔽とギミックを読み、本体へ合計10ダメージを与える。",
+      "alternativeRoute": "hana:attack 42°/70% → koro:attack 102°/95% → ban:attack 24°/60% → sora:attack 42°/80% → rico:attack 126°/70% → hibari:attack 60°/85% → mogu:attack 90°/70% → rin:attack 150°/70% → yui:attack 6°/80% → gun:break 48°/80% → gun:attack 36°/70%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
       "advantage": {
         "character": "gun",
         "reason": "耐久に余裕を持ち、通常弾の弧で経路を確かめられる。"
       },
-      "hint": "外殻を止め、崖と天井の間に射線を作り、段階ごとに射点を選び直す",
+      "hint": "10機が固定順で本体へ各10ダメージ。3機ごとに戦場を変え、最後はガンが核を止める",
       "enemyInteraction": {
         "spawn": [
-          89,
-          22.0
+          150,
+          18.0
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
       },
-      "actionBudget": 28,
+      "actionBudget": 36,
       "expectedActions": [
         7,
         18
@@ -8087,42 +8087,56 @@
       "testResult": {
         "stage": 100,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          7,
-          8
+        "teamSeedWins": 3,
+        "teamActions": [
+          11,
+          11
         ],
-        "recommendedCharacter": "gun",
+        "order": [
+          "hana",
+          "koro",
+          "ban",
+          "sora",
+          "rico",
+          "hibari",
+          "mogu",
+          "rin",
+          "yui",
+          "gun"
+        ],
+        "requiredDamage": 10,
+        "durabilityScale": 0.7,
+        "worldWidth": 3000,
+        "maps": 4,
+        "recommendedCharacter": "team",
         "recommendedWin": true,
-        "recommendedActions": 7,
-        "nativeActionLimit": 28,
-        "minimumRemainingHp": 6.5,
+        "recommendedActions": 11,
+        "nativeActionLimit": 36,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索による実戦成立を人の操作難易度や勝率と混同しない。",
+        "humanDifficulty": "未確認。自動探索の成立と人の操作難易度・勝率は区別。",
         "reports": [
-          "../../evidence/final-battle-0211/AIRBORNE_MATCHES.json",
-          "../../evidence/final-battle-0211/TACTICAL_MATCHES.json"
+          "../../evidence/final-battle-0211/TEAM_MATCHES.json"
         ],
-        "blueprintSha256": "665741c9f4ef6cc24cfa91244172c84862ff29708a6f80cb44db2b013d5a3463"
+        "blueprintSha256": "b2320f620659606010c294162cc7dd0a0802a8e10fd60922ba2a0ef3cb518c28"
       },
       "basicRouteProof": {
-        "character": "gun",
-        "actions": 7,
-        "description": "破壊 -12°/55% → 必殺 84°/70% → 必殺 84°/70% → 必殺 84°/85% → 通常 84°/85% → 通常 90°/70% → 通常 90°/70%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
+        "character": "team",
+        "actions": 11,
+        "description": "hana:special 42°/70% → koro:special 108°/25% → ban:special 0°/55% → sora:special 56°/100% → rico:special 102°/50% → hibari:special 0°/95% → mogu:attack 90°/70% → rin:special 150°/70% → yui:special -12°/25% → gun:special 60°/75% → gun:attack 114°/95%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
         "evidence": {
-          "report": "../../evidence/final-battle-0211/TACTICAL_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/TEAM_MATCHES.json",
           "stage": 100,
-          "seedVariant": null
+          "seed": 13719
         }
       },
       "alternativeRouteProof": {
-        "character": "gun",
-        "actions": 7,
-        "description": "破壊 -12°/55% → 通常 84°/70% → 通常 84°/70% → 通常 90°/70% → 通常 84°/85% → 通常 90°/70% → 通常 24°/65%。敵の手番を含む実戦の成立例。角度・出力は自動探索による検証値で、人の難易度測定ではない。",
+        "character": "team",
+        "actions": 11,
+        "description": "hana:attack 42°/70% → koro:attack 102°/95% → ban:attack 24°/60% → sora:attack 42°/80% → rico:attack 126°/70% → hibari:attack 60°/85% → mogu:attack 90°/70% → rin:attack 150°/70% → yui:attack 6°/80% → gun:break 48°/80% → gun:attack 36°/70%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
         "evidence": {
-          "report": "../../evidence/final-battle-0211/AIRBORNE_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/TEAM_MATCHES.json",
           "stage": 100,
-          "seedVariant": 1
+          "seed": 4697
         }
       }
     }

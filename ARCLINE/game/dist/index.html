@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="chapter-flow.css?v=0.21.1">
 <link rel="stylesheet" href="map-camera.css?v=0.21.1">
 <link rel="stylesheet" href="experience.css?v=0.21.1">
+<link rel="stylesheet" href="final-team.css?v=0.21.1">
 <!-- runtime:styles:end --></head>
 <body>
 <div id="loading">ARCLINE</div>
@@ -42,6 +43,7 @@
 <section id="battle" hidden aria-label="Battle">
 <div class="battle-top"><div class="health-card player" id="battleCharacters" aria-label="Player durability"><div class="hp-title"><strong id="playerName">ROVER</strong><span id="php">5</span></div><div class="hp-track"><i id="pbar"></i></div></div><div class="battle-tools"><button type="button" id="mapCameraToggle" aria-haspopup="dialog" aria-controls="mapCamera" data-story-raw>マップ</button><button type="button" id="pause" class="round-button" aria-label="Pause">Ⅱ</button></div><div class="health-card enemy"><div class="hp-title"><strong id="ename">RIVAL</strong><span id="ehp">3</span></div><div class="hp-track"><i id="ebar"></i></div></div></div>
 <div class="turn-pill"><span id="turnLabel">YOUR TURN</span><small id="round">LV 1</small></div>
+<button type="button" id="finalTeamHUD" hidden data-story-raw><strong id="finalTeamWho"></strong><span id="finalTeamProgress"></span></button><div id="finalTeamTransition" hidden data-story-raw><strong id="finalTeamTransitionName"></strong><span id="finalTeamTransitionMap"></span></div>
 <div id="specialHUD" role="status" aria-live="polite"></div><div id="shotBudget" role="status">10 SHOTS</div>
 <div id="shotFeedback" role="status" aria-live="polite"></div>
 <div id="tutorial" hidden role="dialog" aria-label="Preview" aria-describedby="tutorialName tutorialInstruction tutorialOutcome">
@@ -75,6 +77,7 @@
 <script src="physics.js?v=0.21.1"></script>
 <script src="inventory.js?v=0.21.1"></script>
 <script src="crew.js?v=0.21.1"></script>
+<script src="final-team.js?v=0.21.1"></script>
 <script src="campaign-run.js?v=0.21.1"></script>
 <script src="story.js?v=0.21.1"></script>
 <script src="journal.js?v=0.21.1"></script>
@@ -116,6 +119,7 @@
 <script src="sfx-data.js?v=0.21.1"></script>
 <script src="sfx-manager.js?v=0.21.1"></script>
 <script src="map-camera.js?v=0.21.1"></script>
+<script src="final-team-ui.js?v=0.21.1"></script>
 <script src="game.js?v=0.21.1"></script>
 <script src="fullscreen.js?v=0.21.1"></script>
 <!-- runtime:scripts:end -->

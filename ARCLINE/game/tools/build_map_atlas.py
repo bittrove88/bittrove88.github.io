@@ -10,7 +10,8 @@ def payload(tag):return json.loads(re.search(r'<script id="'+tag+r'" type="appli
 rows=payload('payload');themes=payload('themePayload')
 # This request changes only stage100. Keep all other preserved atlas rows intact.
 l,d=levels[99],design[99];row=rows[99];assert row['id']==100
-row.update(name=l['name'],goal=d['learningGoal'],terrainIntent=d['terrainIntent'],mainGimmicks=d['mainGimmicks'],geometry={k:l[k] for k in ['floors','components','features','spawn']},actions=d['expectedActions'],limit=l['actionLimit'],tolerance=d['tolerance'],route=d['basicRoute'],alternative=d['alternativeRoute'],verified=d['testResult']['status'],gunActions=d['testResult'].get('gunActions'),recommendedActions=d['testResult'].get('recommendedActions'))
+row.update(name=l['name'],goal=d['learningGoal'],terrainIntent=d['terrainIntent'],mainGimmicks=d['mainGimmicks'],geometry={**{k:l[k] for k in ['floors','components','features','spawn']},'worldWidth':l['worldWidth'],'relayMaps':l['finalBattle']['maps']},actions=d['expectedActions'],limit=l['actionLimit'],tolerance=d['tolerance'],route=d['basicRoute'],alternative=d['alternativeRoute'],verified=d['testResult']['status'],teamActions=d['testResult'].get('teamActions'),recommendedActions=d['testResult'].get('recommendedActions'))
+row.pop('gunActions',None)
 t=themes[19];t['obstacles']=sum(len(l['components']) for l in levels[95:]);t['destructible']=sum(c['destructible'] for l in levels[95:] for c in l['components']);t['goals'][-1]=d['learningGoal'];t['terrains'][-1]=d['terrainIntent']
 for tag,data in [('payload',rows),('themePayload',themes)]:
  pattern=r'(<script id="'+tag+r'" type="application/json">).*?(</script>)'
