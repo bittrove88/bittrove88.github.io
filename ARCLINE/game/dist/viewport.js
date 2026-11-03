@@ -96,8 +96,12 @@
    app.dataset.viewRotation=String(rotation);responsiveSheets(width,height);
    app.dataset.viewportFitted=scale>1.01?'true':'false';onChange(next);return true;
   }
-  // Control surfaces own their gestures. No blanket touchstart/touchend or
-  // WebKit gesture cancellation: system edge gestures must remain with iOS.
+  // Only gestures which start on an actual game control are cancelled on iOS.
+  // Physical OS edge starts are outside app, so never enter these listeners.
+  const gameplay=e=>e.target?.closest?.('#world,#stick,#aimStick,#fire');
+  const touch=e=>{if(app.contains(e.target)&&(gameplay(e)||(!ios&&e.touches.length>1)))e.preventDefault();};
+  for(const type of ['touchstart','touchmove','touchend'])app.addEventListener(type,touch,{passive:false,capture:true});
+  if(!ios){for(const type of ['gesturestart','gesturechange','gestureend'])app.addEventListener(type,e=>e.preventDefault(),{passive:false,capture:true});app.addEventListener('dblclick',e=>e.preventDefault());}
   viewport?.addEventListener('resize',fit);viewport?.addEventListener('scroll',fit);
   root.addEventListener('resize',fit);root.addEventListener('orientationchange',fit);root.screen?.orientation?.addEventListener?.('change',fit);root.addEventListener('pageshow',fit);
   fit();return {fit,cancelGesture,point:(x,y)=>point(x,y,app),rect:element=>rect(element,app),get state(){return {...state};}};
