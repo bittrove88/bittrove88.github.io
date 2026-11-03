@@ -337,8 +337,8 @@ function create(canvas,configuration={}){
    const plan=guide||aimPlan(s),look=appearance(E.weapon(s).id),full=!!options.charging,difficulty=root.ArcAimGuide.normalize(options.difficulty||s.difficulty);
    if(!guideCache||guideCache.plan!==plan||guideCache.difficulty!==difficulty)guideCache={plan,difficulty,paths:root.ArcAimGuide.paths(plan,difficulty)};
    const splitGuide=root.ArcAimGuide.splitProjection(plan);
-   const baseVisible=guideCache.paths;
-   // Retain the split marker and carrier endpoint alongside the full child paths.
+   const baseVisible=difficulty==='hard'?root.ArcAimGuide.direction(G.muzzle(s,0,s.angle),scale):guideCache.paths;
+   // Sora's carrier ends at its real split event; Hard does not show falling children.
    const visible=splitGuide?[...baseVisible.filter(b=>b.id!==splitGuide.parentId&&b.id!=='direction'),{id:splitGuide.parentId,path:splitGuide.path}]:baseVisible;
    ctx.save();ctx.beginPath();ctx.rect(-view.x/scale,(top-view.y)/scale,fieldW/scale,(bottom-top)/scale);ctx.clip();
    for(const b of visible){const points=b.path;if(!points.length)continue;
@@ -361,7 +361,7 @@ function create(canvas,configuration={}){
     ctx.restore();
    }
    ctx.restore();
-   if(full){
+   if(full&&difficulty!=='hard'){
     const edgeY=(top-view.y)/scale,points=visible[0]?.path||[];let marks=0;
     for(let i=1;i<points.length&&marks<2;i++){const a=points[i-1],b=points[i];if((a.y-edgeY)*(b.y-edgeY)>=0)continue;const ratio=(edgeY-a.y)/(b.y-a.y),x=a.x+(b.x-a.x)*ratio,screenX=view.x+x*scale;if(screenX<10||screenX>fieldW-10)continue;
      const arrow=[{x:x-5/scale,y:edgeY+9/scale},{x,y:edgeY+4/scale},{x:x+5/scale,y:edgeY+9/scale}];path(arrow,'#17344d',5/scale);path(arrow,look.color,2/scale);marks++;
