@@ -27,7 +27,7 @@ for(const p of C.profiles){
  if(p.id==='ban')ok(plan.events.some(e=>e.type==='shockwave'&&e.direction===1)&&!plan.impacts.some(i=>i.hit?.unit===1)&&plan.damage[1]>0&&plan.damage[1]<=p.special.damageCap,'reduced forward cone still hits without direct contact');
  if(p.id==='hibari')ok(plan.events.some(e=>e.type==='airburst'),'proximity detonation is an actual simulation contact');
  if(p.id==='rin')near(plan.damage[1],2.5,'Rin center critical reaches new50 cap');
- for(const mode of A.modes){const full=A.paths(plan,mode);ok(mode!=='hard'||full.length===0,'hard never exposes special future trajectories '+p.id);}
+ for(const mode of A.modes){const full=A.paths(plan,mode);equal(full,A.paths(plan,'easy'),'all modes show full special trajectories '+p.id+'/'+mode);}
  ok(P.create(s,'controls')?.proof.valid,'intro uses the chosen normal projectile '+p.id);
  E.selectWeapon(s,p.special.id);ok(!E.selectSkill(s,'BURST')&&!s.selectedSkill,'legacy skill cannot stack with special '+p.id);const stock=I.fromState(s);
  for(let n=0;n<3;n++){const shot=E.launch(s,40,40);ok(!!shot&&s.specialAmmo===2-n,'use decrements exactly once '+p.id+' '+n);E.resolve(s,shot);nextPlayer(s);}
