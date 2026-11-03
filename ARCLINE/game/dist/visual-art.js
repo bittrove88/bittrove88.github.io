@@ -108,12 +108,12 @@ function drawSolid(ctx,o,world,options={}){
    shape(ctx,p,'#5eaaa3',C.ink,1.5,dpr);line(ctx,p.slice(0,2),'#b5ded1',2.2,dpr);d.oval((p[0].x+p[1].x)/2,(p[0].y+p[1].y)/2,5,5,C.steel);return;
   }
   const surface=o.kind==='floor'?p.slice(0,-2):null;
-  if(surface&&options.view){const v=options.view,left=-v.x/v.scale-3,right=(options.width-v.x)/v.scale+3;if(surface[0].x<=.001&&left<surface[0].x)surface.unshift({x:left,y:surface[0].y});if(surface.at(-1).x>=999.999&&right>surface.at(-1).x)surface.push({x:right,y:surface.at(-1).y});const bottom=Math.max(...p.map(p=>p.y),(options.height-v.y)/v.scale+8);p.splice(0,p.length,...surface,{x:surface.at(-1).x,y:bottom},{x:surface[0].x,y:bottom});}
+  if(surface&&options.view){const v=options.view,left=-v.x/v.scale-3,right=(options.width-v.x)/v.scale+3;if(surface[0].x<=.001&&left<surface[0].x)surface.unshift({x:left,y:surface[0].y});if(surface.at(-1).x>=(world.width||1000)-.001&&right>surface.at(-1).x)surface.push({x:right,y:surface.at(-1).y});const bottom=Math.max(...p.map(p=>p.y),(options.height-v.y)/v.scale+8);p.splice(0,p.length,...surface,{x:surface.at(-1).x,y:bottom},{x:surface[0].x,y:bottom});}
   const fragile=o.kind==='fragile',palette=fragile?['#9678a5','#755e85','#b59ac1']:theme.ground;
   if(o.kind==='bedrock'&&options.view&&p.some(q=>q.y>=525)){
    const v=options.view,left=-v.x/v.scale-2,right=(options.width-v.x)/v.scale+2;
    if(p.filter(q=>q.x<=.001).length>=2&&left<0)for(const q of p)if(q.x<=.001)q.x=left;
-   if(p.filter(q=>q.x>=999.999).length>=2&&right>1000)for(const q of p)if(q.x>=999.999)q.x=right;
+   if(p.filter(q=>q.x>=(world.width||1000)-.001).length>=2&&right>(world.width||1000))for(const q of p)if(q.x>=(world.width||1000)-.001)q.x=right;
   }
   shape(ctx,p,palette[0],C.ink,1.5,dpr);ctx.save();shape(ctx,p,null,null);ctx.clip();
   const left=Math.min(...p.map(q=>q.x)),right=Math.max(...p.map(q=>q.x)),top=Math.min(...p.map(q=>q.y)),bottom=Math.max(...p.map(q=>q.y)),span=right-left;

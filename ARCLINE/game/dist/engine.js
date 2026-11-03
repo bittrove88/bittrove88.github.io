@@ -6,6 +6,7 @@ const clamp=G.clamp;
 const C=W.combat;
 const N=node?require('./encounters.js'):root.ArcEncounters;
 const guardian=state=>N.guardian(state.spec);
+const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
 const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
 const biomes=[
 {name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
@@ -41,7 +42,7 @@ function campaign(stage=1,save={}){
  const units=spec.spawn.map(([x,h],side)=>{
   const raw=G.point(x,h),safe=G.safePosition(world,raw.x,raw.y);
   if(!safe)throw Error('No safe spawn at level '+spec.id+' side '+side);
-  return {...safe,facing:side?-1:1,hp:side?(N.guardian(spec)?N.forSpec(spec).hp:(spec.enemyHp||3)):profile?profile.hp/C.pointsPerUnit:5,maxHp:side?(N.guardian(spec)?N.forSpec(spec).hp:(spec.enemyHp||3)):profile?profile.hp/C.pointsPerUnit:5,range:/^[45]\./.test(spec.contentRevision)?[35,965]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
+  return {...safe,facing:side?-1:1,hp:side?(N.guardian(spec)?N.forSpec(spec).hp:(spec.enemyHp||3)):profile?profile.hp/C.pointsPerUnit:5,maxHp:side?(N.guardian(spec)?N.forSpec(spec).hp:(spec.enemyHp||3)):profile?profile.hp/C.pointsPerUnit:5,range:/^[45]\./.test(spec.contentRevision)?[35,(spec.worldWidth||1000)-35]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
  });
  units[0].facing=units[1].x>=units[0].x?1:-1;units[1].facing=-units[0].facing;
  const encounter=N.forSpec(spec),enemy=units[1];
@@ -60,7 +61,7 @@ function campaign(stage=1,save={}){
  const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,characterId,specialAmmo:N.guardian(spec)?3:0,playerTurn:1,specialUnlocks:0,specialChargeSerial:0,weaponStock:inventory.weapons,skills:inventory.skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||canUseAmmo),pendingLoot:(save.pendingLoot||[]).map(p=>({...p})),collectedPickupIds:pickupLedger,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(mode,characterId).minAngle||-12),power:20,result:null,reason:null,weaponId:mode,mode,lastPickupWeaponId:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
  s.random=seeded(s.matchSeed);
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
- bossGeometry(s);telegraph(s);return s;
+ FinalTeam.init(s);bossGeometry(s);telegraph(s);return s;
 }
 function telegraph(s){
  if(!guardian(s)){s.telegraph=null;return;}
@@ -154,6 +155,7 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
   if(!s.teleportMode&&!usable(s,s.mode))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
+ if(FinalTeam.active(s)&&side===0)shot.finalOwner=s.characterId;
  if(side&&s.guardActive&&!shot.guarded){shot.damage=[shot.damage[0]*.5,shot.damage[1]];shot.guarded=true;}
  if(!side){s.shotCount++;if(!s.teleportMode&&W.get(s.mode).special)s.specialAmmo--;else if(!s.teleportMode&&s.mode!=='W01'){s.weaponId=s.mode;s.weaponStock[s.mode]--;}
   if(s.selectedSkill==='S_GUARD'){s.skills.S_GUARD--;s.skillUsed=true;s.guardActive=true;shot.skill='S_GUARD';}
@@ -215,6 +217,7 @@ function resolve(s,shot,onCollect=()=>{}){
  settleUnits(s);
  if(shot.side===1)s.lastCpuFamily=shot.attackKind;
 
+ if(shot.side===0)shot.damage[1]=FinalTeam.credit(s,shot.finalOwner||s.characterId,shot.damage[1]);
  s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));
  if(shot.side===1)s.guardActive=false;
  const boss=s.units[1];
@@ -226,7 +229,7 @@ function resolve(s,shot,onCollect=()=>{}){
    if(!s.rewardGiven){s.rewardGiven=true;if(!/^[45]\./.test(s.spec.contentRevision))addReward(s,s.spec.bossSpec.reward);}
    s.pendingChanges.push({type:'parts',broken});
   }
-  if(s.stage===100){const target=boss.hp<=4?2:boss.hp<=7?1:0;if(target>s.bossPhase)s.pendingChanges.push({type:'phase',value:target});}
+  if(s.stage===100){const phaseHp=FinalTeam.active(s)?boss.hp/boss.maxHp*10:boss.hp;const target=phaseHp<=4+1e-7?2:phaseHp<=7+1e-7?1:0;if(target>s.bossPhase)s.pendingChanges.push({type:'phase',value:target});}
   if(s.stage===90&&boss.hp<=5&&!s.effects.stageTwo){s.effects.stageTwo=true;s.pendingChanges.push({type:'altitude'},{type:'cloud'});}
  }
  if(boss.exposed>0&&shot.side===0)boss.exposed--;
@@ -236,6 +239,7 @@ function resolve(s,shot,onCollect=()=>{}){
  check(s);return shot.damage;
 }
 function check(s){
+ FinalTeam.guard(s);
  const [p,e]=s.units;
  if(p.hp<=0||e.hp<=0){s.result=p.hp<=0?(e.hp<=0?'draw':'lose'):'win';s.reason=s.result==='lose'?'durability':s.result==='draw'?'mutual':'defeated';}
  else if(s.turn===0&&s.shotCount>=s.shotLimit){s.result='lose';s.reason='shots';}
@@ -293,7 +297,7 @@ function boundary(s){
 function next(s){
  if(check(s))return;
  if(s.turn===0){s.turn=1;s.phase='cpu';s.time=.6;}
- else{s.turn=0;boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
+ else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
 }
 function move(s,side,amount,charging=false){if(s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}return G.move(s,side,amount);}
 const solveCache=new Map();
@@ -322,7 +326,7 @@ function cpuPlan(s,random=s.random){
  if(guardian(s)&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
   const volley=[];
   if(kind==='TRIPLE')for(let i=0;i<3;i++)volley.push({offset:(i-1)*7,delay:i*.22});
-  else{const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;offsets.forEach((offset,i)=>volley.push({origin:{x:clamp(target.targetX+offset,25,975),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},power:20,delay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0}));}
+  else{const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;offsets.forEach((offset,i)=>volley.push({origin:{x:clamp(target.targetX+offset,25,(s.spec.worldWidth||1000)-25),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},power:20,delay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0}));}
   plan=P.simulate(s,1,angle,power,{weaponId:kind==='PREPARE'?'W02':'W01',volley});
 
  }
@@ -355,7 +359,7 @@ function enemyMoveTarget(s){
 function chargeSpecial(s){if(guardian(s))return 0;const unlocked=Math.min(3,Math.floor(s.playerTurn/2)),delta=Math.max(0,unlocked-(s.specialUnlocks||0));s.specialUnlocks=unlocked;if(delta){s.specialAmmo=Math.min(3,s.specialAmmo+delta);s.specialChargeSerial+=delta;}return delta;}
 function nextSpecialTurn(s){if(guardian(s)||(s.specialUnlocks||0)>=3)return null;return [2,4,6][s.specialUnlocks||0];}
 function changeCharacter(s,id,owned){
- if(!Crew.ids.includes(id)||!owned?.includes(id)||s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length||s.characterId===id)return false;
+ if(!FinalTeam.canChange(s)||!Crew.ids.includes(id)||!owned?.includes(id)||s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length||s.characterId===id)return false;
  const u=s.units[0],ratio=Math.floor(Math.min(1,u.hp/u.maxHp)*1e6+1e-8)/1e6;if(ratio<=0)return false;
  const max=C.get(id).hp/C.pointsPerUnit;u.maxHp=max;u.hp=max*ratio;s.characterId=id;
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;

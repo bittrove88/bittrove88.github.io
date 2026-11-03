@@ -4,7 +4,8 @@ const E=root.ArcEngine,G=E.geometry;
 function create(canvas,configuration={}){
  if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const unified=!!root.ArcVisualArt&&configuration.artStyle!=='legacy';
- const isArenaPickup=item=>!item.collected&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=1000;
+ let arenaWidth=1000;
+ const isArenaPickup=item=>!item.collected&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
  const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
  function canvasRect(element){
   if(!element)return null;
@@ -180,6 +181,7 @@ function create(canvas,configuration={}){
   }
   if(demonstration?.plan)for(const e of demonstration.plan.events.filter(e=>e.type==='pull'&&demoFlight>=e.t)){const t=Math.min(1,(demoFlight-e.t)/e.duration),ease=t*t*(3-2*t);display={...display,units:display.units.map((u,i)=>i!==e.unit?u:{...u,x:e.from.x+(e.to.x-e.from.x)*ease,y:e.from.y+(e.to.y-e.from.y)*ease,slope:e.from.slope+(e.to.slope-e.from.slope)*ease,animation:null})};}
   if(transition){const t=Math.min(1,transition.age/transition.duration),ease=t*t*(3-2*t);world={...s.world,solids:s.world.solids.map(o=>{const old=transition.world.solids.find(a=>a.id===o.id&&a.poly.length===o.poly.length);return old?{...o,poly:o.poly.map((p,i)=>({x:old.poly[i].x+(p.x-old.poly[i].x)*ease,y:old.poly[i].y+(p.y-old.poly[i].y)*ease}))}:o;})};display={...s,units:s.units.map((u,i)=>({...u,x:transition.units[i].x+(u.x-transition.units[i].x)*ease,y:transition.units[i].y+(u.y-transition.units[i].y)*ease,slope:transition.units[i].slope+(u.slope-transition.units[i].slope)*ease}))};}
+  arenaWidth=s.spec.worldWidth||1000;
   const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';const biome=E.biomes[s.spec.theme]||E.biomes[0],time=options.time||0;
   const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,biome.sky[0]);sky.addColorStop(.67,biome.sky[1]);sky.addColorStop(1,biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
@@ -191,7 +193,7 @@ function create(canvas,configuration={}){
   backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);
   const lobby=options.lobby,wide=w/h>1.5,fieldW=lobby&&w>900?w*.56:w;
   const controls=canvasRect(document.getElementById('battleControls')),header=canvasRect(document.querySelector('.battle-top')),tutorial=canvasRect(document.getElementById('tutorial'));
-  const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=1000;
+  const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=arenaWidth;
   const closeFocus=demonstration?.phase==='RESULT'&&validFocus&&!demonstration.framing?.keepOverview?{...lessonFocus,radius:Math.max(100,Math.min(280,lessonFocus.radius||170))}:null;
   const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=s.units.filter(showsUnit);
   const phoneLandscape=!lobby&&!localDemo&&w>h&&h<=600&&matchMedia('(pointer: coarse)').matches;
@@ -201,25 +203,25 @@ function create(canvas,configuration={}){
   if(closeFocus)landmarks.push({x:closeFocus.x-closeFocus.radius,y:closeFocus.y-45},{x:closeFocus.x+closeFocus.radius,y:closeFocus.y+45});
   if(demonstration?.after)landmarks.push(...demonstration.after.units.filter(showsUnit).map(u=>({x:u.x,y:u.y-60})));
   if(validFocus)landmarks.push({x:demonstration.focus.x,y:demonstration.focus.y});
-  if(localDemo&&!closeFocus)for(const p of demonstration?.framing?.points||[])if(Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=0&&p.x<=1000)landmarks.push(p);
+  if(localDemo&&!closeFocus)for(const p of demonstration?.framing?.points||[])if(Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=0&&p.x<=arenaWidth)landmarks.push(p);
   if(!localDemo&&!phoneLandscape)for(const o of world.solids)if(o.kind!=='floor')landmarks.push(...o.poly);
   if(!localDemo&&!phoneLandscape)for(const r of world.regions)if(r.kind==='M')landmarks.push({x:r.x-r.radius,y:r.y-r.radius},{x:r.x+r.radius,y:r.y+r.radius});else landmarks.push({x:r.x1,y:r.y1},{x:r.x2,y:r.y2});
-  let minX=Math.max(-25,Math.min(...landmarks.map(p=>p.x))-85),maxX=Math.min(1025,Math.max(...landmarks.map(p=>p.x))+85);
+  let minX=Math.max(-25,Math.min(...landmarks.map(p=>p.x))-85),maxX=Math.min(arenaWidth+25,Math.max(...landmarks.map(p=>p.x))+85);
   const floorPoints=world.surfaces.filter(f=>f.id.startsWith('floor')).flatMap(f=>f.points).filter(p=>p.x>=minX&&p.x<=maxX);
   let minY=Math.min(...landmarks.map(p=>p.y),...frameUnits.map(u=>u.y-100))-28,maxY=Math.max(...frameUnits.map(u=>u.y+24),...floorPoints.map(p=>p.y+16),...(closeFocus?[closeFocus.y+45]:[]));
   if(phoneLandscape){minY=Math.min(...s.units.map((u,i)=>u.y-(i&&E.guardian(s)?(s.spec.boss?140:110):72)))-4;maxY=Math.max(...s.units.map(u=>u.y+8));}
   const baseline={minX,maxX,minY,maxY,scale:Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY))};
   const planning=!localDemo&&(options.canAim||options.planning),guide=planning?aimPlan(s):null;
   // Off-board miss paths never determine the arena framing.
-  const guidePoints=planning?aimEnvelope(s).filter(p=>p.x>=0&&p.x<=1000):[];
+  const guidePoints=planning?aimEnvelope(s).filter(p=>p.x>=0&&p.x<=arenaWidth):[];
   const shot=options.shot,flight=options.flight||0;
-  if(guidePoints.length){minX=Math.max(-25,Math.min(minX,Math.min(...guidePoints.map(p=>p.x))-24));maxX=Math.min(1025,Math.max(maxX,Math.max(...guidePoints.map(p=>p.x))+24));minY=Math.min(minY,...guidePoints.map(p=>p.y-40));maxY=Math.max(maxY,...guidePoints.map(p=>p.y+24));}
-  if(shot)for(const b of shot.bullets)for(const p of b.path)if(p.t<=flight+.4&&p.x>=0&&p.x<=1000)minY=Math.min(minY,p.y-28);
+  if(guidePoints.length){minX=Math.max(-25,Math.min(minX,Math.min(...guidePoints.map(p=>p.x))-24));maxX=Math.min(arenaWidth+25,Math.max(maxX,Math.max(...guidePoints.map(p=>p.x))+24));minY=Math.min(minY,...guidePoints.map(p=>p.y-40));maxY=Math.max(maxY,...guidePoints.map(p=>p.y+24));}
+  if(shot)for(const b of shot.bullets)for(const p of b.path)if(p.t<=flight+.4&&p.x>=0&&p.x<=arenaWidth)minY=Math.min(minY,p.y-28);
   const critical=[];
   function includeActors(state){for(let side=0;side<2;side++){const u=state.units[side];if(!showsUnit(u,side))continue;const extent=side&&E.guardian(state)?(state.spec.boss?105:65):48;critical.push(u.x-extent,u.x+extent);const muzzle=G.muzzle(state,side,side?52:state.angle);critical.push(muzzle.x-6,muzzle.x+6);}for(const pickup of state.pickups||[])if(isArenaPickup(pickup)&&!localDemo&&!phoneLandscape)critical.push(pickup.x-24,pickup.x+24);}
   includeActors(s);if(demonstration?.after)includeActors(demonstration.after);if(closeFocus)critical.push(closeFocus.x-closeFocus.radius,closeFocus.x+closeFocus.radius);
   // A held shot freezes this view, so reserve the player's legal walking extent first.
-  if(planning&&!lobby&&!localDemo&&!phoneLandscape)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
+  if(planning&&!lobby&&!localDemo&&!phoneLandscape&&arenaWidth<=1000)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
   const leftMargin=phoneLandscape?Math.max(12,controls?.left||12):12,rightMargin=phoneLandscape?Math.max(12,w-(controls?.right||w-12)):12;
   const criticalMin=Math.min(...critical),criticalMax=Math.max(...critical),criticalScale=(fieldW-leftMargin-rightMargin)/Math.max(100,criticalMax-criticalMin);
   const fit=Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY)),readableScale=phoneLandscape?Math.min(1.25,criticalScale,Math.max(.52,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY))):lobby?fit:Math.max(baseline.scale*.85,fit),scaleTarget=Math.min(readableScale,criticalScale,closeFocus?2.2:Infinity),clipped=scaleTarget>fit+.00001;
@@ -256,9 +258,9 @@ function create(canvas,configuration={}){
   for(const o of world.solids){
    if(unified){root.ArcVisualArt.drawSolid(ctx,o,world,{theme:s.spec.theme,time,dpr,view,width:w,height:h,reducedMotion:options.reducedMotion});continue;}
    const surface=o.kind==='floor'?o.poly.slice(0,-2).map(p=>({...p})):null;
-   if(surface){const a=surface[0],b=surface.at(-1),left=(-view.x-shakeX-2)/scale,right=(w-view.x-shakeX+2)/scale;if(a.x<=.001&&left<a.x)surface.unshift({x:left,y:a.y});if(b.x>=999.999&&right>b.x)surface.push({x:right,y:b.y});}
+   if(surface){const a=surface[0],b=surface.at(-1),left=(-view.x-shakeX-2)/scale,right=(w-view.x-shakeX+2)/scale;if(a.x<=.001&&left<a.x)surface.unshift({x:left,y:a.y});if(b.x>=arenaWidth-.001&&right>b.x)surface.push({x:right,y:b.y});}
    const bottomY=surface?Math.max(...o.poly.slice(-2).map(p=>p.y),(h-view.y)/scale+50):0,shape=surface?[...surface,{x:surface.at(-1).x,y:bottomY},{x:surface[0].x,y:bottomY}]:o.poly;
-   if(o.kind==='bedrock'){const left=o.poly.filter(p=>p.x<=.001),right=o.poly.filter(p=>p.x>=999.999);ctx.fillStyle=biome.land;for(const [edge,xx,width]of [[left,(-view.x-shakeX-2)/scale,2],[right,1000,(w-view.x-shakeX+2)/scale-1000]])if(edge.length>=2){const yy=Math.min(...edge.map(p=>p.y));if(edge===left&&xx<0)ctx.fillRect(xx,yy,-xx+1,Math.max(0,(h-view.y)/scale-yy+10));if(edge===right&&width>0)ctx.fillRect(1000,yy,width,Math.max(0,(h-view.y)/scale-yy+10));}}
+   if(o.kind==='bedrock'){const left=o.poly.filter(p=>p.x<=.001),right=o.poly.filter(p=>p.x>=arenaWidth-.001);ctx.fillStyle=biome.land;for(const [edge,xx,width]of [[left,(-view.x-shakeX-2)/scale,2],[right,arenaWidth,(w-view.x-shakeX+2)/scale-arenaWidth]])if(edge.length>=2){const yy=Math.min(...edge.map(p=>p.y));if(edge===left&&xx<0)ctx.fillRect(xx,yy,-xx+1,Math.max(0,(h-view.y)/scale-yy+10));if(edge===right&&width>0)ctx.fillRect(arenaWidth,yy,width,Math.max(0,(h-view.y)/scale-yy+10));}}
    polygon(shape);ctx.fillStyle=o.kind==='reflector'?'#527c94':o.kind==='crystal'?'#69b7ad':o.kind==='bridge'?'#998973':o.kind==='fragile'?'#9970aa':o.kind==='bedrock'?blend(biome.land,biome.sky[0],.4):o.kind==='roof'?'#41677c':'#536879';
    if(surface){const topY=Math.min(...surface.map(p=>p.y)),ground=ctx.createLinearGradient(0,topY,0,topY+300/scale);ground.addColorStop(0,blend(biome.land,'#d9e8c5',.15));ground.addColorStop(.22,biome.sky[0]+'d9');ground.addColorStop(1,biome.sky[0]);ctx.fillStyle=ground;}
    ctx.fill();
@@ -432,7 +434,7 @@ function create(canvas,configuration={}){
   // Preview labels are drawn in screen units so the taught contact stays legible
   // while the result camera moves closer. The reserved card never covers them.
   const annotation=demonstration?.annotation;
-  if(annotation&&demonstration.phase!=='WATCH'&&Number.isFinite(annotation.x)&&Number.isFinite(annotation.y)&&annotation.x>=0&&annotation.x<=1000){
+  if(annotation&&demonstration.phase!=='WATCH'&&Number.isFinite(annotation.x)&&Number.isFinite(annotation.y)&&annotation.x>=0&&annotation.x<=arenaWidth){
    const x=view.x+annotation.x*scale,y=view.y+annotation.y*scale,label=String(annotation.label||'').slice(0,34);
    ctx.save();ctx.beginPath();ctx.rect(0,top,w,Math.max(0,bottom-top));ctx.clip();
    const pulse=options.reducedMotion?0:Math.sin(time*5)*2;circle(x,y,15+pulse,'#e6ffc81a','#efffd0');

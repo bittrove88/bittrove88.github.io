@@ -8,7 +8,8 @@ esc=lambda x:html.escape(str(x),quote=True)
 feature_names={'W':'反射床','K':'反射結晶','B':'開閉橋','C':'減速する雲','U':'上昇流','F':'風','V':'噴出孔','M':'磁場','T':'切替端子'}
 def polygon(points,cl):return '<polygon class="'+cl+'" points="'+' '.join(f'{x},{50-y}' for x,y in points)+'"/>'
 def miniature(l):
-    parts=['<svg viewBox="0 -12 100 80" role="img" aria-label="'+esc(l['name'])+'の実データによる地形輪郭"><rect x="0" y="-12" width="100" height="80" fill="#204858"/>']
+    width=l.get('worldWidth',1000)/10
+    parts=[f'<svg viewBox="0 -12 {width:g} 80" role="img" aria-label="'+esc(l['name'])+'の実データによる地形輪郭"><rect x="0" y="-12" width="{width:g}" height="80" fill="#204858"/>']
     for floor in l['floors']:parts.append(polygon(floor+[[floor[-1][0],-18],[floor[0][0],-18]],'ground'))
     for p in l['components']:parts.append(polygon(p['poly'],'breakable' if p['destructible'] else 'fixed'))
     for f in l['features']:
@@ -23,6 +24,8 @@ def proof(d):
     result=d['testResult']
     if result['status']!='PASS':return '<p>検証記録待ち</p>'
     witness=d.get('basicRouteProof',{});alt=d.get('alternativeRouteProof',{})
+    if d['stage']==100:
+        return '<p class="proof">10機全員・通常弾のみ3条件／必殺あり1条件の実戦成立。4マップ各3,000px、各機10ダメージ。人の難易度は未確認。</p><p>'+esc(witness.get('description',''))+'</p>'
     body='<p class="proof">実戦成立：ガン通常弾のみ3条件／推奨機体1条件'+('／固有技の成立検査' if result['featuredTechniqueVerified'] else '')+'</p>'
     body+='<dl><dt>基本の狙い</dt><dd>'+esc(d['basicRoute'])+'</dd><dt>推奨機体の実行例</dt><dd>'+esc(witness.get('description',''))+'</dd><dt>ガンでの代替例</dt><dd>'+esc(alt.get('description',''))+'</dd><dt>敵との関係</dt><dd>'+esc(d['enemyInteraction']['counterplay'])+'</dd><dt>許容と実測</dt><dd>'+esc(d['tolerance'])+' 実測'+str(result['gunActions'][0])+'〜'+str(result['gunActions'][1])+'行動／制限'+str(d['actionBudget'])+'。敵行動を含む探索結果で、人の所要手数ではありません。</dd></dl>'
     return body
@@ -40,7 +43,7 @@ doc='<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" 
 (out/'index.html').write_text(doc.replace('ARCLINE 0.13','ARCLINE '+CONFIG['version']).replace('?v=0.13.0','?v='+CONFIG['version']))
 md=['# ARCLINE 0.13 — 全100面の攻略意図と解法','', '制作・レビュー用。結末までのネタバレを含みます。人によるプレイ難易度の測定は未確認です。','', '[地形の全体図](index.html) ／ [詳細データ](stage_design.json) ／ [実戦の操作列](stage_verification.json)','']
 for l,d in zip(campaign['levels'],design):
-    r=d['testResult'];md += [f'## {l["id"]:03} {l["name"]}', '',f'**{d["difficultyBand"]}｜{d["theme"]}｜推奨：{names[d["advantage"]["character"]]}**','',d['learningGoal'],'',f'地形の意図：{d["terrainIntent"]}',f'基本：{d["basicRoute"]}',f'有利な理由：{d["advantage"]["reason"]}',f'敵との関係：{d["enemyInteraction"]["counterplay"]}',f'行動上限：{d["actionBudget"]}。{d["tolerance"]}','',f'実測代替ルート：{d["alternativeRoute"]}','',f'検証：{r["status"]}。ガン通常弾のみ3乱数条件／推奨機体1条件。' + ('固有技の成立検査も実施。' if r.get('featuredTechniqueVerified') else '')+'全機体全解法、人の難易度は未確認。','']
+    r=d['testResult'];md += [f'## {l["id"]:03} {l["name"]}', '',f'**{d["difficultyBand"]}｜{d["theme"]}｜推奨：{names[d["advantage"]["character"]]}**','',d['learningGoal'],'',f'地形の意図：{d["terrainIntent"]}',f'基本：{d["basicRoute"]}',f'有利な理由：{d["advantage"]["reason"]}',f'敵との関係：{d["enemyInteraction"]["counterplay"]}',f'行動上限：{d["actionBudget"]}。{d["tolerance"]}','',f'実測代替ルート：{d["alternativeRoute"]}','',f'検証：{r["status"]}。'+('10機全員・通常弾のみ3条件／必殺あり1条件。' if l['id']==100 else 'ガン通常弾のみ3乱数条件／推奨機体1条件。') + ('固有技の成立検査も実施。' if r.get('featuredTechniqueVerified') else '')+'全機体全解法、人の難易度は未確認。','']
     if d.get('basicRouteProof'):md.extend(['推奨機体の実行例：'+d['basicRouteProof']['description'],''])
 (out/'STAGES_JA.md').write_text('\n'.join(md).replace('ARCLINE 0.13','ARCLINE '+CONFIG['version']))
 print('Generated visual100-stage atlas and Markdown solution catalogue')

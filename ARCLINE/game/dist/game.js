@@ -60,6 +60,7 @@ function syncLobby(){
 function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('openJournal').disabled=!save.data.journeyStarted;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'Restore the routes. Move the world.':'止まった世界を、もう一度動かす。';}
 const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),clearInput,allowed:()=>!s&&!hostPaused()});
 const machinePicker=ArcMachinePicker.create({data:()=>save.data,state:()=>s,clearInput,allowed:()=>!!s&&s.phase==='aim'&&!s.result&&!hostPaused()&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!s.pendingLoot.length&&(!manualPaused||dialog==='pause'),changed:()=>{sfx.prepare(s.characterId);hud();draw();},change:id=>{if(!E.changeCharacter(s,id,save.data.unlockedCharacterIds))return false;save.data.equippedCharacterId=id;save.save();return true;}});
+const finalTeamUi=ArcFinalTeamUi.create({allowed:canAim,open:()=>machinePicker.open(),hidden:()=>!!demo||ArcStoryView.active||ArcExpeditionUi.active||manualPaused});
 function syncDifficultyChoice(){difficultyUi.sync();}
 function requestDifficulty(done){difficultyUi.request(done);}
 function openBattleMachines(){machinePicker.open();}
@@ -116,8 +117,9 @@ function battleWeaponChoices(){
  return E.availableWeapons(s).map(c=>({...c,weapon:E.weapon(s,0,c.id),source:c.category==='machine'?(c.id==='W01'?'Normal · Unlimited':'Special · Shared charge'):'Can be carried into the chapter boss battle'}));
 }
 function hud(){
+ finalTeamUi.sync(s);
  mapCamera?.sync();
- if(!s)return;$('pauseMachineChange').disabled=!s||s.phase!=='aim'||!!s.result||!!demo;$('pauseMachineChange').hidden=!manualPaused||dialog!=='pause';$('pauseMachineChange').textContent=ArcI18n.language==='en'?'Switch machine':'機体を変更';const nextSpecial=E.nextSpecialTurn(s),english=ArcI18n.language==='en';const specialCopy=english?'SPECIAL '+s.specialAmmo+'/3'+(nextSpecial?' · turn '+nextSpecial:''):'必殺 '+s.specialAmmo+'/3'+(nextSpecial?' · 次は第'+nextSpecial+'ターン':s.specialAmmo===3?' · 準備完了':'');if($('specialHUD').textContent!==specialCopy)$('specialHUD').textContent=specialCopy;if(s.specialChargeSerial!==lastChargeSerial){lastChargeSerial=s.specialChargeSerial;$('specialHUD').classList.remove('charged');void $('specialHUD').offsetWidth;$('specialHUD').classList.add('charged');tone(740,.12,'sine',.04);}
+ if(!s)return;$('pauseMachineChange').disabled=!s||s.phase!=='aim'||!!s.result||!!demo;$('pauseMachineChange').hidden=!manualPaused||dialog!=='pause';$('pauseMachineChange').textContent=ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'View fixed order':'出撃順を確認'):(ArcI18n.language==='en'?'Switch machine':'機体を変更');const nextSpecial=E.nextSpecialTurn(s),english=ArcI18n.language==='en';const specialCopy=english?'SPECIAL '+s.specialAmmo+'/3'+(nextSpecial?' · turn '+nextSpecial:''):'必殺 '+s.specialAmmo+'/3'+(nextSpecial?' · 次は第'+nextSpecial+'ターン':s.specialAmmo===3?' · 準備完了':'');if($('specialHUD').textContent!==specialCopy)$('specialHUD').textContent=specialCopy;if(s.specialChargeSerial!==lastChargeSerial){lastChargeSerial=s.specialChargeSerial;$('specialHUD').classList.remove('charged');void $('specialHUD').offsetWidth;$('specialHUD').classList.add('charged');tone(740,.12,'sine',.04);}
  const shown=activePreview(),displayState=shown?(shown.effectProgress>=.5?shown.after:shown.before)||shown.state:s,[p,e]=displayState.units,enabled=canAim();
  $('playerName').textContent=ArcCharacters.get(s.characterId||save.data.equippedCharacterId).name;
  $('php').textContent=E.combat.points(p.hp);$('ehp').textContent=E.combat.points(e.hp);$('pbar').style.width=p.hp/p.maxHp*100+'%';$('ebar').style.width=e.hp/e.maxHp*100+'%';$('pbar').parentElement.style.setProperty('--segments',100/p.maxHp);$('ebar').parentElement.style.setProperty('--segments',100/e.maxHp);
@@ -186,7 +188,7 @@ function firstDemo(){
 }
 function paintEncounter(){
  const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('bossIntroSkip').hidden=!encounter?.boss||!!demo||!!s?.result||manualPaused||reducedMotion;$('bossIntroSkip').textContent=ArcI18n.language==='en'?'Skip intro':'登場演出をスキップ';$('encounterBanner').dataset.phase=encounter?.boss?ArcExperience.introPhase(encounter.age):'name';$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
- if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id);if(e.textContent!==data[key])e.textContent=data[key];e.hidden=!data[key];}
+ if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id),value=key==='feature'&&ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'Fixed order: all ten machines deal 10 body damage each.':'固定順で10機が本体へ各10ダメージ。3機ごとに戦場が変化。'):data[key];if(e.textContent!==value)e.textContent=value;e.hidden=!value;}
 }
 $('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();renderer.resetCamera();paintEncounter();hud();draw();$('world').focus({preventScroll:true});}};
 function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
@@ -221,6 +223,7 @@ function launch(plan=null){
 }
 function beginVictory(){if(victoryToken===gameToken||!ArcAudio.victoryFor(s,runContext||{}))return;victoryToken=gameToken;bgm.request('VICTORY',{restart:true});audioSync();}
 function finishResult(){
+ if(s.result==='win'&&s.stage===100&&!ArcFinalTeam.complete(s)){ArcFinalTeam.guard(s);return;}
  beginVictory();
  if(s.result==='win'){E.claimClearRewards(s);buildSkills();if(openLoot(finishResult))return;}
  if(s.result!=='win'){s.pendingLoot=[];$('lootPicker').hidden=true;lootContinuation=null;}
@@ -250,7 +253,7 @@ async function persistAdvance(){
  return !pendingAdvance;
 }
 function advanceTurn(){
- const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial;E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(s.phase==='over'){finishResult();return;}
+ const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial,beforeTeam=s.finalTeam?.serial;E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(beforeTeam!==s.finalTeam?.serial){transition=null;clearInput();renderer.resetCamera();sfx.prepare(s.characterId);}if(s.phase==='over'){finishResult();return;}
  if(s.turn){s.time=0;if(!cpuJob&&!cpuReady)requestCPU();}else{shot=null;}
  hud();
 }

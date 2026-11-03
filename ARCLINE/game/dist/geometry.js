@@ -77,17 +77,17 @@ function world(spec,round=1,bossPhase=0,effects={}){
   if(k==='M'){const [x,h,r,dir]=v;regions.push({id,kind:k,...point(x,h),radius:r*10,direction:effects.polarity||dir,strength:spec.id===80?(effects.broken>=2?0:effects.broken===1?.5:1):1,on:true});}
   if(k==='T')terminals.push({id,...point(v[0],v[1]),radius:20});
  });
- return {solids,regions,waters,terminals,surfaces};
+ return {solids,regions,waters,terminals,surfaces,...(spec.worldWidth?{width:spec.worldWidth}:{})};
 }
 function clipX(poly,x,greater){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],ia=greater?a.x>=x-EPS:a.x<=x+EPS,ib=greater?b.x>=x-EPS:b.x<=x+EPS;if(ia)out.push({...a});if(ia!==ib){const t=(x-a.x)/(b.x-a.x);out.push({x,y:a.y+(b.y-a.y)*t});}}return out;}
 function without(w,ids){const gone=new Set(ids);return {...w,solids:w.solids.filter(o=>!gone.has(o.id)),surfaces:w.surfaces.filter(f=>!gone.has(f.solidId||f.id))};}
-function fallLanding(w,x,startY,other=null,range=[35,965]){
+function fallLanding(w,x,startY,other=null,range=[35,(w.width||1000)-35]){
  if(x<range[0]||x>range[1])return null;
  const ys=w.surfaces.map(f=>floorY(f.points,x)).filter(y=>y!==null&&y>=startY-2).sort((a,b)=>a-b);
  for(const y of ys){const p=support(w,x,y),separation=other?.hitShape?Math.max(100,other.hitShape.rx+28):100;if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>separation))return p;}
  return null;
 }
-function teleportLanding(w,hit,other,range=[35,965]){
+function teleportLanding(w,hit,other,range=[35,(w.width||1000)-35]){
  if(!hit||!Number.isFinite(hit.x+hit.y))return null;
  const nx=Number(hit.nx)||0,ny=Number(hit.ny)||0;
  const top=ny<-.4,wall=Math.abs(nx)>.4&&Math.abs(ny)<.7,dir=Math.sign(nx)||1;
@@ -105,7 +105,7 @@ function teleportLanding(w,hit,other,range=[35,965]){
 function surfaceAt(w,x,near=400,maxDifference=Infinity){let best=null;for(const f of w.surfaces){const y=floorY(f.points,x);if(y!==null&&Math.abs(y-near)<=maxDifference&&(!best||Math.abs(y-near)<Math.abs(best.y-near)))best={x,y,id:f.id};}return best;}
 function support(w,x,y){const a=surfaceAt(w,x-20,y,24),b=surfaceAt(w,x+20,y,24);if(!a||!b)return null;return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:a.id};}
 function clearBody(w,p){const points=[{x:p.x,y:p.y-24},{x:p.x-22,y:p.y-20},{x:p.x+22,y:p.y-20},{x:p.x,y:p.y-45}];return !w.waters.some(r=>p.x>=r.x1&&p.x<=r.x2&&p.y>r.y-2)&&!w.solids.some(o=>points.some(q=>inside(q,o.poly)));}
-function safePosition(w,x,y,other=null,range=[35,965]){
+function safePosition(w,x,y,other=null,range=[35,(w.width||1000)-35]){
  for(const dx of [0,-5,5,-12,12,-24,24,-40,40,-70,70,-100,100]){
   const xx=clamp(x+dx,range[0],range[1]),f=surfaceAt(w,xx,y);if(!f)continue;const p=support(w,xx,f.y);
   if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(xx-other.x,p.y-other.y)>100))return p;

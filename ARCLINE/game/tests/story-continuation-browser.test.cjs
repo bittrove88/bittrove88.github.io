@@ -27,7 +27,7 @@ function profile(cleared, lang) {
 async function win(page) {
   // This controlled win fixture tests result/save/story transitions. Physics
   // and each ending timeline remain covered by the existing separate suites.
-  await page.evaluate(() => { s.result = 'win'; s.phase = 'over'; s.units[1].hp = 0; s.pendingLoot = []; finishResult(); });
+  await page.evaluate(() => { (function completeFinalTeam(s){if(s.stage===100&&s.finalTeam){s.finalTeam.index=9;s.finalTeam.map=3;s.characterId='gun';for(const id of s.spec.finalBattle.order)s.finalTeam.damage[id]=s.spec.finalBattle.requiredDamage;s.finalTeam.pending=false;}return s;})(s);s.result = 'win'; s.phase = 'over'; s.units[1].hp = 0; s.pendingLoot = []; finishResult(); });
   for (let i = 0; i < 8 && await page.locator('#lootPicker').isVisible(); i++) await page.locator('#lootSkip').click();
   await page.waitForFunction('dialog==="result"&&!document.getElementById("resume").disabled');
   await page.evaluate(() => ArcStoryView.finishResultText());

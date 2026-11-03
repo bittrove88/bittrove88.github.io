@@ -6360,74 +6360,815 @@
   {
     "stage": 100,
     "name": "アークハート — 最後の帰還",
-    "goal": "外殻を止め、変化する環境ごとに射点を選び直す",
+    "goal": "10機が固定順で本体へ各10ダメージ。3機ごとに戦場を変え、最後はガンが核を止める",
     "floor": [
       [
         0,
-        20
-      ],
-      [
-        31,
-        20
-      ],
-      [
-        47,
         8
+      ],
+      [
+        25,
+        8
+      ],
+      [
+        45,
+        22
       ],
       [
         65,
-        8
+        22
       ],
       [
-        81,
-        20
+        80,
+        18
       ],
       [
         100,
-        20
+        18
+      ],
+      [
+        110,
+        10
+      ],
+      [
+        125,
+        18
+      ],
+      [
+        175,
+        18
+      ],
+      [
+        185,
+        12
+      ],
+      [
+        200,
+        18
+      ],
+      [
+        240,
+        18
+      ],
+      [
+        260,
+        30
+      ],
+      [
+        280,
+        30
+      ],
+      [
+        300,
+        18
       ]
     ],
     "parts": [
       {
         "kind": "wall",
-        "x": 42,
-        "top": 29,
+        "x": 112,
+        "top": 32,
         "width": 4,
-        "bottom": 8
+        "bottom": 10
+      },
+      {
+        "kind": "wall",
+        "x": 195,
+        "top": 33,
+        "width": 4,
+        "bottom": 12
       },
       {
         "kind": "island",
-        "x": 51,
-        "end": 65,
-        "top": 29,
-        "thickness": 5
+        "x": 118,
+        "end": 135,
+        "top": 31,
+        "thickness": 4
+      },
+      {
+        "kind": "roof",
+        "x": 105,
+        "end": 125,
+        "top": 51,
+        "thickness": 3,
+        "breakable": true
+      },
+      {
+        "kind": "roof",
+        "x": 165,
+        "end": 180,
+        "top": 49,
+        "thickness": 3,
+        "breakable": true
+      },
+      {
+        "kind": "island",
+        "x": 245,
+        "end": 270,
+        "top": 32,
+        "thickness": 4
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          36,
-          70,
-          8
-        ]
-      },
-      {
-        "type": "K",
-        "v": [
-          68,
-          31,
-          30
+          155,
+          245,
+          18
         ]
       }
     ],
     "recommended": "gun",
     "spawn": [
-      16,
-      82
+      80,
+      150
     ],
-    "route": "外殻を止め、変化する環境ごとに射点を選び直す",
+    "route": "ハナ→コロ→バン／ソラ→リコ→ヒバリ／モグ→リン→ユイ／ガン。担当ごとの射点から遮蔽とギミックを読み、本体へ合計10ダメージを与える。",
     "nameEn": "Archeart — The Last Return",
-    "goalEn": "Stop the shells and choose a new firing point as the environment changes."
+    "goalEn": "Deal 10 body damage with each of ten machines in order. The arena changes every three machines; GUN delivers the final hit.",
+    "terrainRevision": "5.3",
+    "enemyProfile": 6,
+    "worldWidth": 3000,
+    "actionLimit": 36,
+    "finalBattle": {
+      "order": [
+        "hana",
+        "koro",
+        "ban",
+        "sora",
+        "rico",
+        "hibari",
+        "mogu",
+        "rin",
+        "yui",
+        "gun"
+      ],
+      "requiredDamage": 0.5,
+      "durabilityScale": 0.7,
+      "specialAmmo": 1,
+      "maps": [
+        {
+          "name": {
+            "ja": "外殻 — 三つの射線",
+            "en": "Outer gates — Three approaches"
+          },
+          "floor": [
+            [
+              0,
+              8
+            ],
+            [
+              25,
+              8
+            ],
+            [
+              45,
+              22
+            ],
+            [
+              65,
+              22
+            ],
+            [
+              80,
+              18
+            ],
+            [
+              100,
+              18
+            ],
+            [
+              110,
+              10
+            ],
+            [
+              125,
+              18
+            ],
+            [
+              175,
+              18
+            ],
+            [
+              185,
+              12
+            ],
+            [
+              200,
+              18
+            ],
+            [
+              240,
+              18
+            ],
+            [
+              260,
+              30
+            ],
+            [
+              280,
+              30
+            ],
+            [
+              300,
+              18
+            ]
+          ],
+          "parts": [
+            {
+              "kind": "wall",
+              "x": 112,
+              "top": 32,
+              "width": 4,
+              "bottom": 10
+            },
+            {
+              "kind": "wall",
+              "x": 195,
+              "top": 33,
+              "width": 4,
+              "bottom": 12
+            },
+            {
+              "kind": "island",
+              "x": 118,
+              "end": 135,
+              "top": 31,
+              "thickness": 4
+            },
+            {
+              "kind": "roof",
+              "x": 105,
+              "end": 125,
+              "top": 51,
+              "thickness": 3,
+              "breakable": true
+            },
+            {
+              "kind": "roof",
+              "x": 165,
+              "end": 180,
+              "top": 49,
+              "thickness": 3,
+              "breakable": true
+            },
+            {
+              "kind": "island",
+              "x": 245,
+              "end": 270,
+              "top": 32,
+              "thickness": 4
+            }
+          ],
+          "features": [
+            {
+              "type": "W",
+              "v": [
+                155,
+                245,
+                18
+              ]
+            }
+          ],
+          "spawns": {
+            "hana": [
+              80,
+              18
+            ],
+            "koro": [
+              225,
+              18
+            ],
+            "ban": [
+              130,
+              18
+            ]
+          },
+          "bossSpawn": [
+            150,
+            18
+          ]
+        },
+        {
+          "name": {
+            "ja": "内殻 — 空と鏡の回廊",
+            "en": "Inner shell — Sky and mirrors"
+          },
+          "floor": [
+            [
+              0,
+              8
+            ],
+            [
+              35,
+              8
+            ],
+            [
+              55,
+              26
+            ],
+            [
+              70,
+              26
+            ],
+            [
+              85,
+              12
+            ],
+            [
+              120,
+              12
+            ],
+            [
+              135,
+              20
+            ],
+            [
+              205,
+              20
+            ],
+            [
+              220,
+              12
+            ],
+            [
+              260,
+              12
+            ],
+            [
+              275,
+              22
+            ],
+            [
+              285,
+              22
+            ],
+            [
+              300,
+              8
+            ]
+          ],
+          "parts": [
+            {
+              "kind": "island",
+              "x": 115,
+              "end": 132,
+              "top": 32,
+              "thickness": 4
+            },
+            {
+              "kind": "island",
+              "x": 218,
+              "end": 240,
+              "top": 27,
+              "thickness": 4
+            },
+            {
+              "kind": "wall",
+              "x": 155,
+              "top": 35,
+              "width": 4,
+              "bottom": 20
+            },
+            {
+              "kind": "roof",
+              "x": 165,
+              "end": 183,
+              "top": 40,
+              "thickness": 3,
+              "breakable": true
+            },
+            {
+              "kind": "wall",
+              "x": 208,
+              "top": 31,
+              "width": 4,
+              "bottom": 17
+            },
+            {
+              "kind": "island",
+              "x": 55,
+              "end": 80,
+              "top": 35,
+              "thickness": 4
+            }
+          ],
+          "features": [
+            {
+              "type": "W",
+              "v": [
+                185,
+                248,
+                12
+              ]
+            },
+            {
+              "type": "K",
+              "v": [
+                205,
+                28,
+                28
+              ]
+            },
+            {
+              "type": "C",
+              "v": [
+                145,
+                160,
+                23,
+                40
+              ]
+            }
+          ],
+          "spawns": {
+            "sora": [
+              100,
+              12
+            ],
+            "rico": [
+              245,
+              12
+            ],
+            "hibari": [
+              145,
+              20
+            ]
+          },
+          "bossSpawn": [
+            180,
+            20
+          ],
+          "floorSegments": [
+            [
+              [
+                0,
+                8
+              ],
+              [
+                35,
+                8
+              ],
+              [
+                55,
+                26
+              ],
+              [
+                70,
+                26
+              ],
+              [
+                85,
+                12
+              ],
+              [
+                120,
+                12
+              ],
+              [
+                135,
+                20
+              ],
+              [
+                205,
+                20
+              ]
+            ],
+            [
+              [
+                220,
+                12
+              ],
+              [
+                260,
+                12
+              ],
+              [
+                275,
+                22
+              ],
+              [
+                285,
+                22
+              ],
+              [
+                300,
+                8
+              ]
+            ]
+          ]
+        },
+        {
+          "name": {
+            "ja": "核の防護 — 壊して結ぶ",
+            "en": "Core shield — Break and connect"
+          },
+          "floor": [
+            [
+              0,
+              6
+            ],
+            [
+              25,
+              6
+            ],
+            [
+              45,
+              28
+            ],
+            [
+              60,
+              16
+            ],
+            [
+              95,
+              16
+            ],
+            [
+              110,
+              24
+            ],
+            [
+              160,
+              24
+            ],
+            [
+              175,
+              16
+            ],
+            [
+              220,
+              16
+            ],
+            [
+              240,
+              5
+            ],
+            [
+              270,
+              5
+            ],
+            [
+              285,
+              22
+            ],
+            [
+              300,
+              22
+            ]
+          ],
+          "parts": [
+            {
+              "kind": "wall",
+              "x": 92,
+              "top": 33,
+              "width": 4,
+              "bottom": 16
+            },
+            {
+              "kind": "wall",
+              "x": 177,
+              "top": 34,
+              "width": 4,
+              "bottom": 16
+            },
+            {
+              "kind": "roof",
+              "x": 120,
+              "end": 145,
+              "top": 39,
+              "thickness": 3,
+              "breakable": true
+            },
+            {
+              "kind": "island",
+              "x": 75,
+              "end": 90,
+              "top": 35,
+              "thickness": 4
+            },
+            {
+              "kind": "island",
+              "x": 185,
+              "end": 205,
+              "top": 34,
+              "thickness": 4
+            },
+            {
+              "kind": "roof",
+              "x": 225,
+              "end": 243,
+              "top": 46,
+              "thickness": 3,
+              "breakable": false
+            }
+          ],
+          "features": [
+            {
+              "type": "M",
+              "v": [
+                165,
+                27,
+                9,
+                1
+              ]
+            },
+            {
+              "type": "W",
+              "v": [
+                98,
+                168,
+                16
+              ]
+            }
+          ],
+          "spawns": {
+            "mogu": [
+              70,
+              16
+            ],
+            "rin": [
+              210,
+              16
+            ],
+            "yui": [
+              118,
+              24
+            ]
+          },
+          "bossSpawn": [
+            140,
+            24
+          ],
+          "floorSegments": [
+            [
+              [
+                0,
+                6
+              ],
+              [
+                25,
+                6
+              ],
+              [
+                45,
+                28
+              ],
+              [
+                60,
+                16
+              ],
+              [
+                95,
+                16
+              ]
+            ],
+            [
+              [
+                110,
+                24
+              ],
+              [
+                160,
+                24
+              ]
+            ],
+            [
+              [
+                175,
+                16
+              ],
+              [
+                220,
+                16
+              ],
+              [
+                240,
+                5
+              ],
+              [
+                270,
+                5
+              ],
+              [
+                285,
+                22
+              ],
+              [
+                300,
+                22
+              ]
+            ]
+          ]
+        },
+        {
+          "name": {
+            "ja": "最後の一射 — ガン",
+            "en": "The last shot — GUN"
+          },
+          "floor": [
+            [
+              0,
+              5
+            ],
+            [
+              35,
+              5
+            ],
+            [
+              55,
+              20
+            ],
+            [
+              80,
+              20
+            ],
+            [
+              100,
+              8
+            ],
+            [
+              130,
+              8
+            ],
+            [
+              155,
+              16
+            ],
+            [
+              195,
+              16
+            ],
+            [
+              210,
+              24
+            ],
+            [
+              270,
+              24
+            ],
+            [
+              285,
+              16
+            ],
+            [
+              300,
+              16
+            ]
+          ],
+          "parts": [
+            {
+              "kind": "wall",
+              "x": 206,
+              "top": 44,
+              "width": 4,
+              "bottom": 22
+            },
+            {
+              "kind": "roof",
+              "x": 220,
+              "end": 260,
+              "top": 38,
+              "thickness": 3,
+              "breakable": true
+            },
+            {
+              "kind": "island",
+              "x": 190,
+              "end": 203,
+              "top": 33,
+              "thickness": 4
+            },
+            {
+              "kind": "island",
+              "x": 265,
+              "end": 280,
+              "top": 35,
+              "thickness": 4
+            }
+          ],
+          "features": [
+            {
+              "type": "K",
+              "v": [
+                217,
+                33,
+                -20
+              ]
+            }
+          ],
+          "spawns": {
+            "gun": [
+              170,
+              16
+            ]
+          },
+          "bossSpawn": [
+            240,
+            24
+          ]
+        }
+      ]
+    }
   }
 ]

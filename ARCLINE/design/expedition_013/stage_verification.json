@@ -4252,44 +4252,69 @@
     {
       "stage": 100,
       "status": "PASS",
-      "gunSeedWins": 3,
-      "gunActions": [
-        5,
-        5
+      "teamSeedWins": 3,
+      "teamActions": [
+        11,
+        11
       ],
-      "recommendedCharacter": "gun",
+      "order": [
+        "hana",
+        "koro",
+        "ban",
+        "sora",
+        "rico",
+        "hibari",
+        "mogu",
+        "rin",
+        "yui",
+        "gun"
+      ],
+      "requiredDamage": 10,
+      "durabilityScale": 0.7,
+      "worldWidth": 3000,
+      "maps": 4,
+      "recommendedCharacter": "team",
       "recommendedWin": true,
-      "recommendedActions": 7,
-      "nativeActionLimit": 28,
-      "minimumRemainingHp": 6,
+      "recommendedActions": 11,
+      "nativeActionLimit": 36,
       "normalWitness": {
-        "character": "gun",
-        "actions": 5,
-        "description": "通常 48°/85% → 通常 78°/95% → 左へ12.0歩行 → 通常 126°/100% → 通常 102°/90% → 通常 42°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "character": "team",
+        "actions": 11,
+        "description": "hana:attack 42°/70% → koro:attack 102°/95% → ban:attack 24°/60% → sora:attack 42°/80% → rico:attack 126°/70% → hibari:attack 60°/85% → mogu:attack 90°/70% → rin:attack 150°/70% → yui:attack 6°/80% → gun:break 48°/80% → gun:attack 36°/70%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/TEAM_MATCHES.json",
           "stage": 100,
-          "seedVariant": 1
+          "seed": 4697
         }
       },
       "recommendedWitness": {
-        "character": "gun",
-        "actions": 7,
-        "description": "必殺 48°/85% → 必殺 84°/90% → 必殺 84°/100% → 左へ12.0歩行 → 通常 126°/100% → 左へ12.0歩行 → 通常 126°/100% → 通常 108°/100% → 通常 108°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "character": "team",
+        "actions": 11,
+        "description": "hana:special 42°/70% → koro:special 108°/25% → ban:special 0°/55% → sora:special 56°/100% → rico:special 102°/50% → hibari:special 0°/95% → mogu:attack 90°/70% → rin:special 150°/70% → yui:special -12°/25% → gun:special 60°/75% → gun:attack 114°/95%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/final-battle-0211/TEAM_MATCHES.json",
           "stage": 100,
-          "seedVariant": null
+          "seed": 13719
         }
       },
       "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+      "humanDifficulty": "未確認。自動探索の成立と人の操作難易度・勝率は区別。",
       "reports": [
-        "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-        "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
+        "../../evidence/final-battle-0211/TEAM_MATCHES.json"
       ],
-      "blueprintSha256": "543f534988592a3a830876cc517d5f0047c2cd05f8f4fbdf791d9d022a9ca8f8"
+      "blueprintSha256": "b2320f620659606010c294162cc7dd0a0802a8e10fd60922ba2a0ef3cb518c28"
     }
   ],
-  "terrainRevision": "0.17.0"
+  "terrainRevision": "0.17.0",
+  "partialRevalidation": {
+    "stages": [
+      100
+    ],
+    "terrainRevision": "5.3",
+    "matches": 4,
+    "scope": "Stage100 ten-machine relay:three normal-only seeds and one signature-enabled match with real enemy turns. Other99 retained historical records.",
+    "evidenceSha256": {
+      "TEAM_MATCHES.json": "17663bb02317b1bf1c4a47fd6b7490913d56decfd27bc837657a185e5e075f9e"
+    }
+  }
 }

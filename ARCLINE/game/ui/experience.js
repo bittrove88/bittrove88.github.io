@@ -17,10 +17,10 @@
     const low =
         Math.min(...state.units.map((u, i) => u.y - (i ? 150 : 80))) - 18,
       high = Math.max(...state.units.map((u) => u.y)) + 24;
-    const scale = Math.min(width / 1060, height / Math.max(180, high - low));
+    const scale = Math.min(width / ((state.spec.worldWidth || 1000) + 60), height / Math.max(180, high - low));
     const overview = {
       scale,
-      x: width / 2 - 500 * scale,
+      x: width / 2 - ((state.spec.worldWidth || 1000) / 2) * scale,
       y: (top + bottom) / 2 - ((low + high) / 2) * scale,
     };
     const boss = state.units[1],

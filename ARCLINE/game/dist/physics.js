@@ -104,7 +104,7 @@ function simulate(s,side,angle,power,options={}){
   if(p.effect){events.push({type:p.effect==='pulse'?'breach-pulse':'compression',x:p.x,y:p.y,t:p.t,bullet:p.id});explode(p,p.effect==='pulse'?hitTargets(simState,side,{x:p.x-.01,y:p.y},{x:p.x+.01,y:p.y},p.age,weapon):p.effectHit,p.pulseContact||p.effectContact);continue;}
   for(let steps=0;steps<1;steps++){
    iterations++;
-   if(p.age>=8-1e-9||p.x< -40||p.x>1040||p.y>560||p.y< -1600){events.push({x:p.x,y:p.y,t:p.t,type:'expired',bullet:p.id});ended=true;break;}
+   if(p.age>=8-1e-9||p.x< -40||p.x>(s.spec.worldWidth||1000)+40||p.y>560||p.y< -1600){events.push({x:p.x,y:p.y,t:p.t,type:'expired',bullet:p.id});ended=true;break;}
    const old={x:p.x,y:p.y};let next={x:p.x+p.vx*DT,y:p.y+p.vy*DT};
    if(p.roll){
     const f=G.surfaceAt(simWorld,next.x,p.y+3,15);
