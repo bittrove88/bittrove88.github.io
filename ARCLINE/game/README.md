@@ -54,3 +54,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.22.0：正本は `design/expedition_013/stage_blueprints.json` の指定30面。指示書と提案JSONは参照原本として保持し、現在の100面のHP70・各100・80行動などを保全して地形だけ移植。`map-revision-planner.cjs` は上限140pxの実移動、通常弾／実際の転移、現行Normalの敵反撃と勝敗で対象面だけ検証。`record_map_revision.py --evidence evidence/map-revision-0220` は新121戦だけを対象30面へ記録し、旧70面の証拠は保持。変更した地形には旧操作列を再利用しません。`build_campaign.py` → 正式 `npm run build` で攻略図とデータを同期します。
 
 `tests/map-revision.test.cjs` は基準683d5b0に対して未変更70面の設計・実初期状態と13の実装モジュールを厳密照合。床座標による集計（高低差3以下0/60、同高度1/60）と、実行時安全配置後の同高度4/60を分離。後者89/92/94/98は全て変更対象外のため変更せず、実配置3以下の目標未達を記録します。
+
+2026-11-04 射線復元：0.21.4で全モード同じ全軌道になった表示のみを修正し、`dist/aim-guide.js` の Easy 100%／Normal 軌道距離50%／Hard 予測なしと、`dist/render.js`／`ui/difficulty-ui.js` の Hard 発射方向ガイドを復元。初回試撃は引き続き任意。敵の誤差・敵ダメージ・難易度別セーブ・0.22.0の地形には変更なし。キャッシュ識別子のみ 0.22.1 に変更（アプリの `version` は0.22.0）。[修正記録](../docs/releases/aim-guide-restore-2026-11-04.md)。
