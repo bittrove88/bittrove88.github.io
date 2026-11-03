@@ -338,7 +338,7 @@ function create(canvas,configuration={}){
    if(!guideCache||guideCache.plan!==plan||guideCache.difficulty!==difficulty)guideCache={plan,difficulty,paths:root.ArcAimGuide.paths(plan,difficulty)};
    const splitGuide=root.ArcAimGuide.splitProjection(plan);
    const baseVisible=difficulty==='hard'?root.ArcAimGuide.direction(G.muzzle(s,0,s.angle),scale):guideCache.paths;
-   // Retain Sora's special carrier to its split point, even in Hard.
+   // Sora is a special case: even HARD shows the carrier up to its exact split, never its falling children.
    const visible=splitGuide?[...baseVisible.filter(b=>b.id!==splitGuide.parentId&&b.id!=='direction'),{id:splitGuide.parentId,path:splitGuide.path}]:baseVisible;
    ctx.save();ctx.beginPath();ctx.rect(-view.x/scale,(top-view.y)/scale,fieldW/scale,(bottom-top)/scale);ctx.clip();
    for(const b of visible){const points=b.path;if(!points.length)continue;
