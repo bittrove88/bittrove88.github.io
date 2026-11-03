@@ -47,7 +47,7 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 
 0.21.4：`dist/save.js` の `prepareDifficulty` が現在の攻略・保有機体・章在庫・補充・物語を退避し、選択先を復帰。選択中は従来のトップレベル、他2モードは追加field `difficultyProgress` に格納し、チェックポイントを二重保持しません。保存成功後にのみ切り替え、失敗時は旧モードを維持。既存データは現在の難易度へ割り当て、他の難易度は初期状態。schema8/reset2・保存キー・言語・操作設定は維持。初回の難易度確定では、直前に見たプロローグを繰り返しません。
 
-`engine.enemyParameters` をメインとWorkerで共有。既存誤差×面倍率×モード倍率を浮動小数のまま使用し、敵計画の対自機damageだけにステージ倍率を一度適用。物理や最適解探索、特殊固定座標、部位破壊の半減は維持。`aim-guide.paths` と描画側は全モード全軌道。`ui/difficulty-ui.js` で試撃は任意、保存中の開始を遮断。`crew-usage.record` は100面・既クリア面を除外し、再プレイでは連続使用も補充残りも変えません。
+`engine.enemyParameters` をメインとWorkerで共有。既存誤差×面倍率×モード倍率を浮動小数のまま使用し、敵計画の対自機damageだけにステージ倍率を一度適用。物理や最適解探索、特殊固定座標、部位破壊の半減は維持。`aim-guide.paths` と描画側は射線復帰によりEasy全軌道・Normal半分・Hard発射方向のみ（SORAの専用分裂ガイドは維持）。`ui/difficulty-ui.js` で試撃は任意、保存中の開始を遮断。`crew-usage.record` は100面・既クリア面を除外し、再プレイでは連続使用も補充残りも変えません。
 
 最小検証：`tests/difficulty-balance.test.cjs`、`tests/aim-guide.test.cjs`、`tests/difficulty-browser.test.cjs`、`tools/difficulty-smoke.cjs`（Normal60・90・100各1戦）。旧最終戦の対戦フィクスチャは当時の敵バランスで保持し、今回の代表対戦とは区別します。
 
