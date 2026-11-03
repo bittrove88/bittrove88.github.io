@@ -25,6 +25,11 @@ body {
   overscroll-behavior: none;
   touch-action: pan-x pan-y;
 }
+html[data-system-edges="true"],
+html[data-system-edges="true"] body {
+  overscroll-behavior: auto;
+  touch-action: auto;
+}
 button,
 select,
 input {

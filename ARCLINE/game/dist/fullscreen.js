@@ -1,10 +1,12 @@
 (function(root){'use strict';
-let locked=false,helpReturn=null;const active=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
-async function enter(){if(active())return true;const el=document.documentElement,fn=el.requestFullscreen||el.webkitRequestFullscreen;if(!fn)return false;try{await fn.call(el,{navigationUI:'hide'});sync();return active();}catch{return false;}}
-function sync(){for(const b of document.querySelectorAll('[data-fullscreen]'))b.textContent=active()?'Exit fullscreen':'Fullscreen';root.ArcI18n?.apply();root.dispatchEvent(new Event('arcline-fullscreen'));}
+let locked=false,helpReturn=null,exiting=false;const active=()=>!!(document.fullscreenElement||document.webkitFullscreenElement),ios=()=>root.ArcViewport?.isIOS?.()||false;
+async function leaveIOS(){if(!ios()||!active()||exiting)return;exiting=true;try{await(document.exitFullscreen?.()||document.webkitExitFullscreen?.());}catch{}finally{exiting=false;}}
+async function enter(){if(ios()){await leaveIOS();return false;}if(active())return true;const el=document.documentElement,fn=el.requestFullscreen||el.webkitRequestFullscreen;if(!fn)return false;try{await fn.call(el,{navigationUI:'hide'});sync();return active();}catch{return false;}}
+function sync(){for(const b of document.querySelectorAll('[data-fullscreen]')){b.hidden=ios();b.textContent=active()?'Exit fullscreen':'Fullscreen';}if(ios())leaveIOS();root.ArcI18n?.apply();root.dispatchEvent(new Event('arcline-fullscreen'));}
 function help(trigger){if(root.ArcDevice){root.ArcDevice.offer(()=>trigger?.focus({preventScroll:true}),true);return;}helpReturn=trigger;document.getElementById('screenHelp').hidden=false;document.getElementById('closeScreenHelp').focus({preventScroll:true});}
 async function toggle(event){
  const trigger=event?.currentTarget||document.activeElement;
+ if(ios()){await leaveIOS();sync();return;}
  try{if(active()){await(document.exitFullscreen?.()||document.webkitExitFullscreen?.());return;}
  const el=document.documentElement,fn=el.requestFullscreen||el.webkitRequestFullscreen;
  if(!fn){help(trigger);return;}await fn.call(el,{navigationUI:'hide'});

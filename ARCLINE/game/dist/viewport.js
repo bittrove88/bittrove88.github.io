@@ -2,6 +2,7 @@
 // Safari may retain a visual-page scale despite the viewport meta tag. Keep the
 // playable surface fitted to the visible viewport, without reloading or losing a duel.
 (function(root){
+ function isIOS(nav=root.navigator){return /iPhone|iPad|iPod/.test(nav?.userAgent||'')||(nav?.platform==='MacIntel'&&nav?.maxTouchPoints>1);}
  function rotationFor(width,height,angle){
   // The physical right edge is always the top. Native screen rotation has
   // already compensated for 90/-90/180 degrees, so compensate exactly once.
@@ -24,7 +25,13 @@
  }
  function install(app,onChange=()=>{}){
   let state=null,mirrors=[],scrollGesture=null;
-  const viewport=root.visualViewport,options={passive:false,capture:true};
+  const viewport=root.visualViewport,ios=isIOS();
+  if(ios)document.documentElement.dataset.systemEdges='true';
+  function systemInsets(){
+   if(!ios)return {left:0,right:0,top:0,bottom:0};
+   const probe=document.createElement('div');probe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';document.body.append(probe);
+   const css=getComputedStyle(probe),result={};for(const side of ['left','right','top','bottom'])result[side]=Math.max(24,parseFloat(css['padding'+side[0].toUpperCase()+side.slice(1)])||0);probe.remove();return result;
+  }
   function cancelGesture(){
    const id=scrollGesture?.id;scrollGesture=null;
    if(id!==undefined)try{if(app.hasPointerCapture(id))app.releasePointerCapture(id);}catch{}
@@ -77,8 +84,9 @@
    for(const row of mirrors)row.copy.textContent=row.disabled?'':virtualCSS(serialize(row.sheet.cssRules));
   }
   function fit(){
-   const scale=Math.max(.1,viewport?.scale||1),nativeWidth=(viewport?.width||root.innerWidth)*scale,nativeHeight=(viewport?.height||root.innerHeight)*scale,
-    left=viewport?.offsetLeft||0,top=viewport?.offsetTop||0;
+   // Keep physical OS gesture edges outside the rotated/touch-capturing app.
+   const inset=systemInsets(),scale=Math.max(.1,viewport?.scale||1),nativeWidth=Math.max(1,(viewport?.width||root.innerWidth)-inset.left-inset.right)*scale,nativeHeight=Math.max(1,(viewport?.height||root.innerHeight)-inset.top-inset.bottom)*scale,
+    left=(viewport?.offsetLeft||0)+inset.left,top=(viewport?.offsetTop||0)+inset.top;
    const portrait=nativeWidth<nativeHeight,nativeAngle=typeof root.orientation==='number'?root.orientation:root.screen?.orientation?.angle,rotation=rotationFor(nativeWidth,nativeHeight,nativeAngle),width=portrait?nativeHeight:nativeWidth,height=portrait?nativeWidth:nativeHeight;
    const next={width,height,scale,left,top,rotation};
    if(state&&Object.keys(next).every(k=>Math.abs(next[k]-state[k])<.01))return false;
@@ -88,20 +96,11 @@
    app.dataset.viewRotation=String(rotation);responsiveSheets(width,height);
    app.dataset.viewportFitted=scale>1.01?'true':'false';onChange(next);return true;
   }
-  const inside=e=>app.contains(e.target),gameplay=e=>e.target?.closest?.('#world,#stick,#aimStick,#fire');
-  function touch(e){
-   if(!inside(e))return;
-   // Pointer events still drive independent movement, aim and firing fingers.
-   // Only these surfaces lack click actions; panel buttons keep native clicks
-   // and one-finger panel scrolling is deliberately left to the browser.
-   if(e.touches.length>1||gameplay(e))e.preventDefault();
-  }
-  for(const event of ['touchstart','touchmove','touchend'])app.addEventListener(event,touch,options);
-  for(const event of ['gesturestart','gesturechange','gestureend'])app.addEventListener(event,e=>e.preventDefault(),options);
-  app.addEventListener('dblclick',e=>e.preventDefault());
+  // Control surfaces own their gestures. No blanket touchstart/touchend or
+  // WebKit gesture cancellation: system edge gestures must remain with iOS.
   viewport?.addEventListener('resize',fit);viewport?.addEventListener('scroll',fit);
   root.addEventListener('resize',fit);root.addEventListener('orientationchange',fit);root.screen?.orientation?.addEventListener?.('change',fit);root.addEventListener('pageshow',fit);
   fit();return {fit,cancelGesture,point:(x,y)=>point(x,y,app),rect:element=>rect(element,app),get state(){return {...state};}};
  }
- root.ArcViewport={install,point,rect,rotationFor};
+ root.ArcViewport={install,point,rect,rotationFor,isIOS};
 })(globalThis);
