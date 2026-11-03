@@ -21,7 +21,7 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 
 0.17.0の章再生は `ui/chapter-playback.js`、表示は `styles/chapter-flow.css`。地形の正本は `design/expedition_013/stage_blueprints.json`。実戦で再確認した証拠だけを `record_stage_verification.py` で記録し、blueprintのSHA256が一致する結果をガイドへ反映します。保存のcampaignVersionは変えず、地形更新はterrainRevisionで区別します。
 
-0.17.1の開始画面の削除確認は `ui/onboarding.js`、明示削除の保存順序と失敗保護は `dist/save.js`。プロローグ／エンディングの回転停止は `dist/game.js` のhost pause sourcesと `dist/story-view.js` の同期フックが所有します。削除はcanonical保存だけを初期状態で置換し、言語・操作配置・インストール案内と他アプリの保存領域を保持します。
+0.17.1の開始画面の削除確認は `ui/onboarding.js`、明示削除の保存順序と失敗保護は `dist/save.js`。当時のプロローグ／エンディングの回転停止は0.20.0で廃止し、常時横向きへ統一しました。SDK・バックグラウンドの停止は維持します。削除はcanonical保存だけを初期状態で置換し、言語・操作配置・インストール案内と他アプリの保存領域を保持します。
 
 0.18.0のエンディング正本は `../design/ending_roll.json`（固定境界、グループ、10機の加入順、動きの基準）。`tools/build_ending_roll.py` が、出典台帳と `../design/ending-roll-preparation/player-masks.json`・承認済みalpha PNGから42体と `dist/ending-roll-data.js`、`assets/ending/roll-manifest.json`、`player-cutouts.json` を再生成します。通常ビルドはPillowのみ。マスクの準備手順は `tools/prepare_player_masks.py`（OpenCV 5.0.0.93の任意の別環境）へ保存。元RGBと元画像SHAは検査し、派生PNGも全画素を照合します。
 
@@ -30,3 +30,7 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.18.1は `design/ending_roll.json` のER-02〜05だけを再配分（敵7秒短縮→自機へ）。自機の登場間隔は区間長と6.6秒の通過から算出します。`ending-credits.js` の共通poseで斜め進入・旋回・加速・フェードを計算し、回転後の外接範囲と名前の余白も確保。CSS側に独立したアニメーション時計を作りません。
 
 0.19.0のSFX正本は `../design/audio/sfx/runtime.json`、再生は `ui/sfx-manager.js`。`tools/build_sfx.py` が保存されたFINAL ZIPの全72件を検証し、採用37 WAV・manifest・`dist/sfx-data.js`を再生成します。`tools/generation.py`の正式計画・130出力と配布ZIPに登録。原本・旧試作・archive・試聴ファイルは配布しません。保存・物理カーソルから独立した音声カーソルで既存AudioContextを共有し、BGM・UI音を保持します。弾道の基本定数は `dist/combat.js` のballistics、明示的な武器効果は `weapons.js`。結果画面は `styles/chapter-flow.css`、10灯の原画座標は `dist/cinematic-player.js`。
+
+0.20.0の見渡しカメラは `ui/map-camera.js`、表示は `styles/map-camera.css`。`dist/render.js` は明示的な `cameraView` を表示へ適用し、終了時は通常カメラへ即時復帰します。`ArcScreens` がフォーカス・背景入力の遮断を管理。見渡し中の進行停止と座標・入力解放は `dist/game.js` が接続し、物理・保存にはカメラ状態を渡しません。
+
+常時横向き表示は手書きの `dist/viewport.js`。スマホ右側を上に固定し、ネイティブ角に応じた90／逆90／180度の補正と逆座標変換を共有します。元CSSを同じ順序で複製し、寸法メディアクエリ・viewport単位・セーフエリアを論理画面へ対応。固定オフや反転の選択、好みの保存は追加しません。

@@ -1522,41 +1522,7 @@ h1 {
     font-size: 13px;
   }
 }
-@media (orientation: portrait) and (max-height: 650px) {
-  .lobby-top {
-    top: 12px;
-  }
-  .arena-title {
-    top: 13%;
-  }
-  .arena-title p {
-    font-size: 14px;
-  }
-  #themeProgress {
-    margin-top: 9px;
-  }
-  #lobbyRover {
-    top: 31%;
-    width: 190px;
-  }
-  .lobby-dock {
-    bottom: calc(12px + var(--safe));
-  }
-  .lobby-dock .play-button {
-    min-height: 54px;
-  }
-  .battle-top {
-    top: 8px;
-  }
-  .turn-pill,
-  #shotBudget {
-    top: 76px;
-  }
-  #shotFeedback,
-  #rewardNotice {
-    top: 106px;
-  }
-}
+
 @media (orientation: landscape) and (max-height: 600px) {
   .lobby-top {
     top: 10px;
@@ -2150,36 +2116,7 @@ h1 {
   width: 100%;
   height: 100%;
 }
-#rotationGate {
-  position: absolute;
-  inset: 0;
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: #12384c;
-  padding: 24px;
-}
-#rotationGate > span {
-  font-size: 80px;
-  color: #ddffc6;
-}
-#rotationGate h2 {
-  font-size: 23px;
-  margin: 20px 0 10px;
-}
-#rotationGate p {
-  font-size: 15px;
-  line-height: 1.6;
-  max-width: 320px;
-  color: #cce1dc;
-}
-#rotationGate button {
-  padding: 0 20px;
-  margin-top: 18px;
-}
+
 .language-toggle {
   position: absolute;
   right: 0;
@@ -2890,24 +2827,6 @@ html[lang="ja"] #fire:disabled #chargeValue {
 @media (orientation: landscape) and (max-height: 600px) and (pointer: coarse) {
   #battleControls {
     bottom: max(4px, env(safe-area-inset-bottom));
-  }
-}
-@media (orientation: portrait) and (max-width: 559px) {
-  #battleControls {
-    height: 194px;
-  }
-  #powerHUD,
-  #app[data-controls="right"] #powerHUD {
-    left: 0;
-    right: 0;
-    top: 0;
-  }
-  #actionRow,
-  #app[data-controls="right"] #actionRow {
-    left: 0;
-    right: 0;
-    top: 52px;
-    bottom: auto;
   }
 }
 

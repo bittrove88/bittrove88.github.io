@@ -239,6 +239,8 @@ function create(canvas,configuration={}){
   // miniature battlefield. Horizontal actor bounds and all UI sizes stay fixed.
   const trackedShot=shot||(options.tail?.age<.55?options.tail.shot:null);
   if(trackedShot&&!localDemo){const trackTime=shot?flight:trackedShot.duration,bullet=trackedShot.bullets.find(b=>trackTime>=b.start&&trackTime<=b.t)||trackedShot.bullets[0],points=bullet?.path||[],p=points.find(q=>q.t>=trackTime+.22)||points.at(-1);if(p){const dt=Math.max(1/120,Math.min(.05,time-lastCameraTime||1/60)),screenY=view.y+p.y*view.scale,bandTop=top+22,bandBottom=bottom-22;let dy=screenY<bandTop?bandTop-screenY:screenY>bandBottom?bandBottom-screenY:0;view.y+=Math.max(-480*dt,Math.min(480*dt,dy*(1-Math.exp(-dt*7))));}}
+  // Inspection owns only the display transform; physics and aiming stay in world coordinates.
+  if(options.cameraView)view={...options.cameraView};
   lastCameraTime=time;cameraKey=nextKey;const scale=view.scale;
   if(phoneLandscape){
    const enemyY=view.y+(s.units[1].y-(s.spec.boss?77:22))*view.scale;document.getElementById('battle').dataset.enemyDirection=enemyY<top?'above':enemyY>bottom?'below':'visible';
@@ -452,7 +454,7 @@ function create(canvas,configuration={}){
   for(const effect of options.pickupEffects||[]){const t=Math.min(1,effect.age/.8),ease=t*t*(3-2*t),target=canvasRect(document.getElementById(effect.id[0]==='W'?'weaponToggle':'pause')),x=view.x+effect.x*view.scale,y=view.y+effect.y*view.scale;ctx.globalAlpha=1-t;circle(x+(target.x+target.width/2-x)*ease,y+(target.y+target.height/2-y)*ease-Math.sin(t*Math.PI)*30,9,'#f2ffb4','#ffffff');ctx.globalAlpha=1;}
  }
  function toWorld(x,y){const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;if(viewport&&app){const p=viewport.point(x,y,app),c=viewport.rect(canvas,app);return {x:(p.x-c.x-view.x)/view.scale,y:(p.y-c.y-view.y)/view.scale};}const r=canvas.getBoundingClientRect();return {x:((x-r.left)*canvas.clientWidth/r.width-view.x)/view.scale,y:((y-r.top)*canvas.clientHeight/r.height-view.y)/view.scale};}
- return {draw,toWorld,get view(){return view;}};
+ return {draw,toWorld,resetCamera(){cameraKey='';lastCameraTime=0;},get view(){return {...view};}};
 }
 root.ArcRender={create};
 })(globalThis);

@@ -47,31 +47,37 @@ async function scrollState(page, selector) {
 }
 async function swipe(page, cdp, selector, direction = -1) {
   const from = await page.locator(selector).evaluate((e, direction) => {
-    const r = e.getBoundingClientRect();
-    let top = Math.max(0, r.top), bottom = Math.min(innerHeight, r.bottom);
-    for (let p = e.parentElement; p; p = p.parentElement) {
+    const app = document.getElementById('app'), viewport = ArcViewport;
+    const logical = node => viewport.rect(node, app), r = logical(e);
+    const native = app.getBoundingClientRect(), rotation = Number(app.dataset.viewRotation) || 0;
+    const client = (x, y) => rotation === 90 ? { x: native.right-y*native.width/app.clientHeight, y: native.top+x*native.height/app.clientWidth }
+      : rotation === -90 ? { x: native.left+y*native.width/app.clientHeight, y: native.bottom-x*native.height/app.clientWidth }
+      : rotation === 180 ? { x: native.right-x*native.width/app.clientWidth, y: native.bottom-y*native.height/app.clientHeight }
+      : { x: native.left+x*native.width/app.clientWidth, y: native.top+y*native.height/app.clientHeight };
+    let top = Math.max(0, r.top), bottom = Math.min(app.clientHeight, r.bottom);
+    for (let p = e.parentElement; p && p !== app; p = p.parentElement) {
       if (/auto|scroll|hidden|clip/.test(getComputedStyle(p).overflowY)) {
-        const b = p.getBoundingClientRect(); top = Math.max(top, b.top); bottom = Math.min(bottom, b.bottom);
+        const b = logical(p); top = Math.max(top, b.top); bottom = Math.min(bottom, b.bottom);
       }
     }
     const candidates = [...e.querySelectorAll('button,[data-hero-art],.ch-copy p')];
     if (direction < 0) candidates.reverse();
     let best = null;
     for (const child of candidates) {
-      const b = child.getBoundingClientRect(), lo = Math.max(top + 4, b.top), hi = Math.min(bottom - 4, b.bottom);
+      const b = logical(child), lo = Math.max(top + 4, b.top), hi = Math.min(bottom - 4, b.bottom);
       if (hi - lo < 24) continue;
       const x = b.x + b.width / 2, y = direction < 0 ? hi - 8 : lo + 8;
-      const hit = document.elementFromPoint(x, y);
+      const start = client(x, y), hit = document.elementFromPoint(start.x, start.y);
       if (!hit || !(child === hit || child.contains(hit))) continue;
       const end = direction < 0 ? Math.max(top + 8, y - 160) : Math.min(bottom - 8, y + 160);
-      if (Math.abs(end - y) > 20 && (!best || Math.abs(end - y) > Math.abs(best.end - best.y))) best = { x, y, end };
+      if (Math.abs(end - y) > 20 && (!best || Math.abs(end - y) > Math.abs(best.end - best.y))) best = { x, y, end, start, finish: client(x, end) };
     }
     return best;
   }, direction);
   assert(from && Math.abs(from.end - from.y) > 20, 'a real, visible surface is available to swipe: ' + selector);
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ id: 1, x: from.x, y: from.y }] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ id: 1, ...from.start }] });
   for (let i = 1; i <= 12; i++) {
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ id: 1, x: from.x, y: from.y + (from.end - from.y) * i / 12 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ id: 1, x: from.start.x+(from.finish.x-from.start.x)*i/12, y: from.start.y+(from.finish.y-from.start.y)*i/12 }] });
     await page.waitForTimeout(18);
   }
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
@@ -107,7 +113,7 @@ async function reach(page, cdp, selector, scroller) {
       await page.waitForFunction('!document.getElementById("play").disabled');
       const checkpoint = await page.evaluate('JSON.stringify(save.data.chapterRun)');
       await tap(page, '#openCharacters');
-      const scroller = height > width ? '.machine-roster' : '.machine-buttons';
+      const scroller = '.machine-buttons';
       const before = await scrollState(page, scroller);
       await swipe(page, cdp, scroller);
       const after = await scrollState(page, scroller);
@@ -124,7 +130,7 @@ async function reach(page, cdp, selector, scroller) {
         await tap(page, '[data-inspect-character="' + id + '"]');
         ok(await page.locator('[data-confirm-character]').getAttribute('data-confirm-character') === id, 'touch inspects ' + id + '/' + width);
         if (!await page.locator('[data-confirm-character]').isDisabled()) {
-          await reach(page, cdp, '[data-confirm-character]', height > width ? '.machine-roster' : '.machine-profile');
+          await reach(page, cdp, '[data-confirm-character]', '.machine-profile');
           await tap(page, '[data-confirm-character]');
         }
         ok(await page.evaluate('save.data.equippedCharacterId') === id, 'touch equips ' + id + '/' + width);
@@ -132,7 +138,7 @@ async function reach(page, cdp, selector, scroller) {
       }
       await page.screenshot({ path: path.join(out, 'roster-' + width + '-' + lang + '.png') });
       await tap(page, '#closeCollection');
-      if (height > width) await page.setViewportSize({ width: 844, height: 390 });
+      await page.locator('#collectionPanel').waitFor({ state: 'hidden' });
       await tap(page, '#play'); await page.waitForFunction('!!s');
       await tap(page, '#pause'); await tap(page, '#pauseMachineChange');
       const battleBefore = await page.evaluate('({hp:s.units[0].hp/s.units[0].maxHp,ammo:s.specialAmmo,stage:s.stage,shots:s.shotCount})');
