@@ -40,3 +40,7 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.21.1の100面は固定10機リレー。`dist/final-team.js` は手書き正本、`ui/final-team-ui.js`・`styles/final-team.css` は生成元。`stage_blueprints.json` のfinalBattleから4マップ各3,000pxを生成。各機の本体10ダメージ、耐久70％、最後ガン、全員条件を保存前にも検査。`record_final_stage.py` は4実戦だけ更新し他99面の履歴を保持。共通の幅は未指定なら従来1,000px、基礎弾道とAIは維持。
 
 0.21.2：`dist/master-progress.js` と `ui/master-mode.js`／`styles/master-mode.css` で隠し進行設定。`save.replace` は保存成功後にライブ状態を更新。`engine.move` はプレイヤーの左右累計140pxを消費し、`boundary` で回復。`geometry.move` は強制変位と敵移動のため従来どおり。
+
+0.21.3：100面のfixedHp70・requiredDamage5（表示100）・出現距離800px以上を正本データへ登録。`ui/final-travel.js` は実世界を変えない崩壊描画、`engine.next` は100達成時の交代を扱う。通常の敵手番・歩行140px・他99面は維持。
+
+連続使用は `dist/crew-usage.js`、任意セーブfieldmachineUsage、`ui/crew-supply.js`／`styles/crew-supply.css` で管理。R.finish成功時に1回だけ記録し、他機体で5面の補充期間。100面は除外。

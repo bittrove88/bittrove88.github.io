@@ -4252,10 +4252,10 @@
     {
       "stage": 100,
       "status": "PASS",
-      "teamSeedWins": 3,
+      "teamSeedWins": 1,
       "teamActions": [
-        11,
-        11
+        31,
+        31
       ],
       "order": [
         "hana",
@@ -4269,40 +4269,41 @@
         "yui",
         "gun"
       ],
-      "requiredDamage": 10,
-      "durabilityScale": 0.7,
+      "requiredDamage": 100,
+      "fixedHp": 70,
+      "minSpawnDistance": 800,
       "worldWidth": 3000,
       "maps": 4,
       "recommendedCharacter": "team",
       "recommendedWin": true,
-      "recommendedActions": 11,
-      "nativeActionLimit": 36,
+      "recommendedActions": 31,
+      "nativeActionLimit": 80,
       "normalWitness": {
         "character": "team",
-        "actions": 11,
-        "description": "hana:attack 42°/70% → koro:attack 102°/95% → ban:attack 24°/60% → sora:attack 42°/80% → rico:attack 126°/70% → hibari:attack 60°/85% → mogu:attack 90°/70% → rin:attack 150°/70% → yui:attack 6°/80% → gun:break 48°/80% → gun:attack 36°/70%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
+        "actions": 31,
+        "description": "hana:attack 36°/80% → hana:attack 120°/85% → hana:attack 120°/85% → koro:attack -12°/80% → koro:attack 30°/80% → koro:attack 30°/80% → ban:attack 30°/85% → ban:attack 150°/100% → ban:attack 150°/100% → sora:attack 12°/100% → sora:attack 18°/95% → sora:attack 12°/90% → rico:attack 12°/100% → rico:attack -6°/85% → rico:attack -6°/85% → hibari:attack 54°/75% → hibari:attack 126°/80% → hibari:attack 132°/80% → mogu:attack -6°/70% → mogu:attack 132°/85% → mogu:attack 132°/85% → mogu:attack 132°/85% → rin:attack 66°/70% → rin:attack 66°/75% → rin:attack 66°/70% → yui:attack 144°/85% → yui:attack 144°/85% → yui:attack 144°/85% → gun:attack 48°/85% → gun:attack 48°/90% → gun:attack 48°/85%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
         "evidence": {
-          "report": "../../evidence/final-battle-0211/TEAM_MATCHES.json",
+          "report": "../../evidence/final-100-0213/FINAL100_MATCHES.json",
           "stage": 100,
           "seed": 4697
         }
       },
       "recommendedWitness": {
         "character": "team",
-        "actions": 11,
-        "description": "hana:special 42°/70% → koro:special 108°/25% → ban:special 0°/55% → sora:special 56°/100% → rico:special 102°/50% → hibari:special 0°/95% → mogu:attack 90°/70% → rin:special 150°/70% → yui:special -12°/25% → gun:special 60°/75% → gun:attack 114°/95%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
+        "actions": 31,
+        "description": "hana:attack 36°/80% → hana:attack 120°/85% → hana:attack 120°/85% → koro:attack -12°/80% → koro:attack 30°/80% → koro:attack 30°/80% → ban:attack 30°/85% → ban:attack 150°/100% → ban:attack 150°/100% → sora:attack 12°/100% → sora:attack 18°/95% → sora:attack 12°/90% → rico:attack 12°/100% → rico:attack -6°/85% → rico:attack -6°/85% → hibari:attack 54°/75% → hibari:attack 126°/80% → hibari:attack 132°/80% → mogu:attack -6°/70% → mogu:attack 132°/85% → mogu:attack 132°/85% → mogu:attack 132°/85% → rin:attack 66°/70% → rin:attack 66°/75% → rin:attack 66°/70% → yui:attack 144°/85% → yui:attack 144°/85% → yui:attack 144°/85% → gun:attack 48°/85% → gun:attack 48°/90% → gun:attack 48°/85%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。",
         "evidence": {
-          "report": "../../evidence/final-battle-0211/TEAM_MATCHES.json",
+          "report": "../../evidence/final-100-0213/FINAL100_MATCHES.json",
           "stage": 100,
-          "seed": 13719
+          "seed": 4697
         }
       },
       "featuredTechniqueVerified": false,
       "humanDifficulty": "未確認。自動探索の成立と人の操作難易度・勝率は区別。",
       "reports": [
-        "../../evidence/final-battle-0211/TEAM_MATCHES.json"
+        "../../evidence/final-100-0213/FINAL100_MATCHES.json"
       ],
-      "blueprintSha256": "b2320f620659606010c294162cc7dd0a0802a8e10fd60922ba2a0ef3cb518c28"
+      "blueprintSha256": "b6b09db45419f255bee43331913967214bb9456cea89e2830bdefe3020bdb97a"
     }
   ],
   "terrainRevision": "0.17.0",
@@ -4310,11 +4311,11 @@
     "stages": [
       100
     ],
-    "terrainRevision": "5.3",
-    "matches": 4,
-    "scope": "Stage100 ten-machine relay:three normal-only seeds and one signature-enabled match with real enemy turns. Other99 retained historical records.",
+    "terrainRevision": "5.4",
+    "matches": 1,
+    "scope": "Stage100 ten-machine relay:HP70 /100 damage per machine,remote spawns,new maps and140px walk limit; real enemy turns. Other99 retained historical records.",
     "evidenceSha256": {
-      "TEAM_MATCHES.json": "17663bb02317b1bf1c4a47fd6b7490913d56decfd27bc837657a185e5e075f9e"
+      "FINAL100_MATCHES.json": "059bc70b61d4d76a4a2ad7728801cd2d76bc2d937d4eb2e7b6cf88c6ea1808be"
     }
   }
 }

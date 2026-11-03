@@ -1,4 +1,4 @@
-# ARCLINE 0.21.2 — 全100面の攻略意図と解法
+# ARCLINE 0.21.3 — 全100面の攻略意図と解法
 
 制作・レビュー用。結末までのネタバレを含みます。人によるプレイ難易度の測定は未確認です。
 
@@ -1790,16 +1790,16 @@
 
 **最終試練｜夜明けの核｜推奨：ガン**
 
-10機が固定順で本体へ各10ダメージ。3機ごとに戦場を変え、最後はガンが核を止める
+各機HP70で本体へ100ダメージ。3機ごとに地殻を崩し、全10機で最終核を止める
 
-地形の意図：床の高低差22。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片2箇所を独立配置。中継棚2箇所を独立配置。ハナ→コロ→バン／ソラ→リコ→ヒバリ／モグ→リン→ユイ／ガン。担当ごとの射点から遮蔽とギミックを読み、本体へ合計10ダメージを与える。。
-基本：ハナ→コロ→バン／ソラ→リコ→ヒバリ／モグ→リン→ユイ／ガン。担当ごとの射点から遮蔽とギミックを読み、本体へ合計10ダメージを与える。
+地形の意図：床の高低差22。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片2箇所を独立配置。中継棚2箇所を独立配置。固定順の各機で本体へ100ダメージ。遠い射点から140pxの歩行と転移・遮蔽・全9種の環境装置を使い、3機ごとに崩壊する地殻の先へ進む。。
+基本：固定順の各機で本体へ100ダメージ。遠い射点から140pxの歩行と転移・遮蔽・全9種の環境装置を使い、3機ごとに崩壊する地殻の先へ進む。
 有利な理由：耐久に余裕を持ち、通常弾の弧で経路を確かめられる。
 敵との関係：準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。
-行動上限：36。初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。
+行動上限：80。初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。
 
-実測代替ルート：hana:attack 42°/70% → koro:attack 102°/95% → ban:attack 24°/60% → sora:attack 42°/80% → rico:attack 126°/70% → hibari:attack 60°/85% → mogu:attack 90°/70% → rin:attack 150°/70% → yui:attack 6°/80% → gun:break 48°/80% → gun:attack 36°/70%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。
+実測代替ルート：hana:attack 36°/80% → hana:attack 120°/85% → hana:attack 120°/85% → koro:attack -12°/80% → koro:attack 30°/80% → koro:attack 30°/80% → ban:attack 30°/85% → ban:attack 150°/100% → ban:attack 150°/100% → sora:attack 12°/100% → sora:attack 18°/95% → sora:attack 12°/90% → rico:attack 12°/100% → rico:attack -6°/85% → rico:attack -6°/85% → hibari:attack 54°/75% → hibari:attack 126°/80% → hibari:attack 132°/80% → mogu:attack -6°/70% → mogu:attack 132°/85% → mogu:attack 132°/85% → mogu:attack 132°/85% → rin:attack 66°/70% → rin:attack 66°/75% → rin:attack 66°/70% → yui:attack 144°/85% → yui:attack 144°/85% → yui:attack 144°/85% → gun:attack 48°/85% → gun:attack 48°/90% → gun:attack 48°/85%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。
 
-検証：PASS。10機全員・通常弾のみ3条件／必殺あり1条件。全機体全解法、人の難易度は未確認。
+検証：PASS。10機全員・HP70／各100ダメージ・歩行140px以内の実戦。全機体全解法、人の難易度は未確認。
 
-推奨機体の実行例：hana:special 42°/70% → koro:special 108°/25% → ban:special 0°/55% → sora:special 56°/100% → rico:special 102°/50% → hibari:special 0°/95% → mogu:attack 90°/70% → rin:special 150°/70% → yui:special -12°/25% → gun:special 60°/75% → gun:attack 114°/95%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。
+推奨機体の実行例：hana:attack 36°/80% → hana:attack 120°/85% → hana:attack 120°/85% → koro:attack -12°/80% → koro:attack 30°/80% → koro:attack 30°/80% → ban:attack 30°/85% → ban:attack 150°/100% → ban:attack 150°/100% → sora:attack 12°/100% → sora:attack 18°/95% → sora:attack 12°/90% → rico:attack 12°/100% → rico:attack -6°/85% → rico:attack -6°/85% → hibari:attack 54°/75% → hibari:attack 126°/80% → hibari:attack 132°/80% → mogu:attack -6°/70% → mogu:attack 132°/85% → mogu:attack 132°/85% → mogu:attack 132°/85% → rin:attack 66°/70% → rin:attack 66°/75% → rin:attack 66°/70% → yui:attack 144°/85% → yui:attack 144°/85% → yui:attack 144°/85% → gun:attack 48°/85% → gun:attack 48°/90% → gun:attack 48°/85%。10機の自動交代と敵の手番を含む実戦成立例。数値は自動探索値で、人の難易度評価ではない。
