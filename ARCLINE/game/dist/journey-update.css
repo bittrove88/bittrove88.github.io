@@ -171,30 +171,7 @@
 .film-caption {
   padding-bottom: max(12px, env(safe-area-inset-bottom));
 }
-@media (orientation: portrait) {
-  .gun-intro {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(150px, 45%) minmax(0, 1fr);
-  }
-  #expeditionDialog .expedition-panel {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(140px, 42%) minmax(0, 1fr) auto;
-  }
-  #expeditionDialog .expedition-copy {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  #expeditionDialog .expedition-actions {
-    grid-row: 3;
-    gap: 6px;
-  }
-  #collectionPanel .machine-buttons {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  #collectionPanel .machine-buttons .ch-art {
-    height: 120px;
-  }
-}
+
 @media (orientation: landscape) and (max-height: 450px) {
   .first-difficulty > p {
     font-size: 12px;

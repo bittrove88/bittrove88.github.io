@@ -1,10 +1,10 @@
 {
-  "version": "0.19.3",
-  "cacheVersion": "0.19.3",
+  "version": "0.20.0",
+  "cacheVersion": "0.20.0",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
-  "releasedAt": "2026-11-02",
+  "releasedAt": "2026-11-03",
   "scripts": [
     "release-info.js",
     "i18n.js",
@@ -55,6 +55,7 @@
     "chapter-playback.js",
     "sfx-data.js",
     "sfx-manager.js",
+    "map-camera.js",
     "game.js",
     "fullscreen.js"
   ],
@@ -64,7 +65,8 @@
     "cinematics.css",
     "journey-update.css",
     "media-ending.css",
-    "chapter-flow.css"
+    "chapter-flow.css",
+    "map-camera.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -83,7 +85,9 @@
     "media-ending.css": "styles/media-ending.css",
     "chapter-playback.js": "ui/chapter-playback.js",
     "chapter-flow.css": "styles/chapter-flow.css",
-    "sfx-manager.js": "ui/sfx-manager.js"
+    "sfx-manager.js": "ui/sfx-manager.js",
+    "map-camera.js": "ui/map-camera.js",
+    "map-camera.css": "styles/map-camera.css"
   },
   "requires": {
     "screens.js": [],
@@ -148,7 +152,8 @@
       "ending-credits.js",
       "special-ui.js",
       "chapter-playback.js",
-      "sfx-manager.js"
+      "sfx-manager.js",
+      "map-camera.js"
     ],
     "device.js": [
       "screens.js",
@@ -186,6 +191,12 @@
     ],
     "sfx-manager.js": [
       "sfx-data.js"
+    ],
+    "map-camera.js": [
+      "screens.js",
+      "viewport.js",
+      "engine.js",
+      "i18n.js"
     ]
   }
 }

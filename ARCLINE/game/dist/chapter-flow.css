@@ -276,30 +276,6 @@
     line-height: 1.6;
   }
 }
-@media (orientation: portrait) {
-  #expeditionDialog .expedition-panel {
-    grid-template-columns: 1fr;
-  }
-  .chapter-playback-body {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(120px, 44%) minmax(0, 1fr);
-  }
-  .chapter-playback-copy {
-    align-self: stretch;
-    padding: 0 8px;
-  }
-  #chapterPlaybackTitle {
-    font-size: 24px;
-    margin-block: 8px;
-  }
-  #chapterPlaybackText {
-    font-size: 16px;
-    line-height: 1.7;
-  }
-  .chapter-playback-controls {
-    flex-wrap: wrap;
-  }
-}
 
 /* Keep canvas intrinsic bitmap dimensions out of grid sizing. */
 .trial-range {
@@ -468,43 +444,7 @@
   max-height: 12vh;
   overflow: auto;
 }
-@media (orientation: portrait) {
-  #app #overlay[data-story-tier] .modal {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: auto auto auto auto minmax(0, 1fr) auto auto auto;
-    gap: 10px;
-  }
-  #app
-    #overlay[data-story-tier]
-    :is(
-      #modalEyebrow,
-      #modalTitle,
-      #modalDetail,
-      #clearRewardLine,
-      #clearNarrative
-    ) {
-    grid-column: 1/-1;
-  }
-  #app #overlay[data-story-tier] #clearNarrative {
-    grid-template-columns: 72px minmax(0, 1fr);
-    gap: 12px;
-  }
-  #app #overlay[data-story-tier] #resume {
-    grid-column: 1;
-    grid-row: 6;
-  }
-  #app #overlay[data-story-tier] #returnLobby {
-    grid-column: 2;
-    grid-row: 6;
-  }
-  #app #overlay[data-story-tier] #replayClearMovie {
-    grid-column: 1/-1;
-    grid-row: 7;
-  }
-  #app #overlay[data-story-tier] #endingCollection {
-    grid-row: 8;
-  }
-}
+
 @media (orientation: landscape) and (max-height: 340px) {
   #app #overlay[data-story-tier] .modal {
     gap: 3px 12px;

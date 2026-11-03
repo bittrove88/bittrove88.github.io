@@ -1,0 +1,124 @@
+.battle-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.battle-top {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+.battle-top .health-card,
+.battle-top .hp-title strong {
+  min-width: 0;
+}
+#mapCameraToggle {
+  width: 50px;
+  height: 44px;
+  padding: 0 3px;
+  border: 1px solid #e7ffe350;
+  border-radius: 12px;
+  background: #153a4a;
+  color: #edffd5;
+  font-size: 12px;
+  font-weight: 700;
+}
+#battle[data-preview="true"] #mapCameraToggle,
+#battle[data-lesson] #mapCameraToggle {
+  visibility: hidden;
+}
+#battle[data-camera="true"] > * {
+  visibility: hidden;
+}
+#mapCamera {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  pointer-events: auto;
+  color: #edffd5;
+}
+#mapCamera[hidden] {
+  display: none;
+}
+.map-camera-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: max(10px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) 10px
+    max(16px, env(safe-area-inset-left));
+  background: #102e42ed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+}
+#mapCameraTitle {
+  font-size: 15px;
+  margin: 0;
+  white-space: nowrap;
+}
+#mapCameraHint {
+  font-size: 12px;
+  margin: 0;
+}
+#mapCameraPan {
+  position: absolute;
+  top: max(52px, calc(env(safe-area-inset-top) + 42px));
+  bottom: max(66px, calc(env(safe-area-inset-bottom) + 62px));
+  left: max(0px, env(safe-area-inset-left));
+  right: max(0px, env(safe-area-inset-right));
+  touch-action: none;
+  cursor: grab;
+}
+#mapCameraPan:active {
+  cursor: grabbing;
+}
+#mapCameraPan:focus-visible {
+  outline: 2px solid #d9efb7;
+  outline-offset: -4px;
+}
+.map-camera-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px max(12px, env(safe-area-inset-right))
+    max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #102e42ed;
+}
+.map-camera-actions button {
+  min-width: 46px;
+  min-height: 44px;
+  padding: 8px 14px;
+  background: #1d4656;
+  color: #edffd5;
+  border: 1px solid #d7ecc64d;
+  border-radius: 10px;
+  font-size: 14px;
+}
+#mapCameraIn,
+#mapCameraOut {
+  font-size: 22px;
+  padding: 4px 12px;
+}
+#mapCameraClose {
+  margin-left: 8px;
+  background: #ddffc0;
+  color: #173d4a;
+  font-weight: 800;
+}
+@media (max-width: 600px) {
+  #mapCameraHint {
+    font-size: 10px;
+  }
+  .map-camera-header {
+    gap: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

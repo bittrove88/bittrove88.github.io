@@ -50,7 +50,7 @@ function open(id,done=()=>{},replay=false,trigger=null){
   film.credits=root.ArcEnding.create($('storyCinema'),frames,root.ArcMediaData.tracks.ENDING.duration,film.locale);
   const own=film;Promise.race([root.ArcAssetLoader.load(frames[0].src,{retries:0,timeout:2500}).then(r=>r.image?.decode?.().catch(()=>{})),new Promise(resolve=>setTimeout(resolve,2500))]).then(()=>{if(film!==own)return;hooks.beginEnding();own.started=true;});
  }
- hooks.orientationChanged?.();enterFrame();if(!film.ending)$('filmNext').focus({preventScroll:true});else{$('storyCinema').tabIndex=-1;$('storyCinema').focus({preventScroll:true});}return true;
+ enterFrame();if(!film.ending)$('filmNext').focus({preventScroll:true});else{$('storyCinema').tabIndex=-1;$('storyCinema').focus({preventScroll:true});}return true;
 }
 function enterFrame(){
  const f=film.frames[film.index];film.age=0;$('filmTitle').textContent=f.title;$('filmCount').textContent=(film.index+1)+' / '+film.frames.length;
@@ -66,7 +66,7 @@ function updateNext(){if(!film)return;const f=film.frames[film.index],next=(film
 function advance(){if(!film||film.ending||hooks.playbackBlocked?.())return;if(filmTyper&&!filmTyper.done){filmTyper.complete();updateNext();return;}const f=film.frames[film.index],next=(film.timeline?.cueIndex??-1)+1;if(next<f.cues.length){film.age=f.cues[next].startMs/1000;syncFilm();drawFilm();return;}if(film.index+1<film.frames.length){film.index++;enterFrame();}else close(false);}
 function close(skipped){if(!film||film.ending&&!film.completed)return;const previous=film;film=null;filmTyper=null;plate?.destroy();plate=null;previous.credits?.destroy();for(const[e,disabled]of previous.languageButtons||[])e.disabled=disabled;for(const id of ['filmNext','filmSkip','filmPause'])$(id).hidden=false;delete $('storyCinema').dataset.ending;delete $('storyCinema').dataset.credits;$('storyCinema').hidden=true;delete $('app').dataset.cinematic;
  root.ArcScreens.close('storyCinema',false);hooks.finished?.(previous.id,{skipped,replay:previous.replay});
- hooks.orientationChanged?.();previous.done();
+ previous.done();
 }
 function togglePause(){if(!film||film.ending)return;film.paused=!film.paused;$('filmPause').setAttribute('aria-pressed',String(film.paused));$('filmPause').textContent=film.paused?local('再生','Play'):local('一時停止','Pause');}
 function update(dt){

@@ -360,46 +360,7 @@
     display: none;
   }
 }
-@media (orientation: portrait) {
-  #storyFilm,
-  .film-stage {
-    top: 56px;
-    bottom: 43%;
-    height: auto;
-  }
-  .film-caption {
-    top: 57%;
-    bottom: 0;
-    min-height: 0;
-    max-height: none;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
-    padding: 20px max(20px, env(safe-area-inset-right))
-      max(20px, env(safe-area-inset-bottom));
-    gap: 14px;
-  }
-  .film-caption h2 {
-    font-size: 24px;
-  }
-  .film-caption #filmText {
-    max-height: calc(100% - 50px);
-    font-size: 15px;
-    line-height: 1.9;
-  }
-  .film-caption #filmNext {
-    min-height: 48px;
-    font-size: 15px;
-    width: 100%;
-  }
-  .film-header {
-    height: 56px;
-    padding: 6px 12px;
-  }
-  .cp-fragment {
-    width: 32%;
-    max-width: 170px;
-  }
-}
+
 @media (prefers-reduced-motion: reduce) {
   #storyCinema .story-char {
     transition: none;
@@ -854,135 +815,7 @@
     font-size: 11px;
   }
 }
-@media (orientation: portrait) {
-  .character-hero {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(210px, 54vh) auto;
-    overflow: auto;
-    touch-action: pan-y;
-  }
-  .ch-copy {
-    padding: 22px;
-  }
-  .ch-art {
-    min-height: 210px;
-  }
-  .ch-art:after {
-    background: linear-gradient(0deg, #143949, transparent 24%);
-  }
-  .ch-copy > button {
-    position: sticky;
-    bottom: 0;
-  }
-  .ch-name {
-    font-size: 42px;
-  }
-  .ch-name-ja {
-    margin-bottom: 14px;
-  }
-  #collectionPanel .collection-panel {
-    height: 100%;
-    padding: 14px;
-  }
-  #collectionPanel .machine-roster {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-    gap: 16px;
-  }
-  #collectionPanel .machine-buttons {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    overflow: visible;
-    flex: none;
-  }
-  #collectionPanel .machine-buttons button {
-    min-height: 103px;
-    font-size: 10px;
-  }
-  #collectionPanel .machine-buttons .character-art {
-    height: 33px;
-  }
-  #collectionPanel .roster-role {
-    font-size: 8px;
-    line-height: 11px;
-  }
-  #collectionPanel .machine-profile {
-    overflow: visible;
-    min-height: 680px;
-    flex: none;
-  }
-  .ch-art-origin {
-    bottom: 20px;
-  }
-  #expeditionDialog {
-    padding: 10px;
-  }
-  #expeditionDialog .expedition-panel {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(220px, 52%) minmax(0, 1fr) auto;
-    height: 100%;
-    border-radius: 14px;
-  }
-  #expeditionDialog .expedition-copy {
-    grid-column: 1;
-    padding: 17px 22px;
-    overflow: auto;
-  }
-  #expeditionDialog .expedition-actions {
-    flex-direction: column;
-    gap: 8px;
-    grid-column: 1;
-    padding: 10px 16px 14px;
-  }
-  #expeditionDialog .expedition-actions button {
-    min-height: 44px;
-  }
-  #expeditionDialog[data-recruit="false"] .expedition-copy {
-    grid-row: 1/3;
-  }
-  #expeditionMachineName {
-    font-size: 40px;
-  }
-  #lobby {
-    padding: 18px;
-    overflow: auto;
-    touch-action: pan-y;
-  }
-  #lobby .home-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    flex: none;
-    justify-content: center;
-    margin: auto 0;
-    min-height: 600px;
-  }
-  .home-journey {
-    width: 100%;
-  }
-  #lobby .lobby-dock {
-    width: 100%;
-  }
-  #lobby #lobbyRover {
-    height: 150px;
-    width: 240px;
-  }
-  #lobby .arena-title {
-    width: 100%;
-  }
-  #lobby .lobby-top {
-    gap: 10px;
-  }
-  #lobby .brand {
-    font-size: 27px;
-  }
-  #lobby .lobby-tools button {
-    font-size: 12px;
-    padding: 7px 10px;
-  }
-}
+
 @media (prefers-reduced-motion: reduce) {
   .ch-art-plane {
     will-change: auto;
@@ -1017,15 +850,7 @@
   font-size: 9px;
   line-height: 12px;
 }
-@media (orientation: portrait) {
-  .ch-copy {
-    display: block;
-    overflow: visible;
-  }
-  .ch-copy-body {
-    overflow: visible;
-  }
-}
+
 .film-caption {
   align-items: start;
 }
@@ -1263,12 +1088,6 @@
     padding-right: max(12px, env(safe-area-inset-right));
   }
 }
-@media (orientation: portrait) {
-  .film-caption {
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
-  }
-}
 
 /* v0.14.8: iPhone landscape cinematic safe framing for header and subtitles. */
 #storyCinema .film-header {
@@ -1289,16 +1108,6 @@
   #storyCinema .film-caption {
     padding-left: max(32px, env(safe-area-inset-left));
     padding-right: max(32px, env(safe-area-inset-right));
-  }
-}
-@media (orientation: portrait) {
-  #storyCinema .film-header {
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
-  }
-  #storyCinema .film-caption {
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
   }
 }
 
