@@ -50,3 +50,7 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 `engine.enemyParameters` をメインとWorkerで共有。既存誤差×面倍率×モード倍率を浮動小数のまま使用し、敵計画の対自機damageだけにステージ倍率を一度適用。物理や最適解探索、特殊固定座標、部位破壊の半減は維持。`aim-guide.paths` と描画側は全モード全軌道。`ui/difficulty-ui.js` で試撃は任意、保存中の開始を遮断。`crew-usage.record` は100面・既クリア面を除外し、再プレイでは連続使用も補充残りも変えません。
 
 最小検証：`tests/difficulty-balance.test.cjs`、`tests/aim-guide.test.cjs`、`tests/difficulty-browser.test.cjs`、`tools/difficulty-smoke.cjs`（Normal60・90・100各1戦）。旧最終戦の対戦フィクスチャは当時の敵バランスで保持し、今回の代表対戦とは区別します。
+
+0.22.0：正本は `design/expedition_013/stage_blueprints.json` の指定30面。指示書と提案JSONは参照原本として保持し、現在の100面のHP70・各100・80行動などを保全して地形だけ移植。`map-revision-planner.cjs` は上限140pxの実移動、通常弾／実際の転移、現行Normalの敵反撃と勝敗で対象面だけ検証。`record_map_revision.py --evidence evidence/map-revision-0220` は新121戦だけを対象30面へ記録し、旧70面の証拠は保持。変更した地形には旧操作列を再利用しません。`build_campaign.py` → 正式 `npm run build` で攻略図とデータを同期します。
+
+`tests/map-revision.test.cjs` は基準683d5b0に対して未変更70面の設計・実初期状態と13の実装モジュールを厳密照合。床座標による集計（高低差3以下0/60、同高度1/60）と、実行時安全配置後の同高度4/60を分離。後者89/92/94/98は全て変更対象外のため変更せず、実配置3以下の目標未達を記録します。
