@@ -18,8 +18,8 @@
       "Delete your save data?",
     );
     $("deleteSaveDescription").textContent = local(
-      "クリア記録、仲間・武器の解放、章の持ち物、ストーリー閲覧を削除して最初から始めます。この操作は元に戻せません。言語・操作配置とホーム画面への追加案内の設定は維持します。",
-      "Start over by deleting progress, unlocked companions and weapons, chapter stock and story records. This cannot be undone. Language, controls and installation-guide preferences are kept.",
+      "すべての難易度のクリア記録、仲間・武器の解放、章の持ち物、ストーリー閲覧を削除して最初から始めます。この操作は元に戻せません。言語・操作配置とホーム画面への追加案内の設定は維持します。",
+      "Start over by deleting progress, unlocked companions and weapons, chapter stock and story records in all difficulties. This cannot be undone. Language, controls and installation-guide preferences are kept.",
     );
     $("cancelDeleteSave").textContent = local("キャンセル", "Cancel");
     $("confirmDeleteSave").textContent = deleting
@@ -178,7 +178,10 @@
     begin,
     prepare,
     syncDelete,
-    dismiss() { active=false; after=null; },
+    dismiss() {
+      active = false;
+      after = null;
+    },
     get active() {
       return active;
     },

@@ -58,7 +58,7 @@ function syncLobby(){
  ArcOnboarding.syncDelete();syncJournalSummary();
 }
 function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('openJournal').disabled=!save.data.journeyStarted;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'Restore the routes. Move the world.':'止まった世界を、もう一度動かす。';}
-const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),clearInput,allowed:()=>!s&&!hostPaused()});
+const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),change:async(mode,initial)=>{if(!save.ready||s||hostPaused())return false;const next=ArcSave.prepareDifficulty(save.data,mode);if(initial){next.onboarding.step='done';if(save.data.journal.moviesSeen.includes('prologue')&&!next.journal.moviesSeen.includes('prologue'))next.journal.moviesSeen.push('prologue');}if(!await save.replace(next))return false;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(99,save.data.cleared);runContext=null;syncLobby();draw();return true;},clearInput,allowed:()=>!s&&!hostPaused()});
 const machinePicker=ArcMachinePicker.create({data:()=>save.data,state:()=>s,clearInput,allowed:()=>!!s&&s.phase==='aim'&&!s.result&&!hostPaused()&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!s.pendingLoot.length&&(!manualPaused||dialog==='pause'),changed:()=>{sfx.prepare(s.characterId);hud();draw();},change:id=>{if(!E.changeCharacter(s,id,save.data.unlockedCharacterIds))return false;save.data.equippedCharacterId=id;save.save();return true;}});
 const crewSupply=ArcCrewSupply.create({data:()=>save.data,replace:data=>save.replace(data),changed:()=>{syncLobby();draw();},cancel:()=>lobby()});
 const masterMode=ArcMasterMode.create({data:()=>save.data,allowed:()=>save.ready&&!endingPreview&&!s&&!hostPaused()&&!ArcStoryView.active&&!ArcChapterPlayback.active&&(ArcScreens.isOpen('journeyStart')||!ArcOnboarding.active&&!$('lobby').hidden),replace:data=>save.replace(data),changed:()=>{ArcOnboarding.dismiss();ArcScreens.close('journeyStart',false);selectedMap=Math.min(99,save.data.cleared);lobby();}});
@@ -197,7 +197,7 @@ $('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();
 function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
 function start(retryContext=null){
  mapCamera?.close(false);
- if(hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();
+ if(difficultyUi.busy||hostPaused()||!save.ready&&$('play').disabled)return;unlockAudio();
  if(ArcStoryView.active||ArcExpeditionUi.active)return;
  if(save.data.onboarding.step!=='done'){ArcOnboarding.begin(()=>start(retryContext));return;}
  if(!save.data.journeyStarted){save.data.journeyStarted=true;save.save();syncJournalSummary();}
