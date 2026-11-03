@@ -46,7 +46,9 @@ function create(adapter,status=()=>{}){
  // Replace only this game's canonical record, after older writes have finished.
  // Keep the live record until persistence succeeds; never erase an unread cloud save.
  function reset(){if(!ready||resetting)return Promise.resolve(false);resetting=true;dirty=true;++generation;chain=chain.catch(()=>{}).then(async()=>{const fresh=decode(null);fresh.preferences={...data.preferences};try{await adapter.save(JSON.stringify(fresh));data=fresh;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=true;status('save-failed');return false;}finally{resetting=false;}});return chain;}
- return {load,save,reset,get data(){return data;},get ready(){return ready;},get dirty(){return dirty;},get pending(){return chain;},get needsMigrationSave(){return migrationPending;}};
+ // Commit a user-requested progress edit atomically after queued writes.
+ function replace(candidate){if(!ready||resetting)return Promise.resolve(false);let next;try{next=decode(JSON.stringify(candidate));}catch{return Promise.resolve(false);}resetting=true;const wasDirty=dirty;++generation;chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(JSON.stringify(next));data=next;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=wasDirty;status('save-failed');return false;}finally{resetting=false;}});return chain;}
+ return {load,save,reset,replace,get data(){return data;},get ready(){return ready;},get dirty(){return dirty;},get pending(){return chain;},get needsMigrationSave(){return migrationPending;}};
 }
 const api={key,revision,schemaVersion,resetVersion,weaponIds,characterIds,previewIds,decode,create};if(typeof module!=='undefined')module.exports=api;else root.ArcSave=api;
 })(globalThis);

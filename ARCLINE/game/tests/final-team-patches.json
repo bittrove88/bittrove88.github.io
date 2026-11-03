@@ -49,6 +49,21 @@
       "before": "const target=boss.hp<=4?2:boss.hp<=7?1:0;",
       "after": "const phaseHp=FinalTeam.active(s)?boss.hp/boss.maxHp*10:boss.hp;const target=phaseHp<=4+1e-7?2:phaseHp<=7+1e-7?1:0;",
       "count": 1
+    },
+    {
+      "before": "function move(s,side,amount,charging=false){if(s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}return G.move(s,side,amount);}",
+      "after": "const movementLimit=140;\nfunction movementRemaining(s){return Math.max(0,movementLimit-(s?.walkUsed||0));}\nfunction move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));const moved=G.move(s,side,amount);if(side===0&&moved)s.walkUsed=(s.walkUsed||0)+Math.abs(moved);return moved;}",
+      "count": 1
+    },
+    {
+      "before": "function boundary(s){\n s.round++",
+      "after": "function boundary(s){\n s.walkUsed=0;\n s.round++",
+      "count": 1
+    },
+    {
+      "before": "const api={chargeSpecial",
+      "after": "const api={movementLimit,movementRemaining,chargeSpecial",
+      "count": 1
     }
   ],
   "game/dist/campaign-run.js": [
@@ -177,6 +192,13 @@
     {
       "before": "right>1000",
       "after": "right>(world.width||1000)",
+      "count": 1
+    }
+  ],
+  "game/dist/save.js": [
+    {
+      "before": " return {load,save,reset,",
+      "after": " // Commit a user-requested progress edit atomically after queued writes.\n function replace(candidate){if(!ready||resetting)return Promise.resolve(false);let next;try{next=decode(JSON.stringify(candidate));}catch{return Promise.resolve(false);}resetting=true;const wasDirty=dirty;++generation;chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(JSON.stringify(next));data=next;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=wasDirty;status('save-failed');return false;}finally{resetting=false;}});return chain;}\n return {load,save,reset,replace,",
       "count": 1
     }
   ]

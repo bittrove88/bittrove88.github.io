@@ -265,6 +265,7 @@ function rebuildWorld(s){
  bossGeometry(s);
 }
 function boundary(s){
+ s.walkUsed=0;
  s.round++;s.playerTurn=(s.playerTurn||s.round-1)+1;chargeSpecial(s);
  if(s.effects.pendingPolarity!==undefined){s.pendingChanges.push({type:'polarity',value:s.effects.pendingPolarity});delete s.effects.pendingPolarity;}
  // Each queued major change gets a separate visual transition; Lv90 defers cloud to next boundary.
@@ -299,7 +300,9 @@ function next(s){
  if(s.turn===0){s.turn=1;s.phase='cpu';s.time=.6;}
  else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
 }
-function move(s,side,amount,charging=false){if(s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}return G.move(s,side,amount);}
+const movementLimit=140;
+function movementRemaining(s){return Math.max(0,movementLimit-(s?.walkUsed||0));}
+function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));const moved=G.move(s,side,amount);if(side===0&&moved)s.walkUsed=(s.walkUsed||0)+Math.abs(moved);return moved;}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=W.get(weaponId,side?null:s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -365,6 +368,6 @@ function changeCharacter(s,id,owned){
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
-const api={chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);

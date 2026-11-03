@@ -177,6 +177,7 @@
     begin,
     prepare,
     syncDelete,
+    dismiss() { active=false; after=null; },
     get active() {
       return active;
     },

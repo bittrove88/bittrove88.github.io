@@ -38,3 +38,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.21.0の追加演出は `ui/experience.js` と `styles/experience.css` が正本。ボスカメラは表示変換のみで、操作前に通常へ戻します。`dist/character-hero.js` は加入時だけ承認済み透過カットを飛行表示。勝利BGMは `audio-manager.js` の対象判定と `game.js` の勝利tokenで一度だけ開始し、`design/ending_media.json` の採用②を全曲ループ。30/60の通常クリア幕間は同一曲、回想と100面は旧ルール。
 
 0.21.1の100面は固定10機リレー。`dist/final-team.js` は手書き正本、`ui/final-team-ui.js`・`styles/final-team.css` は生成元。`stage_blueprints.json` のfinalBattleから4マップ各3,000pxを生成。各機の本体10ダメージ、耐久70％、最後ガン、全員条件を保存前にも検査。`record_final_stage.py` は4実戦だけ更新し他99面の履歴を保持。共通の幅は未指定なら従来1,000px、基礎弾道とAIは維持。
+
+0.21.2：`dist/master-progress.js` と `ui/master-mode.js`／`styles/master-mode.css` で隠し進行設定。`save.replace` は保存成功後にライブ状態を更新。`engine.move` はプレイヤーの左右累計140pxを消費し、`boundary` で回復。`geometry.move` は強制変位と敵移動のため従来どおり。

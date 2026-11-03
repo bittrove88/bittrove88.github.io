@@ -17,6 +17,7 @@
     "chapterPlayback",
     "deleteSaveDialog",
     "mapCamera",
+    "masterMode",
   ];
   const isOpen = (id) => !!$(id) && !$(id).hidden;
   function open(id, options = {}) {

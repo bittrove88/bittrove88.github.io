@@ -1,6 +1,6 @@
 {
-  "version": "0.21.1",
-  "cacheVersion": "0.21.1",
+  "version": "0.21.2",
+  "cacheVersion": "0.21.2",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -59,6 +59,8 @@
     "sfx-manager.js",
     "map-camera.js",
     "final-team-ui.js",
+    "master-progress.js",
+    "master-mode.js",
     "game.js",
     "fullscreen.js"
   ],
@@ -71,7 +73,8 @@
     "chapter-flow.css",
     "map-camera.css",
     "experience.css",
-    "final-team.css"
+    "final-team.css",
+    "master-mode.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -96,7 +99,9 @@
     "experience.js": "ui/experience.js",
     "experience.css": "styles/experience.css",
     "final-team-ui.js": "ui/final-team-ui.js",
-    "final-team.css": "styles/final-team.css"
+    "final-team.css": "styles/final-team.css",
+    "master-mode.js": "ui/master-mode.js",
+    "master-mode.css": "styles/master-mode.css"
   },
   "requires": {
     "screens.js": [],
@@ -164,7 +169,8 @@
       "sfx-manager.js",
       "map-camera.js",
       "experience.js",
-      "final-team-ui.js"
+      "final-team-ui.js",
+      "master-mode.js"
     ],
     "device.js": [
       "screens.js",
@@ -229,6 +235,16 @@
       "final-team.js",
       "screens.js",
       "characters.js"
+    ],
+    "master-progress.js": [
+      "save.js",
+      "crew.js",
+      "campaign-run.js",
+      "weapons.js"
+    ],
+    "master-mode.js": [
+      "master-progress.js",
+      "screens.js"
     ]
   }
 }
