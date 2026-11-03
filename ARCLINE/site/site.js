@@ -69,7 +69,9 @@ function drawFeature(){
   if(side)ArcVisualArt.drawActor(ctx,state.spec.encounterId,u,{state:drawState,side,kind:'enemy',muzzle,dir:facing,dpr:Math.min(devicePixelRatio||1,2)});else A.draw(ctx,state.characterId,{x:u.x,y:u.y,slope:u.slope||0,dir:facing,muzzle});
   ctx.font='650 '+(12/scale)+'px system-ui';ctx.textAlign='center';ctx.fillStyle=side?'#ffd7b0':'#e8efbc';ctx.fillText(language==='ja'?(side?'敵':'自機'):(side?'RIVAL':'YOU'),u.x,u.y-73);
  }
+ const trail=step.plan.path.filter(p=>p.t<=flight);if(trail.length>1)line(ctx,trail,'#e9f4c9',2.5/scale);
  ArcEffects.forContext(ctx).draw(step.plan,flight,{scale,reducedMotion:paused});
+ const contact=step.plan.impacts?.[0];if(contact&&flight>=contact.t){dot(ctx,contact.x,contact.y,11/scale,null,'#f5e5aa',2/scale);dot(ctx,contact.x,contact.y,3/scale,'#f5e5aa');}
  for(const event of step.plan.events.filter(e=>e.type==='bounce'&&e.t<=flight))dot(ctx,event.x,event.y,6/scale,null,'#e5edbc',1.5/scale);
  ctx.restore();
 }

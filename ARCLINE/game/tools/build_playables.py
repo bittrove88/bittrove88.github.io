@@ -41,7 +41,7 @@ with zipfile.ZipFile(archive) as z:
  assert z.testzip() is None and len(z.namelist())==len(contents)
  for n,b in contents.items():assert z.read(n)==b
 manifest['characterPlates']=sum(bool(a['verified'] and a['src']) for a in characters)
-manifest['bgmTracks']=7
+manifest['bgmTracks']=len(media['tracks'])
 manifest['endingCutouts']=len(roll['actors'])
 manifest['endingTimeline']='ER-01–ER-13 v3.0.0 + flight adjustment v3.0.1; 7 seconds reallocated to players; shared native-clock timeline, 11 accelerated scenes, 10 players and 32 concept cutouts, gather and logo; original audio unchanged'
 manifest['design']='Additional user direction0.17.1: confirmed start-screen save deletion and landscape-only prologue/ending; prior0.17.0: chapter playback, first-launch order, fixed trials, explicit machine menu, boss music restarts, recruitment swap and terrain variation; prior BGM/ending retained; schema8/resetVersion2 retained'

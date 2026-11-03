@@ -34,3 +34,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.20.0の見渡しカメラは `ui/map-camera.js`、表示は `styles/map-camera.css`。`dist/render.js` は明示的な `cameraView` を表示へ適用し、終了時は通常カメラへ即時復帰します。`ArcScreens` がフォーカス・背景入力の遮断を管理。見渡し中の進行停止と座標・入力解放は `dist/game.js` が接続し、物理・保存にはカメラ状態を渡しません。
 
 常時横向き表示は手書きの `dist/viewport.js`。スマホ右側を上に固定し、ネイティブ角に応じた90／逆90／180度の補正と逆座標変換を共有します。元CSSを同じ順序で複製し、寸法メディアクエリ・viewport単位・セーフエリアを論理画面へ対応。固定オフや反転の選択、好みの保存は追加しません。
+
+0.21.0の追加演出は `ui/experience.js` と `styles/experience.css` が正本。ボスカメラは表示変換のみで、操作前に通常へ戻します。`dist/character-hero.js` は加入時だけ承認済み透過カットを飛行表示。勝利BGMは `audio-manager.js` の対象判定と `game.js` の勝利tokenで一度だけ開始し、`design/ending_media.json` の採用②を全曲ループ。30/60の通常クリア幕間は同一曲、回想と100面は旧ルール。

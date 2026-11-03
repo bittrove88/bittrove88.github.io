@@ -1,6 +1,6 @@
 {
-  "version": "0.20.0",
-  "cacheVersion": "0.20.0",
+  "version": "0.21.0",
+  "cacheVersion": "0.21.0",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -48,6 +48,7 @@
     "ending-roll-data.js",
     "ending-credits.js",
     "special-ui.js",
+    "experience.js",
     "story-view.js",
     "expedition-ui.js",
     "device.js",
@@ -66,7 +67,8 @@
     "journey-update.css",
     "media-ending.css",
     "chapter-flow.css",
-    "map-camera.css"
+    "map-camera.css",
+    "experience.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -87,7 +89,9 @@
     "chapter-flow.css": "styles/chapter-flow.css",
     "sfx-manager.js": "ui/sfx-manager.js",
     "map-camera.js": "ui/map-camera.js",
-    "map-camera.css": "styles/map-camera.css"
+    "map-camera.css": "styles/map-camera.css",
+    "experience.js": "ui/experience.js",
+    "experience.css": "styles/experience.css"
   },
   "requires": {
     "screens.js": [],
@@ -153,7 +157,8 @@
       "special-ui.js",
       "chapter-playback.js",
       "sfx-manager.js",
-      "map-camera.js"
+      "map-camera.js",
+      "experience.js"
     ],
     "device.js": [
       "screens.js",
@@ -197,6 +202,11 @@
       "viewport.js",
       "engine.js",
       "i18n.js"
+    ],
+    "experience.js": [
+      "render.js",
+      "engine.js",
+      "story.js"
     ]
   }
 }

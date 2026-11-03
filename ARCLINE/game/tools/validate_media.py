@@ -10,6 +10,6 @@ for id,track in data['tracks'].items():
     assert stream['codec_name']=='aac' and abs(float(info['format']['duration'])-track['duration'])<0.01
     subprocess.run(['ffmpeg','-v','error','-xerror','-i',str(file),'-f','null','-'],check=True,capture_output=True)
     rows.append({'id':id,'sha256':digest,'duration':track['duration'],'codec':stream['codec_name'],'fullDecode':'PASS'})
-assert len({r['sha256'] for r in rows})==7
+assert len({r['sha256'] for r in rows})==len(data['tracks'])
 args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps({'status':'PASS','tracks':rows,'listening':'Not performed; metadata and complete decoder validation are distinct from perceptual approval.'},indent=2)+'\n')
 print('PASS: seven distinct approved AAC files decoded completely without errors')
