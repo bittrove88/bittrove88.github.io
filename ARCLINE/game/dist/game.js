@@ -4,7 +4,7 @@ const K=ArcSkills;
 // Temporary, opt-in ending review. Its synthetic progress never reaches storage.
 const endingPreview=new URLSearchParams(location.search).get('preview')==='ending';
 const bgm=ArcAudio.create(),specialLesson=ArcSpecialUi.createLesson(),specialNotice=ArcSpecialUi.createNotice($('battle'));
-let movieOpening=false,mapCamera=null;
+let movieOpening=false,mapCamera=null,viewport=null;
 bgm.request('TITLE');
 for(const event of ['pointerdown','keydown'])document.addEventListener(event,e=>{if(e.isTrusted)bgm.unlock();},{capture:true});
 const renderer=ArcRender.create($('world')),pauseSources=new Set();
@@ -33,7 +33,7 @@ function unlockAudio(){userInteracted=true;if(!audio)try{audio=new(window.AudioC
 function tone(freq=440,duration=.12,type='sine',volume=.08){if(!audio||!hostAudio||hostPaused()||manualPaused)return;const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(40,freq*.5),audio.currentTime+duration);g.gain.setValueAtTime(volume,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g).connect(master);o.start();o.stop(audio.currentTime+duration);}
 function stopChargeTone(){if(chargeTone){try{chargeTone.stop();}catch{}chargeTone=null;}}
 function cancelCharge(notify=false){if(charge&&s){s.power=charge.previous;if(notify)feedback='Shot canceled';}charge=null;stopChargeTone();}
-function clearInput(){input?.clear();mapCamera?.cancelGesture();cancelCharge();clearTimeout(previewPress);previewPress=null;}
+function clearInput(){input?.clear();mapCamera?.cancelGesture();viewport?.cancelGesture();cancelCharge();clearTimeout(previewPress);previewPress=null;}
 function acquired(item){
  pickupEffects.push({x:item.x,y:item.y,id:item.id,age:0});
  if(item.pending)return;
@@ -393,7 +393,7 @@ document.addEventListener('keydown',e=>{
 });
 mapCamera=ArcMapCamera.create({state:()=>s,allowed:()=>canAim()&&!charge&&!specialLesson.active,available:()=>!hostPaused()&&!manualPaused,clearInput,changed:()=>{previous=0;hud();},draw,resetCamera:()=>renderer.resetCamera()});
 // Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.
-const viewport=ArcViewport.install($('app'),()=>{clearInput();mapCamera?.resize();previous=0;draw();});
+viewport=ArcViewport.install($('app'),()=>{clearInput();mapCamera?.resize();previous=0;draw();});
 window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();mapCamera?.resize();draw();});
 document.addEventListener('visibilitychange',()=>document.hidden?pauseHost('visibility'):resumeHost('visibility'));
 if(sdk){sdk.system.onPause(()=>pauseHost('sdk'));sdk.system.onResume(()=>resumeHost('sdk'));sdk.system.onAudioEnabledChange(v=>{hostAudio=v;audioSync();});}

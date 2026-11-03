@@ -35,6 +35,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm test
       - run: npm run check:generated
+      - name: Check rotated touch input
+        run: node game/tools/test.cjs input
       - run: npm run test:browser
       - run: python3 game/tools/create_layout_baseline.py --output /tmp/arcline-baseline
       - run: node game/tools/test.cjs visual

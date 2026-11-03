@@ -23,8 +23,44 @@
   return {x:left,y:top,left,top,right,bottom,width:right-left,height:bottom-top};
  }
  function install(app,onChange=()=>{}){
-  let state=null,mirrors=[];
+  let state=null,mirrors=[],scrollGesture=null;
   const viewport=root.visualViewport,options={passive:false,capture:true};
+  function cancelGesture(){
+   const id=scrollGesture?.id;scrollGesture=null;
+   if(id!==undefined)try{if(app.hasPointerCapture(id))app.releasePointerCapture(id);}catch{}
+  }
+  const excluded=e=>e.target?.closest?.('#world,#stick,#aimStick,#fire,#mapCameraPan,input,select,textarea');
+  function scrollParents(target){
+   const rows=[];
+   for(let node=target;node&&node!==app;node=node.parentElement)if(node instanceof Element&&/auto|scroll/.test(getComputedStyle(node).overflowY)&&node.scrollHeight>node.clientHeight+1)rows.push(node);
+   return rows;
+  }
+  function preventTrailingClick(){
+   let timer;const cleanup=()=>{document.removeEventListener('click',click,true);document.removeEventListener('pointerdown',cleanup,true);root.clearTimeout(timer);},click=e=>{if(e.detail===0)return;cleanup();e.preventDefault();e.stopImmediatePropagation();};
+   document.addEventListener('click',click,true);document.addEventListener('pointerdown',cleanup,true);timer=root.setTimeout(cleanup,400);
+  }
+  app.addEventListener('pointerdown',e=>{
+   if(!state?.rotation||e.pointerType!=='touch'||scrollGesture||app.inert||excluded(e))return;
+   const parents=scrollParents(e.target);if(!parents.length)return;
+   const p=point(e.clientX,e.clientY,app);scrollGesture={id:e.pointerId,start:p,last:p,parents,dragged:false};
+  },true);
+  app.addEventListener('pointermove',e=>{
+   const g=scrollGesture;if(g?.id!==e.pointerId)return;if(app.inert){cancelGesture();return;}
+   const p=point(e.clientX,e.clientY,app),dx=p.x-g.start.x,dy=p.y-g.start.y;
+   if(!g.dragged){if(Math.abs(dy)<8||Math.abs(dy)<Math.abs(dx))return;g.dragged=true;try{app.setPointerCapture(e.pointerId);}catch{}}
+   e.preventDefault();e.stopImmediatePropagation();let delta=g.last.y-p.y;g.last=p;
+   for(const node of g.parents){const old=node.scrollTop;node.scrollTop=Math.max(0,Math.min(node.scrollHeight-node.clientHeight,old+delta));delta-=node.scrollTop-old;if(Math.abs(delta)<.5)break;}
+  },true);
+  app.addEventListener('pointerup',e=>{
+   const g=scrollGesture;if(g?.id!==e.pointerId)return;
+   if(g.dragged){e.preventDefault();e.stopImmediatePropagation();preventTrailingClick();}cancelGesture();
+  },true);
+  app.addEventListener('pointercancel',e=>{if(scrollGesture?.id===e.pointerId)cancelGesture();},true);
+  app.addEventListener('wheel',e=>{
+   if(!state?.rotation||e.ctrlKey||excluded(e))return;const parents=scrollParents(e.target);if(!parents.length)return;
+   e.preventDefault();let delta=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?app.clientHeight:1);
+   for(const node of parents){const old=node.scrollTop;node.scrollTop=Math.max(0,Math.min(node.scrollHeight-node.clientHeight,old+delta));delta-=node.scrollTop-old;if(Math.abs(delta)<.5)break;}
+  },{passive:false});
   // CSS media queries use the browser viewport. In fixed mode, evaluate their
   // dimensions against our landscape surface while retaining each sheet's cascade
   // position, device/input queries, reduced-motion rules and original assets.
@@ -46,8 +82,9 @@
    const portrait=nativeWidth<nativeHeight,nativeAngle=typeof root.orientation==='number'?root.orientation:root.screen?.orientation?.angle,rotation=rotationFor(nativeWidth,nativeHeight,nativeAngle),width=portrait?nativeHeight:nativeWidth,height=portrait?nativeWidth:nativeHeight;
    const next={width,height,scale,left,top,rotation};
    if(state&&Object.keys(next).every(k=>Math.abs(next[k]-state[k])<.01))return false;
+   cancelGesture();
    state=next;const x=left+([90,180].includes(rotation)?nativeWidth/scale:0),y=top+([-90,180].includes(rotation)?nativeHeight/scale:0);
-   Object.assign(app.style,{position:'fixed',left:'0px',top:'0px',right:'auto',bottom:'auto',width:width+'px',height:height+'px',transformOrigin:'0 0',transform:`translate(${x}px,${y}px) rotate(${rotation}deg) scale(${1/scale})`});
+   Object.assign(app.style,{position:'fixed',left:'0px',top:'0px',right:'auto',bottom:'auto',width:width+'px',height:height+'px',touchAction:rotation?'none':'',transformOrigin:'0 0',transform:`translate(${x}px,${y}px) rotate(${rotation}deg) scale(${1/scale})`});
    app.dataset.viewRotation=String(rotation);responsiveSheets(width,height);
    app.dataset.viewportFitted=scale>1.01?'true':'false';onChange(next);return true;
   }
@@ -64,7 +101,7 @@
   app.addEventListener('dblclick',e=>e.preventDefault());
   viewport?.addEventListener('resize',fit);viewport?.addEventListener('scroll',fit);
   root.addEventListener('resize',fit);root.addEventListener('orientationchange',fit);root.screen?.orientation?.addEventListener?.('change',fit);root.addEventListener('pageshow',fit);
-  fit();return {fit,point:(x,y)=>point(x,y,app),rect:element=>rect(element,app),get state(){return {...state};}};
+  fit();return {fit,cancelGesture,point:(x,y)=>point(x,y,app),rect:element=>rect(element,app),get state(){return {...state};}};
  }
  root.ArcViewport={install,point,rect,rotationFor};
 })(globalThis);
