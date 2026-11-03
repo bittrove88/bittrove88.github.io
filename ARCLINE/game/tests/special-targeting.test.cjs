@@ -46,7 +46,7 @@ near(lowStep,mogu.pulseAdvance*.4,'minimum charge spacing');
 near(highStep,mogu.pulseAdvance,'maximum charge spacing');
 
 // SORA: the projected carrier line finishes at the real eight-way split,
-// alongside the full trajectory now shared by all difficulty modes.
+// even when Hard hides ordinary future trajectories.
 const sora=C.get('sora').special,scene=flat('sora');
 near(sora.minAngle,50,'Sora special can aim as low as 50 degrees');
 near(sora.maxAngle,125,'Sora special upper aim bound stays 125 degrees');
@@ -65,7 +65,7 @@ near(projected.point.x,event.x,'Sora marker X matches actual split');
 near(projected.point.y,event.y,'Sora marker Y matches actual split');
 near(projected.path.at(-1).x,event.x,'Sora carrier guide ends at actual split X');
 near(projected.path.at(-1).y,event.y,'Sora carrier guide ends at actual split Y');
-ok(JSON.stringify(A.paths(plan,'hard'))===JSON.stringify(A.paths(plan,'easy'))&&A.paths(plan,'hard').length===9,'hard shows the carrier and all eight child paths like Easy');
+ok(A.paths(plan,'hard').length===0&&A.splitProjection(plan).path.length>1,'Hard hides falling branches while the Sora split carrier is retained');
 ok(A.splitProjection({...plan,weaponId:'W01'})===null,'only Sora gains full carrier guide');
 ok(JSON.stringify(plan)===before,'preview does not change projectile, world or damage');
 console.log(JSON.stringify({status:'PASS',checks,scope:'BAN cone/FX, MOGU power-scaled progression, SORA exact split guide. Not a browser rendering test.'}));
