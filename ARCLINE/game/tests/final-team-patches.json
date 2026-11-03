@@ -64,6 +64,36 @@
       "before": "const api={chargeSpecial",
       "after": "const api={movementLimit,movementRemaining,chargeSpecial",
       "count": 1
+    },
+    {
+      "before": " if(s.turn===0){s.turn=1;s.phase='cpu';s.time=.6;}",
+      "after": " if(s.turn===0&&FinalTeam.active(s)&&s.finalTeam.pending){const handoff=FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=FinalTeam.duration(s,handoff);return;}\n if(s.turn===0){s.turn=1;s.phase='cpu';s.time=.6;}",
+      "count": 1
+    },
+    {
+      "before": " FinalTeam.init(s);bossGeometry(s);",
+      "after": " if(save.machineUsage?.count>=5)s.restingCharacterId=save.machineUsage.id;\n FinalTeam.init(s);bossGeometry(s);",
+      "count": 1
+    },
+    {
+      "before": "  if(s.pendingLoot.length)return null;",
+      "after": "  if(s.restingCharacterId===s.characterId)return null;\n  if(s.pendingLoot.length)return null;",
+      "count": 1
+    },
+    {
+      "before": " if(save.machineUsage?.count>=5)s.restingCharacterId=save.machineUsage.id;",
+      "after": " if(spec.id!==100&&Crew.normalize(save.unlockedCharacterIds).length>1){const cooling=Object.entries(save.machineUsage?.cooldowns||{}).filter(([,n])=>n>0).map(([id])=>id);if(cooling.length)s.restingCharacterIds=cooling;}",
+      "count": 1
+    },
+    {
+      "before": "  if(s.restingCharacterId===s.characterId)return null;",
+      "after": "  if(s.restingCharacterIds?.includes(s.characterId))return null;",
+      "count": 1
+    },
+    {
+      "before": "if(!FinalTeam.canChange(s)||!Crew.ids.includes(id)",
+      "after": "if(s.restingCharacterIds?.includes(id)||!FinalTeam.canChange(s)||!Crew.ids.includes(id)",
+      "count": 1
     }
   ],
   "game/dist/campaign-run.js": [
@@ -75,6 +105,26 @@
     {
       "before": "state.result!=='win')return {advanced:false};",
       "after": "state.result!=='win'||!FinalTeam.complete(state))return {advanced:false};",
+      "count": 1
+    },
+    {
+      "before": "const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;",
+      "after": "const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;\nconst CrewUsage=node?require('./crew-usage.js'):root.ArcCrewUsage;",
+      "count": 1
+    },
+    {
+      "before": "Crew.join(data,state.stage);",
+      "after": "Crew.join(data,state.stage);CrewUsage.record(data,state);",
+      "count": 1
+    },
+    {
+      "before": "Crew.join(data,state.stage);CrewUsage.record(data,state);",
+      "after": "Crew.join(data,state.stage);",
+      "count": 1
+    },
+    {
+      "before": " const reset=state.stage%10===0;",
+      "after": " CrewUsage.record(data,state);\n const reset=state.stage%10===0;",
       "count": 1
     }
   ],
@@ -164,6 +214,31 @@
       "before": "if(planning&&!lobby&&!localDemo&&!phoneLandscape)critical.push",
       "after": "if(planning&&!lobby&&!localDemo&&!phoneLandscape&&arenaWidth<=1000)critical.push",
       "count": 1
+    },
+    {
+      "before": "  if(transition){const t=Math.min",
+      "after": "  if(transition?.kind==='final-travel'&&root.ArcFinalTravel){const frame=root.ArcFinalTravel.frame(s,transition);s=frame.state;world=frame.world;display=frame.display;if(frame.view)options={...options,cameraView:frame.view};}\n  else if(transition){const t=Math.min",
+      "count": 1
+    },
+    {
+      "before": "  const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,biome.sky[0]);sky.addColorStop(.67,biome.sky[1]);sky.addColorStop(1,biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);",
+      "after": "  const cave=s.spec.finalBackdrop==='cave';const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,cave?'#081c27':biome.sky[0]);sky.addColorStop(.67,cave?'#15313c':biome.sky[1]);sky.addColorStop(1,cave?'#24434b':biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);",
+      "count": 1
+    },
+    {
+      "before": "  circle(w*.76,h*.21,Math.min(w,h)*.065,'#fff1c686');",
+      "after": "  if(!cave)circle(w*.76,h*.21,Math.min(w,h)*.065,'#fff1c686');",
+      "count": 1
+    },
+    {
+      "before": "  for(let layer=0;layer<4;layer++){\n   ctx.fillStyle=",
+      "after": "  if(!cave)for(let layer=0;layer<4;layer++){\n   ctx.fillStyle=",
+      "count": 1
+    },
+    {
+      "before": "  backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);",
+      "after": "  if(!cave)backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);else for(let layer=0;layer<3;layer++){ctx.fillStyle=['#0c222d','#102b35','#183740'][layer];for(let n=0;n<12;n++){const x=(n-.5)*w/10+layer*19,span=w*(.035+.012*((n+layer)%3)),depth=h*(.2+.07*((n*3+layer)%5));polygon([{x:x-span,y:0},{x:x+span,y:0},{x:x+span*.35,y:depth*.74},{x:x-span*.2,y:depth}]);ctx.fill();}}",
+      "count": 1
     }
   ],
   "game/ui/experience.js": [
@@ -199,6 +274,16 @@
     {
       "before": " return {load,save,reset,",
       "after": " // Commit a user-requested progress edit atomically after queued writes.\n function replace(candidate){if(!ready||resetting)return Promise.resolve(false);let next;try{next=decode(JSON.stringify(candidate));}catch{return Promise.resolve(false);}resetting=true;const wasDirty=dirty;++generation;chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(JSON.stringify(next));data=next;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=wasDirty;status('save-failed');return false;}finally{resetting=false;}});return chain;}\n return {load,save,reset,replace,",
+      "count": 1
+    },
+    {
+      "before": "const schemaVersion=8,resetVersion=2;",
+      "after": "const schemaVersion=8,resetVersion=2;\nconst Usage=typeof module!=='undefined'?require('./crew-usage.js'):root.ArcCrewUsage;",
+      "count": 1
+    },
+    {
+      "before": " out.updateNoticePending=false;",
+      "after": " const usage=Usage.normalize(p.machineUsage);if(usage)out.machineUsage=usage;\n out.updateNoticePending=false;",
       "count": 1
     }
   ]

@@ -11893,8 +11893,8 @@
       "boss": true,
       "spawn": [
         [
-          80,
-          18.0
+          65,
+          22.0
         ],
         [
           150,
@@ -12113,7 +12113,7 @@
       "pickups": [],
       "blink": [],
       "teleport": true,
-      "actionLimit": 36,
+      "actionLimit": 80,
       "enemyProfile": 6,
       "hold": 1,
       "themeName": "夜明けの核",
@@ -12151,10 +12151,10 @@
       "midboss": false,
       "encounterId": "boss:archeart",
       "recommendedCharacter": "gun",
-      "tacticalGoal": "10機が固定順で本体へ各10ダメージ。3機ごとに戦場を変え、最後はガンが核を止める",
-      "tacticalGoalEn": "Deal 10 body damage with each of ten machines in order. The arena changes every three machines; GUN delivers the final hit.",
+      "tacticalGoal": "各機HP70で本体へ100ダメージ。3機ごとに地殻を崩し、全10機で最終核を止める",
+      "tacticalGoalEn": "Each machine starts with70 HP and deals100 body damage. Break through four arenas with all ten machines.",
       "enemyHp": 7,
-      "terrainRevision": "5.3",
+      "terrainRevision": "5.4",
       "finalBattle": {
         "order": [
           "hana",
@@ -12168,8 +12168,7 @@
           "yui",
           "gun"
         ],
-        "requiredDamage": 0.5,
-        "durabilityScale": 0.7,
+        "requiredDamage": 5,
         "specialAmmo": 1,
         "maps": [
           {
@@ -12297,16 +12296,16 @@
             ],
             "spawns": {
               "hana": [
-                80,
-                18
+                65,
+                22
               ],
               "koro": [
-                225,
-                18
+                245,
+                21
               ],
               "ban": [
-                130,
-                18
+                50,
+                22
               ]
             },
             "bossSpawn": [
@@ -12514,266 +12513,301 @@
           },
           {
             "name": {
-              "ja": "内殻 — 空と鏡の回廊",
-              "en": "Inner shell — Sky and mirrors"
+              "ja": "浮遊回廊 — 風に浮く足場",
+              "en": "Sky corridor — Floating platforms"
             },
             "floor": [
               [
                 0,
-                8
-              ],
-              [
-                35,
-                8
-              ],
-              [
-                55,
-                26
-              ],
-              [
-                70,
-                26
-              ],
-              [
-                85,
-                12
-              ],
-              [
-                120,
-                12
-              ],
-              [
-                135,
-                20
-              ],
-              [
-                205,
-                20
-              ],
-              [
-                220,
-                12
-              ],
-              [
-                260,
-                12
-              ],
-              [
-                275,
-                22
-              ],
-              [
-                285,
-                22
+                3
               ],
               [
                 300,
-                8
+                3
+              ]
+            ],
+            "floorSegments": [
+              [
+                [
+                  0,
+                  3
+                ],
+                [
+                  24,
+                  3
+                ]
+              ],
+              [
+                [
+                  140,
+                  3
+                ],
+                [
+                  162,
+                  3
+                ]
+              ],
+              [
+                [
+                  280,
+                  3
+                ],
+                [
+                  300,
+                  3
+                ]
               ]
             ],
             "parts": [
               {
                 "kind": "island",
-                "x": 115,
-                "end": 132,
-                "top": 32,
-                "thickness": 4
+                "x": 8,
+                "end": 36,
+                "top": 24,
+                "thickness": 4,
+                "breakable": false
               },
               {
                 "kind": "island",
-                "x": 218,
-                "end": 240,
-                "top": 27,
-                "thickness": 4
+                "x": 36,
+                "end": 58,
+                "top": 66,
+                "thickness": 4,
+                "breakable": false
               },
               {
-                "kind": "wall",
-                "x": 155,
-                "top": 35,
-                "width": 4,
-                "bottom": 20
+                "kind": "island",
+                "x": 62,
+                "end": 102,
+                "top": 42,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 86,
+                "end": 124,
+                "top": 62,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 116,
+                "end": 140,
+                "top": 26,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 137,
+                "end": 160,
+                "top": 44,
+                "thickness": 4,
+                "breakable": true
+              },
+              {
+                "kind": "island",
+                "x": 156,
+                "end": 177,
+                "top": 76,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 184,
+                "end": 218,
+                "top": 38,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 222,
+                "end": 244,
+                "top": 80,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 235,
+                "end": 262,
+                "top": 25,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 270,
+                "end": 300,
+                "top": 54,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 253,
+                "end": 273,
+                "top": 96,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "x": 126,
+                "end": 140,
+                "top": 85,
+                "bottom": 81,
+                "breakable": true
               },
               {
                 "kind": "roof",
                 "x": 165,
-                "end": 183,
-                "top": 40,
-                "thickness": 3,
+                "end": 179,
+                "top": 94,
+                "bottom": 90,
                 "breakable": true
-              },
-              {
-                "kind": "wall",
-                "x": 208,
-                "top": 31,
-                "width": 4,
-                "bottom": 17
-              },
-              {
-                "kind": "island",
-                "x": 55,
-                "end": 80,
-                "top": 35,
-                "thickness": 4
               }
             ],
             "features": [
               {
                 "type": "W",
                 "v": [
-                  185,
-                  248,
-                  12
+                  112,
+                  223,
+                  38
                 ]
               },
               {
                 "type": "K",
                 "v": [
-                  205,
-                  28,
-                  28
+                  153,
+                  42,
+                  -25
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  238,
+                  48,
+                  24
+                ]
+              },
+              {
+                "type": "B",
+                "v": [
+                  123,
+                  62,
+                  17,
+                  0,
+                  3
+                ]
+              },
+              {
+                "type": "U",
+                "v": [
+                  126,
+                  137,
+                  8,
+                  78
+                ]
+              },
+              {
+                "type": "F",
+                "v": [
+                  169,
+                  181,
+                  35,
+                  80
                 ]
               },
               {
                 "type": "C",
                 "v": [
-                  145,
-                  160,
-                  23,
-                  40
+                  225,
+                  234,
+                  54,
+                  69
+                ]
+              },
+              {
+                "type": "V",
+                "v": [
+                  241,
+                  253,
+                  3,
+                  44,
+                  1
+                ]
+              },
+              {
+                "type": "M",
+                "v": [
+                  146,
+                  61,
+                  11,
+                  1
+                ]
+              },
+              {
+                "type": "T",
+                "v": [
+                  109,
+                  68
                 ]
               }
             ],
             "spawns": {
               "sora": [
-                100,
-                12
+                80,
+                42
               ],
               "rico": [
-                245,
-                12
+                288,
+                54
               ],
               "hibari": [
-                145,
-                20
+                105,
+                62
               ]
             },
             "bossSpawn": [
-              180,
-              20
-            ],
-            "floorSegments": [
-              [
-                [
-                  0,
-                  8
-                ],
-                [
-                  35,
-                  8
-                ],
-                [
-                  55,
-                  26
-                ],
-                [
-                  70,
-                  26
-                ],
-                [
-                  85,
-                  12
-                ],
-                [
-                  120,
-                  12
-                ],
-                [
-                  135,
-                  20
-                ],
-                [
-                  205,
-                  20
-                ]
-              ],
-              [
-                [
-                  220,
-                  12
-                ],
-                [
-                  260,
-                  12
-                ],
-                [
-                  275,
-                  22
-                ],
-                [
-                  285,
-                  22
-                ],
-                [
-                  300,
-                  8
-                ]
-              ]
+              200,
+              38
             ],
             "floors": [
               [
                 [
                   0,
-                  8
+                  3
                 ],
                 [
-                  35,
-                  8
-                ],
-                [
-                  55,
-                  26
-                ],
-                [
-                  70,
-                  26
-                ],
-                [
-                  85,
-                  12
-                ],
-                [
-                  120,
-                  12
-                ],
-                [
-                  135,
-                  20
-                ],
-                [
-                  205,
-                  20
+                  24,
+                  3
                 ]
               ],
               [
                 [
-                  220,
-                  12
+                  140,
+                  3
                 ],
                 [
-                  260,
-                  12
-                ],
+                  162,
+                  3
+                ]
+              ],
+              [
                 [
-                  275,
-                  22
-                ],
-                [
-                  285,
-                  22
+                  280,
+                  3
                 ],
                 [
                   300,
-                  8
+                  3
                 ]
               ]
             ],
@@ -12782,20 +12816,20 @@
                 "id": "100-M1-C01",
                 "poly": [
                   [
-                    115,
-                    32
+                    8,
+                    24
                   ],
                   [
-                    132,
-                    32
+                    36,
+                    24
                   ],
                   [
-                    132,
-                    28
+                    36,
+                    20
                   ],
                   [
-                    115,
-                    28
+                    8,
+                    20
                   ]
                 ],
                 "destructible": false
@@ -12804,20 +12838,20 @@
                 "id": "100-M1-C02",
                 "poly": [
                   [
-                    218,
-                    27
+                    36,
+                    66
                   ],
                   [
-                    240,
-                    27
+                    58,
+                    66
                   ],
                   [
-                    240,
-                    23
+                    58,
+                    62
                   ],
                   [
-                    218,
-                    23
+                    36,
+                    62
                   ]
                 ],
                 "destructible": false
@@ -12826,351 +12860,599 @@
                 "id": "100-M1-C03",
                 "poly": [
                   [
-                    155,
-                    35
+                    62,
+                    42
                   ],
                   [
-                    159,
-                    35
+                    102,
+                    42
                   ],
                   [
-                    159,
-                    20
+                    102,
+                    38
                   ],
                   [
-                    155,
-                    20
+                    62,
+                    38
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M1-C04",
                 "poly": [
                   [
-                    165,
-                    40
+                    86,
+                    62
                   ],
                   [
-                    183,
-                    40
+                    124,
+                    62
                   ],
                   [
-                    183,
-                    37
+                    124,
+                    58
                   ],
                   [
-                    165,
-                    37
+                    86,
+                    58
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M1-C05",
                 "poly": [
                   [
-                    208,
-                    31
+                    116,
+                    26
                   ],
                   [
-                    212,
-                    31
+                    140,
+                    26
                   ],
                   [
-                    212,
-                    17
+                    140,
+                    22
                   ],
                   [
-                    208,
-                    17
+                    116,
+                    22
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M1-C06",
                 "poly": [
                   [
-                    55,
-                    35
+                    137,
+                    44
                   ],
                   [
-                    80,
-                    35
+                    160,
+                    44
                   ],
                   [
-                    80,
-                    31
+                    160,
+                    40
                   ],
                   [
-                    55,
-                    31
+                    137,
+                    40
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M1-C07",
+                "poly": [
+                  [
+                    156,
+                    76
+                  ],
+                  [
+                    177,
+                    76
+                  ],
+                  [
+                    177,
+                    72
+                  ],
+                  [
+                    156,
+                    72
                   ]
                 ],
                 "destructible": false
+              },
+              {
+                "id": "100-M1-C08",
+                "poly": [
+                  [
+                    184,
+                    38
+                  ],
+                  [
+                    218,
+                    38
+                  ],
+                  [
+                    218,
+                    34
+                  ],
+                  [
+                    184,
+                    34
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C09",
+                "poly": [
+                  [
+                    222,
+                    80
+                  ],
+                  [
+                    244,
+                    80
+                  ],
+                  [
+                    244,
+                    76
+                  ],
+                  [
+                    222,
+                    76
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C10",
+                "poly": [
+                  [
+                    235,
+                    25
+                  ],
+                  [
+                    262,
+                    25
+                  ],
+                  [
+                    262,
+                    21
+                  ],
+                  [
+                    235,
+                    21
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C11",
+                "poly": [
+                  [
+                    270,
+                    54
+                  ],
+                  [
+                    300,
+                    54
+                  ],
+                  [
+                    300,
+                    50
+                  ],
+                  [
+                    270,
+                    50
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C12",
+                "poly": [
+                  [
+                    253,
+                    96
+                  ],
+                  [
+                    273,
+                    96
+                  ],
+                  [
+                    273,
+                    92
+                  ],
+                  [
+                    253,
+                    92
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C13",
+                "poly": [
+                  [
+                    126,
+                    85
+                  ],
+                  [
+                    140,
+                    85
+                  ],
+                  [
+                    140,
+                    81
+                  ],
+                  [
+                    126,
+                    81
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M1-C14",
+                "poly": [
+                  [
+                    165,
+                    94
+                  ],
+                  [
+                    179,
+                    94
+                  ],
+                  [
+                    179,
+                    90
+                  ],
+                  [
+                    165,
+                    90
+                  ]
+                ],
+                "destructible": true
               }
             ]
           },
           {
             "name": {
-              "ja": "核の防護 — 壊して結ぶ",
-              "en": "Core shield — Break and connect"
+              "ja": "地下迷宮 — 交差する洞窟",
+              "en": "Underground maze — Crossing caverns"
             },
             "floor": [
               [
                 0,
-                6
+                10
               ],
               [
-                25,
-                6
+                35,
+                10
               ],
               [
-                45,
-                28
+                50,
+                14
               ],
               [
-                60,
-                16
+                85,
+                14
               ],
               [
-                95,
-                16
+                100,
+                8
               ],
               [
-                110,
-                24
+                125,
+                8
               ],
               [
-                160,
-                24
+                145,
+                18
               ],
               [
-                175,
-                16
+                210,
+                18
               ],
               [
-                220,
-                16
+                230,
+                12
               ],
               [
-                240,
-                5
-              ],
-              [
-                270,
-                5
-              ],
-              [
-                285,
-                22
+                280,
+                12
               ],
               [
                 300,
-                22
+                8
               ]
             ],
             "parts": [
               {
-                "kind": "wall",
-                "x": 92,
-                "top": 33,
-                "width": 4,
-                "bottom": 16
-              },
-              {
-                "kind": "wall",
-                "x": 177,
-                "top": 34,
-                "width": 4,
-                "bottom": 16
+                "kind": "roof",
+                "x": 0,
+                "end": 62,
+                "top": 88,
+                "bottom": 69,
+                "breakable": false
               },
               {
                 "kind": "roof",
-                "x": 120,
-                "end": 145,
+                "x": 62,
+                "end": 108,
+                "top": 86,
+                "bottom": 66,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 108,
+                "end": 159,
+                "top": 92,
+                "bottom": 73,
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "x": 159,
+                "end": 213,
+                "top": 90,
+                "bottom": 71,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 213,
+                "end": 258,
+                "top": 90,
+                "bottom": 68,
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "x": 258,
+                "end": 300,
+                "top": 86,
+                "bottom": 66,
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "x": 113,
+                "width": 4,
+                "top": 42,
+                "bottom": 8
+              },
+              {
+                "kind": "wall",
+                "x": 152,
+                "width": 4,
+                "top": 53,
+                "bottom": 18
+              },
+              {
+                "kind": "wall",
+                "x": 234,
+                "width": 4,
+                "top": 38,
+                "bottom": 12
+              },
+              {
+                "kind": "island",
+                "x": 65,
+                "end": 105,
+                "top": 24,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 114,
+                "end": 140,
                 "top": 39,
-                "thickness": 3,
+                "thickness": 4,
                 "breakable": true
               },
               {
                 "kind": "island",
-                "x": 75,
-                "end": 90,
-                "top": 35,
-                "thickness": 4
+                "x": 137,
+                "end": 160,
+                "top": 55,
+                "thickness": 4,
+                "breakable": false
               },
               {
                 "kind": "island",
-                "x": 185,
-                "end": 205,
-                "top": 34,
-                "thickness": 4
+                "x": 211,
+                "end": 243,
+                "top": 43,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 25,
+                "end": 48,
+                "top": 43,
+                "thickness": 4,
+                "breakable": false
               },
               {
                 "kind": "roof",
-                "x": 225,
-                "end": 243,
-                "top": 46,
-                "thickness": 3,
-                "breakable": false
+                "x": 91,
+                "end": 103,
+                "top": 48,
+                "bottom": 44,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 186,
+                "end": 203,
+                "top": 53,
+                "bottom": 49,
+                "breakable": true
               }
             ],
             "features": [
               {
-                "type": "M",
+                "type": "W",
                 "v": [
-                  165,
-                  27,
-                  9,
-                  1
+                  80,
+                  216,
+                  18
                 ]
               },
               {
-                "type": "W",
+                "type": "K",
                 "v": [
-                  98,
-                  168,
-                  16
+                  134,
+                  42,
+                  22
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  220,
+                  34,
+                  -18
+                ]
+              },
+              {
+                "type": "B",
+                "v": [
+                  103,
+                  26,
+                  14,
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "U",
+                "v": [
+                  219,
+                  229,
+                  12,
+                  58
+                ]
+              },
+              {
+                "type": "F",
+                "v": [
+                  115,
+                  124,
+                  10,
+                  37
+                ]
+              },
+              {
+                "type": "C",
+                "v": [
+                  144,
+                  156,
+                  29,
+                  44
+                ]
+              },
+              {
+                "type": "V",
+                "v": [
+                  242,
+                  252,
+                  12,
+                  33,
+                  0
+                ]
+              },
+              {
+                "type": "M",
+                "v": [
+                  166,
+                  40,
+                  10,
+                  -1
+                ]
+              },
+              {
+                "type": "T",
+                "v": [
+                  94,
+                  30
                 ]
               }
             ],
             "spawns": {
               "mogu": [
-                70,
-                16
+                65,
+                24
               ],
               "rin": [
-                210,
-                16
+                275,
+                12
               ],
               "yui": [
-                118,
+                85,
                 24
               ]
             },
             "bossSpawn": [
-              140,
-              24
+              185,
+              18
             ],
-            "floorSegments": [
-              [
-                [
-                  0,
-                  6
-                ],
-                [
-                  25,
-                  6
-                ],
-                [
-                  45,
-                  28
-                ],
-                [
-                  60,
-                  16
-                ],
-                [
-                  95,
-                  16
-                ]
-              ],
-              [
-                [
-                  110,
-                  24
-                ],
-                [
-                  160,
-                  24
-                ]
-              ],
-              [
-                [
-                  175,
-                  16
-                ],
-                [
-                  220,
-                  16
-                ],
-                [
-                  240,
-                  5
-                ],
-                [
-                  270,
-                  5
-                ],
-                [
-                  285,
-                  22
-                ],
-                [
-                  300,
-                  22
-                ]
-              ]
-            ],
+            "backdrop": "cave",
             "floors": [
               [
                 [
                   0,
-                  6
+                  10
                 ],
                 [
-                  25,
-                  6
+                  35,
+                  10
                 ],
                 [
-                  45,
-                  28
+                  50,
+                  14
                 ],
                 [
-                  60,
-                  16
+                  85,
+                  14
                 ],
                 [
-                  95,
-                  16
-                ]
-              ],
-              [
-                [
-                  110,
-                  24
+                  100,
+                  8
                 ],
                 [
-                  160,
-                  24
-                ]
-              ],
-              [
-                [
-                  175,
-                  16
+                  125,
+                  8
                 ],
                 [
-                  220,
-                  16
+                  145,
+                  18
                 ],
                 [
-                  240,
-                  5
+                  210,
+                  18
                 ],
                 [
-                  270,
-                  5
+                  230,
+                  12
                 ],
                 [
-                  285,
-                  22
+                  280,
+                  12
                 ],
                 [
                   300,
-                  22
+                  8
                 ]
               ]
             ],
@@ -13179,42 +13461,42 @@
                 "id": "100-M2-C01",
                 "poly": [
                   [
-                    92,
-                    33
+                    0,
+                    88
                   ],
                   [
-                    96,
-                    33
+                    62,
+                    88
                   ],
                   [
-                    96,
-                    16
+                    62,
+                    69
                   ],
                   [
-                    92,
-                    16
+                    0,
+                    69
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M2-C02",
                 "poly": [
                   [
-                    177,
-                    34
+                    62,
+                    86
                   ],
                   [
-                    181,
-                    34
+                    108,
+                    86
                   ],
                   [
-                    181,
-                    16
+                    108,
+                    66
                   ],
                   [
-                    177,
-                    16
+                    62,
+                    66
                   ]
                 ],
                 "destructible": true
@@ -13223,64 +13505,64 @@
                 "id": "100-M2-C03",
                 "poly": [
                   [
-                    120,
-                    39
+                    108,
+                    92
                   ],
                   [
-                    145,
-                    39
+                    159,
+                    92
                   ],
                   [
-                    145,
-                    36
+                    159,
+                    73
                   ],
                   [
-                    120,
-                    36
-                  ]
-                ],
-                "destructible": true
-              },
-              {
-                "id": "100-M2-C04",
-                "poly": [
-                  [
-                    75,
-                    35
-                  ],
-                  [
-                    90,
-                    35
-                  ],
-                  [
-                    90,
-                    31
-                  ],
-                  [
-                    75,
-                    31
+                    108,
+                    73
                   ]
                 ],
                 "destructible": false
               },
               {
+                "id": "100-M2-C04",
+                "poly": [
+                  [
+                    159,
+                    90
+                  ],
+                  [
+                    213,
+                    90
+                  ],
+                  [
+                    213,
+                    71
+                  ],
+                  [
+                    159,
+                    71
+                  ]
+                ],
+                "destructible": true
+              },
+              {
                 "id": "100-M2-C05",
                 "poly": [
                   [
-                    185,
-                    34
+                    213,
+                    90
                   ],
                   [
-                    205,
-                    34
+                    258,
+                    90
                   ],
                   [
-                    205,
-                    30
+                    258,
+                    68
                   ],
                   [
-                    185,
-                    30
+                    213,
+                    68
                   ]
                 ],
                 "destructible": false
@@ -13289,181 +13571,674 @@
                 "id": "100-M2-C06",
                 "poly": [
                   [
-                    225,
-                    46
+                    258,
+                    86
                   ],
                   [
-                    243,
-                    46
+                    300,
+                    86
                   ],
                   [
-                    243,
-                    43
+                    300,
+                    66
                   ],
                   [
-                    225,
-                    43
+                    258,
+                    66
                   ]
                 ],
                 "destructible": false
+              },
+              {
+                "id": "100-M2-C07",
+                "poly": [
+                  [
+                    113,
+                    42
+                  ],
+                  [
+                    117,
+                    42
+                  ],
+                  [
+                    117,
+                    8
+                  ],
+                  [
+                    113,
+                    8
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C08",
+                "poly": [
+                  [
+                    152,
+                    53
+                  ],
+                  [
+                    156,
+                    53
+                  ],
+                  [
+                    156,
+                    18
+                  ],
+                  [
+                    152,
+                    18
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C09",
+                "poly": [
+                  [
+                    234,
+                    38
+                  ],
+                  [
+                    238,
+                    38
+                  ],
+                  [
+                    238,
+                    12
+                  ],
+                  [
+                    234,
+                    12
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C10",
+                "poly": [
+                  [
+                    65,
+                    24
+                  ],
+                  [
+                    105,
+                    24
+                  ],
+                  [
+                    105,
+                    20
+                  ],
+                  [
+                    65,
+                    20
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C11",
+                "poly": [
+                  [
+                    114,
+                    39
+                  ],
+                  [
+                    140,
+                    39
+                  ],
+                  [
+                    140,
+                    35
+                  ],
+                  [
+                    114,
+                    35
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C12",
+                "poly": [
+                  [
+                    137,
+                    55
+                  ],
+                  [
+                    160,
+                    55
+                  ],
+                  [
+                    160,
+                    51
+                  ],
+                  [
+                    137,
+                    51
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C13",
+                "poly": [
+                  [
+                    211,
+                    43
+                  ],
+                  [
+                    243,
+                    43
+                  ],
+                  [
+                    243,
+                    39
+                  ],
+                  [
+                    211,
+                    39
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C14",
+                "poly": [
+                  [
+                    25,
+                    43
+                  ],
+                  [
+                    48,
+                    43
+                  ],
+                  [
+                    48,
+                    39
+                  ],
+                  [
+                    25,
+                    39
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C15",
+                "poly": [
+                  [
+                    91,
+                    48
+                  ],
+                  [
+                    103,
+                    48
+                  ],
+                  [
+                    103,
+                    44
+                  ],
+                  [
+                    91,
+                    44
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C16",
+                "poly": [
+                  [
+                    186,
+                    53
+                  ],
+                  [
+                    203,
+                    53
+                  ],
+                  [
+                    203,
+                    49
+                  ],
+                  [
+                    186,
+                    49
+                  ]
+                ],
+                "destructible": true
               }
             ]
           },
           {
             "name": {
-              "ja": "最後の一射 — ガン",
-              "en": "The last shot — GUN"
+              "ja": "最終決戦 — すべての路線",
+              "en": "Final battle — Every route"
             },
             "floor": [
               [
                 0,
-                5
-              ],
-              [
-                35,
-                5
-              ],
-              [
-                55,
-                20
-              ],
-              [
-                80,
-                20
-              ],
-              [
-                100,
                 8
               ],
               [
-                130,
+                30,
                 8
               ],
               [
-                155,
-                16
+                48,
+                26
               ],
               [
-                195,
-                16
+                75,
+                26
               ],
               [
-                210,
-                24
+                90,
+                18
+              ],
+              [
+                105,
+                18
+              ],
+              [
+                120,
+                26
+              ],
+              [
+                145,
+                26
+              ],
+              [
+                164,
+                14
+              ],
+              [
+                176,
+                14
+              ],
+              [
+                193,
+                18
+              ],
+              [
+                212,
+                30
+              ],
+              [
+                249,
+                30
               ],
               [
                 270,
-                24
-              ],
-              [
-                285,
-                16
+                18
               ],
               [
                 300,
-                16
+                18
+              ]
+            ],
+            "floorSegments": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  30,
+                  8
+                ],
+                [
+                  48,
+                  26
+                ],
+                [
+                  75,
+                  26
+                ],
+                [
+                  90,
+                  18
+                ]
+              ],
+              [
+                [
+                  105,
+                  18
+                ],
+                [
+                  120,
+                  26
+                ],
+                [
+                  145,
+                  26
+                ],
+                [
+                  164,
+                  14
+                ],
+                [
+                  176,
+                  14
+                ]
+              ],
+              [
+                [
+                  193,
+                  18
+                ],
+                [
+                  212,
+                  30
+                ],
+                [
+                  249,
+                  30
+                ],
+                [
+                  270,
+                  18
+                ],
+                [
+                  300,
+                  18
+                ]
               ]
             ],
             "parts": [
               {
                 "kind": "wall",
-                "x": 206,
-                "top": 44,
+                "x": 158,
                 "width": 4,
-                "bottom": 22
+                "top": 46,
+                "bottom": 18
               },
               {
-                "kind": "roof",
-                "x": 220,
-                "end": 260,
-                "top": 38,
-                "thickness": 3,
+                "kind": "wall",
+                "x": 196,
+                "width": 4,
+                "top": 50,
+                "bottom": 21
+              },
+              {
+                "kind": "wall",
+                "x": 254,
+                "width": 4,
+                "top": 48,
+                "bottom": 25
+              },
+              {
+                "kind": "island",
+                "x": 20,
+                "end": 43,
+                "top": 42,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 54,
+                "end": 77,
+                "top": 65,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 102,
+                "end": 120,
+                "top": 49,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 141,
+                "end": 157,
+                "top": 52,
+                "thickness": 4,
                 "breakable": true
               },
               {
                 "kind": "island",
-                "x": 190,
-                "end": 203,
-                "top": 33,
-                "thickness": 4
+                "x": 168,
+                "end": 191,
+                "top": 72,
+                "thickness": 4,
+                "breakable": false
               },
               {
                 "kind": "island",
-                "x": 265,
-                "end": 280,
-                "top": 35,
-                "thickness": 4
+                "x": 242,
+                "end": 264,
+                "top": 69,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "x": 270,
+                "end": 297,
+                "top": 43,
+                "thickness": 4,
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "x": 85,
+                "end": 106,
+                "top": 83,
+                "bottom": 78,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 113,
+                "end": 134,
+                "top": 92,
+                "bottom": 86,
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "x": 193,
+                "end": 216,
+                "top": 78,
+                "bottom": 73,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 225,
+                "end": 245,
+                "top": 68,
+                "bottom": 64,
+                "breakable": true
               }
             ],
             "features": [
               {
+                "type": "W",
+                "v": [
+                  25,
+                  79,
+                  26
+                ]
+              },
+              {
+                "type": "W",
+                "v": [
+                  120,
+                  251,
+                  30
+                ]
+              },
+              {
                 "type": "K",
                 "v": [
+                  176,
+                  46,
+                  -35
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  252,
+                  51,
+                  32
+                ]
+              },
+              {
+                "type": "B",
+                "v": [
+                  90,
+                  24,
+                  15,
+                  0,
+                  0
+                ]
+              },
+              {
+                "type": "B",
+                "v": [
+                  176,
+                  28,
+                  17,
+                  1,
+                  0
+                ]
+              },
+              {
+                "type": "U",
+                "v": [
+                  149,
+                  161,
+                  14,
+                  67
+                ]
+              },
+              {
+                "type": "F",
+                "v": [
+                  184,
+                  204,
+                  28,
+                  64
+                ]
+              },
+              {
+                "type": "C",
+                "v": [
+                  165,
+                  179,
+                  46,
+                  64
+                ]
+              },
+              {
+                "type": "V",
+                "v": [
+                  205,
                   217,
-                  33,
-                  -20
+                  18,
+                  43,
+                  1
+                ]
+              },
+              {
+                "type": "M",
+                "v": [
+                  172,
+                  45,
+                  12,
+                  1
+                ]
+              },
+              {
+                "type": "T",
+                "v": [
+                  146,
+                  36
                 ]
               }
             ],
             "spawns": {
               "gun": [
-                170,
-                16
+                125,
+                26
               ]
             },
             "bossSpawn": [
-              240,
-              24
+              225,
+              30
             ],
             "floors": [
               [
                 [
                   0,
-                  5
-                ],
-                [
-                  35,
-                  5
-                ],
-                [
-                  55,
-                  20
-                ],
-                [
-                  80,
-                  20
-                ],
-                [
-                  100,
                   8
                 ],
                 [
-                  130,
+                  30,
                   8
                 ],
                 [
-                  155,
-                  16
+                  48,
+                  26
                 ],
                 [
-                  195,
-                  16
+                  75,
+                  26
                 ],
                 [
-                  210,
-                  24
+                  90,
+                  18
+                ]
+              ],
+              [
+                [
+                  105,
+                  18
+                ],
+                [
+                  120,
+                  26
+                ],
+                [
+                  145,
+                  26
+                ],
+                [
+                  164,
+                  14
+                ],
+                [
+                  176,
+                  14
+                ]
+              ],
+              [
+                [
+                  193,
+                  18
+                ],
+                [
+                  212,
+                  30
+                ],
+                [
+                  249,
+                  30
                 ],
                 [
                   270,
-                  24
-                ],
-                [
-                  285,
-                  16
+                  18
                 ],
                 [
                   300,
-                  16
+                  18
                 ]
               ]
             ],
@@ -13472,20 +14247,20 @@
                 "id": "100-M3-C01",
                 "poly": [
                   [
-                    206,
-                    44
+                    158,
+                    46
                   ],
                   [
-                    210,
-                    44
+                    162,
+                    46
                   ],
                   [
-                    210,
-                    22
+                    162,
+                    18
                   ],
                   [
-                    206,
-                    22
+                    158,
+                    18
                   ]
                 ],
                 "destructible": true
@@ -13494,20 +14269,20 @@
                 "id": "100-M3-C02",
                 "poly": [
                   [
-                    220,
-                    38
+                    196,
+                    50
                   ],
                   [
-                    260,
-                    38
+                    200,
+                    50
                   ],
                   [
-                    260,
-                    35
+                    200,
+                    21
                   ],
                   [
-                    220,
-                    35
+                    196,
+                    21
                   ]
                 ],
                 "destructible": true
@@ -13516,49 +14291,272 @@
                 "id": "100-M3-C03",
                 "poly": [
                   [
-                    190,
-                    33
+                    254,
+                    48
                   ],
                   [
-                    203,
-                    33
+                    258,
+                    48
                   ],
                   [
-                    203,
-                    29
+                    258,
+                    25
                   ],
                   [
-                    190,
-                    29
+                    254,
+                    25
                   ]
                 ],
-                "destructible": false
+                "destructible": true
               },
               {
                 "id": "100-M3-C04",
                 "poly": [
                   [
-                    265,
-                    35
+                    20,
+                    42
                   ],
                   [
-                    280,
-                    35
+                    43,
+                    42
                   ],
                   [
-                    280,
-                    31
+                    43,
+                    38
                   ],
                   [
-                    265,
-                    31
+                    20,
+                    38
                   ]
                 ],
                 "destructible": false
+              },
+              {
+                "id": "100-M3-C05",
+                "poly": [
+                  [
+                    54,
+                    65
+                  ],
+                  [
+                    77,
+                    65
+                  ],
+                  [
+                    77,
+                    61
+                  ],
+                  [
+                    54,
+                    61
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C06",
+                "poly": [
+                  [
+                    102,
+                    49
+                  ],
+                  [
+                    120,
+                    49
+                  ],
+                  [
+                    120,
+                    45
+                  ],
+                  [
+                    102,
+                    45
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C07",
+                "poly": [
+                  [
+                    141,
+                    52
+                  ],
+                  [
+                    157,
+                    52
+                  ],
+                  [
+                    157,
+                    48
+                  ],
+                  [
+                    141,
+                    48
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M3-C08",
+                "poly": [
+                  [
+                    168,
+                    72
+                  ],
+                  [
+                    191,
+                    72
+                  ],
+                  [
+                    191,
+                    68
+                  ],
+                  [
+                    168,
+                    68
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C09",
+                "poly": [
+                  [
+                    242,
+                    69
+                  ],
+                  [
+                    264,
+                    69
+                  ],
+                  [
+                    264,
+                    65
+                  ],
+                  [
+                    242,
+                    65
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C10",
+                "poly": [
+                  [
+                    270,
+                    43
+                  ],
+                  [
+                    297,
+                    43
+                  ],
+                  [
+                    297,
+                    39
+                  ],
+                  [
+                    270,
+                    39
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C11",
+                "poly": [
+                  [
+                    85,
+                    83
+                  ],
+                  [
+                    106,
+                    83
+                  ],
+                  [
+                    106,
+                    78
+                  ],
+                  [
+                    85,
+                    78
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M3-C12",
+                "poly": [
+                  [
+                    113,
+                    92
+                  ],
+                  [
+                    134,
+                    92
+                  ],
+                  [
+                    134,
+                    86
+                  ],
+                  [
+                    113,
+                    86
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C13",
+                "poly": [
+                  [
+                    193,
+                    78
+                  ],
+                  [
+                    216,
+                    78
+                  ],
+                  [
+                    216,
+                    73
+                  ],
+                  [
+                    193,
+                    73
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M3-C14",
+                "poly": [
+                  [
+                    225,
+                    68
+                  ],
+                  [
+                    245,
+                    68
+                  ],
+                  [
+                    245,
+                    64
+                  ],
+                  [
+                    225,
+                    64
+                  ]
+                ],
+                "destructible": true
               }
             ]
           }
-        ]
+        ],
+        "fixedHp": 70,
+        "minSpawnDistance": 800,
+        "transitionSeconds": 2.2
       },
       "worldWidth": 3000
     }

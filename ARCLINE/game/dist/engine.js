@@ -61,6 +61,7 @@ function campaign(stage=1,save={}){
  const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,characterId,specialAmmo:N.guardian(spec)?3:0,playerTurn:1,specialUnlocks:0,specialChargeSerial:0,weaponStock:inventory.weapons,skills:inventory.skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||canUseAmmo),pendingLoot:(save.pendingLoot||[]).map(p=>({...p})),collectedPickupIds:pickupLedger,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(mode,characterId).minAngle||-12),power:20,result:null,reason:null,weaponId:mode,mode,lastPickupWeaponId:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
  s.random=seeded(s.matchSeed);
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
+ if(spec.id!==100&&Crew.normalize(save.unlockedCharacterIds).length>1){const cooling=Object.entries(save.machineUsage?.cooldowns||{}).filter(([,n])=>n>0).map(([id])=>id);if(cooling.length)s.restingCharacterIds=cooling;}
  FinalTeam.init(s);bossGeometry(s);telegraph(s);return s;
 }
 function telegraph(s){
@@ -148,6 +149,7 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
 function launch(s,angle=s.angle,power=s.power,plan=null){
  if(s.result||!['aim','cpu','cpuMove'].includes(s.phase))return null;
  const side=s.turn;if(side&&plan?.facing)s.units[1].facing=plan.facing;if(!side){
+  if(s.restingCharacterIds?.includes(s.characterId))return null;
   if(s.pendingLoot.length)return null;
   if(s.shotCount>=s.shotLimit)return null;
   // BLINK commits through its landing confirmation, never through a shot.
@@ -297,6 +299,7 @@ function boundary(s){
 }
 function next(s){
  if(check(s))return;
+ if(s.turn===0&&FinalTeam.active(s)&&s.finalTeam.pending){const handoff=FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=FinalTeam.duration(s,handoff);return;}
  if(s.turn===0){s.turn=1;s.phase='cpu';s.time=.6;}
  else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
 }
@@ -362,7 +365,7 @@ function enemyMoveTarget(s){
 function chargeSpecial(s){if(guardian(s))return 0;const unlocked=Math.min(3,Math.floor(s.playerTurn/2)),delta=Math.max(0,unlocked-(s.specialUnlocks||0));s.specialUnlocks=unlocked;if(delta){s.specialAmmo=Math.min(3,s.specialAmmo+delta);s.specialChargeSerial+=delta;}return delta;}
 function nextSpecialTurn(s){if(guardian(s)||(s.specialUnlocks||0)>=3)return null;return [2,4,6][s.specialUnlocks||0];}
 function changeCharacter(s,id,owned){
- if(!FinalTeam.canChange(s)||!Crew.ids.includes(id)||!owned?.includes(id)||s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length||s.characterId===id)return false;
+ if(s.restingCharacterIds?.includes(id)||!FinalTeam.canChange(s)||!Crew.ids.includes(id)||!owned?.includes(id)||s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length||s.characterId===id)return false;
  const u=s.units[0],ratio=Math.floor(Math.min(1,u.hp/u.maxHp)*1e6+1e-8)/1e6;if(ratio<=0)return false;
  const max=C.get(id).hp/C.pointsPerUnit;u.maxHp=max;u.hp=max*ratio;s.characterId=id;
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;

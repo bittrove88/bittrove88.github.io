@@ -62,7 +62,7 @@ function showCollection(data,onEquip,initialView='characters',options={}){
   $('collectionGrid').innerHTML=body;A.paintAll($('collectionGrid'));root.ArcCharacterHero.hydrate($('collectionGrid'));
   for(const b of $('collectionGrid').querySelectorAll('[data-inspect-character]'))b.onclick=()=>{inspected=b.dataset.inspectCharacter;paint();$('collectionGrid').querySelector(`[data-inspect-character="${inspected}"]`).focus({preventScroll:true});};
   for(const b of $('collectionGrid').querySelectorAll('[data-collection-tab]'))b.onclick=()=>{collectionView=b.dataset.collectionTab;paint();};
-  const b=$('collectionGrid').querySelector('[data-confirm-character]');if(b)b.onclick=()=>{const id=b.dataset.confirmCharacter;if(!owned(id))return;const accepted=onEquip({characterId:id});if(accepted===false)return;data.equippedCharacterId=id;paint();};
+  const b=$('collectionGrid').querySelector('[data-confirm-character]');if(b&&root.ArcCrewUsage?.blocked(data,inspected)){b.disabled=true;b.textContent=local('補充あと'+root.ArcCrewUsage.remaining(data,inspected)+'面','Resupply: '+root.ArcCrewUsage.remaining(data,inspected)+' stages');}if(b)b.onclick=()=>{const id=b.dataset.confirmCharacter;if(!owned(id))return;const accepted=onEquip({characterId:id});if(accepted===false)return;data.equippedCharacterId=id;paint();};
  }
  collectionRefresh=paint;root.ArcScreens.open('collectionPanel',{trigger:options.trigger,onEscape:()=>closeCollection()});paint();$('closeCollection').focus({preventScroll:true});
 }

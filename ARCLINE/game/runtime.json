@@ -1,6 +1,6 @@
 {
-  "version": "0.21.2",
-  "cacheVersion": "0.21.2",
+  "version": "0.21.3",
+  "cacheVersion": "0.21.3",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -16,6 +16,7 @@
     "physics.js",
     "inventory.js",
     "crew.js",
+    "crew-usage.js",
     "final-team.js",
     "campaign-run.js",
     "story.js",
@@ -58,9 +59,11 @@
     "sfx-data.js",
     "sfx-manager.js",
     "map-camera.js",
+    "final-travel.js",
     "final-team-ui.js",
     "master-progress.js",
     "master-mode.js",
+    "crew-supply.js",
     "game.js",
     "fullscreen.js"
   ],
@@ -74,7 +77,8 @@
     "map-camera.css",
     "experience.css",
     "final-team.css",
-    "master-mode.css"
+    "master-mode.css",
+    "crew-supply.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -101,7 +105,10 @@
     "final-team-ui.js": "ui/final-team-ui.js",
     "final-team.css": "styles/final-team.css",
     "master-mode.js": "ui/master-mode.js",
-    "master-mode.css": "styles/master-mode.css"
+    "master-mode.css": "styles/master-mode.css",
+    "final-travel.js": "ui/final-travel.js",
+    "crew-supply.js": "ui/crew-supply.js",
+    "crew-supply.css": "styles/crew-supply.css"
   },
   "requires": {
     "screens.js": [],
@@ -170,7 +177,9 @@
       "map-camera.js",
       "experience.js",
       "final-team-ui.js",
-      "master-mode.js"
+      "master-mode.js",
+      "final-travel.js",
+      "crew-supply.js"
     ],
     "device.js": [
       "screens.js",
@@ -226,7 +235,8 @@
       "crew.js"
     ],
     "campaign-run.js": [
-      "final-team.js"
+      "final-team.js",
+      "crew-usage.js"
     ],
     "engine.js": [
       "final-team.js"
@@ -245,6 +255,20 @@
     "master-mode.js": [
       "master-progress.js",
       "screens.js"
+    ],
+    "final-travel.js": [
+      "geometry.js"
+    ],
+    "crew-usage.js": [
+      "crew.js"
+    ],
+    "save.js": [
+      "crew-usage.js"
+    ],
+    "crew-supply.js": [
+      "crew-usage.js",
+      "screens.js",
+      "characters.js"
     ]
   }
 }

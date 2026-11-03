@@ -18,6 +18,7 @@
     "deleteSaveDialog",
     "mapCamera",
     "masterMode",
+    "crewSupply",
   ];
   const isOpen = (id) => !!$(id) && !$(id).hidden;
   function open(id, options = {}) {

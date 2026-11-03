@@ -180,17 +180,18 @@ function create(canvas,configuration={}){
    if(t>=.5||['destruction','choices'].includes(demonstration.id)&&t>0){world=after.world||world;s={...s,world,effects:after.effects||s.effects,pickups:after.pickups||s.pickups,bossPhase:after.bossPhase??s.bossPhase};display={...display,world,effects:s.effects,pickups:s.pickups,bossPhase:s.bossPhase};}
   }
   if(demonstration?.plan)for(const e of demonstration.plan.events.filter(e=>e.type==='pull'&&demoFlight>=e.t)){const t=Math.min(1,(demoFlight-e.t)/e.duration),ease=t*t*(3-2*t);display={...display,units:display.units.map((u,i)=>i!==e.unit?u:{...u,x:e.from.x+(e.to.x-e.from.x)*ease,y:e.from.y+(e.to.y-e.from.y)*ease,slope:e.from.slope+(e.to.slope-e.from.slope)*ease,animation:null})};}
-  if(transition){const t=Math.min(1,transition.age/transition.duration),ease=t*t*(3-2*t);world={...s.world,solids:s.world.solids.map(o=>{const old=transition.world.solids.find(a=>a.id===o.id&&a.poly.length===o.poly.length);return old?{...o,poly:o.poly.map((p,i)=>({x:old.poly[i].x+(p.x-old.poly[i].x)*ease,y:old.poly[i].y+(p.y-old.poly[i].y)*ease}))}:o;})};display={...s,units:s.units.map((u,i)=>({...u,x:transition.units[i].x+(u.x-transition.units[i].x)*ease,y:transition.units[i].y+(u.y-transition.units[i].y)*ease,slope:transition.units[i].slope+(u.slope-transition.units[i].slope)*ease}))};}
+  if(transition?.kind==='final-travel'&&root.ArcFinalTravel){const frame=root.ArcFinalTravel.frame(s,transition);s=frame.state;world=frame.world;display=frame.display;if(frame.view)options={...options,cameraView:frame.view};}
+  else if(transition){const t=Math.min(1,transition.age/transition.duration),ease=t*t*(3-2*t);world={...s.world,solids:s.world.solids.map(o=>{const old=transition.world.solids.find(a=>a.id===o.id&&a.poly.length===o.poly.length);return old?{...o,poly:o.poly.map((p,i)=>({x:old.poly[i].x+(p.x-old.poly[i].x)*ease,y:old.poly[i].y+(p.y-old.poly[i].y)*ease}))}:o;})};display={...s,units:s.units.map((u,i)=>({...u,x:transition.units[i].x+(u.x-transition.units[i].x)*ease,y:transition.units[i].y+(u.y-transition.units[i].y)*ease,slope:transition.units[i].slope+(u.slope-transition.units[i].slope)*ease}))};}
   arenaWidth=s.spec.worldWidth||1000;
   const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';const biome=E.biomes[s.spec.theme]||E.biomes[0],time=options.time||0;
-  const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,biome.sky[0]);sky.addColorStop(.67,biome.sky[1]);sky.addColorStop(1,biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
-  circle(w*.76,h*.21,Math.min(w,h)*.065,'#fff1c686');
-  for(let layer=0;layer<4;layer++){
+  const cave=s.spec.finalBackdrop==='cave';const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,cave?'#081c27':biome.sky[0]);sky.addColorStop(.67,cave?'#15313c':biome.sky[1]);sky.addColorStop(1,cave?'#24434b':biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
+  if(!cave)circle(w*.76,h*.21,Math.min(w,h)*.065,'#fff1c686');
+  if(!cave)for(let layer=0;layer<4;layer++){
    ctx.fillStyle=[biome.land+'40',biome.land+'70',biome.land+'90',biome.sky[0]+'65'][layer];ctx.beginPath();ctx.moveTo(0,h);
    for(let x=0;x<=w+12;x+=12){const y=h*(.38+layer*.085)+Math.sin(x/w*8+layer*1.7)*h*.045+Math.cos(x/w*17+layer)*h*.015;ctx.lineTo(x,y);}ctx.lineTo(w,h);ctx.fill();
   }
-  backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);
+  if(!cave)backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);else for(let layer=0;layer<3;layer++){ctx.fillStyle=['#0c222d','#102b35','#183740'][layer];for(let n=0;n<12;n++){const x=(n-.5)*w/10+layer*19,span=w*(.035+.012*((n+layer)%3)),depth=h*(.2+.07*((n*3+layer)%5));polygon([{x:x-span,y:0},{x:x+span,y:0},{x:x+span*.35,y:depth*.74},{x:x-span*.2,y:depth}]);ctx.fill();}}
   const lobby=options.lobby,wide=w/h>1.5,fieldW=lobby&&w>900?w*.56:w;
   const controls=canvasRect(document.getElementById('battleControls')),header=canvasRect(document.querySelector('.battle-top')),tutorial=canvasRect(document.getElementById('tutorial'));
   const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=arenaWidth;

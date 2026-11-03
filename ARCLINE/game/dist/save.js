@@ -4,6 +4,7 @@ const key='arcline-campaign-v1',revision='5.0.0';
 const Run=typeof module!=='undefined'?require('./campaign-run.js'):root.ArcCampaignRun;
 const Journal=typeof module!=='undefined'?require('./journal.js'):root.ArcJournal;
 const schemaVersion=8,resetVersion=2;
+const Usage=typeof module!=='undefined'?require('./crew-usage.js'):root.ArcCrewUsage;
 const Crew=typeof module!=='undefined'?require('./crew.js'):root.ArcCrew;
 const weaponIds=Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0'));
 const characterIds=Crew.ids;
@@ -33,6 +34,7 @@ function decode(raw){
  const steps=['prologue','gun','trial','done'],o=p.onboarding;
  const established=out.cleared>0||out.difficultyConfirmed||out.journeyStarted;
  out.onboarding={version:1,step:o&&steps.includes(o.step)?o.step:established?'done':'prologue',tried:validIds(o?.tried,['easy','normal','hard'])};
+ const usage=Usage.normalize(p.machineUsage);if(usage)out.machineUsage=usage;
  out.updateNoticePending=false;out.journal=Journal.normalize(p.journal,out);
  return out;
 }

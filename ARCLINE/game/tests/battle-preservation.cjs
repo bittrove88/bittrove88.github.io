@@ -15,7 +15,7 @@ module.exports=(file,base,equal)=>{
  const m={exports:{}};vm.runInNewContext(old.toString(),{module:m,require:id=>require(path.resolve(__dirname,'../dist',id))});
  const current=require(currentPath),plain=x=>JSON.parse(JSON.stringify(x));
  if(file==='campaign-run.js'){
-  for(const name of ['chapter','decode','checkpoint','restart','finish','updatePreparation'])equal(current[name].toString().replace('||!FinalTeam.complete(state)',''),m.exports[name].toString(),'checkpoint,inventory and completion contract unchanged '+name);
+  for(const name of ['chapter','decode','checkpoint','restart','finish','updatePreparation'])equal(current[name].toString().replace('||!FinalTeam.complete(state)','').replace(' CrewUsage.record(data,state);\n',''),m.exports[name].toString(),'checkpoint,inventory and completion contract unchanged '+name);
  }else if(file==='weapons.js'){
   for(const field of ['weapons','teleport','skills','coreUnlocks'])equal(plain(current[field]),plain(m.exports[field]),'auxiliary behavior unchanged '+field);
  }else{

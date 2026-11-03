@@ -51,7 +51,7 @@ function syncLobby(){
  $('arenaTitle').textContent=ArcStory.stageName(spec,ArcI18n.language,false,save.data.cleared);$('arenaTag').textContent=E.biomes[spec.theme].name;
  $('stageCaption').textContent=`LEVEL ${spec.id} · ${spec.boss?'BOSS · ':''}${Object.entries(spec.skills).map(([k,n])=>k+' ×'+n).join(' / ')||'STANDARD ONLY'}`;
  $('progressText').textContent=`${save.data.cleared} / 100 CLEARED`;$('play').innerHTML=`PLAY LEVEL ${spec.id} <span aria-hidden="true">→</span>`;
- $('collectionCount').textContent=`${save.data.unlockedCharacterIds.length}/10`;
+ $('collectionCount').textContent=selectedMap!==99&&ArcCrewUsage.blocked(save.data,save.data.equippedCharacterId)?(ArcI18n.language==='en'?'Resupply '+ArcCrewUsage.remaining(save.data,save.data.equippedCharacterId):'補充あと'+ArcCrewUsage.remaining(save.data,save.data.equippedCharacterId)+'面'):`${save.data.unlockedCharacterIds.length}/10`;
  $('prevMap').disabled=selectedMap===0;$('nextMap').disabled=selectedMap>=Math.min(99,save.data.cleared);
  $('weaponLoadout').innerHTML=save.data.unlockedWeaponIds.map(id=>`<option value="${id}">${ArcWeapons.get(id).name}</option>`).join('');$('weaponLoadout').value=save.data.equippedWeaponId;
  ArcPresentation.syncLobby(save.data,selectedMap,context);
@@ -60,6 +60,7 @@ function syncLobby(){
 function syncJournalSummary(){const journal=ArcJournal.normalize(save.data.journal,save.data);$('journalUnread').hidden=ArcJournal.unread(save.data)===0;$('openJournal').disabled=!save.data.journeyStarted;$('journeyOpening').hidden=journal.introSeen;$('journeyOpening').textContent=ArcI18n.language==='en'?'Restore the routes. Move the world.':'止まった世界を、もう一度動かす。';}
 const difficultyUi=ArcDifficultyUi.create({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),clearInput,allowed:()=>!s&&!hostPaused()});
 const machinePicker=ArcMachinePicker.create({data:()=>save.data,state:()=>s,clearInput,allowed:()=>!!s&&s.phase==='aim'&&!s.result&&!hostPaused()&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!s.pendingLoot.length&&(!manualPaused||dialog==='pause'),changed:()=>{sfx.prepare(s.characterId);hud();draw();},change:id=>{if(!E.changeCharacter(s,id,save.data.unlockedCharacterIds))return false;save.data.equippedCharacterId=id;save.save();return true;}});
+const crewSupply=ArcCrewSupply.create({data:()=>save.data,replace:data=>save.replace(data),changed:()=>{syncLobby();draw();},cancel:()=>lobby()});
 const masterMode=ArcMasterMode.create({data:()=>save.data,allowed:()=>save.ready&&!endingPreview&&!s&&!hostPaused()&&!ArcStoryView.active&&!ArcChapterPlayback.active&&(ArcScreens.isOpen('journeyStart')||!ArcOnboarding.active&&!$('lobby').hidden),replace:data=>save.replace(data),changed:()=>{ArcOnboarding.dismiss();ArcScreens.close('journeyStart',false);selectedMap=Math.min(99,save.data.cleared);lobby();}});
 const finalTeamUi=ArcFinalTeamUi.create({allowed:canAim,open:()=>machinePicker.open(),hidden:()=>!!demo||ArcStoryView.active||ArcExpeditionUi.active||manualPaused});
 function syncDifficultyChoice(){difficultyUi.sync();}
@@ -190,7 +191,7 @@ function firstDemo(){
 }
 function paintEncounter(){
  const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('bossIntroSkip').hidden=!encounter?.boss||!!demo||!!s?.result||manualPaused||reducedMotion;$('bossIntroSkip').textContent=ArcI18n.language==='en'?'Skip intro':'登場演出をスキップ';$('encounterBanner').dataset.phase=encounter?.boss?ArcExperience.introPhase(encounter.age):'name';$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
- if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id),value=key==='feature'&&ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'Fixed order: all ten machines deal 10 body damage each.':'固定順で10機が本体へ各10ダメージ。3機ごとに戦場が変化。'):data[key];if(e.textContent!==value)e.textContent=value;e.hidden=!value;}
+ if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id),value=key==='feature'&&ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'Each machine:70 HP and100 body damage. The ground collapses after every three.':'各機HP70・本体へ100ダメージ。3機ごとに地形が崩壊し次の戦場へ。'):data[key];if(e.textContent!==value)e.textContent=value;e.hidden=!value;}
 }
 $('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();renderer.resetCamera();paintEncounter();hud();draw();$('world').focus({preventScroll:true});}};
 function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
@@ -205,6 +206,7 @@ function start(retryContext=null){
  ArcStoryView.hideResult();gameToken++;cpuJob=null;cpuReady=null;
  if(pendingAdvance&&!save.dirty)pendingAdvance=false;
  if(pendingAdvance&&save.ready){const token=gameToken,n=selectedMap;persistAdvance().then(ok=>{if(ok&&token===gameToken&&n===selectedMap)start(retryContext);});return;}
+ if(crewSupply.request(selectedMap+1,()=>start(retryContext)))return;
  runContext=R.begin(save.data,selectedMap+1);
  ArcMenus.close(false);const entry=runContext.entry;save.data.journal.introSeen=true;ArcJournal.markRead(save.data,['introduction']);$('chapterMessage').hidden=true;skillLessonQueue=[];$('clearRewardLine').hidden=true;clearInput();s=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode,matchSeed:entry.seed,pickupLedger:entry.pickupLedger,pendingLoot:entry.pending});lastChargeSerial=0;s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;lootContinuation=null;$('lootPicker').hidden=true;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
  save.save();
@@ -255,7 +257,7 @@ async function persistAdvance(){
  return !pendingAdvance;
 }
 function advanceTurn(){
- const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial,beforeTeam=s.finalTeam?.serial;E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(beforeTeam!==s.finalTeam?.serial){transition=null;clearInput();renderer.resetCamera();sfx.prepare(s.characterId);}if(s.phase==='over'){finishResult();return;}
+ const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial,beforeTeam=s.finalTeam?.serial,beforeState={...s,units:beforeUnits,world:beforeWorld};E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(beforeTeam!==s.finalTeam?.serial){cpuJob=null;cpuReady=null;jobId++;transition=s.finalTeam?.travel?ArcFinalTravel.create(beforeState,renderer.view,s.finalTeam.travel,reducedMotion):null;s.time=transition?.duration||s.time;clearInput();renderer.resetCamera();sfx.prepare(s.characterId);}if(s.phase==='over'){finishResult();return;}
  if(s.turn){s.time=0;if(!cpuJob&&!cpuReady)requestCPU();}else{shot=null;}
  hud();
 }
@@ -293,7 +295,7 @@ function update(dt,realDt=dt){
    const last=shot,parts=s.units.map(u=>u.parts.map(p=>p.hp));E.resolve(s,last,acquired);tail={shot:last,age:0};impact={...last.end,age:0,weaponId:last.weaponId,shot:last,damage:last.damage};shot=null;
    s.units.forEach((u,i)=>{const broken=u.parts.flatMap((p,j)=>p.hp<=0&&parts[i][j]>0?[j]:[]);if(last.damage[i]>0||broken.length)u.reaction={age:0,damage:last.damage[i],side:last.side,broken};});
    if(!last.events.some(e=>e.type==='pickup'))feedback=last.teleport&&!last.teleportSuccess?'No landing':'';sfx.finish();if(last.teleport)tone(580,.3,'sine',.15);
-   if(s.phase==='over'){beginVictory();ending={age:0,winner:s.result==='win'?0:s.result==='lose'?1:-1,final:s.stage===100&&s.result==='win'};s.phase='finish';}else{s.phase='impact';if(s.turn===0)requestCPU();}s.time=s.phase==='finish'?.8:1.4;
+   if(s.phase==='over'){beginVictory();ending={age:0,winner:s.result==='win'?0:s.result==='lose'?1:-1,final:s.stage===100&&s.result==='win'};s.phase='finish';}else{s.phase='impact';if(s.turn===0&&!s.finalTeam?.pending)requestCPU();}s.time=s.phase==='finish'?.8:1.4;
   }
  }else if(s.phase==='impact'||s.phase==='finish'){
   s.time-=dt;if(tail)tail.age+=dt;
@@ -301,7 +303,7 @@ function update(dt,realDt=dt){
   else if(s.time<=0){tail=null;if(s.phase==='finish'){s.phase='over';finishResult();}else advanceTurn();}
  }else if(s.phase==='repair'){s.time-=dt;if(s.repair)s.repair.age+=dt;if(s.time<=0)advanceTurn();
  }else if(s.phase==='transition'){
-  s.time-=dt;if(tail)tail.age+=dt;if(transition)transition.age+=dt;if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;tail=null;if(!openLoot(afterLootAim))afterLootAim();hud();}
+  s.time-=dt;if(tail)tail.age+=dt;if(transition){transition.age+=dt;if(transition.kind==='final-travel'&&!transition.reframed&&transition.age>=transition.duration*.55){transition.reframed=true;renderer.resetCamera();}}if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;tail=null;if(!openLoot(afterLootAim))afterLootAim();hud();}
  }
  for(const p of pickupEffects)p.age+=dt;pickupEffects=pickupEffects.filter(p=>p.age<.8);
  for(const u of s.units)if(u.teleportFlash&&(u.teleportFlash.age+=dt)>.8)delete u.teleportFlash;
