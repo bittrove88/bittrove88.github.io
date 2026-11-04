@@ -1,0 +1,11941 @@
+{
+  "schema": "arcline-reference-maps-v3",
+  "status": "design-simulation-only; game not modified",
+  "date": "2026-11-04",
+  "baseline": {
+    "v2BlobSha": "85e43c5256e24861591d78b4ab824e84dc2a88ed",
+    "geometrySha": "b05fdd46ca307565d61e6b5496f546482b465222",
+    "physicsSha": "23b3f3246105480265f8fde1c315031dd6863567"
+  },
+  "rules": {
+    "earlyStages": "1..39: initial direct valid shots",
+    "transition": "40..49: avoid mandatory multi-step reposition without in-level explanation",
+    "lateStages": "50..99: allow direct, reposition-to-improve, or movement-first",
+    "finalStage": "100: special 4-arena fixed-team rules supersede generic criterion",
+    "movementFirst": "Only if supported by visible firing position, safe walk/teleport path, slope control, and followup successful shots",
+    "noForcedDistribution": "Mix modes according to fun and neighboring map variety, not quotas"
+  },
+  "maps": [
+    {
+      "stage": 3,
+      "name": "荷車を追い越して",
+      "prototypeTitle": "波食段丘と広い射撃棚",
+      "theme": "はじまりの入江",
+      "band": "入門",
+      "pattern": {
+        "topology": "B",
+        "contour": "S2",
+        "playerStart": "U",
+        "enemyStart": "G"
+      },
+      "floor": [
+        [
+          0,
+          20
+        ],
+        [
+          8,
+          20.2
+        ],
+        [
+          14,
+          21.3
+        ],
+        [
+          32,
+          22.2
+        ],
+        [
+          38,
+          21
+        ],
+        [
+          47,
+          17
+        ],
+        [
+          59,
+          13
+        ],
+        [
+          70,
+          10
+        ],
+        [
+          77,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 22,
+          "surface": "floor:0",
+          "stableRange": [
+            16,
+            28
+          ],
+          "h": 21.7,
+          "slopeDeg": 2.862,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 85,
+          "surface": "floor:0",
+          "stableRange": [
+            79,
+            91
+          ],
+          "h": 10,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "高台から緩い降り弧で通常弾を届かせる",
+        "alternate": "斜面の肩へ移動して射距離を縮める"
+      },
+      "lesson": "安定射点と歩行のための斜面を分ける。見た目の自然な起伏と狙いやすさを両立",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "開放：波食段丘の上",
+        "enemy": "開放：谷の低地",
+        "playerMode": "open",
+        "enemyMode": "open"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 11,
+        "gimmickHitCount": 0,
+        "teleportLandingUseful": 0
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 8,
+      "name": "ひさしの下を通る",
+      "prototypeTitle": "アーチ状の港洞窟",
+      "theme": "鏡の岸壁",
+      "band": "入門",
+      "pattern": {
+        "topology": "F",
+        "contour": "S6",
+        "playerStart": "C",
+        "enemyStart": "G"
+      },
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          43,
+          11.2
+        ],
+        [
+          52,
+          13.7
+        ],
+        [
+          64,
+          16
+        ],
+        [
+          73,
+          16
+        ],
+        [
+          100,
+          16
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              3,
+              30
+            ],
+            [
+              8,
+              33
+            ],
+            [
+              16,
+              34
+            ],
+            [
+              27,
+              33
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              28,
+              26
+            ],
+            [
+              17,
+              25
+            ],
+            [
+              8,
+              25
+            ],
+            [
+              3,
+              26
+            ]
+          ],
+          "breakable": false,
+          "id": "008-C01"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              77,
+              29
+            ],
+            [
+              81,
+              32
+            ],
+            [
+              94,
+              32
+            ],
+            [
+              99,
+              29
+            ],
+            [
+              99,
+              22
+            ],
+            [
+              92,
+              22
+            ],
+            [
+              82,
+              22
+            ],
+            [
+              77,
+              23
+            ]
+          ],
+          "breakable": false,
+          "id": "008-C02"
+        }
+      ],
+      "features": [],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 20,
+          "surface": "floor:0",
+          "stableRange": [
+            14,
+            26
+          ],
+          "h": 10,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 86,
+          "surface": "floor:0",
+          "stableRange": [
+            80,
+            92
+          ],
+          "h": 16,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "出入口を避けて低い弧で敵を狙う。敵側も庇で半開放とし、高い弧だけが一律に正解にならない。",
+        "alternate": "手前のアーチ端から出て着弾角を調整する。"
+      },
+      "lesson": "自機が洞窟、敵が庇下。完全開放の敵ばかりにせず、初級では射線を広く残す。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "閉鎖：大きなアーチ洞窟内",
+        "enemy": "半開放：低い庇の下",
+        "playerMode": "enclosed",
+        "enemyMode": "semi"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 5,
+        "gimmickHitCount": 0,
+        "teleportLandingUseful": 0
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 14,
+      "name": "連続する石畳",
+      "prototypeTitle": "欠けた石橋と二つの岸",
+      "theme": "吊り橋の水路",
+      "band": "初級",
+      "pattern": {
+        "topology": "L",
+        "contour": "S11",
+        "playerStart": "G",
+        "enemyStart": "G"
+      },
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          9,
+          12.3
+        ],
+        [
+          25,
+          12.3
+        ],
+        [
+          30,
+          13.5
+        ],
+        [
+          39,
+          17
+        ],
+        [
+          50,
+          6
+        ],
+        [
+          61,
+          17
+        ],
+        [
+          69,
+          15
+        ],
+        [
+          77,
+          16
+        ],
+        [
+          100,
+          16
+        ]
+      ],
+      "floorSegments": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            9,
+            12.3
+          ],
+          [
+            25,
+            12.3
+          ],
+          [
+            30,
+            13.5
+          ],
+          [
+            39,
+            17
+          ]
+        ],
+        [
+          [
+            61,
+            17
+          ],
+          [
+            69,
+            15
+          ],
+          [
+            77,
+            16
+          ],
+          [
+            100,
+            16
+          ]
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              37,
+              17
+            ],
+            [
+              63,
+              17
+            ],
+            [
+              63,
+              15
+            ],
+            [
+              37,
+              15
+            ]
+          ],
+          "breakable": false,
+          "id": "014-C01",
+          "x": 37,
+          "end": 63,
+          "top": 17,
+          "bottom": 15
+        }
+      ],
+      "features": [],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 18,
+          "surface": "floor:0",
+          "stableRange": [
+            12,
+            24
+          ],
+          "h": 12.3,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 86,
+          "surface": "floor:1",
+          "stableRange": [
+            80,
+            92
+          ],
+          "h": 16,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "落ちた地面の間を固定石橋が結ぶ形を読み、通常弾を届かせる",
+        "alternate": "橋上へ転移して短い射線を確保する"
+      },
+      "lesson": "橋と地盤を区別。ここでは未習得の開閉橋ギミックを前倒ししない",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "開放：左岸",
+        "enemy": "開放：右岸",
+        "playerMode": "open",
+        "enemyMode": "open"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 11,
+        "gimmickHitCount": 0,
+        "teleportLandingUseful": 0
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 19,
+      "name": "崖の中継棚",
+      "prototypeTitle": "先細り浮島から地上へ",
+      "theme": "遺跡の入口",
+      "band": "初級",
+      "pattern": {
+        "topology": "H",
+        "contour": "S8",
+        "playerStart": "I",
+        "enemyStart": "G"
+      },
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          28,
+          9
+        ],
+        [
+          40,
+          7
+        ],
+        [
+          48,
+          7
+        ],
+        [
+          59,
+          9
+        ],
+        [
+          70,
+          12
+        ],
+        [
+          79,
+          16
+        ],
+        [
+          100,
+          16
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "poly": [
+            [
+              8,
+              27
+            ],
+            [
+              12,
+              30
+            ],
+            [
+              34,
+              30.5
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              36,
+              22
+            ],
+            [
+              30,
+              18
+            ],
+            [
+              20,
+              20
+            ],
+            [
+              14,
+              21
+            ],
+            [
+              10,
+              24
+            ]
+          ],
+          "breakable": false,
+          "id": "019-C01"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              84,
+              26
+            ],
+            [
+              91,
+              28
+            ],
+            [
+              99,
+              27
+            ],
+            [
+              99,
+              21
+            ],
+            [
+              92,
+              21
+            ],
+            [
+              84,
+              22
+            ]
+          ],
+          "breakable": false,
+          "id": "019-C02"
+        }
+      ],
+      "features": [],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 22,
+          "surface": "component:019-C01",
+          "stableRange": [
+            16,
+            28
+          ],
+          "h": 30.227,
+          "slopeDeg": 1.302,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 86,
+          "surface": "floor:0",
+          "stableRange": [
+            80,
+            92
+          ],
+          "h": 16,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "自機の浮島から地上の庇下へ落下弾を送る。",
+        "alternate": "浮島内で射点を変えるか、安全な屋根への転移を考える。"
+      },
+      "lesson": "敵の屋根は一部の高角度弾を制限するが、地上までの通常弾の成立幅を残す。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "開放：独立浮島",
+        "enemy": "半開放：岩庇の下",
+        "playerMode": "open",
+        "enemyMode": "semi"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 7,
+        "gimmickHitCount": 0,
+        "teleportLandingUseful": 0
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 27,
+      "name": "雲の外の射点",
+      "prototypeTitle": "三つの高度の雲上群島",
+      "theme": "雲の空港",
+      "band": "初級",
+      "pattern": {
+        "topology": "I",
+        "contour": "S9",
+        "playerStart": "I",
+        "enemyStart": "G"
+      },
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          21,
+          9
+        ],
+        [
+          32,
+          7
+        ],
+        [
+          45,
+          5
+        ],
+        [
+          54,
+          5
+        ],
+        [
+          65,
+          8
+        ],
+        [
+          76,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "poly": [
+            [
+              7,
+              30
+            ],
+            [
+              12,
+              34
+            ],
+            [
+              35,
+              33.5
+            ],
+            [
+              39,
+              31
+            ],
+            [
+              36,
+              25
+            ],
+            [
+              29,
+              23
+            ],
+            [
+              21,
+              24
+            ],
+            [
+              13,
+              25
+            ],
+            [
+              9,
+              28
+            ]
+          ],
+          "breakable": false,
+          "id": "027-C01",
+          "x": 7,
+          "end": 39,
+          "top": 34,
+          "bottom": 23
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              43,
+              26
+            ],
+            [
+              47,
+              29
+            ],
+            [
+              64,
+              29
+            ],
+            [
+              68,
+              26
+            ],
+            [
+              61,
+              22
+            ],
+            [
+              52,
+              21
+            ],
+            [
+              45,
+              23
+            ]
+          ],
+          "breakable": false,
+          "id": "027-C02",
+          "x": 43,
+          "end": 68,
+          "top": 29,
+          "bottom": 21
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              67,
+              21
+            ],
+            [
+              70,
+              24
+            ],
+            [
+              81,
+              24
+            ],
+            [
+              85,
+              21
+            ],
+            [
+              80,
+              18
+            ],
+            [
+              73,
+              17
+            ]
+          ],
+          "breakable": false,
+          "id": "027-C03",
+          "x": 67,
+          "end": 85,
+          "top": 24,
+          "bottom": 17
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            52,
+            73,
+            24,
+            44
+          ]
+        }
+      ],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 22,
+          "surface": "component:027-C01",
+          "stableRange": [
+            16,
+            28
+          ],
+          "h": 33.783,
+          "slopeDeg": -1.245,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 92,
+          "surface": "floor:0",
+          "stableRange": [
+            86,
+            98
+          ],
+          "h": 12,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "雲域を通る弾道を第一候補とし、高い雲回避弾を別解にする。",
+        "alternate": "中央浮島へ転移して雲域を通る距離を短くする。"
+      },
+      "lesson": "雲が成功弾道上にあり、ギミックに意味がある。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "開放：浮島上",
+        "enemy": "開放：地上",
+        "playerMode": "open",
+        "enemyMode": "open"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 10,
+        "gimmickHitCount": 6,
+        "teleportLandingUseful": 0
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 40,
+      "name": "色を残す鏡門",
+      "prototypeTitle": "鍾乳の二層洞窟と鏡谷",
+      "theme": "プリズム城壁",
+      "band": "中級",
+      "pattern": {
+        "topology": "G",
+        "contour": "S7",
+        "playerStart": "C",
+        "enemyStart": "U"
+      },
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          8,
+          9.3
+        ],
+        [
+          29,
+          9.8
+        ],
+        [
+          34,
+          8
+        ],
+        [
+          40,
+          5
+        ],
+        [
+          51,
+          3
+        ],
+        [
+          63,
+          4
+        ],
+        [
+          72,
+          16
+        ],
+        [
+          80,
+          29
+        ],
+        [
+          100,
+          29
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              3,
+              33
+            ],
+            [
+              9,
+              36
+            ],
+            [
+              13,
+              35
+            ],
+            [
+              15,
+              29
+            ],
+            [
+              13,
+              27
+            ],
+            [
+              7,
+              27
+            ],
+            [
+              3,
+              28
+            ]
+          ],
+          "breakable": false,
+          "id": "040-C01"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              36,
+              46
+            ],
+            [
+              42,
+              47
+            ],
+            [
+              49,
+              45
+            ],
+            [
+              52,
+              39
+            ],
+            [
+              49,
+              36
+            ],
+            [
+              42,
+              37
+            ],
+            [
+              36,
+              38
+            ]
+          ],
+          "breakable": false,
+          "id": "040-C02"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              48,
+              19
+            ],
+            [
+              52,
+              22
+            ],
+            [
+              64,
+              22
+            ],
+            [
+              67,
+              18
+            ],
+            [
+              61,
+              15
+            ],
+            [
+              54,
+              16
+            ]
+          ],
+          "breakable": false,
+          "id": "040-C03"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              79,
+              48
+            ],
+            [
+              86,
+              50
+            ],
+            [
+              99,
+              49
+            ],
+            [
+              99,
+              45
+            ],
+            [
+              92,
+              44
+            ],
+            [
+              84,
+              45
+            ],
+            [
+              79,
+              44
+            ]
+          ],
+          "breakable": false,
+          "id": "040-C04"
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            40,
+            65,
+            4
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            61,
+            34,
+            15
+          ]
+        }
+      ],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 19,
+          "surface": "floor:0",
+          "stableRange": [
+            13,
+            25
+          ],
+          "h": 9.562,
+          "slopeDeg": 1.364,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 88,
+          "surface": "floor:0",
+          "stableRange": [
+            82,
+            94
+          ],
+          "h": 29,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "低い洞窟から開いた中央の通路を使い、ボスへ弧を通す。",
+        "alternate": "中央棚へ転移して射角の許容を広げる。反射ギミック経由でも有効打の候補がある。"
+      },
+      "lesson": "高い天井岩は空間を演出しつつ、開口を確保。Wによる反射材とK結晶は実際の着弾候補に使われる。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "半閉鎖：岩洞の射撃棚",
+        "enemy": "半開放：崖上の高い岩庇下",
+        "playerMode": "semi",
+        "enemyMode": "semi"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 5,
+        "gimmickHitCount": 2,
+        "teleportLandingUseful": 10
+      },
+      "renderReflectors": [
+        {
+          "id": "W0:floor0:5",
+          "a": [
+            400,
+            450
+          ],
+          "b": [
+            510,
+            470
+          ]
+        },
+        {
+          "id": "W0:floor0:6",
+          "a": [
+            510,
+            470
+          ],
+          "b": [
+            630,
+            460
+          ]
+        },
+        {
+          "id": "W0:floor0:7",
+          "a": [
+            630,
+            460
+          ],
+          "b": [
+            650,
+            433.33
+          ]
+        },
+        {
+          "id": "W0:040-C02:e0:1",
+          "a": [
+            400,
+            33.33
+          ],
+          "b": [
+            420,
+            30
+          ]
+        },
+        {
+          "id": "W0:040-C02:e1:1",
+          "a": [
+            420,
+            30
+          ],
+          "b": [
+            490,
+            50
+          ]
+        },
+        {
+          "id": "W0:040-C02:e2:1",
+          "a": [
+            490,
+            50
+          ],
+          "b": [
+            520,
+            110
+          ]
+        },
+        {
+          "id": "W0:040-C03:e0:1",
+          "a": [
+            480,
+            310
+          ],
+          "b": [
+            520,
+            280
+          ]
+        },
+        {
+          "id": "W0:040-C03:e1:1",
+          "a": [
+            520,
+            280
+          ],
+          "b": [
+            640,
+            280
+          ]
+        },
+        {
+          "id": "W0:040-C03:e2:1",
+          "a": [
+            640,
+            280
+          ],
+          "b": [
+            650,
+            293.33
+          ]
+        }
+      ],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 50,
+      "name": "掘削線と残す線",
+      "prototypeTitle": "坑道縦穴と不規則二段棚",
+      "theme": "琥珀の機関",
+      "band": "上級",
+      "pattern": {
+        "topology": "K",
+        "contour": "S7",
+        "playerStart": "C",
+        "enemyStart": "U"
+      },
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          29,
+          10.7
+        ],
+        [
+          38,
+          10.7
+        ],
+        [
+          44,
+          5
+        ],
+        [
+          57,
+          4
+        ],
+        [
+          63,
+          6
+        ],
+        [
+          72,
+          20
+        ],
+        [
+          79,
+          34
+        ],
+        [
+          100,
+          34
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              2,
+              32
+            ],
+            [
+              7,
+              35
+            ],
+            [
+              12,
+              35
+            ],
+            [
+              23,
+              33
+            ],
+            [
+              24,
+              27
+            ],
+            [
+              13,
+              26
+            ],
+            [
+              5,
+              26
+            ],
+            [
+              2,
+              28
+            ]
+          ],
+          "breakable": false,
+          "id": "050-C01"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              47,
+              51
+            ],
+            [
+              55,
+              52
+            ],
+            [
+              64,
+              50
+            ],
+            [
+              64,
+              45
+            ],
+            [
+              54,
+              44
+            ],
+            [
+              47,
+              45
+            ]
+          ],
+          "breakable": true,
+          "id": "050-C02"
+        },
+        {
+          "kind": "wall",
+          "poly": [
+            [
+              58,
+              27
+            ],
+            [
+              62,
+              27
+            ],
+            [
+              62,
+              5
+            ],
+            [
+              58,
+              5
+            ]
+          ],
+          "breakable": false,
+          "id": "050-C03"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              36,
+              18
+            ],
+            [
+              40,
+              21
+            ],
+            [
+              50,
+              21
+            ],
+            [
+              55,
+              18
+            ],
+            [
+              48,
+              15
+            ],
+            [
+              40,
+              16
+            ]
+          ],
+          "breakable": false,
+          "id": "050-C04"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              64,
+              46
+            ],
+            [
+              68,
+              49
+            ],
+            [
+              79,
+              49
+            ],
+            [
+              82,
+              46
+            ],
+            [
+              75,
+              43
+            ],
+            [
+              68,
+              44
+            ]
+          ],
+          "breakable": false,
+          "id": "050-C05"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              79,
+              51
+            ],
+            [
+              86,
+              53
+            ],
+            [
+              98,
+              51
+            ],
+            [
+              99,
+              46
+            ],
+            [
+              92,
+              45
+            ],
+            [
+              84,
+              46
+            ],
+            [
+              79,
+              47
+            ]
+          ],
+          "breakable": false,
+          "id": "050-C06"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            35,
+            51,
+            17,
+            39
+          ]
+        }
+      ],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 32,
+          "surface": "floor:0",
+          "stableRange": [
+            26,
+            38
+          ],
+          "h": 10.7,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 89,
+          "surface": "floor:0",
+          "stableRange": [
+            83,
+            95
+          ],
+          "h": 34,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "開始位置では狙いにくい。左40px後退し、右2pxの向き直しで砲口をボス側に戻して、上昇気流へ通常弾を通す。",
+        "alternate": "開始位置から中央の独立浮島にテレポートし、中段の広い射点から通常弾でボスへ向かう。"
+      },
+      "lesson": "縦坑手前の平坦棚は直進射線が遮られる。40px後退して射角を確保するか、浮島へ転移して新しい射線を作る。短距離移動中の急な車体傾斜を攻略難度にしない。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "半閉鎖：坑道入口",
+        "enemy": "半開放：高段と天井岩の下",
+        "playerMode": "semi",
+        "enemyMode": "semi"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 8,
+        "gimmickHitCount": 8,
+        "teleportLandingUseful": 8
+      },
+      "renderReflectors": [],
+      "engagementMode": "movement-first",
+      "discoveryHint": "縦坑直前は天井と浮島に射線が削られるが、左の低い棚は頭上が空き、中央浮島の上面が見える。"
+    },
+    {
+      "stage": 60,
+      "name": "確かさを添えた迂回路",
+      "prototypeTitle": "風の断崖と谷底の横穴",
+      "theme": "凍てつく峡谷",
+      "band": "上級",
+      "pattern": {
+        "topology": "C",
+        "contour": "S5",
+        "playerStart": "U",
+        "enemyStart": "L"
+      },
+      "floor": [
+        [
+          0,
+          29
+        ],
+        [
+          8,
+          29
+        ],
+        [
+          30,
+          29.6
+        ],
+        [
+          37,
+          25
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          51,
+          6
+        ],
+        [
+          62,
+          6
+        ],
+        [
+          72,
+          9
+        ],
+        [
+          80,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              43,
+              37
+            ],
+            [
+              50,
+              39
+            ],
+            [
+              62,
+              38
+            ],
+            [
+              68,
+              34
+            ],
+            [
+              66,
+              27
+            ],
+            [
+              59,
+              25
+            ],
+            [
+              51,
+              26
+            ],
+            [
+              43,
+              27
+            ]
+          ],
+          "breakable": false,
+          "id": "060-C01",
+          "x": 43,
+          "end": 68,
+          "top": 39,
+          "bottom": 25
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              62,
+              23
+            ],
+            [
+              66,
+              26
+            ],
+            [
+              78,
+              26
+            ],
+            [
+              81,
+              23
+            ],
+            [
+              75,
+              21
+            ],
+            [
+              67,
+              21
+            ]
+          ],
+          "breakable": false,
+          "id": "060-C02",
+          "x": 62,
+          "end": 81,
+          "top": 26,
+          "bottom": 21
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            39,
+            67,
+            8,
+            42
+          ]
+        }
+      ],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 18,
+          "surface": "floor:0",
+          "stableRange": [
+            12,
+            24
+          ],
+          "h": 29.273,
+          "slopeDeg": 1.562,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 89,
+          "surface": "floor:0",
+          "stableRange": [
+            83,
+            95
+          ],
+          "h": 12,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "高台から風を読んで落下弾で谷向こうを狙う",
+        "alternate": "谷底の風陰に転移して洞口を利用する"
+      },
+      "lesson": "大きい断崖と穏やかな射撃棚を分ける。強風と車体傾斜を同時に理不尽にしない",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "開放：風上の高台",
+        "enemy": "開放：谷向こうの低地",
+        "playerMode": "open",
+        "enemyMode": "open"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 7,
+        "gimmickHitCount": 5,
+        "teleportLandingUseful": 0
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    },
+    {
+      "stage": 80,
+      "name": "届かなかった返事",
+      "prototypeTitle": "極性二重通路と浮島射点",
+      "theme": "極性の実験棟",
+      "band": "超上級",
+      "pattern": {
+        "topology": "J",
+        "contour": "S6",
+        "playerStart": "I",
+        "enemyStart": "U"
+      },
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          30,
+          10
+        ],
+        [
+          39,
+          6
+        ],
+        [
+          49,
+          4
+        ],
+        [
+          58,
+          4
+        ],
+        [
+          68,
+          13
+        ],
+        [
+          78,
+          29
+        ],
+        [
+          84,
+          38
+        ],
+        [
+          100,
+          38
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "poly": [
+            [
+              8,
+              30
+            ],
+            [
+              12,
+              33
+            ],
+            [
+              35,
+              33.5
+            ],
+            [
+              39,
+              29
+            ],
+            [
+              31,
+              26
+            ],
+            [
+              19,
+              27
+            ],
+            [
+              10,
+              28
+            ]
+          ],
+          "breakable": false,
+          "id": "080-C01"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              41,
+              25
+            ],
+            [
+              45,
+              28
+            ],
+            [
+              60,
+              28
+            ],
+            [
+              64,
+              24
+            ],
+            [
+              56,
+              21
+            ],
+            [
+              47,
+              22
+            ]
+          ],
+          "breakable": false,
+          "id": "080-C02"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              62,
+              38
+            ],
+            [
+              66,
+              42
+            ],
+            [
+              78,
+              42
+            ],
+            [
+              81,
+              38
+            ],
+            [
+              74,
+              35
+            ],
+            [
+              65,
+              36
+            ]
+          ],
+          "breakable": false,
+          "id": "080-C03"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              38,
+              50
+            ],
+            [
+              44,
+              52
+            ],
+            [
+              49,
+              51
+            ],
+            [
+              50,
+              47
+            ],
+            [
+              44,
+              46
+            ],
+            [
+              38,
+              47
+            ]
+          ],
+          "breakable": false,
+          "id": "080-C04"
+        },
+        {
+          "kind": "wall",
+          "poly": [
+            [
+              52,
+              19
+            ],
+            [
+              56,
+              19
+            ],
+            [
+              56,
+              5
+            ],
+            [
+              52,
+              5
+            ]
+          ],
+          "breakable": false,
+          "id": "080-C05"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              85,
+              52
+            ],
+            [
+              92,
+              54
+            ],
+            [
+              99,
+              52
+            ],
+            [
+              99,
+              49
+            ],
+            [
+              92,
+              48
+            ],
+            [
+              85,
+              49
+            ]
+          ],
+          "breakable": false,
+          "id": "080-C06"
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            60,
+            60,
+            17,
+            1
+          ]
+        },
+        {
+          "type": "T",
+          "v": [
+            45,
+            59
+          ]
+        }
+      ],
+      "enemyAirHeight": 0,
+      "spawns": {
+        "player": {
+          "x": 20,
+          "surface": "component:080-C01",
+          "stableRange": [
+            14,
+            26
+          ],
+          "h": 33.173913,
+          "slopeDeg": 1.245,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 91,
+          "surface": "floor:0",
+          "stableRange": [
+            85,
+            97
+          ],
+          "h": 38,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "初期位置にも細い射線がある。浮島上を右へ40〜80px移動すると磁場へ通る角度の幅が増える。",
+        "alternate": "中段浮島へ転移して発生器への角度を変える。端子の切替が有利な弾道を別に確保する。"
+      },
+      "lesson": "『移動して射線を増やす』型。初期射撃を禁止せず、右40〜80pxの移動で有効弾道が増えることを確認して設計する。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "開放：浮遊実験棚",
+        "enemy": "半開放：実験棟上の天井下",
+        "playerMode": "open",
+        "enemyMode": "semi"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 5,
+        "gimmickHitCount": 4,
+        "teleportLandingUseful": 39
+      },
+      "renderReflectors": [],
+      "engagementMode": "movement-advantage",
+      "discoveryHint": "足場の右側ほど敵側の開口と磁場が見やすくなり、初期位置からその平棚を視認できる。"
+    },
+    {
+      "stage": 90,
+      "name": "十の名前を運ぶ船",
+      "prototypeTitle": "三層空母・曲線船体・高空ボス",
+      "theme": "嵐の空母",
+      "band": "最終試練",
+      "pattern": {
+        "topology": "I",
+        "contour": "S9",
+        "playerStart": "C",
+        "enemyStart": "A"
+      },
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          29,
+          11.5
+        ],
+        [
+          36,
+          9
+        ],
+        [
+          46,
+          5
+        ],
+        [
+          55,
+          6
+        ],
+        [
+          65,
+          11
+        ],
+        [
+          73,
+          19
+        ],
+        [
+          82,
+          31
+        ],
+        [
+          100,
+          31
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              2,
+              32
+            ],
+            [
+              8,
+              35
+            ],
+            [
+              13,
+              34
+            ],
+            [
+              19,
+              32
+            ],
+            [
+              20,
+              27
+            ],
+            [
+              12,
+              25
+            ],
+            [
+              5,
+              26
+            ],
+            [
+              2,
+              28
+            ]
+          ],
+          "breakable": false,
+          "id": "090-C01"
+        },
+        {
+          "kind": "wall",
+          "poly": [
+            [
+              44,
+              31
+            ],
+            [
+              48,
+              31
+            ],
+            [
+              48,
+              5
+            ],
+            [
+              44,
+              5
+            ]
+          ],
+          "breakable": false,
+          "id": "090-C02"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              39,
+              29
+            ],
+            [
+              43,
+              33
+            ],
+            [
+              57,
+              33
+            ],
+            [
+              62,
+              29
+            ],
+            [
+              55,
+              26
+            ],
+            [
+              46,
+              26
+            ]
+          ],
+          "breakable": false,
+          "id": "090-C03"
+        },
+        {
+          "kind": "island",
+          "poly": [
+            [
+              61,
+              41
+            ],
+            [
+              64,
+              45
+            ],
+            [
+              78,
+              45
+            ],
+            [
+              82,
+              41
+            ],
+            [
+              74,
+              38
+            ],
+            [
+              65,
+              39
+            ]
+          ],
+          "breakable": false,
+          "id": "090-C04"
+        },
+        {
+          "kind": "roof",
+          "poly": [
+            [
+              91,
+              54
+            ],
+            [
+              96,
+              55
+            ],
+            [
+              100,
+              53
+            ],
+            [
+              100,
+              49
+            ],
+            [
+              94,
+              49
+            ],
+            [
+              91,
+              51
+            ]
+          ],
+          "breakable": false,
+          "id": "090-C05"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            35,
+            55,
+            17,
+            40
+          ]
+        },
+        {
+          "type": "C",
+          "v": [
+            55,
+            78,
+            26,
+            49
+          ]
+        }
+      ],
+      "enemyAirHeight": 10,
+      "spawns": {
+        "player": {
+          "x": 18,
+          "surface": "floor:0",
+          "stableRange": [
+            12,
+            24
+          ],
+          "h": 11.238,
+          "slopeDeg": 1.364,
+          "shift40Deg": 0
+        },
+        "enemy": {
+          "x": 89,
+          "surface": "airborne",
+          "stableRange": [
+            83,
+            95
+          ],
+          "h": 41,
+          "slopeDeg": 0,
+          "shift40Deg": 0
+        }
+      },
+      "routes": {
+        "primary": "低甲板から風と雲を通る弧で高空のボスを狙う。",
+        "alternate": "甲板前部の屋根を短くし、直接高弧と中央浮島への転移射点を両立する。"
+      },
+      "lesson": "曇り領域と風は一部の成功弾道を通るが、全てを通過必須にはしない。",
+      "status": "proposed; static slope checks only, no engine ballistics verification",
+      "space": {
+        "player": "半閉鎖：空母下甲板",
+        "enemy": "開放：飛行中のボス",
+        "playerMode": "semi",
+        "enemyMode": "open"
+      },
+      "designReview": {
+        "status": "physics-function sampled; not complete playable campaign",
+        "initialHitCount": 5,
+        "gimmickHitCount": 2,
+        "teleportLandingUseful": 6
+      },
+      "renderReflectors": [],
+      "engagementMode": "shot-first"
+    }
+  ],
+  "verification": [
+    {
+      "stage": 3,
+      "engagementMode": "shot-first",
+      "initialHitCount": 11,
+      "initialExamples": [
+        {
+          "angle": 10,
+          "power": 70,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 15,
+          "power": 60,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 20,
+          "power": 60,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 25,
+          "power": 60,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 45,
+          "power": 60,
+          "damage": 0.5,
+          "effects": []
+        },
+        {
+          "angle": 50,
+          "power": 60,
+          "damage": 1.5,
+          "effects": []
+        }
+      ],
+      "initialGimmickHits": 0,
+      "movementTests": [],
+      "teleportTests": [],
+      "playerStartSlopeDeg": -2.862,
+      "enemyPlacement": "開放：谷の低地",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation"
+    },
+    {
+      "stage": 8,
+      "engagementMode": "shot-first",
+      "initialHitCount": 5,
+      "initialExamples": [
+        {
+          "angle": 15,
+          "power": 100,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 20,
+          "power": 90,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 25,
+          "power": 80,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 30,
+          "power": 70,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 35,
+          "power": 70,
+          "damage": 1.5,
+          "effects": []
+        }
+      ],
+      "initialGimmickHits": 0,
+      "movementTests": [],
+      "teleportTests": [],
+      "playerStartSlopeDeg": 0,
+      "enemyPlacement": "半開放：低い庇の下",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation"
+    },
+    {
+      "stage": 14,
+      "engagementMode": "shot-first",
+      "initialHitCount": 11,
+      "initialExamples": [
+        {
+          "angle": 15,
+          "power": 90,
+          "damage": 0.5,
+          "effects": []
+        },
+        {
+          "angle": 15,
+          "power": 100,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 20,
+          "power": 80,
+          "damage": 0.5,
+          "effects": []
+        },
+        {
+          "angle": 20,
+          "power": 90,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 25,
+          "power": 80,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 30,
+          "power": 70,
+          "damage": 1,
+          "effects": []
+        }
+      ],
+      "initialGimmickHits": 0,
+      "movementTests": [],
+      "teleportTests": [],
+      "playerStartSlopeDeg": 0,
+      "enemyPlacement": "開放：右岸",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation"
+    },
+    {
+      "stage": 19,
+      "engagementMode": "shot-first",
+      "initialHitCount": 7,
+      "initialExamples": [
+        {
+          "angle": 10,
+          "power": 60,
+          "damage": 0.5,
+          "effects": []
+        },
+        {
+          "angle": 10,
+          "power": 70,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 15,
+          "power": 60,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 20,
+          "power": 60,
+          "damage": 1.5,
+          "effects": []
+        },
+        {
+          "angle": 55,
+          "power": 60,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 65,
+          "power": 70,
+          "damage": 1.5,
+          "effects": []
+        }
+      ],
+      "initialGimmickHits": 0,
+      "movementTests": [],
+      "teleportTests": [],
+      "playerStartSlopeDeg": -1.302,
+      "enemyPlacement": "半開放：岩庇の下",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation"
+    },
+    {
+      "stage": 27,
+      "engagementMode": "shot-first",
+      "initialHitCount": 10,
+      "initialExamples": [
+        {
+          "angle": 10,
+          "power": 80,
+          "damage": 1.5,
+          "effects": [
+            "cloud"
+          ]
+        },
+        {
+          "angle": 20,
+          "power": 70,
+          "damage": 1.5,
+          "effects": [
+            "cloud"
+          ]
+        },
+        {
+          "angle": 25,
+          "power": 70,
+          "damage": 0.5,
+          "effects": [
+            "cloud"
+          ]
+        },
+        {
+          "angle": 35,
+          "power": 60,
+          "damage": 1.5,
+          "effects": [
+            "cloud"
+          ]
+        },
+        {
+          "angle": 40,
+          "power": 60,
+          "damage": 1.5,
+          "effects": [
+            "cloud"
+          ]
+        },
+        {
+          "angle": 45,
+          "power": 60,
+          "damage": 1.5,
+          "effects": [
+            "cloud"
+          ]
+        }
+      ],
+      "initialGimmickHits": 6,
+      "movementTests": [],
+      "teleportTests": [],
+      "playerStartSlopeDeg": 1.245,
+      "enemyPlacement": "開放：地上",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation"
+    },
+    {
+      "stage": 40,
+      "engagementMode": "shot-first",
+      "initialHitCount": 5,
+      "initialExamples": [
+        {
+          "angle": 30,
+          "power": 90,
+          "damage": 1,
+          "effects": []
+        },
+        {
+          "angle": 35,
+          "power": 80,
+          "damage": 0.5,
+          "effects": []
+        },
+        {
+          "angle": 45,
+          "power": 80,
+          "damage": 2,
+          "effects": []
+        },
+        {
+          "angle": 60,
+          "power": 60,
+          "damage": 1,
+          "effects": [
+            "bounce"
+          ]
+        },
+        {
+          "angle": 75,
+          "power": 70,
+          "damage": 2,
+          "effects": [
+            "bounce"
+          ]
+        }
+      ],
+      "initialGimmickHits": 2,
+      "movementTests": [],
+      "teleportTests": [
+        {
+          "teleportAngle": 20,
+          "teleportPower": 90,
+          "landingX": 50.35,
+          "landingHeight": 20.63,
+          "surface": "040-C03:e0",
+          "followupHitCount": 3,
+          "sampleFollowup": [
+            {
+              "angle": 15,
+              "power": 60,
+              "damage": 2,
+              "effects": [
+                "bounce"
+              ]
+            },
+            {
+              "angle": 35,
+              "power": 60,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 20,
+          "teleportPower": 100,
+          "landingX": 51.57,
+          "landingHeight": 21.09,
+          "surface": "040-C03:e0",
+          "followupHitCount": 3,
+          "sampleFollowup": [
+            {
+              "angle": 10,
+              "power": 50,
+              "damage": 0.5,
+              "effects": []
+            },
+            {
+              "angle": 45,
+              "power": 60,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 30,
+          "teleportPower": 60,
+          "landingX": 50.81,
+          "landingHeight": 20.8,
+          "surface": "040-C03:e0",
+          "followupHitCount": 2,
+          "sampleFollowup": [
+            {
+              "angle": 40,
+              "power": 60,
+              "damage": 0.5,
+              "effects": []
+            },
+            {
+              "angle": 50,
+              "power": 50,
+              "damage": 0.5,
+              "effects": [
+                "bounce"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 30,
+          "teleportPower": 100,
+          "landingX": 63.02,
+          "landingHeight": 21.32,
+          "surface": "040-C03:e1",
+          "followupHitCount": 35,
+          "sampleFollowup": [
+            {
+              "angle": 40,
+              "power": 80,
+              "damage": 1,
+              "effects": []
+            },
+            {
+              "angle": 40,
+              "power": 90,
+              "damage": 1,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 40,
+          "teleportPower": 80,
+          "landingX": 58.23,
+          "landingHeight": 22,
+          "surface": "040-C03:e1",
+          "followupHitCount": 25,
+          "sampleFollowup": [
+            {
+              "angle": 15,
+              "power": 100,
+              "damage": 1,
+              "effects": []
+            },
+            {
+              "angle": 20,
+              "power": 60,
+              "damage": 0.5,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 50,
+          "teleportPower": 50,
+          "landingX": 51.42,
+          "landingHeight": 21.03,
+          "surface": "040-C03:e0",
+          "followupHitCount": 4,
+          "sampleFollowup": [
+            {
+              "angle": 10,
+              "power": 50,
+              "damage": 0.5,
+              "effects": []
+            },
+            {
+              "angle": 45,
+              "power": 60,
+              "damage": 1,
+              "effects": []
+            }
+          ]
+        }
+      ],
+      "playerStartSlopeDeg": -1.364,
+      "enemyPlacement": "半開放：崖上の高い岩庇下",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation",
+      "teleportSuccessCount": 10
+    },
+    {
+      "stage": 50,
+      "engagementMode": "movement-first",
+      "initialHitCount": 0,
+      "initialExamples": [],
+      "initialGimmickHits": 0,
+      "movementTests": [
+        {
+          "kind": "backstep-and-face",
+          "sequencePx": [
+            -40,
+            2
+          ],
+          "totalWalkedPx": 42,
+          "endX": 28.2,
+          "endH": 10.65,
+          "endFacing": 1,
+          "endSlopeDeg": -1.337,
+          "postHitCount": 4,
+          "gimmickHitCount": 4,
+          "sample": [
+            {
+              "angle": 35,
+              "power": 60,
+              "damage": 2,
+              "effects": [
+                "updraft"
+              ]
+            },
+            {
+              "angle": 35,
+              "power": 70,
+              "damage": 2,
+              "effects": [
+                "updraft"
+              ]
+            },
+            {
+              "angle": 40,
+              "power": 60,
+              "damage": 2,
+              "effects": [
+                "updraft"
+              ]
+            },
+            {
+              "angle": 45,
+              "power": 50,
+              "damage": 2,
+              "effects": [
+                "updraft"
+              ]
+            }
+          ]
+        }
+      ],
+      "teleportTests": [
+        {
+          "teleportAngle": 60,
+          "teleportPower": 30,
+          "landingX": 51.67,
+          "landingHeight": 19.9,
+          "surface": "050-C04:e1",
+          "followupHitCount": 4,
+          "sampleFollowup": [
+            {
+              "angle": 75,
+              "power": 60,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 80,
+              "power": 50,
+              "damage": 0.5,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 60,
+          "teleportPower": 40,
+          "landingX": 50.77,
+          "landingHeight": 20.17,
+          "surface": "050-C04:e1",
+          "followupHitCount": 9,
+          "sampleFollowup": [
+            {
+              "angle": 60,
+              "power": 60,
+              "damage": 0.5,
+              "effects": []
+            },
+            {
+              "angle": 60,
+              "power": 70,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 60,
+          "teleportPower": 50,
+          "landingX": 50.42,
+          "landingHeight": 20.27,
+          "surface": "050-C04:e1",
+          "followupHitCount": 9,
+          "sampleFollowup": [
+            {
+              "angle": 55,
+              "power": 70,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 55,
+              "power": 80,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 60,
+          "teleportPower": 60,
+          "landingX": 50.3,
+          "landingHeight": 20.31,
+          "surface": "050-C04:e1",
+          "followupHitCount": 9,
+          "sampleFollowup": [
+            {
+              "angle": 55,
+              "power": 60,
+              "damage": 0.5,
+              "effects": []
+            },
+            {
+              "angle": 55,
+              "power": 70,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 60,
+          "teleportPower": 70,
+          "landingX": 50.2,
+          "landingHeight": 20.34,
+          "surface": "050-C04:e1",
+          "followupHitCount": 12,
+          "sampleFollowup": [
+            {
+              "angle": 50,
+              "power": 80,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 50,
+              "power": 90,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 60,
+          "teleportPower": 80,
+          "landingX": 50.22,
+          "landingHeight": 20.33,
+          "surface": "050-C04:e1",
+          "followupHitCount": 11,
+          "sampleFollowup": [
+            {
+              "angle": 50,
+              "power": 90,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 50,
+              "power": 100,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        }
+      ],
+      "playerStartSlopeDeg": 0,
+      "enemyPlacement": "半開放：高段と天井岩の下",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation",
+      "initialFineSweep": {
+        "attempts": 646,
+        "hitCount": 0,
+        "angleStep": 2,
+        "powerStep": 5
+      },
+      "teleportSuccessCount": 14
+    },
+    {
+      "stage": 60,
+      "engagementMode": "shot-first",
+      "initialHitCount": 7,
+      "initialExamples": [
+        {
+          "angle": 30,
+          "power": 60,
+          "damage": 2,
+          "effects": [
+            "wind"
+          ]
+        },
+        {
+          "angle": 35,
+          "power": 60,
+          "damage": 2,
+          "effects": [
+            "wind"
+          ]
+        },
+        {
+          "angle": 40,
+          "power": 60,
+          "damage": 2,
+          "effects": [
+            "wind"
+          ]
+        },
+        {
+          "angle": 45,
+          "power": 60,
+          "damage": 2,
+          "effects": [
+            "wind"
+          ]
+        },
+        {
+          "angle": 50,
+          "power": 60,
+          "damage": 2,
+          "effects": [
+            "wind"
+          ]
+        },
+        {
+          "angle": 60,
+          "power": 70,
+          "damage": 2,
+          "effects": []
+        }
+      ],
+      "initialGimmickHits": 5,
+      "movementTests": [],
+      "teleportTests": [],
+      "playerStartSlopeDeg": -1.562,
+      "enemyPlacement": "開放：谷向こうの低地",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation"
+    },
+    {
+      "stage": 80,
+      "engagementMode": "movement-advantage",
+      "initialHitCount": 1,
+      "initialExamples": [
+        {
+          "angle": 20,
+          "power": 100,
+          "damage": 2,
+          "effects": [
+            "magnet"
+          ]
+        }
+      ],
+      "initialGimmickHits": 1,
+      "movementTests": [
+        {
+          "kind": "forward-island-walk",
+          "sequencePx": [
+            40
+          ],
+          "totalWalkedPx": 40,
+          "endX": 24,
+          "endH": 33.26,
+          "endFacing": 1,
+          "endSlopeDeg": -1.245,
+          "postHitCount": 6,
+          "gimmickHitCount": 5,
+          "sample": [
+            {
+              "angle": 15,
+              "power": 100,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 20,
+              "power": 100,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 25,
+              "power": 90,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 25,
+              "power": 100,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 50,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "magnet",
+                "terminal"
+              ]
+            },
+            {
+              "angle": 55,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "terminal",
+                "magnet"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "forward-island-walk",
+          "sequencePx": [
+            80
+          ],
+          "totalWalkedPx": 80,
+          "endX": 28,
+          "endH": 33.35,
+          "endFacing": 1,
+          "endSlopeDeg": -1.245,
+          "postHitCount": 8,
+          "gimmickHitCount": 5,
+          "sample": [
+            {
+              "angle": 15,
+              "power": 100,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 20,
+              "power": 100,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 25,
+              "power": 90,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 25,
+              "power": 100,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 80,
+              "damage": 0.5,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "terminal",
+                "magnet"
+              ]
+            }
+          ]
+        }
+      ],
+      "teleportTests": [
+        {
+          "teleportAngle": 10,
+          "teleportPower": 40,
+          "landingX": 48.39,
+          "landingHeight": 28,
+          "surface": "080-C02:e1",
+          "followupHitCount": 10,
+          "sampleFollowup": [
+            {
+              "angle": 40,
+              "power": 70,
+              "damage": 1,
+              "effects": []
+            },
+            {
+              "angle": 45,
+              "power": 60,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 10,
+          "teleportPower": 50,
+          "landingX": 56.45,
+          "landingHeight": 28,
+          "surface": "080-C02:e1",
+          "followupHitCount": 6,
+          "sampleFollowup": [
+            {
+              "angle": 60,
+              "power": 50,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 60,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 10,
+          "teleportPower": 90,
+          "landingX": 60.29,
+          "landingHeight": 26.86,
+          "surface": "080-C02:e1",
+          "followupHitCount": 1,
+          "sampleFollowup": [
+            {
+              "angle": 55,
+              "power": 100,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 20,
+          "teleportPower": 30,
+          "landingX": 43.8,
+          "landingHeight": 26.8,
+          "surface": "080-C02:e0",
+          "followupHitCount": 9,
+          "sampleFollowup": [
+            {
+              "angle": 10,
+              "power": 60,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 10,
+              "power": 70,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 20,
+          "teleportPower": 40,
+          "landingX": 52.49,
+          "landingHeight": 28,
+          "surface": "080-C02:e1",
+          "followupHitCount": 7,
+          "sampleFollowup": [
+            {
+              "angle": 50,
+              "power": 50,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 50,
+              "power": 60,
+              "damage": 2,
+              "effects": [
+                "magnet"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 20,
+          "teleportPower": 70,
+          "landingX": 60.79,
+          "landingHeight": 26.6,
+          "surface": "080-C02:e1",
+          "followupHitCount": 1,
+          "sampleFollowup": [
+            {
+              "angle": 65,
+              "power": 70,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        }
+      ],
+      "playerStartSlopeDeg": -1.245,
+      "enemyPlacement": "半開放：実験棟上の天井下",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation",
+      "teleportSuccessCount": 37
+    },
+    {
+      "stage": 90,
+      "engagementMode": "shot-first",
+      "initialHitCount": 5,
+      "initialExamples": [
+        {
+          "angle": 45,
+          "power": 100,
+          "damage": 2,
+          "effects": [
+            "wind",
+            "cloud"
+          ]
+        },
+        {
+          "angle": 50,
+          "power": 90,
+          "damage": 2,
+          "effects": [
+            "wind",
+            "cloud"
+          ]
+        },
+        {
+          "angle": 65,
+          "power": 90,
+          "damage": 2,
+          "effects": []
+        },
+        {
+          "angle": 70,
+          "power": 90,
+          "damage": 2,
+          "effects": []
+        },
+        {
+          "angle": 75,
+          "power": 100,
+          "damage": 0.5,
+          "effects": []
+        }
+      ],
+      "initialGimmickHits": 2,
+      "movementTests": [],
+      "teleportTests": [
+        {
+          "teleportAngle": 40,
+          "teleportPower": 100,
+          "landingX": 42.77,
+          "landingHeight": 31.89,
+          "surface": "090-C03:e0",
+          "followupHitCount": 13,
+          "sampleFollowup": [
+            {
+              "angle": 10,
+              "power": 70,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            },
+            {
+              "angle": 10,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 50,
+          "teleportPower": 60,
+          "landingX": 42.76,
+          "landingHeight": 31.88,
+          "surface": "090-C03:e0",
+          "followupHitCount": 13,
+          "sampleFollowup": [
+            {
+              "angle": 10,
+              "power": 70,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            },
+            {
+              "angle": 10,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 60,
+          "teleportPower": 90,
+          "landingX": 93.59,
+          "landingHeight": 54.52,
+          "surface": "090-C05:e0",
+          "followupHitCount": 8,
+          "sampleFollowup": [
+            {
+              "angle": 80,
+              "power": 60,
+              "damage": 2,
+              "effects": []
+            },
+            {
+              "angle": 80,
+              "power": 70,
+              "damage": 2,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "teleportAngle": 70,
+          "teleportPower": 60,
+          "landingX": 46.13,
+          "landingHeight": 33,
+          "surface": "090-C03:e1",
+          "followupHitCount": 14,
+          "sampleFollowup": [
+            {
+              "angle": 35,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            },
+            {
+              "angle": 40,
+              "power": 70,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 70,
+          "teleportPower": 80,
+          "landingX": 65.39,
+          "landingHeight": 44.59,
+          "surface": "090-C04:e0",
+          "followupHitCount": 28,
+          "sampleFollowup": [
+            {
+              "angle": 10,
+              "power": 40,
+              "damage": 2,
+              "effects": [
+                "cloud"
+              ]
+            },
+            {
+              "angle": 10,
+              "power": 50,
+              "damage": 2,
+              "effects": [
+                "cloud"
+              ]
+            }
+          ]
+        },
+        {
+          "teleportAngle": 80,
+          "teleportPower": 80,
+          "landingX": 44.52,
+          "landingHeight": 32.76,
+          "surface": "090-C03:e0",
+          "followupHitCount": 15,
+          "sampleFollowup": [
+            {
+              "angle": 25,
+              "power": 80,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            },
+            {
+              "angle": 25,
+              "power": 90,
+              "damage": 2,
+              "effects": [
+                "wind",
+                "cloud"
+              ]
+            }
+          ]
+        }
+      ],
+      "playerStartSlopeDeg": -1.364,
+      "enemyPlacement": "開放：飛行中のボス",
+      "initialSweep": "144 combinations",
+      "status": "design static engine simulation",
+      "teleportSuccessCount": 6
+    }
+  ],
+  "paths": {
+    "3_init_10_70": [
+      [
+        252.82,
+        249.24
+      ],
+      [
+        293.47,
+        241
+      ],
+      [
+        334.11,
+        235.12
+      ],
+      [
+        374.75,
+        231.62
+      ],
+      [
+        415.39,
+        230.49
+      ],
+      [
+        456.04,
+        231.73
+      ],
+      [
+        496.68,
+        235.34
+      ],
+      [
+        537.32,
+        241.32
+      ],
+      [
+        577.97,
+        249.66
+      ],
+      [
+        618.61,
+        260.38
+      ],
+      [
+        659.25,
+        273.47
+      ],
+      [
+        699.89,
+        288.93
+      ],
+      [
+        740.54,
+        306.77
+      ],
+      [
+        781.18,
+        326.97
+      ],
+      [
+        821.82,
+        349.54
+      ],
+      [
+        829.96,
+        354.35
+      ]
+    ],
+    "3_init_15_60": [
+      [
+        252.01,
+        246.3
+      ],
+      [
+        286.03,
+        236.37
+      ],
+      [
+        320.04,
+        228.82
+      ],
+      [
+        354.05,
+        223.64
+      ],
+      [
+        388.06,
+        220.82
+      ],
+      [
+        422.07,
+        220.38
+      ],
+      [
+        456.08,
+        222.31
+      ],
+      [
+        490.09,
+        226.61
+      ],
+      [
+        524.1,
+        233.28
+      ],
+      [
+        558.11,
+        242.32
+      ],
+      [
+        592.12,
+        253.73
+      ],
+      [
+        626.13,
+        267.51
+      ],
+      [
+        660.14,
+        283.66
+      ],
+      [
+        694.16,
+        302.18
+      ],
+      [
+        728.17,
+        323.07
+      ],
+      [
+        762.18,
+        346.33
+      ],
+      [
+        796.19,
+        371.96
+      ],
+      [
+        823.74,
+        394.47
+      ]
+    ],
+    "3_init_20_60": [
+      [
+        250.95,
+        243.43
+      ],
+      [
+        283.88,
+        230.59
+      ],
+      [
+        316.8,
+        220.11
+      ],
+      [
+        349.73,
+        212.01
+      ],
+      [
+        382.66,
+        206.27
+      ],
+      [
+        415.58,
+        202.91
+      ],
+      [
+        448.51,
+        201.91
+      ],
+      [
+        481.44,
+        203.29
+      ],
+      [
+        514.36,
+        207.04
+      ],
+      [
+        547.29,
+        213.15
+      ],
+      [
+        580.21,
+        221.64
+      ],
+      [
+        613.14,
+        232.5
+      ],
+      [
+        646.07,
+        245.73
+      ],
+      [
+        678.99,
+        261.32
+      ],
+      [
+        711.92,
+        279.29
+      ],
+      [
+        744.84,
+        299.63
+      ],
+      [
+        777.77,
+        322.34
+      ],
+      [
+        810.7,
+        347.42
+      ],
+      [
+        825.28,
+        359.29
+      ]
+    ],
+    "3_init_25_60": [
+      [
+        249.64,
+        240.68
+      ],
+      [
+        281.24,
+        225.01
+      ],
+      [
+        312.83,
+        211.72
+      ],
+      [
+        344.42,
+        200.8
+      ],
+      [
+        376.01,
+        192.25
+      ],
+      [
+        407.6,
+        186.06
+      ],
+      [
+        439.19,
+        182.25
+      ],
+      [
+        470.78,
+        180.81
+      ],
+      [
+        502.37,
+        181.74
+      ],
+      [
+        533.96,
+        185.04
+      ],
+      [
+        565.55,
+        190.71
+      ],
+      [
+        597.14,
+        198.75
+      ],
+      [
+        628.73,
+        209.16
+      ],
+      [
+        660.33,
+        221.95
+      ],
+      [
+        691.92,
+        237.1
+      ],
+      [
+        723.51,
+        254.62
+      ],
+      [
+        755.1,
+        274.51
+      ],
+      [
+        786.69,
+        296.78
+      ],
+      [
+        818.28,
+        321.41
+      ],
+      [
+        848.33,
+        347.05
+      ]
+    ],
+    "3_init_45_60": [
+      [
+        242.18,
+        231.08
+      ],
+      [
+        266.16,
+        205.62
+      ],
+      [
+        290.13,
+        182.53
+      ],
+      [
+        314.11,
+        161.81
+      ],
+      [
+        338.08,
+        143.46
+      ],
+      [
+        362.05,
+        127.48
+      ],
+      [
+        386.03,
+        113.87
+      ],
+      [
+        410,
+        102.63
+      ],
+      [
+        433.98,
+        93.76
+      ],
+      [
+        457.95,
+        87.27
+      ],
+      [
+        481.92,
+        83.14
+      ],
+      [
+        505.9,
+        81.38
+      ],
+      [
+        529.87,
+        82
+      ],
+      [
+        553.85,
+        84.98
+      ],
+      [
+        577.82,
+        90.34
+      ],
+      [
+        601.79,
+        98.06
+      ],
+      [
+        625.77,
+        108.16
+      ],
+      [
+        649.74,
+        120.62
+      ],
+      [
+        673.72,
+        135.46
+      ],
+      [
+        697.69,
+        152.66
+      ],
+      [
+        721.66,
+        172.24
+      ],
+      [
+        745.64,
+        194.19
+      ],
+      [
+        769.61,
+        218.5
+      ],
+      [
+        793.58,
+        245.19
+      ],
+      [
+        817.56,
+        274.25
+      ],
+      [
+        841.53,
+        305.68
+      ],
+      [
+        865.51,
+        339.48
+      ],
+      [
+        889.48,
+        375.64
+      ],
+      [
+        904.8,
+        400
+      ]
+    ],
+    "3_init_50_60": [
+      [
+        239.83,
+        229.13
+      ],
+      [
+        261.41,
+        201.68
+      ],
+      [
+        282.98,
+        176.6
+      ],
+      [
+        304.55,
+        153.89
+      ],
+      [
+        326.13,
+        133.56
+      ],
+      [
+        347.7,
+        115.59
+      ],
+      [
+        369.27,
+        99.99
+      ],
+      [
+        390.85,
+        86.76
+      ],
+      [
+        412.42,
+        75.91
+      ],
+      [
+        433.99,
+        67.42
+      ],
+      [
+        455.57,
+        61.31
+      ],
+      [
+        477.14,
+        57.56
+      ],
+      [
+        498.71,
+        56.19
+      ],
+      [
+        520.29,
+        57.18
+      ],
+      [
+        541.86,
+        60.55
+      ],
+      [
+        563.43,
+        66.28
+      ],
+      [
+        585.01,
+        74.39
+      ],
+      [
+        606.58,
+        84.87
+      ],
+      [
+        628.15,
+        97.71
+      ],
+      [
+        649.73,
+        112.93
+      ],
+      [
+        671.3,
+        130.52
+      ],
+      [
+        692.87,
+        150.48
+      ],
+      [
+        714.45,
+        172.81
+      ],
+      [
+        736.02,
+        197.5
+      ],
+      [
+        757.59,
+        224.57
+      ],
+      [
+        779.17,
+        254.01
+      ],
+      [
+        800.74,
+        285.82
+      ],
+      [
+        822.31,
+        320
+      ],
+      [
+        839.45,
+        348.85
+      ]
+    ],
+    "3_init_55_60": [
+      [
+        237.32,
+        227.4
+      ],
+      [
+        256.33,
+        198.17
+      ],
+      [
+        275.34,
+        171.32
+      ],
+      [
+        294.35,
+        146.84
+      ],
+      [
+        313.35,
+        124.73
+      ],
+      [
+        332.36,
+        104.99
+      ],
+      [
+        351.37,
+        87.63
+      ],
+      [
+        370.38,
+        72.63
+      ],
+      [
+        389.39,
+        60
+      ],
+      [
+        408.4,
+        49.74
+      ],
+      [
+        427.41,
+        41.85
+      ],
+      [
+        446.41,
+        36.33
+      ],
+      [
+        465.42,
+        33.19
+      ],
+      [
+        484.43,
+        32.41
+      ],
+      [
+        503.44,
+        34.01
+      ],
+      [
+        522.45,
+        37.97
+      ],
+      [
+        541.46,
+        44.3
+      ],
+      [
+        560.46,
+        53.01
+      ],
+      [
+        579.47,
+        64.08
+      ],
+      [
+        598.48,
+        77.53
+      ],
+      [
+        617.49,
+        93.35
+      ],
+      [
+        636.5,
+        111.53
+      ],
+      [
+        655.51,
+        132.09
+      ],
+      [
+        674.52,
+        155.02
+      ],
+      [
+        693.52,
+        180.31
+      ],
+      [
+        712.53,
+        207.98
+      ],
+      [
+        731.54,
+        238.02
+      ],
+      [
+        750.55,
+        270.43
+      ],
+      [
+        769.56,
+        305.21
+      ],
+      [
+        788.57,
+        342.36
+      ],
+      [
+        807.58,
+        381.88
+      ],
+      [
+        815.93,
+        400
+      ]
+    ],
+    "3_init_60_70": [
+      [
+        234.67,
+        225.89
+      ],
+      [
+        253.68,
+        189.82
+      ],
+      [
+        272.7,
+        156.13
+      ],
+      [
+        291.71,
+        124.81
+      ],
+      [
+        310.73,
+        95.86
+      ],
+      [
+        329.74,
+        69.28
+      ],
+      [
+        348.76,
+        45.07
+      ],
+      [
+        367.77,
+        23.23
+      ],
+      [
+        386.79,
+        3.76
+      ],
+      [
+        405.81,
+        -13.34
+      ],
+      [
+        424.82,
+        -28.07
+      ],
+      [
+        443.84,
+        -40.43
+      ],
+      [
+        462.85,
+        -50.42
+      ],
+      [
+        481.87,
+        -58.04
+      ],
+      [
+        500.88,
+        -63.29
+      ],
+      [
+        519.9,
+        -66.16
+      ],
+      [
+        538.91,
+        -66.67
+      ],
+      [
+        557.93,
+        -64.81
+      ],
+      [
+        576.95,
+        -60.57
+      ],
+      [
+        595.96,
+        -53.97
+      ],
+      [
+        614.98,
+        -44.99
+      ],
+      [
+        633.99,
+        -33.65
+      ],
+      [
+        653.01,
+        -19.93
+      ],
+      [
+        672.02,
+        -3.85
+      ],
+      [
+        691.04,
+        14.61
+      ],
+      [
+        710.05,
+        35.43
+      ],
+      [
+        729.07,
+        58.63
+      ],
+      [
+        748.08,
+        84.2
+      ],
+      [
+        767.1,
+        112.14
+      ],
+      [
+        786.12,
+        142.44
+      ],
+      [
+        805.13,
+        175.12
+      ],
+      [
+        824.15,
+        210.17
+      ],
+      [
+        843.16,
+        247.59
+      ],
+      [
+        862.18,
+        287.38
+      ],
+      [
+        881.19,
+        329.54
+      ],
+      [
+        900.21,
+        374.07
+      ],
+      [
+        910.84,
+        400
+      ]
+    ],
+    "3_init_65_70": [
+      [
+        231.89,
+        224.61
+      ],
+      [
+        247.6,
+        187.03
+      ],
+      [
+        263.31,
+        151.83
+      ],
+      [
+        279.02,
+        118.99
+      ],
+      [
+        294.73,
+        88.52
+      ],
+      [
+        310.44,
+        60.42
+      ],
+      [
+        326.15,
+        34.7
+      ],
+      [
+        341.86,
+        11.34
+      ],
+      [
+        357.57,
+        -9.65
+      ],
+      [
+        373.28,
+        -28.26
+      ],
+      [
+        388.99,
+        -44.51
+      ],
+      [
+        404.7,
+        -58.38
+      ],
+      [
+        420.41,
+        -69.89
+      ],
+      [
+        436.12,
+        -79.02
+      ],
+      [
+        451.83,
+        -85.78
+      ],
+      [
+        467.54,
+        -90.18
+      ],
+      [
+        483.25,
+        -92.2
+      ],
+      [
+        498.96,
+        -91.85
+      ],
+      [
+        514.67,
+        -89.14
+      ],
+      [
+        530.38,
+        -84.05
+      ],
+      [
+        546.08,
+        -76.59
+      ],
+      [
+        561.79,
+        -66.76
+      ],
+      [
+        577.5,
+        -54.56
+      ],
+      [
+        593.21,
+        -39.99
+      ],
+      [
+        608.92,
+        -23.05
+      ],
+      [
+        624.63,
+        -3.74
+      ],
+      [
+        640.34,
+        17.94
+      ],
+      [
+        656.05,
+        41.99
+      ],
+      [
+        671.76,
+        68.41
+      ],
+      [
+        687.47,
+        97.2
+      ],
+      [
+        703.18,
+        128.37
+      ],
+      [
+        718.89,
+        161.9
+      ],
+      [
+        734.6,
+        197.8
+      ],
+      [
+        750.31,
+        236.07
+      ],
+      [
+        766.02,
+        276.72
+      ],
+      [
+        781.73,
+        319.73
+      ],
+      [
+        797.44,
+        365.12
+      ],
+      [
+        808.99,
+        400
+      ]
+    ],
+    "3_init_70_80": [
+      [
+        229.01,
+        223.59
+      ],
+      [
+        243.05,
+        179.09
+      ],
+      [
+        257.09,
+        136.97
+      ],
+      [
+        271.13,
+        97.22
+      ],
+      [
+        285.17,
+        59.84
+      ],
+      [
+        299.21,
+        24.83
+      ],
+      [
+        313.25,
+        -7.81
+      ],
+      [
+        327.29,
+        -38.08
+      ],
+      [
+        341.33,
+        -65.98
+      ],
+      [
+        355.37,
+        -91.51
+      ],
+      [
+        369.41,
+        -114.67
+      ],
+      [
+        383.45,
+        -135.46
+      ],
+      [
+        397.49,
+        -153.87
+      ],
+      [
+        411.53,
+        -169.92
+      ],
+      [
+        425.56,
+        -183.6
+      ],
+      [
+        439.6,
+        -194.9
+      ],
+      [
+        453.64,
+        -203.84
+      ],
+      [
+        467.68,
+        -210.41
+      ],
+      [
+        481.72,
+        -214.6
+      ],
+      [
+        495.76,
+        -216.43
+      ],
+      [
+        509.8,
+        -215.88
+      ],
+      [
+        523.84,
+        -212.97
+      ],
+      [
+        537.88,
+        -207.68
+      ],
+      [
+        551.92,
+        -200.03
+      ],
+      [
+        565.96,
+        -190
+      ],
+      [
+        580,
+        -177.6
+      ],
+      [
+        594.04,
+        -162.83
+      ],
+      [
+        608.08,
+        -145.7
+      ],
+      [
+        622.11,
+        -126.19
+      ],
+      [
+        636.15,
+        -104.31
+      ],
+      [
+        650.19,
+        -80.06
+      ],
+      [
+        664.23,
+        -53.44
+      ],
+      [
+        678.27,
+        -24.45
+      ],
+      [
+        692.31,
+        6.91
+      ],
+      [
+        706.35,
+        40.64
+      ],
+      [
+        720.39,
+        76.74
+      ],
+      [
+        734.43,
+        115.21
+      ],
+      [
+        748.47,
+        156.05
+      ],
+      [
+        762.51,
+        199.26
+      ],
+      [
+        776.55,
+        244.84
+      ],
+      [
+        790.59,
+        292.8
+      ],
+      [
+        804.62,
+        343.12
+      ],
+      [
+        818.66,
+        395.81
+      ],
+      [
+        819.75,
+        400
+      ]
+    ],
+    "3_init_75_100": [
+      [
+        226.06,
+        222.81
+      ],
+      [
+        238.58,
+        165.63
+      ],
+      [
+        251.11,
+        110.81
+      ],
+      [
+        263.63,
+        58.36
+      ],
+      [
+        276.15,
+        8.29
+      ],
+      [
+        288.67,
+        -39.42
+      ],
+      [
+        301.19,
+        -84.75
+      ],
+      [
+        313.72,
+        -127.72
+      ],
+      [
+        326.24,
+        -168.31
+      ],
+      [
+        338.76,
+        -206.54
+      ],
+      [
+        351.28,
+        -242.39
+      ],
+      [
+        363.8,
+        -275.87
+      ],
+      [
+        376.33,
+        -306.99
+      ],
+      [
+        388.85,
+        -335.73
+      ],
+      [
+        401.37,
+        -362.1
+      ],
+      [
+        413.89,
+        -386.1
+      ],
+      [
+        426.42,
+        -407.74
+      ],
+      [
+        438.94,
+        -427
+      ],
+      [
+        451.46,
+        -443.89
+      ],
+      [
+        463.98,
+        -458.41
+      ],
+      [
+        476.5,
+        -470.56
+      ],
+      [
+        489.03,
+        -480.34
+      ],
+      [
+        501.55,
+        -487.75
+      ],
+      [
+        514.07,
+        -492.79
+      ],
+      [
+        526.59,
+        -495.46
+      ],
+      [
+        539.11,
+        -495.75
+      ],
+      [
+        551.64,
+        -493.68
+      ],
+      [
+        564.16,
+        -489.24
+      ],
+      [
+        576.68,
+        -482.43
+      ],
+      [
+        589.2,
+        -473.24
+      ],
+      [
+        601.73,
+        -461.69
+      ],
+      [
+        614.25,
+        -447.77
+      ],
+      [
+        626.77,
+        -431.47
+      ],
+      [
+        639.29,
+        -412.81
+      ],
+      [
+        651.81,
+        -391.77
+      ],
+      [
+        664.34,
+        -368.37
+      ],
+      [
+        676.86,
+        -342.59
+      ],
+      [
+        689.38,
+        -314.44
+      ],
+      [
+        701.9,
+        -283.93
+      ],
+      [
+        714.42,
+        -251.04
+      ],
+      [
+        726.95,
+        -215.78
+      ],
+      [
+        739.47,
+        -178.16
+      ],
+      [
+        751.99,
+        -138.16
+      ],
+      [
+        764.51,
+        -95.79
+      ],
+      [
+        777.04,
+        -51.05
+      ],
+      [
+        789.56,
+        -3.94
+      ],
+      [
+        802.08,
+        45.54
+      ],
+      [
+        814.6,
+        97.39
+      ],
+      [
+        827.12,
+        151.61
+      ],
+      [
+        839.65,
+        208.2
+      ],
+      [
+        852.17,
+        267.16
+      ],
+      [
+        864.69,
+        328.49
+      ],
+      [
+        869.79,
+        354.14
+      ]
+    ],
+    "8_init_15_100": [
+      [
+        233.81,
+        364.94
+      ],
+      [
+        291.33,
+        350.56
+      ],
+      [
+        348.86,
+        338.56
+      ],
+      [
+        406.39,
+        328.92
+      ],
+      [
+        463.91,
+        321.66
+      ],
+      [
+        521.44,
+        316.76
+      ],
+      [
+        578.96,
+        314.23
+      ],
+      [
+        636.49,
+        314.08
+      ],
+      [
+        694.02,
+        316.3
+      ],
+      [
+        751.54,
+        320.88
+      ],
+      [
+        809.07,
+        327.84
+      ],
+      [
+        831.98,
+        331.27
+      ]
+    ],
+    "8_init_20_90": [
+      [
+        232.89,
+        362.03
+      ],
+      [
+        283.26,
+        344.73
+      ],
+      [
+        333.62,
+        329.81
+      ],
+      [
+        383.99,
+        317.25
+      ],
+      [
+        434.36,
+        307.07
+      ],
+      [
+        484.73,
+        299.26
+      ],
+      [
+        535.09,
+        293.81
+      ],
+      [
+        585.46,
+        290.74
+      ],
+      [
+        635.83,
+        290.04
+      ],
+      [
+        686.2,
+        291.71
+      ],
+      [
+        736.56,
+        295.74
+      ],
+      [
+        786.93,
+        302.15
+      ],
+      [
+        830.17,
+        309.55
+      ]
+    ],
+    "8_init_25_80": [
+      [
+        231.72,
+        359.21
+      ],
+      [
+        274.9,
+        340.11
+      ],
+      [
+        318.08,
+        323.38
+      ],
+      [
+        361.26,
+        309.02
+      ],
+      [
+        404.44,
+        297.04
+      ],
+      [
+        447.62,
+        287.42
+      ],
+      [
+        490.8,
+        280.17
+      ],
+      [
+        533.98,
+        275.3
+      ],
+      [
+        577.17,
+        272.79
+      ],
+      [
+        620.35,
+        272.66
+      ],
+      [
+        663.53,
+        274.89
+      ],
+      [
+        706.71,
+        279.5
+      ],
+      [
+        749.89,
+        286.47
+      ],
+      [
+        793.07,
+        295.82
+      ],
+      [
+        831.38,
+        306.1
+      ]
+    ],
+    "8_init_30_70": [
+      [
+        230.31,
+        356.5
+      ],
+      [
+        266.41,
+        336.69
+      ],
+      [
+        302.52,
+        319.26
+      ],
+      [
+        338.62,
+        304.19
+      ],
+      [
+        374.73,
+        291.49
+      ],
+      [
+        410.83,
+        281.17
+      ],
+      [
+        446.93,
+        273.21
+      ],
+      [
+        483.04,
+        267.63
+      ],
+      [
+        519.14,
+        264.41
+      ],
+      [
+        555.24,
+        263.57
+      ],
+      [
+        591.35,
+        265.09
+      ],
+      [
+        627.45,
+        268.99
+      ],
+      [
+        663.55,
+        275.26
+      ],
+      [
+        699.66,
+        283.89
+      ],
+      [
+        735.76,
+        294.9
+      ],
+      [
+        771.87,
+        308.28
+      ],
+      [
+        807.97,
+        324.03
+      ],
+      [
+        836.4,
+        338.1
+      ]
+    ],
+    "8_init_35_70": [
+      [
+        228.67,
+        353.92
+      ],
+      [
+        262.82,
+        331.05
+      ],
+      [
+        296.97,
+        310.55
+      ],
+      [
+        331.12,
+        292.41
+      ],
+      [
+        365.27,
+        276.65
+      ],
+      [
+        399.42,
+        263.25
+      ],
+      [
+        433.57,
+        252.23
+      ],
+      [
+        467.72,
+        243.58
+      ],
+      [
+        501.87,
+        237.3
+      ],
+      [
+        536.02,
+        233.39
+      ],
+      [
+        570.17,
+        231.84
+      ],
+      [
+        604.32,
+        232.67
+      ],
+      [
+        638.46,
+        235.87
+      ],
+      [
+        672.61,
+        241.44
+      ],
+      [
+        706.76,
+        249.38
+      ],
+      [
+        740.91,
+        259.69
+      ],
+      [
+        775.06,
+        272.37
+      ],
+      [
+        809.21,
+        287.42
+      ],
+      [
+        834.64,
+        300.17
+      ]
+    ],
+    "14_init_15_90": [
+      [
+        213.81,
+        341.94
+      ],
+      [
+        265.58,
+        329.11
+      ],
+      [
+        317.35,
+        318.64
+      ],
+      [
+        369.13,
+        310.55
+      ],
+      [
+        420.9,
+        304.82
+      ],
+      [
+        472.68,
+        301.47
+      ],
+      [
+        524.45,
+        300.48
+      ],
+      [
+        576.22,
+        301.87
+      ],
+      [
+        628,
+        305.63
+      ],
+      [
+        679.77,
+        311.75
+      ],
+      [
+        731.54,
+        320.25
+      ],
+      [
+        783.32,
+        331.12
+      ],
+      [
+        819.02,
+        340
+      ]
+    ],
+    "14_init_15_100": [
+      [
+        213.81,
+        341.94
+      ],
+      [
+        271.33,
+        327.56
+      ],
+      [
+        328.86,
+        315.56
+      ],
+      [
+        386.39,
+        305.92
+      ],
+      [
+        443.91,
+        298.66
+      ],
+      [
+        501.44,
+        293.76
+      ],
+      [
+        558.96,
+        291.23
+      ],
+      [
+        616.49,
+        291.08
+      ],
+      [
+        674.02,
+        293.3
+      ],
+      [
+        731.54,
+        297.88
+      ],
+      [
+        789.07,
+        304.84
+      ],
+      [
+        829.76,
+        311.19
+      ]
+    ],
+    "14_init_20_80": [
+      [
+        212.89,
+        339.03
+      ],
+      [
+        257.66,
+        323.77
+      ],
+      [
+        302.43,
+        310.88
+      ],
+      [
+        347.2,
+        300.37
+      ],
+      [
+        391.97,
+        292.22
+      ],
+      [
+        436.74,
+        286.44
+      ],
+      [
+        481.52,
+        283.03
+      ],
+      [
+        526.29,
+        282
+      ],
+      [
+        571.06,
+        283.33
+      ],
+      [
+        615.83,
+        287.04
+      ],
+      [
+        660.6,
+        293.11
+      ],
+      [
+        705.37,
+        301.56
+      ],
+      [
+        750.14,
+        312.37
+      ],
+      [
+        794.91,
+        325.56
+      ],
+      [
+        836.67,
+        340
+      ]
+    ],
+    "14_init_20_90": [
+      [
+        212.89,
+        339.03
+      ],
+      [
+        263.26,
+        321.73
+      ],
+      [
+        313.62,
+        306.81
+      ],
+      [
+        363.99,
+        294.25
+      ],
+      [
+        414.36,
+        284.07
+      ],
+      [
+        464.73,
+        276.26
+      ],
+      [
+        515.09,
+        270.81
+      ],
+      [
+        565.46,
+        267.74
+      ],
+      [
+        615.83,
+        267.04
+      ],
+      [
+        666.2,
+        268.71
+      ],
+      [
+        716.56,
+        272.74
+      ],
+      [
+        766.93,
+        279.15
+      ],
+      [
+        817.3,
+        287.93
+      ],
+      [
+        841.64,
+        293.02
+      ]
+    ],
+    "14_init_25_80": [
+      [
+        211.72,
+        336.21
+      ],
+      [
+        254.9,
+        317.11
+      ],
+      [
+        298.08,
+        300.38
+      ],
+      [
+        341.26,
+        286.02
+      ],
+      [
+        384.44,
+        274.04
+      ],
+      [
+        427.62,
+        264.42
+      ],
+      [
+        470.8,
+        257.17
+      ],
+      [
+        513.98,
+        252.3
+      ],
+      [
+        557.17,
+        249.79
+      ],
+      [
+        600.35,
+        249.66
+      ],
+      [
+        643.53,
+        251.89
+      ],
+      [
+        686.71,
+        256.5
+      ],
+      [
+        729.89,
+        263.47
+      ],
+      [
+        773.07,
+        272.82
+      ],
+      [
+        816.25,
+        284.53
+      ],
+      [
+        842.1,
+        292.69
+      ]
+    ],
+    "14_init_30_70": [
+      [
+        210.31,
+        333.5
+      ],
+      [
+        246.41,
+        313.69
+      ],
+      [
+        282.52,
+        296.26
+      ],
+      [
+        318.62,
+        281.19
+      ],
+      [
+        354.73,
+        268.49
+      ],
+      [
+        390.83,
+        258.17
+      ],
+      [
+        426.93,
+        250.21
+      ],
+      [
+        463.04,
+        244.63
+      ],
+      [
+        499.14,
+        241.41
+      ],
+      [
+        535.24,
+        240.57
+      ],
+      [
+        571.35,
+        242.09
+      ],
+      [
+        607.45,
+        245.99
+      ],
+      [
+        643.55,
+        252.26
+      ],
+      [
+        679.66,
+        260.89
+      ],
+      [
+        715.76,
+        271.9
+      ],
+      [
+        751.87,
+        285.28
+      ],
+      [
+        787.97,
+        301.03
+      ],
+      [
+        824.07,
+        319.14
+      ],
+      [
+        829.25,
+        321.94
+      ]
+    ],
+    "14_init_35_70": [
+      [
+        208.67,
+        330.92
+      ],
+      [
+        242.82,
+        308.05
+      ],
+      [
+        276.97,
+        287.55
+      ],
+      [
+        311.12,
+        269.41
+      ],
+      [
+        345.27,
+        253.65
+      ],
+      [
+        379.42,
+        240.25
+      ],
+      [
+        413.57,
+        229.23
+      ],
+      [
+        447.72,
+        220.58
+      ],
+      [
+        481.87,
+        214.3
+      ],
+      [
+        516.02,
+        210.39
+      ],
+      [
+        550.17,
+        208.84
+      ],
+      [
+        584.32,
+        209.67
+      ],
+      [
+        618.46,
+        212.87
+      ],
+      [
+        652.61,
+        218.44
+      ],
+      [
+        686.76,
+        226.38
+      ],
+      [
+        720.91,
+        236.69
+      ],
+      [
+        755.06,
+        249.37
+      ],
+      [
+        789.21,
+        264.42
+      ],
+      [
+        823.36,
+        281.85
+      ],
+      [
+        842.31,
+        292.54
+      ]
+    ],
+    "14_init_55_70": [
+      [
+        200.08,
+        322.33
+      ],
+      [
+        223.99,
+        289.22
+      ],
+      [
+        247.9,
+        258.48
+      ],
+      [
+        271.81,
+        230.1
+      ],
+      [
+        295.72,
+        204.1
+      ],
+      [
+        319.63,
+        180.47
+      ],
+      [
+        343.55,
+        159.21
+      ],
+      [
+        367.46,
+        140.32
+      ],
+      [
+        391.37,
+        123.8
+      ],
+      [
+        415.28,
+        109.65
+      ],
+      [
+        439.19,
+        97.87
+      ],
+      [
+        463.1,
+        88.46
+      ],
+      [
+        487.02,
+        81.42
+      ],
+      [
+        510.93,
+        76.76
+      ],
+      [
+        534.84,
+        74.46
+      ],
+      [
+        558.75,
+        74.53
+      ],
+      [
+        582.66,
+        76.97
+      ],
+      [
+        606.58,
+        81.79
+      ],
+      [
+        630.49,
+        88.97
+      ],
+      [
+        654.4,
+        98.53
+      ],
+      [
+        678.31,
+        110.45
+      ],
+      [
+        702.22,
+        124.74
+      ],
+      [
+        726.13,
+        141.41
+      ],
+      [
+        750.05,
+        160.45
+      ],
+      [
+        773.96,
+        181.85
+      ],
+      [
+        797.87,
+        205.63
+      ],
+      [
+        821.78,
+        231.78
+      ],
+      [
+        845.69,
+        260.29
+      ],
+      [
+        867.09,
+        287.82
+      ]
+    ],
+    "14_init_60_70": [
+      [
+        197.5,
+        320.69
+      ],
+      [
+        218.34,
+        285.62
+      ],
+      [
+        239.19,
+        252.93
+      ],
+      [
+        260.03,
+        222.6
+      ],
+      [
+        280.88,
+        194.64
+      ],
+      [
+        301.72,
+        169.06
+      ],
+      [
+        322.57,
+        145.85
+      ],
+      [
+        343.41,
+        125
+      ],
+      [
+        364.26,
+        106.53
+      ],
+      [
+        385.1,
+        90.42
+      ],
+      [
+        405.94,
+        76.69
+      ],
+      [
+        426.79,
+        65.33
+      ],
+      [
+        447.63,
+        56.33
+      ],
+      [
+        468.48,
+        49.71
+      ],
+      [
+        489.32,
+        45.46
+      ],
+      [
+        510.17,
+        43.58
+      ],
+      [
+        531.01,
+        44.07
+      ],
+      [
+        551.86,
+        46.93
+      ],
+      [
+        572.7,
+        52.16
+      ],
+      [
+        593.54,
+        59.76
+      ],
+      [
+        614.39,
+        69.73
+      ],
+      [
+        635.23,
+        82.07
+      ],
+      [
+        656.08,
+        96.78
+      ],
+      [
+        676.92,
+        113.86
+      ],
+      [
+        697.77,
+        133.31
+      ],
+      [
+        718.61,
+        155.14
+      ],
+      [
+        739.46,
+        179.33
+      ],
+      [
+        760.3,
+        205.89
+      ],
+      [
+        781.14,
+        234.82
+      ],
+      [
+        801.99,
+        266.13
+      ],
+      [
+        822.83,
+        299.8
+      ],
+      [
+        829.7,
+        311.43
+      ]
+    ],
+    "14_init_70_80": [
+      [
+        191.97,
+        318.11
+      ],
+      [
+        208.27,
+        274.38
+      ],
+      [
+        224.56,
+        233.01
+      ],
+      [
+        240.86,
+        194.02
+      ],
+      [
+        257.15,
+        157.4
+      ],
+      [
+        273.45,
+        123.14
+      ],
+      [
+        289.74,
+        91.26
+      ],
+      [
+        306.04,
+        61.75
+      ],
+      [
+        322.33,
+        34.61
+      ],
+      [
+        338.63,
+        9.84
+      ],
+      [
+        354.92,
+        -12.56
+      ],
+      [
+        371.22,
+        -32.59
+      ],
+      [
+        387.52,
+        -50.25
+      ],
+      [
+        403.81,
+        -65.54
+      ],
+      [
+        420.11,
+        -78.46
+      ],
+      [
+        436.4,
+        -89.01
+      ],
+      [
+        452.7,
+        -97.19
+      ],
+      [
+        468.99,
+        -103
+      ],
+      [
+        485.29,
+        -106.44
+      ],
+      [
+        501.58,
+        -107.5
+      ],
+      [
+        517.88,
+        -106.2
+      ],
+      [
+        534.17,
+        -102.53
+      ],
+      [
+        550.47,
+        -96.48
+      ],
+      [
+        566.76,
+        -88.07
+      ],
+      [
+        583.06,
+        -77.29
+      ],
+      [
+        599.35,
+        -64.13
+      ],
+      [
+        615.65,
+        -48.61
+      ],
+      [
+        631.95,
+        -30.71
+      ],
+      [
+        648.24,
+        -10.44
+      ],
+      [
+        664.54,
+        12.19
+      ],
+      [
+        680.83,
+        37.2
+      ],
+      [
+        697.13,
+        64.58
+      ],
+      [
+        713.42,
+        94.32
+      ],
+      [
+        729.72,
+        126.44
+      ],
+      [
+        746.01,
+        160.93
+      ],
+      [
+        762.31,
+        197.79
+      ],
+      [
+        778.6,
+        237.02
+      ],
+      [
+        794.9,
+        278.62
+      ],
+      [
+        811.19,
+        322.59
+      ],
+      [
+        817.42,
+        340
+      ]
+    ],
+    "14_init_75_90": [
+      [
+        189.06,
+        317.19
+      ],
+      [
+        202.93,
+        266.46
+      ],
+      [
+        216.8,
+        218.09
+      ],
+      [
+        230.68,
+        172.09
+      ],
+      [
+        244.55,
+        128.47
+      ],
+      [
+        258.42,
+        87.21
+      ],
+      [
+        272.29,
+        48.33
+      ],
+      [
+        286.17,
+        11.81
+      ],
+      [
+        300.04,
+        -22.33
+      ],
+      [
+        313.91,
+        -54.1
+      ],
+      [
+        327.79,
+        -83.51
+      ],
+      [
+        341.66,
+        -110.54
+      ],
+      [
+        355.53,
+        -135.2
+      ],
+      [
+        369.4,
+        -157.49
+      ],
+      [
+        383.28,
+        -177.42
+      ],
+      [
+        397.15,
+        -194.97
+      ],
+      [
+        411.02,
+        -210.15
+      ],
+      [
+        424.89,
+        -222.96
+      ],
+      [
+        438.77,
+        -233.4
+      ],
+      [
+        452.64,
+        -241.47
+      ],
+      [
+        466.51,
+        -247.17
+      ],
+      [
+        480.39,
+        -250.5
+      ],
+      [
+        494.26,
+        -251.46
+      ],
+      [
+        508.13,
+        -250.05
+      ],
+      [
+        522,
+        -246.26
+      ],
+      [
+        535.88,
+        -240.11
+      ],
+      [
+        549.75,
+        -231.59
+      ],
+      [
+        563.62,
+        -220.7
+      ],
+      [
+        577.49,
+        -207.43
+      ],
+      [
+        591.37,
+        -191.8
+      ],
+      [
+        605.24,
+        -173.79
+      ],
+      [
+        619.11,
+        -153.42
+      ],
+      [
+        632.99,
+        -130.67
+      ],
+      [
+        646.86,
+        -105.56
+      ],
+      [
+        660.73,
+        -78.07
+      ],
+      [
+        674.6,
+        -48.22
+      ],
+      [
+        688.48,
+        -15.99
+      ],
+      [
+        702.35,
+        18.61
+      ],
+      [
+        716.22,
+        55.57
+      ],
+      [
+        730.09,
+        94.91
+      ],
+      [
+        743.97,
+        136.62
+      ],
+      [
+        757.84,
+        180.7
+      ],
+      [
+        771.71,
+        227.14
+      ],
+      [
+        785.58,
+        275.96
+      ],
+      [
+        799.46,
+        327.15
+      ],
+      [
+        802.84,
+        340
+      ]
+    ],
+    "19_init_10_60": [
+      [
+        253.73,
+        164.87
+      ],
+      [
+        288.77,
+        158.91
+      ],
+      [
+        323.81,
+        155.31
+      ],
+      [
+        358.85,
+        154.09
+      ],
+      [
+        393.89,
+        155.23
+      ],
+      [
+        428.93,
+        158.75
+      ],
+      [
+        463.97,
+        164.63
+      ],
+      [
+        499.01,
+        172.89
+      ],
+      [
+        534.05,
+        183.52
+      ],
+      [
+        569.09,
+        196.51
+      ],
+      [
+        604.13,
+        211.88
+      ],
+      [
+        639.17,
+        229.62
+      ],
+      [
+        674.22,
+        249.73
+      ],
+      [
+        709.26,
+        272.21
+      ],
+      [
+        744.3,
+        297.05
+      ],
+      [
+        779.34,
+        324.27
+      ],
+      [
+        798.3,
+        340
+      ]
+    ],
+    "19_init_10_70": [
+      [
+        253.73,
+        164.87
+      ],
+      [
+        294.61,
+        157.74
+      ],
+      [
+        335.49,
+        152.98
+      ],
+      [
+        376.37,
+        150.59
+      ],
+      [
+        417.25,
+        150.56
+      ],
+      [
+        458.13,
+        152.91
+      ],
+      [
+        499.01,
+        157.63
+      ],
+      [
+        539.89,
+        164.72
+      ],
+      [
+        580.77,
+        174.18
+      ],
+      [
+        621.65,
+        186.01
+      ],
+      [
+        662.54,
+        200.21
+      ],
+      [
+        703.42,
+        216.78
+      ],
+      [
+        744.3,
+        235.72
+      ],
+      [
+        785.18,
+        257.03
+      ],
+      [
+        826.06,
+        280.71
+      ],
+      [
+        843.67,
+        291.65
+      ]
+    ],
+    "19_init_15_60": [
+      [
+        253,
+        161.91
+      ],
+      [
+        287.3,
+        152.92
+      ],
+      [
+        321.6,
+        146.29
+      ],
+      [
+        355.89,
+        142.04
+      ],
+      [
+        390.19,
+        140.16
+      ],
+      [
+        424.49,
+        140.65
+      ],
+      [
+        458.78,
+        143.51
+      ],
+      [
+        493.08,
+        148.73
+      ],
+      [
+        527.38,
+        156.33
+      ],
+      [
+        561.67,
+        166.3
+      ],
+      [
+        595.97,
+        178.64
+      ],
+      [
+        630.27,
+        193.35
+      ],
+      [
+        664.56,
+        210.43
+      ],
+      [
+        698.86,
+        229.89
+      ],
+      [
+        733.16,
+        251.71
+      ],
+      [
+        767.45,
+        275.9
+      ],
+      [
+        801.75,
+        302.46
+      ],
+      [
+        830.11,
+        326.22
+      ]
+    ],
+    "19_init_20_60": [
+      [
+        252.02,
+        159.02
+      ],
+      [
+        285.31,
+        147.07
+      ],
+      [
+        318.6,
+        137.5
+      ],
+      [
+        351.89,
+        130.3
+      ],
+      [
+        385.19,
+        125.46
+      ],
+      [
+        418.48,
+        123
+      ],
+      [
+        451.77,
+        122.91
+      ],
+      [
+        485.06,
+        125.19
+      ],
+      [
+        518.35,
+        129.84
+      ],
+      [
+        551.65,
+        136.85
+      ],
+      [
+        584.94,
+        146.24
+      ],
+      [
+        618.23,
+        158
+      ],
+      [
+        651.52,
+        172.13
+      ],
+      [
+        684.81,
+        188.63
+      ],
+      [
+        718.11,
+        207.5
+      ],
+      [
+        751.4,
+        228.74
+      ],
+      [
+        784.69,
+        252.36
+      ],
+      [
+        817.98,
+        278.34
+      ],
+      [
+        838.57,
+        295.6
+      ]
+    ],
+    "19_init_55_60": [
+      [
+        238.83,
+        142.61
+      ],
+      [
+        258.65,
+        113.92
+      ],
+      [
+        278.48,
+        87.6
+      ],
+      [
+        298.3,
+        63.65
+      ],
+      [
+        318.13,
+        42.07
+      ],
+      [
+        337.95,
+        22.86
+      ],
+      [
+        357.78,
+        6.02
+      ],
+      [
+        377.61,
+        -8.45
+      ],
+      [
+        397.43,
+        -20.55
+      ],
+      [
+        417.26,
+        -30.28
+      ],
+      [
+        437.08,
+        -37.64
+      ],
+      [
+        456.91,
+        -42.63
+      ],
+      [
+        476.73,
+        -45.25
+      ],
+      [
+        496.56,
+        -45.49
+      ],
+      [
+        516.38,
+        -43.37
+      ],
+      [
+        536.21,
+        -38.88
+      ],
+      [
+        556.03,
+        -32.01
+      ],
+      [
+        575.86,
+        -22.78
+      ],
+      [
+        595.69,
+        -11.18
+      ],
+      [
+        615.51,
+        2.8
+      ],
+      [
+        635.34,
+        19.14
+      ],
+      [
+        655.16,
+        37.86
+      ],
+      [
+        674.99,
+        58.94
+      ],
+      [
+        694.81,
+        82.4
+      ],
+      [
+        714.64,
+        108.23
+      ],
+      [
+        734.46,
+        136.42
+      ],
+      [
+        754.29,
+        166.99
+      ],
+      [
+        774.11,
+        199.93
+      ],
+      [
+        793.94,
+        235.24
+      ],
+      [
+        813.77,
+        272.91
+      ],
+      [
+        830.88,
+        307.36
+      ]
+    ],
+    "19_init_65_70": [
+      [
+        233.48,
+        139.69
+      ],
+      [
+        250.23,
+        102.55
+      ],
+      [
+        266.99,
+        67.78
+      ],
+      [
+        283.74,
+        35.39
+      ],
+      [
+        300.5,
+        5.36
+      ],
+      [
+        317.25,
+        -22.29
+      ],
+      [
+        334.01,
+        -47.58
+      ],
+      [
+        350.76,
+        -70.49
+      ],
+      [
+        367.52,
+        -91.04
+      ],
+      [
+        384.28,
+        -109.21
+      ],
+      [
+        401.03,
+        -125.01
+      ],
+      [
+        417.79,
+        -138.45
+      ],
+      [
+        434.54,
+        -149.51
+      ],
+      [
+        451.3,
+        -158.2
+      ],
+      [
+        468.05,
+        -164.52
+      ],
+      [
+        484.81,
+        -168.47
+      ],
+      [
+        501.56,
+        -170.05
+      ],
+      [
+        518.32,
+        -169.26
+      ],
+      [
+        535.07,
+        -166.1
+      ],
+      [
+        551.83,
+        -160.57
+      ],
+      [
+        568.59,
+        -152.67
+      ],
+      [
+        585.34,
+        -142.4
+      ],
+      [
+        602.1,
+        -129.76
+      ],
+      [
+        618.85,
+        -114.75
+      ],
+      [
+        635.61,
+        -97.37
+      ],
+      [
+        652.36,
+        -77.62
+      ],
+      [
+        669.12,
+        -55.49
+      ],
+      [
+        685.87,
+        -31
+      ],
+      [
+        702.63,
+        -4.14
+      ],
+      [
+        719.38,
+        25.1
+      ],
+      [
+        736.14,
+        56.7
+      ],
+      [
+        752.9,
+        90.68
+      ],
+      [
+        769.65,
+        127.02
+      ],
+      [
+        786.41,
+        165.74
+      ],
+      [
+        803.16,
+        206.82
+      ],
+      [
+        819.92,
+        250.28
+      ],
+      [
+        836.67,
+        296.11
+      ],
+      [
+        837.05,
+        297.16
+      ]
+    ],
+    "19_init_75_90": [
+      [
+        227.7,
+        137.73
+      ],
+      [
+        240.39,
+        86.69
+      ],
+      [
+        253.08,
+        38.02
+      ],
+      [
+        265.78,
+        -8.27
+      ],
+      [
+        278.47,
+        -52.2
+      ],
+      [
+        291.16,
+        -93.76
+      ],
+      [
+        303.85,
+        -132.95
+      ],
+      [
+        316.55,
+        -169.76
+      ],
+      [
+        329.24,
+        -204.21
+      ],
+      [
+        341.93,
+        -236.28
+      ],
+      [
+        354.62,
+        -265.99
+      ],
+      [
+        367.32,
+        -293.32
+      ],
+      [
+        380.01,
+        -318.29
+      ],
+      [
+        392.7,
+        -340.88
+      ],
+      [
+        405.4,
+        -361.1
+      ],
+      [
+        418.09,
+        -378.96
+      ],
+      [
+        430.78,
+        -394.44
+      ],
+      [
+        443.47,
+        -407.55
+      ],
+      [
+        456.17,
+        -418.3
+      ],
+      [
+        468.86,
+        -426.67
+      ],
+      [
+        481.55,
+        -432.67
+      ],
+      [
+        494.25,
+        -436.3
+      ],
+      [
+        506.94,
+        -437.56
+      ],
+      [
+        519.63,
+        -436.45
+      ],
+      [
+        532.32,
+        -432.97
+      ],
+      [
+        545.02,
+        -427.12
+      ],
+      [
+        557.71,
+        -418.9
+      ],
+      [
+        570.4,
+        -408.31
+      ],
+      [
+        583.09,
+        -395.35
+      ],
+      [
+        595.79,
+        -380.01
+      ],
+      [
+        608.48,
+        -362.31
+      ],
+      [
+        621.17,
+        -342.24
+      ],
+      [
+        633.87,
+        -319.8
+      ],
+      [
+        646.56,
+        -294.98
+      ],
+      [
+        659.25,
+        -267.8
+      ],
+      [
+        671.94,
+        -238.25
+      ],
+      [
+        684.64,
+        -206.32
+      ],
+      [
+        697.33,
+        -172.03
+      ],
+      [
+        710.02,
+        -135.36
+      ],
+      [
+        722.71,
+        -96.32
+      ],
+      [
+        735.41,
+        -54.92
+      ],
+      [
+        748.1,
+        -11.14
+      ],
+      [
+        760.79,
+        35
+      ],
+      [
+        773.49,
+        83.52
+      ],
+      [
+        786.18,
+        134.41
+      ],
+      [
+        798.87,
+        187.67
+      ],
+      [
+        811.56,
+        243.3
+      ],
+      [
+        824.26,
+        301.29
+      ],
+      [
+        832.45,
+        340
+      ]
+    ],
+    "27_init_10_80": [
+      [
+        255.16,
+        130.85
+      ],
+      [
+        302.25,
+        124.64
+      ],
+      [
+        349.34,
+        120.79
+      ],
+      [
+        396.43,
+        119.32
+      ],
+      [
+        443.51,
+        120.22
+      ],
+      [
+        490.6,
+        123.48
+      ],
+      [
+        532.75,
+        128.51
+      ],
+      [
+        566.65,
+        134.9
+      ],
+      [
+        600.56,
+        143.66
+      ],
+      [
+        634.46,
+        154.79
+      ],
+      [
+        668.37,
+        168.29
+      ],
+      [
+        702.27,
+        184.16
+      ],
+      [
+        736.18,
+        202.4
+      ],
+      [
+        770.08,
+        223.01
+      ],
+      [
+        803.98,
+        245.99
+      ],
+      [
+        837.89,
+        271.34
+      ],
+      [
+        871.79,
+        299.06
+      ],
+      [
+        905.7,
+        329.15
+      ],
+      [
+        906.64,
+        330.03
+      ]
+    ],
+    "27_init_20_70": [
+      [
+        253.71,
+        124.93
+      ],
+      [
+        293.18,
+        112.56
+      ],
+      [
+        332.66,
+        102.56
+      ],
+      [
+        372.13,
+        94.94
+      ],
+      [
+        411.61,
+        89.68
+      ],
+      [
+        451.08,
+        86.8
+      ],
+      [
+        490.56,
+        86.28
+      ],
+      [
+        527.27,
+        87.98
+      ],
+      [
+        555.69,
+        91.56
+      ],
+      [
+        584.12,
+        97.51
+      ],
+      [
+        612.54,
+        105.83
+      ],
+      [
+        640.96,
+        116.53
+      ],
+      [
+        669.38,
+        129.59
+      ],
+      [
+        697.8,
+        145.02
+      ],
+      [
+        726.23,
+        162.83
+      ],
+      [
+        754.65,
+        183
+      ],
+      [
+        783.07,
+        205.55
+      ],
+      [
+        811.49,
+        230.46
+      ],
+      [
+        839.92,
+        257.75
+      ],
+      [
+        868.34,
+        287.41
+      ],
+      [
+        896.76,
+        319.43
+      ],
+      [
+        905.99,
+        330.35
+      ]
+    ],
+    "27_init_25_70": [
+      [
+        252.6,
+        122.08
+      ],
+      [
+        290.76,
+        106.33
+      ],
+      [
+        328.91,
+        92.94
+      ],
+      [
+        367.07,
+        81.92
+      ],
+      [
+        405.23,
+        73.28
+      ],
+      [
+        443.38,
+        67
+      ],
+      [
+        481.54,
+        63.1
+      ],
+      [
+        519.7,
+        61.57
+      ],
+      [
+        548.51,
+        62.45
+      ],
+      [
+        575.98,
+        65.71
+      ],
+      [
+        603.45,
+        71.35
+      ],
+      [
+        630.93,
+        79.35
+      ],
+      [
+        658.4,
+        89.73
+      ],
+      [
+        685.87,
+        102.47
+      ],
+      [
+        713.35,
+        117.59
+      ],
+      [
+        740.82,
+        135.07
+      ],
+      [
+        768.29,
+        154.93
+      ],
+      [
+        795.76,
+        177.15
+      ],
+      [
+        823.24,
+        201.75
+      ],
+      [
+        850.71,
+        228.72
+      ],
+      [
+        878.18,
+        258.05
+      ],
+      [
+        905.66,
+        289.76
+      ],
+      [
+        933.13,
+        323.84
+      ],
+      [
+        960.6,
+        360.29
+      ],
+      [
+        974.76,
+        380
+      ]
+    ],
+    "27_init_35_60": [
+      [
+        249.66,
+        116.73
+      ],
+      [
+        279.37,
+        97.91
+      ],
+      [
+        309.08,
+        81.47
+      ],
+      [
+        338.79,
+        67.39
+      ],
+      [
+        368.5,
+        55.68
+      ],
+      [
+        398.21,
+        46.35
+      ],
+      [
+        427.92,
+        39.38
+      ],
+      [
+        457.63,
+        34.79
+      ],
+      [
+        487.34,
+        32.56
+      ],
+      [
+        517.05,
+        32.71
+      ],
+      [
+        546.76,
+        35.22
+      ],
+      [
+        576.47,
+        40.11
+      ],
+      [
+        606.18,
+        47.36
+      ],
+      [
+        635.89,
+        56.99
+      ],
+      [
+        660.4,
+        66.97
+      ],
+      [
+        681.79,
+        78.1
+      ],
+      [
+        703.18,
+        91.6
+      ],
+      [
+        724.57,
+        107.48
+      ],
+      [
+        745.96,
+        125.72
+      ],
+      [
+        767.35,
+        146.33
+      ],
+      [
+        788.75,
+        169.32
+      ],
+      [
+        810.14,
+        194.67
+      ],
+      [
+        831.53,
+        222.4
+      ],
+      [
+        852.92,
+        252.49
+      ],
+      [
+        874.31,
+        284.96
+      ],
+      [
+        895.7,
+        319.8
+      ],
+      [
+        902.93,
+        332.12
+      ]
+    ],
+    "27_init_40_60": [
+      [
+        247.86,
+        114.27
+      ],
+      [
+        275.73,
+        92.94
+      ],
+      [
+        303.59,
+        73.98
+      ],
+      [
+        331.46,
+        57.39
+      ],
+      [
+        359.32,
+        43.17
+      ],
+      [
+        387.19,
+        31.32
+      ],
+      [
+        415.06,
+        21.84
+      ],
+      [
+        442.92,
+        14.73
+      ],
+      [
+        470.79,
+        9.99
+      ],
+      [
+        498.65,
+        7.62
+      ],
+      [
+        526.52,
+        7.62
+      ],
+      [
+        554.39,
+        9.99
+      ],
+      [
+        582.25,
+        14.74
+      ],
+      [
+        610.12,
+        21.85
+      ],
+      [
+        637.98,
+        31.33
+      ],
+      [
+        665.85,
+        43.19
+      ],
+      [
+        693.72,
+        57.41
+      ],
+      [
+        715.73,
+        70.68
+      ],
+      [
+        735.79,
+        85.2
+      ],
+      [
+        755.86,
+        102.1
+      ],
+      [
+        775.92,
+        121.36
+      ],
+      [
+        795.98,
+        143
+      ],
+      [
+        816.05,
+        167.01
+      ],
+      [
+        836.11,
+        193.39
+      ],
+      [
+        856.18,
+        222.13
+      ],
+      [
+        876.24,
+        253.25
+      ],
+      [
+        896.3,
+        286.74
+      ],
+      [
+        916.37,
+        322.6
+      ],
+      [
+        918.75,
+        327.03
+      ]
+    ],
+    "27_init_45_60": [
+      [
+        245.85,
+        111.98
+      ],
+      [
+        271.66,
+        88.3
+      ],
+      [
+        297.47,
+        67
+      ],
+      [
+        323.28,
+        48.06
+      ],
+      [
+        349.09,
+        31.5
+      ],
+      [
+        374.9,
+        17.3
+      ],
+      [
+        400.71,
+        5.48
+      ],
+      [
+        426.52,
+        -3.97
+      ],
+      [
+        452.33,
+        -11.06
+      ],
+      [
+        478.14,
+        -15.77
+      ],
+      [
+        503.95,
+        -18.11
+      ],
+      [
+        529.76,
+        -18.08
+      ],
+      [
+        555.57,
+        -15.68
+      ],
+      [
+        581.38,
+        -10.91
+      ],
+      [
+        607.19,
+        -3.77
+      ],
+      [
+        633,
+        5.74
+      ],
+      [
+        658.81,
+        17.62
+      ],
+      [
+        684.62,
+        31.87
+      ],
+      [
+        710.43,
+        48.49
+      ],
+      [
+        733.53,
+        65.47
+      ],
+      [
+        752.12,
+        81.47
+      ],
+      [
+        770.7,
+        99.85
+      ],
+      [
+        789.29,
+        120.59
+      ],
+      [
+        807.87,
+        143.7
+      ],
+      [
+        826.45,
+        169.19
+      ],
+      [
+        845.04,
+        197.04
+      ],
+      [
+        863.62,
+        227.27
+      ],
+      [
+        882.2,
+        259.86
+      ],
+      [
+        900.79,
+        294.83
+      ],
+      [
+        916.94,
+        327.15
+      ]
+    ],
+    "27_init_50_60": [
+      [
+        243.64,
+        109.86
+      ],
+      [
+        267.2,
+        84.03
+      ],
+      [
+        290.76,
+        60.57
+      ],
+      [
+        314.32,
+        39.48
+      ],
+      [
+        337.87,
+        20.76
+      ],
+      [
+        361.43,
+        4.41
+      ],
+      [
+        384.99,
+        -9.56
+      ],
+      [
+        408.55,
+        -21.17
+      ],
+      [
+        432.11,
+        -30.41
+      ],
+      [
+        455.67,
+        -37.28
+      ],
+      [
+        479.22,
+        -41.78
+      ],
+      [
+        502.78,
+        -43.9
+      ],
+      [
+        526.34,
+        -43.66
+      ],
+      [
+        549.9,
+        -41.05
+      ],
+      [
+        573.46,
+        -36.06
+      ],
+      [
+        597.02,
+        -28.71
+      ],
+      [
+        620.58,
+        -18.98
+      ],
+      [
+        644.13,
+        -6.89
+      ],
+      [
+        667.69,
+        7.58
+      ],
+      [
+        691.25,
+        24.42
+      ],
+      [
+        714.81,
+        43.62
+      ],
+      [
+        738.37,
+        65.2
+      ],
+      [
+        761.93,
+        89.15
+      ],
+      [
+        785.48,
+        115.46
+      ],
+      [
+        809.04,
+        144.15
+      ],
+      [
+        832.6,
+        175.21
+      ],
+      [
+        856.16,
+        208.64
+      ],
+      [
+        879.72,
+        244.44
+      ],
+      [
+        903.28,
+        282.61
+      ],
+      [
+        926.84,
+        323.15
+      ],
+      [
+        929.92,
+        328.63
+      ]
+    ],
+    "27_init_65_70": [
+      [
+        236.04,
+        104.79
+      ],
+      [
+        254.48,
+        68.43
+      ],
+      [
+        272.91,
+        34.45
+      ],
+      [
+        291.35,
+        2.84
+      ],
+      [
+        309.78,
+        -26.41
+      ],
+      [
+        328.22,
+        -53.28
+      ],
+      [
+        346.66,
+        -77.78
+      ],
+      [
+        365.09,
+        -99.91
+      ],
+      [
+        383.53,
+        -119.67
+      ],
+      [
+        401.96,
+        -137.07
+      ],
+      [
+        420.4,
+        -152.09
+      ],
+      [
+        438.83,
+        -164.74
+      ],
+      [
+        457.27,
+        -175.02
+      ],
+      [
+        475.7,
+        -182.93
+      ],
+      [
+        494.14,
+        -188.47
+      ],
+      [
+        512.58,
+        -191.63
+      ],
+      [
+        531.01,
+        -192.43
+      ],
+      [
+        549.45,
+        -190.86
+      ],
+      [
+        567.88,
+        -186.92
+      ],
+      [
+        586.32,
+        -180.61
+      ],
+      [
+        604.75,
+        -171.92
+      ],
+      [
+        623.19,
+        -160.87
+      ],
+      [
+        641.62,
+        -147.45
+      ],
+      [
+        660.06,
+        -131.65
+      ],
+      [
+        678.49,
+        -113.49
+      ],
+      [
+        696.93,
+        -92.95
+      ],
+      [
+        715.37,
+        -70.05
+      ],
+      [
+        733.8,
+        -44.77
+      ],
+      [
+        752.24,
+        -17.13
+      ],
+      [
+        770.67,
+        12.89
+      ],
+      [
+        789.11,
+        45.28
+      ],
+      [
+        807.54,
+        80.03
+      ],
+      [
+        825.98,
+        117.16
+      ],
+      [
+        844.41,
+        156.66
+      ],
+      [
+        862.85,
+        198.53
+      ],
+      [
+        881.29,
+        242.77
+      ],
+      [
+        899.72,
+        289.37
+      ],
+      [
+        914.17,
+        327.55
+      ]
+    ],
+    "27_init_70_80": [
+      [
+        233.25,
+        103.56
+      ],
+      [
+        250.51,
+        60.19
+      ],
+      [
+        267.78,
+        19.19
+      ],
+      [
+        285.04,
+        -19.44
+      ],
+      [
+        302.31,
+        -55.7
+      ],
+      [
+        319.57,
+        -89.58
+      ],
+      [
+        336.84,
+        -121.1
+      ],
+      [
+        354.1,
+        -150.25
+      ],
+      [
+        371.36,
+        -177.03
+      ],
+      [
+        388.63,
+        -201.43
+      ],
+      [
+        405.89,
+        -223.47
+      ],
+      [
+        423.16,
+        -243.13
+      ],
+      [
+        440.42,
+        -260.43
+      ],
+      [
+        457.69,
+        -275.35
+      ],
+      [
+        474.95,
+        -287.91
+      ],
+      [
+        492.22,
+        -298.09
+      ],
+      [
+        509.48,
+        -305.91
+      ],
+      [
+        526.75,
+        -311.35
+      ],
+      [
+        544.01,
+        -314.42
+      ],
+      [
+        561.27,
+        -315.13
+      ],
+      [
+        578.54,
+        -313.46
+      ],
+      [
+        595.8,
+        -309.42
+      ],
+      [
+        613.07,
+        -303.01
+      ],
+      [
+        630.33,
+        -294.23
+      ],
+      [
+        647.6,
+        -283.08
+      ],
+      [
+        664.86,
+        -269.56
+      ],
+      [
+        682.13,
+        -253.67
+      ],
+      [
+        699.39,
+        -235.41
+      ],
+      [
+        716.66,
+        -214.78
+      ],
+      [
+        733.92,
+        -191.78
+      ],
+      [
+        751.18,
+        -166.41
+      ],
+      [
+        768.45,
+        -138.67
+      ],
+      [
+        785.71,
+        -108.56
+      ],
+      [
+        802.98,
+        -76.07
+      ],
+      [
+        820.24,
+        -41.22
+      ],
+      [
+        837.51,
+        -4
+      ],
+      [
+        854.77,
+        35.6
+      ],
+      [
+        872.04,
+        77.56
+      ],
+      [
+        889.3,
+        121.89
+      ],
+      [
+        906.57,
+        168.6
+      ],
+      [
+        923.83,
+        217.67
+      ],
+      [
+        941.09,
+        269.12
+      ],
+      [
+        958.36,
+        322.93
+      ],
+      [
+        975.62,
+        379.12
+      ],
+      [
+        975.89,
+        380
+      ]
+    ],
+    "27_init_75_90": [
+      [
+        230.36,
+        102.58
+      ],
+      [
+        245.35,
+        52.15
+      ],
+      [
+        260.35,
+        4.1
+      ],
+      [
+        275.34,
+        -41.58
+      ],
+      [
+        290.34,
+        -84.89
+      ],
+      [
+        305.33,
+        -125.83
+      ],
+      [
+        320.32,
+        -164.4
+      ],
+      [
+        335.32,
+        -200.6
+      ],
+      [
+        350.31,
+        -234.43
+      ],
+      [
+        365.31,
+        -265.89
+      ],
+      [
+        380.3,
+        -294.98
+      ],
+      [
+        395.3,
+        -321.7
+      ],
+      [
+        410.29,
+        -346.05
+      ],
+      [
+        425.29,
+        -368.03
+      ],
+      [
+        440.28,
+        -387.64
+      ],
+      [
+        455.28,
+        -404.88
+      ],
+      [
+        470.27,
+        -419.74
+      ],
+      [
+        485.27,
+        -432.24
+      ],
+      [
+        500.26,
+        -442.37
+      ],
+      [
+        515.26,
+        -450.12
+      ],
+      [
+        530.25,
+        -455.51
+      ],
+      [
+        545.24,
+        -458.52
+      ],
+      [
+        560.24,
+        -459.17
+      ],
+      [
+        575.23,
+        -457.44
+      ],
+      [
+        590.23,
+        -453.35
+      ],
+      [
+        605.22,
+        -446.88
+      ],
+      [
+        620.22,
+        -438.05
+      ],
+      [
+        635.21,
+        -426.84
+      ],
+      [
+        650.21,
+        -413.26
+      ],
+      [
+        665.2,
+        -397.31
+      ],
+      [
+        680.2,
+        -379
+      ],
+      [
+        695.19,
+        -358.31
+      ],
+      [
+        710.19,
+        -335.25
+      ],
+      [
+        725.18,
+        -309.82
+      ],
+      [
+        740.18,
+        -282.02
+      ],
+      [
+        755.17,
+        -251.85
+      ],
+      [
+        770.16,
+        -219.31
+      ],
+      [
+        785.16,
+        -184.4
+      ],
+      [
+        800.15,
+        -147.12
+      ],
+      [
+        815.15,
+        -107.47
+      ],
+      [
+        830.14,
+        -65.45
+      ],
+      [
+        845.14,
+        -21.06
+      ],
+      [
+        860.13,
+        25.71
+      ],
+      [
+        875.13,
+        74.84
+      ],
+      [
+        890.12,
+        126.34
+      ],
+      [
+        905.12,
+        180.22
+      ],
+      [
+        920.11,
+        236.46
+      ],
+      [
+        935.11,
+        295.07
+      ],
+      [
+        946.79,
+        342.41
+      ]
+    ],
+    "40_init_30_90": [
+      [
+        219.27,
+        360.17
+      ],
+      [
+        265.03,
+        333.31
+      ],
+      [
+        310.8,
+        308.82
+      ],
+      [
+        356.57,
+        286.7
+      ],
+      [
+        402.34,
+        266.95
+      ],
+      [
+        448.11,
+        249.57
+      ],
+      [
+        493.87,
+        234.57
+      ],
+      [
+        539.64,
+        221.93
+      ],
+      [
+        585.41,
+        211.66
+      ],
+      [
+        631.18,
+        203.76
+      ],
+      [
+        676.95,
+        198.24
+      ],
+      [
+        722.71,
+        195.08
+      ],
+      [
+        768.48,
+        194.29
+      ],
+      [
+        814.25,
+        195.88
+      ],
+      [
+        841.46,
+        197.95
+      ]
+    ],
+    "40_init_35_80": [
+      [
+        217.57,
+        357.64
+      ],
+      [
+        255.93,
+        330.42
+      ],
+      [
+        294.3,
+        305.58
+      ],
+      [
+        332.67,
+        283.11
+      ],
+      [
+        371.03,
+        263.01
+      ],
+      [
+        409.4,
+        245.28
+      ],
+      [
+        447.76,
+        229.92
+      ],
+      [
+        486.13,
+        216.93
+      ],
+      [
+        524.5,
+        206.31
+      ],
+      [
+        562.86,
+        198.06
+      ],
+      [
+        601.23,
+        192.18
+      ],
+      [
+        639.6,
+        188.68
+      ],
+      [
+        677.96,
+        187.54
+      ],
+      [
+        716.33,
+        188.77
+      ],
+      [
+        754.7,
+        192.37
+      ],
+      [
+        793.06,
+        198.35
+      ],
+      [
+        831.43,
+        206.69
+      ],
+      [
+        844.21,
+        210
+      ]
+    ],
+    "40_init_45_80": [
+      [
+        213.53,
+        353.06
+      ],
+      [
+        246.41,
+        319.61
+      ],
+      [
+        279.29,
+        288.54
+      ],
+      [
+        312.17,
+        259.83
+      ],
+      [
+        345.05,
+        233.5
+      ],
+      [
+        377.93,
+        209.54
+      ],
+      [
+        410.8,
+        187.94
+      ],
+      [
+        443.68,
+        168.72
+      ],
+      [
+        476.56,
+        151.87
+      ],
+      [
+        509.44,
+        137.39
+      ],
+      [
+        542.32,
+        125.27
+      ],
+      [
+        575.19,
+        115.53
+      ],
+      [
+        608.07,
+        108.16
+      ],
+      [
+        640.95,
+        103.16
+      ],
+      [
+        673.83,
+        100.53
+      ],
+      [
+        706.71,
+        100.27
+      ],
+      [
+        739.59,
+        102.38
+      ],
+      [
+        772.46,
+        106.86
+      ],
+      [
+        805.34,
+        113.71
+      ],
+      [
+        836.63,
+        122.44
+      ]
+    ],
+    "40_init_60_60": [
+      [
+        206.15,
+        347.67
+      ],
+      [
+        223.28,
+        317.34
+      ],
+      [
+        240.4,
+        289.39
+      ],
+      [
+        257.53,
+        263.8
+      ],
+      [
+        274.65,
+        240.59
+      ],
+      [
+        291.78,
+        219.75
+      ],
+      [
+        308.9,
+        201.27
+      ],
+      [
+        326.03,
+        185.17
+      ],
+      [
+        343.15,
+        171.44
+      ],
+      [
+        360.28,
+        160.07
+      ],
+      [
+        377.4,
+        151.08
+      ],
+      [
+        394.53,
+        144.46
+      ],
+      [
+        411.65,
+        140.21
+      ],
+      [
+        428.78,
+        138.33
+      ],
+      [
+        445.9,
+        138.82
+      ],
+      [
+        463.03,
+        141.68
+      ],
+      [
+        480.15,
+        146.91
+      ],
+      [
+        497.28,
+        154.51
+      ],
+      [
+        514.4,
+        164.48
+      ],
+      [
+        531.53,
+        176.82
+      ],
+      [
+        548.65,
+        191.53
+      ],
+      [
+        565.78,
+        208.61
+      ],
+      [
+        582.9,
+        228.07
+      ],
+      [
+        600.03,
+        249.89
+      ],
+      [
+        617.15,
+        274.08
+      ],
+      [
+        632.66,
+        261.63
+      ],
+      [
+        648.08,
+        241.2
+      ],
+      [
+        663.49,
+        223.14
+      ],
+      [
+        678.9,
+        207.46
+      ],
+      [
+        694.31,
+        194.14
+      ],
+      [
+        709.73,
+        183.2
+      ],
+      [
+        725.14,
+        174.63
+      ],
+      [
+        740.55,
+        168.42
+      ],
+      [
+        755.96,
+        164.59
+      ],
+      [
+        771.38,
+        163.13
+      ],
+      [
+        786.79,
+        164.04
+      ],
+      [
+        802.2,
+        167.31
+      ],
+      [
+        817.61,
+        172.96
+      ],
+      [
+        824.38,
+        176.2
+      ]
+    ],
+    "40_init_75_70": [
+      [
+        197.63,
+        344.37
+      ],
+      [
+        207.46,
+        304.9
+      ],
+      [
+        217.29,
+        267.79
+      ],
+      [
+        227.12,
+        233.06
+      ],
+      [
+        236.95,
+        200.69
+      ],
+      [
+        246.77,
+        170.69
+      ],
+      [
+        256.6,
+        143.07
+      ],
+      [
+        266.43,
+        117.82
+      ],
+      [
+        276.26,
+        94.93
+      ],
+      [
+        286.09,
+        74.42
+      ],
+      [
+        295.92,
+        56.27
+      ],
+      [
+        305.74,
+        40.5
+      ],
+      [
+        315.57,
+        27.1
+      ],
+      [
+        325.4,
+        16.07
+      ],
+      [
+        335.23,
+        7.4
+      ],
+      [
+        345.06,
+        1.11
+      ],
+      [
+        354.89,
+        -2.81
+      ],
+      [
+        364.71,
+        -4.36
+      ],
+      [
+        374.54,
+        -3.54
+      ],
+      [
+        384.37,
+        -0.35
+      ],
+      [
+        394.2,
+        5.21
+      ],
+      [
+        404.03,
+        13.14
+      ],
+      [
+        413.86,
+        23.44
+      ],
+      [
+        420.75,
+        23.59
+      ],
+      [
+        425.38,
+        11.73
+      ],
+      [
+        430,
+        2.24
+      ],
+      [
+        434.63,
+        -4.87
+      ],
+      [
+        439.25,
+        -9.62
+      ],
+      [
+        443.88,
+        -11.99
+      ],
+      [
+        448.5,
+        -12
+      ],
+      [
+        453.13,
+        -9.63
+      ],
+      [
+        457.75,
+        -4.9
+      ],
+      [
+        462.38,
+        2.21
+      ],
+      [
+        467,
+        11.68
+      ],
+      [
+        471.63,
+        23.53
+      ],
+      [
+        476.26,
+        37.75
+      ],
+      [
+        483.59,
+        41.52
+      ],
+      [
+        495.08,
+        32.85
+      ],
+      [
+        506.57,
+        26.56
+      ],
+      [
+        518.06,
+        22.64
+      ],
+      [
+        529.55,
+        21.08
+      ],
+      [
+        541.05,
+        21.9
+      ],
+      [
+        552.54,
+        25.09
+      ],
+      [
+        564.03,
+        30.65
+      ],
+      [
+        575.52,
+        38.58
+      ],
+      [
+        587.01,
+        48.88
+      ],
+      [
+        598.5,
+        61.55
+      ],
+      [
+        610,
+        76.59
+      ],
+      [
+        621.49,
+        94
+      ],
+      [
+        632.98,
+        113.78
+      ],
+      [
+        644.47,
+        135.93
+      ],
+      [
+        655.96,
+        160.45
+      ],
+      [
+        670.14,
+        166.59
+      ],
+      [
+        691.27,
+        152.61
+      ],
+      [
+        712.39,
+        141
+      ],
+      [
+        733.52,
+        131.76
+      ],
+      [
+        754.64,
+        124.89
+      ],
+      [
+        775.77,
+        120.4
+      ],
+      [
+        796.89,
+        118.27
+      ],
+      [
+        818.02,
+        118.51
+      ],
+      [
+        839.14,
+        121.13
+      ],
+      [
+        860.27,
+        126.11
+      ],
+      [
+        864.74,
+        127.48
+      ]
+    ],
+    "50_walk_35_60": [
+      [
+        309.59,
+        346.74
+      ],
+      [
+        338.37,
+        326.6
+      ],
+      [
+        367.16,
+        308.41
+      ],
+      [
+        395.94,
+        290.12
+      ],
+      [
+        424.73,
+        271.47
+      ],
+      [
+        453.51,
+        252.47
+      ],
+      [
+        482.3,
+        233.11
+      ],
+      [
+        511.08,
+        213.39
+      ],
+      [
+        539.87,
+        194.86
+      ],
+      [
+        568.65,
+        178.69
+      ],
+      [
+        597.44,
+        164.9
+      ],
+      [
+        626.22,
+        153.47
+      ],
+      [
+        655.01,
+        144.42
+      ],
+      [
+        683.79,
+        137.73
+      ],
+      [
+        712.58,
+        133.42
+      ],
+      [
+        741.36,
+        131.48
+      ],
+      [
+        770.15,
+        131.9
+      ],
+      [
+        798.93,
+        134.7
+      ],
+      [
+        807.55,
+        136
+      ]
+    ],
+    "50_walk_35_70": [
+      [
+        309.59,
+        346.74
+      ],
+      [
+        343.17,
+        323.07
+      ],
+      [
+        376.75,
+        300.88
+      ],
+      [
+        410.34,
+        278.38
+      ],
+      [
+        443.92,
+        255.52
+      ],
+      [
+        477.5,
+        232.31
+      ],
+      [
+        511.08,
+        208.74
+      ],
+      [
+        544.66,
+        186.35
+      ],
+      [
+        578.25,
+        166.33
+      ],
+      [
+        611.83,
+        148.68
+      ],
+      [
+        645.41,
+        133.4
+      ],
+      [
+        678.99,
+        120.49
+      ],
+      [
+        712.58,
+        109.95
+      ],
+      [
+        746.16,
+        101.78
+      ],
+      [
+        779.74,
+        95.99
+      ],
+      [
+        813.32,
+        92.56
+      ],
+      [
+        846.91,
+        91.5
+      ],
+      [
+        880.49,
+        92.81
+      ],
+      [
+        886.36,
+        93.29
+      ]
+    ],
+    "50_walk_40_60": [
+      [
+        307.67,
+        344.36
+      ],
+      [
+        334.5,
+        321.79
+      ],
+      [
+        361.33,
+        301.34
+      ],
+      [
+        388.16,
+        280.96
+      ],
+      [
+        414.99,
+        260.23
+      ],
+      [
+        441.82,
+        239.14
+      ],
+      [
+        468.65,
+        217.69
+      ],
+      [
+        495.48,
+        195.89
+      ],
+      [
+        522.31,
+        173.99
+      ],
+      [
+        549.14,
+        154.03
+      ],
+      [
+        575.97,
+        136.45
+      ],
+      [
+        602.8,
+        121.23
+      ],
+      [
+        629.63,
+        108.39
+      ],
+      [
+        656.46,
+        97.91
+      ],
+      [
+        683.29,
+        89.81
+      ],
+      [
+        710.12,
+        84.07
+      ],
+      [
+        736.95,
+        80.71
+      ],
+      [
+        763.78,
+        79.71
+      ],
+      [
+        790.61,
+        81.09
+      ],
+      [
+        817.44,
+        84.84
+      ],
+      [
+        844.27,
+        90.95
+      ],
+      [
+        871.1,
+        99.44
+      ],
+      [
+        873.26,
+        100.23
+      ]
+    ],
+    "50_walk_45_50": [
+      [
+        305.56,
+        342.15
+      ],
+      [
+        326.12,
+        321.65
+      ],
+      [
+        346.68,
+        303.52
+      ],
+      [
+        367.24,
+        286.86
+      ],
+      [
+        387.79,
+        269.89
+      ],
+      [
+        408.35,
+        252.56
+      ],
+      [
+        428.91,
+        234.88
+      ],
+      [
+        449.47,
+        216.84
+      ],
+      [
+        470.03,
+        198.45
+      ],
+      [
+        490.59,
+        179.7
+      ],
+      [
+        511.15,
+        160.59
+      ],
+      [
+        531.71,
+        142.67
+      ],
+      [
+        552.27,
+        127.11
+      ],
+      [
+        572.83,
+        113.92
+      ],
+      [
+        593.39,
+        103.11
+      ],
+      [
+        613.95,
+        94.66
+      ],
+      [
+        634.5,
+        88.59
+      ],
+      [
+        655.06,
+        84.88
+      ],
+      [
+        675.62,
+        83.55
+      ],
+      [
+        696.18,
+        84.59
+      ],
+      [
+        716.74,
+        87.99
+      ],
+      [
+        737.3,
+        93.77
+      ],
+      [
+        757.86,
+        101.92
+      ],
+      [
+        778.42,
+        112.43
+      ],
+      [
+        798.98,
+        125.32
+      ],
+      [
+        805.48,
+        129.9
+      ]
+    ],
+    "60_init_30_60": [
+      [
+        209.11,
+        162.96
+      ],
+      [
+        239.56,
+        145.3
+      ],
+      [
+        270.01,
+        130
+      ],
+      [
+        300.46,
+        117.07
+      ],
+      [
+        330.9,
+        106.52
+      ],
+      [
+        361.35,
+        98.33
+      ],
+      [
+        391.8,
+        92.52
+      ],
+      [
+        422.71,
+        89.07
+      ],
+      [
+        454.46,
+        88
+      ],
+      [
+        487.03,
+        89.3
+      ],
+      [
+        520.43,
+        92.96
+      ],
+      [
+        554.66,
+        99
+      ],
+      [
+        589.73,
+        107.41
+      ],
+      [
+        625.62,
+        118.18
+      ],
+      [
+        662.34,
+        131.33
+      ],
+      [
+        699.62,
+        146.85
+      ],
+      [
+        736.91,
+        164.74
+      ],
+      [
+        774.2,
+        185
+      ],
+      [
+        811.49,
+        207.63
+      ],
+      [
+        848.79,
+        232.63
+      ],
+      [
+        886.08,
+        260
+      ],
+      [
+        923.37,
+        289.74
+      ],
+      [
+        937.22,
+        301.39
+      ]
+    ],
+    "60_init_35_60": [
+      [
+        207.4,
+        160.43
+      ],
+      [
+        236.1,
+        140.18
+      ],
+      [
+        264.81,
+        122.31
+      ],
+      [
+        293.51,
+        106.8
+      ],
+      [
+        322.21,
+        93.66
+      ],
+      [
+        350.91,
+        82.89
+      ],
+      [
+        379.61,
+        74.49
+      ],
+      [
+        408.31,
+        68.47
+      ],
+      [
+        437.01,
+        64.81
+      ],
+      [
+        465.72,
+        63.52
+      ],
+      [
+        494.42,
+        64.61
+      ],
+      [
+        523.12,
+        68.06
+      ],
+      [
+        551.82,
+        73.89
+      ],
+      [
+        580.53,
+        82.08
+      ],
+      [
+        609.81,
+        92.65
+      ],
+      [
+        639.91,
+        105.58
+      ],
+      [
+        670.84,
+        120.89
+      ],
+      [
+        702.13,
+        138.57
+      ],
+      [
+        733.43,
+        158.62
+      ],
+      [
+        764.72,
+        181.03
+      ],
+      [
+        796.01,
+        205.82
+      ],
+      [
+        827.31,
+        232.98
+      ],
+      [
+        858.6,
+        262.51
+      ],
+      [
+        889.9,
+        294.41
+      ],
+      [
+        911.01,
+        317.27
+      ]
+    ],
+    "60_init_40_60": [
+      [
+        205.48,
+        158.06
+      ],
+      [
+        232.22,
+        135.39
+      ],
+      [
+        258.95,
+        115.09
+      ],
+      [
+        285.69,
+        97.16
+      ],
+      [
+        312.43,
+        81.61
+      ],
+      [
+        339.16,
+        68.42
+      ],
+      [
+        365.9,
+        57.6
+      ],
+      [
+        392.64,
+        49.15
+      ],
+      [
+        419.38,
+        43.08
+      ],
+      [
+        446.11,
+        39.37
+      ],
+      [
+        472.85,
+        38.03
+      ],
+      [
+        499.59,
+        39.07
+      ],
+      [
+        526.32,
+        42.47
+      ],
+      [
+        553.06,
+        48.25
+      ],
+      [
+        579.8,
+        56.39
+      ],
+      [
+        606.53,
+        66.91
+      ],
+      [
+        633.27,
+        79.79
+      ],
+      [
+        660.37,
+        95.05
+      ],
+      [
+        688.11,
+        112.68
+      ],
+      [
+        715.88,
+        132.67
+      ],
+      [
+        743.65,
+        155.04
+      ],
+      [
+        771.43,
+        179.78
+      ],
+      [
+        799.2,
+        206.89
+      ],
+      [
+        826.98,
+        236.36
+      ],
+      [
+        854.75,
+        268.21
+      ],
+      [
+        882.52,
+        302.43
+      ],
+      [
+        892.36,
+        315.13
+      ]
+    ],
+    "60_init_45_60": [
+      [
+        203.36,
+        155.87
+      ],
+      [
+        227.93,
+        130.96
+      ],
+      [
+        252.49,
+        108.42
+      ],
+      [
+        277.06,
+        88.25
+      ],
+      [
+        301.63,
+        70.45
+      ],
+      [
+        326.2,
+        55.02
+      ],
+      [
+        350.77,
+        41.97
+      ],
+      [
+        375.34,
+        31.28
+      ],
+      [
+        399.91,
+        22.96
+      ],
+      [
+        424.48,
+        17.01
+      ],
+      [
+        449.05,
+        13.44
+      ],
+      [
+        473.62,
+        12.23
+      ],
+      [
+        498.18,
+        13.4
+      ],
+      [
+        522.75,
+        16.93
+      ],
+      [
+        547.32,
+        22.84
+      ],
+      [
+        571.89,
+        31.11
+      ],
+      [
+        596.46,
+        41.76
+      ],
+      [
+        621.03,
+        54.77
+      ],
+      [
+        645.6,
+        70.16
+      ],
+      [
+        670.25,
+        87.92
+      ],
+      [
+        695.13,
+        108.04
+      ],
+      [
+        720.01,
+        130.54
+      ],
+      [
+        744.89,
+        155.41
+      ],
+      [
+        769.77,
+        182.65
+      ],
+      [
+        794.65,
+        212.26
+      ],
+      [
+        819.53,
+        244.24
+      ],
+      [
+        844.41,
+        278.59
+      ],
+      [
+        869.29,
+        315.31
+      ],
+      [
+        873.76,
+        322.16
+      ]
+    ],
+    "60_init_50_60": [
+      [
+        201.05,
+        153.87
+      ],
+      [
+        223.26,
+        126.92
+      ],
+      [
+        245.48,
+        102.33
+      ],
+      [
+        267.69,
+        80.12
+      ],
+      [
+        289.91,
+        60.28
+      ],
+      [
+        312.12,
+        42.81
+      ],
+      [
+        334.33,
+        27.71
+      ],
+      [
+        356.55,
+        14.98
+      ],
+      [
+        378.76,
+        4.62
+      ],
+      [
+        400.98,
+        -3.37
+      ],
+      [
+        423.19,
+        -8.99
+      ],
+      [
+        445.4,
+        -12.24
+      ],
+      [
+        467.62,
+        -13.12
+      ],
+      [
+        489.83,
+        -11.62
+      ],
+      [
+        512.05,
+        -7.76
+      ],
+      [
+        534.26,
+        -1.53
+      ],
+      [
+        556.48,
+        7.08
+      ],
+      [
+        578.69,
+        18.05
+      ],
+      [
+        600.9,
+        31.39
+      ],
+      [
+        623.12,
+        47.11
+      ],
+      [
+        645.33,
+        65.19
+      ],
+      [
+        667.59,
+        85.65
+      ],
+      [
+        690.11,
+        108.47
+      ],
+      [
+        712.64,
+        133.67
+      ],
+      [
+        735.16,
+        161.23
+      ],
+      [
+        757.69,
+        191.17
+      ],
+      [
+        780.21,
+        223.48
+      ],
+      [
+        802.74,
+        258.16
+      ],
+      [
+        825.26,
+        295.2
+      ],
+      [
+        831.93,
+        306.63
+      ]
+    ],
+    "60_init_60_70": [
+      [
+        195.96,
+        150.51
+      ],
+      [
+        215.81,
+        114.88
+      ],
+      [
+        235.66,
+        81.63
+      ],
+      [
+        255.52,
+        50.75
+      ],
+      [
+        275.37,
+        22.24
+      ],
+      [
+        295.22,
+        -3.9
+      ],
+      [
+        315.07,
+        -27.67
+      ],
+      [
+        334.93,
+        -49.07
+      ],
+      [
+        354.78,
+        -68.1
+      ],
+      [
+        374.63,
+        -84.75
+      ],
+      [
+        394.48,
+        -99.04
+      ],
+      [
+        414.33,
+        -110.96
+      ],
+      [
+        434.19,
+        -120.51
+      ],
+      [
+        454.04,
+        -127.68
+      ],
+      [
+        473.89,
+        -132.49
+      ],
+      [
+        493.74,
+        -134.93
+      ],
+      [
+        513.6,
+        -134.99
+      ],
+      [
+        533.45,
+        -132.69
+      ],
+      [
+        553.3,
+        -128.01
+      ],
+      [
+        573.15,
+        -120.97
+      ],
+      [
+        593.01,
+        -111.55
+      ],
+      [
+        612.86,
+        -99.77
+      ],
+      [
+        632.71,
+        -85.61
+      ],
+      [
+        652.56,
+        -69.08
+      ],
+      [
+        672.42,
+        -50.19
+      ],
+      [
+        692.27,
+        -28.92
+      ],
+      [
+        712.12,
+        -5.28
+      ],
+      [
+        731.97,
+        20.73
+      ],
+      [
+        751.83,
+        49.1
+      ],
+      [
+        771.68,
+        79.85
+      ],
+      [
+        791.53,
+        112.97
+      ],
+      [
+        811.38,
+        148.46
+      ],
+      [
+        831.24,
+        186.32
+      ],
+      [
+        851.09,
+        226.55
+      ],
+      [
+        870.94,
+        269.15
+      ],
+      [
+        890.79,
+        314.13
+      ],
+      [
+        891.18,
+        315.03
+      ]
+    ],
+    "60_init_75_100": [
+      [
+        187.42,
+        147.24
+      ],
+      [
+        201.26,
+        90.35
+      ],
+      [
+        215.1,
+        35.83
+      ],
+      [
+        228.94,
+        -16.31
+      ],
+      [
+        242.79,
+        -66.09
+      ],
+      [
+        256.63,
+        -113.5
+      ],
+      [
+        270.47,
+        -158.53
+      ],
+      [
+        284.31,
+        -201.2
+      ],
+      [
+        298.15,
+        -241.49
+      ],
+      [
+        311.99,
+        -279.42
+      ],
+      [
+        325.83,
+        -314.97
+      ],
+      [
+        339.67,
+        -348.16
+      ],
+      [
+        353.51,
+        -378.97
+      ],
+      [
+        367.35,
+        -407.42
+      ],
+      [
+        381.19,
+        -433.49
+      ],
+      [
+        395.03,
+        -457.19
+      ],
+      [
+        408.87,
+        -478.52
+      ],
+      [
+        422.71,
+        -497.49
+      ],
+      [
+        436.55,
+        -514.08
+      ],
+      [
+        450.39,
+        -528.3
+      ],
+      [
+        464.23,
+        -540.15
+      ],
+      [
+        478.07,
+        -549.63
+      ],
+      [
+        491.91,
+        -556.74
+      ],
+      [
+        505.75,
+        -561.48
+      ],
+      [
+        519.59,
+        -563.85
+      ],
+      [
+        533.43,
+        -563.85
+      ],
+      [
+        547.27,
+        -561.48
+      ],
+      [
+        561.11,
+        -556.74
+      ],
+      [
+        574.95,
+        -549.63
+      ],
+      [
+        588.79,
+        -540.14
+      ],
+      [
+        602.63,
+        -528.29
+      ],
+      [
+        616.47,
+        -514.07
+      ],
+      [
+        630.31,
+        -497.47
+      ],
+      [
+        644.15,
+        -478.51
+      ],
+      [
+        657.99,
+        -457.18
+      ],
+      [
+        671.83,
+        -433.47
+      ],
+      [
+        685.67,
+        -407.4
+      ],
+      [
+        699.51,
+        -378.95
+      ],
+      [
+        713.35,
+        -348.14
+      ],
+      [
+        727.19,
+        -314.95
+      ],
+      [
+        741.03,
+        -279.39
+      ],
+      [
+        754.87,
+        -241.47
+      ],
+      [
+        768.71,
+        -201.17
+      ],
+      [
+        782.55,
+        -158.5
+      ],
+      [
+        796.39,
+        -113.46
+      ],
+      [
+        810.23,
+        -66.06
+      ],
+      [
+        824.07,
+        -16.28
+      ],
+      [
+        837.91,
+        35.87
+      ],
+      [
+        851.75,
+        90.39
+      ],
+      [
+        865.59,
+        147.28
+      ],
+      [
+        879.43,
+        206.54
+      ],
+      [
+        893.27,
+        268.17
+      ],
+      [
+        904.64,
+        320.58
+      ]
+    ],
+    "80_init_20_100": [
+      [
+        232.06,
+        129.58
+      ],
+      [
+        287.56,
+        109.04
+      ],
+      [
+        343.07,
+        90.87
+      ],
+      [
+        398.58,
+        75.06
+      ],
+      [
+        454.09,
+        61.63
+      ],
+      [
+        509.6,
+        50.57
+      ],
+      [
+        565.33,
+        43.58
+      ],
+      [
+        621.38,
+        44.09
+      ],
+      [
+        677.03,
+        52.17
+      ],
+      [
+        732.33,
+        64.88
+      ],
+      [
+        787.62,
+        79.97
+      ],
+      [
+        832.39,
+        93.92
+      ]
+    ],
+    "80_walk40_15_100": [
+      [
+        273.04,
+        131.61
+      ],
+      [
+        330.22,
+        115.98
+      ],
+      [
+        387.39,
+        102.73
+      ],
+      [
+        444.57,
+        91.85
+      ],
+      [
+        501.75,
+        83.33
+      ],
+      [
+        558.93,
+        77.19
+      ],
+      [
+        616.1,
+        73.42
+      ],
+      [
+        673.28,
+        72.02
+      ],
+      [
+        730.46,
+        72.99
+      ],
+      [
+        787.64,
+        76.33
+      ],
+      [
+        834.24,
+        80.81
+      ]
+    ],
+    "80_walk40_20_100": [
+      [
+        272.06,
+        128.71
+      ],
+      [
+        327.56,
+        108.17
+      ],
+      [
+        383.07,
+        90
+      ],
+      [
+        438.58,
+        74.19
+      ],
+      [
+        494.09,
+        60.76
+      ],
+      [
+        549.68,
+        50.19
+      ],
+      [
+        605.82,
+        46.37
+      ],
+      [
+        661.97,
+        50.16
+      ],
+      [
+        717.76,
+        59.82
+      ],
+      [
+        773.54,
+        71.94
+      ],
+      [
+        829.32,
+        86.42
+      ],
+      [
+        832.19,
+        87.24
+      ]
+    ],
+    "80_walk40_25_90": [
+      [
+        270.83,
+        125.92
+      ],
+      [
+        318.9,
+        103.25
+      ],
+      [
+        366.98,
+        82.96
+      ],
+      [
+        415.05,
+        65.03
+      ],
+      [
+        463.12,
+        49.48
+      ],
+      [
+        511.22,
+        36.36
+      ],
+      [
+        559.92,
+        28.65
+      ],
+      [
+        609.03,
+        27.87
+      ],
+      [
+        657.91,
+        34.02
+      ],
+      [
+        705.97,
+        46.85
+      ],
+      [
+        753.75,
+        63.1
+      ],
+      [
+        801.54,
+        81.71
+      ],
+      [
+        832.67,
+        95.12
+      ]
+    ],
+    "80_walk40_25_100": [
+      [
+        270.83,
+        125.92
+      ],
+      [
+        324.24,
+        100.62
+      ],
+      [
+        377.66,
+        77.69
+      ],
+      [
+        431.07,
+        57.13
+      ],
+      [
+        484.49,
+        38.94
+      ],
+      [
+        538.36,
+        24.77
+      ],
+      [
+        593.19,
+        17.95
+      ],
+      [
+        648.33,
+        18.63
+      ],
+      [
+        703.06,
+        26.79
+      ],
+      [
+        757.17,
+        40.74
+      ],
+      [
+        811.26,
+        57.13
+      ],
+      [
+        849.51,
+        70.16
+      ]
+    ],
+    "80_walk40_50_80": [
+      [
+        261.34,
+        114.1
+      ],
+      [
+        291.17,
+        77.99
+      ],
+      [
+        320.99,
+        44.24
+      ],
+      [
+        350.82,
+        12.86
+      ],
+      [
+        380.64,
+        -16.15
+      ],
+      [
+        410.47,
+        -42.78
+      ],
+      [
+        440.33,
+        -67
+      ],
+      [
+        471.53,
+        -86.94
+      ],
+      [
+        504.36,
+        -101.52
+      ],
+      [
+        538.3,
+        -110.61
+      ],
+      [
+        572.85,
+        -114.15
+      ],
+      [
+        607.48,
+        -112.09
+      ],
+      [
+        641.67,
+        -104.46
+      ],
+      [
+        674.9,
+        -91.31
+      ],
+      [
+        706.68,
+        -72.76
+      ],
+      [
+        736.49,
+        -48.97
+      ],
+      [
+        764,
+        -20.26
+      ],
+      [
+        790.89,
+        11.42
+      ],
+      [
+        817.78,
+        45.47
+      ],
+      [
+        839.35,
+        74.51
+      ]
+    ],
+    "80_walk40_55_80": [
+      [
+        258.88,
+        112.3
+      ],
+      [
+        285.36,
+        73.72
+      ],
+      [
+        311.83,
+        37.52
+      ],
+      [
+        338.3,
+        3.68
+      ],
+      [
+        364.77,
+        -27.78
+      ],
+      [
+        391.25,
+        -56.88
+      ],
+      [
+        417.72,
+        -83.6
+      ],
+      [
+        444.54,
+        -107.56
+      ],
+      [
+        473.17,
+        -126.81
+      ],
+      [
+        503.38,
+        -140.94
+      ],
+      [
+        534.66,
+        -149.84
+      ],
+      [
+        566.55,
+        -153.42
+      ],
+      [
+        598.53,
+        -151.66
+      ],
+      [
+        630.11,
+        -144.56
+      ],
+      [
+        660.81,
+        -132.19
+      ],
+      [
+        690.12,
+        -114.66
+      ],
+      [
+        717.58,
+        -92.11
+      ],
+      [
+        742.72,
+        -64.73
+      ],
+      [
+        765.26,
+        -32.87
+      ],
+      [
+        787.12,
+        1.86
+      ],
+      [
+        808.97,
+        38.96
+      ],
+      [
+        830.82,
+        78.43
+      ],
+      [
+        833.27,
+        83
+      ]
+    ],
+    "80_walk80_15_100": [
+      [
+        313.04,
+        130.74
+      ],
+      [
+        370.22,
+        115.11
+      ],
+      [
+        427.39,
+        101.86
+      ],
+      [
+        484.57,
+        90.98
+      ],
+      [
+        541.75,
+        82.46
+      ],
+      [
+        598.93,
+        76.32
+      ],
+      [
+        656.1,
+        72.55
+      ],
+      [
+        713.28,
+        71.15
+      ],
+      [
+        770.46,
+        72.12
+      ],
+      [
+        827.64,
+        75.46
+      ],
+      [
+        837.45,
+        76.27
+      ]
+    ],
+    "80_walk80_20_100": [
+      [
+        312.06,
+        127.85
+      ],
+      [
+        367.56,
+        107.3
+      ],
+      [
+        423.07,
+        89.13
+      ],
+      [
+        478.58,
+        73.33
+      ],
+      [
+        534.09,
+        59.89
+      ],
+      [
+        590,
+        51.1
+      ],
+      [
+        646.39,
+        49.92
+      ],
+      [
+        702.62,
+        55.85
+      ],
+      [
+        758.76,
+        64.98
+      ],
+      [
+        814.91,
+        76.48
+      ],
+      [
+        834.16,
+        80.97
+      ]
+    ],
+    "80_walk80_25_90": [
+      [
+        310.83,
+        125.05
+      ],
+      [
+        358.9,
+        102.38
+      ],
+      [
+        406.98,
+        82.09
+      ],
+      [
+        455.05,
+        64.16
+      ],
+      [
+        503.12,
+        48.61
+      ],
+      [
+        551.57,
+        36.9
+      ],
+      [
+        600.79,
+        32.05
+      ],
+      [
+        650.14,
+        34.15
+      ],
+      [
+        698.99,
+        43.21
+      ],
+      [
+        747.45,
+        56.62
+      ],
+      [
+        795.9,
+        72.4
+      ],
+      [
+        832.43,
+        85.86
+      ]
+    ],
+    "80_walk80_25_100": [
+      [
+        310.83,
+        125.05
+      ],
+      [
+        364.24,
+        99.75
+      ],
+      [
+        417.66,
+        76.82
+      ],
+      [
+        471.07,
+        56.26
+      ],
+      [
+        524.56,
+        38.31
+      ],
+      [
+        579.08,
+        26.58
+      ],
+      [
+        634.35,
+        22.34
+      ],
+      [
+        689.68,
+        25.62
+      ],
+      [
+        744.54,
+        35.6
+      ],
+      [
+        799.32,
+        48.43
+      ],
+      [
+        854.09,
+        63.64
+      ],
+      [
+        908.87,
+        81.21
+      ],
+      [
+        948.77,
+        95.5
+      ]
+    ],
+    "80_walk80_30_80": [
+      [
+        309.36,
+        122.37
+      ],
+      [
+        350.09,
+        98.7
+      ],
+      [
+        390.83,
+        77.39
+      ],
+      [
+        431.56,
+        58.46
+      ],
+      [
+        472.29,
+        41.89
+      ],
+      [
+        513.14,
+        28.05
+      ],
+      [
+        554.84,
+        19.83
+      ],
+      [
+        597.02,
+        17.89
+      ],
+      [
+        639.1,
+        22.25
+      ],
+      [
+        680.5,
+        32.86
+      ],
+      [
+        720.9,
+        49.07
+      ],
+      [
+        761.15,
+        67.99
+      ],
+      [
+        801.41,
+        89.29
+      ],
+      [
+        841.67,
+        112.96
+      ],
+      [
+        852.91,
+        120
+      ]
+    ],
+    "80_walk80_60_80": [
+      [
+        296.27,
+        109.84
+      ],
+      [
+        319.19,
+        69.11
+      ],
+      [
+        342.11,
+        30.75
+      ],
+      [
+        365.03,
+        -5.24
+      ],
+      [
+        387.95,
+        -38.86
+      ],
+      [
+        410.87,
+        -70.11
+      ],
+      [
+        433.83,
+        -98.96
+      ],
+      [
+        458.44,
+        -123.94
+      ],
+      [
+        485.17,
+        -144.15
+      ],
+      [
+        513.57,
+        -159.43
+      ],
+      [
+        543.17,
+        -169.63
+      ],
+      [
+        573.49,
+        -174.67
+      ],
+      [
+        604.05,
+        -174.5
+      ],
+      [
+        634.37,
+        -169.13
+      ],
+      [
+        663.96,
+        -158.59
+      ],
+      [
+        692.35,
+        -142.98
+      ],
+      [
+        719.07,
+        -122.43
+      ],
+      [
+        743.66,
+        -97.12
+      ],
+      [
+        765.7,
+        -67.26
+      ],
+      [
+        786.13,
+        -33.91
+      ],
+      [
+        806.57,
+        1.81
+      ],
+      [
+        827,
+        39.9
+      ],
+      [
+        843.31,
+        71.99
+      ]
+    ],
+    "80_walk80_70_80": [
+      [
+        290.69,
+        107.39
+      ],
+      [
+        306.01,
+        63.31
+      ],
+      [
+        321.32,
+        21.6
+      ],
+      [
+        336.64,
+        -17.74
+      ],
+      [
+        351.96,
+        -54.7
+      ],
+      [
+        367.28,
+        -89.3
+      ],
+      [
+        382.6,
+        -121.52
+      ],
+      [
+        397.92,
+        -151.38
+      ],
+      [
+        413.24,
+        -178.86
+      ],
+      [
+        428.55,
+        -203.98
+      ],
+      [
+        443.87,
+        -226.72
+      ],
+      [
+        459.19,
+        -247.1
+      ],
+      [
+        474.51,
+        -265.1
+      ],
+      [
+        489.83,
+        -280.73
+      ],
+      [
+        505.15,
+        -294
+      ],
+      [
+        520.46,
+        -304.89
+      ],
+      [
+        535.78,
+        -313.41
+      ],
+      [
+        551.1,
+        -319.56
+      ],
+      [
+        566.42,
+        -323.35
+      ],
+      [
+        581.74,
+        -324.76
+      ],
+      [
+        597.06,
+        -323.8
+      ],
+      [
+        612.38,
+        -320.47
+      ],
+      [
+        627.69,
+        -314.77
+      ],
+      [
+        643.01,
+        -306.7
+      ],
+      [
+        658.33,
+        -296.26
+      ],
+      [
+        673.65,
+        -283.44
+      ],
+      [
+        688.97,
+        -268.26
+      ],
+      [
+        704.29,
+        -250.71
+      ],
+      [
+        719.6,
+        -230.79
+      ],
+      [
+        734.92,
+        -208.5
+      ],
+      [
+        750.24,
+        -183.83
+      ],
+      [
+        765.56,
+        -156.8
+      ],
+      [
+        780.88,
+        -127.4
+      ],
+      [
+        796.2,
+        -95.62
+      ],
+      [
+        811.52,
+        -61.48
+      ],
+      [
+        826.83,
+        -24.96
+      ],
+      [
+        842.15,
+        13.92
+      ],
+      [
+        857.47,
+        55.18
+      ],
+      [
+        864.25,
+        74.19
+      ]
+    ],
+    "80_walk80_75_90": [
+      [
+        287.76,
+        106.53
+      ],
+      [
+        300.5,
+        55.51
+      ],
+      [
+        313.25,
+        6.85
+      ],
+      [
+        325.99,
+        -39.43
+      ],
+      [
+        338.73,
+        -83.35
+      ],
+      [
+        351.48,
+        -124.89
+      ],
+      [
+        364.22,
+        -164.07
+      ],
+      [
+        376.97,
+        -200.87
+      ],
+      [
+        389.71,
+        -235.3
+      ],
+      [
+        402.45,
+        -267.37
+      ],
+      [
+        415.2,
+        -297.06
+      ],
+      [
+        427.94,
+        -324.38
+      ],
+      [
+        440.69,
+        -349.33
+      ],
+      [
+        453.43,
+        -371.92
+      ],
+      [
+        466.18,
+        -392.13
+      ],
+      [
+        478.92,
+        -409.97
+      ],
+      [
+        491.66,
+        -425.44
+      ],
+      [
+        504.41,
+        -438.54
+      ],
+      [
+        517.15,
+        -449.27
+      ],
+      [
+        529.9,
+        -457.63
+      ],
+      [
+        542.64,
+        -463.62
+      ],
+      [
+        555.38,
+        -467.23
+      ],
+      [
+        568.13,
+        -468.48
+      ],
+      [
+        580.87,
+        -467.36
+      ],
+      [
+        593.62,
+        -463.87
+      ],
+      [
+        606.36,
+        -458
+      ],
+      [
+        619.11,
+        -449.77
+      ],
+      [
+        631.85,
+        -439.17
+      ],
+      [
+        644.59,
+        -426.19
+      ],
+      [
+        657.34,
+        -410.85
+      ],
+      [
+        670.08,
+        -393.13
+      ],
+      [
+        682.83,
+        -373.05
+      ],
+      [
+        695.57,
+        -350.59
+      ],
+      [
+        708.31,
+        -325.77
+      ],
+      [
+        721.06,
+        -298.57
+      ],
+      [
+        733.8,
+        -269
+      ],
+      [
+        746.55,
+        -237.07
+      ],
+      [
+        759.29,
+        -202.76
+      ],
+      [
+        772.04,
+        -166.08
+      ],
+      [
+        784.78,
+        -127.03
+      ],
+      [
+        797.52,
+        -85.61
+      ],
+      [
+        810.27,
+        -41.83
+      ],
+      [
+        823.01,
+        4.33
+      ],
+      [
+        835.76,
+        52.86
+      ],
+      [
+        840.95,
+        73.33
+      ]
+    ],
+    "90_init_45_100": [
+      [
+        203.53,
+        336.3
+      ],
+      [
+        244.63,
+        294.23
+      ],
+      [
+        285.73,
+        254.53
+      ],
+      [
+        326.83,
+        217.21
+      ],
+      [
+        368,
+        182.26
+      ],
+      [
+        409.88,
+        149.67
+      ],
+      [
+        452.58,
+        119.46
+      ],
+      [
+        496.08,
+        91.61
+      ],
+      [
+        539.77,
+        66.14
+      ],
+      [
+        574.29,
+        48.05
+      ],
+      [
+        605.74,
+        33.99
+      ],
+      [
+        637.2,
+        22.3
+      ],
+      [
+        668.66,
+        12.99
+      ],
+      [
+        700.11,
+        6.04
+      ],
+      [
+        731.57,
+        1.47
+      ],
+      [
+        763.03,
+        -0.73
+      ],
+      [
+        794.49,
+        -0.57
+      ],
+      [
+        825.94,
+        1.97
+      ],
+      [
+        857.07,
+        6.81
+      ]
+    ],
+    "90_init_50_90": [
+      [
+        201.23,
+        334.29
+      ],
+      [
+        234.7,
+        293.46
+      ],
+      [
+        268.17,
+        254.99
+      ],
+      [
+        301.63,
+        218.9
+      ],
+      [
+        335.1,
+        185.18
+      ],
+      [
+        368.7,
+        153.83
+      ],
+      [
+        403.04,
+        124.85
+      ],
+      [
+        438.22,
+        98.24
+      ],
+      [
+        473.76,
+        74.01
+      ],
+      [
+        509.3,
+        52.14
+      ],
+      [
+        544.84,
+        32.64
+      ],
+      [
+        572.92,
+        19.26
+      ],
+      [
+        598.51,
+        9.51
+      ],
+      [
+        624.1,
+        2.13
+      ],
+      [
+        649.69,
+        -2.89
+      ],
+      [
+        675.27,
+        -5.53
+      ],
+      [
+        700.86,
+        -5.8
+      ],
+      [
+        726.45,
+        -3.71
+      ],
+      [
+        752.04,
+        0.76
+      ],
+      [
+        777.63,
+        7.6
+      ],
+      [
+        803.22,
+        16.81
+      ],
+      [
+        828.81,
+        28.39
+      ],
+      [
+        842.3,
+        35.45
+      ]
+    ],
+    "90_init_65_90": [
+      [
+        193.41,
+        329.56
+      ],
+      [
+        214.9,
+        281.5
+      ],
+      [
+        236.39,
+        235.8
+      ],
+      [
+        257.88,
+        192.47
+      ],
+      [
+        279.37,
+        151.52
+      ],
+      [
+        300.86,
+        112.93
+      ],
+      [
+        322.35,
+        76.72
+      ],
+      [
+        343.84,
+        42.87
+      ],
+      [
+        365.33,
+        11.4
+      ],
+      [
+        386.82,
+        -17.7
+      ],
+      [
+        408.31,
+        -44.44
+      ],
+      [
+        429.8,
+        -68.8
+      ],
+      [
+        451.29,
+        -90.79
+      ],
+      [
+        472.78,
+        -110.41
+      ],
+      [
+        494.27,
+        -127.66
+      ],
+      [
+        515.76,
+        -142.55
+      ],
+      [
+        537.25,
+        -155.06
+      ],
+      [
+        558.74,
+        -165.2
+      ],
+      [
+        580.23,
+        -172.97
+      ],
+      [
+        601.72,
+        -178.37
+      ],
+      [
+        623.21,
+        -181.4
+      ],
+      [
+        644.7,
+        -182.06
+      ],
+      [
+        666.19,
+        -180.34
+      ],
+      [
+        687.67,
+        -176.26
+      ],
+      [
+        709.16,
+        -169.81
+      ],
+      [
+        730.65,
+        -160.99
+      ],
+      [
+        752.14,
+        -149.8
+      ],
+      [
+        773.63,
+        -136.23
+      ],
+      [
+        795.12,
+        -120.3
+      ],
+      [
+        816.61,
+        -102
+      ],
+      [
+        838.1,
+        -81.32
+      ],
+      [
+        859.59,
+        -58.28
+      ],
+      [
+        881.08,
+        -32.86
+      ],
+      [
+        902.57,
+        -5.08
+      ],
+      [
+        924.06,
+        25.08
+      ],
+      [
+        939.36,
+        48
+      ]
+    ],
+    "90_init_70_90": [
+      [
+        190.57,
+        328.46
+      ],
+      [
+        207.69,
+        278.71
+      ],
+      [
+        224.82,
+        231.33
+      ],
+      [
+        241.95,
+        186.31
+      ],
+      [
+        259.08,
+        143.67
+      ],
+      [
+        276.21,
+        103.4
+      ],
+      [
+        293.33,
+        65.5
+      ],
+      [
+        310.46,
+        29.97
+      ],
+      [
+        327.59,
+        -3.19
+      ],
+      [
+        344.72,
+        -33.98
+      ],
+      [
+        361.85,
+        -62.4
+      ],
+      [
+        378.98,
+        -88.45
+      ],
+      [
+        396.1,
+        -112.12
+      ],
+      [
+        413.23,
+        -133.43
+      ],
+      [
+        430.36,
+        -152.37
+      ],
+      [
+        447.49,
+        -168.94
+      ],
+      [
+        464.62,
+        -183.14
+      ],
+      [
+        481.74,
+        -194.96
+      ],
+      [
+        498.87,
+        -204.42
+      ],
+      [
+        516,
+        -211.5
+      ],
+      [
+        533.13,
+        -216.22
+      ],
+      [
+        550.26,
+        -218.56
+      ],
+      [
+        567.39,
+        -218.54
+      ],
+      [
+        584.51,
+        -216.14
+      ],
+      [
+        601.64,
+        -211.38
+      ],
+      [
+        618.77,
+        -204.24
+      ],
+      [
+        635.9,
+        -194.74
+      ],
+      [
+        653.03,
+        -182.86
+      ],
+      [
+        670.16,
+        -168.61
+      ],
+      [
+        687.28,
+        -151.99
+      ],
+      [
+        704.41,
+        -133
+      ],
+      [
+        721.54,
+        -111.65
+      ],
+      [
+        738.67,
+        -87.92
+      ],
+      [
+        755.8,
+        -61.82
+      ],
+      [
+        772.92,
+        -33.35
+      ],
+      [
+        790.05,
+        -2.51
+      ],
+      [
+        807.18,
+        30.7
+      ],
+      [
+        822.08,
+        61.52
+      ]
+    ],
+    "90_init_75_100": [
+      [
+        187.63,
+        327.61
+      ],
+      [
+        201.67,
+        270.77
+      ],
+      [
+        215.71,
+        216.3
+      ],
+      [
+        229.75,
+        164.2
+      ],
+      [
+        243.79,
+        114.48
+      ],
+      [
+        257.83,
+        67.12
+      ],
+      [
+        271.88,
+        22.13
+      ],
+      [
+        285.92,
+        -20.49
+      ],
+      [
+        299.96,
+        -60.74
+      ],
+      [
+        314,
+        -98.61
+      ],
+      [
+        328.04,
+        -134.12
+      ],
+      [
+        342.08,
+        -167.25
+      ],
+      [
+        356.12,
+        -198.02
+      ],
+      [
+        370.16,
+        -226.42
+      ],
+      [
+        384.2,
+        -252.44
+      ],
+      [
+        398.24,
+        -276.1
+      ],
+      [
+        412.28,
+        -297.38
+      ],
+      [
+        426.32,
+        -316.29
+      ],
+      [
+        440.36,
+        -332.84
+      ],
+      [
+        454.4,
+        -347.01
+      ],
+      [
+        468.44,
+        -358.81
+      ],
+      [
+        482.48,
+        -368.25
+      ],
+      [
+        496.52,
+        -375.31
+      ],
+      [
+        510.56,
+        -380
+      ],
+      [
+        524.6,
+        -382.32
+      ],
+      [
+        538.64,
+        -382.27
+      ],
+      [
+        552.68,
+        -379.85
+      ],
+      [
+        566.72,
+        -375.06
+      ],
+      [
+        580.77,
+        -367.9
+      ],
+      [
+        594.81,
+        -358.37
+      ],
+      [
+        608.85,
+        -346.47
+      ],
+      [
+        622.89,
+        -332.2
+      ],
+      [
+        636.93,
+        -315.56
+      ],
+      [
+        650.97,
+        -296.55
+      ],
+      [
+        665.01,
+        -275.16
+      ],
+      [
+        679.05,
+        -251.41
+      ],
+      [
+        693.09,
+        -225.29
+      ],
+      [
+        707.13,
+        -196.79
+      ],
+      [
+        721.17,
+        -165.93
+      ],
+      [
+        735.21,
+        -132.7
+      ],
+      [
+        749.25,
+        -97.09
+      ],
+      [
+        763.29,
+        -59.12
+      ],
+      [
+        777.33,
+        -18.77
+      ],
+      [
+        791.37,
+        23.95
+      ],
+      [
+        805.41,
+        69.03
+      ],
+      [
+        808.17,
+        78.17
+      ]
+    ]
+  },
+  "simulationCaveats": [
+    "W01 10..85° in 5° steps and power 20..100 in 10 steps; stage50 also 2°/5 fine grid.",
+    "Geometry.move used without full turn AI. Walk+facing correction demonstrated over 42px, under 140px cap before avatar walk multipliers.",
+    "Teleport success evaluated from initial world contact then successful W01 from landed position without intervening CPU actions.",
+    "No full game implementation, enemy AI cycles, parts through defeat, gameplay camera or real device playtest."
+  ]
+}
