@@ -1,0 +1,398 @@
+{
+  "schema": "ARCLINE-map-geometry-patch-v2",
+  "date": "2026-11-04",
+  "base": "stage_030_040_fresh_redesign_v1.json",
+  "approval": "未承認、ゲーム未実装、公開Pagesは変更しない",
+  "notes": "35・40の天井下面反射は新規衝突材の設計案",
+  "stages": [
+    {
+      "stage": 38,
+      "parts": [
+        {
+          "id": "038-SINGLE-CITADEL",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              45,
+              28
+            ],
+            [
+              52,
+              36
+            ],
+            [
+              65,
+              37
+            ],
+            [
+              79,
+              33
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              54,
+              27
+            ]
+          ]
+        },
+        {
+          "id": "038-FRAGILE-BATTLEMENT",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              80,
+              23
+            ],
+            [
+              90,
+              23
+            ],
+            [
+              90,
+              37
+            ],
+            [
+              80,
+              37
+            ]
+          ]
+        },
+        {
+          "id": "038-PERMANENT-DOGLEG",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              94,
+              18
+            ],
+            [
+              101,
+              18
+            ],
+            [
+              101,
+              40
+            ],
+            [
+              97,
+              42
+            ],
+            [
+              94,
+              38
+            ]
+          ]
+        }
+      ],
+      "enemy": {
+        "x": 108,
+        "h": 18
+      },
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            87,
+            44,
+            35
+          ]
+        }
+      ],
+      "goal": "壁を破壊しても奥の固定折れ壁が直射を遮る。島・反射を使う。",
+      "postBreakLineOfSight": "全破壊後も038-PERMANENT-DOGLEGが残り、直接狙えない。"
+    },
+    {
+      "stage": 39,
+      "parts": [
+        {
+          "id": "039-SHORT-CAVERN-ROOF",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              29,
+              32
+            ],
+            [
+              36,
+              39
+            ],
+            [
+              47,
+              41
+            ],
+            [
+              57,
+              37
+            ],
+            [
+              58,
+              30
+            ],
+            [
+              56,
+              23
+            ],
+            [
+              46,
+              21
+            ],
+            [
+              35,
+              21
+            ],
+            [
+              29,
+              23
+            ]
+          ]
+        },
+        {
+          "id": "039-BREAKABLE-EXIT",
+          "kind": "roof",
+          "breakable": true,
+          "poly": [
+            [
+              58,
+              26
+            ],
+            [
+              62,
+              31
+            ],
+            [
+              67,
+              30
+            ],
+            [
+              67,
+              25
+            ],
+            [
+              61,
+              23
+            ]
+          ]
+        }
+      ],
+      "player": {
+        "x": 36,
+        "h": 8,
+        "surface": "cave-floor"
+      },
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            71,
+            39,
+            15
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            76,
+            101,
+            29
+          ]
+        }
+      ],
+      "openSky": {
+        "fromX": 0,
+        "toX": 29,
+        "widthPx": 290,
+        "playerCanRetreat": true
+      },
+      "goal": "短い洞窟の自機が左へ下がり、開いた空から高い曲射を選べる。"
+    },
+    {
+      "stage": 40,
+      "parts": [
+        {
+          "id": "040-LEFT-VAULT",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              13,
+              38
+            ],
+            [
+              19,
+              44
+            ],
+            [
+              29,
+              46
+            ],
+            [
+              41,
+              45
+            ],
+            [
+              52,
+              40
+            ],
+            [
+              52,
+              35
+            ],
+            [
+              43,
+              34
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              14,
+              35
+            ]
+          ],
+          "reflectiveUnderside": [
+            [
+              23,
+              34
+            ],
+            [
+              43,
+              34
+            ]
+          ],
+          "reflectiveUndersideRequiresImplementation": true
+        },
+        {
+          "id": "040-CENTRAL-BRIDGE",
+          "kind": "bridge",
+          "breakable": false,
+          "poly": [
+            [
+              69,
+              46
+            ],
+            [
+              75,
+              51
+            ],
+            [
+              92,
+              51
+            ],
+            [
+              104,
+              47
+            ],
+            [
+              100,
+              44
+            ],
+            [
+              75,
+              44
+            ]
+          ]
+        },
+        {
+          "id": "040-RIGHT-VAULT",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              111,
+              49
+            ],
+            [
+              118,
+              56
+            ],
+            [
+              132,
+              58
+            ],
+            [
+              145,
+              56
+            ],
+            [
+              153,
+              51
+            ],
+            [
+              153,
+              45
+            ],
+            [
+              145,
+              44
+            ],
+            [
+              122,
+              44
+            ],
+            [
+              113,
+              45
+            ]
+          ],
+          "reflectiveUnderside": [
+            [
+              122,
+              44
+            ],
+            [
+              145,
+              44
+            ]
+          ],
+          "reflectiveUndersideRequiresImplementation": true
+        },
+        {
+          "id": "040-PRISM-FRAME",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              114,
+              26
+            ],
+            [
+              120,
+              29
+            ],
+            [
+              129,
+              37
+            ],
+            [
+              131,
+              42
+            ],
+            [
+              125,
+              44
+            ],
+            [
+              117,
+              40
+            ]
+          ]
+        }
+      ],
+      "roofWidthComparisonPx": {
+        "playerRoof": 390,
+        "enemyRoof": 420
+      },
+      "ceilingReflectorImplementationRequired": true,
+      "goal": "左右の同規模の屋根の下面反射と中央へ移した橋でボスを攻略する",
+      "warning": "屋根裏反射は現行Wで作動しない。新しい衝突材実装が必須。"
+    }
+  ]
+}
