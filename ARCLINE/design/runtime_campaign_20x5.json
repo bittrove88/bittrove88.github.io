@@ -104,11 +104,31 @@
         [
           [
             0,
+            9.2
+          ],
+          [
+            6,
+            9.2
+          ],
+          [
+            12,
             10
           ],
           [
-            100,
+            74,
             10
+          ],
+          [
+            83,
+            11.2
+          ],
+          [
+            90,
+            11.2
+          ],
+          [
+            100,
+            10.2
           ]
         ]
       ],
@@ -136,7 +156,8 @@
       "tacticalGoal": "近づくほど、小さなチャージでも届く",
       "tacticalGoalEn": "Move closer to reach the rival with a gentle charge.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 2,
@@ -161,11 +182,19 @@
             10
           ],
           [
-            25,
+            23,
             10
           ],
           [
+            34,
+            13
+          ],
+          [
             45,
+            16
+          ],
+          [
+            52,
             18
           ],
           [
@@ -182,9 +211,20 @@
           "id": "W02",
           "kind": "trial",
           "weaponId": "W02",
-          "x": 26,
-          "h": 17.4,
-          "placementId": "L002:weapon:W02"
+          "category": "weapon",
+          "amount": 2,
+          "x": 39.796,
+          "h": 27.093,
+          "spawnTurn": 1,
+          "placementId": "L002:weapon:W02",
+          "verification": {
+            "angle": 44,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -207,7 +247,8 @@
       "tacticalGoal": "緩い坂の上で砲口が上がることを確かめる",
       "tacticalGoalEn": "Notice how a slope raises the muzzle.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 3,
@@ -221,27 +262,59 @@
           22.0
         ],
         [
-          70,
-          10.0
+          73,
+          10.5
         ]
       ],
       "floors": [
         [
           [
             0,
+            21
+          ],
+          [
+            8,
+            21.5
+          ],
+          [
+            14,
             22
           ],
           [
-            27,
+            24,
             22
+          ],
+          [
+            32,
+            20
+          ],
+          [
+            42,
+            16
           ],
           [
             52,
-            10
+            12
+          ],
+          [
+            61,
+            12
+          ],
+          [
+            69,
+            10.5
+          ],
+          [
+            77,
+            10.5
+          ],
+          [
+            86,
+            12.5
           ],
           [
             100,
-            10
+            13
           ]
         ]
       ],
@@ -269,7 +342,8 @@
       "tacticalGoal": "下り坂を歩き、平らな射点へ止まる",
       "tacticalGoalEn": "Walk downhill and stop at a level firing point.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 4,
@@ -280,11 +354,11 @@
       "spawn": [
         [
           16,
-          15.0
+          16.0
         ],
         [
-          81,
-          16.0
+          83,
+          16
         ]
       ],
       "floors": [
@@ -294,38 +368,106 @@
             15
           ],
           [
+            8,
+            16
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            24,
+            16.2
+          ],
+          [
             30,
             15
           ],
           [
-            40,
-            5
+            38,
+            12
+          ]
+        ],
+        [
+          [
+            48,
+            12
           ],
           [
-            57,
-            5
+            53,
+            15
           ],
           [
-            68,
+            61,
             16
+          ],
+          [
+            86,
+            16
+          ],
+          [
+            94,
+            17
           ],
           [
             100,
-            16
+            17
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "004-IS01",
+          "poly": [
+            [
+              40,
+              19
+            ],
+            [
+              43,
+              22
+            ],
+            [
+              51,
+              23
+            ],
+            [
+              55,
+              21
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              46,
+              18
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [],
       "skills": {},
       "pickups": [
         {
-          "id": "W04",
-          "kind": "trial",
-          "weaponId": "W04",
-          "x": 24,
-          "h": 22.0,
-          "placementId": "L004:weapon:W04"
+          "id": "SK004",
+          "kind": "skill",
+          "skillId": "S_REPAIR",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 43.212,
+          "h": 34.478,
+          "spawnTurn": 1,
+          "placementId": "L004:skill:S_REPAIR",
+          "verification": {
+            "angle": 44,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0.5
+          }
         }
       ],
       "blink": [],
@@ -348,7 +490,8 @@
       "tacticalGoal": "谷の向こうの広い足場へ転移して撃つ",
       "tacticalGoalEn": "Teleport across the valley onto a wide landing.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 5,
@@ -359,34 +502,62 @@
       "spawn": [
         [
           17,
-          11.0
+          13.0
         ],
         [
           80,
-          11.0
+          12.0
         ]
       ],
       "floors": [
         [
           [
             0,
-            11
+            12
           ],
           [
-            30,
-            11
+            7,
+            13
+          ],
+          [
+            17,
+            13
+          ],
+          [
+            27,
+            13
+          ],
+          [
+            34,
+            15
           ],
           [
             44,
-            17
+            20
           ],
           [
-            58,
+            53,
+            18
+          ],
+          [
+            59,
             11
+          ],
+          [
+            69,
+            10
+          ],
+          [
+            78,
+            12
+          ],
+          [
+            92,
+            12
           ],
           [
             100,
-            11
+            13
           ]
         ]
       ],
@@ -437,7 +608,8 @@
       "tacticalGoal": "低い肩を越える弧でドラムを止める",
       "tacticalGoalEn": "Send an arc over the low ridge toward the drum.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 6,
@@ -448,38 +620,54 @@
       "spawn": [
         [
           16,
-          12.0
+          15.0
         ],
         [
           82,
-          12.0
+          14.0
         ]
       ],
       "floors": [
         [
           [
             0,
-            12
+            15
           ],
           [
-            28,
-            12
+            10,
+            15
           ],
           [
-            40,
-            14.5
+            16,
+            15
           ],
           [
-            56,
-            14.5
+            25,
+            14
           ],
           [
-            71,
-            12
+            33,
+            11
+          ],
+          [
+            64,
+            11
+          ],
+          [
+            72,
+            14
+          ],
+          [
+            82,
+            14
+          ],
+          [
+            93,
+            15
           ],
           [
             100,
-            12
+            15
           ]
         ]
       ],
@@ -490,7 +678,7 @@
           "v": [
             33,
             64,
-            12
+            11
           ]
         }
       ],
@@ -516,7 +704,8 @@
       "tacticalGoal": "明るい床に低く当て、前方への反射を見る",
       "tacticalGoalEn": "Aim low into the bright floor for a forward bounce.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 7,
@@ -527,7 +716,7 @@
       "spawn": [
         [
           16,
-          10.0
+          11.0
         ],
         [
           82,
@@ -541,70 +730,113 @@
             10
           ],
           [
-            28,
+            10,
+            10.5
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            25,
+            11
+          ],
+          [
+            33,
+            13
+          ],
+          [
+            41,
+            12
+          ],
+          [
+            53,
+            12
+          ],
+          [
+            64,
             10
           ],
           [
-            34,
-            11.8
-          ],
-          [
-            63,
-            11.8
-          ],
-          [
-            72,
+            87,
             10
+          ],
+          [
+            93,
+            11
           ],
           [
             100,
-            10
+            11
           ]
         ]
       ],
       "components": [
         {
-          "id": "007-C01",
+          "id": "007-ROCK01",
           "poly": [
             [
               43,
-              29
-            ],
-            [
-              49,
-              29
-            ],
-            [
-              49,
-              10
+              12
             ],
             [
               43,
-              10
+              25
+            ],
+            [
+              45,
+              30
+            ],
+            [
+              47,
+              28
+            ],
+            [
+              49,
+              31
+            ],
+            [
+              52,
+              27
+            ],
+            [
+              52,
+              12
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            54,
+            85,
+            10
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W06",
+          "id": "W07",
           "kind": "trial",
-          "weaponId": "W06",
-          "x": 24,
-          "h": 17.0,
-          "placementId": "L007:weapon:W06"
-        },
-        {
-          "id": "SK007",
-          "kind": "skill",
-          "skillId": "S_GUARD",
-          "amount": 1,
-          "x": 20,
-          "h": 19.0,
-          "placementId": "L007:skill:S_GUARD"
+          "weaponId": "W07",
+          "category": "weapon",
+          "amount": 2,
+          "x": 32.81,
+          "h": 40.768,
+          "spawnTurn": 1,
+          "placementId": "L007:weapon:W07",
+          "verification": {
+            "angle": 68,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 7,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -627,7 +859,8 @@
       "tacticalGoal": "壊せる岩箱を一つ壊して次の射線を作る",
       "tacticalGoalEn": "Break one cracked block to open the next shot.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 8,
@@ -638,21 +871,29 @@
       "spawn": [
         [
           16,
-          14.0
+          14
         ],
         [
           82,
-          14.0
+          13
         ]
       ],
       "floors": [
         [
           [
             0,
+            15
+          ],
+          [
+            8,
+            15
+          ],
+          [
+            12,
             14
           ],
           [
-            29,
+            28,
             14
           ],
           [
@@ -660,12 +901,20 @@
             12
           ],
           [
+            50,
+            11
+          ],
+          [
             61,
             12
           ],
           [
             73,
-            14
+            13
+          ],
+          [
+            91,
+            13
           ],
           [
             100,
@@ -675,29 +924,110 @@
       ],
       "components": [
         {
-          "id": "008-C01",
+          "id": "008-CAVE-ROOF",
           "poly": [
             [
-              39,
-              32
+              54,
+              33
+            ],
+            [
+              62,
+              40
+            ],
+            [
+              72,
+              42
+            ],
+            [
+              81,
+              40
+            ],
+            [
+              92,
+              39
+            ],
+            [
+              96,
+              34
+            ],
+            [
+              95,
+              28
+            ],
+            [
+              87,
+              27
+            ],
+            [
+              78,
+              27
+            ],
+            [
+              66,
+              26
             ],
             [
               57,
-              32
+              26
+            ]
+          ],
+          "destructible": false,
+          "reflectiveUnderside": [
+            [
+              59,
+              26
             ],
             [
-              57,
+              66,
+              26
+            ],
+            [
+              78,
+              27
+            ],
+            [
+              84,
+              27
+            ]
+          ]
+        },
+        {
+          "id": "008-FRAGILE-ENTRY",
+          "poly": [
+            [
+              46,
               29
             ],
             [
-              39,
-              29
+              51,
+              33
+            ],
+            [
+              55,
+              33
+            ],
+            [
+              55,
+              26
+            ],
+            [
+              49,
+              26
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            40,
+            81,
+            11
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -717,10 +1047,11 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "hana",
-      "tacticalGoal": "低い角度ならひさしの下を通せる",
-      "tacticalGoalEn": "Use a low angle to pass below the roof.",
+      "tacticalGoal": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
+      "tacticalGoalEn": "Bounce from the mirrored underside toward the rival.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 9,
@@ -731,44 +1062,126 @@
       "spawn": [
         [
           16,
-          10.0
+          11.0
         ],
         [
           82,
-          20.0
+          23.0
         ]
       ],
       "floors": [
         [
           [
             0,
+            11
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            26,
+            11
+          ],
+          [
+            35,
             10
           ],
           [
-            32,
-            10
+            44,
+            8
           ],
           [
-            49,
-            20
+            50,
+            11
+          ],
+          [
+            56,
+            16
+          ],
+          [
+            62,
+            22
+          ],
+          [
+            70,
+            23
+          ],
+          [
+            88,
+            23
+          ],
+          [
+            96,
+            22
           ],
           [
             100,
-            20
+            22
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "009-BRIDGE01",
+          "poly": [
+            [
+              37,
+              24
+            ],
+            [
+              42,
+              27
+            ],
+            [
+              53,
+              27
+            ],
+            [
+              58,
+              23
+            ],
+            [
+              52,
+              19
+            ],
+            [
+              43,
+              20
+            ],
+            [
+              38,
+              21
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [],
       "skills": {},
       "pickups": [
         {
-          "id": "W07",
-          "kind": "trial",
-          "weaponId": "W07",
-          "x": 24,
-          "h": 17.0,
-          "placementId": "L009:weapon:W07"
+          "id": "SK009",
+          "kind": "skill",
+          "skillId": "S_BARRIER",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.013,
+          "h": 31.963,
+          "spawnTurn": 1,
+          "placementId": "L009:skill:S_BARRIER",
+          "verification": {
+            "angle": 44,
+            "power": 69,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -791,7 +1204,8 @@
       "tacticalGoal": "段の手前から撃つか、上段へ転移して狙う",
       "tacticalGoalEn": "Shoot from below or teleport onto the upper shelf.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 10,
@@ -816,45 +1230,77 @@
             12
           ],
           [
-            24,
+            12,
             12
+          ],
+          [
+            26,
+            12
+          ],
+          [
+            33,
+            10
           ],
           [
             38,
             8
           ],
           [
-            54,
+            48,
             8
+          ],
+          [
+            56,
+            8
+          ],
+          [
+            64,
+            12
           ],
           [
             72,
             18
           ],
           [
-            100,
+            85,
             18
+          ],
+          [
+            96,
+            18
+          ],
+          [
+            100,
+            17
           ]
         ]
       ],
       "components": [
         {
-          "id": "010-C01",
+          "id": "010-SHELF01",
           "poly": [
             [
-              45,
+              43,
               22
             ],
             [
-              59,
-              22
+              48,
+              23
             ],
             [
-              59,
+              56,
+              23
+            ],
+            [
+              61,
+              20
+            ],
+            [
+              57,
               18
             ],
             [
-              45,
+              46,
               18
             ]
           ],
@@ -918,7 +1364,8 @@
       "tacticalGoal": "浅瀬の水切りと中央の岩棚の上空を比較し、敵が6単位高い岸へ曲射する。",
       "tacticalGoalEn": "Read the shallow-water reflection or arc over a low shelf to reach an elevated shore.",
       "enemyHp": 3,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 11,
@@ -943,21 +1390,93 @@
             25
           ],
           [
-            25,
+            13,
             25
           ],
           [
+            23,
+            25
+          ],
+          [
+            30,
+            24
+          ],
+          [
+            37,
+            22
+          ],
+          [
+            44,
+            20
+          ],
+          [
+            51,
+            18
+          ],
+          [
             58,
+            15.5
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            77,
+            13
+          ],
+          [
+            85,
             13
           ],
           [
             100,
-            13
+            12
           ]
         ]
       ],
-      "components": [],
-      "features": [],
+      "components": [
+        {
+          "id": "011-HANGING-LEDGE",
+          "poly": [
+            [
+              45,
+              33
+            ],
+            [
+              50,
+              36
+            ],
+            [
+              60,
+              36
+            ],
+            [
+              64,
+              32
+            ],
+            [
+              62,
+              29
+            ],
+            [
+              52,
+              30
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            35,
+            64,
+            0
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -980,7 +1499,8 @@
       "tacticalGoal": "緩い下りの連続面に転がり弾を着地させる",
       "tacticalGoalEn": "Land a rolling bomb on the continuous descending floor.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 12,
@@ -1005,19 +1525,39 @@
             12
           ],
           [
-            28,
+            9,
             12
           ],
           [
-            40,
-            14.5
+            20,
+            12
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            38,
+            13
+          ],
+          [
+            46,
+            14
           ],
           [
             56,
-            14.5
+            14
           ],
           [
-            71,
+            65,
+            13
+          ],
+          [
+            74,
+            12
+          ],
+          [
+            91,
             12
           ],
           [
@@ -1028,23 +1568,43 @@
       ],
       "components": [
         {
-          "id": "012-C01",
+          "id": "012-CRACKED-ARCH",
           "poly": [
             [
-              38,
-              27
-            ],
-            [
-              65,
-              27
-            ],
-            [
-              65,
+              34,
               24
             ],
             [
-              38,
+              42,
+              27
+            ],
+            [
+              52,
+              28
+            ],
+            [
+              64,
+              26
+            ],
+            [
+              68,
               24
+            ],
+            [
+              66,
+              22
+            ],
+            [
+              55,
+              22
+            ],
+            [
+              43,
+              22
+            ],
+            [
+              36,
+              22
             ]
           ],
           "destructible": true
@@ -1057,9 +1617,20 @@
           "id": "W09",
           "kind": "trial",
           "weaponId": "W09",
-          "x": 17,
-          "h": 19.0,
-          "placementId": "L012:weapon:W09"
+          "category": "weapon",
+          "amount": 2,
+          "x": 34.373,
+          "h": 41.94,
+          "spawnTurn": 1,
+          "placementId": "L012:weapon:W09",
+          "verification": {
+            "angle": 56,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -1082,7 +1653,8 @@
       "tacticalGoal": "弾を手前の床へ落とし、梁の下を転がす",
       "tacticalGoalEn": "Roll beneath the beam from the near floor.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 13,
@@ -1107,19 +1679,43 @@
             22
           ],
           [
-            34,
+            12,
             22
           ],
           [
-            44,
+            24,
+            22
+          ],
+          [
+            32,
+            21
+          ],
+          [
+            40,
             17
           ],
           [
-            64,
+            48,
             17
           ],
           [
-            74,
+            53,
+            17
+          ],
+          [
+            61,
+            16
+          ],
+          [
+            69,
+            12
+          ],
+          [
+            80,
+            12
+          ],
+          [
+            90,
             12
           ],
           [
@@ -1129,7 +1725,16 @@
         ]
       ],
       "components": [],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            31,
+            72,
+            17
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -1152,7 +1757,8 @@
       "tacticalGoal": "小段差を落ちても床へ戻る転がり弾を使う",
       "tacticalGoalEn": "Let the bomb fall and resume rolling on the lower floor.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 14,
@@ -1177,61 +1783,113 @@
             16
           ],
           [
+            16,
+            16
+          ],
+          [
             25,
             16
           ],
           [
-            42,
+            33,
+            14
+          ],
+          [
+            41,
             12
           ],
           [
-            58,
+            56,
             12
           ],
           [
-            76,
+            64,
+            13
+          ],
+          [
+            73,
+            15
+          ],
+          [
+            82,
+            15
+          ],
+          [
+            95,
             15
           ],
           [
             100,
-            15
+            14
           ]
         ]
       ],
       "components": [
         {
-          "id": "014-C01",
+          "id": "014-FRAGILE-CANOPY",
           "poly": [
             [
-              44,
-              29
-            ],
-            [
-              61,
-              29
-            ],
-            [
-              61,
+              41,
               26
             ],
             [
-              44,
-              26
+              48,
+              29
+            ],
+            [
+              58,
+              29
+            ],
+            [
+              65,
+              27
+            ],
+            [
+              64,
+              24
+            ],
+            [
+              56,
+              23
+            ],
+            [
+              46,
+              23
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            34,
+            75,
+            12
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W12",
-          "kind": "trial",
-          "weaponId": "W12",
-          "x": 24,
-          "h": 23.0,
-          "placementId": "L014:weapon:W12"
+          "id": "SK014",
+          "kind": "skill",
+          "skillId": "S_CHARGE_SLOW_I",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.787,
+          "h": 17.078,
+          "spawnTurn": 1,
+          "placementId": "L014:skill:S_CHARGE_SLOW_I",
+          "verification": {
+            "angle": 20,
+            "power": 45,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -1254,7 +1912,8 @@
       "tacticalGoal": "山の裾の連続床を読み、手前で弾を接地させる",
       "tacticalGoalEn": "Read the connected foothills before landing the bomb.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 15,
@@ -1279,19 +1938,43 @@
             11
           ],
           [
-            30,
+            16,
             11
           ],
           [
+            27,
+            11
+          ],
+          [
+            34,
+            13
+          ],
+          [
             42,
-            17
+            16
           ],
           [
-            58,
-            17
+            49,
+            16
           ],
           [
-            70,
+            57,
+            15
+          ],
+          [
+            64,
+            12
+          ],
+          [
+            72,
+            11
+          ],
+          [
+            82,
+            11
+          ],
+          [
+            95,
             11
           ],
           [
@@ -1302,29 +1985,46 @@
       ],
       "components": [
         {
-          "id": "015-C01",
+          "id": "015-REPAIR-SPAN",
           "poly": [
             [
-              48,
+              65,
+              30
+            ],
+            [
+              69,
+              33
+            ],
+            [
+              75,
+              33
+            ],
+            [
+              80,
+              30
+            ],
+            [
+              77,
               28
             ],
             [
-              56,
+              67,
               28
-            ],
-            [
-              56,
-              23
-            ],
-            [
-              48,
-              23
             ]
           ],
           "destructible": false
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            22,
+            65,
+            11
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -1370,7 +2070,8 @@
       "tacticalGoal": "橋脚前で止まり、補修フレームへ一撃を通す",
       "tacticalGoalEn": "Stop before the pier and aim for the repair frame.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 16,
@@ -1380,67 +2081,154 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          9.0
+          17,
+          16
         ],
         [
-          82,
-          9.0
+          83,
+          15
         ]
       ],
       "floors": [
         [
           [
             0,
-            9
+            13
           ],
           [
-            28,
-            9
+            10,
+            14
           ],
           [
-            34,
-            10.8
+            17,
+            16
           ],
           [
-            63,
-            10.8
+            24,
+            17
           ],
           [
-            72,
-            9
+            30,
+            15
+          ],
+          [
+            36,
+            12
+          ],
+          [
+            42,
+            10
+          ],
+          [
+            47,
+            10
+          ],
+          [
+            52,
+            10
+          ],
+          [
+            58,
+            10
+          ],
+          [
+            64,
+            11
+          ],
+          [
+            70,
+            14
+          ],
+          [
+            78,
+            15
+          ],
+          [
+            85,
+            15
+          ],
+          [
+            94,
+            13
           ],
           [
             100,
-            9
+            12
           ]
         ]
       ],
       "components": [
         {
-          "id": "016-C01",
+          "id": "016-STONE-LINTEL",
           "poly": [
             [
-              46,
+              35,
+              24
+            ],
+            [
+              42,
+              32
+            ],
+            [
+              51,
               33
             ],
             [
-              52,
-              33
+              61,
+              29
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              62,
+              22
+            ],
+            [
+              43,
+              22
+            ],
+            [
+              37,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "016-BREAKABLE-GATE",
+          "poly": [
+            [
+              47,
+              10
             ],
             [
               52,
-              9
+              10
             ],
             [
-              46,
-              9
+              52,
+              22
+            ],
+            [
+              47,
+              22
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            62,
+            86,
+            0
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -1463,7 +2251,8 @@
       "tacticalGoal": "裂けた門板を先に壊し、近い射点を作る",
       "tacticalGoalEn": "Break the gate panel to reach a closer firing point.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 17,
@@ -1488,15 +2277,39 @@
             12
           ],
           [
-            31,
+            16,
             12
           ],
           [
-            49,
-            28
+            26,
+            12
           ],
           [
-            68,
+            34,
+            11
+          ],
+          [
+            41,
+            9
+          ],
+          [
+            52,
+            9
+          ],
+          [
+            60,
+            9
+          ],
+          [
+            69,
+            11
+          ],
+          [
+            77,
+            12
+          ],
+          [
+            82,
             12
           ],
           [
@@ -1507,47 +2320,96 @@
       ],
       "components": [
         {
-          "id": "017-C01",
+          "id": "017-CAVERN-ROOF",
           "poly": [
             [
-              66,
-              35
+              53,
+              29
+            ],
+            [
+              60,
+              36
+            ],
+            [
+              70,
+              37
+            ],
+            [
+              79,
+              34
+            ],
+            [
+              82,
+              30
+            ],
+            [
+              78,
+              28
+            ],
+            [
+              56,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "017-FRAGILE-ROOF-TIP",
+          "poly": [
+            [
+              69,
+              26
+            ],
+            [
+              73,
+              27
+            ],
+            [
+              76,
+              25
             ],
             [
               74,
-              35
+              22
             ],
             [
-              74,
-              32
-            ],
-            [
-              66,
-              32
+              69,
+              22
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            22,
+            52,
+            12
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W13",
+          "id": "W12",
           "kind": "trial",
-          "weaponId": "W13",
-          "x": 24,
-          "h": 19.0,
-          "placementId": "L017:weapon:W13"
-        },
-        {
-          "id": "SK017",
-          "kind": "skill",
-          "skillId": "S_REPAIR",
-          "amount": 1,
-          "x": 20,
-          "h": 21.0,
-          "placementId": "L017:skill:S_REPAIR"
+          "weaponId": "W12",
+          "category": "weapon",
+          "amount": 2,
+          "x": 44.473,
+          "h": 20.785,
+          "spawnTurn": 1,
+          "placementId": "L017:weapon:W12",
+          "verification": {
+            "angle": 20,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -1570,7 +2432,8 @@
       "tacticalGoal": "山の肩へ登るか、裾の開口から低く撃つ",
       "tacticalGoalEn": "Choose the mountain shoulder or the low opening.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 18,
@@ -1595,19 +2458,35 @@
             13
           ],
           [
-            28,
+            16,
             13
           ],
           [
-            40,
-            15.5
+            27,
+            13
           ],
           [
-            56,
-            15.5
+            36,
+            11
           ],
           [
-            71,
+            44,
+            10
+          ],
+          [
+            53,
+            10
+          ],
+          [
+            61,
+            11
+          ],
+          [
+            72,
+            13
+          ],
+          [
+            82,
             13
           ],
           [
@@ -1618,23 +2497,47 @@
       ],
       "components": [
         {
-          "id": "018-C01",
+          "id": "018-STONE-ARCH",
           "poly": [
             [
+              34,
+              22
+            ],
+            [
+              40,
+              30
+            ],
+            [
+              47,
+              34
+            ],
+            [
+              55,
+              34
+            ],
+            [
+              64,
+              29
+            ],
+            [
+              69,
+              22
+            ],
+            [
+              65,
+              20
+            ],
+            [
+              56,
+              20
+            ],
+            [
               43,
-              31
+              20
             ],
             [
-              60,
-              31
-            ],
-            [
-              60,
-              28
-            ],
-            [
-              43,
-              28
+              37,
+              20
             ]
           ],
           "destructible": false
@@ -1642,7 +2545,27 @@
       ],
       "features": [],
       "skills": {},
-      "pickups": [],
+      "pickups": [
+        {
+          "id": "SK018",
+          "kind": "skill",
+          "skillId": "S_FULL_REPAIR",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 45.743,
+          "h": 19.048,
+          "spawnTurn": 1,
+          "placementId": "L018:skill:S_FULL_REPAIR",
+          "verification": {
+            "angle": 11,
+            "power": 100,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
+        }
+      ],
       "blink": [],
       "teleport": true,
       "actionLimit": 12,
@@ -1663,7 +2586,8 @@
       "tacticalGoal": "梁の下へ入って扇状衝撃を前方へ届ける",
       "tacticalGoalEn": "Use the low lane for a forward shockwave.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 19,
@@ -1677,7 +2601,7 @@
           12.0
         ],
         [
-          82,
+          93,
           27.0
         ]
       ],
@@ -1688,61 +2612,113 @@
             12
           ],
           [
-            28,
+            16,
             12
+          ],
+          [
+            25,
+            12
+          ],
+          [
+            34,
+            10
           ],
           [
             42,
             5
           ],
           [
-            59,
+            56,
             5
           ],
           [
-            76,
+            64,
+            8
+          ],
+          [
+            70,
+            17
+          ],
+          [
+            77,
+            27
+          ],
+          [
+            82,
+            27
+          ],
+          [
+            96,
             27
           ],
           [
             100,
-            27
+            26
           ]
         ]
       ],
       "components": [
         {
-          "id": "019-C01",
+          "id": "019-RELAY-ISLAND",
           "poly": [
             [
+              30,
+              18
+            ],
+            [
+              35,
+              23
+            ],
+            [
+              42,
+              23
+            ],
+            [
+              45,
+              19
+            ],
+            [
               43,
-              20
+              16
             ],
             [
-              58,
-              20
-            ],
-            [
-              58,
-              15
-            ],
-            [
-              43,
-              15
+              34,
+              16
             ]
           ],
           "destructible": false
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            45,
+            91,
+            5
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W14",
-          "kind": "trial",
-          "weaponId": "W14",
-          "x": 24,
-          "h": 19.0,
-          "placementId": "L019:weapon:W14"
+          "id": "SK019",
+          "kind": "skill",
+          "skillId": "S_POWER_UP_I",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 49.651,
+          "h": 30.327,
+          "spawnTurn": 5,
+          "placementId": "L019:skill:S_POWER_UP_I",
+          "verification": {
+            "angle": 32,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -1765,7 +2741,8 @@
       "tacticalGoal": "広い中継棚へ転移し、上段の相手に弧を送る",
       "tacticalGoalEn": "Teleport to the broad shelf and arc toward the upper rival.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 20,
@@ -1776,11 +2753,11 @@
       "spawn": [
         [
           16,
-          8.0
+          8
         ],
         [
           85,
-          20.0
+          20
         ]
       ],
       "floors": [
@@ -1790,15 +2767,35 @@
             8
           ],
           [
-            30,
+            16,
             8
           ],
           [
-            46,
-            12
+            29,
+            8
           ],
           [
-            62,
+            36,
+            9
+          ],
+          [
+            43,
+            11
+          ],
+          [
+            51,
+            13
+          ],
+          [
+            60,
+            17
+          ],
+          [
+            67,
+            20
+          ],
+          [
+            85,
             20
           ],
           [
@@ -1809,51 +2806,98 @@
       ],
       "components": [
         {
-          "id": "020-C01",
+          "id": "020-OLD-ARCH",
           "poly": [
             [
+              30,
+              31
+            ],
+            [
+              34,
+              36
+            ],
+            [
+              40,
+              37
+            ],
+            [
+              44,
+              34
+            ],
+            [
+              42,
+              30
+            ],
+            [
               35,
-              32
-            ],
-            [
-              52,
-              32
-            ],
-            [
-              52,
               29
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "020-CRACKED-ROOF",
+          "poly": [
+            [
+              43,
+              31
             ],
             [
-              35,
-              29
+              48,
+              35
+            ],
+            [
+              57,
+              35
+            ],
+            [
+              63,
+              31
+            ],
+            [
+              61,
+              28
+            ],
+            [
+              47,
+              28
             ]
           ],
           "destructible": true
         },
         {
-          "id": "020-C02",
+          "id": "020-LOW-GATE",
           "poly": [
             [
-              56,
-              34
+              61,
+              17
             ],
             [
-              60,
-              34
+              66,
+              19
             ],
             [
-              60,
-              14
+              66,
+              29
             ],
             [
-              56,
-              14
+              61,
+              29
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            31,
+            52,
+            0
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -1901,7 +2945,8 @@
       "tacticalGoal": "下段から門の破壊可能な屋根端を外し、高い砲座の低砲・高砲を撃ち分ける。",
       "tacticalGoalEn": "Use low and high firing paths around a two-tier gate.",
       "enemyHp": 3,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 21,
@@ -1912,11 +2957,11 @@
       "spawn": [
         [
           16,
-          12.0
+          12
         ],
         [
           82,
-          12.0
+          15
         ]
       ],
       "floors": [
@@ -1926,52 +2971,130 @@
             12
           ],
           [
-            28,
+            15,
             12
           ],
           [
-            40,
-            14.5
-          ],
-          [
-            56,
-            14.5
-          ],
-          [
-            71,
+            27,
             12
+          ],
+          [
+            36,
+            11
+          ],
+          [
+            42,
+            10
+          ],
+          [
+            48,
+            10
+          ],
+          [
+            57,
+            10
+          ],
+          [
+            64,
+            12
+          ],
+          [
+            70,
+            15
+          ],
+          [
+            82,
+            15
+          ],
+          [
+            95,
+            15
           ],
           [
             100,
-            12
+            14
           ]
         ]
       ],
       "components": [
         {
-          "id": "021-C01",
+          "id": "021-BOTTOM",
           "poly": [
             [
               45,
-              35
+              10
             ],
             [
-              52,
-              35
+              54,
+              10
             ],
             [
-              52,
-              12
+              54,
+              19
             ],
             [
               45,
-              12
+              19
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "021-MIDDLE",
+          "poly": [
+            [
+              45,
+              19
+            ],
+            [
+              54,
+              19
+            ],
+            [
+              54,
+              28
+            ],
+            [
+              45,
+              28
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "021-TOP",
+          "poly": [
+            [
+              45,
+              28
+            ],
+            [
+              54,
+              28
+            ],
+            [
+              54,
+              37
+            ],
+            [
+              45,
+              37
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            32,
+            76,
+            18,
+            46
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -1983,16 +3106,17 @@
       "themeGoal": "雲へ入れる高さと通す順番を変える",
       "stageInTheme": 1,
       "themeRole": "Explore",
-      "lesson": null,
+      "lesson": "C",
       "contentRevision": "5.0",
       "encounterKind": "normal",
       "midboss": false,
       "encounterId": "enemy:mist",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "高い壁の上を越え、上空から敵の足元へ落とす",
-      "tacticalGoalEn": "Lob over the high wall and rain down beside the rival.",
+      "tacticalGoal": "減速雲に入った弾の速度変化を読み、地形に合う射点を選ぶ。",
+      "tacticalGoalEn": "Read the slowdown cloud and choose a firing position.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 22,
@@ -2003,33 +3127,61 @@
       "spawn": [
         [
           16,
-          10.0
+          11
         ],
         [
           82,
-          10.0
+          10
         ]
       ],
       "floors": [
         [
           [
             0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            27,
+            12
+          ],
+          [
+            34,
+            17
+          ],
+          [
+            40,
+            24
+          ],
+          [
+            45,
+            29
+          ],
+          [
+            51,
+            31
+          ],
+          [
+            57,
+            30
+          ],
+          [
+            63,
+            23
+          ],
+          [
+            69,
+            15
+          ],
+          [
+            77,
             10
           ],
           [
-            29,
-            10
-          ],
-          [
-            46,
-            35
-          ],
-          [
-            56,
-            35
-          ],
-          [
-            73,
+            82,
             10
           ],
           [
@@ -2039,16 +3191,37 @@
         ]
       ],
       "components": [],
-      "features": [],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            38,
+            82,
+            18,
+            46
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W16",
+          "id": "W22",
           "kind": "trial",
-          "weaponId": "W16",
-          "x": 24,
-          "h": 17.0,
-          "placementId": "L022:weapon:W16"
+          "weaponId": "W22",
+          "category": "weapon",
+          "amount": 2,
+          "x": 44.547,
+          "h": 33.61,
+          "spawnTurn": 1,
+          "placementId": "L022:weapon:W22",
+          "verification": {
+            "angle": 42,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -2069,7 +3242,8 @@
       "tacticalGoal": "広い山の裏へ高弾道を落とし、影を回り込む",
       "tacticalGoalEn": "Drop a high arc into the mountain’s shadow.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 23,
@@ -2080,46 +3254,175 @@
       "spawn": [
         [
           16,
-          15.0
+          17.34
         ],
         [
-          82,
-          15.0
+          85,
+          17
         ]
       ],
       "floors": [
         [
           [
             0,
-            15
+            17
           ],
           [
-            35,
-            15
+            9,
+            17
+          ],
+          [
+            15,
+            17.4
+          ],
+          [
+            20,
+            17.1
+          ],
+          [
+            24,
+            17.8
+          ],
+          [
+            29,
+            17.6
+          ],
+          [
+            32,
+            18.4
+          ],
+          [
+            37,
+            18.1
+          ],
+          [
+            41,
+            18.7
+          ],
+          [
+            45,
+            18.4
           ],
           [
             49,
-            8
+            19
           ],
           [
-            65,
-            15
+            54,
+            19
+          ],
+          [
+            58,
+            18.5
+          ],
+          [
+            62,
+            18.9
+          ],
+          [
+            66,
+            18.1
+          ],
+          [
+            71,
+            18.2
+          ],
+          [
+            75,
+            17.5
+          ],
+          [
+            80,
+            17.7
+          ],
+          [
+            85,
+            17
+          ],
+          [
+            91,
+            17.3
+          ],
+          [
+            96,
+            17
           ],
           [
             100,
-            15
+            17
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "023-FOG-MARKER",
+          "poly": [
+            [
+              41,
+              27
+            ],
+            [
+              44,
+              29
+            ],
+            [
+              51,
+              29
+            ],
+            [
+              54,
+              27
+            ],
+            [
+              51,
+              25
+            ],
+            [
+              44,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "023-LOW-REEF",
+          "poly": [
+            [
+              64,
+              24
+            ],
+            [
+              68,
+              27
+            ],
+            [
+              75,
+              27
+            ],
+            [
+              79,
+              24
+            ],
+            [
+              74,
+              22
+            ],
+            [
+              68,
+              22
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [
         {
           "type": "C",
           "v": [
-            49,
-            58,
-            22,
-            40
+            28,
+            82,
+            23,
+            48
           ]
         }
       ],
@@ -2134,7 +3437,7 @@
       "themeGoal": "雲へ入れる高さと通す順番を変える",
       "stageInTheme": 3,
       "themeRole": "Explore",
-      "lesson": "C",
+      "lesson": null,
       "contentRevision": "5.0",
       "encounterKind": "normal",
       "midboss": false,
@@ -2143,7 +3446,8 @@
       "tacticalGoal": "薄い霧を通る弾の減速と落下位置を見比べる",
       "tacticalGoalEn": "Compare the landing before and after cloud slowing.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 24,
@@ -2154,11 +3458,11 @@
       "spawn": [
         [
           16,
-          11.0
+          11
         ],
         [
           82,
-          11.0
+          26
         ]
       ],
       "floors": [
@@ -2168,19 +3472,35 @@
             11
           ],
           [
-            28,
+            16,
             11
           ],
           [
-            40,
-            13.5
+            25,
+            11
           ],
           [
-            56,
-            13.5
+            35,
+            9
           ],
           [
-            71,
+            44,
+            8
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            63,
+            10
+          ],
+          [
+            72,
+            11
+          ],
+          [
+            82,
             11
           ],
           [
@@ -2191,60 +3511,127 @@
       ],
       "components": [
         {
-          "id": "024-C01",
+          "id": "024-LEFT-SHELF",
           "poly": [
             [
+              28,
+              20
+            ],
+            [
+              32,
+              24
+            ],
+            [
+              43,
+              24
+            ],
+            [
               47,
-              25
+              20
             ],
             [
-              63,
-              25
+              43,
+              18
             ],
             [
-              63,
+              32,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "024-BREAK-ROOF",
+          "poly": [
+            [
+              49,
+              24
+            ],
+            [
+              56,
+              27
+            ],
+            [
+              68,
+              27
+            ],
+            [
+              73,
+              24
+            ],
+            [
+              69,
               22
             ],
             [
-              47,
+              54,
               22
             ]
           ],
           "destructible": true
         },
         {
-          "id": "024-C02",
+          "id": "024-ENEMY-ISLAND",
           "poly": [
             [
-              29,
+              74,
               22
             ],
             [
-              39,
-              22
+              78,
+              26
             ],
             [
-              39,
-              17
+              87,
+              26
             ],
             [
-              29,
-              17
+              92,
+              23
+            ],
+            [
+              88,
+              20
+            ],
+            [
+              77,
+              20
             ]
           ],
           "destructible": false
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            30,
+            72,
+            26,
+            46
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W17",
-          "kind": "trial",
-          "weaponId": "W17",
-          "x": 24,
-          "h": 18.0,
-          "placementId": "L024:weapon:W17"
+          "id": "SK024",
+          "kind": "skill",
+          "skillId": "S_SPECIAL_REFILL",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.171,
+          "h": 31.314,
+          "spawnTurn": 1,
+          "placementId": "L024:skill:S_SPECIAL_REFILL",
+          "verification": {
+            "angle": 39,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -2265,7 +3652,8 @@
       "tacticalGoal": "小さな上段を足場に、屋根の向こうへ落とす",
       "tacticalGoalEn": "Use the upper ledge to drop a shot beyond the roof.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 25,
@@ -2276,46 +3664,113 @@
       "spawn": [
         [
           16,
-          17.0
+          10
         ],
         [
           82,
-          17.0
+          29
         ]
       ],
       "floors": [
         [
           [
             0,
+            10
+          ],
+          [
+            14,
+            10
+          ],
+          [
+            25,
+            10
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            37,
             17
           ],
           [
-            35,
-            17
+            43,
+            22
           ],
           [
-            48,
-            11
+            52,
+            22
           ],
           [
-            65,
-            17
+            58,
+            23
+          ],
+          [
+            63,
+            26
+          ],
+          [
+            70,
+            29
+          ],
+          [
+            82,
+            29
+          ],
+          [
+            95,
+            29
           ],
           [
             100,
-            17
+            28
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "025-FOGBELL-ARCH",
+          "poly": [
+            [
+              43,
+              38
+            ],
+            [
+              48,
+              42
+            ],
+            [
+              54,
+              43
+            ],
+            [
+              60,
+              42
+            ],
+            [
+              64,
+              38
+            ],
+            [
+              60,
+              35
+            ],
+            [
+              48,
+              35
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [
         {
           "type": "C",
           "v": [
-            42,
             52,
-            6,
-            23
+            79,
+            27,
+            47
           ]
         }
       ],
@@ -2363,7 +3818,8 @@
       "tacticalGoal": "霧笛と機体を分けて狙い、呼出しを止める",
       "tacticalGoalEn": "Aim separately for the signal horn and the machine.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 26,
@@ -2374,43 +3830,128 @@
       "spawn": [
         [
           16,
-          28.0
+          26
         ],
         [
-          82,
-          21.0
+          84,
+          9
         ]
       ],
       "floors": [
         [
           [
             0,
-            28
+            26
+          ],
+          [
+            16,
+            26
           ],
           [
             25,
-            28
+            26
           ],
           [
-            43,
-            12
+            30,
+            24
+          ]
+        ],
+        [
+          [
+            74,
+            9
           ],
           [
-            66,
-            12
-          ],
-          [
-            81,
-            21
+            84,
+            9
           ],
           [
             100,
-            21
+            9
           ]
         ]
       ],
-      "components": [],
-      "features": [],
+      "components": [
+        {
+          "id": "026-LOWER-ISLET",
+          "poly": [
+            [
+              35,
+              13
+            ],
+            [
+              40,
+              17
+            ],
+            [
+              49,
+              17
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              51,
+              11
+            ],
+            [
+              39,
+              11
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "026-UPPER-ISLET",
+          "poly": [
+            [
+              53,
+              26
+            ],
+            [
+              59,
+              32
+            ],
+            [
+              69,
+              32
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              70,
+              24
+            ],
+            [
+              59,
+              24
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            42,
+            76,
+            18,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            36,
+            52,
+            0
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -2431,7 +3972,8 @@
       "tacticalGoal": "左の高台で撃つか、谷底から高い弧で狙う",
       "tacticalGoalEn": "Choose a high firing point or a steep shot from the valley.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 27,
@@ -2441,78 +3983,163 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          15.0
+          18,
+          33
         ],
         [
           82,
-          15.0
+          10
         ]
       ],
       "floors": [
         [
           [
             0,
-            15
+            11
+          ],
+          [
+            16,
+            11
           ],
           [
             28,
-            15
+            11
           ],
           [
-            40,
-            13.5
+            39,
+            10
           ],
-          [
-            46,
-            13.5
-          ]
-        ],
-        [
           [
             51,
-            13.5
+            8
           ],
           [
-            69,
-            15
+            64,
+            8
+          ],
+          [
+            74,
+            10
+          ],
+          [
+            82,
+            10
           ],
           [
             100,
-            15
+            10
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "027-START-SKY-PIER",
+          "poly": [
+            [
+              10,
+              29
+            ],
+            [
+              13,
+              33
+            ],
+            [
+              23,
+              33
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              26,
+              26
+            ],
+            [
+              14,
+              26
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "027-HANGAR-CANOPY",
+          "poly": [
+            [
+              62,
+              25
+            ],
+            [
+              68,
+              32
+            ],
+            [
+              79,
+              34
+            ],
+            [
+              90,
+              32
+            ],
+            [
+              96,
+              27
+            ],
+            [
+              94,
+              23
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              68,
+              22
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [
         {
           "type": "C",
           "v": [
-            33,
-            46,
-            5,
-            24
+            32,
+            66,
+            17,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            99,
+            0
           ]
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W18",
+          "id": "W10",
           "kind": "trial",
-          "weaponId": "W18",
-          "x": 24,
-          "h": 22.0,
-          "placementId": "L027:weapon:W18"
-        },
-        {
-          "id": "SK027",
-          "kind": "skill",
-          "skillId": "S_BREACH",
-          "amount": 1,
-          "x": 20,
-          "h": 24.0,
-          "placementId": "L027:skill:S_BREACH"
+          "weaponId": "W10",
+          "category": "weapon",
+          "amount": 2,
+          "x": 46.171,
+          "h": 30.908,
+          "spawnTurn": 1,
+          "placementId": "L027:weapon:W10",
+          "verification": {
+            "angle": -3,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -2533,7 +4160,8 @@
       "tacticalGoal": "短い雲域を避ける位置へ歩き、近接炸裂を届ける",
       "tacticalGoalEn": "Move outside the small cloud and send a proximity burst.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 28,
@@ -2544,11 +4172,11 @@
       "spawn": [
         [
           16,
-          12.0
+          12
         ],
         [
           82,
-          12.0
+          19
         ]
       ],
       "floors": [
@@ -2558,54 +4186,160 @@
             12
           ],
           [
+            16,
+            12
+          ],
+          [
             28,
             12
           ],
           [
-            34,
-            13.8
+            36,
+            10
           ],
           [
-            63,
-            13.8
+            46,
+            9
           ],
           [
-            72,
-            12
+            55,
+            9
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            73,
+            19
+          ],
+          [
+            82,
+            19
           ],
           [
             100,
-            12
+            19
           ]
         ]
       ],
       "components": [
         {
-          "id": "028-C01",
+          "id": "028-LOW-GATE",
           "poly": [
             [
-              35,
-              28
+              38,
+              9
             ],
             [
-              60,
-              28
+              45,
+              9
             ],
             [
-              60,
-              25
+              45,
+              22
             ],
             [
-              35,
-              25
+              38,
+              22
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "028-OVERHEAD-WINDOW",
+          "poly": [
+            [
+              58,
+              29
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              72,
+              32
+            ],
+            [
+              77,
+              28
+            ],
+            [
+              74,
+              25
+            ],
+            [
+              63,
+              26
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "028-FIXED-PORTICO",
+          "poly": [
+            [
+              28,
+              24
+            ],
+            [
+              32,
+              30
+            ],
+            [
+              37,
+              31
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              30,
+              22
+            ]
+          ],
+          "destructible": false
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            48,
+            79,
+            15,
+            40
+          ]
+        }
+      ],
       "skills": {},
-      "pickups": [],
+      "pickups": [
+        {
+          "id": "SK028",
+          "kind": "skill",
+          "skillId": "S_INVINCIBLE",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 57.832,
+          "h": 25.559,
+          "spawnTurn": 1,
+          "placementId": "L028:skill:S_INVINCIBLE",
+          "verification": {
+            "angle": 24,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 3,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
+        }
+      ],
       "blink": [],
       "teleport": true,
       "actionLimit": 12,
@@ -2624,7 +4358,8 @@
       "tacticalGoal": "屋根を一片壊すか、回廊の先から撃つ",
       "tacticalGoalEn": "Open one roof piece or shoot from beyond the corridor.",
       "enemyHp": 3,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 29,
@@ -2635,69 +4370,172 @@
       "spawn": [
         [
           16,
-          15.0
+          9
         ],
         [
           82,
-          21.0
+          38
         ]
       ],
       "floors": [
         [
           [
             0,
-            15
+            9
+          ],
+          [
+            16,
+            9
           ],
           [
             29,
-            15
-          ]
-        ],
-        [
+            9
+          ],
           [
-            75,
-            21
+            40,
+            8
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            67,
+            9
+          ],
+          [
+            82,
+            10
           ],
           [
             100,
-            21
+            10
           ]
         ]
       ],
       "components": [
         {
-          "id": "029-C01",
+          "id": "029-ASCENT-DECK",
           "poly": [
             [
-              45,
-              24
-            ],
-            [
-              61,
-              24
-            ],
-            [
-              61,
+              28,
               19
             ],
             [
-              45,
-              19
+              32,
+              24
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              46,
+              21
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              33,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "029-HIGH-DECK",
+          "poly": [
+            [
+              48,
+              28
+            ],
+            [
+              53,
+              34
+            ],
+            [
+              65,
+              34
+            ],
+            [
+              70,
+              30
+            ],
+            [
+              65,
+              27
+            ],
+            [
+              53,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "029-ENEMY-DECK",
+          "poly": [
+            [
+              73,
+              30
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              88,
+              38
+            ],
+            [
+              94,
+              34
+            ],
+            [
+              89,
+              30
+            ],
+            [
+              77,
+              30
             ]
           ],
           "destructible": false
         }
       ],
-      "features": [],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            40,
+            76,
+            18,
+            48
+          ]
+        }
+      ],
       "skills": {},
       "pickups": [
         {
-          "id": "W19",
-          "kind": "trial",
-          "weaponId": "W19",
-          "x": 24,
-          "h": 22.0,
-          "placementId": "L029:weapon:W19"
+          "id": "SK029",
+          "kind": "skill",
+          "skillId": "S_ENEMY_WEAKEN",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.329,
+          "h": 34.65,
+          "spawnTurn": 5,
+          "placementId": "L029:skill:S_ENEMY_WEAKEN",
+          "verification": {
+            "angle": 44,
+            "power": 100,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -2718,7 +4556,8 @@
       "tacticalGoal": "孤立したデッキへ転移し、空の相手に近づく",
       "tacticalGoalEn": "Teleport to a relay deck for a better firing position.",
       "enemyHp": 3,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
     },
     {
       "id": 30,
@@ -2728,86 +4567,180 @@
       "boss": true,
       "spawn": [
         [
-          16,
-          10.0
+          17,
+          12
         ],
         [
-          87,
-          28.0
+          117,
+          29
         ]
       ],
       "floors": [
         [
           [
             0,
-            10
+            12
           ],
           [
-            29,
-            10
+            18,
+            12
           ],
           [
-            46,
-            5
+            30,
+            11
           ],
           [
-            61,
-            5
+            39,
+            6
           ],
           [
-            83,
-            18
+            54,
+            3
           ],
           [
-            100,
-            18
+            69,
+            3
+          ],
+          [
+            82,
+            8
+          ],
+          [
+            94,
+            12
+          ],
+          [
+            134,
+            12
           ]
         ]
       ],
       "components": [
         {
-          "id": "030-C01",
+          "id": "030-WING-LEFT",
           "poly": [
             [
-              37,
+              27,
               24
             ],
             [
-              53,
-              24
+              33,
+              30
+            ],
+            [
+              47,
+              31
+            ],
+            [
+              56,
+              27
             ],
             [
               53,
-              20
+              22
             ],
             [
-              37,
-              20
+              34,
+              22
             ]
           ],
           "destructible": false
         },
         {
-          "id": "030-C02",
+          "id": "030-WING-RIGHT",
           "poly": [
             [
-              59,
+              75,
+              33
+            ],
+            [
+              81,
+              41
+            ],
+            [
+              94,
+              41
+            ],
+            [
+              104,
+              36
+            ],
+            [
+              99,
               32
             ],
             [
-              74,
+              83,
               32
-            ],
-            [
-              74,
-              28
-            ],
-            [
-              59,
-              28
             ]
           ],
           "destructible": false
+        },
+        {
+          "id": "030-CRACKED-LEFT",
+          "poly": [
+            [
+              22,
+              11
+            ],
+            [
+              34,
+              11
+            ],
+            [
+              34,
+              23
+            ],
+            [
+              22,
+              23
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "030-CRACKED-MID",
+          "poly": [
+            [
+              59,
+              3
+            ],
+            [
+              72,
+              3
+            ],
+            [
+              72,
+              18
+            ],
+            [
+              59,
+              18
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "030-CRACKED-RIGHT",
+          "poly": [
+            [
+              102,
+              12
+            ],
+            [
+              114,
+              12
+            ],
+            [
+              114,
+              25
+            ],
+            [
+              102,
+              25
+            ]
+          ],
+          "destructible": true
         }
       ],
       "features": [
@@ -2815,9 +4748,9 @@
           "type": "C",
           "v": [
             48,
-            66,
-            17,
-            40
+            99,
+            14,
+            52
           ]
         }
       ],
@@ -2866,7 +4799,8 @@
       "tacticalGoal": "雲を通る高弾道と、浮島へ転移した短い射線を比較して空中の両翼を狙う。",
       "tacticalGoalEn": "Choose cloud-edge arcs or floating-island positions against an airborne boss.",
       "enemyHp": 3,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1340
     },
     {
       "id": 31,
@@ -2876,12 +4810,12 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          12.0
+          14,
+          12
         ],
         [
-          82,
-          12.0
+          81,
+          14
         ]
       ],
       "floors": [
@@ -2891,46 +4825,78 @@
             12
           ],
           [
-            28,
+            17,
             12
           ],
           [
-            34,
-            13.8
+            27,
+            11
           ],
           [
-            63,
-            13.8
+            38,
+            10
           ],
           [
-            72,
-            12
+            52,
+            10
           ],
           [
-            100,
-            12
+            67,
+            14
+          ],
+          [
+            82,
+            14
+          ],
+          [
+            90,
+            14
           ]
         ]
       ],
       "components": [
         {
-          "id": "031-C01",
+          "id": "031-CAVE-CEILING",
           "poly": [
             [
-              37,
-              29
+              39,
+              28
             ],
             [
-              52,
-              29
+              48,
+              35
             ],
             [
-              52,
-              26
+              61,
+              36
             ],
             [
-              37,
-              26
+              76,
+              35
+            ],
+            [
+              90,
+              31
+            ],
+            [
+              90,
+              24
+            ],
+            [
+              79,
+              24
+            ],
+            [
+              64,
+              25
+            ],
+            [
+              51,
+              24
+            ],
+            [
+              41,
+              23
             ]
           ],
           "destructible": false
@@ -2940,10 +4906,20 @@
         {
           "type": "W",
           "v": [
-            31,
-            65,
-            12
+            22,
+            73,
+            10
           ]
+        },
+        {
+          "type": "K",
+          "v": [
+            57,
+            36,
+            -20
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
         }
       ],
       "skills": {},
@@ -2957,16 +4933,17 @@
       "themeGoal": "一枚の反射板に違う場所から入射する",
       "stageInTheme": 1,
       "themeRole": "Explore",
-      "lesson": null,
+      "lesson": "K",
       "contentRevision": "5.0",
       "encounterKind": "normal",
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "前方の鏡床へ低く当て、反射後に敵へ届ける",
-      "tacticalGoalEn": "Use one mirror-floor bounce to reach the rival.",
+      "tacticalGoal": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
+      "tacticalGoalEn": "Read the large crystal and mirrored floor to reach the cave.",
       "enemyHp": 4,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 900
     },
     {
       "id": 32,
@@ -2977,53 +4954,186 @@
       "spawn": [
         [
           16,
-          18.0
+          30
         ],
         [
-          82,
-          12.0
+          99,
+          10
         ]
       ],
       "floors": [
         [
           [
             0,
-            18
+            30
           ],
           [
-            30,
-            18
+            16,
+            30
           ],
           [
-            58,
-            12
+            29,
+            30
           ],
           [
-            100,
-            12
+            42,
+            23
+          ],
+          [
+            56,
+            16
+          ],
+          [
+            73,
+            8
+          ],
+          [
+            83,
+            8
+          ],
+          [
+            97,
+            10
+          ],
+          [
+            112,
+            10
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "032-CANTILEVER",
+          "poly": [
+            [
+              45,
+              33
+            ],
+            [
+              50,
+              39
+            ],
+            [
+              59,
+              40
+            ],
+            [
+              68,
+              36
+            ],
+            [
+              65,
+              32
+            ],
+            [
+              53,
+              31
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "032-SLOPE-SENTINEL",
+          "poly": [
+            [
+              69,
+              10
+            ],
+            [
+              75,
+              10
+            ],
+            [
+              75,
+              23
+            ],
+            [
+              72,
+              27
+            ],
+            [
+              69,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "032-FRAGILE-LEDGE",
+          "poly": [
+            [
+              84,
+              8
+            ],
+            [
+              91,
+              8
+            ],
+            [
+              92,
+              19
+            ],
+            [
+              86,
+              22
+            ],
+            [
+              83,
+              19
+            ]
+          ],
+          "destructible": true
+        }
+      ],
       "features": [
         {
           "type": "W",
           "v": [
-            33,
-            65,
-            12
+            28,
+            81,
+            0
           ]
+        },
+        {
+          "type": "C",
+          "v": [
+            59,
+            93,
+            18,
+            44
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            77,
+            30,
+            30
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W20",
+          "id": "W21",
           "kind": "trial",
-          "weaponId": "W20",
-          "x": 24,
-          "h": 25.0,
-          "placementId": "L032:weapon:W20"
+          "weaponId": "W21",
+          "category": "weapon",
+          "amount": 2,
+          "x": 47.018,
+          "h": 44.013,
+          "spawnTurn": 1,
+          "placementId": "L032:weapon:W21",
+          "verification": {
+            "angle": 36,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -3044,7 +5154,8 @@
       "tacticalGoal": "緩い鏡の下りへ当て、敵側へ弧を持ち上げる",
       "tacticalGoalEn": "Bounce from the gentle slope toward the far side.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1120
     },
     {
       "id": 33,
@@ -3055,50 +5166,184 @@
       "spawn": [
         [
           16,
-          20.0
+          22
         ],
         [
-          82,
-          19.0
+          114,
+          19
         ]
       ],
       "floors": [
         [
           [
             0,
-            20
+            22
           ],
           [
-            27,
-            20
+            16,
+            22
           ],
           [
-            43,
-            10
+            30,
+            22
           ],
           [
-            58,
-            10
+            40,
+            14
           ],
           [
-            75,
+            50,
+            4
+          ],
+          [
+            62,
+            4
+          ],
+          [
+            76,
+            7
+          ],
+          [
+            91,
             19
           ],
           [
-            100,
+            105,
+            19
+          ],
+          [
+            124,
             19
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "033-BASIN-BUTTRESS",
+          "poly": [
+            [
+              57,
+              4
+            ],
+            [
+              60,
+              4
+            ],
+            [
+              64,
+              5
+            ],
+            [
+              66,
+              21
+            ],
+            [
+              63,
+              26
+            ],
+            [
+              60,
+              22
+            ],
+            [
+              58,
+              12
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "033-LEFT-BROKEN-ARCH",
+          "poly": [
+            [
+              38,
+              26
+            ],
+            [
+              44,
+              31
+            ],
+            [
+              52,
+              32
+            ],
+            [
+              58,
+              28
+            ],
+            [
+              56,
+              24
+            ],
+            [
+              45,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "033-RIGHT-BREACH",
+          "poly": [
+            [
+              98,
+              19
+            ],
+            [
+              104,
+              19
+            ],
+            [
+              104,
+              30
+            ],
+            [
+              99,
+              33
+            ],
+            [
+              97,
+              30
+            ]
+          ],
+          "destructible": true
+        }
+      ],
       "features": [
         {
           "type": "W",
           "v": [
-            32,
-            72,
-            10
+            30,
+            52,
+            4
           ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            96,
+            7
+          ]
+        },
+        {
+          "type": "C",
+          "v": [
+            66,
+            108,
+            19,
+            43
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            67,
+            34,
+            25
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
         }
       ],
       "skills": {},
@@ -3121,7 +5366,8 @@
       "tacticalGoal": "広い谷の底で弾を跳ね、右の岸へ運ぶ",
       "tacticalGoalEn": "Bounce through the broad valley toward the right bank.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1240
     },
     {
       "id": 34,
@@ -3132,59 +5378,143 @@
       "spawn": [
         [
           16,
-          13.0
+          11
         ],
         [
-          82,
-          13.0
+          92,
+          15
         ]
       ],
       "floors": [
         [
           [
             0,
-            13
+            11
           ],
           [
-            28,
-            13
+            15,
+            11
           ],
           [
-            34,
-            14.8
+            29,
+            11
+          ],
+          [
+            39,
+            10
+          ],
+          [
+            55,
+            10
           ],
           [
             63,
-            14.8
+            11
           ],
           [
-            72,
-            13
+            73,
+            15
           ],
           [
-            100,
-            13
+            89,
+            15
+          ],
+          [
+            108,
+            15
           ]
         ]
       ],
       "components": [
         {
-          "id": "034-C01",
+          "id": "034-LEFT-CAVE-ROOF",
           "poly": [
             [
-              39,
-              28
+              0,
+              30
             ],
             [
-              61,
-              28
+              8,
+              36
             ],
             [
-              61,
+              23,
+              38
+            ],
+            [
+              28,
+              36
+            ],
+            [
+              28,
+              22
+            ],
+            [
+              15,
+              21
+            ],
+            [
+              0,
+              22
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "034-RIGHT-CAVE-ROOF",
+          "poly": [
+            [
+              45,
+              37
+            ],
+            [
+              53,
+              36
+            ],
+            [
+              60,
+              31
+            ],
+            [
+              59,
+              23
+            ],
+            [
+              52,
+              23
+            ],
+            [
+              45,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "034-BREAKABLE-EXIT",
+          "poly": [
+            [
+              62,
+              31
+            ],
+            [
+              67,
+              34
+            ],
+            [
+              74,
+              33
+            ],
+            [
+              79,
+              29
+            ],
+            [
+              75,
               25
             ],
             [
-              39,
+              64,
               25
             ]
           ],
@@ -3195,21 +5525,42 @@
         {
           "type": "W",
           "v": [
-            30,
-            75,
-            13
+            12,
+            73,
+            0
           ]
+        },
+        {
+          "type": "K",
+          "v": [
+            59,
+            39,
+            -30
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W02",
-          "kind": "trial",
-          "weaponId": "W02",
-          "x": 24,
-          "h": 20.0,
-          "placementId": "L034:weapon:W02"
+          "id": "SK034",
+          "kind": "skill",
+          "skillId": "S_CHARGE_SLOW_II",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 49.509,
+          "h": 21.619,
+          "spawnTurn": 1,
+          "placementId": "L034:skill:S_CHARGE_SLOW_II",
+          "verification": {
+            "angle": 20,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -3230,7 +5581,8 @@
       "tacticalGoal": "鏡床の反射と低い遮蔽を読み、複数回跳ねる道を探す",
       "tacticalGoalEn": "Use the floor and low cover to plan two bounces.",
       "enemyHp": 4,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1080
     },
     {
       "id": 35,
@@ -3240,59 +5592,140 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          12.0
+          19,
+          35
         ],
         [
-          82,
-          16.0
+          112,
+          9
         ]
       ],
       "floors": [
         [
           [
             0,
-            12
+            9
           ],
           [
-            30,
-            12
+            18,
+            9
           ],
           [
-            44,
-            8
+            32,
+            9
           ],
           [
-            60,
-            8
+            46,
+            9
           ],
           [
-            75,
-            16
+            61,
+            9
           ],
           [
-            100,
-            16
+            80,
+            9
+          ],
+          [
+            103,
+            9
+          ],
+          [
+            130,
+            9
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "035-UPPER-CORRIDOR",
+          "poly": [
+            [
+              5,
+              29
+            ],
+            [
+              11,
+              35
+            ],
+            [
+              43,
+              35
+            ],
+            [
+              58,
+              31
+            ],
+            [
+              57,
+              27
+            ],
+            [
+              10,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "035-END-SHIELD",
+          "poly": [
+            [
+              95,
+              25
+            ],
+            [
+              102,
+              29
+            ],
+            [
+              116,
+              29
+            ],
+            [
+              121,
+              25
+            ],
+            [
+              118,
+              21
+            ],
+            [
+              99,
+              21
+            ]
+          ],
+          "destructible": false,
+          "reflectiveUnderside": [
+            [
+              99,
+              21
+            ],
+            [
+              118,
+              21
+            ]
+          ]
+        }
+      ],
       "features": [
         {
           "type": "W",
           "v": [
-            34,
-            68,
-            8
+            43,
+            102,
+            9
           ]
         },
         {
           "type": "K",
           "v": [
-            58,
+            84,
             30,
             22
-          ]
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
         }
       ],
       "skills": {},
@@ -3306,7 +5739,7 @@
       "themeGoal": "一枚の反射板に違う場所から入射する",
       "stageInTheme": 5,
       "themeRole": "Explore",
-      "lesson": "K",
+      "lesson": null,
       "contentRevision": "5.0",
       "encounterKind": "midboss",
       "midboss": true,
@@ -3336,10 +5769,11 @@
         }
       ],
       "recommendedCharacter": "rico",
-      "tacticalGoal": "枠を止める前後で、鏡床を使う角度を変える",
-      "tacticalGoalEn": "Adjust the bounce after stopping the frame.",
+      "tacticalGoal": "高い出撃棚から、敵側の天井下面で反射する経路を試す。",
+      "tacticalGoalEn": "Use the high starting shelf and the mirrored roof underside.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1300
     },
     {
       "id": 36,
@@ -3350,73 +5784,209 @@
       "spawn": [
         [
           16,
-          14.0
+          10
         ],
         [
-          82,
-          14.0
+          106,
+          31
         ]
       ],
       "floors": [
         [
           [
             0,
-            14
+            10
           ],
           [
-            28,
-            14
+            16,
+            10
           ],
           [
-            40,
-            16.5
+            30,
+            10
           ],
           [
-            56,
-            16.5
+            38,
+            8
           ],
           [
-            71,
-            14
+            46,
+            4
           ],
           [
-            100,
-            14
+            58,
+            4
+          ],
+          [
+            70,
+            12
+          ],
+          [
+            83,
+            31
+          ],
+          [
+            99,
+            31
+          ],
+          [
+            120,
+            31
           ]
         ]
       ],
       "components": [
         {
-          "id": "036-C01",
+          "id": "036-LEFT-LOW",
           "poly": [
             [
-              43,
-              29
+              42,
+              4
             ],
             [
               48,
-              29
+              4
             ],
             [
               48,
-              14
+              18
             ],
             [
-              43,
-              14
+              42,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "036-LEFT-HIGH",
+          "poly": [
+            [
+              42,
+              30
+            ],
+            [
+              48,
+              30
+            ],
+            [
+              48,
+              47
+            ],
+            [
+              42,
+              47
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "036-RIGHT-LOW",
+          "poly": [
+            [
+              70,
+              12
+            ],
+            [
+              76,
+              12
+            ],
+            [
+              76,
+              20
+            ],
+            [
+              70,
+              20
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "036-RIGHT-HIGH",
+          "poly": [
+            [
+              70,
+              32
+            ],
+            [
+              76,
+              32
+            ],
+            [
+              76,
+              48
+            ],
+            [
+              70,
+              48
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "036-LOW-PLUG",
+          "poly": [
+            [
+              53,
+              4
+            ],
+            [
+              59,
+              4
+            ],
+            [
+              59,
+              16
+            ],
+            [
+              53,
+              16
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "036-SUSPENDED-BRIDGE",
+          "poly": [
+            [
+              49,
+              43
+            ],
+            [
+              55,
+              47
+            ],
+            [
+              80,
+              47
+            ],
+            [
+              87,
+              43
+            ],
+            [
+              83,
+              40
+            ],
+            [
+              55,
+              40
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
         {
           "type": "K",
           "v": [
-            62,
-            24,
-            28
-          ]
+            80,
+            39,
+            35
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
         }
       ],
       "skills": {},
@@ -3439,7 +6009,8 @@
       "tacticalGoal": "門を壊してから、水晶側と床側の経路を比べる",
       "tacticalGoalEn": "Open the gate, then compare crystal and floor routes.",
       "enemyHp": 4,
-      "terrainRevision": "0.17.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1200
     },
     {
       "id": 37,
@@ -3450,79 +6021,128 @@
       "spawn": [
         [
           16,
-          23.0
+          20
         ],
         [
-          82,
-          22.0
+          110,
+          24
         ]
       ],
       "floors": [
         [
           [
             0,
-            23
+            20
           ],
           [
-            28,
-            23
+            15,
+            20
           ],
           [
-            43,
-            9
+            31,
+            20
           ],
           [
-            59,
-            9
+            36,
+            20
+          ]
+        ],
+        [
+          [
+            94,
+            24
           ],
           [
-            76,
-            22
+            109,
+            24
           ],
           [
-            100,
-            22
+            125,
+            24
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "037-HINGE-RELAY",
+          "poly": [
+            [
+              53,
+              17
+            ],
+            [
+              58,
+              22
+            ],
+            [
+              74,
+              23
+            ],
+            [
+              84,
+              21
+            ],
+            [
+              82,
+              16
+            ],
+            [
+              60,
+              16
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [
         {
           "type": "B",
           "v": [
-            30,
-            23,
-            24,
+            36,
+            20,
+            25,
             0
           ]
         },
         {
           "type": "W",
           "v": [
-            43,
-            61,
-            9
+            57,
+            84,
+            20
           ]
+        },
+        {
+          "type": "K",
+          "v": [
+            71,
+            33,
+            30
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W04",
+          "id": "W14",
           "kind": "trial",
-          "weaponId": "W04",
-          "x": 24,
-          "h": 30.0,
-          "placementId": "L037:weapon:W04"
-        },
-        {
-          "id": "SK037",
-          "kind": "skill",
-          "skillId": "S_GUARD",
-          "amount": 1,
-          "x": 20,
-          "h": 32.0,
-          "placementId": "L037:skill:S_GUARD"
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 43.579,
+          "h": 38.111,
+          "spawnTurn": 1,
+          "placementId": "L037:weapon:W14",
+          "verification": {
+            "angle": 44,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -3543,7 +6163,8 @@
       "tacticalGoal": "橋が閉じる間は低い谷へ、開く間は上を通す",
       "tacticalGoalEn": "Choose a low valley route or the open bridge route.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1250
     },
     {
       "id": 38,
@@ -3554,93 +6175,181 @@
       "spawn": [
         [
           16,
-          16.0
+          14
         ],
         [
-          82,
-          19.0
+          108,
+          18
         ]
       ],
       "floors": [
         [
           [
             0,
-            16
+            14
           ],
           [
-            25,
-            16
-          ]
-        ],
-        [
-          [
-            79,
-            19
+            16,
+            14
           ],
           [
-            100,
-            19
+            31,
+            12
+          ],
+          [
+            43,
+            3
+          ],
+          [
+            60,
+            3
+          ],
+          [
+            75,
+            8
+          ],
+          [
+            91,
+            18
+          ],
+          [
+            110,
+            18
           ]
         ]
       ],
       "components": [
         {
-          "id": "038-C01",
+          "id": "038-SINGLE-CITADEL",
           "poly": [
             [
-              40,
+              45,
               28
             ],
             [
-              59,
+              52,
+              36
+            ],
+            [
+              65,
+              37
+            ],
+            [
+              79,
+              33
+            ],
+            [
+              74,
               28
             ],
             [
-              59,
-              23
-            ],
-            [
-              40,
-              23
+              54,
+              27
             ]
           ],
           "destructible": false
         },
         {
-          "id": "038-C02",
+          "id": "038-FRAGILE-BATTLEMENT",
           "poly": [
             [
-              53,
-              42
+              80,
+              23
             ],
             [
-              57,
-              42
+              90,
+              23
             ],
             [
-              57,
-              28
+              90,
+              37
             ],
             [
-              53,
-              28
+              80,
+              37
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "038-PERMANENT-DOGLEG",
+          "poly": [
+            [
+              94,
+              18
+            ],
+            [
+              101,
+              18
+            ],
+            [
+              101,
+              40
+            ],
+            [
+              97,
+              42
+            ],
+            [
+              94,
+              38
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
         {
+          "type": "B",
+          "v": [
+            29,
+            12,
+            35,
+            0
+          ]
+        },
+        {
+          "type": "C",
+          "v": [
+            42,
+            79,
+            33,
+            53
+          ]
+        },
+        {
           "type": "K",
           "v": [
-            70,
-            29,
+            87,
+            44,
             35
-          ]
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
         }
       ],
       "skills": {},
-      "pickups": [],
+      "pickups": [
+        {
+          "id": "SK038",
+          "kind": "skill",
+          "skillId": "S_ALL_ATTACK",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 43.623,
+          "h": 44.893,
+          "spawnTurn": 1,
+          "placementId": "L038:skill:S_ALL_ATTACK",
+          "verification": {
+            "angle": 56,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
       "blink": [],
       "teleport": true,
       "actionLimit": 16,
@@ -3659,7 +6368,8 @@
       "tacticalGoal": "中継島へ転移し、割れた端から射線を作る",
       "tacticalGoalEn": "Teleport to the island and open the cracked edge.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1100
     },
     {
       "id": 39,
@@ -3669,61 +6379,123 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          11.0
+          36,
+          8
         ],
         [
-          82,
-          13.0
+          92,
+          29
         ]
       ],
       "floors": [
         [
           [
             0,
-            11
+            10
           ],
           [
-            31,
-            11
+            16,
+            10
           ],
           [
-            47,
-            23
+            28,
+            10
           ],
           [
-            64,
-            23
+            36,
+            8
+          ],
+          [
+            48,
+            7
+          ],
+          [
+            58,
+            13
+          ],
+          [
+            68,
+            22
           ],
           [
             80,
-            13
+            29
           ],
           [
-            100,
-            13
+            93,
+            29
+          ],
+          [
+            105,
+            29
           ]
         ]
       ],
       "components": [
         {
-          "id": "039-C01",
+          "id": "039-SHORT-CAVERN-ROOF",
           "poly": [
             [
-              28,
+              29,
               32
             ],
             [
-              40,
-              32
+              36,
+              39
             ],
             [
-              40,
-              29
+              47,
+              41
             ],
             [
-              28,
-              29
+              57,
+              37
+            ],
+            [
+              58,
+              30
+            ],
+            [
+              56,
+              23
+            ],
+            [
+              46,
+              21
+            ],
+            [
+              35,
+              21
+            ],
+            [
+              29,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "039-BREAKABLE-EXIT",
+          "poly": [
+            [
+              58,
+              26
+            ],
+            [
+              62,
+              31
+            ],
+            [
+              67,
+              30
+            ],
+            [
+              67,
+              25
+            ],
+            [
+              61,
+              23
             ]
           ],
           "destructible": true
@@ -3731,31 +6503,53 @@
       ],
       "features": [
         {
-          "type": "K",
+          "type": "W",
           "v": [
-            62,
-            34,
-            15
+            76,
+            101,
+            29
           ]
         },
         {
-          "type": "W",
+          "type": "K",
           "v": [
-            72,
-            96,
-            13
+            71,
+            39,
+            15
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+        },
+        {
+          "type": "B",
+          "v": [
+            31,
+            9.25,
+            29,
+            0
           ]
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W06",
-          "kind": "trial",
-          "weaponId": "W06",
-          "x": 24,
-          "h": 18.0,
-          "placementId": "L039:weapon:W06"
+          "id": "SK039",
+          "kind": "skill",
+          "skillId": "S_ENEMY_SKIP",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 56.542,
+          "h": 21.464,
+          "spawnTurn": 5,
+          "placementId": "L039:skill:S_ENEMY_SKIP",
+          "verification": {
+            "angle": 41,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -3776,7 +6570,8 @@
       "tacticalGoal": "向きの変わる水晶を見て、低い床か上空を選ぶ",
       "tacticalGoalEn": "Watch the crystal change direction before choosing a shot.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1050
     },
     {
       "id": 40,
@@ -3786,82 +6581,218 @@
       "boss": true,
       "spawn": [
         [
-          16,
-          18.0
+          18,
+          19
         ],
         [
-          86,
-          11.0
+          139,
+          26
         ]
       ],
       "floors": [
         [
           [
             0,
-            18
+            19
           ],
           [
-            29,
-            18
+            17,
+            19
           ],
           [
-            45,
-            7
+            32,
+            19
           ],
           [
-            62,
-            7
+            47,
+            12
           ],
           [
-            78,
-            11
+            55,
+            6
           ],
           [
-            100,
-            11
+            82,
+            6
+          ],
+          [
+            102,
+            8
+          ],
+          [
+            123,
+            26
+          ],
+          [
+            138,
+            26
+          ],
+          [
+            155,
+            26
           ]
         ]
       ],
       "components": [
         {
-          "id": "040-C01",
+          "id": "040-LEFT-VAULT",
           "poly": [
             [
-              28,
+              13,
+              38
+            ],
+            [
+              19,
+              44
+            ],
+            [
+              29,
+              46
+            ],
+            [
+              41,
+              45
+            ],
+            [
+              52,
+              40
+            ],
+            [
+              52,
               35
             ],
             [
-              42,
+              43,
+              34
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              14,
               35
+            ]
+          ],
+          "destructible": false,
+          "reflectiveUnderside": [
+            [
+              23,
+              34
             ],
             [
-              42,
-              32
+              43,
+              34
+            ]
+          ]
+        },
+        {
+          "id": "040-RIGHT-VAULT",
+          "poly": [
+            [
+              111,
+              49
             ],
             [
-              28,
-              32
+              118,
+              56
+            ],
+            [
+              132,
+              58
+            ],
+            [
+              145,
+              56
+            ],
+            [
+              153,
+              51
+            ],
+            [
+              153,
+              45
+            ],
+            [
+              145,
+              44
+            ],
+            [
+              122,
+              44
+            ],
+            [
+              113,
+              45
+            ]
+          ],
+          "destructible": false,
+          "reflectiveUnderside": [
+            [
+              122,
+              44
+            ],
+            [
+              145,
+              44
+            ]
+          ]
+        },
+        {
+          "id": "040-PRISM-FRAME",
+          "poly": [
+            [
+              114,
+              26
+            ],
+            [
+              120,
+              29
+            ],
+            [
+              129,
+              37
+            ],
+            [
+              131,
+              42
+            ],
+            [
+              125,
+              44
+            ],
+            [
+              117,
+              40
             ]
           ],
           "destructible": true
         },
         {
-          "id": "040-C02",
+          "id": "040-DOWN-BRIDGE-ANCHOR",
           "poly": [
             [
-              54,
-              26
+              64,
+              24
             ],
             [
-              70,
-              26
+              67,
+              29
             ],
             [
-              70,
+              75,
+              29
+            ],
+            [
+              79,
+              25
+            ],
+            [
+              76,
               22
             ],
             [
-              54,
+              67,
               22
             ]
           ],
@@ -3872,18 +6803,32 @@
         {
           "type": "W",
           "v": [
-            40,
-            62,
-            7
+            54,
+            109,
+            6
           ]
         },
         {
           "type": "K",
           "v": [
-            67,
-            29,
+            113,
+            48,
             30
-          ]
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+        },
+        {
+          "type": "B",
+          "v": [
+            72,
+            29,
+            27,
+            0
+          ],
+          "openAngleDeg": -55,
+          "defaultPose": "lowered",
+          "requiresEngineChange": "現行Bは開状態+75°固定。負角の下降開閉を追加する必要がある"
         }
       ],
       "skills": {},
@@ -3928,10 +6873,11 @@
       "midboss": false,
       "encounterId": "boss:prism-guardian",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "低い鏡の反射線と浮島上段からの射線を比較し、鏡枠を外して核へ通す。",
-      "tacticalGoalEn": "Route through a deep prism gorge using water reflection or the upper shelf.",
+      "tacticalGoal": "左右の天井下面と下降橋を見比べ、開閉後も通る反射路を選ぶ。",
+      "tacticalGoalEn": "Compare mirrored roofs and the downward-opening bridge.",
       "enemyHp": 4,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1550
     },
     {
       "id": 41,
@@ -3942,11 +6888,11 @@
       "spawn": [
         [
           16,
-          9.0
+          9
         ],
         [
-          88,
-          26.0
+          95,
+          28
         ]
       ],
       "floors": [
@@ -3956,68 +6902,134 @@
             9
           ],
           [
-            30,
+            16,
             9
           ],
           [
-            47,
-            5
+            26,
+            10
           ],
           [
-            62,
-            14
+            31,
+            11
+          ]
+        ],
+        [
+          [
+            79,
+            28
           ],
           [
-            82,
-            26
+            95,
+            28
           ],
           [
-            100,
-            26
+            110,
+            28
           ]
         ]
       ],
       "components": [
         {
-          "id": "041-C01",
+          "id": "041-LOW-PILLAR",
           "poly": [
             [
-              50,
-              32
+              37,
+              9
             ],
             [
-              54,
-              32
+              43,
+              9
             ],
             [
-              54,
-              10
+              43,
+              18
             ],
             [
-              50,
-              10
+              37,
+              18
             ]
           ],
-          "destructible": true
+          "destructible": false
         },
         {
-          "id": "041-C02",
+          "id": "041-UPPER-PILLAR",
           "poly": [
             [
-              34,
-              39
+              37,
+              45
             ],
             [
-              48,
-              39
+              43,
+              45
             ],
             [
-              48,
-              36
+              43,
+              53
             ],
             [
-              34,
-              36
+              37,
+              53
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-RELAY-PLATFORM",
+          "poly": [
+            [
+              66,
+              20
+            ],
+            [
+              70,
+              27
+            ],
+            [
+              81,
+              27
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              79,
+              19
+            ],
+            [
+              70,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-CRACKED-HEAD",
+          "poly": [
+            [
+              75,
+              45
+            ],
+            [
+              80,
+              49
+            ],
+            [
+              88,
+              49
+            ],
+            [
+              91,
+              45
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              78,
+              41
             ]
           ],
           "destructible": true
@@ -4028,9 +7040,9 @@
           "type": "U",
           "v": [
             44,
-            55,
-            6,
-            33
+            65,
+            14,
+            44
           ]
         }
       ],
@@ -4054,7 +7066,8 @@
       "tacticalGoal": "支柱を壊さず手前の梁を開放し、上昇気流の高弾道で上部の敵を狙う。",
       "tacticalGoalEn": "Keep the support, remove a cracked beam, and fire upward through an airshaft.",
       "enemyHp": 4,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1100
     },
     {
       "id": 42,
@@ -4065,60 +7078,118 @@
       "spawn": [
         [
           16,
-          10.0
+          29
         ],
         [
-          82,
-          16.0
+          93,
+          21
         ]
       ],
       "floors": [
         [
           [
             0,
-            10
+            29
           ],
           [
-            27,
-            10
+            16,
+            29
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            32,
+            23
+          ],
+          [
+            39,
+            15
           ],
           [
             47,
-            27
+            9
           ],
           [
-            61,
-            27
+            57,
+            8
           ],
           [
-            79,
-            16
+            68,
+            11
           ],
           [
-            100,
-            16
+            80,
+            21
+          ],
+          [
+            93,
+            21
+          ],
+          [
+            112,
+            21
           ]
         ]
       ],
       "components": [
         {
-          "id": "042-C01",
+          "id": "042-VENT-BALCONY",
           "poly": [
             [
-              48,
-              41
+              27,
+              34
             ],
             [
-              62,
-              41
+              31,
+              39
             ],
             [
-              62,
-              38
+              39,
+              39
             ],
             [
-              48,
-              38
+              44,
+              36
+            ],
+            [
+              42,
+              31
+            ],
+            [
+              32,
+              31
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "042-BROKEN-AWNING",
+          "poly": [
+            [
+              76,
+              43
+            ],
+            [
+              81,
+              48
+            ],
+            [
+              90,
+              48
+            ],
+            [
+              94,
+              43
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              80,
+              40
             ]
           ],
           "destructible": true
@@ -4128,22 +7199,42 @@
         {
           "type": "U",
           "v": [
-            35,
             44,
-            5,
-            30
+            68,
+            10,
+            37
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            44,
+            39,
+            27,
+            0
           ]
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W07",
+          "id": "W16",
           "kind": "trial",
-          "weaponId": "W07",
-          "x": 24,
-          "h": 17.0,
-          "placementId": "L042:weapon:W07"
+          "weaponId": "W16",
+          "category": "weapon",
+          "amount": 2,
+          "x": 37.903,
+          "h": 45.266,
+          "spawnTurn": 1,
+          "placementId": "L042:weapon:W16",
+          "verification": {
+            "angle": 44,
+            "power": 66,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -4164,7 +7255,8 @@
       "tacticalGoal": "高い棚を先に確保し、通気域を上から越える",
       "tacticalGoalEn": "Secure the high shelf to cross above the updraft.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1120
     },
     {
       "id": 43,
@@ -4175,105 +7267,141 @@
       "spawn": [
         [
           16,
-          9.0
+          11
         ],
         [
-          86,
-          25.0
+          94,
+          25
         ]
       ],
       "floors": [
         [
           [
             0,
-            9
+            11
+          ],
+          [
+            16,
+            11
           ],
           [
             30,
-            9
+            12
           ],
           [
             43,
-            7
+            13
           ]
         ],
         [
           [
-            57,
-            12
-          ],
-          [
-            80,
+            78,
             25
           ],
           [
-            100,
+            94,
+            25
+          ],
+          [
+            112,
             25
           ]
         ]
       ],
       "components": [
         {
-          "id": "043-C01",
+          "id": "043-LEFT-CAVE-SHELL",
           "poly": [
             [
-              27,
+              26,
+              29
+            ],
+            [
+              30,
               37
             ],
             [
-              41,
-              37
+              36,
+              39
             ],
             [
-              41,
-              34
+              43,
+              36
             ],
             [
-              27,
-              34
+              43,
+              27
+            ],
+            [
+              35,
+              25
+            ],
+            [
+              28,
+              26
             ]
           ],
           "destructible": false
         },
         {
-          "id": "043-C02",
+          "id": "043-RIGHT-CAVE-SHELL",
           "poly": [
             [
-              64,
-              43
-            ],
-            [
               78,
-              43
+              46
             ],
             [
-              78,
-              40
+              83,
+              53
             ],
             [
-              64,
-              40
+              92,
+              54
+            ],
+            [
+              102,
+              48
+            ],
+            [
+              100,
+              41
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              79,
+              42
             ]
           ],
-          "destructible": true
+          "destructible": false
         },
         {
-          "id": "043-C03",
+          "id": "043-HINGE-ISLAND",
           "poly": [
             [
-              42,
+              64,
+              22
+            ],
+            [
+              69,
+              28
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              77,
               24
             ],
             [
-              57,
-              24
+              74,
+              21
             ],
             [
-              57,
-              20
-            ],
-            [
-              42,
+              68,
               20
             ]
           ],
@@ -4282,11 +7410,31 @@
       ],
       "features": [
         {
+          "type": "U",
+          "v": [
+            44,
+            58,
+            14,
+            33
+          ]
+        },
+        {
           "type": "K",
           "v": [
             62,
-            31,
-            30
+            39,
+            23
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+        },
+        {
+          "type": "B",
+          "v": [
+            67,
+            29,
+            17,
+            0
           ]
         }
       ],
@@ -4310,7 +7458,8 @@
       "tacticalGoal": "低い射点から近い天井片を抜き、敵側の高台へ反射射撃する。",
       "tacticalGoalEn": "Open roof windows from a split cave and reach the higher ledge.",
       "enemyHp": 4,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1120
     },
     {
       "id": 44,
@@ -4321,11 +7470,11 @@
       "spawn": [
         [
           16,
-          22.0
+          22
         ],
         [
-          82,
-          18.0
+          110,
+          16
         ]
       ],
       "floors": [
@@ -4335,46 +7484,116 @@
             22
           ],
           [
-            30,
+            16,
             22
           ],
           [
-            45,
-            8
+            26,
+            22
+          ]
+        ],
+        [
+          [
+            99,
+            16
           ],
           [
-            63,
-            8
+            111,
+            16
           ],
           [
-            76,
-            18
-          ],
-          [
-            100,
-            18
+            120,
+            16
           ]
         ]
       ],
       "components": [
         {
-          "id": "044-C01",
+          "id": "044-LOADING-LOW",
           "poly": [
             [
-              43,
-              22
+              29,
+              25
             ],
             [
-              58,
-              22
+              34,
+              31
             ],
             [
-              58,
-              17
+              44,
+              31
             ],
             [
-              43,
-              17
+              48,
+              27
+            ],
+            [
+              44,
+              23
+            ],
+            [
+              34,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "044-LOADING-HIGH",
+          "poly": [
+            [
+              70,
+              32
+            ],
+            [
+              75,
+              39
+            ],
+            [
+              83,
+              39
+            ],
+            [
+              87,
+              34
+            ],
+            [
+              83,
+              29
+            ],
+            [
+              75,
+              29
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "044-LOADING-RIGHT",
+          "poly": [
+            [
+              88,
+              23
+            ],
+            [
+              91,
+              28
+            ],
+            [
+              98,
+              28
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              96,
+              21
+            ],
+            [
+              91,
+              21
             ]
           ],
           "destructible": false
@@ -4384,30 +7603,50 @@
         {
           "type": "U",
           "v": [
-            50,
-            58,
-            8,
-            38
+            49,
+            65,
+            16,
+            47
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            40,
+            31,
+            25,
+            0
           ]
         },
         {
           "type": "W",
           "v": [
-            64,
-            80,
-            12
+            99,
+            119,
+            16
           ]
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W09",
-          "kind": "trial",
-          "weaponId": "W09",
-          "x": 24,
-          "h": 29.0,
-          "placementId": "L044:weapon:W09"
+          "id": "SK044",
+          "kind": "skill",
+          "skillId": "S_POWER_UP_II",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 45.25,
+          "h": 41.724,
+          "spawnTurn": 1,
+          "placementId": "L044:skill:S_POWER_UP_II",
+          "verification": {
+            "angle": 44,
+            "power": 64,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -4428,7 +7667,8 @@
       "tacticalGoal": "上昇流の前で撃つか、奥の荷台へ転移して避ける",
       "tacticalGoalEn": "Use the updraft or teleport beyond it.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1200
     },
     {
       "id": 45,
@@ -4439,73 +7679,135 @@
       "spawn": [
         [
           16,
-          16.0
+          10
         ],
         [
-          82,
-          14.0
+          106,
+          29
         ]
       ],
       "floors": [
         [
           [
             0,
-            16
+            10
+          ],
+          [
+            16,
+            10
           ],
           [
             28,
-            16
+            10
+          ]
+        ],
+        [
+          [
+            91,
+            29
           ],
           [
-            44,
-            25
+            105,
+            29
           ],
           [
-            59,
-            25
-          ],
-          [
-            74,
-            14
-          ],
-          [
-            100,
-            14
+            125,
+            29
           ]
         ]
       ],
       "components": [
         {
-          "id": "045-C01",
+          "id": "045-LIFT-DECK",
           "poly": [
             [
-              47,
-              39
+              65,
+              21
             ],
             [
-              51,
-              39
+              70,
+              28
             ],
             [
-              51,
-              25
+              79,
+              28
             ],
             [
-              47,
-              25
+              83,
+              23
+            ],
+            [
+              79,
+              20
+            ],
+            [
+              69,
+              19
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "045-LIFT-BRAKE",
+          "poly": [
+            [
+              85,
+              21
+            ],
+            [
+              92,
+              21
+            ],
+            [
+              92,
+              35
+            ],
+            [
+              85,
+              35
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "045-SHAFT-RIB",
+          "poly": [
+            [
+              109,
+              44
+            ],
+            [
+              114,
+              49
+            ],
+            [
+              123,
+              48
+            ],
+            [
+              125,
+              45
+            ],
+            [
+              121,
+              42
+            ],
+            [
+              113,
+              41
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
         {
           "type": "U",
           "v": [
-            59,
-            68,
-            7,
-            27
+            30,
+            60,
+            10,
+            44
           ]
         }
       ],
@@ -4553,7 +7855,8 @@
       "tacticalGoal": "ドライブを止め、柱の横から安全な射点を選ぶ",
       "tacticalGoalEn": "Stop the drive and choose a firing point beside the column.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1250
     },
     {
       "id": 46,
@@ -4564,82 +7867,152 @@
       "spawn": [
         [
           16,
-          24.0
+          14
         ],
         [
-          88,
-          9.0
+          99,
+          19
         ]
       ],
       "floors": [
         [
           [
             0,
-            24
-          ],
-          [
-            25,
-            24
-          ],
-          [
-            43,
             14
           ],
           [
-            57,
-            9
+            16,
+            14
           ],
           [
-            74,
-            9
+            26,
+            13
           ],
           [
-            100,
-            9
+            35,
+            11
+          ],
+          [
+            45,
+            8
+          ],
+          [
+            58,
+            8
+          ],
+          [
+            68,
+            11
+          ],
+          [
+            78,
+            16
+          ],
+          [
+            88,
+            19
+          ],
+          [
+            99,
+            19
+          ],
+          [
+            115,
+            18
           ]
         ]
       ],
       "components": [
         {
-          "id": "046-C01",
+          "id": "046-CAVERN-CANOPY",
           "poly": [
             [
-              46,
+              21,
+              29
+            ],
+            [
+              26,
               36
             ],
             [
-              50,
-              36
+              33,
+              38
             ],
             [
-              50,
-              10
+              40,
+              34
             ],
             [
-              46,
-              10
+              40,
+              27
+            ],
+            [
+              33,
+              26
+            ],
+            [
+              24,
+              26
             ]
           ],
-          "destructible": true
+          "destructible": false
         },
         {
-          "id": "046-C02",
+          "id": "046-LOFT",
           "poly": [
             [
-              61,
-              33
+              67,
+              25
             ],
             [
-              77,
-              33
+              73,
+              31
             ],
             [
-              77,
-              30
+              81,
+              31
             ],
             [
-              61,
-              30
+              85,
+              27
+            ],
+            [
+              81,
+              23
+            ],
+            [
+              72,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "046-EXIT-ROOF",
+          "poly": [
+            [
+              87,
+              39
+            ],
+            [
+              92,
+              43
+            ],
+            [
+              101,
+              43
+            ],
+            [
+              107,
+              39
+            ],
+            [
+              103,
+              35
+            ],
+            [
+              92,
+              35
             ]
           ],
           "destructible": true
@@ -4649,10 +8022,19 @@
         {
           "type": "U",
           "v": [
-            38,
-            49,
-            9,
-            39
+            42,
+            65,
+            11,
+            44
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            36,
+            25,
+            25,
+            0
           ]
         }
       ],
@@ -4676,7 +8058,8 @@
       "tacticalGoal": "自機側の高台から換気窓を通る弧を作り、下段の敵へ落とす。",
       "tacticalGoalEn": "Aim downward across a ventilated cut and keep the supporting wall intact.",
       "enemyHp": 4,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1150
     },
     {
       "id": 47,
@@ -4687,60 +8070,114 @@
       "spawn": [
         [
           16,
-          25.0
+          27
         ],
         [
-          82,
-          24.0
+          101,
+          22
         ]
       ],
       "floors": [
         [
           [
             0,
-            25
+            27
           ],
           [
-            25,
-            25
+            16,
+            27
           ],
           [
-            41,
-            10
+            27,
+            27
           ],
           [
-            66,
-            10
+            34,
+            19
           ],
           [
-            82,
-            24
+            43,
+            8
+          ],
+          [
+            61,
+            8
+          ],
+          [
+            71,
+            14
+          ],
+          [
+            83,
+            22
           ],
           [
             100,
-            24
+            22
+          ],
+          [
+            115,
+            22
           ]
         ]
       ],
       "components": [
         {
-          "id": "047-C01",
+          "id": "047-TOP-CART-TRACK",
           "poly": [
             [
-              44,
-              27
+              42,
+              39
+            ],
+            [
+              48,
+              45
             ],
             [
               65,
-              27
+              45
             ],
             [
-              65,
-              24
+              71,
+              41
             ],
             [
-              44,
-              24
+              67,
+              36
+            ],
+            [
+              48,
+              36
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "047-BROKEN-TUNNEL",
+          "poly": [
+            [
+              77,
+              34
+            ],
+            [
+              82,
+              39
+            ],
+            [
+              91,
+              39
+            ],
+            [
+              96,
+              35
+            ],
+            [
+              92,
+              31
+            ],
+            [
+              81,
+              31
             ]
           ],
           "destructible": true
@@ -4751,29 +8188,40 @@
           "type": "W",
           "v": [
             40,
-            68,
-            10
+            69,
+            8
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            70,
+            14,
+            24,
+            0
           ]
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W12",
+          "id": "W23",
           "kind": "trial",
-          "weaponId": "W12",
-          "x": 24,
-          "h": 32.0,
-          "placementId": "L047:weapon:W12"
-        },
-        {
-          "id": "SK047",
-          "kind": "skill",
-          "skillId": "S_REPAIR",
-          "amount": 1,
-          "x": 20,
-          "h": 34.0,
-          "placementId": "L047:skill:S_REPAIR"
+          "weaponId": "W23",
+          "category": "weapon",
+          "amount": 2,
+          "x": 51.102,
+          "h": 12.673,
+          "spawnTurn": 1,
+          "placementId": "L047:weapon:W23",
+          "verification": {
+            "angle": -5,
+            "power": 49,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -4794,7 +8242,8 @@
       "tacticalGoal": "下段を転がすか、上段から梁の先を狙う",
       "tacticalGoalEn": "Roll along the low floor or fire from the upper shelf.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1150
     },
     {
       "id": 48,
@@ -4805,126 +8254,190 @@
       "spawn": [
         [
           16,
-          9.0
+          10
         ],
         [
-          88,
-          22.0
+          108,
+          31
         ]
       ],
       "floors": [
         [
           [
             0,
-            9
-          ],
-          [
-            27,
-            9
-          ],
-          [
-            44,
-            6
-          ],
-          [
-            59,
             10
           ],
           [
-            78,
-            22
+            16,
+            10
           ],
           [
-            100,
-            22
+            27,
+            10
+          ],
+          [
+            34,
+            9
+          ],
+          [
+            42,
+            7
+          ],
+          [
+            52,
+            8
+          ],
+          [
+            63,
+            13
+          ],
+          [
+            75,
+            18
+          ],
+          [
+            87,
+            28
+          ],
+          [
+            92,
+            31
+          ],
+          [
+            108,
+            31
+          ],
+          [
+            125,
+            31
           ]
         ]
       ],
       "components": [
         {
-          "id": "048-C01",
+          "id": "048-WIND-TOWER-LOW",
           "poly": [
             [
-              43,
-              32
+              39,
+              8
             ],
             [
-              47,
-              32
+              46,
+              8
             ],
             [
-              47,
-              6
+              46,
+              17
             ],
             [
-              43,
-              6
+              39,
+              17
             ]
           ],
           "destructible": true
         },
         {
-          "id": "048-C02",
+          "id": "048-WIND-TOWER-UPPER",
           "poly": [
             [
-              49,
+              39,
               29
             ],
             [
-              65,
+              46,
               29
             ],
             [
-              65,
-              25
+              46,
+              42
             ],
             [
-              49,
-              25
+              39,
+              42
             ]
           ],
           "destructible": false
         },
         {
-          "id": "048-C03",
+          "id": "048-UPPER-ISLET",
           "poly": [
             [
               69,
-              43
+              26
+            ],
+            [
+              75,
+              33
             ],
             [
               82,
-              43
+              33
             ],
             [
-              82,
-              40
+              87,
+              29
             ],
             [
-              69,
-              40
+              83,
+              25
+            ],
+            [
+              75,
+              24
             ]
           ],
-          "destructible": true
+          "destructible": false
+        },
+        {
+          "id": "048-PRISM-CEILING",
+          "poly": [
+            [
+              106,
+              48
+            ],
+            [
+              111,
+              53
+            ],
+            [
+              121,
+              53
+            ],
+            [
+              125,
+              48
+            ],
+            [
+              122,
+              44
+            ],
+            [
+              111,
+              44
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
         {
           "type": "U",
           "v": [
-            45,
-            57,
-            8,
-            38
+            47,
+            67,
+            13,
+            46
           ]
         },
         {
           "type": "K",
           "v": [
-            68,
-            31,
-            25
-          ]
+            89,
+            41,
+            -22
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
         }
       ],
       "skills": {},
@@ -4947,7 +8460,8 @@
       "tacticalGoal": "低い斜坑から上昇気流で浮島裏へ回し、結晶を使って敵側高台へ通す。",
       "tacticalGoalEn": "Use an uplift shelf and a crystal to reach the elevated workshop.",
       "enemyHp": 4,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1250
     },
     {
       "id": 49,
@@ -4958,82 +8472,136 @@
       "spawn": [
         [
           16,
-          13.0
+          17
         ],
         [
-          82,
-          12.0
+          111,
+          11
         ]
       ],
       "floors": [
         [
           [
             0,
-            13
+            17
+          ],
+          [
+            16,
+            17
           ],
           [
             29,
-            13
+            17
           ],
           [
-            44,
-            25
+            39,
+            20
           ],
           [
-            61,
-            25
+            52,
+            23
           ],
           [
-            79,
-            12
+            64,
+            23
           ],
           [
-            100,
-            12
+            78,
+            18
+          ],
+          [
+            93,
+            11
+          ],
+          [
+            104,
+            11
+          ],
+          [
+            120,
+            11
           ]
         ]
       ],
       "components": [
         {
-          "id": "049-C01",
+          "id": "049-ATTIC-SUPPORT",
           "poly": [
             [
-              38,
+              50,
+              32
+            ],
+            [
+              56,
               39
             ],
             [
-              58,
+              67,
               39
             ],
             [
-              58,
-              36
+              73,
+              34
             ],
             [
-              38,
-              36
+              70,
+              30
+            ],
+            [
+              56,
+              30
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "049-CRACKED-ATTIC",
+          "poly": [
+            [
+              103,
+              41
+            ],
+            [
+              106,
+              47
+            ],
+            [
+              114,
+              47
+            ],
+            [
+              118,
+              43
+            ],
+            [
+              115,
+              39
+            ],
+            [
+              106,
+              38
             ]
           ],
           "destructible": true
         },
         {
-          "id": "049-C02",
+          "id": "049-VENT-GUARD",
           "poly": [
             [
-              66,
-              31
+              91,
+              11
             ],
             [
-              70,
-              31
+              98,
+              11
             ],
             [
-              70,
-              12
+              98,
+              26
             ],
             [
-              66,
-              12
+              91,
+              26
             ]
           ],
           "destructible": true
@@ -5041,24 +8609,44 @@
       ],
       "features": [
         {
+          "type": "U",
+          "v": [
+            28,
+            44,
+            18,
+            44
+          ]
+        },
+        {
           "type": "F",
           "v": [
-            52,
-            62,
-            5,
-            32
+            75,
+            101,
+            14,
+            40
           ]
         }
       ],
       "skills": {},
       "pickups": [
         {
-          "id": "W13",
-          "kind": "trial",
-          "weaponId": "W13",
-          "x": 24,
-          "h": 20.0,
-          "placementId": "L049:weapon:W13"
+          "id": "SK049",
+          "kind": "skill",
+          "skillId": "S_FREE_MOVE",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 49.398,
+          "h": 42.693,
+          "spawnTurn": 1,
+          "placementId": "L049:skill:S_FREE_MOVE",
+          "verification": {
+            "angle": 43,
+            "power": 59,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -5070,16 +8658,17 @@
       "themeGoal": "上昇と減速の前後関係を読む",
       "stageInTheme": 4,
       "themeRole": "Explore",
-      "lesson": null,
+      "lesson": "F",
       "contentRevision": "5.0",
       "encounterKind": "normal",
       "midboss": false,
       "encounterId": "enemy:blast",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "山腹の棚から天井片を外し、長い弧を通す",
-      "tacticalGoalEn": "Open the roof from the mountain shelf for a long arc.",
+      "tacticalGoal": "送風域での曲がりと上昇気流を利用する別経路を比べる。",
+      "tacticalGoalEn": "Compare wind deflection and an alternate updraft route.",
       "enemyHp": 4,
-      "terrainRevision": "5.0"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1200
     },
     {
       "id": 50,
@@ -5089,153 +8678,234 @@
       "boss": true,
       "spawn": [
         [
-          16,
-          8.0
+          17,
+          29
         ],
         [
-          87,
-          25.0
+          134,
+          30
         ]
       ],
       "floors": [
         [
           [
             0,
-            8
+            29
+          ],
+          [
+            12,
+            29
           ],
           [
             25,
-            8
+            29
           ],
           [
-            40,
-            6
+            35,
+            25
           ],
           [
-            49,
-            6
+            45,
+            18
           ],
           [
-            63,
-            15
+            55,
+            11
+          ],
+          [
+            69,
+            11
           ],
           [
             79,
-            25
+            15
           ],
           [
-            100,
-            25
+            89,
+            22
+          ],
+          [
+            102,
+            26
+          ],
+          [
+            113,
+            30
+          ],
+          [
+            133,
+            30
+          ],
+          [
+            152,
+            29
           ]
         ]
       ],
       "components": [
         {
-          "id": "050-C01",
+          "id": "050-LEFT-OVERHANG",
           "poly": [
             [
-              49,
-              35
+              20,
+              45
             ],
             [
-              53,
-              35
+              27,
+              52
             ],
             [
-              53,
-              6
+              34,
+              52
             ],
             [
-              49,
-              6
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "050-C02",
-          "poly": [
-            [
-              43,
-              25
+              38,
+              46
             ],
             [
-              58,
-              25
+              35,
+              42
             ],
             [
-              58,
-              21
-            ],
-            [
-              43,
-              21
+              25,
+              42
             ]
           ],
           "destructible": false
         },
         {
-          "id": "050-C03",
+          "id": "050-ORE-SHUNT-DECK",
           "poly": [
             [
-              64,
-              37
+              75,
+              31
             ],
             [
-              79,
-              37
+              82,
+              38
             ],
             [
-              79,
-              33
+              91,
+              38
             ],
             [
-              64,
-              33
+              95,
+              34
+            ],
+            [
+              90,
+              30
+            ],
+            [
+              81,
+              29
             ]
           ],
           "destructible": false
         },
         {
-          "id": "050-C04",
+          "id": "050-FRAGILE-ORE-GATE",
           "poly": [
             [
-              10,
-              33
+              84,
+              19
             ],
             [
-              47,
-              33
+              94,
+              19
             ],
             [
-              47,
-              30
+              94,
+              32
             ],
             [
-              10,
-              30
+              84,
+              32
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "050-DRILL-SHIELD",
+          "poly": [
+            [
+              119,
+              46
+            ],
+            [
+              124,
+              52
+            ],
+            [
+              137,
+              53
+            ],
+            [
+              143,
+              48
+            ],
+            [
+              139,
+              44
+            ],
+            [
+              123,
+              43
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "050-FIXED-EXHAUST",
+          "poly": [
+            [
+              112,
+              27
+            ],
+            [
+              117,
+              27
+            ],
+            [
+              117,
+              38
+            ],
+            [
+              112,
+              38
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
         {
           "type": "U",
           "v": [
-            37,
-            47,
-            4,
-            34
+            43,
+            68,
+            11,
+            43
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            76,
+            124,
+            30,
+            53
           ]
         },
         {
           "type": "K",
           "v": [
-            67,
-            35,
-            32
-          ]
+            101,
+            43,
+            25
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
         }
       ],
       "skills": {},
@@ -5283,7 +8953,8 @@
       "tacticalGoal": "下段から天井を開放し、中段浮島を経由して上段のドリルと排気部へ異なる角度で射線を作る。",
       "tacticalGoalEn": "Open a vertical mine, reach intermediate shelves, and reroute shots around the drill.",
       "enemyHp": 5,
-      "terrainRevision": "5.4"
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1520
     },
     {
       "id": 51,
@@ -5375,7 +9046,7 @@
       "themeGoal": "横風を受ける距離と、自分の位置を選ぶ",
       "stageInTheme": 1,
       "themeRole": "Explore",
-      "lesson": "F",
+      "lesson": null,
       "contentRevision": "5.0",
       "encounterKind": "normal",
       "midboss": false,
@@ -5486,12 +9157,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W14",
+          "id": "W11",
           "kind": "trial",
-          "weaponId": "W14",
-          "x": 24,
-          "h": 16.0,
-          "placementId": "L052:weapon:W14"
+          "weaponId": "W11",
+          "category": "weapon",
+          "amount": 2,
+          "x": 33.558,
+          "h": 38.826,
+          "spawnTurn": 1,
+          "placementId": "L052:weapon:W11",
+          "verification": {
+            "angle": 63,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0.5
+          }
         }
       ],
       "blink": [],
@@ -5706,12 +9388,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W16",
-          "kind": "trial",
-          "weaponId": "W16",
-          "x": 24,
-          "h": 21.0,
-          "placementId": "L054:weapon:W16"
+          "id": "SK054",
+          "kind": "skill",
+          "skillId": "S_LOW_GRAVITY",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 43.901,
+          "h": 23.99,
+          "spawnTurn": 1,
+          "placementId": "L054:skill:S_LOW_GRAVITY",
+          "verification": {
+            "angle": 20,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -6077,21 +9770,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W17",
+          "id": "W19",
           "kind": "trial",
-          "weaponId": "W17",
-          "x": 24,
-          "h": 32.0,
-          "placementId": "L057:weapon:W17"
-        },
-        {
-          "id": "SK057",
-          "kind": "skill",
-          "skillId": "S_BREACH",
-          "amount": 1,
-          "x": 20,
-          "h": 34.0,
-          "placementId": "L057:skill:S_BREACH"
+          "weaponId": "W19",
+          "category": "weapon",
+          "amount": 2,
+          "x": 33.487,
+          "h": 45.031,
+          "spawnTurn": 1,
+          "placementId": "L057:weapon:W19",
+          "verification": {
+            "angle": 63,
+            "power": 49,
+            "walk": 0,
+            "neighborHits": 7,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -6383,12 +10078,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W18",
-          "kind": "trial",
-          "weaponId": "W18",
-          "x": 24,
-          "h": 34.0,
-          "placementId": "L059:weapon:W18"
+          "id": "SK059",
+          "kind": "skill",
+          "skillId": "S_HIGH_GRAVITY",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.808,
+          "h": 38.146,
+          "spawnTurn": 5,
+          "placementId": "L059:skill:S_HIGH_GRAVITY",
+          "verification": {
+            "angle": 30,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -6764,12 +10470,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W19",
+          "id": "W02",
           "kind": "trial",
-          "weaponId": "W19",
-          "x": 20,
-          "h": 35.0,
-          "placementId": "L062:weapon:W19"
+          "weaponId": "W02",
+          "category": "weapon",
+          "amount": 2,
+          "x": 30.904,
+          "h": 44.133,
+          "spawnTurn": 1,
+          "placementId": "L062:weapon:W02",
+          "verification": {
+            "angle": 44,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -6995,12 +10712,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W20",
-          "kind": "trial",
-          "weaponId": "W20",
-          "x": 24,
-          "h": 34.0,
-          "placementId": "L064:weapon:W20"
+          "id": "SK064",
+          "kind": "skill",
+          "skillId": "S_REPAIR",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 45.787,
+          "h": 38.746,
+          "spawnTurn": 1,
+          "placementId": "L064:skill:S_REPAIR",
+          "verification": {
+            "angle": 32,
+            "power": 59,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -7366,21 +11094,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W02",
+          "id": "W07",
           "kind": "trial",
-          "weaponId": "W02",
-          "x": 24,
-          "h": 29.0,
-          "placementId": "L067:weapon:W02"
-        },
-        {
-          "id": "SK067",
-          "kind": "skill",
-          "skillId": "S_GUARD",
-          "amount": 1,
-          "x": 20,
-          "h": 31.0,
-          "placementId": "L067:skill:S_GUARD"
+          "weaponId": "W07",
+          "category": "weapon",
+          "amount": 2,
+          "x": 44.802,
+          "h": 34.653,
+          "spawnTurn": 1,
+          "placementId": "L067:weapon:W07",
+          "verification": {
+            "angle": 32,
+            "power": 62,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -7532,7 +11262,27 @@
         }
       ],
       "skills": {},
-      "pickups": [],
+      "pickups": [
+        {
+          "id": "SK068",
+          "kind": "skill",
+          "skillId": "S_FULL_REPAIR",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 39.5,
+          "h": 35.751,
+          "spawnTurn": 1,
+          "placementId": "L068:skill:S_FULL_REPAIR",
+          "verification": {
+            "angle": 56,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
       "blink": [],
       "teleport": true,
       "actionLimit": 16,
@@ -7666,12 +11416,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W04",
-          "kind": "trial",
-          "weaponId": "W04",
-          "x": 24,
-          "h": 33.0,
-          "placementId": "L069:weapon:W04"
+          "id": "SK069",
+          "kind": "skill",
+          "skillId": "S_BARRIER",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.976,
+          "h": 33.281,
+          "spawnTurn": 5,
+          "placementId": "L069:skill:S_BARRIER",
+          "verification": {
+            "angle": 17,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
         }
       ],
       "blink": [],
@@ -8099,12 +11860,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W06",
+          "id": "W09",
           "kind": "trial",
-          "weaponId": "W06",
-          "x": 24,
-          "h": 32.0,
-          "placementId": "L072:weapon:W06"
+          "weaponId": "W09",
+          "category": "weapon",
+          "amount": 2,
+          "x": 43.515,
+          "h": 27.674,
+          "spawnTurn": 5,
+          "placementId": "L072:weapon:W09",
+          "verification": {
+            "angle": 5,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -8343,12 +12115,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W07",
-          "kind": "trial",
-          "weaponId": "W07",
-          "x": 24,
-          "h": 25.0,
-          "placementId": "L074:weapon:W07"
+          "id": "SK074",
+          "kind": "skill",
+          "skillId": "S_POWER_UP_I",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.317,
+          "h": 16.396,
+          "spawnTurn": 1,
+          "placementId": "L074:skill:S_POWER_UP_I",
+          "verification": {
+            "angle": 9,
+            "power": 49,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -8737,21 +12520,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W09",
+          "id": "W12",
           "kind": "trial",
-          "weaponId": "W09",
-          "x": 24,
-          "h": 15.0,
-          "placementId": "L077:weapon:W09"
-        },
-        {
-          "id": "SK077",
-          "kind": "skill",
-          "skillId": "S_REPAIR",
-          "amount": 1,
-          "x": 20,
-          "h": 17.0,
-          "placementId": "L077:skill:S_REPAIR"
+          "weaponId": "W12",
+          "category": "weapon",
+          "amount": 2,
+          "x": 46.98,
+          "h": 25.236,
+          "spawnTurn": 1,
+          "placementId": "L077:weapon:W12",
+          "verification": {
+            "angle": 32,
+            "power": 87,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -8892,7 +12677,27 @@
         }
       ],
       "skills": {},
-      "pickups": [],
+      "pickups": [
+        {
+          "id": "SK078",
+          "kind": "skill",
+          "skillId": "S_INVINCIBLE",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 36.27,
+          "h": 45.452,
+          "spawnTurn": 1,
+          "placementId": "L078:skill:S_INVINCIBLE",
+          "verification": {
+            "angle": 44,
+            "power": 65,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
+        }
+      ],
       "blink": [],
       "teleport": true,
       "actionLimit": 16,
@@ -9011,12 +12816,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W12",
-          "kind": "trial",
-          "weaponId": "W12",
-          "x": 24,
-          "h": 30.0,
-          "placementId": "L079:weapon:W12"
+          "id": "SK079",
+          "kind": "skill",
+          "skillId": "S_SPECIAL_REFILL",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 38.76,
+          "h": 34.668,
+          "spawnTurn": 1,
+          "placementId": "L079:skill:S_SPECIAL_REFILL",
+          "verification": {
+            "angle": 44,
+            "power": 45,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -9523,12 +13339,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W13",
+          "id": "W10",
           "kind": "trial",
-          "weaponId": "W13",
-          "x": 24,
-          "h": 25.0,
-          "placementId": "L082:weapon:W13"
+          "weaponId": "W10",
+          "category": "weapon",
+          "amount": 2,
+          "x": 35.888,
+          "h": 34.993,
+          "spawnTurn": 1,
+          "placementId": "L082:weapon:W10",
+          "verification": {
+            "angle": 53,
+            "power": 49,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -9839,12 +13666,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W14",
-          "kind": "trial",
-          "weaponId": "W14",
-          "x": 24,
-          "h": 23.0,
-          "placementId": "L084:weapon:W14"
+          "id": "SK084",
+          "kind": "skill",
+          "skillId": "S_ENEMY_WEAKEN",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.537,
+          "h": 31.132,
+          "spawnTurn": 1,
+          "placementId": "L084:skill:S_ENEMY_WEAKEN",
+          "verification": {
+            "angle": 32,
+            "power": 75,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -10307,21 +14145,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W16",
+          "id": "W11",
           "kind": "trial",
-          "weaponId": "W16",
-          "x": 24,
-          "h": 34.0,
-          "placementId": "L087:weapon:W16"
-        },
-        {
-          "id": "SK087",
-          "kind": "skill",
-          "skillId": "S_BREACH",
-          "amount": 1,
-          "x": 20,
-          "h": 36.0,
-          "placementId": "L087:skill:S_BREACH"
+          "weaponId": "W11",
+          "category": "weapon",
+          "amount": 2,
+          "x": 44.825,
+          "h": 43.87,
+          "spawnTurn": 5,
+          "placementId": "L087:weapon:W11",
+          "verification": {
+            "angle": 72,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 3,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -10476,7 +14316,27 @@
         }
       ],
       "skills": {},
-      "pickups": [],
+      "pickups": [
+        {
+          "id": "SK088",
+          "kind": "skill",
+          "skillId": "S_ALL_ATTACK",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 58.42,
+          "h": 39.264,
+          "spawnTurn": 1,
+          "placementId": "L088:skill:S_ALL_ATTACK",
+          "verification": {
+            "angle": 32,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 8,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
       "blink": [],
       "teleport": true,
       "actionLimit": 20,
@@ -10653,12 +14513,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W17",
-          "kind": "trial",
-          "weaponId": "W17",
-          "x": 24,
-          "h": 30.0,
-          "placementId": "L089:weapon:W17"
+          "id": "SK089",
+          "kind": "skill",
+          "skillId": "S_ENEMY_SKIP",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 36.684,
+          "h": 43.14,
+          "spawnTurn": 5,
+          "placementId": "L089:skill:S_ENEMY_SKIP",
+          "verification": {
+            "angle": 55,
+            "power": 54,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
         }
       ],
       "blink": [],
@@ -11218,12 +15089,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W18",
+          "id": "W14",
           "kind": "trial",
-          "weaponId": "W18",
-          "x": 24,
-          "h": 36.0,
-          "placementId": "L092:weapon:W18"
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 45.354,
+          "h": 36.984,
+          "spawnTurn": 1,
+          "placementId": "L092:weapon:W14",
+          "verification": {
+            "angle": 20,
+            "power": 69,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -11569,12 +15451,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W19",
-          "kind": "trial",
-          "weaponId": "W19",
-          "x": 24,
-          "h": 32.0,
-          "placementId": "L094:weapon:W19"
+          "id": "SK094",
+          "kind": "skill",
+          "skillId": "S_LOW_GRAVITY",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 42.832,
+          "h": 31.456,
+          "spawnTurn": 1,
+          "placementId": "L094:skill:S_LOW_GRAVITY",
+          "verification": {
+            "angle": 32,
+            "power": 45,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -12103,21 +15996,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W20",
+          "id": "W16",
           "kind": "trial",
-          "weaponId": "W20",
-          "x": 24,
-          "h": 37.0,
-          "placementId": "L097:weapon:W20"
-        },
-        {
-          "id": "SK097",
-          "kind": "skill",
-          "skillId": "S_GUARD",
-          "amount": 1,
-          "x": 20,
-          "h": 39.0,
-          "placementId": "L097:skill:S_GUARD"
+          "weaponId": "W16",
+          "category": "weapon",
+          "amount": 2,
+          "x": 43.843,
+          "h": 39.99,
+          "spawnTurn": 1,
+          "placementId": "L097:weapon:W16",
+          "verification": {
+            "angle": 20,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 6,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],
@@ -12446,12 +16341,23 @@
       "skills": {},
       "pickups": [
         {
-          "id": "W02",
-          "kind": "trial",
-          "weaponId": "W02",
-          "x": 24,
-          "h": 28.0,
-          "placementId": "L099:weapon:W02"
+          "id": "SK099",
+          "kind": "skill",
+          "skillId": "S_HIGH_GRAVITY",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 37,
+          "h": 25.214,
+          "spawnTurn": 1,
+          "placementId": "L099:skill:S_HIGH_GRAVITY",
+          "verification": {
+            "angle": 16,
+            "power": 50,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
         }
       ],
       "blink": [],

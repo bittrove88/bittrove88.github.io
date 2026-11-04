@@ -5,7 +5,7 @@ function create(canvas,configuration={}){
  if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const unified=!!root.ArcVisualArt&&configuration.artStyle!=='legacy';
  let arenaWidth=1000;
- const isArenaPickup=item=>!item.collected&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
+ const isArenaPickup=item=>!item.collected&&!item.hidden&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
  const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
  function canvasRect(element){
   if(!element)return null;
@@ -53,7 +53,7 @@ function create(canvas,configuration={}){
   for(let i=0;i<count;i++){const a=i*2.399,dist=(14+66*t)*(1+(i%3)*.17)/scale;const x=Math.cos(a)*dist,y=Math.sin(a)*dist-35*t*(1-t)/scale;path([{x:x-Math.cos(a)*10*(1-t)/scale,y:y-Math.sin(a)*10*(1-t)/scale},{x,y}],i%3?'#fff1b8':look.color,Math.max(1,3*(1-t))/scale);}
   ctx.restore();
  }
- function aimKey(s){return [s.stage,s.round,s.bossPhase,s.characterId,s.mode,s.teleportMode,s.selectedSkill,s.angle.toFixed(2),...s.units.flatMap(u=>[u.x.toFixed(1),u.y.toFixed(1),u.slope.toFixed(3),u.exposed,u.facing,...u.parts.map(p=>p.hp)])].join(':');}
+ function aimKey(s){return [s.stage,s.round,s.bossPhase,s.characterId,s.mode,s.teleportMode,s.selectedSkill,JSON.stringify(s.skillEffects),s.angle.toFixed(2),...s.units.flatMap(u=>[u.x.toFixed(1),u.y.toFixed(1),u.slope.toFixed(3),u.exposed,u.facing,...u.parts.map(p=>p.hp)])].join(':');}
  function aimPlan(s){
   const key=aimKey(s)+':'+s.power.toFixed(1);
   if(!aimCache||aimCache.key!==key||aimCache.world!==s.world)aimCache={key,world:s.world,plan:E.trajectory(s,0,s.angle,s.power)};
@@ -327,7 +327,7 @@ function create(canvas,configuration={}){
    ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#ffe2c2';ctx.fillText('!',t.targetX,y+20/scale);
   }
   for(const item of s.pickups){if(localDemo&&demonstration.id!=='pickup')continue;if(!isArenaPickup(item)||demonstration?.plan?.events.some(e=>e.type==='pickup'&&e.id===item.id&&demoFlight>=e.t))continue;const y=item.y+(options.reducedMotion?0:Math.sin(time*Math.PI+item.x)*4);
-   if(unified){root.ArcVisualArt.drawPickup(ctx,item,{time,dpr,reducedMotion:options.reducedMotion});continue;}
+   if(unified){root.ArcVisualArt.drawPickup(ctx,item,{time,dpr,reducedMotion:options.reducedMotion,bounds:{left:-view.x/scale,right:(w-view.x)/scale,top:(Math.max(top,header?.bottom||0)+2-view.y)/scale,bottom:(bottom-view.y)/scale}});continue;}
    const trial=item.kind==='trial',ammo=item.kind==='ammo',skillBox=item.kind==='skill';ctx.save();ctx.translate(item.x,y);round(-22,-18,44,36,7,skillBox?'#536987':trial?'#6d7858':'#596b78');ctx.strokeStyle=trial?'#efffb8':'#d5efff';ctx.lineWidth=2/scale;ctx.strokeRect(-20,-16,40,32);
    if(trial){const look=appearance(item.weaponId);projectile({x:0,y:0},null,{...look,size:7*scale},scale,time);}else if(skillBox){root.ArcSkills.draw(ctx,item.skill,0,0,27);}else if(ammo){for(const x of [-8,2,12]){round(x-3,-10,6,21,2,'#e2f4c6');}}else{circle(0,0,6,'#f0ddff');}ctx.restore();
 

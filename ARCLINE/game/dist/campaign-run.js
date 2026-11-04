@@ -9,8 +9,8 @@ const newId=()=>Date.now().toString(36)+'-'+randomSeed().toString(36);
 function ledger(raw,stage){
  return [...new Set((Array.isArray(raw)?raw:[]).filter(id=>{
   if(typeof id!=='string'||id.length>100||!/^L\d{3}:[\w:-]+$/.test(id))return false;
-  const n=Number(id.slice(1,4));return n>=1&&n<=stage&&chapter(n)===chapter(stage);
- }))].slice(0,200);
+  const n=Number(id.slice(1,4));return n>=1&&n<=100;
+ }))].slice(0,1000);
 }
 function decode(raw,maxStage=100){
  if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==1)return null;
@@ -27,8 +27,8 @@ function checkpoint(stage,inventory={},pickupLedger=[],runId=newId(),seed=random
 function selectedEntry(data,stage,runId,seed){
  if(!Number.isInteger(stage)||stage<1||stage>Math.min(100,data.cleared+1))throw RangeError('Stage is not unlocked');
  const active=decode(data.chapterRun,Math.min(100,data.cleared+1)),sameChapter=active&&chapter(active.stage)===chapter(stage);
- const entry=checkpoint(stage,sameChapter?active.inventory:{},sameChapter?active.pickupLedger:[],runId,seed);
- if(sameChapter&&entry.inventory.weapons[active.mode]>0)entry.mode=active.mode;
+ const entry=checkpoint(stage,active?.inventory||data.campaignInventory||{},data.pickupLedger||active?.pickupLedger||[],runId,seed);
+ if(active&&entry.inventory.weapons[active.mode]>0)entry.mode=active.mode;
  return entry;
 }
 function inspect(data,stage){
@@ -45,7 +45,7 @@ function restart(data,stage,options={}){
  if(!Number.isInteger(stage)||stage<1||stage>100)return null;
  const first=(chapter(stage)-1)*10+1;
  if(first>data.cleared+1||first>100||first<1)return null;
- data.chapterRun=checkpoint(first,{},[],newId(),options.seed??randomSeed());return {practice:false,entry:decode(data.chapterRun)};
+ data.chapterRun=checkpoint(first,data.campaignInventory||data.chapterRun?.inventory||{},data.pickupLedger||data.chapterRun?.pickupLedger||[],newId(),options.seed??randomSeed());return {practice:false,entry:decode(data.chapterRun)};
 }
 function matches(data,context){const a=data.chapterRun,b=context?.entry;return !context?.practice&&a&&b&&a.runId===b.runId&&a.stage===b.stage&&a.seed===b.seed;}
 function updatePreparation(data,context,state){
@@ -64,11 +64,19 @@ function finish(data,context,state,options={}){
  if(state.pendingLoot?.length)return {advanced:false,pending:true};
  CrewUsage.record(data,state);
  const reset=state.stage%10===0;data.cleared=Math.max(data.cleared,state.stage);Crew.join(data,state.stage);
- const inventory=reset?I.normalize({}):I.fromState(state),pickupLedger=reset?[]:ledger(state.collectedPickupIds,state.stage);
+ const inventory=I.fromState(state),pickupLedger=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);data.campaignInventory=inventory;data.pickupLedger=pickupLedger;
  data.chapterRun=state.stage===100?null:checkpoint(state.stage+1,inventory,pickupLedger,reset?newId():context.entry.runId,options.seed??randomSeed());
- if(data.chapterRun&&!reset&&data.chapterRun.inventory.weapons[state.mode]>0)data.chapterRun.mode=state.mode;
- return {advanced:true,reset,nextStage:state.stage===100?null:state.stage+1};
+ if(data.chapterRun&&data.chapterRun.inventory.weapons[state.mode]>0)data.chapterRun.mode=state.mode;
+ return {advanced:true,reset:false,nextStage:state.stage===100?null:state.stage+1};
 }
-const api={chapter,decode,begin,inspect,restart,finish,updatePreparation,chooseWeapon,checkpoint};
+// Persist earned and consumed stock together with the once-only capsule ledger.
+// The final relay keeps its existing battle-local retry snapshot contract.
+function updateBattle(data,context,state){
+ if(!matches(data,context)||state.stage===100)return false;
+ const inventory=I.fromState(state),ids=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);
+ data.campaignInventory=inventory;data.pickupLedger=ids;
+ Object.assign(data.chapterRun,{inventory,pickupLedger:ids,mode:inventory.weapons[state.mode]>0?state.mode:'W01'});context.entry=decode(data.chapterRun);return true;
+}
+const api={updateBattle,chapter,decode,begin,inspect,restart,finish,updatePreparation,chooseWeapon,checkpoint};
 if(typeof module!=='undefined')module.exports=api;else root.ArcCampaignRun=api;
 })(globalThis);
