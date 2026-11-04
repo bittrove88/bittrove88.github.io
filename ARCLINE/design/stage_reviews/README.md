@@ -7,7 +7,7 @@
 1. 現在の[画面データ](map_review_gallery_data.json)を開く。`stages`配列末尾へ**新しいステージの1件**を追記する。その後、次の生成コマンドを実行すると共通HTMLへ反映され、ステージ選択と前後移動が自動更新される。
 2. **HTMLへのデータ埋め込みを生成**：リポジトリのルートから `python3 ARCLINE/design/stage_reviews/build_gallery_html.py` を実行。確認は同じコマンドに `--check` を付ける。HTMLの見た目やJavaScriptを手動修正しない。コミットにはJSONと生成済HTMLの両方を含める。
 3. ステージの詳細設計は`stage_XXX_review_v1.md`、位置・床座標・既存との比較用資料は`stage_XXX_proposal_v1.json`に保存。HTML中には説明を書き込まない。
-4. [100面進行台帳](../stage_map_design_register_v1.json)で該当面をレビュー待ちにする。ユーザーの「OK」後に**データ中の`state`を`approved`へ変更**し、台帳も設計承認済みにする。ゲームには反映しない。
+4. [100面進行台帳](../stage_map_design_register_v1.json)で該当面をレビュー待ちにする。ユーザーが確認区切り（5面・4面・10の倍数1面）を了承した後に、対象データのstateをapprovedへ変更し、台帳も設計承認済みにする。ゲームには反映しない。
 
 必要な記述の雛形（`stages`配列内の1件）：
 
@@ -61,3 +61,11 @@
 ## 読込エラー修正（2026-11-04）
 
 以前のHTMLはページ表示時にJSONへ `fetch` を行い、環境によって `Failed to fetch` が発生したため廃止。現在は[1〜9面のデータ](map_review_gallery_data.json)を[HTML](map_review_gallery.html)へ埋め込んだ**自己完結型の比較画面**。将来はJSONへ1件追加して[ビルドスクリプト](build_gallery_html.py)を一度実行するだけで更新できる。HTML内データとJSONの同期は `python3 ARCLINE/design/stage_reviews/build_gallery_html.py --check` で確認できる。
+
+## 最新の確認単位と画面仕様（2026-11-04）
+
+- 内部の地形設計は**一面ずつ**。確認は x1〜x5（5面）、x6〜x9（4面）、x0（1面）の3回に集約。合意前は各面pending。
+- ステージ1〜9は承認済み。次はステージ10を単独確認、以降11〜15、16〜19、20…と進める。
+- 比較画面は**同縮尺で左右に並べるだけ**。重ね表示は廃止し、説明も変更の一文・理由・維持点・学びに絞る。
+- 各ステージをJSONへ追加したら、確認区切りの時点で1回だけ生成スクリプト（build_gallery_html.py）でHTMLへ内蔵し直す。表示ロジックは編集しない。
+- 静的な座標・出撃位置・難易度・承認状態・内蔵データの整合だけを確認する。戦闘シミュレーションなし。
