@@ -1,0 +1,596 @@
+{
+  "schema": "ARCLINE-map-geometry-patch-v2",
+  "date": "2026-11-04",
+  "base": "stage_030_040_fresh_redesign_v1.json",
+  "approval": "未承認。今回の指示は修正のみ。",
+  "notes": "更新済みの全15面比較HTMLはチャットでローカル配布。これらの座標はv1の該当面を上書きする。",
+  "stages": [
+    {
+      "stage": 32,
+      "parts": [
+        {
+          "id": "032-CANTILEVER",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              45,
+              33
+            ],
+            [
+              50,
+              39
+            ],
+            [
+              59,
+              40
+            ],
+            [
+              68,
+              36
+            ],
+            [
+              65,
+              32
+            ],
+            [
+              53,
+              31
+            ]
+          ]
+        },
+        {
+          "id": "032-SLOPE-SENTINEL",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              69,
+              10
+            ],
+            [
+              75,
+              10
+            ],
+            [
+              75,
+              23
+            ],
+            [
+              72,
+              27
+            ],
+            [
+              69,
+              23
+            ]
+          ]
+        },
+        {
+          "id": "032-FRAGILE-LEDGE",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              84,
+              8
+            ],
+            [
+              91,
+              8
+            ],
+            [
+              92,
+              19
+            ],
+            [
+              86,
+              22
+            ],
+            [
+              83,
+              19
+            ]
+          ]
+        }
+      ],
+      "goal": "鏡斜面の反射点を選び、固定岩柱と破壊壁を避ける",
+      "reason": "固定岩庇・岩柱・破壊壁を追加"
+    },
+    {
+      "stage": 33,
+      "parts": [
+        {
+          "id": "033-BASIN-BUTTRESS",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              57,
+              4
+            ],
+            [
+              60,
+              4
+            ],
+            [
+              64,
+              5
+            ],
+            [
+              66,
+              21
+            ],
+            [
+              63,
+              26
+            ],
+            [
+              60,
+              22
+            ],
+            [
+              58,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "033-LEFT-BROKEN-ARCH",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              38,
+              26
+            ],
+            [
+              44,
+              31
+            ],
+            [
+              52,
+              32
+            ],
+            [
+              58,
+              28
+            ],
+            [
+              56,
+              24
+            ],
+            [
+              45,
+              23
+            ]
+          ]
+        },
+        {
+          "id": "033-RIGHT-BREACH",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              98,
+              19
+            ],
+            [
+              104,
+              19
+            ],
+            [
+              104,
+              30
+            ],
+            [
+              99,
+              33
+            ],
+            [
+              97,
+              30
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            30,
+            52,
+            4
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            96,
+            7
+          ]
+        }
+      ],
+      "enemy": {
+        "x": 114,
+        "h": 19
+      },
+      "goal": "二枚の反射床で中央の遮蔽を越え、右岸の破壊門を利用する",
+      "reason": "中央固定岩隔壁・左上岩庇・右岸破壊門を追加"
+    },
+    {
+      "stage": 34,
+      "parts": [
+        {
+          "id": "034-LEFT-CAVE-ROOF",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              0,
+              30
+            ],
+            [
+              8,
+              36
+            ],
+            [
+              23,
+              38
+            ],
+            [
+              28,
+              36
+            ],
+            [
+              28,
+              22
+            ],
+            [
+              15,
+              21
+            ],
+            [
+              0,
+              22
+            ]
+          ]
+        },
+        {
+          "id": "034-RIGHT-CAVE-ROOF",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              45,
+              37
+            ],
+            [
+              53,
+              36
+            ],
+            [
+              60,
+              31
+            ],
+            [
+              59,
+              23
+            ],
+            [
+              52,
+              23
+            ],
+            [
+              45,
+              23
+            ]
+          ]
+        },
+        {
+          "id": "034-BREAKABLE-EXIT",
+          "kind": "roof",
+          "breakable": true,
+          "poly": [
+            [
+              62,
+              31
+            ],
+            [
+              67,
+              34
+            ],
+            [
+              74,
+              33
+            ],
+            [
+              79,
+              29
+            ],
+            [
+              75,
+              25
+            ],
+            [
+              64,
+              25
+            ]
+          ]
+        }
+      ],
+      "roofOpening": {
+        "fromX": 28,
+        "toX": 45,
+        "widthPx": 170,
+        "alwaysOpen": true
+      },
+      "goal": "洞窟天井の常設170pxの穴と鏡床を使い分ける"
+    },
+    {
+      "stage": 35,
+      "parts": [
+        {
+          "id": "035-UPPER-CORRIDOR",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              5,
+              29
+            ],
+            [
+              11,
+              35
+            ],
+            [
+              43,
+              35
+            ],
+            [
+              58,
+              31
+            ],
+            [
+              57,
+              27
+            ],
+            [
+              10,
+              27
+            ]
+          ]
+        },
+        {
+          "id": "035-END-SHIELD",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              95,
+              25
+            ],
+            [
+              102,
+              29
+            ],
+            [
+              116,
+              29
+            ],
+            [
+              121,
+              25
+            ],
+            [
+              118,
+              21
+            ],
+            [
+              99,
+              21
+            ]
+          ],
+          "reflectiveUnderside": [
+            [
+              99,
+              21
+            ],
+            [
+              118,
+              21
+            ]
+          ],
+          "reflectiveUndersideRequiresImplementation": true
+        }
+      ],
+      "goal": "Reflect Ram上部の天井下面190pxの反射と下段Wを選択する",
+      "warning": "天井下面反射は現行Wでは未実装、新規衝突材が必要"
+    },
+    {
+      "stage": 36,
+      "parts": [
+        {
+          "id": "036-LEFT-PILLAR-BASE",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              40,
+              4
+            ],
+            [
+              47,
+              4
+            ],
+            [
+              47,
+              18
+            ],
+            [
+              40,
+              18
+            ]
+          ]
+        },
+        {
+          "id": "036-LEFT-PILLAR-CROWN",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              40,
+              31
+            ],
+            [
+              47,
+              31
+            ],
+            [
+              47,
+              49
+            ],
+            [
+              43,
+              51
+            ],
+            [
+              40,
+              49
+            ]
+          ]
+        },
+        {
+          "id": "036-RIGHT-PILLAR-BASE",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              66,
+              12
+            ],
+            [
+              73,
+              14
+            ],
+            [
+              73,
+              23
+            ],
+            [
+              66,
+              23
+            ]
+          ]
+        },
+        {
+          "id": "036-RIGHT-PILLAR-CROWN",
+          "kind": "wall",
+          "breakable": false,
+          "poly": [
+            [
+              66,
+              34
+            ],
+            [
+              73,
+              34
+            ],
+            [
+              73,
+              47
+            ],
+            [
+              70,
+              50
+            ],
+            [
+              66,
+              47
+            ]
+          ]
+        },
+        {
+          "id": "036-BREAKABLE-GATE",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              53,
+              11
+            ],
+            [
+              59,
+              11
+            ],
+            [
+              59,
+              22
+            ],
+            [
+              53,
+              22
+            ]
+          ]
+        },
+        {
+          "id": "036-WIDE-OVERPASS",
+          "kind": "bridge",
+          "breakable": false,
+          "poly": [
+            [
+              48,
+              43
+            ],
+            [
+              55,
+              46
+            ],
+            [
+              76,
+              46
+            ],
+            [
+              87,
+              43
+            ],
+            [
+              83,
+              40
+            ],
+            [
+              55,
+              40
+            ]
+          ]
+        }
+      ],
+      "shootingWindows": [
+        {
+          "xRange": [
+            40,
+            47
+          ],
+          "heightRange": [
+            18,
+            31
+          ]
+        },
+        {
+          "xRange": [
+            66,
+            73
+          ],
+          "heightRange": [
+            23,
+            34
+          ]
+        }
+      ],
+      "bridgeSpanPx": 390,
+      "goal": "上下で分離した縦柱の開口と固定橋の上側の射撃経路を選択",
+      "warning": "固定橋は開閉橋Bとは異なる。実射線未検証"
+    }
+  ]
+}
