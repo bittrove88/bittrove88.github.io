@@ -1,0 +1,450 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 4,
+  "date": "2026-11-04",
+  "status": "確認待ち・未承認・ゲーム未実装",
+  "designBasis": "最新マップデザインガイドから地形骨格を新規設計、既存地形は比較参照",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 4,
+    "name": "弾で渡る船着場",
+    "goal": "谷の向こうの広い足場へ転移して撃つ",
+    "floor": [
+      [
+        0,
+        15
+      ],
+      [
+        30,
+        15
+      ],
+      [
+        40,
+        5
+      ],
+      [
+        57,
+        5
+      ],
+      [
+        68,
+        16
+      ],
+      [
+        100,
+        16
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      16,
+      81
+    ],
+    "route": "谷の向こうの広い足場へ転移して撃つ",
+    "nameEn": "Relay Landing",
+    "goalEn": "Teleport across the valley onto a wide landing.",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          40,
+          5
+        ],
+        [
+          57,
+          5
+        ],
+        [
+          68,
+          16
+        ],
+        [
+          100,
+          16
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 15
+      },
+      "enemy": {
+        "x": 81,
+        "h": 16
+      },
+      "pickups": [
+        {
+          "id": "W04",
+          "kind": "trial",
+          "weaponId": "W04",
+          "x": 24,
+          "h": 22,
+          "placementId": "L004:weapon:W04"
+        }
+      ]
+    }
+  },
+  "after": {
+    "stage": 4,
+    "name": "弾で渡る船着場",
+    "goal": "水路を飛び越え、広い対岸の足場へ安全に転移する",
+    "floor": [
+      [
+        0,
+        15
+      ],
+      [
+        8,
+        16
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        24,
+        16.2
+      ],
+      [
+        30,
+        15
+      ],
+      [
+        38,
+        12
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "island",
+        "id": "004-IS01",
+        "poly": [
+          [
+            40,
+            19
+          ],
+          [
+            43,
+            22
+          ],
+          [
+            51,
+            23
+          ],
+          [
+            55,
+            21
+          ],
+          [
+            54,
+            18
+          ],
+          [
+            46,
+            18
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      16,
+      83
+    ],
+    "route": "手前の安定した港岸から、向こう岸の広い地面を確認して転移。",
+    "nameEn": "Relay Landing",
+    "goalEn": "Teleport across the valley onto a wide landing.",
+    "floors": [
+      [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          24,
+          16.2
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          38,
+          12
+        ]
+      ],
+      [
+        [
+          48,
+          12
+        ],
+        [
+          53,
+          15
+        ],
+        [
+          61,
+          16
+        ],
+        [
+          86,
+          16
+        ],
+        [
+          94,
+          17
+        ],
+        [
+          100,
+          17
+        ]
+      ]
+    ],
+    "floorSegments": [
+      [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          24,
+          16.2
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          38,
+          12
+        ]
+      ],
+      [
+        [
+          48,
+          12
+        ],
+        [
+          53,
+          15
+        ],
+        [
+          61,
+          16
+        ],
+        [
+          86,
+          16
+        ],
+        [
+          94,
+          17
+        ],
+        [
+          100,
+          17
+        ]
+      ]
+    ],
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          24,
+          16.2
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          38,
+          12
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            15
+          ],
+          [
+            8,
+            16
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            24,
+            16.2
+          ],
+          [
+            30,
+            15
+          ],
+          [
+            38,
+            12
+          ]
+        ],
+        [
+          [
+            48,
+            12
+          ],
+          [
+            53,
+            15
+          ],
+          [
+            61,
+            16
+          ],
+          [
+            86,
+            16
+          ],
+          [
+            94,
+            17
+          ],
+          [
+            100,
+            17
+          ]
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "id": "004-IS01",
+          "poly": [
+            [
+              40,
+              19
+            ],
+            [
+              43,
+              22
+            ],
+            [
+              51,
+              23
+            ],
+            [
+              55,
+              21
+            ],
+            [
+              54,
+              18
+            ],
+            [
+              46,
+              18
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 16
+      },
+      "enemy": {
+        "x": 83,
+        "h": 16
+      },
+      "pickups": [
+        {
+          "id": "W04",
+          "kind": "trial",
+          "weaponId": "W04",
+          "x": 24,
+          "h": 22,
+          "placementId": "L004:weapon:W04"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "headline": "船着場を小さな水路で分断。対岸の広い足場へ転移する。",
+    "why": "初めての転移先をはっきり見せる。小さな中継浮島は任意の寄り道にする。",
+    "preserved": "入門難易度と通常敵。W04試用武器、広い対岸の着地スペース、手数は維持。",
+    "oldGoal": "谷の向こうの広い足場へ転移して撃つ",
+    "newGoal": "水路を飛び越え、広い対岸の足場へ安全に転移する",
+    "learningDecision": "発展",
+    "sceneType": "分断水路／任意の浮島"
+  },
+  "routeDesign": {
+    "primary": "手前の安定した港岸から、向こう岸の広い地面を確認して転移。",
+    "alternate": "水路上の独立岩棚へ転移し、敵側の高台へ向けて射角を変える（任意）。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": false,
+    "midboss": false,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "転移が必要な地面の断絶を明確にするが、着地点は狭くしない。",
+    "reviewRisk": "初回転移を極細の着地にしない。水路幅と跳躍先の分かりやすさを必ずレビューする。"
+  },
+  "implementationNote": "不連続床の設計。game/tools/build_campaign.pyによる現在の通常面ビルドが直接扱えるという意味ではない。実装時はfloors/floorSegmentsを解釈する処理が必要。",
+  "approval": "未承認"
+}
