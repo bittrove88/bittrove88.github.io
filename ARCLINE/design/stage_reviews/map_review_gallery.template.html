@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCLINE｜マップ比較・1面ずつ確認</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1923;--surface:#142d3a;--border:#395d67;--ink:#edf8f4;--soft:#bacfd0;--mint:#97e7be;--sky:#b6cdd9;--gold:#f1ca8b;font:15px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(170deg,#0a1923 15%,#122d36 100%);min-height:100dvh;color:var(--ink)}
+main{max-width:1150px;margin:0 auto;padding:27px 20px 55px}
+h1{font-size:clamp(24px,3.5vw,36px);line-height:1.3;margin:3px 0 8px}h2{font-size:clamp(20px,2.4vw,26px);margin:0}h3{font-size:15px;margin:0 0 5px}p{margin:7px 0}small,.muted{color:var(--soft)}a{color:#abebdb}button{font:inherit;cursor:pointer;border:1px solid #527584;background:#163646;color:#eff8f8;padding:10px 15px;border-radius:10px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button[aria-selected="true"],button[aria-pressed="true"]{background:#b6e9d0;color:#123b30;border-color:#b6e9d0;font-weight:700}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.15em;color:#b6dece}
+.intro{max-width:800px;color:var(--soft)}
+.tabs{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:22px 0 20px}.tabs button{display:flex;gap:10px;align-items:center}
+.status{font-size:11px;border:1px solid #7c936c;border-radius:99px;padding:2px 9px;color:#d9e8ba;white-space:nowrap}
+.status.approved{color:#b6f2ca;border-color:#589e7f}.status.pending{color:#edcf9a;border-color:#937a52}
+.sheet{border:1px solid var(--border);background:rgba(19,43,55,.93);border-radius:16px;padding:20px}
+.lead{margin-top:9px;font-size:clamp(16px,2vw,19px);font-weight:700;color:#d4f9e4}
+.sublead{color:#bcd3d3}.topline{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.map{padding:12px;background:#0c2230;border-radius:12px;border:1px solid #355461;min-width:0}
+.map .header{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px}
+.map .header strong{font-size:14px}.tag{font-size:11px;color:#b8d0d6}
+.chart{overflow:hidden;border:1px solid #385d66;border-radius:9px}.chart svg{width:100%;height:auto;display:block;background:#102d39}
+.legend{color:var(--soft);font-size:11px;margin:7px 0 0}.summary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.summary article{background:#193642;padding:15px;border-radius:11px}.summary article p{font-size:14px;color:#d3e3e1}
+.goal{margin-top:16px;background:#213b45;border-left:3px solid #b6e9d0;padding:12px 14px;border-radius:0 9px 9px 0}
+.links{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin:16px 0 0}
+.note{font-size:12px;color:#a6bfbe;margin-top:18px}
+footer{font-size:12px;color:#9eb6b8;margin-top:18px}
+@media(max-width:650px){main{padding:14px 8px 32px}.sheet{padding:12px}.grid,.summary{grid-template-columns:1fr}.map{padding:10px}.tabs{margin:17px 0}.tabs button{padding:8px 11px}.mode button{padding:8px 10px}}
+select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;border-radius:10px;padding:10px 13px;max-width:100%}button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:650px){.tabs{gap:6px}.tabs button{padding:8px 10px}select{padding:8px 10px}}
+</style></head>
+<body><main>
+<div class="kicker">ARCLINE　/　100 MAP DESIGN REVIEWS</div>
+<h1 id="reviewTitle">マップ比較</h1>
+<p class="intro">1面ずつ、既存と変更案を見比べて確認します。難しい数値は省き、<strong>何が変わるか、遊びがどう変わるか</strong>に絞りました。</p>
+<nav class="tabs" aria-label="ステージ選択"><button id="prev" type="button">前の面</button><select id="stagePicker" aria-label="ステージを選択"></select><button id="next" type="button">次の面</button><span class="muted" id="reviewProgress"></span></nav>
+<section class="sheet" id="stageSheet" aria-live="polite"><noscript>この比較ページではJavaScriptを使用します。</noscript>
+<div class="topline"><h2 id="stageTitle"></h2><span class="status" id="stageStatus"></span></div>
+<p class="lead" id="headline"></p><p class="sublead" id="why"></p>
+<p class="muted">既存マップと新しい設計案を、同じ縮尺で比較します。</p>
+<div class="grid" id="maps"></div>
+<div class="summary">
+<article><h3>変わるところ</h3><p id="changed"></p></article>
+<article><h3>変わらないところ</h3><p id="preserved"></p></article>
+</div>
+<div class="goal"><h3>この面で学ぶこと</h3><p id="goal"></p></div>
+<div class="links"><a id="detail" href="#">詳しい設計内容</a><a id="json" href="#">設計データ</a></div>
+<div class="note">図は地形の設計断面でありゲームのスクリーンショットではありません。ゲーム本体は未変更。自動対戦シミュレーション・実機確認は行っていません。</div>
+</section>
+<footer id="reviewFooter">表示中の設計案を比較して確認します。</footer>
+<!-- ARCLINE_GALLERY_DATA_BEGIN -->
+<!-- Generated data is inserted here. -->
+<!-- ARCLINE_GALLERY_DATA_END -->
+<script>
+
+'use strict';
+const byId=id=>document.getElementById(id);
+const current={index:0};
+let STAGES=[];
+const yOf=h=>500-Number(h)*10;
+const n=x=>Number(x).toFixed(2);
+const esc=s=>String(s).replace(/[&<>"]/g,k=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[k]));
+const point=p=>(Number(p[0])*10)+','+n(yOf(p[1]));
+const line=pts=>pts.map(point).join(' ');
+function validateStage(m){
+ if(!Number.isInteger(m.stage)||!m.title||!['approved','pending'].includes(m.state))throw Error('ステージ情報に誤りがあります。');
+ for(const s of [m.before,m.after])if(!s||!Number.isFinite(s.width)||!Array.isArray(s.floor)||s.floor.length<2||!s.player||!s.enemy)throw Error('地形データに不足があります。');
+}
+function frame(m){
+ const scenes=[m.before,m.after],maxW=Math.max(...scenes.map(s=>s.width));
+ const heights=scenes.flatMap(s=>[...(s.floors||[s.floor]).flat(),...(s.parts||[]).flatMap(p=>p.poly||[]),...(s.routes||[]).flatMap(r=>r.points||[]),...(s.features||[]).filter(f=>'CFUV'.includes(f.type)).flatMap(f=>[[f.v[0],f.v[2]],[f.v[1],f.v[3]]]),[s.player.x,s.player.h],[s.enemy.x,s.enemy.h]].map(p=>Number(p[1])));
+ const maxH=Math.max(30,...heights),minH=Math.min(0,...heights);
+ return{width:maxW,top:Math.min(170,yOf(maxH)-70),bottom:Math.max(555,yOf(minH)+55)};
+}
+function floorAt(floor,x){
+ for(let i=1;i<floor.length;i++){const a=floor[i-1],b=floor[i];if(x>=a[0]&&x<=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);}
+ return null;
+}
+function floorDrawing(s,bottom,ghost){
+ let out='';
+ for(const floor of s.floors||[s.floor]){
+  const polygon=line(floor)+' '+(floor[floor.length-1][0]*10)+','+bottom+' '+(floor[0][0]*10)+','+bottom;
+  if(!ghost)out+='<polygon points="'+polygon+'" fill="#416658" fill-opacity=".86"/>';
+  out+='<polyline points="'+line(floor)+'" fill="none" stroke="'+(ghost?'#c7d7dd':'#99e6c1')+'" stroke-width="'+(ghost?5:6)+'" '+(ghost?'stroke-dasharray="11 8"':'')+'/>';
+ }
+ return out;
+}
+function featureDrawing(s){
+ let out='';
+ for(const f of s.features||[]){
+  const v=f.v||[];const typ=String(f.type||'');
+  if('CFUV'.includes(typ)&&v.length>=4){
+   out+='<rect x="'+(v[0]*10)+'" y="'+yOf(v[3])+'" width="'+((v[1]-v[0])*10)+'" height="'+((v[3]-v[2])*10)+'" rx="5" fill="#a3dcd8" fill-opacity=".18" stroke="#c3e9ce" stroke-width="3" stroke-dasharray="7 6"/>';
+   out+='<text x="'+(v[0]*10+10)+'" y="'+(yOf(v[3])+30)+'" font-size="28" fill="#c3e9ce">'+(typ==='F'?'風 F':esc(typ))+'</text>';
+  }else if(typ==='W'&&v.length>=2){
+   const start=Number(v[0]),end=Number(v[1]),pts=[];
+   for(let x=start;x<=end+1e-8;x+=2){let h=null;for(const floor of s.floors||[s.floor]){h=floorAt(floor,x);if(h!==null)break;}if(h!==null)pts.push([x,h]);}
+   if(!pts.length||pts[pts.length-1][0]<end){let h=null;for(const floor of s.floors||[s.floor]){h=floorAt(floor,end);if(h!==null)break;}if(h!==null)pts.push([end,h]);}
+   if(pts.length>=2)out+='<polyline points="'+line(pts)+'" fill="none" stroke="#9eddf4" stroke-width="8" stroke-linejoin="round" stroke-dasharray="10 5"/>';
+  }else if(typ==='M'&&v.length>=3)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="'+(v[2]*10)+'" fill="#bcb0ec" fill-opacity=".13" stroke="#c5b6ef" stroke-width="3"/>';
+  else if(v.length>=2)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="13" fill="#ebcc90"/>';
+ }
+ return out;
+}
+function partDrawing(s,ghost){
+ let out='';
+ for(const p of s.parts||[]){
+  const pts=p.poly||[];
+  if(pts.length<3)continue;
+  const fill=p.kind==='roof'?'#6b8195':p.kind==='island'?'#8cbdaf':'#a28670';
+  out+='<polygon points="'+line(pts)+'" fill="'+fill+'" fill-opacity="'+(ghost?.15:.94)+'" stroke="'+(ghost?'#c8d6da':'#cee4dd')+'" stroke-width="3" '+(ghost?'stroke-dasharray="8 5"':'')+'/>';
+  if(p.breakable&&!ghost)out+='<polyline points="'+line(pts)+'" fill="none" stroke="#ffd092" stroke-width="4" stroke-dasharray="8 5"/>';
+  if(p.reflectiveUnderside&&!ghost)out+='<polyline points="'+line(p.reflectiveUnderside)+'" fill="none" stroke="#9eddf4" stroke-width="8" stroke-dasharray="10 5"/>';
+ }
+ return out;
+}
+function routeDrawing(s){
+ return (s.routes||[]).map(r=>'<polyline points="'+line(r.points)+'" fill="none" stroke="'+(r.kind==='main'?'#f1ca8b':'#b6b6fa')+'" stroke-width="4" stroke-dasharray="9 8" stroke-linejoin="round"/>').join('');
+}
+function markers(s,ghost=false){
+ let out='';
+ for(const [key,label,color] of [['player','P','#b5f2d0'],['enemy','E','#ecaea1']]){
+  const p=s[key],x=p.x*10,y=yOf(p.h)-24;
+  out+='<circle cx="'+x+'" cy="'+y+'" r="15" fill="'+color+'" fill-opacity="'+(ghost?.35:1)+'" stroke="#173643" stroke-width="3"/>';
+  if(!ghost)out+='<text x="'+(x+21)+'" y="'+(y-5)+'" font-size="24" font-weight="700" fill="#f2faf9">'+label+'</text>';
+ }
+ for(const item of s.pickups||[]){
+  if(!Number.isFinite(item.x)||!Number.isFinite(item.h))continue;
+  const x=item.x*10,y=yOf(item.h);
+  out+='<path d="M '+x+' '+(y-15)+' L '+(x+14)+' '+y+' L '+x+' '+(y+15)+' L '+(x-14)+' '+y+' Z" fill="#f5d28b" stroke="#3b3825" stroke-width="2"/>';
+ }
+ for(const p of s.firingPoints||[]){
+  const x=p.x*10,y=yOf(p.h)-24;
+  out+='<circle cx="'+x+'" cy="'+y+'" r="13" fill="#102c37" stroke="#d1c8ff" stroke-width="3"/><text x="'+(x+18)+'" y="'+(y-9)+'" font-size="26" fill="#ddd4ff">'+esc(p.label)+'</text>';
+ }
+ for(const p of s.targets||[]){
+  const x=p.x*10,y=yOf(p.h);
+  out+='<circle cx="'+x+'" cy="'+y+'" r="16" fill="#102c37" stroke="#ffb4bb" stroke-width="4"/><text x="'+(x+22)+'" y="'+(y-10)+'" font-size="26" fill="#ffced2">'+esc(p.label)+'</text>';
+ }
+ return out;
+}
+function drawing(m,kind){
+ const f=frame(m),old=kind==='before',s=old?m.before:m.after;
+ const bg='<rect x="0" y="'+f.top+'" width="'+f.width+'" height="'+(f.bottom-f.top)+'" fill="#102c37"/>';
+ let grid='';for(let x=0;x<=f.width;x+=100)grid+='<line x1="'+x+'" y1="'+f.top+'" x2="'+x+'" y2="'+f.bottom+'" stroke="#d4e9e6" stroke-opacity=".08"/>';
+ const graphic=floorDrawing(s,f.bottom,false)+partDrawing(s,false)+featureDrawing(s)+routeDrawing(s)+markers(s);
+ const label=old?'既存マップ':'新しい設計案';
+ const routes=(s.routes||[]).map(r=>'<p class="legend" style="color:'+(r.kind==='main'?'#f1ca8b':'#c7c3ff')+'">'+(r.kind==='main'?'金：':'紫：')+esc(r.label)+'</p>').join('');
+ return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(old?'現在':'未承認・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+bg+grid+graphic+'</svg></div><p class="legend">P＝自機　E＝敵　◆＝アイテム　青点線＝反射材　橙点線＝破壊可能</p>'+((s.firingPoints||[]).length?'<p class="legend">A・B＝候補射点（移動・転移で到達する構想）</p>':'')+routes+(routes?'<p class="legend">経路線は攻略の構想です。実測弾道ではありません。</p>':'')+'</div>';
+}
+function selectStage(i,changeHash=true){
+ current.index=Math.max(0,Math.min(STAGES.length-1,i));
+ if(changeHash)history.replaceState(null,'','#stage-'+String(STAGES[current.index].stage).padStart(3,'0'));
+ render();
+}
+function render(){
+ if(!STAGES.length)return;
+ const m=STAGES[current.index];
+ byId('stageTitle').textContent='STAGE '+String(m.stage).padStart(2,'0')+'　'+m.title;
+ const badge=byId('stageStatus');badge.textContent=m.state==='approved'?'承認済み':'確認待ち';badge.className='status '+m.state;
+ byId('headline').textContent=m.headline||'';
+ byId('why').textContent=m.why||'';
+ byId('changed').textContent=m.headline||'';
+ byId('preserved').textContent=m.preserved||'';
+ byId('goal').textContent=m.goal||'';
+ byId('maps').innerHTML=drawing(m,'before')+drawing(m,'after');
+ byId('detail').href=m.detail||'#';
+ byId('json').href=m.source||'#';
+ byId('stagePicker').value=String(m.stage);
+ byId('prev').disabled=current.index===0;byId('next').disabled=current.index===STAGES.length-1;
+ byId('reviewProgress').textContent=(current.index+1)+' / '+STAGES.length+' 面';
+}
+function loadGallery(){
+ try{
+  // 画面データをHTML内に同梱。別ファイルの取得・CORS・file:// に依存しない。
+  const element=byId('embedded-gallery-data');
+  if(!element)throw Error('内蔵データがありません');
+  const data=JSON.parse(element.textContent);
+  if(!Array.isArray(data.stages)||!data.stages.length)throw Error('マップデータが空です。');
+  byId('reviewTitle').textContent=data.reviewTitle||'マップ比較';
+  byId('reviewFooter').textContent=data.reviewFooter||'承認・実装状態は進行台帳を確認してください。';
+  const seen=new Set();for(const m of data.stages){validateStage(m);if(seen.has(m.stage))throw Error('ステージ番号が重複しています。');seen.add(m.stage);}
+  STAGES=data.stages.filter(m=>!data.reviewScope||data.reviewScope.includes(m.stage)).sort((a,b)=>a.stage-b.stage);
+  if(!STAGES.length)throw Error('確認範囲のマップデータがありません。');
+  const select=byId('stagePicker');select.replaceChildren();
+  for(const m of STAGES){const option=document.createElement('option');option.value=String(m.stage);option.textContent='STAGE '+String(m.stage).padStart(2,'0')+'　'+m.title+(m.state==='approved'?'　✓':'　確認待ち');select.appendChild(option);}
+  const inHash=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));
+  const pending=STAGES.findIndex(m=>m.state==='pending');
+  selectStage(inHash>=0?inHash:pending>=0?pending:STAGES.length-1,false);
+ }catch(e){
+  byId('stageTitle').textContent='データを読み込めませんでした';
+  byId('why').textContent='このHTMLの内蔵データに問題があります。'+e.message;
+  byId('reviewProgress').textContent='データ読込エラー';
+ }
+}
+byId('prev').addEventListener('click',()=>selectStage(current.index-1));
+byId('next').addEventListener('click',()=>selectStage(current.index+1));
+byId('stagePicker').addEventListener('change',e=>{const idx=STAGES.findIndex(m=>m.stage===Number(e.target.value));if(idx>=0)selectStage(idx);});
+window.addEventListener('hashchange',()=>{const i=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));if(i>=0)selectStage(i,false);});
+loadGallery();
+
+</script></body></html>

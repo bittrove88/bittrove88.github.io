@@ -1,0 +1,444 @@
+{
+  "schema": "arcline-individual-map-proposal-v2",
+  "stage": 53,
+  "date": "2026-11-05",
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_by_stage_map_design_policy_v1.md#14",
+  "provenance": "New individual concept and hand-authored coordinates; rejected 51-100 proposals and allocation not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        26
+      ],
+      [
+        27,
+        26
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          26
+        ],
+        [
+          27,
+          26
+        ]
+      ],
+      [
+        [
+          78,
+          28
+        ],
+        [
+          100,
+          28
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "053-C01",
+        "kind": "island",
+        "poly": [
+          [
+            42,
+            18
+          ],
+          [
+            61,
+            18
+          ],
+          [
+            61,
+            13
+          ],
+          [
+            42,
+            13
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "053-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            44,
+            35
+          ],
+          [
+            56,
+            35
+          ],
+          [
+            56,
+            32
+          ],
+          [
+            44,
+            32
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          48,
+          62,
+          9,
+          42
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          69,
+          31,
+          28
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 26.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 28.0
+    },
+    "pickups": []
+  },
+  "after": {
+    "width": 1300,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        12,
+        10
+      ],
+      [
+        101,
+        20
+      ],
+      [
+        108,
+        27
+      ],
+      [
+        121,
+        27
+      ],
+      [
+        130,
+        24
+      ]
+    ],
+    "parts": [
+      {
+        "id": "053-START-ISLAND",
+        "kind": "island",
+        "poly": [
+          [
+            14,
+            40
+          ],
+          [
+            18,
+            44
+          ],
+          [
+            34,
+            44
+          ],
+          [
+            38,
+            40
+          ],
+          [
+            32,
+            36
+          ],
+          [
+            20,
+            36
+          ]
+        ],
+        "purpose": "地表とは独立した開始島。",
+        "breakable": false
+      },
+      {
+        "id": "053-LOW-ISLAND",
+        "kind": "island",
+        "poly": [
+          [
+            47,
+            16
+          ],
+          [
+            51,
+            20
+          ],
+          [
+            65,
+            20
+          ],
+          [
+            68,
+            16
+          ],
+          [
+            62,
+            12
+          ],
+          [
+            52,
+            12
+          ]
+        ],
+        "purpose": "風の下を狙う低い中継島。",
+        "breakable": false
+      },
+      {
+        "id": "053-HIGH-ISLAND",
+        "kind": "island",
+        "poly": [
+          [
+            71,
+            51
+          ],
+          [
+            76,
+            56
+          ],
+          [
+            88,
+            56
+          ],
+          [
+            93,
+            52
+          ],
+          [
+            87,
+            47
+          ],
+          [
+            77,
+            47
+          ]
+        ],
+        "purpose": "風の上を狙う高い中継島。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          66,
+          99,
+          34,
+          50
+        ]
+      }
+    ],
+    "player": {
+      "x": 25,
+      "h": 44
+    },
+    "enemy": {
+      "x": 113,
+      "h": 27
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "低い島から風の下へ",
+        "points": [
+          [
+            57,
+            23
+          ],
+          [
+            77,
+            32
+          ],
+          [
+            98,
+            32
+          ],
+          [
+            113,
+            30
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "高い島から風の上へ",
+        "points": [
+          [
+            82,
+            59
+          ],
+          [
+            98,
+            58
+          ],
+          [
+            108,
+            42
+          ],
+          [
+            113,
+            30
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      }
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          12,
+          10
+        ]
+      ],
+      [
+        [
+          101,
+          20
+        ],
+        [
+          108,
+          27
+        ],
+        [
+          121,
+          27
+        ],
+        [
+          130,
+          24
+        ]
+      ]
+    ],
+    "pickups": [],
+    "firingPoints": [
+      {
+        "x": 57,
+        "h": 20,
+        "label": "A"
+      },
+      {
+        "x": 82,
+        "h": 56,
+        "label": "B"
+      }
+    ]
+  },
+  "summary": {
+    "concept": "低い島から風の下を通すか、高い島へ渡って風の上から落とす。",
+    "terrain": "地表から独立した出撃島と上下二つの中継島",
+    "widthReason": "開始島・低島・高島・敵岸の四支持面を分離する1300px。島間は徒歩では渡れず、長距離歩行は要求しない。",
+    "neighborDifference": "52面は連続床を進んで障害を開く面。53面は地表を経由しない島間の高度選択。54面は島を全廃し、反射の連続へ切り替える。"
+  },
+  "learningGoal": {
+    "source": "谷の棚へ転移し、高低差で横風への滞在を減らす",
+    "proposed": "低い島から風の下を通すか、高い島へ渡って風の上から落とす。",
+    "decision": "刷新"
+  },
+  "routeDesign": {
+    "main": "低い中継島へ転移し、敵より低い射点から風域の下端h34を避ける経路を作る。",
+    "alternative": "高い中継島へ渡り、風域の上端h50より上から敵側へ落とす。開始島からの直接曲射も禁止せず、射点変更の利点と代償を比べる。各転移と弾道は未検証。",
+    "anchors": [
+      {
+        "id": "low",
+        "x": 57,
+        "h": 20,
+        "surface": "053-LOW-ISLAND",
+        "role": "低いが、敵より下から狙う射点。"
+      },
+      {
+        "id": "high",
+        "x": 82,
+        "h": 56,
+        "surface": "053-HIGH-ISLAND",
+        "role": "高いが、追加の転移で到達する候補。"
+      }
+    ],
+    "setupActionsTarget": [
+      1,
+      2
+    ],
+    "totalActionsTarget": [
+      7,
+      12
+    ],
+    "budgetMeaning": "設計上の目標。クリア実績や保証ではない。歩行だけでなく窓破壊・転移と反撃を含めて実装時に確認する。",
+    "gimmick": "風域は二つの中継島の間の高度h34〜50。上下の射点から風域滞在を変える。反射結晶Kは今回の主題に不要なので置かない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "sora",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "高",
+      "ギミック手数": "中",
+      "ボス部位": "なし"
+    },
+    "risk": "床のない中央での落下や、低島から次の島へ移れない状態に注意。有限の補助武器を必要とせず、既存の通常転移と通常弾で成立させる。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "combat": "not-run",
+    "teleportInputs": "not-run",
+    "humanPlay": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_055_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only. No campaign generator, runtime, gameplay, inventory placement source, saves or public deployment changed."
+}

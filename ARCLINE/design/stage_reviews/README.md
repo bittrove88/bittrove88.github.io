@@ -1,5 +1,11 @@
 # ARCLINE ステージ比較ページの追記手順
 
+> **2026-11-05：現在の確認範囲は51〜55面。** 1〜50面は0.23.0で実装済み。以下の序盤の進捗は履歴。[今回の設計概要](STAGES_051_055_DESIGN_REVIEW.md)を参照。
+
+`map_review_gallery_data.json`の`reviewScope`が今回表示するステージ番号。過去エントリーは保持し、現在の承認状態と混同しない。`routes`は攻略の概念経路で実測弾道ではない。52・54面のカプセル位置案も取得未検証。
+
+比較HTMLは`map_review_gallery.template.html`とJSONから生成する。通常の面追加ではテンプレートを編集せず、JSON追記と`python3 ARCLINE/design/stage_reviews/build_gallery_html.py`だけで更新する。今回のみ、共通描画を下面反射・破壊箇所・風域ラベル・概念経路に対応させ、PCとスマホ幅を確認した。既存のx1〜x5／x6〜x9／x0の確認単位を維持する。
+
 **[共通比較HTML](map_review_gallery.html)** は表示テンプレートとして固定。ページ内にマップデータを同梱するため、閲覧時の外部JSON読み込みは不要です。
 
 ## 追記はJSONの1件追加＋1コマンド

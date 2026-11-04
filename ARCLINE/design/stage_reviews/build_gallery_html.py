@@ -18,6 +18,7 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 JSON_PATH = HERE / "map_review_gallery_data.json"
 HTML_PATH = HERE / "map_review_gallery.html"
+TEMPLATE_PATH = HERE / "map_review_gallery.template.html"
 START = "<!-- ARCLINE_GALLERY_DATA_BEGIN -->"
 END = "<!-- ARCLINE_GALLERY_DATA_END -->"
 
@@ -60,7 +61,7 @@ def main() -> None:
     args = parser.parse_args()
     data = json.loads(JSON_PATH.read_text(encoding="utf-8"))
     existing = HTML_PATH.read_text(encoding="utf-8")
-    output = build_html(existing, data)
+    output = build_html(TEMPLATE_PATH.read_text(encoding="utf-8"), data)
     if args.check:
         if existing != output:
             print("ERROR: Gallery HTML is out of sync. Run build_gallery_html.py", file=sys.stderr)
