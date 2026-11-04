@@ -1,0 +1,86 @@
+{
+  "status": "設計資料の整合確認済み・最終受入れは未検証",
+  "date": "2026-11-05",
+  "maps": 49,
+  "newCoordinatesApproved": 0,
+  "implementedNewMaps": 0,
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "runtimeSourceUnchanged": true,
+  "changesOutsideDesign": [],
+  "static": {
+    "status": "PASS",
+    "maps": 49,
+    "supportPoints": 206,
+    "destructibleUnits": 49
+  },
+  "singleShots": {
+    "mapsWithSamples": 49,
+    "attackCandidatesWithSamples": 106,
+    "preparationOrShelterWithoutSamples": [
+      {
+        "stage": 52,
+        "point": "chimney"
+      },
+      {
+        "stage": 60,
+        "point": "lee"
+      }
+    ],
+    "unverifiedCombinations": [
+      {
+        "stage": 86,
+        "point": "P0",
+        "required": [
+          "bounce",
+          "cloud"
+        ]
+      },
+      {
+        "stage": 99,
+        "point": "mirror",
+        "required": [
+          "cloud",
+          "magnet",
+          "bounce"
+        ]
+      }
+    ]
+  },
+  "regression": {
+    "npmTest": "PASS",
+    "unitSuites": 28,
+    "generated": "PASS",
+    "generatedFiles": 143,
+    "sourceTreeUntouched": true
+  },
+  "notVerified": [
+    "実移動・自機転移入力と攻撃をつなぐ全手順",
+    "敵徒歩前後の射線改善",
+    "端子を実際に撃つ切替手順",
+    "爆風による個別破壊と隣接片の残存",
+    "71〜99面の自律敵転移（設計要件・未実装）",
+    "敵の反撃込み・行動上限内クリア",
+    "全キャラ・複数seed・実機"
+  ],
+  "finalAcceptance": {
+    "徒歩の戦術的な利益": "未検証",
+    "自機転移の利益": "未検証",
+    "敵転移": "未検証",
+    "全ギミックの作用": "未検証",
+    "全複合の因果と干渉": "未検証",
+    "相互射線と安全": "未検証",
+    "全行程の行動数": "未検証",
+    "敵位置変化を含む再挑戦": "未検証",
+    "実装の全証跡": "未検証"
+  },
+  "display": {
+    "status": "PASS",
+    "maps": 49,
+    "viewports": 3,
+    "stageViewportChecks": 147,
+    "comparisonChecks": 177,
+    "consoleErrors": 0,
+    "runtimeRequests": 0,
+    "htmlSha256": "31c392dbbf362afd740945eeff1326cc051416800ff415c5f18b0b4e8bfbb3b5"
+  }
+}

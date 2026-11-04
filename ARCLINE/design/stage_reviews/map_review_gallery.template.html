@@ -22,7 +22,7 @@ button[aria-selected="true"],button[aria-pressed="true"]{background:#b6e9d0;colo
 .map .header{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px}
 .map .header strong{font-size:14px}.tag{font-size:11px;color:#b8d0d6}
 .chart{overflow:hidden;border:1px solid #385d66;border-radius:9px}.chart svg{width:100%;height:auto;display:block;background:#102d39}
-.chart{overflow:auto}#maps.zoomed svg{min-width:1100px}
+.chart{overflow:auto}#maps.zoomed svg{min-width:1600px}
 .legend{color:var(--soft);font-size:11px;margin:7px 0 0}.summary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
 .summary article{background:#193642;padding:15px;border-radius:11px}.summary article p{font-size:14px;color:#d3e3e1}
 .goal{margin-top:16px;background:#213b45;border-left:3px solid #b6e9d0;padding:12px 14px;border-radius:0 9px 9px 0}
@@ -37,6 +37,7 @@ select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;bo
 <h1 id="reviewTitle">マップ比較</h1>
 <p class="intro">1面ずつ、既存と変更案を見比べて確認します。難しい数値は省き、<strong>何が変わるか、遊びがどう変わるか</strong>に絞りました。</p>
 <nav class="tabs" aria-label="ステージ選択"><button id="prev" type="button">前の面</button><select id="stagePicker" aria-label="ステージを選択"></select><button id="next" type="button">次の面</button><span class="muted" id="reviewProgress"></span></nav>
+<label>表示する範囲 <select id="rangePicker"><option value="all">51〜99面すべて</option><option value="51">51〜60面</option><option value="61">61〜70面</option><option value="71">71〜80面</option><option value="81">81〜90面</option><option value="91">91〜99面</option></select></label>
 <section class="sheet" id="stageSheet" aria-live="polite"><noscript>この比較ページではJavaScriptを使用します。</noscript>
 <div class="topline"><h2 id="stageTitle"></h2><span class="status" id="stageStatus"></span></div>
 <p class="lead" id="headline"></p><p class="sublead" id="why"></p>
@@ -44,7 +45,11 @@ select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;bo
 <div class="tabs" aria-label="比較元"><span>比較元</span><button id="compareLive" type="button" aria-pressed="true">現行ゲーム</button><button id="comparePrevious" type="button" aria-pressed="false">前回の設計</button></div>
 <p id="previousChange" class="sublead"></p>
 <button id="toggleScale" type="button" aria-pressed="false">図面を拡大</button>
+<div class="tabs"><label>開口 <select id="openingState"><option value="intact">破壊前</option><option value="main">主経路の開口後</option><option value="alternative">別解の開口後</option></select></label><label><input id="partLabels" type="checkbox" checked> 部品ID</label><label><input id="showShots" type="checkbox" checked> 単発弾道例</label></div>
+<div class="tabs"><label>弾道の射点 <select id="shotPoint"><option value="all">自動（最大2経路）</option></select></label><label>装置周期 <select id="worldRound"><option value="1">初期の周期</option><option value="2">次の周期</option></select></label><label>磁極の条件 <select id="polarityState"><option value="0">初期配置</option><option value="1">切替条件 ＋</option><option value="-1">切替条件 −</option></select></label></div>
 <div class="grid" id="maps"></div>
+<p id="shotStatus" class="note"></p>
+<details><summary>破壊単位と部品ID</summary><div style="overflow:auto"><table style="width:100%;font-size:12px;text-align:left"><thead><tr><th>ID</th><th>区分・単位数</th><th>役割</th></tr></thead><tbody id="partRows"></tbody></table></div></details>
 <div class="summary"><article><h3>主ルート</h3><p id="mainRoute"></p></article><article><h3>別解</h3><p id="alternativeRoute"></p></article></div>
 <p id="tradeoff" class="sublead"></p>
 <div class="summary">
@@ -63,8 +68,9 @@ select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;bo
 
 'use strict';
 const byId=id=>document.getElementById(id);
-const current={index:0,comparison:'live',zoom:false};
+const current={index:0,comparison:'live',zoom:false,opening:'intact',ids:true,shots:true,round:1,polarity:0,point:'all'};
 let STAGES=[];
+let ALL_STAGES=[];
 const yOf=h=>500-Number(h)*10;
 const n=x=>Number(x).toFixed(2);
 const esc=s=>String(s).replace(/[&<>"]/g,k=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[k]));
@@ -76,7 +82,7 @@ function validateStage(m){
 }
 function frame(m){
  const scenes=[m.before,m.after,...(m.previous?[m.previous]:[])],maxW=Math.max(...scenes.map(s=>s.width));
- const heights=scenes.flatMap(s=>[...(s.floors||[s.floor]).flat(),...(s.parts||[]).flatMap(p=>p.poly||[]),...(s.routes||[]).flatMap(r=>r.points||[]),...(s.features||[]).filter(f=>'CFUV'.includes(f.type)).flatMap(f=>[[f.v[0],f.v[2]],[f.v[1],f.v[3]]]),[s.player.x,s.player.h],[s.enemy.x,s.enemy.h]].map(p=>Number(p[1])));
+ const heights=scenes.flatMap(s=>[...(s.floors||[s.floor]).flat(),...(s.parts||[]).flatMap(p=>p.poly||[]),...(s.routes||[]).flatMap(r=>r.points||[]),...matchingShots(s===m.after?{...s,worldRound:current.round,polarity:current.polarity,openedUnits:(m.destructionPlans||{})[current.opening]||[]}:s).flatMap(r=>r.path||[]),...(s.targets||[]).map(q=>[q.x,q.h]),...(s.features||[]).filter(f=>f.type==='M').flatMap(f=>[[f.v[0],f.v[1]-f.v[2]],[f.v[0],f.v[1]+f.v[2]]]),...(s.features||[]).filter(f=>f.type==='K').flatMap(f=>[[f.v[0],f.v[1]-5.5*(f.sizeFactor||1)],[f.v[0],f.v[1]+5.5*(f.sizeFactor||1)]]),...(s.features||[]).filter(f=>'CFUV'.includes(f.type)).flatMap(f=>[[f.v[0],f.v[2]],[f.v[1],f.v[3]]]),...(s.features||[]).filter(f=>f.type==='B').flatMap(f=>[[f.v[0],f.v[1]],[f.v[0],f.v[1]+Math.sin((f.openAngleDeg??75)*Math.PI/180)*f.v[2]]]),[s.player.x,s.player.h],[s.enemy.x,s.enemy.h]].map(p=>Number(p[1])));
  const maxH=Math.max(30,...heights),minH=Math.min(0,...heights);
  return{width:maxW,top:Math.min(170,yOf(maxH)-70),bottom:Math.max(555,yOf(minH)+55)};
 }
@@ -96,10 +102,10 @@ function floorDrawing(s,bottom,ghost){
 function featureDrawing(s){
  let out='';
  for(const f of s.features||[]){
-  const v=f.v||[];const typ=String(f.type||'');
+  const v=f.v||[];const typ=String(f.type||'');const tick=Math.floor(((s.worldRound||1)-1)/(s.worldHold||1));const ventOn=(tick+(Number.isFinite(v[4])?!!v[4]:!!s.ventStartsOn))%2===1;
   if('CFUV'.includes(typ)&&v.length>=4){
-   out+='<rect x="'+(v[0]*10)+'" y="'+yOf(v[3])+'" width="'+((v[1]-v[0])*10)+'" height="'+((v[3]-v[2])*10)+'" rx="5" fill="#a3dcd8" fill-opacity=".18" stroke="#c3e9ce" stroke-width="3" stroke-dasharray="7 6"/>';
-   out+='<text x="'+(v[0]*10+10)+'" y="'+(yOf(v[3])+30)+'" font-size="28" fill="#c3e9ce">'+(typ==='F'?'風 F':esc(typ))+'</text>';
+   out+='<rect x="'+(v[0]*10)+'" y="'+yOf(v[3])+'" width="'+((v[1]-v[0])*10)+'" height="'+((v[3]-v[2])*10)+'" rx="5" fill="#a3dcd8" fill-opacity="'+(typ==='V'&&!ventOn?'.04':'.18')+'" stroke="#c3e9ce" stroke-width="3" stroke-dasharray="7 6"/>';
+   out+='<text x="'+(v[0]*10+10)+'" y="'+(yOf(v[3])+30)+'" font-size="28" fill="#c3e9ce">'+({F:'風 F '+(([54,55].includes(s.stageNumber)?1:tick%2?-1:1)>0?'→':'←'),U:'上昇 U',C:'減速 C',V:'噴出 V '+(ventOn?'ON':'OFF')}[typ]||esc(typ))+'</text>';
   }else if(typ==='W'&&v.length>=2){
    const edges=[];
    for(const floor of s.floors||[s.floor])for(let i=1;i<floor.length;i++)edges.push([floor[i-1],floor[i]]);
@@ -107,12 +113,16 @@ function featureDrawing(s){
    for(const p of s.parts||[])if(!p.breakable)for(let i=0;i<p.poly.length;i++){const a=p.poly[i],b=p.poly[(i+1)%p.poly.length],x=(a[0]+b[0])/2,h=(a[1]+b[1])/2;if(a[0]!==b[0]&&inside([x,h-.01],p.poly)&&!inside([x,h+.01],p.poly))edges.push(a[0]<b[0]?[a,b]:[b,a]);}
    for(const edge of edges){const x1=Math.max(v[0],edge[0][0]),x2=Math.min(v[1],edge[1][0]);if(x2>x1)out+='<polyline points="'+line([[x1,floorAt(edge,x1)],[x2,floorAt(edge,x2)]])+'" fill="none" stroke="#9eddf4" stroke-width="8" stroke-dasharray="10 5"/>';}
   }else if(typ==='B'){
-   const angle=((v[3]+(f.defaultPose==='lowered'?1:0))%2?f.openAngleDeg??75:v[4]||0)*Math.PI/180;
+   const angle=((v[3]+(f.defaultPose==='lowered'?1:0)+tick)%2?f.openAngleDeg??75:v[4]||0)*Math.PI/180;
    const a=[v[0],v[1]],b=[v[0]+Math.cos(angle)*v[2],v[1]+Math.sin(angle)*v[2]];
-   const other=angle===0?(f.openAngleDeg??75)*Math.PI/180:0,c=[v[0]+Math.cos(other)*v[2],v[1]+Math.sin(other)*v[2]];
+   const other=angle===(v[4]||0)*Math.PI/180?(f.openAngleDeg??75)*Math.PI/180:(v[4]||0)*Math.PI/180,c=[v[0]+Math.cos(other)*v[2],v[1]+Math.sin(other)*v[2]];
    out+='<polygon points="'+line([a,b,[b[0],b[1]-1.2],[a[0],a[1]-1.2]])+'" fill="#d2b58f" stroke="#fff0ce" stroke-width="3"/><polyline points="'+line([a,c])+'" fill="none" stroke="#e7be8e" stroke-width="4" stroke-dasharray="8 7"/>';
    out+='<text x="'+(v[0]*10+10)+'" y="'+(yOf(v[1])-14)+'" font-size="27" fill="#ffe4be">開閉橋</text>';
-  }else if(typ==='M'&&v.length>=3)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="'+(v[2]*10)+'" fill="#bcb0ec" fill-opacity=".13" stroke="#c5b6ef" stroke-width="3"/>';
+  }else if(typ==='K'){
+   const theta=v[2]*Math.PI/180,r=5.5*(f.sizeFactor||1),a=[v[0]-Math.cos(theta)*r,v[1]+Math.sin(theta)*r],b=[v[0]+Math.cos(theta)*r,v[1]-Math.sin(theta)*r];
+   out+='<polyline points="'+line([a,b])+'" fill="none" stroke="#edc1ff" stroke-width="9"/><text x="'+(v[0]*10+15)+'" y="'+(yOf(v[1])-20)+'" font-size="25" fill="#edc1ff">K</text>';
+  }else if(typ==='M'&&v.length>=3)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="'+(v[2]*10)+'" fill="#bcb0ec" fill-opacity=".13" stroke="#c5b6ef" stroke-width="3"/><text x="'+(v[0]*10)+'" y="'+yOf(v[1])+'" font-size="26" fill="#d8cfff">M '+((s.polarity||v[3])>0?'+':'−')+'</text>';
+  else if(typ==='T')out+='<rect x="'+(v[0]*10-17)+'" y="'+(yOf(v[1])-17)+'" width="34" height="34" fill="#f3d38c"/><text x="'+(v[0]*10+22)+'" y="'+yOf(v[1])+'" font-size="26" fill="#fff0c6">端子 T</text>';
   else if(v.length>=2)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="13" fill="#ebcc90"/>';
  }
  return out;
@@ -123,15 +133,21 @@ function partDrawing(s,ghost){
   const pts=p.poly||[];
   if(pts.length<3)continue;
   const fill=p.kind==='roof'?'#6b8195':p.kind==='island'?(s.material==='ice'?'#91bdcd':'#8cbdaf'):(s.material==='ice'?'#719eaf':'#a28670');
-  out+='<polygon points="'+line(pts)+'" fill="'+fill+'" fill-opacity="'+(ghost?.15:.94)+'" stroke="'+(ghost?'#c8d6da':'#cee4dd')+'" stroke-width="3" '+(ghost?'stroke-dasharray="8 5"':'')+'/>';
-  if(p.breakable&&!ghost)out+='<polyline points="'+line(pts)+'" fill="none" stroke="#ffd092" stroke-width="4" stroke-dasharray="8 5"/>';
+  const units=p.renderUnits||[{id:p.id,poly:pts,label:p.displayId||''}];
+  for(const u of units){const opened=(s.openedUnits||[]).includes(u.id),shape=u.poly;
+   out+='<polygon data-unit-id="'+esc(u.id)+'" data-opened="'+opened+'" points="'+line(shape)+'" fill="'+(opened?'none':fill)+'" fill-opacity="'+(ghost?.15:.94)+'" stroke="'+(opened?'#f2b974':p.breakable?'#ffd092':'#cee4dd')+'" stroke-width="'+(p.breakable?4:3)+'" '+(p.breakable||opened?'stroke-dasharray="8 5"':'')+'/>';
+   if(current.ids&&u.label){const x=shape.reduce((t,p)=>t+p[0],0)/shape.length,h=shape.reduce((t,p)=>t+p[1],0)/shape.length;out+='<text class="unit-label" x="'+(x*10)+'" y="'+yOf(h)+'" text-anchor="middle" font-size="24" fill="'+(p.breakable?'#fff1c3':'#e1ecee')+'" stroke="#142b36" stroke-width="2" paint-order="stroke">'+esc(u.label)+(opened?' 開':'')+'</text>';}
+  }
   if(p.reflectiveUnderside&&!ghost)out+='<polyline points="'+line(p.reflectiveUnderside)+'" fill="none" stroke="#9eddf4" stroke-width="8" stroke-dasharray="10 5"/>';
  }
  return out;
 }
 function routeDrawing(s){
- return (s.routes||[]).map(r=>'<polyline points="'+line(r.points)+'" fill="none" stroke="'+(r.kind==='main'?'#f1ca8b':'#b6b6fa')+'" stroke-width="4" stroke-dasharray="9 8" stroke-linejoin="round"/>').join('');
+ const shots=matchingShots(s);
+ let out=shots.length?shots.map((r,i)=>'<polyline class="shot-path" points="'+line(r.path)+'" fill="none" stroke="'+(i?'#b6b6fa':'#f1ca8b')+'" stroke-width="4"/>').join(''):(s.routes||[]).map(r=>'<polyline points="'+line(r.points)+'" fill="none" stroke="'+(r.kind==='main'?'#f1ca8b':r.kind==='support'?'#94e8e0':'#b6b6fa')+'" stroke-width="4" stroke-dasharray="9 8"/>').join('');
+ out+=(s.accessPaths||[]).map(r=>'<polyline class="access-path" points="'+line(r.points)+'" fill="none" stroke="#82c9ec" stroke-opacity=".65" stroke-width="3" stroke-dasharray="3 10"/>').join('');return out;
 }
+function matchingShots(s){return current.shots?(s.shotExamples||[]).filter(r=>(current.point==='all'||r.id===current.point)&&(r.round||1)===(s.worldRound||1)&&(r.assumedPolarity||0)===(s.polarity||0)&&JSON.stringify([...(r.destroyed||[])].sort())===JSON.stringify([...(s.openedUnits||[])].sort())).slice(0,2):[];}
 function markers(s,ghost=false){
  let out='';
  for(const [key,label,color] of [['player',s.player.facing===-1?'P ◀':'P','#b5f2d0'],['enemy','E','#ecaea1']]){
@@ -155,13 +171,13 @@ function markers(s,ghost=false){
  return out;
 }
 function drawing(m,kind){
- const f=frame(m),old=kind==='before',previous=old&&current.comparison==='previous'&&m.previous,s=old?(previous?m.previous:m.before):m.after;
+ const f=frame(m),old=kind==='before',previous=old&&current.comparison==='previous'&&m.previous,s=old?(previous?m.previous:m.before):{...m.after,worldRound:current.round,polarity:current.polarity,openedUnits:(m.destructionPlans||{})[current.opening]||[]};
  const bg='<rect x="0" y="'+f.top+'" width="'+f.width+'" height="'+(f.bottom-f.top)+'" fill="#102c37"/>';
  let grid='';for(let x=0;x<=f.width;x+=100)grid+='<line x1="'+x+'" y1="'+f.top+'" x2="'+x+'" y2="'+f.bottom+'" stroke="#d4e9e6" stroke-opacity=".08"/>';
  const graphic=floorDrawing(s,f.bottom,false)+partDrawing(s,false)+featureDrawing(s)+routeDrawing(s)+markers(s);
  const label=old?(previous?'前回の設計案':'現行ゲーム'):'今回の設計案';
- const routes=(s.routes||[]).map(r=>'<p class="legend" style="color:'+(r.kind==='main'?'#f1ca8b':'#c7c3ff')+'">'+(r.kind==='main'?'金：':'紫：')+esc(r.label)+'</p>').join('');
- return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(old?(previous?'未承認の前案':'0.23.0'):'未承認・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+bg+grid+graphic+'</svg></div><p class="legend">P＝自機　E＝敵　◆＝アイテム　青点線＝反射材　橙点線＝破壊可能</p>'+((s.firingPoints||[]).length?'<p class="legend">A・B・C＝候補射点（移動・転移で到達する構想）</p>':'')+routes+(routes?'<p class="legend">経路線は攻略の構想です。実測弾道ではありません。</p>':'')+'</div>';
+ const samples=matchingShots(s),routes=samples.length?samples.map((r,i)=>'<p class="legend">'+(i?'紫':'金')+'：固定敵への単発例 '+esc(r.id)+'／角度'+r.angle+'・出力'+r.power+(r.assumedPolarity?'／仮の極性'+r.assumedPolarity:'')+'</p>').join(''):(s.routes||[]).map(r=>'<p class="legend">'+esc(r.label)+'（概念経路）</p>').join('');
+ return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(old?(previous?'未承認の前案':'0.23.0'):'未承認・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+bg+grid+graphic+'</svg></div><p class="legend">P＝自機 E＝敵 ◆＝アイテム 青い鏡面＝反射材 D＝個別破壊 F＝破壊不可</p>'+((s.firingPoints||[]).length?'<p class="legend">A・B・C＝候補射点。青の細点線は移動構想で、実測の転移軌道ではありません。</p>':'')+routes+(routes?'<p class="legend">単発例は固定した敵・仮の開口状態での確認です。全手順・反撃・実際の転移は未検証。</p>':'')+'</div>';
 }
 function selectStage(i,changeHash=true){
  current.index=Math.max(0,Math.min(STAGES.length-1,i));
@@ -171,6 +187,11 @@ function selectStage(i,changeHash=true){
 function render(){
  if(!STAGES.length)return;
  const m=STAGES[current.index];
+ const points=m.after.shotExamples||[];if(current.point!=='all'&&!points.some(x=>x.id===current.point))current.point='all';byId('shotPoint').innerHTML='<option value="all">自動（最大2経路）</option>'+points.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.id)+'：周期'+x.round+'／極性'+(x.assumedPolarity||0)+'／'+esc(x.plan)+'</option>').join('');byId('shotPoint').value=current.point;
+ byId('openingState').value=current.opening;
+ byId('worldRound').value=String(current.round);byId('polarityState').value=String(current.polarity);
+ byId('partRows').innerHTML=(m.after.parts||[]).map(p=>'<tr><td>'+esc(p.displayId||p.id)+'<br>'+esc(p.id)+'</td><td>'+(p.breakable?'個別破壊 '+(p.unitCount||1)+'単位':'破壊不可')+'</td><td>'+esc(p.purpose||'')+'</td></tr>').join('');
+ byId('shotStatus').textContent=m.shotProbeSummary||'単発弾道の確認結果を読み込み中。攻略全体の合格判定ではありません。';
  if(!m.previous)current.comparison='live';
  byId('comparePrevious').disabled=!m.previous;
  byId('compareLive').setAttribute('aria-pressed',String(current.comparison==='live'));
@@ -204,6 +225,7 @@ function loadGallery(){
   byId('reviewFooter').textContent=data.reviewFooter||'承認・実装状態は進行台帳を確認してください。';
   const seen=new Set();for(const m of data.stages){validateStage(m);if(seen.has(m.stage))throw Error('ステージ番号が重複しています。');seen.add(m.stage);}
   STAGES=data.stages.filter(m=>!data.reviewScope||data.reviewScope.includes(m.stage)).sort((a,b)=>a.stage-b.stage);
+  ALL_STAGES=STAGES.slice();
   if(!STAGES.length)throw Error('確認範囲のマップデータがありません。');
   const select=byId('stagePicker');select.replaceChildren();
   for(const m of STAGES){const option=document.createElement('option');option.value=String(m.stage);option.textContent='STAGE '+String(m.stage).padStart(2,'0')+'　'+m.title+(m.state==='approved'?'　✓':'　確認待ち');select.appendChild(option);}
@@ -220,6 +242,13 @@ byId('prev').addEventListener('click',()=>selectStage(current.index-1));
 byId('compareLive').addEventListener('click',()=>{current.comparison='live';render();});
 byId('comparePrevious').addEventListener('click',()=>{current.comparison='previous';render();});
 byId('toggleScale').addEventListener('click',()=>{current.zoom=!current.zoom;byId('maps').classList.toggle('zoomed',current.zoom);byId('toggleScale').setAttribute('aria-pressed',String(current.zoom));byId('toggleScale').textContent=current.zoom?'図面を全体表示':'図面を拡大';});
+byId('openingState').addEventListener('change',e=>{current.opening=e.target.value;render();});
+byId('partLabels').addEventListener('change',e=>{current.ids=e.target.checked;render();});
+byId('showShots').addEventListener('change',e=>{current.shots=e.target.checked;render();});
+byId('shotPoint').addEventListener('change',e=>{current.point=e.target.value;render();});
+byId('worldRound').addEventListener('change',e=>{current.round=Number(e.target.value);render();});
+byId('polarityState').addEventListener('change',e=>{current.polarity=Number(e.target.value);render();});
+byId('rangePicker').addEventListener('change',e=>{const first=Number(e.target.value);STAGES=first?ALL_STAGES.filter(m=>m.stage>=first&&m.stage<=first+9):ALL_STAGES.slice();const picker=byId('stagePicker');picker.replaceChildren();for(const m of STAGES){const o=document.createElement('option');o.value=String(m.stage);o.textContent='STAGE '+m.stage+' '+m.title;picker.appendChild(o);}selectStage(0);});
 byId('next').addEventListener('click',()=>selectStage(current.index+1));
 byId('stagePicker').addEventListener('change',e=>{const idx=STAGES.findIndex(m=>m.stage===Number(e.target.value));if(idx>=0)selectStage(idx);});
 window.addEventListener('hashchange',()=>{const i=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));if(i>=0)selectStage(i,false);});

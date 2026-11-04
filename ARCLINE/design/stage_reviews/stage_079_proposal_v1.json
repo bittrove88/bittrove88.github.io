@@ -1,0 +1,1156 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 79,
+  "date": "2026-11-05",
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        23
+      ],
+      [
+        28,
+        23
+      ],
+      [
+        43,
+        7
+      ],
+      [
+        64,
+        7
+      ],
+      [
+        79,
+        24
+      ],
+      [
+        100,
+        24
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          23
+        ],
+        [
+          28,
+          23
+        ],
+        [
+          43,
+          7
+        ],
+        [
+          64,
+          7
+        ],
+        [
+          79,
+          24
+        ],
+        [
+          100,
+          24
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-C01",
+        "kind": "roof",
+        "poly": [
+          [
+            44,
+            35
+          ],
+          [
+            57,
+            35
+          ],
+          [
+            57,
+            32
+          ],
+          [
+            44,
+            32
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "079-C01@0",
+            "label": "D01-1",
+            "poly": [
+              [
+                44,
+                35
+              ],
+              [
+                50.5,
+                35
+              ],
+              [
+                50.5,
+                32
+              ],
+              [
+                44,
+                32
+              ]
+            ]
+          },
+          {
+            "id": "079-C01@1",
+            "label": "D01-2",
+            "poly": [
+              [
+                50.5,
+                35
+              ],
+              [
+                57,
+                35
+              ],
+              [
+                57,
+                32
+              ],
+              [
+                50.5,
+                32
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 2
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          30,
+          23,
+          25,
+          0
+        ]
+      },
+      {
+        "type": "M",
+        "v": [
+          61,
+          25,
+          13,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          24,
+          32
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 23
+    },
+    "enemy": {
+      "x": 82,
+      "h": 24
+    },
+    "pickups": [
+      {
+        "id": "SK079",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 38.76,
+        "h": 34.668,
+        "spawnTurn": 1,
+        "placementId": "L079:skill:S_SPECIAL_REFILL",
+        "verification": {
+          "angle": 44,
+          "power": 45,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      }
+    ],
+    "stageNumber": 79,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "width": 1580,
+    "floor": [
+      [
+        0,
+        40
+      ],
+      [
+        42,
+        40
+      ],
+      [
+        107,
+        42
+      ],
+      [
+        158,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          40
+        ],
+        [
+          42,
+          40
+        ]
+      ],
+      [
+        [
+          107,
+          42
+        ],
+        [
+          158,
+          42
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-UPPER",
+        "kind": "island",
+        "poly": [
+          [
+            58,
+            64
+          ],
+          [
+            64,
+            69
+          ],
+          [
+            86,
+            69
+          ],
+          [
+            91,
+            64
+          ],
+          [
+            83,
+            59
+          ],
+          [
+            66,
+            59
+          ]
+        ],
+        "purpose": "開放的だが露出する上段。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "079-UPPER",
+            "label": "F01",
+            "poly": [
+              [
+                58,
+                64
+              ],
+              [
+                64,
+                69
+              ],
+              [
+                86,
+                69
+              ],
+              [
+                91,
+                64
+              ],
+              [
+                83,
+                59
+              ],
+              [
+                66,
+                59
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "079-LOW-PIER",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            20
+          ],
+          [
+            79,
+            25
+          ],
+          [
+            92,
+            25
+          ],
+          [
+            97,
+            20
+          ],
+          [
+            89,
+            15
+          ],
+          [
+            79,
+            15
+          ]
+        ],
+        "purpose": "可動橋に頼らず残る固定低棚。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "079-LOW-PIER",
+            "label": "F02",
+            "poly": [
+              [
+                73,
+                20
+              ],
+              [
+                79,
+                25
+              ],
+              [
+                92,
+                25
+              ],
+              [
+                97,
+                20
+              ],
+              [
+                89,
+                15
+              ],
+              [
+                79,
+                15
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          42,
+          40,
+          64,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          87,
+          23,
+          20,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          49,
+          27
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 40
+    },
+    "enemy": {
+      "x": 138,
+      "h": 42
+    },
+    "pickups": [
+      {
+        "id": "SK079",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 29,
+        "h": 49,
+        "spawnTurn": 1,
+        "placementId": "L079:skill:S_SPECIAL_REFILL",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 74,
+        "h": 69,
+        "label": "A"
+      },
+      {
+        "x": 85,
+        "h": 25,
+        "label": "B"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            23,
+            40
+          ],
+          [
+            74,
+            69
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            23,
+            40
+          ],
+          [
+            85,
+            25
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      }
+    ],
+    "shotExamples": [
+      {
+        "id": "P0",
+        "x": 23,
+        "h": 40,
+        "plan": "intact",
+        "round": 1,
+        "destroyed": [],
+        "angle": 24,
+        "power": 100,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            26.197,
+            44.024
+          ],
+          [
+            28.918,
+            45.213
+          ],
+          [
+            31.638,
+            46.342
+          ],
+          [
+            34.358,
+            47.413
+          ],
+          [
+            37.079,
+            48.424
+          ],
+          [
+            39.799,
+            49.376
+          ],
+          [
+            42.519,
+            50.268
+          ],
+          [
+            45.24,
+            51.102
+          ],
+          [
+            47.96,
+            51.876
+          ],
+          [
+            50.68,
+            52.591
+          ],
+          [
+            53.401,
+            53.246
+          ],
+          [
+            56.121,
+            53.843
+          ],
+          [
+            58.841,
+            54.38
+          ],
+          [
+            61.562,
+            54.858
+          ],
+          [
+            64.282,
+            55.276
+          ],
+          [
+            67.002,
+            55.636
+          ],
+          [
+            69.723,
+            55.936
+          ],
+          [
+            72.443,
+            56.176
+          ],
+          [
+            75.163,
+            56.358
+          ],
+          [
+            77.884,
+            56.48
+          ],
+          [
+            80.604,
+            56.543
+          ],
+          [
+            83.324,
+            56.547
+          ],
+          [
+            86.045,
+            56.492
+          ],
+          [
+            88.765,
+            56.377
+          ],
+          [
+            91.485,
+            56.203
+          ],
+          [
+            94.206,
+            55.97
+          ],
+          [
+            96.926,
+            55.677
+          ],
+          [
+            99.646,
+            55.325
+          ],
+          [
+            102.367,
+            54.914
+          ],
+          [
+            105.087,
+            54.444
+          ],
+          [
+            107.807,
+            53.914
+          ],
+          [
+            110.528,
+            53.325
+          ],
+          [
+            113.248,
+            52.677
+          ],
+          [
+            115.968,
+            51.97
+          ],
+          [
+            118.689,
+            51.203
+          ],
+          [
+            121.409,
+            50.378
+          ],
+          [
+            124.129,
+            49.492
+          ],
+          [
+            126.85,
+            48.548
+          ],
+          [
+            129.57,
+            47.544
+          ],
+          [
+            132.29,
+            46.481
+          ],
+          [
+            135.011,
+            45.359
+          ],
+          [
+            135.109,
+            45.318
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "upper",
+        "x": 74,
+        "h": 69,
+        "plan": "main",
+        "round": 1,
+        "destroyed": [],
+        "angle": -6,
+        "power": 80,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            77.481,
+            71.234
+          ],
+          [
+            79.85,
+            70.963
+          ],
+          [
+            82.219,
+            70.632
+          ],
+          [
+            84.588,
+            70.243
+          ],
+          [
+            86.958,
+            69.794
+          ],
+          [
+            89.327,
+            69.285
+          ],
+          [
+            91.696,
+            68.718
+          ],
+          [
+            94.065,
+            68.091
+          ],
+          [
+            96.434,
+            67.405
+          ],
+          [
+            98.803,
+            66.66
+          ],
+          [
+            101.173,
+            65.855
+          ],
+          [
+            103.542,
+            64.991
+          ],
+          [
+            105.911,
+            64.068
+          ],
+          [
+            108.28,
+            63.086
+          ],
+          [
+            110.649,
+            62.044
+          ],
+          [
+            113.018,
+            60.943
+          ],
+          [
+            115.388,
+            59.783
+          ],
+          [
+            117.757,
+            58.564
+          ],
+          [
+            120.126,
+            57.285
+          ],
+          [
+            122.495,
+            55.947
+          ],
+          [
+            124.864,
+            54.55
+          ],
+          [
+            127.233,
+            53.094
+          ],
+          [
+            129.603,
+            51.578
+          ],
+          [
+            131.972,
+            50.003
+          ],
+          [
+            134.341,
+            48.369
+          ],
+          [
+            136.434,
+            46.875
+          ],
+          [
+            136.434,
+            46.875
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "low",
+        "x": 85,
+        "h": 25,
+        "plan": "alternative",
+        "round": 2,
+        "destroyed": [],
+        "angle": 60,
+        "power": 70,
+        "damage": 1.5,
+        "events": [
+          "magnet",
+          "critical"
+        ],
+        "path": [
+          [
+            86.75,
+            30.631
+          ],
+          [
+            87.823,
+            32.395
+          ],
+          [
+            88.977,
+            34.049
+          ],
+          [
+            90.204,
+            35.587
+          ],
+          [
+            91.501,
+            37.008
+          ],
+          [
+            92.862,
+            38.307
+          ],
+          [
+            94.281,
+            39.483
+          ],
+          [
+            95.751,
+            40.532
+          ],
+          [
+            97.26,
+            41.465
+          ],
+          [
+            98.772,
+            42.335
+          ],
+          [
+            100.284,
+            43.145
+          ],
+          [
+            101.796,
+            43.896
+          ],
+          [
+            103.307,
+            44.588
+          ],
+          [
+            104.819,
+            45.221
+          ],
+          [
+            106.331,
+            45.794
+          ],
+          [
+            107.843,
+            46.309
+          ],
+          [
+            109.354,
+            46.764
+          ],
+          [
+            110.866,
+            47.159
+          ],
+          [
+            112.378,
+            47.496
+          ],
+          [
+            113.889,
+            47.773
+          ],
+          [
+            115.401,
+            47.991
+          ],
+          [
+            116.913,
+            48.149
+          ],
+          [
+            118.425,
+            48.249
+          ],
+          [
+            119.936,
+            48.289
+          ],
+          [
+            121.448,
+            48.27
+          ],
+          [
+            122.96,
+            48.191
+          ],
+          [
+            124.472,
+            48.054
+          ],
+          [
+            125.983,
+            47.857
+          ],
+          [
+            127.495,
+            47.6
+          ],
+          [
+            129.007,
+            47.285
+          ],
+          [
+            130.519,
+            46.91
+          ],
+          [
+            132.03,
+            46.476
+          ],
+          [
+            133.542,
+            45.983
+          ],
+          [
+            135.054,
+            45.431
+          ],
+          [
+            135.14,
+            45.397
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      }
+    ],
+    "stageNumber": 79,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "summary": {
+    "terrain": "磁場空洞の可動橋と上下砲座",
+    "concept": "橋の現在状態と極性を読み、上段か低棚かを選ぶ。",
+    "alternative": "低い固定棚を使って橋待機を減らし、磁場経路へ切り替える。端子が橋を動かすとは扱わない。"
+  },
+  "learningGoal": {
+    "source": "橋と磁場が変わる順を読み、両岸の退避点を確保する",
+    "proposed": "橋の現在状態と極性を読み、上段か低棚かを選ぶ。 低い固定棚を使って橋待機を減らし、磁場経路へ切り替える。端子が橋を動かすとは扱わない。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "橋の現在状態と極性を読み、上段か低棚かを選ぶ。",
+    "alternative": "低い固定棚を使って橋待機を減らし、磁場経路へ切り替える。端子が橋を動かすとは扱わない。",
+    "anchors": [
+      {
+        "id": "upper",
+        "x": 74,
+        "h": 69,
+        "surface": "079-UPPER",
+        "role": "橋を越えて上段から撃つ。",
+        "plan": "main"
+      },
+      {
+        "id": "low",
+        "x": 85,
+        "h": 25,
+        "surface": "079-LOW-PIER",
+        "role": "下側で極性を変えて狙う。 開橋時の射撃を単発確認。",
+        "probeRound": 2,
+        "plan": "alternative"
+      }
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "設計上の目標で、クリア実績ではない。破壊・歩行・転移・端子と反撃を含む実証は別工程。",
+    "evidenceSequenceRequirement": "P0→移動/転移/破壊/切替→射点候補→作用ギミック→敵の実位置→単発弾道→残り手数。未測定項目は未検証として残す。",
+    "accessEvidence": "候補の支持面と固定敵への単発例を確認。実移動・転移入力・準備手順を含む証明ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "固定座標・固定ターン・予告を設けず、安全な支持面から実行時に候補を生成。近接急襲を避け、転移を1行動として反撃余地を残す。",
+    "evaluation": "磁場と射線の比較",
+    "runtimeDestinations": null
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "stationary-single-shot-sample-found",
+    "actualTeleport": "not-run",
+    "combat": "not-run",
+    "autonomousEnemy": "not-implemented",
+    "staticEvidence": "STAGES_051_099_STATIC_CHECK.json",
+    "movementBenefit": "not-verified",
+    "enemyAi": "design-only-not-implemented",
+    "ballisticsEvidence": "STAGES_051_099_SHOT_PROBE.json",
+    "requiredCombinations": "sampled-combinations-found-full-routes-unverified",
+    "inputHash": "4f2294a900b1f550c6837bfb2552022a20dd60d62f622a7a50f72bd1ac50dc04"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "implementationNote": "Design only. No game source, runtime, inventory, AI, saves, production, or stage 100 changed.",
+  "destructionPlans": {
+    "main": [],
+    "alternative": []
+  },
+  "destructionRegister": [
+    {
+      "id": "079-UPPER",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "079-UPPER",
+          "label": "F01",
+          "poly": [
+            [
+              58,
+              64
+            ],
+            [
+              64,
+              69
+            ],
+            [
+              86,
+              69
+            ],
+            [
+              91,
+              64
+            ],
+            [
+              83,
+              59
+            ],
+            [
+              66,
+              59
+            ]
+          ]
+        }
+      ],
+      "purpose": "開放的だが露出する上段。"
+    },
+    {
+      "id": "079-LOW-PIER",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "079-LOW-PIER",
+          "label": "F02",
+          "poly": [
+            [
+              73,
+              20
+            ],
+            [
+              79,
+              25
+            ],
+            [
+              92,
+              25
+            ],
+            [
+              97,
+              20
+            ],
+            [
+              89,
+              15
+            ],
+            [
+              79,
+              15
+            ]
+          ]
+        }
+      ],
+      "purpose": "可動橋に頼らず残る固定低棚。"
+    }
+  ],
+  "gimmickAudit": {
+    "stage": 79,
+    "inputHash": "4f2294a900b1f550c6837bfb2552022a20dd60d62f622a7a50f72bd1ac50dc04",
+    "composition": {
+      "status": "合格",
+      "expected": [
+        "B",
+        "M",
+        "T"
+      ],
+      "actual": [
+        "B",
+        "M",
+        "T"
+      ]
+    },
+    "perType": [
+      {
+        "type": "B",
+        "placement": "合格",
+        "singleShotEffect": "未検証",
+        "meaning": "両姿勢の支持を静的確認。橋を経由する実移動は未検証。"
+      },
+      {
+        "type": "M",
+        "placement": "合格",
+        "singleShotEffect": "合格",
+        "meaning": "固定敵に命中する単発例で作用を観測。"
+      },
+      {
+        "type": "T",
+        "placement": "合格",
+        "singleShotEffect": "未検証",
+        "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
+      }
+    ],
+    "requiredCombinations": [],
+    "static": "合格",
+    "singleShot": "合格",
+    "actualMovement": "未検証",
+    "enemyAi": "未検証・未実装",
+    "combatAndActionBudget": "未検証",
+    "finalAcceptance": "未検証"
+  }
+}

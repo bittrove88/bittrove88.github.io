@@ -1,0 +1,1272 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 63,
+  "date": "2026-11-05",
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        7
+      ],
+      [
+        29,
+        7
+      ],
+      [
+        44,
+        10
+      ],
+      [
+        63,
+        19
+      ],
+      [
+        82,
+        28
+      ],
+      [
+        100,
+        28
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          29,
+          7
+        ],
+        [
+          44,
+          10
+        ],
+        [
+          63,
+          19
+        ],
+        [
+          82,
+          28
+        ],
+        [
+          100,
+          28
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "063-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            39,
+            31
+          ],
+          [
+            43,
+            31
+          ],
+          [
+            43,
+            9
+          ],
+          [
+            39,
+            9
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "063-C01@0",
+            "label": "D01",
+            "poly": [
+              [
+                39,
+                31
+              ],
+              [
+                43,
+                31
+              ],
+              [
+                43,
+                9
+              ],
+              [
+                39,
+                9
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "063-C02",
+        "kind": "wall",
+        "poly": [
+          [
+            66,
+            41
+          ],
+          [
+            70,
+            41
+          ],
+          [
+            70,
+            21
+          ],
+          [
+            66,
+            21
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "063-C02@0",
+            "label": "D02",
+            "poly": [
+              [
+                66,
+                41
+              ],
+              [
+                70,
+                41
+              ],
+              [
+                70,
+                21
+              ],
+              [
+                66,
+                21
+              ]
+            ]
+          }
+        ],
+        "displayId": "D02",
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 16,
+      "h": 7
+    },
+    "enemy": {
+      "x": 88,
+      "h": 28
+    },
+    "pickups": [],
+    "stageNumber": 63,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "width": 1420,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        34,
+        10
+      ],
+      [
+        44,
+        15
+      ],
+      [
+        54,
+        24
+      ],
+      [
+        61,
+        24
+      ],
+      [
+        76,
+        30
+      ],
+      [
+        83,
+        35
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        125,
+        44
+      ],
+      [
+        142,
+        44
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          34,
+          10
+        ],
+        [
+          44,
+          15
+        ],
+        [
+          54,
+          24
+        ],
+        [
+          61,
+          24
+        ],
+        [
+          76,
+          30
+        ],
+        [
+          83,
+          35
+        ],
+        [
+          100,
+          40
+        ],
+        [
+          125,
+          44
+        ],
+        [
+          142,
+          44
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "063-NEAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            49,
+            19
+          ],
+          [
+            55,
+            24
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            49,
+            40
+          ]
+        ],
+        "purpose": "低路の手前隔壁。",
+        "breakable": true,
+        "displayId": "D01",
+        "renderUnits": [
+          {
+            "id": "063-NEAR-GATE@0",
+            "label": "D01",
+            "poly": [
+              [
+                49,
+                19
+              ],
+              [
+                55,
+                24
+              ],
+              [
+                55,
+                42
+              ],
+              [
+                49,
+                40
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "063-FAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            92,
+            38
+          ],
+          [
+            100,
+            40
+          ],
+          [
+            100,
+            64
+          ],
+          [
+            92,
+            64
+          ]
+        ],
+        "purpose": "高い射線を遮る奥隔壁。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "063-FAR-GATE@0",
+            "label": "D02",
+            "poly": [
+              [
+                92,
+                38
+              ],
+              [
+                100,
+                40
+              ],
+              [
+                100,
+                64
+              ],
+              [
+                92,
+                64
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "063-HIGH-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            64,
+            45
+          ],
+          [
+            69,
+            50
+          ],
+          [
+            81,
+            50
+          ],
+          [
+            85,
+            46
+          ],
+          [
+            77,
+            41
+          ],
+          [
+            68,
+            41
+          ]
+        ],
+        "purpose": "手前隔壁を迂回する独立棚。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "063-HIGH-PERCH",
+            "label": "F03",
+            "poly": [
+              [
+                64,
+                45
+              ],
+              [
+                69,
+                50
+              ],
+              [
+                81,
+                50
+              ],
+              [
+                85,
+                46
+              ],
+              [
+                77,
+                41
+              ],
+              [
+                68,
+                41
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 26,
+      "h": 10
+    },
+    "enemy": {
+      "x": 130,
+      "h": 44
+    },
+    "pickups": [],
+    "firingPoints": [
+      {
+        "x": 69,
+        "h": 27.2,
+        "label": "A"
+      },
+      {
+        "x": 75,
+        "h": 50,
+        "label": "B"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            26,
+            10
+          ],
+          [
+            69,
+            27.2
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            26,
+            10
+          ],
+          [
+            75,
+            50
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      }
+    ],
+    "shotExamples": [
+      {
+        "id": "P0",
+        "x": 26,
+        "h": 10,
+        "plan": "intact",
+        "round": 1,
+        "destroyed": [],
+        "angle": 66,
+        "power": 100,
+        "damage": 0.5,
+        "events": [
+          "impact"
+        ],
+        "path": [
+          [
+            27.424,
+            15.797
+          ],
+          [
+            28.635,
+            18.496
+          ],
+          [
+            29.846,
+            21.134
+          ],
+          [
+            31.057,
+            23.714
+          ],
+          [
+            32.268,
+            26.234
+          ],
+          [
+            33.479,
+            28.695
+          ],
+          [
+            34.691,
+            31.097
+          ],
+          [
+            35.902,
+            33.44
+          ],
+          [
+            37.113,
+            35.723
+          ],
+          [
+            38.324,
+            37.947
+          ],
+          [
+            39.535,
+            40.112
+          ],
+          [
+            40.746,
+            42.217
+          ],
+          [
+            41.958,
+            44.264
+          ],
+          [
+            43.169,
+            46.251
+          ],
+          [
+            44.38,
+            48.178
+          ],
+          [
+            45.591,
+            50.047
+          ],
+          [
+            46.802,
+            51.856
+          ],
+          [
+            48.013,
+            53.606
+          ],
+          [
+            49.225,
+            55.297
+          ],
+          [
+            50.436,
+            56.928
+          ],
+          [
+            51.647,
+            58.5
+          ],
+          [
+            52.858,
+            60.013
+          ],
+          [
+            54.069,
+            61.467
+          ],
+          [
+            55.281,
+            62.861
+          ],
+          [
+            56.492,
+            64.197
+          ],
+          [
+            57.703,
+            65.472
+          ],
+          [
+            58.914,
+            66.689
+          ],
+          [
+            60.125,
+            67.846
+          ],
+          [
+            61.336,
+            68.945
+          ],
+          [
+            62.548,
+            69.983
+          ],
+          [
+            63.759,
+            70.963
+          ],
+          [
+            64.97,
+            71.883
+          ],
+          [
+            66.181,
+            72.744
+          ],
+          [
+            67.392,
+            73.546
+          ],
+          [
+            68.603,
+            74.289
+          ],
+          [
+            69.815,
+            74.972
+          ],
+          [
+            71.026,
+            75.596
+          ],
+          [
+            72.237,
+            76.161
+          ],
+          [
+            73.448,
+            76.666
+          ],
+          [
+            74.659,
+            77.113
+          ],
+          [
+            75.87,
+            77.5
+          ],
+          [
+            77.082,
+            77.827
+          ],
+          [
+            78.293,
+            78.096
+          ],
+          [
+            79.504,
+            78.305
+          ],
+          [
+            80.715,
+            78.455
+          ],
+          [
+            81.926,
+            78.546
+          ],
+          [
+            83.137,
+            78.577
+          ],
+          [
+            84.349,
+            78.549
+          ],
+          [
+            85.56,
+            78.462
+          ],
+          [
+            86.771,
+            78.316
+          ],
+          [
+            87.982,
+            78.11
+          ],
+          [
+            89.193,
+            77.846
+          ],
+          [
+            90.404,
+            77.522
+          ],
+          [
+            91.616,
+            77.138
+          ],
+          [
+            92.827,
+            76.696
+          ],
+          [
+            94.038,
+            76.194
+          ],
+          [
+            95.249,
+            75.632
+          ],
+          [
+            96.46,
+            75.012
+          ],
+          [
+            97.672,
+            74.332
+          ],
+          [
+            98.883,
+            73.593
+          ],
+          [
+            100.094,
+            72.795
+          ],
+          [
+            101.305,
+            71.938
+          ],
+          [
+            102.516,
+            71.021
+          ],
+          [
+            103.727,
+            70.045
+          ],
+          [
+            104.939,
+            69.01
+          ],
+          [
+            106.15,
+            67.916
+          ],
+          [
+            107.361,
+            66.762
+          ],
+          [
+            108.572,
+            65.549
+          ],
+          [
+            109.783,
+            64.277
+          ],
+          [
+            110.994,
+            62.945
+          ],
+          [
+            112.206,
+            61.554
+          ],
+          [
+            113.417,
+            60.104
+          ],
+          [
+            114.628,
+            58.595
+          ],
+          [
+            115.839,
+            57.026
+          ],
+          [
+            117.05,
+            55.399
+          ],
+          [
+            118.261,
+            53.711
+          ],
+          [
+            119.473,
+            51.965
+          ],
+          [
+            120.684,
+            50.16
+          ],
+          [
+            121.895,
+            48.295
+          ],
+          [
+            123.106,
+            46.371
+          ],
+          [
+            124.317,
+            44.387
+          ],
+          [
+            124.589,
+            43.934
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "corridor",
+        "x": 69,
+        "h": 27.2,
+        "plan": "main",
+        "round": 1,
+        "destroyed": [
+          "063-NEAR-GATE@0",
+          "063-FAR-GATE@0"
+        ],
+        "angle": 6,
+        "power": 100,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            71.13,
+            31.246
+          ],
+          [
+            73.764,
+            32.613
+          ],
+          [
+            76.398,
+            33.92
+          ],
+          [
+            79.033,
+            35.169
+          ],
+          [
+            81.667,
+            36.357
+          ],
+          [
+            84.301,
+            37.487
+          ],
+          [
+            86.935,
+            38.557
+          ],
+          [
+            89.569,
+            39.568
+          ],
+          [
+            92.203,
+            40.52
+          ],
+          [
+            94.837,
+            41.413
+          ],
+          [
+            97.471,
+            42.246
+          ],
+          [
+            100.105,
+            43.02
+          ],
+          [
+            102.739,
+            43.735
+          ],
+          [
+            105.373,
+            44.391
+          ],
+          [
+            108.007,
+            44.987
+          ],
+          [
+            110.641,
+            45.524
+          ],
+          [
+            113.275,
+            46.002
+          ],
+          [
+            115.909,
+            46.42
+          ],
+          [
+            118.543,
+            46.779
+          ],
+          [
+            121.177,
+            47.079
+          ],
+          [
+            123.811,
+            47.32
+          ],
+          [
+            126.445,
+            47.501
+          ],
+          [
+            127.206,
+            47.543
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "perch",
+        "x": 75,
+        "h": 50,
+        "plan": "alternative",
+        "round": 1,
+        "destroyed": [
+          "063-FAR-GATE@0"
+        ],
+        "angle": 6,
+        "power": 80,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            78.481,
+            52.966
+          ],
+          [
+            80.85,
+            53.193
+          ],
+          [
+            83.219,
+            53.36
+          ],
+          [
+            85.588,
+            53.468
+          ],
+          [
+            87.958,
+            53.517
+          ],
+          [
+            90.327,
+            53.507
+          ],
+          [
+            92.696,
+            53.438
+          ],
+          [
+            95.065,
+            53.309
+          ],
+          [
+            97.434,
+            53.121
+          ],
+          [
+            99.803,
+            52.874
+          ],
+          [
+            102.173,
+            52.567
+          ],
+          [
+            104.542,
+            52.201
+          ],
+          [
+            106.911,
+            51.776
+          ],
+          [
+            109.28,
+            51.292
+          ],
+          [
+            111.649,
+            50.748
+          ],
+          [
+            114.018,
+            50.145
+          ],
+          [
+            116.388,
+            49.483
+          ],
+          [
+            118.757,
+            48.762
+          ],
+          [
+            121.126,
+            47.981
+          ],
+          [
+            123.495,
+            47.141
+          ],
+          [
+            125.864,
+            46.242
+          ],
+          [
+            126.923,
+            45.821
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      }
+    ],
+    "stageNumber": 63,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "summary": {
+    "terrain": "高さが食い違う二重防御回廊",
+    "concept": "手前の低い隔壁を開け、途中射点から奥の必要な一片を壊す。",
+    "alternative": "高い独立棚へ転移して片方を迂回し、破壊回数を抑える。"
+  },
+  "learningGoal": {
+    "source": "手前と奥の隔壁を順に壊し、低い射点から高い敵へ通る細い射線を作る。",
+    "proposed": "手前の低い隔壁を開け、途中射点から奥の必要な一片を壊す。 高い独立棚へ転移して片方を迂回し、破壊回数を抑える。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "手前の低い隔壁を開け、途中射点から奥の必要な一片を壊す。",
+    "alternative": "高い独立棚へ転移して片方を迂回し、破壊回数を抑える。",
+    "anchors": [
+      {
+        "id": "corridor",
+        "x": 69,
+        "h": 27.2,
+        "surface": "floor0",
+        "role": "手前を開けた後、奥の破壊箇所を選ぶ。",
+        "plan": "main"
+      },
+      {
+        "id": "perch",
+        "x": 75,
+        "h": 50,
+        "surface": "063-HIGH-PERCH",
+        "role": "転移で手前隔壁を迂回する。",
+        "plan": "alternative"
+      }
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "設計上の目標で、クリア実績ではない。破壊・歩行・転移・端子と反撃を含む実証は別工程。",
+    "evidenceSequenceRequirement": "P0→移動/転移/破壊/切替→射点候補→作用ギミック→敵の実位置→単発弾道→残り手数。未測定項目は未検証として残す。",
+    "accessEvidence": "候補の支持面と固定敵への単発例を確認。実移動・転移入力・準備手順を含む証明ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:blast",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "71面未満のため対象外。",
+    "evaluation": "遮蔽を使う徒歩の位置取り",
+    "runtimeDestinations": null
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "stationary-single-shot-sample-found",
+    "actualTeleport": "not-run",
+    "combat": "not-run",
+    "autonomousEnemy": "not-implemented",
+    "staticEvidence": "STAGES_051_099_STATIC_CHECK.json",
+    "movementBenefit": "not-verified",
+    "enemyAi": "design-only-not-implemented",
+    "ballisticsEvidence": "STAGES_051_099_SHOT_PROBE.json",
+    "requiredCombinations": "sampled-combinations-found-full-routes-unverified",
+    "inputHash": "c1b638903810307c4defabc731854756ab6fc3c4caef7a29ed7b6e937add6679"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "implementationNote": "Design only. No game source, runtime, inventory, AI, saves, production, or stage 100 changed.",
+  "destructionPlans": {
+    "main": [
+      "063-NEAR-GATE@0",
+      "063-FAR-GATE@0"
+    ],
+    "alternative": [
+      "063-FAR-GATE@0"
+    ]
+  },
+  "destructionRegister": [
+    {
+      "id": "063-NEAR-GATE",
+      "label": "D01",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "063-NEAR-GATE@0",
+          "label": "D01",
+          "poly": [
+            [
+              49,
+              19
+            ],
+            [
+              55,
+              24
+            ],
+            [
+              55,
+              42
+            ],
+            [
+              49,
+              40
+            ]
+          ]
+        }
+      ],
+      "purpose": "低路の手前隔壁。"
+    },
+    {
+      "id": "063-FAR-GATE",
+      "label": "D02",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "063-FAR-GATE@0",
+          "label": "D02",
+          "poly": [
+            [
+              92,
+              38
+            ],
+            [
+              100,
+              40
+            ],
+            [
+              100,
+              64
+            ],
+            [
+              92,
+              64
+            ]
+          ]
+        }
+      ],
+      "purpose": "高い射線を遮る奥隔壁。"
+    },
+    {
+      "id": "063-HIGH-PERCH",
+      "label": "F03",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "063-HIGH-PERCH",
+          "label": "F03",
+          "poly": [
+            [
+              64,
+              45
+            ],
+            [
+              69,
+              50
+            ],
+            [
+              81,
+              50
+            ],
+            [
+              85,
+              46
+            ],
+            [
+              77,
+              41
+            ],
+            [
+              68,
+              41
+            ]
+          ]
+        }
+      ],
+      "purpose": "手前隔壁を迂回する独立棚。"
+    }
+  ],
+  "gimmickAudit": {
+    "stage": 63,
+    "inputHash": "c1b638903810307c4defabc731854756ab6fc3c4caef7a29ed7b6e937add6679",
+    "composition": {
+      "status": "合格",
+      "expected": [],
+      "actual": []
+    },
+    "perType": [],
+    "requiredCombinations": [],
+    "static": "合格",
+    "singleShot": "合格",
+    "actualMovement": "未検証",
+    "enemyAi": "未検証・未実装",
+    "combatAndActionBudget": "未検証",
+    "finalAcceptance": "未検証"
+  }
+}
