@@ -1,0 +1,144 @@
+{
+  "schema": "ARCLINE-staged-map-review-v1",
+  "status": "設計承認済み（ゲーム未実装）",
+  "revision": "2026-11-04",
+  "stage": 1,
+  "unitScalePx": 10,
+  "worldWidthPx": 1000,
+  "source": {
+    "blueprintFile": "ARCLINE/design/expedition_013/stage_blueprints.json",
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "stageDesignFile": "ARCLINE/design/expedition_013/stage_design.json",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd",
+    "runtimeFile": "ARCLINE/design/runtime_campaign_20x5.json",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1"
+  },
+  "before": {
+    "stage": 1,
+    "name": "港の最初の一射",
+    "goal": "近づくほど、小さなチャージでも届く",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        100,
+        10
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      18,
+      60
+    ],
+    "route": "近づくほど、小さなチャージでも届く",
+    "nameEn": "First Cargo",
+    "goalEn": "Move closer to reach the rival with a gentle charge."
+  },
+  "after": {
+    "stage": 1,
+    "name": "港の最初の一射",
+    "goal": "近づくほど、小さなチャージでも届く",
+    "floor": [
+      [
+        0,
+        9.2
+      ],
+      [
+        6,
+        9.2
+      ],
+      [
+        12,
+        10
+      ],
+      [
+        74,
+        10
+      ],
+      [
+        83,
+        11.2
+      ],
+      [
+        90,
+        11.2
+      ],
+      [
+        100,
+        10.2
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      18,
+      60
+    ],
+    "route": "近づくほど、小さなチャージでも届く",
+    "nameEn": "First Cargo",
+    "goalEn": "Move closer to reach the rival with a gentle charge.",
+    "terrainRevision": "review-proposal-only-2026-11-04"
+  },
+  "concept": "開始1面は中央の射撃操作に集中。港の両端だけ小さな浸食・盛り土を入れて画面の輪郭を改善する。",
+  "preserves": [
+    "中央の12〜74設計単位を完全水平の高さ10で維持",
+    "自機x=18/敵x=60および出撃床高10を完全維持",
+    "幅1000px/地面の両端/既存部品なし・ギミックなし",
+    "学習目標・推奨機体・行動上限12・敵プロファイル0・HP欄3",
+    "敵の攻撃倍率・ゲームUI・セーブ/URL・弾道関数"
+  ],
+  "proposedChanges": [
+    {
+      "zone": "x=0〜12（左端）",
+      "before": "高さ10の直線",
+      "after": "高さ9.2の浅い海岸端から、高さ10の岸へなだらかに上がる",
+      "intent": "初回の操作空間を邪魔せず港の輪郭を作る"
+    },
+    {
+      "zone": "x=74〜100（右端）",
+      "before": "高さ10の直線",
+      "after": "高さ11.2の低い岸壁肩と高さ10.2の端部へ変化",
+      "intent": "敵を越えた画面にも港の地形が続いて見える"
+    },
+    {
+      "zone": "x=12〜74（射撃エリア）",
+      "before": "高さ10",
+      "after": "高さ10を完全維持",
+      "intent": "初期の照準操作・距離とチャージの学びを維持"
+    }
+  ],
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActionsReference": [
+      3,
+      7
+    ],
+    "enemyStageErrorFactor": 1,
+    "enemyStageDamageFactor": 1,
+    "designRisk": "主要射点を一切変更しないため、地形が原因の初期射撃難度増を避ける。ただし本案の実戦勝利は未検証。"
+  },
+  "learning": {
+    "oldGoal": "近づくほど、小さなチャージでも届く",
+    "decision": "維持",
+    "proposedGoal": "近づくほど、小さなチャージでも届く",
+    "reason": "第1面は距離とチャージの基本1要素に集中。地形の傾斜は第2面から学ぶ。",
+    "sequence": "1面で水平射撃と接近の効果 → 2面で傾斜による砲口角変化 → 3面で下り坂と射点選び"
+  },
+  "scope": "設計案とHTML比較のみ。既存ステージ地形・実装データは更新していない。",
+  "tests": {
+    "staticConsistency": "チェック済み：出撃床高、床範囲、主要中心帯、装備/障害物不変",
+    "battleSimulation": "未実施（依頼に従いシミュレーションなし）",
+    "gameplayOnDevice": "未実施",
+    "userApproval": "承認済み（2026-11-04：ユーザーが「OK」と回答）"
+  },
+  "comparisonHtml": "ARCLINE/design/stage_reviews/map_review_gallery.html#stage-001",
+  "approvedScope": "地形の両端のみ変更する設計を承認。ゲーム実装・テストは別工程。"
+}
