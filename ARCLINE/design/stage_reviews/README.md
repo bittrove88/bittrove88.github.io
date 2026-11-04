@@ -1,12 +1,13 @@
 # ARCLINE ステージ比較ページの追記手順
 
-**[共通比較HTML](map_review_gallery.html)** は固定。ステージを追加するたびHTMLを編集する必要はありません。
+**[共通比較HTML](map_review_gallery.html)** は表示テンプレートとして固定。ページ内にマップデータを同梱するため、閲覧時の外部JSON読み込みは不要です。
 
-## 追加は1件のデータだけ
+## 追記はJSONの1件追加＋1コマンド
 
-1. 現在の[画面データ](map_review_gallery_data.json)を開く。`stages`配列末尾へ**新しいステージの1件**を追記する。これだけで共通HTMLのステージ選択に反映され、前後の移動も自動更新される。
-2. ステージの詳細設計は`stage_XXX_review_v1.md`、位置・床座標・既存との比較用資料は`stage_XXX_proposal_v1.json`に保存。HTML中には説明を書き込まない。
-3. [100面進行台帳](../stage_map_design_register_v1.json)で該当面をレビュー待ちにする。ユーザーの「OK」後に**データ中の`state`を`approved`へ変更**し、台帳も設計承認済みにする。ゲームには反映しない。
+1. 現在の[画面データ](map_review_gallery_data.json)を開く。`stages`配列末尾へ**新しいステージの1件**を追記する。その後、次の生成コマンドを実行すると共通HTMLへ反映され、ステージ選択と前後移動が自動更新される。
+2. **HTMLへのデータ埋め込みを生成**：リポジトリのルートから `python3 ARCLINE/design/stage_reviews/build_gallery_html.py` を実行。確認は同じコマンドに `--check` を付ける。HTMLの見た目やJavaScriptを手動修正しない。コミットにはJSONと生成済HTMLの両方を含める。
+3. ステージの詳細設計は`stage_XXX_review_v1.md`、位置・床座標・既存との比較用資料は`stage_XXX_proposal_v1.json`に保存。HTML中には説明を書き込まない。
+4. [100面進行台帳](../stage_map_design_register_v1.json)で該当面をレビュー待ちにする。ユーザーの「OK」後に**データ中の`state`を`approved`へ変更**し、台帳も設計承認済みにする。ゲームには反映しない。
 
 必要な記述の雛形（`stages`配列内の1件）：
 
@@ -44,7 +45,7 @@
 
 `before`は現行ゲームのマップ座標、`after`はデザインガイドから再設計した新規案。**既存図を少しずつ修正する前提ではない**。導入帯は意図的に現状維持・小変更も選べる。`parts`は`{"kind":"island|roof|wall","poly":[[x,h],...]}`、`features`は`{"type":"C|F|U|V|M|K|T|W","v":[...]}`のように保持。地形が分離する場合は`floors`で複数の床区間を指定できる。島上開始は`player.h`／`enemy.h`を明示する。
 
-**表示について**：共通HTMLは画面データJSONをページと同じフォルダーから読み込む。公開はGitHub PagesのURLで行う（`file://`では`fetch`が使えないブラウザがある）。リンクの`#stage-003`で面を直接選べる。初めて開いた場合は未承認の最新確認面を表示する。
+**表示について**：共通HTMLは生成時にJSONを**HTMLファイル自身へ内蔵**するため、閲覧時の `fetch` / CORS / JSON公開状態に依存しない。GitHub Pagesと、端末に保存したローカルHTMLの両方で表示できる。 `#stage-003` のようなリンクで面を直接選択。初期表示は未承認の面を優先する。
 
 **承認状態の正本**は進行台帳。HTMLの承認ラベルと一致させる。ステージを一括で作らず、確認待ちの1面だけを追加・修正する。
 
@@ -56,3 +57,7 @@
 - **4〜9面：番号順に6つの設計資料を作成済み、9面まで終わってからまとめてレビュー待ち**。未承認なので画面データでは`state: "pending"`。
 - [4〜9面の比較を始める](map_review_gallery.html#stage-004)。9面まで確認し、修正指摘があれば対象面だけ直す。10面は確認後に着手する。
 - ギミックの作用や敵からの命中を証明したわけではない。今回の工程ではシミュレーションを行わない。
+
+## 読込エラー修正（2026-11-04）
+
+以前のHTMLはページ表示時にJSONへ `fetch` を行い、環境によって `Failed to fetch` が発生したため廃止。現在は[1〜9面のデータ](map_review_gallery_data.json)を[HTML](map_review_gallery.html)へ埋め込んだ**自己完結型の比較画面**。将来はJSONへ1件追加して[ビルドスクリプト](build_gallery_html.py)を一度実行するだけで更新できる。HTML内データとJSONの同期は `python3 ARCLINE/design/stage_reviews/build_gallery_html.py --check` で確認できる。
