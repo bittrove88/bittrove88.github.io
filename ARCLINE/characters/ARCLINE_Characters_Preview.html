@@ -1619,7 +1619,16 @@ function place(s,initial=false){
 }
 function init(s){if(!active(s))return;s.finalTeam={index:0,map:-1,serial:-1,pending:false,damage:Object.fromEntries(config(s).order.map(id=>[id,0]))};s.units[1].hp=s.units[1].maxHp=config(s).order.length*config(s).requiredDamage;place(s,true);}
 function credit(s,id,raw){if(!active(s))return raw;const t=s.finalTeam,c=config(s);if(id!==c.order[t.index])return 0;const amount=Math.min(Math.max(0,raw||0),Math.max(0,c.requiredDamage-t.damage[id]));t.damage[id]=Math.min(c.requiredDamage,Math.round((t.damage[id]+amount)*1e8)/1e8);t.pending=t.damage[id]>=c.requiredDamage-1e-7&&!complete(s);return amount;}
-function guard(s){if(active(s)&&s.units[1].hp<=0&&!complete(s)){s.units[1].hp=Math.max(.1,config(s).order.reduce((n,id)=>n+Math.max(0,config(s).requiredDamage-(s.finalTeam?.damage[id]||0)),0));if(s.result==='win'){s.result=null;s.reason=null;}}}
+function guard(s){
+ if(!active(s))return;
+ // Each machine's credited damage is authoritative for the final clear.
+ // Repeated fractional hits can leave a tiny positive HP value that displays as 0.
+ if(complete(s)){s.units[1].hp=0;return;}
+ if(s.units[1].hp<=0){
+  s.units[1].hp=Math.max(.1,config(s).order.reduce((n,id)=>n+Math.max(0,config(s).requiredDamage-(s.finalTeam?.damage[id]||0)),0));
+  if(s.result==='win'){s.result=null;s.reason=null;}
+ }
+}
 function advance(s){if(!active(s)||!s.finalTeam.pending||s.result)return false;s.finalTeam.index++;return place(s);}
 function canChange(s){return !active(s);}
 // Battle-local entry snapshots never change the durable campaign save.
