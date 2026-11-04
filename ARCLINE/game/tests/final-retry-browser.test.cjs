@@ -11,6 +11,7 @@ const server=http.createServer((q,r)=>{let f=path.join(root,new URL(q.url,'http:
   async function ready(){if(await p.locator('#bossIntroSkip').isVisible())await p.locator('#bossIntroSkip').tap();await p.waitForFunction('canAim()');await p.evaluate(()=>{cancelAnimationFrame(raf);raf=0;});}
   await ready();await p.evaluate(lang=>ArcI18n.setLanguage(lang),lang);ok(await p.evaluate(lang=>ArcI18n.language===lang&&document.documentElement.lang===lang,lang),'requested UI language '+lang);
   ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===28'),'initial full charges and character budget '+width);
+  await p.locator('#finalTeamHUD').tap();const note=await p.locator('#battleMachineNote').textContent();ok(note.includes(lang==='en'?'3 specials':'各3発')&&note.includes('28'),'sortie order explains current charges and actions '+lang);await p.locator('#closeBattleMachines').tap();
   for(const index of [2,3,6,9]){
    await p.evaluate(index=>{while(s.finalTeam.index<index){if(s.finalTeam.index===0)s.weaponStock.W14=1;ArcFinalTeam.credit(s,s.characterId,s.spec.finalBattle.requiredDamage);advanceTurn();transition=null;s.phase='aim';}hud();draw();},index);
    const expected=await p.evaluate(()=>({id:s.characterId,index:s.finalTeam.index,map:s.finalTeam.map,damage:JSON.stringify(s.finalTeam.damage),stock:JSON.stringify(I.fromState(s)),world:JSON.stringify(s.world),effects:JSON.stringify(s.effects),boss:JSON.stringify({hp:s.units[1].hp,parts:s.units[1].parts.map(p=>p.hp)}),save:JSON.stringify(save.data)}));
