@@ -3,7 +3,7 @@ for(const p of E.combat.profiles)curriculum.descriptions[p.special.id]={title:p.
 Object.assign(curriculum.descriptions,{
  S_GUARD:{title:'Guard',instruction:'Reserve Guard, then fire or teleport.',outcome:'The next rival attack deals half damage.',context:'SKILL DEMO'},
  S_BREACH:{title:'Breach',instruction:'Fire at cracked cover with Breach reserved.',outcome:'One more nearby piece breaks. Damage stays the same.',context:'SKILL DEMO'},
- S_REPAIR:{title:'Field Repair',instruction:'Repair restores 30 HP and uses one action.',outcome:'The rival acts after the repair.',context:'SKILL DEMO'}
+ S_REPAIR:{title:'Field Repair',instruction:'Repair restores 30% max HP and uses one action.',outcome:'The rival acts after the repair.',context:'SKILL DEMO'}
 });
 for(const record of curriculum.stages.filter(r=>r.stage<=20)){const spec=E.levels[record.stage-1];record.weaponCapsules=spec.pickups.filter(p=>p.kind==='trial').map(p=>p.weaponId);record.skillChoices=spec.pickups.filter(p=>p.kind==='skill').map(p=>p.skillId);}
 curriculum.descriptions['boss-swap']={title:'EXPOSE THE CORE',instruction:'Select SWAP, then hit the guardian.',outcome:'Its core opens briefly.',context:'BOSS DEMO'};

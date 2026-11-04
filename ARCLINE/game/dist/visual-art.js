@@ -93,7 +93,7 @@ function drawSolid(ctx,o,world,options={}){
  ctx.save();try{
   if(o.kind==='reflector'){
    const mid={x:(p[0].x+p[1].x)/2,y:(p[0].y+p[1].y)/2-.5};
-   if(world.solids.some(other=>other.id!==o.id&&other.kind!=='reflector'&&root.ArcEngine.geometry.inside(mid,other.poly)))return;
+   if(!o.underside&&world.solids.some(other=>other.id!==o.id&&other.kind!=='reflector'&&root.ArcEngine.geometry.inside(mid,other.poly)))return;
    shape(ctx,p,'#6eaaa2',C.ink,1.5,dpr);line(ctx,p.slice(0,2),C.reflect,2,dpr);
    const a=p[0],b=p[1],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy),nx=-dy/len,ny=dx/len;
    for(let s=14;s<len-8;s+=28){const x=a.x+dx*s/len,y=a.y+dy*s/len;line(ctx,[{x:x-dx*4/len,y:y-dy*4/len},{x:x+nx*4,y:y+ny*4}],'#355b60',.8,dpr);}return;
@@ -150,13 +150,27 @@ function drawTerminal(ctx,t,s,options={}){
  }finally{ctx.restore();}
 }
 function drawPickup(ctx,item,options={}){
- if(item.collected)return;ctx.save();try{const d=V.brush(ctx,{},options),y=item.y+(options.reducedMotion?0:Math.sin((options.time||0)*2)*2),x=item.x;
-  d.poly([x-15,y-16,x+15,y-16,x+20,y-10,x+20,y+11,x+14,y+17,x-15,y+17,x-20,y+11,x-20,y-10],'#d7d1b4');d.rect(x-14,y-11,28,20,2,'#345568');
-  if(item.kind==='trial'){const w=root.ArcWeapons?.get(item.weaponId),a=w?.appearance||{},color=a.color||C.warning;d.rect(x-12,y-2,21,6,1,color);if(['needle','arrow'].includes(a.shape))d.poly([x+3,y-5,x+14,y+1,x+3,y+6],color);else if(a.shape==='shell')d.rect(x+6,y-5,7,12,2,color);else if(['ring','orbit','gear'].includes(a.shape))d.oval(x+5,y+1,7,7,null,color,1.6);else if(['diamond','spark'].includes(a.shape))d.poly([x+6,y-6,x+13,y+1,x+6,y+8,x-1,y+1],color);else d.oval(x+8,y+1,5,5,color);for(let i=0;i<3;i++)d.rect(x-10+i*8,y+12,5,2,.4,color,null);}
-  else if(item.kind==='ammo')for(const xx of[-7,0,7])d.rect(x+xx-2,y-7,4,13,1,C.cream,null);
-  else if(item.kind==='skill'){if(root.ArcSkills)root.ArcSkills.draw(ctx,item.skill,x,y,23);else d.poly([x,y-8,x+8,y-4,x+7,y+3,x,y+9,x-7,y+3,x-8,y-4],C.reflect,C.ink,1);}
-  line(ctx,[{x:x-9,y:y+24},{x:x+9,y:y+24}],'#183e4b55',1,options.dpr||1);
- }finally{ctx.restore();}
+ if(item.collected||item.hidden)return;
+ const info=item.kind==='trial'?root.ArcWeapons.get(item.weaponId):root.ArcSkills.get(item.skill),rare=!!info?.rare||item.category==='rare-skill',weapon=item.kind==='trial',color=weapon?'#ffae63':rare?'#ffdb76':'#74efff';
+ const unit=V.unit(ctx,options.dpr||1),bounds=options.bounds;
+ // Keep a tethered marker readable when the real capsule moves behind a HUD or
+ // beyond the camera. The physical center/radius remain on the authored route.
+ const x=bounds?Math.max(bounds.left+28*unit,Math.min(bounds.right-28*unit,item.x)):item.x;
+ const y=bounds?Math.max(bounds.top+23*unit,Math.min(bounds.bottom-54*unit,item.y)):item.y;
+ if(Math.hypot(x-item.x,y-item.y)>unit){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=unit;ctx.setLineDash([3*unit,4*unit]);ctx.beginPath();ctx.moveTo(item.x,item.y);ctx.lineTo(x,y);ctx.stroke();ctx.restore();}
+ ctx.save();ctx.translate(x,y);ctx.scale(unit,unit);ctx.lineWidth=2;ctx.strokeStyle=color;ctx.fillStyle='#102d40';ctx.beginPath();
+ if(weapon){ctx.roundRect(-24,-13,48,26,7);}
+ else {const radius=rare?21:19;for(let i=0;i<(rare?6:4);i++){const a=-Math.PI/2+i*Math.PI*2/(rare?6:4);i?ctx.lineTo(Math.cos(a)*radius,Math.sin(a)*radius):ctx.moveTo(Math.cos(a)*radius,Math.sin(a)*radius);}ctx.closePath();}
+ ctx.fill();ctx.stroke();
+ if(rare){ctx.beginPath();for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3;i?ctx.lineTo(Math.cos(a)*16,Math.sin(a)*16):ctx.moveTo(Math.cos(a)*16,Math.sin(a)*16);}ctx.closePath();ctx.stroke();}
+ ctx.fillStyle=color;ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(weapon?info.appearance.glyph:info?.glyph||'◇',0,0);ctx.restore();
+ const name=root.ArcI18n?.language==='en'?info?.name:info?.nameJa||info?.name;
+ const text=name||item.skill||item.weaponId||'Ammo',lines=text.length>16&&text.includes(' ')?[text.slice(0,text.lastIndexOf(' ',16)),text.slice(text.lastIndexOf(' ',16)+1)]:[text];
+ ctx.save();ctx.font=`700 ${12*unit}px system-ui`;ctx.textAlign='center';ctx.textBaseline='top';const width=Math.max(...lines.map(t=>ctx.measureText(t).width))+12*unit,view=options.bounds;
+ let labelX=x,labelY=y+25*unit;
+ if(view){labelX=Math.max(view.left+width/2+4*unit,Math.min(view.right-width/2-4*unit,labelX));labelY=Math.min(labelY,view.bottom-(lines.length*15+6)*unit);}
+ ctx.fillStyle='#071e30ed';ctx.fillRect(labelX-width/2,labelY-3*unit,width,(lines.length*15+5)*unit);ctx.fillStyle=color;
+ lines.forEach((t,i)=>ctx.fillText(t,labelX,labelY+i*15*unit));ctx.restore();
 }
 function drawShot(ctx,plan,t,options={}){return root.ArcEffects?.forContext(ctx).draw(plan,t,{...options,scale:1/V.unit(ctx,options.dpr||1)});}
 function contracts(ctx,s,actors,options={}){

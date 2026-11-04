@@ -6,7 +6,7 @@ const Journal=typeof module!=='undefined'?require('./journal.js'):root.ArcJourna
 const schemaVersion=8,resetVersion=2;
 const Usage=typeof module!=='undefined'?require('./crew-usage.js'):root.ArcCrewUsage;
 const Crew=typeof module!=='undefined'?require('./crew.js'):root.ArcCrew;
-const weaponIds=Array.from({length:20},(_,i)=>'W'+String(i+1).padStart(2,'0'));
+const weaponIds=Array.from({length:23},(_,i)=>'W'+String(i+1).padStart(2,'0'));
 const characterIds=Crew.ids;
 const lessonIds=['controls','teleport','wall-fall','destruction','choices','touch-controls-v2','slope','move','aim','charge','pickup','reflection','roof','height','terminal','boss-swap','boss-core','ceiling-lift','gate-choices','bridge','cloud','crystal','updraft','wind','vent','magnet','W','B','C','K','U','F','V','M','BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP','S_GUARD','S_BREACH','S_REPAIR'];
 const specialIds=characterIds.map(id=>'S_'+id.toUpperCase());
@@ -14,8 +14,8 @@ const previewIds=['v6:special-charge',...weaponIds,...lessonIds,...specialIds,..
 const validIds=(xs,allowed)=>[...new Set((Array.isArray(xs)?xs:[]).filter(x=>allowed.includes(x)))];
 function decodeBase(raw){
  let p={};try{p=raw?JSON.parse(raw):{};}catch{}if(!p||typeof p!=='object'||Array.isArray(p))p={};
- if(raw&&p.campaignResetVersion!==resetVersion){if(p.campaignResetVersion>resetVersion)throw Error('Unsupported campaign revision');return decodeBase(null);}
- if(p.schemaVersion!==undefined&&![2,3,4,5,6,7,8].includes(p.schemaVersion))throw Error('Unsupported save version');
+ if(p.campaignResetVersion>resetVersion)throw Error('Unsupported campaign revision');
+ if(p.schemaVersion!==undefined&&![1,2,3,4,5,6,7,8].includes(p.schemaVersion))throw Error('Unsupported save version');
  if(p.schemaVersion===8&&p.campaignResetVersion>resetVersion)throw Error('Unsupported campaign revision');
  const unlocked=validIds(p.unlockedWeaponIds,weaponIds);if(!unlocked.includes('W01'))unlocked.unshift('W01');
  const roles=typeof module!=='undefined'?require('./weapons.js').coreUnlocks:root.ArcWeapons.coreUnlocks;for(const [id,level]of Object.entries(roles))if(Number.isInteger(p.cleared)&&p.cleared>=level&&!unlocked.includes(id))unlocked.push(id);
@@ -27,6 +27,9 @@ function decodeBase(raw){
  out.journeyStarted=p.journeyStarted===true||out.cleared>0||!!p.chapterRun;
  out.preferences={language:['ja','en'].includes(p.preferences?.language)?p.preferences.language:null,controls:['left','right'].includes(p.preferences?.controls)?p.preferences.controls:null};
  out.chapterRun=Run.decode(p.chapterRun,Math.min(100,out.cleared+1));
+ const Inventory=typeof module!=='undefined'?require('./inventory.js'):root.ArcInventory;
+ out.campaignInventory=Inventory.normalize(p.campaignInventory||out.chapterRun?.inventory);
+ out.pickupLedger=Run.checkpoint(1,{},p.pickupLedger||out.chapterRun?.pickupLedger||[],'ledger',0).pickupLedger;
  out.joinedCharacterIds=Crew.normalize([...Crew.joinedAt(out.cleared),...(Array.isArray(p.joinedCharacterIds)?p.joinedCharacterIds:[]).filter(id=>owned.includes(id))]);out.unlockedCharacterIds=Crew.normalize([...owned,...out.joinedCharacterIds]);
  const pending=p.pendingRecruit,r=Crew.get(pending?.id),legacyPair=r&&(r.id==='hibari'&&pending.stage===25||r.id==='rico'&&pending.stage===30),validPending=r&&Number.isInteger(pending.stage)&&pending.stage>0&&pending.stage<=out.cleared&&(r.stage===pending.stage||legacyPair);
  out.pendingRecruit=validPending?{id:r.id,stage:pending.stage,alreadyOwned:!!pending.alreadyOwned}:null;
@@ -41,7 +44,7 @@ function decodeBase(raw){
 const modes=['easy','normal','hard'];
 // Preferences and the first-use controls lesson remain device-wide. Everything
 // earned/consumed in a campaign (including its journal and supply clock) is local.
-const progressFields=['cleared','unlockedCharacterIds','joinedCharacterIds','equippedCharacterId','unlockedWeaponIds','equippedWeaponId','chapterRun','pendingRecruit','machineUsage','journal'];
+const progressFields=['campaignInventory','pickupLedger','cleared','unlockedCharacterIds','joinedCharacterIds','equippedCharacterId','unlockedWeaponIds','equippedWeaponId','chapterRun','pendingRecruit','machineUsage','journal'];
 const copy=value=>JSON.parse(JSON.stringify(value));
 function progress(data){return Object.fromEntries(progressFields.filter(k=>data[k]!==undefined).map(k=>[k,copy(data[k])]));}
 function decode(raw){

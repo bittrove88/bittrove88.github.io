@@ -6,11 +6,31 @@
     "floor": [
       [
         0,
+        9.2
+      ],
+      [
+        6,
+        9.2
+      ],
+      [
+        12,
         10
       ],
       [
-        100,
+        74,
         10
+      ],
+      [
+        83,
+        11.2
+      ],
+      [
+        90,
+        11.2
+      ],
+      [
+        100,
+        10.2
       ]
     ],
     "parts": [],
@@ -22,7 +42,52 @@
     ],
     "route": "近づくほど、小さなチャージでも届く",
     "nameEn": "First Cargo",
-    "goalEn": "Move closer to reach the rival with a gentle charge."
+    "goalEn": "Move closer to reach the rival with a gentle charge.",
+    "floorSegments": [
+      [
+        [
+          0,
+          9.2
+        ],
+        [
+          6,
+          9.2
+        ],
+        [
+          12,
+          10
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          83,
+          11.2
+        ],
+        [
+          90,
+          11.2
+        ],
+        [
+          100,
+          10.2
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        18,
+        10.0
+      ],
+      [
+        60,
+        10.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 2,
@@ -34,11 +99,19 @@
         10
       ],
       [
-        25,
+        23,
         10
       ],
       [
+        34,
+        13
+      ],
+      [
         45,
+        16
+      ],
+      [
+        52,
         18
       ],
       [
@@ -55,7 +128,48 @@
     ],
     "route": "緩い坂の上で砲口が上がることを確かめる",
     "nameEn": "Shoulder of the Hill",
-    "goalEn": "Notice how a slope raises the muzzle."
+    "goalEn": "Notice how a slope raises the muzzle.",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          23,
+          10
+        ],
+        [
+          34,
+          13
+        ],
+        [
+          45,
+          16
+        ],
+        [
+          52,
+          18
+        ],
+        [
+          100,
+          18
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        18,
+        10.0
+      ],
+      [
+        68,
+        18.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 3,
@@ -64,19 +178,51 @@
     "floor": [
       [
         0,
+        21
+      ],
+      [
+        8,
+        21.5
+      ],
+      [
+        14,
         22
       ],
       [
-        27,
+        24,
         22
+      ],
+      [
+        32,
+        20
+      ],
+      [
+        42,
+        16
       ],
       [
         52,
-        10
+        12
+      ],
+      [
+        61,
+        12
+      ],
+      [
+        69,
+        10.5
+      ],
+      [
+        77,
+        10.5
+      ],
+      [
+        86,
+        12.5
       ],
       [
         100,
-        10
+        13
       ]
     ],
     "parts": [],
@@ -84,11 +230,76 @@
     "recommended": "gun",
     "spawn": [
       16,
-      70
+      73
     ],
     "route": "下り坂を歩き、平らな射点へ止まる",
     "nameEn": "Past the Waiting Cart",
-    "goalEn": "Walk downhill and stop at a level firing point."
+    "goalEn": "Walk downhill and stop at a level firing point.",
+    "floorSegments": [
+      [
+        [
+          0,
+          21
+        ],
+        [
+          8,
+          21.5
+        ],
+        [
+          14,
+          22
+        ],
+        [
+          24,
+          22
+        ],
+        [
+          32,
+          20
+        ],
+        [
+          42,
+          16
+        ],
+        [
+          52,
+          12
+        ],
+        [
+          61,
+          12
+        ],
+        [
+          69,
+          10.5
+        ],
+        [
+          77,
+          10.5
+        ],
+        [
+          86,
+          12.5
+        ],
+        [
+          100,
+          13
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        22.0
+      ],
+      [
+        73,
+        10.5
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 4,
@@ -100,36 +311,135 @@
         15
       ],
       [
+        8,
+        16
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        24,
+        16.2
+      ],
+      [
         30,
         15
       ],
       [
-        40,
-        5
-      ],
-      [
-        57,
-        5
-      ],
-      [
-        68,
-        16
-      ],
-      [
-        100,
-        16
+        38,
+        12
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "004-IS01",
+        "kind": "island",
+        "breakable": false,
+        "poly": [
+          [
+            40,
+            19
+          ],
+          [
+            43,
+            22
+          ],
+          [
+            51,
+            23
+          ],
+          [
+            55,
+            21
+          ],
+          [
+            54,
+            18
+          ],
+          [
+            46,
+            18
+          ]
+        ]
+      }
+    ],
     "features": [],
     "recommended": "gun",
     "spawn": [
       16,
-      81
+      83
     ],
     "route": "谷の向こうの広い足場へ転移して撃つ",
     "nameEn": "Relay Landing",
-    "goalEn": "Teleport across the valley onto a wide landing."
+    "goalEn": "Teleport across the valley onto a wide landing.",
+    "floorSegments": [
+      [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          24,
+          16.2
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          38,
+          12
+        ]
+      ],
+      [
+        [
+          48,
+          12
+        ],
+        [
+          53,
+          15
+        ],
+        [
+          61,
+          16
+        ],
+        [
+          86,
+          16
+        ],
+        [
+          94,
+          17
+        ],
+        [
+          100,
+          17
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        16.0
+      ],
+      [
+        83,
+        16
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 5,
@@ -138,23 +448,51 @@
     "floor": [
       [
         0,
-        11
+        12
       ],
       [
-        30,
-        11
+        7,
+        13
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        27,
+        13
+      ],
+      [
+        34,
+        15
       ],
       [
         44,
-        17
+        20
       ],
       [
-        58,
+        53,
+        18
+      ],
+      [
+        59,
         11
+      ],
+      [
+        69,
+        10
+      ],
+      [
+        78,
+        12
+      ],
+      [
+        92,
+        12
       ],
       [
         100,
-        11
+        13
       ]
     ],
     "parts": [],
@@ -166,7 +504,72 @@
     ],
     "route": "低い肩を越える弧でドラムを止める",
     "nameEn": "Flowers by the Winch",
-    "goalEn": "Send an arc over the low ridge toward the drum."
+    "goalEn": "Send an arc over the low ridge toward the drum.",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          27,
+          13
+        ],
+        [
+          34,
+          15
+        ],
+        [
+          44,
+          20
+        ],
+        [
+          53,
+          18
+        ],
+        [
+          59,
+          11
+        ],
+        [
+          69,
+          10
+        ],
+        [
+          78,
+          12
+        ],
+        [
+          92,
+          12
+        ],
+        [
+          100,
+          13
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        17,
+        13.0
+      ],
+      [
+        80,
+        12.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 6,
@@ -175,27 +578,43 @@
     "floor": [
       [
         0,
-        12
+        15
       ],
       [
-        28,
-        12
+        10,
+        15
       ],
       [
-        40,
-        14.5
+        16,
+        15
       ],
       [
-        56,
-        14.5
+        25,
+        14
       ],
       [
-        71,
-        12
+        33,
+        11
+      ],
+      [
+        64,
+        11
+      ],
+      [
+        72,
+        14
+      ],
+      [
+        82,
+        14
+      ],
+      [
+        93,
+        15
       ],
       [
         100,
-        12
+        15
       ]
     ],
     "parts": [],
@@ -205,7 +624,7 @@
         "v": [
           33,
           64,
-          12
+          11
         ]
       }
     ],
@@ -217,7 +636,63 @@
     "route": "明るい床に低く当て、前方への反射を見る",
     "nameEn": "A Flower on the Mirror Shore",
     "goalEn": "Aim low into the bright floor for a forward bounce.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          15
+        ],
+        [
+          10,
+          15
+        ],
+        [
+          16,
+          15
+        ],
+        [
+          25,
+          14
+        ],
+        [
+          33,
+          11
+        ],
+        [
+          64,
+          11
+        ],
+        [
+          72,
+          14
+        ],
+        [
+          82,
+          14
+        ],
+        [
+          93,
+          15
+        ],
+        [
+          100,
+          15
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        15.0
+      ],
+      [
+        82,
+        14.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 7,
@@ -229,36 +704,93 @@
         10
       ],
       [
-        28,
+        10,
+        10.5
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        25,
+        11
+      ],
+      [
+        33,
+        13
+      ],
+      [
+        41,
+        12
+      ],
+      [
+        53,
+        12
+      ],
+      [
+        64,
         10
       ],
       [
-        34,
-        11.8
-      ],
-      [
-        63,
-        11.8
-      ],
-      [
-        72,
+        87,
         10
+      ],
+      [
+        93,
+        11
       ],
       [
         100,
-        10
+        11
       ]
     ],
     "parts": [
       {
+        "id": "007-ROCK01",
         "kind": "wall",
-        "x": 43,
-        "top": 29,
-        "width": 6,
-        "bottom": 10
+        "breakable": true,
+        "poly": [
+          [
+            43,
+            12
+          ],
+          [
+            43,
+            25
+          ],
+          [
+            45,
+            30
+          ],
+          [
+            47,
+            28
+          ],
+          [
+            49,
+            31
+          ],
+          [
+            52,
+            27
+          ],
+          [
+            52,
+            12
+          ]
+        ]
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          54,
+          85,
+          10
+        ]
+      }
+    ],
     "recommended": "hana",
     "spawn": [
       16,
@@ -267,19 +799,87 @@
     "route": "壊せる岩箱を一つ壊して次の射線を作る",
     "nameEn": "The Cracked Cargo Gate",
     "goalEn": "Break one cracked block to open the next shot.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          10,
+          10.5
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          33,
+          13
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          53,
+          12
+        ],
+        [
+          64,
+          10
+        ],
+        [
+          87,
+          10
+        ],
+        [
+          93,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        11.0
+      ],
+      [
+        82,
+        10.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 8,
     "name": "ひさしの下を通る",
-    "goal": "低い角度ならひさしの下を通せる",
+    "goal": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
     "floor": [
       [
         0,
+        15
+      ],
+      [
+        8,
+        15
+      ],
+      [
+        12,
         14
       ],
       [
-        29,
+        28,
         14
       ],
       [
@@ -287,12 +887,20 @@
         12
       ],
       [
+        50,
+        11
+      ],
+      [
         61,
         12
       ],
       [
         73,
-        14
+        13
+      ],
+      [
+        91,
+        13
       ],
       [
         100,
@@ -301,24 +909,178 @@
     ],
     "parts": [
       {
+        "id": "008-CAVE-ROOF",
         "kind": "roof",
-        "x": 39,
-        "end": 57,
-        "top": 32,
-        "thickness": 3,
+        "poly": [
+          [
+            54,
+            33
+          ],
+          [
+            62,
+            40
+          ],
+          [
+            72,
+            42
+          ],
+          [
+            81,
+            40
+          ],
+          [
+            92,
+            39
+          ],
+          [
+            96,
+            34
+          ],
+          [
+            95,
+            28
+          ],
+          [
+            87,
+            27
+          ],
+          [
+            78,
+            27
+          ],
+          [
+            66,
+            26
+          ],
+          [
+            57,
+            26
+          ]
+        ],
+        "breakable": false,
+        "reflectiveUnderside": [
+          [
+            59,
+            26
+          ],
+          [
+            66,
+            26
+          ],
+          [
+            78,
+            27
+          ],
+          [
+            84,
+            27
+          ]
+        ],
+        "reflectionRequiresImplementation": true
+      },
+      {
+        "id": "008-FRAGILE-ENTRY",
+        "kind": "roof",
+        "poly": [
+          [
+            46,
+            29
+          ],
+          [
+            51,
+            33
+          ],
+          [
+            55,
+            33
+          ],
+          [
+            55,
+            26
+          ],
+          [
+            49,
+            26
+          ]
+        ],
         "breakable": true
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          40,
+          81,
+          11
+        ]
+      }
+    ],
     "recommended": "hana",
     "spawn": [
       16,
       82
     ],
-    "route": "低い角度ならひさしの下を通せる",
+    "route": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
     "nameEn": "Beneath the Eaves",
-    "goalEn": "Use a low angle to pass below the roof.",
-    "terrainRevision": "0.17.0"
+    "goalEn": "Bounce from the mirrored underside toward the rival.",
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          61,
+          12
+        ],
+        [
+          73,
+          13
+        ],
+        [
+          91,
+          13
+        ],
+        [
+          100,
+          14
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        14
+      ],
+      [
+        82,
+        13
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 9,
@@ -327,22 +1089,94 @@
     "floor": [
       [
         0,
+        11
+      ],
+      [
+        11,
+        11
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        26,
+        11
+      ],
+      [
+        35,
         10
       ],
       [
-        32,
-        10
+        44,
+        8
       ],
       [
-        49,
-        20
+        50,
+        11
+      ],
+      [
+        56,
+        16
+      ],
+      [
+        62,
+        22
+      ],
+      [
+        70,
+        23
+      ],
+      [
+        88,
+        23
+      ],
+      [
+        96,
+        22
       ],
       [
         100,
-        20
+        22
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "009-BRIDGE01",
+        "kind": "island",
+        "breakable": false,
+        "poly": [
+          [
+            37,
+            24
+          ],
+          [
+            42,
+            27
+          ],
+          [
+            53,
+            27
+          ],
+          [
+            58,
+            23
+          ],
+          [
+            52,
+            19
+          ],
+          [
+            43,
+            20
+          ],
+          [
+            38,
+            21
+          ]
+        ]
+      }
+    ],
     "features": [],
     "recommended": "hana",
     "spawn": [
@@ -351,7 +1185,76 @@
     ],
     "route": "段の手前から撃つか、上段へ転移して狙う",
     "nameEn": "The Quayside Landing",
-    "goalEn": "Shoot from below or teleport onto the upper shelf."
+    "goalEn": "Shoot from below or teleport onto the upper shelf.",
+    "floorSegments": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          26,
+          11
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          44,
+          8
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          62,
+          22
+        ],
+        [
+          70,
+          23
+        ],
+        [
+          88,
+          23
+        ],
+        [
+          96,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        11.0
+      ],
+      [
+        82,
+        23.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 10,
@@ -363,33 +1266,81 @@
         12
       ],
       [
-        24,
+        12,
         12
+      ],
+      [
+        26,
+        12
+      ],
+      [
+        33,
+        10
       ],
       [
         38,
         8
       ],
       [
-        54,
+        48,
         8
+      ],
+      [
+        56,
+        8
+      ],
+      [
+        64,
+        12
       ],
       [
         72,
         18
       ],
       [
-        100,
+        85,
         18
+      ],
+      [
+        96,
+        18
+      ],
+      [
+        100,
+        17
       ]
     ],
     "parts": [
       {
+        "id": "010-SHELF01",
         "kind": "island",
-        "x": 45,
-        "end": 59,
-        "top": 22,
-        "thickness": 4
+        "breakable": false,
+        "poly": [
+          [
+            43,
+            22
+          ],
+          [
+            48,
+            23
+          ],
+          [
+            56,
+            23
+          ],
+          [
+            61,
+            20
+          ],
+          [
+            57,
+            18
+          ],
+          [
+            46,
+            18
+          ]
+        ]
       }
     ],
     "features": [
@@ -410,7 +1361,71 @@
     "route": "浅瀬の水切りと中央の岩棚の上空を比較し、敵が6単位高い岸へ曲射する。",
     "nameEn": "Claws at the Harbour",
     "goalEn": "Read the shallow-water reflection or arc over a low shelf to reach an elevated shore.",
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          26,
+          12
+        ],
+        [
+          33,
+          10
+        ],
+        [
+          38,
+          8
+        ],
+        [
+          48,
+          8
+        ],
+        [
+          56,
+          8
+        ],
+        [
+          64,
+          12
+        ],
+        [
+          72,
+          18
+        ],
+        [
+          85,
+          18
+        ],
+        [
+          96,
+          18
+        ],
+        [
+          100,
+          17
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        12.0
+      ],
+      [
+        85,
+        18.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 11,
@@ -422,20 +1437,93 @@
         25
       ],
       [
-        25,
+        13,
         25
       ],
       [
+        23,
+        25
+      ],
+      [
+        30,
+        24
+      ],
+      [
+        37,
+        22
+      ],
+      [
+        44,
+        20
+      ],
+      [
+        51,
+        18
+      ],
+      [
         58,
+        15.5
+      ],
+      [
+        65,
+        13
+      ],
+      [
+        77,
+        13
+      ],
+      [
+        85,
         13
       ],
       [
         100,
-        13
+        12
       ]
     ],
-    "parts": [],
-    "features": [],
+    "parts": [
+      {
+        "id": "011-HANGING-LEDGE",
+        "kind": "roof",
+        "poly": [
+          [
+            45,
+            33
+          ],
+          [
+            50,
+            36
+          ],
+          [
+            60,
+            36
+          ],
+          [
+            64,
+            32
+          ],
+          [
+            62,
+            29
+          ],
+          [
+            52,
+            30
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          35,
+          64,
+          0
+        ]
+      }
+    ],
     "recommended": "koro",
     "spawn": [
       16,
@@ -443,7 +1531,72 @@
     ],
     "route": "緩い下りの連続面に転がり弾を着地させる",
     "nameEn": "Downhill Delivery",
-    "goalEn": "Land a rolling bomb on the continuous descending floor."
+    "goalEn": "Land a rolling bomb on the continuous descending floor.",
+    "floorSegments": [
+      [
+        [
+          0,
+          25
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          23,
+          25
+        ],
+        [
+          30,
+          24
+        ],
+        [
+          37,
+          22
+        ],
+        [
+          44,
+          20
+        ],
+        [
+          51,
+          18
+        ],
+        [
+          58,
+          15.5
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          77,
+          13
+        ],
+        [
+          85,
+          13
+        ],
+        [
+          100,
+          12
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        25.0
+      ],
+      [
+        82,
+        13.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 12,
@@ -455,19 +1608,39 @@
         12
       ],
       [
-        28,
+        9,
         12
       ],
       [
-        40,
-        14.5
+        20,
+        12
+      ],
+      [
+        31,
+        12
+      ],
+      [
+        38,
+        13
+      ],
+      [
+        46,
+        14
       ],
       [
         56,
-        14.5
+        14
       ],
       [
-        71,
+        65,
+        13
+      ],
+      [
+        74,
+        12
+      ],
+      [
+        91,
         12
       ],
       [
@@ -477,11 +1650,46 @@
     ],
     "parts": [
       {
+        "id": "012-CRACKED-ARCH",
         "kind": "roof",
-        "x": 38,
-        "end": 65,
-        "top": 27,
-        "thickness": 3,
+        "poly": [
+          [
+            34,
+            24
+          ],
+          [
+            42,
+            27
+          ],
+          [
+            52,
+            28
+          ],
+          [
+            64,
+            26
+          ],
+          [
+            68,
+            24
+          ],
+          [
+            66,
+            22
+          ],
+          [
+            55,
+            22
+          ],
+          [
+            43,
+            22
+          ],
+          [
+            36,
+            22
+          ]
+        ],
         "breakable": true
       }
     ],
@@ -494,7 +1702,67 @@
     "route": "弾を手前の床へ落とし、梁の下を転がす",
     "nameEn": "Under the Loading Beam",
     "goalEn": "Roll beneath the beam from the near floor.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          20,
+          12
+        ],
+        [
+          31,
+          12
+        ],
+        [
+          38,
+          13
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          56,
+          14
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          74,
+          12
+        ],
+        [
+          91,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        9,
+        12.0
+      ],
+      [
+        91,
+        12.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 13,
@@ -506,19 +1774,43 @@
         22
       ],
       [
-        34,
+        12,
         22
       ],
       [
-        44,
+        24,
+        22
+      ],
+      [
+        32,
+        21
+      ],
+      [
+        40,
         17
       ],
       [
-        64,
+        48,
         17
       ],
       [
-        74,
+        53,
+        17
+      ],
+      [
+        61,
+        16
+      ],
+      [
+        69,
+        12
+      ],
+      [
+        80,
+        12
+      ],
+      [
+        90,
         12
       ],
       [
@@ -527,7 +1819,16 @@
       ]
     ],
     "parts": [],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          31,
+          72,
+          17
+        ]
+      }
+    ],
     "recommended": "koro",
     "spawn": [
       12,
@@ -535,7 +1836,72 @@
     ],
     "route": "小段差を落ちても床へ戻る転がり弾を使う",
     "nameEn": "Rolling After the Step",
-    "goalEn": "Let the bomb fall and resume rolling on the lower floor."
+    "goalEn": "Let the bomb fall and resume rolling on the lower floor.",
+    "floorSegments": [
+      [
+        [
+          0,
+          22
+        ],
+        [
+          12,
+          22
+        ],
+        [
+          24,
+          22
+        ],
+        [
+          32,
+          21
+        ],
+        [
+          40,
+          17
+        ],
+        [
+          48,
+          17
+        ],
+        [
+          53,
+          17
+        ],
+        [
+          61,
+          16
+        ],
+        [
+          69,
+          12
+        ],
+        [
+          80,
+          12
+        ],
+        [
+          90,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        12,
+        22.0
+      ],
+      [
+        90,
+        12.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 14,
@@ -547,37 +1913,93 @@
         16
       ],
       [
+        16,
+        16
+      ],
+      [
         25,
         16
       ],
       [
-        42,
+        33,
+        14
+      ],
+      [
+        41,
         12
       ],
       [
-        58,
+        56,
         12
       ],
       [
-        76,
+        64,
+        13
+      ],
+      [
+        73,
+        15
+      ],
+      [
+        82,
+        15
+      ],
+      [
+        95,
         15
       ],
       [
         100,
-        15
+        14
       ]
     ],
     "parts": [
       {
+        "id": "014-FRAGILE-CANOPY",
         "kind": "roof",
-        "x": 44,
-        "end": 61,
-        "top": 29,
-        "thickness": 3,
+        "poly": [
+          [
+            41,
+            26
+          ],
+          [
+            48,
+            29
+          ],
+          [
+            58,
+            29
+          ],
+          [
+            65,
+            27
+          ],
+          [
+            64,
+            24
+          ],
+          [
+            56,
+            23
+          ],
+          [
+            46,
+            23
+          ]
+        ],
         "breakable": true
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          34,
+          75,
+          12
+        ]
+      }
+    ],
     "recommended": "koro",
     "spawn": [
       16,
@@ -585,7 +2007,68 @@
     ],
     "route": "山の裾の連続床を読み、手前で弾を接地させる",
     "nameEn": "The Continuous Paving",
-    "goalEn": "Read the connected foothills before landing the bomb."
+    "goalEn": "Read the connected foothills before landing the bomb.",
+    "floorSegments": [
+      [
+        [
+          0,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          25,
+          16
+        ],
+        [
+          33,
+          14
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          56,
+          12
+        ],
+        [
+          64,
+          13
+        ],
+        [
+          73,
+          15
+        ],
+        [
+          82,
+          15
+        ],
+        [
+          95,
+          15
+        ],
+        [
+          100,
+          14
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        16.0
+      ],
+      [
+        82,
+        15.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 15,
@@ -597,19 +2080,43 @@
         11
       ],
       [
-        30,
+        16,
         11
       ],
       [
+        27,
+        11
+      ],
+      [
+        34,
+        13
+      ],
+      [
         42,
-        17
+        16
       ],
       [
-        58,
-        17
+        49,
+        16
       ],
       [
-        70,
+        57,
+        15
+      ],
+      [
+        64,
+        12
+      ],
+      [
+        72,
+        11
+      ],
+      [
+        82,
+        11
+      ],
+      [
+        95,
         11
       ],
       [
@@ -619,14 +2126,47 @@
     ],
     "parts": [
       {
+        "id": "015-REPAIR-SPAN",
         "kind": "island",
-        "x": 48,
-        "end": 56,
-        "top": 28,
-        "thickness": 5
+        "poly": [
+          [
+            65,
+            30
+          ],
+          [
+            69,
+            33
+          ],
+          [
+            75,
+            33
+          ],
+          [
+            80,
+            30
+          ],
+          [
+            77,
+            28
+          ],
+          [
+            67,
+            28
+          ]
+        ],
+        "breakable": false
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          22,
+          65,
+          11
+        ]
+      }
+    ],
     "recommended": "koro",
     "spawn": [
       16,
@@ -634,7 +2174,72 @@
     ],
     "route": "橋脚前で止まり、補修フレームへ一撃を通す",
     "nameEn": "Support the Way Home",
-    "goalEn": "Stop before the pier and aim for the repair frame."
+    "goalEn": "Stop before the pier and aim for the repair frame.",
+    "floorSegments": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          27,
+          11
+        ],
+        [
+          34,
+          13
+        ],
+        [
+          42,
+          16
+        ],
+        [
+          49,
+          16
+        ],
+        [
+          57,
+          15
+        ],
+        [
+          64,
+          12
+        ],
+        [
+          72,
+          11
+        ],
+        [
+          82,
+          11
+        ],
+        [
+          95,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        11.0
+      ],
+      [
+        82,
+        11.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 16,
@@ -643,48 +2248,232 @@
     "floor": [
       [
         0,
-        9
+        13
       ],
       [
-        28,
-        9
+        10,
+        14
       ],
       [
-        34,
-        10.8
+        17,
+        16
       ],
       [
-        63,
-        10.8
+        24,
+        17
       ],
       [
-        72,
-        9
+        30,
+        15
+      ],
+      [
+        36,
+        12
+      ],
+      [
+        42,
+        10
+      ],
+      [
+        47,
+        10
+      ],
+      [
+        52,
+        10
+      ],
+      [
+        58,
+        10
+      ],
+      [
+        64,
+        11
+      ],
+      [
+        70,
+        14
+      ],
+      [
+        78,
+        15
+      ],
+      [
+        85,
+        15
+      ],
+      [
+        94,
+        13
       ],
       [
         100,
-        9
+        12
       ]
     ],
     "parts": [
       {
+        "id": "016-STONE-LINTEL",
+        "kind": "roof",
+        "poly": [
+          [
+            35,
+            24
+          ],
+          [
+            42,
+            32
+          ],
+          [
+            51,
+            33
+          ],
+          [
+            61,
+            29
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            62,
+            22
+          ],
+          [
+            43,
+            22
+          ],
+          [
+            37,
+            23
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "016-BREAKABLE-GATE",
         "kind": "wall",
-        "x": 46,
-        "top": 33,
-        "width": 6,
-        "bottom": 9
+        "poly": [
+          [
+            47,
+            10
+          ],
+          [
+            52,
+            10
+          ],
+          [
+            52,
+            22
+          ],
+          [
+            47,
+            22
+          ]
+        ],
+        "breakable": true
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          62,
+          86,
+          0
+        ]
+      }
+    ],
     "recommended": "ban",
     "spawn": [
-      16,
-      82
+      17,
+      83
     ],
     "route": "裂けた門板を先に壊し、近い射点を作る",
     "nameEn": "The Ruin Gate",
     "goalEn": "Break the gate panel to reach a closer firing point.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          13
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          17,
+          16
+        ],
+        [
+          24,
+          17
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          36,
+          12
+        ],
+        [
+          42,
+          10
+        ],
+        [
+          47,
+          10
+        ],
+        [
+          52,
+          10
+        ],
+        [
+          58,
+          10
+        ],
+        [
+          64,
+          11
+        ],
+        [
+          70,
+          14
+        ],
+        [
+          78,
+          15
+        ],
+        [
+          85,
+          15
+        ],
+        [
+          94,
+          13
+        ],
+        [
+          100,
+          12
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        17,
+        16
+      ],
+      [
+        83,
+        15
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 17,
@@ -696,15 +2485,39 @@
         12
       ],
       [
-        31,
+        16,
         12
       ],
       [
-        49,
-        28
+        26,
+        12
       ],
       [
-        68,
+        34,
+        11
+      ],
+      [
+        41,
+        9
+      ],
+      [
+        52,
+        9
+      ],
+      [
+        60,
+        9
+      ],
+      [
+        69,
+        11
+      ],
+      [
+        77,
+        12
+      ],
+      [
+        82,
         12
       ],
       [
@@ -714,15 +2527,78 @@
     ],
     "parts": [
       {
+        "id": "017-CAVERN-ROOF",
         "kind": "roof",
-        "x": 66,
-        "end": 74,
-        "top": 35,
-        "thickness": 3,
+        "poly": [
+          [
+            53,
+            29
+          ],
+          [
+            60,
+            36
+          ],
+          [
+            70,
+            37
+          ],
+          [
+            79,
+            34
+          ],
+          [
+            82,
+            30
+          ],
+          [
+            78,
+            28
+          ],
+          [
+            56,
+            28
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "017-FRAGILE-ROOF-TIP",
+        "kind": "roof",
+        "poly": [
+          [
+            69,
+            26
+          ],
+          [
+            73,
+            27
+          ],
+          [
+            76,
+            25
+          ],
+          [
+            74,
+            22
+          ],
+          [
+            69,
+            22
+          ]
+        ],
         "breakable": true
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          22,
+          52,
+          12
+        ]
+      }
+    ],
     "recommended": "ban",
     "spawn": [
       16,
@@ -730,7 +2606,68 @@
     ],
     "route": "山の肩へ登るか、裾の開口から低く撃つ",
     "nameEn": "Two Mountain Entrances",
-    "goalEn": "Choose the mountain shoulder or the low opening."
+    "goalEn": "Choose the mountain shoulder or the low opening.",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          26,
+          12
+        ],
+        [
+          34,
+          11
+        ],
+        [
+          41,
+          9
+        ],
+        [
+          52,
+          9
+        ],
+        [
+          60,
+          9
+        ],
+        [
+          69,
+          11
+        ],
+        [
+          77,
+          12
+        ],
+        [
+          82,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        12.0
+      ],
+      [
+        82,
+        12.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 18,
@@ -742,19 +2679,35 @@
         13
       ],
       [
-        28,
+        16,
         13
       ],
       [
-        40,
-        15.5
+        27,
+        13
       ],
       [
-        56,
-        15.5
+        36,
+        11
       ],
       [
-        71,
+        44,
+        10
+      ],
+      [
+        53,
+        10
+      ],
+      [
+        61,
+        11
+      ],
+      [
+        72,
+        13
+      ],
+      [
+        82,
         13
       ],
       [
@@ -764,11 +2717,50 @@
     ],
     "parts": [
       {
+        "id": "018-STONE-ARCH",
         "kind": "roof",
-        "x": 43,
-        "end": 60,
-        "top": 31,
-        "thickness": 3,
+        "poly": [
+          [
+            34,
+            22
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            47,
+            34
+          ],
+          [
+            55,
+            34
+          ],
+          [
+            64,
+            29
+          ],
+          [
+            69,
+            22
+          ],
+          [
+            65,
+            20
+          ],
+          [
+            56,
+            20
+          ],
+          [
+            43,
+            20
+          ],
+          [
+            37,
+            20
+          ]
+        ],
         "breakable": false
       }
     ],
@@ -781,7 +2773,63 @@
     "route": "梁の下へ入って扇状衝撃を前方へ届ける",
     "nameEn": "Leave the Return Beam",
     "goalEn": "Use the low lane for a forward shockwave.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          13
+        ],
+        [
+          16,
+          13
+        ],
+        [
+          27,
+          13
+        ],
+        [
+          36,
+          11
+        ],
+        [
+          44,
+          10
+        ],
+        [
+          53,
+          10
+        ],
+        [
+          61,
+          11
+        ],
+        [
+          72,
+          13
+        ],
+        [
+          82,
+          13
+        ],
+        [
+          100,
+          13
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        13.0
+      ],
+      [
+        82,
+        13.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 19,
@@ -793,44 +2841,166 @@
         12
       ],
       [
-        28,
+        16,
         12
+      ],
+      [
+        25,
+        12
+      ],
+      [
+        34,
+        10
       ],
       [
         42,
         5
       ],
       [
-        59,
+        56,
         5
       ],
       [
-        76,
+        64,
+        8
+      ],
+      [
+        70,
+        17
+      ],
+      [
+        77,
+        27
+      ],
+      [
+        82,
+        27
+      ],
+      [
+        96,
         27
       ],
       [
         100,
-        27
+        26
       ]
     ],
     "parts": [
       {
+        "id": "019-RELAY-ISLAND",
         "kind": "island",
-        "x": 43,
-        "end": 58,
-        "top": 20,
-        "thickness": 5
+        "poly": [
+          [
+            30,
+            18
+          ],
+          [
+            35,
+            23
+          ],
+          [
+            42,
+            23
+          ],
+          [
+            45,
+            19
+          ],
+          [
+            43,
+            16
+          ],
+          [
+            34,
+            16
+          ]
+        ],
+        "breakable": false
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          45,
+          91,
+          5
+        ]
+      }
+    ],
     "recommended": "ban",
     "spawn": [
       16,
-      82
+      93
     ],
     "route": "広い中継棚へ転移し、上段の相手に弧を送る",
     "nameEn": "Cliff Relay Shelf",
-    "goalEn": "Teleport to the broad shelf and arc toward the upper rival."
+    "goalEn": "Teleport to the broad shelf and arc toward the upper rival.",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          25,
+          12
+        ],
+        [
+          34,
+          10
+        ],
+        [
+          42,
+          5
+        ],
+        [
+          56,
+          5
+        ],
+        [
+          64,
+          8
+        ],
+        [
+          70,
+          17
+        ],
+        [
+          77,
+          27
+        ],
+        [
+          82,
+          27
+        ],
+        [
+          96,
+          27
+        ],
+        [
+          100,
+          26
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        12.0
+      ],
+      [
+        93,
+        27.0
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 20,
@@ -842,15 +3012,35 @@
         8
       ],
       [
-        30,
+        16,
         8
       ],
       [
-        46,
-        12
+        29,
+        8
       ],
       [
-        62,
+        36,
+        9
+      ],
+      [
+        43,
+        11
+      ],
+      [
+        51,
+        13
+      ],
+      [
+        60,
+        17
+      ],
+      [
+        67,
+        20
+      ],
+      [
+        85,
         20
       ],
       [
@@ -860,22 +3050,101 @@
     ],
     "parts": [
       {
+        "id": "020-OLD-ARCH",
         "kind": "roof",
-        "x": 35,
-        "end": 52,
-        "top": 32,
-        "thickness": 3,
+        "poly": [
+          [
+            30,
+            31
+          ],
+          [
+            34,
+            36
+          ],
+          [
+            40,
+            37
+          ],
+          [
+            44,
+            34
+          ],
+          [
+            42,
+            30
+          ],
+          [
+            35,
+            29
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "020-CRACKED-ROOF",
+        "kind": "roof",
+        "poly": [
+          [
+            43,
+            31
+          ],
+          [
+            48,
+            35
+          ],
+          [
+            57,
+            35
+          ],
+          [
+            63,
+            31
+          ],
+          [
+            61,
+            28
+          ],
+          [
+            47,
+            28
+          ]
+        ],
         "breakable": true
       },
       {
+        "id": "020-LOW-GATE",
         "kind": "wall",
-        "x": 56,
-        "top": 34,
-        "width": 4,
-        "bottom": 14
+        "poly": [
+          [
+            61,
+            17
+          ],
+          [
+            66,
+            19
+          ],
+          [
+            66,
+            29
+          ],
+          [
+            61,
+            29
+          ]
+        ],
+        "breakable": true
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          31,
+          52,
+          0
+        ]
+      }
+    ],
     "recommended": "ban",
     "spawn": [
       16,
@@ -884,134 +3153,197 @@
     "route": "下段から門の破壊可能な屋根端を外し、高い砲座の低砲・高砲を撃ち分ける。",
     "nameEn": "A Gate for Both Directions",
     "goalEn": "Use low and high firing paths around a two-tier gate.",
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          16,
+          8
+        ],
+        [
+          29,
+          8
+        ],
+        [
+          36,
+          9
+        ],
+        [
+          43,
+          11
+        ],
+        [
+          51,
+          13
+        ],
+        [
+          60,
+          17
+        ],
+        [
+          67,
+          20
+        ],
+        [
+          85,
+          20
+        ],
+        [
+          100,
+          20
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        8
+      ],
+      [
+        85,
+        20
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 21,
     "name": "壁の向こうの空灯",
-    "goal": "高い壁の上を越え、上空から敵の足元へ落とす",
+    "goal": "減速雲に入った弾の速度変化を読み、地形に合う射点を選ぶ。",
     "floor": [
       [
         0,
         12
       ],
       [
-        28,
+        15,
         12
       ],
       [
-        40,
-        14.5
-      ],
-      [
-        56,
-        14.5
-      ],
-      [
-        71,
+        27,
         12
+      ],
+      [
+        36,
+        11
+      ],
+      [
+        42,
+        10
+      ],
+      [
+        48,
+        10
+      ],
+      [
+        57,
+        10
+      ],
+      [
+        64,
+        12
+      ],
+      [
+        70,
+        15
+      ],
+      [
+        82,
+        15
+      ],
+      [
+        95,
+        15
       ],
       [
         100,
-        12
+        14
       ]
     ],
     "parts": [
       {
+        "id": "021-BOTTOM",
         "kind": "wall",
-        "x": 45,
-        "top": 35,
-        "width": 7,
-        "bottom": 12
+        "poly": [
+          [
+            45,
+            10
+          ],
+          [
+            54,
+            10
+          ],
+          [
+            54,
+            19
+          ],
+          [
+            45,
+            19
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "021-MIDDLE",
+        "kind": "wall",
+        "poly": [
+          [
+            45,
+            19
+          ],
+          [
+            54,
+            19
+          ],
+          [
+            54,
+            28
+          ],
+          [
+            45,
+            28
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "021-TOP",
+        "kind": "wall",
+        "poly": [
+          [
+            45,
+            28
+          ],
+          [
+            54,
+            28
+          ],
+          [
+            54,
+            37
+          ],
+          [
+            45,
+            37
+          ]
+        ],
+        "breakable": true
       }
     ],
-    "features": [],
-    "recommended": "sora",
-    "spawn": [
-      16,
-      82
-    ],
-    "route": "高い壁の上を越え、上空から敵の足元へ落とす",
-    "nameEn": "Beyond the Sky Wall",
-    "goalEn": "Lob over the high wall and rain down beside the rival.",
-    "terrainRevision": "0.17.0"
-  },
-  {
-    "stage": 22,
-    "name": "山影へ落ちる星",
-    "goal": "広い山の裏へ高弾道を落とし、影を回り込む",
-    "floor": [
-      [
-        0,
-        10
-      ],
-      [
-        29,
-        10
-      ],
-      [
-        46,
-        35
-      ],
-      [
-        56,
-        35
-      ],
-      [
-        73,
-        10
-      ],
-      [
-        100,
-        10
-      ]
-    ],
-    "parts": [],
-    "features": [],
-    "recommended": "sora",
-    "spawn": [
-      16,
-      82
-    ],
-    "route": "広い山の裏へ高弾道を落とし、影を回り込む",
-    "nameEn": "Stars Behind the Mountain",
-    "goalEn": "Drop a high arc into the mountain’s shadow."
-  },
-  {
-    "stage": 23,
-    "name": "霧間の着地点",
-    "goal": "薄い霧を通る弾の減速と落下位置を見比べる",
-    "floor": [
-      [
-        0,
-        15
-      ],
-      [
-        35,
-        15
-      ],
-      [
-        49,
-        8
-      ],
-      [
-        65,
-        15
-      ],
-      [
-        100,
-        15
-      ]
-    ],
-    "parts": [],
     "features": [
       {
         "type": "C",
         "v": [
-          49,
-          58,
-          22,
-          40
+          32,
+          76,
+          18,
+          46
         ]
       }
     ],
@@ -1020,9 +3352,505 @@
       16,
       82
     ],
+    "route": "減速雲に入った弾の速度変化を読み、地形に合う射点を選ぶ。",
+    "nameEn": "Beyond the Sky Wall",
+    "goalEn": "Read the slowdown cloud and choose a firing position.",
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          15,
+          12
+        ],
+        [
+          27,
+          12
+        ],
+        [
+          36,
+          11
+        ],
+        [
+          42,
+          10
+        ],
+        [
+          48,
+          10
+        ],
+        [
+          57,
+          10
+        ],
+        [
+          64,
+          12
+        ],
+        [
+          70,
+          15
+        ],
+        [
+          82,
+          15
+        ],
+        [
+          95,
+          15
+        ],
+        [
+          100,
+          14
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        12
+      ],
+      [
+        82,
+        15
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
+  },
+  {
+    "stage": 22,
+    "name": "山影へ落ちる星",
+    "goal": "広い山の裏へ高弾道を落とし、影を回り込む",
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        27,
+        12
+      ],
+      [
+        34,
+        17
+      ],
+      [
+        40,
+        24
+      ],
+      [
+        45,
+        29
+      ],
+      [
+        51,
+        31
+      ],
+      [
+        57,
+        30
+      ],
+      [
+        63,
+        23
+      ],
+      [
+        69,
+        15
+      ],
+      [
+        77,
+        10
+      ],
+      [
+        82,
+        10
+      ],
+      [
+        100,
+        10
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "C",
+        "v": [
+          38,
+          82,
+          18,
+          46
+        ]
+      }
+    ],
+    "recommended": "sora",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "広い山の裏へ高弾道を落とし、影を回り込む",
+    "nameEn": "Stars Behind the Mountain",
+    "goalEn": "Drop a high arc into the mountain’s shadow.",
+    "floorSegments": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          27,
+          12
+        ],
+        [
+          34,
+          17
+        ],
+        [
+          40,
+          24
+        ],
+        [
+          45,
+          29
+        ],
+        [
+          51,
+          31
+        ],
+        [
+          57,
+          30
+        ],
+        [
+          63,
+          23
+        ],
+        [
+          69,
+          15
+        ],
+        [
+          77,
+          10
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        11
+      ],
+      [
+        82,
+        10
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
+  },
+  {
+    "stage": 23,
+    "name": "霧間の着地点",
+    "goal": "薄い霧を通る弾の減速と落下位置を見比べる",
+    "floor": [
+      [
+        0,
+        17
+      ],
+      [
+        9,
+        17
+      ],
+      [
+        15,
+        17.4
+      ],
+      [
+        20,
+        17.1
+      ],
+      [
+        24,
+        17.8
+      ],
+      [
+        29,
+        17.6
+      ],
+      [
+        32,
+        18.4
+      ],
+      [
+        37,
+        18.1
+      ],
+      [
+        41,
+        18.7
+      ],
+      [
+        45,
+        18.4
+      ],
+      [
+        49,
+        19
+      ],
+      [
+        54,
+        19
+      ],
+      [
+        58,
+        18.5
+      ],
+      [
+        62,
+        18.9
+      ],
+      [
+        66,
+        18.1
+      ],
+      [
+        71,
+        18.2
+      ],
+      [
+        75,
+        17.5
+      ],
+      [
+        80,
+        17.7
+      ],
+      [
+        85,
+        17
+      ],
+      [
+        91,
+        17.3
+      ],
+      [
+        96,
+        17
+      ],
+      [
+        100,
+        17
+      ]
+    ],
+    "parts": [
+      {
+        "id": "023-FOG-MARKER",
+        "kind": "island",
+        "poly": [
+          [
+            41,
+            27
+          ],
+          [
+            44,
+            29
+          ],
+          [
+            51,
+            29
+          ],
+          [
+            54,
+            27
+          ],
+          [
+            51,
+            25
+          ],
+          [
+            44,
+            25
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "023-LOW-REEF",
+        "kind": "roof",
+        "poly": [
+          [
+            64,
+            24
+          ],
+          [
+            68,
+            27
+          ],
+          [
+            75,
+            27
+          ],
+          [
+            79,
+            24
+          ],
+          [
+            74,
+            22
+          ],
+          [
+            68,
+            22
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "C",
+        "v": [
+          28,
+          82,
+          23,
+          48
+        ]
+      }
+    ],
+    "recommended": "sora",
+    "spawn": [
+      16,
+      85
+    ],
     "route": "薄い霧を通る弾の減速と落下位置を見比べる",
     "nameEn": "A Landing in the Mist",
-    "goalEn": "Compare the landing before and after cloud slowing."
+    "goalEn": "Compare the landing before and after cloud slowing.",
+    "floorSegments": [
+      [
+        [
+          0,
+          17
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          15,
+          17.4
+        ],
+        [
+          20,
+          17.1
+        ],
+        [
+          24,
+          17.8
+        ],
+        [
+          29,
+          17.6
+        ],
+        [
+          32,
+          18.4
+        ],
+        [
+          37,
+          18.1
+        ],
+        [
+          41,
+          18.7
+        ],
+        [
+          45,
+          18.4
+        ],
+        [
+          49,
+          19
+        ],
+        [
+          54,
+          19
+        ],
+        [
+          58,
+          18.5
+        ],
+        [
+          62,
+          18.9
+        ],
+        [
+          66,
+          18.1
+        ],
+        [
+          71,
+          18.2
+        ],
+        [
+          75,
+          17.5
+        ],
+        [
+          80,
+          17.7
+        ],
+        [
+          85,
+          17
+        ],
+        [
+          91,
+          17.3
+        ],
+        [
+          96,
+          17
+        ],
+        [
+          100,
+          17
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        17.34
+      ],
+      [
+        85,
+        17
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 24,
@@ -1034,19 +3862,35 @@
         11
       ],
       [
-        28,
+        16,
         11
       ],
       [
-        40,
-        13.5
+        25,
+        11
       ],
       [
-        56,
-        13.5
+        35,
+        9
       ],
       [
-        71,
+        44,
+        8
+      ],
+      [
+        55,
+        8
+      ],
+      [
+        63,
+        10
+      ],
+      [
+        72,
+        11
+      ],
+      [
+        82,
         11
       ],
       [
@@ -1056,22 +3900,110 @@
     ],
     "parts": [
       {
+        "id": "024-LEFT-SHELF",
+        "kind": "island",
+        "poly": [
+          [
+            28,
+            20
+          ],
+          [
+            32,
+            24
+          ],
+          [
+            43,
+            24
+          ],
+          [
+            47,
+            20
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            32,
+            18
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "024-BREAK-ROOF",
         "kind": "roof",
-        "x": 47,
-        "end": 63,
-        "top": 25,
-        "thickness": 3,
+        "poly": [
+          [
+            49,
+            24
+          ],
+          [
+            56,
+            27
+          ],
+          [
+            68,
+            27
+          ],
+          [
+            73,
+            24
+          ],
+          [
+            69,
+            22
+          ],
+          [
+            54,
+            22
+          ]
+        ],
         "breakable": true
       },
       {
+        "id": "024-ENEMY-ISLAND",
         "kind": "island",
-        "x": 29,
-        "end": 39,
-        "top": 22,
-        "thickness": 5
+        "poly": [
+          [
+            74,
+            22
+          ],
+          [
+            78,
+            26
+          ],
+          [
+            87,
+            26
+          ],
+          [
+            92,
+            23
+          ],
+          [
+            88,
+            20
+          ],
+          [
+            77,
+            20
+          ]
+        ],
+        "breakable": false
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "C",
+        "v": [
+          30,
+          72,
+          26,
+          46
+        ]
+      }
+    ],
     "recommended": "sora",
     "spawn": [
       16,
@@ -1080,7 +4012,63 @@
     "route": "小さな上段を足場に、屋根の向こうへ落とす",
     "nameEn": "A Letter from Above",
     "goalEn": "Use the upper ledge to drop a shot beyond the roof.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          35,
+          9
+        ],
+        [
+          44,
+          8
+        ],
+        [
+          55,
+          8
+        ],
+        [
+          63,
+          10
+        ],
+        [
+          72,
+          11
+        ],
+        [
+          82,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        11
+      ],
+      [
+        82,
+        26
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 25,
@@ -1089,34 +4077,102 @@
     "floor": [
       [
         0,
+        10
+      ],
+      [
+        14,
+        10
+      ],
+      [
+        25,
+        10
+      ],
+      [
+        31,
+        12
+      ],
+      [
+        37,
         17
       ],
       [
-        35,
-        17
+        43,
+        22
       ],
       [
-        48,
-        11
+        52,
+        22
       ],
       [
-        65,
-        17
+        58,
+        23
+      ],
+      [
+        63,
+        26
+      ],
+      [
+        70,
+        29
+      ],
+      [
+        82,
+        29
+      ],
+      [
+        95,
+        29
       ],
       [
         100,
-        17
+        28
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "025-FOGBELL-ARCH",
+        "kind": "roof",
+        "poly": [
+          [
+            43,
+            38
+          ],
+          [
+            48,
+            42
+          ],
+          [
+            54,
+            43
+          ],
+          [
+            60,
+            42
+          ],
+          [
+            64,
+            38
+          ],
+          [
+            60,
+            35
+          ],
+          [
+            48,
+            35
+          ]
+        ],
+        "breakable": false
+      }
+    ],
     "features": [
       {
         "type": "C",
         "v": [
-          42,
           52,
-          6,
-          23
+          79,
+          27,
+          47
         ]
       }
     ],
@@ -1127,7 +4183,76 @@
     ],
     "route": "霧笛と機体を分けて狙い、呼出しを止める",
     "nameEn": "Answer the Fog Bell",
-    "goalEn": "Aim separately for the signal horn and the machine."
+    "goalEn": "Aim separately for the signal horn and the machine.",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          14,
+          10
+        ],
+        [
+          25,
+          10
+        ],
+        [
+          31,
+          12
+        ],
+        [
+          37,
+          17
+        ],
+        [
+          43,
+          22
+        ],
+        [
+          52,
+          22
+        ],
+        [
+          58,
+          23
+        ],
+        [
+          63,
+          26
+        ],
+        [
+          70,
+          29
+        ],
+        [
+          82,
+          29
+        ],
+        [
+          95,
+          29
+        ],
+        [
+          100,
+          28
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        10
+      ],
+      [
+        82,
+        29
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 26,
@@ -1136,39 +4261,159 @@
     "floor": [
       [
         0,
-        28
+        26
+      ],
+      [
+        16,
+        26
       ],
       [
         25,
-        28
+        26
       ],
       [
-        43,
-        12
-      ],
-      [
-        66,
-        12
-      ],
-      [
-        81,
-        21
-      ],
-      [
-        100,
-        21
+        30,
+        24
       ]
     ],
-    "parts": [],
-    "features": [],
+    "parts": [
+      {
+        "id": "026-LOWER-ISLET",
+        "kind": "island",
+        "poly": [
+          [
+            35,
+            13
+          ],
+          [
+            40,
+            17
+          ],
+          [
+            49,
+            17
+          ],
+          [
+            54,
+            14
+          ],
+          [
+            51,
+            11
+          ],
+          [
+            39,
+            11
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "026-UPPER-ISLET",
+        "kind": "island",
+        "poly": [
+          [
+            53,
+            26
+          ],
+          [
+            59,
+            32
+          ],
+          [
+            69,
+            32
+          ],
+          [
+            74,
+            28
+          ],
+          [
+            70,
+            24
+          ],
+          [
+            59,
+            24
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "C",
+        "v": [
+          42,
+          76,
+          18,
+          44
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          36,
+          52,
+          0
+        ]
+      }
+    ],
     "recommended": "sora",
     "spawn": [
       16,
-      82
+      84
     ],
     "route": "左の高台で撃つか、谷底から高い弧で狙う",
     "nameEn": "Highland Calling",
-    "goalEn": "Choose a high firing point or a steep shot from the valley."
+    "goalEn": "Choose a high firing point or a steep shot from the valley.",
+    "floorSegments": [
+      [
+        [
+          0,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          30,
+          24
+        ]
+      ],
+      [
+        [
+          74,
+          9
+        ],
+        [
+          84,
+          9
+        ],
+        [
+          100,
+          9
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        26
+      ],
+      [
+        84,
+        9
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 27,
@@ -1177,48 +4422,135 @@
     "floor": [
       [
         0,
-        15
+        11
+      ],
+      [
+        16,
+        11
       ],
       [
         28,
-        15
+        11
       ],
       [
-        40,
-        13.5
-      ],
-      [
-        46,
-        13.5
+        39,
+        10
       ],
       [
         51,
-        13.5
+        8
       ],
       [
-        69,
-        15
+        64,
+        8
+      ],
+      [
+        74,
+        10
+      ],
+      [
+        82,
+        10
       ],
       [
         100,
-        15
+        10
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "027-START-SKY-PIER",
+        "kind": "island",
+        "poly": [
+          [
+            10,
+            29
+          ],
+          [
+            13,
+            33
+          ],
+          [
+            23,
+            33
+          ],
+          [
+            29,
+            30
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            14,
+            26
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "027-HANGAR-CANOPY",
+        "kind": "roof",
+        "poly": [
+          [
+            62,
+            25
+          ],
+          [
+            68,
+            32
+          ],
+          [
+            79,
+            34
+          ],
+          [
+            90,
+            32
+          ],
+          [
+            96,
+            27
+          ],
+          [
+            94,
+            23
+          ],
+          [
+            84,
+            23
+          ],
+          [
+            68,
+            22
+          ]
+        ],
+        "breakable": false
+      }
+    ],
     "features": [
       {
         "type": "C",
         "v": [
-          33,
-          46,
-          5,
-          24
+          32,
+          66,
+          17,
+          44
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          75,
+          99,
+          0
         ]
       }
     ],
     "recommended": "sora",
     "spawn": [
-      16,
+      18,
       82
     ],
     "route": "短い雲域を避ける位置へ歩き、近接炸裂を届ける",
@@ -1228,37 +4560,55 @@
       [
         [
           0,
-          15
+          11
+        ],
+        [
+          16,
+          11
         ],
         [
           28,
-          15
+          11
         ],
         [
-          40,
-          13.5
+          39,
+          10
         ],
-        [
-          46,
-          13.5
-        ]
-      ],
-      [
         [
           51,
-          13.5
+          8
         ],
         [
-          69,
-          15
+          64,
+          8
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          82,
+          10
         ],
         [
           100,
-          15
+          10
         ]
       ]
     ],
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "spawnPoints": [
+      [
+        18,
+        33
+      ],
+      [
+        82,
+        10
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 28,
@@ -1270,37 +4620,142 @@
         12
       ],
       [
+        16,
+        12
+      ],
+      [
         28,
         12
       ],
       [
-        34,
-        13.8
+        36,
+        10
       ],
       [
-        63,
-        13.8
+        46,
+        9
       ],
       [
-        72,
-        12
+        55,
+        9
+      ],
+      [
+        65,
+        13
+      ],
+      [
+        73,
+        19
+      ],
+      [
+        82,
+        19
       ],
       [
         100,
-        12
+        19
       ]
     ],
     "parts": [
       {
+        "id": "028-LOW-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            38,
+            9
+          ],
+          [
+            45,
+            9
+          ],
+          [
+            45,
+            22
+          ],
+          [
+            38,
+            22
+          ]
+        ],
+        "breakable": true,
+        "physicalBlockCount": 1
+      },
+      {
+        "id": "028-OVERHEAD-WINDOW",
         "kind": "roof",
-        "x": 35,
-        "end": 60,
-        "top": 28,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            58,
+            29
+          ],
+          [
+            64,
+            33
+          ],
+          [
+            72,
+            32
+          ],
+          [
+            77,
+            28
+          ],
+          [
+            74,
+            25
+          ],
+          [
+            63,
+            26
+          ]
+        ],
+        "breakable": true,
+        "physicalBlockCount": 2
+      },
+      {
+        "id": "028-FIXED-PORTICO",
+        "kind": "roof",
+        "poly": [
+          [
+            28,
+            24
+          ],
+          [
+            32,
+            30
+          ],
+          [
+            37,
+            31
+          ],
+          [
+            38,
+            27
+          ],
+          [
+            35,
+            22
+          ],
+          [
+            30,
+            22
+          ]
+        ],
+        "breakable": false
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "C",
+        "v": [
+          48,
+          79,
+          15,
+          40
+        ]
+      }
+    ],
     "recommended": "sora",
     "spawn": [
       16,
@@ -1309,7 +4764,63 @@
     "route": "屋根を一片壊すか、回廊の先から撃つ",
     "nameEn": "Broken Corridor Roof",
     "goalEn": "Open one roof piece or shoot from beyond the corridor.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          36,
+          10
+        ],
+        [
+          46,
+          9
+        ],
+        [
+          55,
+          9
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          73,
+          19
+        ],
+        [
+          82,
+          19
+        ],
+        [
+          100,
+          19
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        12
+      ],
+      [
+        82,
+        19
+      ]
+    ],
+    "worldWidth": 1000,
+    "enemyAirHeight": 0
   },
   {
     "stage": 29,
@@ -1318,39 +4829,143 @@
     "floor": [
       [
         0,
-        15
+        9
+      ],
+      [
+        16,
+        9
       ],
       [
         29,
-        15
+        9
       ],
       [
-        41,
-        3
+        40,
+        8
       ],
       [
-        62,
-        3
+        55,
+        8
       ],
       [
-        75,
-        21
+        67,
+        9
+      ],
+      [
+        82,
+        10
       ],
       [
         100,
-        21
+        10
       ]
     ],
     "parts": [
       {
+        "id": "029-ASCENT-DECK",
         "kind": "island",
-        "x": 45,
-        "end": 61,
-        "top": 24,
-        "thickness": 5
+        "poly": [
+          [
+            28,
+            19
+          ],
+          [
+            32,
+            24
+          ],
+          [
+            42,
+            24
+          ],
+          [
+            46,
+            21
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            33,
+            18
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "029-HIGH-DECK",
+        "kind": "island",
+        "poly": [
+          [
+            48,
+            28
+          ],
+          [
+            53,
+            34
+          ],
+          [
+            65,
+            34
+          ],
+          [
+            70,
+            30
+          ],
+          [
+            65,
+            27
+          ],
+          [
+            53,
+            27
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "029-ENEMY-DECK",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            30
+          ],
+          [
+            77,
+            38
+          ],
+          [
+            88,
+            38
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            89,
+            30
+          ],
+          [
+            77,
+            30
+          ]
+        ],
+        "breakable": false
       }
     ],
-    "features": [],
+    "features": [
+      {
+        "type": "C",
+        "v": [
+          40,
+          76,
+          18,
+          48
+        ]
+      }
+    ],
     "recommended": "sora",
     "spawn": [
       16,
@@ -1359,7 +4974,56 @@
     "route": "孤立したデッキへ転移し、空の相手に近づく",
     "separatedFloors": true,
     "nameEn": "Separated Airport Decks",
-    "goalEn": "Teleport to a relay deck for a better firing position."
+    "goalEn": "Teleport to a relay deck for a better firing position.",
+    "floorSegments": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          29,
+          9
+        ],
+        [
+          40,
+          8
+        ],
+        [
+          55,
+          8
+        ],
+        [
+          67,
+          9
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        9
+      ],
+      [
+        82,
+        38
+      ]
+    ],
+    "worldWidth": 1000,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 30,
@@ -1368,43 +5032,174 @@
     "floor": [
       [
         0,
-        10
+        12
       ],
       [
-        29,
-        10
+        18,
+        12
       ],
       [
-        46,
-        5
+        30,
+        11
       ],
       [
-        61,
-        5
+        39,
+        6
       ],
       [
-        83,
-        18
+        54,
+        3
       ],
       [
-        100,
-        18
+        69,
+        3
+      ],
+      [
+        82,
+        8
+      ],
+      [
+        94,
+        12
+      ],
+      [
+        134,
+        12
       ]
     ],
     "parts": [
       {
+        "id": "030-WING-LEFT",
+        "poly": [
+          [
+            27,
+            24
+          ],
+          [
+            33,
+            30
+          ],
+          [
+            47,
+            31
+          ],
+          [
+            56,
+            27
+          ],
+          [
+            53,
+            22
+          ],
+          [
+            34,
+            22
+          ]
+        ],
+        "breakable": false,
         "kind": "island",
-        "x": 37,
-        "end": 53,
-        "top": 24,
-        "thickness": 4
+        "purpose": "低い中継射点"
       },
       {
+        "id": "030-WING-RIGHT",
+        "poly": [
+          [
+            75,
+            33
+          ],
+          [
+            81,
+            41
+          ],
+          [
+            94,
+            41
+          ],
+          [
+            104,
+            36
+          ],
+          [
+            99,
+            32
+          ],
+          [
+            83,
+            32
+          ]
+        ],
+        "breakable": false,
         "kind": "island",
-        "x": 59,
-        "end": 74,
-        "top": 32,
-        "thickness": 4
+        "purpose": "雲上の高所射点"
+      },
+      {
+        "id": "030-CRACKED-LEFT",
+        "kind": "wall",
+        "poly": [
+          [
+            22,
+            11
+          ],
+          [
+            34,
+            11
+          ],
+          [
+            34,
+            23
+          ],
+          [
+            22,
+            23
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "030-CRACKED-MID",
+        "kind": "wall",
+        "poly": [
+          [
+            59,
+            3
+          ],
+          [
+            72,
+            3
+          ],
+          [
+            72,
+            18
+          ],
+          [
+            59,
+            18
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "030-CRACKED-RIGHT",
+        "kind": "wall",
+        "poly": [
+          [
+            102,
+            12
+          ],
+          [
+            114,
+            12
+          ],
+          [
+            114,
+            25
+          ],
+          [
+            102,
+            25
+          ]
+        ],
+        "breakable": true
       }
     ],
     "features": [
@@ -1412,82 +5207,239 @@
         "type": "C",
         "v": [
           48,
-          66,
-          17,
-          40
+          99,
+          14,
+          52
         ]
       }
     ],
     "recommended": "sora",
     "spawn": [
-      16,
-      87
+      17,
+      117
     ],
     "route": "雲を通る高弾道と、浮島へ転移した短い射線を比較して空中の両翼を狙う。",
     "nameEn": "A Sky That Answers",
     "goalEn": "Choose cloud-edge arcs or floating-island positions against an airborne boss.",
-    "enemyAirHeight": 10,
-    "terrainRevision": "5.4"
+    "enemyAirHeight": 0,
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          18,
+          12
+        ],
+        [
+          30,
+          11
+        ],
+        [
+          39,
+          6
+        ],
+        [
+          54,
+          3
+        ],
+        [
+          69,
+          3
+        ],
+        [
+          82,
+          8
+        ],
+        [
+          94,
+          12
+        ],
+        [
+          134,
+          12
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        17,
+        12
+      ],
+      [
+        117,
+        29
+      ]
+    ],
+    "worldWidth": 1340
   },
   {
     "stage": 31,
     "name": "一度だけの折り返し",
-    "goal": "前方の鏡床へ低く当て、反射後に敵へ届ける",
+    "goal": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
     "floor": [
       [
         0,
         12
       ],
       [
-        28,
+        17,
         12
       ],
       [
-        34,
-        13.8
+        27,
+        11
       ],
       [
-        63,
-        13.8
+        38,
+        10
       ],
       [
-        72,
-        12
+        52,
+        10
       ],
       [
-        100,
-        12
+        67,
+        14
+      ],
+      [
+        82,
+        14
+      ],
+      [
+        90,
+        14
       ]
     ],
     "parts": [
       {
+        "id": "031-CAVE-CEILING",
+        "poly": [
+          [
+            39,
+            28
+          ],
+          [
+            48,
+            35
+          ],
+          [
+            61,
+            36
+          ],
+          [
+            76,
+            35
+          ],
+          [
+            90,
+            31
+          ],
+          [
+            90,
+            24
+          ],
+          [
+            79,
+            24
+          ],
+          [
+            64,
+            25
+          ],
+          [
+            51,
+            24
+          ],
+          [
+            41,
+            23
+          ]
+        ],
+        "breakable": false,
         "kind": "roof",
-        "x": 37,
-        "end": 52,
-        "top": 29,
-        "thickness": 3,
-        "breakable": false
+        "purpose": "敵の上を覆う右岸洞窟"
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          31,
-          65,
-          12
+          22,
+          73,
+          10
         ]
+      },
+      {
+        "type": "K",
+        "v": [
+          57,
+          36,
+          -20
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
-      16,
-      82
+      14,
+      81
     ],
-    "route": "前方の鏡床へ低く当て、反射後に敵へ届ける",
+    "route": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
     "nameEn": "One Clear Bounce",
-    "goalEn": "Use one mirror-floor bounce to reach the rival.",
-    "terrainRevision": "0.17.0"
+    "goalEn": "Read the large crystal and mirrored floor to reach the cave.",
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          17,
+          12
+        ],
+        [
+          27,
+          11
+        ],
+        [
+          38,
+          10
+        ],
+        [
+          52,
+          10
+        ],
+        [
+          67,
+          14
+        ],
+        [
+          82,
+          14
+        ],
+        [
+          90,
+          14
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        14,
+        12
+      ],
+      [
+        81,
+        14
+      ]
+    ],
+    "worldWidth": 900,
+    "enemyAirHeight": 0
   },
   {
     "stage": 32,
@@ -1496,40 +5448,221 @@
     "floor": [
       [
         0,
-        18
+        30
       ],
       [
-        30,
-        18
+        16,
+        30
       ],
       [
-        58,
-        12
+        29,
+        30
       ],
       [
-        100,
-        12
+        42,
+        23
+      ],
+      [
+        56,
+        16
+      ],
+      [
+        73,
+        8
+      ],
+      [
+        83,
+        8
+      ],
+      [
+        97,
+        10
+      ],
+      [
+        112,
+        10
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "032-CANTILEVER",
+        "poly": [
+          [
+            45,
+            33
+          ],
+          [
+            50,
+            39
+          ],
+          [
+            59,
+            40
+          ],
+          [
+            68,
+            36
+          ],
+          [
+            65,
+            32
+          ],
+          [
+            53,
+            31
+          ]
+        ],
+        "kind": "roof",
+        "breakable": false,
+        "purpose": "斜面の上に張り出し、上弧を制限する固定岩庇"
+      },
+      {
+        "id": "032-SLOPE-SENTINEL",
+        "poly": [
+          [
+            69,
+            10
+          ],
+          [
+            75,
+            10
+          ],
+          [
+            75,
+            23
+          ],
+          [
+            72,
+            27
+          ],
+          [
+            69,
+            23
+          ]
+        ],
+        "kind": "wall",
+        "breakable": false,
+        "purpose": "鏡斜面の先に立つ岩柱。直線の低射撃を遮り反射点を選ばせる"
+      },
+      {
+        "id": "032-FRAGILE-LEDGE",
+        "poly": [
+          [
+            84,
+            8
+          ],
+          [
+            91,
+            8
+          ],
+          [
+            92,
+            19
+          ],
+          [
+            86,
+            22
+          ],
+          [
+            83,
+            19
+          ]
+        ],
+        "kind": "wall",
+        "breakable": true,
+        "purpose": "右岸の小さな破壊可能な出入口。岩柱より手前のルートとの比較"
+      }
+    ],
     "features": [
       {
         "type": "W",
         "v": [
-          33,
-          65,
-          12
+          28,
+          81,
+          0
         ]
+      },
+      {
+        "type": "C",
+        "v": [
+          59,
+          93,
+          18,
+          44
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          77,
+          30,
+          30
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
       16,
-      82
+      99
     ],
     "route": "緩い鏡の下りへ当て、敵側へ弧を持ち上げる",
     "nameEn": "Reading the Mirror Slope",
-    "goalEn": "Bounce from the gentle slope toward the far side."
+    "goalEn": "Bounce from the gentle slope toward the far side.",
+    "floorSegments": [
+      [
+        [
+          0,
+          30
+        ],
+        [
+          16,
+          30
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          42,
+          23
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          73,
+          8
+        ],
+        [
+          83,
+          8
+        ],
+        [
+          97,
+          10
+        ],
+        [
+          112,
+          10
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        30
+      ],
+      [
+        99,
+        10
+      ]
+    ],
+    "worldWidth": 1120,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 33,
@@ -1538,48 +5671,245 @@
     "floor": [
       [
         0,
-        20
+        22
       ],
       [
-        27,
-        20
+        16,
+        22
       ],
       [
-        43,
-        10
+        30,
+        22
       ],
       [
-        58,
-        10
+        40,
+        14
       ],
       [
-        75,
+        50,
+        4
+      ],
+      [
+        62,
+        4
+      ],
+      [
+        76,
+        7
+      ],
+      [
+        91,
         19
       ],
       [
-        100,
+        105,
+        19
+      ],
+      [
+        124,
         19
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "033-BASIN-BUTTRESS",
+        "poly": [
+          [
+            57,
+            4
+          ],
+          [
+            60,
+            4
+          ],
+          [
+            64,
+            5
+          ],
+          [
+            66,
+            21
+          ],
+          [
+            63,
+            26
+          ],
+          [
+            60,
+            22
+          ],
+          [
+            58,
+            12
+          ]
+        ],
+        "kind": "wall",
+        "breakable": false,
+        "purpose": "谷底の真ん中に実際に射線を遮る幅広い岩の隔壁"
+      },
+      {
+        "id": "033-LEFT-BROKEN-ARCH",
+        "poly": [
+          [
+            38,
+            26
+          ],
+          [
+            44,
+            31
+          ],
+          [
+            52,
+            32
+          ],
+          [
+            58,
+            28
+          ],
+          [
+            56,
+            24
+          ],
+          [
+            45,
+            23
+          ]
+        ],
+        "kind": "roof",
+        "breakable": false,
+        "purpose": "左反射面の頭上にせり出し、反射の入射角を選ばせる"
+      },
+      {
+        "id": "033-RIGHT-BREACH",
+        "poly": [
+          [
+            98,
+            19
+          ],
+          [
+            104,
+            19
+          ],
+          [
+            104,
+            30
+          ],
+          [
+            99,
+            33
+          ],
+          [
+            97,
+            30
+          ]
+        ],
+        "kind": "wall",
+        "breakable": true,
+        "purpose": "右岸の反射床の奥に位置する壊せる門板"
+      }
+    ],
     "features": [
       {
         "type": "W",
         "v": [
-          32,
-          72,
-          10
+          30,
+          52,
+          4
         ]
+      },
+      {
+        "type": "W",
+        "v": [
+          75,
+          96,
+          7
+        ]
+      },
+      {
+        "type": "C",
+        "v": [
+          66,
+          108,
+          19,
+          43
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          67,
+          34,
+          25
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
       16,
-      82
+      114
     ],
     "route": "広い谷の底で弾を跳ね、右の岸へ運ぶ",
     "nameEn": "Two Mirrors in the Valley",
-    "goalEn": "Bounce through the broad valley toward the right bank."
+    "goalEn": "Bounce through the broad valley toward the right bank.",
+    "floorSegments": [
+      [
+        [
+          0,
+          22
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          30,
+          22
+        ],
+        [
+          40,
+          14
+        ],
+        [
+          50,
+          4
+        ],
+        [
+          62,
+          4
+        ],
+        [
+          76,
+          7
+        ],
+        [
+          91,
+          19
+        ],
+        [
+          105,
+          19
+        ],
+        [
+          124,
+          19
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        22
+      ],
+      [
+        114,
+        19
+      ]
+    ],
+    "worldWidth": 1240,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 34,
@@ -1588,116 +5918,417 @@
     "floor": [
       [
         0,
-        13
+        11
       ],
       [
-        28,
-        13
+        15,
+        11
       ],
       [
-        34,
-        14.8
+        29,
+        11
+      ],
+      [
+        39,
+        10
+      ],
+      [
+        55,
+        10
       ],
       [
         63,
-        14.8
+        11
       ],
       [
-        72,
-        13
+        73,
+        15
       ],
       [
-        100,
-        13
+        89,
+        15
+      ],
+      [
+        108,
+        15
       ]
     ],
     "parts": [
       {
+        "id": "034-LEFT-CAVE-ROOF",
+        "poly": [
+          [
+            0,
+            30
+          ],
+          [
+            8,
+            36
+          ],
+          [
+            23,
+            38
+          ],
+          [
+            28,
+            36
+          ],
+          [
+            28,
+            22
+          ],
+          [
+            15,
+            21
+          ],
+          [
+            0,
+            22
+          ]
+        ],
         "kind": "roof",
-        "x": 39,
-        "end": 61,
-        "top": 28,
-        "thickness": 3,
-        "breakable": true
+        "breakable": false,
+        "purpose": "自機の上の固定岩天井。右端x28で終わる"
+      },
+      {
+        "id": "034-RIGHT-CAVE-ROOF",
+        "poly": [
+          [
+            45,
+            37
+          ],
+          [
+            53,
+            36
+          ],
+          [
+            60,
+            31
+          ],
+          [
+            59,
+            23
+          ],
+          [
+            52,
+            23
+          ],
+          [
+            45,
+            23
+          ]
+        ],
+        "kind": "roof",
+        "breakable": false,
+        "purpose": "x45から始まる固定屋根。x28〜45は物理的な開口（幅170px）"
+      },
+      {
+        "id": "034-BREAKABLE-EXIT",
+        "poly": [
+          [
+            62,
+            31
+          ],
+          [
+            67,
+            34
+          ],
+          [
+            74,
+            33
+          ],
+          [
+            79,
+            29
+          ],
+          [
+            75,
+            25
+          ],
+          [
+            64,
+            25
+          ]
+        ],
+        "kind": "roof",
+        "breakable": true,
+        "purpose": "出口側の別の破壊可能な天井片。天窓は壊さなくても開いている"
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          30,
-          75,
-          13
-        ]
-      }
-    ],
-    "recommended": "rico",
-    "spawn": [
-      16,
-      82
-    ],
-    "route": "鏡床の反射と低い遮蔽を読み、複数回跳ねる道を探す",
-    "nameEn": "Low Roof, Two Bounces",
-    "goalEn": "Use the floor and low cover to plan two bounces.",
-    "terrainRevision": "0.17.0"
-  },
-  {
-    "stage": 35,
-    "name": "反射試験の枠",
-    "goal": "枠を止める前後で、鏡床を使う角度を変える",
-    "floor": [
-      [
-        0,
-        12
-      ],
-      [
-        30,
-        12
-      ],
-      [
-        44,
-        8
-      ],
-      [
-        60,
-        8
-      ],
-      [
-        75,
-        16
-      ],
-      [
-        100,
-        16
-      ]
-    ],
-    "parts": [],
-    "features": [
-      {
-        "type": "W",
-        "v": [
-          34,
-          68,
-          8
+          12,
+          73,
+          0
         ]
       },
       {
         "type": "K",
         "v": [
-          58,
-          30,
-          22
-        ]
+          59,
+          39,
+          -30
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
       16,
-      82
+      92
     ],
-    "route": "枠を止める前後で、鏡床を使う角度を変える",
+    "route": "鏡床の反射と低い遮蔽を読み、複数回跳ねる道を探す",
+    "nameEn": "Low Roof, Two Bounces",
+    "goalEn": "Use the floor and low cover to plan two bounces.",
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          15,
+          11
+        ],
+        [
+          29,
+          11
+        ],
+        [
+          39,
+          10
+        ],
+        [
+          55,
+          10
+        ],
+        [
+          63,
+          11
+        ],
+        [
+          73,
+          15
+        ],
+        [
+          89,
+          15
+        ],
+        [
+          108,
+          15
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        11
+      ],
+      [
+        92,
+        15
+      ]
+    ],
+    "worldWidth": 1080,
+    "enemyAirHeight": 0
+  },
+  {
+    "stage": 35,
+    "name": "反射試験の枠",
+    "goal": "高い出撃棚から、敵側の天井下面で反射する経路を試す。",
+    "floor": [
+      [
+        0,
+        9
+      ],
+      [
+        18,
+        9
+      ],
+      [
+        32,
+        9
+      ],
+      [
+        46,
+        9
+      ],
+      [
+        61,
+        9
+      ],
+      [
+        80,
+        9
+      ],
+      [
+        103,
+        9
+      ],
+      [
+        130,
+        9
+      ]
+    ],
+    "parts": [
+      {
+        "id": "035-UPPER-CORRIDOR",
+        "poly": [
+          [
+            5,
+            29
+          ],
+          [
+            11,
+            35
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            58,
+            31
+          ],
+          [
+            57,
+            27
+          ],
+          [
+            10,
+            27
+          ]
+        ],
+        "breakable": false,
+        "kind": "island",
+        "purpose": "幅530pxの実際に乗る上段回廊"
+      },
+      {
+        "id": "035-END-SHIELD",
+        "poly": [
+          [
+            95,
+            25
+          ],
+          [
+            102,
+            29
+          ],
+          [
+            116,
+            29
+          ],
+          [
+            121,
+            25
+          ],
+          [
+            118,
+            21
+          ],
+          [
+            99,
+            21
+          ]
+        ],
+        "breakable": false,
+        "kind": "roof",
+        "purpose": "敵の頭上の固定岩庇。下面x99〜118の190pxを天井反射材として提案",
+        "reflectiveUnderside": [
+          [
+            99,
+            21
+          ],
+          [
+            118,
+            21
+          ]
+        ],
+        "reflectiveUndersideRequiresImplementation": true
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          43,
+          102,
+          9
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          84,
+          30,
+          22
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+      }
+    ],
+    "recommended": "rico",
+    "spawn": [
+      19,
+      112
+    ],
+    "route": "高い出撃棚から、敵側の天井下面で反射する経路を試す。",
     "nameEn": "The Reflector Test Frame",
-    "goalEn": "Adjust the bounce after stopping the frame."
+    "goalEn": "Use the high starting shelf and the mirrored roof underside.",
+    "floorSegments": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          18,
+          9
+        ],
+        [
+          32,
+          9
+        ],
+        [
+          46,
+          9
+        ],
+        [
+          61,
+          9
+        ],
+        [
+          80,
+          9
+        ],
+        [
+          103,
+          9
+        ],
+        [
+          130,
+          9
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        19,
+        35
+      ],
+      [
+        112,
+        9
+      ]
+    ],
+    "worldWidth": 1300,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 36,
@@ -1706,57 +6337,270 @@
     "floor": [
       [
         0,
-        14
+        10
       ],
       [
-        28,
-        14
+        16,
+        10
       ],
       [
-        40,
-        16.5
+        30,
+        10
       ],
       [
-        56,
-        16.5
+        38,
+        8
       ],
       [
-        71,
-        14
+        46,
+        4
       ],
       [
-        100,
-        14
+        58,
+        4
+      ],
+      [
+        70,
+        12
+      ],
+      [
+        83,
+        31
+      ],
+      [
+        99,
+        31
+      ],
+      [
+        120,
+        31
       ]
     ],
     "parts": [
       {
+        "id": "036-LEFT-LOW",
         "kind": "wall",
-        "x": 43,
-        "top": 29,
-        "width": 5,
-        "bottom": 14
+        "poly": [
+          [
+            42,
+            4
+          ],
+          [
+            48,
+            4
+          ],
+          [
+            48,
+            18
+          ],
+          [
+            42,
+            18
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "036-LEFT-HIGH",
+        "kind": "wall",
+        "poly": [
+          [
+            42,
+            30
+          ],
+          [
+            48,
+            30
+          ],
+          [
+            48,
+            47
+          ],
+          [
+            42,
+            47
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "036-RIGHT-LOW",
+        "kind": "wall",
+        "poly": [
+          [
+            70,
+            12
+          ],
+          [
+            76,
+            12
+          ],
+          [
+            76,
+            20
+          ],
+          [
+            70,
+            20
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "036-RIGHT-HIGH",
+        "kind": "wall",
+        "poly": [
+          [
+            70,
+            32
+          ],
+          [
+            76,
+            32
+          ],
+          [
+            76,
+            48
+          ],
+          [
+            70,
+            48
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "036-LOW-PLUG",
+        "kind": "wall",
+        "poly": [
+          [
+            53,
+            4
+          ],
+          [
+            59,
+            4
+          ],
+          [
+            59,
+            16
+          ],
+          [
+            53,
+            16
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "036-SUSPENDED-BRIDGE",
+        "kind": "bridge",
+        "poly": [
+          [
+            49,
+            43
+          ],
+          [
+            55,
+            47
+          ],
+          [
+            80,
+            47
+          ],
+          [
+            87,
+            43
+          ],
+          [
+            83,
+            40
+          ],
+          [
+            55,
+            40
+          ]
+        ],
+        "breakable": false
       }
     ],
     "features": [
       {
         "type": "K",
         "v": [
-          62,
-          24,
-          28
-        ]
+          80,
+          39,
+          35
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
       16,
-      82
+      106
     ],
     "route": "門を壊してから、水晶側と床側の経路を比べる",
     "nameEn": "Crystal and Cracked Gate",
     "goalEn": "Open the gate, then compare crystal and floor routes.",
-    "terrainRevision": "0.17.0"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          30,
+          10
+        ],
+        [
+          38,
+          8
+        ],
+        [
+          46,
+          4
+        ],
+        [
+          58,
+          4
+        ],
+        [
+          70,
+          12
+        ],
+        [
+          83,
+          31
+        ],
+        [
+          99,
+          31
+        ],
+        [
+          120,
+          31
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        10
+      ],
+      [
+        106,
+        31
+      ]
+    ],
+    "worldWidth": 1200,
+    "enemyAirHeight": 0
   },
   {
     "stage": 37,
@@ -1765,57 +6609,139 @@
     "floor": [
       [
         0,
-        23
+        20
       ],
       [
-        28,
-        23
+        15,
+        20
       ],
       [
-        43,
-        9
+        31,
+        20
       ],
       [
-        59,
-        9
-      ],
-      [
-        76,
-        22
-      ],
-      [
-        100,
-        22
+        36,
+        20
       ]
     ],
-    "parts": [],
+    "parts": [
+      {
+        "id": "037-HINGE-RELAY",
+        "poly": [
+          [
+            53,
+            17
+          ],
+          [
+            58,
+            22
+          ],
+          [
+            74,
+            23
+          ],
+          [
+            84,
+            21
+          ],
+          [
+            82,
+            16
+          ],
+          [
+            60,
+            16
+          ]
+        ],
+        "breakable": false,
+        "kind": "island",
+        "purpose": "開閉橋の先の幅広い中継島"
+      }
+    ],
     "features": [
       {
         "type": "B",
         "v": [
-          30,
-          23,
-          24,
+          36,
+          20,
+          25,
           0
         ]
       },
       {
         "type": "W",
         "v": [
-          43,
-          61,
-          9
+          57,
+          84,
+          20
         ]
+      },
+      {
+        "type": "K",
+        "v": [
+          71,
+          33,
+          30
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
       16,
-      82
+      110
     ],
     "route": "橋が閉じる間は低い谷へ、開く間は上を通す",
     "nameEn": "A Bridge of Light",
-    "goalEn": "Choose a low valley route or the open bridge route."
+    "goalEn": "Choose a low valley route or the open bridge route.",
+    "floorSegments": [
+      [
+        [
+          0,
+          20
+        ],
+        [
+          15,
+          20
+        ],
+        [
+          31,
+          20
+        ],
+        [
+          36,
+          20
+        ]
+      ],
+      [
+        [
+          94,
+          24
+        ],
+        [
+          109,
+          24
+        ],
+        [
+          125,
+          24
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        20
+      ],
+      [
+        110,
+        24
+      ]
+    ],
+    "worldWidth": 1250,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 38,
@@ -1824,64 +6750,211 @@
     "floor": [
       [
         0,
-        16
+        14
       ],
       [
-        25,
-        16
+        16,
+        14
       ],
       [
-        39,
-        2
+        31,
+        12
       ],
       [
-        64,
-        2
+        43,
+        3
       ],
       [
-        79,
-        19
+        60,
+        3
       ],
       [
-        100,
-        19
+        75,
+        8
+      ],
+      [
+        91,
+        18
+      ],
+      [
+        110,
+        18
       ]
     ],
     "parts": [
       {
+        "id": "038-SINGLE-CITADEL",
+        "poly": [
+          [
+            45,
+            28
+          ],
+          [
+            52,
+            36
+          ],
+          [
+            65,
+            37
+          ],
+          [
+            79,
+            33
+          ],
+          [
+            74,
+            28
+          ],
+          [
+            54,
+            27
+          ]
+        ],
+        "breakable": false,
         "kind": "island",
-        "x": 40,
-        "end": 59,
-        "top": 28,
-        "thickness": 5
+        "purpose": "高所射点となる唯一の浮島"
       },
       {
+        "id": "038-FRAGILE-BATTLEMENT",
+        "poly": [
+          [
+            80,
+            23
+          ],
+          [
+            90,
+            23
+          ],
+          [
+            90,
+            37
+          ],
+          [
+            80,
+            37
+          ]
+        ],
         "kind": "wall",
-        "x": 53,
-        "top": 42,
-        "width": 4,
-        "bottom": 28
+        "breakable": true,
+        "purpose": "手前の壊せる城壁1個。破壊で結晶を見やすくするが敵への直線は開かない"
+      },
+      {
+        "id": "038-PERMANENT-DOGLEG",
+        "poly": [
+          [
+            94,
+            18
+          ],
+          [
+            101,
+            18
+          ],
+          [
+            101,
+            40
+          ],
+          [
+            97,
+            42
+          ],
+          [
+            94,
+            38
+          ]
+        ],
+        "kind": "wall",
+        "breakable": false,
+        "purpose": "壊せる壁のさらに奥にある固定の折れ曲がり遮蔽。破壊後も敵を直射できない"
       }
     ],
     "features": [
       {
+        "type": "B",
+        "v": [
+          29,
+          12,
+          35,
+          0
+        ]
+      },
+      {
+        "type": "C",
+        "v": [
+          42,
+          79,
+          33,
+          53
+        ]
+      },
+      {
         "type": "K",
         "v": [
-          70,
-          29,
+          87,
+          44,
           35
-        ]
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
       }
     ],
     "recommended": "rico",
     "spawn": [
       16,
-      82
+      108
     ],
     "route": "中継島へ転移し、割れた端から射線を作る",
     "separatedFloors": true,
     "nameEn": "The Back-Road Island",
-    "goalEn": "Teleport to the island and open the cracked edge."
+    "goalEn": "Teleport to the island and open the cracked edge.",
+    "floorSegments": [
+      [
+        [
+          0,
+          14
+        ],
+        [
+          16,
+          14
+        ],
+        [
+          31,
+          12
+        ],
+        [
+          43,
+          3
+        ],
+        [
+          60,
+          3
+        ],
+        [
+          75,
+          8
+        ],
+        [
+          91,
+          18
+        ],
+        [
+          110,
+          18
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        14
+      ],
+      [
+        108,
+        18
+      ]
+    ],
+    "worldWidth": 1100,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 39,
@@ -1890,140 +6963,532 @@
     "floor": [
       [
         0,
-        11
+        10
       ],
       [
-        31,
-        11
+        16,
+        10
       ],
       [
-        47,
-        23
+        28,
+        10
       ],
       [
-        64,
-        23
+        36,
+        8
+      ],
+      [
+        48,
+        7
+      ],
+      [
+        58,
+        13
+      ],
+      [
+        68,
+        22
       ],
       [
         80,
-        13
+        29
       ],
       [
-        100,
-        13
+        93,
+        29
+      ],
+      [
+        105,
+        29
       ]
     ],
     "parts": [
       {
+        "id": "039-SHORT-CAVERN-ROOF",
+        "poly": [
+          [
+            29,
+            32
+          ],
+          [
+            36,
+            39
+          ],
+          [
+            47,
+            41
+          ],
+          [
+            57,
+            37
+          ],
+          [
+            58,
+            30
+          ],
+          [
+            56,
+            23
+          ],
+          [
+            46,
+            21
+          ],
+          [
+            35,
+            21
+          ],
+          [
+            29,
+            23
+          ]
+        ],
         "kind": "roof",
-        "x": 28,
-        "end": 40,
-        "top": 32,
-        "thickness": 3,
-        "breakable": true
+        "breakable": false,
+        "purpose": "x29からだけ始まる短い洞窟天井。左x0〜29は完全に空いた空"
+      },
+      {
+        "id": "039-BREAKABLE-EXIT",
+        "poly": [
+          [
+            58,
+            26
+          ],
+          [
+            62,
+            31
+          ],
+          [
+            67,
+            30
+          ],
+          [
+            67,
+            25
+          ],
+          [
+            61,
+            23
+          ]
+        ],
+        "kind": "roof",
+        "breakable": true,
+        "purpose": "洞窟の右出口の小さな壊れる天井。既存の複数破壊単位を保持"
       }
     ],
     "features": [
       {
-        "type": "K",
+        "type": "W",
         "v": [
-          62,
-          34,
-          15
+          76,
+          101,
+          29
         ]
       },
       {
-        "type": "W",
+        "type": "K",
         "v": [
-          72,
-          96,
-          13
+          71,
+          39,
+          15
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+      },
+      {
+        "type": "B",
+        "v": [
+          31,
+          9.25,
+          29,
+          0
         ]
       }
     ],
     "recommended": "rico",
     "spawn": [
-      16,
-      82
+      36,
+      92
     ],
     "route": "向きの変わる水晶を見て、低い床か上空を選ぶ",
     "nameEn": "Turning Signposts",
-    "goalEn": "Watch the crystal change direction before choosing a shot."
+    "goalEn": "Watch the crystal change direction before choosing a shot.",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          28,
+          10
+        ],
+        [
+          36,
+          8
+        ],
+        [
+          48,
+          7
+        ],
+        [
+          58,
+          13
+        ],
+        [
+          68,
+          22
+        ],
+        [
+          80,
+          29
+        ],
+        [
+          93,
+          29
+        ],
+        [
+          105,
+          29
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        36,
+        8
+      ],
+      [
+        92,
+        29
+      ]
+    ],
+    "worldWidth": 1050,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 40,
     "name": "色を残す鏡門",
-    "goal": "低い鏡の反射線と浮島上段からの射線を比較し、鏡枠を外して核へ通す。",
+    "goal": "左右の天井下面と下降橋を見比べ、開閉後も通る反射路を選ぶ。",
     "floor": [
       [
         0,
-        18
+        19
       ],
       [
-        29,
-        18
+        17,
+        19
       ],
       [
-        45,
-        7
+        32,
+        19
       ],
       [
-        62,
-        7
+        47,
+        12
       ],
       [
-        78,
-        11
+        55,
+        6
       ],
       [
-        100,
-        11
+        82,
+        6
+      ],
+      [
+        102,
+        8
+      ],
+      [
+        123,
+        26
+      ],
+      [
+        138,
+        26
+      ],
+      [
+        155,
+        26
       ]
     ],
     "parts": [
       {
+        "id": "040-LEFT-VAULT",
+        "poly": [
+          [
+            13,
+            38
+          ],
+          [
+            19,
+            44
+          ],
+          [
+            29,
+            46
+          ],
+          [
+            41,
+            45
+          ],
+          [
+            52,
+            40
+          ],
+          [
+            52,
+            35
+          ],
+          [
+            43,
+            34
+          ],
+          [
+            23,
+            34
+          ],
+          [
+            14,
+            35
+          ]
+        ],
         "kind": "roof",
-        "x": 28,
-        "end": 42,
-        "top": 35,
-        "thickness": 3,
-        "breakable": true
+        "breakable": false,
+        "purpose": "自機側の幅390pxの屋根。下面反射x23〜43",
+        "reflectiveUnderside": [
+          [
+            23,
+            34
+          ],
+          [
+            43,
+            34
+          ]
+        ],
+        "reflectiveUndersideRequiresImplementation": true
       },
       {
+        "id": "040-RIGHT-VAULT",
+        "poly": [
+          [
+            111,
+            49
+          ],
+          [
+            118,
+            56
+          ],
+          [
+            132,
+            58
+          ],
+          [
+            145,
+            56
+          ],
+          [
+            153,
+            51
+          ],
+          [
+            153,
+            45
+          ],
+          [
+            145,
+            44
+          ],
+          [
+            122,
+            44
+          ],
+          [
+            113,
+            45
+          ]
+        ],
+        "kind": "roof",
+        "breakable": false,
+        "purpose": "敵側の幅420pxの屋根。左とほぼ同じサイズ、下面反射x122〜145",
+        "reflectiveUnderside": [
+          [
+            122,
+            44
+          ],
+          [
+            145,
+            44
+          ]
+        ],
+        "reflectiveUndersideRequiresImplementation": true
+      },
+      {
+        "id": "040-PRISM-FRAME",
+        "poly": [
+          [
+            114,
+            26
+          ],
+          [
+            120,
+            29
+          ],
+          [
+            129,
+            37
+          ],
+          [
+            131,
+            42
+          ],
+          [
+            125,
+            44
+          ],
+          [
+            117,
+            40
+          ]
+        ],
+        "kind": "wall",
+        "breakable": true,
+        "purpose": "敵の鏡枠は従来同様に横幅170pxの2分割破壊部材"
+      },
+      {
+        "id": "040-DOWN-BRIDGE-ANCHOR",
         "kind": "island",
-        "x": 54,
-        "end": 70,
-        "top": 26,
-        "thickness": 4
+        "poly": [
+          [
+            64,
+            24
+          ],
+          [
+            67,
+            29
+          ],
+          [
+            75,
+            29
+          ],
+          [
+            79,
+            25
+          ],
+          [
+            76,
+            22
+          ],
+          [
+            67,
+            22
+          ]
+        ],
+        "breakable": false
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          40,
-          62,
-          7
+          54,
+          109,
+          6
         ]
       },
       {
         "type": "K",
         "v": [
-          67,
-          29,
+          113,
+          48,
           30
-        ]
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+      },
+      {
+        "type": "B",
+        "v": [
+          72,
+          29,
+          27,
+          0
+        ],
+        "openAngleDeg": -55,
+        "defaultPose": "lowered",
+        "requiresEngineChange": "現行Bは開状態+75°固定。負角の下降開閉を追加する必要がある"
       }
     ],
     "recommended": "rico",
     "spawn": [
-      16,
-      86
+      18,
+      139
     ],
-    "route": "低い鏡の反射線と浮島上段からの射線を比較し、鏡枠を外して核へ通す。",
+    "route": "左右の天井下面と下降橋を見比べ、開閉後も通る反射路を選ぶ。",
     "nameEn": "Keep Every Colour",
-    "goalEn": "Route through a deep prism gorge using water reflection or the upper shelf.",
-    "terrainRevision": "5.4"
+    "goalEn": "Compare mirrored roofs and the downward-opening bridge.",
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          19
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          32,
+          19
+        ],
+        [
+          47,
+          12
+        ],
+        [
+          55,
+          6
+        ],
+        [
+          82,
+          6
+        ],
+        [
+          102,
+          8
+        ],
+        [
+          123,
+          26
+        ],
+        [
+          138,
+          26
+        ],
+        [
+          155,
+          26
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        18,
+        19
+      ],
+      [
+        139,
+        26
+      ]
+    ],
+    "worldWidth": 1550,
+    "enemyAirHeight": 0
   },
   {
     "stage": 41,
@@ -2035,41 +7500,130 @@
         9
       ],
       [
-        30,
+        16,
         9
       ],
       [
-        47,
-        5
+        26,
+        10
       ],
       [
-        62,
-        14
-      ],
-      [
-        82,
-        26
-      ],
-      [
-        100,
-        26
+        31,
+        11
       ]
     ],
     "parts": [
       {
+        "id": "041-LOW-PILLAR",
         "kind": "wall",
-        "x": 50,
-        "top": 32,
-        "width": 4,
-        "bottom": 10
+        "poly": [
+          [
+            37,
+            9
+          ],
+          [
+            43,
+            9
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            37,
+            18
+          ]
+        ],
+        "breakable": false,
+        "purpose": "低い固定柱"
       },
       {
+        "id": "041-UPPER-PILLAR",
+        "kind": "wall",
+        "poly": [
+          [
+            37,
+            45
+          ],
+          [
+            43,
+            45
+          ],
+          [
+            43,
+            53
+          ],
+          [
+            37,
+            53
+          ]
+        ],
+        "breakable": false,
+        "purpose": "柱の上側。高さ18〜45は射撃窓"
+      },
+      {
+        "id": "041-RELAY-PLATFORM",
+        "kind": "island",
+        "poly": [
+          [
+            66,
+            20
+          ],
+          [
+            70,
+            27
+          ],
+          [
+            81,
+            27
+          ],
+          [
+            84,
+            23
+          ],
+          [
+            79,
+            19
+          ],
+          [
+            70,
+            18
+          ]
+        ],
+        "breakable": false,
+        "purpose": "上昇流を抜けた先の中継棚"
+      },
+      {
+        "id": "041-CRACKED-HEAD",
         "kind": "roof",
-        "x": 34,
-        "end": 48,
-        "top": 39,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            75,
+            45
+          ],
+          [
+            80,
+            49
+          ],
+          [
+            88,
+            49
+          ],
+          [
+            91,
+            45
+          ],
+          [
+            88,
+            41
+          ],
+          [
+            78,
+            41
+          ]
+        ],
+        "breakable": true,
+        "purpose": "高弧の別ルートを開ける梁"
       }
     ],
     "features": [
@@ -2077,21 +7631,67 @@
         "type": "U",
         "v": [
           44,
-          55,
-          6,
-          33
+          65,
+          14,
+          44
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      88
+      95
     ],
     "route": "支柱を壊さず手前の梁を開放し、上昇気流の高弾道で上部の敵を狙う。",
     "nameEn": "A Support Worth Keeping",
     "goalEn": "Keep the support, remove a cracked beam, and fire upward through an airshaft.",
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          26,
+          10
+        ],
+        [
+          31,
+          11
+        ]
+      ],
+      [
+        [
+          79,
+          28
+        ],
+        [
+          95,
+          28
+        ],
+        [
+          110,
+          28
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        9
+      ],
+      [
+        95,
+        28
+      ]
+    ],
+    "worldWidth": 1100,
+    "enemyAirHeight": 0
   },
   {
     "stage": 42,
@@ -2100,58 +7700,204 @@
     "floor": [
       [
         0,
-        10
+        29
       ],
       [
-        27,
-        10
+        16,
+        29
+      ],
+      [
+        24,
+        28
+      ],
+      [
+        32,
+        23
+      ],
+      [
+        39,
+        15
       ],
       [
         47,
-        27
+        9
       ],
       [
-        61,
-        27
+        57,
+        8
       ],
       [
-        79,
-        16
+        68,
+        11
       ],
       [
-        100,
-        16
+        80,
+        21
+      ],
+      [
+        93,
+        21
+      ],
+      [
+        112,
+        21
       ]
     ],
     "parts": [
       {
+        "id": "042-VENT-BALCONY",
+        "kind": "island",
+        "poly": [
+          [
+            27,
+            34
+          ],
+          [
+            31,
+            39
+          ],
+          [
+            39,
+            39
+          ],
+          [
+            44,
+            36
+          ],
+          [
+            42,
+            31
+          ],
+          [
+            32,
+            31
+          ]
+        ],
+        "breakable": false,
+        "purpose": "手前の換気棚"
+      },
+      {
+        "id": "042-BROKEN-AWNING",
         "kind": "roof",
-        "x": 48,
-        "end": 62,
-        "top": 41,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            76,
+            43
+          ],
+          [
+            81,
+            48
+          ],
+          [
+            90,
+            48
+          ],
+          [
+            94,
+            43
+          ],
+          [
+            91,
+            40
+          ],
+          [
+            80,
+            40
+          ]
+        ],
+        "breakable": true,
+        "purpose": "右岸頭上の破壊屋根"
       }
     ],
     "features": [
       {
         "type": "U",
         "v": [
-          35,
           44,
-          5,
-          30
+          68,
+          10,
+          37
+        ]
+      },
+      {
+        "type": "B",
+        "v": [
+          44,
+          39,
+          27,
+          0
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      82
+      93
     ],
     "route": "高い棚を先に確保し、通気域を上から越える",
     "nameEn": "The Ventilation Shelf",
-    "goalEn": "Secure the high shelf to cross above the updraft."
+    "goalEn": "Secure the high shelf to cross above the updraft.",
+    "floorSegments": [
+      [
+        [
+          0,
+          29
+        ],
+        [
+          16,
+          29
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          39,
+          15
+        ],
+        [
+          47,
+          9
+        ],
+        [
+          57,
+          8
+        ],
+        [
+          68,
+          11
+        ],
+        [
+          80,
+          21
+        ],
+        [
+          93,
+          21
+        ],
+        [
+          112,
+          21
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        29
+      ],
+      [
+        93,
+        21
+      ]
+    ],
+    "worldWidth": 1120,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 43,
@@ -2160,72 +7906,161 @@
     "floor": [
       [
         0,
-        9
+        11
+      ],
+      [
+        16,
+        11
       ],
       [
         30,
-        9
-      ],
-      [
-        43,
-        7
-      ],
-      [
-        49,
-        7
-      ],
-      [
-        57,
         12
       ],
       [
-        80,
-        25
-      ],
-      [
-        100,
-        25
+        43,
+        13
       ]
     ],
     "parts": [
       {
+        "id": "043-LEFT-CAVE-SHELL",
         "kind": "roof",
-        "x": 27,
-        "end": 41,
-        "top": 37,
-        "thickness": 3,
-        "breakable": false
+        "poly": [
+          [
+            26,
+            29
+          ],
+          [
+            30,
+            37
+          ],
+          [
+            36,
+            39
+          ],
+          [
+            43,
+            36
+          ],
+          [
+            43,
+            27
+          ],
+          [
+            35,
+            25
+          ],
+          [
+            28,
+            26
+          ]
+        ],
+        "breakable": false,
+        "purpose": "洞窟左側天井。隙間の左端はx43"
       },
       {
+        "id": "043-RIGHT-CAVE-SHELL",
         "kind": "roof",
-        "x": 64,
-        "end": 78,
-        "top": 43,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            78,
+            46
+          ],
+          [
+            83,
+            53
+          ],
+          [
+            92,
+            54
+          ],
+          [
+            102,
+            48
+          ],
+          [
+            100,
+            41
+          ],
+          [
+            88,
+            41
+          ],
+          [
+            79,
+            42
+          ]
+        ],
+        "breakable": false,
+        "purpose": "洞窟右側天井。隙間の右端はx78"
       },
       {
+        "id": "043-HINGE-ISLAND",
         "kind": "island",
-        "x": 42,
-        "end": 57,
-        "top": 24,
-        "thickness": 4
+        "poly": [
+          [
+            64,
+            22
+          ],
+          [
+            69,
+            28
+          ],
+          [
+            74,
+            28
+          ],
+          [
+            77,
+            24
+          ],
+          [
+            74,
+            21
+          ],
+          [
+            68,
+            20
+          ]
+        ],
+        "breakable": false,
+        "purpose": "地上より高い橋台"
       }
     ],
     "features": [
       {
+        "type": "U",
+        "v": [
+          44,
+          58,
+          14,
+          33
+        ]
+      },
+      {
         "type": "K",
         "v": [
           62,
-          31,
-          30
+          39,
+          23
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+      },
+      {
+        "type": "B",
+        "v": [
+          67,
+          29,
+          17,
+          0
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      86
+      94
     ],
     "route": "低い射点から近い天井片を抜き、敵側の高台へ反射射撃する。",
     "nameEn": "A Narrow Roof Opening",
@@ -2234,33 +8069,49 @@
       [
         [
           0,
-          9
+          11
+        ],
+        [
+          16,
+          11
         ],
         [
           30,
-          9
+          12
         ],
         [
           43,
-          7
+          13
         ]
       ],
       [
         [
-          57,
-          12
-        ],
-        [
-          80,
+          78,
           25
         ],
         [
-          100,
+          94,
+          25
+        ],
+        [
+          112,
           25
         ]
       ]
     ],
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "spawnPoints": [
+      [
+        16,
+        11
+      ],
+      [
+        94,
+        25
+      ]
+    ],
+    "worldWidth": 1120,
+    "enemyAirHeight": 0
   },
   {
     "stage": 44,
@@ -2272,62 +8123,191 @@
         22
       ],
       [
-        30,
+        16,
         22
       ],
       [
-        45,
-        8
-      ],
-      [
-        63,
-        8
-      ],
-      [
-        76,
-        18
-      ],
-      [
-        100,
-        18
+        26,
+        22
       ]
     ],
     "parts": [
       {
+        "id": "044-LOADING-LOW",
         "kind": "island",
-        "x": 43,
-        "end": 58,
-        "top": 22,
-        "thickness": 5
+        "poly": [
+          [
+            29,
+            25
+          ],
+          [
+            34,
+            31
+          ],
+          [
+            44,
+            31
+          ],
+          [
+            48,
+            27
+          ],
+          [
+            44,
+            23
+          ],
+          [
+            34,
+            23
+          ]
+        ],
+        "breakable": false,
+        "purpose": "低い積荷台"
+      },
+      {
+        "id": "044-LOADING-HIGH",
+        "kind": "island",
+        "poly": [
+          [
+            70,
+            32
+          ],
+          [
+            75,
+            39
+          ],
+          [
+            83,
+            39
+          ],
+          [
+            87,
+            34
+          ],
+          [
+            83,
+            29
+          ],
+          [
+            75,
+            29
+          ]
+        ],
+        "breakable": false,
+        "purpose": "高い積荷台"
+      },
+      {
+        "id": "044-LOADING-RIGHT",
+        "kind": "island",
+        "poly": [
+          [
+            88,
+            23
+          ],
+          [
+            91,
+            28
+          ],
+          [
+            98,
+            28
+          ],
+          [
+            101,
+            24
+          ],
+          [
+            96,
+            21
+          ],
+          [
+            91,
+            21
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵手前の積荷台"
       }
     ],
     "features": [
       {
         "type": "U",
         "v": [
-          50,
-          58,
-          8,
-          38
+          49,
+          65,
+          16,
+          47
+        ]
+      },
+      {
+        "type": "B",
+        "v": [
+          40,
+          31,
+          25,
+          0
         ]
       },
       {
         "type": "W",
         "v": [
-          64,
-          80,
-          12
+          99,
+          119,
+          16
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      82
+      110
     ],
     "route": "上昇流の前で撃つか、奥の荷台へ転移して避ける",
     "nameEn": "Cargo and Rising Air",
-    "goalEn": "Use the updraft or teleport beyond it."
+    "goalEn": "Use the updraft or teleport beyond it.",
+    "floorSegments": [
+      [
+        [
+          0,
+          22
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          26,
+          22
+        ]
+      ],
+      [
+        [
+          99,
+          16
+        ],
+        [
+          111,
+          16
+        ],
+        [
+          120,
+          16
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        22
+      ],
+      [
+        110,
+        16
+      ]
+    ],
+    "worldWidth": 1200,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 45,
@@ -2336,57 +8316,169 @@
     "floor": [
       [
         0,
-        16
+        10
+      ],
+      [
+        16,
+        10
       ],
       [
         28,
-        16
-      ],
-      [
-        44,
-        25
-      ],
-      [
-        59,
-        25
-      ],
-      [
-        74,
-        14
-      ],
-      [
-        100,
-        14
+        10
       ]
     ],
     "parts": [
       {
+        "id": "045-LIFT-DECK",
+        "kind": "island",
+        "poly": [
+          [
+            65,
+            21
+          ],
+          [
+            70,
+            28
+          ],
+          [
+            79,
+            28
+          ],
+          [
+            83,
+            23
+          ],
+          [
+            79,
+            20
+          ],
+          [
+            69,
+            19
+          ]
+        ],
+        "breakable": false,
+        "purpose": "上昇流の外側にある足場"
+      },
+      {
+        "id": "045-LIFT-BRAKE",
         "kind": "wall",
-        "x": 47,
-        "top": 39,
-        "width": 4,
-        "bottom": 25
+        "poly": [
+          [
+            85,
+            21
+          ],
+          [
+            92,
+            21
+          ],
+          [
+            92,
+            35
+          ],
+          [
+            85,
+            35
+          ]
+        ],
+        "breakable": true,
+        "purpose": "壊して射線を開く昇降ブレーキ"
+      },
+      {
+        "id": "045-SHAFT-RIB",
+        "kind": "roof",
+        "poly": [
+          [
+            109,
+            44
+          ],
+          [
+            114,
+            49
+          ],
+          [
+            123,
+            48
+          ],
+          [
+            125,
+            45
+          ],
+          [
+            121,
+            42
+          ],
+          [
+            113,
+            41
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵頭上の固定梁"
       }
     ],
     "features": [
       {
         "type": "U",
         "v": [
-          59,
-          68,
-          7,
-          27
+          30,
+          60,
+          10,
+          44
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      82
+      106
     ],
     "route": "ドライブを止め、柱の横から安全な射点を選ぶ",
     "nameEn": "The Stopped Lift",
-    "goalEn": "Stop the drive and choose a firing point beside the column."
+    "goalEn": "Stop the drive and choose a firing point beside the column.",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          28,
+          10
+        ]
+      ],
+      [
+        [
+          91,
+          29
+        ],
+        [
+          105,
+          29
+        ],
+        [
+          125,
+          29
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        10
+      ],
+      [
+        106,
+        29
+      ]
+    ],
+    "worldWidth": 1250,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 46,
@@ -2395,66 +8487,240 @@
     "floor": [
       [
         0,
-        24
-      ],
-      [
-        25,
-        24
-      ],
-      [
-        43,
         14
       ],
       [
-        57,
-        9
+        16,
+        14
       ],
       [
-        74,
-        9
+        26,
+        13
       ],
       [
-        100,
-        9
+        35,
+        11
+      ],
+      [
+        45,
+        8
+      ],
+      [
+        58,
+        8
+      ],
+      [
+        68,
+        11
+      ],
+      [
+        78,
+        16
+      ],
+      [
+        88,
+        19
+      ],
+      [
+        99,
+        19
+      ],
+      [
+        115,
+        18
       ]
     ],
     "parts": [
       {
-        "kind": "wall",
-        "x": 46,
-        "top": 36,
-        "width": 4,
-        "bottom": 10
+        "id": "046-CAVERN-CANOPY",
+        "kind": "roof",
+        "poly": [
+          [
+            21,
+            29
+          ],
+          [
+            26,
+            36
+          ],
+          [
+            33,
+            38
+          ],
+          [
+            40,
+            34
+          ],
+          [
+            40,
+            27
+          ],
+          [
+            33,
+            26
+          ],
+          [
+            24,
+            26
+          ]
+        ],
+        "breakable": false,
+        "purpose": "手前の横穴洞窟"
       },
       {
+        "id": "046-LOFT",
+        "kind": "island",
+        "poly": [
+          [
+            67,
+            25
+          ],
+          [
+            73,
+            31
+          ],
+          [
+            81,
+            31
+          ],
+          [
+            85,
+            27
+          ],
+          [
+            81,
+            23
+          ],
+          [
+            72,
+            23
+          ]
+        ],
+        "breakable": false,
+        "purpose": "右側上空の独立射点"
+      },
+      {
+        "id": "046-EXIT-ROOF",
         "kind": "roof",
-        "x": 61,
-        "end": 77,
-        "top": 33,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            87,
+            39
+          ],
+          [
+            92,
+            43
+          ],
+          [
+            101,
+            43
+          ],
+          [
+            107,
+            39
+          ],
+          [
+            103,
+            35
+          ],
+          [
+            92,
+            35
+          ]
+        ],
+        "breakable": true,
+        "purpose": "壊すことで上空射線が増える屋根"
       }
     ],
     "features": [
       {
         "type": "U",
         "v": [
-          38,
-          49,
-          9,
-          39
+          42,
+          65,
+          11,
+          44
+        ]
+      },
+      {
+        "type": "B",
+        "v": [
+          36,
+          25,
+          25,
+          0
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      88
+      99
     ],
     "route": "自機側の高台から換気窓を通る弧を作り、下段の敵へ落とす。",
     "nameEn": "Leave a Window for Air",
     "goalEn": "Aim downward across a ventilated cut and keep the supporting wall intact.",
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          14
+        ],
+        [
+          16,
+          14
+        ],
+        [
+          26,
+          13
+        ],
+        [
+          35,
+          11
+        ],
+        [
+          45,
+          8
+        ],
+        [
+          58,
+          8
+        ],
+        [
+          68,
+          11
+        ],
+        [
+          78,
+          16
+        ],
+        [
+          88,
+          19
+        ],
+        [
+          99,
+          19
+        ],
+        [
+          115,
+          18
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        14
+      ],
+      [
+        99,
+        19
+      ]
+    ],
+    "worldWidth": 1150,
+    "enemyAirHeight": 0
   },
   {
     "stage": 47,
@@ -2463,37 +8729,109 @@
     "floor": [
       [
         0,
-        25
+        27
       ],
       [
-        25,
-        25
+        16,
+        27
       ],
       [
-        41,
-        10
+        27,
+        27
       ],
       [
-        66,
-        10
+        34,
+        19
       ],
       [
-        82,
-        24
+        43,
+        8
+      ],
+      [
+        61,
+        8
+      ],
+      [
+        71,
+        14
+      ],
+      [
+        83,
+        22
       ],
       [
         100,
-        24
+        22
+      ],
+      [
+        115,
+        22
       ]
     ],
     "parts": [
       {
+        "id": "047-TOP-CART-TRACK",
+        "kind": "island",
+        "poly": [
+          [
+            42,
+            39
+          ],
+          [
+            48,
+            45
+          ],
+          [
+            65,
+            45
+          ],
+          [
+            71,
+            41
+          ],
+          [
+            67,
+            36
+          ],
+          [
+            48,
+            36
+          ]
+        ],
+        "breakable": false,
+        "purpose": "自機から260px以上空を開けた上段軌道"
+      },
+      {
+        "id": "047-BROKEN-TUNNEL",
         "kind": "roof",
-        "x": 44,
-        "end": 65,
-        "top": 27,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            77,
+            34
+          ],
+          [
+            82,
+            39
+          ],
+          [
+            91,
+            39
+          ],
+          [
+            96,
+            35
+          ],
+          [
+            92,
+            31
+          ],
+          [
+            81,
+            31
+          ]
+        ],
+        "breakable": true,
+        "purpose": "右岸手前の破壊屋根"
       }
     ],
     "features": [
@@ -2501,19 +8839,85 @@
         "type": "W",
         "v": [
           40,
-          68,
-          10
+          69,
+          8
+        ]
+      },
+      {
+        "type": "B",
+        "v": [
+          70,
+          14,
+          24,
+          0
         ]
       }
     ],
     "recommended": "koro",
     "spawn": [
       16,
-      82
+      101
     ],
     "route": "下段を転がすか、上段から梁の先を狙う",
     "nameEn": "Upper and Lower Mine Routes",
-    "goalEn": "Roll along the low floor or fire from the upper shelf."
+    "goalEn": "Roll along the low floor or fire from the upper shelf.",
+    "floorSegments": [
+      [
+        [
+          0,
+          27
+        ],
+        [
+          16,
+          27
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          34,
+          19
+        ],
+        [
+          43,
+          8
+        ],
+        [
+          61,
+          8
+        ],
+        [
+          71,
+          14
+        ],
+        [
+          83,
+          22
+        ],
+        [
+          100,
+          22
+        ],
+        [
+          115,
+          22
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        27
+      ],
+      [
+        101,
+        22
+      ]
+    ],
+    "worldWidth": 1150,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 48,
@@ -2522,148 +8926,483 @@
     "floor": [
       [
         0,
-        9
-      ],
-      [
-        27,
-        9
-      ],
-      [
-        44,
-        6
-      ],
-      [
-        59,
         10
       ],
       [
-        78,
-        22
+        16,
+        10
       ],
       [
-        100,
-        22
+        27,
+        10
+      ],
+      [
+        34,
+        9
+      ],
+      [
+        42,
+        7
+      ],
+      [
+        52,
+        8
+      ],
+      [
+        63,
+        13
+      ],
+      [
+        75,
+        18
+      ],
+      [
+        87,
+        28
+      ],
+      [
+        92,
+        31
+      ],
+      [
+        108,
+        31
+      ],
+      [
+        125,
+        31
       ]
     ],
     "parts": [
       {
+        "id": "048-WIND-TOWER-LOW",
         "kind": "wall",
-        "x": 43,
-        "top": 32,
-        "width": 4,
-        "bottom": 6
+        "poly": [
+          [
+            39,
+            8
+          ],
+          [
+            46,
+            8
+          ],
+          [
+            46,
+            17
+          ],
+          [
+            39,
+            17
+          ]
+        ],
+        "breakable": true,
+        "purpose": "下側は破壊可能な小扉"
       },
       {
+        "id": "048-WIND-TOWER-UPPER",
+        "kind": "wall",
+        "poly": [
+          [
+            39,
+            29
+          ],
+          [
+            46,
+            29
+          ],
+          [
+            46,
+            42
+          ],
+          [
+            39,
+            42
+          ]
+        ],
+        "breakable": false,
+        "purpose": "上側は固定。高さ17〜29の射撃窓"
+      },
+      {
+        "id": "048-UPPER-ISLET",
         "kind": "island",
-        "x": 49,
-        "end": 65,
-        "top": 29,
-        "thickness": 4
+        "poly": [
+          [
+            69,
+            26
+          ],
+          [
+            75,
+            33
+          ],
+          [
+            82,
+            33
+          ],
+          [
+            87,
+            29
+          ],
+          [
+            83,
+            25
+          ],
+          [
+            75,
+            24
+          ]
+        ],
+        "breakable": false,
+        "purpose": "中継射点"
       },
       {
+        "id": "048-PRISM-CEILING",
         "kind": "roof",
-        "x": 69,
-        "end": 82,
-        "top": 43,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            106,
+            48
+          ],
+          [
+            111,
+            53
+          ],
+          [
+            121,
+            53
+          ],
+          [
+            125,
+            48
+          ],
+          [
+            122,
+            44
+          ],
+          [
+            111,
+            44
+          ]
+        ],
+        "breakable": false,
+        "purpose": "結晶から右へ離した敵上部屋根"
       }
     ],
     "features": [
       {
         "type": "U",
         "v": [
-          45,
-          57,
-          8,
-          38
+          47,
+          67,
+          13,
+          46
         ]
       },
       {
         "type": "K",
         "v": [
-          68,
-          31,
-          25
-        ]
+          89,
+          41,
+          -22
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      88
+      108
     ],
     "route": "低い斜坑から上昇気流で浮島裏へ回し、結晶を使って敵側高台へ通す。",
     "nameEn": "The Slanted Air Gate",
     "goalEn": "Use an uplift shelf and a crystal to reach the elevated workshop.",
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          27,
+          10
+        ],
+        [
+          34,
+          9
+        ],
+        [
+          42,
+          7
+        ],
+        [
+          52,
+          8
+        ],
+        [
+          63,
+          13
+        ],
+        [
+          75,
+          18
+        ],
+        [
+          87,
+          28
+        ],
+        [
+          92,
+          31
+        ],
+        [
+          108,
+          31
+        ],
+        [
+          125,
+          31
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        10
+      ],
+      [
+        108,
+        31
+      ]
+    ],
+    "worldWidth": 1250,
+    "enemyAirHeight": 0
   },
   {
     "stage": 49,
     "name": "工房の屋根裏",
-    "goal": "山腹の棚から天井片を外し、長い弧を通す",
+    "goal": "送風域での曲がりと上昇気流を利用する別経路を比べる。",
     "floor": [
       [
         0,
-        13
+        17
+      ],
+      [
+        16,
+        17
       ],
       [
         29,
-        13
+        17
       ],
       [
-        44,
-        25
+        39,
+        20
       ],
       [
-        61,
-        25
+        52,
+        23
       ],
       [
-        79,
-        12
+        64,
+        23
       ],
       [
-        100,
-        12
+        78,
+        18
+      ],
+      [
+        93,
+        11
+      ],
+      [
+        104,
+        11
+      ],
+      [
+        120,
+        11
       ]
     ],
     "parts": [
       {
-        "kind": "roof",
-        "x": 38,
-        "end": 58,
-        "top": 39,
-        "thickness": 3,
-        "breakable": true
+        "id": "049-ATTIC-SUPPORT",
+        "kind": "island",
+        "poly": [
+          [
+            50,
+            32
+          ],
+          [
+            56,
+            39
+          ],
+          [
+            67,
+            39
+          ],
+          [
+            73,
+            34
+          ],
+          [
+            70,
+            30
+          ],
+          [
+            56,
+            30
+          ]
+        ],
+        "breakable": false,
+        "purpose": "UとFの間の高い射点"
       },
       {
+        "id": "049-CRACKED-ATTIC",
+        "kind": "roof",
+        "poly": [
+          [
+            103,
+            41
+          ],
+          [
+            106,
+            47
+          ],
+          [
+            114,
+            47
+          ],
+          [
+            118,
+            43
+          ],
+          [
+            115,
+            39
+          ],
+          [
+            106,
+            38
+          ]
+        ],
+        "breakable": true,
+        "purpose": "敵上側の破壊天井"
+      },
+      {
+        "id": "049-VENT-GUARD",
         "kind": "wall",
-        "x": 66,
-        "top": 31,
-        "width": 4,
-        "bottom": 12
+        "poly": [
+          [
+            91,
+            11
+          ],
+          [
+            98,
+            11
+          ],
+          [
+            98,
+            26
+          ],
+          [
+            91,
+            26
+          ]
+        ],
+        "breakable": true,
+        "purpose": "敵側の破壊門"
       }
     ],
     "features": [
       {
+        "type": "U",
+        "v": [
+          28,
+          44,
+          18,
+          44
+        ]
+      },
+      {
         "type": "F",
         "v": [
-          52,
-          62,
-          5,
-          32
+          75,
+          101,
+          14,
+          40
         ]
       }
     ],
     "recommended": "mogu",
     "spawn": [
       16,
-      82
+      111
     ],
-    "route": "山腹の棚から天井片を外し、長い弧を通す",
+    "route": "送風域での曲がりと上昇気流を利用する別経路を比べる。",
     "nameEn": "The Workshop Loft",
-    "goalEn": "Open the roof from the mountain shelf for a long arc."
+    "goalEn": "Compare wind deflection and an alternate updraft route.",
+    "floorSegments": [
+      [
+        [
+          0,
+          17
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          29,
+          17
+        ],
+        [
+          39,
+          20
+        ],
+        [
+          52,
+          23
+        ],
+        [
+          64,
+          23
+        ],
+        [
+          78,
+          18
+        ],
+        [
+          93,
+          11
+        ],
+        [
+          104,
+          11
+        ],
+        [
+          120,
+          11
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        16,
+        17
+      ],
+      [
+        111,
+        11
+      ]
+    ],
+    "worldWidth": 1200,
+    "terrainRevision": "6.0-approved-001-050",
+    "enemyAirHeight": 0
   },
   {
     "stage": 50,
@@ -2672,92 +9411,310 @@
     "floor": [
       [
         0,
-        8
+        29
+      ],
+      [
+        12,
+        29
       ],
       [
         25,
-        8
+        29
       ],
       [
-        40,
-        6
+        35,
+        25
       ],
       [
-        49,
-        6
+        45,
+        18
       ],
       [
-        63,
-        15
+        55,
+        11
+      ],
+      [
+        69,
+        11
       ],
       [
         79,
-        25
+        15
       ],
       [
-        100,
-        25
+        89,
+        22
+      ],
+      [
+        102,
+        26
+      ],
+      [
+        113,
+        30
+      ],
+      [
+        133,
+        30
+      ],
+      [
+        152,
+        29
       ]
     ],
     "parts": [
       {
-        "kind": "wall",
-        "x": 49,
-        "top": 35,
-        "width": 4,
-        "bottom": 6
-      },
-      {
-        "kind": "island",
-        "x": 43,
-        "end": 58,
-        "top": 25,
-        "thickness": 4
-      },
-      {
-        "kind": "island",
-        "x": 64,
-        "end": 79,
-        "top": 37,
-        "thickness": 4
-      },
-      {
+        "id": "050-LEFT-OVERHANG",
         "kind": "roof",
-        "x": 10,
-        "end": 47,
-        "top": 33,
-        "thickness": 3,
-        "breakable": true
+        "poly": [
+          [
+            20,
+            45
+          ],
+          [
+            27,
+            52
+          ],
+          [
+            34,
+            52
+          ],
+          [
+            38,
+            46
+          ],
+          [
+            35,
+            42
+          ],
+          [
+            25,
+            42
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左側の固定岩庇。高弧に影響"
+      },
+      {
+        "id": "050-ORE-SHUNT-DECK",
+        "kind": "island",
+        "poly": [
+          [
+            75,
+            31
+          ],
+          [
+            82,
+            38
+          ],
+          [
+            91,
+            38
+          ],
+          [
+            95,
+            34
+          ],
+          [
+            90,
+            30
+          ],
+          [
+            81,
+            29
+          ]
+        ],
+        "breakable": false,
+        "purpose": "盆地中央の機械荷台"
+      },
+      {
+        "id": "050-FRAGILE-ORE-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            84,
+            19
+          ],
+          [
+            94,
+            19
+          ],
+          [
+            94,
+            32
+          ],
+          [
+            84,
+            32
+          ]
+        ],
+        "breakable": true,
+        "purpose": "破壊で盆地側に射撃窓"
+      },
+      {
+        "id": "050-DRILL-SHIELD",
+        "kind": "roof",
+        "poly": [
+          [
+            119,
+            46
+          ],
+          [
+            124,
+            52
+          ],
+          [
+            137,
+            53
+          ],
+          [
+            143,
+            48
+          ],
+          [
+            139,
+            44
+          ],
+          [
+            123,
+            43
+          ]
+        ],
+        "breakable": true,
+        "purpose": "ボス側の高い破壊屋根"
+      },
+      {
+        "id": "050-FIXED-EXHAUST",
+        "kind": "wall",
+        "poly": [
+          [
+            112,
+            27
+          ],
+          [
+            117,
+            27
+          ],
+          [
+            117,
+            38
+          ],
+          [
+            112,
+            38
+          ]
+        ],
+        "breakable": false,
+        "purpose": "排気側の固定遮蔽"
       }
     ],
     "features": [
       {
         "type": "U",
         "v": [
-          37,
-          47,
-          4,
-          34
+          43,
+          68,
+          11,
+          43
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          76,
+          124,
+          30,
+          53
         ]
       },
       {
         "type": "K",
         "v": [
-          67,
-          35,
-          32
-        ]
+          101,
+          43,
+          25
+        ],
+        "sizeFactor": 1.8,
+        "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
       }
     ],
     "recommended": "mogu",
     "spawn": [
-      16,
-      87
+      17,
+      134
     ],
     "route": "下段から天井を開放し、中段浮島を経由して上段のドリルと排気部へ異なる角度で射線を作る。",
     "nameEn": "Lines to Dig and Leave",
     "goalEn": "Open a vertical mine, reach intermediate shelves, and reroute shots around the drill.",
-    "terrainRevision": "5.4"
+    "terrainRevision": "6.0-approved-001-050",
+    "floorSegments": [
+      [
+        [
+          0,
+          29
+        ],
+        [
+          12,
+          29
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          35,
+          25
+        ],
+        [
+          45,
+          18
+        ],
+        [
+          55,
+          11
+        ],
+        [
+          69,
+          11
+        ],
+        [
+          79,
+          15
+        ],
+        [
+          89,
+          22
+        ],
+        [
+          102,
+          26
+        ],
+        [
+          113,
+          30
+        ],
+        [
+          133,
+          30
+        ],
+        [
+          152,
+          29
+        ]
+      ]
+    ],
+    "spawnPoints": [
+      [
+        17,
+        29
+      ],
+      [
+        134,
+        30
+      ]
+    ],
+    "worldWidth": 1520,
+    "enemyAirHeight": 0
   },
   {
     "stage": 51,

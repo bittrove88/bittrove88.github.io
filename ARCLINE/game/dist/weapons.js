@@ -38,10 +38,27 @@ const appearances=[
  ['#8ee6ff','arrow','↑','LIFT',8],['#edff7e','spark','✧','PINBALL',8]
 ];
 weapons.forEach((weapon,i)=>{const [color,shape,glyph,label,size]=appearances[i];weapon.appearance={color,shape,glyph,label,size};});
+// Preserve the old ammunition catalog for saves and enemy attack patterns.
+const legacyWeapons=weapons.map(w=>({...w,appearance:{...w.appearance}}));
+const activeIds=['W21','W22','W02','W07','W09','W10','W11','W12','W14','W16','W19','W23'];
+Object.assign(weapons[1],{damageCap:1.875,bossDamageCap:2});
+for(const index of [6,11,15,18])Object.assign(weapons[index],{damageCap:1.5,bossDamageCap:2});
+Object.assign(weapons[8],{childDamage:.9,damageCap:1.75,criticalMultiplier:1});
+Object.assign(weapons[9],{splitChildDamage:.9,spiral:true,damageCap:1.75,criticalMultiplier:1});
+Object.assign(weapons[10],{childDamage:1,damageCap:1.75,criticalMultiplier:1});
+Object.assign(weapons[13],{damage:1.1,damageCap:1.65});
+weapons.push(
+ {id:'W21',name:'Twin Rain',...C.ballistics,minAngle:45,maxAngle:135,damage:.9,blast:45,shots:1,bounces:0,split:true,twoWave:true,damageCap:1.75,criticalMultiplier:1,appearance:{color:'#88cfff',shape:'diamond',glyph:'⋮',label:'RAIN',size:8}},
+ {id:'W22',name:'Sky Bloom',...C.ballistics,minAngle:45,maxAngle:135,damage:1.05,blast:180,shots:1,bounces:0,apexBurst:true,damageCap:1.25,appearance:{color:'#ffc88d',shape:'spark',glyph:'✺',label:'BLOOM',size:9}},
+ {id:'W23',name:'Drain Shell',...C.ballistics,damage:1,blast:60,shots:1,bounces:0,damageCap:1.5,drain:.25,drainHpCap:.15,appearance:{color:'#b0f6c9',shape:'orbit',glyph:'+',label:'DRAIN',size:8}}
+);
+const namesJa={W02:'重榴弾',W07:'転がる弾',W09:'扇状弾',W10:'分裂弾',W11:'連射弾',W12:'空中炸裂弾',W14:'レール弾',W16:'地走り弾',W19:'打ち上げ弾',W21:'二波雨弾',W22:'空中広域弾',W23:'吸収弾'};
+weapons.forEach(w=>{w.nameJa=namesJa[w.id]||w.name;w.legacy=w.id!=='W01'&&!activeIds.includes(w.id);});
+function getEnemy(id){return legacyWeapons.find(w=>w.id===id)||legacyWeapons[0];}
 const coreUnlocks={W01:0,W02:3,W06:8,W14:13,W07:28,W12:35,W15:43,W10:48,W13:14,W16:67,W17:75,W19:84};
 const teleport={id:'TELEPORT',name:'Teleport',...C.ballistics,damage:0,blast:0,shots:1,bounces:0,teleport:true,appearance:{color:'#a9e9ff',shape:'ring',glyph:'◎',label:'WARP',size:7}};
 const skills=['BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP',...K.ids];
 function get(id,characterId){if(id==='TELEPORT')return teleport;if(id==='W01'&&characterId)return C.get(characterId).normal;return weapons.find(w=>w.id===id)||C.weapons.find(w=>w.id===id)||weapons[0];}
-const api={weapons,skills,coreUnlocks,teleport,combat:C,get};
+const api={weapons,activeIds,getEnemy,skills,coreUnlocks,teleport,combat:C,get};
 if(typeof module!=='undefined')module.exports=api;else root.ArcWeapons=api;
 })(globalThis);

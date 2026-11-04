@@ -58,3 +58,11 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 マップシート `design/expedition_013/arcline_100_maps_atlas.html` は `game/tools/build_map_atlas.py` が現行の `design/runtime_campaign_20x5.json`・`design/expedition_013/stage_design.json` から100面・20テーマ・100面リレー4戦場の表示データを再同期します。マップの線画は `dist/geometry.js` と同じ床・障害物・反射床・開閉橋・反射結晶・効果領域の座標解釈で描画します。特に `W` は水域ではなく実在する床の反射材で、第三パラメータを「水面の高さ」として使わないこと。`tests/map-atlas.test.cjs` でデータとレンダリングの両方を検証し、100面未満への暗黙の短縮を禁止します。
 
 0.22.1：100面はfinalBattle.actionLimitsの各28行動・必殺3。final-team.jsの出撃時スナップショットをgame.jsが戦闘内だけに保持し、敗北画面から同じ機体へ復帰する。持ち物・敵・地形も出撃時へ戻し、恒久セーブは変更しない。先頭からの再挑戦も維持。
+
+0.23.0：1〜50面は承認済み `design/stage_reviews/STAGES_001_050_APPROVED_FINAL.json` を地形正本へ反映。`build_campaign.py` は独立床・出撃点・幅・下面反射材も引き継ぐ。51〜100面の地形と最終戦構成は変更しない。`design/pickup_placements.json` が46配置・1/5ターン・補充量・実弾道証拠の正本。生成は `npm run build`、検査は `npm run check:generated`。
+
+`dist/weapons.js` は12補助武器と旧ID互換、敵の旧武器定義を分離。`dist/skills.js` の15効果は `engine.useSkill` と `skillEffects` で発動・失効し、同系統は上書き。`engine.enemyLearning` は実弾の接近で学習し、実歩行だけで解除。Workerも同一エンジンを使う。`campaign-run.updateBattle` と `save` の追加fieldは難易度別の全章在庫・一度だけの台帳を保存する。100面の戦闘内リトライは恒久保存から独立した従来の方式を維持する。
+
+`tests/three-change.test.cjs` が承認50面・保全50面・物理・学習境界／Worker・多弾単発・スキル・46到達配置・互換保存を検証。`tests/three-change-browser.test.cjs` が小型横画面と回転画面の日英ラベル／HUD回避・15スキル・取得保存再読込を検証。旧リリースの保存不変チェックは `integration-preservation.cjs` で、今回許可された境界と旧敵武器／最終戦の不変条件へ更新した。確定値・理由・全配置は `docs/releases/0.23.0.md`。
+
+WorkerのimportScriptsのキャッシュ版もbuild_runtime.pyがruntime.jsonに合わせ、正式な生成対象として検査する。旧版のキャッシュから旧AI／旧地形を読む経路を防ぐ。

@@ -9,7 +9,7 @@ OUTPUTS += [f'assets/ending/roll-cutouts/players/{name}.png' for name in ['gun',
 OUTPUTS += [row['output'] for row in json.loads((ROOT/'design/ending-roll-preparation/cutouts.json').read_text())['rows']]
 OUTPUTS += ['game/dist/sfx-data.js', 'assets/audio/sfx/manifest.json']
 OUTPUTS += [row['src'] for row in json.loads((ROOT/'design/audio/sfx/runtime.json').read_text())['assets'].values()]
-OUTPUTS += ['design/expedition_013/arcline_100_maps_atlas.html']
+OUTPUTS += ['design/expedition_013/arcline_100_maps_atlas.html','game/dist/cpu-worker.js']
 def rebuild(root,history_repo):
     tools=root/'game/tools';env={**os.environ,'ARCLINE_HISTORY_REPO':str(history_repo)}
     for name in SCRIPTS:subprocess.run(['python3',str(tools/name)],check=True,env=env,stdout=subprocess.DEVNULL)
