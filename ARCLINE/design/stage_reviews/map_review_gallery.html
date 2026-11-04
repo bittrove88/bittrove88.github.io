@@ -29,13 +29,14 @@ button[aria-selected="true"],button[aria-pressed="true"]{background:#b6e9d0;colo
 .note{font-size:12px;color:#a6bfbe;margin-top:18px}
 footer{font-size:12px;color:#9eb6b8;margin-top:18px}
 @media(max-width:650px){main{padding:14px 8px 32px}.sheet{padding:12px}.grid,.summary{grid-template-columns:1fr}.map{padding:10px}.tabs{margin:17px 0}.tabs button{padding:8px 11px}.mode button{padding:8px 10px}}
+select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;border-radius:10px;padding:10px 13px;max-width:100%}button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:650px){.tabs{gap:6px}.tabs button{padding:8px 10px}select{padding:8px 10px}}
 </style></head>
 <body><main>
 <div class="kicker">ARCLINE　/　100 MAP DESIGN REVIEWS</div>
 <h1>マップ比較</h1>
 <p class="intro">1面ずつ、既存と変更案を見比べて確認します。難しい数値は省き、<strong>何が変わるか、遊びがどう変わるか</strong>に絞りました。</p>
-<nav class="tabs" id="stageTabs" aria-label="ステージ選択"></nav>
-<section class="sheet" id="stageSheet" aria-live="polite">
+<nav class="tabs" aria-label="ステージ選択"><button id="prev" type="button">前の面</button><select id="stagePicker" aria-label="ステージを選択"></select><button id="next" type="button">次の面</button><span class="muted" id="reviewProgress"></span></nav>
+<section class="sheet" id="stageSheet" aria-live="polite"><noscript>この比較ページではJavaScriptを使用します。</noscript>
 <div class="topline"><h2 id="stageTitle"></h2><span class="status" id="stageStatus"></span></div>
 <p class="lead" id="headline"></p><p class="sublead" id="why"></p>
 <div class="mode"><span>同じ縮尺で比較</span><button id="side" type="button" aria-pressed="true">横並び</button><button id="overlay" type="button" aria-pressed="false">差分を重ねる</button></div>
@@ -50,56 +51,133 @@ footer{font-size:12px;color:#9eb6b8;margin-top:18px}
 </section>
 <footer>承認済みの面も設計のみを承認した状態です。ゲームへの実装は別途行います。以降のステージはこのページへ順次追記します。</footer>
 <script>
-const STAGES=[{"stage":1,"title":"港の最初の一射","status":"承認済み","state":"approved","change":"ごく小さな変更","headline":"平らな射撃エリアを残し、港の両端に小さな起伏を追加。","why":"最初の射撃は今までどおり。港らしい輪郭だけ整えます。","unchanged":"自機と敵の位置、中央の地面、学習目標はそのまま。","goal":"近づくほど、小さなチャージでも届く","oldFloor":[[0,10],[100,10]],"newFloor":[[0,9.2],[6,9.2],[12,10],[74,10],[83,11.2],[90,11.2],[100,10.2]],"spawn":[18,60],"width":1000,"oldParts":[],"newParts":[],"item":null,"detail":"stage_001_review_v1.md","json":"stage_001_proposal_v1.json"},{"stage":2,"title":"丘の肩の道標","status":"確認待ち","state":"pending","change":"小さな変更","headline":"短い急坂を、少し長くて緩やかな坂にする。","why":"坂の角度が急に変わりにくくなり、初心者が狙いを調整しやすい形にします。","unchanged":"自機と敵の位置、上段の高さ、学習目標、試用武器はそのまま。","goal":"緩い坂の上で砲口が上がることを確かめる","oldFloor":[[0,10],[25,10],[45,18],[100,18]],"newFloor":[[0,10],[23,10],[34,13],[45,16],[52,18],[100,18]],"spawn":[18,68],"width":1000,"oldParts":[],"newParts":[],"item":{"id":"W02","kind":"trial","weaponId":"W02","x":26,"h":17.4,"placementId":"L002:weapon:W02"},"detail":"stage_002_review_v1.md","json":"stage_002_proposal_v1.json"}];
+
+'use strict';
 const byId=id=>document.getElementById(id);
 const current={index:0,mode:'side'};
-function Y(h){return 480-h*10;}
-function groundAt(points,x){
- for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];if(x>=a[0]&&x<=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);}
- return points[points.length-1][1];
+let STAGES=[];
+const yOf=h=>500-Number(h)*10;
+const n=x=>Number(x).toFixed(2);
+const esc=s=>String(s).replace(/[&<>"]/g,k=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[k]));
+const point=p=>(Number(p[0])*10)+','+n(yOf(p[1]));
+const line=pts=>pts.map(point).join(' ');
+function validateStage(m){
+ if(!Number.isInteger(m.stage)||!m.title||!['approved','pending'].includes(m.state))throw Error('ステージ情報に誤りがあります。');
+ for(const s of [m.before,m.after])if(!s||!Number.isFinite(s.width)||!Array.isArray(s.floor)||s.floor.length<2||!s.player||!s.enemy)throw Error('地形データに不足があります。');
 }
-function polyline(pts){return pts.map(p=>(p[0]*10).toFixed(2)+','+Y(p[1]).toFixed(2)).join(' ');}
-function polygon(pts){return polyline(pts)+' 1000,505 0,505';}
-function diffShape(a,b){
- const A=[],B=[];for(let x=0;x<=100;x+=1){A.push([x,groundAt(a,x)]);B.push([x,groundAt(b,x)]);}
- return B.map(z=>z[0]*10+','+Y(z[1]).toFixed(2)).join(' ')+' '+A.reverse().map(z=>z[0]*10+','+Y(z[1]).toFixed(2)).join(' ');
+function frame(m){
+ const scenes=[m.before,m.after],maxW=Math.max(...scenes.map(s=>s.width));
+ const heights=scenes.flatMap(s=>[...s.floor,...(s.parts||[]).flatMap(p=>p.poly||[]),[s.player.x,s.player.h],[s.enemy.x,s.enemy.h]].map(p=>Number(p[1])));
+ const maxH=Math.max(30,...heights),minH=Math.min(0,...heights);
+ return{width:maxW,top:Math.min(170,yOf(maxH)-70),bottom:Math.max(555,yOf(minH)+55)};
 }
-function chart(m,which){
- const original=m.oldFloor,updated=m.newFloor,overlay=which==='overlay',floor=which==='before'?original:updated;
- const title=overlay?'既存と変更案の重ね表示':which==='before'?'既存マップ':'変更案';
- const lines='<polygon points="'+polygon(overlay?updated:floor)+'" fill="'+(which==='before'?'#455f66':'#3b6558')+'"/>'+
- (overlay?'<polygon points="'+diffShape(original,updated)+'" fill="#f5cb8d" fill-opacity=".24"/><polyline points="'+polyline(original)+'" fill="none" stroke="#b3c3d6" stroke-width="5" stroke-dasharray="12 8"/><polyline points="'+polyline(updated)+'" fill="none" stroke="#a6f3c8" stroke-width="6"/>':
- '<polyline points="'+polyline(floor)+'" fill="none" stroke="'+(which==='before'?'#b9cad3':'#97e7be')+'" stroke-width="6"/>');
- const markers=m.spawn.map((x,i)=>{const h=groundAt(floor,x),cy=Y(h)-26,c=i?'#f0afa1':'#b5edce',label=i?'E':'P';return '<circle cx="'+(x*10)+'" cy="'+cy+'" r="16" fill="'+c+'" stroke="#122d39" stroke-width="3"/><text x="'+(x*10+22)+'" y="'+(cy-4)+'" fill="#fff" font-size="24" font-weight="700">'+label+'</text>';}).join('');
- const item=m.item?'<g><path d="M '+(m.item.x*10)+' '+(Y(m.item.h)-14)+' l 12 14 -12 14 -12 -14 Z" fill="#fad785" stroke="#423728" stroke-width="2"/><text x="'+(m.item.x*10+16)+'" y="'+(Y(m.item.h)-12)+'" fill="#f7e7a7" font-size="16">試用武器</text></g>':'';
- const svg='<svg viewBox="0 210 1000 300" role="img" aria-label="'+title+'の地形断面" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="210" width="1000" height="300" fill="#102b37"/>'+
- Array.from({length:11},(_,i)=>'<line x1="'+(i*100)+'" x2="'+(i*100)+'" y1="210" y2="505" stroke="#b5d4d2" stroke-opacity=".09"/>').join('')+
- lines+markers+item+'<text x="16" y="490" fill="#bcd3d3" font-size="18">左端</text><text x="986" y="490" text-anchor="end" fill="#bcd3d3" font-size="18">右端</text></svg>';
- return '<div class="map"><div class="header"><strong>'+title+'</strong><span class="tag">'+(overlay?'薄青：既存 / 緑：変更後':which==='before'?'現在':'未実装の提案')+'</span></div><div class="chart">'+svg+'</div><p class="legend">P：自機　 E：敵'+(m.item?'　 ◆：試用武器':'')+'</p></div>';
+function floorAt(floor,x){
+ for(let i=1;i<floor.length;i++){const a=floor[i-1],b=floor[i];if(x>=a[0]&&x<=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);}
+ return null;
+}
+function floorDrawing(s,bottom,ghost){
+ let out='';
+ for(const floor of s.floors||[s.floor]){
+  const polygon=line(floor)+' '+(floor[floor.length-1][0]*10)+','+bottom+' '+(floor[0][0]*10)+','+bottom;
+  if(!ghost)out+='<polygon points="'+polygon+'" fill="#416658" fill-opacity=".86"/>';
+  out+='<polyline points="'+line(floor)+'" fill="none" stroke="'+(ghost?'#c7d7dd':'#99e6c1')+'" stroke-width="'+(ghost?5:6)+'" '+(ghost?'stroke-dasharray="11 8"':'')+'/>';
+ }
+ return out;
+}
+function featureDrawing(s){
+ let out='';
+ for(const f of s.features||[]){
+  const v=f.v||[];const typ=String(f.type||'');
+  if('CFUV'.includes(typ)&&v.length>=4){
+   out+='<rect x="'+(v[0]*10)+'" y="'+yOf(v[3])+'" width="'+((v[1]-v[0])*10)+'" height="'+((v[3]-v[2])*10)+'" rx="5" fill="#a3dcd8" fill-opacity=".18" stroke="#c3e9ce" stroke-width="3" stroke-dasharray="7 6"/>';
+  }else if(typ==='M'&&v.length>=3)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="'+(v[2]*10)+'" fill="#bcb0ec" fill-opacity=".13" stroke="#c5b6ef" stroke-width="3"/>';
+  else if(v.length>=2)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="13" fill="#ebcc90"/>';
+ }
+ return out;
+}
+function partDrawing(s,ghost){
+ let out='';
+ for(const p of s.parts||[]){
+  const pts=p.poly||[];
+  if(pts.length<3)continue;
+  const fill=p.kind==='roof'?'#6b8195':p.kind==='island'?'#8cbdaf':'#a28670';
+  out+='<polygon points="'+line(pts)+'" fill="'+fill+'" fill-opacity="'+(ghost?.15:.94)+'" stroke="'+(ghost?'#c8d6da':'#cee4dd')+'" stroke-width="3" '+(ghost?'stroke-dasharray="8 5"':'')+'/>';
+ }
+ return out;
+}
+function markers(s,ghost=false){
+ let out='';
+ for(const [key,label,color] of [['player','P','#b5f2d0'],['enemy','E','#ecaea1']]){
+  const p=s[key],x=p.x*10,y=yOf(p.h)-24;
+  out+='<circle cx="'+x+'" cy="'+y+'" r="15" fill="'+color+'" fill-opacity="'+(ghost?.35:1)+'" stroke="#173643" stroke-width="3"/>';
+  if(!ghost)out+='<text x="'+(x+21)+'" y="'+(y-5)+'" font-size="24" font-weight="700" fill="#f2faf9">'+label+'</text>';
+ }
+ for(const item of s.pickups||[]){
+  if(!Number.isFinite(item.x)||!Number.isFinite(item.h))continue;
+  const x=item.x*10,y=yOf(item.h);
+  out+='<path d="M '+x+' '+(y-15)+' L '+(x+14)+' '+y+' L '+x+' '+(y+15)+' L '+(x-14)+' '+y+' Z" fill="#f5d28b" stroke="#3b3825" stroke-width="2"/>';
+ }
+ return out;
+}
+function drawing(m,kind){
+ const f=frame(m),overlay=kind==='overlay',ghost=kind==='before',s=kind==='before'?m.before:m.after;
+ const base='<rect x="0" y="'+f.top+'" width="'+f.width+'" height="'+(f.bottom-f.top)+'" fill="#102c37"/>';
+ let grid='';for(let x=0;x<=f.width;x+=100)grid+='<line x1="'+x+'" y1="'+f.top+'" x2="'+x+'" y2="'+f.bottom+'" stroke="#d4e9e6" stroke-opacity=".08"/>';
+ const graphic=overlay?floorDrawing(m.before,f.bottom,true)+partDrawing(m.before,true)+floorDrawing(m.after,f.bottom,false)+partDrawing(m.after,false)+featureDrawing(m.after)+markers(m.before,true)+markers(m.after):
+ floorDrawing(s,f.bottom,ghost)+partDrawing(s,false)+featureDrawing(s)+markers(s);
+ const label=overlay?'変更部分の重ね合わせ':ghost?'既存マップ':'新しい設計案';
+ return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(overlay?'破線：既存／緑：新案':ghost?'既存':'提案・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+base+grid+graphic+'</svg></div><p class="legend">P＝自機　E＝敵　◆＝アイテム　<span style="color:#a2e6be">緑：地形</span>　<span style="color:#c5d5e0">灰青：旧地形</span></p></div>';
+}
+function selectStage(i,changeHash=true){
+ current.index=Math.max(0,Math.min(STAGES.length-1,i));
+ if(changeHash)history.replaceState(null,'','#stage-'+String(STAGES[current.index].stage).padStart(3,'0'));
+ render();
 }
 function render(){
+ if(!STAGES.length)return;
  const m=STAGES[current.index];
  byId('stageTitle').textContent='STAGE '+String(m.stage).padStart(2,'0')+'　'+m.title;
- const badge=byId('stageStatus');badge.textContent=m.status;badge.className='status '+m.state;
- byId('headline').textContent=m.headline;byId('why').textContent=m.why;
- byId('changed').textContent=m.headline;byId('preserved').textContent=m.unchanged;byId('goal').textContent=m.goal;
+ const badge=byId('stageStatus');badge.textContent=m.state==='approved'?'承認済み':'確認待ち';badge.className='status '+m.state;
+ byId('headline').textContent=m.headline||'';
+ byId('why').textContent=m.why||'';
+ byId('changed').textContent=m.headline||'';
+ byId('preserved').textContent=m.preserved||'';
+ byId('goal').textContent=m.goal||'';
  byId('side').setAttribute('aria-pressed',String(current.mode==='side'));
  byId('overlay').setAttribute('aria-pressed',String(current.mode==='overlay'));
- const area=byId('maps');
- area.style.gridTemplateColumns=current.mode==='overlay'?'1fr':null;
- area.innerHTML=current.mode==='overlay'?chart(m,'overlay'):chart(m,'before')+chart(m,'after');
- byId('detail').href=m.detail;byId('json').href=m.json;
- [...byId('stageTabs').children].forEach((b,i)=>b.setAttribute('aria-selected',String(i===current.index)));
- if(location.hash){const id=location.hash.slice(1);if(id!=='stage-'+String(m.stage).padStart(3,'0')){ /* preserve navigation with the current tab */ }}
+ const area=byId('maps');area.style.gridTemplateColumns=current.mode==='overlay'?'1fr':null;
+ area.innerHTML=current.mode==='overlay'?drawing(m,'overlay'):drawing(m,'before')+drawing(m,'after');
+ byId('detail').href=m.detail||'#';
+ byId('json').href=m.source||'#';
+ byId('stagePicker').value=String(m.stage);
+ byId('prev').disabled=current.index===0;byId('next').disabled=current.index===STAGES.length-1;
+ byId('reviewProgress').textContent=(current.index+1)+' / '+STAGES.length+' 面';
 }
-STAGES.forEach((m,i)=>{
- const b=document.createElement('button');b.type='button';b.textContent='STAGE '+String(m.stage).padStart(2,'0');
- const badge=document.createElement('span');badge.className='status '+m.state;badge.textContent=m.status;b.appendChild(badge);
- b.setAttribute('aria-selected','false');b.addEventListener('click',()=>{current.index=i;history.replaceState(null,'','#stage-'+String(m.stage).padStart(3,'0'));render();});
- byId('stageTabs').appendChild(b);
-});
+async function loadGallery(){
+ try{
+  const response=await fetch('./map_review_gallery_data.json',{cache:'no-store'});
+  if(!response.ok)throw Error('データ取得失敗 '+response.status);
+  const data=await response.json();
+  if(!Array.isArray(data.stages)||!data.stages.length)throw Error('マップデータが空です。');
+  const seen=new Set();for(const m of data.stages){validateStage(m);if(seen.has(m.stage))throw Error('ステージ番号が重複しています。');seen.add(m.stage);}
+  STAGES=data.stages.slice().sort((a,b)=>a.stage-b.stage);
+  const select=byId('stagePicker');select.replaceChildren();
+  for(const m of STAGES){const option=document.createElement('option');option.value=String(m.stage);option.textContent='STAGE '+String(m.stage).padStart(2,'0')+'　'+m.title+(m.state==='approved'?'　✓':'　確認待ち');select.appendChild(option);}
+  const inHash=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));
+  const pending=STAGES.findIndex(m=>m.state==='pending');
+  selectStage(inHash>=0?inHash:pending>=0?pending:STAGES.length-1,false);
+ }catch(e){
+  byId('stageTitle').textContent='データを読み込めませんでした';
+  byId('why').textContent='GitHub Pagesからページを開き直してください。'+e.message;
+  byId('reviewProgress').textContent='データ読込エラー';
+ }
+}
 byId('side').addEventListener('click',()=>{current.mode='side';render();});
 byId('overlay').addEventListener('click',()=>{current.mode='overlay';render();});
-const start=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));if(start>=0)current.index=start;
-render();
+byId('prev').addEventListener('click',()=>selectStage(current.index-1));
+byId('next').addEventListener('click',()=>selectStage(current.index+1));
+byId('stagePicker').addEventListener('change',e=>{const idx=STAGES.findIndex(m=>m.stage===Number(e.target.value));if(idx>=0)selectStage(idx);});
+window.addEventListener('hashchange',()=>{const i=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));if(i>=0)selectStage(i,false);});
+loadGallery();
+
 </script></body></html>
