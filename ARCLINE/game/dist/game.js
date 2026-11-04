@@ -4,6 +4,7 @@ const K=ArcSkills;
 // Temporary, opt-in ending review. Its synthetic progress never reaches storage.
 const endingPreview=new URLSearchParams(location.search).get('preview')==='ending';
 let victoryToken=-1;
+let finalRetryEntry=null;
 const bgm=ArcAudio.create(),specialLesson=ArcSpecialUi.createLesson(),specialNotice=ArcSpecialUi.createNotice($('battle'));
 let movieOpening=false,mapCamera=null,viewport=null;
 bgm.request('TITLE');
@@ -209,6 +210,8 @@ function start(retryContext=null){
  if(crewSupply.request(selectedMap+1,()=>start(retryContext)))return;
  runContext=R.begin(save.data,selectedMap+1);
  ArcMenus.close(false);const entry=runContext.entry;save.data.journal.introSeen=true;ArcJournal.markRead(save.data,['introduction']);$('chapterMessage').hidden=true;skillLessonQueue=[];$('clearRewardLine').hidden=true;clearInput();s=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode,matchSeed:entry.seed,pickupLedger:entry.pickupLedger,pendingLoot:entry.pending});lastChargeSerial=0;s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;lootContinuation=null;$('lootPicker').hidden=true;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
+ if(retryContext?.finalRetry)ArcFinalTeam.restore(s,retryContext.finalRetry);
+ finalRetryEntry=ArcFinalTeam.snapshot(s);$('retryFinalCharacter').hidden=true;delete $('overlay').dataset.finalRetry;
  save.save();
  encounter=ArcStory.entry(s.stage,ArcI18n.language)?{age:0,duration:E.guardian(s)?3.2:2.8,boss:E.guardian(s)}:null;paintEncounter();
  sfx.prepare(s.characterId);specialNotice.reset(gameToken);bgm.request(ArcAudio.forStage(s.stage,s.spec),{restart:ArcAudio.restartForStage(s.stage,s.spec)});$('lobby').hidden=true;$('battle').hidden=false;$('battle').classList.remove('resolved');$('overlay').hidden=true;$('levelPicker').hidden=true;$('collectionPanel').hidden=true;$('weaponPicker').hidden=true;$('tutorial').hidden=true;$('skillPicker').hidden=true;audioSync();hud();if(!openLoot(firstDemo))firstDemo();if(!demo&&$('lootPicker').hidden)$('world').focus({preventScroll:true});tone(s.spec.boss?130:520,s.spec.boss?.4:.15,'triangle');
@@ -244,6 +247,9 @@ function finishResult(){
  const inventory=I.fromState(s);
  $('modalDetail').textContent=s.result==='win'?(s.chapterReset?'Chapter clear. Weapon and skill stock resets.':(ArcI18n.language==='en'?`Can be carried into the chapter boss battle: ${Object.keys(inventory.weapons).length} weapons, ${Object.keys(inventory.skills).length} skills`:`章ボス戦まで持ち越し可能：武器${Object.keys(inventory.weapons).length}種・スキル${Object.keys(inventory.skills).length}種`)):'Retry restores the stock from the start of this level.';
  $('resume').disabled=false;$('resume').textContent=final?(ArcI18n.language==='en'?'Watch the epilogue':'エピローグへ'):[30,60].includes(s.stage)&&s.result==='win'?(ArcI18n.language==='en'?'See what follows':'その後を見る'):s.result==='win'?'NEXT LEVEL':'TRY AGAIN';$('returnLobby').textContent=final?'COLLECTION':'JOURNEY';$('resultJourney').hidden=true;
+ const finalRetry=ArcFinalTeam.active(s)&&s.result!=='win'&&!!finalRetryEntry;
+ $('overlay').dataset.finalRetry=String(finalRetry);$('retryFinalCharacter').hidden=!finalRetry;
+ if(finalRetry){const english=ArcI18n.language==='en';$('retryFinalCharacter').textContent=english?'Retry this machine':'このキャラから再挑戦';$('resume').textContent=english?'Restart all ten':'先頭から再挑戦';$('modalDetail').textContent=english?'Retry this machine with full HP, 3 special charges and 28 actions. Its damage and stock return to its relay entry. Completed machines stay complete.':'このキャラの出撃時点に戻します。HP・必殺技3チャージ・28行動を回復し、このキャラの与ダメージと持ち物を出撃時へ戻します。達成済みキャラは維持します。';}
  $('endingCollection').hidden=!final;$('endingCollection').textContent=final?save.data.unlockedWeaponIds.map(id=>ArcWeapons.get(id).appearance.glyph).join('　'):'';
  $('battle').classList.add('resolved');$('overlay').hidden=false;$('resume').focus();if(!(s.result==='win'&&victoryToken===gameToken))tone(s.result==='win'?660:220,.4,'triangle');
  if(advanced){if([30,60,100].includes(s.stage))save.data.journal.pendingMovie=s.stage===100?'epilogue':String(s.stage);persistAdvance();}
@@ -258,6 +264,7 @@ async function persistAdvance(){
 }
 function advanceTurn(){
  const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial,beforeTeam=s.finalTeam?.serial,beforeState={...s,units:beforeUnits,world:beforeWorld};E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(beforeTeam!==s.finalTeam?.serial){cpuJob=null;cpuReady=null;jobId++;transition=s.finalTeam?.travel?ArcFinalTravel.create(beforeState,renderer.view,s.finalTeam.travel,reducedMotion):null;s.time=transition?.duration||s.time;clearInput();renderer.resetCamera();sfx.prepare(s.characterId);}if(s.phase==='over'){finishResult();return;}
+ if(beforeTeam!==s.finalTeam?.serial)finalRetryEntry=ArcFinalTeam.snapshot(s);
  if(s.turn){s.time=0;if(!cpuJob&&!cpuReady)requestCPU();}else{shot=null;}
  hud();
 }
@@ -344,6 +351,7 @@ ArcExpeditionUi.install({data:()=>save.data,persist:()=>save.save(),clearInput,c
 ArcStoryView.install({clearInput,playbackBlocked:hostPaused,progress:()=>save.data.cleared,beginEnding:()=>{bgm.request('ENDING',{restart:true});audioSync();},endingClock:()=>bgm.state(),cue:(index,id,shot)=>{if(id!=='epilogue')tone(196+index*35,.25,'triangle',.025);},finished:(id,meta)=>{if(meta.replay)return;const j=save.data.journal;if(!j.moviesSeen.includes(id))j.moviesSeen.push(id);if(j.pendingMovie===id)j.pendingMovie=null;if(id==='prologue'){j.introSeen=true;ArcJournal.markRead(save.data,['introduction']);}save.save();}});
 $('replayClearMovie').onclick=()=>{if(ArcStoryView.active||save.data.journal.pendingMovie==='epilogue')return;if(s?.result==='win'&&[30,60,100].includes(s.stage))playStoryMovie(s.stage===100?'epilogue':String(s.stage),()=>{},true);};
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
+$('retryFinalCharacter').onclick=()=>{if(dialog!=='result'||!s?.result||s.result==='win'||!ArcFinalTeam.active(s)||!finalRetryEntry)return;selectedMap=99;start({finalRetry:finalRetryEntry});};
 $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.target.value;save.save();syncLobby();};
 function openEquipment(view='characters'){if(hostPaused()||ArcStoryView.active||ArcExpeditionUi.active)return;clearInput();ArcPresentation.showCollection(save.data,change=>{if(change.characterId&&!ArcCrew.owned(save.data,change.characterId))return false;if(change.weaponId)save.data.equippedWeaponId=change.weaponId;if(change.characterId)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();return true;},view,{trigger:view==='characters'?$('openCharacters'):$('openCollection')});}
 $('openCollection').onclick=openChapterInventory;$('openCharacters').onclick=()=>openEquipment('characters');

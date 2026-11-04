@@ -56,3 +56,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 `tests/map-revision.test.cjs` は基準683d5b0に対して未変更70面の設計・実初期状態と13の実装モジュールを厳密照合。床座標による集計（高低差3以下0/60、同高度1/60）と、実行時安全配置後の同高度4/60を分離。後者89/92/94/98は全て変更対象外のため変更せず、実配置3以下の目標未達を記録します。
 
 マップシート `design/expedition_013/arcline_100_maps_atlas.html` は `game/tools/build_map_atlas.py` が現行の `design/runtime_campaign_20x5.json`・`design/expedition_013/stage_design.json` から100面・20テーマ・100面リレー4戦場の表示データを再同期します。マップの線画は `dist/geometry.js` と同じ床・障害物・反射床・開閉橋・反射結晶・効果領域の座標解釈で描画します。特に `W` は水域ではなく実在する床の反射材で、第三パラメータを「水面の高さ」として使わないこと。`tests/map-atlas.test.cjs` でデータとレンダリングの両方を検証し、100面未満への暗黙の短縮を禁止します。
+
+0.22.1：100面はfinalBattle.actionLimitsの各28行動・必殺3。final-team.jsの出撃時スナップショットをgame.jsが戦闘内だけに保持し、敗北画面から同じ機体へ復帰する。持ち物・敵・地形も出撃時へ戻し、恒久セーブは変更しない。先頭からの再挑戦も維持。

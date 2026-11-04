@@ -14,6 +14,7 @@ function place(s,initial=false){
  for(const unit of s.units)for(const key of ['recoil','reaction','animation','teleportFlash'])delete unit[key];
  const hp=c.fixedHp/C.pointsPerUnit;
  Object.assign(s.units[0],pad,{range,hp,maxHp:hp,floating:false,facing:enemy.x>=pad.x?1:-1});enemy.facing=-s.units[0].facing;
+ t.totalActions=(t.totalActions||0)+(initial?0:s.shotCount);s.shotCount=0;s.shotLimit=c.actionLimits?.[id]||s.spec.actionLimit;
  s.characterId=id;s.mode='W01';s.weaponId='W01';s.angle=48;s.power=20;s.teleportMode=false;s.selectedSkill=null;s.specialAmmo=c.specialAmmo;t.travel=!initial&&changed?{from:t.map,to:index,duration:c.transitionSeconds}:null;t.map=index;t.pending=false;t.serial++;
  return {mapChanged:changed,characterId:id,map:index};
 }
@@ -22,6 +23,22 @@ function credit(s,id,raw){if(!active(s))return raw;const t=s.finalTeam,c=config(
 function guard(s){if(active(s)&&s.units[1].hp<=0&&!complete(s)){s.units[1].hp=Math.max(.1,config(s).order.reduce((n,id)=>n+Math.max(0,config(s).requiredDamage-(s.finalTeam?.damage[id]||0)),0));if(s.result==='win'){s.result=null;s.reason=null;}}}
 function advance(s){if(!active(s)||!s.finalTeam.pending||s.result)return false;s.finalTeam.index++;return place(s);}
 function canChange(s){return !active(s);}
+// Battle-local entry snapshots never change the durable campaign save.
+function snapshot(s){
+ if(!active(s)||s.result||s.finalTeam.pending)return null;
+ const entry=JSON.parse(JSON.stringify({...s,random:undefined}));
+ entry.phase='aim';entry.time=0;entry.last=[null,null];entry.activeShot=null;entry.walkUsed=0;entry.skillUsed=false;entry.selectedSkill=null;
+ for(const unit of entry.units)for(const key of ['recoil','reaction','animation','teleportFlash'])delete unit[key];
+ return entry;
+}
+function restore(s,entry){
+ if(!active(s)||!active(entry)||entry.result||entry.finalTeam?.pending)return false;
+ const index=entry.finalTeam?.index,c=config(s);
+ if(!Number.isInteger(index)||index<0||index>=c.order.length||entry.characterId!==c.order[index]||entry.matchSeed!==s.matchSeed)return false;
+ if(c.order.some((id,i)=>entry.finalTeam.damage[id]!== (i<index?c.requiredDamage:0)))return false;
+ const random=s.random;Object.assign(s,JSON.parse(JSON.stringify(entry)),{random,result:null,reason:null,phase:'aim'});
+ return true;
+}
 const duration=(s,change)=>change?.mapChanged?config(s).transitionSeconds:.6;
-const api={duration,active,complete,init,credit,guard,advance,canChange,mapIndex};if(node)module.exports=api;else root.ArcFinalTeam=api;
+const api={duration,active,complete,init,credit,guard,advance,canChange,mapIndex,snapshot,restore};if(node)module.exports=api;else root.ArcFinalTeam=api;
 })(globalThis);
