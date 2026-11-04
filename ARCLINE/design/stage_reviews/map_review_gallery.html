@@ -90,6 +90,11 @@ function featureDrawing(s){
   const v=f.v||[];const typ=String(f.type||'');
   if('CFUV'.includes(typ)&&v.length>=4){
    out+='<rect x="'+(v[0]*10)+'" y="'+yOf(v[3])+'" width="'+((v[1]-v[0])*10)+'" height="'+((v[3]-v[2])*10)+'" rx="5" fill="#a3dcd8" fill-opacity=".18" stroke="#c3e9ce" stroke-width="3" stroke-dasharray="7 6"/>';
+  }else if(typ==='W'&&v.length>=2){
+   const start=Number(v[0]),end=Number(v[1]),pts=[];
+   for(let x=start;x<=end+1e-8;x+=2){let h=null;for(const floor of s.floors||[s.floor]){h=floorAt(floor,x);if(h!==null)break;}if(h!==null)pts.push([x,h]);}
+   if(!pts.length||pts[pts.length-1][0]<end){let h=null;for(const floor of s.floors||[s.floor]){h=floorAt(floor,end);if(h!==null)break;}if(h!==null)pts.push([end,h]);}
+   if(pts.length>=2)out+='<polyline points="'+line(pts)+'" fill="none" stroke="#9eddf4" stroke-width="8" stroke-linejoin="round" stroke-dasharray="10 5"/>';
   }else if(typ==='M'&&v.length>=3)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="'+(v[2]*10)+'" fill="#bcb0ec" fill-opacity=".13" stroke="#c5b6ef" stroke-width="3"/>';
   else if(v.length>=2)out+='<circle cx="'+(v[0]*10)+'" cy="'+yOf(v[1])+'" r="13" fill="#ebcc90"/>';
  }
@@ -126,7 +131,7 @@ function drawing(m,kind){
  const graphic=overlay?floorDrawing(m.before,f.bottom,true)+partDrawing(m.before,true)+floorDrawing(m.after,f.bottom,false)+partDrawing(m.after,false)+featureDrawing(m.after)+markers(m.before,true)+markers(m.after):
  floorDrawing(s,f.bottom,ghost)+partDrawing(s,false)+featureDrawing(s)+markers(s);
  const label=overlay?'変更部分の重ね合わせ':ghost?'既存マップ':'新しい設計案';
- return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(overlay?'破線：既存／緑：新案':ghost?'既存':'提案・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+base+grid+graphic+'</svg></div><p class="legend">P＝自機　E＝敵　◆＝アイテム　<span style="color:#a2e6be">緑：地形</span>　<span style="color:#c5d5e0">灰青：旧地形</span></p></div>';
+ return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(overlay?'破線：既存／緑：新案':ghost?'既存':'提案・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+base+grid+graphic+'</svg></div><p class="legend">P＝自機　E＝敵　◆＝アイテム　青点線＝反射床　<span style="color:#a2e6be">緑：地形</span>　<span style="color:#c5d5e0">灰青：旧地形</span></p></div>';
 }
 function selectStage(i,changeHash=true){
  current.index=Math.max(0,Math.min(STAGES.length-1,i));
