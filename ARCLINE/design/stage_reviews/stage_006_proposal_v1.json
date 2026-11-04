@@ -1,0 +1,276 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 6,
+  "date": "2026-11-04",
+  "status": "確認待ち・未承認・ゲーム未実装",
+  "designBasis": "新しいマップガイドから独立設計。既存は比較用のみ。",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 6,
+    "name": "花のある鏡岸",
+    "goal": "明るい床に低く当て、前方への反射を見る",
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        28,
+        12
+      ],
+      [
+        40,
+        14.5
+      ],
+      [
+        56,
+        14.5
+      ],
+      [
+        71,
+        12
+      ],
+      [
+        100,
+        12
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          33,
+          64,
+          12
+        ]
+      }
+    ],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "明るい床に低く当て、前方への反射を見る",
+    "nameEn": "A Flower on the Mirror Shore",
+    "goalEn": "Aim low into the bright floor for a forward bounce.",
+    "terrainRevision": "0.17.0",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          40,
+          14.5
+        ],
+        [
+          56,
+          14.5
+        ],
+        [
+          71,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            33,
+            64,
+            12
+          ]
+        }
+      ],
+      "player": {
+        "x": 16,
+        "h": 12
+      },
+      "enemy": {
+        "x": 82,
+        "h": 12
+      },
+      "pickups": []
+    }
+  },
+  "after": {
+    "stage": 6,
+    "name": "花のある鏡岸",
+    "goal": "浅い反射水面に低弾道を当て、対岸へ弾を送る",
+    "floor": [
+      [
+        0,
+        15
+      ],
+      [
+        10,
+        15
+      ],
+      [
+        16,
+        15
+      ],
+      [
+        25,
+        14
+      ],
+      [
+        33,
+        11
+      ],
+      [
+        64,
+        11
+      ],
+      [
+        72,
+        14
+      ],
+      [
+        82,
+        14
+      ],
+      [
+        93,
+        15
+      ],
+      [
+        100,
+        15
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          33,
+          64,
+          11
+        ]
+      }
+    ],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "反射面W（x33〜64の低い水平な底面）へ低い弾道を通し、対岸へ跳ね返す。",
+    "nameEn": "A Flower on the Mirror Shore",
+    "goalEn": "Aim low into the bright floor for a forward bounce.",
+    "terrainRevision": "0.17.0",
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          10,
+          15
+        ],
+        [
+          16,
+          15
+        ],
+        [
+          25,
+          14
+        ],
+        [
+          33,
+          11
+        ],
+        [
+          64,
+          11
+        ],
+        [
+          72,
+          14
+        ],
+        [
+          82,
+          14
+        ],
+        [
+          93,
+          15
+        ],
+        [
+          100,
+          15
+        ]
+      ],
+      "parts": [],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            33,
+            64,
+            11
+          ]
+        }
+      ],
+      "player": {
+        "x": 16,
+        "h": 15
+      },
+      "enemy": {
+        "x": 82,
+        "h": 14
+      },
+      "pickups": []
+    }
+  },
+  "summary": {
+    "headline": "鏡の浅瀬を大きな凹地に。水際を跳ねる反射の道を作る。",
+    "why": "中央の明るい水面に弾を低く当てると、反射で対岸の敵を狙える構図にする。",
+    "preserved": "反射Wの学び、機体hana、敵の強さ・手数。追加障害物なし。",
+    "oldGoal": "明るい床に低く当て、前方への反射を見る",
+    "newGoal": "浅い反射水面に低弾道を当て、対岸へ弾を送る",
+    "learningDecision": "発展",
+    "sceneType": "低い鏡床の反射／対岸敵"
+  },
+  "routeDesign": {
+    "primary": "反射面W（x33〜64の低い水平な底面）へ低い弾道を通し、対岸へ跳ね返す。",
+    "alternate": "高めの曲射を選び、水面反射を使わず相手へ到達させる。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": false,
+    "midboss": false,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "風化丘・水路・中ボス丘に続き、この面は「広くて浅い反射のくぼ地」を主役にする。",
+    "reviewRisk": "反射Wが主な射線上にあることを図で示す。命中の証明ではなく、効果の出る位置づけの設計。"
+  },
+  "implementationNote": "現行設計段階。衝突や敵反撃、着弾およびアイテム取得を確認するシミュレーションは実施していない。",
+  "approval": "未承認"
+}
