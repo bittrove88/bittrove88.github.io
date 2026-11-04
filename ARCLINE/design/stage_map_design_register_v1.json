@@ -6056,16 +6056,19 @@
   },
   "reviewPendingCount": 6,
   "reviewPresentationPolicy": {
-    "format": "one stable HTML plus single append-only JSON",
+    "format": "one self-contained HTML generated from canonical append-only JSON",
     "html": "ARCLINE/design/stage_reviews/map_review_gallery.html",
     "data": "ARCLINE/design/stage_reviews/map_review_gallery_data.json",
-    "append": "new stage = one entry in JSON; HTML not edited",
+    "append": "add one stage entry to JSON, run build_gallery_html.py, publish HTML and JSON; no runtime fetch",
     "display": "stable HTML + one JSON, map image and concise rationale",
     "scope": "design-only; old terrain is comparison source not redesign constraint",
     "approval": "per-stage explicit approval",
     "simulation": "none requested",
     "reviewBatch": "4〜9の6面をまとめて確認。個別修正は1面ずつ。先へ進むのはユーザー合意後。",
-    "simulations": "not requested; none performed"
+    "simulations": "not requested; none performed",
+    "runtimeNetworkRequests": "none",
+    "builder": "ARCLINE/design/stage_reviews/build_gallery_html.py",
+    "reason": "avoid Failed to fetch in browser"
   },
   "mapDesignPrinciple": "地形・敵出撃位置・起伏・幅・攻略路は最新デザインガイドから新規設計。既存マップは比較参照のみ。序盤は現状維持・小変更も許可。",
   "reviewBatch": {
