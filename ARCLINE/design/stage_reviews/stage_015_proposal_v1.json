@@ -1,0 +1,218 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 15,
+  "date": "2026-11-04",
+  "status": "レビュー待ち／ゲーム未反映",
+  "before": {
+    "stage": 15,
+    "name": "帰りの橋を支える",
+    "goal": "橋脚前で止まり、補修フレームへ一撃を通す",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          30,
+          11
+        ],
+        [
+          42,
+          17
+        ],
+        [
+          58,
+          17
+        ],
+        [
+          70,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "id": "015-C01",
+          "poly": [
+            [
+              48,
+              28
+            ],
+            [
+              56,
+              28
+            ],
+            [
+              56,
+              23
+            ],
+            [
+              48,
+              23
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 11
+      },
+      "enemy": {
+        "x": 82,
+        "h": 11
+      },
+      "pickups": []
+    }
+  },
+  "after": {
+    "stage": 15,
+    "name": "帰りの橋を支える",
+    "goal": "橋台で立ち位置を選び、見えている中ボスの補修フレームへ曲射を通す",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          27,
+          11
+        ],
+        [
+          35,
+          13
+        ],
+        [
+          42,
+          16
+        ],
+        [
+          50,
+          16
+        ],
+        [
+          58,
+          15
+        ],
+        [
+          65,
+          12
+        ],
+        [
+          72,
+          11
+        ],
+        [
+          82,
+          11
+        ],
+        [
+          94,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "id": "015-BRIDGE-REPAIR",
+          "poly": [
+            [
+              44,
+              26
+            ],
+            [
+              48,
+              29
+            ],
+            [
+              55,
+              29
+            ],
+            [
+              60,
+              26
+            ],
+            [
+              57,
+              23
+            ],
+            [
+              47,
+              23
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 11
+      },
+      "enemy": {
+        "x": 82,
+        "h": 11
+      },
+      "pickups": []
+    },
+    "designOnly": true
+  },
+  "summary": {
+    "headline": "単純な台形橋を、低い岩の橋台と独立した補修橋桁へ。",
+    "why": "補修フレームの位置が分かる状態で、曲射か射点変更かを選ぶ中ボス戦。",
+    "preserved": "Bridge Menderの部位・攻撃、報酬S_REPAIR、敵性能、18行動を維持。",
+    "oldGoal": "橋脚前で止まり、補修フレームへ一撃を通す",
+    "newGoal": "橋台で立ち位置を選び、見えている中ボスの補修フレームへ曲射を通す",
+    "learningDecision": "発展"
+  },
+  "routeDesign": {
+    "primary": "左の平坦な射点から橋台を越え、右岸の補修フレームへ曲射する。",
+    "alternate": "橋台手前へ移動して距離を縮め、同じ部位に照準を合わせ直す。"
+  },
+  "difficulty": {
+    "band": "初級",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 18,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "midbossSpecUnchanged": {
+      "name": "Bridge Mender",
+      "parts": [
+        {
+          "name": "補修フレーム",
+          "hp": 1.2,
+          "dx": 8,
+          "dy": -60,
+          "radius": 18
+        }
+      ],
+      "attacks": [
+        "LOW",
+        "TWIN",
+        "ARC"
+      ]
+    }
+  },
+  "implementationNote": "設計座標の静的確認のみ。戦闘・転がり・破壊・敵AI・実機未検証。ゲーム未反映。",
+  "approval": "未承認"
+}
