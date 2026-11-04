@@ -245,7 +245,7 @@ function check(s){
  FinalTeam.guard(s);
  const [p,e]=s.units;
  if(p.hp<=0||e.hp<=0){s.result=p.hp<=0?(e.hp<=0?'draw':'lose'):'win';s.reason=s.result==='lose'?'durability':s.result==='draw'?'mutual':'defeated';}
- else if(s.turn===0&&s.shotCount>=s.shotLimit){s.result='lose';s.reason='shots';}
+ else if(s.turn===0&&s.shotCount>=s.shotLimit&&!(FinalTeam.active(s)&&s.finalTeam.pending)){s.result='lose';s.reason='shots';}
  if(s.result){s.phase='over';return true;}return false;
 }
 function bossGeometry(s){
