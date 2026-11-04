@@ -1,0 +1,523 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 57,
+  "date": "2026-11-05",
+  "revision": 1,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        25
+      ],
+      [
+        25,
+        25
+      ],
+      [
+        43,
+        18
+      ],
+      [
+        59,
+        9
+      ],
+      [
+        100,
+        9
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          25
+        ],
+        [
+          25,
+          25
+        ],
+        [
+          43,
+          18
+        ],
+        [
+          59,
+          9
+        ],
+        [
+          100,
+          9
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "057-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            39,
+            35
+          ],
+          [
+            43,
+            35
+          ],
+          [
+            43,
+            15
+          ],
+          [
+            39,
+            15
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "057-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            45,
+            39
+          ],
+          [
+            61,
+            39
+          ],
+          [
+            61,
+            36
+          ],
+          [
+            45,
+            36
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          49,
+          72,
+          9
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          53,
+          68,
+          17,
+          40
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 25.0
+    },
+    "enemy": {
+      "x": 86,
+      "h": 9.0
+    },
+    "pickups": [
+      {
+        "id": "W19",
+        "kind": "trial",
+        "weaponId": "W19",
+        "category": "weapon",
+        "amount": 2,
+        "x": 33.487,
+        "h": 45.031,
+        "spawnTurn": 1,
+        "placementId": "L057:weapon:W19",
+        "verification": {
+          "angle": 63,
+          "power": 49,
+          "walk": 0,
+          "neighborHits": 7,
+          "neighborShots": 9,
+          "attackDamage": 1.5
+        }
+      }
+    ]
+  },
+  "after": {
+    "width": 1180,
+    "floor": [
+      [
+        0,
+        77
+      ],
+      [
+        14,
+        76
+      ],
+      [
+        34,
+        76
+      ],
+      [
+        40,
+        70
+      ],
+      [
+        41,
+        14
+      ],
+      [
+        57,
+        14
+      ],
+      [
+        88,
+        14
+      ],
+      [
+        112,
+        14
+      ],
+      [
+        118,
+        18
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          77
+        ],
+        [
+          14,
+          76
+        ],
+        [
+          34,
+          76
+        ],
+        [
+          40,
+          70
+        ],
+        [
+          41,
+          14
+        ],
+        [
+          57,
+          14
+        ],
+        [
+          88,
+          14
+        ],
+        [
+          112,
+          14
+        ],
+        [
+          118,
+          18
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "057-ICE-CAVE",
+        "kind": "roof",
+        "poly": [
+          [
+            58,
+            60
+          ],
+          [
+            72,
+            64
+          ],
+          [
+            91,
+            61
+          ],
+          [
+            107,
+            57
+          ],
+          [
+            118,
+            58
+          ],
+          [
+            118,
+            32
+          ],
+          [
+            93,
+            34
+          ],
+          [
+            75,
+            33
+          ],
+          [
+            64,
+            35
+          ],
+          [
+            58,
+            36
+          ]
+        ],
+        "purpose": "厚い氷壁の下の空洞。敵を守る天井。",
+        "breakable": false
+      },
+      {
+        "id": "057-LOW-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            58,
+            14
+          ],
+          [
+            64,
+            14
+          ],
+          [
+            64,
+            35
+          ],
+          [
+            58,
+            36
+          ]
+        ],
+        "purpose": "洞窟へ通じる薄い氷の窓。",
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          45,
+          104,
+          14
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          43,
+          57,
+          40,
+          72
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 76
+    },
+    "enemy": {
+      "x": 101,
+      "h": 14
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "窓を開け、底で反射する",
+        "points": [
+          [
+            32,
+            79
+          ],
+          [
+            39,
+            81
+          ],
+          [
+            42,
+            66
+          ],
+          [
+            49,
+            14
+          ],
+          [
+            72,
+            30
+          ],
+          [
+            90,
+            25
+          ],
+          [
+            101,
+            17
+          ]
+        ],
+        "requiresDestroyed": [
+          "057-LOW-WINDOW"
+        ],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "窓前に転移して低く通す",
+        "points": [
+          [
+            50,
+            17
+          ],
+          [
+            67,
+            26
+          ],
+          [
+            86,
+            25
+          ],
+          [
+            101,
+            17
+          ]
+        ],
+        "requiresDestroyed": [
+          "057-LOW-WINDOW"
+        ],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 32,
+        "h": 76,
+        "label": "A"
+      },
+      {
+        "x": 50,
+        "h": 14,
+        "label": "B"
+      }
+    ],
+    "pickups": [
+      {
+        "id": "W19",
+        "kind": "trial",
+        "weaponId": "W19",
+        "category": "weapon",
+        "amount": 2,
+        "x": 47,
+        "h": 29,
+        "spawnTurn": 1,
+        "placementId": "L057:weapon:W19",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "material": "ice"
+  },
+  "summary": {
+    "concept": "垂直落差を使って底の鏡面へ落とし、破壊した窓から洞内の敵へ通す。",
+    "terrain": "垂直氷壁の足元に広がる反射洞窟",
+    "changeFromPrevious": "横長の山越えから、620pxの落差と内部への反射へ切り替える。52面と違い、窓だけでなく落下と反射の組合せが主役。"
+  },
+  "learningGoal": {
+    "source": "高所から下段の氷壁窓を開き、水面を利用して低い敵へ届かせる。",
+    "proposed": "垂直落差を使って底の鏡面へ落とし、破壊した窓から洞内の敵へ通す。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "窓を壊した後、高い氷棚Aから下段の反射面へ弾を落とし、天井の下へ跳ね返す。",
+    "alternative": "同じ窓を開けてから入口Bへ転移し、洞内を低い弧で狙う。反射を省けるが、敵に近い位置へ移る準備が必要。",
+    "anchors": [
+      {
+        "id": "upper",
+        "x": 32,
+        "h": 76,
+        "surface": "floor0",
+        "role": "氷壁上の落とし込み射点。"
+      },
+      {
+        "id": "entrance",
+        "x": 50,
+        "h": 14,
+        "surface": "floor0",
+        "role": "窓の手前。低い通常弾を通す候補。"
+      }
+    ],
+    "benefits": [
+      "高所を保ったまま洞内へ攻撃できる",
+      "反射の角度を省いて狙える"
+    ],
+    "costs": [
+      "落下点と反射を読む",
+      "窓破壊に加えて転移する"
+    ],
+    "setupActionsTarget": [
+      1,
+      3
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rico",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "高",
+      "敵の反撃": "中",
+      "位置移動": "中",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "高所からの直撃が天井を無視する設計にはしない。窓と鏡面の幾何経路を確認し、反射の実弾道と転移入力は未確認と記録する。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged."
+}

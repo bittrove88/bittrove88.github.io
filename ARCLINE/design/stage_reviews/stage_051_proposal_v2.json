@@ -1,0 +1,429 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 51,
+  "date": "2026-11-05",
+  "revision": 2,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        20
+      ],
+      [
+        29,
+        20
+      ],
+      [
+        46,
+        10
+      ],
+      [
+        68,
+        10
+      ],
+      [
+        79,
+        23
+      ],
+      [
+        100,
+        23
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          20
+        ],
+        [
+          29,
+          20
+        ],
+        [
+          46,
+          10
+        ],
+        [
+          68,
+          10
+        ],
+        [
+          79,
+          23
+        ],
+        [
+          100,
+          23
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "051-C01",
+        "kind": "island",
+        "poly": [
+          [
+            44,
+            29
+          ],
+          [
+            59,
+            29
+          ],
+          [
+            59,
+            24
+          ],
+          [
+            44,
+            24
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          34,
+          53,
+          8,
+          39
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 20.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 23.0
+    },
+    "pickups": []
+  },
+  "after": {
+    "width": 1420,
+    "floor": [
+      [
+        0,
+        43
+      ],
+      [
+        10,
+        46
+      ],
+      [
+        24,
+        46
+      ],
+      [
+        31,
+        42
+      ],
+      [
+        39,
+        42
+      ],
+      [
+        47,
+        31
+      ],
+      [
+        54,
+        15
+      ],
+      [
+        63,
+        8
+      ],
+      [
+        73,
+        8
+      ],
+      [
+        82,
+        12
+      ],
+      [
+        90,
+        27
+      ],
+      [
+        97,
+        38
+      ],
+      [
+        105,
+        38
+      ],
+      [
+        113,
+        32
+      ],
+      [
+        125,
+        31
+      ],
+      [
+        134,
+        35
+      ],
+      [
+        142,
+        29
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          43
+        ],
+        [
+          10,
+          46
+        ],
+        [
+          24,
+          46
+        ],
+        [
+          31,
+          42
+        ],
+        [
+          39,
+          42
+        ],
+        [
+          47,
+          31
+        ],
+        [
+          54,
+          15
+        ],
+        [
+          63,
+          8
+        ],
+        [
+          73,
+          8
+        ],
+        [
+          82,
+          12
+        ],
+        [
+          90,
+          27
+        ],
+        [
+          97,
+          38
+        ],
+        [
+          105,
+          38
+        ],
+        [
+          113,
+          32
+        ],
+        [
+          125,
+          31
+        ],
+        [
+          134,
+          35
+        ],
+        [
+          142,
+          29
+        ]
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          43,
+          76,
+          18,
+          66
+        ]
+      }
+    ],
+    "player": {
+      "x": 20,
+      "h": 46
+    },
+    "enemy": {
+      "x": 101,
+      "h": 38
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "開始高台から風を読む",
+        "points": [
+          [
+            20,
+            49
+          ],
+          [
+            43,
+            65
+          ],
+          [
+            73,
+            61
+          ],
+          [
+            101,
+            41
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "谷出口の風陰から撃ち上げる",
+        "points": [
+          [
+            78,
+            13.222
+          ],
+          [
+            88,
+            39
+          ],
+          [
+            101,
+            41
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 33,
+        "h": 42,
+        "label": "A"
+      },
+      {
+        "x": 78,
+        "h": 10.222222,
+        "label": "B"
+      }
+    ],
+    "pickups": []
+  },
+  "summary": {
+    "concept": "同じ敵へ、開始高台・山の肩・谷出口の射点で風の入り方を変える。",
+    "terrain": "巨大な非対称台地と風食谷",
+    "changeFromPrevious": "前案の二重尾根を、長い高台・深い侵食谷・対岸の観測丘に再構成。三つの射点が同じ弧の短縮だけにならないよう、Bは風域の外側に置く。"
+  },
+  "learningGoal": {
+    "source": "風域の手前と奥で射点を比べ、運ばれる方向を読む",
+    "proposed": "同じ敵へ、開始高台・山の肩・谷出口の射点で風の入り方を変える。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "開始高台から風域を通る曲射。移動準備を省けるが、風向きと出力の判断が必要。山の肩Aへ130px歩くと射出高度と距離が変わる。",
+    "alternative": "谷出口Bへ転移し、風域の右外側から観測丘へ撃ち上げる。風を避けられるが、射点移動と高低差への対応が必要。",
+    "anchors": [
+      {
+        "id": "shoulder",
+        "x": 33,
+        "h": 42,
+        "surface": "floor0",
+        "role": "130px先の山の肩。開始位置と射出高度・出力の選び方を変える。"
+      },
+      {
+        "id": "lee",
+        "x": 78,
+        "h": 10.222222,
+        "surface": "floor0",
+        "role": "風域の右外側、谷の出口。転移準備の代わりに風を避けて撃ち上げる。"
+      }
+    ],
+    "benefits": [
+      "移動なしで攻撃を始められる",
+      "風を避けて敵へ近づける"
+    ],
+    "costs": [
+      "風の反転を読む必要がある",
+      "転移準備と見上げる角度が必要"
+    ],
+    "setupActionsTarget": [
+      0,
+      2
+    ],
+    "totalActionsTarget": [
+      6,
+      12
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "hibari",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "中",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "中",
+      "ギミック手数": "中",
+      "ボス部位": "なし"
+    },
+    "risk": "谷底Bは風陰だが敵の全攻撃から安全ではない。肩Aは一ターンで歩ける130px。谷出口の転移入力は未確認。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged.",
+  "previousProposal": "stage_051_proposal_v1.json"
+}

@@ -1,0 +1,477 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 53,
+  "date": "2026-11-05",
+  "revision": 2,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        26
+      ],
+      [
+        27,
+        26
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          26
+        ],
+        [
+          27,
+          26
+        ]
+      ],
+      [
+        [
+          78,
+          28
+        ],
+        [
+          100,
+          28
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "053-C01",
+        "kind": "island",
+        "poly": [
+          [
+            42,
+            18
+          ],
+          [
+            61,
+            18
+          ],
+          [
+            61,
+            13
+          ],
+          [
+            42,
+            13
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "053-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            44,
+            35
+          ],
+          [
+            56,
+            35
+          ],
+          [
+            56,
+            32
+          ],
+          [
+            44,
+            32
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          48,
+          62,
+          9,
+          42
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          69,
+          31,
+          28
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 26.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 28.0
+    },
+    "pickups": []
+  },
+  "after": {
+    "width": 1560,
+    "floor": [
+      [
+        0,
+        34
+      ],
+      [
+        14,
+        43
+      ],
+      [
+        25,
+        52
+      ],
+      [
+        34,
+        52
+      ],
+      [
+        42,
+        43
+      ],
+      [
+        112,
+        37
+      ],
+      [
+        121,
+        50
+      ],
+      [
+        129,
+        64
+      ],
+      [
+        138,
+        64
+      ],
+      [
+        146,
+        55
+      ],
+      [
+        156,
+        49
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          34
+        ],
+        [
+          14,
+          43
+        ],
+        [
+          25,
+          52
+        ],
+        [
+          34,
+          52
+        ],
+        [
+          42,
+          43
+        ]
+      ],
+      [
+        [
+          112,
+          37
+        ],
+        [
+          121,
+          50
+        ],
+        [
+          129,
+          64
+        ],
+        [
+          138,
+          64
+        ],
+        [
+          146,
+          55
+        ],
+        [
+          156,
+          49
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "053-LOW-SHELF",
+        "kind": "island",
+        "poly": [
+          [
+            51,
+            17
+          ],
+          [
+            55,
+            22
+          ],
+          [
+            69,
+            22
+          ],
+          [
+            81,
+            30
+          ],
+          [
+            85,
+            24
+          ],
+          [
+            70,
+            12
+          ],
+          [
+            57,
+            12
+          ]
+        ],
+        "purpose": "低い広棚。右肩の斜面を鏡面にして弾を跳ね上げる。",
+        "breakable": false
+      },
+      {
+        "id": "053-HIGH-SHELF",
+        "kind": "island",
+        "poly": [
+          [
+            83,
+            71
+          ],
+          [
+            87,
+            76
+          ],
+          [
+            96,
+            76
+          ],
+          [
+            100,
+            72
+          ],
+          [
+            94,
+            67
+          ],
+          [
+            88,
+            67
+          ]
+        ],
+        "purpose": "小さな高所観測棚。風域より上から狙う。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          69,
+          81,
+          22
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          74,
+          111,
+          27,
+          62
+        ]
+      }
+    ],
+    "player": {
+      "x": 30,
+      "h": 52
+    },
+    "enemy": {
+      "x": 133,
+      "h": 64
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "低棚の斜面で跳ね上げる",
+        "points": [
+          [
+            62,
+            25
+          ],
+          [
+            74,
+            25.333333
+          ],
+          [
+            91,
+            51
+          ],
+          [
+            114,
+            72
+          ],
+          [
+            133,
+            67
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "高棚から風域の上を狙う",
+        "points": [
+          [
+            91,
+            79
+          ],
+          [
+            110,
+            82
+          ],
+          [
+            125,
+            76
+          ],
+          [
+            133,
+            67
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 62,
+        "h": 22,
+        "label": "A"
+      },
+      {
+        "x": 91,
+        "h": 76,
+        "label": "B"
+      }
+    ],
+    "pickups": []
+  },
+  "summary": {
+    "concept": "低棚の斜面反射と、高棚の風を避ける射撃を使い分ける。",
+    "terrain": "分断された山体と二つの観測棚",
+    "changeFromPrevious": "前案の開始島を左の大きな山体へ変更。低棚に実際の斜面反射、高棚に風域上の射線を与え、高さだけの違いから戦術の違いへ進める。"
+  },
+  "learningGoal": {
+    "source": "谷の棚へ転移し、高低差で横風への滞在を減らす",
+    "proposed": "低棚の斜面反射と、高棚の風を避ける射撃を使い分ける。",
+    "decision": "刷新"
+  },
+  "routeDesign": {
+    "main": "広い低棚Aへ転移し、棚の前縁にある反射斜面で弾を跳ね上げる。反射後は風を通り、対岸の高い敵へ送る。",
+    "alternative": "高棚Bへ転移し、風域より上から対岸を狙う。反射を省ける代わりに棚が狭く、敵の曲射へ露出する。",
+    "anchors": [
+      {
+        "id": "low",
+        "x": 62,
+        "h": 22,
+        "surface": "053-LOW-SHELF",
+        "role": "低い棚の平坦部。前方の反射斜面を使う。"
+      },
+      {
+        "id": "high",
+        "x": 91,
+        "h": 76,
+        "surface": "053-HIGH-SHELF",
+        "role": "風域上端より高い小棚。"
+      }
+    ],
+    "benefits": [
+      "広い棚と斜面反射を使える",
+      "反射と風の計算を減らせる"
+    ],
+    "costs": [
+      "反射と風の組合せが必要",
+      "小棚への転移と露出への対応が必要"
+    ],
+    "setupActionsTarget": [
+      1,
+      2
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "sora",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "高",
+      "敵の反撃": "中",
+      "位置移動": "高",
+      "ギミック手数": "中",
+      "ボス部位": "なし"
+    },
+    "risk": "反射斜面は歩行の必須経路にしない。低棚からの通常弾の反射、高棚への転移は未検証。片方の手数・被弾が一方的に不利なら調整する。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged.",
+  "previousProposal": "stage_053_proposal_v1.json"
+}
