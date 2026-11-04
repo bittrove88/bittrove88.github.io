@@ -1,7 +1,7 @@
 {
   "schema": "arcline-cumulative-map-reviews-v1",
   "updated": "2026-11-04",
-  "note": "All stages 1-9 user-approved for design; stage 10 next. Self-contained HTML shows side-by-side only. Future reviews per decade: x1-x5, x6-x9, x0.",
+  "note": "Stages 1-9 approved for design; stage 10 pending review, game implementation 0. Self-contained side-by-side HTML; next reviews 11-15, 16-19, 20.",
   "stages": [
     {
       "stage": 1,
@@ -1279,6 +1279,195 @@
       },
       "detail": "stage_009_review_v1.md",
       "source": "stage_009_proposal_v1.json"
+    },
+    {
+      "stage": 10,
+      "title": "港を開く爪",
+      "state": "pending",
+      "headline": "四角い中央棚を波食岩棚に。浅瀬の反射と高い曲射を選べるボスの入り江へ。",
+      "why": "左岸の安定射点から浅瀬で水切りするか、岩棚の上空へ弧を通して高い右岸のボスを狙う。",
+      "preserved": "Tideclawの部位・攻撃・報酬、反射ギミックW、転移、敵性能、24行動を維持。",
+      "goal": "浅瀬の反射と岩棚越えの曲射を見比べ、高い右岸のボスに当てる",
+      "before": {
+        "width": 1000,
+        "floor": [
+          [
+            0,
+            12
+          ],
+          [
+            24,
+            12
+          ],
+          [
+            38,
+            8
+          ],
+          [
+            54,
+            8
+          ],
+          [
+            72,
+            18
+          ],
+          [
+            100,
+            18
+          ]
+        ],
+        "parts": [
+          {
+            "kind": "island",
+            "id": "010-C01",
+            "poly": [
+              [
+                45,
+                22
+              ],
+              [
+                59,
+                22
+              ],
+              [
+                59,
+                18
+              ],
+              [
+                45,
+                18
+              ]
+            ],
+            "breakable": false
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              38,
+              56,
+              8
+            ]
+          }
+        ],
+        "player": {
+          "x": 16,
+          "h": 12
+        },
+        "enemy": {
+          "x": 85,
+          "h": 18
+        },
+        "pickups": []
+      },
+      "after": {
+        "width": 1000,
+        "floor": [
+          [
+            0,
+            12
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            26,
+            12
+          ],
+          [
+            33,
+            10
+          ],
+          [
+            38,
+            8
+          ],
+          [
+            48,
+            8
+          ],
+          [
+            56,
+            8
+          ],
+          [
+            64,
+            12
+          ],
+          [
+            72,
+            18
+          ],
+          [
+            85,
+            18
+          ],
+          [
+            96,
+            18
+          ],
+          [
+            100,
+            17
+          ]
+        ],
+        "parts": [
+          {
+            "kind": "island",
+            "id": "010-SHELF01",
+            "poly": [
+              [
+                43,
+                22
+              ],
+              [
+                48,
+                23
+              ],
+              [
+                56,
+                23
+              ],
+              [
+                61,
+                20
+              ],
+              [
+                57,
+                18
+              ],
+              [
+                46,
+                18
+              ]
+            ],
+            "breakable": false
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              38,
+              56,
+              8
+            ]
+          }
+        ],
+        "player": {
+          "x": 16,
+          "h": 12
+        },
+        "enemy": {
+          "x": 85,
+          "h": 18
+        },
+        "pickups": []
+      },
+      "detail": "stage_010_review_v1.md",
+      "source": "stage_010_proposal_v1.json"
     }
   ]
 }
