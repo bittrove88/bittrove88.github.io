@@ -1,0 +1,388 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 7,
+  "date": "2026-11-04",
+  "status": "確認待ち・未承認・ゲーム未実装",
+  "designBasis": "新しいマップガイドから独立設計。既存は比較用のみ。",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 7,
+    "name": "岩箱の継ぎ目",
+    "goal": "壊せる岩箱を一つ壊して次の射線を作る",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        28,
+        10
+      ],
+      [
+        34,
+        11.8
+      ],
+      [
+        63,
+        11.8
+      ],
+      [
+        72,
+        10
+      ],
+      [
+        100,
+        10
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "wall",
+        "x": 43,
+        "top": 29,
+        "width": 6,
+        "bottom": 10
+      }
+    ],
+    "features": [],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "壊せる岩箱を一つ壊して次の射線を作る",
+    "nameEn": "The Cracked Cargo Gate",
+    "goalEn": "Break one cracked block to open the next shot.",
+    "terrainRevision": "0.17.0",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          28,
+          10
+        ],
+        [
+          34,
+          11.8
+        ],
+        [
+          63,
+          11.8
+        ],
+        [
+          72,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "wall",
+          "id": "old-7-0",
+          "poly": [
+            [
+              43,
+              29
+            ],
+            [
+              49,
+              29
+            ],
+            [
+              49,
+              10
+            ],
+            [
+              43,
+              10
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 10
+      },
+      "enemy": {
+        "x": 82,
+        "h": 10
+      },
+      "pickups": [
+        {
+          "id": "W06",
+          "kind": "trial",
+          "weaponId": "W06",
+          "x": 24,
+          "h": 17,
+          "placementId": "L007:weapon:W06"
+        },
+        {
+          "id": "SK007",
+          "kind": "skill",
+          "skillId": "S_GUARD",
+          "amount": 1,
+          "x": 20,
+          "h": 19,
+          "placementId": "L007:skill:S_GUARD"
+        }
+      ]
+    }
+  },
+  "after": {
+    "stage": 7,
+    "name": "岩箱の継ぎ目",
+    "goal": "ひび割れた岩門を壊して、敵への射線を通す",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        10,
+        10.5
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        25,
+        11
+      ],
+      [
+        33,
+        13
+      ],
+      [
+        41,
+        12
+      ],
+      [
+        53,
+        12
+      ],
+      [
+        64,
+        10
+      ],
+      [
+        87,
+        10
+      ],
+      [
+        93,
+        11
+      ],
+      [
+        100,
+        11
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "wall",
+        "id": "007-ROCK01",
+        "poly": [
+          [
+            43,
+            12
+          ],
+          [
+            43,
+            25
+          ],
+          [
+            45,
+            30
+          ],
+          [
+            47,
+            28
+          ],
+          [
+            49,
+            31
+          ],
+          [
+            52,
+            27
+          ],
+          [
+            52,
+            12
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "手前の安定棚から破壊できる岩門を狙い、崩した後の開口から敵を攻撃する。",
+    "nameEn": "The Cracked Cargo Gate",
+    "goalEn": "Break one cracked block to open the next shot.",
+    "terrainRevision": "0.17.0",
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          10,
+          10.5
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          33,
+          13
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          53,
+          12
+        ],
+        [
+          64,
+          10
+        ],
+        [
+          87,
+          10
+        ],
+        [
+          93,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "wall",
+          "id": "007-ROCK01",
+          "poly": [
+            [
+              43,
+              12
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              45,
+              30
+            ],
+            [
+              47,
+              28
+            ],
+            [
+              49,
+              31
+            ],
+            [
+              52,
+              27
+            ],
+            [
+              52,
+              12
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 11
+      },
+      "enemy": {
+        "x": 82,
+        "h": 10
+      },
+      "pickups": [
+        {
+          "id": "W06",
+          "kind": "trial",
+          "weaponId": "W06",
+          "x": 24,
+          "h": 17,
+          "placementId": "L007:weapon:W06"
+        },
+        {
+          "id": "SK007",
+          "kind": "skill",
+          "skillId": "S_GUARD",
+          "amount": 1,
+          "x": 20,
+          "h": 19,
+          "placementId": "L007:skill:S_GUARD"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "headline": "箱形の壁を、ひび割れた岩門に刷新。壊すと道が開く。",
+    "why": "岩門が自機と敵の間に立つ。壁を壊すと新しい射線が生まれることが地形から分かる。",
+    "preserved": "破壊する仕組みと試用武器W06・防御スキル、敵の攻撃性能と12行動。",
+    "oldGoal": "壊せる岩箱を一つ壊して次の射線を作る",
+    "newGoal": "ひび割れた岩門を壊して、敵への射線を通す",
+    "learningDecision": "発展",
+    "sceneType": "ひび割れ岩門／破壊による射線"
+  },
+  "routeDesign": {
+    "primary": "手前の安定棚から破壊できる岩門を狙い、崩した後の開口から敵を攻撃する。",
+    "alternate": "岩門の上端を越える高い弧で攻撃し、破壊と曲射を選べる可能性も残す。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": false,
+    "midboss": false,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "狭い谷に立つ自然の岩門を一つだけ。反射を練習した6面とは違う「障害を取り除く」戦術。",
+    "reviewRisk": "破壊後の射線と近隣の試用アイテムの取得は実装前に確認。曲射の成立は未保証。"
+  },
+  "implementationNote": "設計のみ。射撃の命中・岩門破壊・アイテム取得・敵AIは未検証。",
+  "approval": "未承認"
+}
