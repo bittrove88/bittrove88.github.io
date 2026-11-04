@@ -1,7 +1,7 @@
 {
   "schema": "arcline-stage-by-stage-map-design-register-v1",
   "revision": "2026-11-04",
-  "status": "設計進行台帳・全100面未着手、ゲーム未反映",
+  "status": "ステージ1レビュー待ち・設計承認0/100・ゲーム未反映",
   "authority": {
     "policy": "ARCLINE/design/stage_by_stage_map_design_policy_v1.md",
     "patternLibrary": "ARCLINE/design/map_pattern_system_v1.md",
@@ -99,15 +99,15 @@
       "suggestedEnemyStart": "G",
       "originalPatternStatus": "構想（未実装）",
       "v4Reference": null,
-      "designStatus": "未着手",
+      "designStatus": "レビュー待ち",
       "approvalStatus": "未承認",
       "implementationStatus": "未着手",
       "userReviewDate": null,
-      "assignedMapDesignFile": null,
+      "assignedMapDesignFile": "ARCLINE/design/stage_reviews/stage_001_review_v1.md",
       "approvedMapDesignFile": null,
       "implementationCommit": null,
       "needsGoalAlignmentReview": false,
-      "reviewNote": null,
+      "reviewNote": "既存・変更案の左右比較HTMLを作成。出撃位置・中央射撃帯不変。設計案は未承認でゲーム未反映。",
       "requiredDesignAxes": [
         "学習目標",
         "敵性能と被弾リスク",
@@ -122,12 +122,14 @@
       ],
       "changePolicy": "座標は各面承認後に個別適用。未承認面・ゲーム本体の一括編集禁止。",
       "learningGoalIsFixed": false,
-      "learningGoalDecision": "未検討",
-      "proposedLearningGoal": null,
+      "learningGoalDecision": "維持",
+      "proposedLearningGoal": "近づくほど、小さなチャージでも届く",
       "approvedLearningGoal": null,
-      "learningGoalRevisionReason": null,
-      "learningSequenceNote": null,
-      "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。"
+      "learningGoalRevisionReason": "ステージ1は距離とチャージの基本に集中させる。中央射撃帯と出撃位置は維持し、港の左右端だけ小さな起伏を追加。",
+      "learningSequenceNote": "1面：距離とチャージ → 2面：緩い坂の砲口角 → 3面：下り坂の射点選び",
+      "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。",
+      "mapComparisonHtml": "ARCLINE/design/stage_reviews/stage_001_compare.html",
+      "proposalDataFile": "ARCLINE/design/stage_reviews/stage_001_proposal_v1.json"
     },
     {
       "stage": 2,
@@ -6035,5 +6037,14 @@
     "approvalRule": "1面の設計レビューで旧目標との比較・変更理由・前後面の学習連続性・敵攻撃圧を確認。ユーザー承認後のみ確定。",
     "noSimulationRequired": true,
     "gameLogicUnchanged": true
+  },
+  "reviewPendingCount": 1,
+  "reviewPresentationPolicy": {
+    "format": "standalone HTML: existing vs proposed same scale, side-by-side and overlay, highlight delta, position, routes, difficulty & learnings",
+    "reviewUnit": "one stage at a time",
+    "initialHtml": "ARCLINE/design/stage_reviews/stage_001_compare.html",
+    "noSimulation": "ユーザー指定により設計時はシミュレーション不要",
+    "approval": "user explicit per-stage approval; stage1 remains pending",
+    "implementation": "separate explicit user request"
   }
 }
