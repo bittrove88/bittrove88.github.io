@@ -54,3 +54,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 0.22.0：正本は `design/expedition_013/stage_blueprints.json` の指定30面。指示書と提案JSONは参照原本として保持し、現在の100面のHP70・各100・80行動などを保全して地形だけ移植。`map-revision-planner.cjs` は上限140pxの実移動、通常弾／実際の転移、現行Normalの敵反撃と勝敗で対象面だけ検証。`record_map_revision.py --evidence evidence/map-revision-0220` は新121戦だけを対象30面へ記録し、旧70面の証拠は保持。変更した地形には旧操作列を再利用しません。`build_campaign.py` → 正式 `npm run build` で攻略図とデータを同期します。
 
 `tests/map-revision.test.cjs` は基準683d5b0に対して未変更70面の設計・実初期状態と13の実装モジュールを厳密照合。床座標による集計（高低差3以下0/60、同高度1/60）と、実行時安全配置後の同高度4/60を分離。後者89/92/94/98は全て変更対象外のため変更せず、実配置3以下の目標未達を記録します。
+
+マップシート `design/expedition_013/arcline_100_maps_atlas.html` は `game/tools/build_map_atlas.py` が現行の `design/runtime_campaign_20x5.json`・`design/expedition_013/stage_design.json` から100面・20テーマ・100面リレー4戦場の表示データを再同期します。マップの線画は `dist/geometry.js` と同じ床・障害物・反射床・開閉橋・反射結晶・効果領域の座標解釈で描画します。特に `W` は水域ではなく実在する床の反射材で、第三パラメータを「水面の高さ」として使わないこと。`tests/map-atlas.test.cjs` でデータとレンダリングの両方を検証し、100面未満への暗黙の短縮を禁止します。
