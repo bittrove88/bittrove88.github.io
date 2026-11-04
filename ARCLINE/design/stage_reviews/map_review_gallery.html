@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCLINE｜マップ比較・1面ずつ確認</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1923;--surface:#142d3a;--border:#395d67;--ink:#edf8f4;--soft:#bacfd0;--mint:#97e7be;--sky:#b6cdd9;--gold:#f1ca8b;font:15px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(170deg,#0a1923 15%,#122d36 100%);min-height:100dvh;color:var(--ink)}
+main{max-width:1150px;margin:0 auto;padding:27px 20px 55px}
+h1{font-size:clamp(24px,3.5vw,36px);line-height:1.3;margin:3px 0 8px}h2{font-size:clamp(20px,2.4vw,26px);margin:0}h3{font-size:15px;margin:0 0 5px}p{margin:7px 0}small,.muted{color:var(--soft)}a{color:#abebdb}button{font:inherit;cursor:pointer;border:1px solid #527584;background:#163646;color:#eff8f8;padding:10px 15px;border-radius:10px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button[aria-selected="true"],button[aria-pressed="true"]{background:#b6e9d0;color:#123b30;border-color:#b6e9d0;font-weight:700}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.15em;color:#b6dece}
+.intro{max-width:800px;color:var(--soft)}
+.tabs{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:22px 0 20px}.tabs button{display:flex;gap:10px;align-items:center}
+.status{font-size:11px;border:1px solid #7c936c;border-radius:99px;padding:2px 9px;color:#d9e8ba;white-space:nowrap}
+.status.approved{color:#b6f2ca;border-color:#589e7f}.status.pending{color:#edcf9a;border-color:#937a52}
+.sheet{border:1px solid var(--border);background:rgba(19,43,55,.93);border-radius:16px;padding:20px}
+.lead{margin-top:9px;font-size:clamp(16px,2vw,19px);font-weight:700;color:#d4f9e4}
+.sublead{color:#bcd3d3}.topline{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.mode{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:21px 0 10px}.mode span{color:var(--soft);margin-right:auto;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.map{padding:12px;background:#0c2230;border-radius:12px;border:1px solid #355461;min-width:0}
+.map .header{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px}
+.map .header strong{font-size:14px}.tag{font-size:11px;color:#b8d0d6}
+.chart{overflow:hidden;border:1px solid #385d66;border-radius:9px}.chart svg{width:100%;height:auto;display:block;background:#102d39}
+.legend{color:var(--soft);font-size:11px;margin:7px 0 0}.summary{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.summary article{background:#193642;padding:15px;border-radius:11px}.summary article p{font-size:14px;color:#d3e3e1}
+.goal{margin-top:16px;background:#213b45;border-left:3px solid #b6e9d0;padding:12px 14px;border-radius:0 9px 9px 0}
+.links{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin:16px 0 0}
+.note{font-size:12px;color:#a6bfbe;margin-top:18px}
+footer{font-size:12px;color:#9eb6b8;margin-top:18px}
+@media(max-width:650px){main{padding:14px 8px 32px}.sheet{padding:12px}.grid,.summary{grid-template-columns:1fr}.map{padding:10px}.tabs{margin:17px 0}.tabs button{padding:8px 11px}.mode button{padding:8px 10px}}
+</style></head>
+<body><main>
+<div class="kicker">ARCLINE　/　100 MAP DESIGN REVIEWS</div>
+<h1>マップ比較</h1>
+<p class="intro">1面ずつ、既存と変更案を見比べて確認します。難しい数値は省き、<strong>何が変わるか、遊びがどう変わるか</strong>に絞りました。</p>
+<nav class="tabs" id="stageTabs" aria-label="ステージ選択"></nav>
+<section class="sheet" id="stageSheet" aria-live="polite">
+<div class="topline"><h2 id="stageTitle"></h2><span class="status" id="stageStatus"></span></div>
+<p class="lead" id="headline"></p><p class="sublead" id="why"></p>
+<div class="mode"><span>同じ縮尺で比較</span><button id="side" type="button" aria-pressed="true">横並び</button><button id="overlay" type="button" aria-pressed="false">差分を重ねる</button></div>
+<div class="grid" id="maps"></div>
+<div class="summary">
+<article><h3>変わるところ</h3><p id="changed"></p></article>
+<article><h3>変わらないところ</h3><p id="preserved"></p></article>
+</div>
+<div class="goal"><h3>この面で学ぶこと</h3><p id="goal"></p></div>
+<div class="links"><a id="detail" href="#">詳しい設計内容</a><a id="json" href="#">設計データ</a></div>
+<div class="note">図は地形の設計断面でありゲームのスクリーンショットではありません。ゲーム本体は未変更。自動対戦シミュレーション・実機確認は行っていません。</div>
+</section>
+<footer>承認済みの面も設計のみを承認した状態です。ゲームへの実装は別途行います。以降のステージはこのページへ順次追記します。</footer>
+<script>
+const STAGES=[{"stage":1,"title":"港の最初の一射","status":"承認済み","state":"approved","change":"ごく小さな変更","headline":"平らな射撃エリアを残し、港の両端に小さな起伏を追加。","why":"最初の射撃は今までどおり。港らしい輪郭だけ整えます。","unchanged":"自機と敵の位置、中央の地面、学習目標はそのまま。","goal":"近づくほど、小さなチャージでも届く","oldFloor":[[0,10],[100,10]],"newFloor":[[0,9.2],[6,9.2],[12,10],[74,10],[83,11.2],[90,11.2],[100,10.2]],"spawn":[18,60],"width":1000,"oldParts":[],"newParts":[],"item":null,"detail":"stage_001_review_v1.md","json":"stage_001_proposal_v1.json"},{"stage":2,"title":"丘の肩の道標","status":"確認待ち","state":"pending","change":"小さな変更","headline":"短い急坂を、少し長くて緩やかな坂にする。","why":"坂の角度が急に変わりにくくなり、初心者が狙いを調整しやすい形にします。","unchanged":"自機と敵の位置、上段の高さ、学習目標、試用武器はそのまま。","goal":"緩い坂の上で砲口が上がることを確かめる","oldFloor":[[0,10],[25,10],[45,18],[100,18]],"newFloor":[[0,10],[23,10],[34,13],[45,16],[52,18],[100,18]],"spawn":[18,68],"width":1000,"oldParts":[],"newParts":[],"item":{"id":"W02","kind":"trial","weaponId":"W02","x":26,"h":17.4,"placementId":"L002:weapon:W02"},"detail":"stage_002_review_v1.md","json":"stage_002_proposal_v1.json"}];
+const byId=id=>document.getElementById(id);
+const current={index:0,mode:'side'};
+function Y(h){return 480-h*10;}
+function groundAt(points,x){
+ for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];if(x>=a[0]&&x<=b[0])return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);}
+ return points[points.length-1][1];
+}
+function polyline(pts){return pts.map(p=>(p[0]*10).toFixed(2)+','+Y(p[1]).toFixed(2)).join(' ');}
+function polygon(pts){return polyline(pts)+' 1000,505 0,505';}
+function diffShape(a,b){
+ const A=[],B=[];for(let x=0;x<=100;x+=1){A.push([x,groundAt(a,x)]);B.push([x,groundAt(b,x)]);}
+ return B.map(z=>z[0]*10+','+Y(z[1]).toFixed(2)).join(' ')+' '+A.reverse().map(z=>z[0]*10+','+Y(z[1]).toFixed(2)).join(' ');
+}
+function chart(m,which){
+ const original=m.oldFloor,updated=m.newFloor,overlay=which==='overlay',floor=which==='before'?original:updated;
+ const title=overlay?'既存と変更案の重ね表示':which==='before'?'既存マップ':'変更案';
+ const lines='<polygon points="'+polygon(overlay?updated:floor)+'" fill="'+(which==='before'?'#455f66':'#3b6558')+'"/>'+
+ (overlay?'<polygon points="'+diffShape(original,updated)+'" fill="#f5cb8d" fill-opacity=".24"/><polyline points="'+polyline(original)+'" fill="none" stroke="#b3c3d6" stroke-width="5" stroke-dasharray="12 8"/><polyline points="'+polyline(updated)+'" fill="none" stroke="#a6f3c8" stroke-width="6"/>':
+ '<polyline points="'+polyline(floor)+'" fill="none" stroke="'+(which==='before'?'#b9cad3':'#97e7be')+'" stroke-width="6"/>');
+ const markers=m.spawn.map((x,i)=>{const h=groundAt(floor,x),cy=Y(h)-26,c=i?'#f0afa1':'#b5edce',label=i?'E':'P';return '<circle cx="'+(x*10)+'" cy="'+cy+'" r="16" fill="'+c+'" stroke="#122d39" stroke-width="3"/><text x="'+(x*10+22)+'" y="'+(cy-4)+'" fill="#fff" font-size="24" font-weight="700">'+label+'</text>';}).join('');
+ const item=m.item?'<g><path d="M '+(m.item.x*10)+' '+(Y(m.item.h)-14)+' l 12 14 -12 14 -12 -14 Z" fill="#fad785" stroke="#423728" stroke-width="2"/><text x="'+(m.item.x*10+16)+'" y="'+(Y(m.item.h)-12)+'" fill="#f7e7a7" font-size="16">試用武器</text></g>':'';
+ const svg='<svg viewBox="0 210 1000 300" role="img" aria-label="'+title+'の地形断面" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="210" width="1000" height="300" fill="#102b37"/>'+
+ Array.from({length:11},(_,i)=>'<line x1="'+(i*100)+'" x2="'+(i*100)+'" y1="210" y2="505" stroke="#b5d4d2" stroke-opacity=".09"/>').join('')+
+ lines+markers+item+'<text x="16" y="490" fill="#bcd3d3" font-size="18">左端</text><text x="986" y="490" text-anchor="end" fill="#bcd3d3" font-size="18">右端</text></svg>';
+ return '<div class="map"><div class="header"><strong>'+title+'</strong><span class="tag">'+(overlay?'薄青：既存 / 緑：変更後':which==='before'?'現在':'未実装の提案')+'</span></div><div class="chart">'+svg+'</div><p class="legend">P：自機　 E：敵'+(m.item?'　 ◆：試用武器':'')+'</p></div>';
+}
+function render(){
+ const m=STAGES[current.index];
+ byId('stageTitle').textContent='STAGE '+String(m.stage).padStart(2,'0')+'　'+m.title;
+ const badge=byId('stageStatus');badge.textContent=m.status;badge.className='status '+m.state;
+ byId('headline').textContent=m.headline;byId('why').textContent=m.why;
+ byId('changed').textContent=m.headline;byId('preserved').textContent=m.unchanged;byId('goal').textContent=m.goal;
+ byId('side').setAttribute('aria-pressed',String(current.mode==='side'));
+ byId('overlay').setAttribute('aria-pressed',String(current.mode==='overlay'));
+ const area=byId('maps');
+ area.style.gridTemplateColumns=current.mode==='overlay'?'1fr':null;
+ area.innerHTML=current.mode==='overlay'?chart(m,'overlay'):chart(m,'before')+chart(m,'after');
+ byId('detail').href=m.detail;byId('json').href=m.json;
+ [...byId('stageTabs').children].forEach((b,i)=>b.setAttribute('aria-selected',String(i===current.index)));
+ if(location.hash){const id=location.hash.slice(1);if(id!=='stage-'+String(m.stage).padStart(3,'0')){ /* preserve navigation with the current tab */ }}
+}
+STAGES.forEach((m,i)=>{
+ const b=document.createElement('button');b.type='button';b.textContent='STAGE '+String(m.stage).padStart(2,'0');
+ const badge=document.createElement('span');badge.className='status '+m.state;badge.textContent=m.status;b.appendChild(badge);
+ b.setAttribute('aria-selected','false');b.addEventListener('click',()=>{current.index=i;history.replaceState(null,'','#stage-'+String(m.stage).padStart(3,'0'));render();});
+ byId('stageTabs').appendChild(b);
+});
+byId('side').addEventListener('click',()=>{current.mode='side';render();});
+byId('overlay').addEventListener('click',()=>{current.mode='overlay';render();});
+const start=STAGES.findIndex(m=>'stage-'+String(m.stage).padStart(3,'0')===location.hash.slice(1));if(start>=0)current.index=start;
+render();
+</script></body></html>
