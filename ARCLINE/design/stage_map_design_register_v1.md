@@ -253,7 +253,7 @@
 
 **[全9面の既存／新案を比較する共通HTML](stage_reviews/map_review_gallery.html#stage-004)**
 
-[画面用JSON](stage_reviews/map_review_gallery_data.json)に1件ずつ新案を追加するだけで、同じHTMLに反映される。1〜3面はユーザー承認済み。**今回は4〜9面を順に設計し、9面まで揃ってからまとめて確認を求める。**
+[画面用JSON](stage_reviews/map_review_gallery_data.json)に1件ずつ新案を追加し、[生成スクリプト](stage_reviews/build_gallery_html.py)でHTMLへ埋め込む。同じHTMLで表示でき、閲覧時のJSON取得は不要。1〜3面はユーザー承認済み。**今回は4〜9面を順に設計し、9面まで揃ってからまとめて確認を求める。**
 
 | 面 | 新しい地形の骨格 | 遊びの変化 | 状態 |
 |---|---|---|---|
