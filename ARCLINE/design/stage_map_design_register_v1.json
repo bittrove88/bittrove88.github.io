@@ -1,7 +1,7 @@
 {
   "schema": "arcline-stage-by-stage-map-design-register-v1",
   "revision": "2026-11-04",
-  "status": "ステージ1レビュー待ち・設計承認0/100・ゲーム未反映",
+  "status": "ステージ1設計承認済・ステージ2レビュー待ち・実装0面",
   "authority": {
     "policy": "ARCLINE/design/stage_by_stage_map_design_policy_v1.md",
     "patternLibrary": "ARCLINE/design/map_pattern_system_v1.md",
@@ -15,9 +15,9 @@
     "referenceV4Sha": "15fd4f425d3799523d7f39d452c433d3f2447210"
   },
   "progression": "ステージ1から番号順に、1面の設計→人の確認→承認→次面。了承なく設計・実装を一括進行しない。",
-  "nextStageToDesign": 1,
-  "completedDesignCount": 0,
-  "approvedCount": 0,
+  "nextStageToDesign": 2,
+  "completedDesignCount": 1,
+  "approvedCount": 1,
   "implementedCount": 0,
   "statuses": [
     "未着手",
@@ -99,15 +99,15 @@
       "suggestedEnemyStart": "G",
       "originalPatternStatus": "構想（未実装）",
       "v4Reference": null,
-      "designStatus": "レビュー待ち",
-      "approvalStatus": "未承認",
+      "designStatus": "設計承認済",
+      "approvalStatus": "設計承認済",
       "implementationStatus": "未着手",
-      "userReviewDate": null,
+      "userReviewDate": "2026-11-04",
       "assignedMapDesignFile": "ARCLINE/design/stage_reviews/stage_001_review_v1.md",
-      "approvedMapDesignFile": null,
+      "approvedMapDesignFile": "ARCLINE/design/stage_reviews/stage_001_review_v1.md",
       "implementationCommit": null,
       "needsGoalAlignmentReview": false,
-      "reviewNote": "既存・変更案の左右比較HTMLを作成。出撃位置・中央射撃帯不変。設計案は未承認でゲーム未反映。",
+      "reviewNote": "ユーザー「OK」により地形両端の小変更を承認。ゲーム未実装。共通HTMLで継続比較。",
       "requiredDesignAxes": [
         "学習目標",
         "敵性能と被弾リスク",
@@ -124,11 +124,11 @@
       "learningGoalIsFixed": false,
       "learningGoalDecision": "維持",
       "proposedLearningGoal": "近づくほど、小さなチャージでも届く",
-      "approvedLearningGoal": null,
+      "approvedLearningGoal": "近づくほど、小さなチャージでも届く",
       "learningGoalRevisionReason": "ステージ1は距離とチャージの基本に集中させる。中央射撃帯と出撃位置は維持し、港の左右端だけ小さな起伏を追加。",
       "learningSequenceNote": "1面：距離とチャージ → 2面：緩い坂の砲口角 → 3面：下り坂の射点選び",
       "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。",
-      "mapComparisonHtml": "ARCLINE/design/stage_reviews/stage_001_compare.html",
+      "mapComparisonHtml": "ARCLINE/design/stage_reviews/map_review_gallery.html#stage-001",
       "proposalDataFile": "ARCLINE/design/stage_reviews/stage_001_proposal_v1.json"
     },
     {
@@ -160,15 +160,15 @@
       "suggestedEnemyStart": "U",
       "originalPatternStatus": "構想（未実装）",
       "v4Reference": null,
-      "designStatus": "未着手",
+      "designStatus": "レビュー待ち",
       "approvalStatus": "未承認",
       "implementationStatus": "未着手",
       "userReviewDate": null,
-      "assignedMapDesignFile": null,
+      "assignedMapDesignFile": "ARCLINE/design/stage_reviews/stage_002_review_v1.md",
       "approvedMapDesignFile": null,
       "implementationCommit": null,
       "needsGoalAlignmentReview": false,
-      "reviewNote": null,
+      "reviewNote": "急坂を緩斜面にする小変更。自機・敵・幅・敵HP/プロフィール・行動制限・W02試用武器の位置を維持。ユーザー確認待ち。",
       "requiredDesignAxes": [
         "学習目標",
         "敵性能と被弾リスク",
@@ -183,12 +183,14 @@
       ],
       "changePolicy": "座標は各面承認後に個別適用。未承認面・ゲーム本体の一括編集禁止。",
       "learningGoalIsFixed": false,
-      "learningGoalDecision": "未検討",
-      "proposedLearningGoal": null,
+      "learningGoalDecision": "維持",
+      "proposedLearningGoal": "緩い坂の上で砲口が上がることを確かめる",
       "approvedLearningGoal": null,
-      "learningGoalRevisionReason": null,
-      "learningSequenceNote": null,
-      "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。"
+      "learningGoalRevisionReason": "坂で車体・砲口の向きが変わる学習を維持し、短い急坂を長めの緩い斜面にする。",
+      "learningSequenceNote": "1面で距離とチャージ → 2面で斜面の砲口角 → 3面で下り坂を進み射点を選ぶ。",
+      "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。",
+      "mapComparisonHtml": "ARCLINE/design/stage_reviews/map_review_gallery.html#stage-002",
+      "proposalDataFile": "ARCLINE/design/stage_reviews/stage_002_proposal_v1.json"
     },
     {
       "stage": 3,
@@ -6040,11 +6042,15 @@
   },
   "reviewPendingCount": 1,
   "reviewPresentationPolicy": {
-    "format": "standalone HTML: existing vs proposed same scale, side-by-side and overlay, highlight delta, position, routes, difficulty & learnings",
-    "reviewUnit": "one stage at a time",
-    "initialHtml": "ARCLINE/design/stage_reviews/stage_001_compare.html",
-    "noSimulation": "ユーザー指定により設計時はシミュレーション不要",
-    "approval": "user explicit per-stage approval; stage1 remains pending",
-    "implementation": "separate explicit user request"
+    "format": "single cumulative HTML ARCLINE/design/stage_reviews/map_review_gallery.html with added stage tabs",
+    "designSummary": "show one-sentence change, short purpose, preserved elements, learning goal",
+    "comparisons": "before/after same coordinates and scale; overlay when useful",
+    "futureStages": "append each new one-by-one review to the same HTML instead of creating new standalone comparison pages",
+    "firstStages": [
+      1,
+      2
+    ],
+    "approval": "only explicit user approval sets per-stage approval; design approval != implementation",
+    "simulation": "not required by user; no simulations performed"
   }
 }
