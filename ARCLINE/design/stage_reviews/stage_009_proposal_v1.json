@@ -1,0 +1,336 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 9,
+  "date": "2026-11-04",
+  "status": "確認待ち・未承認・ゲーム未実装",
+  "designBasis": "マップデザインガイドから独立設計、旧地形は比較のみ",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 9,
+    "name": "岸壁の踊り場",
+    "goal": "段の手前から撃つか、上段へ転移して狙う",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        32,
+        10
+      ],
+      [
+        49,
+        20
+      ],
+      [
+        100,
+        20
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "段の手前から撃つか、上段へ転移して狙う",
+    "nameEn": "The Quayside Landing",
+    "goalEn": "Shoot from below or teleport onto the upper shelf.",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          32,
+          10
+        ],
+        [
+          49,
+          20
+        ],
+        [
+          100,
+          20
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 10
+      },
+      "enemy": {
+        "x": 82,
+        "h": 20
+      },
+      "pickups": [
+        {
+          "id": "W07",
+          "kind": "trial",
+          "weaponId": "W07",
+          "x": 24,
+          "h": 17,
+          "placementId": "L009:weapon:W07"
+        }
+      ]
+    }
+  },
+  "after": {
+    "stage": 9,
+    "name": "岸壁の踊り場",
+    "goal": "高い岸の敵へ曲射するか、中継の浮島から狙い直す",
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        11,
+        11
+      ],
+      [
+        16,
+        11
+      ],
+      [
+        26,
+        11
+      ],
+      [
+        35,
+        10
+      ],
+      [
+        44,
+        8
+      ],
+      [
+        50,
+        11
+      ],
+      [
+        56,
+        16
+      ],
+      [
+        62,
+        22
+      ],
+      [
+        70,
+        23
+      ],
+      [
+        88,
+        23
+      ],
+      [
+        96,
+        22
+      ],
+      [
+        100,
+        22
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "island",
+        "id": "009-BRIDGE01",
+        "poly": [
+          [
+            37,
+            24
+          ],
+          [
+            42,
+            27
+          ],
+          [
+            53,
+            27
+          ],
+          [
+            58,
+            23
+          ],
+          [
+            52,
+            19
+          ],
+          [
+            43,
+            20
+          ],
+          [
+            38,
+            21
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "低い入り江の平坦な射点から、岩段上の敵へ大きい曲射で狙う。",
+    "nameEn": "The Quayside Landing",
+    "goalEn": "Shoot from below or teleport onto the upper shelf.",
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          26,
+          11
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          44,
+          8
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          62,
+          22
+        ],
+        [
+          70,
+          23
+        ],
+        [
+          88,
+          23
+        ],
+        [
+          96,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "id": "009-BRIDGE01",
+          "poly": [
+            [
+              37,
+              24
+            ],
+            [
+              42,
+              27
+            ],
+            [
+              53,
+              27
+            ],
+            [
+              58,
+              23
+            ],
+            [
+              52,
+              19
+            ],
+            [
+              43,
+              20
+            ],
+            [
+              38,
+              21
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 11
+      },
+      "enemy": {
+        "x": 82,
+        "h": 23
+      },
+      "pickups": [
+        {
+          "id": "W07",
+          "kind": "trial",
+          "weaponId": "W07",
+          "x": 24,
+          "h": 17,
+          "placementId": "L009:weapon:W07"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "headline": "長い一枚坂を二段の岸壁に。中間の浮島も射点にする。",
+    "why": "下から高い敵へ曲射するか、広い中継浮島へ転移して角度を変えるかを選べる。",
+    "preserved": "既存の転移スキルとW07試用武器、敵性能・12行動は維持。",
+    "oldGoal": "段の手前から撃つか、上段へ転移して狙う",
+    "newGoal": "高い岸の敵へ曲射するか、中継の浮島から狙い直す",
+    "learningDecision": "発展",
+    "sceneType": "二段岸壁／中継浮島の別射点"
+  },
+  "routeDesign": {
+    "primary": "低い入り江の平坦な射点から、岩段上の敵へ大きい曲射で狙う。",
+    "alternate": "広い中継浮島へテレポートして、同じ敵を高い位置から狙う。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": false,
+    "midboss": false,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "ステージ4の『谷を渡る』転移とは違う、『射点の高さを変える』ための浮島を導入する。",
+    "reviewRisk": "転移せずに撃てる正攻法も残す。島を精密着地の唯一の正解にしない。"
+  },
+  "implementationNote": "ギミック衝突・射撃成功・移動手数・敵AI・iPhone実機は未検証。ユーザー要望によりシミュレーションは実施していない。",
+  "approval": "未承認"
+}
