@@ -1,0 +1,174 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v3",
+  "stage": 20,
+  "date": "2026-11-04",
+  "status": "設計案・承認待ち／ゲーム未反映",
+  "name": "行きも帰りも開く門",
+  "encounter": "boss:gatekeeper",
+  "goal": "門の屋根と側板を選択的に壊し、ボスの低い砲／高い砲への別々の射線を開く",
+  "floor": [
+    [
+      0,
+      8
+    ],
+    [
+      16,
+      8
+    ],
+    [
+      29,
+      8
+    ],
+    [
+      36,
+      9
+    ],
+    [
+      43,
+      11
+    ],
+    [
+      51,
+      13
+    ],
+    [
+      60,
+      17
+    ],
+    [
+      67,
+      20
+    ],
+    [
+      85,
+      20
+    ],
+    [
+      100,
+      20
+    ]
+  ],
+  "parts": [
+    {
+      "id": "020-OLD-ARCH",
+      "kind": "roof",
+      "poly": [
+        [
+          30,
+          31
+        ],
+        [
+          34,
+          36
+        ],
+        [
+          40,
+          37
+        ],
+        [
+          44,
+          34
+        ],
+        [
+          42,
+          30
+        ],
+        [
+          35,
+          29
+        ]
+      ],
+      "breakable": false
+    },
+    {
+      "id": "020-CRACKED-ROOF",
+      "kind": "roof",
+      "poly": [
+        [
+          43,
+          31
+        ],
+        [
+          48,
+          35
+        ],
+        [
+          57,
+          35
+        ],
+        [
+          63,
+          31
+        ],
+        [
+          61,
+          28
+        ],
+        [
+          47,
+          28
+        ]
+      ],
+      "breakable": true,
+      "physicalSegments": 2
+    },
+    {
+      "id": "020-LOW-GATE",
+      "kind": "wall",
+      "poly": [
+        [
+          61,
+          17
+        ],
+        [
+          66,
+          19
+        ],
+        [
+          66,
+          29
+        ],
+        [
+          61,
+          29
+        ]
+      ],
+      "breakable": true,
+      "physicalSegments": 1
+    }
+  ],
+  "features": [],
+  "player": {
+    "x": 16,
+    "h": 8
+  },
+  "enemy": {
+    "x": 85,
+    "h": 20
+  },
+  "mainRoute": "低い射点から屋根の破壊単位を選んで射線を開き、ボス部位へ攻撃",
+  "alternateRoute": "壊さず屋根の上を越える高い曲射",
+  "bossContractUnchanged": {
+    "name": "Gatekeeper",
+    "parts": [
+      {
+        "name": "LOW GUN",
+        "hp": 2
+      },
+      {
+        "name": "HIGH GUN",
+        "hp": 2
+      }
+    ],
+    "attacks": [
+      "LOW",
+      "DROP",
+      "MARK"
+    ],
+    "reward": "BLINK"
+  },
+  "actionLimit": 24,
+  "recommendedCharacter": "ban",
+  "validation": "静的地形確認のみ、弾道・ボス命中・衝突未検証",
+  "gameImplemented": false
+}
