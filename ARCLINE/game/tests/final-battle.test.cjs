@@ -39,4 +39,23 @@ const exhausted=E.campaign(100);exhausted.shotCount=28;E.check(exhausted);eq([ex
 const late=E.campaign(90);late.shotCount=28;E.check(late);eq([late.result,late.reason],['lose','shots'],'stage90 budget remains unchanged');ok(T.snapshot(late)===null&&!T.restore(late,T.snapshot(E.campaign(100))),'retry applies only to100');
 const savedBefore=JSON.stringify(profile);T.restore(E.campaign(100,{matchSeed:4697}),T.snapshot(E.campaign(100,{matchSeed:4697})));eq(JSON.stringify(profile),savedBefore,'battle-local retries never write campaign state');
 const dead=E.campaign(100);dead.units[0].hp=0;E.check(dead);ok(dead.result==='lose','low durability death loses whole battle');
+// Reproduce displayed 0 HP with positive floating-point dust at the last machine.
+const fractional=E.campaign(100,{matchSeed:4697});
+for(let i=0;i<9;i++){
+ const dealt=T.credit(fractional,fractional.characterId,5);
+ fractional.units[1].hp=Math.max(0,fractional.units[1].hp-dealt);
+ E.next(fractional);fractional.phase='aim';
+}
+eq(fractional.characterId,'gun','last relay machine reached');
+for(let i=0;i<17;i++){
+ const dealt=T.credit(fractional,'gun',.3);
+ fractional.units[1].hp=Math.max(0,fractional.units[1].hp-dealt);
+}
+ok(T.complete(fractional),'all ten quotas are fulfilled by fractional hits');
+ok(fractional.units[1].hp>0&&E.combat.points(fractional.units[1].hp)===0,'internal HP can remain positive even when displayed HP is 0');
+fractional.shotCount=fractional.shotLimit;
+ok(E.check(fractional),'last action ends the completed final battle');
+eq([fractional.units[1].hp,fractional.result,fractional.reason],[0,'win','defeated'],'zero display and completed quota must lead to a victory, never a shots loss');
+const notYet=E.campaign(100,{matchSeed:4697});notYet.units[1].hp=0;
+ok(!E.check(notYet)&&notYet.units[1].hp>0,'boss cannot be cleared while any machine quota remains');
 fs.writeFileSync(path.join(out,'FINAL_BATTLE_UNIT.json'),JSON.stringify({status:'PASS',checks,matches:report.rows.length,normalOnlyMatches:report.rows.filter(r=>!r.allowSpecial).length,scope:'70 runtime initial states identical to baseline; exact shared-source patch normalization; HP70/100-damage quotas,immediate handoff,remote spawns,authored gimmicks,floating platforms and nonmutating collapse;inventory/save/retry and current real native full-match replay. Human difficulty unverified.'},null,2));console.log('PASS final battle '+checks+' checks');
