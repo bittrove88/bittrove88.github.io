@@ -424,7 +424,7 @@ v4の参照座標・エンジン確認値は`reference_maps_10_v4.json`に集約
 
 **既存マップの床頂点を直すことが主目的ではない。** 新しい[デザイン方針](stage_by_stage_map_design_policy_v1.md)から各面の地形と敵味方の出撃位置・射撃ルート・難易度の体験を個別に考える。旧マップはBEFORE表示の基準であり、設計の制約ではない。ただし序盤に限らず現状維持・小変更も意図的に選べる。
 
-- **HTMLを毎回編集しない：** [共通マップ比較ページ](stage_reviews/map_review_gallery.html)が[ステージ定義データ](stage_reviews/map_review_gallery_data.json)を自動読み込みする。新しい面の追記はJSON配列に1件追加するだけで、ステージ選択・左右比較・重ね表示に反映される。
+- **HTMLを毎回編集しない：** [共通マップ比較ページ](stage_reviews/map_review_gallery.html)へ[JSONデータ](stage_reviews/map_review_gallery_data.json)をあらかじめ内蔵する。新しい面の追記はJSON配列に1件追加し、[ビルドツール](stage_reviews/build_gallery_html.py)で共通HTMLを再生成する。閲覧時の外部JSON読込は不要。
 - **複雑な地形も同じページへ：** 大きな幅、複数床、浮島、屋根、敵の高所出撃、ギミックに対応する設計断面を表示する。新しい学習目標は必要なら刷新する。
 - **表示は簡潔に：** 1面につき「変更の一文」「遊びの狙い」「変わらない条件」「学び」と既存／変更案の図面。細かい数値は設計シートへ分離する。
 - **運用：** 1〜3面は設計承認済み。4〜9面は順に再設計し、[同じHTMLで6面まとめて確認待ち](stage_reviews/map_review_gallery.html#stage-004)。10面以降は未着手。ゲーム本体未更新、シミュレーション不要。
@@ -433,7 +433,7 @@ v4の参照座標・エンジン確認値は`reference_maps_10_v4.json`に集約
 
 ## 18. ステージ4〜9の個別設計完了・まとめてレビュー（2026-11-04）
 
-[1〜9面の共通比較HTML](stage_reviews/map_review_gallery.html)へ、4〜9面の6案を番号順に追記した。全ステージの前後比較・重ね表示・要約は[1つのJSON](stage_reviews/map_review_gallery_data.json)を更新するだけで連動する。
+[1〜9面の共通比較HTML](stage_reviews/map_review_gallery.html)へ、4〜9面の6案を番号順に追記した。全ステージの前後比較・重ね表示・要約は[1つのJSON](stage_reviews/map_review_gallery_data.json)を更新し、[ビルドツール](stage_reviews/build_gallery_html.py)でHTML内データを同期して反映する。
 
 - 4：断絶した船着場／渡るテレポート
 - 5：湾曲した防波丘の向こう／中ボス曲射
@@ -443,3 +443,9 @@ v4の参照座標・エンジン確認値は`reference_maps_10_v4.json`に集約
 - 9：二段岸壁と中継浮島／曲射と高い射点
 
 **承認済みは3/100、レビュー待ちは4〜9の6面、残り91面は未着手**。9面まで設計を完了した時点でユーザー確認を行い、修正・承認前にステージ10には進めない。現行ゲームの戦闘データとステージ生成コードは一切変更しない。シミュレーションなし。
+
+## 19. JSON取得失敗への恒久対策（2026-11-04）
+
+[共通比較HTML](stage_reviews/map_review_gallery.html)で閲覧時にJSONを `fetch` していたところ `Failed to fetch` が起きたため、HTMLへ[全9面のJSON](stage_reviews/map_review_gallery_data.json)を内蔵する自己完結方式へ変更。GitHub Pagesでの別ファイル取得に依存しない。
+
+**1面追加の作業**：[画面データJSON](stage_reviews/map_review_gallery_data.json)へ1件追記 → [生成ツール](stage_reviews/build_gallery_html.py)で内蔵データだけ更新 → 同じ比較URLでレビュー。HTMLの手動修正や別ファイルの動的取得を不要にする。設計案・承認状態・ゲーム本体はこの表示修正では変わらない。
