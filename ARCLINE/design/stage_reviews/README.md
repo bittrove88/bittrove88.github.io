@@ -1,0 +1,51 @@
+# ARCLINE ステージ比較ページの追記手順
+
+**[共通比較HTML](map_review_gallery.html)** は固定。ステージを追加するたびHTMLを編集する必要はありません。
+
+## 追加は1件のデータだけ
+
+1. 現在の[画面データ](map_review_gallery_data.json)を開く。`stages`配列末尾へ**新しいステージの1件**を追記する。これだけで共通HTMLのステージ選択に反映され、前後の移動も自動更新される。
+2. ステージの詳細設計は`stage_XXX_review_v1.md`、位置・床座標・既存との比較用資料は`stage_XXX_proposal_v1.json`に保存。HTML中には説明を書き込まない。
+3. [100面進行台帳](../stage_map_design_register_v1.json)で該当面をレビュー待ちにする。ユーザーの「OK」後に**データ中の`state`を`approved`へ変更**し、台帳も設計承認済みにする。ゲームには反映しない。
+
+必要な記述の雛形（`stages`配列内の1件）：
+
+```json
+{
+  "stage": 4,
+  "title": "面の名称",
+  "state": "pending",
+  "headline": "一文で変更内容",
+  "why": "一文で遊びの意図",
+  "preserved": "変えない重要な点",
+  "goal": "提案する学習目標",
+  "before": {
+    "width": 1000,
+    "floor": [[0, 10], [100, 10]],
+    "parts": [],
+    "features": [],
+    "player": {"x": 18, "h": 10},
+    "enemy": {"x": 60, "h": 10},
+    "pickups": []
+  },
+  "after": {
+    "width": 1000,
+    "floor": [[0, 10], [100, 10]],
+    "parts": [],
+    "features": [],
+    "player": {"x": 18, "h": 10},
+    "enemy": {"x": 60, "h": 10},
+    "pickups": []
+  },
+  "detail": "stage_004_review_v1.md",
+  "source": "stage_004_proposal_v1.json"
+}
+```
+
+`before`は現行ゲームのマップ座標、`after`はデザインガイドから再設計した新規案。**既存図を少しずつ修正する前提ではない**。導入帯は意図的に現状維持・小変更も選べる。`parts`は`{"kind":"island|roof|wall","poly":[[x,h],...]}`、`features`は`{"type":"C|F|U|V|M|K|T|W","v":[...]}`のように保持。地形が分離する場合は`floors`で複数の床区間を指定できる。島上開始は`player.h`／`enemy.h`を明示する。
+
+**表示について**：共通HTMLは画面データJSONをページと同じフォルダーから読み込む。公開はGitHub PagesのURLで行う（`file://`では`fetch`が使えないブラウザがある）。リンクの`#stage-003`で面を直接選べる。初めて開いた場合は未承認の最新確認面を表示する。
+
+**承認状態の正本**は進行台帳。HTMLの承認ラベルと一致させる。ステージを一括で作らず、確認待ちの1面だけを追加・修正する。
+
+**設計方針**：[難易度と体験に基づく1面ずつの設計](../stage_by_stage_map_design_policy_v1.md)。敵の命中圧・ダメージ・HP・手数と整合し、新しい地形／射線／敵の居場所を独立して設計する。ユーザーの指定により、マップ設計時の自動対戦シミュレーションは不要。実ゲームの変更は別工程。
