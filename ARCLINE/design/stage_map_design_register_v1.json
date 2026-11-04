@@ -1,7 +1,7 @@
 {
   "schema": "arcline-stage-by-stage-map-design-register-v1",
   "revision": "2026-11-04",
-  "status": "1〜9面は設計承認済み（9/100）、次はステージ10単独レビュー、ゲーム実装0面",
+  "status": "1〜9面設計承認済み（9/100）、10面レビュー待ち、ゲーム実装0面",
   "authority": {
     "policy": "ARCLINE/design/stage_by_stage_map_design_policy_v1.md",
     "patternLibrary": "ARCLINE/design/map_pattern_system_v1.md",
@@ -16,7 +16,7 @@
   },
   "progression": "ステージ1から番号順に、1面の設計→人の確認→承認→次面。了承なく設計・実装を一括進行しない。",
   "nextStageToDesign": 10,
-  "completedDesignCount": 9,
+  "completedDesignCount": 10,
   "approvedCount": 9,
   "implementedCount": 0,
   "statuses": [
@@ -658,15 +658,15 @@
       "suggestedEnemyStart": "U",
       "originalPatternStatus": "構想（未実装）",
       "v4Reference": null,
-      "designStatus": "未着手",
+      "designStatus": "レビュー待ち",
       "approvalStatus": "未承認",
       "implementationStatus": "未着手",
       "userReviewDate": null,
-      "assignedMapDesignFile": null,
+      "assignedMapDesignFile": "ARCLINE/design/stage_reviews/stage_010_review_v1.md",
       "approvedMapDesignFile": null,
       "implementationCommit": null,
       "needsGoalAlignmentReview": false,
-      "reviewNote": null,
+      "reviewNote": "2026-11-04個別設計案を作成。ボス部位・攻撃・行動数を維持。承認待ち、未実装、シミュレーションなし。",
       "requiredDesignAxes": [
         "学習目標",
         "敵性能と被弾リスク",
@@ -681,12 +681,14 @@
       ],
       "changePolicy": "座標は各面承認後に個別適用。未承認面・ゲーム本体の一括編集禁止。",
       "learningGoalIsFixed": false,
-      "learningGoalDecision": "未検討",
-      "proposedLearningGoal": null,
+      "learningGoalDecision": "発展",
+      "proposedLearningGoal": "浅瀬の反射と岩棚越えの曲射を見比べ、高い右岸のボスに当てる",
       "approvedLearningGoal": null,
-      "learningGoalRevisionReason": null,
-      "learningSequenceNote": null,
-      "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。"
+      "learningGoalRevisionReason": "既存の反射Wと高い右岸のボスは維持し、中央岩棚を波食形状に変えて反射・曲射の選択を分かりやすくする。",
+      "learningSequenceNote": "9面の高低差と転移による射点変更→10面の浅瀬反射と曲射の選択→11面の連続下り坂に転がり弾",
+      "learningGoalPolicy": "現行学習目標は参照。面ごとに維持・発展・刷新が可能。承認時に確定。",
+      "proposalDataFile": "ARCLINE/design/stage_reviews/stage_010_proposal_v1.json",
+      "mapComparisonHtml": "ARCLINE/design/stage_reviews/map_review_gallery.html#stage-010"
     },
     {
       "stage": 11,
@@ -6054,7 +6056,7 @@
     "noSimulationRequired": true,
     "gameLogicUnchanged": true
   },
-  "reviewPendingCount": 0,
+  "reviewPendingCount": 1,
   "reviewPresentationPolicy": {
     "format": "one self-contained HTML generated from canonical append-only JSON",
     "html": "ARCLINE/design/stage_reviews/map_review_gallery.html",
@@ -6104,7 +6106,7 @@
         10
       ],
       "checkpoint": "ステージ10単独",
-      "approvalStatus": "未着手"
+      "approvalStatus": "レビュー待ち"
     },
     "speed": "prepare detail internally, publish only short before/after summary; no simulated combat needed during design; no game implementation implied",
     "gallery": "side-by-side only; no overlay"
