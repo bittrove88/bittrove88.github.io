@@ -1495,7 +1495,92 @@
         65,
         12
       ],
-      "units": "1 design unit = 10 px"
+      "units": "1 design unit = 10 px",
+      "staticRayExamples": [
+        {
+          "name": "P0-to-enemy-target",
+          "s": [
+            65,
+            12
+          ],
+          "t": [
+            147,
+            76
+          ],
+          "hitParts": [
+            "058-LOW-CENTRE",
+            "058-LOW-EAST-SEAM",
+            "058-UP-EAST-SEAM",
+            "058-UP-EAST"
+          ]
+        },
+        {
+          "name": "P0-to-upper-shaft-edge",
+          "s": [
+            65,
+            12
+          ],
+          "t": [
+            88,
+            76
+          ],
+          "hitParts": []
+        },
+        {
+          "name": "upper-platform-to-enemy-target",
+          "s": [
+            98,
+            76
+          ],
+          "t": [
+            147,
+            76
+          ],
+          "hitParts": []
+        },
+        {
+          "name": "mid-platform-to-enemy-target",
+          "s": [
+            96,
+            49
+          ],
+          "t": [
+            147,
+            76
+          ],
+          "hitParts": [
+            "058-UP-EAST-SEAM"
+          ]
+        },
+        {
+          "name": "wind-entrance-to-enemy-target",
+          "s": [
+            115,
+            49
+          ],
+          "t": [
+            147,
+            76
+          ],
+          "hitParts": [
+            "058-UP-EAST-SEAM",
+            "058-UP-EAST"
+          ]
+        },
+        {
+          "name": "clear-shaft-vertical",
+          "s": [
+            68,
+            12
+          ],
+          "t": [
+            68,
+            93
+          ],
+          "hitParts": []
+        }
+      ],
+      "staticRayDisclaimer": "Simple point-ray versus all polygons; ignores moving body, gun barrel, actual projectile gravity/wind, support/collision response and enemy behavior."
     },
     "designProofScope": "Fixed polygon and opening geometry only. Teleport arcing trajectory, barrel collisions, actual damage, multi-action win, moving enemy not verified."
   },
