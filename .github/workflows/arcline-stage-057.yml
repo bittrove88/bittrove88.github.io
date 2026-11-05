@@ -24,6 +24,21 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Actual game-stage-057 screenshot and geometry snapshot
         run: node design/stage_reviews/stage_057_engine_capture.cjs
+      - name: Bundle actual simulation source for local design evaluation
+        run: |
+          tar -czf /tmp/stage-057-source.tgz \
+            game/dist/*.js \
+            game/tools/build_campaign.py \
+            game/tools/build_levels.py \
+            design/expedition_013/stage_blueprints.json \
+            design/runtime_campaign_20x5.json \
+            design/pickup_placements.json \
+            design/stage_reviews/review_sandbox.cjs \
+            package.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stage-057-source
+          path: /tmp/stage-057-source.tgz
       - uses: actions/upload-artifact@v4
         if: always()
         with:
