@@ -1,6 +1,6 @@
 {
   "status": "最終受入れは未検証",
-  "scope": "Per-map composition, placement intent, and conditional single-shot evidence. No autonomous AI or complete route/battle acceptance.",
+  "scope": "Native static, muzzle, conditional shots and independently replayed input sequences are separate gates. No autonomous enemy teleport.",
   "stages": [
     {
       "stage": 51,
@@ -14,25 +14,29 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "shoulder",
+          "status": "合格",
+          "actions": 1,
+          "withinBudget": true
+        },
+        {
+          "goal": "lee",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 52,
-      "inputHash": "56d45d044d4e2fc0ac8dd193b44acf26c65e435806b1a08bb4dc21fef9b5af1c",
+      "inputHash": "30a8a41d0cb0b84790f4ed49bab39bae51af5cd77ae35fe82a2c24dcf8ce436f",
       "composition": {
         "status": "合格",
         "expected": [
@@ -42,25 +46,35 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "roof",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "window",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "chimney",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 53,
-      "inputHash": "3b4faf0b3f58235b270b7db3efe08c780ee1ad3308e708680b4e79ad6ebf0d2a",
+      "inputHash": "5215dd2b16fad83432e1485553f49d4a4f3b36a77ed7f8d223eb66ce18d89cf0",
       "composition": {
         "status": "合格",
         "expected": [
@@ -72,27 +86,35 @@
           "K"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [
+        {
+          "point": "low",
+          "required": [
+            "wind",
+            "bounce"
+          ],
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
+        }
+      ],
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 54,
@@ -110,26 +132,8 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "U",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "mirror",
@@ -137,17 +141,25 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "shoulder",
+          "status": "合格",
+          "actions": 1,
+          "withinBudget": true
+        },
+        {
+          "goal": "mirror",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 55,
@@ -161,21 +173,31 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "summit",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "lee",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "balcony",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 56,
@@ -191,31 +213,35 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "B",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "両姿勢の支持を静的確認。橋を経由する実移動は未検証。"
-        },
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "lower",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "pier",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 57,
-      "inputHash": "c99bf4b47b8bf8f80c60edc7e94181bd801b3a6c2133fe14c58d616e1c377ad2",
+      "inputHash": "af0467fcf700ad96083d5ff4aa5332ccff12b69ea0b33d96ab30dd9e80fb85a7",
       "composition": {
         "status": "合格",
         "expected": [
@@ -227,31 +253,38 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [
+        {
+          "point": "upper",
+          "required": [
+            "bounce"
+          ],
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
+        }
+      ],
+      "actualInputs": [
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "entrance",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 58,
-      "inputHash": "faa3d7ab3ccb25f7924a1943204630d51d45a95ac077f3eec36f3d4ae7ee83d6",
+      "inputHash": "efa600e8a3da1108660fc270fd39a43ab2a3cfdd0393840955b74efcbaad5e1d",
       "composition": {
         "status": "合格",
         "expected": [
@@ -261,21 +294,31 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "west",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "east",
+          "status": "合格",
+          "actions": 6,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 6,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 59,
@@ -291,31 +334,29 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 60,
-      "inputHash": "300a6aa84157357ec1adc51200b369946e65b32adf15378f41cd53836809cd66",
+      "inputHash": "ed63e387490e0688c683f70340269aa6a05c8a12b8b603563f5c0968e6fc7c11",
       "composition": {
         "status": "合格",
         "expected": [
@@ -325,21 +366,31 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "lee",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "exit",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 61,
@@ -349,14 +400,25 @@
         "expected": [],
         "actual": []
       },
-      "perType": [],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "relay",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "ridge",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 62,
@@ -366,14 +428,25 @@
         "expected": [],
         "actual": []
       },
-      "perType": [],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "lower",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 63,
@@ -383,35 +456,57 @@
         "expected": [],
         "actual": []
       },
-      "perType": [],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "corridor",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "perch",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 64,
-      "inputHash": "3a47ea126ce1fd6ab8067c801c7f7d4a3e7eb6b10a8b184748f75a96760f313a",
+      "inputHash": "b7755891d74dd2660d4c76dad923122a08eeadb71d103bd21292ced926ac5a4b",
       "composition": {
         "status": "合格",
         "expected": [],
         "actual": []
       },
-      "perType": [],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "side",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "entrance",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 65,
-      "inputHash": "8709c6d1d78a30a77a093ff0c50512d1cfd20d6c43fd3f0735e9c78ee6475f7e",
+      "inputHash": "74681894580ae1bc1fef96aa8fe09cc3a94be2199aba31905f7f8d8aa9ffa076",
       "composition": {
         "status": "合格",
         "expected": [
@@ -423,38 +518,42 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
+        {
+          "point": "vent-perch",
+          "required": [
+            "vent"
+          ],
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
+        },
         {
           "point": "rim",
           "required": [
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "vent-perch",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "rim",
+          "status": "合格",
+          "actions": 1,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 66,
@@ -470,31 +569,29 @@
           "V"
         ]
       },
-      "perType": [
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 67,
-      "inputHash": "0cdb23c7ed522fa20f5273e06166a0dc1696b3a1453d33066629dbbebd6bba97",
+      "inputHash": "2cc646b8115cdaa74e0776698cc7d89f65cd95966066de4f7f5633c30b0c7bef",
       "composition": {
         "status": "合格",
         "expected": [
@@ -504,21 +601,25 @@
           "V"
         ]
       },
-      "perType": [
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "low-road",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 68,
@@ -534,20 +635,8 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "mirror",
@@ -555,17 +644,25 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "window",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "mirror",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 69,
@@ -581,31 +678,29 @@
           "V"
         ]
       },
-      "perType": [
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        },
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "refuge",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "bank",
+          "status": "合格",
+          "actions": 1,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 70,
-      "inputHash": "d81b6286d803f4e2e8fffd71b81d4e8b1cbe0d5dd487b304754dc6534cfb71d7",
+      "inputHash": "a10f1b8f9ed5ede0c07dfe83cd9942235ed3e13896acea7849c686c03df293d5",
       "composition": {
         "status": "合格",
         "expected": [
@@ -615,25 +710,35 @@
           "V"
         ]
       },
-      "perType": [
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "peek",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 71,
-      "inputHash": "8a97863fb50cfb9931e8f4d9be1415ef7ea2c290dc81711e507cc499e1e34893",
+      "inputHash": "b01c023a7179a79edc185a9aec3d2b33cfdf95650540cbd37de599b5bbfa79c8",
       "composition": {
         "status": "合格",
         "expected": [
@@ -645,20 +750,8 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "low",
@@ -667,17 +760,31 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "peek",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 72,
@@ -691,25 +798,29 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "shadow",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "ore-top",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 73,
-      "inputHash": "d0e3e3c328cef980e89f51e1687cf61014d4f67d9c07a83ae6f4c93fa5d13d7b",
+      "inputHash": "d5e86cb37a5e25e5141b003ca6a72339ea2fcd25ac860d3e4aca101f4d33a32e",
       "composition": {
         "status": "合格",
         "expected": [
@@ -721,31 +832,29 @@
           "T"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "T",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "control",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 74,
-      "inputHash": "382c3fa8d825e583a26813c715b65620f7968655b1d41f82a9c7cd2909145b3a",
+      "inputHash": "409635bbc5beda92d10995243dff720f77c2941834e0ffef39e11d3323aacf28",
       "composition": {
         "status": "合格",
         "expected": [
@@ -757,39 +866,35 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "lower",
           "required": [
-            "magnet",
-            "bounce"
+            "bounce",
+            "magnet"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "lower",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 75,
@@ -803,25 +908,29 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "beam",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 76,
-      "inputHash": "5784d0f235471398364e3d64242a3b8d9632eff25273bc54619fbc3cf9b09863",
+      "inputHash": "462c0369bbf6cd21fbd8a8d5d01c671c713baafda92d3597cbcb23a00eb727dd",
       "composition": {
         "status": "合格",
         "expected": [
@@ -833,31 +942,29 @@
           "T"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "T",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 1,
+          "withinBudget": true
+        },
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 77,
-      "inputHash": "b1f48f5150626337c4d9a005a58433027cf08b732b463b532408cb6815211704",
+      "inputHash": "f8456f9315ff71a360c11d46ae1802514a690ad8b6c686272257e77073b51222",
       "composition": {
         "status": "合格",
         "expected": [
@@ -871,45 +978,35 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "T",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "lower",
           "required": [
-            "magnet",
-            "bounce"
+            "bounce",
+            "magnet"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": -1,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "lower",
+          "status": "合格",
+          "actions": 5,
+          "withinBudget": true
+        },
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 78,
@@ -923,21 +1020,25 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 79,
@@ -955,37 +1056,29 @@
           "T"
         ]
       },
-      "perType": [
-        {
-          "type": "B",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "両姿勢の支持を静的確認。橋を経由する実移動は未検証。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "T",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 80,
-      "inputHash": "8a0e37945693e8b4245f74aad8b90a6a2e94ea946aefdd7a7df4e6d7046af06c",
+      "inputHash": "36c2a345da504a7226895448b0187c63880bd0b0308c685214442e25589911f2",
       "composition": {
         "status": "合格",
         "expected": [
@@ -997,27 +1090,25 @@
           "T"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "T",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "lower",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 6,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 81,
@@ -1033,27 +1124,25 @@
           "K"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 82,
@@ -1069,20 +1158,8 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "root-under",
@@ -1091,17 +1168,25 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "root-under",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "root-side",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 83,
@@ -1117,31 +1202,29 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "east-window",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 84,
-      "inputHash": "8633997d0fd016f3465e9eeceb815bad78b1262b7507b6b9c4303c8bb6aa8fff",
+      "inputHash": "d602a54a1cdf8043289b4181d4c0b77c04efe094524e2a1adc91af9a8f84d360",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1153,38 +1236,25 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [
-        {
-          "point": "side",
-          "required": [
-            "bounce"
-          ],
-          "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
-        }
-      ],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "side",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 85,
@@ -1200,31 +1270,29 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "root-top",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 86,
-      "inputHash": "2ae7d2da2e858f024b7972478327b0546b92b5317b711c22ee2c29a3b5601058",
+      "inputHash": "1b69f72b96ee182785b2f675bf3a0a5d35e8dad523a0f7dc40dd7e80a4849583",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1238,45 +1306,49 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        },
-        {
-          "type": "U",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
-          "point": "P0",
+          "point": "mirror-bay",
           "required": [
             "bounce",
             "cloud"
           ],
-          "status": "未検証",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
+        },
+        {
+          "point": "exterior",
+          "required": [
+            "updraft"
+          ],
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "mirror-bay",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "exterior",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "inner",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 87,
@@ -1292,31 +1364,35 @@
           "C"
         ]
       },
-      "perType": [
-        {
-          "type": "B",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "両姿勢の支持を静的確認。橋を経由する実移動は未検証。"
-        },
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "bridge-bank",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "low-cargo",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "high-cargo",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 88,
-      "inputHash": "7cae2b35b2d07a8ea6cc4df0479c8c603be34c15962769f4cbc164fc7779eed2",
+      "inputHash": "f1bedddca9d8b6586108101126751c5eb4861802f7a7a92cf62260cdb9cd4ab0",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1328,27 +1404,25 @@
           "K"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "hatch",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 89,
@@ -1364,31 +1438,35 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "front",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "mirror",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 90,
-      "inputHash": "8ea2c8a02ebfe453f4bcb49be2acb2c4f06d260106f89279e32a55ce93fd554a",
+      "inputHash": "f82cd8709c0fb119125eecbed533712927091b25f4efbfb2be80cbc4cae1e544",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1400,31 +1478,35 @@
           "F"
         ]
       },
-      "perType": [
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "stern",
+          "status": "合格",
+          "actions": 1,
+          "withinBudget": true
+        },
+        {
+          "goal": "inner",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "bow",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 91,
-      "inputHash": "dc5a85b503fccccbd4691a71c390d3cbc27a9f68f36821281e8d6c245ffa50e5",
+      "inputHash": "1faf1b52a2c3d0ce4d3643632501b5c80fc5b97a180c3df44c664b53abd63152",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1436,20 +1518,8 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "front",
@@ -1457,9 +1527,7 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         },
         {
           "point": "side",
@@ -1467,21 +1535,29 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "front",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "side",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 92,
-      "inputHash": "b98f443df4d74bed1d1a0ca1514a975810f0bbde3b10c364012bbdbfa027b05b",
+      "inputHash": "4a01495786065cce44396179cc39da458bdf82079a3791db347a99847180f47c",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1493,31 +1569,35 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 93,
-      "inputHash": "b48fbe984850f5b12484cf790274da9205845a1d74ce0f709383ebc85ee938fb",
+      "inputHash": "4c84e1bb7c38a01a0a0aaee4fd20a85b1cc3bc3fccb6976aa2d05af1caea0ed3",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1531,93 +1611,96 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
-    },
-    {
-      "stage": 94,
-      "inputHash": "c4b0f470406b1e579987e45d9cd163178df1f1ecf6dcb97ab594a67b867e1c95",
-      "composition": {
-        "status": "合格",
-        "expected": [
-          "C",
-          "M",
-          "W"
-        ],
-        "actual": [
-          "C",
-          "M",
-          "W"
-        ]
-      },
-      "perType": [
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
       "requiredCombinations": [
         {
           "point": "low",
           "required": [
-            "magnet",
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
+      "actualInputs": [
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        },
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
+    },
+    {
+      "stage": 94,
+      "inputHash": "a0a2d95cecf89fdc433c0e08cbade8fcc9e5de8c14bd045aeda6aa197266b8fb",
+      "composition": {
+        "status": "合格",
+        "expected": [
+          "C",
+          "M",
+          "W"
+        ],
+        "actual": [
+          "C",
+          "M",
+          "W"
+        ]
+      },
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [
+        {
+          "point": "low",
+          "required": [
+            "bounce",
+            "magnet"
+          ],
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
+        }
+      ],
+      "actualInputs": [
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "rear",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 95,
-      "inputHash": "8615685b7346565974cce2a2f1aa275e3350b443d0f3e65dfcbffa25317eee1a",
+      "inputHash": "e03b16489187cf6022150df7579e461b834c8a6786b0ffe2e72f0bb6479e65e7",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1629,31 +1712,29 @@
           "M"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
-      "requiredCombinations": [],
       "static": "合格",
       "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "requiredCombinations": [],
+      "actualInputs": [
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 96,
-      "inputHash": "fa193fab3ce887c1eb2263746e71d122a68bfbd653cc7bda2eb5c1924182315d",
+      "inputHash": "68dc252f88d5e535a5b36c49f97aa31c177f81bdd29ec7545cd28dbf79e9e49f",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1667,49 +1748,45 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "T",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "inner",
           "required": [
-            "magnet",
-            "bounce"
+            "bounce",
+            "magnet"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": -1,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "inner",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "ring-top",
+          "status": "合格",
+          "actions": 5,
+          "withinBudget": true
+        },
+        {
+          "goal": "outer",
+          "status": "合格",
+          "actions": 4,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 97,
-      "inputHash": "446b223ab9e49c46e14bdac3a3e49d51cd021f6bc77f6031da28ef1b2e476443",
+      "inputHash": "79722e331e570485d3ab916654d0659133bf7847b2fb5c13224fbfe6716539e9",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1723,49 +1800,53 @@
           "U"
         ]
       },
-      "perType": [
-        {
-          "type": "F",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "K",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "U",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
-          "point": "low",
+          "point": "high",
           "required": [
             "wind",
             "bounce"
           ],
           "status": "合格",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
+        },
+        {
+          "point": "low",
+          "required": [
+            "updraft"
+          ],
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "middle",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "low",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 98,
-      "inputHash": "fb91df600a456e8c022c4a9bb4a86e79397efe7b0afb11f4970473dbc65042fc",
+      "inputHash": "49f7ba64611640cfd0e73b30567bf3d7eaca2854c653f701edbb724650452285",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1779,26 +1860,8 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "B",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "両姿勢の支持を静的確認。橋を経由する実移動は未検証。"
-        },
-        {
-          "type": "V",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "噴出を避ける計画も有効。命中例に噴出イベントがないことは配置の不合格を意味しない。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "lower",
@@ -1806,21 +1869,29 @@
             "bounce"
           ],
           "status": "合格",
-          "round": 2,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "upper",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "lower",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     },
     {
       "stage": 99,
-      "inputHash": "e830de9e7286e4be019f5f57b79daf7323615cd4657e9666829daae4594bcda3",
+      "inputHash": "ed3e23e3fcf76523a9fb8ff02c7317279f91e71bd0f81ef5878344b9e6216e80",
       "composition": {
         "status": "合格",
         "expected": [
@@ -1834,46 +1905,42 @@
           "W"
         ]
       },
-      "perType": [
-        {
-          "type": "C",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "M",
-          "placement": "合格",
-          "singleShotEffect": "合格",
-          "meaning": "固定敵に命中する単発例で作用を観測。"
-        },
-        {
-          "type": "W",
-          "placement": "合格",
-          "singleShotEffect": "未検証",
-          "meaning": "設計意図は記載したが、命中弾道での作用は未確認。"
-        }
-      ],
+      "static": "合格",
+      "singleShot": "合格",
       "requiredCombinations": [
         {
           "point": "mirror",
           "required": [
+            "bounce",
             "cloud",
-            "magnet",
-            "bounce"
+            "magnet"
           ],
-          "status": "未検証",
-          "round": 1,
-          "polarity": 0,
-          "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+          "status": "合格",
+          "scope": "条件付き単発。入力手順の成否は別欄。"
         }
       ],
-      "static": "合格",
-      "singleShot": "合格",
-      "actualMovement": "未検証",
-      "enemyAi": "未検証・未実装",
-      "combatAndActionBudget": "未検証",
-      "finalAcceptance": "未検証"
+      "actualInputs": [
+        {
+          "goal": "front",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        },
+        {
+          "goal": "high",
+          "status": "合格",
+          "actions": 2,
+          "withinBudget": true
+        },
+        {
+          "goal": "mirror",
+          "status": "合格",
+          "actions": 3,
+          "withinBudget": true
+        }
+      ],
+      "enemyAutonomousTeleport": "未実装・未検証",
+      "fullAcceptance": "未検証"
     }
   ]
 }

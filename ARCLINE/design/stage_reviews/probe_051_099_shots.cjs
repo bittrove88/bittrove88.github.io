@@ -1,42 +1,29 @@
 'use strict';
-// Bounded single-projectile exploration, never a battle or autonomous-AI test.
-const fs=require('node:fs'),path=require('node:path');
-const G=require('../../game/dist/geometry.js'),P=require('../../game/dist/physics.js'),E=require('../../game/dist/engine.js'),L=require('../../game/dist/levels.js'),N=require('../../game/dist/encounters.js');
-const read=f=>JSON.parse(fs.readFileSync(path.join(__dirname,f),'utf8'));
-const fingerprint=require('./review_fingerprint.cjs');
-const g=read('map_review_gallery_data.json'),rows=[];
-const start=Number(process.argv[2])||51,end=Number(process.argv[3])||99;
+// Conditional shot envelopes: production body/armor/muzzle collision, no invented openings as input evidence.
+const fs=require('node:fs'),path=require('node:path'),S=require('./review_sandbox.cjs'),fingerprint=require('./review_fingerprint.cjs');
+const read=f=>JSON.parse(fs.readFileSync(path.join(__dirname,f),'utf8')),g=read('map_review_gallery_data.json'),rows=[];
+const wanted=process.argv.slice(2).filter(x=>/^\d+$/.test(x)).map(Number),start=wanted[0]||51,end=wanted[1]||99;
+const preserved=fs.existsSync(path.join(__dirname,'STAGES_051_099_SHOT_PROBE.json'))?read('STAGES_051_099_SHOT_PROBE.json').stages.filter(x=>x.stage<start||x.stage>end):[];const combined=rows=>[...preserved,...rows].sort((a,b)=>a.stage-b.stage);
+const fallback={54:{mirror:['bounce']},65:{rim:['bounce']},68:{mirror:['bounce']},71:{low:['magnet','bounce']},74:{lower:['magnet','bounce']},77:{lower:['magnet','bounce']},82:{'root-under':['magnet','bounce']},84:{side:['bounce']},86:{P0:['bounce','cloud']},91:{front:['bounce'],side:['bounce']},94:{low:['magnet','bounce']},96:{inner:['magnet','bounce']},97:{low:['wind','bounce']},98:{lower:['bounce']},99:{mirror:['cloud','magnet','bounce']}};
+function ranges(values){const a=[...new Set(values)].sort((a,b)=>a-b),r=[];for(const x of a){if(r.length&&x<=r.at(-1)[1]+1)r.at(-1)[1]=x;else r.push([x,x]);}return r;}
+function grid(s){let samples=0,hits=0,angles=[],blocked=0;for(let a=-12;a<=168;a+=6){if(!S.muzzleClear(s,a)){blocked++;continue;}for(let power=20;power<=100;power+=10){samples++;if(S.damage(S.shot(s,a,power))>0){hits++;angles.push(a);}}}return{samples,hits,winningAngles:[...new Set(angles)],blockedMuzzleAngles:blocked};}
 for(const e of g.stages.filter(x=>x.stage>=start&&x.stage<=end)){
- const p=read(e.source),m=e.after,n=e.stage,spec={...L[n-1],worldWidth:m.width,floors:m.floors,components:m.parts.map(x=>({...x,destructible:x.breakable})),features:m.features,spawn:[[m.player.x,m.player.h],[m.enemy.x,m.enemy.h]]};
- const points=[{id:'P0',...m.player,plan:'intact'},...p.routeDesign.anchors.map((x,i)=>({...x,plan:x.plan||(i===1?'alternative':'main')}))],positions=[];
- for(const q of points){
-  const destroyed=p.destructionPlans[q.plan]||[],state=E.campaign(n,{matchSeed:1}),effects={destroyed,polarity:q.probePolarity||0,broken:0};
-  state.spec=spec;state.world=G.world(spec,q.probeRound||1,0,effects);state.effects=effects;
-  const player=G.safePosition(state.world,q.x*10,500-q.h*10),enemy=G.safePosition(state.world,m.enemy.x*10,500-m.enemy.h*10);
-  if(!player||!enemy){positions.push({id:q.id,status:'NO_SUPPORT',samples:0});continue;}
-  Object.assign(state.units[0],player,{range:[35,m.width-35]});Object.assign(state.units[1],enemy,{range:[35,m.width-35]});
-  if(m.enemy.floating){state.units[1].y=500-m.enemy.h*10;state.units[1].floating=true;}
-  state.units[0].facing=state.units[1].x>=state.units[0].x?1:-1;state.units[1].facing=-state.units[0].facing;
-  if(N.guardian(spec))state.units[1].slope=0;
-  const required=({54:{mirror:['bounce']},65:{rim:['bounce']},68:{mirror:['bounce']},71:{low:['magnet','bounce']},74:{lower:['magnet','bounce']},77:{lower:['magnet','bounce']},82:{'root-under':['magnet','bounce']},84:{side:['bounce']},86:{P0:['bounce','cloud']},91:{front:['bounce'],side:['bounce']},94:{low:['magnet','bounce']},96:{inner:['magnet','bounce']},97:{low:['wind','bounce']},98:{lower:['bounce']},99:{mirror:['cloud','magnet','bounce']}})[n]?.[q.id]||[];
-  let hits=0,samples=0,best=null,requiredFound=false;const mechanisms=new Set(),bounceSolids=new Set();
-  const run=(angle,power)=>{const shot=P.simulate(state,0,angle,power,{weaponId:'W01'}),damage=shot.damage[1]+Object.values(shot.partDamage||{}).reduce((a,b)=>a+b,0);samples++;if(damage>0){hits++;const kinds=new Set();for(const event of shot.events){if(['wind','cloud','updraft','vent','magnet','bounce'].includes(event.type)){mechanisms.add(event.type);kinds.add(event.type);}if(event.type==='bounce')bounceSolids.add(event.solidId);}const meets=required.length&&required.every(k=>kinds.has(k));if(meets)requiredFound=true;const score=damage+kinds.size*.01+(meets?10:0);if(!best||score>best.score){const trace=(shot.bullets[0]?.path||[]).filter((pt,i)=>i%4===0||shot.events.some(ev=>ev.type==='bounce'&&Math.abs(ev.t-pt.t)<1e-6));if(shot.end)trace.push(shot.end);best={angle,power,damage,score,assumedPolarity:state.effects.polarity||0,selfDamage:shot.damage[0],events:shot.events.map(x=>x.type),path:trace.map(x=>[Number((x.x/10).toFixed(3)),Number(((500-x.y)/10).toFixed(3))])};}}return damage;};
-  for(let angle=-12;angle<=84;angle+=6)for(let power=20;power<=100;power+=10)run(angle,power);
-  if(!best){for(let angle=-12;angle<=88;angle+=2)for(let power=20;power<=100;power+=5)run(angle,power);}
-  if(!best&&m.features.some(x=>x.type==='T')){
-   for(const polarity of [1,-1]){
-    state.effects={...effects,polarity};state.world=G.world(spec,q.probeRound||1,0,state.effects);
-    for(let angle=-12;angle<=88;angle+=2)for(let power=20;power<=100;power+=5)run(angle,power);
-    if(best){best.assumedPolarity=polarity;break;}
-   }
-  }
-  if(required.length&&!requiredFound){for(let angle=-15;angle<=169;angle+=2)for(let power=20;power<=100;power+=2)run(angle,power);}
-  let neighbors=0,neighborCenter=null;
-  if(best){const angle=best.angle,power=best.power;neighborCenter={angle,power};for(const da of [-1,0,1])for(const dp of [-2,0,2]){if(run(Math.max(-15,Math.min(170,angle+da)),Math.max(20,Math.min(100,power+dp)))>0)neighbors++;}}
-  positions.push({id:q.id,x:q.x,h:q.h,plan:q.plan,round:q.probeRound||1,destroyed,status:best?'SINGLE_SHOT_FOUND':'NO_SAMPLE_FOUND',samples,hits,requiredMechanisms:required,requiredMechanismsFound:requiredFound,winningMechanisms:[...mechanisms],bounceSolids:[...bounceSolids],neighborHits:neighbors,neighborCenter,neighborSamples:best?9:0,best});
+ const p=read(e.source),m=e.after,positions=[],n=e.stage;
+ for(const q of [{id:'P0',...m.player,plan:'intact'},...p.routeDesign.anchors]){
+  const plan=q.plan||'main',destroyed=p.destructionPlans[plan]||[],s=S.make(e);s.effects.destroyed=[...destroyed];s.effects.polarity=q.probePolarity||0;s.round=q.probeRound||1;S.E.rebuildWorld(s);
+  const foot=S.G.safePosition(s.world,q.x*10,500-q.h*10);if(!foot||Math.abs(foot.x-q.x*10)>.1||Math.abs(foot.y-(500-q.h*10))>.1){positions.push({id:q.id,status:'NO_SUPPORT',samples:0,requiredMechanisms:q.requiredMechanisms||[],best:null});continue;}
+  Object.assign(s.units[0],foot);s.units[0].facing=s.units[1].x>=s.units[0].x?1:-1;s.units[1].facing=-s.units[0].facing;
+  const required=q.requiredMechanisms||(p.reviewRequest?[]:fallback[n]?.[q.id])||[];let best=null,hits=0,samples=0,requiredFound=false;const mechanisms=new Set(),bounceSolids=new Set(),winningAngles=new Set();
+  function run(angle,power){if(!S.muzzleClear(s,angle))return false;const z=S.shot(s,angle,power),damage=S.damage(z);samples++;if(damage<=0)return false;hits++;winningAngles.add(angle);const kinds=new Set();for(const ev of z.events){if(['wind','cloud','updraft','vent','magnet','bounce'].includes(ev.type)){kinds.add(ev.type);mechanisms.add(ev.type);}if(ev.type==='bounce')bounceSolids.add(ev.solidId);}const meets=required.length>0&&required.every(k=>kinds.has(k));requiredFound||=meets;const score=damage-z.damage[0]*4+kinds.size*.01+(meets?10:0);if(!best||score>best.score)best={angle,power,damage,score,selfDamage:z.damage[0],assumedPolarity:s.effects.polarity||0,events:z.events.map(x=>x.type),path:S.thinPath(z),partDamage:z.partDamage};return true;}
+  for(let a=-12;a<=168;a+=6)for(let power=20;power<=100;power+=10)run(a,power);
+  if(!best)for(let a=-15;a<=169;a+=2)for(let power=25;power<=100;power+=5)run(a,power);
+  if(required.length&&!requiredFound)for(let a=-15;a<=169;a+=2)for(let power=20;power<=100;power+=2)run(a,power);
+  let neighborCenter=null,neighbors=0,tolerance=null;
+  if(best){neighborCenter={angle:best.angle,power:best.power};const angles=[],comboAngles=[],clearAngles=[];for(let a=Math.max(-15,best.angle-10);a<=Math.min(170,best.angle+10);a++){if(!S.muzzleClear(s,a))continue;clearAngles.push(a);const z=S.shot(s,a,best.power);if(S.damage(z)>0){angles.push(a);if(required.every(k=>z.events.some(ev=>ev.type===k)))comboAngles.push(a);}}for(const da of [-1,0,1])for(const dp of [-2,0,2]){const a=Math.max(-15,Math.min(170,neighborCenter.angle+da)),pw=Math.max(20,Math.min(100,neighborCenter.power+dp));if(S.muzzleClear(s,a)&&S.damage(S.shot(s,a,pw))>0)neighbors++;}tolerance={power:best.power,angleStep:1,hitIntervals:ranges(angles),requiredComboIntervals:ranges(comboAngles),muzzleClearIntervals:ranges(clearAngles),meaning:'Fixed power, up to +/-10 degrees; sampled intervals are evidence, not every-character guarantee.'};}
+  const comparison=grid(s),initial=S.clone(s),initialFoot=S.G.safePosition(initial.world,m.player.x*10,500-m.player.h*10);let sameConditions=null;if(initialFoot){Object.assign(initial.units[0],initialFoot);initial.units[0].facing=initial.units[1].x>=initial.units[0].x?1:-1;sameConditions={state:{destroyed,round:s.round,polarity:s.effects.polarity},grid:{angle:[-12,168,6],power:[20,100,10]},initial:grid(initial),candidate:comparison,meaning:'Virtual coordinate comparison in exactly the same opening/round/polarity. Reachability is checked separately by the action replay, not established here.'};}
+  positions.push({id:q.id,x:q.x,h:q.h,plan,round:s.round,destroyed,status:best?'SINGLE_SHOT_FOUND':'NO_SAMPLE_FOUND',samples,hits,requiredMechanisms:required,requiredMechanismsFound:requiredFound,winningMechanisms:[...mechanisms],bounceSolids:[...bounceSolids],neighborHits:neighbors,neighborCenter,neighborSamples:best?9:0,angleTolerance:tolerance,sameConditions,best});
  }
  rows.push({stage:n,inputHash:fingerprint(e,p),status:positions.some(x=>x.best)?'SINGLE_SHOT_SAMPLE_FOUND':'NEEDS_BALLISTIC_REVIEW',positions});
- fs.writeFileSync(path.join(__dirname,'STAGES_051_099_SHOT_PROBE.json'),JSON.stringify({scope:'Stationary-enemy Gun/W01 single shots; round 1 or documented bridge phase 2. Coarse grid, bounded refinement if needed, then 3x3 neighbors. Planned openings and assumed terminal polarity; no movement/teleport input, enemy reaction, autonomous AI or action-budget clear. Different positions may use different states; hit counts do not isolate movement benefit. Best examples favor documented gimmick combinations with a search bonus; they are not optimal human play.',stages:rows},null,2)+'\n');
- console.log(n,positions.map(x=>x.id+':'+x.hits).join(' '));
+ const out={scope:'Conditional stationary-enemy shots with the unchanged production E.rebuildWorld, boss armor, and barrel sweep. Actual movement/break/terminal inputs are a separate action-replay record. Openings and polarity here are explicit assumptions, never counted as completed actions.',stages:combined(rows)};fs.writeFileSync(path.join(__dirname,'STAGES_051_099_SHOT_PROBE.json'),JSON.stringify(out,null,2)+'\n');console.log(n,positions.map(x=>x.id+':'+x.hits+(x.requiredMechanisms?.length?'/'+x.requiredMechanismsFound:'')).join(' '));
 }
 console.log(JSON.stringify({maps:rows.length,withSamples:rows.filter(x=>x.status==='SINGLE_SHOT_SAMPLE_FOUND').length,needsReview:rows.filter(x=>x.status!=='SINGLE_SHOT_SAMPLE_FOUND').map(x=>x.stage)}));

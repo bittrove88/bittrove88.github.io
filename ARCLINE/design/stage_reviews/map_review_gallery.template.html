@@ -50,6 +50,7 @@ select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;bo
 <div class="grid" id="maps"></div>
 <p id="shotStatus" class="note"></p>
 <details><summary>破壊単位と部品ID</summary><div style="overflow:auto"><table style="width:100%;font-size:12px;text-align:left"><thead><tr><th>ID</th><th>区分・単位数</th><th>役割</th></tr></thead><tbody id="partRows"></tbody></table></div></details>
+<details id="replaySection"><summary>破壊・移動・射撃の実入力を確認</summary><div class="tabs"><label>経路 <select id="replayRoute"></select></label><label>手順 <select id="replayStep"></select></label></div><p id="replayDescription" class="note"></p><div id="replayMaps" class="grid"></div></details>
 <div class="summary"><article><h3>主ルート</h3><p id="mainRoute"></p></article><article><h3>別解</h3><p id="alternativeRoute"></p></article></div>
 <p id="tradeoff" class="sublead"></p>
 <div class="summary">
@@ -57,8 +58,8 @@ select{font:inherit;background:#183745;color:#edf7f6;border:1px solid #527584;bo
 <article><h3>変わらないところ</h3><p id="preserved"></p></article>
 </div>
 <div class="goal"><h3>この面で学ぶこと</h3><p id="goal"></p></div>
-<div class="links"><a id="detail" href="#">詳しい設計内容</a><a id="json" href="#">設計データ</a></div>
-<div class="note">図は地形の設計断面でありゲームのスクリーンショットではありません。ゲーム本体は未変更。自動対戦シミュレーション・実機確認は行っていません。</div>
+<div class="links"><a href="adjacent_geometry_review.html">隣接面の同縮尺比較</a><a id="detail" href="#">詳しい設計内容</a><a id="json" href="#">設計データ</a></div>
+<div class="note">図は地形の設計断面でありゲームのスクリーンショットではありません。ゲーム本体は未変更。入力の再実行と一部ボスの対戦検査を実施。敵の自律転移・実機・最終受入れは未検証です。</div>
 </section>
 <footer id="reviewFooter">表示中の設計案を比較して確認します。</footer>
 <!-- ARCLINE_GALLERY_DATA_BEGIN -->
@@ -150,7 +151,7 @@ function routeDrawing(s){
 function matchingShots(s){return current.shots?(s.shotExamples||[]).filter(r=>(current.point==='all'||r.id===current.point)&&(r.round||1)===(s.worldRound||1)&&(r.assumedPolarity||0)===(s.polarity||0)&&JSON.stringify([...(r.destroyed||[])].sort())===JSON.stringify([...(s.openedUnits||[])].sort())).slice(0,2):[];}
 function markers(s,ghost=false){
  let out='';
- for(const [key,label,color] of [['player',s.player.facing===-1?'P ◀':'P','#b5f2d0'],['enemy','E','#ecaea1']]){
+ for(const [key,label,color] of [['player',(s.player.facing??(s.player.x<=s.enemy.x?1:-1))===-1?'P ◀':'P ▶','#b5f2d0'],['enemy','E','#ecaea1']]){
   const p=s[key],x=p.x*10,y=yOf(p.h)-24;
   out+='<circle cx="'+x+'" cy="'+y+'" r="15" fill="'+color+'" fill-opacity="'+(ghost?.35:1)+'" stroke="#173643" stroke-width="3"/>';
   if(!ghost)out+='<text x="'+(x+21)+'" y="'+(y-5)+'" font-size="24" font-weight="700" fill="#f2faf9">'+label+'</text>';
@@ -170,15 +171,39 @@ function markers(s,ghost=false){
  }
  return out;
 }
-function drawing(m,kind){
- const f=frame(m),old=kind==='before',previous=old&&current.comparison==='previous'&&m.previous,s=old?(previous?m.previous:m.before):{...m.after,worldRound:current.round,polarity:current.polarity,openedUnits:(m.destructionPlans||{})[current.opening]||[]};
+function drawing(m,kind,sharedFrame=null){
+ const f=sharedFrame||frame(m),old=kind==='before',previous=old&&current.comparison==='previous'&&m.previous,s=old?(previous?m.previous:m.before):{...m.after,worldRound:current.round,polarity:current.polarity,openedUnits:(m.destructionPlans||{})[current.opening]||[]};
  const bg='<rect x="0" y="'+f.top+'" width="'+f.width+'" height="'+(f.bottom-f.top)+'" fill="#102c37"/>';
  let grid='';for(let x=0;x<=f.width;x+=100)grid+='<line x1="'+x+'" y1="'+f.top+'" x2="'+x+'" y2="'+f.bottom+'" stroke="#d4e9e6" stroke-opacity=".08"/>';
- const graphic=floorDrawing(s,f.bottom,false)+partDrawing(s,false)+featureDrawing(s)+routeDrawing(s)+markers(s);
+ const graphic=floorDrawing(s,f.bottom,false)+partDrawing(s,false)+engineOverlayDrawing(s)+featureDrawing(s)+routeDrawing(s)+markers(s);
  const label=old?(previous?'前回の設計案':'現行ゲーム'):'今回の設計案';
  const samples=matchingShots(s),routes=samples.length?samples.map((r,i)=>'<p class="legend">'+(i?'紫':'金')+'：固定敵への単発例 '+esc(r.id)+'／角度'+r.angle+'・出力'+r.power+(r.assumedPolarity?'／仮の極性'+r.assumedPolarity:'')+'</p>').join(''):(s.routes||[]).map(r=>'<p class="legend">'+esc(r.label)+'（概念経路）</p>').join('');
- return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(old?(previous?'未承認の前案':'0.23.0'):'未承認・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+bg+grid+graphic+'</svg></div><p class="legend">P＝自機 E＝敵 ◆＝アイテム 青い鏡面＝反射材 D＝個別破壊 F＝破壊不可</p>'+((s.firingPoints||[]).length?'<p class="legend">A・B・C＝候補射点。青の細点線は移動構想で、実測の転移軌道ではありません。</p>':'')+routes+(routes?'<p class="legend">単発例は固定した敵・仮の開口状態での確認です。全手順・反撃・実際の転移は未検証。</p>':'')+'</div>';
+ return '<div class="map"><div class="header"><strong>'+label+'</strong><span class="tag">'+(old?(previous?'未承認の前案':'0.23.0'):'未承認・ゲーム未反映')+'</span></div><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'" role="img" aria-label="'+label+'">'+bg+grid+graphic+'</svg></div><p class="legend">P＝自機 E＝敵 ◆＝アイテム 青い鏡面＝反射材 D＝個別破壊 F＝破壊不可</p>'+((s.firingPoints||[]).length?'<p class="legend">A・B・C＝候補射点。青の細点線は移動構想で、実測の転移軌道ではありません。</p>':'')+routes+(routes?'<p class="legend">単発例は固定した敵・仮の開口状態での確認です。単発条件の比較です。実入力の証跡は下の手順欄を参照。反撃込みの合格とは分けます。</p>':'')+'</div>';
 }
+function engineOverlayDrawing(s){
+ if(s.stageNumber!==60||(s.broken||0)>0)return '';
+ const p=s.enemy,poly=[[p.x-9.2,p.h+5.8],[p.x-6.2,p.h+5.8],[p.x-6.2,p.h+.3],[p.x-9.2,p.h+.3]];
+ return '<polygon points="'+line(poly)+'" fill="#a96565" stroke="#f1b1a5" stroke-width="3"/><text x="'+((p.x-12)*10)+'" y="'+yOf(p.h+7)+'" font-size="22" fill="#ffd2c4">既存前面装甲</text>';
+}
+let replayStage=null,replayGoal=null,replayIndex=0;
+function replayScene(m,snapshot){
+ const s={...m,player:snapshot.player,enemy:snapshot.enemy,openedUnits:snapshot.destroyed,worldRound:snapshot.round,polarity:snapshot.polarity,broken:snapshot.broken,shotExamples:[],routes:[],accessPaths:[],firingPoints:[]};
+ const oldFacing=m.player.x>=m.enemy.x?1:-1,ratio=(snapshot.enemy.facing||oldFacing)/oldFacing;
+ s.targets=(m.targets||[]).filter((_,i)=>snapshot.enemy.parts[i]===undefined||snapshot.enemy.parts[i]>0).map(q=>({...q,x:s.enemy.x+(q.x-m.enemy.x)*ratio,h:s.enemy.h+(q.h-m.enemy.h)}));return s;
+}
+function renderReplay(m){
+ const records=m.after.replayViews||[],section=byId('replaySection');section.hidden=!records.length;if(!records.length)return;
+ if(replayStage!==m.stage){replayStage=m.stage;replayGoal=records[0].goal;replayIndex=0;}
+ let r=records.find(x=>x.goal===replayGoal)||records[0];replayGoal=r.goal;replayIndex=Math.max(0,Math.min(r.steps.length-1,replayIndex));
+ byId('replayRoute').innerHTML=records.map(x=>'<option value="'+esc(x.goal)+'">'+esc(x.goal)+'／'+x.actions+'行動</option>').join('');byId('replayRoute').value=replayGoal;
+ byId('replayStep').innerHTML=r.steps.map((x,i)=>'<option value="'+i+'">'+i+'：'+({initial:'開始',walk:'歩行',teleport:'転移',terminal:'端子',"break-or-shot":'破壊・射撃',shot:'射撃'}[x.kind]||x.kind)+'</option>').join('');byId('replayStep').value=String(replayIndex);
+ const t=r.steps[replayIndex],a=replayScene(m.after,t.before),b=replayScene(m.after,t.after),f=frame({before:a,after:b});if(t.path.length)f.top=Math.min(f.top,...t.path.map(q=>yOf(q[1])-45));
+ function figure(s,title,showPath){const trace=showPath&&t.path.length?'<polyline class="replay-shot-path" points="'+line(t.path)+'" fill="none" stroke="'+(t.kind==='teleport'?'#82d8ec':'#f1ca8b')+'" stroke-width="4"/>':'';return '<article class="map"><h3>'+title+'</h3><div class="chart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 '+f.top+' '+f.width+' '+(f.bottom-f.top)+'">'+floorDrawing(s,f.bottom,false)+partDrawing(s,false)+engineOverlayDrawing(s)+featureDrawing(s)+trace+markers(s)+'</svg></div><p class="legend">周期'+s.worldRound+'／極性'+s.polarity+'／実破壊 '+s.openedUnits.length+'片</p></article>';}
+ byId('replayMaps').innerHTML=figure(a,'操作前',false)+figure(b,'操作直後',true);
+ const input=t.input?(t.kind==='walk'?'歩行入力 '+t.input.amount+'px':t.input.id+' 角度'+t.input.angle+'・出力'+t.input.power):'初期状態';
+ byId('replayDescription').textContent=input+'。操作直後の図は次ターンの境界処理前です。次の手順では境界処理後の実状態を使います。敵の攻撃・任意歩行は省略し、既存ボスの境界変化は実行しています。対戦クリアの証明ではありません。';
+}
+
 function selectStage(i,changeHash=true){
  current.index=Math.max(0,Math.min(STAGES.length-1,i));
  if(changeHash)history.replaceState(null,'','#stage-'+String(STAGES[current.index].stage).padStart(3,'0'));
@@ -207,7 +232,7 @@ function render(){
  byId('changed').textContent=m.headline||'';
  byId('preserved').textContent=m.preserved||'';
  byId('goal').textContent=m.goal||'';
- byId('maps').innerHTML=drawing(m,'before')+drawing(m,'after');
+ byId('maps').innerHTML=drawing(m,'before')+drawing(m,'after');renderReplay(m);
  byId('detail').href=m.detail||'#';
  byId('json').href=m.source||'#';
  byId('stagePicker').value=String(m.stage);
@@ -238,6 +263,8 @@ function loadGallery(){
   byId('reviewProgress').textContent='データ読込エラー';
  }
 }
+byId('replayRoute').addEventListener('change',e=>{replayGoal=e.target.value;replayIndex=0;renderReplay(STAGES[current.index]);});
+byId('replayStep').addEventListener('change',e=>{replayIndex=Number(e.target.value);renderReplay(STAGES[current.index]);});
 byId('prev').addEventListener('click',()=>selectStage(current.index-1));
 byId('compareLive').addEventListener('click',()=>{current.comparison='live';render();});
 byId('comparePrevious').addEventListener('click',()=>{current.comparison='previous';render();});

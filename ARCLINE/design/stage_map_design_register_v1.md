@@ -1,3 +1,5 @@
+> **現在の正本：** [PR #74レビュー対応版](stage_reviews/PR74_REVIEW_REVISION.md)。25面を個別改修し、全49面の最新ファイルは機械可読台帳へ反映済み。全案未承認・ゲーム未実装。
+
 # ARCLINE｜個別地形設計の進行台帳
 
 **2026-11-05現在：1〜50面は実装済み。51〜99面は個別設計・レビュー待ち。100面は既存専用最終戦を保護し、今回の再設計対象外。**
@@ -69,52 +71,52 @@ HP欄と固有ボスの本体・部位耐久を区別する。誤差はNormalの
 | 49 | 工房の屋根裏 | 設計承認済 | 反映済 | 0.90 | 1.00倍 | 4 | 16 |
 | 50 | 掘削線と残す線 | 設計承認済 | 反映済 | 0.90 | 1.00倍 | 5 | 24 |
 | 51 | [観測台の風下](stage_reviews/stage_051_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
-| 52 | [空いた窓へ送る](stage_reviews/stage_052_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
+| 52 | [空いた窓へ送る](stage_reviews/stage_052_review_v4.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
 | 53 | [山壁と二つの観測棚](stage_reviews/stage_053_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
 | 54 | [追い風の帰路](stage_reviews/stage_054_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
 | 55 | [未送信の予報](stage_reviews/stage_055_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 24 |
 | 56 | [凍結した上下橋](stage_reviews/stage_056_review_v2.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
-| 57 | [氷壁の反射窓](stage_reviews/stage_057_review_v2.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
-| 58 | [薄い継ぎ目の回廊](stage_reviews/stage_058_review_v2.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
+| 57 | [氷壁の反射窓](stage_reviews/stage_057_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
+| 58 | [薄い継ぎ目の回廊](stage_reviews/stage_058_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
 | 59 | [峡谷の風見棚](stage_reviews/stage_059_review_v2.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 16 |
-| 60 | [確かさを添えた迂回路](stage_reviews/stage_060_review_v2.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 24 |
+| 60 | [確かさを添えた迂回路](stage_reviews/stage_060_review_v3.md) | レビュー待ち | 未着手 | 0.90 | 1.00倍 | 5 | 24 |
 | 61 | [長い射線の第一扉](stage_reviews/stage_061_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 62 | [山腹の狙撃回廊](stage_reviews/stage_062_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 63 | [二枚の隔壁](stage_reviews/stage_063_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
-| 64 | [段の向こうの弱点](stage_reviews/stage_064_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
-| 65 | [冷めない炉の弁](stage_reviews/stage_065_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 24 |
+| 64 | [段の向こうの弱点](stage_reviews/stage_064_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
+| 65 | [冷めない炉の弁](stage_reviews/stage_065_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 24 |
 | 66 | [火口の二段棚](stage_reviews/stage_066_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
-| 67 | [山裾を運ぶ車列](stage_reviews/stage_067_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
+| 67 | [山裾を運ぶ車列](stage_reviews/stage_067_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 68 | [加熱壁の横窓](stage_reviews/stage_068_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 69 | [炉の上の退避島](stage_reviews/stage_069_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
-| 70 | [最後尾まで届く熱](stage_reviews/stage_070_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 24 |
-| 71 | [鉱石を引く二つの線](stage_reviews/stage_071_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
+| 70 | [最後尾まで届く熱](stage_reviews/stage_070_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 24 |
+| 71 | [鉱石を引く二つの線](stage_reviews/stage_071_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 72 | [磁石の陰の棚](stage_reviews/stage_072_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 73 | [切り替え端子の門](stage_reviews/stage_073_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
-| 74 | [鉱床の上下トンネル](stage_reviews/stage_074_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
+| 74 | [鉱床の上下トンネル](stage_reviews/stage_074_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 75 | [手放すための腕](stage_reviews/stage_075_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 24 |
-| 76 | [往復の実験線](stage_reviews/stage_076_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
-| 77 | [裏返る光の回廊](stage_reviews/stage_077_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
+| 76 | [往復の実験線](stage_reviews/stage_076_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
+| 77 | [裏返る光の回廊](stage_reviews/stage_077_review_v2.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 78 | [二階の保全室](stage_reviews/stage_078_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 79 | [返事の残る接続橋](stage_reviews/stage_079_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 5 | 16 |
 | 80 | [届かなかった返事](stage_reviews/stage_080_review_v1.md) | レビュー待ち | 未着手 | 0.75 | 1.05倍 | 6 | 28 |
 | 81 | [空中庭園の三つの高さ](stage_reviews/stage_081_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
 | 82 | [根を残す反射路](stage_reviews/stage_082_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
 | 83 | [雲間の二つの窓](stage_reviews/stage_083_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
-| 84 | [灯りを引き寄せる庭](stage_reviews/stage_084_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
+| 84 | [灯りを引き寄せる庭](stage_reviews/stage_084_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
 | 85 | [帰投灯を見上げる庭師](stage_reviews/stage_085_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 24 |
-| 86 | [嵐の低い甲板](stage_reviews/stage_086_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
+| 86 | [嵐の低い甲板](stage_reviews/stage_086_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
 | 87 | [荷を渡す中継空路](stage_reviews/stage_087_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
-| 88 | [下から開く空の門](stage_reviews/stage_088_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
+| 88 | [下から開く空の門](stage_reviews/stage_088_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
 | 89 | [三つの帰り道](stage_reviews/stage_089_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 6 | 20 |
-| 90 | [十の名前を運ぶ船](stage_reviews/stage_090_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 28 |
-| 91 | [要塞の手前を開ける](stage_reviews/stage_091_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 92 | [崖に沿う保全梯子](stage_reviews/stage_092_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 93 | [明滅する検査窓](stage_reviews/stage_093_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 94 | [門の背後の滑走路](stage_reviews/stage_094_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 95 | [便りの最終検査](stage_reviews/stage_095_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 24 |
-| 96 | [夜明けへ曲がる道](stage_reviews/stage_096_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 97 | [最後の中継島](stage_reviews/stage_097_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 98 | [往復できる二重橋](stage_reviews/stage_098_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
-| 99 | [全ての返事の入口](stage_reviews/stage_099_review_v1.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 90 | [十の名前を運ぶ船](stage_reviews/stage_090_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 28 |
+| 91 | [要塞の手前を開ける](stage_reviews/stage_091_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 92 | [崖に沿う保全梯子](stage_reviews/stage_092_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 93 | [明滅する検査窓](stage_reviews/stage_093_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 94 | [門の背後の滑走路](stage_reviews/stage_094_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 95 | [便りの最終検査](stage_reviews/stage_095_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 24 |
+| 96 | [夜明けへ曲がる道](stage_reviews/stage_096_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 97 | [最後の中継島](stage_reviews/stage_097_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 98 | [往復できる二重橋](stage_reviews/stage_098_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
+| 99 | [全ての返事の入口](stage_reviews/stage_099_review_v2.md) | レビュー待ち | 未着手 | 0.65 | 1.10倍 | 7 | 20 |
 | 100 | アークハート — 最後の帰還 | 保護・再設計対象外 | 既存仕様維持 | 0.70 | 1.10倍 | 7 | 28 |

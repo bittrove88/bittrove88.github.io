@@ -1,46 +1,33 @@
-# ARCLINE｜個別マップ設計の比較資料
+# ARCLINE｜PR #74 マップ設計・改修資料
 
-2026-11-05。現在のレビュー範囲は**51〜99面の49案**。1〜50面は0.23.0で実装済み、100面は既存専用最終戦を保護する。今回の座標は全49面とも未承認・ゲーム未実装。
+現在の入口は[レビュー対応記録](PR74_REVIEW_REVISION.md)。25面を個別改修し、残る24面は骨格を維持。全49案が未承認・ゲーム未実装。
 
-[比較画面](map_review_gallery.html#stage-051)／[各面の設計一覧](STAGES_051_099_DESIGN_REVIEW.md)／[総集編との照合・難易度方針](../stage_051_099_compendium_review_v1.md)／[進行台帳](../stage_map_design_register_v1.md)
+[各面の一覧](STAGES_051_099_DESIGN_REVIEW.md)／[比較画面・実入力手順](map_review_gallery.html#stage-051)／[隣接面の同縮尺比較](adjacent_geometry_review.html)
 
-## 比較画面
+比較画面では、現行ゲーム・前案との同縮尺比較、個別破壊D-IDと固定F-ID、開口、周期、極性、条件付き単発例を切り替える。「実入力を確認」では、破壊・端子・歩行・転移・射撃を一操作ずつ進め、実際の操作前と操作直後を並べる。敵攻撃・任意歩行を省いた入力検査と、反撃込みの対戦検査は別。
 
-HTML自身にデータを同梱し、閲覧時に外部JSONを取得しない。各面を選択し、左右を同じ縮尺で比較する。51〜60面では前案も比較元にできる。範囲選択で10面ずつ、最後は91〜99面を表示する。
+## 正本と生成
 
-- 「開口」で破壊前・主経路・別解を切り替える。D番号と境界は個別の破壊単位、F番号は固定部品。
-- 弾道の射点を選び、周期・極性・開口を単発例の条件に合わせると、対応する実測弾道を金・紫の実線で示す。
-- 青い点線は候補射点への移動構想。実際の転移弾の軌道ではない。
-- 「図面を拡大」で両図を1600px以上に広げ、図の中だけを横スクロールする。
-- 図は地形の設計断面。ゲームのスクリーンショットではない。
-
-## 正本と版
-
-`map_review_gallery_data.json`の`reviewScope`が表示対象。過去1〜15面のエントリーは履歴として保持。現在の51〜55面はv3、56〜60面はv2、61〜99面はv1の個別JSONとレビューを参照する。旧版は削除せず承認済みと取り違えない。
-
-各面は独立して輪郭・位置関係・主攻略・別解を設計する。最新依頼は51〜99面の設計なので、1面の承認を待って後続の設計を止めない。座標の承認と実装は別工程。
-
-## 検査と生成
-
-リポジトリのルートで実行する。単発探索は固定敵への通常弾だけを扱い、自動対戦ではない。全49面を再検査するとき、単発探索の範囲引数は省略する。範囲指定の探索は結果ファイルを部分集合で上書きするため、最終成果物に使わない。
+座標・射点・設計意図は各面の最新 `stage_XXX_proposal_vN.json`。表示対象と最新ファイルは `map_review_gallery_data.json` に記録。旧版は履歴として残す。生成HTMLを直接編集しない。
 
 ```sh
+node ARCLINE/design/stage_reviews/sync_review_units.cjs
 node ARCLINE/design/stage_reviews/check_051_099_static.cjs
 node ARCLINE/design/stage_reviews/probe_051_099_shots.cjs
-node ARCLINE/design/stage_reviews/assemble_051_099_review.cjs
+node ARCLINE/design/stage_reviews/replay_051_099_actions.cjs
+node ARCLINE/design/stage_reviews/validate_action_replays.cjs
+node ARCLINE/design/stage_reviews/probe_pr74_geometry.cjs
+node ARCLINE/design/stage_reviews/probe_pr74_combat.cjs
+node ARCLINE/design/stage_reviews/assemble_pr74_revision.cjs
 python3 ARCLINE/design/stage_reviews/build_gallery_html.py
 python3 ARCLINE/design/stage_reviews/build_gallery_html.py --check
-node ARCLINE/design/stage_reviews/check_051_099_display.cjs /tmp/arcline-map-review-051-099
+node ARCLINE/design/stage_reviews/build_adjacent_gallery.cjs /tmp/arcline-pr74-review
 ```
 
-物理に関わる座標・射点・開口条件の照合値を静的検査と単発記録に持たせ、古い記録の組合せを拒否する。組立スクリプトは既存の個別設計へ証拠と表示用データを加えるもので、地形の一括生成器ではない。
+実行はリポジトリのルートから。ブラウザ生成にはPlaywrightとChromiumが必要。単発・入力探索に開始面と終了面を渡すと、その範囲だけ再検査して他面の結果を保持する。物理条件の照合値が古い記録は組立時に拒否する。入力証跡は保存した入力を新しい状態から再実行し、発射位置と着地まで照合する。
 
-比較HTMLはテンプレートとJSONから生成する。通常の面更新はJSONと個別設計を編集し、生成済HTMLを直接修正しない。生成物も保存する。端末幅の検査にはPlaywrightとChromiumが必要。
+旧 `assemble_051_099_review.cjs` は初稿時の組立スクリプトで、現在は使用しない。添付資料の原本は再配布しない。ゲーム本体・在庫・AI・セーブ・1〜50面・100面は変更しない。
 
-## 未検証の扱い
+## 残る検証
 
-[静的検査](STAGES_051_099_STATIC_CHECK.json)、[単発弾道](STAGES_051_099_SHOT_PROBE.json)、[ギミック監査](STAGES_051_099_GIMMICK_AUDIT.json)、[表示検査](STAGES_051_099_DISPLAY_CHECK.json)を分ける。
-
-実移動・転移入力、端子の実操作、破壊して到達する全行程、敵の反撃・徒歩・自律転移、手数内クリア、全キャラ・複数seed・実機確認は未検証。単発例の開口と極性は設定済みの条件であり、準備手順の実証ではない。最終受入れを合格扱いしない。
-
-旧1〜9面の運用や51〜60面のみの進捗はGit履歴と旧レビューに保持。現在の承認状態は進行台帳を参照する。
+全件の反撃込み攻略、敵自律転移、全キャラ・全seed・実機・最終受入れは未検証。60面の低所ルートで未完了となったseedも対戦ログに残す。検証項目を広げ続けて改修完了を止めず、PRへ引き継ぐ。

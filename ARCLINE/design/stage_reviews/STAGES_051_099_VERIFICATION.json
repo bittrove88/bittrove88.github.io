@@ -1,48 +1,284 @@
 {
-  "status": "設計資料の整合確認済み・最終受入れは未検証",
+  "status": "マップ改修完了・最終受入れ未検証",
   "date": "2026-11-05",
+  "reviewBaseCommit": "ff86996c4d70db253e1b9356427f3352b25a9bce",
   "maps": 49,
+  "individuallyRevisedMaps": [
+    52,
+    57,
+    58,
+    60,
+    64,
+    65,
+    67,
+    70,
+    71,
+    74,
+    76,
+    77,
+    84,
+    86,
+    88,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99
+  ],
   "newCoordinatesApproved": 0,
   "implementedNewMaps": 0,
-  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
   "runtimeSourceUnchanged": true,
-  "changesOutsideDesign": [],
   "static": {
     "status": "PASS",
-    "maps": 49,
-    "supportPoints": 206,
-    "destructibleUnits": 49
+    "supportPoints": 213,
+    "destructibleUnits": 70,
+    "unitsObservedInActualInputs": 58
   },
-  "singleShots": {
-    "mapsWithSamples": 49,
-    "attackCandidatesWithSamples": 106,
-    "preparationOrShelterWithoutSamples": [
+  "conditionalShots": {
+    "mapsWithExamples": 49,
+    "missingRequiredCombinations": []
+  },
+  "inputReplays": {
+    "status": "PASS_WITH_UNVERIFIED_ROUTES",
+    "verified": 115,
+    "withinBudget": 115,
+    "meaning": "Preparation and one attacking shot. Opponent skips attacks and voluntary walking; native boss boundary processing is retained. Not a battle clear."
+  },
+  "selectedCombat": {
+    "cases": 24,
+    "wins": 23,
+    "remaining": [
       {
-        "stage": 52,
-        "point": "chimney"
+        "stage": 60,
+        "route": "exit",
+        "seed": 7,
+        "result": "UNFINISHED",
+        "actions": 3,
+        "limit": 24,
+        "reason": "No attack or break sample found"
+      }
+    ],
+    "results": [
+      {
+        "stage": 60,
+        "route": "high",
+        "seed": 1,
+        "result": "win",
+        "actions": 7,
+        "limit": 24,
+        "reason": null
       },
       {
         "stage": 60,
-        "point": "lee"
-      }
-    ],
-    "unverifiedCombinations": [
-      {
-        "stage": 86,
-        "point": "P0",
-        "required": [
-          "bounce",
-          "cloud"
-        ]
+        "route": "high",
+        "seed": 7,
+        "result": "win",
+        "actions": 7,
+        "limit": 24,
+        "reason": null
       },
       {
-        "stage": 99,
-        "point": "mirror",
-        "required": [
-          "cloud",
-          "magnet",
-          "bounce"
-        ]
+        "stage": 60,
+        "route": "high",
+        "seed": 19,
+        "result": "win",
+        "actions": 7,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 60,
+        "route": "exit",
+        "seed": 1,
+        "result": "win",
+        "actions": 10,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 60,
+        "route": "exit",
+        "seed": 7,
+        "result": "UNFINISHED",
+        "actions": 3,
+        "limit": 24,
+        "reason": "No attack or break sample found"
+      },
+      {
+        "stage": 60,
+        "route": "exit",
+        "seed": 19,
+        "result": "win",
+        "actions": 10,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 65,
+        "route": "vent-perch",
+        "seed": 1,
+        "result": "win",
+        "actions": 6,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 65,
+        "route": "vent-perch",
+        "seed": 7,
+        "result": "win",
+        "actions": 6,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 65,
+        "route": "vent-perch",
+        "seed": 19,
+        "result": "win",
+        "actions": 6,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 65,
+        "route": "rim",
+        "seed": 1,
+        "result": "win",
+        "actions": 5,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 65,
+        "route": "rim",
+        "seed": 7,
+        "result": "win",
+        "actions": 5,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 65,
+        "route": "rim",
+        "seed": 19,
+        "result": "win",
+        "actions": 5,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 90,
+        "route": "stern",
+        "seed": 1,
+        "result": "win",
+        "actions": 7,
+        "limit": 28,
+        "reason": null
+      },
+      {
+        "stage": 90,
+        "route": "stern",
+        "seed": 7,
+        "result": "win",
+        "actions": 7,
+        "limit": 28,
+        "reason": null
+      },
+      {
+        "stage": 90,
+        "route": "stern",
+        "seed": 19,
+        "result": "win",
+        "actions": 7,
+        "limit": 28,
+        "reason": null
+      },
+      {
+        "stage": 90,
+        "route": "bow",
+        "seed": 1,
+        "result": "win",
+        "actions": 7,
+        "limit": 28,
+        "reason": null
+      },
+      {
+        "stage": 90,
+        "route": "bow",
+        "seed": 7,
+        "result": "win",
+        "actions": 7,
+        "limit": 28,
+        "reason": null
+      },
+      {
+        "stage": 90,
+        "route": "bow",
+        "seed": 19,
+        "result": "win",
+        "actions": 7,
+        "limit": 28,
+        "reason": null
+      },
+      {
+        "stage": 95,
+        "route": "low",
+        "seed": 1,
+        "result": "win",
+        "actions": 6,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 95,
+        "route": "low",
+        "seed": 7,
+        "result": "win",
+        "actions": 6,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 95,
+        "route": "low",
+        "seed": 19,
+        "result": "win",
+        "actions": 6,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 95,
+        "route": "high",
+        "seed": 1,
+        "result": "win",
+        "actions": 8,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 95,
+        "route": "high",
+        "seed": 7,
+        "result": "win",
+        "actions": 8,
+        "limit": 24,
+        "reason": null
+      },
+      {
+        "stage": 95,
+        "route": "high",
+        "seed": 19,
+        "result": "win",
+        "actions": 8,
+        "limit": 24,
+        "reason": null
       }
     ]
   },
@@ -50,37 +286,28 @@
     "npmTest": "PASS",
     "unitSuites": 28,
     "generated": "PASS",
-    "generatedFiles": 143,
-    "sourceTreeUntouched": true
+    "generatedFiles": 143
   },
   "notVerified": [
-    "実移動・自機転移入力と攻撃をつなぐ全手順",
-    "敵徒歩前後の射線改善",
-    "端子を実際に撃つ切替手順",
-    "爆風による個別破壊と隣接片の残存",
-    "71〜99面の自律敵転移（設計要件・未実装）",
-    "敵の反撃込み・行動上限内クリア",
-    "全キャラ・複数seed・実機"
+    "敵自律転移（未実装）あり／なしの比較",
+    "全49面・全経路の敵反撃込み手数内クリア",
+    "全キャラ・全seed",
+    "実射が未観測の12破壊単位を含む全連鎖・支持状態",
+    "実機と人間による難易度・操作感の評価",
+    "最終受入れ"
   ],
-  "finalAcceptance": {
-    "徒歩の戦術的な利益": "未検証",
-    "自機転移の利益": "未検証",
-    "敵転移": "未検証",
-    "全ギミックの作用": "未検証",
-    "全複合の因果と干渉": "未検証",
-    "相互射線と安全": "未検証",
-    "全行程の行動数": "未検証",
-    "敵位置変化を含む再挑戦": "未検証",
-    "実装の全証跡": "未検証"
-  },
   "display": {
     "status": "PASS",
-    "maps": 49,
-    "viewports": 3,
     "stageViewportChecks": 147,
-    "comparisonChecks": 177,
+    "comparisonChecks": 240,
+    "replayChecks": 213,
     "consoleErrors": 0,
     "runtimeRequests": 0,
-    "htmlSha256": "31c392dbbf362afd740945eeff1326cc051416800ff415c5f18b0b4e8bfbb3b5"
+    "htmlSha256": "3dd571e168c839e34808c5ca43b637c2e0bd7ddf47ca2c2b46f03a1d62b92cb4"
+  },
+  "adjacentDisplay": {
+    "status": "PASS",
+    "pairs": 49,
+    "evidence": "STAGES_PR74_ADJACENT_DISPLAY.json"
   }
 }
