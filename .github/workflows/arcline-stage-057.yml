@@ -1,0 +1,31 @@
+name: ARCLINE Stage 057 engine evidence
+on:
+  pull_request:
+    paths:
+      - 'ARCLINE/**'
+      - '.github/workflows/arcline-stage-057.yml'
+permissions:
+  contents: read
+jobs:
+  stage057:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ARCLINE
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ARCLINE/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Actual game-stage-057 screenshot and geometry snapshot
+        run: node design/stage_reviews/stage_057_engine_capture.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stage-057-engine-evidence
+          path: /tmp/stage-057-evidence
