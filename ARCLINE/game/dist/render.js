@@ -185,13 +185,17 @@ function create(canvas,configuration={}){
   arenaWidth=s.spec.worldWidth||1000;
   const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';const biome=E.biomes[s.spec.theme]||E.biomes[0],time=options.time||0;
-  const cave=s.spec.finalBackdrop==='cave';const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,cave?'#081c27':biome.sky[0]);sky.addColorStop(.67,cave?'#15313c':biome.sky[1]);sky.addColorStop(1,cave?'#24434b':biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
+  const cave=s.spec.finalBackdrop==='cave';
+  const matteMist=!cave&&root.ArcAtmosphere?.draw(ctx,w,h,s.spec.theme)===true;
+  if(!matteMist){
+  const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,cave?'#081c27':biome.sky[0]);sky.addColorStop(.67,cave?'#15313c':biome.sky[1]);sky.addColorStop(1,cave?'#24434b':biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
   if(!cave)circle(w*.76,h*.21,Math.min(w,h)*.065,'#fff1c686');
   if(!cave)for(let layer=0;layer<4;layer++){
    ctx.fillStyle=[biome.land+'40',biome.land+'70',biome.land+'90',biome.sky[0]+'65'][layer];ctx.beginPath();ctx.moveTo(0,h);
    for(let x=0;x<=w+12;x+=12){const y=h*(.38+layer*.085)+Math.sin(x/w*8+layer*1.7)*h*.045+Math.cos(x/w*17+layer)*h*.015;ctx.lineTo(x,y);}ctx.lineTo(w,h);ctx.fill();
   }
   if(!cave)backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);else for(let layer=0;layer<3;layer++){ctx.fillStyle=['#0c222d','#102b35','#183740'][layer];for(let n=0;n<12;n++){const x=(n-.5)*w/10+layer*19,span=w*(.035+.012*((n+layer)%3)),depth=h*(.2+.07*((n*3+layer)%5));polygon([{x:x-span,y:0},{x:x+span,y:0},{x:x+span*.35,y:depth*.74},{x:x-span*.2,y:depth}]);ctx.fill();}}
+  }
   const lobby=options.lobby,wide=w/h>1.5,fieldW=lobby&&w>900?w*.56:w;
   const controls=canvasRect(document.getElementById('battleControls')),header=canvasRect(document.querySelector('.battle-top')),tutorial=canvasRect(document.getElementById('tutorial'));
   const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=arenaWidth;
