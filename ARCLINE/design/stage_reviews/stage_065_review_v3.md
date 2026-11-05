@@ -1,6 +1,6 @@
 # STAGE 065｜冷めない炉の弁｜全面再設計 v3
 
-**状態：設計レビュー待ち（R指定／未承認／総合動作未検証）**　2026-11-06
+**状態：設計承認済み・動作未検証（R指定）**　2026-11-06
 
 参照：PR #74 [最新設計 v2](stage_065_proposal_v2.json)・[個別レビュー](stage_065_review_v2.md)・[全49面の継承インデックス](https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/stage_reviews/PR74_IN_PROGRESS_STAGE_SOURCE_INDEX_20261106.md)・[65面のR指定](https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/stage_reviews/STAGE_051_099_REDESIGN_BRIEFS_20261105.md)・[マップ改訂必達事項](https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/stage_reviews/MAP_DESIGN_NONNEGOTIABLE_REQUIREMENTS_20261106.md)。
 
@@ -41,4 +41,4 @@
 
 **総合検証へ持越し：** ゲーム本体の実画面・砲身とボス部位の干渉、A/Bへの歩行や転移、噴出のON/OFF効果、W反射の命中、敵AI・反撃・24行動内攻略、全キャラ・複数seed。PR #74の旧弾道ログを新地形の合格記録には流用しない。
 
-**ユーザーによる設計承認：未取得。** 65面の承認前に66面以降の改修には着手しない。
+**ユーザーによる設計承認：2026-11-06、対話上で明示承認。** 承認範囲は地形造形と攻略意図。実移動・射撃・敵AI・反撃・行動上限の合格ではない。次のR面は66面。
