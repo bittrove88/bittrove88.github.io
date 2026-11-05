@@ -1,0 +1,193 @@
+{
+  "schema": "arcline-stage-map-design-candidate-v1",
+  "stage": 57,
+  "designLevel": "K",
+  "status": "design-review-pending-runtime-unmodified",
+  "sourceBaseline": "ARCLINE/design/expedition_013/stage_blueprints.json (PR74 base 9a58a777); current runtime 5.4",
+  "legacyTrial": "2026-11-05 57v4 coordinates and SVG excluded from implementation",
+  "question": "高い氷棚から谷底の鏡面へ落とす反射弾と、洞口の安全な低地への転移から放つ低弾道のどちらを選ぶか。",
+  "intent": "高所ルートは少ない移動で反射の照準を読む。低地ルートは転移に一手使うが敵の身体へ広い射角で攻撃しやすい。上部の風と反射床の役割が異なる。",
+  "intendedRoutes": [
+    {
+      "id": "upper",
+      "position": "upper rim near x20–31",
+      "action": "bounce off W on the far valley floor",
+      "pros": "no reposition; no gate break required",
+      "risks": "limited firing-angle window and exposed to enemy"
+    },
+    {
+      "id": "cave-mouth",
+      "position": "teleport to x76–78 on open low land, then fire",
+      "action": "low-angle direct fire from cover adjacent to the cave mouth",
+      "pros": "broad low-angle choices; avoids high wind",
+      "risks": "one teleport action, closer to the enemy"
+    }
+  ],
+  "baseForRuntime": "Only stage 57 blueprint design; integration into built runtime and full battle certification deferred",
+  "stageData": {
+    "floor": [
+      [
+        0,
+        32
+      ],
+      [
+        12,
+        32
+      ],
+      [
+        22,
+        31
+      ],
+      [
+        30,
+        31
+      ],
+      [
+        34,
+        30
+      ],
+      [
+        37,
+        26
+      ],
+      [
+        40,
+        19
+      ],
+      [
+        43,
+        13
+      ],
+      [
+        47,
+        10
+      ],
+      [
+        55,
+        10
+      ],
+      [
+        62,
+        9
+      ],
+      [
+        70,
+        9
+      ],
+      [
+        79,
+        10
+      ],
+      [
+        88,
+        10
+      ],
+      [
+        100,
+        10
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "wall",
+        "x": 47,
+        "top": 27,
+        "width": 4,
+        "bottom": 10,
+        "breakable": true,
+        "purpose": "One independently destructible lower ice curtain at the cave entrance"
+      },
+      {
+        "kind": "roof",
+        "poly": [
+          [
+            35,
+            33
+          ],
+          [
+            39,
+            38
+          ],
+          [
+            50,
+            41
+          ],
+          [
+            62,
+            40
+          ],
+          [
+            70,
+            36
+          ],
+          [
+            71,
+            33
+          ],
+          [
+            65,
+            31
+          ],
+          [
+            56,
+            32
+          ],
+          [
+            47,
+            32
+          ],
+          [
+            41,
+            28
+          ],
+          [
+            39,
+            20
+          ],
+          [
+            35,
+            25
+          ]
+        ],
+        "breakable": false,
+        "purpose": "Natural glacial overhang connected to the left cliff; keeps lower firing corridor distinct"
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          71,
+          86,
+          9
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          46,
+          67,
+          31,
+          43
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        20,
+        31.2
+      ],
+      [
+        88,
+        10
+      ]
+    ],
+    "recommended": "rico",
+    "terrainRevision": "5.5-design-057"
+  },
+  "safeguards": [
+    "No changes to enemy HP 5, actionLimit 16, enemy profile 2, player physics or other stages",
+    "Existing trial item W19 remains unchanged pending integrated shot verification",
+    "Real engine render and ballistics are required; no standalone SVG accepted as proof"
+  ]
+}
