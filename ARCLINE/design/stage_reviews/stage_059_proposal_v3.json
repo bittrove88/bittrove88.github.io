@@ -855,39 +855,39 @@
     "accessPaths": [
       {
         "label": "A",
-        "kind": "teleport-to-upper-platform",
+        "kind": "teleport-via-start-shelf-to-upper-platform",
         "points": [
           [
             44,
             21.5
+          ],
+          [
+            23,
+            47
           ],
           [
             51,
             79
           ]
         ],
-        "status": "planned-geometry-to-engine-recheck",
+        "status": "geometry-proposed-two-teleport-inputs-not-replayed",
         "needsDestruction": false
       },
       {
         "label": "B",
-        "kind": "walk-under-F04-F03-F01-F02-and-flank",
+        "kind": "teleport-to-valley-walk-under-arch-teleport-east-ledge",
         "points": [
           [
             44,
             21.5
           ],
           [
-            60,
-            14.83
-          ],
-          [
             70,
             14
           ],
           [
-            89,
-            11.33
+            88,
+            12
           ],
           [
             110,
@@ -902,7 +902,7 @@
             50.5
           ]
         ],
-        "status": "conceptual-route-only-transitions-to-engine-recheck",
+        "status": "conceptual-only-player-travel-time-not-validated",
         "needsDestruction": false
       },
       {
@@ -1174,7 +1174,7 @@
   },
   "routeDesign": {
     "main": "【谷底から右へ回り込む】出撃点P0(x44,h21.5)は左の小盆地。徒歩で谷へ下り、F04の大アーチ、F03鏡棚、F01敵棚、F02東側氷の腕の下を抜けて進む。最後にF02上面B（x130,h50.5）へ転移し、敵を右から左向きに狙う。破壊なし。谷底では遮蔽が取れるが、移動は長め。",
-    "alternative": "【左高所の風見棚】初期の低所からF05（A x51,h79）へ転移。F04の上を越して敵を狙う。風Fを利用した短手数ルートだが露出が大きく、上空弾道の判断が必要。",
+    "alternative": "【左高所の風見棚／2段転移を含む】低い出現点P0（x44,h21.5）から、いったん左側の既存出撃棚F06（x23,h47）へ戻り、そこからF05高所（A x51,h79）へ上がる。上からF04を越して敵へ撃つ。遠い谷底を進む代わりに、高所・風域と被弾リスクを選ぶ。直接F05に転移できるかは実物理で確認し、できない場合はこの2段経路を試す。",
     "optional": "【中段の鏡＋風】F03に転移してC(x91,h43.25)でW鏡と右F風域を使う。最短級の攻撃準備だが照準が複雑。高所移動と敵の東側への回り込みとは異なる射撃解とする。",
     "anchors": [
       {
@@ -1269,7 +1269,7 @@
       "ギミック手数": "任意、風と鏡を選択",
       "ボス部位": "なし"
     },
-    "risk": "F04の下側の広い空間を確保するだけでなく、F03とF02下が行き止まりにならないことを実ボディの衝突で確認する。高所と反射の命中経路は旧v2のログを流用しない。 高い初期棚からの旧P0直接命中例は位置変更により無効。新P0からの直射成立度と、低道を行く価値の両方を再検証する。"
+    "risk": "F04の下側の広い空間を確保するだけでなく、F03とF02下が行き止まりにならないことを実ボディの衝突で確認する。高所と反射の命中経路は旧v2のログを流用しない。 高い初期棚からの旧P0直接命中例は位置変更により無効。新P0からの直射成立度と、低道を行く価値の両方を再検証する。 高所F05の直下には屋根があるため、初期地点から高所への垂直直行転移は失敗し得る。必要ならF06経由の2段転移を試す。"
   },
   "verification": {
     "static": "pending-new-geometry-recheck",
