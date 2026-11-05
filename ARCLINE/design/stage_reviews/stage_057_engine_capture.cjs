@@ -91,7 +91,7 @@ const server=http.createServer((req,res)=>{
     await page.screenshot({path:path.join(out,'stage_057_candidate_collision_overlay.png'),fullPage:true});
     await page.evaluate(()=>{s.effects.destroyed=['057-C01@0'];s.world=ArcEngine.geometry.world(s.spec,s.round,s.bossPhase,s.effects);draw();});
     await page.screenshot({path:path.join(out,'stage_057_candidate_window_open.png'),fullPage:true});
-    fs.writeFileSync(path.join(out,'stage_057_candidate_engine_snapshot.json'),JSON.stringify({...designState,overlay,comparison:{beforeScale:before.camera.scale,afterScale:overlay.view.scale,source:'real game renderer and collider; candidate only'}},null,2)+'\\n');
+    fs.writeFileSync(path.join(out,'stage_057_candidate_engine_snapshot.json'),JSON.stringify({...designState,overlay,comparison:{beforeScale:before.camera.scale,afterScale:overlay.view.scale,source:'real game renderer and collider; candidate only'}},null,2)+'\n');
     assert.equal(designState.spawn.length,2);
     assert(Math.abs(before.camera.scale-overlay.view.scale)<.02,'Before and after must share virtually same scale');
         assert.equal(errors.length,0,'Uncaught page errors: '+errors.join('; '));
