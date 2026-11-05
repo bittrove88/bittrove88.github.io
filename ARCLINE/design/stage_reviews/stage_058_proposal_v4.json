@@ -1580,7 +1580,12 @@
           "hitParts": []
         }
       ],
-      "staticRayDisclaimer": "Simple point-ray versus all polygons; ignores moving body, gun barrel, actual projectile gravity/wind, support/collision response and enemy behavior."
+      "staticRayDisclaimer": "Simple point-ray versus all polygons; ignores moving body, gun barrel, actual projectile gravity/wind, support/collision response and enemy behavior.",
+      "riskToCheck": [
+        "高弾道の初期位置からの直接命中が容易すぎる場合、中・上層への移動が不要になる可能性がある。物理検証でP0と移動後の角度と被弾を比較する。",
+        "上層中央F08と中層中央F03の垂直間隔が約110〜160pxの区間がある。中段では東側の天然開口から射撃し、砲身と天井の衝突を実測する。",
+        "上層への直接転移弾が必要な高度まで上がれるか未検証。可能な着地先がない場合は立坑の幅・支持位置を再設計し、破壊必須には戻さない。"
+      ]
     },
     "designProofScope": "Fixed polygon and opening geometry only. Teleport arcing trajectory, barrel collisions, actual damage, multi-action win, moving enemy not verified."
   },
