@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: ARCLINE/package-lock.json
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - name: Actual game-stage-057 screenshot and geometry snapshot
+      - name: Stage 057 real physics design routes\n        run: node design/stage_reviews/stage_057_design_probe.cjs\n      - name: Actual game-stage-057 screenshot and geometry snapshot
         run: node design/stage_reviews/stage_057_engine_capture.cjs
       - name: Bundle actual simulation source for local design evaluation
         run: |
