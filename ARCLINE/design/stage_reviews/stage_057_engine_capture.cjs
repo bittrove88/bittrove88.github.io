@@ -52,7 +52,49 @@ const server=http.createServer((req,res)=>{
     before.camera=await page.evaluate(()=>({...renderer.view}));
     before.browser={viewport:{width:1440,height:900},url:'ARCLINE/game/dist/',capture:'Actual game canvas via render.js, full-map camera',errors,requests};
     fs.writeFileSync(path.join(out,'stage_057_engine_snapshot.json'),JSON.stringify(before,null,2)+'\n');
-    assert.equal(errors.length,0,'Uncaught page errors: '+errors.join('; '));
+    // Candidate is injected into the *real game state* for comparison. No shipped level is modified.
+    const candidate=require('./stage_057_design_candidate_20261106.json').stageData;
+    await page.locator('#mapCameraClose').click();
+    const designState=await page.evaluate(data=>{
+      const G=ArcEngine.geometry;
+      const components=data.parts.map((p,i)=>({
+        id:'057-C'+String(i+1).padStart(2,'0'),
+        poly:p.poly||[[p.x,p.top],[p.x+p.width,p.top],[p.x+p.width,p.bottom],[p.x,p.bottom]],
+        destructible:p.breakable??p.kind==='wall'
+      }));
+      s.spec={...s.spec,floors:[data.floor],components,features:data.features,spawn:data.spawnPoints,terrainRevision:data.terrainRevision};
+      s.effects={...s.effects,destroyed:[],broken:0};
+      s.world=G.world(s.spec,s.round,s.bossPhase,s.effects);
+      s.units.forEach((u,i)=>{
+        const [x,h]=data.spawnPoints[i],pos=G.safePosition(s.world,x*10,500-h*10);
+        if(!pos)throw Error('Unsafe candidate spawn '+i);
+        Object.assign(u,pos,{range:[35,965],facing:i?-1:1});
+      });
+      renderer.resetCamera(); hud();draw();
+      return {spawn:s.units.map(u=>({x:u.x,y:u.y,surface:u.surface})),solids:s.world.solids.map(o=>({id:o.id,kind:o.kind,poly:o.poly})),regions:s.world.regions};
+    },candidate);
+    await page.locator('#mapCameraToggle').click();
+    await page.waitForFunction('mapCamera.active && renderer.view.scale>0');
+    await page.screenshot({path:path.join(out,'stage_057_candidate_engine_full_view.png'),fullPage:true});
+    designState.view=await page.evaluate(()=>({...renderer.view}));
+    const overlay=await page.evaluate(()=>{
+      const canvas=document.getElementById('world'),ctx=canvas.getContext('2d'),v=renderer.view,dpr=Math.min(devicePixelRatio||1,2);
+      ctx.save();ctx.setTransform(dpr,0,0,dpr,0,0);ctx.translate(v.x,v.y);ctx.scale(v.scale,v.scale);
+      for(const o of s.world.solids){
+        ctx.beginPath();o.poly.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();
+        ctx.strokeStyle=o.kind==='reflector'?'#00ddbb':o.destructible?'#ff629d':o.kind==='floor'?'#fbe7ac':'#b299ff';ctx.lineWidth=2/v.scale;ctx.stroke();
+      }
+      for(let i=0;i<2;i++){const u=s.units[i];ctx.beginPath();ctx.arc(u.x,u.y,24,0,Math.PI*2);ctx.strokeStyle=i?'#ffb36b':'#caff89';ctx.lineWidth=3/v.scale;ctx.stroke();}
+      ctx.restore();
+      return {view:v,solids:s.world.solids.map(o=>({id:o.id,kind:o.kind,destructible:!!o.destructible,poly:o.poly})),regions:s.world.regions,units:s.units.map(u=>({x:u.x,y:u.y,hp:u.hp,surface:u.surface}))};
+    });
+    await page.screenshot({path:path.join(out,'stage_057_candidate_collision_overlay.png'),fullPage:true});
+    await page.evaluate(()=>{s.effects.destroyed=['057-C01@0'];s.world=ArcEngine.geometry.world(s.spec,s.round,s.bossPhase,s.effects);draw();});
+    await page.screenshot({path:path.join(out,'stage_057_candidate_window_open.png'),fullPage:true});
+    fs.writeFileSync(path.join(out,'stage_057_candidate_engine_snapshot.json'),JSON.stringify({...designState,overlay,comparison:{beforeScale:before.camera.scale,afterScale:overlay.view.scale,source:'real game renderer and collider; candidate only'}},null,2)+'\\n');
+    assert.equal(designState.spawn.length,2);
+    assert(Math.abs(before.camera.scale-overlay.view.scale)<.02,'Before and after must share virtually same scale');
+        assert.equal(errors.length,0,'Uncaught page errors: '+errors.join('; '));
     console.log('STAGE_057_ENGINE_CAPTURE PASS',JSON.stringify({stage:before.stage,worldWidth:before.worldWidth,solids:before.solids.length,surfaces:before.surfaces.length,regions:before.regions.length,camera:before.camera,errors:errors.length}));
     await context.close();
   }finally{await b.close();server.close();}
