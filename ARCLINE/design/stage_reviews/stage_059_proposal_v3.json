@@ -957,8 +957,208 @@
       }
     ],
     "geometricDesignChecks": {
-      "scope": "static polygon and floor checks, NOT real engine validation",
-      "unit": "1 map unit = 10px"
+      "coordinateUnits": "1 design unit=10px",
+      "floorAtP0": 21.5,
+      "lowPassClearance": {
+        "xFrom": 44,
+        "xTo": 137,
+        "minAt": 132,
+        "minGapMapUnits": 9.4,
+        "minGapPx": 94
+      },
+      "crossSections": [
+        {
+          "x": 44,
+          "ground": 21.5,
+          "firstOverhead": 73.29,
+          "gap": 51.79
+        },
+        {
+          "x": 54,
+          "ground": 17.33,
+          "firstOverhead": 69,
+          "gap": 51.67
+        },
+        {
+          "x": 60,
+          "ground": 14.83,
+          "firstOverhead": 66,
+          "gap": 51.17
+        },
+        {
+          "x": 65,
+          "ground": 14,
+          "firstOverhead": 55,
+          "gap": 41
+        },
+        {
+          "x": 70,
+          "ground": 14,
+          "firstOverhead": 49.29,
+          "gap": 35.29
+        },
+        {
+          "x": 75,
+          "ground": 14,
+          "firstOverhead": 45.29,
+          "gap": 31.29
+        },
+        {
+          "x": 79,
+          "ground": 14,
+          "firstOverhead": 43,
+          "gap": 29
+        },
+        {
+          "x": 82,
+          "ground": 13.67,
+          "firstOverhead": 35,
+          "gap": 21.33
+        },
+        {
+          "x": 86,
+          "ground": 12.33,
+          "firstOverhead": 33.67,
+          "gap": 21.33
+        },
+        {
+          "x": 90,
+          "ground": 11,
+          "firstOverhead": 33,
+          "gap": 22
+        },
+        {
+          "x": 94,
+          "ground": 10.81,
+          "firstOverhead": 44,
+          "gap": 33.19
+        },
+        {
+          "x": 100,
+          "ground": 15.65,
+          "firstOverhead": 44.27,
+          "gap": 28.63
+        },
+        {
+          "x": 106,
+          "ground": 20.48,
+          "firstOverhead": 44.55,
+          "gap": 24.06
+        },
+        {
+          "x": 116,
+          "ground": 28.55,
+          "firstOverhead": 45,
+          "gap": 16.45
+        },
+        {
+          "x": 124,
+          "ground": 35,
+          "firstOverhead": 47.4,
+          "gap": 12.4
+        },
+        {
+          "x": 129,
+          "ground": 35,
+          "firstOverhead": 45.88,
+          "gap": 10.88
+        },
+        {
+          "x": 132,
+          "ground": 35,
+          "firstOverhead": 44.4,
+          "gap": 9.4
+        },
+        {
+          "x": 135,
+          "ground": 32,
+          "firstOverhead": 42,
+          "gap": 10
+        },
+        {
+          "x": 137,
+          "ground": 30,
+          "firstOverhead": 44.67,
+          "gap": 14.67
+        }
+      ],
+      "staticRayChecks": [
+        {
+          "from": [
+            44,
+            25.5
+          ],
+          "to": [
+            106,
+            69
+          ],
+          "id": "initial-straight",
+          "hitParts": [
+            "059-ENEMY-ICE",
+            "059-CENTRAL-SPIRE"
+          ]
+        },
+        {
+          "from": [
+            51,
+            83
+          ],
+          "to": [
+            106,
+            69
+          ],
+          "id": "from-high",
+          "hitParts": []
+        },
+        {
+          "from": [
+            130,
+            54.5
+          ],
+          "to": [
+            106,
+            69
+          ],
+          "id": "from-east-flank",
+          "hitParts": [
+            "059-ENEMY-ICE"
+          ]
+        },
+        {
+          "from": [
+            91,
+            47.25
+          ],
+          "to": [
+            106,
+            69
+          ],
+          "id": "from-mirror",
+          "hitParts": [
+            "059-ENEMY-ICE"
+          ]
+        },
+        {
+          "from": [
+            70,
+            18
+          ],
+          "to": [
+            110,
+            28
+          ],
+          "id": "underpass-low",
+          "hitParts": []
+        }
+      ],
+      "unsupported": [],
+      "unverified": [
+        "moving tank hull clearance",
+        "landing from teleport",
+        "actual bullet arc and W/F interplay",
+        "enemy walking/counterattack",
+        "16-action clear"
+      ]
     }
   },
   "summary": {
