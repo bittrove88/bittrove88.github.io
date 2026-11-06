@@ -1,6 +1,6 @@
 # 98面｜逆位相の橋と九つの固定島
 
-完成設計・レビュー待ち・動作未検証。ゲーム本体・承認済み18面は変更していない。
+設計承認済み・動作未検証。2026-11-07のユーザー「他はok」により、提示版 f174908 の設計を承認。地形・ギミック等のデータはその版を維持。ゲーム本体への反映は別工程。
 
 [全景](stage_098_full.svg) ／ [旧案比較](stage_098_compare.svg) ／ [座標](stage_098_proposal.json) ／ [周期2](stage_098_phase2.svg) ／ [状態A/Bを同縮尺で比較](stage_098_states.svg)
 
@@ -21,3 +21,5 @@ hold=1の既存B二姿勢を逆位相に使用し、手動スイッチ・独立�
 実歩行・転移着地・機構を含む命中・敵AI/反撃・勝敗は未検証。全49面の設計承認後に一括検証する。旧案の試験記録を新形状の成功証拠にしない。
 
 参照：[元JSON](https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/stage_reviews/stage_098_proposal_v2.json) ／ [元個別レビュー](https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/stage_reviews/stage_098_review_v2.md)。この面の元案を起点とし、直前の面の形状をひな形にしていない。
+
+[29面の承認記録](APPROVAL_29_20261107.md)

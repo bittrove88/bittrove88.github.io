@@ -1,6 +1,8 @@
-# ARCLINE｜残り31面の一括設計レビュー
+# ARCLINE｜31面の承認状態と56・57面の指定修正
 
-**31面を個別に制作・Chromiumで実描画・内部確認・必要な改善・再確認まで完了。今回の31面は全件未承認・動作未検証。** 承認済み18面の設計とゲーム本体は変更していない。設計と承認状態は別で、これにより全49面が承認されたとは扱わない。
+**ユーザー「他はok」により29面を設計承認として記録。56・57面は画像で指定された箇所を修正し、実描画と最低限の再確認を完了。** 以前の18面と合わせ47面が設計承認済み。56・57面の改訂版は確認待ちで、全件動作未検証。ゲーム本体は変更していない。
+
+[今回の56・57面の修正だけを見る](REVISION_056_057_20261107.md) ／ [29面の承認記録](APPROVAL_29_20261107.md)
 
 [全31面の一覧画像](OVERVIEW_31.svg) ／ [ローカルで開くレビュー画面](gallery.html) ／ [横断した差別化の確認](DIVERSITY_REVIEW.md)
 
@@ -12,43 +14,43 @@
 
 ## 各面のレビュー
 
-| 面 | 全景 | プレイヤーの判断 | 比較・説明・座標 |
-|---|---|---|---|
-| 51 | [風域の端を選ぶ観測丘](stage_051_full.svg) | 130pxの山肩移動と、風域を外す谷出口を比較する。 | [旧比較](stage_051_compare.svg) ／ [レビュー](stage_051_review.md) ／ [JSON](stage_051_proposal.json) |
-| 52 | [一片の横穴と開いた縦穴](stage_052_full.svg) | 横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。 | [旧比較](stage_052_compare.svg) ／ [レビュー](stage_052_review.md) ／ [JSON](stage_052_proposal.json) |
-| 53 | [風の上端と結晶の入口](stage_053_full.svg) | 高棚で風を避けるか、低棚からKと風を使う。 | [旧比較](stage_053_compare.svg) ／ [レビュー](stage_053_review.md) ／ [JSON](stage_053_proposal.json) |
-| 54 | [裏斜面へ返す谷の鏡](stage_054_full.svg) | 非対称な二峰の背後へ、風の山越えか谷のW反射を送る。 | [旧比較](stage_054_compare.svg) ／ [レビュー](stage_054_review.md) ／ [JSON](stage_054_proposal.json) |
-| 55 | [観測センサーを見上げる三段要塞](stage_055_full.svg) | 上段から高いセンサー、中段から装甲の縁、下段から側方の開口を狙う。 | [旧比較](stage_055_compare.svg) ／ [レビュー](stage_055_review.md) ／ [JSON](stage_055_proposal.json) |
-| 56 | [固定氷橋と下橋の残る足場](stage_056_full.svg) | 下橋が開いても固定桟橋に残れることを読み、横断と射撃を分ける。 | [旧比較](stage_056_compare.svg) ／ [レビュー](stage_056_review.md) ／ [JSON](stage_056_proposal.json) ／ [周期2](stage_056_phase2.svg) |
-| 57 | [崖肩から落とす反射洞](stage_057_full.svg) | 崖肩の銃口を外へ出し、落差を使って床Wへ落とす。 | [旧比較](stage_057_compare.svg) ／ [レビュー](stage_057_review.md) ／ [JSON](stage_057_proposal.json) |
-| 61 | [門を狙う中継岩棚](stage_061_full.svg) | 門前へ渡る準備と、高尾根から門を越す照準を比較する。 | [旧比較](stage_061_compare.svg) ／ [レビュー](stage_061_review.md) ／ [JSON](stage_061_proposal.json) |
-| 63 | [二枚隔壁の順序を読む](stage_063_full.svg) | 手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。 | [旧比較](stage_063_compare.svg) ／ [レビュー](stage_063_review.md) ／ [JSON](stage_063_proposal.json) |
-| 64 | [崖下盆地の裏へ回る](stage_064_full.svg) | 上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。 | [旧比較](stage_064_compare.svg) ／ [レビュー](stage_064_review.md) ／ [JSON](stage_064_proposal.json) |
-| 68 | [噴出の横穴と短い反射蓋](stage_068_full.svg) | 常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。 | [旧比較](stage_068_compare.svg) ／ [レビュー](stage_068_review.md) ／ [JSON](stage_068_proposal.json) ／ [周期2](stage_068_phase2.svg) |
-| 70 | [炉蓋の一片と二本の腕](stage_070_full.svg) | 炉上から奥の腕、噴出の出口から手前の腕へ入れる角度を選ぶ。 | [旧比較](stage_070_compare.svg) ／ [レビュー](stage_070_review.md) ／ [JSON](stage_070_proposal.json) ／ [周期2](stage_070_phase2.svg) |
-| 73 | [磁場へ入る二つの向き](stage_073_full.svg) | 下段から横に入るか、高棚から折り返して同じ磁場へ入る。 | [旧比較](stage_073_compare.svg) ／ [レビュー](stage_073_review.md) ／ [JSON](stage_073_proposal.json) |
-| 74 | [鉱床の下を通す鏡路](stage_074_full.svg) | 床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。 | [旧比較](stage_074_compare.svg) ／ [レビュー](stage_074_review.md) ／ [JSON](stage_074_proposal.json) |
-| 77 | [端子の磁場路と独立した鏡路](stage_077_full.svg) | 開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。 | [旧比較](stage_077_compare.svg) ／ [レビュー](stage_077_review.md) ／ [JSON](stage_077_proposal.json) |
-| 80 | [実験炉を挟む発生器の両側](stage_080_full.svg) | 炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。 | [旧比較](stage_080_compare.svg) ／ [レビュー](stage_080_review.md) ／ [JSON](stage_080_proposal.json) |
-| 83 | [雲の横窓と風に届く斜めの裂け目](stage_083_full.svg) | 横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。 | [旧比較](stage_083_compare.svg) ／ [レビュー](stage_083_review.md) ／ [JSON](stage_083_proposal.json) |
-| 84 | [環の内側と外側へ向ける庭園](stage_084_full.svg) | 下の島から中央Mへ向けるか、左の島から外向きのKへ向ける。 | [旧比較](stage_084_compare.svg) ／ [レビュー](stage_084_review.md) ／ [JSON](stage_084_proposal.json) |
-| 85 | [固定根を残す空中樹](stage_085_full.svg) | 根橋上からFを横切る弧で給水ユニットへ入れるか、根先の開口からMで撃ち上げる。 | [旧比較](stage_085_compare.svg) ／ [レビュー](stage_085_review.md) ／ [JSON](stage_085_proposal.json) |
-| 86 | [下甲板の反射湾と上昇棚](stage_086_full.svg) | 作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。 | [旧比較](stage_086_compare.svg) ／ [レビュー](stage_086_review.md) ／ [JSON](stage_086_proposal.json) |
-| 88 | [格納庫の常設整備シャフト](stage_088_full.svg) | 開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。 | [旧比較](stage_088_compare.svg) ／ [レビュー](stage_088_review.md) ／ [JSON](stage_088_proposal.json) |
-| 90 | [浮遊空母を囲む三つの進入](stage_090_full.svg) | 船尾の上向き弧、中央通路の射出口、船首砲座上からの浅い弧を使い分ける。 | [旧比較](stage_090_compare.svg) ／ [レビュー](stage_090_review.md) ／ [JSON](stage_090_proposal.json) |
-| 91 | [斜め城壁の正門と側門](stage_091_full.svg) | 右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。 | [旧比較](stage_091_compare.svg) ／ [レビュー](stage_091_review.md) ／ [JSON](stage_091_proposal.json) |
-| 92 | [折り返す保全棚の使い分け](stage_092_full.svg) | 中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。 | [旧比較](stage_092_compare.svg) ／ [レビュー](stage_092_review.md) ／ [JSON](stage_092_proposal.json) |
-| 93 | [床と天井を選ぶ検査反射室](stage_093_full.svg) | 左から右へ、天井→床の二反射か、床→天井→床の三反射を構想する。 | [旧比較](stage_093_compare.svg) ／ [レビュー](stage_093_review.md) ／ [JSON](stage_093_proposal.json) |
-| 94 | [湾曲滑走路を挟む逆向き射撃](stage_094_full.svg) | 右の高い構造材から雲を通して外板の一片へ落とすか、左船首へ回りWとMから逆向きに送る。 | [旧比較](stage_094_compare.svg) ／ [レビュー](stage_094_review.md) ／ [JSON](stage_094_proposal.json) |
-| 95 | [シールドドライブから露出核へ](stage_095_full.svg) | 右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。 | [旧比較](stage_095_compare.svg) ／ [レビュー](stage_095_review.md) ／ [JSON](stage_095_proposal.json) |
-| 96 | [環頂を開けた極性施設](stage_096_full.svg) | 環の内側から西門を一片開きW/Mをつなぐか、開いた環頂から外周棚へ出る。 | [旧比較](stage_096_compare.svg) ／ [レビュー](stage_096_review.md) ／ [JSON](stage_096_proposal.json) |
-| 97 | [低島U・折返しK・高島F](stage_097_full.svg) | 低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。 | [旧比較](stage_097_compare.svg) ／ [レビュー](stage_097_review.md) ／ [JSON](stage_097_proposal.json) |
-| 98 | [逆位相の橋と九つの固定島](stage_098_full.svg) | 西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。 | [旧比較](stage_098_compare.svg) ／ [レビュー](stage_098_review.md) ／ [JSON](stage_098_proposal.json) ／ [周期2](stage_098_phase2.svg) ／ [状態A/B](stage_098_states.svg) |
-| 99 | [二峰の間で転移先を選ぶ](stage_099_full.svg) | 中央の短い中継島、谷の低い鏡島、敵側の外周高所から、弧・W/C/M・逆向き射撃を選ぶ。 | [旧比較](stage_099_compare.svg) ／ [レビュー](stage_099_review.md) ／ [JSON](stage_099_proposal.json) |
+| 面 | 状態 | 全景 | プレイヤーの判断 | 比較・説明・座標 |
+|---|---|---|---|---|
+| 51 | 承認済み | [風域の端を選ぶ観測丘](stage_051_full.svg) | 130pxの山肩移動と、風域を外す谷出口を比較する。 | [旧比較](stage_051_compare.svg) ／ [レビュー](stage_051_review.md) ／ [JSON](stage_051_proposal.json) |
+| 52 | 承認済み | [一片の横穴と開いた縦穴](stage_052_full.svg) | 横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。 | [旧比較](stage_052_compare.svg) ／ [レビュー](stage_052_review.md) ／ [JSON](stage_052_proposal.json) |
+| 53 | 承認済み | [風の上端と結晶の入口](stage_053_full.svg) | 高棚で風を避けるか、低棚からKと風を使う。 | [旧比較](stage_053_compare.svg) ／ [レビュー](stage_053_review.md) ／ [JSON](stage_053_proposal.json) |
+| 54 | 承認済み | [裏斜面へ返す谷の鏡](stage_054_full.svg) | 非対称な二峰の背後へ、風の山越えか谷のW反射を送る。 | [旧比較](stage_054_compare.svg) ／ [レビュー](stage_054_review.md) ／ [JSON](stage_054_proposal.json) |
+| 55 | 承認済み | [観測センサーを見上げる三段要塞](stage_055_full.svg) | 上段から高いセンサー、中段から装甲の縁、下段から側方の開口を狙う。 | [旧比較](stage_055_compare.svg) ／ [レビュー](stage_055_review.md) ／ [JSON](stage_055_proposal.json) |
+| 56 | 改訂確認待ち | [固定氷橋と下橋の残る足場](stage_056_full.svg) | 下橋が開いても固定桟橋に残れることを読み、横断と射撃を分ける。 | [旧比較](stage_056_compare.svg) ／ [レビュー](stage_056_review.md) ／ [JSON](stage_056_proposal.json) ／ [周期2](stage_056_phase2.svg) |
+| 57 | 改訂確認待ち | [崖肩から落とす反射洞](stage_057_full.svg) | 崖肩の落差から既存Wへ入れ、洞内の天井・床の反射板を使い分ける。 | [旧比較](stage_057_compare.svg) ／ [レビュー](stage_057_review.md) ／ [JSON](stage_057_proposal.json) |
+| 61 | 承認済み | [門を狙う中継岩棚](stage_061_full.svg) | 門前へ渡る準備と、高尾根から門を越す照準を比較する。 | [旧比較](stage_061_compare.svg) ／ [レビュー](stage_061_review.md) ／ [JSON](stage_061_proposal.json) |
+| 63 | 承認済み | [二枚隔壁の順序を読む](stage_063_full.svg) | 手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。 | [旧比較](stage_063_compare.svg) ／ [レビュー](stage_063_review.md) ／ [JSON](stage_063_proposal.json) |
+| 64 | 承認済み | [崖下盆地の裏へ回る](stage_064_full.svg) | 上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。 | [旧比較](stage_064_compare.svg) ／ [レビュー](stage_064_review.md) ／ [JSON](stage_064_proposal.json) |
+| 68 | 承認済み | [噴出の横穴と短い反射蓋](stage_068_full.svg) | 常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。 | [旧比較](stage_068_compare.svg) ／ [レビュー](stage_068_review.md) ／ [JSON](stage_068_proposal.json) ／ [周期2](stage_068_phase2.svg) |
+| 70 | 承認済み | [炉蓋の一片と二本の腕](stage_070_full.svg) | 炉上から奥の腕、噴出の出口から手前の腕へ入れる角度を選ぶ。 | [旧比較](stage_070_compare.svg) ／ [レビュー](stage_070_review.md) ／ [JSON](stage_070_proposal.json) ／ [周期2](stage_070_phase2.svg) |
+| 73 | 承認済み | [磁場へ入る二つの向き](stage_073_full.svg) | 下段から横に入るか、高棚から折り返して同じ磁場へ入る。 | [旧比較](stage_073_compare.svg) ／ [レビュー](stage_073_review.md) ／ [JSON](stage_073_proposal.json) |
+| 74 | 承認済み | [鉱床の下を通す鏡路](stage_074_full.svg) | 床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。 | [旧比較](stage_074_compare.svg) ／ [レビュー](stage_074_review.md) ／ [JSON](stage_074_proposal.json) |
+| 77 | 承認済み | [端子の磁場路と独立した鏡路](stage_077_full.svg) | 開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。 | [旧比較](stage_077_compare.svg) ／ [レビュー](stage_077_review.md) ／ [JSON](stage_077_proposal.json) |
+| 80 | 承認済み | [実験炉を挟む発生器の両側](stage_080_full.svg) | 炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。 | [旧比較](stage_080_compare.svg) ／ [レビュー](stage_080_review.md) ／ [JSON](stage_080_proposal.json) |
+| 83 | 承認済み | [雲の横窓と風に届く斜めの裂け目](stage_083_full.svg) | 横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。 | [旧比較](stage_083_compare.svg) ／ [レビュー](stage_083_review.md) ／ [JSON](stage_083_proposal.json) |
+| 84 | 承認済み | [環の内側と外側へ向ける庭園](stage_084_full.svg) | 下の島から中央Mへ向けるか、左の島から外向きのKへ向ける。 | [旧比較](stage_084_compare.svg) ／ [レビュー](stage_084_review.md) ／ [JSON](stage_084_proposal.json) |
+| 85 | 承認済み | [固定根を残す空中樹](stage_085_full.svg) | 根橋上からFを横切る弧で給水ユニットへ入れるか、根先の開口からMで撃ち上げる。 | [旧比較](stage_085_compare.svg) ／ [レビュー](stage_085_review.md) ／ [JSON](stage_085_proposal.json) |
+| 86 | 承認済み | [下甲板の反射湾と上昇棚](stage_086_full.svg) | 作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。 | [旧比較](stage_086_compare.svg) ／ [レビュー](stage_086_review.md) ／ [JSON](stage_086_proposal.json) |
+| 88 | 承認済み | [格納庫の常設整備シャフト](stage_088_full.svg) | 開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。 | [旧比較](stage_088_compare.svg) ／ [レビュー](stage_088_review.md) ／ [JSON](stage_088_proposal.json) |
+| 90 | 承認済み | [浮遊空母を囲む三つの進入](stage_090_full.svg) | 船尾の上向き弧、中央通路の射出口、船首砲座上からの浅い弧を使い分ける。 | [旧比較](stage_090_compare.svg) ／ [レビュー](stage_090_review.md) ／ [JSON](stage_090_proposal.json) |
+| 91 | 承認済み | [斜め城壁の正門と側門](stage_091_full.svg) | 右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。 | [旧比較](stage_091_compare.svg) ／ [レビュー](stage_091_review.md) ／ [JSON](stage_091_proposal.json) |
+| 92 | 承認済み | [折り返す保全棚の使い分け](stage_092_full.svg) | 中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。 | [旧比較](stage_092_compare.svg) ／ [レビュー](stage_092_review.md) ／ [JSON](stage_092_proposal.json) |
+| 93 | 承認済み | [床と天井を選ぶ検査反射室](stage_093_full.svg) | 左から右へ、天井→床の二反射か、床→天井→床の三反射を構想する。 | [旧比較](stage_093_compare.svg) ／ [レビュー](stage_093_review.md) ／ [JSON](stage_093_proposal.json) |
+| 94 | 承認済み | [湾曲滑走路を挟む逆向き射撃](stage_094_full.svg) | 右の高い構造材から雲を通して外板の一片へ落とすか、左船首へ回りWとMから逆向きに送る。 | [旧比較](stage_094_compare.svg) ／ [レビュー](stage_094_review.md) ／ [JSON](stage_094_proposal.json) |
+| 95 | 承認済み | [シールドドライブから露出核へ](stage_095_full.svg) | 右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。 | [旧比較](stage_095_compare.svg) ／ [レビュー](stage_095_review.md) ／ [JSON](stage_095_proposal.json) |
+| 96 | 承認済み | [環頂を開けた極性施設](stage_096_full.svg) | 環の内側から西門を一片開きW/Mをつなぐか、開いた環頂から外周棚へ出る。 | [旧比較](stage_096_compare.svg) ／ [レビュー](stage_096_review.md) ／ [JSON](stage_096_proposal.json) |
+| 97 | 承認済み | [低島U・折返しK・高島F](stage_097_full.svg) | 低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。 | [旧比較](stage_097_compare.svg) ／ [レビュー](stage_097_review.md) ／ [JSON](stage_097_proposal.json) |
+| 98 | 承認済み | [逆位相の橋と九つの固定島](stage_098_full.svg) | 西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。 | [旧比較](stage_098_compare.svg) ／ [レビュー](stage_098_review.md) ／ [JSON](stage_098_proposal.json) ／ [周期2](stage_098_phase2.svg) ／ [状態A/B](stage_098_states.svg) |
+| 99 | 承認済み | [二峰の間で転移先を選ぶ](stage_099_full.svg) | 中央の短い中継島、谷の低い鏡島、敵側の外周高所から、弧・W/C/M・逆向き射撃を選ぶ。 | [旧比較](stage_099_compare.svg) ／ [レビュー](stage_099_review.md) ／ [JSON](stage_099_proposal.json) |
 
 ## 専用コンセプトと判断が必要な変更
 
-- **93面：** 左開始・右敵の上下全面反射室。床Wと固定ポリゴンのreflectiveUndersideを用い、最小内高140px・通常220px。V/Kは主題と独立した役割を作れないため削除を提案。天井外殻上面にもWが作用することは明示し、室内経路には使わない。
+- **93面：** 左開始・右敵の上下全面反射室。床Wと固定ポリゴンのreflectiveUndersideを用い、最小内高140px・通常220px。V/Kを削除した設計を承認済み。天井外殻上面にもWが作用することは明示し、室内経路には使わない。
 - **98面：** 九つの固定島と逆位相のB二本。状態1で開く中央射点の降下帯・西中継は、状態2でそれぞれB2・B1に遮られる。これは静的交差の確認であり命中証明ではない。東の固定低島が代替候補。V/Wは任意補助として残し、B1水平時の一部W化も意図した配置。Uや新スイッチは追加していない。
 - **99面：** 自然な非対称二峰と、中央中継・低い鏡島・敵側外周の三種類の転移候補。旧案の内側、W/C/M複合、外周逆向き射撃を屋外へ継承し、巨大核空洞や隔壁は引き継がない。
 
