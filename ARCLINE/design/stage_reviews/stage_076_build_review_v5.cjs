@@ -1,0 +1,40 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const G=require(process.argv[2]||path.resolve(__dirname,'../../game/dist/geometry.js'));
+const p=JSON.parse(fs.readFileSync(path.join(__dirname,'stage_076_proposal_v5.json'))),a=p.after;
+const w=G.world({id:76,floors:a.floors,components:a.parts.map(q=>({...q,destructible:q.breakable})),features:a.features,worldWidth:a.width});
+assert.deepStrictEqual(a.floor,p.blueprintCandidate.floor);assert.deepStrictEqual(a.parts,p.blueprintCandidate.parts);assert.deepStrictEqual(a.features,p.blueprintCandidate.features);assert.deepStrictEqual([a.player.x,a.player.h],p.blueprintCandidate.spawnPoints[0]);assert.deepStrictEqual([a.enemy.x,a.enemy.h],p.blueprintCandidate.spawnPoints[1]);
+const report={stage:76,version:5,scope:'Static only; no actual walking, shots, switching, AI or combat',dataConsistent:true};
+report.supports=[{id:'P0',...a.player},{id:'enemy',...a.enemy},...a.anchors].map(q=>{const pt=G.point(q.x,q.h),s=G.support(w,pt.x,pt.y);return {id:q.id,supported:!!s,bodyClear:!!s&&G.clearBody(w,s),heightErrorPx:s?Math.abs(s.y-pt.y):null};});assert(report.supports.every(q=>q.supported&&q.bodyClear&&q.heightErrorPx<1e-6));
+report.selfIntersections=[];for(const o of w.solids)for(let i=0;i<o.poly.length;i++)for(let j=i+2;j<o.poly.length;j++){if(i===0&&j===o.poly.length-1)continue;if(G.segment(o.poly[i],o.poly[(i+1)%o.poly.length],o.poly[j],o.poly[(j+1)%o.poly.length]))report.selfIntersections.push([o.id,i,j]);}assert.equal(report.selfIntersections.length,0);
+const m=w.regions[0],distance=(q,c,d)=>{const dx=d.x-c.x,dy=d.y-c.y,t=Math.max(0,Math.min(1,((q.x-c.x)*dx+(q.y-c.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(q.x-c.x-t*dx,q.y-c.y-t*dy);};
+report.magnetClearances=w.solids.map(o=>({id:o.id,clearancePx:Math.min(...o.poly.map((c,i)=>distance(m,c,o.poly[(i+1)%o.poly.length])))-m.radius}));assert(report.magnetClearances.every(q=>q.clearancePx>0));
+report.schematicSpaces=a.attacks.map(q=>({kind:q.kind,clear:q.points.slice(1).every((b,i)=>G.lineClear(w,G.point(...q.points[i]),G.point(...b)))}));assert(report.schematicSpaces.every(q=>q.clear));
+report.terminalStraightClear=G.lineClear(w,G.point(36,43),G.point(47,57));assert(report.terminalStraightClear);
+report.exitFin={middleRayBlocked:!G.lineClear(w,G.point(104,48),G.point(133,48)),lowerBandClear: G.lineClear(w,G.point(104,26),G.point(133,26)),upperBandClear:G.lineClear(w,G.point(104,76),G.point(133,76))};assert(Object.values(report.exitFin).every(Boolean));
+const rock=w.solids.find(q=>q.id==='076-EXIT-FIN');report.finFloorClearancePx=Math.min(...rock.poly.map(q=>G.floorY(w.surfaces[0].points,q.x)-q.y));assert(report.finFloorClearancePx>0);
+report.localSupportBand={horizontalPx:100,budgetPx:140,bodySamplesEveryPx:2,clear:true};for(let x=360;x<=460;x+=2){const s=G.support(w,x,100);assert(s&&G.clearBody(w,s)&&Math.abs(s.slope)<1e-6);}
+report.barrels=[];for(const x of [36,46]){const s={units:[{...G.support(w,x*10,100),facing:1},{}]},blocked=[];for(let angle=0;angle<=80;angle++){const q=G.muzzle(s,0,angle);if(!G.lineClear(w,q.pivot,q))blocked.push(angle);}report.barrels.push({x,angleSamplesDeg:[0,80],step:1,defaultBarrelPx:35,blocked});assert.equal(blocked.length,0);}
+report.notTested=['actual walking','teleport','T hit and turn boundary','M trajectories and hits','enemy movement and counterattack','16-action victory','device rendering'];fs.writeFileSync(path.join(__dirname,'stage_076_static_check_v5.json'),JSON.stringify(report,null,2)+'\n');
+const X=x=>70+x*7.6,Y=h=>745-h*7.6,pts=ps=>ps.map(([x,h])=>`${X(x)},${Y(h)}`).join(' ');
+let comparison='<svg xmlns="http://www.w3.org/2000/svg" width="1460" height="850" viewBox="0 0 1460 850"><rect width="1460" height="850" fill="#101b2b"/><g font-family="Noto Sans CJK JP, sans-serif" fill="#dae5f1"><text x="40" y="45" font-size="27">76面：説明の整理から、地形と作用空間の再設計へ（同縮尺）</text>';
+for(const [i,v]of [p.before,a].entries()){const base=390+i*360,point=q=>`${100+q[0]*5},${base-q[1]*5}`,line=ps=>ps.map(point).join(' '),m=v.features.find(q=>q.type==='M').v;comparison+=`<text x="40" y="${90+i*360}" font-size="23">${i?'v5：Mの出口と浮岩を結ぶ':'v3 / v4：同高度・同距離の両岸'}</text><polygon points="${line([...v.floor,[v.width/10,-3],[0,-3]])}" fill="#394c5b" stroke="#bdd1c5"/><circle cx="${100+m[0]*5}" cy="${base-m[1]*5}" r="${m[2]*5}" fill="#ad89e6" fill-opacity=".13" stroke="#c2a6ec" stroke-dasharray="5 4"/>`;for(const part of v.parts)comparison+=`<polygon points="${line(part.poly)}" fill="#667384" stroke="#c3cbd4"/>`;comparison+=`<circle cx="${100+v.player.x*5}" cy="${base-v.player.h*5-12}" r="10" fill="#75e0c4"/><circle cx="${100+v.enemy.x*5}" cy="${base-v.enemy.h*5-12}" r="10" fill="#ff8e94"/><text x="1060" y="${170+i*360}" font-size="18">${i?'対岸転移を必須にしない':'対岸への1100px再配置'}</text><text x="1060" y="${205+i*360}" font-size="18">${i?'短い歩行100pxで調整':'同じMに逆向き入射'}</text><text x="1060" y="${240+i*360}" font-size="18">${i?'Tで出口の上下を選ぶ':'実質的な得失が弱かった'}</text>`;}
+comparison+='<text x="40" y="835" font-size="17">設計比較。新案の実弾道・反撃・勝利は未検証。旧A/Bはstage_076_compare_v3.svgを参照。</text></g></svg>';fs.writeFileSync(path.join(__dirname,'stage_076_compare_v5.svg'),comparison+'\n');
+let svg='<svg xmlns="http://www.w3.org/2000/svg" width="1460" height="1120" viewBox="0 0 1460 1120" role="img" aria-labelledby="title desc"><title id="title">76面v5 磁場の出口を選ぶ浮岩峡</title><desc id="desc">対称両岸を廃止。同じ岸から極性を変え、磁場の外側の浮岩の下へ出す設計。破線は空間の構想で実弾道ではない。</desc><rect width="1460" height="1120" fill="#101b2b"/><g font-family="Noto Sans CJK JP, sans-serif">';
+const t=(x,y,s,size=18,c='#dae5f1')=>svg+=`<text x="${x}" y="${y}" font-size="${size}" fill="${c}">${s}</text>`;
+t(40,48,'ARCLINE 076 v5｜磁場の出口を選ぶ浮岩峡',30);t(40,82,'骨格を再設計：対称両岸を廃止し、磁場の「出口」と空中実体を結び直す',18,'#adc0d7');
+svg+=`<polygon points="${pts([...a.floor,[170,-5],[0,-5]])}" fill="#394c5b"/><polyline points="${pts(a.floor)}" fill="none" stroke="#bdd1c5" stroke-width="2"/><polygon points="${pts(a.parts[0].poly)}" fill="#667384" stroke="#c3cbd4" stroke-width="2"/>`;
+svg+=`<circle cx="${X(84)}" cy="${Y(48)}" r="152" fill="#ad89e6" fill-opacity=".13" stroke="#c2a6ec" stroke-width="2" stroke-dasharray="6 5"/>`;
+for(const q of a.attacks)svg+=`<polyline points="${pts(q.points)}" fill="none" stroke="${q.kind==='main'?'#75e0c4':'#e5be7d'}" stroke-width="2.5" stroke-dasharray="8 7"/>`;
+svg+=`<rect x="${X(36)-17}" y="${Y(40)-30}" width="34" height="26" rx="4" fill="#28564f" stroke="#75e0c4" stroke-width="2"/><ellipse cx="${X(148)}" cy="${Y(19)-20}" rx="25" ry="19" fill="#623c50" stroke="#ff8e94" stroke-width="2"/><circle cx="${X(47)}" cy="${Y(57)}" r="15" fill="#59492c" stroke="#e5be7d"/><line x1="${X(36)}" y1="${Y(43)}" x2="${X(47)}" y2="${Y(57)}" stroke="#e5be7d" stroke-dasharray="3 5"/>`;
+t(X(47)-6,Y(57)+6,'T',18,'#ffe0a3');t(X(84)-10,Y(48)+5,'M',24,'#d6beff');t(X(36)-30,Y(40)+34,'P0',19,'#75e0c4');t(X(46)-5,Y(40)+34,'S',19,'#75e0c4');
+svg+=`<circle cx="${X(46)}" cy="${Y(40)-5}" r="5" fill="#75e0c4"/><line x1="${X(36)}" y1="${Y(40)+50}" x2="${X(46)}" y2="${Y(40)+50}" stroke="#75e0c4"/>`;
+t(248,546,'短い歩行100px：入射角の調整',16,'#75e0c4');t(520,168,'初期−1：上を越す狙いは任意の仮説',17,'#e5be7d');
+t(760,235,'F01 浮岩',20);t(1000,270,'中高度の出口を遮る',17);t(1000,300,'Mの外だけに置く',17,'#adc0d7');
+t(575,568,'T切替後＋1：右下へ出し、浮岩の下を狙う',18,'#75e0c4');t(X(148)-35,Y(19)+30,'enemy:pole',17,'#ff9fa5');t(480,337,'円内は開放',17,'#d6beff');
+t(40,838,'発見：磁場で曲げた先を見て、浮岩の「下へ出す」か「上へ回す」かを考える。',22);
+t(40,878,'主攻略はT切替から下側へ。対岸転移・精密着地・全ギミック連鎖を必須にしない。',18,'#adc0d7');
+t(40,915,'浮岩は固定・非破壊。取り除くと中高度の出口が開き、極性と出口を合わせる課題が弱まる。',18,'#adc0d7');
+t(40,952,'Tへの一射も手数と反撃を伴う。射撃後はその場に残り、同手番の退避はできない。',18,'#ffb8ad');
+t(40,1002,'破線は空間計画。Mの曲がり幅・実命中・初期極性で上を越す成立は未検証。',17,'#e5be7d');
+t(40,1041,'静的確認：支持・自己交差・Mと実体の離隔・上下の通過帯・T操作線・代表砲身。',17,'#adc0d7');
+t(40,1080,'設計承認待ち。実歩行・弾道・転移・敵AI・反撃・16行動勝利は全49面の承認後に検証。',16,'#adc0d7');svg+='</g></svg>';fs.writeFileSync(path.join(__dirname,'stage_076_full_v5.svg'),svg+'\n');console.log(JSON.stringify(report,null,2));
