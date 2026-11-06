@@ -1368,15 +1368,33 @@ const data=[
  ['S_INVINCIBLE','Invincible','無敵','☆','Ignore damage from the next enemy turn.'],
  ['S_ALL_ATTACK','All Attack','全体攻撃','✹','Hit all enemies; intact boss parts protect the body. Costs one action.']
 ];
-const rows=data.map(([id,name,nameJa,glyph,note],i)=>({id,name,nameJa,glyph,note,rare:i>=12,instant:true,path:i===11||i===12?'M12 3v18 M3 12h18':'M12 2 22 12 12 22 2 12Z M8 12h8'}));
+const paths={
+ S_CHARGE_SLOW_I:'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Zm0 2v7l-5 4',
+ S_CHARGE_SLOW_II:'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Zm0 2v7l-5 4m10-8v8m3-8v8',
+ S_POWER_UP_I:'M12 21V3m-7 7 7-7 7 7',S_POWER_UP_II:'M8 21V3m-5 5 5-5 5 5m3 13V3m-5 5 5-5 5 5',
+ S_SPECIAL_REFILL:'M20 10a8 8 0 1 0-2 8m2-15v7h-7m-2 0-2 4h5l-2 4',
+ S_FREE_MOVE:'M12 12C-2-4-2 28 12 12 26-4 26 28 12 12Z',
+ S_BARRIER:'M12 2 21 6v7c0 5-5 8-9 10-4-2-9-5-9-10V6Z',
+ S_ENEMY_WEAKEN:'M12 3v18m-7-7 7 7 7-7M4 4h3m10 0h3',
+ S_ENEMY_SKIP:'M7 4v16m10-16v16',S_LOW_GRAVITY:'M12 21V3m-6 6 6-6 6 6M4 17h3m10 0h3',
+ S_HIGH_GRAVITY:'M12 3v18m-6-6 6 6 6-6M4 7h3m10 0h3',
+ S_REPAIR:'M12 3v18M3 12h18',S_FULL_REPAIR:'M9 2h6v7h7v6h-7v7H9v-7H2V9h7Z',
+ S_INVINCIBLE:'M12 2 15 8 22 9 17 14 18 22 12 18 6 22 7 14 2 9 9 8Z',
+ S_ALL_ATTACK:'M12 2v20M2 12h20M5 5l14 14M5 19 19 5',
+ BURST:'M12 2v20M2 12h20M5 5l14 14M5 19 19 5',BLINK:'M12 2 22 12 12 22 2 12Z',
+ PUSH:'M3 12h18m-7-7 7 7-7 7',PULL:'M21 12H3m7-7-7 7 7 7',BOUNCE:'M2 19 8 5l8 14 6-13',
+ SPLIT:'M12 21V12m0 0L3 3m9 9 9-9',PHASE:'M9 3v18m6-18v18M2 12h20',SWAP:'M3 7h18m-5-4 5 4-5 4M21 17H3m5-4-5 4 5 4'
+};
+const rows=data.map(([id,name,nameJa,glyph,note],i)=>({id,name,nameJa,glyph,note,rare:i>=12,instant:true,path:paths[id]}));
 const notesJa=['チャージ速度70%・2ターン。','チャージ速度40%・次の攻撃1射。','与ダメージ120%・2ターン。射撃上限は維持。','与ダメージ140%・次の攻撃1射。射撃上限は維持。','必殺技の残数を3へ補充。','歩行距離制限を2ターン解除。壁・谷は通れません。','敵2ターンの被ダメージを半減。','敵2ターンの与ダメージを60%へ。','次の敵の移動と攻撃をスキップ。','全弾の重力50%・2ターン。','全弾の重力200%・2ターン。','最大HPの30%回復・1行動。','HPを全回復・1行動。','次の敵ターンの被ダメージを0へ。','敵全体に攻撃。ボスの残存部位を優先・1行動。'];rows.forEach((r,i)=>r.noteJa=notesJa[i]);
 const activeIds=rows.map(s=>s.id);
-rows.push({id:'S_GUARD',name:'Guard',nameJa:'ガード',glyph:'⬡',note:'Legacy guard: halve the next attack.',path:'M12 2 21 6v7c0 5-5 8-9 10-4-2-9-5-9-10V6Z'}, {id:'S_BREACH',name:'Breach',nameJa:'砕路（旧）',glyph:'✧',note:'Legacy breach: break nearby cover.',path:'M3 3h18v18H3Z M13 3l-4 7 7 3-5 8'});
+rows.push({id:'S_GUARD',name:'Guard',nameJa:'ガード',glyph:'⬡',note:'Legacy guard: halve the next attack.',noteJa:'旧スキル。次の攻撃のダメージを半減。',path:'M12 2 21 6v7c0 5-5 8-9 10-4-2-9-5-9-10V6Z'}, {id:'S_BREACH',name:'Breach',nameJa:'砕路（旧）',glyph:'✧',note:'Legacy breach: break nearby cover.',noteJa:'旧スキル。着弾点の近くの遮蔽物も破壊。',path:'M3 3h18v18H3Z M13 3l-4 7 7 3-5 8'});
 const ids=rows.map(s=>s.id),get=id=>rows.find(s=>s.id===id)||null;
 function compatible(id,weapon){return activeIds.includes(id)||id==='S_GUARD'||id==='S_BREACH'&&!weapon.special&&!weapon.teleport;}
-function markup(id){const s=get(id);return s?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="${s.path}"/></svg>`:'';}
-function draw(ctx,id,x,y,size=22){ctx.save();ctx.translate(x-size/2,y-size/2);ctx.scale(size/24,size/24);ctx.strokeStyle='#e9f5cc';ctx.lineWidth=1.7;const p=get(id);if(p&&typeof Path2D!=='undefined')ctx.stroke(new Path2D(p.path));ctx.restore();}
-const api={rows,ids,activeIds,get,compatible,markup,draw};if(typeof module!=='undefined')module.exports=api;else root.ArcSkills=api;
+function iconPath(id){return get(id)?.path||paths[id]||'M12 2 22 12 12 22 2 12Z';}
+function markup(id){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${iconPath(id)}"/></svg>`;}
+function draw(ctx,id,x,y,size=22,color='#e9f5cc'){ctx.save();ctx.translate(x-size/2,y-size/2);ctx.scale(size/24,size/24);ctx.strokeStyle=color;ctx.lineWidth=1.7;ctx.lineCap='round';ctx.lineJoin='round';if(typeof Path2D!=='undefined')ctx.stroke(new Path2D(iconPath(id)));else{ctx.strokeRect(4,4,16,16);}ctx.restore();}
+const api={iconPath,rows,ids,activeIds,get,compatible,markup,draw};if(typeof module!=='undefined')module.exports=api;else root.ArcSkills=api;
 })(globalThis);
 
 </script><script>
@@ -1434,14 +1452,33 @@ weapons.push(
  {id:'W22',name:'Sky Bloom',...C.ballistics,minAngle:45,maxAngle:135,damage:1.05,blast:180,shots:1,bounces:0,apexBurst:true,damageCap:1.25,appearance:{color:'#ffc88d',shape:'spark',glyph:'✺',label:'BLOOM',size:9}},
  {id:'W23',name:'Drain Shell',...C.ballistics,damage:1,blast:60,shots:1,bounces:0,damageCap:1.5,drain:.25,drainHpCap:.15,appearance:{color:'#b0f6c9',shape:'orbit',glyph:'+',label:'DRAIN',size:8}}
 );
-const namesJa={W01:'通常弾',W02:'重榴弾',W07:'転がる弾',W09:'扇状弾',W10:'分裂弾',W11:'連射弾',W12:'空中炸裂弾',W14:'レール弾',W16:'地走り弾',W19:'打ち上げ弾',W21:'二波雨弾',W22:'空中広域弾',W23:'吸収弾'};
+const namesJa={W01:'通常弾',W03:'貫通針',W04:'迫撃弾',W05:'ホッパー',W06:'跳弾',W08:'低空跳弾',W13:'ドリル',W15:'急降下弾',W17:'押し出し弾',W18:'引き寄せ弾',W20:'ピンボール',W02:'重榴弾',W07:'転がる弾',W09:'扇状弾',W10:'分裂弾',W11:'連射弾',W12:'空中炸裂弾',W14:'レール弾',W16:'地走り弾',W19:'打ち上げ弾',W21:'二波雨弾',W22:'空中広域弾',W23:'吸収弾'};
 weapons.forEach(w=>{w.nameJa=namesJa[w.id]||w.name;w.legacy=w.id!=='W01'&&!activeIds.includes(w.id);});
 function getEnemy(id){return legacyWeapons.find(w=>w.id===id)||legacyWeapons[0];}
 const coreUnlocks={W01:0,W02:3,W06:8,W14:13,W07:28,W12:35,W15:43,W10:48,W13:14,W16:67,W17:75,W19:84};
 const teleport={id:'TELEPORT',name:'Teleport',...C.ballistics,damage:0,blast:0,shots:1,bounces:0,teleport:true,appearance:{color:'#a9e9ff',shape:'ring',glyph:'◎',label:'WARP',size:7}};
 const skills=['BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP',...K.ids];
 function get(id,characterId){if(id==='TELEPORT')return teleport;if(id==='W01'&&characterId)return C.get(characterId).normal;return weapons.find(w=>w.id===id)||C.weapons.find(w=>w.id===id)||weapons[0];}
-const api={weapons,activeIds,getEnemy,skills,coreUnlocks,teleport,combat:C,get};
+// Shared vector symbols for map capsules and inventory; no glyph-font fallback.
+const iconPaths={
+ W01:'M12 5a7 7 0 1 0 0 14 7 7 0 1 0 0-14Z',
+ W02:'M12 3 21 10 18 21H6L3 10Z',W03:'M3 12h18m-7-5 7 5-7 5',
+ W04:'M12 3 21 12 12 21 3 12Z',W05:'M3 19q4-28 9 0 4-15 9-4',W06:'M3 19 12 4l9 15m-7-3 7 3-1-7',
+ W07:'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Zm0 5a4 4 0 1 0 0 8 4 4 0 1 0 0-8ZM12 3v5m0 8v5M3 12h5m8 0h5',
+ W08:'M2 18q3-8 6 0 3-8 6 0 3-8 8-2',W09:'M12 21V3m0 18L3 6m9 15 9-15M9 6l3-3 3 3',
+ W10:'M12 2 17 7 12 12 7 7Zm0 12v8m-4-9-6 6m14-6 6 6',
+ W11:'M4 5h5v14H4Zm11 0h5v14h-5Z',W12:'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Zm0 5a4 4 0 1 0 0 8 4 4 0 1 0 0-8Z',
+ W13:'M3 6 21 12 3 18Zm4 1v10m5-8v6',W14:'M2 9h15l5 3-5 3H2m1-3h19',W15:'M12 3v18m-7-7 7 7 7-7',
+ W16:'M2 7q3-4 7 0t7 0 6 0M2 12q3-4 7 0t7 0 6 0M2 17q3-4 7 0t7 0 6 0',
+ W17:'M3 12h18m-7-7 7 7-7 7',W18:'M21 12H3m7-7-7 7 7 7',W19:'M12 21V3m-7 7 7-7 7 7',W20:'M2 18 8 5l8 14 6-13',
+ W21:'M5 2v6m7-6v6m7-6v6M5 14v6m7-6v6m7-6v6',
+ W22:'M12 2v5m0 10v5M2 12h5m10 0h5M5 5l4 4m6 6 4 4M5 19l4-4m6-6 4-4',
+ W23:'M12 4v16M4 12h16M4 4l4 4m-4-1V4h3m13 16-4-4m4 1v3h-3'
+};
+function iconPath(id){return iconPaths[id]||iconPaths.W01;}
+function iconMarkup(id){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${iconPath(id)}"/></svg>`;}
+function drawIcon(ctx,id,x,y,size=22,color='#fff0a9'){ctx.save();ctx.translate(x-size/2,y-size/2);ctx.scale(size/24,size/24);ctx.strokeStyle=color;ctx.lineWidth=1.8;ctx.lineCap='round';ctx.lineJoin='round';if(typeof Path2D!=='undefined')ctx.stroke(new Path2D(iconPath(id)));else{ctx.beginPath();ctx.arc(12,12,8,0,Math.PI*2);ctx.stroke();}ctx.restore();}
+const api={iconPath,iconMarkup,drawIcon,weapons,activeIds,getEnemy,skills,coreUnlocks,teleport,combat:C,get};
 if(typeof module!=='undefined')module.exports=api;else root.ArcWeapons=api;
 })(globalThis);
 

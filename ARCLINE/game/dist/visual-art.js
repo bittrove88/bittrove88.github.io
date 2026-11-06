@@ -197,7 +197,7 @@ function drawPickup(ctx,item,options={}){
  else {const radius=rare?21:19;for(let i=0;i<(rare?6:4);i++){const a=-Math.PI/2+i*Math.PI*2/(rare?6:4);i?ctx.lineTo(Math.cos(a)*radius,Math.sin(a)*radius):ctx.moveTo(Math.cos(a)*radius,Math.sin(a)*radius);}ctx.closePath();}
  ctx.fill();ctx.stroke();
  if(rare){ctx.beginPath();for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3;i?ctx.lineTo(Math.cos(a)*16,Math.sin(a)*16):ctx.moveTo(Math.cos(a)*16,Math.sin(a)*16);}ctx.closePath();ctx.stroke();}
- ctx.fillStyle=color;ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(weapon?info.appearance.glyph:info?.glyph||'◇',0,0);ctx.restore();
+ if(weapon)root.ArcWeapons.drawIcon(ctx,item.weaponId,0,0,23,color);else root.ArcSkills.draw(ctx,item.skill,0,0,24,color);ctx.restore();
  const name=root.ArcI18n?.language==='en'?info?.name:info?.nameJa||info?.name;
  const text=name||item.skill||item.weaponId||'Ammo',lines=text.length>16&&text.includes(' ')?[text.slice(0,text.lastIndexOf(' ',16)),text.slice(text.lastIndexOf(' ',16)+1)]:[text];
  ctx.save();ctx.font=`700 ${12*unit}px system-ui`;ctx.textAlign='center';ctx.textBaseline='top';const width=Math.max(...lines.map(t=>ctx.measureText(t).width))+12*unit,view=options.bounds;

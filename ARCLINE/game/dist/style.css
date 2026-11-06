@@ -5388,3 +5388,202 @@ details p {
 #expeditionText {
   white-space: pre-line;
 }
+
+/* Inventory owns one scroll viewport; headers and tabs stay reachable. */
+#weaponPicker .weapon-panel,
+#skillPicker .weapon-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(760px, 100%);
+  height: min(560px, 100%);
+  max-height: 100%;
+  min-height: 0;
+  padding: 12px;
+  gap: 8px;
+  overflow: hidden;
+}
+#weaponPicker .weapon-panel > header,
+#skillPicker .weapon-panel > header {
+  position: static;
+  flex: none;
+  min-height: 44px;
+  padding: 0;
+  gap: 12px;
+}
+.stock-heading {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  text-align: left;
+}
+.stock-heading > strong {
+  font-size: 19px !important;
+  line-height: 1.25;
+}
+.stock-summary {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #d7e8ce;
+  white-space: normal;
+}
+#closeWeapons,
+#closeSkills {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+}
+.stock-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: none;
+  gap: 8px;
+}
+.stock-tabs button {
+  min-height: 36px;
+  padding: 5px 12px;
+  border-radius: 9px;
+  color: #d0e1d7;
+  background: #173748;
+}
+.stock-tabs [aria-selected="true"] {
+  color: #153748;
+  border-color: #e2f3bb;
+  background: #e2f3bb;
+}
+.stock-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 4px 12px;
+}
+.stock-scroll,
+.stock-scroll * {
+  touch-action: pan-y;
+}
+#weaponChoices {
+  margin-top: 0;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  align-content: start;
+}
+#weaponChoices button {
+  min-height: 64px;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 8px 10px;
+}
+#weaponChoices i svg,
+.inventory-skill i svg {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+#weaponChoices strong,
+#skillChoices .skill-name,
+.inventory-skill strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: visible;
+  line-height: 1.35;
+}
+#weaponPicker[data-stock-library="true"] .weapon-choice-copy small {
+  display: none;
+}
+#weaponChoices button:disabled,
+#skillChoices .skill:disabled,
+#skillChoices .skill.spent {
+  opacity: 1;
+  background: #1b3948;
+  border-color: #6a828b;
+  box-shadow: none;
+}
+#weaponChoices button:disabled strong,
+#skillChoices .skill:disabled .skill-name {
+  color: #d2ded9;
+}
+#weaponChoices button:disabled .weapon-choice-stock,
+#skillChoices .skill:disabled .skill-count {
+  color: #eef4cf;
+}
+#skillChoices,
+#chapterSkillStock {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  align-content: start;
+  gap: 8px;
+  margin: 0;
+}
+#skillChoices .skill {
+  min-height: 84px;
+  padding: 9px;
+}
+.inventory-skill {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  min-height: 84px;
+  border: 1px solid #82cbd466;
+  border-radius: 10px;
+  background: #214956;
+  text-align: left;
+}
+.inventory-skill i {
+  color: #74efff;
+}
+.inventory-skill > div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+.inventory-skill strong {
+  font-size: 14px;
+}
+.inventory-skill small {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #d0e0d6;
+}
+.inventory-count,
+#skillChoices .skill-count {
+  font-size: 18px;
+  color: #f0f8c9;
+  text-align: right;
+}
+.stock-empty {
+  grid-column: 1 / -1;
+  padding: 12px;
+  line-height: 1.7;
+  color: #d4e3d6;
+}
+@media (max-height: 340px) {
+  #weaponPicker,
+  #skillPicker {
+    padding: 8px;
+  }
+  #weaponPicker .weapon-panel,
+  #skillPicker .weapon-panel {
+    padding: 8px 10px;
+    gap: 5px;
+  }
+  .stock-heading > strong {
+    font-size: 17px !important;
+  }
+  .stock-summary {
+    font-size: 11px;
+  }
+  #weaponChoices button {
+    min-height: 60px;
+  }
+}
+
+.inventory-skill.rare {
+  border-color: #ffdb7688;
+}
+.inventory-skill.rare i,
+#skillChoices .skill.rare .skill-icon {
+  color: #ffdb76;
+}
