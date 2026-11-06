@@ -1,0 +1,1513 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 77,
+  "date": "2026-11-05",
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        8
+      ],
+      [
+        28,
+        8
+      ],
+      [
+        45,
+        13
+      ],
+      [
+        64,
+        25
+      ],
+      [
+        100,
+        25
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          28,
+          8
+        ],
+        [
+          45,
+          13
+        ],
+        [
+          64,
+          25
+        ],
+        [
+          100,
+          25
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "077-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            53,
+            39
+          ],
+          [
+            57,
+            39
+          ],
+          [
+            57,
+            16
+          ],
+          [
+            53,
+            16
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "077-C01@0",
+            "label": "D01",
+            "poly": [
+              [
+                53,
+                39
+              ],
+              [
+                57,
+                39
+              ],
+              [
+                57,
+                16
+              ],
+              [
+                53,
+                16
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "077-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            31,
+            39
+          ],
+          [
+            46,
+            39
+          ],
+          [
+            46,
+            36
+          ],
+          [
+            31,
+            36
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "077-C02@0",
+            "label": "D02-1",
+            "poly": [
+              [
+                31,
+                39
+              ],
+              [
+                38.5,
+                39
+              ],
+              [
+                38.5,
+                36
+              ],
+              [
+                31,
+                36
+              ]
+            ]
+          },
+          {
+            "id": "077-C02@1",
+            "label": "D02-2",
+            "poly": [
+              [
+                38.5,
+                39
+              ],
+              [
+                46,
+                39
+              ],
+              [
+                46,
+                36
+              ],
+              [
+                38.5,
+                36
+              ]
+            ]
+          }
+        ],
+        "displayId": "D02",
+        "unitCount": 2
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          59,
+          25,
+          12,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          30,
+          22
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          46,
+          69,
+          13
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 8
+    },
+    "enemy": {
+      "x": 88,
+      "h": 25
+    },
+    "pickups": [
+      {
+        "id": "W12",
+        "kind": "trial",
+        "weaponId": "W12",
+        "category": "weapon",
+        "amount": 2,
+        "x": 46.98,
+        "h": 25.236,
+        "spawnTurn": 1,
+        "placementId": "L077:weapon:W12",
+        "verification": {
+          "angle": 32,
+          "power": 87,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      }
+    ],
+    "stageNumber": 77,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "width": 1380,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        82,
+        10
+      ],
+      [
+        102,
+        15
+      ],
+      [
+        120,
+        20
+      ],
+      [
+        138,
+        20
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          102,
+          15
+        ],
+        [
+          120,
+          20
+        ],
+        [
+          138,
+          20
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "077-LOW-CEILING",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            45
+          ],
+          [
+            53,
+            45
+          ],
+          [
+            53,
+            33
+          ],
+          [
+            0,
+            33
+          ]
+        ],
+        "purpose": "下段通路の固定天井。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "077-LOW-CEILING",
+            "label": "F01",
+            "poly": [
+              [
+                0,
+                45
+              ],
+              [
+                53,
+                45
+              ],
+              [
+                53,
+                33
+              ],
+              [
+                0,
+                33
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "077-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            53,
+            10
+          ],
+          [
+            60,
+            10
+          ],
+          [
+            60,
+            33
+          ],
+          [
+            53,
+            33
+          ]
+        ],
+        "purpose": "反射回廊へ通す薄窓。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "077-WINDOW@0",
+            "label": "D02",
+            "poly": [
+              [
+                53,
+                10
+              ],
+              [
+                60,
+                10
+              ],
+              [
+                60,
+                33
+              ],
+              [
+                53,
+                33
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "077-CENTRE-CEILING",
+        "kind": "roof",
+        "poly": [
+          [
+            60,
+            45
+          ],
+          [
+            94,
+            45
+          ],
+          [
+            94,
+            33
+          ],
+          [
+            60,
+            33
+          ]
+        ],
+        "purpose": "窓の先も残る中段の床。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "077-CENTRE-CEILING",
+            "label": "F03",
+            "poly": [
+              [
+                60,
+                45
+              ],
+              [
+                94,
+                45
+              ],
+              [
+                94,
+                33
+              ],
+              [
+                60,
+                33
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "077-CONTROL-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            96,
+            33
+          ],
+          [
+            99,
+            38
+          ],
+          [
+            108,
+            38
+          ],
+          [
+            111,
+            34
+          ],
+          [
+            104,
+            28
+          ],
+          [
+            99,
+            28
+          ]
+        ],
+        "purpose": "磁場に近い中段の制御棚。",
+        "breakable": false,
+        "displayId": "F04",
+        "renderUnits": [
+          {
+            "id": "077-CONTROL-PERCH",
+            "label": "F04",
+            "poly": [
+              [
+                96,
+                33
+              ],
+              [
+                99,
+                38
+              ],
+              [
+                108,
+                38
+              ],
+              [
+                111,
+                34
+              ],
+              [
+                104,
+                28
+              ],
+              [
+                99,
+                28
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "077-ENEMY-DECK",
+        "kind": "roof",
+        "poly": [
+          [
+            112,
+            56
+          ],
+          [
+            138,
+            56
+          ],
+          [
+            138,
+            42
+          ],
+          [
+            112,
+            42
+          ]
+        ],
+        "purpose": "高い実験砲座。",
+        "breakable": false,
+        "displayId": "F05",
+        "renderUnits": [
+          {
+            "id": "077-ENEMY-DECK",
+            "label": "F05",
+            "poly": [
+              [
+                112,
+                56
+              ],
+              [
+                138,
+                56
+              ],
+              [
+                138,
+                42
+              ],
+              [
+                112,
+                42
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "077-REFLECT-BANK",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            72,
+            10
+          ],
+          [
+            84,
+            13
+          ],
+          [
+            84,
+            9
+          ],
+          [
+            72,
+            9
+          ]
+        ],
+        "purpose": "低所ルートに合わせた固定反射斜面。端子切替後の弾道も比較する。",
+        "displayId": "F06",
+        "renderUnits": [
+          {
+            "id": "077-REFLECT-BANK",
+            "label": "F06",
+            "poly": [
+              [
+                72,
+                10
+              ],
+              [
+                84,
+                13
+              ],
+              [
+                84,
+                9
+              ],
+              [
+                72,
+                9
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          84,
+          35,
+          20,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          42,
+          18
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          62,
+          85,
+          10
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 10
+    },
+    "enemy": {
+      "x": 125,
+      "h": 56
+    },
+    "pickups": [
+      {
+        "id": "W12",
+        "kind": "trial",
+        "weaponId": "W12",
+        "category": "weapon",
+        "amount": 2,
+        "x": 30,
+        "h": 19,
+        "spawnTurn": 1,
+        "placementId": "L077:weapon:W12",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 68,
+        "h": 10,
+        "label": "A"
+      },
+      {
+        "x": 103,
+        "h": 38,
+        "label": "B"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            24,
+            10
+          ],
+          [
+            68,
+            10
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            24,
+            10
+          ],
+          [
+            103,
+            38
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      }
+    ],
+    "shotExamples": [
+      {
+        "id": "lower",
+        "x": 68,
+        "h": 10,
+        "plan": "main",
+        "round": 1,
+        "destroyed": [
+          "077-WINDOW@0"
+        ],
+        "angle": -15,
+        "power": 100,
+        "damage": 1.5,
+        "events": [
+          "bounce",
+          "magnet",
+          "critical"
+        ],
+        "path": [
+          [
+            71.381,
+            11.694
+          ],
+          [
+            74.257,
+            10.901
+          ],
+          [
+            74.846,
+            10.866
+          ],
+          [
+            76.296,
+            12.263
+          ],
+          [
+            78.228,
+            14.074
+          ],
+          [
+            80.161,
+            15.825
+          ],
+          [
+            82.043,
+            17.572
+          ],
+          [
+            83.842,
+            19.346
+          ],
+          [
+            85.558,
+            21.143
+          ],
+          [
+            87.19,
+            22.958
+          ],
+          [
+            88.736,
+            24.788
+          ],
+          [
+            90.197,
+            26.628
+          ],
+          [
+            91.572,
+            28.475
+          ],
+          [
+            92.86,
+            30.325
+          ],
+          [
+            94.061,
+            32.174
+          ],
+          [
+            95.177,
+            34.017
+          ],
+          [
+            96.206,
+            35.851
+          ],
+          [
+            97.15,
+            37.671
+          ],
+          [
+            98.01,
+            39.475
+          ],
+          [
+            98.785,
+            41.257
+          ],
+          [
+            99.478,
+            43.014
+          ],
+          [
+            100.09,
+            44.742
+          ],
+          [
+            100.621,
+            46.437
+          ],
+          [
+            101.123,
+            48.082
+          ],
+          [
+            101.624,
+            49.668
+          ],
+          [
+            102.126,
+            51.195
+          ],
+          [
+            102.628,
+            52.663
+          ],
+          [
+            103.129,
+            54.071
+          ],
+          [
+            103.631,
+            55.42
+          ],
+          [
+            104.133,
+            56.71
+          ],
+          [
+            104.635,
+            57.94
+          ],
+          [
+            105.136,
+            59.111
+          ],
+          [
+            105.638,
+            60.223
+          ],
+          [
+            106.14,
+            61.276
+          ],
+          [
+            106.641,
+            62.269
+          ],
+          [
+            107.143,
+            63.204
+          ],
+          [
+            107.645,
+            64.079
+          ],
+          [
+            108.147,
+            64.894
+          ],
+          [
+            108.648,
+            65.651
+          ],
+          [
+            109.15,
+            66.348
+          ],
+          [
+            109.652,
+            66.986
+          ],
+          [
+            110.153,
+            67.564
+          ],
+          [
+            110.655,
+            68.084
+          ],
+          [
+            111.157,
+            68.544
+          ],
+          [
+            111.659,
+            68.945
+          ],
+          [
+            112.16,
+            69.286
+          ],
+          [
+            112.662,
+            69.568
+          ],
+          [
+            113.164,
+            69.791
+          ],
+          [
+            113.665,
+            69.955
+          ],
+          [
+            114.167,
+            70.06
+          ],
+          [
+            114.669,
+            70.105
+          ],
+          [
+            115.171,
+            70.091
+          ],
+          [
+            115.672,
+            70.018
+          ],
+          [
+            116.174,
+            69.885
+          ],
+          [
+            116.676,
+            69.694
+          ],
+          [
+            117.177,
+            69.443
+          ],
+          [
+            117.679,
+            69.132
+          ],
+          [
+            118.181,
+            68.763
+          ],
+          [
+            118.683,
+            68.334
+          ],
+          [
+            119.184,
+            67.846
+          ],
+          [
+            119.686,
+            67.299
+          ],
+          [
+            120.188,
+            66.692
+          ],
+          [
+            120.689,
+            66.026
+          ],
+          [
+            121.191,
+            65.301
+          ],
+          [
+            121.693,
+            64.517
+          ],
+          [
+            122.195,
+            63.673
+          ],
+          [
+            122.696,
+            62.77
+          ],
+          [
+            123.198,
+            61.808
+          ],
+          [
+            123.611,
+            60.971
+          ],
+          [
+            123.611,
+            60.971
+          ]
+        ],
+        "assumedPolarity": -1,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "middle",
+        "x": 103,
+        "h": 38,
+        "plan": "alternative",
+        "round": 1,
+        "destroyed": [
+          "077-WINDOW@0"
+        ],
+        "angle": 66,
+        "power": 50,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            104.424,
+            43.797
+          ],
+          [
+            105.029,
+            45.135
+          ],
+          [
+            105.635,
+            46.414
+          ],
+          [
+            106.24,
+            47.633
+          ],
+          [
+            106.846,
+            48.794
+          ],
+          [
+            107.452,
+            49.895
+          ],
+          [
+            108.057,
+            50.936
+          ],
+          [
+            108.663,
+            51.919
+          ],
+          [
+            109.268,
+            52.842
+          ],
+          [
+            109.874,
+            53.706
+          ],
+          [
+            110.479,
+            54.51
+          ],
+          [
+            111.085,
+            55.256
+          ],
+          [
+            111.691,
+            55.942
+          ],
+          [
+            112.296,
+            56.568
+          ],
+          [
+            112.902,
+            57.136
+          ],
+          [
+            113.507,
+            57.644
+          ],
+          [
+            114.113,
+            58.093
+          ],
+          [
+            114.719,
+            58.483
+          ],
+          [
+            115.324,
+            58.814
+          ],
+          [
+            115.93,
+            59.085
+          ],
+          [
+            116.535,
+            59.297
+          ],
+          [
+            117.141,
+            59.45
+          ],
+          [
+            117.746,
+            59.543
+          ],
+          [
+            118.352,
+            59.578
+          ],
+          [
+            118.958,
+            59.553
+          ],
+          [
+            119.563,
+            59.468
+          ],
+          [
+            120.169,
+            59.325
+          ],
+          [
+            120.774,
+            59.122
+          ],
+          [
+            121.38,
+            58.86
+          ],
+          [
+            121.923,
+            58.574
+          ],
+          [
+            121.923,
+            58.574
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      }
+    ],
+    "stageNumber": 77,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "summary": {
+    "terrain": "極性制御室の二層反射回廊",
+    "concept": "窓を開いて端子を操作し、反射弾を磁場から上段へ送る。",
+    "alternative": "中段棚から直接的な弧へ切り替える。敵転移後も窓を使い回せる構造にする。"
+  },
+  "learningGoal": {
+    "source": "下段の窓を開けてから端子を切り替え、高所の敵へ反射経路を作る。",
+    "proposed": "窓を開いて端子を操作し、反射弾を磁場から上段へ送る。 中段棚から直接的な弧へ切り替える。敵転移後も窓を使い回せる構造にする。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "窓を開いて端子を操作し、反射弾を磁場から上段へ送る。",
+    "alternative": "中段棚から直接的な弧へ切り替える。敵転移後も窓を使い回せる構造にする。",
+    "anchors": [
+      {
+        "id": "lower",
+        "x": 68,
+        "h": 10,
+        "surface": "floor0",
+        "role": "窓を開いて極性反射路を作る。 単発反射例は端子で極性−に切替済みと仮定。",
+        "probePolarity": -1,
+        "plan": "main"
+      },
+      {
+        "id": "middle",
+        "x": 103,
+        "h": 38,
+        "surface": "077-CONTROL-PERCH",
+        "role": "中段から距離を縮めて狙う。",
+        "plan": "alternative"
+      }
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "設計上の目標で、クリア実績ではない。破壊・歩行・転移・端子と反撃を含む実証は別工程。",
+    "evidenceSequenceRequirement": "P0→移動/転移/破壊/切替→射点候補→作用ギミック→敵の実位置→単発弾道→残り手数。未測定項目は未検証として残す。",
+    "reflectionRefinement": {
+      "reason": "各面の低所から反射が機能するよう固定斜面を調整。端子操作そのものは別検証。",
+      "sample": {
+        "stage": 77,
+        "id": "lower",
+        "plan": "main",
+        "polarity": -1,
+        "required": [
+          "bounce",
+          "magnet"
+        ],
+        "bank": [
+          72,
+          84,
+          10,
+          3
+        ],
+        "a": -15,
+        "power": 100,
+        "neighbors": 9
+      }
+    },
+    "accessEvidence": "候補の支持面と固定敵への単発例を確認。実移動・転移入力・準備手順を含む証明ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rico",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "固定座標・固定ターン・予告を設けず、安全な支持面から実行時に候補を生成。近接急襲を避け、転移を1行動として反撃余地を残す。",
+    "evaluation": "磁場と射線の比較",
+    "runtimeDestinations": null
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "stationary-single-shot-sample-found",
+    "actualTeleport": "not-run",
+    "combat": "not-run",
+    "autonomousEnemy": "not-implemented",
+    "staticEvidence": "STAGES_051_099_STATIC_CHECK.json",
+    "movementBenefit": "not-verified",
+    "enemyAi": "design-only-not-implemented",
+    "ballisticsEvidence": "STAGES_051_099_SHOT_PROBE.json",
+    "requiredCombinations": "sampled-combinations-found-full-routes-unverified",
+    "inputHash": "b1f48f5150626337c4d9a005a58433027cf08b732b463b532408cb6815211704"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "implementationNote": "Design only. No game source, runtime, inventory, AI, saves, production, or stage 100 changed.",
+  "destructionPlans": {
+    "main": [
+      "077-WINDOW@0"
+    ],
+    "alternative": [
+      "077-WINDOW@0"
+    ]
+  },
+  "destructionRegister": [
+    {
+      "id": "077-LOW-CEILING",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "077-LOW-CEILING",
+          "label": "F01",
+          "poly": [
+            [
+              0,
+              45
+            ],
+            [
+              53,
+              45
+            ],
+            [
+              53,
+              33
+            ],
+            [
+              0,
+              33
+            ]
+          ]
+        }
+      ],
+      "purpose": "下段通路の固定天井。"
+    },
+    {
+      "id": "077-WINDOW",
+      "label": "D02",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "077-WINDOW@0",
+          "label": "D02",
+          "poly": [
+            [
+              53,
+              10
+            ],
+            [
+              60,
+              10
+            ],
+            [
+              60,
+              33
+            ],
+            [
+              53,
+              33
+            ]
+          ]
+        }
+      ],
+      "purpose": "反射回廊へ通す薄窓。"
+    },
+    {
+      "id": "077-CENTRE-CEILING",
+      "label": "F03",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "077-CENTRE-CEILING",
+          "label": "F03",
+          "poly": [
+            [
+              60,
+              45
+            ],
+            [
+              94,
+              45
+            ],
+            [
+              94,
+              33
+            ],
+            [
+              60,
+              33
+            ]
+          ]
+        }
+      ],
+      "purpose": "窓の先も残る中段の床。"
+    },
+    {
+      "id": "077-CONTROL-PERCH",
+      "label": "F04",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "077-CONTROL-PERCH",
+          "label": "F04",
+          "poly": [
+            [
+              96,
+              33
+            ],
+            [
+              99,
+              38
+            ],
+            [
+              108,
+              38
+            ],
+            [
+              111,
+              34
+            ],
+            [
+              104,
+              28
+            ],
+            [
+              99,
+              28
+            ]
+          ]
+        }
+      ],
+      "purpose": "磁場に近い中段の制御棚。"
+    },
+    {
+      "id": "077-ENEMY-DECK",
+      "label": "F05",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "077-ENEMY-DECK",
+          "label": "F05",
+          "poly": [
+            [
+              112,
+              56
+            ],
+            [
+              138,
+              56
+            ],
+            [
+              138,
+              42
+            ],
+            [
+              112,
+              42
+            ]
+          ]
+        }
+      ],
+      "purpose": "高い実験砲座。"
+    },
+    {
+      "id": "077-REFLECT-BANK",
+      "label": "F06",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "077-REFLECT-BANK",
+          "label": "F06",
+          "poly": [
+            [
+              72,
+              10
+            ],
+            [
+              84,
+              13
+            ],
+            [
+              84,
+              9
+            ],
+            [
+              72,
+              9
+            ]
+          ]
+        }
+      ],
+      "purpose": "低所ルートに合わせた固定反射斜面。端子切替後の弾道も比較する。"
+    }
+  ],
+  "gimmickAudit": {
+    "stage": 77,
+    "inputHash": "b1f48f5150626337c4d9a005a58433027cf08b732b463b532408cb6815211704",
+    "composition": {
+      "status": "合格",
+      "expected": [
+        "M",
+        "T",
+        "W"
+      ],
+      "actual": [
+        "M",
+        "T",
+        "W"
+      ]
+    },
+    "perType": [
+      {
+        "type": "M",
+        "placement": "合格",
+        "singleShotEffect": "合格",
+        "meaning": "固定敵に命中する単発例で作用を観測。"
+      },
+      {
+        "type": "T",
+        "placement": "合格",
+        "singleShotEffect": "未検証",
+        "meaning": "極性を仮定した試射と、端子を撃って切り替える実手順を分ける。"
+      },
+      {
+        "type": "W",
+        "placement": "合格",
+        "singleShotEffect": "合格",
+        "meaning": "固定敵に命中する単発例で作用を観測。"
+      }
+    ],
+    "requiredCombinations": [
+      {
+        "point": "lower",
+        "required": [
+          "magnet",
+          "bounce"
+        ],
+        "status": "合格",
+        "round": 1,
+        "polarity": -1,
+        "meaning": "固定敵への単発、記載した開口と極性条件のみ。"
+      }
+    ],
+    "static": "合格",
+    "singleShot": "合格",
+    "actualMovement": "未検証",
+    "enemyAi": "未検証・未実装",
+    "combatAndActionBudget": "未検証",
+    "finalAcceptance": "未検証"
+  }
+}

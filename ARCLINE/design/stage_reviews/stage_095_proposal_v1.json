@@ -1,0 +1,1480 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 95,
+  "date": "2026-11-05",
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        31,
+        18
+      ],
+      [
+        47,
+        7
+      ],
+      [
+        65,
+        7
+      ],
+      [
+        80,
+        20
+      ],
+      [
+        100,
+        20
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          31,
+          18
+        ],
+        [
+          47,
+          7
+        ],
+        [
+          65,
+          7
+        ],
+        [
+          80,
+          20
+        ],
+        [
+          100,
+          20
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "095-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            43,
+            30
+          ],
+          [
+            47,
+            30
+          ],
+          [
+            47,
+            7
+          ],
+          [
+            43,
+            7
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "095-C01@0",
+            "label": "D01",
+            "poly": [
+              [
+                43,
+                30
+              ],
+              [
+                47,
+                30
+              ],
+              [
+                47,
+                7
+              ],
+              [
+                43,
+                7
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "095-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            49,
+            35
+          ],
+          [
+            62,
+            35
+          ],
+          [
+            62,
+            32
+          ],
+          [
+            49,
+            32
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "095-C02@0",
+            "label": "D02-1",
+            "poly": [
+              [
+                49,
+                35
+              ],
+              [
+                55.5,
+                35
+              ],
+              [
+                55.5,
+                32
+              ],
+              [
+                49,
+                32
+              ]
+            ]
+          },
+          {
+            "id": "095-C02@1",
+            "label": "D02-2",
+            "poly": [
+              [
+                55.5,
+                35
+              ],
+              [
+                62,
+                35
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                55.5,
+                32
+              ]
+            ]
+          }
+        ],
+        "displayId": "D02",
+        "unitCount": 2
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          61,
+          24,
+          12,
+          -1
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          34,
+          44,
+          3,
+          28
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 18
+    },
+    "enemy": {
+      "x": 82,
+      "h": 20
+    },
+    "pickups": [],
+    "stageNumber": 95,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "width": 1600,
+    "floor": [
+      [
+        0,
+        16
+      ],
+      [
+        68,
+        16
+      ],
+      [
+        99,
+        26
+      ],
+      [
+        122,
+        42
+      ],
+      [
+        160,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          16
+        ],
+        [
+          68,
+          16
+        ],
+        [
+          99,
+          26
+        ],
+        [
+          122,
+          42
+        ],
+        [
+          160,
+          42
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "095-LOW-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            63,
+            16
+          ],
+          [
+            73,
+            18
+          ],
+          [
+            73,
+            35
+          ],
+          [
+            63,
+            35
+          ]
+        ],
+        "purpose": "低い攻撃窓。",
+        "breakable": true,
+        "displayId": "D01",
+        "renderUnits": [
+          {
+            "id": "095-LOW-WINDOW@0",
+            "label": "D01",
+            "poly": [
+              [
+                63,
+                16
+              ],
+              [
+                73,
+                18
+              ],
+              [
+                73,
+                35
+              ],
+              [
+                63,
+                35
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "095-CENTRAL-POST",
+        "kind": "wall",
+        "poly": [
+          [
+            73,
+            35
+          ],
+          [
+            82,
+            35
+          ],
+          [
+            82,
+            63
+          ],
+          [
+            73,
+            63
+          ]
+        ],
+        "purpose": "上下窓を分ける固定柱。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "095-CENTRAL-POST",
+            "label": "F02",
+            "poly": [
+              [
+                73,
+                35
+              ],
+              [
+                82,
+                35
+              ],
+              [
+                82,
+                63
+              ],
+              [
+                73,
+                63
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "095-UPPER-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            83,
+            51
+          ],
+          [
+            94,
+            51
+          ],
+          [
+            94,
+            63
+          ],
+          [
+            83,
+            63
+          ]
+        ],
+        "purpose": "上側の独立攻撃窓。",
+        "breakable": true,
+        "displayId": "D03",
+        "renderUnits": [
+          {
+            "id": "095-UPPER-WINDOW@0",
+            "label": "D03-1",
+            "poly": [
+              [
+                83,
+                51
+              ],
+              [
+                88.5,
+                51
+              ],
+              [
+                88.5,
+                63
+              ],
+              [
+                83,
+                63
+              ]
+            ]
+          },
+          {
+            "id": "095-UPPER-WINDOW@1",
+            "label": "D03-2",
+            "poly": [
+              [
+                88.5,
+                51
+              ],
+              [
+                94,
+                51
+              ],
+              [
+                94,
+                63
+              ],
+              [
+                88.5,
+                63
+              ]
+            ]
+          }
+        ],
+        "unitCount": 2
+      },
+      {
+        "id": "095-GATE-TOP",
+        "kind": "roof",
+        "poly": [
+          [
+            73,
+            82
+          ],
+          [
+            109,
+            82
+          ],
+          [
+            109,
+            63
+          ],
+          [
+            73,
+            63
+          ]
+        ],
+        "purpose": "残す要塞門の頭部。",
+        "breakable": false,
+        "displayId": "F04",
+        "renderUnits": [
+          {
+            "id": "095-GATE-TOP",
+            "label": "F04",
+            "poly": [
+              [
+                73,
+                82
+              ],
+              [
+                109,
+                82
+              ],
+              [
+                109,
+                63
+              ],
+              [
+                73,
+                63
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "095-HIGH-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            39,
+            49
+          ],
+          [
+            45,
+            55
+          ],
+          [
+            61,
+            55
+          ],
+          [
+            67,
+            50
+          ],
+          [
+            58,
+            44
+          ],
+          [
+            48,
+            44
+          ]
+        ],
+        "purpose": "部位の上方窓を狙う棚。",
+        "breakable": false,
+        "displayId": "F05",
+        "renderUnits": [
+          {
+            "id": "095-HIGH-PERCH",
+            "label": "F05",
+            "poly": [
+              [
+                39,
+                49
+              ],
+              [
+                45,
+                55
+              ],
+              [
+                61,
+                55
+              ],
+              [
+                67,
+                50
+              ],
+              [
+                58,
+                44
+              ],
+              [
+                48,
+                44
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          91,
+          34,
+          20,
+          -1
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          95,
+          119,
+          45,
+          77
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 16
+    },
+    "enemy": {
+      "x": 137,
+      "h": 42
+    },
+    "pickups": [],
+    "firingPoints": [
+      {
+        "x": 54,
+        "h": 16,
+        "label": "A"
+      },
+      {
+        "x": 52,
+        "h": 55,
+        "label": "B"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            24,
+            16
+          ],
+          [
+            54,
+            16
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            24,
+            16
+          ],
+          [
+            52,
+            55
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      }
+    ],
+    "shotExamples": [
+      {
+        "id": "low",
+        "x": 54,
+        "h": 16,
+        "plan": "main",
+        "round": 1,
+        "destroyed": [
+          "095-LOW-WINDOW@0"
+        ],
+        "angle": 18,
+        "power": 90,
+        "damage": 2,
+        "events": [
+          "magnet",
+          "part"
+        ],
+        "path": [
+          [
+            57.329,
+            19.682
+          ],
+          [
+            59.878,
+            20.488
+          ],
+          [
+            62.426,
+            21.234
+          ],
+          [
+            64.975,
+            21.922
+          ],
+          [
+            67.524,
+            22.55
+          ],
+          [
+            70.073,
+            23.119
+          ],
+          [
+            72.622,
+            23.628
+          ],
+          [
+            75.166,
+            24.101
+          ],
+          [
+            77.689,
+            24.625
+          ],
+          [
+            80.186,
+            25.206
+          ],
+          [
+            82.653,
+            25.844
+          ],
+          [
+            85.09,
+            26.537
+          ],
+          [
+            87.493,
+            27.282
+          ],
+          [
+            89.859,
+            28.08
+          ],
+          [
+            92.187,
+            28.928
+          ],
+          [
+            94.474,
+            29.824
+          ],
+          [
+            96.717,
+            30.766
+          ],
+          [
+            98.916,
+            31.752
+          ],
+          [
+            101.067,
+            32.78
+          ],
+          [
+            103.169,
+            33.848
+          ],
+          [
+            105.221,
+            34.953
+          ],
+          [
+            107.219,
+            36.093
+          ],
+          [
+            109.164,
+            37.266
+          ],
+          [
+            111.056,
+            38.463
+          ],
+          [
+            112.938,
+            39.618
+          ],
+          [
+            114.82,
+            40.713
+          ],
+          [
+            116.702,
+            41.749
+          ],
+          [
+            118.583,
+            42.725
+          ],
+          [
+            120.465,
+            43.643
+          ],
+          [
+            122.347,
+            44.501
+          ],
+          [
+            124.229,
+            45.3
+          ],
+          [
+            126.111,
+            46.04
+          ],
+          [
+            127.993,
+            46.72
+          ],
+          [
+            129.874,
+            47.341
+          ],
+          [
+            131.756,
+            47.903
+          ],
+          [
+            133.638,
+            48.406
+          ],
+          [
+            135.52,
+            48.849
+          ],
+          [
+            136.101,
+            48.974
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "high",
+        "x": 52,
+        "h": 55,
+        "plan": "alternative",
+        "round": 1,
+        "destroyed": [
+          "095-UPPER-WINDOW@0",
+          "095-UPPER-WINDOW@1"
+        ],
+        "angle": 65,
+        "power": 82,
+        "damage": 2,
+        "events": [
+          "part"
+        ],
+        "path": [
+          [
+            53.479,
+            60.772
+          ],
+          [
+            54.511,
+            62.963
+          ],
+          [
+            55.543,
+            65.094
+          ],
+          [
+            56.575,
+            67.167
+          ],
+          [
+            57.607,
+            69.18
+          ],
+          [
+            58.639,
+            71.133
+          ],
+          [
+            59.671,
+            73.028
+          ],
+          [
+            60.703,
+            74.863
+          ],
+          [
+            61.735,
+            76.639
+          ],
+          [
+            62.767,
+            78.356
+          ],
+          [
+            63.799,
+            80.013
+          ],
+          [
+            64.831,
+            81.611
+          ],
+          [
+            65.862,
+            83.15
+          ],
+          [
+            66.894,
+            84.63
+          ],
+          [
+            67.926,
+            86.05
+          ],
+          [
+            68.958,
+            87.412
+          ],
+          [
+            69.99,
+            88.713
+          ],
+          [
+            71.022,
+            89.956
+          ],
+          [
+            72.054,
+            91.139
+          ],
+          [
+            73.086,
+            92.264
+          ],
+          [
+            74.118,
+            93.328
+          ],
+          [
+            75.15,
+            94.334
+          ],
+          [
+            76.182,
+            95.28
+          ],
+          [
+            77.214,
+            96.167
+          ],
+          [
+            78.246,
+            96.995
+          ],
+          [
+            79.278,
+            97.764
+          ],
+          [
+            80.31,
+            98.473
+          ],
+          [
+            81.342,
+            99.123
+          ],
+          [
+            82.373,
+            99.714
+          ],
+          [
+            83.405,
+            100.245
+          ],
+          [
+            84.437,
+            100.718
+          ],
+          [
+            85.469,
+            101.131
+          ],
+          [
+            86.501,
+            101.484
+          ],
+          [
+            87.533,
+            101.779
+          ],
+          [
+            88.565,
+            102.014
+          ],
+          [
+            89.597,
+            102.19
+          ],
+          [
+            90.629,
+            102.307
+          ],
+          [
+            91.661,
+            102.364
+          ],
+          [
+            92.693,
+            102.362
+          ],
+          [
+            93.725,
+            102.301
+          ],
+          [
+            94.757,
+            102.181
+          ],
+          [
+            95.789,
+            102.001
+          ],
+          [
+            96.821,
+            101.763
+          ],
+          [
+            97.853,
+            101.465
+          ],
+          [
+            98.885,
+            101.107
+          ],
+          [
+            99.916,
+            100.691
+          ],
+          [
+            100.948,
+            100.215
+          ],
+          [
+            101.98,
+            99.679
+          ],
+          [
+            103.012,
+            99.085
+          ],
+          [
+            104.044,
+            98.431
+          ],
+          [
+            105.076,
+            97.718
+          ],
+          [
+            106.108,
+            96.946
+          ],
+          [
+            107.14,
+            96.115
+          ],
+          [
+            108.172,
+            95.224
+          ],
+          [
+            109.204,
+            94.274
+          ],
+          [
+            110.236,
+            93.265
+          ],
+          [
+            111.268,
+            92.196
+          ],
+          [
+            112.3,
+            91.069
+          ],
+          [
+            113.332,
+            89.882
+          ],
+          [
+            114.364,
+            88.636
+          ],
+          [
+            115.396,
+            87.33
+          ],
+          [
+            116.427,
+            85.965
+          ],
+          [
+            117.459,
+            84.541
+          ],
+          [
+            118.491,
+            83.058
+          ],
+          [
+            119.523,
+            81.515
+          ],
+          [
+            120.555,
+            79.914
+          ],
+          [
+            121.587,
+            78.252
+          ],
+          [
+            122.619,
+            76.532
+          ],
+          [
+            123.651,
+            74.753
+          ],
+          [
+            124.683,
+            72.914
+          ],
+          [
+            125.715,
+            71.016
+          ],
+          [
+            126.747,
+            69.058
+          ],
+          [
+            127.779,
+            67.042
+          ],
+          [
+            128.811,
+            64.966
+          ],
+          [
+            129.843,
+            62.831
+          ],
+          [
+            130.875,
+            60.636
+          ],
+          [
+            131.907,
+            58.382
+          ],
+          [
+            132.939,
+            56.07
+          ],
+          [
+            133.97,
+            53.697
+          ],
+          [
+            135.002,
+            51.266
+          ],
+          [
+            135.981,
+            48.904
+          ],
+          [
+            135.981,
+            48.904
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      }
+    ],
+    "targets": [
+      {
+        "x": 137,
+        "h": 47.3,
+        "label": "部位1",
+        "name": "シールドドライブ"
+      }
+    ],
+    "stageNumber": 95,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "summary": {
+    "terrain": "防御門の上下二つの攻撃窓",
+    "concept": "シールドドライブを優先し、低い窓の安全性を使う。",
+    "alternative": "上窓と風を利用し、部位へ別の角度を作る。"
+  },
+  "learningGoal": {
+    "source": "盾を停止してから、二つの窓の安全な方へ移る",
+    "proposed": "シールドドライブを優先し、低い窓の安全性を使う。 上窓と風を利用し、部位へ別の角度を作る。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "シールドドライブを優先し、低い窓の安全性を使う。",
+    "alternative": "上窓と風を利用し、部位へ別の角度を作る。",
+    "anchors": [
+      {
+        "id": "low",
+        "x": 54,
+        "h": 16,
+        "surface": "floor0",
+        "role": "下窓と磁場から盾の部位を狙う。",
+        "plan": "main"
+      },
+      {
+        "id": "high",
+        "x": 52,
+        "h": 55,
+        "surface": "095-HIGH-PERCH",
+        "role": "上窓から別射角を作る。",
+        "plan": "alternative"
+      }
+    ],
+    "totalActionsTarget": [
+      10,
+      20
+    ],
+    "budgetMeaning": "設計上の目標で、クリア実績ではない。破壊・歩行・転移・端子と反撃を含む実証は別工程。",
+    "evidenceSequenceRequirement": "P0→移動/転移/破壊/切替→射点候補→作用ギミック→敵の実位置→単発弾道→残り手数。未測定項目は未検証として残す。",
+    "accessEvidence": "候補の支持面と固定敵への単発例を確認。実移動・転移入力・準備手順を含む証明ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 7,
+      "enemyProfile": 4,
+      "encounterId": "midboss:line-warden",
+      "boss": false,
+      "midboss": true,
+      "hold": 1,
+      "recommendedCharacter": "yui",
+      "enemyErrorStageMultiplier": 0.65,
+      "enemyDamageStageMultiplier": 1.1,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "ボス固有戦を優先、汎用転移は今回適用しない提案。",
+    "evaluation": "観測した攻撃経路を含む総合比較",
+    "runtimeDestinations": null
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "stationary-single-shot-sample-found",
+    "actualTeleport": "not-run",
+    "combat": "not-run",
+    "autonomousEnemy": "not-implemented",
+    "staticEvidence": "STAGES_051_099_STATIC_CHECK.json",
+    "movementBenefit": "not-verified",
+    "enemyAi": "design-only-not-implemented",
+    "ballisticsEvidence": "STAGES_051_099_SHOT_PROBE.json",
+    "requiredCombinations": "sampled-combinations-found-full-routes-unverified",
+    "inputHash": "8615685b7346565974cce2a2f1aa275e3350b443d0f3e65dfcbffa25317eee1a"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "implementationNote": "Design only. No game source, runtime, inventory, AI, saves, production, or stage 100 changed.",
+  "destructionPlans": {
+    "main": [
+      "095-LOW-WINDOW@0"
+    ],
+    "alternative": [
+      "095-UPPER-WINDOW@0",
+      "095-UPPER-WINDOW@1"
+    ]
+  },
+  "destructionRegister": [
+    {
+      "id": "095-LOW-WINDOW",
+      "label": "D01",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "095-LOW-WINDOW@0",
+          "label": "D01",
+          "poly": [
+            [
+              63,
+              16
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              73,
+              35
+            ],
+            [
+              63,
+              35
+            ]
+          ]
+        }
+      ],
+      "purpose": "低い攻撃窓。"
+    },
+    {
+      "id": "095-CENTRAL-POST",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "095-CENTRAL-POST",
+          "label": "F02",
+          "poly": [
+            [
+              73,
+              35
+            ],
+            [
+              82,
+              35
+            ],
+            [
+              82,
+              63
+            ],
+            [
+              73,
+              63
+            ]
+          ]
+        }
+      ],
+      "purpose": "上下窓を分ける固定柱。"
+    },
+    {
+      "id": "095-UPPER-WINDOW",
+      "label": "D03",
+      "breakable": true,
+      "unitCount": 2,
+      "units": [
+        {
+          "id": "095-UPPER-WINDOW@0",
+          "label": "D03-1",
+          "poly": [
+            [
+              83,
+              51
+            ],
+            [
+              88.5,
+              51
+            ],
+            [
+              88.5,
+              63
+            ],
+            [
+              83,
+              63
+            ]
+          ]
+        },
+        {
+          "id": "095-UPPER-WINDOW@1",
+          "label": "D03-2",
+          "poly": [
+            [
+              88.5,
+              51
+            ],
+            [
+              94,
+              51
+            ],
+            [
+              94,
+              63
+            ],
+            [
+              88.5,
+              63
+            ]
+          ]
+        }
+      ],
+      "purpose": "上側の独立攻撃窓。"
+    },
+    {
+      "id": "095-GATE-TOP",
+      "label": "F04",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "095-GATE-TOP",
+          "label": "F04",
+          "poly": [
+            [
+              73,
+              82
+            ],
+            [
+              109,
+              82
+            ],
+            [
+              109,
+              63
+            ],
+            [
+              73,
+              63
+            ]
+          ]
+        }
+      ],
+      "purpose": "残す要塞門の頭部。"
+    },
+    {
+      "id": "095-HIGH-PERCH",
+      "label": "F05",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "095-HIGH-PERCH",
+          "label": "F05",
+          "poly": [
+            [
+              39,
+              49
+            ],
+            [
+              45,
+              55
+            ],
+            [
+              61,
+              55
+            ],
+            [
+              67,
+              50
+            ],
+            [
+              58,
+              44
+            ],
+            [
+              48,
+              44
+            ]
+          ]
+        }
+      ],
+      "purpose": "部位の上方窓を狙う棚。"
+    }
+  ],
+  "gimmickAudit": {
+    "stage": 95,
+    "inputHash": "8615685b7346565974cce2a2f1aa275e3350b443d0f3e65dfcbffa25317eee1a",
+    "composition": {
+      "status": "合格",
+      "expected": [
+        "F",
+        "M"
+      ],
+      "actual": [
+        "F",
+        "M"
+      ]
+    },
+    "perType": [
+      {
+        "type": "F",
+        "placement": "合格",
+        "singleShotEffect": "合格",
+        "meaning": "固定敵に命中する単発例で作用を観測。"
+      },
+      {
+        "type": "M",
+        "placement": "合格",
+        "singleShotEffect": "合格",
+        "meaning": "固定敵に命中する単発例で作用を観測。"
+      }
+    ],
+    "requiredCombinations": [],
+    "static": "合格",
+    "singleShot": "合格",
+    "actualMovement": "未検証",
+    "enemyAi": "未検証・未実装",
+    "combatAndActionBudget": "未検証",
+    "finalAcceptance": "未検証"
+  }
+}

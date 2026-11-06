@@ -1,0 +1,811 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 58,
+  "date": "2026-11-05",
+  "revision": 1,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        7
+      ],
+      [
+        26,
+        7
+      ],
+      [
+        44,
+        12
+      ],
+      [
+        61,
+        23
+      ],
+      [
+        100,
+        23
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          26,
+          7
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          61,
+          23
+        ],
+        [
+          100,
+          23
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "058-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            38,
+            32
+          ],
+          [
+            42,
+            32
+          ],
+          [
+            42,
+            11
+          ],
+          [
+            38,
+            11
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "058-C02",
+        "kind": "wall",
+        "poly": [
+          [
+            65,
+            40
+          ],
+          [
+            69,
+            40
+          ],
+          [
+            69,
+            23
+          ],
+          [
+            65,
+            23
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "058-C03",
+        "kind": "roof",
+        "poly": [
+          [
+            26,
+            39
+          ],
+          [
+            44,
+            39
+          ],
+          [
+            44,
+            36
+          ],
+          [
+            26,
+            36
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "058-C04",
+        "kind": "roof",
+        "poly": [
+          [
+            55,
+            46
+          ],
+          [
+            72,
+            46
+          ],
+          [
+            72,
+            43
+          ],
+          [
+            55,
+            43
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          54,
+          73,
+          19,
+          42
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 7.0
+    },
+    "enemy": {
+      "x": 86,
+      "h": 23.0
+    },
+    "pickups": []
+  },
+  "after": {
+    "width": 1440,
+    "floor": [
+      [
+        0,
+        9
+      ],
+      [
+        16,
+        10
+      ],
+      [
+        37,
+        10
+      ],
+      [
+        48,
+        8
+      ],
+      [
+        75,
+        8
+      ],
+      [
+        88,
+        12
+      ],
+      [
+        100,
+        12
+      ],
+      [
+        112,
+        10
+      ],
+      [
+        128,
+        10
+      ],
+      [
+        144,
+        13
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          37,
+          10
+        ],
+        [
+          48,
+          8
+        ],
+        [
+          75,
+          8
+        ],
+        [
+          88,
+          12
+        ],
+        [
+          100,
+          12
+        ],
+        [
+          112,
+          10
+        ],
+        [
+          128,
+          10
+        ],
+        [
+          144,
+          13
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "058-LOW-WEST",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            36
+          ],
+          [
+            14,
+            39
+          ],
+          [
+            30,
+            37
+          ],
+          [
+            44,
+            35
+          ],
+          [
+            44,
+            26
+          ],
+          [
+            24,
+            25
+          ],
+          [
+            0,
+            27
+          ]
+        ],
+        "purpose": "下層と中層を隔てる西氷床。",
+        "breakable": false
+      },
+      {
+        "id": "058-LOW-WEST-SEAM",
+        "kind": "roof",
+        "poly": [
+          [
+            44,
+            35
+          ],
+          [
+            54,
+            35
+          ],
+          [
+            54,
+            26
+          ],
+          [
+            44,
+            26
+          ]
+        ],
+        "purpose": "西の薄い天井。",
+        "breakable": true
+      },
+      {
+        "id": "058-LOW-CENTRE",
+        "kind": "roof",
+        "poly": [
+          [
+            54,
+            35
+          ],
+          [
+            65,
+            43
+          ],
+          [
+            80,
+            43
+          ],
+          [
+            90,
+            42
+          ],
+          [
+            90,
+            28
+          ],
+          [
+            73,
+            27
+          ],
+          [
+            54,
+            26
+          ]
+        ],
+        "purpose": "中層の起伏する足場。",
+        "breakable": false
+      },
+      {
+        "id": "058-LOW-EAST-SEAM",
+        "kind": "roof",
+        "poly": [
+          [
+            90,
+            42
+          ],
+          [
+            100,
+            42
+          ],
+          [
+            100,
+            28
+          ],
+          [
+            90,
+            28
+          ]
+        ],
+        "purpose": "東の薄い天井。",
+        "breakable": true
+      },
+      {
+        "id": "058-LOW-EAST",
+        "kind": "roof",
+        "poly": [
+          [
+            100,
+            42
+          ],
+          [
+            112,
+            46
+          ],
+          [
+            126,
+            44
+          ],
+          [
+            144,
+            41
+          ],
+          [
+            144,
+            28
+          ],
+          [
+            122,
+            29
+          ],
+          [
+            100,
+            28
+          ]
+        ],
+        "purpose": "東側の中層足場。",
+        "breakable": false
+      },
+      {
+        "id": "058-UP-WEST",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            68
+          ],
+          [
+            22,
+            67
+          ],
+          [
+            39,
+            69
+          ],
+          [
+            58,
+            67
+          ],
+          [
+            73,
+            66
+          ],
+          [
+            73,
+            56
+          ],
+          [
+            54,
+            57
+          ],
+          [
+            31,
+            55
+          ],
+          [
+            0,
+            56
+          ]
+        ],
+        "purpose": "中層と上層を隔てる西氷床。",
+        "breakable": false
+      },
+      {
+        "id": "058-UP-WEST-SEAM",
+        "kind": "roof",
+        "poly": [
+          [
+            73,
+            66
+          ],
+          [
+            83,
+            66
+          ],
+          [
+            83,
+            56
+          ],
+          [
+            73,
+            56
+          ]
+        ],
+        "purpose": "上層への西開口。",
+        "breakable": true
+      },
+      {
+        "id": "058-UP-CENTRE",
+        "kind": "roof",
+        "poly": [
+          [
+            83,
+            66
+          ],
+          [
+            94,
+            70
+          ],
+          [
+            112,
+            70
+          ],
+          [
+            112,
+            59
+          ],
+          [
+            94,
+            60
+          ],
+          [
+            83,
+            56
+          ]
+        ],
+        "purpose": "上層へ続く厚い氷床。",
+        "breakable": false
+      },
+      {
+        "id": "058-UP-EAST-SEAM",
+        "kind": "roof",
+        "poly": [
+          [
+            112,
+            70
+          ],
+          [
+            122,
+            70
+          ],
+          [
+            122,
+            59
+          ],
+          [
+            112,
+            59
+          ]
+        ],
+        "purpose": "上層への東開口。",
+        "breakable": true
+      },
+      {
+        "id": "058-UP-EAST",
+        "kind": "roof",
+        "poly": [
+          [
+            122,
+            70
+          ],
+          [
+            139,
+            70
+          ],
+          [
+            144,
+            69
+          ],
+          [
+            144,
+            58
+          ],
+          [
+            122,
+            59
+          ]
+        ],
+        "purpose": "敵が立つ上段回廊。",
+        "breakable": false
+      },
+      {
+        "id": "058-VAULT",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            100
+          ],
+          [
+            25,
+            104
+          ],
+          [
+            62,
+            101
+          ],
+          [
+            93,
+            99
+          ],
+          [
+            122,
+            102
+          ],
+          [
+            144,
+            97
+          ],
+          [
+            144,
+            85
+          ],
+          [
+            121,
+            87
+          ],
+          [
+            89,
+            86
+          ],
+          [
+            56,
+            88
+          ],
+          [
+            23,
+            85
+          ],
+          [
+            0,
+            87
+          ]
+        ],
+        "purpose": "最上層も包む厚い氷の天井。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          82,
+          110,
+          46,
+          65
+        ]
+      }
+    ],
+    "player": {
+      "x": 65,
+      "h": 8
+    },
+    "enemy": {
+      "x": 131,
+      "h": 70
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "西の上窓から上段へ",
+        "points": [
+          [
+            69,
+            46
+          ],
+          [
+            76,
+            58
+          ],
+          [
+            81,
+            72
+          ],
+          [
+            109,
+            81
+          ],
+          [
+            131,
+            73
+          ]
+        ],
+        "requiresDestroyed": [
+          "058-UP-WEST-SEAM"
+        ],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "東の上窓から上段へ",
+        "points": [
+          [
+            108,
+            47.666667
+          ],
+          [
+            116,
+            63
+          ],
+          [
+            124,
+            77
+          ],
+          [
+            131,
+            73
+          ]
+        ],
+        "requiresDestroyed": [
+          "058-UP-EAST-SEAM"
+        ],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 69,
+        "h": 43,
+        "label": "A"
+      },
+      {
+        "x": 108,
+        "h": 44.666667,
+        "label": "B"
+      }
+    ],
+    "pickups": [],
+    "material": "ice"
+  },
+  "summary": {
+    "concept": "下層からどの薄い天井を開くか選び、二つの開口だけで上段への経路を作る。",
+    "terrain": "上下をずらして重なる三層の巨大氷洞",
+    "changeFromPrevious": "三層を同じ水平棚で重ねず、厚み・高さ・開口をずらす。中央下層から左右の準備経路を選ばせ、破壊箇所の選択そのものに意味を持たせる。"
+  },
+  "learningGoal": {
+    "source": "天井の窓を一枚だけ開き、高い敵側の射点へ低い風域から通す。",
+    "proposed": "下層からどの薄い天井を開くか選び、二つの開口だけで上段への経路を作る。",
+    "decision": "刷新"
+  },
+  "routeDesign": {
+    "main": "西の下天井を開けて中層Aへ移り、西の上天井を開く。近い準備区間を使う代わりに、風域の上を越す長めの弧を読む。",
+    "alternative": "東の下天井と上天井を選んで中層Bへ進む。水平移動は増えるが、敵の直下に近い開口から短い弧を作れる。四箇所すべては壊さない。",
+    "anchors": [
+      {
+        "id": "west",
+        "x": 69,
+        "h": 43,
+        "surface": "058-LOW-CENTRE",
+        "role": "西の下天井を開いた後に向かう中層射点。"
+      },
+      {
+        "id": "east",
+        "x": 108,
+        "h": 44.666667,
+        "surface": "058-LOW-EAST",
+        "role": "東開口の直下へ進む中層射点。"
+      }
+    ],
+    "benefits": [
+      "西の準備距離が短い",
+      "敵に近い上窓を使える"
+    ],
+    "costs": [
+      "上段まで長い弧と風の判断が必要",
+      "東への位置取りが増える"
+    ],
+    "setupActionsTarget": [
+      2,
+      4
+    ],
+    "totalActionsTarget": [
+      9,
+      14
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:mist",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "高",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "16行動なので四窓全破壊を要求しない。各経路は下・上それぞれ一窓を開く構想で、開口位置と破壊単位を明示する。移動・転移と全手順は未検証。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged."
+}

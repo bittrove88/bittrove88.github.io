@@ -1,0 +1,659 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 59,
+  "date": "2026-11-05",
+  "revision": 1,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        27
+      ],
+      [
+        27,
+        27
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          27
+        ],
+        [
+          27,
+          27
+        ]
+      ],
+      [
+        [
+          79,
+          25
+        ],
+        [
+          100,
+          25
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "059-C01",
+        "kind": "island",
+        "poly": [
+          [
+            43,
+            22
+          ],
+          [
+            61,
+            22
+          ],
+          [
+            61,
+            17
+          ],
+          [
+            43,
+            17
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "059-C02",
+        "kind": "wall",
+        "poly": [
+          [
+            54,
+            35
+          ],
+          [
+            58,
+            35
+          ],
+          [
+            58,
+            22
+          ],
+          [
+            54,
+            22
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          37,
+          56,
+          5,
+          41
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          68,
+          81,
+          12
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 27.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 25.0
+    },
+    "pickups": [
+      {
+        "id": "SK059",
+        "kind": "skill",
+        "skillId": "S_HIGH_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 44.808,
+        "h": 38.146,
+        "spawnTurn": 5,
+        "placementId": "L059:skill:S_HIGH_GRAVITY",
+        "verification": {
+          "angle": 30,
+          "power": 60,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 1.5
+        }
+      }
+    ]
+  },
+  "after": {
+    "width": 1680,
+    "floor": [
+      [
+        0,
+        20
+      ],
+      [
+        15,
+        27
+      ],
+      [
+        28,
+        27
+      ],
+      [
+        36,
+        35
+      ],
+      [
+        44,
+        35
+      ],
+      [
+        75,
+        10
+      ],
+      [
+        87,
+        14
+      ],
+      [
+        106,
+        14
+      ],
+      [
+        130,
+        24
+      ],
+      [
+        138,
+        29
+      ],
+      [
+        153,
+        29
+      ],
+      [
+        168,
+        36
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          20
+        ],
+        [
+          15,
+          27
+        ],
+        [
+          28,
+          27
+        ],
+        [
+          36,
+          35
+        ],
+        [
+          44,
+          35
+        ]
+      ],
+      [
+        [
+          75,
+          10
+        ],
+        [
+          87,
+          14
+        ],
+        [
+          106,
+          14
+        ]
+      ],
+      [
+        [
+          130,
+          24
+        ],
+        [
+          138,
+          29
+        ],
+        [
+          153,
+          29
+        ],
+        [
+          168,
+          36
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "059-ENEMY-ICE",
+        "kind": "island",
+        "poly": [
+          [
+            42,
+            58
+          ],
+          [
+            50,
+            65
+          ],
+          [
+            68,
+            65
+          ],
+          [
+            74,
+            52
+          ],
+          [
+            74,
+            44
+          ],
+          [
+            52,
+            45
+          ],
+          [
+            42,
+            48
+          ]
+        ],
+        "purpose": "左側へ張り出す敵の高所氷棚。",
+        "breakable": false
+      },
+      {
+        "id": "059-ICE-ROOT",
+        "kind": "wall",
+        "poly": [
+          [
+            44,
+            35
+          ],
+          [
+            52,
+            35
+          ],
+          [
+            52,
+            46
+          ],
+          [
+            44,
+            48
+          ]
+        ],
+        "purpose": "左山体と敵棚をつなぐ氷。",
+        "breakable": false
+      },
+      {
+        "id": "059-LOW-MIRROR",
+        "kind": "island",
+        "poly": [
+          [
+            74,
+            29
+          ],
+          [
+            77,
+            34
+          ],
+          [
+            89,
+            27
+          ],
+          [
+            95,
+            27
+          ],
+          [
+            95,
+            22
+          ],
+          [
+            88,
+            18
+          ],
+          [
+            78,
+            19
+          ]
+        ],
+        "purpose": "低い反射棚。",
+        "breakable": false
+      },
+      {
+        "id": "059-CENTRAL-SPIRE",
+        "kind": "wall",
+        "poly": [
+          [
+            96,
+            14
+          ],
+          [
+            106,
+            14
+          ],
+          [
+            106,
+            66
+          ],
+          [
+            102,
+            72
+          ],
+          [
+            97,
+            68
+          ]
+        ],
+        "purpose": "直接射線を切る高い中央断崖。",
+        "breakable": false
+      },
+      {
+        "id": "059-HIGH-SHELF",
+        "kind": "island",
+        "poly": [
+          [
+            108,
+            73
+          ],
+          [
+            112,
+            79
+          ],
+          [
+            122,
+            79
+          ],
+          [
+            126,
+            75
+          ],
+          [
+            119,
+            69
+          ],
+          [
+            112,
+            69
+          ]
+        ],
+        "purpose": "中央断崖の上へ出る露出棚。",
+        "breakable": false
+      },
+      {
+        "id": "059-START-ICE",
+        "kind": "island",
+        "poly": [
+          [
+            130,
+            43
+          ],
+          [
+            137,
+            47
+          ],
+          [
+            154,
+            47
+          ],
+          [
+            160,
+            43
+          ],
+          [
+            168,
+            46
+          ],
+          [
+            168,
+            33
+          ],
+          [
+            150,
+            35
+          ],
+          [
+            132,
+            36
+          ]
+        ],
+        "purpose": "右山体から張り出した自機の出撃棚。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          77,
+          89,
+          27
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          110,
+          136,
+          48,
+          70
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          55,
+          78,
+          40,
+          72
+        ]
+      }
+    ],
+    "player": {
+      "x": 145,
+      "h": 47,
+      "facing": -1
+    },
+    "enemy": {
+      "x": 62,
+      "h": 65
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "断崖上の棚から左の敵へ",
+        "points": [
+          [
+            117,
+            82
+          ],
+          [
+            100,
+            96
+          ],
+          [
+            79,
+            91
+          ],
+          [
+            62,
+            68
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "低棚の鏡で風へ跳ね上げる",
+        "points": [
+          [
+            93,
+            30
+          ],
+          [
+            87,
+            28.166667
+          ],
+          [
+            73,
+            57
+          ],
+          [
+            66,
+            71
+          ],
+          [
+            62,
+            68
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 117,
+        "h": 79,
+        "label": "A"
+      },
+      {
+        "x": 93,
+        "h": 27,
+        "label": "B"
+      }
+    ],
+    "pickups": [
+      {
+        "id": "SK059",
+        "kind": "skill",
+        "skillId": "S_HIGH_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 132,
+        "h": 55,
+        "spawnTurn": 5,
+        "placementId": "L059:skill:S_HIGH_GRAVITY",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "material": "ice"
+  },
+  "summary": {
+    "concept": "右側から始め、高い露出棚か低い反射棚かを選んで左の敵へ攻撃する。",
+    "terrain": "複数断崖と左右へ分かれた孤立氷棚",
+    "changeFromPrevious": "53面の二棚選択を発展させ、三つの地盤・中央断崖・二つの風域を加える。左右も逆にし、単純な高さ違いの棚にはしない。"
+  },
+  "learningGoal": {
+    "source": "中継棚へ渡る時刻と、横風を避ける高度を選ぶ",
+    "proposed": "右側から始め、高い露出棚か低い反射棚かを選んで左の敵へ攻撃する。",
+    "decision": "刷新"
+  },
+  "routeDesign": {
+    "main": "高棚Aへ転移して中央断崖より上を取り、左の敵へ曲射する。短い射線を作る代わりに露出が増える。",
+    "alternative": "低棚Bへ回り、反射と左側の風を利用して高い敵へ送る。高所からの直接射線を地形で切れるが、反射・風・高度差の判断が増える。",
+    "anchors": [
+      {
+        "id": "high",
+        "x": 117,
+        "h": 79,
+        "surface": "059-HIGH-SHELF",
+        "role": "中央断崖を越えて敵へ向く露出射点。"
+      },
+      {
+        "id": "low",
+        "x": 93,
+        "h": 27,
+        "surface": "059-LOW-MIRROR",
+        "role": "低い反射棚。敵側の高低差を遮蔽に使う。"
+      }
+    ],
+    "benefits": [
+      "断崖を越した見通しを得られる",
+      "低い位置と反射を攻撃に使える"
+    ],
+    "costs": [
+      "露出と転移先の選択が必要",
+      "反射・風・高低差を合わせて読む"
+    ],
+    "setupActionsTarget": [
+      1,
+      3
+    ],
+    "totalActionsTarget": [
+      8,
+      14
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "sora",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "高",
+      "敵の反撃": "高",
+      "位置移動": "高",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "右開始では左へ歩いて向きを合わせる。新しい射角ルールを導入しない。低棚の反射が唯一の極細解になれば鏡面角度・高さを調整する。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged."
+}

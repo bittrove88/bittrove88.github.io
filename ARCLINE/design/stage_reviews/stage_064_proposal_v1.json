@@ -1,0 +1,1103 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 64,
+  "date": "2026-11-05",
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        27
+      ],
+      [
+        28,
+        27
+      ],
+      [
+        44,
+        19
+      ],
+      [
+        61,
+        11
+      ],
+      [
+        100,
+        11
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          27
+        ],
+        [
+          28,
+          27
+        ],
+        [
+          44,
+          19
+        ],
+        [
+          61,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "064-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            49,
+            33
+          ],
+          [
+            53,
+            33
+          ],
+          [
+            53,
+            16
+          ],
+          [
+            49,
+            16
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "064-C01@0",
+            "label": "D01",
+            "poly": [
+              [
+                49,
+                33
+              ],
+              [
+                53,
+                33
+              ],
+              [
+                53,
+                16
+              ],
+              [
+                49,
+                16
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "064-C02",
+        "kind": "island",
+        "poly": [
+          [
+            56,
+            27
+          ],
+          [
+            71,
+            27
+          ],
+          [
+            71,
+            23
+          ],
+          [
+            56,
+            23
+          ]
+        ],
+        "breakable": false,
+        "renderUnits": [
+          {
+            "id": "064-C02",
+            "label": "F02",
+            "poly": [
+              [
+                56,
+                27
+              ],
+              [
+                71,
+                27
+              ],
+              [
+                71,
+                23
+              ],
+              [
+                56,
+                23
+              ]
+            ]
+          }
+        ],
+        "displayId": "F02",
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 16,
+      "h": 27
+    },
+    "enemy": {
+      "x": 86,
+      "h": 11
+    },
+    "pickups": [
+      {
+        "id": "SK064",
+        "kind": "skill",
+        "skillId": "S_REPAIR",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 45.787,
+        "h": 38.746,
+        "spawnTurn": 1,
+        "placementId": "L064:skill:S_REPAIR",
+        "verification": {
+          "angle": 32,
+          "power": 59,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 1.5
+        }
+      }
+    ],
+    "stageNumber": 64,
+    "worldHold": 1,
+    "ventStartsOn": true
+  },
+  "after": {
+    "width": 1120,
+    "floor": [
+      [
+        0,
+        78
+      ],
+      [
+        34,
+        78
+      ],
+      [
+        44,
+        72
+      ],
+      [
+        45,
+        14
+      ],
+      [
+        66,
+        12
+      ],
+      [
+        82,
+        17
+      ],
+      [
+        100,
+        17
+      ],
+      [
+        112,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          78
+        ],
+        [
+          34,
+          78
+        ],
+        [
+          44,
+          72
+        ],
+        [
+          45,
+          14
+        ],
+        [
+          66,
+          12
+        ],
+        [
+          82,
+          17
+        ],
+        [
+          100,
+          17
+        ],
+        [
+          112,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "064-SIDE-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            50,
+            40
+          ],
+          [
+            55,
+            45
+          ],
+          [
+            69,
+            45
+          ],
+          [
+            73,
+            41
+          ],
+          [
+            66,
+            36
+          ],
+          [
+            56,
+            36
+          ]
+        ],
+        "purpose": "崖中腹から敵と近い高さを作る。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "064-SIDE-PERCH",
+            "label": "F01",
+            "poly": [
+              [
+                50,
+                40
+              ],
+              [
+                55,
+                45
+              ],
+              [
+                69,
+                45
+              ],
+              [
+                73,
+                41
+              ],
+              [
+                66,
+                36
+              ],
+              [
+                56,
+                36
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "064-BASIN-HOOD",
+        "kind": "roof",
+        "poly": [
+          [
+            80,
+            45
+          ],
+          [
+            93,
+            50
+          ],
+          [
+            112,
+            46
+          ],
+          [
+            112,
+            32
+          ],
+          [
+            94,
+            33
+          ],
+          [
+            80,
+            34
+          ]
+        ],
+        "purpose": "崖下敵を上方から守る庇。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "064-BASIN-HOOD",
+            "label": "F02",
+            "poly": [
+              [
+                80,
+                45
+              ],
+              [
+                93,
+                50
+              ],
+              [
+                112,
+                46
+              ],
+              [
+                112,
+                32
+              ],
+              [
+                94,
+                33
+              ],
+              [
+                80,
+                34
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 24,
+      "h": 78
+    },
+    "enemy": {
+      "x": 92,
+      "h": 17
+    },
+    "pickups": [
+      {
+        "id": "SK064",
+        "kind": "skill",
+        "skillId": "S_REPAIR",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 30,
+        "h": 87,
+        "spawnTurn": 1,
+        "placementId": "L064:skill:S_REPAIR",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 62,
+        "h": 45,
+        "label": "A"
+      },
+      {
+        "x": 73,
+        "h": 14.1875,
+        "label": "B"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            24,
+            78
+          ],
+          [
+            62,
+            45
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            24,
+            78
+          ],
+          [
+            73,
+            14.1875
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      }
+    ],
+    "shotExamples": [
+      {
+        "id": "P0",
+        "x": 24,
+        "h": 78,
+        "plan": "intact",
+        "round": 1,
+        "destroyed": [],
+        "angle": 12,
+        "power": 40,
+        "damage": 0.5,
+        "events": [
+          "impact"
+        ],
+        "path": [
+          [
+            27.424,
+            81.328
+          ],
+          [
+            28.589,
+            81.553
+          ],
+          [
+            29.754,
+            81.719
+          ],
+          [
+            30.919,
+            81.826
+          ],
+          [
+            32.084,
+            81.874
+          ],
+          [
+            33.249,
+            81.862
+          ],
+          [
+            34.414,
+            81.791
+          ],
+          [
+            35.579,
+            81.661
+          ],
+          [
+            36.744,
+            81.472
+          ],
+          [
+            37.909,
+            81.223
+          ],
+          [
+            39.074,
+            80.915
+          ],
+          [
+            40.239,
+            80.548
+          ],
+          [
+            41.405,
+            80.122
+          ],
+          [
+            42.57,
+            79.636
+          ],
+          [
+            43.735,
+            79.091
+          ],
+          [
+            44.9,
+            78.487
+          ],
+          [
+            46.065,
+            77.823
+          ],
+          [
+            47.23,
+            77.101
+          ],
+          [
+            48.395,
+            76.319
+          ],
+          [
+            49.56,
+            75.477
+          ],
+          [
+            50.725,
+            74.577
+          ],
+          [
+            51.89,
+            73.617
+          ],
+          [
+            53.055,
+            72.598
+          ],
+          [
+            54.22,
+            71.52
+          ],
+          [
+            55.385,
+            70.382
+          ],
+          [
+            56.551,
+            69.186
+          ],
+          [
+            57.716,
+            67.929
+          ],
+          [
+            58.881,
+            66.614
+          ],
+          [
+            60.046,
+            65.24
+          ],
+          [
+            61.211,
+            63.806
+          ],
+          [
+            62.376,
+            62.313
+          ],
+          [
+            63.541,
+            60.76
+          ],
+          [
+            64.706,
+            59.149
+          ],
+          [
+            65.871,
+            57.478
+          ],
+          [
+            67.036,
+            55.748
+          ],
+          [
+            68.201,
+            53.958
+          ],
+          [
+            69.366,
+            52.11
+          ],
+          [
+            70.532,
+            50.202
+          ],
+          [
+            71.697,
+            48.235
+          ],
+          [
+            72.862,
+            46.208
+          ],
+          [
+            74.027,
+            44.122
+          ],
+          [
+            75.192,
+            41.977
+          ],
+          [
+            76.357,
+            39.773
+          ],
+          [
+            77.522,
+            37.51
+          ],
+          [
+            78.687,
+            35.187
+          ],
+          [
+            79.852,
+            32.805
+          ],
+          [
+            81.017,
+            30.364
+          ],
+          [
+            82.182,
+            27.863
+          ],
+          [
+            83.347,
+            25.304
+          ],
+          [
+            84.513,
+            22.685
+          ],
+          [
+            85.678,
+            20.006
+          ],
+          [
+            86.843,
+            17.269
+          ],
+          [
+            86.956,
+            17
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "side",
+        "x": 62,
+        "h": 45,
+        "plan": "main",
+        "round": 1,
+        "destroyed": [],
+        "angle": 12,
+        "power": 20,
+        "damage": 0.5,
+        "events": [
+          "impact"
+        ],
+        "path": [
+          [
+            65.424,
+            48.328
+          ],
+          [
+            66.006,
+            48.429
+          ],
+          [
+            66.589,
+            48.472
+          ],
+          [
+            67.171,
+            48.455
+          ],
+          [
+            67.754,
+            48.379
+          ],
+          [
+            68.336,
+            48.243
+          ],
+          [
+            68.919,
+            48.048
+          ],
+          [
+            69.501,
+            47.794
+          ],
+          [
+            70.084,
+            47.481
+          ],
+          [
+            70.666,
+            47.109
+          ],
+          [
+            71.249,
+            46.677
+          ],
+          [
+            71.831,
+            46.186
+          ],
+          [
+            72.414,
+            45.636
+          ],
+          [
+            72.997,
+            45.026
+          ],
+          [
+            73.579,
+            44.358
+          ],
+          [
+            74.162,
+            43.629
+          ],
+          [
+            74.744,
+            42.842
+          ],
+          [
+            75.327,
+            41.996
+          ],
+          [
+            75.909,
+            41.09
+          ],
+          [
+            76.492,
+            40.125
+          ],
+          [
+            77.074,
+            39.1
+          ],
+          [
+            77.657,
+            38.017
+          ],
+          [
+            78.239,
+            36.874
+          ],
+          [
+            78.822,
+            35.672
+          ],
+          [
+            79.405,
+            34.411
+          ],
+          [
+            79.987,
+            33.09
+          ],
+          [
+            80.57,
+            31.71
+          ],
+          [
+            81.152,
+            30.271
+          ],
+          [
+            81.735,
+            28.773
+          ],
+          [
+            82.317,
+            27.215
+          ],
+          [
+            82.9,
+            25.598
+          ],
+          [
+            83.482,
+            23.922
+          ],
+          [
+            84.065,
+            22.186
+          ],
+          [
+            84.647,
+            20.392
+          ],
+          [
+            85.23,
+            18.538
+          ],
+          [
+            85.699,
+            17
+          ],
+          [
+            85.699,
+            17
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "entrance",
+        "x": 73,
+        "h": 14.1875,
+        "plan": "alternative",
+        "round": 1,
+        "destroyed": [],
+        "angle": -6,
+        "power": 60,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            75.656,
+            17.358
+          ],
+          [
+            77.408,
+            17.688
+          ],
+          [
+            79.159,
+            17.958
+          ],
+          [
+            80.911,
+            18.169
+          ],
+          [
+            82.663,
+            18.321
+          ],
+          [
+            84.414,
+            18.413
+          ],
+          [
+            86.166,
+            18.446
+          ],
+          [
+            87.918,
+            18.42
+          ],
+          [
+            89.012,
+            18.374
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      }
+    ],
+    "stageNumber": 64,
+    "worldHold": 1,
+    "ventStartsOn": true
+  },
+  "summary": {
+    "terrain": "垂直断崖と崖下の岩陰盆地",
+    "concept": "高所から崖沿いの開口へ落とし、盆地の敵を狙う。",
+    "alternative": "中腹棚または入口前へ転移し、庇下へ低い弧を通す。"
+  },
+  "learningGoal": {
+    "source": "自機の高台から崖下の敵を狙うが、壁の横の安全な中継棚から角度を変えられる。",
+    "proposed": "高所から崖沿いの開口へ落とし、盆地の敵を狙う。 中腹棚または入口前へ転移し、庇下へ低い弧を通す。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "高所から崖沿いの開口へ落とし、盆地の敵を狙う。",
+    "alternative": "中腹棚または入口前へ転移し、庇下へ低い弧を通す。",
+    "anchors": [
+      {
+        "id": "side",
+        "x": 62,
+        "h": 45,
+        "surface": "064-SIDE-PERCH",
+        "role": "庇前の開いた縦空間へ落とす。",
+        "plan": "main"
+      },
+      {
+        "id": "entrance",
+        "x": 73,
+        "h": 14.1875,
+        "surface": "floor0",
+        "role": "庇の入口と高さを合わせる。",
+        "plan": "alternative"
+      }
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "設計上の目標で、クリア実績ではない。破壊・歩行・転移・端子と反撃を含む実証は別工程。",
+    "evidenceSequenceRequirement": "P0→移動/転移/破壊/切替→射点候補→作用ギミック→敵の実位置→単発弾道→残り手数。未測定項目は未検証として残す。",
+    "accessEvidence": "候補の支持面と固定敵への単発例を確認。実移動・転移入力・準備手順を含む証明ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:slate",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "71面未満のため対象外。",
+    "evaluation": "遮蔽を使う徒歩の位置取り",
+    "runtimeDestinations": null
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "stationary-single-shot-sample-found",
+    "actualTeleport": "not-run",
+    "combat": "not-run",
+    "autonomousEnemy": "not-implemented",
+    "staticEvidence": "STAGES_051_099_STATIC_CHECK.json",
+    "movementBenefit": "not-verified",
+    "enemyAi": "design-only-not-implemented",
+    "ballisticsEvidence": "STAGES_051_099_SHOT_PROBE.json",
+    "requiredCombinations": "sampled-combinations-found-full-routes-unverified",
+    "inputHash": "3a47ea126ce1fd6ab8067c801c7f7d4a3e7eb6b10a8b184748f75a96760f313a"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "implementationNote": "Design only. No game source, runtime, inventory, AI, saves, production, or stage 100 changed.",
+  "destructionPlans": {
+    "main": [],
+    "alternative": []
+  },
+  "destructionRegister": [
+    {
+      "id": "064-SIDE-PERCH",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "064-SIDE-PERCH",
+          "label": "F01",
+          "poly": [
+            [
+              50,
+              40
+            ],
+            [
+              55,
+              45
+            ],
+            [
+              69,
+              45
+            ],
+            [
+              73,
+              41
+            ],
+            [
+              66,
+              36
+            ],
+            [
+              56,
+              36
+            ]
+          ]
+        }
+      ],
+      "purpose": "崖中腹から敵と近い高さを作る。"
+    },
+    {
+      "id": "064-BASIN-HOOD",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "064-BASIN-HOOD",
+          "label": "F02",
+          "poly": [
+            [
+              80,
+              45
+            ],
+            [
+              93,
+              50
+            ],
+            [
+              112,
+              46
+            ],
+            [
+              112,
+              32
+            ],
+            [
+              94,
+              33
+            ],
+            [
+              80,
+              34
+            ]
+          ]
+        }
+      ],
+      "purpose": "崖下敵を上方から守る庇。"
+    }
+  ],
+  "gimmickAudit": {
+    "stage": 64,
+    "inputHash": "3a47ea126ce1fd6ab8067c801c7f7d4a3e7eb6b10a8b184748f75a96760f313a",
+    "composition": {
+      "status": "合格",
+      "expected": [],
+      "actual": []
+    },
+    "perType": [],
+    "requiredCombinations": [],
+    "static": "合格",
+    "singleShot": "合格",
+    "actualMovement": "未検証",
+    "enemyAi": "未検証・未実装",
+    "combatAndActionBudget": "未検証",
+    "finalAcceptance": "未検証"
+  }
+}

@@ -1,71 +1,33 @@
-# ARCLINE ステージ比較ページの追記手順
+# ARCLINE｜PR #74 マップ設計・改修資料
 
-**[共通比較HTML](map_review_gallery.html)** は表示テンプレートとして固定。ページ内にマップデータを同梱するため、閲覧時の外部JSON読み込みは不要です。
+現在の入口は[レビュー対応記録](PR74_REVIEW_REVISION.md)。25面を個別改修し、残る24面は骨格を維持。全49案が未承認・ゲーム未実装。
 
-## 追記はJSONの1件追加＋1コマンド
+[各面の一覧](STAGES_051_099_DESIGN_REVIEW.md)／[比較画面・実入力手順](map_review_gallery.html#stage-051)／[隣接面の同縮尺比較](adjacent_geometry_review.html)
 
-1. 現在の[画面データ](map_review_gallery_data.json)を開く。`stages`配列末尾へ**新しいステージの1件**を追記する。その後、次の生成コマンドを実行すると共通HTMLへ反映され、ステージ選択と前後移動が自動更新される。
-2. **HTMLへのデータ埋め込みを生成**：リポジトリのルートから `python3 ARCLINE/design/stage_reviews/build_gallery_html.py` を実行。確認は同じコマンドに `--check` を付ける。HTMLの見た目やJavaScriptを手動修正しない。コミットにはJSONと生成済HTMLの両方を含める。
-3. ステージの詳細設計は`stage_XXX_review_v1.md`、位置・床座標・既存との比較用資料は`stage_XXX_proposal_v1.json`に保存。HTML中には説明を書き込まない。
-4. [100面進行台帳](../stage_map_design_register_v1.json)で該当面をレビュー待ちにする。ユーザーが確認区切り（5面・4面・10の倍数1面）を了承した後に、対象データのstateをapprovedへ変更し、台帳も設計承認済みにする。ゲームには反映しない。
+比較画面では、現行ゲーム・前案との同縮尺比較、個別破壊D-IDと固定F-ID、開口、周期、極性、条件付き単発例を切り替える。「実入力を確認」では、破壊・端子・歩行・転移・射撃を一操作ずつ進め、実際の操作前と操作直後を並べる。敵攻撃・任意歩行を省いた入力検査と、反撃込みの対戦検査は別。
 
-必要な記述の雛形（`stages`配列内の1件）：
+## 正本と生成
 
-```json
-{
-  "stage": 4,
-  "title": "面の名称",
-  "state": "pending",
-  "headline": "一文で変更内容",
-  "why": "一文で遊びの意図",
-  "preserved": "変えない重要な点",
-  "goal": "提案する学習目標",
-  "before": {
-    "width": 1000,
-    "floor": [[0, 10], [100, 10]],
-    "parts": [],
-    "features": [],
-    "player": {"x": 18, "h": 10},
-    "enemy": {"x": 60, "h": 10},
-    "pickups": []
-  },
-  "after": {
-    "width": 1000,
-    "floor": [[0, 10], [100, 10]],
-    "parts": [],
-    "features": [],
-    "player": {"x": 18, "h": 10},
-    "enemy": {"x": 60, "h": 10},
-    "pickups": []
-  },
-  "detail": "stage_004_review_v1.md",
-  "source": "stage_004_proposal_v1.json"
-}
+座標・射点・設計意図は各面の最新 `stage_XXX_proposal_vN.json`。表示対象と最新ファイルは `map_review_gallery_data.json` に記録。旧版は履歴として残す。生成HTMLを直接編集しない。
+
+```sh
+node ARCLINE/design/stage_reviews/sync_review_units.cjs
+node ARCLINE/design/stage_reviews/check_051_099_static.cjs
+node ARCLINE/design/stage_reviews/probe_051_099_shots.cjs
+node ARCLINE/design/stage_reviews/replay_051_099_actions.cjs
+node ARCLINE/design/stage_reviews/validate_action_replays.cjs
+node ARCLINE/design/stage_reviews/probe_pr74_geometry.cjs
+node ARCLINE/design/stage_reviews/probe_pr74_combat.cjs
+node ARCLINE/design/stage_reviews/assemble_pr74_revision.cjs
+python3 ARCLINE/design/stage_reviews/build_gallery_html.py
+python3 ARCLINE/design/stage_reviews/build_gallery_html.py --check
+node ARCLINE/design/stage_reviews/build_adjacent_gallery.cjs /tmp/arcline-pr74-review
 ```
 
-`before`は現行ゲームのマップ座標、`after`はデザインガイドから再設計した新規案。**既存図を少しずつ修正する前提ではない**。導入帯は意図的に現状維持・小変更も選べる。`parts`は`{"kind":"island|roof|wall","poly":[[x,h],...]}`、`features`は`{"type":"C|F|U|V|M|K|T|W","v":[...]}`のように保持。地形が分離する場合は`floors`で複数の床区間を指定できる。島上開始は`player.h`／`enemy.h`を明示する。
+実行はリポジトリのルートから。ブラウザ生成にはPlaywrightとChromiumが必要。単発・入力探索に開始面と終了面を渡すと、その範囲だけ再検査して他面の結果を保持する。物理条件の照合値が古い記録は組立時に拒否する。入力証跡は保存した入力を新しい状態から再実行し、発射位置と着地まで照合する。
 
-**表示について**：共通HTMLは生成時にJSONを**HTMLファイル自身へ内蔵**するため、閲覧時の `fetch` / CORS / JSON公開状態に依存しない。GitHub Pagesと、端末に保存したローカルHTMLの両方で表示できる。 `#stage-003` のようなリンクで面を直接選択。初期表示は未承認の面を優先する。
+旧 `assemble_051_099_review.cjs` は初稿時の組立スクリプトで、現在は使用しない。添付資料の原本は再配布しない。ゲーム本体・在庫・AI・セーブ・1〜50面・100面は変更しない。
 
-**承認状態の正本**は進行台帳。HTMLの承認ラベルと一致させる。ステージを一括で作らず、確認待ちの1面だけを追加・修正する。
+## 残る検証
 
-**設計方針**：[難易度と体験に基づく1面ずつの設計](../stage_by_stage_map_design_policy_v1.md)。敵の命中圧・ダメージ・HP・手数と整合し、新しい地形／射線／敵の居場所を独立して設計する。ユーザーの指定により、マップ設計時の自動対戦シミュレーションは不要。実ゲームの変更は別工程。
-
-## 2026-11-04の進行例
-
-- **1〜3面：設計承認済み**。
-- **4〜9面：番号順に6つの設計資料を作成済み、9面まで終わってからまとめてレビュー待ち**。未承認なので画面データでは`state: "pending"`。
-- [4〜9面の比較を始める](map_review_gallery.html#stage-004)。9面まで確認し、修正指摘があれば対象面だけ直す。10面は確認後に着手する。
-- ギミックの作用や敵からの命中を証明したわけではない。今回の工程ではシミュレーションを行わない。
-
-## 読込エラー修正（2026-11-04）
-
-以前のHTMLはページ表示時にJSONへ `fetch` を行い、環境によって `Failed to fetch` が発生したため廃止。現在は[1〜9面のデータ](map_review_gallery_data.json)を[HTML](map_review_gallery.html)へ埋め込んだ**自己完結型の比較画面**。将来はJSONへ1件追加して[ビルドスクリプト](build_gallery_html.py)を一度実行するだけで更新できる。HTML内データとJSONの同期は `python3 ARCLINE/design/stage_reviews/build_gallery_html.py --check` で確認できる。
-
-## 最新の確認単位と画面仕様（2026-11-04）
-
-- 内部の地形設計は**一面ずつ**。確認は x1〜x5（5面）、x6〜x9（4面）、x0（1面）の3回に集約。合意前は各面pending。
-- ステージ1〜9は承認済み。次はステージ10を単独確認、以降11〜15、16〜19、20…と進める。
-- 比較画面は**同縮尺で左右に並べるだけ**。重ね表示は廃止し、説明も変更の一文・理由・維持点・学びに絞る。
-- 各ステージをJSONへ追加したら、確認区切りの時点で1回だけ生成スクリプト（build_gallery_html.py）でHTMLへ内蔵し直す。表示ロジックは編集しない。
-- 静的な座標・出撃位置・難易度・承認状態・内蔵データの整合だけを確認する。戦闘シミュレーションなし。
+全件の反撃込み攻略、敵自律転移、全キャラ・全seed・実機・最終受入れは未検証。60面の低所ルートで未完了となったseedも対戦ログに残す。検証項目を広げ続けて改修完了を止めず、PRへ引き継ぐ。
