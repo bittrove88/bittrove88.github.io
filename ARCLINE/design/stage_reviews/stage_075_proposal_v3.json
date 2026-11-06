@@ -1,0 +1,1732 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 75,
+  "date": "2026-11-06",
+  "status": "design-review-pending-v3",
+  "sourcePr74": {
+    "pr": 74,
+    "ref": "design/arcline-compendium-051-099",
+    "proposal": "stage_075_proposal_v1.json",
+    "review": "stage_075_review_v1.md",
+    "note": "Original v1 is preserved, not overwritten"
+  },
+  "approvedBase": {
+    "pr": 84,
+    "branch": "design/arcline-stage072-open-fault-flank-v4-20261106",
+    "protectedStages": [
+      65,
+      66,
+      67,
+      69,
+      71,
+      72
+    ]
+  },
+  "before": {
+    "source": "stage_075_proposal_v1.json",
+    "terrain": "1540px矩形の長い屋根クレーンF01／垂直柱F02／単独破壊D03。P0から既存ボス部位へ命中した旧入力ログあり。",
+    "problem": "開始地点P0が万能、長方形梁の単調さ、上下射点だけの反復。旧入力は新形状に適用できない。"
+  },
+  "after": {
+    "width": 1540,
+    "floor": [
+      [
+        0,
+        43
+      ],
+      [
+        12,
+        43
+      ],
+      [
+        24,
+        45
+      ],
+      [
+        32,
+        44
+      ],
+      [
+        40,
+        41
+      ],
+      [
+        49,
+        36
+      ],
+      [
+        58,
+        31
+      ],
+      [
+        68,
+        26
+      ],
+      [
+        78,
+        20
+      ],
+      [
+        88,
+        17
+      ],
+      [
+        98,
+        17
+      ],
+      [
+        107,
+        22
+      ],
+      [
+        116,
+        27
+      ],
+      [
+        125,
+        33
+      ],
+      [
+        133,
+        38
+      ],
+      [
+        139,
+        42
+      ],
+      [
+        149,
+        36
+      ],
+      [
+        154,
+        36
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          43
+        ],
+        [
+          12,
+          43
+        ],
+        [
+          24,
+          45
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          40,
+          41
+        ],
+        [
+          49,
+          36
+        ],
+        [
+          58,
+          31
+        ],
+        [
+          68,
+          26
+        ],
+        [
+          78,
+          20
+        ],
+        [
+          88,
+          17
+        ],
+        [
+          98,
+          17
+        ],
+        [
+          107,
+          22
+        ],
+        [
+          116,
+          27
+        ],
+        [
+          125,
+          33
+        ],
+        [
+          133,
+          38
+        ],
+        [
+          139,
+          42
+        ],
+        [
+          149,
+          36
+        ],
+        [
+          154,
+          36
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "075-OPEN-FRAME-UPPER",
+        "displayId": "F01a",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            29,
+            45
+          ],
+          [
+            32,
+            48
+          ],
+          [
+            40,
+            61
+          ],
+          [
+            56,
+            76
+          ],
+          [
+            68,
+            86
+          ],
+          [
+            74,
+            86
+          ],
+          [
+            77,
+            84
+          ],
+          [
+            76,
+            81
+          ],
+          [
+            70,
+            82
+          ],
+          [
+            58,
+            72
+          ],
+          [
+            43,
+            57
+          ],
+          [
+            35,
+            46
+          ],
+          [
+            33,
+            44
+          ]
+        ],
+        "purpose": "根元から吊腕へ伸びる上弦材。床と上弦材の間のG01通過口を開け、上弦の下にG02射撃窓を取る。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-OPEN-FRAME-UPPER",
+            "label": "F01a",
+            "poly": [
+              [
+                29,
+                45
+              ],
+              [
+                32,
+                48
+              ],
+              [
+                40,
+                61
+              ],
+              [
+                56,
+                76
+              ],
+              [
+                68,
+                86
+              ],
+              [
+                74,
+                86
+              ],
+              [
+                77,
+                84
+              ],
+              [
+                76,
+                81
+              ],
+              [
+                70,
+                82
+              ],
+              [
+                58,
+                72
+              ],
+              [
+                43,
+                57
+              ],
+              [
+                35,
+                46
+              ],
+              [
+                33,
+                44
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-OPEN-FRAME-LOWER",
+        "displayId": "F01b",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            55,
+            55
+          ],
+          [
+            59,
+            56
+          ],
+          [
+            69,
+            65
+          ],
+          [
+            78,
+            73
+          ],
+          [
+            78,
+            77
+          ],
+          [
+            75,
+            77
+          ],
+          [
+            67,
+            70
+          ],
+          [
+            56,
+            61
+          ],
+          [
+            53,
+            60
+          ]
+        ],
+        "purpose": "中ほどから吊腕下面へ張る下弦材。x40～52の低い歩行空間を塞がず、上弦との間にG02透過窓を残す。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-OPEN-FRAME-LOWER",
+            "label": "F01b",
+            "poly": [
+              [
+                55,
+                55
+              ],
+              [
+                59,
+                56
+              ],
+              [
+                69,
+                65
+              ],
+              [
+                78,
+                73
+              ],
+              [
+                78,
+                77
+              ],
+              [
+                75,
+                77
+              ],
+              [
+                67,
+                70
+              ],
+              [
+                56,
+                61
+              ],
+              [
+                53,
+                60
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-OPEN-FRAME-CROSSBRACE",
+        "displayId": "F01c",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            53,
+            60
+          ],
+          [
+            56,
+            60
+          ],
+          [
+            58,
+            69
+          ],
+          [
+            55,
+            72
+          ],
+          [
+            53,
+            68
+          ]
+        ],
+        "purpose": "G01とG02の間に残すトラス横つなぎ。固定骨格の合理的な荷重経路を保持する。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-OPEN-FRAME-CROSSBRACE",
+            "label": "F01c",
+            "poly": [
+              [
+                53,
+                60
+              ],
+              [
+                56,
+                60
+              ],
+              [
+                58,
+                69
+              ],
+              [
+                55,
+                72
+              ],
+              [
+                53,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-COUNTERWEIGHT-BOOM",
+        "displayId": "F02",
+        "kind": "island",
+        "breakable": false,
+        "poly": [
+          [
+            73,
+            83
+          ],
+          [
+            80,
+            84
+          ],
+          [
+            97,
+            84
+          ],
+          [
+            112,
+            79
+          ],
+          [
+            123,
+            76
+          ],
+          [
+            125,
+            73
+          ],
+          [
+            124,
+            69
+          ],
+          [
+            117,
+            70
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            96,
+            78
+          ],
+          [
+            80,
+            78
+          ],
+          [
+            76,
+            75
+          ],
+          [
+            72,
+            77
+          ]
+        ],
+        "purpose": "開口トラスに支持される斜め片持ち吊腕。内側Bは部材の陰、外端Cは敵側へ開いた照準点。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-COUNTERWEIGHT-BOOM",
+            "label": "F02",
+            "poly": [
+              [
+                73,
+                83
+              ],
+              [
+                80,
+                84
+              ],
+              [
+                97,
+                84
+              ],
+              [
+                112,
+                79
+              ],
+              [
+                123,
+                76
+              ],
+              [
+                125,
+                73
+              ],
+              [
+                124,
+                69
+              ],
+              [
+                117,
+                70
+              ],
+              [
+                108,
+                73
+              ],
+              [
+                96,
+                78
+              ],
+              [
+                80,
+                78
+              ],
+              [
+                76,
+                75
+              ],
+              [
+                72,
+                77
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-HANGING-ORE@0",
+        "displayId": "D04",
+        "kind": "wall",
+        "breakable": true,
+        "poly": [
+          [
+            105,
+            74
+          ],
+          [
+            109,
+            74
+          ],
+          [
+            110,
+            62
+          ],
+          [
+            116,
+            57
+          ],
+          [
+            123,
+            51
+          ],
+          [
+            125,
+            44
+          ],
+          [
+            120,
+            40
+          ],
+          [
+            112,
+            39
+          ],
+          [
+            103,
+            42
+          ],
+          [
+            96,
+            41
+          ],
+          [
+            88,
+            38
+          ],
+          [
+            82,
+            39
+          ],
+          [
+            86,
+            46
+          ],
+          [
+            96,
+            54
+          ],
+          [
+            104,
+            61
+          ]
+        ],
+        "purpose": "F03固定壁を撤去し吊鉱D04自身を細い懸垂首で吊腕に接続。1発で破壊されても東岸地形が敵へ直線を遮るため、破壊だけでは単純な正面撃ち合いにならない。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-HANGING-ORE@0",
+            "label": "D04",
+            "poly": [
+              [
+                105,
+                74
+              ],
+              [
+                109,
+                74
+              ],
+              [
+                110,
+                62
+              ],
+              [
+                116,
+                57
+              ],
+              [
+                123,
+                51
+              ],
+              [
+                125,
+                44
+              ],
+              [
+                120,
+                40
+              ],
+              [
+                112,
+                39
+              ],
+              [
+                103,
+                42
+              ],
+              [
+                96,
+                41
+              ],
+              [
+                88,
+                38
+              ],
+              [
+                82,
+                39
+              ],
+              [
+                86,
+                46
+              ],
+              [
+                96,
+                54
+              ],
+              [
+                104,
+                61
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          99,
+          30,
+          19,
+          -1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          116,
+          139,
+          34
+        ]
+      }
+    ],
+    "player": {
+      "x": 42,
+      "h": 39.88889
+    },
+    "enemy": {
+      "x": 149,
+      "h": 36
+    },
+    "pickups": [],
+    "targets": [
+      {
+        "x": 145.6,
+        "h": 40,
+        "name": "マグネットアーム",
+        "label": "部位1"
+      }
+    ],
+    "firingPoints": [
+      {
+        "label": "A",
+        "x": 96,
+        "h": 17,
+        "surface": "floor0",
+        "purpose": "吊荷下の坑底でMの作用を利用しW床面へ浅く入射する"
+      },
+      {
+        "label": "B",
+        "x": 88,
+        "h": 84,
+        "surface": "075-COUNTERWEIGHT-BOOM",
+        "purpose": "吊腕内側では梁が部位の正面射線を遮る"
+      },
+      {
+        "label": "C",
+        "x": 125,
+        "h": 73,
+        "surface": "075-COUNTERWEIGHT-BOOM",
+        "purpose": "吊腕右端から東岸の稜線と吊荷を越し、ボス部位方向が開く"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "G01→A",
+        "kind": "planned-walk-through-lower-opening",
+        "points": [
+          [
+            42,
+            39.88889
+          ],
+          [
+            46,
+            37.66667
+          ],
+          [
+            55,
+            32.66667
+          ],
+          [
+            68,
+            26
+          ],
+          [
+            88,
+            17
+          ],
+          [
+            96,
+            17
+          ]
+        ],
+        "status": "schematic-not-physical-trace",
+        "comment": "x42～52で固定上弦材F01aの下を床伝いに移動。輪郭上の開口はあるが、車体当たり判定は未検証。"
+      },
+      {
+        "label": "G02",
+        "kind": "planned-projectile-window",
+        "points": [
+          [
+            59,
+            68
+          ],
+          [
+            65,
+            74
+          ],
+          [
+            71,
+            77
+          ]
+        ],
+        "status": "schematic-not-ballistic",
+        "comment": "上弦F01a・下弦F01bの間の別開口。通行ではなく射撃経路候補。"
+      },
+      {
+        "label": "C",
+        "kind": "planned-teleport-to-outboard",
+        "points": [
+          [
+            42,
+            39.88889
+          ],
+          [
+            61,
+            90
+          ],
+          [
+            98,
+            93
+          ],
+          [
+            125,
+            73
+          ]
+        ],
+        "status": "schematic-not-landing-tested"
+      }
+    ],
+    "routes": [
+      {
+        "label": "A：M調整→W反射→東岸の上側",
+        "kind": "main",
+        "points": [
+          [
+            96,
+            20
+          ],
+          [
+            110,
+            27
+          ],
+          [
+            124,
+            33.33333
+          ],
+          [
+            139,
+            52
+          ],
+          [
+            145.6,
+            40
+          ]
+        ],
+        "status": "schematic-not-physical-bounce"
+      },
+      {
+        "label": "C：吊腕外端から稜線を越える",
+        "kind": "alternative",
+        "points": [
+          [
+            125,
+            76
+          ],
+          [
+            132,
+            62
+          ],
+          [
+            145.6,
+            40
+          ]
+        ],
+        "status": "schematic-not-ballistic"
+      },
+      {
+        "label": "D04破壊：W反射進入口の拡張。P0→敵は東岸で遮断",
+        "kind": "optional-break",
+        "points": [
+          [
+            42,
+            42.88889
+          ],
+          [
+            88,
+            37
+          ],
+          [
+            117,
+            28
+          ],
+          [
+            136,
+            50
+          ],
+          [
+            145.6,
+            40
+          ]
+        ],
+        "status": "schematic-only-no-demonstrated-hit"
+      }
+    ],
+    "shotExamples": [],
+    "replayViews": [],
+    "angleReview": [],
+    "stageNumber": 75,
+    "worldHold": 1
+  },
+  "summary": {
+    "terrain": "左側の斜クレーン支持を2つの明確な空洞G01（下部歩行）/G02（上部射撃）をもつ開口トラスに変更。F03固定の縦壁は撤去し、D04吊鉱の細い懸垂首だけが残る。右岸は起伏のある天然稜線と既存反射材Wを備える。",
+    "concept": "吊鉱D04を1撃で壊しても、ボス正面の右岸稜線が射線を遮る。G01から坑底Aへ移り、Mで入射を調整して右斜面Wへ水切り状の反射を狙うか、吊腕の外端Cへ転移して稜線を越す。",
+    "alternative": "D04破壊はWへの入射方向を開く選択で、直線射撃を解禁する行為ではない。G02は斜クレーン上の別射線用スリットで、G01と用途を分ける。",
+    "status": "pending-design-after-user-three-point-plus-D04-feedback"
+  },
+  "sketchCandidates": [
+    {
+      "id": "A",
+      "name": "斜め片吊りホイスト＋深い露天坑",
+      "status": "adopted",
+      "skeleton": "切土坑、斜マスト、細い斜め片持ち腕と一点垂下鉱石。",
+      "newAction": "吊荷を温存して下から潜る／吊荷だけを壊す／吊腕の外端へ出て射角を変える。",
+      "reason": "吊荷と固定構造の因果が射線に直結し、最近の屋根・浮島・地付き断層と質的に違う"
+    },
+    {
+      "id": "B",
+      "name": "平行二段門型クレーン",
+      "status": "rejected",
+      "skeleton": "上下二本の水平長方形梁に昇降する",
+      "newAction": "上段/下段の高さを変えて撃つ",
+      "reason": "旧PR #74の梁や65/66の屋根に近く、上下二択の反復のため却下"
+    }
+  ],
+  "learningGoal": {
+    "proposed": "鉱石を壊すだけでは敵に届かず、開口トラスで移動位置を変え、斜面の反射板に入射するか吊腕先端から地形を越える判断をする。",
+    "decision": "R redesign feedback revision"
+  },
+  "routeDesign": {
+    "main": "P0(42,40.333)から下部開口G01(x42～52)を通る露天床へ。A(96,17)で吊荷D04を温存し、M(99,30,r19,-1)の偏向と右岸W(x116～139、床沿い)の反射を組み合わせて稜線の背後のマグネットアームを狙う構想。",
+    "alternative": "C(125,73)吊腕先端へ転移し稜線を越える部位射撃を構想。B(88,84)は梁自身に遮られる比較地点。D04は1発破壊でも東岸稜線がP0→部位の中心線を遮り、破壊は反射板への入射空間を広げるだけで直線勝負にはしない。",
+    "anchors": [
+      {
+        "id": "A",
+        "surface": "floor0",
+        "x": 96,
+        "h": 17,
+        "role": "G01を抜けた坑底の反射射点。MとWの入射角を調整する。"
+      },
+      {
+        "id": "B",
+        "surface": "075-COUNTERWEIGHT-BOOM",
+        "x": 88,
+        "h": 84,
+        "role": "吊腕の内側は依然として遮蔽を受ける比較射点。"
+      },
+      {
+        "id": "C",
+        "surface": "075-COUNTERWEIGHT-BOOM",
+        "x": 125,
+        "h": 73,
+        "role": "吊金具の縦壁撤去後、東岸稜線越しに部位へ狙える外端射点。"
+      }
+    ],
+    "budgetMeaning": "既存24行動のまま。反射・磁場・弾道・敵AI・実歩行・転移の確認は全49面設計承認後。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "midboss:ore-shepherd",
+      "boss": false,
+      "midboss": true,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "ボス固有戦を優先、汎用転移は今回適用しない提案。",
+    "evaluation": "粗い高さ・射線の比較",
+    "runtimeDestinations": null
+  },
+  "approval": {
+    "state": "pending",
+    "scope": "geometry-and-tactical-intent-only",
+    "runtimeVerification": "deferred-until-all-49-design-approvals"
+  },
+  "verification": {
+    "static": "stage_075_static_check_v3.json",
+    "rendering": "coordinate-derived-SVG",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "magnet": "not-tested",
+    "W_reflection": "not-tested",
+    "destruction": "not-tested",
+    "bossParts": "not-tested",
+    "enemyAI": "not-tested",
+    "combat": "not-tested"
+  },
+  "destructionRegister": [
+    {
+      "id": "075-OPEN-FRAME-UPPER",
+      "label": "F01a",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-OPEN-FRAME-UPPER",
+          "label": "F01a",
+          "poly": [
+            [
+              29,
+              45
+            ],
+            [
+              32,
+              48
+            ],
+            [
+              40,
+              61
+            ],
+            [
+              56,
+              76
+            ],
+            [
+              68,
+              86
+            ],
+            [
+              74,
+              86
+            ],
+            [
+              77,
+              84
+            ],
+            [
+              76,
+              81
+            ],
+            [
+              70,
+              82
+            ],
+            [
+              58,
+              72
+            ],
+            [
+              43,
+              57
+            ],
+            [
+              35,
+              46
+            ],
+            [
+              33,
+              44
+            ]
+          ]
+        }
+      ],
+      "purpose": "根元から吊腕へ伸びる上弦材。床と上弦材の間のG01通過口を開け、上弦の下にG02射撃窓を取る。"
+    },
+    {
+      "id": "075-OPEN-FRAME-LOWER",
+      "label": "F01b",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-OPEN-FRAME-LOWER",
+          "label": "F01b",
+          "poly": [
+            [
+              55,
+              55
+            ],
+            [
+              59,
+              56
+            ],
+            [
+              69,
+              65
+            ],
+            [
+              78,
+              73
+            ],
+            [
+              78,
+              77
+            ],
+            [
+              75,
+              77
+            ],
+            [
+              67,
+              70
+            ],
+            [
+              56,
+              61
+            ],
+            [
+              53,
+              60
+            ]
+          ]
+        }
+      ],
+      "purpose": "中ほどから吊腕下面へ張る下弦材。x40～52の低い歩行空間を塞がず、上弦との間にG02透過窓を残す。"
+    },
+    {
+      "id": "075-OPEN-FRAME-CROSSBRACE",
+      "label": "F01c",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-OPEN-FRAME-CROSSBRACE",
+          "label": "F01c",
+          "poly": [
+            [
+              53,
+              60
+            ],
+            [
+              56,
+              60
+            ],
+            [
+              58,
+              69
+            ],
+            [
+              55,
+              72
+            ],
+            [
+              53,
+              68
+            ]
+          ]
+        }
+      ],
+      "purpose": "G01とG02の間に残すトラス横つなぎ。固定骨格の合理的な荷重経路を保持する。"
+    },
+    {
+      "id": "075-COUNTERWEIGHT-BOOM",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-COUNTERWEIGHT-BOOM",
+          "label": "F02",
+          "poly": [
+            [
+              73,
+              83
+            ],
+            [
+              80,
+              84
+            ],
+            [
+              97,
+              84
+            ],
+            [
+              112,
+              79
+            ],
+            [
+              123,
+              76
+            ],
+            [
+              125,
+              73
+            ],
+            [
+              124,
+              69
+            ],
+            [
+              117,
+              70
+            ],
+            [
+              108,
+              73
+            ],
+            [
+              96,
+              78
+            ],
+            [
+              80,
+              78
+            ],
+            [
+              76,
+              75
+            ],
+            [
+              72,
+              77
+            ]
+          ]
+        }
+      ],
+      "purpose": "開口トラスに支持される斜め片持ち吊腕。内側Bは部材の陰、外端Cは敵側へ開いた照準点。"
+    },
+    {
+      "id": "075-HANGING-ORE@0",
+      "label": "D04",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-HANGING-ORE@0",
+          "label": "D04",
+          "poly": [
+            [
+              105,
+              74
+            ],
+            [
+              109,
+              74
+            ],
+            [
+              110,
+              62
+            ],
+            [
+              116,
+              57
+            ],
+            [
+              123,
+              51
+            ],
+            [
+              125,
+              44
+            ],
+            [
+              120,
+              40
+            ],
+            [
+              112,
+              39
+            ],
+            [
+              103,
+              42
+            ],
+            [
+              96,
+              41
+            ],
+            [
+              88,
+              38
+            ],
+            [
+              82,
+              39
+            ],
+            [
+              86,
+              46
+            ],
+            [
+              96,
+              54
+            ],
+            [
+              104,
+              61
+            ]
+          ]
+        }
+      ],
+      "purpose": "F03固定壁を撤去し吊鉱D04自身を細い懸垂首で吊腕に接続。1発で破壊されても東岸地形が敵へ直線を遮るため、破壊だけでは単純な正面撃ち合いにならない。"
+    }
+  ],
+  "blueprintCandidate": {
+    "stage": 75,
+    "name": "吊荷と二つの透過窓",
+    "nameEn": "Two Openings at the Hoist",
+    "goal": "開口トラスの低い通路を抜け、吊鉱の破壊だけでなく右斜面Wの反射や吊腕端からの部位射撃を選ぶ。",
+    "goalEn": "Use the twin hoist openings, underload magnet-to-reflector route, or outboard boom attack; one-shot ore break does not unlock direct fire.",
+    "floor": [
+      [
+        0,
+        43
+      ],
+      [
+        12,
+        43
+      ],
+      [
+        24,
+        45
+      ],
+      [
+        32,
+        44
+      ],
+      [
+        40,
+        41
+      ],
+      [
+        49,
+        36
+      ],
+      [
+        58,
+        31
+      ],
+      [
+        68,
+        26
+      ],
+      [
+        78,
+        20
+      ],
+      [
+        88,
+        17
+      ],
+      [
+        98,
+        17
+      ],
+      [
+        107,
+        22
+      ],
+      [
+        116,
+        27
+      ],
+      [
+        125,
+        33
+      ],
+      [
+        133,
+        38
+      ],
+      [
+        139,
+        42
+      ],
+      [
+        149,
+        36
+      ],
+      [
+        154,
+        36
+      ]
+    ],
+    "parts": [
+      {
+        "id": "075-OPEN-FRAME-UPPER",
+        "kind": "wall",
+        "poly": [
+          [
+            29,
+            45
+          ],
+          [
+            32,
+            48
+          ],
+          [
+            40,
+            61
+          ],
+          [
+            56,
+            76
+          ],
+          [
+            68,
+            86
+          ],
+          [
+            74,
+            86
+          ],
+          [
+            77,
+            84
+          ],
+          [
+            76,
+            81
+          ],
+          [
+            70,
+            82
+          ],
+          [
+            58,
+            72
+          ],
+          [
+            43,
+            57
+          ],
+          [
+            35,
+            46
+          ],
+          [
+            33,
+            44
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-OPEN-FRAME-LOWER",
+        "kind": "wall",
+        "poly": [
+          [
+            55,
+            55
+          ],
+          [
+            59,
+            56
+          ],
+          [
+            69,
+            65
+          ],
+          [
+            78,
+            73
+          ],
+          [
+            78,
+            77
+          ],
+          [
+            75,
+            77
+          ],
+          [
+            67,
+            70
+          ],
+          [
+            56,
+            61
+          ],
+          [
+            53,
+            60
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-OPEN-FRAME-CROSSBRACE",
+        "kind": "wall",
+        "poly": [
+          [
+            53,
+            60
+          ],
+          [
+            56,
+            60
+          ],
+          [
+            58,
+            69
+          ],
+          [
+            55,
+            72
+          ],
+          [
+            53,
+            68
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-COUNTERWEIGHT-BOOM",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            83
+          ],
+          [
+            80,
+            84
+          ],
+          [
+            97,
+            84
+          ],
+          [
+            112,
+            79
+          ],
+          [
+            123,
+            76
+          ],
+          [
+            125,
+            73
+          ],
+          [
+            124,
+            69
+          ],
+          [
+            117,
+            70
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            96,
+            78
+          ],
+          [
+            80,
+            78
+          ],
+          [
+            76,
+            75
+          ],
+          [
+            72,
+            77
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-HANGING-ORE@0",
+        "kind": "wall",
+        "poly": [
+          [
+            105,
+            74
+          ],
+          [
+            109,
+            74
+          ],
+          [
+            110,
+            62
+          ],
+          [
+            116,
+            57
+          ],
+          [
+            123,
+            51
+          ],
+          [
+            125,
+            44
+          ],
+          [
+            120,
+            40
+          ],
+          [
+            112,
+            39
+          ],
+          [
+            103,
+            42
+          ],
+          [
+            96,
+            41
+          ],
+          [
+            88,
+            38
+          ],
+          [
+            82,
+            39
+          ],
+          [
+            86,
+            46
+          ],
+          [
+            96,
+            54
+          ],
+          [
+            104,
+            61
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          99,
+          30,
+          19,
+          -1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          116,
+          139,
+          34
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        42,
+        39.88889
+      ],
+      [
+        149,
+        36
+      ]
+    ],
+    "worldWidth": 1540,
+    "recommended": "mogu",
+    "targets": [
+      {
+        "x": 145.6,
+        "h": 40,
+        "name": "マグネットアーム",
+        "label": "部位1"
+      }
+    ],
+    "route": "G01は床通行、G02は上側射線候補。D04破壊後も東岸の固定稜線がP0中心線を遮る。AではMを利用したW床反射、Cでは稜線越しの別ルートを計画。",
+    "terrainRevision": "stage075-open-truss-reflector-v3-design-pending"
+  },
+  "implementationNote": "Stage 75 v3 revision after annotated user feedback; preserve v2 for comparison. New openings at lower/upper truss; F03 fixed wall removed; W reflection material is an existing floor overlay, third W authoring slot ignored by engine for W geometry. D04 1-shot destruction remains, but east berm still obstructs P0 direct centerline after destruction. Stage 65/66/67/69/71/72 and game runtime untouched.",
+  "revisionOf": "stage_075_proposal_v2.json",
+  "userFeedback": [
+    {
+      "id": "G01",
+      "request": "下側の丸印に穴を開ける",
+      "resolution": "F01aの下に床からの垂直開口を残し、F01bをx53より右から始める。P0はx42で低い通路に接続。"
+    },
+    {
+      "id": "G02",
+      "request": "上側の丸印に穴を開ける",
+      "resolution": "F01aとF01bの間にx60〜70の射線スリット。F01cは両空洞の間の固定横つなぎ。"
+    },
+    {
+      "id": "F03",
+      "request": "壁をなくす",
+      "resolution": "旧F03の垂直固定ヨークポリゴンを撤去。吊鉱自身の細い懸垂首のみ。固定壁は残さない。"
+    },
+    {
+      "id": "W",
+      "request": "反射板を配置する",
+      "resolution": "既存Wを右岸の床x116〜139に沿って設置。浮遊板は作らない。"
+    },
+    {
+      "id": "D04",
+      "request": "D04は一発で壊れるので直線の打ち合いにならないように",
+      "resolution": "固定右岸稜線h42@x139でP0→敵の中心線をD04破壊後も遮断。破壊はWへの入射空間を広げるだけで敵への直接開口を保証しない。"
+    }
+  ]
+}
