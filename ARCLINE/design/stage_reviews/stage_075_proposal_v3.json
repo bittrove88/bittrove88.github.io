@@ -579,28 +579,24 @@
         "breakable": true,
         "poly": [
           [
-            105,
-            74
+            117,
+            70
           ],
           [
-            109,
-            74
+            120,
+            69
           ],
           [
-            110,
-            62
-          ],
-          [
-            116,
-            57
-          ],
-          [
-            123,
-            51
+            119,
+            59
           ],
           [
             125,
-            44
+            52
+          ],
+          [
+            126,
+            46
           ],
           [
             120,
@@ -635,11 +631,15 @@
             54
           ],
           [
-            104,
-            61
+            105,
+            59
+          ],
+          [
+            111,
+            60
           ]
         ],
-        "purpose": "F03固定壁を撤去し吊鉱D04自身を細い懸垂首で吊腕に接続。1発で破壊されても東岸地形が敵へ直線を遮るため、破壊だけでは単純な正面撃ち合いにならない。",
+        "purpose": "F03の縦壁をなくし、右外側の吊腕先端に斜めに接した片側吊鉱。1発破壊後も右岸の固定稜線が直接射線を遮断。",
         "unitCount": 1,
         "renderUnits": [
           {
@@ -647,28 +647,24 @@
             "label": "D04",
             "poly": [
               [
-                105,
-                74
+                117,
+                70
               ],
               [
-                109,
-                74
+                120,
+                69
               ],
               [
-                110,
-                62
-              ],
-              [
-                116,
-                57
-              ],
-              [
-                123,
-                51
+                119,
+                59
               ],
               [
                 125,
-                44
+                52
+              ],
+              [
+                126,
+                46
               ],
               [
                 120,
@@ -703,8 +699,12 @@
                 54
               ],
               [
-                104,
-                61
+                105,
+                59
+              ],
+              [
+                111,
+                60
               ]
             ]
           }
@@ -929,7 +929,7 @@
     "worldHold": 1
   },
   "summary": {
-    "terrain": "左側の斜クレーン支持を2つの明確な空洞G01（下部歩行）/G02（上部射撃）をもつ開口トラスに変更。F03固定の縦壁は撤去し、D04吊鉱の細い懸垂首だけが残る。右岸は起伏のある天然稜線と既存反射材Wを備える。",
+    "terrain": "左の開口G01/G02を持つ工業トラス、右へ張り出すF02吊腕、固定の縦壁F03を完全撤去した空の縦方向の間隔、F02右下面に片側接続した一体吊鉱D04、東岸の固定稜線と床反射材W。",
     "concept": "吊鉱D04を1撃で壊しても、ボス正面の右岸稜線が射線を遮る。G01から坑底Aへ移り、Mで入射を調整して右斜面Wへ水切り状の反射を狙うか、吊腕の外端Cへ転移して稜線を越す。",
     "alternative": "D04破壊はWへの入射方向を開く選択で、直線射撃を解禁する行為ではない。G02は斜クレーン上の別射線用スリットで、G01と用途を分ける。",
     "status": "pending-design-after-user-three-point-plus-D04-feedback"
@@ -1256,28 +1256,24 @@
           "label": "D04",
           "poly": [
             [
-              105,
-              74
+              117,
+              70
             ],
             [
-              109,
-              74
+              120,
+              69
             ],
             [
-              110,
-              62
-            ],
-            [
-              116,
-              57
-            ],
-            [
-              123,
-              51
+              119,
+              59
             ],
             [
               125,
-              44
+              52
+            ],
+            [
+              126,
+              46
             ],
             [
               120,
@@ -1312,13 +1308,17 @@
               54
             ],
             [
-              104,
-              61
+              105,
+              59
+            ],
+            [
+              111,
+              60
             ]
           ]
         }
       ],
-      "purpose": "F03固定壁を撤去し吊鉱D04自身を細い懸垂首で吊腕に接続。1発で破壊されても東岸地形が敵へ直線を遮るため、破壊だけでは単純な正面撃ち合いにならない。"
+      "purpose": "F03の縦壁をなくし、右外側の吊腕先端に斜めに接した片側吊鉱。1発破壊後も右岸の固定稜線が直接射線を遮断。"
     }
   ],
   "blueprintCandidate": {
@@ -1595,28 +1595,24 @@
         "kind": "wall",
         "poly": [
           [
-            105,
-            74
+            117,
+            70
           ],
           [
-            109,
-            74
+            120,
+            69
           ],
           [
-            110,
-            62
-          ],
-          [
-            116,
-            57
-          ],
-          [
-            123,
-            51
+            119,
+            59
           ],
           [
             125,
-            44
+            52
+          ],
+          [
+            126,
+            46
           ],
           [
             120,
@@ -1651,8 +1647,12 @@
             54
           ],
           [
-            104,
-            61
+            105,
+            59
+          ],
+          [
+            111,
+            60
           ]
         ],
         "breakable": true
@@ -1700,7 +1700,7 @@
     "route": "G01は床通行、G02は上側射線候補。D04破壊後も東岸の固定稜線がP0中心線を遮る。AではMを利用したW床反射、Cでは稜線越しの別ルートを計画。",
     "terrainRevision": "stage075-open-truss-reflector-v3-design-pending"
   },
-  "implementationNote": "Stage 75 v3 revision after annotated user feedback; preserve v2 for comparison. New openings at lower/upper truss; F03 fixed wall removed; W reflection material is an existing floor overlay, third W authoring slot ignored by engine for W geometry. D04 1-shot destruction remains, but east berm still obstructs P0 direct centerline after destruction. Stage 65/66/67/69/71/72 and game runtime untouched.",
+  "implementationNote": "Stage 75 v3 revision after annotated user feedback; preserve v2 for comparison. New openings at lower/upper truss; F03 fixed wall removed; W reflection material is an existing floor overlay, third W authoring slot ignored by engine for W geometry. D04 is attached only at the outboard F02 edge, so old vertical wall x102–110 remains open. D04 1-shot destruction remains, but east berm still obstructs P0 direct centerline after destruction. Stage 65/66/67/69/71/72 and game runtime untouched.",
   "revisionOf": "stage_075_proposal_v2.json",
   "userFeedback": [
     {
@@ -1716,7 +1716,7 @@
     {
       "id": "F03",
       "request": "壁をなくす",
-      "resolution": "旧F03の垂直固定ヨークポリゴンを撤去。吊鉱自身の細い懸垂首のみ。固定壁は残さない。"
+      "resolution": "旧F03を完全撤去。x102〜110/h56〜77の固定壁領域は開放し、D04はx117～120/h69〜70にてF02右下へ端点接続した斜吊鉱とする。"
     },
     {
       "id": "W",
