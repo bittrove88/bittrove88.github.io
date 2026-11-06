@@ -1,0 +1,218 @@
+{
+  "schema": "arcline-static-stage075-v3",
+  "stage": 75,
+  "proposal": "stage_075_proposal_v3.json",
+  "status": "geometry-review-only",
+  "base": "PR84 approved stage72",
+  "checks": {
+    "floor": {
+      "vertexCount": 18,
+      "xMonotonic": true,
+      "maxSlopeDeg": 34.509
+    },
+    "polygons": [
+      {
+        "id": "075-OPEN-FRAME-UPPER",
+        "label": "F01a",
+        "breakable": false,
+        "selfIntersections": [],
+        "allVerticesInWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-OPEN-FRAME-LOWER",
+        "label": "F01b",
+        "breakable": false,
+        "selfIntersections": [],
+        "allVerticesInWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-OPEN-FRAME-CROSSBRACE",
+        "label": "F01c",
+        "breakable": false,
+        "selfIntersections": [],
+        "allVerticesInWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-COUNTERWEIGHT-BOOM",
+        "label": "F02",
+        "breakable": false,
+        "selfIntersections": [],
+        "allVerticesInWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-HANGING-ORE@0",
+        "label": "D04",
+        "breakable": true,
+        "selfIntersections": [],
+        "allVerticesInWorld": true,
+        "belowFloorVertices": []
+      }
+    ],
+    "startSupport": {
+      "P0": [
+        42,
+        39.88889,
+        39.88889
+      ],
+      "enemy": [
+        149,
+        39.5,
+        39.5
+      ],
+      "A": [
+        96,
+        18.5
+      ],
+      "B": [
+        88,
+        84
+      ],
+      "C": [
+        125,
+        73
+      ]
+    },
+    "G01_lowerWalkingAperture": {
+      "worldX": [
+        42,
+        52
+      ],
+      "minimumVerticalGapUnits": 15.736,
+      "minimumAtX": 42,
+      "referencePoint": [
+        46,
+        50
+      ],
+      "occupiedBy": []
+    },
+    "G02_upperFiringAperture": {
+      "worldX": [
+        60,
+        70
+      ],
+      "minimumBetweenUpperAndLowerRailsUnits": 9.375,
+      "minimumAtX": 70,
+      "referencePoint": [
+        65,
+        74
+      ],
+      "occupiedBy": []
+    },
+    "F03_verticalWallAbsent": true,
+    "D04": {
+      "oneBreakableUnit": true,
+      "minimumOreToFloorGapUnits": 11.5,
+      "minimumAtX": 125,
+      "attachedToF02At": [
+        117,
+        70
+      ],
+      "afterBreakAllF01andF02Remain": true
+    },
+    "W": {
+      "type": "W",
+      "rangeX": [
+        116,
+        139
+      ],
+      "legacyHeightSlot": 39,
+      "floorAlignedPoints": [
+        [
+          116,
+          30.5
+        ],
+        [
+          125,
+          36.5
+        ],
+        [
+          133,
+          42
+        ],
+        [
+          139,
+          46
+        ]
+      ],
+      "geometrySource": "ARCLINE/game/dist/geometry.js W overlays reflector on existing floor, third value not used for surface height"
+    },
+    "raysToBossPartCenter": {
+      "P0": {
+        "polygons": {
+          "F01a": [],
+          "F01b": [],
+          "F01c": [],
+          "F02": [],
+          "D04": [
+            6,
+            11
+          ]
+        },
+        "floorMin": -2.514,
+        "floorBlockedAt": [
+          135.413,
+          142.665
+        ]
+      },
+      "A": {
+        "polygons": {
+          "F01a": [],
+          "F01b": [],
+          "F01c": [],
+          "F02": [],
+          "D04": []
+        },
+        "floorMin": -5.424,
+        "floorBlockedAt": [
+          115.923,
+          143.864
+        ]
+      },
+      "B": {
+        "polygons": {
+          "F01a": [],
+          "F01b": [],
+          "F01c": [],
+          "F02": [
+            1,
+            8
+          ],
+          "D04": [
+            1,
+            15
+          ]
+        },
+        "floorMin": 1.79,
+        "floorBlockedAt": null
+      },
+      "C": {
+        "polygons": {
+          "F01a": [],
+          "F01b": [],
+          "F01c": [],
+          "F02": [],
+          "D04": []
+        },
+        "floorMin": 1.79,
+        "floorBlockedAt": null
+      }
+    },
+    "P0CenterlineStillHitsFixedRightBermAfterD04Break": true
+  },
+  "pendingVerification": [
+    "full in-game rendering",
+    "P0→G01→A walking and physical actor/cannon clearance",
+    "G02 physical shot acceptance",
+    "C teleport and landing",
+    "M and W actual ballistics, reflection angle and hit margins",
+    "ore-shepherd exact boss part placement and retaliation",
+    "D04 actual one-hit break and residual solids",
+    "24-action gameplay"
+  ],
+  "staticGate": "PASS scoped static geometry only",
+  "errors": []
+}
