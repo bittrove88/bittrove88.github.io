@@ -1,0 +1,1267 @@
+{
+  "stage": 95,
+  "name": "シールドドライブから露出核へ",
+  "date": "2026-11-07",
+  "status": "design-review-pending-runtime-unverified",
+  "source": {
+    "stage": 95,
+    "proposal": "stage_095_proposal_v2.json",
+    "review": "stage_095_review_v2.md"
+  },
+  "before": {
+    "width": 1700,
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        10,
+        23
+      ],
+      [
+        22,
+        20
+      ],
+      [
+        28,
+        15
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          20
+        ],
+        [
+          28,
+          15
+        ]
+      ],
+      [
+        [
+          47,
+          8
+        ],
+        [
+          84,
+          12
+        ],
+        [
+          113,
+          12
+        ]
+      ],
+      [
+        [
+          126,
+          15
+        ],
+        [
+          154,
+          15
+        ],
+        [
+          170,
+          23
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "095-CENTRAL-REDOUBT",
+        "poly": [
+          [
+            58,
+            38
+          ],
+          [
+            66,
+            44
+          ],
+          [
+            98,
+            44
+          ],
+          [
+            107,
+            37
+          ],
+          [
+            98,
+            28
+          ],
+          [
+            70,
+            28
+          ]
+        ],
+        "purpose": "ボスを中央で支える独立防御陣地。",
+        "kind": "island",
+        "breakable": false,
+        "displayId": "F01",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-CENTRAL-REDOUBT",
+            "label": "F01",
+            "poly": [
+              [
+                58,
+                38
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                98,
+                44
+              ],
+              [
+                107,
+                37
+              ],
+              [
+                98,
+                28
+              ],
+              [
+                70,
+                28
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "095-LOW-WINDOW",
+        "poly": [
+          [
+            110,
+            12
+          ],
+          [
+            119,
+            12
+          ],
+          [
+            119,
+            52
+          ],
+          [
+            110,
+            52
+          ]
+        ],
+        "purpose": "右下から磁場弾を入れる低い窓。",
+        "kind": "wall",
+        "breakable": true,
+        "displayId": "D02",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-LOW-WINDOW@0",
+            "label": "D02",
+            "poly": [
+              [
+                110,
+                12
+              ],
+              [
+                119,
+                12
+              ],
+              [
+                119,
+                52
+              ],
+              [
+                110,
+                52
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "095-UPPER-CREST",
+        "poly": [
+          [
+            110,
+            52
+          ],
+          [
+            119,
+            52
+          ],
+          [
+            117,
+            66
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            99,
+            69
+          ],
+          [
+            103,
+            61
+          ]
+        ],
+        "purpose": "右窓の上に残す斜めの防御稜線。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F03",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-UPPER-CREST",
+            "label": "F03",
+            "poly": [
+              [
+                110,
+                52
+              ],
+              [
+                119,
+                52
+              ],
+              [
+                117,
+                66
+              ],
+              [
+                108,
+                73
+              ],
+              [
+                99,
+                69
+              ],
+              [
+                103,
+                61
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "095-LEFT-LOWER",
+        "poly": [
+          [
+            57,
+            17
+          ],
+          [
+            64,
+            18
+          ],
+          [
+            64,
+            47
+          ],
+          [
+            57,
+            47
+          ]
+        ],
+        "purpose": "左上窓の下に残る固定防壁。",
+        "kind": "wall",
+        "breakable": false,
+        "displayId": "F04",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-LEFT-LOWER",
+            "label": "F04",
+            "poly": [
+              [
+                57,
+                17
+              ],
+              [
+                64,
+                18
+              ],
+              [
+                64,
+                47
+              ],
+              [
+                57,
+                47
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "095-UPPER-WINDOW",
+        "poly": [
+          [
+            57,
+            47
+          ],
+          [
+            64,
+            47
+          ],
+          [
+            64,
+            67
+          ],
+          [
+            57,
+            67
+          ]
+        ],
+        "purpose": "左から風で入る上の窓。",
+        "kind": "wall",
+        "breakable": true,
+        "displayId": "D05",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-UPPER-WINDOW@0",
+            "label": "D05",
+            "poly": [
+              [
+                57,
+                47
+              ],
+              [
+                64,
+                47
+              ],
+              [
+                64,
+                67
+              ],
+              [
+                57,
+                67
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "095-LEFT-CAP",
+        "poly": [
+          [
+            57,
+            67
+          ],
+          [
+            64,
+            67
+          ],
+          [
+            64,
+            77
+          ],
+          [
+            57,
+            75
+          ]
+        ],
+        "purpose": "左窓の上端。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F06",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-LEFT-CAP",
+            "label": "F06",
+            "poly": [
+              [
+                57,
+                67
+              ],
+              [
+                64,
+                67
+              ],
+              [
+                64,
+                77
+              ],
+              [
+                57,
+                75
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "095-WEST-GUN",
+        "poly": [
+          [
+            36,
+            51
+          ],
+          [
+            42,
+            58
+          ],
+          [
+            52,
+            58
+          ],
+          [
+            55,
+            52
+          ],
+          [
+            49,
+            46
+          ],
+          [
+            41,
+            47
+          ]
+        ],
+        "purpose": "右下とは逆向きに撃つ西の砲座。",
+        "kind": "island",
+        "breakable": false,
+        "displayId": "F07",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "095-WEST-GUN",
+            "label": "F07",
+            "poly": [
+              [
+                36,
+                51
+              ],
+              [
+                42,
+                58
+              ],
+              [
+                52,
+                58
+              ],
+              [
+                55,
+                52
+              ],
+              [
+                49,
+                46
+              ],
+              [
+                41,
+                47
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          101,
+          32,
+          23,
+          -1
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          40,
+          67,
+          48,
+          79
+        ]
+      }
+    ],
+    "player": {
+      "x": 139,
+      "h": 15
+    },
+    "enemy": {
+      "x": 84,
+      "h": 44
+    }
+  },
+  "after": {
+    "width": 1700,
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        10,
+        23
+      ],
+      [
+        22,
+        20
+      ],
+      [
+        28,
+        15
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          20
+        ],
+        [
+          28,
+          15
+        ]
+      ],
+      [
+        [
+          47,
+          8
+        ],
+        [
+          84,
+          12
+        ],
+        [
+          113,
+          12
+        ]
+      ],
+      [
+        [
+          126,
+          15
+        ],
+        [
+          154,
+          15
+        ],
+        [
+          170,
+          23
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          101,
+          32,
+          23,
+          -1
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          40,
+          67,
+          48,
+          79
+        ]
+      }
+    ],
+    "player": {
+      "x": 139,
+      "h": 15
+    },
+    "enemy": {
+      "x": 84,
+      "h": 44
+    },
+    "pickups": [],
+    "parts": [
+      {
+        "id": "095-CENTRAL-REDOUBT",
+        "kind": "island",
+        "poly": [
+          [
+            57,
+            38
+          ],
+          [
+            66,
+            44
+          ],
+          [
+            98,
+            44
+          ],
+          [
+            107,
+            37
+          ],
+          [
+            99,
+            33
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            73,
+            28
+          ],
+          [
+            68,
+            34
+          ]
+        ],
+        "breakable": false,
+        "purpose": "ボスを中央で支える独立防御陣地。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "095-LOW-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            110,
+            12
+          ],
+          [
+            119,
+            12
+          ],
+          [
+            119,
+            52
+          ],
+          [
+            110,
+            52
+          ]
+        ],
+        "breakable": true,
+        "purpose": "右下から磁場弾を入れる低い窓。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "095-UPPER-CREST",
+        "kind": "roof",
+        "poly": [
+          [
+            110,
+            52
+          ],
+          [
+            119,
+            52
+          ],
+          [
+            117,
+            66
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            99,
+            69
+          ],
+          [
+            103,
+            61
+          ]
+        ],
+        "breakable": false,
+        "purpose": "右窓の上に残す斜めの防御稜線。",
+        "displayId": "F03",
+        "unitCount": 1
+      },
+      {
+        "id": "095-LEFT-LOWER",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            17
+          ],
+          [
+            64,
+            18
+          ],
+          [
+            64,
+            47
+          ],
+          [
+            57,
+            47
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左上窓の下に残る固定防壁。",
+        "displayId": "F04",
+        "unitCount": 1
+      },
+      {
+        "id": "095-UPPER-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            47
+          ],
+          [
+            64,
+            47
+          ],
+          [
+            66,
+            63
+          ],
+          [
+            58,
+            65
+          ]
+        ],
+        "breakable": true,
+        "purpose": "左から風で入る上の窓。",
+        "displayId": "D05",
+        "unitCount": 1
+      },
+      {
+        "id": "095-LEFT-CAP",
+        "kind": "roof",
+        "poly": [
+          [
+            58,
+            65
+          ],
+          [
+            66,
+            63
+          ],
+          [
+            70,
+            77
+          ],
+          [
+            62,
+            81
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左窓の上端。",
+        "displayId": "F06",
+        "unitCount": 1
+      },
+      {
+        "id": "095-WEST-GUN",
+        "kind": "island",
+        "poly": [
+          [
+            34,
+            50
+          ],
+          [
+            42,
+            58
+          ],
+          [
+            52,
+            58
+          ],
+          [
+            56,
+            53
+          ],
+          [
+            49,
+            49
+          ],
+          [
+            45,
+            41
+          ],
+          [
+            39,
+            45
+          ]
+        ],
+        "breakable": false,
+        "purpose": "右下とは逆向きに撃つ西の砲座。",
+        "displayId": "F07",
+        "unitCount": 1
+      }
+    ],
+    "id": 95,
+    "stageNumber": 95,
+    "worldHold": 1,
+    "labels": [],
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 139,
+        "h": 15,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 132,
+        "h": 15,
+        "role": "開始から70px先のM側"
+      },
+      {
+        "id": "B",
+        "x": 46,
+        "h": 58,
+        "role": "左の風窓・ドライブ破壊後の核候補"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "M-shield-drive",
+        "points": [
+          [
+            132,
+            18
+          ],
+          [
+            117,
+            30
+          ],
+          [
+            99,
+            50
+          ],
+          [
+            84,
+            49.3
+          ]
+        ],
+        "contact": "M",
+        "destroy": [
+          "095-LOW-WINDOW"
+        ]
+      },
+      {
+        "id": "F-exposed-core",
+        "points": [
+          [
+            46,
+            61
+          ],
+          [
+            60,
+            59
+          ],
+          [
+            84,
+            49.3
+          ]
+        ],
+        "destroy": [
+          "095-UPPER-WINDOW"
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 95,
+    "name": "シールドドライブから露出核へ",
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        10,
+        23
+      ],
+      [
+        22,
+        20
+      ],
+      [
+        28,
+        15
+      ]
+    ],
+    "parts": [
+      {
+        "id": "095-CENTRAL-REDOUBT",
+        "kind": "island",
+        "poly": [
+          [
+            57,
+            38
+          ],
+          [
+            66,
+            44
+          ],
+          [
+            98,
+            44
+          ],
+          [
+            107,
+            37
+          ],
+          [
+            99,
+            33
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            73,
+            28
+          ],
+          [
+            68,
+            34
+          ]
+        ],
+        "breakable": false,
+        "purpose": "ボスを中央で支える独立防御陣地。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "095-LOW-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            110,
+            12
+          ],
+          [
+            119,
+            12
+          ],
+          [
+            119,
+            52
+          ],
+          [
+            110,
+            52
+          ]
+        ],
+        "breakable": true,
+        "purpose": "右下から磁場弾を入れる低い窓。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "095-UPPER-CREST",
+        "kind": "roof",
+        "poly": [
+          [
+            110,
+            52
+          ],
+          [
+            119,
+            52
+          ],
+          [
+            117,
+            66
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            99,
+            69
+          ],
+          [
+            103,
+            61
+          ]
+        ],
+        "breakable": false,
+        "purpose": "右窓の上に残す斜めの防御稜線。",
+        "displayId": "F03",
+        "unitCount": 1
+      },
+      {
+        "id": "095-LEFT-LOWER",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            17
+          ],
+          [
+            64,
+            18
+          ],
+          [
+            64,
+            47
+          ],
+          [
+            57,
+            47
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左上窓の下に残る固定防壁。",
+        "displayId": "F04",
+        "unitCount": 1
+      },
+      {
+        "id": "095-UPPER-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            47
+          ],
+          [
+            64,
+            47
+          ],
+          [
+            66,
+            63
+          ],
+          [
+            58,
+            65
+          ]
+        ],
+        "breakable": true,
+        "purpose": "左から風で入る上の窓。",
+        "displayId": "D05",
+        "unitCount": 1
+      },
+      {
+        "id": "095-LEFT-CAP",
+        "kind": "roof",
+        "poly": [
+          [
+            58,
+            65
+          ],
+          [
+            66,
+            63
+          ],
+          [
+            70,
+            77
+          ],
+          [
+            62,
+            81
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左窓の上端。",
+        "displayId": "F06",
+        "unitCount": 1
+      },
+      {
+        "id": "095-WEST-GUN",
+        "kind": "island",
+        "poly": [
+          [
+            34,
+            50
+          ],
+          [
+            42,
+            58
+          ],
+          [
+            52,
+            58
+          ],
+          [
+            56,
+            53
+          ],
+          [
+            49,
+            49
+          ],
+          [
+            45,
+            41
+          ],
+          [
+            39,
+            45
+          ]
+        ],
+        "breakable": false,
+        "purpose": "右下とは逆向きに撃つ西の砲座。",
+        "displayId": "F07",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          101,
+          32,
+          23,
+          -1
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          40,
+          67,
+          48,
+          79
+        ]
+      }
+    ],
+    "worldWidth": 1700,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        139,
+        15
+      ],
+      [
+        84,
+        44
+      ]
+    ],
+    "recommended": "yui",
+    "floorSegments": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          10,
+          23
+        ],
+        [
+          22,
+          20
+        ],
+        [
+          28,
+          15
+        ]
+      ],
+      [
+        [
+          47,
+          8
+        ],
+        [
+          84,
+          12
+        ],
+        [
+          113,
+          12
+        ]
+      ],
+      [
+        [
+          126,
+          15
+        ],
+        [
+          154,
+          15
+        ],
+        [
+          170,
+          23
+        ]
+      ]
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 7,
+      "enemyProfile": 4,
+      "encounterId": "midboss:line-warden",
+      "boss": false,
+      "midboss": true,
+      "hold": 1,
+      "recommendedCharacter": "yui",
+      "enemyErrorStageMultiplier": 0.65,
+      "enemyDamageStageMultiplier": 1.1,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。",
+    "change": "左窓を傾いた一片と支持体に整理し、中央陣地と西砲座の輪郭を非対称にした。",
+    "distinct": "別々の架空部位を撃ち分けず、一部位の破壊前後で同じ核座標への接近を変える中ボス陣地。",
+    "inherit": {
+      "terrain": "中央ボスを左右から挟む独立防御陣地",
+      "concept": "シールドドライブを優先し、低い窓の安全性を使う。",
+      "alternative": "上窓と風を利用し、部位へ別の角度を作る。"
+    },
+    "special": "シールドドライブは既存一部位HP1.5。核は同じx=0,dy=-53で、別の新部位ではない。右下窓と左上窓は別々の準備。部位破壊の効果・露出状態・反撃込みの手順は最終検証し、両側を必ず使うとは限らない。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "実描画でシールドドライブが既存の一部位であり核と同座標であることを確認。左右窓の破壊単位とM/Fの入射空間を確認。初回に明白な形状指摘はなく、支持・直射遮断・構想空間の最低限チェックを完了。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}
