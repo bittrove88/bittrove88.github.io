@@ -1,0 +1,52 @@
+from art_core import Scene
+
+def make():
+ s=Scene('normal-08','上昇の坑道',8,'見上げる鉱山の吹抜け。細く残る天窓、暗い岩の大きな切断面、古い昇降かごと巻き上げ機。縦の光と深い土色で上へ抜ける距離を描く。',{
+ 'sky':'#C9BA9F','light':'#E9D5AD','lightPale':'#F1E2C4','air':'#C7B99B','far':'#A4967D','farShade':'#8F8472',
+ 'rock':'#8D7B62','rockLit':'#B09A72','rockLight':'#C9B28A','rockShade':'#70675A','deep':'#50545A','near':'#626057',
+ 'steel':'#8B8981','steelLit':'#C4B89B','steelShade':'#636D72','rust':'#A98258','rustLit':'#C29F6A','rustShade':'#836A50',
+ 'cable':'#7B7D71','dust':'#B7A78B','floor':'#9B9078','floorLight':'#C2B08B'})
+ s.base()
+ s.p('light','M444 0 H690 L679 123 L709 230 L676 347 L588 449 L460 410 L405 274 L443 151 Z','air')
+ s.p('lightPale','M479 0 H581 L550 159 L577 299 L531 401 L487 393 L460 258 L488 137 Z','air')
+ s.p('far','M0 0 H370 L345 145 L379 239 L349 360 L392 473 L355 604 H0 Z','far')
+ s.p('farShade','M1120 0 H785 L801 118 L770 231 L797 344 L764 469 L803 604 H1120 Z','far')
+ s.p('air','M360 419 C476 382 571 442 674 399 L815 438 L784 604 H331 Z','middle')
+ s.p('floor','M0 544 L219 510 L420 554 L595 513 L796 549 L976 521 L1120 555 V604 H0 Z','middle')
+ s.p('rock','M0 0 H251 L235 132 L282 223 L257 333 L287 447 L246 560 L263 604 H0 Z','land')
+ s.p('rockLit','M193 0 H251 L235 132 L282 223 L257 333 L287 447 L246 560 L263 604 H220 L207 553 L247 441 L218 332 L243 230 L197 134 Z','land')
+ s.p('rockShade','M0 98 L117 68 L165 149 L140 281 L182 372 L160 477 L180 604 H0 Z','land')
+ s.p('deep','M0 208 L72 178 L99 253 L75 354 L108 431 L83 532 L99 604 H0 Z','land')
+ s.p('rockLight','M251 0 H272 L260 126 L303 221 L285 244 L235 132 Z','land')
+ s.p('rock','M1120 0 H940 L921 141 L948 251 L909 366 L946 483 L925 604 H1120 Z','land')
+ s.p('rockShade','M1120 95 L1032 67 L1004 188 L1022 314 L995 424 L1024 604 H1120 Z','land')
+ s.p('deep','M1120 237 L1079 207 L1058 311 L1082 412 L1057 519 L1071 604 H1120 Z','land')
+ s.p('rockLit','M940 0 H918 L896 134 L916 247 L880 362 L916 480 L899 604 H925 L946 483 L909 366 L948 251 L921 141 Z','land')
+ s.p('rockLight','M916 247 L930 270 L901 364 L935 478 L926 505 L880 362 Z','land')
+ # One tall lift structure, displaced right. No generic paired gateposts.
+ s.p('steelShade','M787 0 H805 L804 504 L786 511 Z','back-structure')
+ s.p('steel','M847 0 H864 L866 487 L850 494 Z','back-structure')
+ s.p('steelLit','M787 0 H793 L792 505 L786 511 Z','back-structure')
+ for y in [82,180,282,391]:s.p('steelShade',f'M804 {y} L849 {y-9} V{y+4} L804 {y+14} Z','back-structure')
+ s.r('cable',815,0,4,271,'back-structure');s.r('cable',836,0,4,267,'back-structure')
+ s.p('rust','M774 278 L842 263 L874 278 L806 296 Z','structure')
+ s.p('rustLit','M774 278 L842 263 L874 278 L862 286 L806 284 L785 288 Z','structure')
+ s.p('rustShade','M774 278 L786 280 L794 365 L782 372 Z','structure')
+ s.p('rustShade','M862 282 L874 278 L880 359 L869 364 Z','structure')
+ s.p('steel','M806 296 L816 293 L822 376 L812 380 Z','structure')
+ s.p('steelShade','M781 361 L845 347 L880 359 L814 379 L782 372 Z','structure')
+ s.p('rustLit','M781 361 L845 347 L880 359 L866 363 L844 357 L794 369 Z','structure')
+ s.p('rust','M115 300 L240 278 L259 294 L131 320 Z','structure')
+ s.p('rustShade','M131 320 L259 294 V314 L133 340 Z','structure')
+ s.p('steelShade','M164 332 L182 328 L212 389 L192 395 Z','structure')
+ s.p('dust','M208 565 C342 537 411 556 516 534 C636 510 738 553 839 524 C791 560 721 570 633 563 C462 579 353 569 208 587 Z','near')
+ s.p('rustShade','M156 146 L207 128 L231 144 L233 216 L181 232 L158 216 Z','structure')
+ s.e('steelShade',194,170,34,36,'structure','old hoist pulley')
+ s.e('steelLit',194,170,24,26,'structure')
+ s.e('rustShade',194,170,11,12,'structure')
+ s.p('steelShade','M188 142 L200 142 L200 158 L188 159 Z','structure')
+ s.p('floorLight','M358 588 L451 557 L535 569 L585 555 L653 577 L604 592 L519 584 L436 600 Z','near')
+ s.p('near','M0 568 L100 533 L192 559 L237 604 H0 Z','near')
+ s.p('rockLight','M0 568 L100 533 L192 559 L177 572 L102 551 L0 589 Z','near')
+ s.p('deep','M1120 553 L1031 517 L978 549 L950 604 H1120 Z','near')
+ return s.data
