@@ -1,0 +1,1158 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 72,
+  "date": "2026-11-06",
+  "status": "design-review-pending-runtime-unverified",
+  "revisionOf": "stage_072_proposal_v2.json",
+  "sourcePr74": {
+    "latestProposal": "stage_072_proposal_v1.json",
+    "latestReview": "stage_072_review_v1.md",
+    "reviewFinding": "元案は磁鉄鉱の影ルートが極細角度で上越しが上位互換。差戻しv2も大型アーチが出入り口と射線を塞ぎ、周辺面とシルエットが類似。",
+    "retained": [
+      "磁鉄鉱の世界観",
+      "極性-1の磁場M",
+      "敵側の個別破壊可能な斜め鉱石片",
+      "上/下と側面の位置選択",
+      "enemy:mole",
+      "HP5/16手",
+      "W09識別子・数量・出現ターン"
+    ]
+  },
+  "before": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        47,
+        12
+      ],
+      [
+        66,
+        14
+      ],
+      [
+        80,
+        16
+      ],
+      [
+        100,
+        30
+      ],
+      [
+        119,
+        42
+      ],
+      [
+        136,
+        42
+      ],
+      [
+        140,
+        39
+      ]
+    ],
+    "parts": [
+      {
+        "id": "072-GIANT-ORE",
+        "kind": "roof",
+        "poly": [
+          [
+            40,
+            70
+          ],
+          [
+            54,
+            79
+          ],
+          [
+            64,
+            83
+          ],
+          [
+            77,
+            83
+          ],
+          [
+            92,
+            73
+          ],
+          [
+            92,
+            43
+          ],
+          [
+            73,
+            37
+          ],
+          [
+            40,
+            34
+          ]
+        ],
+        "breakable": false,
+        "displayId": "F01"
+      },
+      {
+        "id": "072-SIDE",
+        "kind": "island",
+        "poly": [
+          [
+            26,
+            23
+          ],
+          [
+            31,
+            28
+          ],
+          [
+            42,
+            28
+          ],
+          [
+            47,
+            24
+          ],
+          [
+            39,
+            18
+          ],
+          [
+            31,
+            18
+          ]
+        ],
+        "breakable": false,
+        "displayId": "F02"
+      },
+      {
+        "id": "072-ENEMY-BEAM",
+        "kind": "wall",
+        "poly": [
+          [
+            107,
+            35
+          ],
+          [
+            114,
+            39
+          ],
+          [
+            114,
+            63
+          ],
+          [
+            107,
+            61
+          ]
+        ],
+        "breakable": true,
+        "displayId": "D03"
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          75,
+          50,
+          25,
+          -1
+        ]
+      }
+    ],
+    "player": {
+      "x": 22,
+      "h": 12
+    },
+    "enemy": {
+      "x": 128,
+      "h": 42
+    }
+  },
+  "after": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        48
+      ],
+      [
+        10,
+        48
+      ],
+      [
+        20,
+        50
+      ],
+      [
+        30,
+        51
+      ],
+      [
+        36,
+        49
+      ],
+      [
+        42,
+        46
+      ],
+      [
+        48,
+        43
+      ],
+      [
+        54,
+        39
+      ],
+      [
+        61,
+        35
+      ],
+      [
+        68,
+        31
+      ],
+      [
+        75,
+        27
+      ],
+      [
+        82,
+        24
+      ],
+      [
+        90,
+        23
+      ],
+      [
+        98,
+        26
+      ],
+      [
+        106,
+        30
+      ],
+      [
+        114,
+        34
+      ],
+      [
+        122,
+        39
+      ],
+      [
+        129,
+        43
+      ],
+      [
+        136,
+        44
+      ],
+      [
+        140,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          48
+        ],
+        [
+          10,
+          48
+        ],
+        [
+          20,
+          50
+        ],
+        [
+          30,
+          51
+        ],
+        [
+          36,
+          49
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          48,
+          43
+        ],
+        [
+          54,
+          39
+        ],
+        [
+          61,
+          35
+        ],
+        [
+          68,
+          31
+        ],
+        [
+          75,
+          27
+        ],
+        [
+          82,
+          24
+        ],
+        [
+          90,
+          23
+        ],
+        [
+          98,
+          26
+        ],
+        [
+          106,
+          30
+        ],
+        [
+          114,
+          34
+        ],
+        [
+          122,
+          39
+        ],
+        [
+          129,
+          43
+        ],
+        [
+          136,
+          44
+        ],
+        [
+          140,
+          42
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "072-LEANING-ORE-FANG",
+        "displayId": "F01",
+        "kind": "wall",
+        "poly": [
+          [
+            4,
+            48
+          ],
+          [
+            7,
+            59
+          ],
+          [
+            12,
+            72
+          ],
+          [
+            18,
+            82
+          ],
+          [
+            27,
+            90
+          ],
+          [
+            35,
+            93
+          ],
+          [
+            40,
+            90
+          ],
+          [
+            35,
+            84
+          ],
+          [
+            29,
+            78
+          ],
+          [
+            23,
+            70
+          ],
+          [
+            18,
+            60
+          ],
+          [
+            13,
+            49
+          ],
+          [
+            11,
+            48
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左岸の地盤に根付く鋭い片刃状の磁鉄鉱。屋根にならず、プレイヤーの前方下降経路を塞がない。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "072-LEANING-ORE-FANG",
+            "label": "F01",
+            "poly": [
+              [
+                4,
+                48
+              ],
+              [
+                7,
+                59
+              ],
+              [
+                12,
+                72
+              ],
+              [
+                18,
+                82
+              ],
+              [
+                27,
+                90
+              ],
+              [
+                35,
+                93
+              ],
+              [
+                40,
+                90
+              ],
+              [
+                35,
+                84
+              ],
+              [
+                29,
+                78
+              ],
+              [
+                23,
+                70
+              ],
+              [
+                18,
+                60
+              ],
+              [
+                13,
+                49
+              ],
+              [
+                11,
+                48
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "072-SUSPENDED-FRACTURE",
+        "displayId": "D03",
+        "kind": "wall",
+        "poly": [
+          [
+            105,
+            51
+          ],
+          [
+            109,
+            60
+          ],
+          [
+            115,
+            67
+          ],
+          [
+            119,
+            67
+          ],
+          [
+            117,
+            58
+          ],
+          [
+            112,
+            51
+          ],
+          [
+            109,
+            47
+          ]
+        ],
+        "breakable": true,
+        "purpose": "上空で磁力に支えられた斜めの薄い鉱石衝立。左段丘CとP0の高い直射を遮り、下路AのM経由射界は開いたまま。壊すとC方向の射線が増える。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "072-SUSPENDED-FRACTURE@0",
+            "label": "D03",
+            "poly": [
+              [
+                105,
+                51
+              ],
+              [
+                109,
+                60
+              ],
+              [
+                115,
+                67
+              ],
+              [
+                119,
+                67
+              ],
+              [
+                117,
+                58
+              ],
+              [
+                112,
+                51
+              ],
+              [
+                109,
+                47
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          98,
+          31,
+          25,
+          -1
+        ]
+      }
+    ],
+    "player": {
+      "x": 18,
+      "h": 49.6
+    },
+    "enemy": {
+      "x": 131,
+      "h": 43.285714285714285
+    },
+    "pickups": [
+      {
+        "id": "W09",
+        "kind": "trial",
+        "weaponId": "W09",
+        "category": "weapon",
+        "amount": 2,
+        "x": 24,
+        "h": 58,
+        "spawnTurn": 5,
+        "placementId": "L072:weapon:W09",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 86,
+        "h": 23.5,
+        "label": "A"
+      },
+      {
+        "x": 31,
+        "h": 50.666666666666664,
+        "label": "C"
+      },
+      {
+        "x": 113,
+        "h": 33.5,
+        "label": "B"
+      }
+    ],
+    "stageNumber": 72,
+    "worldHold": 1,
+    "ventStartsOn": false,
+    "accessPaths": [
+      {
+        "label": "A",
+        "kind": "planned",
+        "status": "geometry-only-not-walked",
+        "points": [
+          [
+            18,
+            49.6
+          ],
+          [
+            30,
+            51
+          ],
+          [
+            42,
+            46
+          ],
+          [
+            54,
+            39
+          ],
+          [
+            68,
+            31
+          ],
+          [
+            86,
+            23.5
+          ]
+        ]
+      },
+      {
+        "label": "C",
+        "kind": "planned",
+        "status": "geometry-only-not-walked",
+        "points": [
+          [
+            18,
+            49.6
+          ],
+          [
+            24,
+            50.4
+          ],
+          [
+            31,
+            50.666666666666664
+          ]
+        ]
+      },
+      {
+        "label": "B",
+        "kind": "planned",
+        "status": "geometry-only-not-walked",
+        "points": [
+          [
+            18,
+            49.6
+          ],
+          [
+            63,
+            34
+          ],
+          [
+            88,
+            23.5
+          ],
+          [
+            105,
+            29.5
+          ],
+          [
+            113,
+            33.5
+          ]
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "label": "主A：緩い下り坂の先からM近傍を通り敵を狙う。固定部品D03より下に射界あり（模式直線）",
+        "kind": "main",
+        "status": "straight-geometry-not-real-ballistics",
+        "points": [
+          [
+            86,
+            26.5
+          ],
+          [
+            98,
+            31
+          ],
+          [
+            113,
+            37
+          ],
+          [
+            131,
+            46.285714285714285
+          ]
+        ]
+      },
+      {
+        "label": "別C：左側段丘から高い射界はD03で遮られるため、D03破壊後に使う（模式直線）",
+        "kind": "break-alternative",
+        "status": "straight-geometry-not-real-ballistics",
+        "points": [
+          [
+            31,
+            53.666666666666664
+          ],
+          [
+            109,
+            50
+          ],
+          [
+            131,
+            46.285714285714285
+          ]
+        ]
+      },
+      {
+        "label": "別B：右岸の露出した斜面で敵に近づきMを回避して短射（模式直線）",
+        "kind": "rush-alternative",
+        "status": "straight-geometry-not-real-ballistics",
+        "points": [
+          [
+            113,
+            36.5
+          ],
+          [
+            131,
+            46.285714285714285
+          ]
+        ]
+      }
+    ],
+    "shotExamples": [],
+    "angleReview": [],
+    "replayViews": []
+  },
+  "summary": {
+    "terrain": "左岸の片刃状鉱石、切土のゆるい片勾配採掘段丘、右岸に近づく露出斜面。巨大アーチと屋根ゼロ。",
+    "concept": "低所A(86,23.5)から磁場M(98,31)付近を経由した敵への広い空の射界を持つ。D03を壊さず試せるが磁場作用の角度調整が必要。",
+    "alternative": "左側段丘C(31,50.6)からD03を破壊して高い射線を得るか、右側B(113,33.5)まで進んで短射する。各経路で移動と露出と破壊手数が違う。",
+    "status": "design geometry, untested in engine"
+  },
+  "learningGoal": {
+    "source": "PR #74",
+    "proposed": "同じ屋根の上か下かではなく、開放された切土路を降りて磁場を利用するか、遮蔽片を壊して高い射線を開くか、敵近くへ接近するかを選ぶ。",
+    "decision": "R再再設計（差戻しv2のシルエット・入口・射線欠陥対応）"
+  },
+  "routeDesign": {
+    "main": "A：緩やかな段丘路を徒歩で下り、D03下に既に確保された射界でMを利用する。",
+    "alternative": "C：左段丘から斜めのD03を破壊して射線を開く。B：右斜面へ進みM非依存の短射。ただし敵へ露出。",
+    "anchors": [
+      {
+        "id": "lower-A",
+        "x": 86,
+        "h": 23.5,
+        "surface": "floor0",
+        "plan": "main",
+        "requiredMechanisms": [
+          "M"
+        ],
+        "role": "破壊前でもD03を通らない静的射界があり、Mが射線近くに置かれる"
+      },
+      {
+        "id": "left-terrace-C",
+        "x": 31,
+        "h": 50.666666666666664,
+        "surface": "floor0",
+        "plan": "alternative-break",
+        "requiredMechanisms": [
+          "break"
+        ],
+        "role": "初期射線がD03に遮られ、破壊で高い方向が開く"
+      },
+      {
+        "id": "enemy-approach-B",
+        "x": 113,
+        "h": 33.5,
+        "surface": "floor0",
+        "plan": "alternative-rush",
+        "requiredMechanisms": [],
+        "role": "右斜面を歩いて敵へ接近し、Mを通さず狙うが反撃へ露出"
+      }
+    ],
+    "budgetMeaning": "既存の16手は維持。徒歩・転移・磁場・AI・反撃・実命中は全49面の設計承認後の総合検証へ持ち越す。",
+    "accessEvidence": "地面の坂が35度未満、足元の代表点が地形に埋まらない、Aから敵へ高さ+3単位の静的直線が岩と地面を避けることのみ確認。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:mole",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "approval": {
+    "state": "pending",
+    "scope": "geometry-and-tactical-intent-only"
+  },
+  "verification": {
+    "static": "stage_072_static_check_v3.json",
+    "rendering": "coordinate-aligned-svg-not-game-screenshot",
+    "walkingAndTeleport": "not-tested",
+    "actualShotsAndMagnet": "not-tested",
+    "damageAndBreakage": "not-tested",
+    "enemyAIAndCounterfire": "not-tested",
+    "fullAcceptance": "not-tested"
+  },
+  "destructionRegister": [
+    {
+      "id": "072-LEANING-ORE-FANG",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "072-LEANING-ORE-FANG",
+          "label": "F01",
+          "poly": [
+            [
+              4,
+              48
+            ],
+            [
+              7,
+              59
+            ],
+            [
+              12,
+              72
+            ],
+            [
+              18,
+              82
+            ],
+            [
+              27,
+              90
+            ],
+            [
+              35,
+              93
+            ],
+            [
+              40,
+              90
+            ],
+            [
+              35,
+              84
+            ],
+            [
+              29,
+              78
+            ],
+            [
+              23,
+              70
+            ],
+            [
+              18,
+              60
+            ],
+            [
+              13,
+              49
+            ],
+            [
+              11,
+              48
+            ]
+          ]
+        }
+      ],
+      "purpose": "左岸の地盤に根付く鋭い片刃状の磁鉄鉱。屋根にならず、プレイヤーの前方下降経路を塞がない。"
+    },
+    {
+      "id": "072-SUSPENDED-FRACTURE",
+      "label": "D03",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "072-SUSPENDED-FRACTURE@0",
+          "label": "D03",
+          "poly": [
+            [
+              105,
+              51
+            ],
+            [
+              109,
+              60
+            ],
+            [
+              115,
+              67
+            ],
+            [
+              119,
+              67
+            ],
+            [
+              117,
+              58
+            ],
+            [
+              112,
+              51
+            ],
+            [
+              109,
+              47
+            ]
+          ]
+        }
+      ],
+      "purpose": "上空で磁力に支えられた斜めの薄い鉱石衝立。左段丘CとP0の高い直射を遮り、下路AのM経由射界は開いたまま。壊すとC方向の射線が増える。"
+    }
+  ],
+  "destructionPlans": {
+    "main": [],
+    "alternative": [
+      "072-SUSPENDED-FRACTURE@0"
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 72,
+    "name": "磁石の陰の棚",
+    "nameEn": "Shelf Beneath the Magnet",
+    "goal": "片刃磁鉄鉱の下の開放切土路を進んで磁場を使うか、上方の鉱石片を壊すか、右側から接近する。",
+    "goalEn": "Descend the open mine cut for a magnet shot, remove the high shutter, or push up the exposed right ramp.",
+    "floor": [
+      [
+        0,
+        48
+      ],
+      [
+        10,
+        48
+      ],
+      [
+        20,
+        50
+      ],
+      [
+        30,
+        51
+      ],
+      [
+        36,
+        49
+      ],
+      [
+        42,
+        46
+      ],
+      [
+        48,
+        43
+      ],
+      [
+        54,
+        39
+      ],
+      [
+        61,
+        35
+      ],
+      [
+        68,
+        31
+      ],
+      [
+        75,
+        27
+      ],
+      [
+        82,
+        24
+      ],
+      [
+        90,
+        23
+      ],
+      [
+        98,
+        26
+      ],
+      [
+        106,
+        30
+      ],
+      [
+        114,
+        34
+      ],
+      [
+        122,
+        39
+      ],
+      [
+        129,
+        43
+      ],
+      [
+        136,
+        44
+      ],
+      [
+        140,
+        42
+      ]
+    ],
+    "parts": [
+      {
+        "id": "072-LEANING-ORE-FANG",
+        "kind": "wall",
+        "poly": [
+          [
+            4,
+            48
+          ],
+          [
+            7,
+            59
+          ],
+          [
+            12,
+            72
+          ],
+          [
+            18,
+            82
+          ],
+          [
+            27,
+            90
+          ],
+          [
+            35,
+            93
+          ],
+          [
+            40,
+            90
+          ],
+          [
+            35,
+            84
+          ],
+          [
+            29,
+            78
+          ],
+          [
+            23,
+            70
+          ],
+          [
+            18,
+            60
+          ],
+          [
+            13,
+            49
+          ],
+          [
+            11,
+            48
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "072-SUSPENDED-FRACTURE@0",
+        "kind": "wall",
+        "poly": [
+          [
+            105,
+            51
+          ],
+          [
+            109,
+            60
+          ],
+          [
+            115,
+            67
+          ],
+          [
+            119,
+            67
+          ],
+          [
+            117,
+            58
+          ],
+          [
+            112,
+            51
+          ],
+          [
+            109,
+            47
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          98,
+          31,
+          25,
+          -1
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        18,
+        49.6
+      ],
+      [
+        131,
+        43.285714285714285
+      ]
+    ],
+    "worldWidth": 1400,
+    "recommended": "mogu",
+    "route": "巨大屋根は使わない。片刃鉱石と緩い段丘の移動、Mの低い射撃と上からの破壊射撃を対比。",
+    "terrainRevision": "stage072-v3-design-pending"
+  },
+  "pickupPlacementCandidate": {
+    "id": "W09",
+    "kind": "trial",
+    "weaponId": "W09",
+    "category": "weapon",
+    "amount": 2,
+    "x": 24,
+    "h": 58,
+    "spawnTurn": 5,
+    "placementId": "L072:weapon:W09",
+    "needsReverification": true,
+    "designStatus": "proposed-unverified",
+    "note": "別正本pickup_placements.jsonは変更せず、設計候補座標のみ記録。"
+  },
+  "implementationNote": "72面v3の設計候補のみ。ゲーム正本と他面は未変更。PR #74の旧弾道を新形状の命中保証には流用しない。"
+}

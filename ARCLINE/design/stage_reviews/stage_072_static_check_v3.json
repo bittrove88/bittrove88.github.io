@@ -1,0 +1,66 @@
+{
+  "stage": 72,
+  "version": "v3",
+  "date": "2026-11-06",
+  "scope": "lightweight geometry and static line-of-sight only",
+  "checks": {
+    "allPointsInWorld": true,
+    "groundXMonotonic": true,
+    "partsSimpleNoSelfIntersection": true,
+    "playerAndEnemyOnGround": true,
+    "A_B_COnGround": true,
+    "lowerEntranceNotSealed": true,
+    "maxWalkingSlopeUnder35Degrees": true,
+    "lowerAtoEnemyStraightRayClearThroughIntactTerrain": true,
+    "lowerAtoEnemyStraightRayAboveGround": true,
+    "lowerAstaticRayNearM": true,
+    "rushBtoEnemyStaticRayClear": true,
+    "sideCtoEnemyStaticRayBlockedByD03": true,
+    "sideCAfterBreakRayNoFixedObstruction": true,
+    "initialP0StaticRayBlockedByD03": true,
+    "magnetOutsideRocks": true,
+    "pickupNotEmbedded": true,
+    "noRoofParts": true,
+    "W09IdAmountTurnPreserved": true
+  },
+  "metrics": {
+    "widthPx": 1400,
+    "floorVertices": 20,
+    "roofComponents": 0,
+    "fixedCragCount": 1,
+    "breakableShutterCount": 1,
+    "magnetCenter": [
+      98,
+      31,
+      25,
+      -1
+    ],
+    "staticRayA": [
+      [
+        86,
+        26.5
+      ],
+      [
+        131,
+        46.285714285714285
+      ]
+    ],
+    "staticRayMagnetSeparationUnits": 0.71,
+    "minimumRayGroundClearanceUnits": 2.41,
+    "maxSlopeDegrees": 33.690067525979785
+  },
+  "evidenceNotes": [
+    "Aから敵中心の単純直線は地面・F01・未破壊D03と非交差。ただし実弾の軌道ではなく、Mの実作用・命中は未検証。",
+    "P0および高い段丘Cの同様の直線はD03と交差。除去するとC方向に固定地形の遮蔽がない。",
+    "B右斜面から敵の直線は地面と岩と非交差。敵が反撃しないとは言えない。",
+    "F01は屋根ではなく左岸に根を持つ斜めの鉱石刃。主経路の開放された緩い坂に沿う歩行は模式構想。",
+    "全床区間が斜度35度未満、所有者・敵・A/B/Cの支持高度に整合、W09は元のID・数量・出現ターンを維持。"
+  ],
+  "deferred": [
+    "実エンジンキャラ接地・徒歩・テレポート着地と銃身の可動域",
+    "通常弾の発射角・出力・磁場による偏向と命中幅",
+    "D03独立破壊の可否と破壊後の再射撃",
+    "敵AI、反撃、HP、16行動以内の勝敗",
+    "全キャラ・複数seed・ブラウザ実画面と正本反映"
+  ]
+}
