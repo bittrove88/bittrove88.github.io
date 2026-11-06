@@ -4,7 +4,7 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f3f1e8;color:#304d50;font-family:system-ui,sans-serif}main{max-width:1240px;margin:auto;padding:32px 24px}header{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}.eyebrow{font-size:11px;letter-spacing:.18em;color:#6b8580}h1{font-size:clamp(28px,4vw,42px);font-weight:500;letter-spacing:.12em;margin:8px 0}p{font-size:13px;line-height:1.9;margin:6px 0}.status{font-size:11px;border:1px solid #bdc9bc;padding:7px 12px;white-space:nowrap}.scroll{overflow:auto;background:#d2dfd9;border:1px solid #b5c6ba}canvas{display:block;width:100%;height:auto}nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}button{font:inherit;font-size:12px;border:1px solid #9fb5ad;background:transparent;padding:9px 13px;color:#304d50;cursor:pointer}button[aria-pressed=true]{background:#365b5c;color:#f6f3e8}button:focus-visible{outline:3px solid #789b8f;outline-offset:3px}footer{display:flex;justify-content:space-between;gap:20px;color:#698079}footer p{font-size:11px}@media(max-width:600px){main{padding:22px 14px}header,footer{display:block}.status{display:inline-block;margin-top:8px}}
 </style><main>
-<header><div><div class="eyebrow">ARCLINE / BACKGROUND STUDY 02</div><h1>鏡の岸壁</h1><p>白い岩肌を、静かな海が映している。</p></div><span class="status">6〜10面共通 · デザイン確認待ち</span></header>
+<header><div><div class="eyebrow">ARCLINE / BACKGROUND STUDY 02</div><h1>鏡の岸壁</h1><p>白い岩肌を、静かな海が映している。</p></div><span class="status">6〜10面共通 · デザイン承認済み</span></header>
 <div class="scroll"><canvas id="landscape" width="1120" height="604" role="img" aria-label="白い岸壁とその映り込みが青緑の静水を囲む、鏡の岸壁の背景"></canvas></div>
 <nav aria-label="背景の表示サイズ"><button data-size="1120,604" aria-pressed="true">全景 1120 × 604</button><button data-size="844,390" aria-pressed="false">横画面 844 × 390</button><button data-size="568,240" aria-pressed="false">横画面 568 × 240</button><button data-size="393,852" aria-pressed="false">切り抜き確認 393 × 852</button></nav>
 <footer><p>不透明な単色色面のみ。背景デザイン単体のプレビュー。<br>ゲームへの組み込み・実戦の視認性検証は別工程です。</p><p id="size-label" aria-live="polite">1120 × 604 / cover</p></footer></main>
@@ -17,7 +17,7 @@
     10
   ],
   "themeIndex": 1,
-  "approved": false,
+  "approved": true,
   "visualContract": {
     "mood": "白い岸壁、静かな青緑の海、岩肌を映す鏡の水面。開けた空に潮風だけが通る。",
     "technique": "opaque flat matte color fields; adjacent tonal planes; independent opaque reflection silhouettes",
@@ -32,7 +32,7 @@
     "gameplayLayer": "decorative screen-space background only, always behind terrain / mechanics / units / ballistic guides / HUD",
     "layout": "identical illustration for stages 6-10; centered cover scaling without procedural variation",
     "designSafeZone": "central sky and water remain open; cliffs at outer edges; no specular lines, bright reflectors or functional platforms",
-    "notImplemented": "Design-data only. User visual review pending. No runtime integration, gameplay or collision changes."
+    "notImplemented": "Background design approved. No runtime integration, gameplay or collision changes."
   },
   "size": [
     1120,
@@ -527,7 +527,12 @@
       "d": "M332 593 C436 579 536 592 638 584 C711 579 776 584 832 590 C735 588 681 596 615 597 C505 602 419 591 332 601 Z",
       "role": "opaque landscape color field"
     }
-  ]
+  ],
+  "approval": {
+    "dateJst": "2026-11-07",
+    "scope": "background design only",
+    "source": "User approval in this conversation"
+  }
 }</script>
 <script id="background-renderer">/* ARCLINE | 6–10面「鏡の岸壁」| shared background renderer.
  * Scene source: mirror_cliffs.json

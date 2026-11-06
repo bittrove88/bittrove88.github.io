@@ -18,7 +18,7 @@ assert len({s['id'] for s in scene['shapes']}) == len(scene['shapes'])
 assert all(s['layer'] in scene['layerOrder'] for s in scene['shapes'])
 svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="604" viewBox="0 0 1120 604" role="img" aria-labelledby="title desc">',
        '<title id="title">鏡の岸壁 — 6〜10面 共通背景</title>',
-       '<desc id="desc">淡い石灰岩の岸壁と海食アーチが青緑の静かな水面に映る。単色の不透明な色面による背景デザイン。デザイン確認待ち・ゲーム未統合。</desc>']
+       '<desc id="desc">淡い石灰岩の岸壁と海食アーチが青緑の静かな水面に映る。単色の不透明な色面による背景デザイン。デザイン承認済み・ゲーム未統合。</desc>']
 for layer in scene['layerOrder']:
     svg.append(f'<g id="{html.escape(layer, quote=True)}">')
     for shape in scene['shapes']:
