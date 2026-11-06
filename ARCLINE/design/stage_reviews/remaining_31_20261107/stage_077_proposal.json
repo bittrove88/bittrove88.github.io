@@ -1,6 +1,6 @@
 {
   "stage": 77,
-  "name": "制御回廊と砲座の裏側",
+  "name": "端子の磁場路と独立した鏡路",
   "date": "2026-11-07",
   "status": "design-review-pending-runtime-unverified",
   "source": {
@@ -502,7 +502,7 @@
     }
   },
   "after": {
-    "width": 1660,
+    "width": 1380,
     "floor": [
       [
         0,
@@ -514,7 +514,7 @@
       ],
       [
         88,
-        13
+        22
       ],
       [
         102,
@@ -525,7 +525,7 @@
         20
       ],
       [
-        166,
+        138,
         20
       ]
     ],
@@ -541,7 +541,7 @@
         ],
         [
           88,
-          13
+          22
         ],
         [
           102,
@@ -552,7 +552,7 @@
           20
         ],
         [
-          166,
+          138,
           20
         ]
       ]
@@ -561,9 +561,9 @@
       {
         "type": "M",
         "v": [
-          88,
-          28,
-          20,
+          64,
+          56,
+          18,
           1
         ]
       },
@@ -657,7 +657,7 @@
           ]
         ],
         "breakable": true,
-        "purpose": "制御室への独立1片の横扉",
+        "purpose": "鏡路へ入る独立1片の横扉",
         "displayId": "D02",
         "unitCount": 1
       },
@@ -682,7 +682,7 @@
           ]
         ],
         "breakable": false,
-        "purpose": "主射点より左の残存天井",
+        "purpose": "M経路の下に残す短い制御室上面",
         "displayId": "F03",
         "unitCount": 1
       },
@@ -707,7 +707,7 @@
           ]
         ],
         "breakable": false,
-        "purpose": "低所に残るための短い庇。頭上開放射点の右側",
+        "purpose": "低い鏡路の右側に残す短い庇",
         "displayId": "F04",
         "unitCount": 1
       },
@@ -748,6 +748,7 @@
     "id": 77,
     "stageNumber": 77,
     "worldHold": 1,
+    "labels": [],
     "anchors": [
       {
         "id": "P0",
@@ -757,44 +758,62 @@
       },
       {
         "id": "A",
-        "x": 71,
+        "x": 35,
         "h": 10,
-        "role": "頭上を開けた反射準備点"
+        "role": "開始から110px先・T/Mの制御域"
       },
       {
         "id": "B",
-        "x": 154,
-        "h": 20,
-        "role": "砲座の右裏・左向きに攻める"
+        "x": 71,
+        "h": 10,
+        "role": "横扉の先・Mを通さないW射点"
       }
     ],
     "attacks": [
       {
-        "id": "control-W-M",
+        "id": "terminal-M",
+        "points": [
+          [
+            35,
+            13
+          ],
+          [
+            49,
+            52
+          ],
+          [
+            65,
+            67
+          ],
+          [
+            87,
+            77
+          ],
+          [
+            125,
+            59
+          ]
+        ],
+        "contact": "M"
+      },
+      {
+        "id": "independent-W",
         "points": [
           [
             71,
             13
           ],
           [
-            82,
-            11.5
+            80,
+            14
           ],
           [
-            92,
-            29
-          ],
-          [
-            100,
-            31
+            90,
+            70
           ],
           [
             109,
-            61
-          ],
-          [
-            116,
-            73
+            84
           ],
           [
             125,
@@ -802,33 +821,12 @@
           ]
         ],
         "contact": "W"
-      },
-      {
-        "id": "rear-flank",
-        "points": [
-          [
-            154,
-            23
-          ],
-          [
-            144,
-            65
-          ],
-          [
-            132,
-            72
-          ],
-          [
-            125,
-            59
-          ]
-        ]
       }
     ]
   },
   "blueprintCandidate": {
     "stage": 77,
-    "name": "制御回廊と砲座の裏側",
+    "name": "端子の磁場路と独立した鏡路",
     "floor": [
       [
         0,
@@ -840,7 +838,7 @@
       ],
       [
         88,
-        13
+        22
       ],
       [
         102,
@@ -851,7 +849,7 @@
         20
       ],
       [
-        166,
+        138,
         20
       ]
     ],
@@ -906,7 +904,7 @@
           ]
         ],
         "breakable": true,
-        "purpose": "制御室への独立1片の横扉",
+        "purpose": "鏡路へ入る独立1片の横扉",
         "displayId": "D02",
         "unitCount": 1
       },
@@ -931,7 +929,7 @@
           ]
         ],
         "breakable": false,
-        "purpose": "主射点より左の残存天井",
+        "purpose": "M経路の下に残す短い制御室上面",
         "displayId": "F03",
         "unitCount": 1
       },
@@ -956,7 +954,7 @@
           ]
         ],
         "breakable": false,
-        "purpose": "低所に残るための短い庇。頭上開放射点の右側",
+        "purpose": "低い鏡路の右側に残す短い庇",
         "displayId": "F04",
         "unitCount": 1
       },
@@ -998,9 +996,9 @@
       {
         "type": "M",
         "v": [
-          88,
-          28,
-          20,
+          64,
+          56,
+          18,
           1
         ]
       },
@@ -1020,7 +1018,7 @@
         ]
       }
     ],
-    "worldWidth": 1660,
+    "worldWidth": 1380,
     "hold": 1,
     "spawnPoints": [
       [
@@ -1032,7 +1030,22 @@
         56
       ]
     ],
-    "recommended": "rico"
+    "recommended": "rico",
+    "pickups": [
+      {
+        "id": "W12",
+        "kind": "trial",
+        "weaponId": "W12",
+        "category": "weapon",
+        "amount": 2,
+        "x": 30,
+        "h": 19,
+        "spawnTurn": 1,
+        "placementId": "L077:weapon:W12",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ]
   },
   "difficulty": {
     "currentRules": {
@@ -1050,15 +1063,15 @@
     }
   },
   "design": {
-    "core": "低い制御室でWとMを使うか、砲座の右裏へ渡って左向きに攻める。",
-    "change": "上棚からの高弧だけの別解をやめ、敵砲座の反対側に開放した裏手を作った。",
-    "distinct": "反射準備を残して低所に留まるか、敵の反対側まで転移するかを比較。74面の鉱床上面へ上る別解は繰り返さない。",
+    "core": "開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。",
+    "change": "Mを左上の制御域へ分離し、Wは右の一体斜面へ。二つの射点は低い同高度に保ち、上は危険・下は安全の二択を避けた。",
+    "distinct": "近いT/Mの操作と、横扉を越えるWの準備を比較する。反射と磁場を全部つなぐ正解や、右裏への回り込み別解を繰り返さない。",
     "inherit": {
       "terrain": "極性制御室の二層反射回廊",
       "concept": "窓を開いて端子を操作し、反射弾を磁場から上段へ送る。",
       "alternative": "中段棚から直接的な弧へ切り替える。敵転移後も窓を使い回せる構造にする。"
     },
-    "special": "横扉を歩いて開く場合は破壊と移動の行動が必要。T操作は任意で無料ではない。低い庇は敵弾の遮蔽候補であり、射撃後の安全は未確認。裏手では実際の向き変更入力も必要。"
+    "special": "難度別精査E17の方針に合わせT/MとWを分離。Tを撃つ操作は任意の一行動で、W経路はMの外を通る。横扉を歩いて開く場合は破壊と移動の行動が必要。射撃位置での反撃を受け、操作前後の旋回量や勝敗は最終検証。"
   },
   "approval": {
     "state": "pending"
@@ -1069,7 +1082,7 @@
       "obviousSelfIntersection": "none",
       "representativePositions": "supported/no obvious overlap",
       "schematicSpaces": "no unintended solid crossing",
-      "visualReview": "描画で反射出口と短い庇の交差を発見。庇を左へ寄せ、砲座との出口幅を確保して再描画。右裏の頭上開放射点と左向きの別解を確認。全長天井・三片の横扉・上棚別解は継承しなかった。",
+      "visualReview": "横断精査でE17に対しWとMを寄せすぎていた点を修正。T/M側とW側を地形と作用域で分離し再描画した。両射点は同高度で頭上開放。W経路がMの外を通り、両構想線に固定地形の交差がないことを再確認。",
       "runtime": "not-tested"
     },
     "walking": "not-tested",
