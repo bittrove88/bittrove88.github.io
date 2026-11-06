@@ -17,7 +17,7 @@
     "parts": [
       {
         "id": "072-WEST-SHEAR-FIN",
-        "area": -618.842,
+        "area": -515.342,
         "selfIntersections": [],
         "withinWorld": true
       },
@@ -35,9 +35,9 @@
         27.8
       ],
       "enemy": [
-        127,
-        42,
-        42
+        122,
+        40.333,
+        40.333
       ],
       "A": [
         81,
@@ -67,7 +67,7 @@
     "floorClearances": {
       "gapFromF01ToD03": 45,
       "AFromF01": 22,
-      "BFromEnemy": 9
+      "BFromEnemy": 14
     },
     "magnet": {
       "center": [
@@ -77,9 +77,10 @@
       "radius": 22,
       "polarity": -1,
       "clearOfFloor": true
-    }
+    },
+    "openSkyAboveWestFin": 24
   },
-  "geometryWarning": "P0 cannot cross F01 by continuous walking. Concept explicitly requires teleport over open sky; actual reachability/landing unverified. D03 is a breakable rooted barrier; direct center shot needs destruction or curved trajectory. No interior/tunnel is proposed.",
+  "geometryWarning": "P0 cannot cross F01 by continuous walking. Concept explicitly requires teleport over open sky; actual reachability/landing unverified. D03 is a breakable rooted barrier; direct center shot needs destruction or curved trajectory. No interior/tunnel is proposed. Revised F01 tip height 76 leaves 24 world units of open sky. B flank has 14 units between the enemy center and B; character collision/repositioning are not yet checked.",
   "status": "static-geometry-only-not-runtime-pass",
   "deferred": [
     "teleport/reachability",
