@@ -1,0 +1,935 @@
+{
+  "schema": "arcline-stage-design-proposal-v2",
+  "stage": 81,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "割れた根輪の内と外",
+  "source": {
+    "proposal": "stage_081_proposal_v1.json",
+    "review": "stage_081_review_v1.md",
+    "baseApproved79": "059b79417570a3a0dafef957f7ef7339d9bab08d",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105"
+  },
+  "before": {
+    "width": 1560,
+    "floor": [
+      [
+        0,
+        5
+      ],
+      [
+        20,
+        5
+      ],
+      [
+        141,
+        5
+      ],
+      [
+        156,
+        5
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          20,
+          5
+        ]
+      ],
+      [
+        [
+          141,
+          5
+        ],
+        [
+          156,
+          5
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "081-LOW-GARDEN",
+        "kind": "island",
+        "poly": [
+          [
+            10,
+            16
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            42,
+            22
+          ],
+          [
+            48,
+            17
+          ],
+          [
+            39,
+            11
+          ],
+          [
+            20,
+            11
+          ]
+        ],
+        "purpose": "低い開始庭園。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "081-LOW-GARDEN",
+            "label": "F01",
+            "poly": [
+              [
+                10,
+                16
+              ],
+              [
+                16,
+                22
+              ],
+              [
+                42,
+                22
+              ],
+              [
+                48,
+                17
+              ],
+              [
+                39,
+                11
+              ],
+              [
+                20,
+                11
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "081-MIDDLE",
+        "kind": "island",
+        "poly": [
+          [
+            54,
+            42
+          ],
+          [
+            60,
+            48
+          ],
+          [
+            84,
+            48
+          ],
+          [
+            91,
+            43
+          ],
+          [
+            81,
+            36
+          ],
+          [
+            63,
+            36
+          ]
+        ],
+        "purpose": "風と結晶への進入を変える中段。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "081-MIDDLE",
+            "label": "F02",
+            "poly": [
+              [
+                54,
+                42
+              ],
+              [
+                60,
+                48
+              ],
+              [
+                84,
+                48
+              ],
+              [
+                91,
+                43
+              ],
+              [
+                81,
+                36
+              ],
+              [
+                63,
+                36
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "081-HIGH-GARDEN",
+        "kind": "island",
+        "poly": [
+          [
+            97,
+            67
+          ],
+          [
+            100,
+            72
+          ],
+          [
+            128,
+            72
+          ],
+          [
+            139,
+            66
+          ],
+          [
+            129,
+            58
+          ],
+          [
+            108,
+            58
+          ]
+        ],
+        "purpose": "敵の高い庭園。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "081-HIGH-GARDEN",
+            "label": "F03",
+            "poly": [
+              [
+                97,
+                67
+              ],
+              [
+                100,
+                72
+              ],
+              [
+                128,
+                72
+              ],
+              [
+                139,
+                66
+              ],
+              [
+                129,
+                58
+              ],
+              [
+                108,
+                58
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "081-LOW-SCREEN",
+        "kind": "wall",
+        "poly": [
+          [
+            35,
+            22
+          ],
+          [
+            41,
+            22
+          ],
+          [
+            41,
+            35
+          ],
+          [
+            35,
+            34
+          ]
+        ],
+        "purpose": "開始庭園から外す遮蔽。",
+        "breakable": true,
+        "displayId": "D04",
+        "renderUnits": [
+          {
+            "id": "081-LOW-SCREEN@0",
+            "label": "D04",
+            "poly": [
+              [
+                35,
+                22
+              ],
+              [
+                41,
+                22
+              ],
+              [
+                41,
+                35
+              ],
+              [
+                35,
+                34
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          48,
+          96,
+          29,
+          61
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          88,
+          58,
+          25
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 22
+    },
+    "enemy": {
+      "x": 118,
+      "h": 72
+    }
+  },
+  "after": {
+    "id": "081-v2",
+    "stageNumber": 81,
+    "width": 1700,
+    "floor": [
+      [
+        0,
+        5
+      ],
+      [
+        8,
+        5
+      ],
+      [
+        160,
+        5
+      ],
+      [
+        170,
+        5
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      [
+        [
+          160,
+          5
+        ],
+        [
+          170,
+          5
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "081-OUTER-GARDEN",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            10,
+            28
+          ],
+          [
+            17,
+            33
+          ],
+          [
+            38,
+            33
+          ],
+          [
+            43,
+            27
+          ],
+          [
+            34,
+            20
+          ],
+          [
+            18,
+            22
+          ]
+        ],
+        "breakable": false,
+        "purpose": "根輪の外の開始庭園。頭上は開き、Kへ斜めに入射する。"
+      },
+      {
+        "id": "081-SPLIT-ROOT-RING",
+        "displayId": "F02",
+        "kind": "root-ring",
+        "poly": [
+          [
+            61,
+            82
+          ],
+          [
+            65,
+            69
+          ],
+          [
+            69,
+            52
+          ],
+          [
+            77,
+            38
+          ],
+          [
+            86,
+            34
+          ],
+          [
+            101,
+            34
+          ],
+          [
+            109,
+            45
+          ],
+          [
+            114,
+            61
+          ],
+          [
+            118,
+            75
+          ],
+          [
+            136,
+            75
+          ],
+          [
+            142,
+            68
+          ],
+          [
+            145,
+            52
+          ],
+          [
+            139,
+            35
+          ],
+          [
+            125,
+            18
+          ],
+          [
+            102,
+            10
+          ],
+          [
+            82,
+            12
+          ],
+          [
+            64,
+            23
+          ],
+          [
+            54,
+            43
+          ],
+          [
+            52,
+            62
+          ],
+          [
+            55,
+            76
+          ]
+        ],
+        "breakable": false,
+        "purpose": "上が割れた一体の根輪。内側の固定足場と右の敵庭園をつなぎ、直射を根で遮る。内側の頭上は開いている。"
+      },
+      {
+        "id": "081-DRY-SIDE-BRANCH",
+        "displayId": "D03",
+        "kind": "wall",
+        "poly": [
+          [
+            36,
+            33
+          ],
+          [
+            38,
+            33
+          ],
+          [
+            42,
+            28.2
+          ],
+          [
+            42,
+            45
+          ],
+          [
+            36,
+            44
+          ]
+        ],
+        "breakable": true,
+        "purpose": "開始庭園の側面だけを覆う枯れ枝。主攻略は残して上からKへ入れる。除去は側方の局所遮蔽を失う選択で、根輪の固定支持は残る。"
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          87,
+          114,
+          57,
+          88
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          50,
+          76,
+          -55
+        ]
+      }
+    ],
+    "player": {
+      "x": 25,
+      "h": 33
+    },
+    "enemy": {
+      "x": 129,
+      "h": 75
+    },
+    "pickups": [],
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 25,
+        "h": 33
+      },
+      {
+        "id": "A-inner",
+        "x": 95,
+        "h": 34
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "outer-K",
+        "points": [
+          [
+            25,
+            36
+          ],
+          [
+            50,
+            76
+          ],
+          [
+            64,
+            94
+          ],
+          [
+            95,
+            112
+          ],
+          [
+            116,
+            106
+          ],
+          [
+            129,
+            78
+          ]
+        ],
+        "state": "D03-intact; one planned K reflection; avoid F"
+      },
+      {
+        "kind": "inner-F",
+        "points": [
+          [
+            95,
+            37
+          ],
+          [
+            101,
+            58
+          ],
+          [
+            108,
+            77
+          ],
+          [
+            119,
+            91
+          ],
+          [
+            129,
+            78
+          ]
+        ],
+        "state": "read current F direction; no K required"
+      }
+    ],
+    "transferSpaces": [
+      {
+        "to": "A-inner",
+        "points": [
+          [
+            25,
+            36
+          ],
+          [
+            45,
+            70
+          ],
+          [
+            65,
+            102
+          ],
+          [
+            95,
+            91
+          ],
+          [
+            95,
+            34
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 81,
+    "name": "割れた根輪の内と外",
+    "nameEn": "Inside and Outside the Split Root Ring",
+    "goal": "外庭園から結晶で根を越すか、内側の足場へ移って風の窓を使うか選ぶ。",
+    "goalEn": "Use the crystal from outside or the wind window from inside the root ring.",
+    "floor": [
+      [
+        0,
+        5
+      ],
+      [
+        8,
+        5
+      ],
+      [
+        160,
+        5
+      ],
+      [
+        170,
+        5
+      ]
+    ],
+    "floorSegments": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      [
+        [
+          160,
+          5
+        ],
+        [
+          170,
+          5
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "081-OUTER-GARDEN",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            10,
+            28
+          ],
+          [
+            17,
+            33
+          ],
+          [
+            38,
+            33
+          ],
+          [
+            43,
+            27
+          ],
+          [
+            34,
+            20
+          ],
+          [
+            18,
+            22
+          ]
+        ],
+        "breakable": false,
+        "purpose": "根輪の外の開始庭園。頭上は開き、Kへ斜めに入射する。"
+      },
+      {
+        "id": "081-SPLIT-ROOT-RING",
+        "displayId": "F02",
+        "kind": "root-ring",
+        "poly": [
+          [
+            61,
+            82
+          ],
+          [
+            65,
+            69
+          ],
+          [
+            69,
+            52
+          ],
+          [
+            77,
+            38
+          ],
+          [
+            86,
+            34
+          ],
+          [
+            101,
+            34
+          ],
+          [
+            109,
+            45
+          ],
+          [
+            114,
+            61
+          ],
+          [
+            118,
+            75
+          ],
+          [
+            136,
+            75
+          ],
+          [
+            142,
+            68
+          ],
+          [
+            145,
+            52
+          ],
+          [
+            139,
+            35
+          ],
+          [
+            125,
+            18
+          ],
+          [
+            102,
+            10
+          ],
+          [
+            82,
+            12
+          ],
+          [
+            64,
+            23
+          ],
+          [
+            54,
+            43
+          ],
+          [
+            52,
+            62
+          ],
+          [
+            55,
+            76
+          ]
+        ],
+        "breakable": false,
+        "purpose": "上が割れた一体の根輪。内側の固定足場と右の敵庭園をつなぎ、直射を根で遮る。内側の頭上は開いている。"
+      },
+      {
+        "id": "081-DRY-SIDE-BRANCH",
+        "displayId": "D03",
+        "kind": "wall",
+        "poly": [
+          [
+            36,
+            33
+          ],
+          [
+            38,
+            33
+          ],
+          [
+            42,
+            28.2
+          ],
+          [
+            42,
+            45
+          ],
+          [
+            36,
+            44
+          ]
+        ],
+        "breakable": true,
+        "purpose": "開始庭園の側面だけを覆う枯れ枝。主攻略は残して上からKへ入れる。除去は側方の局所遮蔽を失う選択で、根輪の固定支持は残る。"
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          87,
+          114,
+          57,
+          88
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          50,
+          76,
+          -55
+        ]
+      }
+    ],
+    "recommended": "yui",
+    "spawn": [
+      25,
+      129
+    ],
+    "spawnPoints": [
+      [
+        25,
+        33
+      ],
+      [
+        129,
+        75
+      ]
+    ],
+    "worldWidth": 1700,
+    "hold": 1,
+    "terrainRevision": "5.2",
+    "route": "外のP0からKに一回反射させ、Fの上側を回して右根の敵を狙う構想。任意に根輪内のAへ転移し、現在の風向きを読んでFを通す。D03の破壊は必須にしない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 20,
+      "enemyHp": 6,
+      "enemyProfile": 4,
+      "encounterId": "enemy:hang",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "yui",
+      "enemyErrorStageMultiplier": 0.65,
+      "enemyDamageStageMultiplier": 1.1,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "距離や高度だけでなく、根の外からKへ入れるか、内側でFへ入れるかを選ぶ。",
+  "designIntent": {
+    "inherit": "空中庭園、F1個・K1個、既存の独立破壊片、根の内外という世界観。",
+    "rebuild": "同形島3段を廃止。開いた開始庭園と、内側の固定支持面・敵庭園を含む一体のU字根輪へ再構成。根輪の上を割り、P0と内側着地候補の頭上に屋根を置かない。",
+    "outer": "P0からKへ斜めに当て、一回の反射で左根の上を回す構想。Kは−55度に向け、右上に送る入射を探る。Fを通ることを必須にしない。",
+    "inner": "Aへ転移し、Fの開口を通す。風は手番周期で左右が変わるため現在の方向を読んで照準を調整する。Kとの一発連鎖は必須にしない。",
+    "direct": "初期敵位置へのP0/Aの代表直線は根輪の実体で遮断。D03除去後も同じ固定根が遮る。",
+    "counterattack": "P0の側枝は一部の側方線を遮るだけで安全保証ではない。Aも頭上・右方は開き、射撃位置で反撃を受ける。同手番退避は不可。",
+    "preparation": "外の主経路は必須破壊・必須転移ゼロ。内側は転移手数と反撃を受け入れてFへ寄せる選択。風は転移弾にも作用するため実着地と回数は未検証。",
+    "destruction": "D03は側面の枯れ枝で固定根を支えない。温存して両経路を構想し、破壊は局所遮蔽の喪失として扱う。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "static": "stage_081_static_check_v2.json",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "Ftrajectory": "not-tested",
+    "Kreflection": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory20": "not-tested"
+  },
+  "implementationNote": "Design only. Approved ten maps and game runtime unchanged. No stage82+ work."
+}
