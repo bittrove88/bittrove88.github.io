@@ -222,7 +222,7 @@ function start(retryContext=null){
 }
 function startCharge(id){
  if(!canAim()||charge||s.selectedSkill==='BLINK')return;
- unlockAudio();input?.cancelGesture();charge={id,elapsed:0,previous:s.power,cancel:false,cameraLock:{...renderer.view}};s.power=20;
+ unlockAudio();input?.cancelGesture();charge={id,elapsed:0,previous:s.power,cancel:false,cameraLock:{...(renderer.normalView||renderer.view)},cameraState:{engaged:false}};s.power=20;
  if(audio&&hostAudio){chargeTone=audio.createOscillator();const g=audio.createGain();g.gain.value=.025;chargeTone.type='triangle';chargeTone.frequency.value=150;chargeTone.connect(g).connect(master);chargeTone.start();}hud();
 }
 function releaseCharge(id){
@@ -324,7 +324,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
+function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=hostPaused();}

@@ -1,12 +1,12 @@
 (function(root){
 'use strict';
-const E=root.ArcEngine,G=E.geometry;
+const E=root.ArcEngine,G=E.geometry,ChargeCamera=root.ArcChargeCamera;
 function create(canvas,configuration={}){
  if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const unified=!!root.ArcVisualArt&&configuration.artStyle!=='legacy';
  let arenaWidth=1000;
  const isArenaPickup=item=>!item.collected&&!item.hidden&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
- const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
+ const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},normalView={...view},chargeZoom=0,lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
  function canvasRect(element){
   if(!element)return null;
   const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;
@@ -60,7 +60,7 @@ function create(canvas,configuration={}){
   return aimCache.plan;
  }
  function aimEnvelope(s){
-  // Reserve the charge envelope before the finger lands. Holding power never zooms the scene.
+  // Reserve the unzoomed frame before the finger lands; charge zoom is a separate bounded display transform.
   const key=aimKey(s);
   if(!frameCache||frameCache.key!==key||frameCache.world!==s.world){
    const points=[20,65,100].flatMap(power=>E.trajectory(s,0,s.angle,power).bullets.flatMap(b=>b.path));
@@ -233,7 +233,8 @@ function create(canvas,configuration={}){
   const target={scale:scaleTarget,x:constrainX(fieldW*.5-(phoneLandscape?(criticalMin+criticalMax):(minX+maxX))*.5*scaleTarget,scaleTarget),y:offsetY};
   if(phoneLandscape&&(baseline.maxY-baseline.minY)*scaleTarget>bottom-top){target.y=(top+bottom)/2-(s.units[0].y-22)*scaleTarget;}
   const nextKey=[s.stage,lobby,w,h,localDemo?'preview':'battle'].join(':');
-  if(cameraKey!==nextKey||options.reducedMotion)view=target;
+  const newScene=cameraKey!==nextKey;view=normalView;if(newScene)chargeZoom=0;
+  if(newScene||options.reducedMotion)view=target;
   else{const dt=Math.max(1/120,Math.min(.05,time-lastCameraTime||1/60)),k=1-Math.exp(-dt*(shot?5:phoneLandscape?6:10));view={scale:view.scale+(target.scale-view.scale)*k,x:view.x+(target.x-view.x)*k,y:!localDemo&&(options.shot||options.tail?.age<.55)?view.y:view.y+(target.y-view.y)*k};}
   if(options.cameraLock&&!options.chargeWalking){view={scale:options.cameraLock.scale,x:options.cameraLock.x,y:options.cameraLock.y};if(phoneLandscape){view.scale=Math.min(view.scale,criticalScale,Math.max(.52,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY)));if((baseline.maxY-baseline.minY)*view.scale>bottom-top)view.y=(top+bottom)/2-(s.units[0].y-22)*view.scale;view.x=constrainX(view.x,view.scale);if((baseline.maxY-baseline.minY)*view.scale<=bottom-top)view.y=Math.max(top-baseline.minY*view.scale,Math.min(bottom-baseline.maxY*view.scale,view.y));}}
   else{view.scale=Math.min(view.scale,criticalScale);view.x=constrainX(view.x,view.scale);}
@@ -245,6 +246,14 @@ function create(canvas,configuration={}){
   // Inspection owns only the display transform; physics and aiming stay in world coordinates.
   if(options.encounter?.boss&&!lobby&&!localDemo&&!options.reducedMotion&&root.ArcExperience)view=root.ArcExperience.bossView(target,s,options.encounter.age,{width:fieldW,top,bottom});
   if(options.cameraView)view={...options.cameraView};
+  // Retain the normal camera separately so repeated charges cannot accumulate
+  // zoom. Recovery after release/cancel uses the same bounded display amount.
+  normalView={...view};
+  if(!lobby&&!localDemo&&!options.cameraView){
+   const engaged=options.charging&&options.chargeCamera&&ChargeCamera.latch(options.chargeCamera,{muzzle:G.muzzle(s,0,s.angle),power:s.power,weapon:E.weapon(s),gravityFactor:s.skillEffects?.gravity?.factor||1,view:normalView,ceiling:Math.max(top,header?.bottom||0)});
+   chargeZoom=ChargeCamera.advance(chargeZoom,!!engaged,Math.max(0,time-lastCameraTime),options.reducedMotion);
+   const player=s.units[0],pivot={x:normalView.x+player.x*normalView.scale,y:normalView.y+player.y*normalView.scale};view=ChargeCamera.apply(normalView,pivot,chargeZoom);
+  }else chargeZoom=0;
   lastCameraTime=time;cameraKey=nextKey;const scale=view.scale;
   if(phoneLandscape){
    const enemyY=view.y+(s.units[1].y-(s.spec.boss?77:22))*view.scale;document.getElementById('battle').dataset.enemyDirection=enemyY<top?'above':enemyY>bottom?'below':'visible';
@@ -461,7 +470,7 @@ function create(canvas,configuration={}){
   for(const effect of options.pickupEffects||[]){const t=Math.min(1,effect.age/.8),ease=t*t*(3-2*t),target=canvasRect(document.getElementById(effect.id[0]==='W'?'weaponToggle':'pause')),x=view.x+effect.x*view.scale,y=view.y+effect.y*view.scale;ctx.globalAlpha=1-t;circle(x+(target.x+target.width/2-x)*ease,y+(target.y+target.height/2-y)*ease-Math.sin(t*Math.PI)*30,9,'#f2ffb4','#ffffff');ctx.globalAlpha=1;}
  }
  function toWorld(x,y){const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;if(viewport&&app){const p=viewport.point(x,y,app),c=viewport.rect(canvas,app);return {x:(p.x-c.x-view.x)/view.scale,y:(p.y-c.y-view.y)/view.scale};}const r=canvas.getBoundingClientRect();return {x:((x-r.left)*canvas.clientWidth/r.width-view.x)/view.scale,y:((y-r.top)*canvas.clientHeight/r.height-view.y)/view.scale};}
- return {draw,toWorld,resetCamera(){cameraKey='';lastCameraTime=0;},get view(){return {...view};}};
+ return {draw,toWorld,resetCamera(){cameraKey='';lastCameraTime=0;chargeZoom=0;},get normalView(){return {...normalView};},get view(){return {...view};}};
 }
 root.ArcRender={create};
 })(globalThis);

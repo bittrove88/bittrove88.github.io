@@ -3,6 +3,7 @@
 const G=typeof module!=='undefined'?require('./geometry.js'):root.ArcGeometry;
 const W=typeof module!=='undefined'?require('./weapons.js'):root.ArcWeapons;
 const DT=1/90,GRAVITY=300;
+function launchSpeed(power,weapon){return G.clamp(power,20,100)*6.7*weapon.speed;}
 function inRegion(p,r){return r.kind==='M'?Math.hypot(p.x-r.x,p.y-r.y)<r.radius:p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2;}
 // Keep established gentle-ground targeting, and rotate the contact center with
 // the chassis on the newly supported steep faces.
@@ -50,7 +51,7 @@ function simulate(s,side,angle,power,options={}){
  const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
  const damageBudget=weapon.damage;
  const newBullet=(offset=0,delay=0,budget=damageBudget,primary=true,source=origin,powerValue=power)=>{
-  delay+=startDelay;const a=source.theta+offset*Math.PI/180,v=G.clamp(powerValue,20,100)*6.7*weapon.speed;
+  delay+=startDelay;const a=source.theta+offset*Math.PI/180,v=launchSpeed(powerValue,weapon);
   return {id:bulletId++,x:source.x,y:source.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:delay,start:delay,age:0,budget,primary,path:[{x:source.x,y:source.y,t:delay}],forceEntries:new Set(),initialBounces:0,clouds:new Set(),magnetTime:{},bounces:0,solidBounces:0,phaseRemaining:Math.max(weapon.phase||0,skill==='PHASE'?60:0),phaseUsed:false,phaseSolid:null,phaseExit:false,solidSkip:null,splitDone:false,archerDone:false,roll:0,rollDistance:0,...(weapon.resumeRoll?{rollElapsed:0}:{})};
  };
  const queue=[];
@@ -216,5 +217,5 @@ function simulate(s,side,angle,power,options={}){
  events.sort((a,b)=>a.t-b.t);
  return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
-const api={simulate,inRegion,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
+const api={simulate,inRegion,launchSpeed,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
 })(globalThis);

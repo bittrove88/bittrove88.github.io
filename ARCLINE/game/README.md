@@ -70,3 +70,5 @@ WorkerのimportScriptsのキャッシュ版もbuild_runtime.pyがruntime.jsonに
 0.23.1：`dist/geometry.js` の共通70度判定・ポリゴン上面登録・滑落経路を、歩行・安全配置・転移・足場破壊・ターン境界で共有。`engine.js` が接地と滑落アニメーションを接続し、`game.js` が滑落中の移動・発射を待機させ、`render.js` が経路を補間する。`physics.js` は新しく乗れる急斜面だけ機体中心を回転。`visual-art.js` の `regionState` と `drawRegion` が現在の力の方向・ON/OFFを共有し、`render.js` がHUDを避ける表示範囲と重力倍率を渡す。[検証](../docs/releases/0.23.1.md)。
 
 0.23.1の保有画面追加：`weapons.js` の `iconPath/iconMarkup/drawIcon`、`skills.js` の `iconPath/markup/draw` をマップと一覧で共有。`presentation.js` がロビーの武器／スキルタブ・残数・スクロール位置、`game.js` が戦闘一覧と使用済み時の閲覧、`gameplay.css` が固定ヘッダーと単一の縦スクロール領域を所有する。`viewport.js` の回転補正では短い保有一覧でもドラッグ後のクリックを抑止する。取得やスキル効果は変更しない。
+
+0.23.1のチャージカメラは `ui/charge-camera.js` が上空の見積もり・チャージ内の保持・90%倍率・0.2秒の切り替えを所有する。`render.js` の通常カメラと表示カメラを分け、`game.js` がチャージごとの表示用フラグを渡す。`physics.launchSpeed` は既存の初速の式を共有するだけで弾道を変更しない。判定へ衝突世界・実軌道・敵計画を渡さない。
