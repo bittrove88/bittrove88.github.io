@@ -1,0 +1,1476 @@
+{
+  "schema": "arcline-stage-design-proposal-v5",
+  "stage": 59,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "氷稜の上と鏡の下道",
+  "source": {
+    "proposal": "stage_059_proposal_v2.json",
+    "review": "stage_059_review_v2.md",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105",
+    "baseApproved58": "1217ba39e3839ba5283f9c993971982f6c3c6593",
+    "note": "旧v2の峡谷・左岸・敵棚・W/Fを継承。F04と周辺を新規作図し、アーカイブv3/v4の座標や入力証拠は転用しない。"
+  },
+  "before": {
+    "width": 1680,
+    "floor": [
+      [
+        0,
+        36
+      ],
+      [
+        15,
+        29
+      ],
+      [
+        30,
+        29
+      ],
+      [
+        38,
+        24
+      ],
+      [
+        62,
+        14
+      ],
+      [
+        81,
+        14
+      ],
+      [
+        93,
+        10
+      ],
+      [
+        124,
+        35
+      ],
+      [
+        132,
+        35
+      ],
+      [
+        140,
+        27
+      ],
+      [
+        153,
+        27
+      ],
+      [
+        168,
+        20
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          36
+        ],
+        [
+          15,
+          29
+        ],
+        [
+          30,
+          29
+        ],
+        [
+          38,
+          24
+        ]
+      ],
+      [
+        [
+          62,
+          14
+        ],
+        [
+          81,
+          14
+        ],
+        [
+          93,
+          10
+        ]
+      ],
+      [
+        [
+          124,
+          35
+        ],
+        [
+          132,
+          35
+        ],
+        [
+          140,
+          27
+        ],
+        [
+          153,
+          27
+        ],
+        [
+          168,
+          20
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "059-ENEMY-ICE",
+        "kind": "island",
+        "poly": [
+          [
+            126,
+            48
+          ],
+          [
+            116,
+            45
+          ],
+          [
+            94,
+            44
+          ],
+          [
+            94,
+            52
+          ],
+          [
+            100,
+            65
+          ],
+          [
+            118,
+            65
+          ],
+          [
+            126,
+            58
+          ]
+        ],
+        "purpose": "左側へ張り出す敵の高所氷棚。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "059-ENEMY-ICE",
+            "label": "F01",
+            "poly": [
+              [
+                126,
+                48
+              ],
+              [
+                116,
+                45
+              ],
+              [
+                94,
+                44
+              ],
+              [
+                94,
+                52
+              ],
+              [
+                100,
+                65
+              ],
+              [
+                118,
+                65
+              ],
+              [
+                126,
+                58
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "059-ICE-ROOT",
+        "kind": "wall",
+        "poly": [
+          [
+            124,
+            48
+          ],
+          [
+            116,
+            46
+          ],
+          [
+            116,
+            35
+          ],
+          [
+            124,
+            35
+          ]
+        ],
+        "purpose": "左山体と敵棚をつなぐ氷。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "059-ICE-ROOT",
+            "label": "F02",
+            "poly": [
+              [
+                124,
+                48
+              ],
+              [
+                116,
+                46
+              ],
+              [
+                116,
+                35
+              ],
+              [
+                124,
+                35
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "059-LOW-MIRROR",
+        "kind": "island",
+        "poly": [
+          [
+            90,
+            19
+          ],
+          [
+            80,
+            18
+          ],
+          [
+            73,
+            22
+          ],
+          [
+            73,
+            27
+          ],
+          [
+            79,
+            27
+          ],
+          [
+            91,
+            34
+          ],
+          [
+            94,
+            29
+          ]
+        ],
+        "purpose": "低い反射棚。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "059-LOW-MIRROR",
+            "label": "F03",
+            "poly": [
+              [
+                90,
+                19
+              ],
+              [
+                80,
+                18
+              ],
+              [
+                73,
+                22
+              ],
+              [
+                73,
+                27
+              ],
+              [
+                79,
+                27
+              ],
+              [
+                91,
+                34
+              ],
+              [
+                94,
+                29
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "059-CENTRAL-SPIRE",
+        "kind": "wall",
+        "poly": [
+          [
+            71,
+            68
+          ],
+          [
+            66,
+            72
+          ],
+          [
+            62,
+            66
+          ],
+          [
+            62,
+            14
+          ],
+          [
+            72,
+            14
+          ]
+        ],
+        "purpose": "直接射線を切る高い中央断崖。",
+        "breakable": false,
+        "displayId": "F04",
+        "renderUnits": [
+          {
+            "id": "059-CENTRAL-SPIRE",
+            "label": "F04",
+            "poly": [
+              [
+                71,
+                68
+              ],
+              [
+                66,
+                72
+              ],
+              [
+                62,
+                66
+              ],
+              [
+                62,
+                14
+              ],
+              [
+                72,
+                14
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "059-HIGH-SHELF",
+        "kind": "island",
+        "poly": [
+          [
+            56,
+            69
+          ],
+          [
+            49,
+            69
+          ],
+          [
+            42,
+            75
+          ],
+          [
+            46,
+            79
+          ],
+          [
+            56,
+            79
+          ],
+          [
+            60,
+            73
+          ]
+        ],
+        "purpose": "中央断崖の上へ出る露出棚。",
+        "breakable": false,
+        "displayId": "F05",
+        "renderUnits": [
+          {
+            "id": "059-HIGH-SHELF",
+            "label": "F05",
+            "poly": [
+              [
+                56,
+                69
+              ],
+              [
+                49,
+                69
+              ],
+              [
+                42,
+                75
+              ],
+              [
+                46,
+                79
+              ],
+              [
+                56,
+                79
+              ],
+              [
+                60,
+                73
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "059-START-ICE",
+        "kind": "island",
+        "poly": [
+          [
+            36,
+            36
+          ],
+          [
+            18,
+            35
+          ],
+          [
+            0,
+            33
+          ],
+          [
+            0,
+            46
+          ],
+          [
+            8,
+            43
+          ],
+          [
+            14,
+            47
+          ],
+          [
+            31,
+            47
+          ],
+          [
+            38,
+            43
+          ]
+        ],
+        "purpose": "右山体から張り出した自機の出撃棚。",
+        "breakable": false,
+        "displayId": "F06",
+        "renderUnits": [
+          {
+            "id": "059-START-ICE",
+            "label": "F06",
+            "poly": [
+              [
+                36,
+                36
+              ],
+              [
+                18,
+                35
+              ],
+              [
+                0,
+                33
+              ],
+              [
+                0,
+                46
+              ],
+              [
+                8,
+                43
+              ],
+              [
+                14,
+                47
+              ],
+              [
+                31,
+                47
+              ],
+              [
+                38,
+                43
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          79,
+          91,
+          27
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          32,
+          58,
+          48,
+          70
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          90,
+          113,
+          40,
+          72
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 47
+    },
+    "enemy": {
+      "x": 106,
+      "h": 65
+    },
+    "pickups": [
+      {
+        "id": "SK059",
+        "kind": "skill",
+        "skillId": "S_HIGH_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 36,
+        "h": 55,
+        "spawnTurn": 5,
+        "placementId": "L059:skill:S_HIGH_GRAVITY",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ]
+  },
+  "after": {
+    "width": 1680,
+    "floor": [
+      [
+        0,
+        36
+      ],
+      [
+        15,
+        29
+      ],
+      [
+        30,
+        29
+      ],
+      [
+        38,
+        24
+      ],
+      [
+        62,
+        14
+      ],
+      [
+        81,
+        14
+      ],
+      [
+        93,
+        10
+      ],
+      [
+        124,
+        35
+      ],
+      [
+        132,
+        35
+      ],
+      [
+        140,
+        27
+      ],
+      [
+        153,
+        27
+      ],
+      [
+        168,
+        20
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          36
+        ],
+        [
+          15,
+          29
+        ],
+        [
+          30,
+          29
+        ],
+        [
+          38,
+          24
+        ]
+      ],
+      [
+        [
+          50,
+          11
+        ],
+        [
+          62,
+          14
+        ],
+        [
+          78,
+          14
+        ]
+      ],
+      [
+        [
+          124,
+          35
+        ],
+        [
+          132,
+          35
+        ],
+        [
+          140,
+          27
+        ],
+        [
+          153,
+          27
+        ],
+        [
+          168,
+          20
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          84,
+          93,
+          27
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          32,
+          58,
+          48,
+          70
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          90,
+          113,
+          40,
+          72
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 47
+    },
+    "enemy": {
+      "x": 115,
+      "h": 65
+    },
+    "pickups": [
+      {
+        "id": "SK059",
+        "kind": "skill",
+        "skillId": "S_HIGH_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 36,
+        "h": 55,
+        "spawnTurn": 5,
+        "placementId": "L059:skill:S_HIGH_GRAVITY",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "worldHold": 1,
+    "ventStartsOn": false,
+    "id": 59,
+    "stageNumber": 59,
+    "material": "ice",
+    "parts": [
+      {
+        "id": "059-ENEMY-ICE",
+        "displayId": "F01",
+        "kind": "ice-island",
+        "poly": [
+          [
+            94,
+            52
+          ],
+          [
+            99,
+            65
+          ],
+          [
+            103,
+            77
+          ],
+          [
+            108,
+            65
+          ],
+          [
+            122,
+            65
+          ],
+          [
+            130,
+            58
+          ],
+          [
+            130,
+            48
+          ],
+          [
+            116,
+            45
+          ],
+          [
+            94,
+            44
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵棚の西縁を氷背にして、P0/F04/下棚からの直射を遮る。上方の弧は開く。"
+      },
+      {
+        "id": "059-ICE-ROOT",
+        "displayId": "F02",
+        "kind": "ice-island",
+        "poly": [
+          [
+            116,
+            46
+          ],
+          [
+            124,
+            48
+          ],
+          [
+            130,
+            45
+          ],
+          [
+            130,
+            35
+          ],
+          [
+            124,
+            35
+          ],
+          [
+            116,
+            39
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵棚を右岸へつなぐ固定氷根。"
+      },
+      {
+        "id": "059-LOW-MIRROR",
+        "displayId": "F03",
+        "kind": "ice-island",
+        "poly": [
+          [
+            94,
+            19
+          ],
+          [
+            80,
+            18
+          ],
+          [
+            73,
+            22
+          ],
+          [
+            73,
+            27
+          ],
+          [
+            84,
+            27
+          ],
+          [
+            94,
+            34.5
+          ],
+          [
+            98,
+            30
+          ]
+        ],
+        "breakable": false,
+        "purpose": "下道の幅ある支持と右上がりのW斜面。反射の出口をF04右端の外へ向ける。"
+      },
+      {
+        "id": "059-CENTRAL-CROWN",
+        "displayId": "F04",
+        "kind": "ice-island",
+        "poly": [
+          [
+            57,
+            61
+          ],
+          [
+            64,
+            72
+          ],
+          [
+            77,
+            72
+          ],
+          [
+            83,
+            65
+          ],
+          [
+            83,
+            52
+          ],
+          [
+            70,
+            47
+          ],
+          [
+            60,
+            50
+          ],
+          [
+            57,
+            54
+          ]
+        ],
+        "breakable": false,
+        "purpose": "中央氷稜を有限の浮氷へ描き直す。上面130pxの平坦な射点と、下面下の下道を両立。"
+      },
+      {
+        "id": "059-START-ICE",
+        "displayId": "F06",
+        "kind": "ice-island",
+        "poly": [
+          [
+            36,
+            36
+          ],
+          [
+            18,
+            35
+          ],
+          [
+            0,
+            33
+          ],
+          [
+            0,
+            46
+          ],
+          [
+            8,
+            43
+          ],
+          [
+            14,
+            47
+          ],
+          [
+            31,
+            47
+          ],
+          [
+            38,
+            43
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左岸の出撃棚を継承。P0頭上は開放。"
+      }
+    ],
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 23,
+        "h": 47
+      },
+      {
+        "id": "A-crown",
+        "x": 68,
+        "h": 72
+      },
+      {
+        "id": "B-low",
+        "x": 75,
+        "h": 27
+      }
+    ],
+    "transferSpaces": [
+      {
+        "to": "A-crown",
+        "points": [
+          [
+            23,
+            50
+          ],
+          [
+            39,
+            81
+          ],
+          [
+            55,
+            90
+          ],
+          [
+            68,
+            72
+          ]
+        ]
+      },
+      {
+        "to": "B-low",
+        "points": [
+          [
+            23,
+            50
+          ],
+          [
+            40,
+            56
+          ],
+          [
+            51,
+            48
+          ],
+          [
+            64,
+            36
+          ],
+          [
+            72,
+            32
+          ],
+          [
+            75,
+            27
+          ]
+        ]
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "crown-upper-arc",
+        "points": [
+          [
+            68,
+            75
+          ],
+          [
+            86,
+            96
+          ],
+          [
+            101,
+            91
+          ],
+          [
+            115,
+            68
+          ]
+        ],
+        "meaning": "F04上から、Fの上側を主に通る高い弧。実入力ではない。"
+      },
+      {
+        "kind": "low-W-arc",
+        "points": [
+          [
+            75,
+            30
+          ],
+          [
+            86,
+            28.5
+          ],
+          [
+            94,
+            70
+          ],
+          [
+            103,
+            89
+          ],
+          [
+            108,
+            87
+          ],
+          [
+            115,
+            68
+          ]
+        ],
+        "reflection": [
+          86,
+          28.5
+        ],
+        "meaning": "F03のWへ低く入射し、F04の端の外で上方へ戻す空間。実反射弾道ではない。"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 59,
+    "name": "氷稜の上と鏡の下道",
+    "nameEn": "Ice Crown and Lower Mirror Passage",
+    "goal": "中央氷稜の上から狙うか、下面下の下道からWで跳ね上げるか選ぶ。",
+    "goalEn": "Choose an upper arc from the ice crown or a reflected shot from the passage below.",
+    "floor": [
+      [
+        0,
+        36
+      ],
+      [
+        15,
+        29
+      ],
+      [
+        30,
+        29
+      ],
+      [
+        38,
+        24
+      ],
+      [
+        62,
+        14
+      ],
+      [
+        81,
+        14
+      ],
+      [
+        93,
+        10
+      ],
+      [
+        124,
+        35
+      ],
+      [
+        132,
+        35
+      ],
+      [
+        140,
+        27
+      ],
+      [
+        153,
+        27
+      ],
+      [
+        168,
+        20
+      ]
+    ],
+    "floorSegments": [
+      [
+        [
+          0,
+          36
+        ],
+        [
+          15,
+          29
+        ],
+        [
+          30,
+          29
+        ],
+        [
+          38,
+          24
+        ]
+      ],
+      [
+        [
+          50,
+          11
+        ],
+        [
+          62,
+          14
+        ],
+        [
+          78,
+          14
+        ]
+      ],
+      [
+        [
+          124,
+          35
+        ],
+        [
+          132,
+          35
+        ],
+        [
+          140,
+          27
+        ],
+        [
+          153,
+          27
+        ],
+        [
+          168,
+          20
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "059-ENEMY-ICE",
+        "displayId": "F01",
+        "kind": "ice-island",
+        "poly": [
+          [
+            94,
+            52
+          ],
+          [
+            99,
+            65
+          ],
+          [
+            103,
+            77
+          ],
+          [
+            108,
+            65
+          ],
+          [
+            122,
+            65
+          ],
+          [
+            130,
+            58
+          ],
+          [
+            130,
+            48
+          ],
+          [
+            116,
+            45
+          ],
+          [
+            94,
+            44
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵棚の西縁を氷背にして、P0/F04/下棚からの直射を遮る。上方の弧は開く。"
+      },
+      {
+        "id": "059-ICE-ROOT",
+        "displayId": "F02",
+        "kind": "ice-island",
+        "poly": [
+          [
+            116,
+            46
+          ],
+          [
+            124,
+            48
+          ],
+          [
+            130,
+            45
+          ],
+          [
+            130,
+            35
+          ],
+          [
+            124,
+            35
+          ],
+          [
+            116,
+            39
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵棚を右岸へつなぐ固定氷根。"
+      },
+      {
+        "id": "059-LOW-MIRROR",
+        "displayId": "F03",
+        "kind": "ice-island",
+        "poly": [
+          [
+            94,
+            19
+          ],
+          [
+            80,
+            18
+          ],
+          [
+            73,
+            22
+          ],
+          [
+            73,
+            27
+          ],
+          [
+            84,
+            27
+          ],
+          [
+            94,
+            34.5
+          ],
+          [
+            98,
+            30
+          ]
+        ],
+        "breakable": false,
+        "purpose": "下道の幅ある支持と右上がりのW斜面。反射の出口をF04右端の外へ向ける。"
+      },
+      {
+        "id": "059-CENTRAL-CROWN",
+        "displayId": "F04",
+        "kind": "ice-island",
+        "poly": [
+          [
+            57,
+            61
+          ],
+          [
+            64,
+            72
+          ],
+          [
+            77,
+            72
+          ],
+          [
+            83,
+            65
+          ],
+          [
+            83,
+            52
+          ],
+          [
+            70,
+            47
+          ],
+          [
+            60,
+            50
+          ],
+          [
+            57,
+            54
+          ]
+        ],
+        "breakable": false,
+        "purpose": "中央氷稜を有限の浮氷へ描き直す。上面130pxの平坦な射点と、下面下の下道を両立。"
+      },
+      {
+        "id": "059-START-ICE",
+        "displayId": "F06",
+        "kind": "ice-island",
+        "poly": [
+          [
+            36,
+            36
+          ],
+          [
+            18,
+            35
+          ],
+          [
+            0,
+            33
+          ],
+          [
+            0,
+            46
+          ],
+          [
+            8,
+            43
+          ],
+          [
+            14,
+            47
+          ],
+          [
+            31,
+            47
+          ],
+          [
+            38,
+            43
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左岸の出撃棚を継承。P0頭上は開放。"
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          84,
+          93,
+          27
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          32,
+          58,
+          48,
+          70
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          90,
+          113,
+          40,
+          72
+        ]
+      }
+    ],
+    "recommended": "sora",
+    "spawn": [
+      23,
+      115
+    ],
+    "spawnPoints": [
+      [
+        23,
+        47
+      ],
+      [
+        115,
+        65
+      ]
+    ],
+    "worldWidth": 1680,
+    "hold": 1,
+    "ventStartsOn": false,
+    "terrainRevision": "5.6",
+    "route": "F04上の射点Aと下面下の下道からF03へ向かうBを選ぶ。上は上方の弧、下はW反射とFを使う構想。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "sora",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    }
+  },
+  "discovery": "F04の上面が射点、下面下が下道になる。同じ氷稜を挟み、上方の弧と下のW入射を使い分ける。",
+  "designIntent": {
+    "inherit": "峡谷の左岸出撃、中央氷稜、低いW棚、敵高所棚、W1とF2、既存敵・16行動。",
+    "rebuild": "F04は縦長断崖の縮小ではなく有限の氷稜へ描き直す。下側の地盤を左へ延ばし、W範囲の手前で終えて隠れた二重Wを避ける。",
+    "simplify": "旧F05の独立高棚はF04上の広い支持面に役割を統合し、同じ高さへ移るだけの棚を削除。",
+    "primary": "P0からF04上のAへ移り、風域の上方を主に通って敵棚西の氷背を越す弧を狙う。移動中のFも既存規則。",
+    "alternative": "下道からF03のBへ移り、F04の右端の外にあるW斜面へ入射して跳ね上げる。風の通過と反射の照準を受け入れる。",
+    "counterattack": "射撃した位置で反撃を受ける。下道で直線を切れても曲射に対する安全は未測定。同手番退避を仮定しない。",
+    "pickup": "SK059の種類・数量2・5手番出現と旧候補位置を継承。現行所持品・配置正本は変更せず、取得は後工程。",
+    "checkPolicy": "ユーザーの最新指示に従い全景・基本整合・支持・明白な形状/閉塞・構想空間に限定。個別の探索・入力・対戦試験は追加しない。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "designMinimum": "see stage_059_review_v5.md",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory16": "not-tested"
+  },
+  "implementationNote": "Design only. Game runtime and all fifteen approved designs are unchanged."
+}
