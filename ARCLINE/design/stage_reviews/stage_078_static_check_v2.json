@@ -1,0 +1,105 @@
+{
+  "stage": 78,
+  "version": 2,
+  "scope": "static geometry only; not gameplay",
+  "dataConsistent": true,
+  "supports": [
+    {
+      "id": "enemy",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    },
+    {
+      "id": "P0",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    },
+    {
+      "id": "A-adjust",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    },
+    {
+      "id": "B",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    }
+  ],
+  "selfIntersections": [],
+  "magnetClearances": [
+    {
+      "id": "floor0",
+      "clearancePx": 34.95097567963924
+    },
+    {
+      "id": "078-MONITOR-SPUR",
+      "clearancePx": 42.48809496813374
+    },
+    {
+      "id": "078-ROOM-SHIELD@0",
+      "clearancePx": 307.73099207835037
+    }
+  ],
+  "destructionUnits": [
+    "078-ROOM-SHIELD@0"
+  ],
+  "primarySpaceIntact": true,
+  "alternativeBlockedIntact": true,
+  "alternativeClearAfterRemoval": true,
+  "localBand": {
+    "distancePx": 70,
+    "within140Px": true,
+    "clear": true
+  },
+  "barrels": [
+    {
+      "x": 57,
+      "samplesDeg": [
+        0,
+        80
+      ],
+      "step": 1,
+      "defaultLengthPx": 35,
+      "blocked": []
+    },
+    {
+      "x": 64,
+      "samplesDeg": [
+        0,
+        80
+      ],
+      "step": 1,
+      "defaultLengthPx": 35,
+      "blocked": []
+    },
+    {
+      "x": 112,
+      "samplesDeg": [
+        0,
+        80
+      ],
+      "step": 1,
+      "defaultLengthPx": 35,
+      "blocked": []
+    }
+  ],
+  "pickups": [
+    {
+      "id": "SK078",
+      "insideSolid": false
+    }
+  ],
+  "notTested": [
+    "actual walking",
+    "teleport flight and landing",
+    "M trajectories and hits",
+    "destruction shot count",
+    "enemy AI and counterattack",
+    "16-action victory",
+    "device display"
+  ]
+}

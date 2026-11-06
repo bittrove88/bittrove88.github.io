@@ -1,0 +1,1119 @@
+{
+  "schema": "arcline-stage-design-proposal-v4",
+  "stage": 60,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "双送風機と風陰の出口",
+  "source": {
+    "proposal": "stage_060_proposal_v3.json",
+    "review": "stage_060_review_v3.md",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105",
+    "baseApproved59": "e8c7cbddfba3965540581e8d6fe18c2086440daf",
+    "note": "旧v3の円形峡谷断面・高所と風陰・独立氷片・Whitehowlを継承。旧試験記録は新形状の成功証拠に転用しない。"
+  },
+  "before": {
+    "width": 1800,
+    "floor": [
+      [
+        0,
+        60
+      ],
+      [
+        10,
+        67
+      ],
+      [
+        26,
+        67
+      ],
+      [
+        39,
+        61
+      ],
+      [
+        48,
+        49
+      ],
+      [
+        58,
+        30
+      ],
+      [
+        70,
+        17
+      ],
+      [
+        84,
+        12
+      ],
+      [
+        105,
+        12
+      ],
+      [
+        119,
+        20
+      ],
+      [
+        132,
+        38
+      ],
+      [
+        145,
+        60
+      ],
+      [
+        160,
+        70
+      ],
+      [
+        180,
+        66
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          60
+        ],
+        [
+          10,
+          67
+        ],
+        [
+          26,
+          67
+        ],
+        [
+          39,
+          61
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          58,
+          30
+        ],
+        [
+          70,
+          17
+        ],
+        [
+          84,
+          12
+        ],
+        [
+          105,
+          12
+        ],
+        [
+          119,
+          20
+        ],
+        [
+          132,
+          38
+        ],
+        [
+          145,
+          60
+        ],
+        [
+          160,
+          70
+        ],
+        [
+          180,
+          66
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          47,
+          123,
+          35,
+          88
+        ]
+      }
+    ],
+    "player": {
+      "x": 20,
+      "h": 67
+    },
+    "enemy": {
+      "x": 122,
+      "h": 58
+    },
+    "targets": [
+      {
+        "x": 117.7,
+        "h": 63.6,
+        "label": "部位1",
+        "name": "FAN A"
+      },
+      {
+        "x": 126.3,
+        "h": 63.6,
+        "label": "部位2",
+        "name": "FAN B"
+      }
+    ],
+    "pickups": [],
+    "parts": [
+      {
+        "id": "060-LEE-ARC",
+        "displayId": "F01",
+        "kind": "roof",
+        "poly": [
+          [
+            39,
+            41
+          ],
+          [
+            50,
+            38
+          ],
+          [
+            65,
+            33
+          ],
+          [
+            81,
+            32
+          ],
+          [
+            94,
+            31
+          ],
+          [
+            94,
+            23
+          ],
+          [
+            79,
+            23
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            50,
+            29
+          ],
+          [
+            39,
+            35
+          ]
+        ],
+        "breakable": false,
+        "purpose": "湾曲する左氷壁の内側。下は風陰の迂回通路。"
+      },
+      {
+        "id": "060-BOSS-RIM",
+        "displayId": "F02",
+        "kind": "roof",
+        "poly": [
+          [
+            108,
+            53
+          ],
+          [
+            114,
+            58
+          ],
+          [
+            134,
+            58
+          ],
+          [
+            149,
+            73
+          ],
+          [
+            163,
+            78
+          ],
+          [
+            180,
+            72
+          ],
+          [
+            180,
+            60
+          ],
+          [
+            162,
+            60
+          ],
+          [
+            145,
+            48
+          ],
+          [
+            124,
+            44
+          ],
+          [
+            108,
+            45
+          ]
+        ],
+        "breakable": false,
+        "purpose": "右氷河の湾曲した縁とボスの張り出し。"
+      },
+      {
+        "id": "060-LOW-ICE-SCREEN",
+        "displayId": "D03",
+        "kind": "wall",
+        "poly": [
+          [
+            96,
+            12
+          ],
+          [
+            99,
+            12
+          ],
+          [
+            99,
+            28
+          ],
+          [
+            98,
+            32
+          ],
+          [
+            96,
+            29
+          ]
+        ],
+        "breakable": true,
+        "purpose": "風陰通路を開く氷壁。壊すと140pxの歩行経路が通る。"
+      },
+      {
+        "id": "060-FAN-COVER",
+        "displayId": "D04",
+        "kind": "wall",
+        "poly": [
+          [
+            106,
+            44
+          ],
+          [
+            112,
+            45.727272727
+          ],
+          [
+            112,
+            79
+          ],
+          [
+            109,
+            83
+          ],
+          [
+            106,
+            78
+          ]
+        ],
+        "breakable": true,
+        "purpose": "送風設備の前の氷覆い。高い曲射なら越せる。"
+      }
+    ]
+  },
+  "after": {
+    "id": 60,
+    "stageNumber": 60,
+    "width": 1800,
+    "material": "ice",
+    "worldHold": 1,
+    "ventStartsOn": false,
+    "floor": [
+      [
+        0,
+        60
+      ],
+      [
+        10,
+        67
+      ],
+      [
+        26,
+        67
+      ],
+      [
+        39,
+        61
+      ],
+      [
+        48,
+        49
+      ],
+      [
+        58,
+        30
+      ],
+      [
+        70,
+        17
+      ],
+      [
+        76,
+        12
+      ],
+      [
+        110,
+        12
+      ],
+      [
+        126,
+        20
+      ],
+      [
+        142,
+        34
+      ],
+      [
+        158,
+        60
+      ],
+      [
+        172,
+        70
+      ],
+      [
+        180,
+        66
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          60
+        ],
+        [
+          10,
+          67
+        ],
+        [
+          26,
+          67
+        ],
+        [
+          39,
+          61
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          58,
+          30
+        ],
+        [
+          70,
+          17
+        ],
+        [
+          76,
+          12
+        ],
+        [
+          110,
+          12
+        ],
+        [
+          126,
+          20
+        ],
+        [
+          142,
+          34
+        ],
+        [
+          158,
+          60
+        ],
+        [
+          172,
+          70
+        ],
+        [
+          180,
+          66
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "060-LEE-ARC",
+        "displayId": "F01",
+        "poly": [
+          [
+            39,
+            41
+          ],
+          [
+            50,
+            38
+          ],
+          [
+            65,
+            33
+          ],
+          [
+            74,
+            32
+          ],
+          [
+            74,
+            23
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            50,
+            29
+          ],
+          [
+            39,
+            35
+          ]
+        ],
+        "breakable": false,
+        "kind": "ice-bank",
+        "purpose": "西氷壁の返しを短くし、B/Cの頭上を開ける。旧来の長い屋根下を低所への唯一の入口にしない。"
+      },
+      {
+        "id": "060-BOSS-RIM",
+        "displayId": "F02",
+        "poly": [
+          [
+            112,
+            50
+          ],
+          [
+            118,
+            59
+          ],
+          [
+            122,
+            72
+          ],
+          [
+            126,
+            72
+          ],
+          [
+            134,
+            58
+          ],
+          [
+            151,
+            58
+          ],
+          [
+            160,
+            73
+          ],
+          [
+            174,
+            78
+          ],
+          [
+            180,
+            74
+          ],
+          [
+            180,
+            61
+          ],
+          [
+            163,
+            60
+          ],
+          [
+            145,
+            45
+          ],
+          [
+            126,
+            43
+          ],
+          [
+            112,
+            42
+          ]
+        ],
+        "breakable": false,
+        "kind": "ice-bank",
+        "purpose": "右氷河の前縁を固定氷肩にし、その奥の平坦部でWhitehowlを支える。直射を切り、上方の弧を残す。"
+      },
+      {
+        "id": "060-LOW-ICE-SCREEN",
+        "displayId": "D03",
+        "poly": [
+          [
+            86,
+            12
+          ],
+          [
+            89,
+            12
+          ],
+          [
+            89,
+            28
+          ],
+          [
+            88,
+            32
+          ],
+          [
+            86,
+            29
+          ]
+        ],
+        "breakable": true,
+        "kind": "ice-fragment",
+        "purpose": "低所Bと出口Cの間の独立1片。温存中の前面遮蔽と、破壊後の平坦な歩行路を選ぶ。"
+      },
+      {
+        "id": "060-FAN-COVER",
+        "displayId": "D04",
+        "poly": [
+          [
+            119,
+            62.25
+          ],
+          [
+            122,
+            72
+          ],
+          [
+            125,
+            72
+          ],
+          [
+            125,
+            80
+          ],
+          [
+            122,
+            83
+          ],
+          [
+            119,
+            77
+          ]
+        ],
+        "breakable": true,
+        "kind": "ice-fragment",
+        "purpose": "固定氷肩に接する独立1片。任意破壊で頂部越しの角度余白を広げる。送風機部位とは別。"
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          47,
+          147,
+          35,
+          88
+        ]
+      }
+    ],
+    "player": {
+      "x": 20,
+      "h": 67
+    },
+    "enemy": {
+      "x": 142,
+      "h": 58
+    },
+    "pickups": [],
+    "targets": [
+      {
+        "x": 137.7,
+        "h": 63.6,
+        "label": "FAN A",
+        "name": "FAN A"
+      },
+      {
+        "x": 146.3,
+        "h": 63.6,
+        "label": "FAN B",
+        "name": "FAN B"
+      }
+    ],
+    "anchors": [
+      {
+        "id": "P0-high",
+        "x": 20,
+        "h": 67
+      },
+      {
+        "id": "B-lee",
+        "x": 80,
+        "h": 12
+      },
+      {
+        "id": "C-exit",
+        "x": 94,
+        "h": 12
+      }
+    ],
+    "transferSpaces": [
+      {
+        "to": "B-lee",
+        "points": [
+          [
+            20,
+            70
+          ],
+          [
+            42,
+            88
+          ],
+          [
+            65,
+            65
+          ],
+          [
+            76,
+            34
+          ],
+          [
+            80,
+            12
+          ]
+        ]
+      }
+    ],
+    "walkingSpace": {
+      "from": "B-lee",
+      "to": "C-exit",
+      "distancePx": 140,
+      "destroyed": [
+        "060-LOW-ICE-SCREEN@0"
+      ],
+      "note": "設計上は同じ高さの平坦路。実歩行は未検証。破壊した手番はBで反撃を受け、次の手番に歩行する。"
+    },
+    "attacks": [
+      {
+        "kind": "high-F-arc",
+        "points": [
+          [
+            20,
+            70
+          ],
+          [
+            54,
+            96
+          ],
+          [
+            88,
+            100
+          ],
+          [
+            118,
+            91
+          ],
+          [
+            137.7,
+            63.6
+          ]
+        ],
+        "meaning": "P0から氷肩とD04を越す構想。Fを通りFAN Aを狙う。実弾道ではない。"
+      },
+      {
+        "kind": "exit-up-arc",
+        "points": [
+          [
+            94,
+            15
+          ],
+          [
+            107,
+            62
+          ],
+          [
+            120,
+            94
+          ],
+          [
+            130,
+            88
+          ],
+          [
+            137.7,
+            63.6
+          ]
+        ],
+        "meaning": "開いた出口Cから上方へ送り、F越しにFAN Aを狙う構想。実弾道ではない。"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 60,
+    "name": "双送風機と風陰の出口",
+    "nameEn": "Twin Fans and the Open Lee Exit",
+    "goal": "高所からすぐ風を読んで狙うか、開いた低所で準備して出口へ進むかを選び、既存送風機を止める。",
+    "goalEn": "Attack through the wind from the high bank or prepare in the open lee pocket and advance to its exit.",
+    "floor": [
+      [
+        0,
+        60
+      ],
+      [
+        10,
+        67
+      ],
+      [
+        26,
+        67
+      ],
+      [
+        39,
+        61
+      ],
+      [
+        48,
+        49
+      ],
+      [
+        58,
+        30
+      ],
+      [
+        70,
+        17
+      ],
+      [
+        76,
+        12
+      ],
+      [
+        110,
+        12
+      ],
+      [
+        126,
+        20
+      ],
+      [
+        142,
+        34
+      ],
+      [
+        158,
+        60
+      ],
+      [
+        172,
+        70
+      ],
+      [
+        180,
+        66
+      ]
+    ],
+    "parts": [
+      {
+        "id": "060-LEE-ARC",
+        "displayId": "F01",
+        "poly": [
+          [
+            39,
+            41
+          ],
+          [
+            50,
+            38
+          ],
+          [
+            65,
+            33
+          ],
+          [
+            74,
+            32
+          ],
+          [
+            74,
+            23
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            50,
+            29
+          ],
+          [
+            39,
+            35
+          ]
+        ],
+        "breakable": false,
+        "kind": "ice-bank",
+        "purpose": "西氷壁の返しを短くし、B/Cの頭上を開ける。旧来の長い屋根下を低所への唯一の入口にしない。"
+      },
+      {
+        "id": "060-BOSS-RIM",
+        "displayId": "F02",
+        "poly": [
+          [
+            112,
+            50
+          ],
+          [
+            118,
+            59
+          ],
+          [
+            122,
+            72
+          ],
+          [
+            126,
+            72
+          ],
+          [
+            134,
+            58
+          ],
+          [
+            151,
+            58
+          ],
+          [
+            160,
+            73
+          ],
+          [
+            174,
+            78
+          ],
+          [
+            180,
+            74
+          ],
+          [
+            180,
+            61
+          ],
+          [
+            163,
+            60
+          ],
+          [
+            145,
+            45
+          ],
+          [
+            126,
+            43
+          ],
+          [
+            112,
+            42
+          ]
+        ],
+        "breakable": false,
+        "kind": "ice-bank",
+        "purpose": "右氷河の前縁を固定氷肩にし、その奥の平坦部でWhitehowlを支える。直射を切り、上方の弧を残す。"
+      },
+      {
+        "id": "060-LOW-ICE-SCREEN",
+        "displayId": "D03",
+        "poly": [
+          [
+            86,
+            12
+          ],
+          [
+            89,
+            12
+          ],
+          [
+            89,
+            28
+          ],
+          [
+            88,
+            32
+          ],
+          [
+            86,
+            29
+          ]
+        ],
+        "breakable": true,
+        "kind": "ice-fragment",
+        "purpose": "低所Bと出口Cの間の独立1片。温存中の前面遮蔽と、破壊後の平坦な歩行路を選ぶ。"
+      },
+      {
+        "id": "060-FAN-COVER",
+        "displayId": "D04",
+        "poly": [
+          [
+            119,
+            62.25
+          ],
+          [
+            122,
+            72
+          ],
+          [
+            125,
+            72
+          ],
+          [
+            125,
+            80
+          ],
+          [
+            122,
+            83
+          ],
+          [
+            119,
+            77
+          ]
+        ],
+        "breakable": true,
+        "kind": "ice-fragment",
+        "purpose": "固定氷肩に接する独立1片。任意破壊で頂部越しの角度余白を広げる。送風機部位とは別。"
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          47,
+          147,
+          35,
+          88
+        ]
+      }
+    ],
+    "recommended": "mogu",
+    "spawn": [
+      20,
+      142
+    ],
+    "spawnPoints": [
+      [
+        20,
+        67
+      ],
+      [
+        142,
+        58
+      ]
+    ],
+    "worldWidth": 1800,
+    "hold": 1,
+    "ventStartsOn": false,
+    "terrainRevision": "5.7",
+    "route": "高所P0は移動を省いて送風機を狙う。低所BではD03を残すか壊すか選び、開けた場合は次手番に140px先のCへ。D04は任意の角度改善。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "boss:whitehowl",
+      "boss": true,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "bossRules": {
+      "id": "boss:whitehowl",
+      "bodyHp": 10,
+      "partHp": {
+        "FAN A": 2,
+        "FAN B": 2
+      },
+      "attacks": [
+        "TWIN",
+        "ARC",
+        "LOW"
+      ],
+      "windByBrokenFans": [
+        {
+          "broken": 0,
+          "strength": 0.35,
+          "direction": "existing-alternation"
+        },
+        {
+          "broken": 1,
+          "strength": 0.18,
+          "direction": 1
+        },
+        {
+          "broken": 2,
+          "strength": 0,
+          "direction": 1
+        }
+      ],
+      "note": "HP欄5と実ボス本体HP10を混同しない。地形D03/D04の破壊を送風機部位破壊として数えない。既存ルールは変更しない。"
+    }
+  },
+  "discovery": "高所では移動を省いて攻め、低所では前面の氷片を残すか壊して開いた出口へ進むか選ぶ。送風機破壊で既存の風が弱まる。",
+  "designIntent": {
+    "inherit": "U字形の氷河峡谷断面、左高所、右のWhitehowlと2送風機、F1、独立破壊片2。",
+    "rebuild": "F01の先端を短くしてB/Cの頭上を開放。谷底を平坦にし、BからCへ140pxの設計距離を確保。ボス前の固定氷肩はD04除去後も直射を切る。",
+    "primary": "開始高所からすぐに氷肩を越す弧を狙い、風と反撃を受け入れる。",
+    "alternative": "BはFの下端より低く、D03を前面に残して準備する構想。D03を壊す場合は遮蔽を失ったBで反撃を受け、次手番にCへ歩いて射撃する。Cへの直接転移を禁じる新ルールは置かない。",
+    "counterattack": "高所では既存TWIN/ARC/LOWに露出。Bは正面の遮蔽を使うが上から回るARCへの安全は未測定。出口Cは頭上が開き、射撃位置で反撃を受ける。",
+    "destruction": "D03は低所ルートの開口用1片、D04は頂部の角度改善用1片。いずれも固定支持を除去せず、風を弱めるのは既存ボス送風機だけ。",
+    "checkPolicy": "ユーザー指示どおり全景・基本データ・支持・明白な形状と構想空間の最低限に限定。個別の検証スクリプト・探索・対戦は追加しない。"
+  },
+  "destructionPlans": {
+    "high": [],
+    "lowerWalk": [
+      "060-LOW-ICE-SCREEN@0"
+    ],
+    "optionalAngle": [
+      "060-FAN-COVER@0"
+    ]
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "designMinimum": "see stage_060_review_v4.md",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "bossParts": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory24": "not-tested"
+  },
+  "implementationNote": "Design only. Game runtime and all sixteen approved designs are unchanged."
+}

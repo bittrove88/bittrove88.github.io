@@ -1,0 +1,1234 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 69,
+  "date": "2026-11-06",
+  "status": "design-review-pending-runtime-unverified",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "revisionOf": "stage_069_proposal_v1.json",
+  "sourcePr74": {
+    "latestProposal": "stage_069_proposal_v1.json",
+    "latestReview": "stage_069_review_v1.md",
+    "retained": [
+      "volcanic furnace and refuge",
+      "single large refuge island",
+      "periodic V jet",
+      "K crystal",
+      "enemy:blast",
+      "HP5,16 turns",
+      "S_BARRIER pickup ID/amount/turn"
+    ],
+    "reviewFinding": "単なる退避島への転移1手増。島の左右に役割なし。P0にも固定敵単発命中例がある。"
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        26
+      ],
+      [
+        29,
+        26
+      ],
+      [
+        43,
+        4
+      ],
+      [
+        65,
+        4
+      ],
+      [
+        81,
+        24
+      ],
+      [
+        100,
+        24
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          26
+        ],
+        [
+          29,
+          26
+        ],
+        [
+          43,
+          4
+        ],
+        [
+          65,
+          4
+        ],
+        [
+          81,
+          24
+        ],
+        [
+          100,
+          24
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "069-C01",
+        "kind": "island",
+        "poly": [
+          [
+            44,
+            27
+          ],
+          [
+            64,
+            27
+          ],
+          [
+            64,
+            22
+          ],
+          [
+            44,
+            22
+          ]
+        ],
+        "breakable": false,
+        "renderUnits": [
+          {
+            "id": "069-C01",
+            "label": "F01",
+            "poly": [
+              [
+                44,
+                27
+              ],
+              [
+                64,
+                27
+              ],
+              [
+                64,
+                22
+              ],
+              [
+                44,
+                22
+              ]
+            ]
+          }
+        ],
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "069-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            45,
+            41
+          ],
+          [
+            58,
+            41
+          ],
+          [
+            58,
+            38
+          ],
+          [
+            45,
+            38
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "069-C02@0",
+            "label": "D02-1",
+            "poly": [
+              [
+                45,
+                41
+              ],
+              [
+                51.5,
+                41
+              ],
+              [
+                51.5,
+                38
+              ],
+              [
+                45,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "069-C02@1",
+            "label": "D02-2",
+            "poly": [
+              [
+                51.5,
+                41
+              ],
+              [
+                58,
+                41
+              ],
+              [
+                58,
+                38
+              ],
+              [
+                51.5,
+                38
+              ]
+            ]
+          }
+        ],
+        "displayId": "D02",
+        "unitCount": 2
+      }
+    ],
+    "features": [
+      {
+        "type": "V",
+        "v": [
+          34,
+          44,
+          0,
+          36,
+          0
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          71,
+          31,
+          35
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 26
+    },
+    "enemy": {
+      "x": 82,
+      "h": 24
+    },
+    "pickups": [
+      {
+        "id": "SK069",
+        "kind": "skill",
+        "skillId": "S_BARRIER",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 44.976,
+        "h": 33.281,
+        "spawnTurn": 5,
+        "placementId": "L069:skill:S_BARRIER",
+        "verification": {
+          "angle": 17,
+          "power": 75,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 1
+        }
+      }
+    ],
+    "stageNumber": 69,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "width": 1520,
+    "floor": [
+      [
+        0,
+        49
+      ],
+      [
+        13,
+        50
+      ],
+      [
+        25,
+        51
+      ],
+      [
+        32,
+        50
+      ],
+      [
+        36,
+        45
+      ],
+      [
+        39,
+        43
+      ],
+      [
+        44,
+        43
+      ],
+      [
+        49,
+        25
+      ],
+      [
+        55,
+        15
+      ],
+      [
+        65,
+        10
+      ],
+      [
+        77,
+        8
+      ],
+      [
+        88,
+        9
+      ],
+      [
+        98,
+        12
+      ],
+      [
+        108,
+        19
+      ],
+      [
+        119,
+        27
+      ],
+      [
+        126,
+        30
+      ],
+      [
+        139,
+        31
+      ],
+      [
+        152,
+        27
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          49
+        ],
+        [
+          13,
+          50
+        ],
+        [
+          25,
+          51
+        ],
+        [
+          32,
+          50
+        ],
+        [
+          36,
+          45
+        ],
+        [
+          39,
+          43
+        ],
+        [
+          44,
+          43
+        ],
+        [
+          49,
+          25
+        ]
+      ],
+      [
+        [
+          55,
+          15
+        ],
+        [
+          65,
+          10
+        ],
+        [
+          77,
+          8
+        ],
+        [
+          88,
+          9
+        ],
+        [
+          98,
+          12
+        ],
+        [
+          108,
+          19
+        ]
+      ],
+      [
+        [
+          119,
+          27
+        ],
+        [
+          126,
+          30
+        ],
+        [
+          139,
+          31
+        ],
+        [
+          152,
+          27
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "069-ERODED-REFUGE",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            51,
+            43
+          ],
+          [
+            55,
+            54
+          ],
+          [
+            62,
+            64
+          ],
+          [
+            68,
+            69
+          ],
+          [
+            75,
+            70
+          ],
+          [
+            81,
+            67
+          ],
+          [
+            87,
+            64
+          ],
+          [
+            93,
+            62
+          ],
+          [
+            98,
+            65
+          ],
+          [
+            103,
+            68
+          ],
+          [
+            112,
+            68
+          ],
+          [
+            117,
+            59
+          ],
+          [
+            118,
+            52
+          ],
+          [
+            114,
+            46
+          ],
+          [
+            104,
+            44
+          ],
+          [
+            92,
+            43
+          ],
+          [
+            78,
+            43
+          ],
+          [
+            66,
+            42
+          ],
+          [
+            58,
+            41
+          ]
+        ],
+        "breakable": false,
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "069-ERODED-REFUGE",
+            "label": "F01",
+            "poly": [
+              [
+                51,
+                43
+              ],
+              [
+                55,
+                54
+              ],
+              [
+                62,
+                64
+              ],
+              [
+                68,
+                69
+              ],
+              [
+                75,
+                70
+              ],
+              [
+                81,
+                67
+              ],
+              [
+                87,
+                64
+              ],
+              [
+                93,
+                62
+              ],
+              [
+                98,
+                65
+              ],
+              [
+                103,
+                68
+              ],
+              [
+                112,
+                68
+              ],
+              [
+                117,
+                59
+              ],
+              [
+                118,
+                52
+              ],
+              [
+                114,
+                46
+              ],
+              [
+                104,
+                44
+              ],
+              [
+                92,
+                43
+              ],
+              [
+                78,
+                43
+              ],
+              [
+                66,
+                42
+              ],
+              [
+                58,
+                41
+              ]
+            ]
+          }
+        ],
+        "purpose": "非対称で中央がくぼむ大退避島。Aの左肩は右肩が遮蔽となり、Bの右肩は攻撃射線を得る。"
+      }
+    ],
+    "features": [
+      {
+        "type": "V",
+        "v": [
+          60,
+          105,
+          8,
+          41,
+          0
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          116,
+          35,
+          12
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 50.833333333333336
+    },
+    "enemy": {
+      "x": 134,
+      "h": 30.615384615384617
+    },
+    "pickups": [
+      {
+        "id": "SK069",
+        "kind": "skill",
+        "skillId": "S_BARRIER",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 29,
+        "h": 58,
+        "spawnTurn": 5,
+        "placementId": "L069:skill:S_BARRIER",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 73,
+        "h": 69.71428571428571,
+        "label": "A"
+      },
+      {
+        "x": 111,
+        "h": 68,
+        "label": "B"
+      },
+      {
+        "x": 41,
+        "h": 43,
+        "label": "C"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            23,
+            50.833333333333336
+          ],
+          [
+            44,
+            60
+          ],
+          [
+            59,
+            66
+          ],
+          [
+            73,
+            69.71428571428571
+          ]
+        ],
+        "kind": "planned",
+        "status": "unverified-teleport"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            73,
+            69.71428571428571
+          ],
+          [
+            81,
+            67
+          ],
+          [
+            87,
+            64
+          ],
+          [
+            93,
+            62
+          ],
+          [
+            103,
+            68
+          ],
+          [
+            111,
+            68
+          ]
+        ],
+        "kind": "planned",
+        "status": "unverified-walking"
+      },
+      {
+        "label": "C",
+        "points": [
+          [
+            23,
+            50.833333333333336
+          ],
+          [
+            32,
+            50
+          ],
+          [
+            39,
+            43
+          ],
+          [
+            41,
+            43
+          ]
+        ],
+        "kind": "planned",
+        "status": "unverified-walking"
+      }
+    ],
+    "routes": [
+      {
+        "label": "A→B 島の左肩からくぼみを徒歩で越えて右肩へ",
+        "kind": "main",
+        "points": [
+          [
+            73,
+            69.71428571428571
+          ],
+          [
+            81,
+            67
+          ],
+          [
+            87,
+            64
+          ],
+          [
+            93,
+            62
+          ],
+          [
+            98,
+            65
+          ],
+          [
+            103,
+            68
+          ],
+          [
+            111,
+            68
+          ]
+        ],
+        "status": "schematic-not-actual-walk"
+      },
+      {
+        "label": "C→K 島の下に降ろし噴出Vと結晶Kを利用する構想",
+        "kind": "alternative",
+        "points": [
+          [
+            41,
+            46
+          ],
+          [
+            49,
+            27
+          ],
+          [
+            60,
+            26
+          ],
+          [
+            75,
+            26
+          ],
+          [
+            95,
+            28
+          ],
+          [
+            116,
+            35
+          ],
+          [
+            125,
+            35
+          ],
+          [
+            134,
+            34
+          ]
+        ],
+        "status": "schematic-not-actual-ballistics"
+      },
+      {
+        "label": "Bの右肩から敵へ",
+        "kind": "attack",
+        "points": [
+          [
+            111,
+            71
+          ],
+          [
+            123,
+            50
+          ],
+          [
+            134,
+            33.61538461538461
+          ]
+        ],
+        "status": "schematic-not-actual-ballistics"
+      }
+    ],
+    "stageNumber": 69,
+    "worldHold": 1,
+    "ventStartsOn": false,
+    "shotExamples": [],
+    "replayViews": [],
+    "angleReview": []
+  },
+  "summary": {
+    "terrain": "炉上のくぼんだ非対称大島。左肩の防御、右肩の攻撃、噴出の下を通る結晶下路。",
+    "concept": "A左肩では右肩が敵の射線を遮り、島上のくぼみを歩いてB右肩に出ると攻撃できるが露出する。",
+    "alternative": "左岸のCから島下側の通路へ射撃を落とし、V周期と右端Kを使う反射を選ぶ。位置を上げずに済むがタイミングが難しい。",
+    "status": "design-concept-only, geometry-only-evidence"
+  },
+  "learningGoal": {
+    "source": "退避島への転移で、噴出と斜面を順に回避する",
+    "proposed": "同じ大島の上でも、左肩に留まる／少し歩いて右肩へ出ることで攻防が逆転する。",
+    "decision": "R全面再設計"
+  },
+  "routeDesign": {
+    "main": "P0→島A（左肩の遮蔽）→くぼんだ島中央を短く歩行→B（露出する攻撃射点）",
+    "alternative": "P0近くから左崖のCへ→島下側に撃ちVの周期とK反射を使う（実弾道未検証）",
+    "anchors": [
+      {
+        "id": "island-left-cover",
+        "x": 73,
+        "h": 69.71428571428571,
+        "surface": "069-ERODED-REFUGE",
+        "plan": "main-step-1",
+        "role": "島の右肩を遮蔽にできる左の安全位置",
+        "requiredMechanisms": []
+      },
+      {
+        "id": "island-right-attack",
+        "x": 111,
+        "h": 68,
+        "surface": "069-ERODED-REFUGE",
+        "plan": "main-step-2",
+        "role": "少し歩くと敵側が開け、反撃に露出する",
+        "requiredMechanisms": []
+      },
+      {
+        "id": "low-bank-crystal",
+        "x": 41,
+        "h": 43,
+        "surface": "floor0",
+        "plan": "alternative",
+        "role": "上島へ転移せずVとKを使う下側射線",
+        "requiredMechanisms": [
+          "V",
+          "K"
+        ]
+      }
+    ],
+    "budgetMeaning": "既存16行動は維持。移動・転移・噴出/反射の成否は全49面設計承認後に検証。",
+    "accessEvidence": "支持・ポリゴン・射線の静的幾何確認のみ。実操作と動作の成否ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:blast",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "sora",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "71面未満のため対象外。",
+    "evaluation": "遮蔽を使う徒歩の位置取り",
+    "runtimeDestinations": null
+  },
+  "approval": {
+    "state": "pending",
+    "scope": "geometry-and-tactical-intent-only"
+  },
+  "verification": {
+    "static": "limited-pass-see-stage_069_static_check_v2.json",
+    "rendering": "coordinate-driven-svg-not-engine-screenshot",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "enemyAI": "not-tested",
+    "combat": "not-tested",
+    "finalAcceptance": "not-tested"
+  },
+  "destructionPlans": {
+    "main": [],
+    "alternative": []
+  },
+  "openingComponents": {
+    "main": [],
+    "alternative": []
+  },
+  "destructionRegister": [
+    {
+      "id": "069-ERODED-REFUGE",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "069-ERODED-REFUGE",
+          "label": "F01",
+          "poly": [
+            [
+              51,
+              43
+            ],
+            [
+              55,
+              54
+            ],
+            [
+              62,
+              64
+            ],
+            [
+              68,
+              69
+            ],
+            [
+              75,
+              70
+            ],
+            [
+              81,
+              67
+            ],
+            [
+              87,
+              64
+            ],
+            [
+              93,
+              62
+            ],
+            [
+              98,
+              65
+            ],
+            [
+              103,
+              68
+            ],
+            [
+              112,
+              68
+            ],
+            [
+              117,
+              59
+            ],
+            [
+              118,
+              52
+            ],
+            [
+              114,
+              46
+            ],
+            [
+              104,
+              44
+            ],
+            [
+              92,
+              43
+            ],
+            [
+              78,
+              43
+            ],
+            [
+              66,
+              42
+            ],
+            [
+              58,
+              41
+            ]
+          ]
+        }
+      ],
+      "purpose": "非対称で中央がくぼむ大退避島。Aの左肩は右肩が遮蔽となり、Bの右肩は攻撃射線を得る。"
+    }
+  ],
+  "reviewActions": {
+    "requested": "R：火口上にくぼんだ大きな非対称島。左肩で遮蔽、右肩で攻撃。島上徒歩で有利位置が変化。",
+    "implementedGeometry": true,
+    "actualActionReplays": "not-tested",
+    "userApproval": "pending"
+  },
+  "blueprintCandidate": {
+    "stage": 69,
+    "name": "炉の上の退避島",
+    "nameEn": "The Refuge Above the Furnace",
+    "goal": "左肩で身を隠し島のくぼみを歩いて右肩に出るか、下側で噴出・結晶経由の攻撃を狙う。",
+    "goalEn": "Cross the indented refuge from cover to exposed firing, or use the vent-crystal underpass.",
+    "floor": [
+      [
+        0,
+        49
+      ],
+      [
+        13,
+        50
+      ],
+      [
+        25,
+        51
+      ],
+      [
+        32,
+        50
+      ],
+      [
+        36,
+        45
+      ],
+      [
+        39,
+        43
+      ],
+      [
+        44,
+        43
+      ],
+      [
+        49,
+        25
+      ],
+      [
+        55,
+        15
+      ],
+      [
+        65,
+        10
+      ],
+      [
+        77,
+        8
+      ],
+      [
+        88,
+        9
+      ],
+      [
+        98,
+        12
+      ],
+      [
+        108,
+        19
+      ],
+      [
+        119,
+        27
+      ],
+      [
+        126,
+        30
+      ],
+      [
+        139,
+        31
+      ],
+      [
+        152,
+        27
+      ]
+    ],
+    "parts": [
+      {
+        "id": "069-ERODED-REFUGE",
+        "kind": "island",
+        "poly": [
+          [
+            51,
+            43
+          ],
+          [
+            55,
+            54
+          ],
+          [
+            62,
+            64
+          ],
+          [
+            68,
+            69
+          ],
+          [
+            75,
+            70
+          ],
+          [
+            81,
+            67
+          ],
+          [
+            87,
+            64
+          ],
+          [
+            93,
+            62
+          ],
+          [
+            98,
+            65
+          ],
+          [
+            103,
+            68
+          ],
+          [
+            112,
+            68
+          ],
+          [
+            117,
+            59
+          ],
+          [
+            118,
+            52
+          ],
+          [
+            114,
+            46
+          ],
+          [
+            104,
+            44
+          ],
+          [
+            92,
+            43
+          ],
+          [
+            78,
+            43
+          ],
+          [
+            66,
+            42
+          ],
+          [
+            58,
+            41
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "V",
+        "v": [
+          60,
+          105,
+          8,
+          41,
+          0
+        ]
+      },
+      {
+        "type": "K",
+        "v": [
+          116,
+          35,
+          12
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        23,
+        50.833333333333336
+      ],
+      [
+        134,
+        30.615384615384617
+      ]
+    ],
+    "worldWidth": 1520,
+    "recommended": "sora",
+    "route": "同一退避島上の左右歩行で遮蔽と狙撃が反転する。下側はVとKのタイミングを読む。",
+    "terrainRevision": "stage069-v2-unapproved"
+  },
+  "pickupPlacementCandidate": {
+    "id": "SK069",
+    "kind": "skill",
+    "skillId": "S_BARRIER",
+    "category": "normal-skill",
+    "amount": 2,
+    "x": 29,
+    "h": 58,
+    "spawnTurn": 5,
+    "placementId": "L069:skill:S_BARRIER",
+    "needsReverification": true,
+    "designStatus": "proposed-unverified",
+    "note": "ゲーム本体のpickup_placements.jsonは未変更。設計案のみ。"
+  },
+  "implementationNote": "ゲーム正本stage_blueprints.json、AI、敵能力、ほかの面、セーブを変更していない。旧案の弾道・リプレイ証跡を新形状の検証済みとして流用しない。"
+}

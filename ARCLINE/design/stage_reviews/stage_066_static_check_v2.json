@@ -1,0 +1,70 @@
+{
+  "stage": 66,
+  "version": "v2",
+  "checkedAt": "2026-11-06",
+  "scope": "lightweight-static-only",
+  "checks": {
+    "fileSchemaPresent": true,
+    "widthInPixels": true,
+    "terrainSegmentsAscending": true,
+    "terrainSegmentsSeparated": true,
+    "allVerticesWithinWorld": true,
+    "fixedIdsAndUnitsUnique": true,
+    "simplePolygons": true,
+    "initialPlayerOnFloor": true,
+    "initialEnemyOnRidge": true,
+    "lowAnchorOnFloor": true,
+    "highAnchorOnRidge": true,
+    "crystalBelowRoofAndAboveFloor": true,
+    "cavernRightMouthOpen": true,
+    "KandVTypesPreserved": true,
+    "originalEnemyClassPreserved": true,
+    "originalActionLimitPreserved": true,
+    "noComponentOverlapByX": true
+  },
+  "counts": {
+    "worldWidth": 1500,
+    "groundSegments": 3,
+    "groundVertices": 20,
+    "independentFixedParts": 2,
+    "destructibleParts": 0,
+    "features": [
+      "K",
+      "V"
+    ]
+  },
+  "points": {
+    "player": {
+      "x": 19,
+      "h": 38.4444444444
+    },
+    "enemy": {
+      "x": 130,
+      "h": 71
+    },
+    "low": {
+      "x": 69,
+      "h": 8.875,
+      "label": "A"
+    },
+    "high": {
+      "x": 116,
+      "h": 70,
+      "label": "B"
+    }
+  },
+  "shapeNotes": [
+    "F01は左岸地盤に根を持ち、炉内床と岩屋根下面の間に高さ約150px以上の開口がある。",
+    "F02は右岸の地盤へ接続し、頂部は足場と射撃位置を兼ねる。",
+    "右側炉口x90付近で天蓋下面h40と床h25の間は約150px。",
+    "Kは炉内床とF01の下面の間。Vは炉口から右の縦開口に配置。",
+    "前の65面の下部鏡床と天蓋内のボス室とは攻略位置と敵の高低関係が異なる。"
+  ],
+  "deferred": [
+    "実ゲームCanvas画面を起動した描画の完全一致",
+    "候補射点A/Bへの実移動・転移着地",
+    "全角度射撃／結晶反射と噴出の複合経路の物理的成立",
+    "敵の自律挙動・反撃・行動上限内の攻略",
+    "複数seed・全キャラと独立破壊後の全状態"
+  ]
+}
