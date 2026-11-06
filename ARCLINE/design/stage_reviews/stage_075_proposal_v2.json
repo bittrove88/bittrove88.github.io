@@ -1,0 +1,1335 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 75,
+  "date": "2026-11-06",
+  "status": "design-review-pending-unverified",
+  "sourcePr74": {
+    "pr": 74,
+    "ref": "design/arcline-compendium-051-099",
+    "proposal": "stage_075_proposal_v1.json",
+    "review": "stage_075_review_v1.md",
+    "note": "Original v1 is preserved, not overwritten"
+  },
+  "approvedBase": {
+    "pr": 84,
+    "branch": "design/arcline-stage072-open-fault-flank-v4-20261106",
+    "protectedStages": [
+      65,
+      66,
+      67,
+      69,
+      71,
+      72
+    ]
+  },
+  "before": {
+    "source": "stage_075_proposal_v1.json",
+    "terrain": "1540px矩形の長い屋根クレーンF01／垂直柱F02／単独破壊D03。P0から既存ボス部位へ命中した旧入力ログあり。",
+    "problem": "開始地点P0が万能、長方形梁の単調さ、上下射点だけの反復。旧入力は新形状に適用できない。"
+  },
+  "after": {
+    "width": 1540,
+    "floor": [
+      [
+        0,
+        44
+      ],
+      [
+        12,
+        44
+      ],
+      [
+        24,
+        46
+      ],
+      [
+        33,
+        45
+      ],
+      [
+        42,
+        41
+      ],
+      [
+        51,
+        35
+      ],
+      [
+        60,
+        29
+      ],
+      [
+        69,
+        23
+      ],
+      [
+        78,
+        17
+      ],
+      [
+        87,
+        12
+      ],
+      [
+        97,
+        12
+      ],
+      [
+        106,
+        17
+      ],
+      [
+        116,
+        24
+      ],
+      [
+        126,
+        31
+      ],
+      [
+        136,
+        38
+      ],
+      [
+        145,
+        42
+      ],
+      [
+        154,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          44
+        ],
+        [
+          12,
+          44
+        ],
+        [
+          24,
+          46
+        ],
+        [
+          33,
+          45
+        ],
+        [
+          42,
+          41
+        ],
+        [
+          51,
+          35
+        ],
+        [
+          60,
+          29
+        ],
+        [
+          69,
+          23
+        ],
+        [
+          78,
+          17
+        ],
+        [
+          87,
+          12
+        ],
+        [
+          97,
+          12
+        ],
+        [
+          106,
+          17
+        ],
+        [
+          116,
+          24
+        ],
+        [
+          126,
+          31
+        ],
+        [
+          136,
+          38
+        ],
+        [
+          145,
+          42
+        ],
+        [
+          154,
+          42
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "075-INCLINED-CRANE-MAST",
+        "displayId": "F01",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            42,
+            41
+          ],
+          [
+            48,
+            37
+          ],
+          [
+            55,
+            53
+          ],
+          [
+            64,
+            69
+          ],
+          [
+            60,
+            73
+          ],
+          [
+            55,
+            68
+          ],
+          [
+            49,
+            58
+          ],
+          [
+            44,
+            48
+          ]
+        ],
+        "purpose": "西側の斜面から立ち上がり、斜吊腕の根元を支持する固定マスト。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-INCLINED-CRANE-MAST",
+            "label": "F01",
+            "poly": [
+              [
+                42,
+                41
+              ],
+              [
+                48,
+                37
+              ],
+              [
+                55,
+                53
+              ],
+              [
+                64,
+                69
+              ],
+              [
+                60,
+                73
+              ],
+              [
+                55,
+                68
+              ],
+              [
+                49,
+                58
+              ],
+              [
+                44,
+                48
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-COUNTERWEIGHT-BOOM",
+        "displayId": "F02",
+        "kind": "island",
+        "breakable": false,
+        "poly": [
+          [
+            56,
+            71
+          ],
+          [
+            64,
+            78
+          ],
+          [
+            80,
+            84
+          ],
+          [
+            97,
+            84
+          ],
+          [
+            112,
+            79
+          ],
+          [
+            118,
+            76
+          ],
+          [
+            122,
+            76
+          ],
+          [
+            123,
+            73
+          ],
+          [
+            123,
+            69
+          ],
+          [
+            117,
+            70
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            96,
+            78
+          ],
+          [
+            80,
+            78
+          ],
+          [
+            67,
+            72
+          ],
+          [
+            61,
+            67
+          ]
+        ],
+        "purpose": "片持ちの細い工業吊腕。内側Bは自分の梁と固定ヨークで遮断され、外端Cからのみ部位方向が開く。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-COUNTERWEIGHT-BOOM",
+            "label": "F02",
+            "poly": [
+              [
+                56,
+                71
+              ],
+              [
+                64,
+                78
+              ],
+              [
+                80,
+                84
+              ],
+              [
+                97,
+                84
+              ],
+              [
+                112,
+                79
+              ],
+              [
+                118,
+                76
+              ],
+              [
+                122,
+                76
+              ],
+              [
+                123,
+                73
+              ],
+              [
+                123,
+                69
+              ],
+              [
+                117,
+                70
+              ],
+              [
+                108,
+                73
+              ],
+              [
+                96,
+                78
+              ],
+              [
+                80,
+                78
+              ],
+              [
+                67,
+                72
+              ],
+              [
+                61,
+                67
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-FIXED-HOIST-YOKE",
+        "displayId": "F03",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            102,
+            77
+          ],
+          [
+            108,
+            75
+          ],
+          [
+            108,
+            56
+          ],
+          [
+            103,
+            56
+          ]
+        ],
+        "purpose": "吊腕の下面に固定された吊金具。吊荷が壊れても残る非破壊構造材。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-FIXED-HOIST-YOKE",
+            "label": "F03",
+            "poly": [
+              [
+                102,
+                77
+              ],
+              [
+                108,
+                75
+              ],
+              [
+                108,
+                56
+              ],
+              [
+                103,
+                56
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "075-HANGING-ORE@0",
+        "displayId": "D04",
+        "kind": "wall",
+        "breakable": true,
+        "poly": [
+          [
+            101,
+            56
+          ],
+          [
+            108,
+            56
+          ],
+          [
+            116,
+            50
+          ],
+          [
+            119,
+            43
+          ],
+          [
+            113,
+            38
+          ],
+          [
+            103,
+            36
+          ],
+          [
+            96,
+            33
+          ],
+          [
+            90,
+            28
+          ],
+          [
+            84,
+            25
+          ],
+          [
+            81,
+            28
+          ],
+          [
+            85,
+            36
+          ],
+          [
+            94,
+            47
+          ]
+        ],
+        "purpose": "吊金具から斜め左へ垂れる独立破壊可能な非対称鉱石。P0射線を遮り、歩行して下を抜ける/壊すを選ばせる。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "075-HANGING-ORE@0",
+            "label": "D04",
+            "poly": [
+              [
+                101,
+                56
+              ],
+              [
+                108,
+                56
+              ],
+              [
+                116,
+                50
+              ],
+              [
+                119,
+                43
+              ],
+              [
+                113,
+                38
+              ],
+              [
+                103,
+                36
+              ],
+              [
+                96,
+                33
+              ],
+              [
+                90,
+                28
+              ],
+              [
+                84,
+                25
+              ],
+              [
+                81,
+                28
+              ],
+              [
+                85,
+                36
+              ],
+              [
+                94,
+                47
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          107,
+          31,
+          20,
+          -1
+        ]
+      }
+    ],
+    "player": {
+      "x": 70,
+      "h": 22.33333
+    },
+    "enemy": {
+      "x": 142,
+      "h": 40.66667
+    },
+    "pickups": [],
+    "targets": [
+      {
+        "x": 138.6,
+        "h": 44.66667,
+        "name": "マグネットアーム",
+        "label": "部位1"
+      }
+    ],
+    "firingPoints": [
+      {
+        "label": "A",
+        "x": 96,
+        "h": 12,
+        "surface": "floor0"
+      },
+      {
+        "label": "B",
+        "x": 88,
+        "h": 84,
+        "surface": "075-COUNTERWEIGHT-BOOM"
+      },
+      {
+        "label": "C",
+        "x": 121,
+        "h": 76,
+        "surface": "075-COUNTERWEIGHT-BOOM"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "kind": "planned-floor-walk",
+        "points": [
+          [
+            70,
+            22.33333
+          ],
+          [
+            78,
+            17
+          ],
+          [
+            87,
+            12
+          ],
+          [
+            96,
+            12
+          ]
+        ],
+        "status": "unverified"
+      },
+      {
+        "label": "C",
+        "kind": "planned-teleport-to-outer-boom",
+        "points": [
+          [
+            70,
+            22.33333
+          ],
+          [
+            80,
+            91
+          ],
+          [
+            103,
+            91
+          ],
+          [
+            121,
+            76
+          ]
+        ],
+        "status": "unverified"
+      }
+    ],
+    "routes": [
+      {
+        "label": "A - low gap and magnet",
+        "kind": "main",
+        "points": [
+          [
+            96,
+            15
+          ],
+          [
+            107,
+            31
+          ],
+          [
+            123,
+            41
+          ],
+          [
+            138.6,
+            47.66667
+          ]
+        ],
+        "status": "schematic-not-ballistic"
+      },
+      {
+        "label": "C - outboard component shot",
+        "kind": "alternative",
+        "points": [
+          [
+            121,
+            79
+          ],
+          [
+            130,
+            72
+          ],
+          [
+            138.6,
+            47.66667
+          ]
+        ],
+        "status": "schematic-not-ballistic"
+      },
+      {
+        "label": "P0 after D04 break",
+        "kind": "break-alternative",
+        "points": [
+          [
+            70,
+            25.33333
+          ],
+          [
+            96,
+            34
+          ],
+          [
+            138.6,
+            47.66667
+          ]
+        ],
+        "status": "schematic-not-ballistic"
+      }
+    ],
+    "shotExamples": [],
+    "replayViews": [],
+    "angleReview": [],
+    "stageNumber": 75,
+    "worldHold": 1
+  },
+  "summary": {
+    "terrain": "左右非対称に深く掘った露天採掘坑、左岸の斜マストF01、細い片持ち吊腕F02、吊金具F03、独立破壊の斜吊鉱D04。水平の巨大長方形クレーンは廃止。",
+    "concept": "吊荷を残して坑底を歩くM射撃、吊荷を壊して初期位置からの射線を開く攻め、固定吊腕の外端から部位へ狙いを切り替える攻めの三択。",
+    "alternative": "吊腕内側Bは部位の中心線を自分の梁と吊金具で塞ぐ。単に高所に行けば勝てる設計ではなく、外端Cへずらす必要がある。",
+    "status": "design-only, no runtime hit proof"
+  },
+  "sketchCandidates": [
+    {
+      "id": "A",
+      "name": "斜め片吊りホイスト＋深い露天坑",
+      "status": "adopted",
+      "skeleton": "切土坑、斜マスト、細い斜め片持ち腕と一点垂下鉱石。",
+      "newAction": "吊荷を温存して下から潜る／吊荷だけを壊す／吊腕の外端へ出て射角を変える。",
+      "reason": "吊荷と固定構造の因果が射線に直結し、最近の屋根・浮島・地付き断層と質的に違う"
+    },
+    {
+      "id": "B",
+      "name": "平行二段門型クレーン",
+      "status": "rejected",
+      "skeleton": "上下二本の水平長方形梁に昇降する",
+      "newAction": "上段/下段の高さを変えて撃つ",
+      "reason": "旧PR #74の梁や65/66の屋根に近く、上下二択の反復のため却下"
+    }
+  ],
+  "learningGoal": {
+    "proposed": "吊荷の下で射線を保つか吊荷を壊すかを選び、上部でも吊金具の内側と外端を見分ける。",
+    "decision": "R全面再設計"
+  },
+  "routeDesign": {
+    "main": "P0(70,22.333)から斜坑を徒歩で下り、A(96,12)の吊鉱下の開放帯からM(107,31,r20,-1)を利用して部位を攻める構想。",
+    "alternative": "P0からD04のみを破壊すると元の直線方向が開く。もう一つはF02外端C(121,76)へ転移し、固定吊金具F03の右側からマグネットアームへ射撃する。B(88,84)の中心線はF02/F03に遮られる。",
+    "anchors": [
+      {
+        "id": "A",
+        "surface": "floor0",
+        "x": 96,
+        "h": 12,
+        "role": "吊荷の下に空間を持つ坑底M射点"
+      },
+      {
+        "id": "B",
+        "surface": "075-COUNTERWEIGHT-BOOM",
+        "x": 88,
+        "h": 84,
+        "role": "内側で遮られる比較射点"
+      },
+      {
+        "id": "C",
+        "surface": "075-COUNTERWEIGHT-BOOM",
+        "x": 121,
+        "h": 76,
+        "role": "吊金具外側に抜ける先端射点"
+      }
+    ],
+    "budgetMeaning": "既存24行動を維持。徒歩、転移、命中、ボス部位へのダメージ、敵の反撃は49面設計承認後に検証。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "midboss:ore-shepherd",
+      "boss": false,
+      "midboss": true,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一の接続支持面で射線・遮蔽を比較する。足場の安全範囲から生成する。",
+    "teleport": "ボス固有戦を優先、汎用転移は今回適用しない提案。",
+    "evaluation": "粗い高さ・射線の比較",
+    "runtimeDestinations": null
+  },
+  "approval": {
+    "state": "pending",
+    "scope": "geometry-and-tactical-intent-only",
+    "runtimeVerification": "deferred-until-all-49-map-designs-approved"
+  },
+  "verification": {
+    "static": "stage_075_static_check_v2.json",
+    "rendering": "coordinate-derived-SVG-not-engine-screenshot",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "magnet": "not-tested",
+    "destruction": "not-tested",
+    "bossParts": "not-tested",
+    "enemyAI": "not-tested",
+    "combat": "not-tested"
+  },
+  "destructionRegister": [
+    {
+      "id": "075-INCLINED-CRANE-MAST",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-INCLINED-CRANE-MAST",
+          "label": "F01",
+          "poly": [
+            [
+              42,
+              41
+            ],
+            [
+              48,
+              37
+            ],
+            [
+              55,
+              53
+            ],
+            [
+              64,
+              69
+            ],
+            [
+              60,
+              73
+            ],
+            [
+              55,
+              68
+            ],
+            [
+              49,
+              58
+            ],
+            [
+              44,
+              48
+            ]
+          ]
+        }
+      ],
+      "purpose": "西側の斜面から立ち上がり、斜吊腕の根元を支持する固定マスト。"
+    },
+    {
+      "id": "075-COUNTERWEIGHT-BOOM",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-COUNTERWEIGHT-BOOM",
+          "label": "F02",
+          "poly": [
+            [
+              56,
+              71
+            ],
+            [
+              64,
+              78
+            ],
+            [
+              80,
+              84
+            ],
+            [
+              97,
+              84
+            ],
+            [
+              112,
+              79
+            ],
+            [
+              118,
+              76
+            ],
+            [
+              122,
+              76
+            ],
+            [
+              123,
+              73
+            ],
+            [
+              123,
+              69
+            ],
+            [
+              117,
+              70
+            ],
+            [
+              108,
+              73
+            ],
+            [
+              96,
+              78
+            ],
+            [
+              80,
+              78
+            ],
+            [
+              67,
+              72
+            ],
+            [
+              61,
+              67
+            ]
+          ]
+        }
+      ],
+      "purpose": "片持ちの細い工業吊腕。内側Bは自分の梁と固定ヨークで遮断され、外端Cからのみ部位方向が開く。"
+    },
+    {
+      "id": "075-FIXED-HOIST-YOKE",
+      "label": "F03",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-FIXED-HOIST-YOKE",
+          "label": "F03",
+          "poly": [
+            [
+              102,
+              77
+            ],
+            [
+              108,
+              75
+            ],
+            [
+              108,
+              56
+            ],
+            [
+              103,
+              56
+            ]
+          ]
+        }
+      ],
+      "purpose": "吊腕の下面に固定された吊金具。吊荷が壊れても残る非破壊構造材。"
+    },
+    {
+      "id": "075-HANGING-ORE@0",
+      "label": "D04",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-HANGING-ORE@0",
+          "label": "D04",
+          "poly": [
+            [
+              101,
+              56
+            ],
+            [
+              108,
+              56
+            ],
+            [
+              116,
+              50
+            ],
+            [
+              119,
+              43
+            ],
+            [
+              113,
+              38
+            ],
+            [
+              103,
+              36
+            ],
+            [
+              96,
+              33
+            ],
+            [
+              90,
+              28
+            ],
+            [
+              84,
+              25
+            ],
+            [
+              81,
+              28
+            ],
+            [
+              85,
+              36
+            ],
+            [
+              94,
+              47
+            ]
+          ]
+        }
+      ],
+      "purpose": "吊金具から斜め左へ垂れる独立破壊可能な非対称鉱石。P0射線を遮り、歩行して下を抜ける/壊すを選ばせる。"
+    }
+  ],
+  "blueprintCandidate": {
+    "stage": 75,
+    "name": "荷を吊る鉱底",
+    "nameEn": "Hoist Over the Open Cut",
+    "goal": "残した吊鉱の下の磁場経路、吊鉱を壊す近道、吊腕先端の外側射角を選択する。",
+    "goalEn": "Choose the underload magnet lane, breach the suspended ore, or shoot from the outboard hoist tip.",
+    "floor": [
+      [
+        0,
+        44
+      ],
+      [
+        12,
+        44
+      ],
+      [
+        24,
+        46
+      ],
+      [
+        33,
+        45
+      ],
+      [
+        42,
+        41
+      ],
+      [
+        51,
+        35
+      ],
+      [
+        60,
+        29
+      ],
+      [
+        69,
+        23
+      ],
+      [
+        78,
+        17
+      ],
+      [
+        87,
+        12
+      ],
+      [
+        97,
+        12
+      ],
+      [
+        106,
+        17
+      ],
+      [
+        116,
+        24
+      ],
+      [
+        126,
+        31
+      ],
+      [
+        136,
+        38
+      ],
+      [
+        145,
+        42
+      ],
+      [
+        154,
+        42
+      ]
+    ],
+    "parts": [
+      {
+        "id": "075-INCLINED-CRANE-MAST",
+        "kind": "wall",
+        "poly": [
+          [
+            42,
+            41
+          ],
+          [
+            48,
+            37
+          ],
+          [
+            55,
+            53
+          ],
+          [
+            64,
+            69
+          ],
+          [
+            60,
+            73
+          ],
+          [
+            55,
+            68
+          ],
+          [
+            49,
+            58
+          ],
+          [
+            44,
+            48
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-COUNTERWEIGHT-BOOM",
+        "kind": "island",
+        "poly": [
+          [
+            56,
+            71
+          ],
+          [
+            64,
+            78
+          ],
+          [
+            80,
+            84
+          ],
+          [
+            97,
+            84
+          ],
+          [
+            112,
+            79
+          ],
+          [
+            118,
+            76
+          ],
+          [
+            122,
+            76
+          ],
+          [
+            123,
+            73
+          ],
+          [
+            123,
+            69
+          ],
+          [
+            117,
+            70
+          ],
+          [
+            108,
+            73
+          ],
+          [
+            96,
+            78
+          ],
+          [
+            80,
+            78
+          ],
+          [
+            67,
+            72
+          ],
+          [
+            61,
+            67
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-FIXED-HOIST-YOKE",
+        "kind": "wall",
+        "poly": [
+          [
+            102,
+            77
+          ],
+          [
+            108,
+            75
+          ],
+          [
+            108,
+            56
+          ],
+          [
+            103,
+            56
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-HANGING-ORE@0",
+        "kind": "wall",
+        "poly": [
+          [
+            101,
+            56
+          ],
+          [
+            108,
+            56
+          ],
+          [
+            116,
+            50
+          ],
+          [
+            119,
+            43
+          ],
+          [
+            113,
+            38
+          ],
+          [
+            103,
+            36
+          ],
+          [
+            96,
+            33
+          ],
+          [
+            90,
+            28
+          ],
+          [
+            84,
+            25
+          ],
+          [
+            81,
+            28
+          ],
+          [
+            85,
+            36
+          ],
+          [
+            94,
+            47
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          107,
+          31,
+          20,
+          -1
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        70,
+        22.33333
+      ],
+      [
+        142,
+        40.66667
+      ]
+    ],
+    "worldWidth": 1540,
+    "recommended": "mogu",
+    "targets": [
+      {
+        "x": 138.6,
+        "h": 44.66667,
+        "name": "マグネットアーム",
+        "label": "部位1"
+      }
+    ],
+    "route": "A坑底M射撃とC吊腕先端の射撃、P0からD04破壊の三択。上部内側Bは部位方向を吊金具に阻まれる。",
+    "terrainRevision": "stage075-offset-hoist-orewindow-v2-design-pending"
+  },
+  "implementationNote": "Stage 75 geometry proposal only. No edits to game runtime, protected approved designs or stages 76+. The intact target x/h was shifted with enemy to preserve relative offset (-3.4,+4), but engine boss-part rendering and damage remain to verify."
+}
