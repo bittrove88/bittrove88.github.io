@@ -32,7 +32,7 @@
   const excluded=e=>e.target?.closest?.('#world,#stick,#aimStick,#fire,#mapCameraPan,input,select,textarea');
   function scrollParents(target){
    const rows=[];
-   for(let node=target;node&&node!==app;node=node.parentElement)if(node instanceof Element&&/auto|scroll/.test(getComputedStyle(node).overflowY)&&node.scrollHeight>node.clientHeight+1)rows.push(node);
+   for(let node=target;node&&node!==app;node=node.parentElement)if(node instanceof Element&&/auto|scroll/.test(getComputedStyle(node).overflowY)&&(node.scrollHeight>node.clientHeight+1||node.matches('.stock-scroll')))rows.push(node);
    return rows;
   }
   function preventTrailingClick(){

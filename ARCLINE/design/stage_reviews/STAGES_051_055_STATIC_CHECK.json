@@ -1,0 +1,199 @@
+{
+  "status": "PASS",
+  "sourceCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "scope": "Static geometry only. No projectile, teleport-input, combat, or device verification.",
+  "checks": [
+    "Before maps and protected enemy rules match live levels",
+    "Strict floor ordering and non-self-intersecting polygons",
+    "Exact spawns, named supports, body clearance, initial slopes <=4 degrees",
+    "130px and 60px planned short walks on stages 51/54",
+    "Capsule IDs/counts/turns preserved, centre and four 22px cardinal samples clear, old ballistic evidence removed"
+  ],
+  "stages": [
+    {
+      "stage": 51,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 0,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 200,
+          "y": 240,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 910,
+          "y": 360,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "ridge",
+          "x": 330,
+          "y": 210,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "lee",
+          "x": 650,
+          "y": 410,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0
+    },
+    {
+      "stage": 52,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 6,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 180,
+          "y": 370,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 980,
+          "y": 260,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "window",
+          "x": 410,
+          "y": 370,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "roof",
+          "x": 740,
+          "y": 70,
+          "surface": "052-CENTRE-ROCK:e1",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 1
+    },
+    {
+      "stage": 53,
+      "status": "PASS",
+      "floorSegments": 2,
+      "components": 3,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 250,
+          "y": 60,
+          "surface": "053-START-ISLAND:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1130,
+          "y": 230,
+          "surface": "floor1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "low",
+          "x": 570,
+          "y": 300,
+          "surface": "053-LOW-ISLAND:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "high",
+          "x": 820,
+          "y": -60,
+          "surface": "053-HIGH-ISLAND:e1",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0
+    },
+    {
+      "stage": 54,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 1,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 160,
+          "y": 180,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 900,
+          "y": 330,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "near",
+          "x": 220,
+          "y": 180,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "canopy",
+          "x": 660,
+          "y": 3.333333333333332,
+          "surface": "054-RETURN-CANOPY:e1",
+          "slopeDegrees": 25.017
+        }
+      ],
+      "pickups": 1
+    },
+    {
+      "stage": 55,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 4,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 180,
+          "y": 330,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 820,
+          "y": 100,
+          "surface": "055-TOWER-DECK:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "sensor",
+          "x": 480,
+          "y": 170,
+          "surface": "055-LEFT-PERCH:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "rear",
+          "x": 1140,
+          "y": 300,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0
+    }
+  ]
+}

@@ -1,0 +1,474 @@
+{
+  "schema": "arcline-individual-map-proposal-v2",
+  "stage": 54,
+  "date": "2026-11-05",
+  "status": "superseded-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_by_stage_map_design_policy_v1.md#14",
+  "provenance": "New individual concept and hand-authored coordinates; rejected 51-100 proposals and allocation not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        14
+      ],
+      [
+        29,
+        14
+      ],
+      [
+        43,
+        8
+      ],
+      [
+        61,
+        8
+      ],
+      [
+        77,
+        19
+      ],
+      [
+        100,
+        19
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          14
+        ],
+        [
+          29,
+          14
+        ],
+        [
+          43,
+          8
+        ],
+        [
+          61,
+          8
+        ],
+        [
+          77,
+          19
+        ],
+        [
+          100,
+          19
+        ]
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          38,
+          57,
+          6,
+          35
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          44,
+          70,
+          8
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 14.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 19.0
+    },
+    "pickups": [
+      {
+        "id": "SK054",
+        "kind": "skill",
+        "skillId": "S_LOW_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 43.901,
+        "h": 23.99,
+        "spawnTurn": 1,
+        "placementId": "L054:skill:S_LOW_GRAVITY",
+        "verification": {
+          "angle": 20,
+          "power": 90,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 1
+        }
+      }
+    ]
+  },
+  "after": {
+    "width": 1020,
+    "floor": [
+      [
+        0,
+        32
+      ],
+      [
+        8,
+        32
+      ],
+      [
+        24,
+        32
+      ],
+      [
+        29,
+        26
+      ],
+      [
+        36,
+        10
+      ],
+      [
+        40,
+        7
+      ],
+      [
+        62,
+        7
+      ],
+      [
+        73,
+        14
+      ],
+      [
+        81,
+        17
+      ],
+      [
+        97,
+        17
+      ],
+      [
+        102,
+        35
+      ]
+    ],
+    "parts": [
+      {
+        "id": "054-RETURN-CANOPY",
+        "kind": "roof",
+        "poly": [
+          [
+            52,
+            50
+          ],
+          [
+            61,
+            52
+          ],
+          [
+            76,
+            45
+          ],
+          [
+            84,
+            40
+          ],
+          [
+            84,
+            34
+          ],
+          [
+            76,
+            36
+          ],
+          [
+            52,
+            44
+          ]
+        ],
+        "purpose": "床からの弾を敵側へ返す傾斜天井。",
+        "breakable": false,
+        "reflectiveUnderside": [
+          [
+            52,
+            44
+          ],
+          [
+            76,
+            36
+          ],
+          [
+            84,
+            34
+          ]
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          40,
+          62,
+          7
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          44,
+          69,
+          15,
+          30
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 32
+    },
+    "enemy": {
+      "x": 90,
+      "h": 17
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "床→天井下面→敵の窪地",
+        "points": [
+          [
+            16,
+            35
+          ],
+          [
+            27,
+            39
+          ],
+          [
+            35,
+            28
+          ],
+          [
+            43,
+            7
+          ],
+          [
+            54,
+            26
+          ],
+          [
+            69,
+            38.33
+          ],
+          [
+            79,
+            31
+          ],
+          [
+            90,
+            20
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "天井の上を越えて落とす",
+        "points": [
+          [
+            16,
+            35
+          ],
+          [
+            42,
+            63
+          ],
+          [
+            70,
+            64
+          ],
+          [
+            86,
+            37
+          ],
+          [
+            90,
+            20
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      }
+    ],
+    "floors": [
+      [
+        [
+          0,
+          32
+        ],
+        [
+          8,
+          32
+        ],
+        [
+          24,
+          32
+        ],
+        [
+          29,
+          26
+        ],
+        [
+          36,
+          10
+        ],
+        [
+          40,
+          7
+        ],
+        [
+          62,
+          7
+        ],
+        [
+          73,
+          14
+        ],
+        [
+          81,
+          17
+        ],
+        [
+          97,
+          17
+        ],
+        [
+          102,
+          35
+        ]
+      ]
+    ],
+    "pickups": [
+      {
+        "id": "SK054",
+        "kind": "skill",
+        "skillId": "S_LOW_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 43,
+        "h": 12.8,
+        "spawnTurn": 1,
+        "placementId": "L054:skill:S_LOW_GRAVITY",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 22,
+        "h": 32,
+        "label": "A"
+      },
+      {
+        "x": 66,
+        "h": 49.667,
+        "label": "B"
+      }
+    ]
+  },
+  "summary": {
+    "concept": "床で跳ね上げた弾を天井下面で折り返し、奥の窪地へ送る。",
+    "terrain": "深い反射溝と傾いた反射天井",
+    "widthReason": "反射溝と天井を近くに置くため1020px。難しさを幅や移動距離ではなく、反射順と落下位置で作る。",
+    "neighborDifference": "53面の多支持面・転移中心から、短い一続きの床と二つの反射面へ。55面では連続反射を要求しない。"
+  },
+  "learningGoal": {
+    "source": "逆側の鏡床を使うか、追い風に乗せる弧で届かせる",
+    "proposed": "床で跳ね上げた弾を天井下面で折り返し、奥の窪地へ送る。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "低い反射床Wへ落とし、跳ね上がる弾を傾斜天井の下面で折り返す。風は反射後の上昇区間だけに作用する。",
+    "alternative": "大きな弧で天井の上を越え、右端と背後の崖の間へ落とす。反射回数を減らす代わりに着弾位置の精度が必要。屋根上の射点も候補として残す。実弾道は未検証。",
+    "anchors": [
+      {
+        "id": "near",
+        "x": 22,
+        "h": 32,
+        "surface": "floor0",
+        "role": "初期棚内の60px移動。"
+      },
+      {
+        "id": "canopy",
+        "x": 66,
+        "h": 49.667,
+        "surface": "054-RETURN-CANOPY",
+        "role": "屋根上の別解候補。斜面の角度補正が必要。"
+      }
+    ],
+    "setupActionsTarget": [
+      0,
+      1
+    ],
+    "totalActionsTarget": [
+      6,
+      11
+    ],
+    "budgetMeaning": "設計上の目標。クリア実績や保証ではない。歩行だけでなく窓破壊・転移と反撃を含めて実装時に確認する。",
+    "gimmick": "Wは実際の谷底の支持面。天井下面は0.23.0で導入済みのreflectiveUndersideを使用。54面のFは既存の右向き固定を維持。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:spike",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rico",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "中",
+      "照準": "高",
+      "敵の反撃": "中",
+      "位置移動": "低",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "床→天井が極細の一解になれば、鏡面の長さ・傾きを先に調整する。敵スパイクの高角射撃も天井で全遮断されないか確認する。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "combat": "not-run",
+    "teleportInputs": "not-run",
+    "humanPlay": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_055_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only. No campaign generator, runtime, gameplay, inventory placement source, saves or public deployment changed.",
+  "supersededBy": "stage_054_proposal_v2.json"
+}

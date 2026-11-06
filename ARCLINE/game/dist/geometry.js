@@ -1,6 +1,7 @@
 (function(root){
 'use strict';
 const EPS=1e-7,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const maxSlope=70*Math.PI/180,walkable=p=>!!p&&Math.abs(p.slope)<=maxSlope+EPS;
 const point=(x,h)=>({x:x*10,y:500-h*10});
 const cross=(a,b)=>a.x*b.y-a.y*b.x;
 function segment(a,b,c,d){
@@ -82,25 +83,50 @@ function world(spec,round=1,bossPhase=0,effects={}){
   if(k==='M'){const [x,h,r,dir]=v;regions.push({id,kind:k,...point(x,h),radius:r*10,direction:effects.polarity||dir,strength:spec.id===80?(effects.broken>=2?0:effects.broken===1?.5:1):1,on:true});}
   if(k==='T')terminals.push({id,...point(v[0],v[1]),radius:20});
  });
- return {solids,regions,waters,terminals,surfaces,...(spec.worldWidth?{width:spec.worldWidth}:{})};
+ return addSolidSurfaces({solids,regions,waters,terminals,surfaces,...(spec.worldWidth?{width:spec.worldWidth}:{})});
 }
+// Every projectile collider also has a supporting upper edge. Keep existing
+// authored surfaces and derive only missing ones (including boss attachments).
+function addSolidSurfaces(w){for(const o of w.solids){
+ if(w.surfaces.some(f=>f.id===o.id||f.solidId===o.id))continue;
+ for(let i=0;i<o.poly.length;i++){const a=o.poly[i],b=o.poly[(i+1)%o.poly.length];if(Math.abs(a.x-b.x)<EPS)continue;
+  const mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+  if(inside({x:mid.x,y:mid.y+.01},o.poly)&&!inside({x:mid.x,y:mid.y-.01},o.poly))w.surfaces.push({id:o.id+':e'+i,solidId:o.id,kind:o.kind,points:a.x<b.x?[a,b]:[b,a]});
+ }
+}return w;}
 function clipX(poly,x,greater){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],ia=greater?a.x>=x-EPS:a.x<=x+EPS,ib=greater?b.x>=x-EPS:b.x<=x+EPS;if(ia)out.push({...a});if(ia!==ib){const t=(x-a.x)/(b.x-a.x);out.push({x,y:a.y+(b.y-a.y)*t});}}return out;}
 function without(w,ids){const gone=new Set(ids);return {...w,solids:w.solids.filter(o=>!gone.has(o.id)&&!gone.has(o.solidId)),surfaces:w.surfaces.filter(f=>!gone.has(f.solidId||f.id))};}
+function segmentKey(f,x){const e=surfaceEdge(f,x);return f.id+':'+e[0].x+':'+e[1].x;}
 function fallLanding(w,x,startY,other=null,range=[35,(w.width||1000)-35]){
- if(x<range[0]||x>range[1])return null;
- const ys=w.surfaces.map(f=>floorY(f.points,x)).filter(y=>y!==null&&y>=startY-2).sort((a,b)=>a-b);
- for(const y of ys){const p=support(w,x,y),separation=other?.hitShape?Math.max(100,other.hitShape.rx+28):100;if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(x-other.x,y-other.y)>separation))return p;}
+ const route=[],seen=new Set();
+ for(let step=0;step<64;step++){
+  if(x<range[0]||x>range[1])return null;
+  const candidates=w.surfaces.map(f=>({f,y:floorY(f.points,x)})).filter(c=>c.y!==null&&c.y>=startY-2&&!seen.has(segmentKey(c.f,x))).sort((a,b)=>a.y-b.y);
+  let sliding=false;
+  for(const {f,y} of candidates){const p=support(w,x,y,f),separation=other?.hitShape?Math.max(100,other.hitShape.rx+28):100;
+   if(!p||!clearBody(w,p))continue;
+   if(other&&Math.hypot(x-other.x,p.y-other.y)<=separation)return null;
+   if(walkable(p))return route.length?{...p,slidePath:[...route,p]}:p;
+   const edge=surfaceEdge(f,x),end=p.slope>0?edge[1]:edge[0],dir=Math.sign(p.slope);
+   // Follow the face to its lower end, then fall onto the next real surface.
+   const endX=clamp(end.x,range[0],range[1]),endY=floorY(edge,endX),endPad={x:endX,y:endY,slope:p.slope};
+   const length=Math.hypot(endX-x,endY-p.y),samples=Math.ceil(length/8);
+   for(let n=1;n<samples;n++){const t=n/samples;if(length*(1-t)<32)break;const q={x:x+(endX-x)*t,y:p.y+(endY-p.y)*t,slope:p.slope};if(!clearBody(w,q)||other&&Math.hypot(q.x-other.x,q.y-other.y)<=separation)return null;}
+   route.push(p,endPad);seen.add(segmentKey(f,x));x=endX+dir*28;startY=endY;sliding=true;break;
+  }
+  if(!sliding)return null;
+ }
  return null;
 }
 function teleportLanding(w,hit,other,range=[35,(w.width||1000)-35]){
  if(!hit||!Number.isFinite(hit.x+hit.y))return null;
  const nx=Number(hit.nx)||0,ny=Number(hit.ny)||0;
- const top=ny<-.4,wall=Math.abs(nx)>.4&&Math.abs(ny)<.7,dir=Math.sign(nx)||1;
+ const top=ny<-EPS,wall=!top&&Math.abs(nx)>.4&&Math.abs(ny)<.7,dir=Math.sign(nx)||1;
  // Search adjacent safe columns; side contacts fall from their contact height.
  // A top contact only requires the actual body's45px headroom.
  const offsets=top?[0,-6,6,-12,12,-20,20,-32,32,-48,48,-64,64]:wall?[37,45,57,73,97].map(n=>dir*(hit.unit!==undefined?n+50:n)):[0,-8,8,-20,20,-36,36,-56,56];
  for(const offset of offsets){
-  const entry={x:clamp(hit.x+offset,range[0],range[1]),y:hit.y+(top?0:ny>.4?50:24)};
+  const entry={x:clamp(hit.x+offset,range[0],range[1]),y:hit.y+(top?0:ny>.4?50:24),slope:top?Math.atan2(nx,-ny):0};
   if(!clearBody(w,entry))continue;
   if(wall&&!lineClear(w,{x:hit.x+nx*.6,y:hit.y},{x:entry.x,y:hit.y}))continue;
   const landing=fallLanding(w,entry.x,entry.y,other,range);
@@ -108,12 +134,27 @@ function teleportLanding(w,hit,other,range=[35,(w.width||1000)-35]){
  }return null;
 }
 function surfaceAt(w,x,near=400,maxDifference=Infinity){let best=null;for(const f of w.surfaces){const y=floorY(f.points,x);if(y!==null&&Math.abs(y-near)<=maxDifference&&(!best||Math.abs(y-near)<Math.abs(best.y-near)))best={x,y,id:f.id};}return best;}
-function support(w,x,y){const a=surfaceAt(w,x-20,y,24),b=surfaceAt(w,x+20,y,24);if(!a||!b)return null;return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:a.id};}
-function clearBody(w,p){const points=[{x:p.x,y:p.y-24},{x:p.x-22,y:p.y-20},{x:p.x+22,y:p.y-20},{x:p.x,y:p.y-45}];return !w.waters.some(r=>p.x>=r.x1&&p.x<=r.x2&&p.y>r.y-2)&&!w.solids.some(o=>points.some(q=>inside(q,o.poly)));}
+function surfaceEdge(f,x){for(let i=1;i<f.points.length;i++)if(x<=f.points[i].x+EPS&&f.points[i].x>f.points[i-1].x)return [f.points[i-1],f.points[i]];return f.points.slice(-2);}
+function support(w,x,y,surface=null){
+ const nearest=surface?null:surfaceAt(w,x,y,20*Math.tan(maxSlope)+2),f=surface||nearest&&w.surfaces.find(f=>f.id===nearest.id);if(!f)return null;
+ const edge=surfaceEdge(f,x),slope=Math.atan2(edge[1].y-edge[0].y,edge[1].x-edge[0].x);
+ // Preserve the gentle-terrain chassis interpolation; steep faces need a
+ // tangent at the actual contact, not two samples capped at 24px of height.
+ if(Math.abs(slope)<=35*Math.PI/180){const a=surfaceAt(w,x-20,y,24),b=surfaceAt(w,x+20,y,24);if(a&&b&&Math.abs(a.y-b.y)<=40*Math.tan(35*Math.PI/180))return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:a.id};}
+ if(Math.abs(slope)<=maxSlope+EPS){
+  // At the foot/crest, let the chassis bridge connected terrain instead of
+  // hitting the slope as an upright body. Never connect across a real gap.
+  const connected=w.surfaces.filter(n=>n===f||n.points.some(a=>f.points.some(b=>Math.hypot(a.x-b.x,a.y-b.y)<EPS)));
+  const sample=xx=>surfaceAt({...w,surfaces:connected},xx,y,20*Math.tan(maxSlope)+2),a=sample(x-20),b=sample(x+20);
+  if(a&&b)return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:f.id};
+ }
+ return {x,y:floorY(f.points,x),slope,surface:f.id};
+}
+function clearBody(w,p){const a=Math.abs(p.slope||0)>35*Math.PI/180?p.slope:0,c=Math.cos(a),s=Math.sin(a),points=[[0,-24],[-22,-20],[22,-20],[0,-45]].map(([x,y])=>({x:p.x+x*c-y*s,y:p.y+x*s+y*c}));return !w.waters.some(r=>p.x>=r.x1&&p.x<=r.x2&&p.y>r.y-2)&&!w.solids.some(o=>points.some(q=>inside(q,o.poly)));}
 function safePosition(w,x,y,other=null,range=[35,(w.width||1000)-35]){
  for(const dx of [0,-5,5,-12,12,-24,24,-40,40,-70,70,-100,100]){
   const xx=clamp(x+dx,range[0],range[1]),f=surfaceAt(w,xx,y);if(!f)continue;const p=support(w,xx,f.y);
-  if(p&&Math.abs(p.slope)<=35*Math.PI/180&&clearBody(w,p)&&(!other||Math.hypot(xx-other.x,p.y-other.y)>100))return p;
+  if(walkable(p)&&clearBody(w,p)&&(!other||Math.hypot(xx-other.x,p.y-other.y)>100))return p;
  }return null;
 }
 function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t-EPS||Math.abs(h.t-best.t)<=EPS&&o.kind==='reflector'&&['floor','bedrock'].includes(best.solid.kind)))best={...h,solid:o};}}return best;}
@@ -121,7 +162,9 @@ function lineClear(w,a,b){const h=sweep(w,a,b);return !h||h.t>.98;}
 function move(s,side,amount){
  const u=s.units[side];if(!Number.isFinite(amount)||s.result)return 0;let remaining=clamp(amount,-1000,1000),moved=0;
  while(Math.abs(remaining)>.01){const dx=clamp(remaining,-2,2),x=clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-u.x)<.01)break;
-  const f=surfaceAt(s.world,x,u.y,24),p=f&&support(s.world,x,f.y);if(!p||Math.abs(p.y-u.y)>7||Math.abs(p.slope)>35*Math.PI/180||!clearBody(s.world,p)||Math.abs(x-s.units[1-side].x)<100)break;
+  const f=surfaceAt(s.world,x,u.y,20*Math.tan(maxSlope)+9),p=f&&support(s.world,x,f.y);if(!p||!clearBody(s.world,p)||Math.hypot(x-s.units[1-side].x,p.y-s.units[1-side].y)<100)break;
+  if(!walkable(p)){const pad=fallLanding(s.world,x,p.y,s.units[1-side],u.range);if(pad){const from={x:u.x,y:u.y,slope:u.slope};Object.assign(u,pad);delete u.slidePath;u.animation={from,path:pad.slidePath,age:0,duration:.7,lift:0,fall:true};moved+=x-from.x;}break;}
+  if(Math.abs(p.y-u.y)>7)break;
   const d=x-u.x;Object.assign(u,p);moved+=d;remaining-=d;
  }if(moved)u.facing=moved>0?1:-1;return moved;
 }
@@ -129,5 +172,5 @@ function actorPoint(s,side,x,y){const u=s.units[side],dir=u.facing||(s.units[1-s
 function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}
 function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1),theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
  const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
-const api={clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
+const api={maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
 })(globalThis);

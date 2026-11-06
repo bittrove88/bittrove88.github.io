@@ -1,12 +1,12 @@
 (function(root){
 'use strict';
-const E=root.ArcEngine,G=E.geometry;
+const E=root.ArcEngine,G=E.geometry,ChargeCamera=root.ArcChargeCamera;
 function create(canvas,configuration={}){
  if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const unified=!!root.ArcVisualArt&&configuration.artStyle!=='legacy';
  let arenaWidth=1000;
  const isArenaPickup=item=>!item.collected&&!item.hidden&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
- const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
+ const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},normalView={...view},chargeZoom=0,lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
  function canvasRect(element){
   if(!element)return null;
   const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;
@@ -60,7 +60,7 @@ function create(canvas,configuration={}){
   return aimCache.plan;
  }
  function aimEnvelope(s){
-  // Reserve the charge envelope before the finger lands. Holding power never zooms the scene.
+  // Reserve the unzoomed frame before the finger lands; charge zoom is a separate bounded display transform.
   const key=aimKey(s);
   if(!frameCache||frameCache.key!==key||frameCache.world!==s.world){
    const points=[20,65,100].flatMap(power=>E.trajectory(s,0,s.angle,power).bullets.flatMap(b=>b.path));
@@ -233,7 +233,8 @@ function create(canvas,configuration={}){
   const target={scale:scaleTarget,x:constrainX(fieldW*.5-(phoneLandscape?(criticalMin+criticalMax):(minX+maxX))*.5*scaleTarget,scaleTarget),y:offsetY};
   if(phoneLandscape&&(baseline.maxY-baseline.minY)*scaleTarget>bottom-top){target.y=(top+bottom)/2-(s.units[0].y-22)*scaleTarget;}
   const nextKey=[s.stage,lobby,w,h,localDemo?'preview':'battle'].join(':');
-  if(cameraKey!==nextKey||options.reducedMotion)view=target;
+  const newScene=cameraKey!==nextKey;view=normalView;if(newScene)chargeZoom=0;
+  if(newScene||options.reducedMotion)view=target;
   else{const dt=Math.max(1/120,Math.min(.05,time-lastCameraTime||1/60)),k=1-Math.exp(-dt*(shot?5:phoneLandscape?6:10));view={scale:view.scale+(target.scale-view.scale)*k,x:view.x+(target.x-view.x)*k,y:!localDemo&&(options.shot||options.tail?.age<.55)?view.y:view.y+(target.y-view.y)*k};}
   if(options.cameraLock&&!options.chargeWalking){view={scale:options.cameraLock.scale,x:options.cameraLock.x,y:options.cameraLock.y};if(phoneLandscape){view.scale=Math.min(view.scale,criticalScale,Math.max(.52,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY)));if((baseline.maxY-baseline.minY)*view.scale>bottom-top)view.y=(top+bottom)/2-(s.units[0].y-22)*view.scale;view.x=constrainX(view.x,view.scale);if((baseline.maxY-baseline.minY)*view.scale<=bottom-top)view.y=Math.max(top-baseline.minY*view.scale,Math.min(bottom-baseline.maxY*view.scale,view.y));}}
   else{view.scale=Math.min(view.scale,criticalScale);view.x=constrainX(view.x,view.scale);}
@@ -245,6 +246,14 @@ function create(canvas,configuration={}){
   // Inspection owns only the display transform; physics and aiming stay in world coordinates.
   if(options.encounter?.boss&&!lobby&&!localDemo&&!options.reducedMotion&&root.ArcExperience)view=root.ArcExperience.bossView(target,s,options.encounter.age,{width:fieldW,top,bottom});
   if(options.cameraView)view={...options.cameraView};
+  // Retain the normal camera separately so repeated charges cannot accumulate
+  // zoom. Recovery after release/cancel uses the same bounded display amount.
+  normalView={...view};
+  if(!lobby&&!localDemo&&!options.cameraView){
+   const engaged=options.charging&&options.chargeCamera&&ChargeCamera.latch(options.chargeCamera,{muzzle:G.muzzle(s,0,s.angle),power:s.power,weapon:E.weapon(s),gravityFactor:s.skillEffects?.gravity?.factor||1,view:normalView,ceiling:Math.max(top,header?.bottom||0)});
+   chargeZoom=ChargeCamera.advance(chargeZoom,!!engaged,Math.max(0,time-lastCameraTime),options.reducedMotion);
+   const player=s.units[0],pivot={x:normalView.x+player.x*normalView.scale,y:normalView.y+player.y*normalView.scale};view=ChargeCamera.apply(normalView,pivot,chargeZoom);
+  }else chargeZoom=0;
   lastCameraTime=time;cameraKey=nextKey;const scale=view.scale;
   if(phoneLandscape){
    const enemyY=view.y+(s.units[1].y-(s.spec.boss?77:22))*view.scale;document.getElementById('battle').dataset.enemyDirection=enemyY<top?'above':enemyY>bottom?'below':'visible';
@@ -291,8 +300,9 @@ function create(canvas,configuration={}){
    }
    if(o.kind==='roof'&&[35,65].includes(s.stage))for(const x of [o.poly[0].x+10,o.poly[1].x-10])path([{x,y:o.poly[0].y+15},{x,y:520}],biome.edge+'75',5);
   }
+  const fieldBounds={left:-view.x/scale,right:(fieldW-view.x)/scale,top:(Math.max(top,header?.bottom||0)+3-view.y)/scale,bottom:(Math.min(bottom,controls?.top||h)-3-view.y)/scale},specialHud=canvasRect(document.getElementById('specialHUD')),fieldLabels=[],fieldAvoid=specialHud?[{left:(specialHud.left-view.x)/scale,right:(specialHud.right-view.x)/scale,top:(specialHud.top-view.y)/scale,bottom:(specialHud.bottom-view.y)/scale}]:[],fieldOptions={dpr,bounds:fieldBounds,avoid:fieldAvoid,labels:fieldLabels};
   for(const r of world.regions){
-   if(unified){root.ArcVisualArt.drawRegion(ctx,r,{time,dpr,reducedMotion:options.reducedMotion});continue;}
+   if(root.ArcVisualArt){root.ArcVisualArt.drawRegion(ctx,r,{...fieldOptions,time,reducedMotion:options.reducedMotion,deferBadge:true});continue;}
    if(r.kind==='M'){
     const active=r.on!==false&&(r.strength??1)>0;
     circle(r.x,r.y,r.radius,active?'#b1a4ff16':'#8790a00d',active?'#d9bdff88':'#a4afb333');
@@ -318,7 +328,9 @@ function create(canvas,configuration={}){
    ctx.restore();
    if(r.kind==='V'){path([{x:r.x1+4,y:r.y2},{x:r.x2-4,y:r.y2}],active?'#ffdbac':'#7c848d',5/scale);for(let x=r.x1+10;x<r.x2-6;x+=15)path([{x,y:r.y2-4/scale},{x:x+4,y:r.y2+4/scale}],'#365366',2/scale);}
   }
-  for(const t of world.terminals){if(unified){root.ArcVisualArt.drawTerminal(ctx,t,s,{dpr});continue;}circle(t.x,t.y,20,'#183d56','#e5c3ff');ctx.fillStyle='#e9ceff';ctx.font='22px system-ui';ctx.textAlign='center';ctx.fillText('↻',t.x,t.y+7);if(s.effects.pendingPolarity)path([{x:t.x,y:t.y},{x:t.x+35,y:t.y-35}],'#f6c9ff',3,[4,4]);}
+  for(const t of world.terminals){if(root.ArcVisualArt){root.ArcVisualArt.drawTerminal(ctx,t,s,fieldOptions);continue;}circle(t.x,t.y,20,'#183d56','#e5c3ff');ctx.fillStyle='#e9ceff';ctx.font='22px system-ui';ctx.textAlign='center';ctx.fillText('↻',t.x,t.y+7);if(s.effects.pendingPolarity)path([{x:t.x,y:t.y},{x:t.x+35,y:t.y-35}],'#f6c9ff',3,[4,4]);}
+  if(root.ArcVisualArt)for(const r of world.regions)root.ArcVisualArt.drawRegion(ctx,r,{...fieldOptions,labelOnly:true});
+  if(s.skillEffects?.gravity&&root.ArcVisualArt){const g=s.skillEffects.gravity,english=root.ArcI18n?.language==='en';root.ArcVisualArt.fieldBadge(ctx,s.units[0].x,s.units[0].y-100/scale,(english?'GRAVITY':'重力')+' ×'+g.factor+' '+(g.factor<1?'↑':'↓')+' · '+g.turns+(english?' turns':'ターン'),g.factor<1?'#86e7ff':'#ffbd8c',fieldOptions);}
   if(demonstration?.focus){const focus=demonstration.focus,radius=focus.radius||85,glow=ctx.createRadialGradient(focus.x,focus.y,0,focus.x,focus.y,radius);glow.addColorStop(0,'#f5ffc415');glow.addColorStop(1,'#f5ffc400');circle(focus.x,focus.y,radius,glow);}
   if(!lobby&&!localDemo&&s.telegraph){
    const t=s.telegraph,y=G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y;
@@ -368,7 +380,7 @@ function create(canvas,configuration={}){
     }
    }
   }
-  display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t);return {...u,x:a.from.x+(u.x-a.from.x)*ease,y:a.from.y+(u.y-a.from.y)*ease-Math.sin(t*Math.PI)*a.lift};})};
+  display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t),path=[a.from,...(a.path||[]),u],lengths=path.slice(1).map((p,i)=>Math.hypot(p.x-path[i].x,p.y-path[i].y));let distance=lengths.reduce((v,n)=>v+n,0)*ease,index=0;while(index<lengths.length-1&&distance>lengths[index])distance-=lengths[index++];const from=path[index],to=path[index+1],mix=lengths[index]?Math.min(1,distance/lengths[index]):1;return {...u,x:from.x+(to.x-from.x)*mix,y:from.y+(to.y-from.y)*mix-Math.sin(t*Math.PI)*(a.lift||0),slope:(from.slope||0)+((to.slope||0)-(from.slope||0))*mix};})};
   if(!lobby){for(let side=0;side<2;side++){const u=display.units[side];if(!showsUnit(u,side))continue;ctx.save();ctx.globalAlpha=.38;ctx.strokeStyle=side?'#ffb58f':'#dfffbd';ctx.lineWidth=2/scale;ctx.beginPath();ctx.ellipse(u.x,u.y+5,42,12,0,0,Math.PI*2);ctx.stroke();ctx.restore();}}
   if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,localDemo?.8:1,options);}
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
@@ -458,7 +470,7 @@ function create(canvas,configuration={}){
   for(const effect of options.pickupEffects||[]){const t=Math.min(1,effect.age/.8),ease=t*t*(3-2*t),target=canvasRect(document.getElementById(effect.id[0]==='W'?'weaponToggle':'pause')),x=view.x+effect.x*view.scale,y=view.y+effect.y*view.scale;ctx.globalAlpha=1-t;circle(x+(target.x+target.width/2-x)*ease,y+(target.y+target.height/2-y)*ease-Math.sin(t*Math.PI)*30,9,'#f2ffb4','#ffffff');ctx.globalAlpha=1;}
  }
  function toWorld(x,y){const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;if(viewport&&app){const p=viewport.point(x,y,app),c=viewport.rect(canvas,app);return {x:(p.x-c.x-view.x)/view.scale,y:(p.y-c.y-view.y)/view.scale};}const r=canvas.getBoundingClientRect();return {x:((x-r.left)*canvas.clientWidth/r.width-view.x)/view.scale,y:((y-r.top)*canvas.clientHeight/r.height-view.y)/view.scale};}
- return {draw,toWorld,resetCamera(){cameraKey='';lastCameraTime=0;},get view(){return {...view};}};
+ return {draw,toWorld,resetCamera(){cameraKey='';lastCameraTime=0;chargeZoom=0;},get normalView(){return {...normalView};},get view(){return {...view};}};
 }
 root.ArcRender={create};
 })(globalThis);

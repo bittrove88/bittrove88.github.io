@@ -3,7 +3,11 @@
 const G=typeof module!=='undefined'?require('./geometry.js'):root.ArcGeometry;
 const W=typeof module!=='undefined'?require('./weapons.js'):root.ArcWeapons;
 const DT=1/90,GRAVITY=300;
+function launchSpeed(power,weapon){return G.clamp(power,20,100)*6.7*weapon.speed;}
 function inRegion(p,r){return r.kind==='M'?Math.hypot(p.x-r.x,p.y-r.y)<r.radius:p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2;}
+// Keep established gentle-ground targeting, and rotate the contact center with
+// the chassis on the newly supported steep faces.
+function bodyCenter(s,j,useShape=false){const u=s.units[j],h=j===1&&useShape?u.hitShape:null;return Math.abs(u.slope||0)>35*Math.PI/180?G.actorPoint(s,j,h?.x||0,h?.y??-22):{x:u.x,y:u.y+(h?.y??-22)};}
 function hitTargets(s,side,a,b,age,weapon){
  let best=null;
  function test(c,r,kind,unit,part=-1){const t=G.circle(a,b,c,r);if(t!==null&&(!best||t<best.t))best={t,x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,kind,unit,part};}
@@ -19,7 +23,7 @@ function hitTargets(s,side,a,b,age,weapon){
    const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy)||1,reach=Math.max(h.rx,h.ry)*4,ray={x:a.x+dx/length*reach,y:a.y+dy/length*reach};
    const aperture=parts.some(p=>p.hp>0&&G.circle(a,ray,{x:u.x+p.dx,y:u.y+p.dy},p.radius)!==null)||(!s.spec.midboss||broken||exposed)&&G.circle(a,ray,G.actorPoint(s,j,core.x,core.y),exposed?core.exposedRadius:core.radius+(broken?3:0))!==null;
    if(t!==null&&!aperture&&(!best||t<best.t))best={t,x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,kind:'body',unit:j,part:-1};
-  }else {const before=best;test({x:u.x,y:u.y-22},weapon.needle?25:31,'body',j);if(best!==before&&best?.unit===j&&side===0&&j===1&&!weapon.teleport&&(weapon.criticalMultiplier??1.5)>1){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy),cx=u.x-a.x,cy=u.y-22-a.y;best.critical=len>0&&Math.abs(cx*dy-cy*dx)/len<=15&&(cx*dx+cy*dy)>=0;}}
+  }else {const before=best,center=bodyCenter(s,j);test(center,weapon.needle?25:31,'body',j);if(best!==before&&best?.unit===j&&side===0&&j===1&&!weapon.teleport&&(weapon.criticalMultiplier??1.5)>1){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy),cx=center.x-a.x,cy=center.y-a.y;best.critical=len>0&&Math.abs(cx*dy-cy*dx)/len<=15&&(cx*dx+cy*dy)>=0;}}
 
  }
  return best;
@@ -47,7 +51,7 @@ function simulate(s,side,angle,power,options={}){
  const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
  const damageBudget=weapon.damage;
  const newBullet=(offset=0,delay=0,budget=damageBudget,primary=true,source=origin,powerValue=power)=>{
-  delay+=startDelay;const a=source.theta+offset*Math.PI/180,v=G.clamp(powerValue,20,100)*6.7*weapon.speed;
+  delay+=startDelay;const a=source.theta+offset*Math.PI/180,v=launchSpeed(powerValue,weapon);
   return {id:bulletId++,x:source.x,y:source.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:delay,start:delay,age:0,budget,primary,path:[{x:source.x,y:source.y,t:delay}],forceEntries:new Set(),initialBounces:0,clouds:new Set(),magnetTime:{},bounces:0,solidBounces:0,phaseRemaining:Math.max(weapon.phase||0,skill==='PHASE'?60:0),phaseUsed:false,phaseSolid:null,phaseExit:false,solidSkip:null,splitDone:false,archerDone:false,roll:0,rollDistance:0,...(weapon.resumeRoll?{rollElapsed:0}:{})};
  };
  const queue=[];
@@ -57,7 +61,7 @@ function simulate(s,side,angle,power,options={}){
  else if(weapon.twin){queue.push(newBullet(-3,0,weapon.childDamage??damageBudget/2));queue.push(newBullet(3,.25,weapon.childDamage??damageBudget/2,false));}
  else queue.push(newBullet());
  if(curve)events.push({type:'curve',x:origin.x,y:origin.y,t:startDelay,bullet:0});
- const centerOf=j=>({x:units[j].x,y:units[j].y+(j===1&&units[j].hitShape?units[j].hitShape.y:-22)});
+ const centerOf=j=>bodyCenter({...s,units},j,true);
  function clearTo(point,target,solidId=null){const h=G.sweep(simWorld,point,target);return !h||h.t>.98||solidId&&h.solid.id===solidId;}
  function forward(point,target){const dx=(target.x-point.x)*(origin.dir||Math.sign(Math.cos(origin.theta))||1),dy=target.y-point.y;return dx>=-1e-7&&Math.hypot(dx,dy)<=weapon.coneLength&&Math.abs(Math.atan2(dy,Math.max(0,dx)))<=weapon.coneAngle*Math.PI/180;}
  function breakPieces(p,contact,blast){
@@ -195,7 +199,7 @@ function simulate(s,side,angle,power,options={}){
      }
     }
    }
-   if(weapon.airburst){const u=units[1-side],center=weapon.special?centerOf(1-side):{x:u.x,y:u.y-22};if(Math.hypot(p.x-center.x,p.y-center.y)<(weapon.proximity||80)&&G.lineClear(simWorld,p,center)){explode(p,{unit:1-side,kind:'airburst'});ended=true;break;}}
+   if(weapon.airburst){const u=units[1-side],center=weapon.special?centerOf(1-side):bodyCenter({...s,units},1-side);if(Math.hypot(p.x-center.x,p.y-center.y)<(weapon.proximity||80)&&G.lineClear(simWorld,p,center)){explode(p,{unit:1-side,kind:'airburst'});ended=true;break;}}
   }
   if(!ended)queue.push(p);
  }
@@ -211,7 +215,7 @@ function simulate(s,side,angle,power,options={}){
  }else if(weapon.damageCap)for(const id of Object.keys(partDamage))partDamage[id]=Math.min(cap,partDamage[id]);
  const duration=Math.max(...bullets.map(b=>b.t),.01);
  events.sort((a,b)=>a.t-b.t);
- return {playerTarget:{x:s.units[0].x,y:s.units[0].y-22,radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
+ return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
-const api={simulate,inRegion,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
+const api={simulate,inRegion,launchSpeed,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
 })(globalThis);

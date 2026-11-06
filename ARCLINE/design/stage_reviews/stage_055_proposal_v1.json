@@ -1,0 +1,528 @@
+{
+  "schema": "arcline-individual-map-proposal-v2",
+  "stage": 55,
+  "date": "2026-11-05",
+  "status": "superseded-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_by_stage_map_design_policy_v1.md#14",
+  "provenance": "New individual concept and hand-authored coordinates; rejected 51-100 proposals and allocation not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        32,
+        18
+      ],
+      [
+        47,
+        11
+      ],
+      [
+        63,
+        11
+      ],
+      [
+        77,
+        22
+      ],
+      [
+        100,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          32,
+          18
+        ],
+        [
+          47,
+          11
+        ],
+        [
+          63,
+          11
+        ],
+        [
+          77,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "055-C01",
+        "kind": "roof",
+        "poly": [
+          [
+            46,
+            34
+          ],
+          [
+            59,
+            34
+          ],
+          [
+            59,
+            31
+          ],
+          [
+            46,
+            31
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          37,
+          58,
+          4,
+          36
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 18.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 22.0
+    },
+    "pickups": [],
+    "targets": [
+      {
+        "x": 84.2,
+        "h": 29.9,
+        "label": "センサー"
+      }
+    ]
+  },
+  "after": {
+    "width": 1380,
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        12,
+        17
+      ],
+      [
+        24,
+        17
+      ],
+      [
+        34,
+        14
+      ],
+      [
+        45,
+        10
+      ],
+      [
+        57,
+        8
+      ],
+      [
+        86,
+        8
+      ],
+      [
+        99,
+        12
+      ],
+      [
+        108,
+        20
+      ],
+      [
+        119,
+        20
+      ],
+      [
+        130,
+        24
+      ],
+      [
+        138,
+        24
+      ]
+    ],
+    "parts": [
+      {
+        "id": "055-LEFT-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            38,
+            28
+          ],
+          [
+            43,
+            33
+          ],
+          [
+            53,
+            33
+          ],
+          [
+            57,
+            29
+          ],
+          [
+            51,
+            25
+          ],
+          [
+            43,
+            25
+          ]
+        ],
+        "purpose": "センサーの高さへ近づく左の狙撃棚。",
+        "breakable": false
+      },
+      {
+        "id": "055-TOWER-DECK",
+        "kind": "island",
+        "poly": [
+          [
+            61,
+            35
+          ],
+          [
+            65,
+            40
+          ],
+          [
+            94,
+            40
+          ],
+          [
+            98,
+            36
+          ],
+          [
+            98,
+            32
+          ],
+          [
+            64,
+            32
+          ]
+        ],
+        "purpose": "中央支柱に載るボスの観測甲板。",
+        "breakable": false
+      },
+      {
+        "id": "055-TOWER-PIER",
+        "kind": "wall",
+        "poly": [
+          [
+            72,
+            8
+          ],
+          [
+            80,
+            8
+          ],
+          [
+            80,
+            32
+          ],
+          [
+            72,
+            32
+          ]
+        ],
+        "purpose": "地面と甲板を接続する固定支柱。",
+        "breakable": false
+      },
+      {
+        "id": "055-REAR-ROCK",
+        "kind": "roof",
+        "poly": [
+          [
+            106,
+            44
+          ],
+          [
+            115,
+            46
+          ],
+          [
+            126,
+            43
+          ],
+          [
+            138,
+            42
+          ],
+          [
+            138,
+            33
+          ],
+          [
+            113,
+            32
+          ],
+          [
+            106,
+            33
+          ]
+        ],
+        "purpose": "右岸の待機棚を覆う岩庇。ARCへの完全防御ではない。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          54,
+          73,
+          40,
+          61
+        ]
+      }
+    ],
+    "player": {
+      "x": 18,
+      "h": 17
+    },
+    "enemy": {
+      "x": 82,
+      "h": 40
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "左の棚から上部センサーへ",
+        "points": [
+          [
+            48,
+            36
+          ],
+          [
+            59,
+            55
+          ],
+          [
+            73,
+            56
+          ],
+          [
+            84,
+            48
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "右の風陰から本体へ",
+        "points": [
+          [
+            114,
+            23
+          ],
+          [
+            106,
+            29
+          ],
+          [
+            101,
+            34
+          ],
+          [
+            96,
+            43
+          ],
+          [
+            82,
+            43
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      }
+    ],
+    "floors": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          12,
+          17
+        ],
+        [
+          24,
+          17
+        ],
+        [
+          34,
+          14
+        ],
+        [
+          45,
+          10
+        ],
+        [
+          57,
+          8
+        ],
+        [
+          86,
+          8
+        ],
+        [
+          99,
+          12
+        ],
+        [
+          108,
+          20
+        ],
+        [
+          119,
+          20
+        ],
+        [
+          130,
+          24
+        ],
+        [
+          138,
+          24
+        ]
+      ]
+    ],
+    "pickups": [],
+    "firingPoints": [
+      {
+        "x": 48,
+        "h": 33,
+        "label": "A"
+      },
+      {
+        "x": 114,
+        "h": 20,
+        "label": "B"
+      }
+    ],
+    "targets": [
+      {
+        "x": 84.2,
+        "h": 47.9,
+        "label": "センサー"
+      }
+    ]
+  },
+  "summary": {
+    "concept": "観測センサーを先に狙う正面攻略と、右の風陰から本体を崩す回り込みを選ぶ。",
+    "terrain": "中央支柱の観測塔・左の狙撃棚・右の岩庇",
+    "widthReason": "左の攻撃棚・中央の観測塔・右の待機棚を別領域にする1380px。右へ歩き続ける設計にはせず転移で回り込む。",
+    "neighborDifference": "51の風読み・52の攻撃経路準備・53の転移判断を、部位優先と回り込みに統合する中ボス。54の反射パズルは重ねない。56面の現行開閉橋とも区別。"
+  },
+  "learningGoal": {
+    "source": "観測器を止める順と、風の外で待つ場所を決める",
+    "proposed": "観測センサーを先に狙う正面攻略と、右の風陰から本体を崩す回り込みを選ぶ。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "左の棚へ転移し、風域を横切る曲射で高い観測センサーを先に狙う。攻撃を弱めた後に本体へ切り替える。",
+    "alternative": "右の岩庇下へ回り込み、風を避けて本体へ撃ち上げる。左向きへの向き直しが必要。センサーが残る間は既存のCURVE・ARC・LOWに対応する。全行程は未検証。",
+    "anchors": [
+      {
+        "id": "sensor",
+        "x": 48,
+        "h": 33,
+        "surface": "055-LEFT-PERCH",
+        "role": "センサーへ曲射する露出した棚。"
+      },
+      {
+        "id": "rear",
+        "x": 114,
+        "h": 20,
+        "surface": "floor0",
+        "role": "敵の右側の風陰。接地のみ確認、転移入力は未検証。"
+      }
+    ],
+    "setupActionsTarget": [
+      1,
+      2
+    ],
+    "totalActionsTarget": [
+      9,
+      16
+    ],
+    "budgetMeaning": "設計上の目標。クリア実績や保証ではない。歩行だけでなく窓破壊・転移と反撃を含めて実装時に確認する。",
+    "gimmick": "Fは正面の高いセンサー経路に限定。右岸では風を避けられる。55面の右向き固定を維持。支柱は固定で、塔全体を破壊して無効化しない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "midboss:gale-scout",
+      "boss": false,
+      "midboss": true,
+      "hold": 1,
+      "recommendedCharacter": "hibari",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "高",
+      "敵の反撃": "高",
+      "位置移動": "中",
+      "ギミック手数": "中",
+      "ボス部位": "高"
+    },
+    "risk": "センサーは既存のHP1.5、本体HP6.5。センサー破壊で弱まるのは敵の攻撃で、Fそのものを消す新機能は導入しない。右岸はARCにも安全とは扱わない。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "combat": "not-run",
+    "teleportInputs": "not-run",
+    "humanPlay": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_055_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only. No campaign generator, runtime, gameplay, inventory placement source, saves or public deployment changed.",
+  "supersededBy": "stage_055_proposal_v2.json"
+}

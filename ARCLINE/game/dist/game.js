@@ -27,7 +27,7 @@ const save=ArcSave.create({
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?E.minimumAngle(s):-12;}
 function maximumAngle(){return s?E.maximumAngle(s):85;}
-function canAim(){return !!s&&s.phase==='aim'&&!(encounter?.boss&&!reducedMotion)&&!mapCamera?.active&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
+function canAim(){return !!s&&s.phase==='aim'&&!s.units[0].animation?.path&&!(encounter?.boss&&!reducedMotion)&&!mapCamera?.active&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
 function updateSpecialNotice(){specialNotice.update({paused:hostPaused()||manualPaused,suppressed:!s||!!demo||ArcStoryView.active||ArcExpeditionUi.active||ArcScreens.controlsBlocked(),aim:canAim(),enemy:s?.turn===1,result:!!s?.result,token:gameToken});}
 function sfxSync(){sfx.sync({token:gameToken,muted:!hostAudio,paused:hostPaused()||manualPaused||document.hidden||!s||!!demo||ArcStoryView.active||ArcExpeditionUi.active||ArcScreens.controlsBlocked()});}
 function audioSync(){sfxSync();bgm.sync({paused:hostPaused()||manualPaused,muted:!hostAudio});updateSpecialNotice();if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
@@ -104,9 +104,11 @@ function finishLoot(removeId,skip){
 }
 const icons={BURST:'◉',BLINK:'◇',PUSH:'→',BOUNCE:'⌁',PULL:'←',SPLIT:'⋔',PHASE:'⇥',SWAP:'⇄'};
 function persistStock(){if(s&&R.updateBattle(save.data,runContext,s))save.save();}
+function syncSkillSummary(){const owned=Object.entries(s.skills).filter(([,n])=>n>0),total=owned.reduce((n,[,count])=>n+count,0),english=ArcI18n.language==='en';$('skillInventorySummary').textContent=(english?`${owned.length} types · ${total} uses`:`${owned.length}種類 · 残数${total}回`)+(s.skillUsed?(english?' · used this turn':' · 今ターン使用済み'):'');}
 function buildSkills(){
+ syncSkillSummary();$('skillStockScroll').scrollTop=0;
  $('skillPickerTitle').textContent='Choose combat skill';$('repairConfirm').hidden=true;$('skillChoices').hidden=false;
- $('skillChoices').innerHTML=Object.keys(s.skills).filter(id=>s.skills[id]>0).map(id=>{const info=K.get(id);return `<button type="button" class="skill" data-skill="${id}"><b class="skill-icon" aria-hidden="true">${info?K.markup(id):icons[id]}</b><span class="skill-name">${info?.name||id}</span><small class="skill-count">×${s.skills[id]}</small>${info?`<span class="skill-note">${info.note}</span>`:''}<span class="skill-state"></span></button>`;}).join('');
+ $('skillChoices').innerHTML=Object.keys(s.skills).filter(id=>s.skills[id]>0).map(id=>{const info=K.get(id);return `<button type="button" class="skill${info?.rare?' rare':''}" data-skill="${id}"><b class="skill-icon" aria-hidden="true">${K.markup(id)}</b><span class="skill-name">${info?.name||id}</span><small class="skill-count">×${s.skills[id]}</small>${info?`<span class="skill-note">${info.note}</span>`:''}<span class="skill-state"></span></button>`;}).join('');
  document.querySelectorAll('[data-skill]').forEach(b=>{
   b.onclick=()=>{const id=b.dataset.skill;$('skillPicker').hidden=true;if(!canAim())return;clearInput();
    if(id==='S_REPAIR'){if(E.skillReason(s,id))return;if(!hasSeen(id)&&runDemo(id,true,openRepair))return;openRepair();return;}
@@ -115,7 +117,7 @@ function buildSkills(){
   };
  });
 }
-function openRepair(){if(!s||E.skillReason(s,'S_REPAIR')||hostPaused()||manualPaused)return;clearInput();$('skillPickerTitle').textContent='Field Repair';$('skillPicker').hidden=false;$('skillChoices').hidden=true;$('repairConfirm').hidden=false;$('repairAmount').textContent='Restore '+E.combat.points(Math.min(s.units[0].maxHp*.3,s.units[0].maxHp-s.units[0].hp))+' HP · 1 action';hud();$('repairCommit').focus({preventScroll:true});}
+function openRepair(){if(!s||E.skillReason(s,'S_REPAIR')||hostPaused()||manualPaused)return;clearInput();$('skillPickerTitle').textContent='Field Repair';$('skillPicker').hidden=false;$('skillChoices').hidden=true;$('repairConfirm').hidden=false;$('skillInventorySummary').textContent='';$('skillStockScroll').scrollTop=0;$('repairAmount').textContent='Restore '+E.combat.points(Math.min(s.units[0].maxHp*.3,s.units[0].maxHp-s.units[0].hp))+' HP · 1 action';hud();$('repairCommit').focus({preventScroll:true});}
 function commitRepair(){if(hostPaused()||manualPaused||$('repairConfirm').hidden)return;const result=E.repair(s);if(!result)return;persistStock();clearInput();$('skillPicker').hidden=true;$('repairConfirm').hidden=true;lastSkill='S_REPAIR';feedback='REPAIR +'+E.combat.points(result.healed);tone(640,.25,'sine');if(s.result){s.phase='finish';s.time=.65;}hud();draw();}
 function afterLootAim(){const id=skillLessonQueue.find(id=>(s.skills[id]||0)>0&&!hasSeen(id));skillLessonQueue=[];if(id&&runDemo(id,true))return;$('world').focus({preventScroll:true});}
 function battleWeaponChoices(){
@@ -124,7 +126,7 @@ function battleWeaponChoices(){
 function hud(){
  finalTeamUi.sync(s);
  mapCamera?.sync();
- if(!s)return;$('pauseMachineChange').disabled=!s||s.phase!=='aim'||!!s.result||!!demo;$('pauseMachineChange').hidden=!manualPaused||dialog!=='pause';$('pauseMachineChange').textContent=ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'View fixed order':'出撃順を確認'):(ArcI18n.language==='en'?'Switch machine':'機体を変更');const nextSpecial=E.nextSpecialTurn(s),english=ArcI18n.language==='en';const specialCopy=english?'SPECIAL '+s.specialAmmo+'/3'+(nextSpecial?' · turn '+nextSpecial:''):'必殺 '+s.specialAmmo+'/3'+(nextSpecial?' · 次は第'+nextSpecial+'ターン':s.specialAmmo===3?' · 準備完了':'');if($('specialHUD').textContent!==specialCopy)$('specialHUD').textContent=specialCopy;if(s.specialChargeSerial!==lastChargeSerial){lastChargeSerial=s.specialChargeSerial;$('specialHUD').classList.remove('charged');void $('specialHUD').offsetWidth;$('specialHUD').classList.add('charged');tone(740,.12,'sine',.04);}
+ if(!s)return;if(!$('skillPicker').hidden&&$('repairConfirm').hidden)syncSkillSummary();$('pauseMachineChange').disabled=!s||s.phase!=='aim'||!!s.result||!!demo;$('pauseMachineChange').hidden=!manualPaused||dialog!=='pause';$('pauseMachineChange').textContent=ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'View fixed order':'出撃順を確認'):(ArcI18n.language==='en'?'Switch machine':'機体を変更');const nextSpecial=E.nextSpecialTurn(s),english=ArcI18n.language==='en';const specialCopy=english?'SPECIAL '+s.specialAmmo+'/3'+(nextSpecial?' · turn '+nextSpecial:''):'必殺 '+s.specialAmmo+'/3'+(nextSpecial?' · 次は第'+nextSpecial+'ターン':s.specialAmmo===3?' · 準備完了':'');if($('specialHUD').textContent!==specialCopy)$('specialHUD').textContent=specialCopy;if(s.specialChargeSerial!==lastChargeSerial){lastChargeSerial=s.specialChargeSerial;$('specialHUD').classList.remove('charged');void $('specialHUD').offsetWidth;$('specialHUD').classList.add('charged');tone(740,.12,'sine',.04);}
  const walkRemaining=E.movementRemaining(s),walkLeft=Number.isFinite(walkRemaining)?Math.round(walkRemaining/E.movementLimit*100):'∞';$('moveBudget').textContent=(english?'MOVE ':'移動 ')+walkLeft+(Number.isFinite(walkRemaining)?'%':'');$('stick').setAttribute('aria-valuetext',(english?'Movement remaining ':'移動残量 ')+walkLeft+(Number.isFinite(walkRemaining)?'%':''));
  const shown=activePreview(),displayState=shown?(shown.effectProgress>=.5?shown.after:shown.before)||shown.state:s,[p,e]=displayState.units,enabled=canAim();
  $('playerName').textContent=ArcCharacters.get(s.characterId||save.data.equippedCharacterId).name;
@@ -159,7 +161,7 @@ function hud(){
  for(const id of ['stick','aimStick']){$(id).setAttribute('aria-disabled',!enabled);$(id).style.opacity=enabled?'1':'.4';}
  $('aimStick').setAttribute('aria-valuemin',minimumAngle());$('aimStick').setAttribute('aria-valuemax',maximumAngle());$('aimStick').setAttribute('aria-valuenow',Math.round(s.angle));$('aimStick').setAttribute('aria-valuetext',Math.round(s.angle)+' degrees');
  $('warpToggle').hidden=!s.spec.teleport;$('warpToggle').disabled=!enabled;$('warpToggle').setAttribute('aria-pressed',s.teleportMode);$('fire').classList.toggle('teleport',s.teleportMode);
- const ownedSkills=Object.keys(s.skills).filter(k=>s.skills[k]>0),selected=s.guardActive?'S_GUARD':s.selectedSkill,displaySkill=selected||(ownedSkills.length===1?ownedSkills[0]:null);const skillCount=ownedSkills.length;$('skills').hidden=!Object.keys(s.skills).length;$('skillName').textContent=K.get(displaySkill)?.shortName||K.get(displaySkill)?.name||displaySkill||'Skill';$('skillStock').textContent=s.guardActive?'Active':displaySkill?'×'+s.skills[displaySkill]:String(skillCount);$('skillToggle').classList.toggle('guard-active',!!s.guardActive);$('skillToggle').setAttribute('aria-pressed',!!selected);$('skillToggle').disabled=!enabled||s.skillUsed||skillCount===0;
+ const ownedSkills=Object.keys(s.skills).filter(k=>s.skills[k]>0),selected=s.guardActive?'S_GUARD':s.selectedSkill,displaySkill=selected||(ownedSkills.length===1?ownedSkills[0]:null);const skillCount=ownedSkills.length;$('skills').hidden=!Object.keys(s.skills).length;$('skillName').textContent=K.get(displaySkill)?.shortName||K.get(displaySkill)?.name||displaySkill||'Skill';$('skillStock').textContent=s.guardActive?'Active':displaySkill?'×'+s.skills[displaySkill]:String(skillCount);$('skillToggle').classList.toggle('guard-active',!!s.guardActive);$('skillToggle').setAttribute('aria-pressed',!!selected);$('skillToggle').disabled=!enabled||skillCount===0;
  const rs=s.world.regions.map(r=>r.kind==='F'?(r.direction>0?'WIND →':'WIND ←'):r.kind==='V'?(r.on?'VENT ↑':'VENT · NEXT ↑'):r.kind==='M'?'FIELD '+(r.direction>0?'↻':'↺'):r.kind==='C'?'CLOUD':'UPDRAFT ↑');
  $('environment').textContent=[...new Set([...rs,...(s.world.solids.some(o=>o.kind==='bridge')?['BRIDGE · NEXT ⋯']:[])])].join('　');
  $('rewardNotice').hidden=!reward||!!demo;$('trialWeapon').hidden=true;
@@ -220,7 +222,7 @@ function start(retryContext=null){
 }
 function startCharge(id){
  if(!canAim()||charge||s.selectedSkill==='BLINK')return;
- unlockAudio();input?.cancelGesture();charge={id,elapsed:0,previous:s.power,cancel:false,cameraLock:{...renderer.view}};s.power=20;
+ unlockAudio();input?.cancelGesture();charge={id,elapsed:0,previous:s.power,cancel:false,cameraLock:{...(renderer.normalView||renderer.view)},cameraState:{engaged:false}};s.power=20;
  if(audio&&hostAudio){chargeTone=audio.createOscillator();const g=audio.createGain();g.gain.value=.025;chargeTone.type='triangle';chargeTone.frequency.value=150;chargeTone.connect(g).connect(master);chargeTone.start();}hud();
 }
 function releaseCharge(id){
@@ -285,7 +287,7 @@ function update(dt,realDt=dt){
  if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration){const boss=encounter.boss;encounter=null;if(boss)renderer.resetCamera();}}paintEncounter();
  if(encounter?.boss&&!demo&&!reducedMotion){clearInput();hud();return;}
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
- if(s.phase==='aim'){
+ if(s.phase==='aim'&&!s.units[0].animation?.path){
   if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed,s);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
   const axis=input.movementAxis;if(axis)E.move(s,0,axis*160*dt,!!charge);
   if(input.aimAxis)s.angle=E.clamp(s.angle+50*input.aimAxis*Math.abs(input.aimAxis)*dt,minimumAngle(),maximumAngle());
@@ -322,7 +324,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
+function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=hostPaused();}

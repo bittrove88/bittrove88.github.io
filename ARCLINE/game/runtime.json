@@ -1,10 +1,10 @@
 {
-  "version": "0.23.0",
-  "cacheVersion": "0.23.0",
+  "version": "0.23.1",
+  "cacheVersion": "0.23.1",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
-  "releasedAt": "2026-11-04",
+  "releasedAt": "2026-11-06",
   "scripts": [
     "release-info.js",
     "i18n.js",
@@ -32,6 +32,7 @@
     "effects.js",
     "actor-bodies.js",
     "visual-art.js",
+    "charge-camera.js",
     "render.js",
     "presentation.js",
     "preview.js",
@@ -108,7 +109,8 @@
     "master-mode.css": "styles/master-mode.css",
     "final-travel.js": "ui/final-travel.js",
     "crew-supply.js": "ui/crew-supply.js",
-    "crew-supply.css": "styles/crew-supply.css"
+    "crew-supply.css": "styles/crew-supply.css",
+    "charge-camera.js": "ui/charge-camera.js"
   },
   "requires": {
     "screens.js": [],
@@ -179,7 +181,8 @@
       "final-team-ui.js",
       "master-mode.js",
       "final-travel.js",
-      "crew-supply.js"
+      "crew-supply.js",
+      "charge-camera.js"
     ],
     "device.js": [
       "screens.js",
@@ -269,6 +272,12 @@
       "crew-usage.js",
       "screens.js",
       "characters.js"
+    ],
+    "charge-camera.js": [
+      "physics.js"
+    ],
+    "render.js": [
+      "charge-camera.js"
     ]
   }
 }

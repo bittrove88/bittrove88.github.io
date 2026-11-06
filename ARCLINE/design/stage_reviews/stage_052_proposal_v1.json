@@ -1,0 +1,583 @@
+{
+  "schema": "arcline-individual-map-proposal-v2",
+  "stage": 52,
+  "date": "2026-11-05",
+  "status": "superseded-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_by_stage_map_design_policy_v1.md#14",
+  "provenance": "New individual concept and hand-authored coordinates; rejected 51-100 proposals and allocation not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        9
+      ],
+      [
+        29,
+        9
+      ],
+      [
+        44,
+        14
+      ],
+      [
+        61,
+        22
+      ],
+      [
+        100,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          29,
+          9
+        ],
+        [
+          44,
+          14
+        ],
+        [
+          61,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            60,
+            35
+          ],
+          [
+            64,
+            35
+          ],
+          [
+            64,
+            19
+          ],
+          [
+            60,
+            19
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "052-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            34,
+            37
+          ],
+          [
+            51,
+            37
+          ],
+          [
+            51,
+            34
+          ],
+          [
+            34,
+            34
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          47,
+          67,
+          21,
+          43
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 9.0
+    },
+    "enemy": {
+      "x": 86,
+      "h": 22.0
+    },
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 33.558,
+        "h": 38.826,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "verification": {
+          "angle": 63,
+          "power": 75,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0.5
+        }
+      }
+    ]
+  },
+  "after": {
+    "width": 1180,
+    "floor": [
+      [
+        0,
+        13
+      ],
+      [
+        20,
+        13
+      ],
+      [
+        40,
+        13
+      ],
+      [
+        60,
+        13
+      ],
+      [
+        68,
+        18
+      ],
+      [
+        76,
+        24
+      ],
+      [
+        105,
+        24
+      ],
+      [
+        118,
+        25
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-WEST-ROCK",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            41
+          ],
+          [
+            10,
+            43
+          ],
+          [
+            29,
+            41
+          ],
+          [
+            42,
+            37
+          ],
+          [
+            42,
+            31
+          ],
+          [
+            29,
+            32
+          ],
+          [
+            8,
+            34
+          ],
+          [
+            0,
+            33
+          ]
+        ],
+        "purpose": "左端に接続した洞窟の天井。x42〜54が煙突。",
+        "breakable": false
+      },
+      {
+        "id": "052-LOW-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            47,
+            13
+          ],
+          [
+            53,
+            13
+          ],
+          [
+            53,
+            22
+          ],
+          [
+            47,
+            22
+          ]
+        ],
+        "purpose": "下窓。上窓とは独立に壊せる。",
+        "breakable": true
+      },
+      {
+        "id": "052-HIGH-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            47,
+            22
+          ],
+          [
+            53,
+            22
+          ],
+          [
+            53,
+            32
+          ],
+          [
+            47,
+            32
+          ]
+        ],
+        "purpose": "上窓。下窓とは独立に壊せる。",
+        "breakable": true
+      },
+      {
+        "id": "052-CHIMNEY-SPINE",
+        "kind": "wall",
+        "poly": [
+          [
+            47,
+            32
+          ],
+          [
+            53,
+            32
+          ],
+          [
+            53,
+            49
+          ],
+          [
+            47,
+            49
+          ]
+        ],
+        "purpose": "煙突の固定背骨。全部を壊して更地にはできない。",
+        "breakable": false
+      },
+      {
+        "id": "052-CENTRE-ROCK",
+        "kind": "roof",
+        "poly": [
+          [
+            54,
+            38
+          ],
+          [
+            65,
+            43
+          ],
+          [
+            83,
+            43
+          ],
+          [
+            91,
+            39
+          ],
+          [
+            91,
+            34
+          ],
+          [
+            75,
+            35
+          ],
+          [
+            58,
+            32
+          ],
+          [
+            54,
+            30
+          ]
+        ],
+        "purpose": "中央洞窟。右のx91〜105が天窓。",
+        "breakable": false
+      },
+      {
+        "id": "052-EAST-ROCK",
+        "kind": "roof",
+        "poly": [
+          [
+            105,
+            40
+          ],
+          [
+            118,
+            42
+          ],
+          [
+            118,
+            34
+          ],
+          [
+            105,
+            33
+          ]
+        ],
+        "purpose": "右端に接続した洞窟の天井。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          70,
+          88,
+          25,
+          34
+        ]
+      }
+    ],
+    "player": {
+      "x": 18,
+      "h": 13
+    },
+    "enemy": {
+      "x": 98,
+      "h": 24
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "窓を開け、洞内を通す",
+        "points": [
+          [
+            41,
+            16
+          ],
+          [
+            50,
+            18
+          ],
+          [
+            66,
+            27
+          ],
+          [
+            82,
+            30
+          ],
+          [
+            98,
+            27
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "屋根から天窓へ",
+        "points": [
+          [
+            74,
+            46
+          ],
+          [
+            86,
+            53
+          ],
+          [
+            96,
+            43
+          ],
+          [
+            98,
+            27
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      }
+    ],
+    "floors": [
+      [
+        [
+          0,
+          13
+        ],
+        [
+          20,
+          13
+        ],
+        [
+          40,
+          13
+        ],
+        [
+          60,
+          13
+        ],
+        [
+          68,
+          18
+        ],
+        [
+          76,
+          24
+        ],
+        [
+          105,
+          24
+        ],
+        [
+          118,
+          25
+        ]
+      ]
+    ],
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 43.8,
+        "h": 22,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 41,
+        "h": 13,
+        "label": "A"
+      },
+      {
+        "x": 74,
+        "h": 43,
+        "label": "B"
+      }
+    ]
+  },
+  "summary": {
+    "concept": "壊す窓を選んで洞内から撃つか、屋根へ出て天窓から落とす。",
+    "terrain": "煙突と天窓のある連続した岩の観測廊",
+    "widthReason": "洞内の準備区間、中央屋根、敵の天窓を分ける1180px。窓前までの移動を230pxに抑える。",
+    "neighborDifference": "51面の開放尾根から、低い連続床と洞内の開口選択へ。53面の空隙を渡る攻略とは床の接続も準備の目的も異なる。"
+  },
+  "learningGoal": {
+    "source": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+    "proposed": "壊す窓を選んで洞内から撃つか、屋根へ出て天窓から落とす。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "窓前へ進み、上下二枚のうち射線に必要な窓を開ける。洞内の天井と短い風域を意識し、天窓下の敵へ低い弧を通す。",
+    "alternative": "煙突の開口から中央屋根へ転移し、右の天窓から敵へ落とす。屋根に出るほど反撃を受けやすくなる。転移・落とし込みの入力は未検証。",
+    "anchors": [
+      {
+        "id": "window",
+        "x": 41,
+        "h": 13,
+        "surface": "floor0",
+        "role": "窓前。開始から230px、歩行だけなら最低2ターン。"
+      },
+      {
+        "id": "roof",
+        "x": 74,
+        "h": 43,
+        "surface": "052-CENTRE-ROCK",
+        "role": "天窓を狙う屋根上の転移候補。"
+      }
+    ],
+    "setupActionsTarget": [
+      1,
+      3
+    ],
+    "totalActionsTarget": [
+      7,
+      12
+    ],
+    "budgetMeaning": "設計上の目標。クリア実績や保証ではない。歩行だけでなく窓破壊・転移と反撃を含めて実装時に確認する。",
+    "gimmick": "Fは洞内の短い開口寄りに置き、風の滞在を短くする判断に意味を持たせる。窓は二個の独立破壊物、煙突の上部は固定。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:spike",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "ban",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "中",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "敵は高角砲車スパイク。天井が敵のARCを通す経路と自機側の攻撃経路の両方を確認し、双方が閉じ込められる形なら開口を広げる。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "combat": "not-run",
+    "teleportInputs": "not-run",
+    "humanPlay": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_055_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only. No campaign generator, runtime, gameplay, inventory placement source, saves or public deployment changed.",
+  "supersededBy": "stage_052_proposal_v2.json"
+}
