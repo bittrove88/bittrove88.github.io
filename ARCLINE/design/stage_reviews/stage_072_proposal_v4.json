@@ -2,7 +2,7 @@
   "schema": "arcline-stage-design-proposal-v4",
   "stage": 72,
   "date": "2026-11-06",
-  "status": "design-review-pending-unverified",
+  "status": "design-approved-runtime-unverified",
   "sourcePr74": {
     "number": 74,
     "ref": "design/arcline-compendium-051-099",
@@ -597,9 +597,15 @@
     }
   },
   "approval": {
-    "state": "pending",
+    "state": "approved",
     "scope": "geometry-and-tactical-intent-only",
-    "runtimeVerification": "deferred-until-49-design-approvals"
+    "version": "stage_072_proposal_v4.json",
+    "approvedOn": "2026-11-06",
+    "source": "user-chat-explicit-approval",
+    "baselinePr": 83,
+    "reviewPr": 84,
+    "runtimeVerification": "deferred-until-all-49-designs-approved",
+    "notes": "The user's unambiguous '承認' applies to Stage 072 v4 (PR #84). No geometry or runtime change implied."
   },
   "verification": {
     "static": "stage_072_static_check_v4.json",
@@ -946,5 +952,5 @@
     "route": "A:断層の向こうの広い中央広場でM経由の越し撃ち/敵前D03の破壊を検討。B:敵の右側に転移し向きを反転して、D03とMを避ける。",
     "terrainRevision": "stage072-open-fault-flank-v4-design-pending"
   },
-  "implementationNote": "Design-only in ARCLINE/design/stage_reviews. Do not overwrite campaign/stage_blueprints.json until separate approval. Stages 65/66/67/69/71 unchanged."
+  "implementationNote": "Stage 072 v4 is approved for geometry and tactical design only. Do not modify this approved geometry without renewed user review. Runtime stage_blueprints.json remains unchanged; defer comprehensive runtime verification until all 49 design approvals. Stages 65/66/67/69/71 protected. Stage 075 may be designed separately after this approval."
 }
