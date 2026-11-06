@@ -1,0 +1,723 @@
+{
+  "schema": "arcline-stage-design-proposal-v2",
+  "stage": 62,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "逆勾配の退避帯と庇の入口",
+  "source": {
+    "proposal": "stage_062_proposal_v1.json",
+    "review": "stage_062_review_v1.md",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105",
+    "baseApproved60": "4f66a283f0e64f2b31be6b24b46b92ecd1de6b94",
+    "note": "長い不規則な山腹・低所の敵・庇・既存の試用W02を継承。旧単発/入力記録は新形状の成功証拠にしない。"
+  },
+  "before": {
+    "width": 1300,
+    "floor": [
+      [
+        0,
+        64
+      ],
+      [
+        14,
+        60
+      ],
+      [
+        28,
+        60
+      ],
+      [
+        46,
+        45
+      ],
+      [
+        62,
+        35
+      ],
+      [
+        70,
+        28
+      ],
+      [
+        80,
+        23
+      ],
+      [
+        92,
+        17
+      ],
+      [
+        116,
+        17
+      ],
+      [
+        130,
+        20
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          64
+        ],
+        [
+          14,
+          60
+        ],
+        [
+          28,
+          60
+        ],
+        [
+          46,
+          45
+        ],
+        [
+          62,
+          35
+        ],
+        [
+          70,
+          28
+        ],
+        [
+          80,
+          23
+        ],
+        [
+          92,
+          17
+        ],
+        [
+          116,
+          17
+        ],
+        [
+          130,
+          20
+        ]
+      ]
+    ],
+    "features": [],
+    "player": {
+      "x": 22,
+      "h": 60
+    },
+    "enemy": {
+      "x": 108,
+      "h": 17
+    },
+    "pickups": [
+      {
+        "id": "W02",
+        "kind": "trial",
+        "weaponId": "W02",
+        "category": "weapon",
+        "amount": 2,
+        "x": 28,
+        "h": 69,
+        "spawnTurn": 1,
+        "placementId": "L062:weapon:W02",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "parts": [
+      {
+        "id": "062-LOW-HOOD",
+        "displayId": "F01",
+        "kind": "roof",
+        "poly": [
+          [
+            91,
+            50
+          ],
+          [
+            105,
+            58
+          ],
+          [
+            130,
+            52
+          ],
+          [
+            130,
+            32
+          ],
+          [
+            106,
+            33
+          ],
+          [
+            91,
+            34
+          ]
+        ],
+        "breakable": false,
+        "purpose": "低い敵の棚を覆う厚い庇。"
+      }
+    ]
+  },
+  "after": {
+    "id": 62,
+    "stageNumber": 62,
+    "width": 1660,
+    "material": "rock",
+    "worldHold": 1,
+    "ventStartsOn": false,
+    "floor": [
+      [
+        0,
+        64
+      ],
+      [
+        14,
+        60
+      ],
+      [
+        28,
+        60
+      ],
+      [
+        42,
+        52
+      ],
+      [
+        55,
+        43
+      ],
+      [
+        69,
+        34
+      ],
+      [
+        75,
+        34
+      ],
+      [
+        83,
+        39
+      ],
+      [
+        89,
+        39
+      ],
+      [
+        101,
+        31
+      ],
+      [
+        113,
+        23
+      ],
+      [
+        121,
+        23
+      ],
+      [
+        130,
+        30
+      ],
+      [
+        134,
+        30
+      ],
+      [
+        140,
+        17
+      ],
+      [
+        154,
+        17
+      ],
+      [
+        166,
+        20
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          64
+        ],
+        [
+          14,
+          60
+        ],
+        [
+          28,
+          60
+        ],
+        [
+          42,
+          52
+        ],
+        [
+          55,
+          43
+        ],
+        [
+          69,
+          34
+        ],
+        [
+          75,
+          34
+        ],
+        [
+          83,
+          39
+        ],
+        [
+          89,
+          39
+        ],
+        [
+          101,
+          31
+        ],
+        [
+          113,
+          23
+        ],
+        [
+          121,
+          23
+        ],
+        [
+          130,
+          30
+        ],
+        [
+          134,
+          30
+        ],
+        [
+          140,
+          17
+        ],
+        [
+          154,
+          17
+        ],
+        [
+          166,
+          20
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "062-LOW-HOOD",
+        "displayId": "F01",
+        "kind": "rock-overhang",
+        "poly": [
+          [
+            125,
+            60
+          ],
+          [
+            138,
+            65
+          ],
+          [
+            153,
+            62
+          ],
+          [
+            166,
+            57
+          ],
+          [
+            166,
+            20
+          ],
+          [
+            160,
+            19
+          ],
+          [
+            160,
+            41
+          ],
+          [
+            151,
+            43
+          ],
+          [
+            138,
+            46
+          ],
+          [
+            125,
+            45
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側の庇を右端の脚で支える。入口と内部の射撃空間を残し、床の低い岩背と合わせて直射を切る。"
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 22,
+      "h": 60
+    },
+    "enemy": {
+      "x": 144,
+      "h": 17
+    },
+    "pickups": [
+      {
+        "id": "W02",
+        "kind": "trial",
+        "weaponId": "W02",
+        "category": "weapon",
+        "amount": 2,
+        "x": 28,
+        "h": 69,
+        "spawnTurn": 1,
+        "placementId": "L062:weapon:W02",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 22,
+        "h": 60
+      },
+      {
+        "id": "R-pocket",
+        "x": 73,
+        "h": 34
+      },
+      {
+        "id": "A-shoulder",
+        "x": 85,
+        "h": 39
+      },
+      {
+        "id": "B-foot",
+        "x": 117,
+        "h": 23
+      }
+    ],
+    "transferSpaces": [
+      {
+        "to": "R-pocket",
+        "points": [
+          [
+            22,
+            63
+          ],
+          [
+            42,
+            73
+          ],
+          [
+            62,
+            54
+          ],
+          [
+            73,
+            34
+          ]
+        ]
+      },
+      {
+        "to": "B-foot",
+        "points": [
+          [
+            22,
+            63
+          ],
+          [
+            51,
+            78
+          ],
+          [
+            88,
+            55
+          ],
+          [
+            117,
+            23
+          ]
+        ]
+      }
+    ],
+    "walkingSpace": {
+      "from": "R-pocket",
+      "to": "A-shoulder",
+      "distancePx": 120,
+      "surfacePoints": [
+        [
+          73,
+          34
+        ],
+        [
+          75,
+          34
+        ],
+        [
+          83,
+          39
+        ],
+        [
+          85,
+          39
+        ]
+      ],
+      "note": "平坦部と緩斜面を結ぶ設計距離。実歩行は未検証。射撃後の同手番退避はしない。"
+    },
+    "attacks": [
+      {
+        "kind": "shoulder-hood-entry",
+        "points": [
+          [
+            85,
+            42
+          ],
+          [
+            100,
+            48
+          ],
+          [
+            114,
+            45
+          ],
+          [
+            127,
+            39
+          ],
+          [
+            135,
+            31
+          ],
+          [
+            144,
+            20
+          ]
+        ],
+        "meaning": "肩上からの弧を庇の下へ送り、内部の低い岩背を越す空間。実弾道ではない。"
+      },
+      {
+        "kind": "foot-low-arc",
+        "points": [
+          [
+            117,
+            26
+          ],
+          [
+            123,
+            34
+          ],
+          [
+            130,
+            36
+          ],
+          [
+            136,
+            30
+          ],
+          [
+            144,
+            20
+          ]
+        ],
+        "meaning": "麓から庇の入口へ低い弧を通し、内部の低い岩背を越す空間。実弾道ではない。"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 62,
+    "name": "逆勾配の退避帯と庇の入口",
+    "nameEn": "Reverse Slope Pocket and the Hood Entrance",
+    "goal": "逆勾配に身を沈めて準備するか肩上に出て狙うかを選び、庇と床の岩背の間へ弧を通す。",
+    "goalEn": "Prepare behind the reverse slope or advance to the shoulder, then arc between the hood and its floor ridge.",
+    "floor": [
+      [
+        0,
+        64
+      ],
+      [
+        14,
+        60
+      ],
+      [
+        28,
+        60
+      ],
+      [
+        42,
+        52
+      ],
+      [
+        55,
+        43
+      ],
+      [
+        69,
+        34
+      ],
+      [
+        75,
+        34
+      ],
+      [
+        83,
+        39
+      ],
+      [
+        89,
+        39
+      ],
+      [
+        101,
+        31
+      ],
+      [
+        113,
+        23
+      ],
+      [
+        121,
+        23
+      ],
+      [
+        130,
+        30
+      ],
+      [
+        134,
+        30
+      ],
+      [
+        140,
+        17
+      ],
+      [
+        154,
+        17
+      ],
+      [
+        166,
+        20
+      ]
+    ],
+    "parts": [
+      {
+        "id": "062-LOW-HOOD",
+        "displayId": "F01",
+        "kind": "rock-overhang",
+        "poly": [
+          [
+            125,
+            60
+          ],
+          [
+            138,
+            65
+          ],
+          [
+            153,
+            62
+          ],
+          [
+            166,
+            57
+          ],
+          [
+            166,
+            20
+          ],
+          [
+            160,
+            19
+          ],
+          [
+            160,
+            41
+          ],
+          [
+            151,
+            43
+          ],
+          [
+            138,
+            46
+          ],
+          [
+            125,
+            45
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側の庇を右端の脚で支える。入口と内部の射撃空間を残し、床の低い岩背と合わせて直射を切る。"
+      }
+    ],
+    "features": [],
+    "recommended": "rin",
+    "spawn": [
+      22,
+      144
+    ],
+    "spawnPoints": [
+      [
+        22,
+        60
+      ],
+      [
+        144,
+        17
+      ]
+    ],
+    "worldWidth": 1660,
+    "hold": 1,
+    "ventStartsOn": false,
+    "terrainRevision": "5.8",
+    "route": "中腹Rと120px先のAで近い肩の遮蔽を得失として選ぶ。麓Bからは低い弧。射撃後はその位置で反撃を受け、退避は次手番以降。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:slate",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "長い斜面の逆勾配で近い肩の遮蔽を使い、120px先へ出ると庇への射出空間が開く。庇の入口と床の岩背の間へ弧を通す。",
+  "designIntent": {
+    "inherit": "長い山腹、低所の敵、庇と入口への射撃。F/W/K等のギミックは追加しない。",
+    "rebuild": "山腹を幅1660pxへ伸ばして緩斜面を保ち、中腹に小さな逆勾配と肩上の平坦部を作る。麓にも平坦部を置き、庇の入口と内部を広く取る。",
+    "primary": "Rで近い肩の遮蔽を使って準備し、必要なら120px先のAへ歩いて庇下を狙う。Rからの攻撃自体を禁止しないが近い肩を越す必要がある。",
+    "alternative": "麓Bへ移り、庇の入口と床の岩背の間を通る低い弧を狙う。近くなることだけでなく、頭上制限に対する射出高度と方向が変わる。",
+    "counterattack": "Aで撃てばAで反撃を受ける。Rへ戻るのは次手番以降。退避した手番も通常の行動と反撃の規則に従い、無償の待機にしない。Rは曲射に対する完全な安全地帯ではない。",
+    "P0": "P0の代表直射は床の岩背で切る。P0からの曲射を一律に禁止せず、移動の実利益と難しさは一括検証で比較する。",
+    "pickup": "既存候補の試用W02・数量2・1手番出現・位置を維持。専用武器を使わないと進めない条件は置かず、所持品正本は変更しない。",
+    "checkPolicy": "全景・基本整合・支持・明白な形状/閉塞・構想空間だけ確認。個別の検証スクリプト・角度探索・入力再現・対戦試験は追加しない。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "designMinimum": "see stage_062_review_v2.md",
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory16": "not-tested"
+  },
+  "implementationNote": "Design only. Game runtime and all seventeen approved designs are unchanged."
+}
