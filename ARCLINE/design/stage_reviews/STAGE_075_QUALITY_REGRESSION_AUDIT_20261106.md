@@ -1,5 +1,8 @@
 # ARCLINE ステージ75：設計品質劣化の監査と再構築指示
 
+> **履歴・参考資料（2026-11-06で作業指示として失効）**：本書は過去のレビューや制作経緯を記録するものです。**現在の制作手順・順番・ギミックの採否・品質の合否は [唯一の作業仕様書](ARCLINE_MAP_DESIGN_SINGLE_SOURCE_OF_TRUTH_20261106.md) を正本**とし、本書と矛盾する指示や構想例は実行しないでください。既承認版の状態も正本とGitHubの承認記録を確認してください。
+
+
 **2026-11-06／ステータス：ユーザーは75面v3を承認せず、別の構築担当へ再委託する方針を示した。旧PR #85は承認済みではない。76面には着手しない。**  
 **参照：** [PR #85・75面v3](https://github.com/bittrove88/bittrove88.github.io/pull/85)／[75面v3レビュー](https://github.com/bittrove88/bittrove88.github.io/blob/design/arcline-stage075-offset-hoist-orewindow-v1-20261106/ARCLINE/design/stage_reviews/stage_075_review_v3.md)／[v3座標](https://github.com/bittrove88/bittrove88.github.io/blob/design/arcline-stage075-offset-hoist-orewindow-v1-20261106/ARCLINE/design/stage_reviews/stage_075_proposal_v3.json)／[v3静的チェック](https://github.com/bittrove88/bittrove88.github.io/blob/design/arcline-stage075-offset-hoist-orewindow-v1-20261106/ARCLINE/design/stage_reviews/stage_075_static_check_v3.json)。  
 **直前の設計承認：** [72面v4／PR #84](https://github.com/bittrove88/bittrove88.github.io/pull/84)。「設計承認済み・動作未検証」。65・66・67・69・71・72面の承認版は変更しない。
