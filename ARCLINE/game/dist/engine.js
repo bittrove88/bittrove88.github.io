@@ -63,7 +63,7 @@ function campaign(stage=1,save={}){
  s.skillEffects={};s.random=seeded(s.matchSeed);s.enemyLearning={active:false,walk:0,owner:characterId};
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
  if(spec.id!==100&&Crew.normalize(save.unlockedCharacterIds).length>1){const cooling=Object.entries(save.machineUsage?.cooldowns||{}).filter(([,n])=>n>0).map(([id])=>id);if(cooling.length)s.restingCharacterIds=cooling;}
- FinalTeam.init(s);s.enemyLearning.owner=s.characterId;bossGeometry(s);telegraph(s);return s;
+ FinalTeam.init(s);s.enemyLearning.owner=s.characterId;bossGeometry(s);G.addSolidSurfaces(s.world);telegraph(s);return s;
 }
 function telegraph(s){
  if(!guardian(s)){s.telegraph=null;return;}
@@ -108,7 +108,8 @@ function blink(s,index){
 }
 function selectTeleport(s){if(s.result||s.turn||s.phase!=='aim'||!s.spec.teleport)return false;s.teleportMode=!s.teleportMode;if(s.selectedSkill!=='S_GUARD')s.selectedSkill=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
 function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.teleportMode?'TELEPORT':s.mode,skill:side||s.teleportMode&&s.selectedSkill!=='S_GUARD'?null:s.selectedSkill,...opts});}
-function settleUnits(s){for(let side=0;side<2;side++){const u=s.units[side];if(u.floating)continue;const current=G.support(s.world,u.x,u.y);if(current&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current))continue;const pad=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);if(pad){const from={x:u.x,y:u.y,slope:u.slope};Object.assign(u,pad);u.animation={from,age:0,duration:Math.min(1,Math.max(.25,Math.sqrt(Math.max(0,pad.y-from.y)/400))),lift:0,fall:true};}}}
+function landUnit(u,pad,from={x:u.x,y:u.y,slope:u.slope}){Object.assign(u,pad);delete u.slidePath;u.animation={from,path:pad.slidePath,age:0,duration:Math.min(1,Math.max(.25,Math.sqrt(Math.hypot(pad.x-from.x,pad.y-from.y)/400))),lift:0,fall:true};}
+function settleUnits(s){for(let side=0;side<2;side++){const u=s.units[side];if(u.floating)continue;const current=G.support(s.world,u.x,u.y);if(G.walkable(current)&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current)){Object.assign(u,current);continue;}const pad=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);if(pad)landUnit(u,pad);}}
 
 function markPickup(s,item){if(item.placementId&&!s.collectedPickupIds.includes(item.placementId))s.collectedPickupIds.push(item.placementId);item.collected=true;}
 function acceptLoot(s,record,result,item){
@@ -231,7 +232,7 @@ function displace(s,side,shot){
 }
 function resolve(s,shot,onCollect=()=>{}){
  if(shot.resolved)return [0,0];applyEvents(s,shot,Infinity,onCollect);shot.resolved=true;
- if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){const entry=landing.entry;Object.assign(u,landing);delete u.entry;u.animation={from:{...entry,slope:u.slope},age:0,duration:Math.min(1,Math.max(.3,Math.sqrt(Math.max(0,landing.y-entry.y)/400))),lift:0,fall:true};u.teleportFlash={age:0};}s.teleportMode=false;}
+ if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){landUnit(u,landing,landing.entry);delete u.entry;u.teleportFlash={age:0};}s.teleportMode=false;}
  settleUnits(s);
  if(shot.side===1){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
 
@@ -273,17 +274,18 @@ function bossGeometry(s){
  if(s.stage===60&&s.effects.broken===0){const u=s.units[1];s.world.solids.push(G.rectangle('front-armor',(u.x-92)/10,(u.x-62)/10,(500-u.y+3)/10,(500-u.y+58)/10));}
 }
 function rebuildWorld(s){
- const oldWorld=s.world;
  s.world=G.world(s.spec,s.effects.environmentRound||s.round,s.bossPhase,s.effects);
+ bossGeometry(s);G.addSolidSurfaces(s.world);
  s.units.forEach((u,side)=>{if(u.floating)return;
- const bridge=oldWorld?.solids.find(o=>o.kind==='bridge'&&!o.open&&u.surface===o.id&&s.world.solids.find(n=>n.id===o.id)?.open);
- if(bridge){const choices=[bridge.hinge.x-36,bridge.poly[1].x+36].sort((a,b)=>Math.abs(a-u.x)-Math.abs(b-u.x));for(const x of choices){if(x<u.range[0]||x>u.range[1])continue;const pad=G.safePosition(s.world,x,bridge.hinge.y,s.units[1-side],u.range);if(pad){Object.assign(u,pad);break;}}}
+ const current=G.support(s.world,u.x,u.y);
+ if(G.walkable(current)&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current)){Object.assign(u,current);return;}
+ const fallen=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);
+ if(fallen){landUnit(u,fallen);return;}
  const p=G.safePosition(s.world,u.x,u.y,s.units[1-side],u.range);if(p)Object.assign(u,p);else{
   const [x,h]=s.spec.spawn[side],fallback=G.safePosition(s.world,x*10,500-h*10,s.units[1-side],u.range);if(!fallback)throw Error('Unsafe boundary '+s.stage);Object.assign(u,fallback);
  }});
  s.blink=s.spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
  if(guardian(s))s.units[1].slope=0;
- bossGeometry(s);
 }
 function boundary(s){
  s.walkUsed=0;

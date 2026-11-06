@@ -66,3 +66,5 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 `tests/three-change.test.cjs` が承認50面・保全50面・物理・学習境界／Worker・多弾単発・スキル・46到達配置・互換保存を検証。`tests/three-change-browser.test.cjs` が小型横画面と回転画面の日英ラベル／HUD回避・15スキル・取得保存再読込を検証。旧リリースの保存不変チェックは `integration-preservation.cjs` で、今回許可された境界と旧敵武器／最終戦の不変条件へ更新した。確定値・理由・全配置は `docs/releases/0.23.0.md`。
 
 WorkerのimportScriptsのキャッシュ版もbuild_runtime.pyがruntime.jsonに合わせ、正式な生成対象として検査する。旧版のキャッシュから旧AI／旧地形を読む経路を防ぐ。
+
+0.23.1：`dist/geometry.js` の共通70度判定・ポリゴン上面登録・滑落経路を、歩行・安全配置・転移・足場破壊・ターン境界で共有。`engine.js` が接地と滑落アニメーションを接続し、`game.js` が滑落中の移動・発射を待機させ、`render.js` が経路を補間する。`physics.js` は新しく乗れる急斜面だけ機体中心を回転。`visual-art.js` の `regionState` と `drawRegion` が現在の力の方向・ON/OFFを共有し、`render.js` がHUDを避ける表示範囲と重力倍率を渡す。[検証](../docs/releases/0.23.1.md)。

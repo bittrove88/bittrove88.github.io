@@ -27,7 +27,7 @@ const save=ArcSave.create({
 const hostPaused=()=>pauseSources.size>0;
 function minimumAngle(){return s?E.minimumAngle(s):-12;}
 function maximumAngle(){return s?E.maximumAngle(s):85;}
-function canAim(){return !!s&&s.phase==='aim'&&!(encounter?.boss&&!reducedMotion)&&!mapCamera?.active&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
+function canAim(){return !!s&&s.phase==='aim'&&!s.units[0].animation?.path&&!(encounter?.boss&&!reducedMotion)&&!mapCamera?.active&&!hostPaused()&&!manualPaused&&!demo&&!ArcStoryView.active&&!ArcExpeditionUi.active&&!ArcScreens.controlsBlocked()&&!s.pendingLoot.length;}
 function updateSpecialNotice(){specialNotice.update({paused:hostPaused()||manualPaused,suppressed:!s||!!demo||ArcStoryView.active||ArcExpeditionUi.active||ArcScreens.controlsBlocked(),aim:canAim(),enemy:s?.turn===1,result:!!s?.result,token:gameToken});}
 function sfxSync(){sfx.sync({token:gameToken,muted:!hostAudio,paused:hostPaused()||manualPaused||document.hidden||!s||!!demo||ArcStoryView.active||ArcExpeditionUi.active||ArcScreens.controlsBlocked()});}
 function audioSync(){sfxSync();bgm.sync({paused:hostPaused()||manualPaused,muted:!hostAudio});updateSpecialNotice();if(!audio)return;const on=userInteracted&&hostAudio&&!hostPaused()&&!manualPaused;master.gain.value=on?.5:0;(on?audio.resume():audio.suspend()).catch(()=>{});}
@@ -285,7 +285,7 @@ function update(dt,realDt=dt){
  if(encounter&&!demo){encounter.age+=dt;if(encounter.age>=encounter.duration){const boss=encounter.boss;encounter=null;if(boss)renderer.resetCamera();}}paintEncounter();
  if(encounter?.boss&&!demo&&!reducedMotion){clearInput();hud();return;}
  if(demo){const elapsed=demo.age+dt;demo.loops+=Math.floor(elapsed/demo.duration);demo.age=elapsed%demo.duration;hud();return;}
- if(s.phase==='aim'){
+ if(s.phase==='aim'&&!s.units[0].animation?.path){
   if(charge){charge.elapsed+=realDt;s.power=E.chargePower(charge.elapsed,s);if(chargeTone)chargeTone.frequency.value=150+s.power*5;}
   const axis=input.movementAxis;if(axis)E.move(s,0,axis*160*dt,!!charge);
   if(input.aimAxis)s.angle=E.clamp(s.angle+50*input.aimAxis*Math.abs(input.aimAxis)*dt,minimumAngle(),maximumAngle());
