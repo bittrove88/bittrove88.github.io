@@ -1,0 +1,934 @@
+{
+  "stage": 74,
+  "name": "鉱床の下を通す鏡路",
+  "date": "2026-11-07",
+  "status": "design-review-pending-runtime-unverified",
+  "source": {
+    "stage": 74,
+    "proposal": "stage_074_proposal_v2.json",
+    "review": "stage_074_review_v2.md"
+  },
+  "before": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        14
+      ],
+      [
+        28,
+        14
+      ],
+      [
+        40,
+        10
+      ],
+      [
+        90,
+        10
+      ],
+      [
+        115,
+        13
+      ],
+      [
+        140,
+        13
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          14
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          40,
+          10
+        ],
+        [
+          90,
+          10
+        ],
+        [
+          115,
+          13
+        ],
+        [
+          140,
+          13
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "074-UPPER-WEST",
+        "poly": [
+          [
+            0,
+            48
+          ],
+          [
+            52,
+            48
+          ],
+          [
+            52,
+            44
+          ],
+          [
+            42,
+            39
+          ],
+          [
+            24,
+            35
+          ],
+          [
+            0,
+            38
+          ]
+        ],
+        "purpose": "下段の銃口を囲まない凹型の天井。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F01",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "074-UPPER-WEST",
+            "label": "F01",
+            "poly": [
+              [
+                0,
+                48
+              ],
+              [
+                52,
+                48
+              ],
+              [
+                52,
+                44
+              ],
+              [
+                42,
+                39
+              ],
+              [
+                24,
+                35
+              ],
+              [
+                0,
+                38
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "074-OPENING",
+        "poly": [
+          [
+            52,
+            48
+          ],
+          [
+            82,
+            48
+          ],
+          [
+            82,
+            35
+          ],
+          [
+            52,
+            44
+          ]
+        ],
+        "purpose": "三単位から必要片を選べる300px開口。",
+        "kind": "roof",
+        "breakable": true,
+        "displayId": "D02",
+        "unitCount": 3,
+        "renderUnits": [
+          {
+            "id": "074-OPENING@0",
+            "label": "D02-1",
+            "poly": [
+              [
+                52,
+                48
+              ],
+              [
+                62,
+                48
+              ],
+              [
+                62,
+                41
+              ],
+              [
+                52,
+                44
+              ]
+            ]
+          },
+          {
+            "id": "074-OPENING@1",
+            "label": "D02-2",
+            "poly": [
+              [
+                62,
+                48
+              ],
+              [
+                72,
+                48
+              ],
+              [
+                72,
+                38
+              ],
+              [
+                62,
+                41
+              ]
+            ]
+          },
+          {
+            "id": "074-OPENING@2",
+            "label": "D02-3",
+            "poly": [
+              [
+                72,
+                48
+              ],
+              [
+                82,
+                48
+              ],
+              [
+                82,
+                35
+              ],
+              [
+                72,
+                38
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "074-UPPER-EAST",
+        "poly": [
+          [
+            82,
+            48
+          ],
+          [
+            118,
+            48
+          ],
+          [
+            118,
+            36
+          ],
+          [
+            82,
+            35
+          ]
+        ],
+        "purpose": "上段の長い射撃床。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F03",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "074-UPPER-EAST",
+            "label": "F03",
+            "poly": [
+              [
+                82,
+                48
+              ],
+              [
+                118,
+                48
+              ],
+              [
+                118,
+                36
+              ],
+              [
+                82,
+                35
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "074-HIGH-VAULT",
+        "poly": [
+          [
+            92,
+            92
+          ],
+          [
+            117,
+            97
+          ],
+          [
+            140,
+            90
+          ],
+          [
+            140,
+            81
+          ],
+          [
+            116,
+            84
+          ],
+          [
+            92,
+            80
+          ]
+        ],
+        "purpose": "上段射点の上を高く開け、曲射の頂部を許す。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F04",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "074-HIGH-VAULT",
+            "label": "F04",
+            "poly": [
+              [
+                92,
+                92
+              ],
+              [
+                117,
+                97
+              ],
+              [
+                140,
+                90
+              ],
+              [
+                140,
+                81
+              ],
+              [
+                116,
+                84
+              ],
+              [
+                92,
+                80
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "074-REFLECT-BANK",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            49,
+            10
+          ],
+          [
+            60,
+            13
+          ],
+          [
+            60,
+            9
+          ],
+          [
+            49,
+            9
+          ]
+        ],
+        "purpose": "低所の固定傾斜で弾を上へ反射させる。準備用の支持面は残す。",
+        "displayId": "F05",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "074-REFLECT-BANK",
+            "label": "F05",
+            "poly": [
+              [
+                49,
+                10
+              ],
+              [
+                60,
+                13
+              ],
+              [
+                60,
+                9
+              ],
+              [
+                49,
+                9
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          76,
+          29,
+          19,
+          -1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          45,
+          66,
+          10
+        ]
+      }
+    ],
+    "player": {
+      "x": 22,
+      "h": 14
+    },
+    "enemy": {
+      "x": 110,
+      "h": 48
+    }
+  },
+  "after": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        14
+      ],
+      [
+        28,
+        14
+      ],
+      [
+        34,
+        10
+      ],
+      [
+        49,
+        10
+      ],
+      [
+        60,
+        13
+      ],
+      [
+        83,
+        13
+      ],
+      [
+        87,
+        21
+      ],
+      [
+        94,
+        21
+      ],
+      [
+        100,
+        13
+      ],
+      [
+        140,
+        13
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          14
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          34,
+          10
+        ],
+        [
+          49,
+          10
+        ],
+        [
+          60,
+          13
+        ],
+        [
+          83,
+          13
+        ],
+        [
+          87,
+          21
+        ],
+        [
+          94,
+          21
+        ],
+        [
+          100,
+          13
+        ],
+        [
+          140,
+          13
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          76,
+          29,
+          19,
+          -1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          49,
+          60,
+          10
+        ]
+      }
+    ],
+    "player": {
+      "x": 38,
+      "h": 10
+    },
+    "enemy": {
+      "x": 130,
+      "h": 13
+    },
+    "pickups": [
+      {
+        "id": "SK074",
+        "kind": "skill",
+        "skillId": "S_POWER_UP_I",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 28,
+        "h": 23,
+        "spawnTurn": 1,
+        "placementId": "L074:skill:S_POWER_UP_I",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "parts": [
+      {
+        "id": "074-UPPER-WEST",
+        "poly": [
+          [
+            0,
+            48
+          ],
+          [
+            22,
+            47
+          ],
+          [
+            30,
+            42
+          ],
+          [
+            30,
+            33
+          ],
+          [
+            15,
+            35
+          ],
+          [
+            0,
+            38
+          ]
+        ],
+        "breakable": false,
+        "purpose": "開始の背後の鉱床",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "074-OPENING",
+        "poly": [
+          [
+            77,
+            48
+          ],
+          [
+            85,
+            48
+          ],
+          [
+            85,
+            35
+          ],
+          [
+            77,
+            37
+          ]
+        ],
+        "breakable": true,
+        "purpose": "常設縦穴の右端だけの任意短縮片",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "074-UPPER-EAST",
+        "poly": [
+          [
+            85,
+            48
+          ],
+          [
+            110,
+            48
+          ],
+          [
+            118,
+            44
+          ],
+          [
+            118,
+            33
+          ],
+          [
+            104,
+            35
+          ],
+          [
+            85,
+            35
+          ]
+        ],
+        "breakable": false,
+        "purpose": "下面の射線と上面の立位置を分ける鉱床",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "id": 74,
+    "stageNumber": 74,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 38,
+        "h": 10,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 42,
+        "h": 10,
+        "role": "床鏡から鉱床の下面へ"
+      },
+      {
+        "id": "B",
+        "x": 100,
+        "h": 48,
+        "role": "鉱床上から出口へ落とす"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "under-ore-W-M",
+        "points": [
+          [
+            42,
+            13
+          ],
+          [
+            55,
+            11.63636
+          ],
+          [
+            76,
+            27
+          ],
+          [
+            103,
+            27
+          ],
+          [
+            130,
+            16
+          ]
+        ],
+        "contact": "W"
+      },
+      {
+        "id": "top-to-outlet",
+        "points": [
+          [
+            100,
+            51
+          ],
+          [
+            116,
+            64
+          ],
+          [
+            130,
+            16
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 74,
+    "name": "鉱床の下を通す鏡路",
+    "floor": [
+      [
+        0,
+        14
+      ],
+      [
+        28,
+        14
+      ],
+      [
+        34,
+        10
+      ],
+      [
+        49,
+        10
+      ],
+      [
+        60,
+        13
+      ],
+      [
+        83,
+        13
+      ],
+      [
+        87,
+        21
+      ],
+      [
+        94,
+        21
+      ],
+      [
+        100,
+        13
+      ],
+      [
+        140,
+        13
+      ]
+    ],
+    "parts": [
+      {
+        "id": "074-UPPER-WEST",
+        "poly": [
+          [
+            0,
+            48
+          ],
+          [
+            22,
+            47
+          ],
+          [
+            30,
+            42
+          ],
+          [
+            30,
+            33
+          ],
+          [
+            15,
+            35
+          ],
+          [
+            0,
+            38
+          ]
+        ],
+        "breakable": false,
+        "purpose": "開始の背後の鉱床",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "074-OPENING",
+        "poly": [
+          [
+            77,
+            48
+          ],
+          [
+            85,
+            48
+          ],
+          [
+            85,
+            35
+          ],
+          [
+            77,
+            37
+          ]
+        ],
+        "breakable": true,
+        "purpose": "常設縦穴の右端だけの任意短縮片",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "074-UPPER-EAST",
+        "poly": [
+          [
+            85,
+            48
+          ],
+          [
+            110,
+            48
+          ],
+          [
+            118,
+            44
+          ],
+          [
+            118,
+            33
+          ],
+          [
+            104,
+            35
+          ],
+          [
+            85,
+            35
+          ]
+        ],
+        "breakable": false,
+        "purpose": "下面の射線と上面の立位置を分ける鉱床",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          76,
+          29,
+          19,
+          -1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          49,
+          60,
+          10
+        ]
+      }
+    ],
+    "worldWidth": 1400,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        38,
+        10
+      ],
+      [
+        130,
+        13
+      ]
+    ],
+    "recommended": "rico"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:mole",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rico",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。",
+    "change": "三片の全面窓を常設の縦穴と端の一片へ整理。敵を上坑道の外の低い出口に置いた。",
+    "distinct": "同じ敵へ、鉱床の下面と上面で進入経路を変える。上下とも長い高弧にする構成を避ける。",
+    "inherit": {
+      "terrain": "二層の鉱床洞窟と下段鏡路",
+      "concept": "上下窓を開け、下段の反射と磁場を通して上坑道へ送る。",
+      "alternative": "上段へ転移し、天井を残したまま短い射線を取る。",
+      "geometryRefinement": "下段から上段へ抜ける天井窓を拡張し、固定床を残す。破壊単位は3片。"
+    },
+    "special": "主経路は常設開口を使い必須破壊なし。端の一片は別角度を開く任意準備。Wは床斜面だけに置き、上の鉱床まで鏡にしない。既存取得物は変更せず再検証対象とする。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "最初の描画で開始点の浮きと低い直通を発見。接地する床と鉱床下の平たい露頭を修正し、W-Mの下側空間と上面から出口へ落とす空間を再確認。敵直前の尖峰や大天井の追加に頼らず整理。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

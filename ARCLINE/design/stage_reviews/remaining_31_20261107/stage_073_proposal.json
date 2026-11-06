@@ -1,0 +1,846 @@
+{
+  "stage": 73,
+  "name": "磁場へ入る二つの向き",
+  "date": "2026-11-07",
+  "status": "design-review-pending-runtime-unverified",
+  "source": {
+    "stage": 73,
+    "proposal": "stage_073_proposal_v1.json",
+    "review": "stage_073_review_v1.md"
+  },
+  "before": {
+    "width": 1500,
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        33,
+        12
+      ],
+      [
+        41,
+        14
+      ],
+      [
+        59,
+        14
+      ],
+      [
+        76,
+        21
+      ],
+      [
+        90,
+        30
+      ],
+      [
+        105,
+        40
+      ],
+      [
+        125,
+        48
+      ],
+      [
+        150,
+        48
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          15,
+          12
+        ],
+        [
+          33,
+          12
+        ],
+        [
+          41,
+          14
+        ],
+        [
+          59,
+          14
+        ],
+        [
+          76,
+          21
+        ],
+        [
+          90,
+          30
+        ],
+        [
+          105,
+          40
+        ],
+        [
+          125,
+          48
+        ],
+        [
+          150,
+          48
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "073-LOW-HOOD",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            43
+          ],
+          [
+            25,
+            46
+          ],
+          [
+            38,
+            40
+          ],
+          [
+            38,
+            28
+          ],
+          [
+            0,
+            29
+          ]
+        ],
+        "purpose": "制御通路の低い遮蔽。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "073-LOW-HOOD",
+            "label": "F01",
+            "poly": [
+              [
+                0,
+                43
+              ],
+              [
+                25,
+                46
+              ],
+              [
+                38,
+                40
+              ],
+              [
+                38,
+                28
+              ],
+              [
+                0,
+                29
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "073-CONTROL-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            93,
+            32
+          ],
+          [
+            101,
+            37
+          ],
+          [
+            101,
+            63
+          ],
+          [
+            93,
+            60
+          ]
+        ],
+        "purpose": "磁場曲射の出口を開く門。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "073-CONTROL-GATE@0",
+            "label": "D02",
+            "poly": [
+              [
+                93,
+                32
+              ],
+              [
+                101,
+                37
+              ],
+              [
+                101,
+                63
+              ],
+              [
+                93,
+                60
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "073-UPPER",
+        "kind": "island",
+        "poly": [
+          [
+            62,
+            64
+          ],
+          [
+            68,
+            69
+          ],
+          [
+            82,
+            69
+          ],
+          [
+            87,
+            64
+          ],
+          [
+            78,
+            58
+          ],
+          [
+            69,
+            58
+          ]
+        ],
+        "purpose": "直接射線に近い高所棚。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "073-UPPER",
+            "label": "F03",
+            "poly": [
+              [
+                62,
+                64
+              ],
+              [
+                68,
+                69
+              ],
+              [
+                82,
+                69
+              ],
+              [
+                87,
+                64
+              ],
+              [
+                78,
+                58
+              ],
+              [
+                69,
+                58
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          76,
+          40,
+          24,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          43,
+          20
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 12
+    },
+    "enemy": {
+      "x": 136,
+      "h": 48
+    }
+  },
+  "after": {
+    "width": 1500,
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        33,
+        12
+      ],
+      [
+        41,
+        14
+      ],
+      [
+        59,
+        14
+      ],
+      [
+        76,
+        21
+      ],
+      [
+        90,
+        30
+      ],
+      [
+        105,
+        40
+      ],
+      [
+        125,
+        48
+      ],
+      [
+        150,
+        48
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          15,
+          12
+        ],
+        [
+          33,
+          12
+        ],
+        [
+          41,
+          14
+        ],
+        [
+          59,
+          14
+        ],
+        [
+          76,
+          21
+        ],
+        [
+          90,
+          30
+        ],
+        [
+          105,
+          40
+        ],
+        [
+          125,
+          48
+        ],
+        [
+          150,
+          48
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          76,
+          40,
+          24,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          43,
+          20
+        ]
+      }
+    ],
+    "player": {
+      "x": 44,
+      "h": 14
+    },
+    "enemy": {
+      "x": 136,
+      "h": 48
+    },
+    "pickups": [],
+    "parts": [
+      {
+        "id": "073-LOW-HOOD",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            43
+          ],
+          [
+            25,
+            46
+          ],
+          [
+            38,
+            40
+          ],
+          [
+            38,
+            28
+          ],
+          [
+            0,
+            29
+          ]
+        ],
+        "breakable": false,
+        "purpose": "制御通路の低い遮蔽。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "073-CONTROL-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            93,
+            32
+          ],
+          [
+            101,
+            37
+          ],
+          [
+            101,
+            74
+          ],
+          [
+            97,
+            76
+          ],
+          [
+            93,
+            70
+          ]
+        ],
+        "breakable": true,
+        "purpose": "磁場曲射の出口を開く門。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "073-UPPER",
+        "kind": "island",
+        "poly": [
+          [
+            61,
+            61
+          ],
+          [
+            69,
+            69
+          ],
+          [
+            80,
+            69
+          ],
+          [
+            87,
+            65
+          ],
+          [
+            88,
+            59
+          ],
+          [
+            77,
+            58
+          ],
+          [
+            68,
+            54
+          ],
+          [
+            62,
+            56
+          ]
+        ],
+        "breakable": false,
+        "purpose": "直接射線に近い高所棚。",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "id": 73,
+    "stageNumber": 73,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 44,
+        "h": 14,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 51,
+        "h": 14,
+        "role": "横からMへ。端子切替は選択肢"
+      },
+      {
+        "id": "B",
+        "x": 75,
+        "h": 69,
+        "role": "折り返してM上側へ"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "lower-M",
+        "points": [
+          [
+            51,
+            17
+          ],
+          [
+            65,
+            32
+          ],
+          [
+            83,
+            44
+          ],
+          [
+            108,
+            48
+          ],
+          [
+            136,
+            51
+          ]
+        ],
+        "contact": "M",
+        "destroy": [
+          "073-CONTROL-GATE"
+        ]
+      },
+      {
+        "id": "return-M",
+        "points": [
+          [
+            75,
+            72
+          ],
+          [
+            57,
+            77
+          ],
+          [
+            49,
+            55
+          ],
+          [
+            62,
+            43
+          ],
+          [
+            87,
+            47
+          ],
+          [
+            91,
+            60
+          ],
+          [
+            91,
+            82
+          ],
+          [
+            114,
+            84
+          ],
+          [
+            136,
+            51
+          ]
+        ],
+        "contact": "M"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 73,
+    "name": "磁場へ入る二つの向き",
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        33,
+        12
+      ],
+      [
+        41,
+        14
+      ],
+      [
+        59,
+        14
+      ],
+      [
+        76,
+        21
+      ],
+      [
+        90,
+        30
+      ],
+      [
+        105,
+        40
+      ],
+      [
+        125,
+        48
+      ],
+      [
+        150,
+        48
+      ]
+    ],
+    "parts": [
+      {
+        "id": "073-LOW-HOOD",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            43
+          ],
+          [
+            25,
+            46
+          ],
+          [
+            38,
+            40
+          ],
+          [
+            38,
+            28
+          ],
+          [
+            0,
+            29
+          ]
+        ],
+        "breakable": false,
+        "purpose": "制御通路の低い遮蔽。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "073-CONTROL-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            93,
+            32
+          ],
+          [
+            101,
+            37
+          ],
+          [
+            101,
+            74
+          ],
+          [
+            97,
+            76
+          ],
+          [
+            93,
+            70
+          ]
+        ],
+        "breakable": true,
+        "purpose": "磁場曲射の出口を開く門。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "073-UPPER",
+        "kind": "island",
+        "poly": [
+          [
+            61,
+            61
+          ],
+          [
+            69,
+            69
+          ],
+          [
+            80,
+            69
+          ],
+          [
+            87,
+            65
+          ],
+          [
+            88,
+            59
+          ],
+          [
+            77,
+            58
+          ],
+          [
+            68,
+            54
+          ],
+          [
+            62,
+            56
+          ]
+        ],
+        "breakable": false,
+        "purpose": "直接射線に近い高所棚。",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          76,
+          40,
+          24,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          43,
+          20
+        ]
+      }
+    ],
+    "worldWidth": 1500,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        44,
+        14
+      ],
+      [
+        136,
+        48
+      ]
+    ],
+    "recommended": "rin"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:pole",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
+    "change": "開始を庇の外へ移し、磁場を避けるだけだった高棚にも異なる入射を持たせた。",
+    "distinct": "Tを必須の通行鍵にせず、Mの入り方と極性を比較する採掘場。二枚隔壁の破壊順とは区別。",
+    "inherit": {
+      "terrain": "上下採掘路と磁場制御門",
+      "concept": "下段で端子を撃って極性を変え、門の一片を開いた先へ通す。",
+      "alternative": "高棚へ転移して磁場への依存を減らす。敵が移っても開いた門を再利用する。"
+    },
+    "special": "Mは速度の回転であり吸引ではない。二本の線は入射方向の構想で、旋回量・極性別の成立は最終検証。Tを撃つ操作、破壊、転移はそれぞれ行動として数える。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "棚自身を横切っていた上側構想線を、棚の左外から磁場へ戻り右縁へ抜ける空間へ修正。再描画で開放開始点、門一片、Mの二方向の入口を確認。Tへの近さは切替無料を意味しない。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}
