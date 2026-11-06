@@ -33,3 +33,5 @@ ArcMirrorCliffsBackground.draw(ctx, widthCssPx, heightCssPx, scene, {fit:'cover'
 ゲーム本体・地形設計・保存・他テーマは変更していない。独立した新規コンテンツの入口を追加するものではなく、既存ARCLINEの制作資料。実装と公開は別工程。次の未制作テーマは11〜15面「吊り橋の水路」だが、この背景のデザイン確認より先には進めない。
 
 参照：[PR #75](https://github.com/bittrove88/bittrove88.github.io/pull/75) ／ [PR #100](https://github.com/bittrove88/bittrove88.github.io/pull/100)。元PRの未マージファイルやゲーム試作は本変更に取り込んでいない。
+
+最新の継続制作：ユーザー承認後の「残り全テーマ・大ボス専用・ラスボス4景」は[全背景コレクション](../complete/README.md)へ。大ボス10面では「鏡の岸壁」を継承した専用背景へ切り替える新しい設計案を収録している。

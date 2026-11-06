@@ -1,0 +1,562 @@
+{
+  "schema": "arcline.background-art/v3",
+  "id": "normal-00",
+  "title": "はじまりの入江",
+  "stageRange": [
+    1,
+    5
+  ],
+  "themeIndex": 0,
+  "approved": true,
+  "visualContract": {
+    "mood": "穏やかな海風、あたたかな薄日、左右の岬に包まれた旅の出発点",
+    "technique": "opaque flat matte color fields; adjacent tonal parts for all structural objects",
+    "forbidden": [
+      "gradients",
+      "blurs",
+      "image textures",
+      "raster assets",
+      "glow filters",
+      "nonessential animations"
+    ],
+    "gameplayLayer": "decorative screen-space background only, always behind terrain / mechanics / units / ballistic guides / HUD",
+    "layout": "identical illustration for stages 1-5; centered cover scaling without procedural variation",
+    "designSafeZone": "sun and saturated architecture placed away from central aiming corridor; center bay uses calm mid-value colors",
+    "notImplemented": "This is design-data only and does not change gameplay, collision or main branch."
+  },
+  "size": [
+    1120,
+    604
+  ],
+  "palette": {
+    "sky": "#C9DDD4",
+    "skyUpper": "#BAD4CC",
+    "skyOpen": "#D8E4D8",
+    "horizonAir": "#E4D9CA",
+    "horizonPeach": "#EDDBCB",
+    "sunHalo": "#F0D6B7",
+    "sunCore": "#F8E9D3",
+    "cloudBack": "#C9D3CD",
+    "cloudWarm": "#E5CFC4",
+    "cloudRibbon": "#DBCDC3",
+    "farHills": "#A9BEB3",
+    "farHillsShade": "#97B0A9",
+    "farIsland": "#B6C6B6",
+    "waterBase": "#9BC4B7",
+    "waterBack": "#86B4AC",
+    "waterShallow": "#A7C8BA",
+    "waterMid": "#77A5A2",
+    "waterMidShade": "#6D9B9D",
+    "waterEdge": "#B4CFC0",
+    "capeLeftTop": "#D2B19E",
+    "capeLeft": "#B89080",
+    "capeLeftShade": "#9E7C74",
+    "capeLeftDeep": "#876F6E",
+    "capeRightTop": "#D3B5A2",
+    "capeRight": "#B49186",
+    "capeRightShade": "#987875",
+    "capeRightDeep": "#796A70",
+    "stoneFar": "#AEB5A9",
+    "stoneFarShadow": "#95A6A2",
+    "stoneWarm": "#CBB3A2",
+    "stoneWarmShade": "#A78D87",
+    "stoneSunlit": "#E6D1B9",
+    "lighthouse": "#D9BEA8",
+    "lighthouseShade": "#B99E92",
+    "lighthouseDark": "#7E7776",
+    "window": "#698687",
+    "sail": "#F0E7D8",
+    "sailShade": "#C8C9C0",
+    "boat": "#698F94",
+    "smallRock": "#9B928B",
+    "waterLight": "#CDDDD0"
+  },
+  "layerOrder": [
+    "sky",
+    "light",
+    "distant",
+    "sea",
+    "harbor",
+    "left-cape",
+    "right-cape",
+    "sea-foreground"
+  ],
+  "shapes": [
+    {
+      "id": "sky-base",
+      "layer": "sky",
+      "kind": "path",
+      "fill": "sky",
+      "d": "M0 0 H1120 V604 H0 Z",
+      "role": "single matte sky base"
+    },
+    {
+      "id": "sky-upper-field",
+      "layer": "sky",
+      "kind": "path",
+      "fill": "skyUpper",
+      "d": "M0 0 H1120 V126 C990 107 897 119 780 124 C611 131 488 99 358 108 C192 115 107 106 0 86 Z",
+      "role": "cool open sky"
+    },
+    {
+      "id": "sky-warm-horizon",
+      "layer": "sky",
+      "kind": "path",
+      "fill": "horizonAir",
+      "d": "M0 268 C137 242 284 241 414 260 C549 272 654 256 773 256 C924 252 1036 271 1120 246 L1120 484 H0 Z",
+      "role": "warm air near water"
+    },
+    {
+      "id": "sky-soft-peach-window",
+      "layer": "sky",
+      "kind": "path",
+      "fill": "horizonPeach",
+      "d": "M0 314 C152 294 248 302 379 291 C496 280 625 299 749 289 C906 275 1022 301 1120 280 V377 H0 Z",
+      "role": "matte stepped warm air"
+    },
+    {
+      "id": "sun-outer",
+      "layer": "light",
+      "kind": "ellipse",
+      "fill": "sunHalo",
+      "cx": 760,
+      "cy": 183,
+      "rx": 127,
+      "ry": 127,
+      "role": "warm early sunlight in one full circle"
+    },
+    {
+      "id": "sun-center",
+      "layer": "light",
+      "kind": "ellipse",
+      "fill": "sunCore",
+      "cx": 760,
+      "cy": 183,
+      "rx": 91,
+      "ry": 91,
+      "role": "nested single-color disk"
+    },
+    {
+      "id": "high-cloud-1",
+      "layer": "light",
+      "kind": "path",
+      "fill": "cloudBack",
+      "d": "M0 179 C115 160 226 154 318 171 C384 187 438 207 533 204 C458 230 324 227 240 218 C153 209 73 221 0 224 Z",
+      "role": "soft cool distant wind field"
+    },
+    {
+      "id": "sun-crossing-ribbon",
+      "layer": "light",
+      "kind": "path",
+      "fill": "cloudWarm",
+      "d": "M0 289 C107 265 222 271 334 285 C460 301 550 296 629 282 C742 262 851 287 969 280 C1037 275 1080 272 1120 276 L1120 297 C1068 300 1009 298 966 304 C852 322 725 303 623 307 C508 315 410 316 307 308 C184 297 89 314 0 323 Z",
+      "role": "flat peach cloud crossing sun low edge"
+    },
+    {
+      "id": "cloud-slim-west",
+      "layer": "light",
+      "kind": "path",
+      "fill": "cloudRibbon",
+      "d": "M0 251 C128 242 189 250 271 264 C342 275 433 263 477 267 C396 282 322 278 254 278 C156 277 77 275 0 284 Z",
+      "role": "thin non-interactive cloud surface"
+    },
+    {
+      "id": "cloud-east-tail",
+      "layer": "light",
+      "kind": "path",
+      "fill": "cloudRibbon",
+      "d": "M920 229 C995 208 1064 217 1120 203 V228 C1063 235 1021 231 971 240 Z",
+      "role": "distant cloud edge"
+    },
+    {
+      "id": "far-west-mountain",
+      "layer": "distant",
+      "kind": "path",
+      "fill": "farHills",
+      "d": "M0 353 C89 315 150 284 233 293 C327 300 356 343 456 346 C495 348 517 353 555 363 V422 H0 Z",
+      "role": "western bay hills"
+    },
+    {
+      "id": "far-west-shade",
+      "layer": "distant",
+      "kind": "path",
+      "fill": "farHillsShade",
+      "d": "M0 374 C103 346 163 322 219 327 C293 338 338 366 400 370 L474 411 H0 Z",
+      "role": "sloped face of far headland"
+    },
+    {
+      "id": "far-sandbars",
+      "layer": "distant",
+      "kind": "path",
+      "fill": "farIsland",
+      "d": "M345 377 C420 353 477 351 534 362 C578 370 624 375 683 369 C725 367 757 376 791 390 V430 H345 Z",
+      "role": "shallow distant bay islands"
+    },
+    {
+      "id": "far-east-hills",
+      "layer": "distant",
+      "kind": "path",
+      "fill": "farHills",
+      "d": "M816 384 C888 345 956 313 1023 317 C1077 318 1099 339 1120 352 V440 H816 Z",
+      "role": "eastern distant headland"
+    },
+    {
+      "id": "far-east-shadow",
+      "layer": "distant",
+      "kind": "path",
+      "fill": "farHillsShade",
+      "d": "M893 383 C959 349 1000 336 1042 343 C1080 350 1106 362 1120 374 V421 H894 Z",
+      "role": "shade face on far side"
+    },
+    {
+      "id": "sea-full",
+      "layer": "sea",
+      "kind": "path",
+      "fill": "waterBase",
+      "d": "M0 382 C221 387 354 376 541 385 C715 393 877 377 1120 382 V604 H0 Z",
+      "role": "water field behind foreground terrain"
+    },
+    {
+      "id": "sea-back-band",
+      "layer": "sea",
+      "kind": "path",
+      "fill": "waterBack",
+      "d": "M0 409 C160 398 276 411 406 416 C583 423 758 406 892 409 C991 412 1078 415 1120 407 V604 H0 Z",
+      "role": "second water tonality"
+    },
+    {
+      "id": "sea-bay-surface",
+      "layer": "sea",
+      "kind": "path",
+      "fill": "waterShallow",
+      "d": "M0 442 C181 423 291 433 421 441 C575 450 714 431 853 426 C945 421 1057 433 1120 429 V464 C1008 457 963 459 876 463 C738 471 607 475 441 464 C292 454 146 459 0 471 Z",
+      "role": "wide pale surface strip"
+    },
+    {
+      "id": "sea-lower-depth",
+      "layer": "sea",
+      "kind": "path",
+      "fill": "waterMid",
+      "d": "M0 493 C188 481 350 501 499 500 C636 499 731 482 892 485 C1002 489 1066 497 1120 492 V604 H0 Z",
+      "role": "quiet sea depth"
+    },
+    {
+      "id": "sea-middle-arc",
+      "layer": "sea",
+      "kind": "path",
+      "fill": "waterMidShade",
+      "d": "M0 547 C141 520 264 517 388 534 C523 551 657 536 743 527 C879 514 1008 544 1120 530 V604 H0 Z",
+      "role": "curved dark water plane"
+    },
+    {
+      "id": "sea-soft-run",
+      "layer": "sea",
+      "kind": "path",
+      "fill": "waterEdge",
+      "d": "M242 488 C359 477 482 485 557 491 C667 500 774 487 849 483 C724 505 606 513 491 503 C390 493 320 497 242 488 Z",
+      "role": "thin colorfield plane, not stroke"
+    },
+    {
+      "id": "far-jetty",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "stoneFar",
+      "d": "M347 358 C430 355 506 356 580 357 L603 364 L584 371 L354 371 Z",
+      "role": "old sheltered breakwater well behind terrain"
+    },
+    {
+      "id": "jetty-sunlit-cap",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "stoneSunlit",
+      "d": "M348 359 C428 357 515 358 574 358 L594 362 L360 362 Z",
+      "role": "sun-facing cap of breakwater"
+    },
+    {
+      "id": "jetty-pier-1",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "stoneFarShadow",
+      "d": "M376 369 L392 369 L389 403 L377 404 Z",
+      "role": "muted far harbor support"
+    },
+    {
+      "id": "jetty-pier-2",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "stoneFarShadow",
+      "d": "M445 368 L462 368 L458 403 L447 403 Z",
+      "role": "muted far harbor support"
+    },
+    {
+      "id": "jetty-pier-3",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "stoneFarShadow",
+      "d": "M535 367 L553 367 L550 401 L540 403 Z",
+      "role": "muted far harbor support"
+    },
+    {
+      "id": "sail-small-shadow",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "sailShade",
+      "d": "M594 359 L610 321 L615 363 Z",
+      "role": "small near-horizon sail underside"
+    },
+    {
+      "id": "sail-small",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "sail",
+      "d": "M617 360 L613 317 L636 358 Z",
+      "role": "small pale sail"
+    },
+    {
+      "id": "boat-small",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "boat",
+      "d": "M582 370 L645 370 L634 377 L598 377 Z",
+      "role": "quiet tiny boat"
+    },
+    {
+      "id": "sail-far",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "sailShade",
+      "d": "M699 364 L706 341 L712 364 Z",
+      "role": "distant tiny boat sail"
+    },
+    {
+      "id": "sail-far-light",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "sail",
+      "d": "M715 365 L710 344 L727 364 Z",
+      "role": "bright sail side"
+    },
+    {
+      "id": "sail-far-boat",
+      "layer": "harbor",
+      "kind": "path",
+      "fill": "boat",
+      "d": "M694 368 L735 368 L725 372 L702 372 Z",
+      "role": "distant boat hull"
+    },
+    {
+      "id": "left-main-rock",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "capeLeft",
+      "d": "M0 379 C66 347 138 328 191 346 C251 367 284 409 327 444 C349 467 359 501 380 524 L400 604 H0 Z",
+      "role": "large ocher western shore"
+    },
+    {
+      "id": "left-lit-ridge",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "capeLeftTop",
+      "d": "M0 381 C77 342 142 324 190 347 C217 359 236 375 256 392 C216 378 187 369 144 363 C100 355 59 377 0 398 Z",
+      "role": "sunlit crest on western bluff"
+    },
+    {
+      "id": "left-cut-face",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "capeLeftShade",
+      "d": "M189 348 C240 369 283 410 327 444 C357 474 380 527 400 604 H240 C271 549 282 500 270 459 C257 416 226 377 189 348 Z",
+      "role": "slanted broad dark cliff face"
+    },
+    {
+      "id": "left-seaward-face",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "capeLeftDeep",
+      "d": "M0 469 C61 433 110 413 150 418 C189 425 217 469 240 507 C254 530 256 568 245 604 H0 Z",
+      "role": "secondary rock wall near water"
+    },
+    {
+      "id": "left-cliff-matte-light",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "stoneWarm",
+      "d": "M0 422 C82 395 129 384 153 391 C163 393 175 404 181 417 C140 411 76 434 0 463 Z",
+      "role": "cream-colored thin stone plane"
+    },
+    {
+      "id": "left-cliff-foot",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "stoneWarmShade",
+      "d": "M0 542 C48 514 99 496 142 510 C193 528 208 568 227 604 H0 Z",
+      "role": "shore base, lower contrast than combat units"
+    },
+    {
+      "id": "left-beacon-shadow",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "lighthouseShade",
+      "d": "M125 303 L125 345 L147 351 L148 301 Z",
+      "role": "old left watchtower shadow"
+    },
+    {
+      "id": "left-beacon-lit",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "lighthouse",
+      "d": "M117 303 L126 301 L126 345 L118 344 Z",
+      "role": "matte lighthouse front edge"
+    },
+    {
+      "id": "left-beacon-roof",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "lighthouseDark",
+      "d": "M112 304 L131 290 L152 304 Z",
+      "role": "small watchtower roof"
+    },
+    {
+      "id": "left-beacon-lamp",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "stoneSunlit",
+      "d": "M130 309 L141 309 L141 319 L130 318 Z",
+      "role": "small unmoving lit window"
+    },
+    {
+      "id": "left-beacon-base",
+      "layer": "left-cape",
+      "kind": "path",
+      "fill": "capeLeftTop",
+      "d": "M108 344 L154 344 L159 350 L103 350 Z",
+      "role": "watchtower base masonry"
+    },
+    {
+      "id": "right-main-rock",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "capeRight",
+      "d": "M827 604 C846 558 872 493 911 444 C940 405 966 370 1020 351 C1066 331 1100 349 1120 357 V604 Z",
+      "role": "right beach cliff"
+    },
+    {
+      "id": "right-lit-cap",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "capeRightTop",
+      "d": "M911 445 C950 382 991 352 1037 344 C1071 337 1090 341 1120 355 V376 C1082 360 1053 365 1020 382 C971 400 948 435 918 477 Z",
+      "role": "warm sun-facing cliff top"
+    },
+    {
+      "id": "right-cut-face",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "capeRightShade",
+      "d": "M1021 350 C1056 338 1091 342 1120 357 V604 H938 C952 536 975 476 990 421 C998 396 1009 368 1021 350 Z",
+      "role": "massive broad ochre shade"
+    },
+    {
+      "id": "right-deep-face",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "capeRightDeep",
+      "d": "M1072 350 C1094 348 1108 353 1120 360 V604 H1030 C1054 519 1061 441 1072 350 Z",
+      "role": "dark side of cape"
+    },
+    {
+      "id": "right-lower-step",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "capeRightTop",
+      "d": "M842 574 C865 536 899 501 916 499 C944 512 958 526 970 546 C933 538 905 567 877 604 H819 Z",
+      "role": "secondary sunlit shoreline plane"
+    },
+    {
+      "id": "right-stone-shelf",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "stoneWarmShade",
+      "d": "M953 444 C979 401 1000 380 1017 379 C1005 413 1000 451 975 484 L934 515 Z",
+      "role": "inner structural rock seam"
+    },
+    {
+      "id": "right-tower-front",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "lighthouse",
+      "d": "M998 253 L1018 250 L1018 354 L998 360 Z",
+      "role": "beacon main warm stone face"
+    },
+    {
+      "id": "right-tower-side",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "lighthouseShade",
+      "d": "M1018 250 L1033 257 L1034 354 L1018 354 Z",
+      "role": "beacon side face in darker flat tone"
+    },
+    {
+      "id": "right-beacon-shoulder",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "lighthouseDark",
+      "d": "M992 249 L1014 234 L1040 249 L1041 256 L992 256 Z",
+      "role": "angular beacon roof"
+    },
+    {
+      "id": "right-beacon-light",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "stoneSunlit",
+      "d": "M1006 258 L1018 257 L1018 273 L1006 274 Z",
+      "role": "one small beacon light field"
+    },
+    {
+      "id": "right-beacon-slit",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "window",
+      "d": "M1021 290 L1028 291 L1028 317 L1021 318 Z",
+      "role": "small teal side window"
+    },
+    {
+      "id": "right-beacon-foot",
+      "layer": "right-cape",
+      "kind": "path",
+      "fill": "stoneWarm",
+      "d": "M987 345 L1039 345 L1050 356 L985 360 Z",
+      "role": "beacon rooted visibly into cliff"
+    },
+    {
+      "id": "lower-water-wide",
+      "layer": "sea-foreground",
+      "kind": "path",
+      "fill": "waterShallow",
+      "d": "M310 568 C465 542 611 543 714 554 C794 563 855 555 910 545 C845 579 790 587 709 583 C573 578 426 579 310 595 Z",
+      "role": "wide subtle cove shimmer built from solid piece"
+    },
+    {
+      "id": "lower-water-edge",
+      "layer": "sea-foreground",
+      "kind": "path",
+      "fill": "waterLight",
+      "d": "M457 577 C548 560 636 563 698 571 C622 570 550 583 496 591 Z",
+      "role": "small flat water colorfield"
+    },
+    {
+      "id": "water-middle-lobe",
+      "layer": "sea-foreground",
+      "kind": "path",
+      "fill": "waterBack",
+      "d": "M396 588 C508 585 621 596 731 590 C818 585 856 583 899 568 C852 598 813 604 740 604 H386 Z",
+      "role": "curved lower water depth"
+    }
+  ],
+  "kind": "normal",
+  "concept": "穏やかな海風、あたたかな薄日、左右の岬に包まれた旅の出発点",
+  "provenance": {
+    "pr": 100,
+    "scope": "approved artwork retained"
+  }
+}
