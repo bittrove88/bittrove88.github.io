@@ -1,0 +1,1067 @@
+{
+  "schema": "arcline-stage-design-proposal-v2",
+  "stage": 82,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "根間の床鏡と開いた磁場台",
+  "source": {
+    "proposal": "stage_082_proposal_v1.json",
+    "review": "stage_082_review_v1.md",
+    "baseApproved81": "0a6fdf9a66b93f8cdff10f336953caa408d74591",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105"
+  },
+  "before": {
+    "width": 1560,
+    "floor": [
+      [
+        0,
+        53
+      ],
+      [
+        32,
+        53
+      ],
+      [
+        40,
+        42
+      ],
+      [
+        40,
+        8
+      ],
+      [
+        108,
+        8
+      ],
+      [
+        123,
+        46
+      ],
+      [
+        156,
+        46
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          53
+        ],
+        [
+          32,
+          53
+        ],
+        [
+          40,
+          42
+        ]
+      ],
+      [
+        [
+          40,
+          8
+        ],
+        [
+          108,
+          8
+        ]
+      ],
+      [
+        [
+          123,
+          46
+        ],
+        [
+          156,
+          46
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "082-ROOT",
+        "kind": "roof",
+        "poly": [
+          [
+            48,
+            68
+          ],
+          [
+            62,
+            79
+          ],
+          [
+            77,
+            82
+          ],
+          [
+            97,
+            69
+          ],
+          [
+            97,
+            39
+          ],
+          [
+            77,
+            35
+          ],
+          [
+            48,
+            37
+          ]
+        ],
+        "purpose": "上側を遮り、下の空洞を支える大根。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "082-ROOT",
+            "label": "F01",
+            "poly": [
+              [
+                48,
+                68
+              ],
+              [
+                62,
+                79
+              ],
+              [
+                77,
+                82
+              ],
+              [
+                97,
+                69
+              ],
+              [
+                97,
+                39
+              ],
+              [
+                77,
+                35
+              ],
+              [
+                48,
+                37
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "082-ROOT-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            90,
+            8
+          ],
+          [
+            98,
+            8
+          ],
+          [
+            98,
+            36
+          ],
+          [
+            90,
+            37
+          ]
+        ],
+        "purpose": "根の下の窓。支持根とは独立。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "082-ROOT-WINDOW@0",
+            "label": "D02",
+            "poly": [
+              [
+                90,
+                8
+              ],
+              [
+                98,
+                8
+              ],
+              [
+                98,
+                36
+              ],
+              [
+                90,
+                37
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "082-SIDE-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            98,
+            59
+          ],
+          [
+            104,
+            64
+          ],
+          [
+            118,
+            64
+          ],
+          [
+            123,
+            60
+          ],
+          [
+            115,
+            54
+          ],
+          [
+            105,
+            54
+          ]
+        ],
+        "purpose": "根の外側の上射点。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "082-SIDE-PERCH",
+            "label": "F03",
+            "poly": [
+              [
+                98,
+                59
+              ],
+              [
+                104,
+                64
+              ],
+              [
+                118,
+                64
+              ],
+              [
+                123,
+                60
+              ],
+              [
+                115,
+                54
+              ],
+              [
+                105,
+                54
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "082-REFLECT-BANK",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            65,
+            8
+          ],
+          [
+            76,
+            10
+          ],
+          [
+            76,
+            7
+          ],
+          [
+            65,
+            7
+          ]
+        ],
+        "purpose": "低所の固定傾斜で弾を上へ反射させる。準備用の支持面は残す。",
+        "displayId": "F04",
+        "renderUnits": [
+          {
+            "id": "082-REFLECT-BANK",
+            "label": "F04",
+            "poly": [
+              [
+                65,
+                8
+              ],
+              [
+                76,
+                10
+              ],
+              [
+                76,
+                7
+              ],
+              [
+                65,
+                7
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          77,
+          23,
+          18,
+          -1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          51,
+          84,
+          8
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 53
+    },
+    "enemy": {
+      "x": 140,
+      "h": 46
+    }
+  },
+  "after": {
+    "id": "082-v2",
+    "stageNumber": 82,
+    "width": 1750,
+    "floor": [
+      [
+        0,
+        30
+      ],
+      [
+        48,
+        30
+      ],
+      [
+        50,
+        8
+      ],
+      [
+        72,
+        10
+      ],
+      [
+        80,
+        10
+      ],
+      [
+        90,
+        12
+      ],
+      [
+        95,
+        18
+      ],
+      [
+        105,
+        18
+      ],
+      [
+        112,
+        10
+      ],
+      [
+        132,
+        8
+      ],
+      [
+        138,
+        48
+      ],
+      [
+        175,
+        48
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          30
+        ],
+        [
+          48,
+          30
+        ]
+      ],
+      [
+        [
+          50,
+          8
+        ],
+        [
+          72,
+          10
+        ],
+        [
+          80,
+          10
+        ],
+        [
+          90,
+          12
+        ],
+        [
+          95,
+          18
+        ],
+        [
+          105,
+          18
+        ],
+        [
+          112,
+          10
+        ],
+        [
+          132,
+          8
+        ]
+      ],
+      [
+        [
+          138,
+          48
+        ],
+        [
+          175,
+          48
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "082-LEFT-HOOK-ROOT",
+        "displayId": "F01",
+        "kind": "root",
+        "poly": [
+          [
+            50,
+            59
+          ],
+          [
+            58,
+            68
+          ],
+          [
+            70,
+            66
+          ],
+          [
+            77,
+            57
+          ],
+          [
+            77,
+            49
+          ],
+          [
+            69,
+            48
+          ],
+          [
+            60,
+            53
+          ],
+          [
+            52,
+            50
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左から張り出す固定根。P0の上を覆わず、低い入射帯の上に岩陰を作る。Wの反射後は右端の外へ出る。"
+      },
+      {
+        "id": "082-RIGHT-RETURN-ROOT",
+        "displayId": "F02",
+        "kind": "root",
+        "poly": [
+          [
+            126,
+            59
+          ],
+          [
+            133,
+            65
+          ],
+          [
+            141,
+            63
+          ],
+          [
+            148,
+            55
+          ],
+          [
+            153,
+            48
+          ],
+          [
+            153,
+            36
+          ],
+          [
+            146,
+            36
+          ],
+          [
+            142,
+            48
+          ],
+          [
+            137,
+            57
+          ],
+          [
+            131,
+            55
+          ],
+          [
+            126,
+            51
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側庭園へつながる固定の返し根。敵への直射を遮り、上側にW/Mの通過帯を残す。"
+      },
+      {
+        "id": "082-LOW-WINDOW",
+        "displayId": "D03",
+        "kind": "wall",
+        "poly": [
+          [
+            58,
+            8.7272727273
+          ],
+          [
+            62,
+            9.0909090909
+          ],
+          [
+            62,
+            24
+          ],
+          [
+            58,
+            24
+          ]
+        ],
+        "breakable": true,
+        "purpose": "低い入射窓の下部を覆う独立片。上の常設開口で主経路を残し、破壊すると窓の下部も開く。固定根の支持を担わない。"
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          80,
+          90,
+          10
+        ]
+      },
+      {
+        "type": "M",
+        "v": [
+          119,
+          32,
+          14,
+          -1
+        ]
+      }
+    ],
+    "player": {
+      "x": 36,
+      "h": 30
+    },
+    "enemy": {
+      "x": 165,
+      "h": 48
+    },
+    "pickups": [
+      {
+        "id": "W10",
+        "kind": "trial",
+        "weaponId": "W10",
+        "category": "weapon",
+        "amount": 2,
+        "x": 36,
+        "h": 39,
+        "spawnTurn": 1,
+        "placementId": "L082:weapon:W10",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 36,
+        "h": 30
+      },
+      {
+        "id": "A-M",
+        "x": 100,
+        "h": 18
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "floor-W",
+        "points": [
+          [
+            36,
+            33
+          ],
+          [
+            43,
+            33
+          ],
+          [
+            55,
+            30.5
+          ],
+          [
+            65,
+            26
+          ],
+          [
+            74,
+            20.5
+          ],
+          [
+            84,
+            12
+          ],
+          [
+            85,
+            11
+          ],
+          [
+            96,
+            34.8
+          ],
+          [
+            108,
+            54.1
+          ],
+          [
+            123,
+            68.5
+          ],
+          [
+            133,
+            72.1
+          ],
+          [
+            140,
+            71.7
+          ],
+          [
+            165,
+            51
+          ]
+        ],
+        "contactIndex": 6,
+        "state": "D03 intact; single planned floor reflection; avoid M"
+      },
+      {
+        "kind": "open-M",
+        "points": [
+          [
+            100,
+            21
+          ],
+          [
+            109,
+            26
+          ],
+          [
+            119,
+            39
+          ],
+          [
+            127,
+            66
+          ],
+          [
+            138,
+            78
+          ],
+          [
+            165,
+            51
+          ]
+        ],
+        "state": "initial-minus-one; no W required"
+      }
+    ],
+    "transferSpaces": [
+      {
+        "to": "A-M",
+        "points": [
+          [
+            36,
+            33
+          ],
+          [
+            47,
+            76
+          ],
+          [
+            80,
+            88
+          ],
+          [
+            100,
+            72
+          ],
+          [
+            100,
+            18
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 82,
+    "name": "根間の床鏡と開いた磁場台",
+    "nameEn": "Floor Mirror Between Roots and Open Magnetic Perch",
+    "goal": "固定根を残し、根の下から床Wへ入れるか、開いた台からMへ入れるか選ぶ。",
+    "goalEn": "Keep the roots and choose a floor reflection or an open magnetic launch.",
+    "floor": [
+      [
+        0,
+        30
+      ],
+      [
+        48,
+        30
+      ],
+      [
+        50,
+        8
+      ],
+      [
+        72,
+        10
+      ],
+      [
+        80,
+        10
+      ],
+      [
+        90,
+        12
+      ],
+      [
+        95,
+        18
+      ],
+      [
+        105,
+        18
+      ],
+      [
+        112,
+        10
+      ],
+      [
+        132,
+        8
+      ],
+      [
+        138,
+        48
+      ],
+      [
+        175,
+        48
+      ]
+    ],
+    "floorSegments": [
+      [
+        [
+          0,
+          30
+        ],
+        [
+          48,
+          30
+        ]
+      ],
+      [
+        [
+          50,
+          8
+        ],
+        [
+          72,
+          10
+        ],
+        [
+          80,
+          10
+        ],
+        [
+          90,
+          12
+        ],
+        [
+          95,
+          18
+        ],
+        [
+          105,
+          18
+        ],
+        [
+          112,
+          10
+        ],
+        [
+          132,
+          8
+        ]
+      ],
+      [
+        [
+          138,
+          48
+        ],
+        [
+          175,
+          48
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "082-LEFT-HOOK-ROOT",
+        "displayId": "F01",
+        "kind": "root",
+        "poly": [
+          [
+            50,
+            59
+          ],
+          [
+            58,
+            68
+          ],
+          [
+            70,
+            66
+          ],
+          [
+            77,
+            57
+          ],
+          [
+            77,
+            49
+          ],
+          [
+            69,
+            48
+          ],
+          [
+            60,
+            53
+          ],
+          [
+            52,
+            50
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左から張り出す固定根。P0の上を覆わず、低い入射帯の上に岩陰を作る。Wの反射後は右端の外へ出る。"
+      },
+      {
+        "id": "082-RIGHT-RETURN-ROOT",
+        "displayId": "F02",
+        "kind": "root",
+        "poly": [
+          [
+            126,
+            59
+          ],
+          [
+            133,
+            65
+          ],
+          [
+            141,
+            63
+          ],
+          [
+            148,
+            55
+          ],
+          [
+            153,
+            48
+          ],
+          [
+            153,
+            36
+          ],
+          [
+            146,
+            36
+          ],
+          [
+            142,
+            48
+          ],
+          [
+            137,
+            57
+          ],
+          [
+            131,
+            55
+          ],
+          [
+            126,
+            51
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側庭園へつながる固定の返し根。敵への直射を遮り、上側にW/Mの通過帯を残す。"
+      },
+      {
+        "id": "082-LOW-WINDOW",
+        "displayId": "D03",
+        "kind": "wall",
+        "poly": [
+          [
+            58,
+            8.7272727273
+          ],
+          [
+            62,
+            9.0909090909
+          ],
+          [
+            62,
+            24
+          ],
+          [
+            58,
+            24
+          ]
+        ],
+        "breakable": true,
+        "purpose": "低い入射窓の下部を覆う独立片。上の常設開口で主経路を残し、破壊すると窓の下部も開く。固定根の支持を担わない。"
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          80,
+          90,
+          10
+        ]
+      },
+      {
+        "type": "M",
+        "v": [
+          119,
+          32,
+          14,
+          -1
+        ]
+      }
+    ],
+    "recommended": "rico",
+    "spawn": [
+      36,
+      165
+    ],
+    "spawnPoints": [
+      [
+        36,
+        30
+      ],
+      [
+        165,
+        48
+      ]
+    ],
+    "worldWidth": 1750,
+    "hold": 1,
+    "terrainRevision": "5.2",
+    "route": "P0から常設窓の上側を通し、支持された床Wで一回反射する構想。任意に頭上の開いたAへ転移し、初期−1のMで上へ回す。両経路ともD03破壊は必須にしない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 20,
+      "enemyHp": 6,
+      "enemyProfile": 4,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rico",
+      "enemyErrorStageMultiplier": 0.65,
+      "enemyDamageStageMultiplier": 1.1,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "固定根は残し、低い窓から床へ入れる反射と、根間の開いた台から磁場へ入れる曲射を使い分ける。",
+  "designIntent": {
+    "inherit": "根の洞窟・W/M・独立した破壊窓・外側へ回る選択・既存W10。",
+    "rebuild": "巨大な一枚根と磁場の重なりをやめ、左右の異なる固定根と間の開放空間へ再構成。Wは根下面でなく支持された床の一段だけへ対応付ける。",
+    "primary": "P0から左根の下の常設開口を通し、W床へ落として一回反射。右根の上を回す構想。反射後はMの上側を通し一発連鎖を必須にしない。",
+    "alternative": "頭上の開いたAへ転移して初期−1のMへ右向き入射。上へ回して右根を越す。Wは通さない。転移準備・反撃を受け入れる選択。",
+    "window": "D03は窓の下部だけ。温存時も上に通す空間があり、破壊で下部も開く。固定根や支持面は変化しない。",
+    "counterattack": "左根は一部の弾道を遮る構造で万能の安全地帯ではない。P0/Aとも射撃位置で反撃を受け、同手番に隠れ直せない。",
+    "transfers": "P0は左根より手前、Aは左右根の間。両位置の頭上を開放し、Aへの上方進入構想を残す。実着地は未検証。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "static": "stage_082_static_check_v2.json",
+    "Wreflection": "not-tested",
+    "Mtrajectory": "not-tested",
+    "teleport": "not-tested",
+    "destruction": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory20": "not-tested"
+  },
+  "implementationNote": "Design only. Approved eleven maps and game runtime unchanged. No stage87+ work."
+}
