@@ -1,0 +1,168 @@
+{
+  "schema": "arcline-static-geometry-v1",
+  "stage": 75,
+  "status": "static-geometry-only-not-runtime-pass",
+  "basePr": 84,
+  "world": {
+    "width": 1540,
+    "units": 154,
+    "scalePxPerUnit": 10,
+    "roofParts": 0,
+    "partCount": 4,
+    "breakableUnits": 1,
+    "featuresCount": 1
+  },
+  "checks": {
+    "floorVertices": 17,
+    "floorMonotonic": true,
+    "maxLocalSlopeDeg": 34.992,
+    "partPolygons": [
+      {
+        "id": "075-INCLINED-CRANE-MAST",
+        "label": "F01",
+        "breakable": false,
+        "area": 270.5,
+        "selfCrossings": [],
+        "withinWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-COUNTERWEIGHT-BOOM",
+        "label": "F02",
+        "breakable": false,
+        "area": -434.5,
+        "selfCrossings": [],
+        "withinWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-FIXED-HOIST-YOKE",
+        "label": "F03",
+        "breakable": false,
+        "area": -109.5,
+        "selfCrossings": [],
+        "withinWorld": true,
+        "belowFloorVertices": []
+      },
+      {
+        "id": "075-HANGING-ORE@0",
+        "label": "D04",
+        "breakable": true,
+        "area": -541.5,
+        "selfCrossings": [],
+        "withinWorld": true,
+        "belowFloorVertices": []
+      }
+    ],
+    "support": {
+      "P0": [
+        70,
+        22.33333,
+        22.33333
+      ],
+      "enemy": [
+        142,
+        40.66667,
+        40.66667
+      ],
+      "A": [
+        96,
+        12,
+        12
+      ],
+      "B": [
+        88,
+        84,
+        84
+      ],
+      "C": [
+        121,
+        76,
+        76
+      ]
+    },
+    "targetCandidate": {
+      "x": 138.6,
+      "h": 44.66667,
+      "label": "マグネットアーム",
+      "name": "磁力アーム",
+      "provenance": "PR74 75 target is enemy.x-3.4, enemy.h+4. Candidate marker only; engine placement to confirm."
+    },
+    "schematicSegmentVsSolidEdges": {
+      "P0": {
+        "F01": [],
+        "F02": [],
+        "F03": [],
+        "D04": [
+          3,
+          9
+        ]
+      },
+      "A": {
+        "F01": [],
+        "F02": [],
+        "F03": [],
+        "D04": []
+      },
+      "B": {
+        "F01": [],
+        "F02": [
+          2,
+          10
+        ],
+        "F03": [
+          1,
+          3
+        ],
+        "D04": []
+      },
+      "C": {
+        "F01": [],
+        "F02": [],
+        "F03": [],
+        "D04": []
+      }
+    },
+    "schematicSegmentBelowFloorSamples": {
+      "P0": 0,
+      "A": 0,
+      "B": 0,
+      "C": 0
+    },
+    "hangingOreToFloorMinimumGap": {
+      "x": 84,
+      "gap": 11.333
+    },
+    "magnet": {
+      "center": [
+        107,
+        31
+      ],
+      "radius": 20,
+      "polarity": -1,
+      "aboveFloor": true,
+      "belowOre": true
+    },
+    "plannedWalkEntrance": {
+      "xFrom": 70,
+      "xTo": 96,
+      "oreAbove": true,
+      "roofAbove": false
+    },
+    "intendedJoins": [
+      "F01⇄F02 attached mast and boom; overlapping support joint is intentional",
+      "F02⇄F03 hoist hanger fixed attachment",
+      "F03⇄D04 face-to-face boundary seam; D04 only is breakable"
+    ]
+  },
+  "scopeNotes": "Straight segments are geometric reference rays, not simulated projectiles. A clear line is not proof of cannon clearance, damage, magnetic behavior or hit. A continuous schematic floor line is not proof that character body can walk; check engine after all 49 designs.",
+  "runtimeVerificationDeferred": [
+    "actual geometry rendering in game",
+    "body/cannon collision",
+    "walking/falling/teleport",
+    "magnet ballistic influence and shot hit width",
+    "boss magnet arm accuracy / HP",
+    "D04 breakage and residual support",
+    "AI retaliation and full 24-action combat"
+  ]
+}
