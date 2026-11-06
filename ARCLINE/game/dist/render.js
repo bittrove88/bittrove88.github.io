@@ -68,29 +68,6 @@ function create(canvas,configuration={}){
   }
   return frameCache.points;
  }
- function backdropLandmarks(theme,w,h,time,reducedMotion){
-  ctx.save();ctx.globalAlpha=.23;ctx.fillStyle='#d5e7dc';ctx.strokeStyle='#d5e7dc';ctx.lineWidth=2;
-  const base=h*.49,drift=reducedMotion?0:Math.sin(time*.12)*3;
-  for(let i=0;i<3;i++){
-   const x=w*(.16+i*.34),size=Math.min(w,h)*(.045+i*.006),y=base+Math.sin(i*2)*h*.035+drift;
-   if(theme===0){path([{x:x-size,y},{x:x-size*.3,y:y-size*.9},{x:x+size,y}], '#d5e7dc',2);path([{x,y:y-size*1.5},{x,y:y+size*.35}],'#d5e7dc',2);}
-   else if(theme===1){polygon([{x:x-size,y},{x:x+size*.2,y:y-size},{x:x+size,y:y-size*.7},{x:x-size*.2,y:y+size*.3}]);ctx.fill();path([{x:x-size*.5,y:y-size*.1},{x:x+size*.6,y:y-size*.7}],'#effff5',2);}
-   else if(theme===2||theme===5){ctx.fillRect(x-size,y-size*1.6,size*.4,size*1.6);ctx.fillRect(x+size*.5,y-size*1.6,size*.4,size*1.6);ctx.beginPath();ctx.arc(x,y-size*1.6,size*.7,Math.PI,0);ctx.stroke();if(theme===5)path([{x:x-size*1.5,y:y+size*.4},{x:x+size*1.4,y:y+size*.4}],'#d5e7dc',2);}
-   else if(theme===3){for(const off of [-1,.2,1])ctx.fillRect(x+size*off,y-size*(off===.2?2:1.4),size*.3,size*(off===.2?2:1.4));path([{x:x-size*1.2,y:y-size*1.4},{x:x+size*1.4,y:y-size*1.4}],'#d5e7dc',4);}
-   else if(theme===4){for(const off of [-.7,0,.7]){circle(x+off*size,y-size*(off?1:1.6),size*.6,'#d5e7dc');path([{x:x+off*size,y},{x:x+off*size,y:y-size*(off?1:1.6)}],'#d5e7dc',2);}}
-   else if(theme===6||theme===11){polygon([{x,y:y-size*2},{x:x+size*.5,y},{x:x-size*.65,y}]);ctx.fill();if(theme===11)path([{x:x-size*.6,y:y-size*.2},{x:x+size*.2,y:y-size*1.4},{x:x+size*.6,y:y-size*.2}],'#efffff',2);}
-   else if(theme===7){for(const off of [-.8,.8])ctx.fillRect(x+off*size,y-size*1.8,size*.15,size*1.8);path([{x:x-size,y:y-size*1.8},{x:x+size,y:y-size*1.8}],'#d5e7dc',4);path([{x:x-size*1.5,y},{x:x+size*1.5,y}],'#d5e7dc',3);}
-   else if(theme===8){polygon([{x:x-size,y},{x:x-size*.4,y:y-size*.5},{x:x+size*.3,y:y-size*1.5},{x:x+size,y}]);ctx.fill();for(const off of [-.2,.3])path([{x:x+off*size,y:y-size*.2},{x:x+(off+.1)*size,y:y-size}],'#f2d3b0',2);}
-   else if(theme===9||theme===13){ctx.fillRect(x-size*.6,y-size*1.4,size*.4,size*1.4);ctx.fillRect(x+size*.2,y-size*2.2,size*.4,size*2.2);circle(x+size*.4,y-size*2.4,size*.22,'#f2d3b044');if(theme===13)round(x-size,y-size*.8,size*2,size*.8,size*.1,'#d5e7dc');}
-   else if(theme===10){ctx.fillRect(x-size,y-size*.7,size*2,size*.7);ctx.beginPath();ctx.arc(x,y-size*.7,size*.55,Math.PI,0);ctx.fill();path([{x:x+size*.6,y:y-size*.6},{x:x+size*.6,y:y-size*2.2},{x:x+size*1.2,y:y-size*1.7}],'#d5e7dc',2);}
-   else if(theme===12){polygon([{x:x-size*1.4,y},{x:x-size*.4,y:y-size*1.8},{x:x+size*.1,y:y-size*1.5},{x:x+size*.5,y:y-size*1.8},{x:x+size*1.5,y}]);ctx.fill();}
-   else if(theme===14||theme===15){ctx.beginPath();ctx.arc(x,y-size,size*.7,.25,Math.PI-.25);ctx.stroke();path([{x:x-size*.7,y:y-size},{x:x-size*.7,y},{x:x+size*.7,y},{x:x+size*.7,y:y-size}],'#d5e7dc',3);if(theme===15)circle(x,y-size,size*.3,'#d5e7dc');}
-   else if(theme===16){ctx.beginPath();ctx.ellipse(x,y,size*1.4,size*.32,0,0,Math.PI*2);ctx.fill();path([{x:x-size,y},{x:x-size*.6,y:y+size},{x:x+size*.3,y:y+size*.7},{x:x+size,y}],'#d5e7dc',2);}
-   else if(theme===17){polygon([{x:x-size*1.5,y:y-size*.8},{x:x+size*1.5,y:y-size*.8},{x:x+size*.8,y},{x:x-size*.8,y}]);ctx.fill();ctx.fillRect(x+size*.3,y-size*1.4,size*.6,size*.6);}
-   else{ctx.fillRect(x-size,y-size*1.6,size*2,size*1.6);for(let k=0;k<3;k++)ctx.fillRect(x-size+k*size*.75,y-size*2,size*.5,size*.5);if(theme===19)path([{x,y:y-size*2},{x,y:y-size*3},{x:x+size*.65,y:y-size*2.6}],'#f1e8bc',2);}
-  }
-  ctx.restore();
- }
  function unitEffects(s,u,side,options,time,scale){
   const reaction=u.reaction,recoil=u.recoil;
   if(u.teleportFlash){const t=u.teleportFlash.age/.8;ctx.save();ctx.globalAlpha=1-t;circle(u.x,u.y-22,(22+20*t)/scale,null,'#c0f1ff');circle(u.x,u.y-22,(15+10*t)/scale,null,'#f0ffed');ctx.restore();}
@@ -185,13 +162,7 @@ function create(canvas,configuration={}){
   arenaWidth=s.spec.worldWidth||1000;
   const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineCap='round';ctx.lineJoin='round';const biome=E.biomes[s.spec.theme]||E.biomes[0],time=options.time||0;
-  const cave=s.spec.finalBackdrop==='cave';const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,cave?'#081c27':biome.sky[0]);sky.addColorStop(.67,cave?'#15313c':biome.sky[1]);sky.addColorStop(1,cave?'#24434b':biome.land);ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
-  if(!cave)circle(w*.76,h*.21,Math.min(w,h)*.065,'#fff1c686');
-  if(!cave)for(let layer=0;layer<4;layer++){
-   ctx.fillStyle=[biome.land+'40',biome.land+'70',biome.land+'90',biome.sky[0]+'65'][layer];ctx.beginPath();ctx.moveTo(0,h);
-   for(let x=0;x<=w+12;x+=12){const y=h*(.38+layer*.085)+Math.sin(x/w*8+layer*1.7)*h*.045+Math.cos(x/w*17+layer)*h*.015;ctx.lineTo(x,y);}ctx.lineTo(w,h);ctx.fill();
-  }
-  if(!cave)backdropLandmarks(s.spec.theme,w,h,time,options.reducedMotion);else for(let layer=0;layer<3;layer++){ctx.fillStyle=['#0c222d','#102b35','#183740'][layer];for(let n=0;n<12;n++){const x=(n-.5)*w/10+layer*19,span=w*(.035+.012*((n+layer)%3)),depth=h*(.2+.07*((n*3+layer)%5));polygon([{x:x-span,y:0},{x:x+span,y:0},{x:x+span*.35,y:depth*.74},{x:x-span*.2,y:depth}]);ctx.fill();}}
+  root.ArcBackgrounds.draw(ctx,w,h,s);
   const lobby=options.lobby,wide=w/h>1.5,fieldW=lobby&&w>900?w*.56:w;
   const controls=canvasRect(document.getElementById('battleControls')),header=canvasRect(document.querySelector('.battle-top')),tutorial=canvasRect(document.getElementById('tutorial'));
   const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=arenaWidth;
