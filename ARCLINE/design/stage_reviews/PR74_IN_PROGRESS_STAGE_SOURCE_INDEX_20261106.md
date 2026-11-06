@@ -21,6 +21,8 @@
 
 **現在の着手順：新担当による75面の独立再設計 → ユーザー承認 → 76 → 78 → 79 → 81 → 82 → 87 → 89**。以降S・K群の残面を進める。1面ずつ承認を得るが、弾道・歩行・敵AI・実戦の最終動作検証は全49面の設計承認後。
 
+**99面について：** ユーザーの新しいマップアイデアにより、従来のK（保持・局所調整）を**S（大幅構造改修）**に変更。下表のPR #74案・旧レビューは歴史的な入力であり、99面の制作時は**[新しい個別改訂レビュー](STAGE_099_NEW_CONCEPT_REVIEW_20261106.md)**を優先して読む。
+
 ## 1. 全49面の制作途中の最新案と個別レビュー
 
 | 面 | PR #74の最新座標案（現時点の検討基準） | これまでの個別レビュー | 比較画面 |
@@ -73,7 +75,7 @@
 | 96 | [最新案 `stage_096_proposal_v2.json`](stage_096_proposal_v2.json) | [個別レビュー `stage_096_review_v2.md`](stage_096_review_v2.md) | [マップ表示](map_review_gallery.html#stage-096) |
 | 97 | [最新案 `stage_097_proposal_v2.json`](stage_097_proposal_v2.json) | [個別レビュー `stage_097_review_v2.md`](stage_097_review_v2.md) | [マップ表示](map_review_gallery.html#stage-097) |
 | 98 | [最新案 `stage_098_proposal_v2.json`](stage_098_proposal_v2.json) | [個別レビュー `stage_098_review_v2.md`](stage_098_review_v2.md) | [マップ表示](map_review_gallery.html#stage-098) |
-| 99 | [最新案 `stage_099_proposal_v2.json`](stage_099_proposal_v2.json) | [個別レビュー `stage_099_review_v2.md`](stage_099_review_v2.md) | [マップ表示](map_review_gallery.html#stage-099) |
+| 99 | [PR #74案 `stage_099_proposal_v2.json`](stage_099_proposal_v2.json) | **[最新の99面改訂レビュー](STAGE_099_NEW_CONCEPT_REVIEW_20261106.md)** ／ [旧v2レビュー](stage_099_review_v2.md) ／ [ユーザー新構想](STAGE_099_MULTI_TELEPORT_TACTICAL_MAP_CONCEPT_20261106.md) | [旧案の表示](map_review_gallery.html#stage-099) |
 
 ## 2. PR #74の横断資料と検証記録
 
