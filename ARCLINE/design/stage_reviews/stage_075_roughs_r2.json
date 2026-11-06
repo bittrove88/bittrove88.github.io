@@ -1,0 +1,616 @@
+{
+  "schema": "arcline-stage075-direction-roughs-r2",
+  "stage": 75,
+  "date": "2026-11-06",
+  "status": "direction-review-pending-not-approved-not-runtime-data",
+  "baseCommit": "62efe96fc38f9fe8e49c5d2a6fbf539d58decbe1",
+  "authoritativeInstructions": "https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/stage_reviews/ARCLINE_MAP_DESIGN_SINGLE_SOURCE_OF_TRUTH_20261106.md",
+  "coordinateMeaning": "1 diagram unit = 10 px; tentative silhouette dimensions only. No blueprintCandidate. Select one direction before detailed design.",
+  "arrows": "conceptual aiming/access directions; not actual trajectories or verified input traces",
+  "preserved": {
+    "encounterId": "midboss:ore-shepherd",
+    "actionLimit": 24,
+    "enemyProfile": 3,
+    "enemyHpColumn": 5,
+    "encounterBodyHp": 7,
+    "armHp": 1.5,
+    "armLocalX": 34,
+    "armDy": -40,
+    "armRadius": 18,
+    "attacks": [
+      "CURVE",
+      "TWIN",
+      "LOW"
+    ],
+    "walkingBudgetPx": 140,
+    "magnetCount": 1,
+    "magnetDirection": 1,
+    "pickups": [],
+    "recommended": "mogu"
+  },
+  "references": {
+    "runtime": "ARCLINE/design/runtime_campaign_20x5.json",
+    "blueprint": "ARCLINE/design/expedition_013/stage_blueprints.json",
+    "enemy": "ARCLINE/game/visual/encounters.json",
+    "geometry": "ARCLINE/game/dist/geometry.js",
+    "sourceProposal": "stage_075_proposal_v1.json",
+    "sourceReview": "stage_075_review_v1.md"
+  },
+  "candidates": [
+    {
+      "id": "A",
+      "title": "横穴の切羽",
+      "width": 1600,
+      "floor": [
+        [
+          0,
+          29
+        ],
+        [
+          12,
+          28
+        ],
+        [
+          22,
+          27
+        ],
+        [
+          32,
+          25
+        ],
+        [
+          44,
+          23
+        ],
+        [
+          57,
+          21
+        ],
+        [
+          69,
+          19
+        ],
+        [
+          80,
+          18
+        ],
+        [
+          97,
+          18
+        ],
+        [
+          117,
+          18
+        ],
+        [
+          136,
+          18
+        ],
+        [
+          142,
+          18
+        ],
+        [
+          146,
+          22
+        ],
+        [
+          155,
+          27
+        ],
+        [
+          160,
+          29
+        ]
+      ],
+      "discovery": "天井を残したまま横穴へ近づき、鉱石遮蔽だけを開けると、腕を短い横射で狙える。",
+      "main": "坑口から内部のCへ進み、Dの開口後にマグネットアームを狙う。固定天井は残る。",
+      "alternate": "外側のRからMを経由し、Dの上を通して腕を狙う。Dを残せるが入射と坑口通過の調整が要る。",
+      "parts": [
+        {
+          "id": "F01",
+          "kind": "roof",
+          "poly": [
+            [
+              76,
+              65
+            ],
+            [
+              85,
+              70
+            ],
+            [
+              100,
+              73
+            ],
+            [
+              119,
+              72
+            ],
+            [
+              137,
+              67
+            ],
+            [
+              151,
+              61
+            ],
+            [
+              160,
+              56
+            ],
+            [
+              160,
+              29
+            ],
+            [
+              155,
+              27
+            ],
+            [
+              146,
+              22
+            ],
+            [
+              142,
+              18
+            ],
+            [
+              140,
+              35
+            ],
+            [
+              135,
+              49
+            ],
+            [
+              123,
+              54
+            ],
+            [
+              107,
+              57
+            ],
+            [
+              91,
+              56
+            ],
+            [
+              81,
+              55
+            ],
+            [
+              76,
+              54
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右の岩盤に根を持つ厚い坑道天井。上側からの射線を限定し、内部への接近空間をつくる。"
+        },
+        {
+          "id": "D01",
+          "kind": "ore-screen",
+          "poly": [
+            [
+              99,
+              18
+            ],
+            [
+              107,
+              18
+            ],
+            [
+              107,
+              33
+            ],
+            [
+              104,
+              37
+            ],
+            [
+              100,
+              35
+            ]
+          ],
+          "breakable": true,
+          "purpose": "床に接した幅80pxの鉱石遮蔽。壊しても固定天井と床を失わない。"
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            63,
+            47,
+            16,
+            1
+          ]
+        }
+      ],
+      "player": {
+        "x": 18,
+        "h": 27.4
+      },
+      "enemy": {
+        "x": 126,
+        "h": 18
+      },
+      "anchors": [
+        {
+          "id": "C",
+          "x": 90,
+          "h": 18,
+          "role": "坑内の接近射点",
+          "state": "after-D-opening"
+        },
+        {
+          "id": "R",
+          "x": 44,
+          "h": 23,
+          "role": "坑外のM入射点",
+          "state": "D-retained"
+        }
+      ],
+      "movement": [
+        [
+          [
+            18,
+            27.4
+          ],
+          [
+            44,
+            23
+          ],
+          [
+            69,
+            19
+          ],
+          [
+            90,
+            18
+          ]
+        ]
+      ],
+      "attacks": [
+        {
+          "kind": "main",
+          "points": [
+            [
+              90,
+              21
+            ],
+            [
+              122.6,
+              22
+            ]
+          ],
+          "state": "after-D-opening"
+        },
+        {
+          "kind": "alternate",
+          "points": [
+            [
+              44,
+              26
+            ],
+            [
+              57,
+              46
+            ],
+            [
+              70,
+              51
+            ],
+            [
+              82,
+              49
+            ],
+            [
+              99,
+              42
+            ],
+            [
+              111,
+              33
+            ],
+            [
+              122.6,
+              22
+            ]
+          ],
+          "state": "D-retained"
+        }
+      ],
+      "decision": "永久に残る天井の下へ入って開口するか、坑外に残って磁場と坑口を通すか。",
+      "label": "主：坑内から横射　／　別解：坑外からMを通す",
+      "limits": [
+        "天井は全攻撃を防ぐ保証ではない。LOW/TWIN、敵の移動、砲身の余白は後工程で確認。",
+        "D除去でボス固有の装甲まで消えるわけではない。"
+      ]
+    },
+    {
+      "id": "B",
+      "title": "斜桟橋と、残す鉱石遮蔽",
+      "width": 1700,
+      "floor": [
+        [
+          0,
+          28
+        ],
+        [
+          15,
+          30
+        ],
+        [
+          31,
+          30
+        ],
+        [
+          47,
+          30
+        ],
+        [
+          55,
+          25
+        ],
+        [
+          63,
+          16
+        ],
+        [
+          70,
+          9
+        ],
+        [
+          81,
+          7
+        ],
+        [
+          96,
+          7
+        ],
+        [
+          108,
+          11
+        ],
+        [
+          119,
+          17
+        ],
+        [
+          128,
+          24
+        ],
+        [
+          132,
+          58
+        ],
+        [
+          140,
+          61
+        ],
+        [
+          155,
+          62
+        ],
+        [
+          170,
+          59
+        ]
+      ],
+      "discovery": "固定の斜桟橋では、鉱石遮蔽を残して先に腕を弱める順と、遮蔽を開けて近射へ進む順を選べる。",
+      "main": "斜桟橋のRで入射位置を調整し、MからDの上を回して腕を狙う。弱体化後に必要ならDを開ける。",
+      "alternate": "Dを先に開け、桟橋先端Cへ再配置してMの下から短射する。強い敵との近い射線交換を先に引き受ける。",
+      "parts": [
+        {
+          "id": "F01",
+          "kind": "inclined-trestle",
+          "poly": [
+            [
+              70,
+              28
+            ],
+            [
+              132,
+              60
+            ],
+            [
+              136,
+              60
+            ],
+            [
+              136,
+              56
+            ],
+            [
+              132,
+              55
+            ],
+            [
+              70,
+              23
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右岸に定着した固定の斜桟橋。上面が接近・入射調整に使う連続支持面。"
+        },
+        {
+          "id": "F02",
+          "kind": "pier",
+          "poly": [
+            [
+              74,
+              8.272727
+            ],
+            [
+              80,
+              7.181818
+            ],
+            [
+              80,
+              28.16129
+            ],
+            [
+              74,
+              25.064516
+            ]
+          ],
+          "breakable": false,
+          "purpose": "坑底に根を持ち、桟橋の下面を支える固定橋脚。"
+        },
+        {
+          "id": "D01",
+          "kind": "ore-screen",
+          "poly": [
+            [
+              51,
+              27.5
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              59,
+              20.5
+            ],
+            [
+              59,
+              43
+            ],
+            [
+              56,
+              46
+            ],
+            [
+              52,
+              45
+            ]
+          ],
+          "breakable": true,
+          "purpose": "敵岸に接した幅80pxの鉱石遮蔽。低い相互射線を遮り、桟橋の支持は担わない。"
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            86,
+            60,
+            17,
+            1
+          ]
+        }
+      ],
+      "player": {
+        "x": 153,
+        "h": 61.866667
+      },
+      "enemy": {
+        "x": 37,
+        "h": 30
+      },
+      "anchors": [
+        {
+          "id": "R",
+          "x": 111,
+          "h": 49.16129,
+          "role": "斜桟橋のM入射点",
+          "state": "D-retained"
+        },
+        {
+          "id": "C",
+          "x": 78,
+          "h": 32.129032,
+          "role": "桟橋先端の近射点",
+          "state": "after-D-opening"
+        }
+      ],
+      "movement": [
+        [
+          [
+            153,
+            61.866667
+          ],
+          [
+            140,
+            61
+          ],
+          [
+            132,
+            60
+          ],
+          [
+            111,
+            49.16129
+          ],
+          [
+            78,
+            32.129032
+          ]
+        ]
+      ],
+      "attacks": [
+        {
+          "kind": "main",
+          "points": [
+            [
+              111,
+              52.16129
+            ],
+            [
+              97,
+              60
+            ],
+            [
+              86,
+              64
+            ],
+            [
+              73,
+              62
+            ],
+            [
+              60,
+              51
+            ],
+            [
+              40.4,
+              34
+            ]
+          ],
+          "state": "D-retained"
+        },
+        {
+          "kind": "alternate",
+          "points": [
+            [
+              78,
+              35.129032
+            ],
+            [
+              40.4,
+              34
+            ]
+          ],
+          "state": "after-D-opening"
+        }
+      ],
+      "decision": "射点の高さより、腕の弱体化と遮蔽の開口をどちらから行うか。桟橋と橋脚はどちらの順でも残る。",
+      "label": "主：Dを残して先に腕　／　別解：Dを開けて先端へ",
+      "limits": [
+        "弱体化は既存の腕破壊による攻撃低下のみ。地形DやMとは自動連動しない。",
+        "Dは相互の低い射線を遮るが、CURVE/TWIN等まで防ぐ保証はない。"
+      ]
+    }
+  ],
+  "verification": {
+    "rendering": "chromium-rendered-and-visually-reviewed",
+    "shape": "stage_075_roughs_static_r2.json",
+    "movement": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "bossCombat": "not-tested",
+    "fullVerification": "after-all-49-design-approvals"
+  }
+}
