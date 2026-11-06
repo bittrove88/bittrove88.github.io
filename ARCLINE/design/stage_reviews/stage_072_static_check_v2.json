@@ -1,0 +1,88 @@
+{
+  "stage": 72,
+  "version": "v2",
+  "checkedAt": "2026-11-06",
+  "scope": "lightweight geometry only",
+  "checks": {
+    "verticesInsideWorld": true,
+    "groundXAscending": true,
+    "polygonsNonSelfCrossing": true,
+    "noUnintentionalComponentOverlap": true,
+    "spawnOnGround": true,
+    "AOnGround": true,
+    "COnSide": true,
+    "BOnOreCrest": true,
+    "archVaultClearanceForA": true,
+    "archRightExitClearance": true,
+    "magnetInOpenCavity": true,
+    "P0DirectBlockedByTerrain": true,
+    "sameMPolarityAndBeamCount": true,
+    "upperBdirectNotBlockedByMagnetite": true,
+    "W09IdentityPreserved": true
+  },
+  "metrics": {
+    "widthPx": 1400,
+    "floorVertices": 20,
+    "partsCount": 3,
+    "breakableParts": 1,
+    "featureTypes": [
+      "M"
+    ],
+    "archClearanceUnits": [
+      {
+        "x": 45,
+        "clearance": 14.6
+      },
+      {
+        "x": 50,
+        "clearance": 31.7
+      },
+      {
+        "x": 60,
+        "clearance": 49.8
+      },
+      {
+        "x": 69,
+        "clearance": 56.7
+      },
+      {
+        "x": 75,
+        "clearance": 57.8
+      },
+      {
+        "x": 83,
+        "clearance": 52.8
+      },
+      {
+        "x": 90,
+        "clearance": 46.6
+      },
+      {
+        "x": 96,
+        "clearance": 39.2
+      },
+      {
+        "x": 103,
+        "clearance": 17
+      },
+      {
+        "x": 106,
+        "clearance": 13.8
+      }
+    ]
+  },
+  "observations": [
+    "自機P0から敵への直線は側面棚F02と斜梁D03に遮られる。",
+    "主A周辺の磁鉄鉱下面には数百px規模の空間があり、狭すぎる洞口の是正を狙った。",
+    "Cは側面棚上、Bは磁鉄鉱右側の上面に接地。B→敵の直線は磁鉄鉱と非交差（ただしD03との干渉は別）。",
+    "左の側面棚と右の破壊梁は天然磁鉄鉱ポリゴンと重ならない。",
+    "W09のID、数量、出現ターンは旧版を維持。"
+  ],
+  "deferred": [
+    "下路からMを使った実弾道の角度余裕・最終命中",
+    "破壊梁D03の独立破壊と遮蔽喪失",
+    "敵反撃による上下各ルートの安全性",
+    "実歩行・転移着地・砲身衝突",
+    "敵AIの自律転移、16行動クリア、全キャラ/seed、ブラウザ画面"
+  ]
+}

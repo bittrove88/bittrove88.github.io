@@ -1,0 +1,1524 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 72,
+  "date": "2026-11-06",
+  "status": "design-review-pending-runtime-unverified",
+  "revisionOf": "stage_072_proposal_v1.json",
+  "sourcePr74": {
+    "latestProposal": "stage_072_proposal_v1.json",
+    "latestReview": "stage_072_review_v1.md",
+    "reviewFinding": "巨大鉱石の陰ルートは射角が極端に狭い。上越しの高射点が上位互換になっていた。",
+    "retained": [
+      "天然磁鉄鉱と側面棚",
+      "下側の磁場射撃と上側の上越し",
+      "磁場M・極性-1",
+      "破壊可能な敵側の鉱石梁",
+      "enemy:mole、HP5、16行動、W09"
+    ]
+  },
+  "before": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        47,
+        12
+      ],
+      [
+        66,
+        14
+      ],
+      [
+        80,
+        16
+      ],
+      [
+        100,
+        30
+      ],
+      [
+        119,
+        42
+      ],
+      [
+        136,
+        42
+      ],
+      [
+        140,
+        39
+      ]
+    ],
+    "parts": [
+      {
+        "id": "072-GIANT-ORE",
+        "kind": "roof",
+        "poly": [
+          [
+            40,
+            70
+          ],
+          [
+            54,
+            79
+          ],
+          [
+            64,
+            83
+          ],
+          [
+            77,
+            83
+          ],
+          [
+            92,
+            73
+          ],
+          [
+            92,
+            43
+          ],
+          [
+            73,
+            37
+          ],
+          [
+            40,
+            34
+          ]
+        ],
+        "breakable": false,
+        "displayId": "F01"
+      },
+      {
+        "id": "072-SIDE",
+        "kind": "island",
+        "poly": [
+          [
+            26,
+            23
+          ],
+          [
+            31,
+            28
+          ],
+          [
+            42,
+            28
+          ],
+          [
+            47,
+            24
+          ],
+          [
+            39,
+            18
+          ],
+          [
+            31,
+            18
+          ]
+        ],
+        "breakable": false,
+        "displayId": "F02"
+      },
+      {
+        "id": "072-ENEMY-BEAM",
+        "kind": "wall",
+        "poly": [
+          [
+            107,
+            35
+          ],
+          [
+            114,
+            39
+          ],
+          [
+            114,
+            63
+          ],
+          [
+            107,
+            61
+          ]
+        ],
+        "breakable": true,
+        "displayId": "D03"
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          75,
+          50,
+          25,
+          -1
+        ]
+      }
+    ],
+    "player": {
+      "x": 22,
+      "h": 12
+    },
+    "enemy": {
+      "x": 128,
+      "h": 42
+    }
+  },
+  "after": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        12,
+        18
+      ],
+      [
+        19,
+        18
+      ],
+      [
+        26,
+        21
+      ],
+      [
+        33,
+        26
+      ],
+      [
+        38,
+        27
+      ],
+      [
+        43,
+        25
+      ],
+      [
+        48,
+        21
+      ],
+      [
+        53,
+        16
+      ],
+      [
+        60,
+        11
+      ],
+      [
+        67,
+        8
+      ],
+      [
+        75,
+        8
+      ],
+      [
+        83,
+        12
+      ],
+      [
+        91,
+        17
+      ],
+      [
+        99,
+        23
+      ],
+      [
+        107,
+        29
+      ],
+      [
+        115,
+        34
+      ],
+      [
+        123,
+        39
+      ],
+      [
+        132,
+        42
+      ],
+      [
+        140,
+        39
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          12,
+          18
+        ],
+        [
+          19,
+          18
+        ],
+        [
+          26,
+          21
+        ],
+        [
+          33,
+          26
+        ],
+        [
+          38,
+          27
+        ],
+        [
+          43,
+          25
+        ],
+        [
+          48,
+          21
+        ],
+        [
+          53,
+          16
+        ],
+        [
+          60,
+          11
+        ],
+        [
+          67,
+          8
+        ],
+        [
+          75,
+          8
+        ],
+        [
+          83,
+          12
+        ],
+        [
+          91,
+          17
+        ],
+        [
+          99,
+          23
+        ],
+        [
+          107,
+          29
+        ],
+        [
+          115,
+          34
+        ],
+        [
+          123,
+          39
+        ],
+        [
+          132,
+          42
+        ],
+        [
+          140,
+          39
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "072-MAGNETITE-ARCH",
+        "kind": "roof",
+        "poly": [
+          [
+            38,
+            27
+          ],
+          [
+            41,
+            41
+          ],
+          [
+            46,
+            58
+          ],
+          [
+            53,
+            70
+          ],
+          [
+            64,
+            80
+          ],
+          [
+            75,
+            86
+          ],
+          [
+            86,
+            85
+          ],
+          [
+            94,
+            81
+          ],
+          [
+            101,
+            73
+          ],
+          [
+            106,
+            62
+          ],
+          [
+            108,
+            49
+          ],
+          [
+            106,
+            42
+          ],
+          [
+            103,
+            43
+          ],
+          [
+            101,
+            51
+          ],
+          [
+            96,
+            60
+          ],
+          [
+            88,
+            64
+          ],
+          [
+            76,
+            66
+          ],
+          [
+            65,
+            64
+          ],
+          [
+            54,
+            57
+          ],
+          [
+            47,
+            46
+          ],
+          [
+            43,
+            30
+          ]
+        ],
+        "breakable": false,
+        "displayId": "F01",
+        "purpose": "左側の山肩と一体化する天然磁鉄鉱アーチ。下のAでは遮蔽が得られ、右上Bでは大きく露出する。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "072-MAGNETITE-ARCH",
+            "label": "F01",
+            "poly": [
+              [
+                38,
+                27
+              ],
+              [
+                41,
+                41
+              ],
+              [
+                46,
+                58
+              ],
+              [
+                53,
+                70
+              ],
+              [
+                64,
+                80
+              ],
+              [
+                75,
+                86
+              ],
+              [
+                86,
+                85
+              ],
+              [
+                94,
+                81
+              ],
+              [
+                101,
+                73
+              ],
+              [
+                106,
+                62
+              ],
+              [
+                108,
+                49
+              ],
+              [
+                106,
+                42
+              ],
+              [
+                103,
+                43
+              ],
+              [
+                101,
+                51
+              ],
+              [
+                96,
+                60
+              ],
+              [
+                88,
+                64
+              ],
+              [
+                76,
+                66
+              ],
+              [
+                65,
+                64
+              ],
+              [
+                54,
+                57
+              ],
+              [
+                47,
+                46
+              ],
+              [
+                43,
+                30
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "072-SIDE-RIB",
+        "kind": "island",
+        "poly": [
+          [
+            18,
+            18
+          ],
+          [
+            22,
+            25
+          ],
+          [
+            24,
+            35
+          ],
+          [
+            29,
+            42
+          ],
+          [
+            34,
+            44
+          ],
+          [
+            37,
+            40
+          ],
+          [
+            36,
+            35
+          ],
+          [
+            32,
+            36
+          ],
+          [
+            28,
+            34
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            22,
+            20
+          ]
+        ],
+        "breakable": false,
+        "displayId": "F02",
+        "purpose": "磁鉄鉱の左に分岐する地続きの肋骨状側面棚。Cから横向きの射撃判断をつくる。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "072-SIDE-RIB",
+            "label": "F02",
+            "poly": [
+              [
+                18,
+                18
+              ],
+              [
+                22,
+                25
+              ],
+              [
+                24,
+                35
+              ],
+              [
+                29,
+                42
+              ],
+              [
+                34,
+                44
+              ],
+              [
+                37,
+                40
+              ],
+              [
+                36,
+                35
+              ],
+              [
+                32,
+                36
+              ],
+              [
+                28,
+                34
+              ],
+              [
+                25,
+                26
+              ],
+              [
+                22,
+                20
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "072-BRITTLE-BRACE",
+        "kind": "wall",
+        "poly": [
+          [
+            109,
+            30.25
+          ],
+          [
+            113,
+            34
+          ],
+          [
+            119,
+            40
+          ],
+          [
+            120,
+            52
+          ],
+          [
+            116,
+            56
+          ],
+          [
+            112,
+            48
+          ]
+        ],
+        "breakable": true,
+        "displayId": "D03",
+        "purpose": "下路から敵へ向かう開口を狭める斜めの破壊可能鉱石梁。破壊すると攻撃線と反撃線の双方が開く。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "072-BRITTLE-BRACE@0",
+            "label": "D03",
+            "poly": [
+              [
+                109,
+                30.25
+              ],
+              [
+                113,
+                34
+              ],
+              [
+                119,
+                40
+              ],
+              [
+                120,
+                52
+              ],
+              [
+                116,
+                56
+              ],
+              [
+                112,
+                48
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          88,
+          34,
+          25,
+          -1
+        ]
+      }
+    ],
+    "player": {
+      "x": 14,
+      "h": 18
+    },
+    "enemy": {
+      "x": 128,
+      "h": 40.666666666666664
+    },
+    "pickups": [
+      {
+        "id": "W09",
+        "kind": "trial",
+        "weaponId": "W09",
+        "category": "weapon",
+        "amount": 2,
+        "x": 23,
+        "h": 33,
+        "spawnTurn": 5,
+        "placementId": "L072:weapon:W09",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 69,
+        "h": 8,
+        "label": "A"
+      },
+      {
+        "x": 31,
+        "h": 42.8,
+        "label": "C"
+      },
+      {
+        "x": 90,
+        "h": 83,
+        "label": "B"
+      }
+    ],
+    "stageNumber": 72,
+    "worldHold": 1,
+    "ventStartsOn": false,
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            14,
+            18
+          ],
+          [
+            38,
+            27
+          ],
+          [
+            48,
+            21
+          ],
+          [
+            60,
+            11
+          ],
+          [
+            69,
+            8
+          ]
+        ],
+        "kind": "planned",
+        "status": "not-a-walking-replay"
+      },
+      {
+        "label": "C",
+        "points": [
+          [
+            14,
+            18
+          ],
+          [
+            26,
+            34
+          ],
+          [
+            31,
+            42.8
+          ]
+        ],
+        "kind": "planned",
+        "status": "not-a-teleport-replay"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            14,
+            18
+          ],
+          [
+            36,
+            47
+          ],
+          [
+            53,
+            70
+          ],
+          [
+            75,
+            86
+          ],
+          [
+            90,
+            83
+          ]
+        ],
+        "kind": "planned",
+        "status": "not-a-teleport-replay"
+      }
+    ],
+    "routes": [
+      {
+        "label": "A：磁鉄鉱の陰でMを使い、敵側D03の開口を準備する",
+        "kind": "main",
+        "status": "schematic-not-ballistics",
+        "points": [
+          [
+            69,
+            10.5
+          ],
+          [
+            76,
+            19
+          ],
+          [
+            83,
+            28
+          ],
+          [
+            88,
+            34
+          ],
+          [
+            98,
+            40
+          ],
+          [
+            107,
+            47
+          ],
+          [
+            113,
+            49
+          ],
+          [
+            128,
+            44
+          ]
+        ]
+      },
+      {
+        "label": "C：左の肋骨棚から横穴へ斜めに射撃する",
+        "kind": "side",
+        "status": "schematic-not-ballistics",
+        "points": [
+          [
+            31,
+            45
+          ],
+          [
+            38,
+            45
+          ],
+          [
+            45,
+            33
+          ],
+          [
+            56,
+            24
+          ],
+          [
+            72,
+            20
+          ],
+          [
+            94,
+            28
+          ],
+          [
+            111,
+            42
+          ]
+        ]
+      },
+      {
+        "label": "B：右側の露出する鉱石稜線から上越し",
+        "kind": "alternative",
+        "status": "schematic-not-ballistics",
+        "points": [
+          [
+            90,
+            85.5
+          ],
+          [
+            99,
+            93
+          ],
+          [
+            109,
+            85
+          ],
+          [
+            119,
+            67
+          ],
+          [
+            128,
+            45
+          ]
+        ]
+      }
+    ],
+    "shotExamples": [],
+    "angleReview": [],
+    "replayViews": []
+  },
+  "summary": {
+    "terrain": "左岸に根付く大磁鉄鉱がつくる広いアーチ型空洞、横に出る肋骨棚、敵前の割れる斜梁。",
+    "concept": "磁鉄鉱の下に移って遮蔽と磁場を使い、敵側の破壊梁を開いて撃つ。移動距離・破壊を引き受ける代わりに反撃から守られる。",
+    "alternative": "磁鉄鉱の右側上面Bへ登ってMを避けた上越し射撃を狙う。直線が開けるが露出する。側面Cは磁場外から別角度で横穴を狙う中間選択。",
+    "status": "design hypothesis, not a tested result"
+  },
+  "learningGoal": {
+    "source": "PR #74",
+    "proposed": "同じ磁鉄鉱の上・下・左側で、安全性と射撃方法と破壊の必要性が変わる。",
+    "decision": "R全面再設計"
+  },
+  "routeDesign": {
+    "main": "下路A=(69,8)。磁鉄鉱下面の影からM=(88,34)を利用し、斜め梁D03を必要に応じて壊して射角を広げる。",
+    "alternative": "上路B=(90,83)。鉱石上面から敵へ高所の弧。磁場に依存しないが反撃に露出。側路C=(31,42.8)は肋骨棚から下路の開口を探す。",
+    "anchors": [
+      {
+        "id": "under-arch-A",
+        "x": 69,
+        "h": 8,
+        "surface": "floor0",
+        "plan": "main",
+        "role": "広い洞内空間でMを使い、敵側D03を部分破壊して開口を作る",
+        "requiredMechanisms": [
+          "M",
+          "break"
+        ]
+      },
+      {
+        "id": "side-rib-C",
+        "x": 31,
+        "h": 42.8,
+        "surface": "072-SIDE-RIB",
+        "plan": "third",
+        "role": "磁場外の横向き高台で下路と違う射角を探る",
+        "requiredMechanisms": []
+      },
+      {
+        "id": "ore-crest-B",
+        "x": 90,
+        "h": 83,
+        "surface": "072-MAGNETITE-ARCH",
+        "plan": "alternative",
+        "role": "上側の曲射でMもD03開口も避ける代わりに敵の反撃に露出",
+        "requiredMechanisms": []
+      }
+    ],
+    "budgetMeaning": "既存16行動を保持。設計段階での移動・射撃・反撃は未検証。",
+    "accessEvidence": "床面、固定鉱石・梁、Mの位置と、代表的な洞内の空き・支持面のみ静的確認。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:mole",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "approval": {
+    "state": "pending",
+    "scope": "geometry-and-tactical-intent-only"
+  },
+  "verification": {
+    "static": "stage_072_static_check_v2.json",
+    "rendering": "coordinate-faithful-map-drawing-not-game-screenshot",
+    "movement": "not-tested",
+    "ballistics": "not-tested",
+    "magnet": "not-tested",
+    "AI": "not-tested",
+    "counterfire": "not-tested",
+    "fullAcceptance": "not-tested"
+  },
+  "destructionRegister": [
+    {
+      "id": "072-MAGNETITE-ARCH",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "072-MAGNETITE-ARCH",
+          "label": "F01",
+          "poly": [
+            [
+              38,
+              27
+            ],
+            [
+              41,
+              41
+            ],
+            [
+              46,
+              58
+            ],
+            [
+              53,
+              70
+            ],
+            [
+              64,
+              80
+            ],
+            [
+              75,
+              86
+            ],
+            [
+              86,
+              85
+            ],
+            [
+              94,
+              81
+            ],
+            [
+              101,
+              73
+            ],
+            [
+              106,
+              62
+            ],
+            [
+              108,
+              49
+            ],
+            [
+              106,
+              42
+            ],
+            [
+              103,
+              43
+            ],
+            [
+              101,
+              51
+            ],
+            [
+              96,
+              60
+            ],
+            [
+              88,
+              64
+            ],
+            [
+              76,
+              66
+            ],
+            [
+              65,
+              64
+            ],
+            [
+              54,
+              57
+            ],
+            [
+              47,
+              46
+            ],
+            [
+              43,
+              30
+            ]
+          ]
+        }
+      ],
+      "purpose": "左側の山肩と一体化する天然磁鉄鉱アーチ。下のAでは遮蔽が得られ、右上Bでは大きく露出する。"
+    },
+    {
+      "id": "072-SIDE-RIB",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "072-SIDE-RIB",
+          "label": "F02",
+          "poly": [
+            [
+              18,
+              18
+            ],
+            [
+              22,
+              25
+            ],
+            [
+              24,
+              35
+            ],
+            [
+              29,
+              42
+            ],
+            [
+              34,
+              44
+            ],
+            [
+              37,
+              40
+            ],
+            [
+              36,
+              35
+            ],
+            [
+              32,
+              36
+            ],
+            [
+              28,
+              34
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              22,
+              20
+            ]
+          ]
+        }
+      ],
+      "purpose": "磁鉄鉱の左に分岐する地続きの肋骨状側面棚。Cから横向きの射撃判断をつくる。"
+    },
+    {
+      "id": "072-BRITTLE-BRACE",
+      "label": "D03",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "072-BRITTLE-BRACE@0",
+          "label": "D03",
+          "poly": [
+            [
+              109,
+              30.25
+            ],
+            [
+              113,
+              34
+            ],
+            [
+              119,
+              40
+            ],
+            [
+              120,
+              52
+            ],
+            [
+              116,
+              56
+            ],
+            [
+              112,
+              48
+            ]
+          ]
+        }
+      ],
+      "purpose": "下路から敵へ向かう開口を狭める斜めの破壊可能鉱石梁。破壊すると攻撃線と反撃線の双方が開く。"
+    }
+  ],
+  "destructionPlans": {
+    "main": [
+      "072-BRITTLE-BRACE@0"
+    ],
+    "alternative": []
+  },
+  "blueprintCandidate": {
+    "stage": 72,
+    "name": "磁石の陰の棚",
+    "nameEn": "Shelf Beneath the Magnet",
+    "goal": "巨大磁鉄鉱の下の磁場射撃、側面の回り込み、上からの露出した射撃を選ぶ。",
+    "goalEn": "Choose sheltered magnet fire below the ore, a side approach, or an exposed upper shot.",
+    "floor": [
+      [
+        0,
+        18
+      ],
+      [
+        12,
+        18
+      ],
+      [
+        19,
+        18
+      ],
+      [
+        26,
+        21
+      ],
+      [
+        33,
+        26
+      ],
+      [
+        38,
+        27
+      ],
+      [
+        43,
+        25
+      ],
+      [
+        48,
+        21
+      ],
+      [
+        53,
+        16
+      ],
+      [
+        60,
+        11
+      ],
+      [
+        67,
+        8
+      ],
+      [
+        75,
+        8
+      ],
+      [
+        83,
+        12
+      ],
+      [
+        91,
+        17
+      ],
+      [
+        99,
+        23
+      ],
+      [
+        107,
+        29
+      ],
+      [
+        115,
+        34
+      ],
+      [
+        123,
+        39
+      ],
+      [
+        132,
+        42
+      ],
+      [
+        140,
+        39
+      ]
+    ],
+    "parts": [
+      {
+        "id": "072-MAGNETITE-ARCH",
+        "kind": "roof",
+        "poly": [
+          [
+            38,
+            27
+          ],
+          [
+            41,
+            41
+          ],
+          [
+            46,
+            58
+          ],
+          [
+            53,
+            70
+          ],
+          [
+            64,
+            80
+          ],
+          [
+            75,
+            86
+          ],
+          [
+            86,
+            85
+          ],
+          [
+            94,
+            81
+          ],
+          [
+            101,
+            73
+          ],
+          [
+            106,
+            62
+          ],
+          [
+            108,
+            49
+          ],
+          [
+            106,
+            42
+          ],
+          [
+            103,
+            43
+          ],
+          [
+            101,
+            51
+          ],
+          [
+            96,
+            60
+          ],
+          [
+            88,
+            64
+          ],
+          [
+            76,
+            66
+          ],
+          [
+            65,
+            64
+          ],
+          [
+            54,
+            57
+          ],
+          [
+            47,
+            46
+          ],
+          [
+            43,
+            30
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "072-SIDE-RIB",
+        "kind": "island",
+        "poly": [
+          [
+            18,
+            18
+          ],
+          [
+            22,
+            25
+          ],
+          [
+            24,
+            35
+          ],
+          [
+            29,
+            42
+          ],
+          [
+            34,
+            44
+          ],
+          [
+            37,
+            40
+          ],
+          [
+            36,
+            35
+          ],
+          [
+            32,
+            36
+          ],
+          [
+            28,
+            34
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            22,
+            20
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "072-BRITTLE-BRACE@0",
+        "kind": "wall",
+        "poly": [
+          [
+            109,
+            30.25
+          ],
+          [
+            113,
+            34
+          ],
+          [
+            119,
+            40
+          ],
+          [
+            120,
+            52
+          ],
+          [
+            116,
+            56
+          ],
+          [
+            112,
+            48
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          88,
+          34,
+          25,
+          -1
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        14,
+        18
+      ],
+      [
+        128,
+        40.666666666666664
+      ]
+    ],
+    "worldWidth": 1400,
+    "recommended": "mogu",
+    "route": "アーチ下でM＋梁開口を用いる安全な長路と、磁鉄鉱上面の露出短路を対比。",
+    "terrainRevision": "stage072-v2-design-pending"
+  },
+  "pickupPlacementCandidate": {
+    "id": "W09",
+    "kind": "trial",
+    "weaponId": "W09",
+    "category": "weapon",
+    "amount": 2,
+    "x": 23,
+    "h": 33,
+    "spawnTurn": 5,
+    "placementId": "L072:weapon:W09",
+    "needsReverification": true,
+    "designStatus": "proposed-unverified",
+    "note": "pickup_placements.jsonは未変更。位置候補は承認後に照合。"
+  },
+  "implementationNote": "この段階では設計資料だけを追加。ゲーム正本・敵AI・反撃・保存・他面は一切変更しない。PR #74の旧地形での射撃/転移証跡は新地形の検証証跡として流用しない。"
+}
