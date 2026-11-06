@@ -1,5 +1,8 @@
 # ARCLINE ステージ51〜99：面別の改修判定・攻略意図・受入れ条件
 
+> **履歴・参考資料（2026-11-06で作業指示として失効）**：本書は過去のレビューや制作経緯を記録するものです。**現在の制作手順・順番・ギミックの採否・品質の合否は [唯一の作業仕様書](ARCLINE_MAP_DESIGN_SINGLE_SOURCE_OF_TRUTH_20261106.md) を正本**とし、本書と矛盾する指示や構想例は実行しないでください。既承認版の状態も正本とGitHubの承認記録を確認してください。
+
+
 **全49面共通の必達品質：** [地形・オブジェクト・攻略・ギミックの品質憲章](MAP_DESIGN_NONNEGOTIABLE_REQUIREMENTS_20261106.md)  
 **改修基準：** [1面ずつの制作仕様書](IMPLEMENTER_MAP_REDESIGN_PLAYBOOK_20261105.md)  
 **参照：** [PR #74](https://github.com/bittrove88/bittrove88.github.io/pull/74) / head `9a58a777`  
