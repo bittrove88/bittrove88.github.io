@@ -21,7 +21,7 @@ def main():
     old=json.loads((HERE/'stage_075_roughs_r2.json').read_text())['candidates'][0]
     removed=copy.deepcopy(a);removed['parts']=[p for p in removed['parts'] if not p['breakable']]
 
-    out=[t(38,44,'ARCLINE 075 A v4  /  岩肩を越えて入る、横穴の切羽',29,weight=700),t(40,78,'Aの方向性を採用した詳細設計候補　｜　直射の制御＝固定岩肩　　一時防御＝D　｜　設計承認待ち・動作未検証',17,COLORS['muted'])]
+    out=[t(38,44,'ARCLINE 075 A v4  /  岩肩を越えて入る、横穴の切羽',29,weight=700),t(40,78,'承認済みの詳細設計　｜　直射の制御＝固定岩肩　　一時防御＝D　｜　設計承認済み・動作未検証',17,COLORS['muted'])]
     out.append(f'<rect x="24" y="101" width="1552" height="790" rx="18" fill="{COLORS["card"]}" stroke="#2e415d"/>')
     out += [t(48,139,'Dを残した状態で、両方の攻略を計画',25,weight=700),t(49,171,'主：岩肩を越えてCへ入り、Dの上を越し撃ち　／　別解：坑外RからMを経て坑口へ通す',18,COLORS['muted'])]
     out.append(map_view(a,125,780,7.5,True,True));out.append(direct_reference(a,125,780,7.5))
@@ -45,7 +45,7 @@ def main():
     products['stage_075_compare_r2_v4.svg']=document(1600,2050,''.join(out),'75面A 元ラフと詳細設計DありDなしの同縮尺比較')
 
     old75=json.loads((HERE/'stage_075_proposal_v1.json').read_text())
-    cells=[('75 A v4｜今回の設計候補',a,'固定岩肩と採掘斜面／Dは一時防御'),('75 PR #74 v1｜未承認の元案',old75['after'],'長い水平梁の下と上を使う案')]
+    cells=[('75 A v4｜設計承認済み',a,'固定岩肩と採掘斜面／Dは一時防御'),('75 PR #74 v1｜未承認の元案',old75['after'],'長い水平梁の下と上を使う案')]
     for n,v,caption in [(65,3,'火口・噴出と反射'),(66,4,'独立屋根・炉底と稜線'),(67,4,'S字山裾と逆向きの庇'),(69,2,'凹形退避島'),(71,5,'小型浮遊ブロックと4分割鉱脈'),(72,4,'断層越えと逆向き射撃')]:
         data=json.loads((HERE/f'stage_{n:03}_proposal_v{v}.json').read_text())
         cells.append((f'{n} v{v}｜設計承認済み',data['after'],caption))

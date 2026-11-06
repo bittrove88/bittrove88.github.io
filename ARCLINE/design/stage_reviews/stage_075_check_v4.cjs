@@ -61,7 +61,7 @@ for(let x=76;x<=113;x+=.5){
 assert(minOpening>150);
 const D=a.parts.find(p=>p.breakable);const width=(Math.max(...D.poly.map(v=>v[0]))-Math.min(...D.poly.map(v=>v[0])))*10;
 assert.equal(width,80);assert.deepEqual(proposal.destructionPlans,{main:[],alternative:[]});
-const report={stage:75,version:'A-v4',status:'static-shape-confirmed-design-approval-pending',source:'stage_075_proposal_v4.json',scope:'existing geometry.world, data consistency, representative support/body samples, fixed/temporary role separation and schematic space only',
+const report={stage:75,version:'A-v4',status:proposal.approval.state==='approved'?'static-shape-confirmed-design-approved-runtime-unverified':'static-shape-confirmed-design-approval-pending',source:'stage_075_proposal_v4.json',scope:'existing geometry.world, data consistency, representative support/body samples, fixed/temporary role separation and schematic space only',
  blueprintDataMatchesDrawing:true,polygonSelfIntersections:0,supportHeightTolerancePx:.5,supports:supportResults,plannedApproachMaxSlopeDeg:+pathSlope.toFixed(4),minimumPitMouthVerticalClearancePx:+minOpening.toFixed(3),
  destructible:{id:'075-TEMP-DEFENSE@0',widthPx:width,runtimeFragmentCount:fragile.length,oneHitRemoval:'not-claimed-not-tested',requiredToOpenRoutes:false},
  allDRemoved:{fixedGeometryExactlyUnchanged:true,magnetRegionExactlyUnchanged:true,exteriorSightBands:bands},
@@ -69,7 +69,7 @@ const report={stage:75,version:'A-v4',status:'static-shape-confirmed-design-appr
  schematicRoutes,
  rendering:{engine:'Chromium',svgCount:3,visualReview:'full map, rough comparison, intact/removed states and diversity; coordinate-derived diagrams, not game screenshots'},
  notTested:['actual walking or transfer actions','teleport landing','actual muzzle and barrel','M deflection and ballistics','destruction damage or shot count','arm hit or weakening in battle','enemy AI and counterattack','24-action victory'],
- runtimeChanged:false,finalDesignApproval:false};
+ runtimeChanged:false,finalDesignApproval:proposal.approval.state==='approved'};
 const content=JSON.stringify(report,null,2)+'\n';
 if(process.argv.includes('--check'))assert.equal(fs.readFileSync(file('stage_075_static_check_v4.json'),'utf8'),content,'static report out of sync');
 else fs.writeFileSync(file('stage_075_static_check_v4.json'),content);
