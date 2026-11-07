@@ -1,6 +1,6 @@
 'use strict';
 // Artifacts and browser evidence for the independent gallery, not the live game.
-const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),crypto=require('node:crypto'),cp=require('node:child_process');
 const {chromium}=require('../../../node_modules/playwright');
 const root=__dirname,evidence=process.env.ARCLINE_COMPONENT_EVIDENCE_DIR||'/tmp/arcline-components-complete';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -75,8 +75,8 @@ async function main(){
   const layouts=[];
   for(const [width,height] of sizes)for(const mode of ['sheet','map']){await page.setViewportSize({width,height});await page.locator('#mode').selectOption(mode);const layout=await page.evaluate(()=>({width:innerWidth,pageWidth:document.documentElement.scrollWidth,viewerWidth:document.querySelector('.viewer').clientWidth}));assert.ok(layout.pageWidth<=width,`body overflow ${width}`);layouts.push({mode,...layout});await page.screenshot({path:path.join(evidence,`gallery-${mode}-${width}x${height}.png`),fullPage:true});}
   assert.equal(await page.evaluate(()=>JSON.stringify(COLLECTION)),baseline,'art data mutated');assert.equal(await page.evaluate(()=>localStorage.length),0,'save written');assert.equal(errors.length,0);assert.equal(external.length,0);
-  const fixture=JSON.parse(fs.readFileSync(path.join(root,'worlds.json')));for(const [file,hash]of Object.entries(fixture.runtimeHashes))assert.equal(sha(fs.readFileSync(path.join(root,'../../..',file))),hash,'runtime changed '+file);
-  const report={scope:'Independent component gallery and art fixtures; not game integration or device play.',sceneCounts:{normal:20,boss:9,final:4},graphPNGs:ids.length,themeSizeRenders:renders,sizes,mapRenders,...structural,uiSelections,layouts,parity,contextRestored,dataImmutable:true,saveWrites:0,javaScriptErrors:errors,externalHTTP:external,runtimeFixtureHashesMatch:true,designApproved:false,runtimeIntegrated:false};
+  const fixture=JSON.parse(fs.readFileSync(path.join(root,'worlds.json')));for(const [file,hash]of Object.entries(fixture.runtimeHashes))assert.equal(sha(cp.execFileSync('git',['show',fixture.sourceRuntimeCommit+':ARCLINE/'+file],{cwd:root})),hash,'historical fixture source changed '+file);
+  const report={scope:'Independent component gallery and art fixtures; not game integration or device play.',sceneCounts:{normal:20,boss:9,final:4},graphPNGs:ids.length,themeSizeRenders:renders,sizes,mapRenders,...structural,uiSelections,layouts,parity,contextRestored,dataImmutable:true,saveWrites:0,javaScriptErrors:errors,externalHTTP:external,historicalFixtureSourcesMatch:true,designApproved:false,runtimeIntegrated:false};
   fs.writeFileSync(path.join(root,'validation.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({...report,parity:{count:parity.length,maxMeanRGB:Math.max(...parity.map(r=>r.meanRGB))}},null,2));
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 }

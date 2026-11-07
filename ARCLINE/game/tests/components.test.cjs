@@ -1,0 +1,23 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{execFileSync}=require('node:child_process');
+const E=require('../dist/engine.js'),C=require('../dist/component-art.js'),B=require('../dist/backgrounds.js'),F=require('../dist/final-team.js'),T=require('../dist/final-travel.js');
+const root=path.resolve(__dirname,'../..'),approval=require('../../design/components/runtime-approval.json');let checks=0,polygons=0,regions=0;const ok=(x,m)=>{checks++;assert(x,m);},same=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
+for(const file of ['engine.js','geometry.js','physics.js','levels.js','combat.js','weapons.js','skills.js','inventory.js','crew.js','crew-usage.js','final-team.js','campaign-run.js','save.js','game.js','visual-art.js','characters.js','backgrounds.js']){
+ const original=execFileSync('git',['show',approval.mainBaseline+':ARCLINE/game/dist/'+file],{cwd:root});ok(original.equals(fs.readFileSync(path.join(root,'game/dist',file))),'preserve latest gameplay/map/save/actor/background source '+file);
+}
+for(const ref of approval.materials)ok(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,ref.file))).digest('hex')===ref.sha256,'approved source '+ref.file);
+same(C.materials.renderStyle,require('../../design/components/complete/render-style.json'),'all render values come from the approved JSON');
+same(C.materials.shared,require('../../design/components/complete/shared-materials.json').materials,'functional colors come from one shared source');
+const ids=new Set();
+function inspect(state){const before=JSON.stringify(state),scene=C.sceneFor(state);ids.add(scene.id);ok(scene.id===B.sceneFor(state).id,'component and background scene stay together');same(scene.materials,require(path.join(root,'design/components/complete/data',scene.id+'.json')).materials,'compiled scene keeps authored materials '+scene.id);
+ for(const solid of state.world.solids){const result=C.solidNode(solid,state.world,scene);same(result.collider,solid.poly.map(p=>[p.x,p.y]),'art keeps live collider '+state.stage+'/'+solid.id);polygons++;}
+ for(const region of state.world.regions){const result=C.regionNode(region),active=region.on!==false&&(region.strength??1)>0;same(result.motion.kind,region.kind,'live field kind');same(result.motion.direction,region.direction,'live field direction');same(result.motion.strength,region.strength,'live field strength');ok(active||result.children.length===0,'inactive fields have no static marks');if(region.kind==='M')ok(result.children.filter(n=>n.role==='fieldFrame').length===(active?1:0),'magnet-only frame follows active state');else ok(result.children.length===0,'no rectangular field frames');regions++;}
+ for(const terminal of state.world.terminals)ok(C.terminalNode(terminal,scene).role==='terminal','shared terminal body');
+ ok(JSON.stringify(state)===before,'art never changes campaign state');
+}
+for(let stage=1;stage<=99;stage++)inspect(E.campaign(stage,{matchSeed:17}));
+const state=E.campaign(100,{matchSeed:17});let transitions=0;
+for(let i=0;i<10;i++){inspect(state);if(i<9){const before=JSON.parse(JSON.stringify(state)),from=F.mapIndex(state);F.credit(state,state.characterId,5);E.next(state);state.phase='aim';if(F.mapIndex(state)!==from){const travel=T.create(before,{x:0,y:0,scale:1},{from,to:F.mapIndex(state),duration:2.2},false);for(const t of [0,.35,.549,.55,.83,1]){travel.age=t*travel.duration;const frame=T.frame(state,travel);same(C.sceneFor(frame.state).id,B.sceneFor(frame.state).id,'collapse uses same material and background scene at '+t);for(const solid of frame.world.solids)same(C.solidNode(solid,frame.world,C.sceneFor(frame.state)).collider,solid.poly.map(p=>[p.x,p.y]),'collapse keeps interpolated polygon');}transitions++;}}}
+ok(ids.size===33&&transitions===3,'all 33 scenes and three final transitions are reachable');
+for(const [stage,effects]of [[60,{broken:1}],[60,{broken:2}],[80,{broken:1}],[80,{broken:2}],[90,{thinCloud:true}]]){const s=E.campaign(stage);Object.assign(s.effects,effects);E.rebuildWorld(s);inspect(s);}
+const out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-components-runtime';fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'COMPONENTS_UNIT.json'),JSON.stringify({status:'PASS',checks,scenes:ids.size,polygons,regions,transitions,baseline:approval.mainBaseline,scope:'Approved material equality; byte-preserved latest engine, maps, actors, backgrounds and saves; live polygons/field state; all ten final pilots and collapse transitions.'},null,2)+'\n');console.log('PASS components '+checks+' checks');

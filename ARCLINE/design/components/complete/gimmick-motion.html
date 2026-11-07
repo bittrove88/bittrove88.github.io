@@ -29,7 +29,7 @@ function draw(ctx,width,height,scene,options={}){
     if(a.clip)ctx.clip(new Path2D(a.clip));
     if(a.role==='foreground'&&options.chargeZoom){const [x,y]=a.pivot;ctx.translate(x,y);ctx.scale(.9,.9);ctx.translate(-x,-y);}
     if(a.role==='field'&&options.fieldBounds){const b=options.fieldBounds;ctx.beginPath();ctx.rect(b.left,b.top,b.right-b.left,b.bottom-b.top);ctx.clip();}
-    if(a.role==='field'&&a.motion&&options.fieldMotion){const m=ctx.getTransform();fieldMotion(ctx,a.motion,options.reducedMotion?0:options.time||0,pixelScale/Math.max(.0001,Math.hypot(m.a,m.b)),options.fieldBounds);}
+    if(a.role==='field'&&a.motion&&options.fieldMotion){const m=ctx.getTransform();fieldMotion(ctx,a.motion,options.reducedMotion?0:options.time||0,pixelScale/Math.max(.0001,Math.hypot(m.a,m.b)),options.fieldBounds,options.language);}
     for(const child of a.children)node(child);return;
    }
    if(a.type==='text'){ctx.fillStyle=a.fill;ctx.font=`${a.weight} ${a.size}px "Noto Sans CJK JP",Arial,sans-serif`;if(a.stroke){ctx.strokeStyle=a.stroke;ctx.lineJoin='round';const m=ctx.getTransform();ctx.lineWidth=a.screenStroke?a.strokeWidth*pixelScale/Math.max(.0001,Math.hypot(m.a,m.b)):a.strokeWidth;ctx.strokeText(a.text,a.x,a.y);}ctx.fillText(a.text,a.x,a.y);return;}
@@ -45,7 +45,7 @@ function draw(ctx,width,height,scene,options={}){
  }finally{ctx.restore();}
 }
 // Decorative direction cues. This never integrates projectile physics or changes region state.
-function fieldMotion(ctx,r,time,u,visible){
+function fieldMotion(ctx,r,time,u,visible,language='ja'){
  if(r.on===false||(r.strength??1)<=0)return;
  const t=Number.isFinite(time)?Math.max(0,time):0,dir=r.direction<0?-1:1;
  ctx.save();try{
@@ -90,9 +90,9 @@ function fieldMotion(ctx,r,time,u,visible){
   }
   // A continuation hint points toward an off-screen real source; never move the source onto the viewport edge.
   let hint=null,hx=(r.x1+r.x2)/2,hy=r.y2-7*u;
-  if(!horizontal&&source.y2>r.y2+14*u)hint=r.kind==='V'?'噴出口↓':'発生源↓';
-  else if(horizontal&&(dir>0?source.x1<r.x1-14*u:source.x2>r.x2+14*u)){hint=dir>0?'発生源←':'発生源→';hy=r.y1+13*u;}
-  if(hint&&r.offscreenFlowSourceHint!==false){if(w<36*u)hint=horizontal?(dir>0?'←':'→'):'↓';ctx.save();ctx.font=`600 ${Math.max(9,Math.min(11,w/u/4-1))*u}px system-ui`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=3*u;ctx.strokeStyle=r.accent||'#EAF4F7';ctx.strokeText(hint,hx,hy);ctx.fillStyle=r.color;ctx.fillText(hint,hx,hy);ctx.restore();}
+  if(!horizontal&&source.y2>r.y2+14*u)hint=language==='en'?(r.kind==='V'?'VENT↓':'SOURCE↓'):(r.kind==='V'?'噴出口↓':'発生源↓');
+  else if(horizontal&&(dir>0?source.x1<r.x1-14*u:source.x2>r.x2+14*u)){hint=language==='en'?(dir>0?'SOURCE←':'SOURCE→'):(dir>0?'発生源←':'発生源→');hy=r.y1+13*u;}
+  if(hint&&r.offscreenFlowSourceHint!==false){if(w<36*u)hint=horizontal?(dir>0?'←':'→'):'↓';ctx.save();ctx.font=`600 ${Math.max(9,Math.min(11,w/u/hint.length-1))*u}px system-ui`;ctx.textAlign='center';if(ctx.measureText(hint).width>w-4*u)hint=horizontal?(dir>0?'←':'→'):'↓';ctx.lineJoin='round';ctx.lineWidth=3*u;ctx.strokeStyle=r.accent||'#EAF4F7';ctx.strokeText(hint,hx,hy);ctx.fillStyle=r.color;ctx.fillText(hint,hx,hy);ctx.restore();}
  }finally{ctx.restore();}
 }
 const api=Object.freeze({draw,select,version:'1.0',runtimeIntegrated:false});
