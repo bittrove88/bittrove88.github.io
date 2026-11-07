@@ -419,7 +419,7 @@ document.addEventListener('keydown',e=>{
 mapCamera=ArcMapCamera.create({state:()=>s,allowed:()=>canAim()&&!charge&&!specialLesson.active,available:()=>!hostPaused()&&!manualPaused,clearInput,changed:()=>{previous=0;hud();},draw,resetCamera:()=>renderer.resetCamera()});
 // Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.
 viewport=ArcViewport.install($('app'),()=>{clearInput();mapCamera?.resize();previous=0;draw();});
-window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();mapCamera?.resize();draw();});
+window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>viewport.fit());
 document.addEventListener('visibilitychange',()=>document.hidden?pauseHost('visibility'):resumeHost('visibility'));
 if(sdk){sdk.system.onPause(()=>pauseHost('sdk'));sdk.system.onResume(()=>resumeHost('sdk'));sdk.system.onAudioEnabledChange(v=>{hostAudio=v;audioSync();});}
 window.addEventListener('arcline-fullscreen',()=>{clearInput();previous=0;viewport.fit();mapCamera?.resize();draw();});

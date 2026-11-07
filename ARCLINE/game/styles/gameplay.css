@@ -3645,7 +3645,7 @@ html[lang="ja"] #fire:disabled #chargeValue {
   position: absolute;
   inset: 0;
   z-index: 12;
-  padding: 16px;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   display: grid;
   place-items: center;
   background: #092333c9;
@@ -3873,7 +3873,7 @@ html[lang="ja"] #fire:disabled #chargeValue {
     padding: 12px;
   }
   .utility-overlay {
-    padding: 10px;
+    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
   }
   .guide-grid {
     grid-template-columns: 1fr;
@@ -3890,7 +3890,7 @@ html[lang="ja"] #fire:disabled #chargeValue {
 }
 @media (orientation: landscape) and (max-height: 500px) {
   .utility-overlay {
-    padding: 10px;
+    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
   }
   .utility-panel {
     padding: 12px;
@@ -3953,7 +3953,7 @@ html[lang="ja"] #fire:disabled #chargeValue {
     gap: 5px;
   }
   .utility-overlay {
-    padding: 8px;
+    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
   }
   .settings-row {
     padding: 5px 8px;
@@ -5061,7 +5061,7 @@ details p {
 }
 @media (orientation: landscape) and (max-height: 600px) {
   #lobby {
-    padding: 10px max(18px, env(safe-area-inset-right));
+    padding: 10px max(18px, env(safe-area-inset-right)) 10px max(18px, env(safe-area-inset-left));
     gap: 8px;
   }
   #lobby .brand {
@@ -5208,7 +5208,7 @@ details p {
 }
 @media (orientation: landscape) and (max-height: 340px) {
   #lobby {
-    padding: 6px max(12px, env(safe-area-inset-right));
+    padding: 6px max(12px, env(safe-area-inset-right)) 6px max(12px, env(safe-area-inset-left));
     gap: 4px;
   }
   #lobby .lobby-tools button {
