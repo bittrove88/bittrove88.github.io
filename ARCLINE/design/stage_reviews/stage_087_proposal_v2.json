@@ -1,0 +1,870 @@
+{
+  "schema": "arcline-stage-design-proposal-v2",
+  "stage": 87,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "荷役板の陰と雲外の貨物棚",
+  "source": {
+    "proposal": "stage_087_proposal_v1.json",
+    "review": "stage_087_review_v1.md",
+    "baseApproved82": "7a5319deab4c557afeafa7f1524da05ad77081b4",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105"
+  },
+  "before": {
+    "width": 1580,
+    "floor": [
+      [
+        0,
+        34
+      ],
+      [
+        46,
+        34
+      ],
+      [
+        107,
+        48
+      ],
+      [
+        158,
+        48
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          34
+        ],
+        [
+          46,
+          34
+        ]
+      ],
+      [
+        [
+          107,
+          48
+        ],
+        [
+          158,
+          48
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "087-LOW-CARGO",
+        "kind": "island",
+        "poly": [
+          [
+            59,
+            3
+          ],
+          [
+            64,
+            9
+          ],
+          [
+            80,
+            9
+          ],
+          [
+            85,
+            4
+          ],
+          [
+            75,
+            -1
+          ],
+          [
+            66,
+            -1
+          ]
+        ],
+        "purpose": "開閉橋より低い固定貨物棚。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "087-LOW-CARGO",
+            "label": "F01",
+            "poly": [
+              [
+                59,
+                3
+              ],
+              [
+                64,
+                9
+              ],
+              [
+                80,
+                9
+              ],
+              [
+                85,
+                4
+              ],
+              [
+                75,
+                -1
+              ],
+              [
+                66,
+                -1
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "087-HIGH-CARGO",
+        "kind": "island",
+        "poly": [
+          [
+            81,
+            70
+          ],
+          [
+            87,
+            75
+          ],
+          [
+            101,
+            75
+          ],
+          [
+            106,
+            70
+          ],
+          [
+            98,
+            64
+          ],
+          [
+            89,
+            64
+          ]
+        ],
+        "purpose": "雲の上へ出る棚。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "087-HIGH-CARGO",
+            "label": "F02",
+            "poly": [
+              [
+                81,
+                70
+              ],
+              [
+                87,
+                75
+              ],
+              [
+                101,
+                75
+              ],
+              [
+                106,
+                70
+              ],
+              [
+                98,
+                64
+              ],
+              [
+                89,
+                64
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "087-DECK-SCREEN",
+        "kind": "wall",
+        "poly": [
+          [
+            111,
+            48
+          ],
+          [
+            118,
+            48
+          ],
+          [
+            118,
+            65
+          ],
+          [
+            111,
+            65
+          ]
+        ],
+        "purpose": "甲板側の独立遮蔽。",
+        "breakable": true,
+        "displayId": "D03",
+        "renderUnits": [
+          {
+            "id": "087-DECK-SCREEN@0",
+            "label": "D03",
+            "poly": [
+              [
+                111,
+                48
+              ],
+              [
+                118,
+                48
+              ],
+              [
+                118,
+                65
+              ],
+              [
+                111,
+                65
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          46,
+          34,
+          62,
+          0
+        ],
+        "openAngleDeg": 75
+      },
+      {
+        "type": "C",
+        "v": [
+          55,
+          88,
+          37,
+          69
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 34
+    },
+    "enemy": {
+      "x": 139,
+      "h": 48
+    }
+  },
+  "after": {
+    "id": "087-v2",
+    "stageNumber": 87,
+    "width": 1800,
+    "floor": [
+      [
+        0,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        178,
+        0
+      ],
+      [
+        180,
+        0
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      [
+        [
+          178,
+          0
+        ],
+        [
+          180,
+          0
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "087-CARGO-DOCK",
+        "displayId": "F01",
+        "kind": "cargo-hull",
+        "poly": [
+          [
+            28,
+            29
+          ],
+          [
+            39,
+            27
+          ],
+          [
+            48,
+            25
+          ],
+          [
+            80,
+            25
+          ],
+          [
+            80,
+            16
+          ],
+          [
+            63,
+            10
+          ],
+          [
+            44,
+            13
+          ],
+          [
+            31,
+            19
+          ]
+        ],
+        "breakable": false,
+        "purpose": "開始位置を持つ固定貨物甲板。橋の上を射点にせず、手前の固定P0から撃つ。"
+      },
+      {
+        "id": "087-OUTER-CARGO",
+        "displayId": "F02",
+        "kind": "cargo-island",
+        "poly": [
+          [
+            119,
+            32
+          ],
+          [
+            122,
+            38
+          ],
+          [
+            134,
+            38
+          ],
+          [
+            138,
+            32
+          ],
+          [
+            132,
+            23
+          ],
+          [
+            122,
+            24
+          ]
+        ],
+        "breakable": false,
+        "purpose": "Cの右外にある固定貨物棚。橋を渡るのでなく転移の準備を受け入れて雲を避ける。"
+      },
+      {
+        "id": "087-RECEIVER-HULL",
+        "displayId": "F03",
+        "kind": "carrier-hull",
+        "poly": [
+          [
+            138,
+            50
+          ],
+          [
+            172,
+            50
+          ],
+          [
+            177,
+            44
+          ],
+          [
+            171,
+            31
+          ],
+          [
+            145,
+            32
+          ],
+          [
+            138,
+            40
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側の固定船体。低い前縁と側壁が初期敵への直射を遮る。独立遮板を壊しても船体は残る。"
+      },
+      {
+        "id": "087-DECK-SCREEN",
+        "displayId": "D04",
+        "kind": "wall",
+        "poly": [
+          [
+            146,
+            50
+          ],
+          [
+            151,
+            50
+          ],
+          [
+            151,
+            65
+          ],
+          [
+            146,
+            65
+          ]
+        ],
+        "breakable": true,
+        "purpose": "甲板上の独立遮板。主構想は上を通す。破壊すると外側棚からの低めの山越し帯が開く。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          80,
+          25,
+          28,
+          0
+        ],
+        "openAngleDeg": 75
+      },
+      {
+        "type": "C",
+        "v": [
+          90,
+          118,
+          34,
+          70
+        ]
+      }
+    ],
+    "player": {
+      "x": 62,
+      "h": 25
+    },
+    "enemy": {
+      "x": 165,
+      "h": 50
+    },
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 59,
+        "h": 34,
+        "spawnTurn": 5,
+        "placementId": "L087:weapon:W11",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 62,
+        "h": 25
+      },
+      {
+        "id": "A-out",
+        "x": 128,
+        "h": 38
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "P0-through-C",
+        "points": [
+          [
+            62,
+            28
+          ],
+          [
+            76,
+            46
+          ],
+          [
+            88,
+            61
+          ],
+          [
+            104,
+            70
+          ],
+          [
+            128,
+            86
+          ],
+          [
+            150,
+            84
+          ],
+          [
+            165,
+            53
+          ]
+        ],
+        "state": "both B poses; C velocity reduction must be accounted for"
+      },
+      {
+        "kind": "A-outside-C",
+        "points": [
+          [
+            128,
+            41
+          ],
+          [
+            138,
+            76
+          ],
+          [
+            151,
+            82
+          ],
+          [
+            165,
+            53
+          ]
+        ],
+        "state": "both B poses; avoid C; D04 intact"
+      }
+    ],
+    "optionalOpenShot": [
+      [
+        128,
+        41
+      ],
+      [
+        138,
+        58
+      ],
+      [
+        150,
+        60
+      ],
+      [
+        165,
+        53
+      ]
+    ],
+    "transferSpaces": [
+      {
+        "to": "A-out",
+        "points": [
+          [
+            62,
+            28
+          ],
+          [
+            78,
+            65
+          ],
+          [
+            112,
+            96
+          ],
+          [
+            128,
+            84
+          ],
+          [
+            128,
+            38
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 87,
+    "name": "荷役板の陰と雲外の貨物棚",
+    "nameEn": "Cargo Flap Cover and the Cloud-Free Perch",
+    "goal": "固定P0で橋の遮蔽状態を読みCを通すか、雲外の固定棚へ移ってCを避けるか選ぶ。",
+    "goalEn": "Read the cargo flap cover from a fixed dock, or relocate outside the cloud.",
+    "floor": [
+      [
+        0,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        178,
+        0
+      ],
+      [
+        180,
+        0
+      ]
+    ],
+    "floorSegments": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      [
+        [
+          178,
+          0
+        ],
+        [
+          180,
+          0
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "087-CARGO-DOCK",
+        "displayId": "F01",
+        "kind": "cargo-hull",
+        "poly": [
+          [
+            28,
+            29
+          ],
+          [
+            39,
+            27
+          ],
+          [
+            48,
+            25
+          ],
+          [
+            80,
+            25
+          ],
+          [
+            80,
+            16
+          ],
+          [
+            63,
+            10
+          ],
+          [
+            44,
+            13
+          ],
+          [
+            31,
+            19
+          ]
+        ],
+        "breakable": false,
+        "purpose": "開始位置を持つ固定貨物甲板。橋の上を射点にせず、手前の固定P0から撃つ。"
+      },
+      {
+        "id": "087-OUTER-CARGO",
+        "displayId": "F02",
+        "kind": "cargo-island",
+        "poly": [
+          [
+            119,
+            32
+          ],
+          [
+            122,
+            38
+          ],
+          [
+            134,
+            38
+          ],
+          [
+            138,
+            32
+          ],
+          [
+            132,
+            23
+          ],
+          [
+            122,
+            24
+          ]
+        ],
+        "breakable": false,
+        "purpose": "Cの右外にある固定貨物棚。橋を渡るのでなく転移の準備を受け入れて雲を避ける。"
+      },
+      {
+        "id": "087-RECEIVER-HULL",
+        "displayId": "F03",
+        "kind": "carrier-hull",
+        "poly": [
+          [
+            138,
+            50
+          ],
+          [
+            172,
+            50
+          ],
+          [
+            177,
+            44
+          ],
+          [
+            171,
+            31
+          ],
+          [
+            145,
+            32
+          ],
+          [
+            138,
+            40
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側の固定船体。低い前縁と側壁が初期敵への直射を遮る。独立遮板を壊しても船体は残る。"
+      },
+      {
+        "id": "087-DECK-SCREEN",
+        "displayId": "D04",
+        "kind": "wall",
+        "poly": [
+          [
+            146,
+            50
+          ],
+          [
+            151,
+            50
+          ],
+          [
+            151,
+            65
+          ],
+          [
+            146,
+            65
+          ]
+        ],
+        "breakable": true,
+        "purpose": "甲板上の独立遮板。主構想は上を通す。破壊すると外側棚からの低めの山越し帯が開く。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          80,
+          25,
+          28,
+          0
+        ],
+        "openAngleDeg": 75
+      },
+      {
+        "type": "C",
+        "v": [
+          90,
+          118,
+          34,
+          70
+        ]
+      }
+    ],
+    "recommended": "hibari",
+    "spawn": [
+      62,
+      165
+    ],
+    "spawnPoints": [
+      [
+        62,
+        25
+      ],
+      [
+        165,
+        50
+      ]
+    ],
+    "worldWidth": 1800,
+    "hold": 1,
+    "terrainRevision": "5.2",
+    "route": "橋は通行必須の経路ではなく固定P0前方の可動荷役板。起立時に低い線を遮り、P0からは上を越してCへ入れる構想。任意に雲外のAへ転移してCを避ける。遮板破壊は任意。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 20,
+      "enemyHp": 6,
+      "enemyProfile": 4,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "hibari",
+      "enemyErrorStageMultiplier": 0.65,
+      "enemyDamageStageMultiplier": 1.1,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "橋は渡る物だけでなく、固定射点前の低い弾道を遮る板にもなる。雲を通す照準か、場外へ移る準備かを選ぶ。",
+  "designIntent": {
+    "inherit": "貨物中継空路・B/C・独立した甲板遮板・既存W11。",
+    "rebuild": "620pxの連絡橋と似た上下貨物島をやめ、固定貨物甲板の前の可動荷役板と、C外の独立した固定棚へ再構成。",
+    "primary": "P0はB手前の固定支持面。起立時に低い線を遮るBを読み、その上を越してCを通す弧を探る。Cの速度減衰を含めた命中と安全性は未検証。",
+    "alternative": "A-outへ転移しCの外から山越しを探る。Cを避ける代わりに移動・着地・反撃を受け入れる。Bを渡る必要はない。",
+    "bridge": "水平／75度起立、hold1を維持。橋上を必須射点にせず、姿勢変更時の接地補正に依存しない。待機の無償手番を仮定しない。",
+    "cloud": "Cは速度を落とす効果領域で、視界遮断・実体遮蔽ではない。盾になるのはBと固定船体。",
+    "destruction": "D04は固定船体に載る独立遮板。温存時も上の主構想空間があり、除去すると低めの弧の帯が開く。船体を除去せず、初期敵への代表直射は遮る。",
+    "counterattack": "P0でもAでも射撃位置で反撃を受ける。起立Bが遮るのは一部の低い帯で、全攻撃を防ぐ保証ではない。Aに同じ遮蔽はない。",
+    "transfers": "P0/Aの頭上を開放。Aへの構想線はBの上、Cの上と外を通す。実着地や単発到達の保証ではない。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "static": "stage_087_static_check_v2.json",
+    "bridgeCover": "not-tested",
+    "Ctrajectory": "not-tested",
+    "teleport": "not-tested",
+    "destruction": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory20": "not-tested"
+  },
+  "implementationNote": "Design only. Approved twelve maps and runtime unchanged. No stage89+ work."
+}

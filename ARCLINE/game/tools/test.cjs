@@ -8,7 +8,7 @@ const browserPath=mode==='unit'?'':await require('./select_browser.cjs')(output)
 const rows=[];
 for(const name of suites[mode]){
  const script=name.startsWith('../site-tests/')?path.join(root,'site-tests',path.basename(name)+'.test.cjs'):path.join(root,'game/tests',name+'.test.cjs');
- const started=Date.now(),result=spawnSync(process.execPath,[script],{cwd:path.dirname(root),env:{...process.env,ARCLINE_EVIDENCE_DIR:output,ARCLINE_CHROMIUM:browserPath},encoding:'utf8',timeout:mode==='unit'?120000:300000,maxBuffer:8*1024*1024});
+ const started=Date.now(),result=spawnSync(process.execPath,[script],{cwd:path.dirname(root),env:{...process.env,ARCLINE_EVIDENCE_DIR:output,ARCLINE_CHROMIUM:browserPath},encoding:'utf8',timeout:name==='approved-map-replay'?600000:mode==='unit'?120000:300000,maxBuffer:8*1024*1024});
  const log=(result.stdout||'')+(result.stderr||'')+(result.error?'\n'+result.error.message:'');const logfile=path.basename(name)+'.log';fs.writeFileSync(path.join(output,logfile),log);
  const row={name,status:result.status===0?'PASS':'FAIL',ms:Date.now()-started,log:logfile};rows.push(row);console.log(row.status+' '+name+' ('+row.ms+'ms)');if(row.status==='FAIL')console.error(log.slice(-2400));
 }

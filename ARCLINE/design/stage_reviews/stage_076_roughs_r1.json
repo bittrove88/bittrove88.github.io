@@ -1,0 +1,589 @@
+{
+  "schema": "arcline-stage076-direction-roughs-r1",
+  "stage": 76,
+  "date": "2026-11-06",
+  "status": "rejected-by-updated-production-policy",
+  "baseApprovedStage75": {
+    "pr": 87,
+    "commit": "cd162e3dc32f84b12fe06490243cf100ae016db5",
+    "version": "A-v4",
+    "record": "stage_075_approval_v4.md"
+  },
+  "sourcePr74": {
+    "latestProposal": "stage_076_proposal_v2.json",
+    "latestReview": "stage_076_review_v2.md"
+  },
+  "coordinateMeaning": "Tentative silhouette dimensions, 1 unit = 10px; direction sketches only, no blueprintCandidate",
+  "arrows": "schematic positioning, terminal operation and shot directions, not measured movement or trajectories",
+  "preserved": {
+    "encounterId": "enemy:pole",
+    "enemyHp": 5,
+    "actionLimit": 16,
+    "enemyProfile": 3,
+    "hold": 1,
+    "recommended": "rin",
+    "walkingBudgetPx": 140,
+    "teleport": true,
+    "features": [
+      {
+        "type": "M",
+        "count": 1,
+        "initialDirection": -1
+      },
+      {
+        "type": "T",
+        "count": 1,
+        "effect": "polarity reversal at existing turn boundary"
+      }
+    ],
+    "pickups": [],
+    "destructibleParts": 0
+  },
+  "candidates": [
+    {
+      "id": "A",
+      "stageNumber": 76,
+      "title": "磁場を抱く曲面試射路",
+      "width": 1700,
+      "floor": [
+        [
+          0,
+          8
+        ],
+        [
+          28,
+          8
+        ],
+        [
+          52,
+          6
+        ],
+        [
+          98,
+          6
+        ],
+        [
+          116,
+          9
+        ],
+        [
+          126,
+          16
+        ],
+        [
+          136,
+          25
+        ],
+        [
+          146,
+          35
+        ],
+        [
+          158,
+          36
+        ],
+        [
+          170,
+          34
+        ]
+      ],
+      "discovery": "歩いて発射位置を磁場の外から内へ移すか、外に残ってTで極性を変えるかを選ぶ。",
+      "main": "連続した曲面試射路をCへ下り、磁場内に置く想定銃口から射撃する。初期極性−1のまま、入射位置を変える。",
+      "alternate": "P0/Rに残り、手前のTを撃って次の手番境界で極性を切り替え、外からMへ入れる射撃を探る。",
+      "parts": [
+        {
+          "id": "076-A-TRACK",
+          "kind": "track",
+          "poly": [
+            [
+              18,
+              57
+            ],
+            [
+              30,
+              52
+            ],
+            [
+              42,
+              44
+            ],
+            [
+              54,
+              36
+            ],
+            [
+              68,
+              29
+            ],
+            [
+              82,
+              26
+            ],
+            [
+              96,
+              28
+            ],
+            [
+              110,
+              34
+            ],
+            [
+              120,
+              39
+            ],
+            [
+              120,
+              33
+            ],
+            [
+              110,
+              28
+            ],
+            [
+              96,
+              22
+            ],
+            [
+              82,
+              20
+            ],
+            [
+              68,
+              23
+            ],
+            [
+              54,
+              30
+            ],
+            [
+              42,
+              38
+            ],
+            [
+              30,
+              46
+            ],
+            [
+              18,
+              51
+            ]
+          ],
+          "breakable": false,
+          "purpose": "Mの下縁へ沿って曲がる固定試射路。支持面が連続し、射点と機体の傾きを歩行で変える。"
+        },
+        {
+          "id": "076-A-WEST-FOOT",
+          "kind": "pier",
+          "poly": [
+            [
+              20,
+              8
+            ],
+            [
+              26,
+              8
+            ],
+            [
+              26,
+              47.666666666666664
+            ],
+            [
+              20,
+              50.166666666666664
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左端を基礎へ接続する固定柱。"
+        },
+        {
+          "id": "076-A-EAST-FOOT",
+          "kind": "pier",
+          "poly": [
+            [
+              112,
+              8.333333333333334
+            ],
+            [
+              118,
+              10.4
+            ],
+            [
+              118,
+              32
+            ],
+            [
+              112,
+              29
+            ]
+          ],
+          "breakable": false,
+          "purpose": "曲面試射路の右端を地盤へ支える固定柱。"
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            78,
+            50,
+            24,
+            -1
+          ]
+        },
+        {
+          "type": "T",
+          "v": [
+            44,
+            62
+          ]
+        }
+      ],
+      "player": {
+        "x": 36,
+        "h": 48.0
+      },
+      "enemy": {
+        "x": 150,
+        "h": 35.333333333333336
+      },
+      "anchors": [
+        {
+          "id": "R",
+          "x": 36,
+          "h": 48.0,
+          "role": "磁場外に留まる射点"
+        },
+        {
+          "id": "C",
+          "x": 78,
+          "h": 26.857142857142858,
+          "role": "磁場内に想定銃口を置く射点"
+        }
+      ],
+      "movement": [
+        [
+          [
+            36,
+            48.0
+          ],
+          [
+            42,
+            44
+          ],
+          [
+            54,
+            36
+          ],
+          [
+            68,
+            29
+          ],
+          [
+            78,
+            26.857142857142858
+          ]
+        ]
+      ],
+      "attacks": [
+        {
+          "kind": "main",
+          "points": [
+            [
+              78,
+              29.857142857142858
+            ],
+            [
+              90,
+              46
+            ],
+            [
+              110,
+              52
+            ],
+            [
+              130,
+              45
+            ],
+            [
+              150,
+              38.333333333333336
+            ]
+          ],
+          "state": "initial-polarity-minus-one-no-terminal"
+        },
+        {
+          "kind": "alternate",
+          "points": [
+            [
+              36,
+              51.0
+            ],
+            [
+              55,
+              67
+            ],
+            [
+              78,
+              64
+            ],
+            [
+              104,
+              54
+            ],
+            [
+              129,
+              45
+            ],
+            [
+              150,
+              38.333333333333336
+            ]
+          ],
+          "state": "after-T-boundary-polarity-plus-one"
+        }
+      ],
+      "terminalOperation": [
+        [
+          36,
+          51.0
+        ],
+        [
+          44,
+          62
+        ]
+      ],
+      "choice": "歩いて磁場の内側から撃つ／外側に残って極性を変える",
+      "concern": "歩行で得る射角・磁場滞在の差が、T切替による同位置の射撃に対して有効かは未検証。"
+    },
+    {
+      "id": "B",
+      "stageNumber": 76,
+      "title": "背中合わせの制御棟",
+      "width": 1700,
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          16,
+          13
+        ],
+        [
+          32,
+          10
+        ],
+        [
+          50,
+          6
+        ],
+        [
+          98,
+          6
+        ],
+        [
+          110,
+          12
+        ],
+        [
+          125,
+          17
+        ],
+        [
+          140,
+          20
+        ],
+        [
+          153,
+          20
+        ],
+        [
+          170,
+          17
+        ]
+      ],
+      "discovery": "敵と反対側のTで極性を変えて制御台に残るか、棟の前へ転移して磁場の外から攻めるかを選ぶ。",
+      "main": "制御台P0/Rから左側のTへ撃ち、極性反転後に右の敵へ向き直ってM経由の射撃を探る。",
+      "alternate": "Tを使わず、固定の防爆立ち上がりを越えて前方Cへ再配置し、Mの下縁より外の低い射線を選ぶ。",
+      "parts": [
+        {
+          "id": "076-B-CONTROL-PLINTH",
+          "kind": "control-plinth",
+          "poly": [
+            [
+              52,
+              6
+            ],
+            [
+              52,
+              35
+            ],
+            [
+              60,
+              43
+            ],
+            [
+              68,
+              48
+            ],
+            [
+              75,
+              48
+            ],
+            [
+              83,
+              57
+            ],
+            [
+              87,
+              57
+            ],
+            [
+              94,
+              42
+            ],
+            [
+              96,
+              18
+            ],
+            [
+              96,
+              6
+            ]
+          ],
+          "breakable": false,
+          "purpose": "基礎から一体で立つ制御台と前面防爆立ち上がり。敵側の直線を限定し、端子側と攻撃側を分ける。"
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            112,
+            48,
+            23,
+            -1
+          ]
+        },
+        {
+          "type": "T",
+          "v": [
+            26,
+            36
+          ]
+        }
+      ],
+      "player": {
+        "x": 71,
+        "h": 48
+      },
+      "enemy": {
+        "x": 151,
+        "h": 20
+      },
+      "anchors": [
+        {
+          "id": "R",
+          "x": 71,
+          "h": 48,
+          "role": "左右へ向き直る制御位置"
+        },
+        {
+          "id": "C",
+          "x": 114,
+          "h": 13.333333333333334,
+          "role": "M下縁の外の前進射点"
+        }
+      ],
+      "movement": [
+        [
+          [
+            71,
+            48
+          ],
+          [
+            87,
+            73
+          ],
+          [
+            104,
+            59
+          ],
+          [
+            114,
+            13.333333333333334
+          ]
+        ]
+      ],
+      "attacks": [
+        {
+          "kind": "main",
+          "points": [
+            [
+              71,
+              51
+            ],
+            [
+              86,
+              67
+            ],
+            [
+              106,
+              67
+            ],
+            [
+              124,
+              47
+            ],
+            [
+              151,
+              24
+            ]
+          ],
+          "state": "after-T-boundary-polarity-plus-one"
+        },
+        {
+          "kind": "alternate",
+          "points": [
+            [
+              114,
+              16.333333333333336
+            ],
+            [
+              151,
+              24
+            ]
+          ],
+          "state": "initial-polarity-minus-one-below-M"
+        }
+      ],
+      "terminalOperation": [
+        [
+          71,
+          51
+        ],
+        [
+          26,
+          36
+        ]
+      ],
+      "choice": "端子へ逆向きに撃って同じ台に残る／前方へ転移して磁場の外へ出る",
+      "concern": "Tは強制の正解ボタンにしない。向き直り・転移着地・立ち上がりの遮蔽・M回避の価値は未検証。"
+    }
+  ],
+  "approval": {
+    "state": "rejected",
+    "reason": "A obstructs useful M space; B offers distance changes instead of a distinct tactical discovery",
+    "replacement": "stage_076_proposal_v3.json"
+  },
+  "verification": {
+    "scope": "shape and display only",
+    "actualMovement": "not-tested",
+    "teleport": "not-tested",
+    "M": "not-tested",
+    "Toperation": "not-tested",
+    "ballistics": "not-tested",
+    "enemyAI": "not-tested",
+    "combat": "not-tested"
+  }
+}

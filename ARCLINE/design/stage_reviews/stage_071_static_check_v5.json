@@ -1,0 +1,30 @@
+{
+  "stage": 71,
+  "version": "v5",
+  "date": "2026-11-06",
+  "status": "geometry-design-approved-runtime-unverified",
+  "checks": {
+    "floorXAscending": true,
+    "allCoordinatesInWorld": true,
+    "allPolygonsSimple": true,
+    "twoSmallFloatingBlocks": true,
+    "spawnAndAnchorsSupported": true,
+    "fourUnitsWithUniqueIds": true,
+    "sameOreOutlineAsV3": true,
+    "exactAreaPartition": true,
+    "unchangedFeatures": true
+  },
+  "metrics": {
+    "floorVertices": 19,
+    "worldWidth": 1540,
+    "rocksCount": 3,
+    "breakableCollisionParts": 4,
+    "oreSilhouetteArea": 417.5,
+    "sumOfUnitsArea": 417.5,
+    "floatingBlocks": 2
+  },
+  "limitations": [
+    "4つのポリゴンの面積は元のF03と同じで、重複しない分割境界は頂点で明示。接続境界の共有は設計意図。",
+    "実ゲームでの独立破壊、崩落、移動、射撃、敵AI・反撃・16行動攻略は未検証。"
+  ]
+}

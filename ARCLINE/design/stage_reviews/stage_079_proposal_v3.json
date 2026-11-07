@@ -1,0 +1,967 @@
+{
+  "schema": "arcline-stage-design-proposal-v3",
+  "stage": 79,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "開放保守台と岩脊越しの接続橋",
+  "source": {
+    "proposal": "stage_079_proposal_v2.json",
+    "commit": "3e613fb78e01310f00c6839535aae3a475f4927e",
+    "userCorrection": "プレイヤー上の屋根が転移できないため選択肢を狭めている。また直射ラインが空いているのは避ける。"
+  },
+  "before": {
+    "id": "079-v2",
+    "stageNumber": 79,
+    "width": 1600,
+    "floor": [
+      [
+        0,
+        57
+      ],
+      [
+        18,
+        56
+      ],
+      [
+        39,
+        53
+      ],
+      [
+        53,
+        52
+      ],
+      [
+        65,
+        52
+      ],
+      [
+        66,
+        9
+      ],
+      [
+        123,
+        9
+      ],
+      [
+        134,
+        55
+      ],
+      [
+        160,
+        55
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          123,
+          9
+        ]
+      ],
+      [
+        [
+          134,
+          55
+        ],
+        [
+          160,
+          55
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-RECEIVING-ROCK",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            52
+          ],
+          [
+            85,
+            52
+          ],
+          [
+            89,
+            48
+          ],
+          [
+            85,
+            43
+          ],
+          [
+            75,
+            43
+          ],
+          [
+            73,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋の先の小型浮岩。水平橋から移って撃つ固定射点。折り下げ後も支持が残る。"
+      },
+      {
+        "id": "079-FIXED-SERVICE-PIER",
+        "displayId": "F02",
+        "kind": "pier",
+        "poly": [
+          [
+            65,
+            9
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            75,
+            24
+          ],
+          [
+            75,
+            9
+          ]
+        ],
+        "breakable": false,
+        "purpose": "谷底へ接続する固定保守台。橋が折り下がってもT操作とM射撃の支持を失わない。"
+      },
+      {
+        "id": "079-HINGE-SERVICE-ARM",
+        "displayId": "F03",
+        "kind": "fixed-service-arm",
+        "poly": [
+          [
+            54,
+            52
+          ],
+          [
+            58,
+            52
+          ],
+          [
+            58,
+            62
+          ],
+          [
+            68,
+            62
+          ],
+          [
+            68,
+            66
+          ],
+          [
+            54,
+            66
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左地盤に根元を持つ短い整備アーム。P0の頭上の高角発射帯を限定し、橋を渡ってAへ出るとその制約を外せる。Mや低い経路は覆わない。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          65,
+          52,
+          8,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          110,
+          34,
+          18,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          71,
+          35
+        ]
+      }
+    ],
+    "player": {
+      "x": 63,
+      "h": 52
+    },
+    "enemy": {
+      "x": 149,
+      "h": 55
+    },
+    "pickups": [
+      {
+        "id": "SK079",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 50,
+        "h": 61,
+        "spawnTurn": 1,
+        "placementId": "L079:skill:S_SPECIAL_REFILL",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 63,
+        "h": 52
+      },
+      {
+        "id": "A",
+        "x": 75,
+        "h": 52
+      },
+      {
+        "id": "L",
+        "x": 70,
+        "h": 24
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "bridge-primary",
+        "points": [
+          [
+            75,
+            55
+          ],
+          [
+            94,
+            64
+          ],
+          [
+            120,
+            68
+          ],
+          [
+            149,
+            58
+          ]
+        ],
+        "state": "outside-M; both poses after reaching fixed A"
+      },
+      {
+        "kind": "fixed-pier-M",
+        "points": [
+          [
+            70,
+            27
+          ],
+          [
+            81,
+            36
+          ],
+          [
+            96,
+            40
+          ],
+          [
+            110,
+            53
+          ],
+          [
+            127,
+            65
+          ],
+          [
+            149,
+            58
+          ]
+        ],
+        "state": "after-T; polarity-minus-one"
+      }
+    ]
+  },
+  "after": {
+    "id": "079-v3",
+    "stageNumber": 79,
+    "width": 1800,
+    "floor": [
+      [
+        0,
+        57
+      ],
+      [
+        18,
+        56
+      ],
+      [
+        39,
+        53
+      ],
+      [
+        53,
+        52
+      ],
+      [
+        65,
+        52
+      ],
+      [
+        66,
+        9
+      ],
+      [
+        137,
+        9
+      ],
+      [
+        143,
+        55
+      ],
+      [
+        146,
+        76
+      ],
+      [
+        151,
+        77
+      ],
+      [
+        155,
+        55
+      ],
+      [
+        180,
+        55
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          137,
+          9
+        ]
+      ],
+      [
+        [
+          143,
+          55
+        ],
+        [
+          146,
+          76
+        ],
+        [
+          151,
+          77
+        ],
+        [
+          155,
+          55
+        ],
+        [
+          180,
+          55
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-RECEIVING-ROCK",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            52
+          ],
+          [
+            85,
+            52
+          ],
+          [
+            89,
+            48
+          ],
+          [
+            85,
+            43
+          ],
+          [
+            75,
+            43
+          ],
+          [
+            73,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋の先の小型浮岩。水平橋から移って撃つ固定射点。折り下げ後も支持が残る。"
+      },
+      {
+        "id": "079-OPEN-SERVICE-PIER",
+        "displayId": "F02",
+        "kind": "pier",
+        "poly": [
+          [
+            91,
+            9
+          ],
+          [
+            91,
+            24
+          ],
+          [
+            101,
+            24
+          ],
+          [
+            101,
+            9
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋と受け側浮岩の外へ出した固定保守台。頭上が開き、転移弾を上から落とす空間を持つ。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          65,
+          52,
+          8,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          119,
+          38,
+          18,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          98,
+          35
+        ]
+      }
+    ],
+    "player": {
+      "x": 63,
+      "h": 52
+    },
+    "enemy": {
+      "x": 165,
+      "h": 55
+    },
+    "pickups": [
+      {
+        "id": "SK079",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 50,
+        "h": 61,
+        "spawnTurn": 1,
+        "placementId": "L079:skill:S_SPECIAL_REFILL",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 63,
+        "h": 52
+      },
+      {
+        "id": "A",
+        "x": 75,
+        "h": 52
+      },
+      {
+        "id": "L",
+        "x": 96,
+        "h": 24
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "bridge-over-ridge",
+        "points": [
+          [
+            75,
+            55
+          ],
+          [
+            103,
+            72
+          ],
+          [
+            130,
+            85
+          ],
+          [
+            148,
+            84
+          ],
+          [
+            165,
+            58
+          ]
+        ],
+        "state": "outside-M; both poses after reaching fixed A"
+      },
+      {
+        "kind": "service-M-over-ridge",
+        "points": [
+          [
+            96,
+            27
+          ],
+          [
+            105,
+            34
+          ],
+          [
+            119,
+            50
+          ],
+          [
+            132,
+            71
+          ],
+          [
+            147,
+            85
+          ],
+          [
+            165,
+            58
+          ]
+        ],
+        "state": "after-T; polarity-minus-one"
+      }
+    ],
+    "transferSpaces": [
+      {
+        "to": "A",
+        "points": [
+          [
+            63,
+            55
+          ],
+          [
+            69,
+            64
+          ],
+          [
+            75,
+            52
+          ]
+        ]
+      },
+      {
+        "to": "L",
+        "points": [
+          [
+            63,
+            55
+          ],
+          [
+            82,
+            67
+          ],
+          [
+            96,
+            60
+          ],
+          [
+            96,
+            24
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 79,
+    "name": "開放保守台と岩脊越しの接続橋",
+    "nameEn": "Open Pier and Ridge-Crossing Bridge",
+    "goal": "頭上の開いた射点から、敵前の岩脊を越す軌道を選ぶ。",
+    "goalEn": "Choose an arc over the enemy ridge from open firing supports.",
+    "floor": [
+      [
+        0,
+        57
+      ],
+      [
+        18,
+        56
+      ],
+      [
+        39,
+        53
+      ],
+      [
+        53,
+        52
+      ],
+      [
+        65,
+        52
+      ],
+      [
+        66,
+        9
+      ],
+      [
+        137,
+        9
+      ],
+      [
+        143,
+        55
+      ],
+      [
+        146,
+        76
+      ],
+      [
+        151,
+        77
+      ],
+      [
+        155,
+        55
+      ],
+      [
+        180,
+        55
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          137,
+          9
+        ]
+      ],
+      [
+        [
+          143,
+          55
+        ],
+        [
+          146,
+          76
+        ],
+        [
+          151,
+          77
+        ],
+        [
+          155,
+          55
+        ],
+        [
+          180,
+          55
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-RECEIVING-ROCK",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            52
+          ],
+          [
+            85,
+            52
+          ],
+          [
+            89,
+            48
+          ],
+          [
+            85,
+            43
+          ],
+          [
+            75,
+            43
+          ],
+          [
+            73,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋の先の小型浮岩。水平橋から移って撃つ固定射点。折り下げ後も支持が残る。"
+      },
+      {
+        "id": "079-OPEN-SERVICE-PIER",
+        "displayId": "F02",
+        "kind": "pier",
+        "poly": [
+          [
+            91,
+            9
+          ],
+          [
+            91,
+            24
+          ],
+          [
+            101,
+            24
+          ],
+          [
+            101,
+            9
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋と受け側浮岩の外へ出した固定保守台。頭上が開き、転移弾を上から落とす空間を持つ。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          65,
+          52,
+          8,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          119,
+          38,
+          18,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          98,
+          35
+        ]
+      }
+    ],
+    "recommended": "rin",
+    "spawn": [
+      63,
+      165
+    ],
+    "spawnPoints": [
+      [
+        63,
+        52
+      ],
+      [
+        165,
+        55
+      ]
+    ],
+    "worldWidth": 1800,
+    "terrainRevision": "5.3",
+    "hold": 1,
+    "route": "P0/A/Lの代表直射は敵前の固定岩脊で遮断。橋でAへ渡って通常の山越し弧を探るか、頭上の開いたLへ転移しT反転後のMで上へ回す。",
+    "floorSegments": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          137,
+          9
+        ]
+      ],
+      [
+        [
+          143,
+          55
+        ],
+        [
+          146,
+          76
+        ],
+        [
+          151,
+          77
+        ],
+        [
+          155,
+          55
+        ],
+        [
+          180,
+          55
+        ]
+      ]
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "転移の出発・着地空間を残し、直射が通らない岩脊の裏へ弾を送る。橋側の山越し弧とT/M側の曲射へ準備を振り分ける。",
+  "designIntent": {
+    "correction": "F03の整備アームを全撤去。P0の頭上と発射帯を開ける。Lを橋・浮岩の真下から移し、上からの着地空間も開く。",
+    "receiverSpace": "敵を反対岸の岩脊の背後へ配置。P0/A/Lから敵への代表直線を岩盤で遮り、岩脊上方の通過帯を残す。",
+    "bridge": "水平橋で固定Aへ渡る選択は残す。Aへの転移やP0からの山越しも禁止せず、Aだけが有効と説明しない。橋は移動の選択肢であって、必須の正解手順にしない。",
+    "magnet": "LはMの左下の開放支持面。T操作で初期+1から−1に反転後、右向きの弾を上へ回し岩脊を越す構想。",
+    "counterattack": "屋根の保護はない。射撃位置で反撃を受け、同手番の退避は不可。転移・T操作にも手数と反撃が伴う。",
+    "transfers": "P0の上向き出発帯、Aへの構想空間、Lへの上方進入・着地面を静的確認する。模式線は転移弾の実績ではない。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "static": "stage_079_static_check_v3.json",
+    "walking": "not-tested",
+    "bridgeBoundaryMovement": "not-tested",
+    "teleport": "not-tested",
+    "Toperation": "not-tested",
+    "Mtrajectory": "not-tested",
+    "counterattack": "not-tested",
+    "victory16": "not-tested"
+  },
+  "implementationNote": "Design only. Approved nine maps and runtime unchanged. Stage79 v2 is unapproved history. No stage81+ work."
+}

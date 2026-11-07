@@ -1,0 +1,37 @@
+{
+  "stage": 66,
+  "version": "v4",
+  "date": "2026-11-06",
+  "scope": "geometry and lightweight static inspection only",
+  "comparison": {
+    "relativeTo": "v3 local preview in prior turn",
+    "roofWidthBeforePx": 430,
+    "roofWidthAfterPx": 190,
+    "roofWidthFraction": 0.4419,
+    "roofAreaBefore": 545.5,
+    "roofAreaAfter": 123,
+    "roofWestEdgeX": 55,
+    "westTerrainEndX": 45,
+    "gapPx": 100
+  },
+  "checks": {
+    "v3幅の半分未満": true,
+    "左岸から完全離隔": true,
+    "自己交差なし": true,
+    "部品範囲内": true,
+    "床とのx重複なし": true,
+    "F02と非接触": true,
+    "Aは低所床上": true,
+    "K/Vと敵とBを維持": true,
+    "元の行動数16を保持": true,
+    "元の敵を保持": true
+  },
+  "additionalLineChecksFromGeometry": "A→K (71,9.429) to (80,29) and left bank→A do not intersect F01; P0→E direct center-line intersects F01 (static segments only, not trajectory / hit test).",
+  "deferred": [
+    "actual movement and teleport to A",
+    "ballistics K reflection and V effect",
+    "actual engine collision, barrel and actors",
+    "enemy AI, counterfire, action limit, character/seed tests",
+    "native game screenshot"
+  ]
+}

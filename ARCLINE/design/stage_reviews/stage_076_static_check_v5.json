@@ -1,0 +1,97 @@
+{
+  "stage": 76,
+  "version": 5,
+  "scope": "Static only; no actual walking, shots, switching, AI or combat",
+  "dataConsistent": true,
+  "supports": [
+    {
+      "id": "P0",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    },
+    {
+      "id": "enemy",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    },
+    {
+      "id": "P0",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    },
+    {
+      "id": "S",
+      "supported": true,
+      "bodyClear": true,
+      "heightErrorPx": 0
+    }
+  ],
+  "selfIntersections": [],
+  "magnetClearances": [
+    {
+      "id": "floor0",
+      "clearancePx": 86.2167011199731
+    },
+    {
+      "id": "076-EXIT-FIN",
+      "clearancePx": 51.79288850774097
+    }
+  ],
+  "schematicSpaces": [
+    {
+      "kind": "main",
+      "clear": true
+    },
+    {
+      "kind": "optional-hypothesis",
+      "clear": true
+    }
+  ],
+  "terminalStraightClear": true,
+  "exitFin": {
+    "middleRayBlocked": true,
+    "lowerBandClear": true,
+    "upperBandClear": true
+  },
+  "finFloorClearancePx": 179.23076923076923,
+  "localSupportBand": {
+    "horizontalPx": 100,
+    "budgetPx": 140,
+    "bodySamplesEveryPx": 2,
+    "clear": true
+  },
+  "barrels": [
+    {
+      "x": 36,
+      "angleSamplesDeg": [
+        0,
+        80
+      ],
+      "step": 1,
+      "defaultBarrelPx": 35,
+      "blocked": []
+    },
+    {
+      "x": 46,
+      "angleSamplesDeg": [
+        0,
+        80
+      ],
+      "step": 1,
+      "defaultBarrelPx": 35,
+      "blocked": []
+    }
+  ],
+  "notTested": [
+    "actual walking",
+    "teleport",
+    "T hit and turn boundary",
+    "M trajectories and hits",
+    "enemy movement and counterattack",
+    "16-action victory",
+    "device rendering"
+  ]
+}

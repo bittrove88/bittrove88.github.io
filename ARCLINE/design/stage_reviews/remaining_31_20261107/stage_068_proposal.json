@@ -1,0 +1,952 @@
+{
+  "stage": 68,
+  "name": "噴出の横穴と短い反射蓋",
+  "date": "2026-11-07",
+  "status": "design-approved-runtime-unverified",
+  "source": {
+    "stage": 68,
+    "proposal": "stage_068_proposal_v1.json",
+    "review": "stage_068_review_v1.md"
+  },
+  "before": {
+    "width": 1440,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        78,
+        10
+      ],
+      [
+        91,
+        23
+      ],
+      [
+        112,
+        42
+      ],
+      [
+        144,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          78,
+          10
+        ],
+        [
+          91,
+          23
+        ],
+        [
+          112,
+          42
+        ],
+        [
+          144,
+          42
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "068-LEFT-CEILING",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            43
+          ],
+          [
+            35,
+            46
+          ],
+          [
+            58,
+            40
+          ],
+          [
+            58,
+            30
+          ],
+          [
+            27,
+            28
+          ],
+          [
+            0,
+            29
+          ]
+        ],
+        "purpose": "低い炉内の固定天井。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "068-LEFT-CEILING",
+            "label": "F01",
+            "poly": [
+              [
+                0,
+                43
+              ],
+              [
+                35,
+                46
+              ],
+              [
+                58,
+                40
+              ],
+              [
+                58,
+                30
+              ],
+              [
+                27,
+                28
+              ],
+              [
+                0,
+                29
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "068-HEATED-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            58,
+            10
+          ],
+          [
+            66,
+            10
+          ],
+          [
+            66,
+            31
+          ],
+          [
+            58,
+            30
+          ]
+        ],
+        "purpose": "横射線を開く加熱壁。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "068-HEATED-WINDOW@0",
+            "label": "D02",
+            "poly": [
+              [
+                58,
+                10
+              ],
+              [
+                66,
+                10
+              ],
+              [
+                66,
+                31
+              ],
+              [
+                58,
+                30
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-WEST",
+        "kind": "roof",
+        "poly": [
+          [
+            73,
+            50
+          ],
+          [
+            90,
+            50
+          ],
+          [
+            90,
+            44
+          ],
+          [
+            73,
+            44
+          ]
+        ],
+        "purpose": "上段作業床の西側。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "068-UPPER-WEST",
+            "label": "F03",
+            "poly": [
+              [
+                73,
+                50
+              ],
+              [
+                90,
+                50
+              ],
+              [
+                90,
+                44
+              ],
+              [
+                73,
+                44
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-SEAM",
+        "kind": "roof",
+        "poly": [
+          [
+            90,
+            50
+          ],
+          [
+            100,
+            50
+          ],
+          [
+            100,
+            44
+          ],
+          [
+            90,
+            44
+          ]
+        ],
+        "purpose": "上へ撃ち抜く独立薄層。",
+        "breakable": true,
+        "displayId": "D04",
+        "renderUnits": [
+          {
+            "id": "068-UPPER-SEAM@0",
+            "label": "D04",
+            "poly": [
+              [
+                90,
+                50
+              ],
+              [
+                100,
+                50
+              ],
+              [
+                100,
+                44
+              ],
+              [
+                90,
+                44
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-EAST",
+        "kind": "roof",
+        "poly": [
+          [
+            100,
+            50
+          ],
+          [
+            107,
+            50
+          ],
+          [
+            107,
+            44
+          ],
+          [
+            100,
+            44
+          ]
+        ],
+        "purpose": "上段を残す固定床。",
+        "breakable": false,
+        "displayId": "F05",
+        "renderUnits": [
+          {
+            "id": "068-UPPER-EAST",
+            "label": "F05",
+            "poly": [
+              [
+                100,
+                50
+              ],
+              [
+                107,
+                50
+              ],
+              [
+                107,
+                44
+              ],
+              [
+                100,
+                44
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "068-REFLECT-BANK",
+        "kind": "wall",
+        "breakable": false,
+        "poly": [
+          [
+            73,
+            10
+          ],
+          [
+            83,
+            12
+          ],
+          [
+            83,
+            9
+          ],
+          [
+            73,
+            9
+          ]
+        ],
+        "purpose": "低所の固定傾斜で弾を上へ反射させる。準備用の支持面は残す。",
+        "displayId": "F06",
+        "renderUnits": [
+          {
+            "id": "068-REFLECT-BANK",
+            "label": "F06",
+            "poly": [
+              [
+                73,
+                10
+              ],
+              [
+                83,
+                12
+              ],
+              [
+                83,
+                9
+              ],
+              [
+                73,
+                9
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "V",
+        "v": [
+          74,
+          88,
+          25,
+          43
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          69,
+          83,
+          10
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 10
+    },
+    "enemy": {
+      "x": 128,
+      "h": 42
+    }
+  },
+  "after": {
+    "width": 1540,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        73,
+        10
+      ],
+      [
+        83,
+        16
+      ],
+      [
+        93,
+        18
+      ],
+      [
+        118,
+        18
+      ],
+      [
+        126,
+        42
+      ],
+      [
+        154,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          73,
+          10
+        ],
+        [
+          83,
+          16
+        ],
+        [
+          93,
+          18
+        ],
+        [
+          118,
+          18
+        ],
+        [
+          126,
+          42
+        ],
+        [
+          154,
+          42
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "V",
+        "v": [
+          109,
+          121,
+          22,
+          60
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          73,
+          83,
+          10
+        ]
+      }
+    ],
+    "player": {
+      "x": 48,
+      "h": 10
+    },
+    "enemy": {
+      "x": 138,
+      "h": 42
+    },
+    "pickups": [
+      {
+        "id": "SK068",
+        "kind": "skill",
+        "skillId": "S_FULL_REPAIR",
+        "category": "rare-skill",
+        "amount": 2,
+        "x": 30,
+        "h": 19,
+        "spawnTurn": 1,
+        "placementId": "L068:skill:S_FULL_REPAIR",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "parts": [
+      {
+        "id": "068-LEFT-CEILING",
+        "poly": [
+          [
+            0,
+            43
+          ],
+          [
+            20,
+            46
+          ],
+          [
+            36,
+            40
+          ],
+          [
+            36,
+            30
+          ],
+          [
+            20,
+            28
+          ],
+          [
+            0,
+            29
+          ]
+        ],
+        "breakable": false,
+        "purpose": "開始位置の背後へ短縮した炉壁",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-WEST",
+        "poly": [
+          [
+            86,
+            61
+          ],
+          [
+            94,
+            61
+          ],
+          [
+            94,
+            49
+          ],
+          [
+            86,
+            49
+          ]
+        ],
+        "breakable": false,
+        "purpose": "噴出の横穴を残す固定作業床",
+        "displayId": "F02",
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-SEAM",
+        "poly": [
+          [
+            94,
+            61
+          ],
+          [
+            104,
+            61
+          ],
+          [
+            104,
+            49
+          ],
+          [
+            94,
+            49
+          ]
+        ],
+        "breakable": true,
+        "purpose": "W経路だけを短縮する独立した蓋",
+        "displayId": "D03",
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-EAST",
+        "poly": [
+          [
+            124,
+            76
+          ],
+          [
+            139,
+            78
+          ],
+          [
+            154,
+            75
+          ],
+          [
+            154,
+            63
+          ],
+          [
+            124,
+            63
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側の上屋。噴出口との間は常設の開口",
+        "displayId": "F04",
+        "unitCount": 1
+      }
+    ],
+    "id": 68,
+    "stageNumber": 68,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 48,
+        "h": 10,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 66,
+        "h": 10,
+        "role": "反射蓋への短縮射点"
+      },
+      {
+        "id": "B",
+        "x": 114,
+        "h": 18,
+        "role": "常設横穴の噴出口"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "permanent-V",
+        "points": [
+          [
+            114,
+            21
+          ],
+          [
+            120,
+            56
+          ],
+          [
+            126,
+            57
+          ],
+          [
+            138,
+            45
+          ]
+        ]
+      },
+      {
+        "id": "W-shortcut",
+        "points": [
+          [
+            66,
+            13
+          ],
+          [
+            78,
+            13
+          ],
+          [
+            96,
+            46
+          ],
+          [
+            107,
+            64
+          ],
+          [
+            123,
+            60
+          ],
+          [
+            138,
+            45
+          ]
+        ],
+        "contact": "W",
+        "destroy": [
+          "068-UPPER-SEAM"
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 68,
+    "name": "噴出の横穴と短い反射蓋",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        73,
+        10
+      ],
+      [
+        83,
+        16
+      ],
+      [
+        93,
+        18
+      ],
+      [
+        118,
+        18
+      ],
+      [
+        126,
+        42
+      ],
+      [
+        154,
+        42
+      ]
+    ],
+    "parts": [
+      {
+        "id": "068-LEFT-CEILING",
+        "poly": [
+          [
+            0,
+            43
+          ],
+          [
+            20,
+            46
+          ],
+          [
+            36,
+            40
+          ],
+          [
+            36,
+            30
+          ],
+          [
+            20,
+            28
+          ],
+          [
+            0,
+            29
+          ]
+        ],
+        "breakable": false,
+        "purpose": "開始位置の背後へ短縮した炉壁",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-WEST",
+        "poly": [
+          [
+            86,
+            61
+          ],
+          [
+            94,
+            61
+          ],
+          [
+            94,
+            49
+          ],
+          [
+            86,
+            49
+          ]
+        ],
+        "breakable": false,
+        "purpose": "噴出の横穴を残す固定作業床",
+        "displayId": "F02",
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-SEAM",
+        "poly": [
+          [
+            94,
+            61
+          ],
+          [
+            104,
+            61
+          ],
+          [
+            104,
+            49
+          ],
+          [
+            94,
+            49
+          ]
+        ],
+        "breakable": true,
+        "purpose": "W経路だけを短縮する独立した蓋",
+        "displayId": "D03",
+        "unitCount": 1
+      },
+      {
+        "id": "068-UPPER-EAST",
+        "poly": [
+          [
+            124,
+            76
+          ],
+          [
+            139,
+            78
+          ],
+          [
+            154,
+            75
+          ],
+          [
+            154,
+            63
+          ],
+          [
+            124,
+            63
+          ]
+        ],
+        "breakable": false,
+        "purpose": "敵側の上屋。噴出口との間は常設の開口",
+        "displayId": "F04",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "V",
+        "v": [
+          109,
+          121,
+          22,
+          60
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          73,
+          83,
+          10
+        ]
+      }
+    ],
+    "worldWidth": 1540,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        48,
+        10
+      ],
+      [
+        138,
+        42
+      ]
+    ],
+    "recommended": "rin",
+    "pickups": [
+      {
+        "id": "SK068",
+        "kind": "skill",
+        "skillId": "S_FULL_REPAIR",
+        "category": "rare-skill",
+        "amount": 2,
+        "x": 30,
+        "h": 19,
+        "spawnTurn": 1,
+        "placementId": "L068:skill:S_FULL_REPAIR",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。",
+    "change": "加熱壁を常設横穴へ変更。Wを地盤自身の斜面にまとめ、反射蓋の破壊を任意の短縮にした。",
+    "distinct": "一つの噴出周期と、準備を省く反射蓋の選択。二枚隔壁や並行トンネルの反復にしない。",
+    "inherit": {
+      "terrain": "二層炉内通路と加熱壁の横窓",
+      "concept": "下段の薄い加熱壁を開け、噴出の外を通る横射線を作る。",
+      "alternative": "低い反射面と独立天井窓を使い、上段へ違う角度で通す。"
+    },
+    "special": "元の加熱壁の破壊を主経路の進行条件から外した。噴出OFF時とON時の実入力は最後に比較し、同じ模式線で両状態の命中を保証しない。"
+  },
+  "approval": {
+    "state": "approved",
+    "date": "2026-11-07",
+    "approvedDesignCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "evidence": "ユーザー「オレンジの箇所を削ってください。青い線の箇所に反射板を設置。他はok」。56・57面を除く29面の提示設計を承認。",
+    "afterSha256": "74c2f11ae1f3c87f099addf607518785c9760888eb263fbcd0fc15188a2594cc"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "常設横穴と任意の反射蓋を実描画し、V OFF/ONの表示と開いた噴出口を確認。反射後の構想線が敵側上屋へ触れる箇所を入口下へ修正し、再描画と必要な形状確認で接触を解消。Wは地盤の一面だけにした。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1,
+    2
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

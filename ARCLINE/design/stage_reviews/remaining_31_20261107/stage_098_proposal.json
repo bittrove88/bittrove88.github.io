@@ -1,0 +1,1455 @@
+{
+  "stage": 98,
+  "name": "逆位相の橋と九つの固定島",
+  "date": "2026-11-07",
+  "status": "design-approved-runtime-unverified",
+  "source": {
+    "stage": 98,
+    "proposal": "stage_098_proposal_v2.json",
+    "review": "stage_098_review_v2.md"
+  },
+  "before": {
+    "width": 1740,
+    "floor": [
+      [
+        0,
+        54
+      ],
+      [
+        11,
+        62
+      ],
+      [
+        21,
+        71
+      ],
+      [
+        35,
+        71
+      ],
+      [
+        42,
+        64
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          54
+        ],
+        [
+          11,
+          62
+        ],
+        [
+          21,
+          71
+        ],
+        [
+          35,
+          71
+        ],
+        [
+          42,
+          64
+        ]
+      ],
+      [
+        [
+          114,
+          28
+        ],
+        [
+          128,
+          26
+        ],
+        [
+          146,
+          26
+        ],
+        [
+          157,
+          33
+        ],
+        [
+          174,
+          39
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "098-UPPER-BRIDGE",
+        "poly": [
+          [
+            36,
+            65
+          ],
+          [
+            45,
+            73
+          ],
+          [
+            57,
+            81
+          ],
+          [
+            68,
+            85
+          ],
+          [
+            79,
+            85
+          ],
+          [
+            92,
+            80
+          ],
+          [
+            105,
+            69
+          ],
+          [
+            118,
+            57
+          ],
+          [
+            118,
+            47
+          ],
+          [
+            104,
+            59
+          ],
+          [
+            90,
+            70
+          ],
+          [
+            77,
+            76
+          ],
+          [
+            68,
+            76
+          ],
+          [
+            55,
+            72
+          ],
+          [
+            43,
+            63
+          ]
+        ],
+        "purpose": "大きな弧を描く固定上橋。可動橋から十分離した構造。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F01",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "098-UPPER-BRIDGE",
+            "label": "F01",
+            "poly": [
+              [
+                36,
+                65
+              ],
+              [
+                45,
+                73
+              ],
+              [
+                57,
+                81
+              ],
+              [
+                68,
+                85
+              ],
+              [
+                79,
+                85
+              ],
+              [
+                92,
+                80
+              ],
+              [
+                105,
+                69
+              ],
+              [
+                118,
+                57
+              ],
+              [
+                118,
+                47
+              ],
+              [
+                104,
+                59
+              ],
+              [
+                90,
+                70
+              ],
+              [
+                77,
+                76
+              ],
+              [
+                68,
+                76
+              ],
+              [
+                55,
+                72
+              ],
+              [
+                43,
+                63
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "098-LEFT-LOW",
+        "poly": [
+          [
+            34,
+            31
+          ],
+          [
+            41,
+            38
+          ],
+          [
+            51,
+            38
+          ],
+          [
+            57,
+            32
+          ],
+          [
+            49,
+            25
+          ],
+          [
+            41,
+            26
+          ]
+        ],
+        "purpose": "橋待ちに依存しない左の固定棚。",
+        "kind": "island",
+        "breakable": false,
+        "displayId": "F02",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "098-LEFT-LOW",
+            "label": "F02",
+            "poly": [
+              [
+                34,
+                31
+              ],
+              [
+                41,
+                38
+              ],
+              [
+                51,
+                38
+              ],
+              [
+                57,
+                32
+              ],
+              [
+                49,
+                25
+              ],
+              [
+                41,
+                26
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "098-LOW-PIER",
+        "poly": [
+          [
+            77,
+            12
+          ],
+          [
+            83,
+            17
+          ],
+          [
+            98,
+            17
+          ],
+          [
+            106,
+            12
+          ],
+          [
+            94,
+            7
+          ],
+          [
+            84,
+            8
+          ]
+        ],
+        "purpose": "開閉の両姿勢で残す低い固定鏡棚。",
+        "kind": "island",
+        "breakable": false,
+        "displayId": "F03",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "098-LOW-PIER",
+            "label": "F03",
+            "poly": [
+              [
+                77,
+                12
+              ],
+              [
+                83,
+                17
+              ],
+              [
+                98,
+                17
+              ],
+              [
+                106,
+                12
+              ],
+              [
+                94,
+                7
+              ],
+              [
+                84,
+                8
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "098-REFLECT-BANK",
+        "poly": [
+          [
+            94,
+            17
+          ],
+          [
+            104,
+            19
+          ],
+          [
+            104,
+            13
+          ],
+          [
+            94,
+            13
+          ]
+        ],
+        "purpose": "低い敵の高度へ送る鏡の傾斜。",
+        "kind": "wall",
+        "breakable": false,
+        "displayId": "F04",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "098-REFLECT-BANK",
+            "label": "F04",
+            "poly": [
+              [
+                94,
+                17
+              ],
+              [
+                104,
+                19
+              ],
+              [
+                104,
+                13
+              ],
+              [
+                94,
+                13
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          42,
+          38,
+          66,
+          0
+        ],
+        "openAngleDeg": -25
+      },
+      {
+        "type": "V",
+        "v": [
+          59,
+          79,
+          22,
+          62
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          81,
+          106,
+          17
+        ]
+      }
+    ],
+    "player": {
+      "x": 30,
+      "h": 71
+    },
+    "enemy": {
+      "x": 139,
+      "h": 26
+    }
+  },
+  "after": {
+    "width": 2020,
+    "floor": [
+      [
+        0,
+        4
+      ],
+      [
+        7,
+        4
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      [
+        [
+          196,
+          4
+        ],
+        [
+          202,
+          4
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "B",
+        "id": "B-WEST",
+        "v": [
+          51,
+          38,
+          31,
+          0
+        ],
+        "openAngleDeg": 65
+      },
+      {
+        "type": "B",
+        "id": "B-EAST",
+        "v": [
+          122,
+          65,
+          32,
+          1
+        ],
+        "openAngleDeg": -58
+      },
+      {
+        "type": "V",
+        "v": [
+          59,
+          74,
+          18,
+          50
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          65,
+          73,
+          14
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 65
+    },
+    "enemy": {
+      "x": 183,
+      "h": 26
+    },
+    "pickups": [],
+    "parts": [
+      {
+        "id": "098-START",
+        "poly": [
+          [
+            8,
+            58
+          ],
+          [
+            15,
+            65
+          ],
+          [
+            31,
+            65
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            29,
+            51
+          ],
+          [
+            19,
+            54
+          ],
+          [
+            14,
+            50
+          ]
+        ],
+        "breakable": false,
+        "purpose": "広い出発島",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "098-WEST-PIVOT",
+        "poly": [
+          [
+            36,
+            32
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            51,
+            38
+          ],
+          [
+            54,
+            33
+          ],
+          [
+            49,
+            27
+          ],
+          [
+            42,
+            28
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B1の固定付け根",
+        "displayId": "F02",
+        "unitCount": 1
+      },
+      {
+        "id": "098-CENTRE-RELAY",
+        "poly": [
+          [
+            78,
+            32
+          ],
+          [
+            83,
+            38
+          ],
+          [
+            105,
+            38
+          ],
+          [
+            110,
+            33
+          ],
+          [
+            101,
+            24
+          ],
+          [
+            92,
+            28
+          ],
+          [
+            86,
+            23
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B1が上がっても残る中央射点",
+        "displayId": "F03",
+        "unitCount": 1
+      },
+      {
+        "id": "098-HIGH-LEAF",
+        "poly": [
+          [
+            75,
+            80
+          ],
+          [
+            80,
+            85
+          ],
+          [
+            87,
+            85
+          ],
+          [
+            95,
+            79
+          ],
+          [
+            86,
+            77
+          ],
+          [
+            79,
+            78
+          ]
+        ],
+        "breakable": false,
+        "purpose": "主経路の必須中継にしない上の短い島",
+        "displayId": "F04",
+        "unitCount": 1
+      },
+      {
+        "id": "098-EAST-PIVOT",
+        "poly": [
+          [
+            110,
+            59
+          ],
+          [
+            114,
+            65
+          ],
+          [
+            122,
+            65
+          ],
+          [
+            127,
+            59
+          ],
+          [
+            119,
+            54
+          ],
+          [
+            114,
+            56
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B2の固定付け根",
+        "displayId": "F05",
+        "unitCount": 1
+      },
+      {
+        "id": "098-LOW-SHELTER",
+        "poly": [
+          [
+            54,
+            8
+          ],
+          [
+            58,
+            14
+          ],
+          [
+            64,
+            14
+          ],
+          [
+            73,
+            18
+          ],
+          [
+            77,
+            12
+          ],
+          [
+            68,
+            4
+          ],
+          [
+            59,
+            6
+          ]
+        ],
+        "breakable": false,
+        "purpose": "Vと低い鏡を使える固定待避・中継島",
+        "displayId": "F06",
+        "unitCount": 1
+      },
+      {
+        "id": "098-EAST-LOW",
+        "poly": [
+          [
+            145,
+            11
+          ],
+          [
+            151,
+            17
+          ],
+          [
+            162,
+            17
+          ],
+          [
+            166,
+            12
+          ],
+          [
+            159,
+            7
+          ],
+          [
+            151,
+            6
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B2の東へ出る頭上開放の独立低島",
+        "displayId": "F07",
+        "unitCount": 1
+      },
+      {
+        "id": "098-HIGH-SCREEN",
+        "poly": [
+          [
+            143,
+            73
+          ],
+          [
+            148,
+            80
+          ],
+          [
+            154,
+            78
+          ],
+          [
+            155,
+            70
+          ],
+          [
+            149,
+            67
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋とは別に残る短い上方遮蔽",
+        "displayId": "F08",
+        "unitCount": 1
+      },
+      {
+        "id": "098-ENEMY",
+        "poly": [
+          [
+            165,
+            32
+          ],
+          [
+            168,
+            38
+          ],
+          [
+            173,
+            38
+          ],
+          [
+            177,
+            26
+          ],
+          [
+            189,
+            26
+          ],
+          [
+            194,
+            20
+          ],
+          [
+            183,
+            15
+          ],
+          [
+            174,
+            18
+          ],
+          [
+            169,
+            20
+          ]
+        ],
+        "breakable": false,
+        "purpose": "広い前肩と低い敵平坦部",
+        "displayId": "F09",
+        "unitCount": 1
+      }
+    ],
+    "id": 98,
+    "stageNumber": 98,
+    "worldHold": 1,
+    "labels": [
+      {
+        "x": 29,
+        "h": 88,
+        "phase": 1,
+        "text": "B1水平：西→中継の空間"
+      },
+      {
+        "x": 29,
+        "h": 88,
+        "phase": 2,
+        "text": "B1上昇：中継経路を遮る"
+      },
+      {
+        "x": 111,
+        "h": 88,
+        "phase": 1,
+        "text": "B2下降：Aの降下帯が開く"
+      },
+      {
+        "x": 111,
+        "h": 88,
+        "phase": 2,
+        "text": "B2水平：Aを遮断。Bへ切替"
+      }
+    ],
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 24,
+        "h": 65,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 100,
+        "h": 38,
+        "role": "中央固定島。B2下降時の降下帯"
+      },
+      {
+        "id": "B",
+        "x": 158,
+        "h": 17,
+        "role": "橋の東の固定低島。両状態で残る"
+      },
+      {
+        "id": "C",
+        "x": 44,
+        "h": 38,
+        "role": "B1付け根の固定島"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "A-descending-band",
+        "points": [
+          [
+            100,
+            41
+          ],
+          [
+            112,
+            78
+          ],
+          [
+            125,
+            82
+          ],
+          [
+            142,
+            72
+          ],
+          [
+            183,
+            29
+          ]
+        ],
+        "phase": 1,
+        "blockedPhase": 2,
+        "blockedBy": "B-EAST"
+      },
+      {
+        "id": "B-fixed-east",
+        "points": [
+          [
+            158,
+            20
+          ],
+          [
+            162,
+            63
+          ],
+          [
+            174,
+            67
+          ],
+          [
+            183,
+            29
+          ]
+        ],
+        "phase": 2
+      },
+      {
+        "id": "west-to-relay",
+        "points": [
+          [
+            44,
+            41
+          ],
+          [
+            70,
+            48
+          ],
+          [
+            100,
+            38
+          ]
+        ],
+        "phase": 1,
+        "blockedPhase": 2,
+        "blockedBy": "B-WEST",
+        "kind": "transfer-corridor"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 98,
+    "name": "逆位相の橋と九つの固定島",
+    "floor": [
+      [
+        0,
+        4
+      ],
+      [
+        7,
+        4
+      ]
+    ],
+    "parts": [
+      {
+        "id": "098-START",
+        "poly": [
+          [
+            8,
+            58
+          ],
+          [
+            15,
+            65
+          ],
+          [
+            31,
+            65
+          ],
+          [
+            36,
+            58
+          ],
+          [
+            29,
+            51
+          ],
+          [
+            19,
+            54
+          ],
+          [
+            14,
+            50
+          ]
+        ],
+        "breakable": false,
+        "purpose": "広い出発島",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "098-WEST-PIVOT",
+        "poly": [
+          [
+            36,
+            32
+          ],
+          [
+            40,
+            38
+          ],
+          [
+            51,
+            38
+          ],
+          [
+            54,
+            33
+          ],
+          [
+            49,
+            27
+          ],
+          [
+            42,
+            28
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B1の固定付け根",
+        "displayId": "F02",
+        "unitCount": 1
+      },
+      {
+        "id": "098-CENTRE-RELAY",
+        "poly": [
+          [
+            78,
+            32
+          ],
+          [
+            83,
+            38
+          ],
+          [
+            105,
+            38
+          ],
+          [
+            110,
+            33
+          ],
+          [
+            101,
+            24
+          ],
+          [
+            92,
+            28
+          ],
+          [
+            86,
+            23
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B1が上がっても残る中央射点",
+        "displayId": "F03",
+        "unitCount": 1
+      },
+      {
+        "id": "098-HIGH-LEAF",
+        "poly": [
+          [
+            75,
+            80
+          ],
+          [
+            80,
+            85
+          ],
+          [
+            87,
+            85
+          ],
+          [
+            95,
+            79
+          ],
+          [
+            86,
+            77
+          ],
+          [
+            79,
+            78
+          ]
+        ],
+        "breakable": false,
+        "purpose": "主経路の必須中継にしない上の短い島",
+        "displayId": "F04",
+        "unitCount": 1
+      },
+      {
+        "id": "098-EAST-PIVOT",
+        "poly": [
+          [
+            110,
+            59
+          ],
+          [
+            114,
+            65
+          ],
+          [
+            122,
+            65
+          ],
+          [
+            127,
+            59
+          ],
+          [
+            119,
+            54
+          ],
+          [
+            114,
+            56
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B2の固定付け根",
+        "displayId": "F05",
+        "unitCount": 1
+      },
+      {
+        "id": "098-LOW-SHELTER",
+        "poly": [
+          [
+            54,
+            8
+          ],
+          [
+            58,
+            14
+          ],
+          [
+            64,
+            14
+          ],
+          [
+            73,
+            18
+          ],
+          [
+            77,
+            12
+          ],
+          [
+            68,
+            4
+          ],
+          [
+            59,
+            6
+          ]
+        ],
+        "breakable": false,
+        "purpose": "Vと低い鏡を使える固定待避・中継島",
+        "displayId": "F06",
+        "unitCount": 1
+      },
+      {
+        "id": "098-EAST-LOW",
+        "poly": [
+          [
+            145,
+            11
+          ],
+          [
+            151,
+            17
+          ],
+          [
+            162,
+            17
+          ],
+          [
+            166,
+            12
+          ],
+          [
+            159,
+            7
+          ],
+          [
+            151,
+            6
+          ]
+        ],
+        "breakable": false,
+        "purpose": "B2の東へ出る頭上開放の独立低島",
+        "displayId": "F07",
+        "unitCount": 1
+      },
+      {
+        "id": "098-HIGH-SCREEN",
+        "poly": [
+          [
+            143,
+            73
+          ],
+          [
+            148,
+            80
+          ],
+          [
+            154,
+            78
+          ],
+          [
+            155,
+            70
+          ],
+          [
+            149,
+            67
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋とは別に残る短い上方遮蔽",
+        "displayId": "F08",
+        "unitCount": 1
+      },
+      {
+        "id": "098-ENEMY",
+        "poly": [
+          [
+            165,
+            32
+          ],
+          [
+            168,
+            38
+          ],
+          [
+            173,
+            38
+          ],
+          [
+            177,
+            26
+          ],
+          [
+            189,
+            26
+          ],
+          [
+            194,
+            20
+          ],
+          [
+            183,
+            15
+          ],
+          [
+            174,
+            18
+          ],
+          [
+            169,
+            20
+          ]
+        ],
+        "breakable": false,
+        "purpose": "広い前肩と低い敵平坦部",
+        "displayId": "F09",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "id": "B-WEST",
+        "v": [
+          51,
+          38,
+          31,
+          0
+        ],
+        "openAngleDeg": 65
+      },
+      {
+        "type": "B",
+        "id": "B-EAST",
+        "v": [
+          122,
+          65,
+          32,
+          1
+        ],
+        "openAngleDeg": -58
+      },
+      {
+        "type": "V",
+        "v": [
+          59,
+          74,
+          18,
+          50
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          65,
+          73,
+          14
+        ]
+      }
+    ],
+    "worldWidth": 2020,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        24,
+        65
+      ],
+      [
+        183,
+        26
+      ]
+    ],
+    "recommended": "koro",
+    "floorSegments": [
+      [
+        [
+          0,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      [
+        [
+          196,
+          4
+        ],
+        [
+          202,
+          4
+        ]
+      ]
+    ],
+    "pickups": []
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 20,
+      "enemyHp": 7,
+      "enemyProfile": 4,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "koro",
+      "enemyErrorStageMultiplier": 0.65,
+      "enemyDamageStageMultiplier": 1.1,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
+    "change": "大きな固定上橋を九つの役割の異なる島に刷新し、二本のBを逆位相に配置。固定島はどちらの状態でも残る。",
+    "distinct": "橋の姿勢が中継と射撃の空間を交替させる。島を高度順に巡る97面や、二峰で転移先を選ぶ99面とは異なる。",
+    "inherit": {
+      "terrain": "弧を描く上橋と開閉する下橋の二重断面",
+      "concept": "上下橋の現在状態から射点を選ぶ。",
+      "alternative": "固定低棚に転移し、噴出を避ける反射経路を使う。"
+    },
+    "special": "hold=1の既存B二姿勢を逆位相に使用し、手動スイッチ・独立周期・Uは追加しない。紫の西→中継線は転移の構想空間で実着地記録ではない。B2下降時のA経路は、水平時には橋と交差する。Bの固定低島は両状態に残る。Vは西低島の任意補助。Wは低島斜面に加え、B1水平時の65〜73区間も意図して反射化し、上昇時はB1がW範囲外になる。無償待機や射撃後の同手番退避は仮定しない。"
+  },
+  "approval": {
+    "state": "approved",
+    "date": "2026-11-07",
+    "approvedDesignCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "evidence": "ユーザー「オレンジの箇所を削ってください。青い線の箇所に反射板を設置。他はok」。56・57面を除く29面の提示設計を承認。",
+    "afterSha256": "cb254cb9cf62f7532867ba26ada3865bc278db155a2a342a03fe11afdd87ad5b"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "実描画で九島と逆位相B二本、VのOFF/ON、Wの意図した二面を確認。状態注記が見出しと重なったため修正して再描画。同縮尺の二状態図を追加し、状態2でAはB2、中継線はB1に遮られることと全代表位置の支持を軽量確認。実射・実転移は未検証。",
+      "runtime": "not-tested",
+      "phaseContrasts": [
+        {
+          "id": "A-descending-band",
+          "round": 2,
+          "expected": "B-EAST",
+          "expectedHit": true,
+          "hits": [
+            "B-EAST"
+          ]
+        },
+        {
+          "id": "west-to-relay",
+          "round": 2,
+          "expected": "B-WEST",
+          "expectedHit": true,
+          "hits": [
+            "B-WEST"
+          ]
+        }
+      ]
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1,
+    2
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

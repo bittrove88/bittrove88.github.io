@@ -1,0 +1,94 @@
+{
+  "schema": "arcline-stage072-static-v4",
+  "scope": "design-time-geometry-only",
+  "stage": 72,
+  "baseline": "PR83 approved accumulated stage 65,66,67,69,71; no changes",
+  "world": {
+    "width": 1400,
+    "unitPx": 10,
+    "parts": 2,
+    "features": 1,
+    "roofParts": 0,
+    "floatParts": 0
+  },
+  "checks": {
+    "floorMonotonic": true,
+    "maxFloorSlopeDeg": 32.01,
+    "parts": [
+      {
+        "id": "072-WEST-SHEAR-FIN",
+        "area": -515.342,
+        "selfIntersections": [],
+        "withinWorld": true
+      },
+      {
+        "id": "072-EAST-FRACTURE-GATE@0",
+        "area": -189.75,
+        "selfIntersections": [],
+        "withinWorld": true
+      }
+    ],
+    "startSupport": {
+      "player": [
+        18,
+        27.8,
+        27.8
+      ],
+      "enemy": [
+        122,
+        40.333,
+        40.333
+      ],
+      "A": [
+        81,
+        23,
+        23
+      ],
+      "B": [
+        136,
+        43,
+        43
+      ]
+    },
+    "schematicLinearCrossings": {
+      "P0ToEnemy": {
+        "072-WEST-SHEAR-FIN": 2,
+        "072-EAST-FRACTURE-GATE@0": 2
+      },
+      "AToEnemy": {
+        "072-WEST-SHEAR-FIN": 0,
+        "072-EAST-FRACTURE-GATE@0": 2
+      },
+      "BToEnemy": {
+        "072-WEST-SHEAR-FIN": 0,
+        "072-EAST-FRACTURE-GATE@0": 0
+      }
+    },
+    "floorClearances": {
+      "gapFromF01ToD03": 45,
+      "AFromF01": 22,
+      "BFromEnemy": 14
+    },
+    "magnet": {
+      "center": [
+        92,
+        47
+      ],
+      "radius": 22,
+      "polarity": -1,
+      "clearOfFloor": true
+    },
+    "openSkyAboveWestFin": 24
+  },
+  "geometryWarning": "P0 cannot cross F01 by continuous walking. Concept explicitly requires teleport over open sky; actual reachability/landing unverified. D03 is a breakable rooted barrier; direct center shot needs destruction or curved trajectory. No interior/tunnel is proposed. Revised F01 tip height 76 leaves 24 world units of open sky. B flank has 14 units between the enemy center and B; character collision/repositioning are not yet checked.",
+  "status": "static-geometry-only-not-runtime-pass",
+  "deferred": [
+    "teleport/reachability",
+    "actor and cannon collision",
+    "ballistics/magnet deflection",
+    "enemy AI",
+    "breakable behavior",
+    "full combat/action limit",
+    "actual game rendering"
+  ]
+}

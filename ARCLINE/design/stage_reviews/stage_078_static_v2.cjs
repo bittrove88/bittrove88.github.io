@@ -1,0 +1,16 @@
+const fs=require('fs'),path=require('path'),assert=require('assert'),G=require(process.argv[2]||path.resolve(__dirname,'../../game/dist/geometry.js'));
+const p=JSON.parse(fs.readFileSync(path.join(__dirname,'stage_078_proposal_v2.json'))),a=p.after;
+const w=G.world({id:78,floors:a.floors,components:a.parts.map(q=>({...q,destructible:q.breakable})),features:a.features,worldWidth:a.width});
+for(const k of ['floor','parts','features'])assert.deepStrictEqual(a[k],p.blueprintCandidate[k]);assert.deepStrictEqual(p.blueprintCandidate.spawnPoints,[[a.player.x,a.player.h],[a.enemy.x,a.enemy.h]]);
+const report={stage:78,version:2,scope:'static geometry only; not gameplay',dataConsistent:true,supports:[],selfIntersections:[]};
+for(const q of [{id:'enemy',...a.enemy},...a.anchors]){const pt=G.point(q.x,q.h),s=G.support(w,pt.x,pt.y);report.supports.push({id:q.id,supported:!!s,bodyClear:!!s&&G.clearBody(w,s),heightErrorPx:s?Math.abs(s.y-pt.y):null});}assert(report.supports.every(q=>q.supported&&q.bodyClear&&q.heightErrorPx<1e-6));
+for(const o of w.solids)for(let i=0;i<o.poly.length;i++)for(let j=i+2;j<o.poly.length;j++){if(i===0&&j===o.poly.length-1)continue;if(G.segment(o.poly[i],o.poly[(i+1)%o.poly.length],o.poly[j],o.poly[(j+1)%o.poly.length]))report.selfIntersections.push([o.id,i,j]);}assert.equal(report.selfIntersections.length,0);
+const m=w.regions[0],distance=(q,c,d)=>{const dx=d.x-c.x,dy=d.y-c.y,t=Math.max(0,Math.min(1,((q.x-c.x)*dx+(q.y-c.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(q.x-c.x-t*dx,q.y-c.y-t*dy);};
+report.magnetClearances=w.solids.map(o=>({id:o.id,clearancePx:Math.min(...o.poly.map((q,i)=>distance(m,q,o.poly[(i+1)%o.poly.length])))-m.radius}));assert(report.magnetClearances.every(q=>q.clearancePx>0));
+const d=w.solids.filter(q=>q.destructible).map(q=>q.id),opened=G.without(w,d);assert.equal(d.length,1);report.destructionUnits=d;
+const clear=(world,ps)=>ps.slice(1).every((q,i)=>G.lineClear(world,G.point(...ps[i]),G.point(...q)));
+report.primarySpaceIntact=clear(w,a.attacks[0].points);report.alternativeBlockedIntact=!clear(w,a.attacks[1].points);report.alternativeClearAfterRemoval=clear(opened,a.attacks[1].points);assert(report.primarySpaceIntact&&report.alternativeBlockedIntact&&report.alternativeClearAfterRemoval);
+report.localBand={distancePx:70,within140Px:true,clear:true};for(let x=570;x<=640;x+=2){const s=G.support(w,x,180);assert(s&&G.clearBody(w,s)&&Math.abs(s.slope)<1e-6);}
+report.barrels=[];for(const [x,h]of [[57,32],[64,32],[112,52]]){const s={units:[{...G.support(w,x*10,500-h*10),facing:1},{}]},blocked=[];for(let angle=0;angle<=80;angle++){const mu=G.muzzle(s,0,angle);if(!G.lineClear(w,mu.pivot,mu))blocked.push(angle);}report.barrels.push({x,samplesDeg:[0,80],step:1,defaultLengthPx:35,blocked});assert.equal(blocked.length,0);}
+report.pickups=a.pickups.map(q=>({id:q.id,insideSolid:w.solids.some(o=>G.inside(G.point(q.x,q.h),o.poly))}));assert(report.pickups.every(q=>!q.insideSolid));
+report.notTested=['actual walking','teleport flight and landing','M trajectories and hits','destruction shot count','enemy AI and counterattack','16-action victory','device display'];fs.writeFileSync(path.join(__dirname,'stage_078_static_check_v2.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

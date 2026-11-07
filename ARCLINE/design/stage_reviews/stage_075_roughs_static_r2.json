@@ -1,0 +1,129 @@
+{
+  "stage": 75,
+  "revision": "rough-r2",
+  "scope": "tentative geometry loading, polygon self-intersections, support/body samples and representative straight segments only",
+  "engine": "existing game/dist/geometry.js without engine campaign or combat",
+  "results": [
+    {
+      "candidate": "A",
+      "status": "static-shape-confirmed",
+      "selfIntersections": 0,
+      "supports": [
+        {
+          "id": "P0",
+          "supportHeightErrorPx": 0,
+          "bodyClear": true,
+          "slopeDeg": 5.710593137499643
+        },
+        {
+          "id": "enemy",
+          "supportHeightErrorPx": 0,
+          "bodyClear": true,
+          "slopeDeg": 0
+        },
+        {
+          "id": "C",
+          "supportHeightErrorPx": 0,
+          "bodyClear": true,
+          "slopeDeg": 0
+        },
+        {
+          "id": "R",
+          "supportHeightErrorPx": 0.12820512820508156,
+          "bodyClear": true,
+          "slopeDeg": 9.104600865402174
+        }
+      ],
+      "destructibleWidthPx": 80,
+      "runtimeFragmentCount": 1,
+      "nearPointToArmStaticLine": {
+        "before": "blocked-by-D",
+        "after": "no-static-solid-intersection",
+        "meaning": "Geometric segment from conceptual muzzle height only; not a shot, armor check or trajectory test"
+      },
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            63,
+            47,
+            16,
+            1
+          ]
+        }
+      ],
+      "failures": []
+    },
+    {
+      "candidate": "B",
+      "status": "static-shape-confirmed",
+      "selfIntersections": 0,
+      "supports": [
+        {
+          "id": "P0",
+          "supportHeightErrorPx": 3.3333332964957663e-06,
+          "bodyClear": true,
+          "slopeDeg": -3.8140748342903614
+        },
+        {
+          "id": "enemy",
+          "supportHeightErrorPx": 0,
+          "bodyClear": true,
+          "slopeDeg": 0
+        },
+        {
+          "id": "R",
+          "supportHeightErrorPx": 3.225806423756694e-06,
+          "bodyClear": true,
+          "slopeDeg": -27.299572211332816
+        },
+        {
+          "id": "C",
+          "supportHeightErrorPx": 2.5806451731114066e-06,
+          "bodyClear": true,
+          "slopeDeg": -27.299572211332816
+        }
+      ],
+      "destructibleWidthPx": 80,
+      "runtimeFragmentCount": 1,
+      "nearPointToArmStaticLine": {
+        "before": "blocked-by-D",
+        "after": "no-static-solid-intersection",
+        "meaning": "Geometric segment from conceptual muzzle height only; not a shot, armor check or trajectory test"
+      },
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            86,
+            60,
+            17,
+            1
+          ]
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "notTested": [
+    "walking",
+    "teleport",
+    "actual-muzzle-and-barrel",
+    "ballistics",
+    "M-deflection",
+    "actual-breakage-or-hit-count",
+    "boss-armor-or-damage",
+    "AI",
+    "counterattack",
+    "24-action-victory"
+  ],
+  "approval": "pending-direction-review",
+  "supportHeightTolerancePx": 0.5,
+  "rendering": {
+    "svgCount": 2,
+    "engine": "Chromium",
+    "visualReview": "full diagrams and context, labels adjusted to avoid overlap",
+    "actualGameScreenshot": false
+  },
+  "sourceCommit": "62efe96fc38f9fe8e49c5d2a6fbf539d58decbe1"
+}
