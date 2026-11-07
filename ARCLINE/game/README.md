@@ -1,5 +1,7 @@
 # コードと生成物の編集先
 
+0.24.2のコンポーネント美術は `ui/component-art.js` と `../design/components/complete/data/*.json`・`shared-materials.json`・`render-style.json`・共通 `renderer.js` が正本。`tools/build_components.py` が同じ描画器・承認素材・実装アダプターを `dist/component-art.js` へ生成する。承認素材のハッシュは `../design/components/runtime-approval.json`。`render.js` は実際の世界と、背景と同じ最終移動の状態を渡し、衝突や保存には描画データを読み戻さない。[統合と検証](../docs/releases/0.24.2.md)。
+
 0.24.1：承認された17・33・36・39・47面は `design/stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json` の元JSONとハッシュに固定。生成元は引き続きstage_blueprintsとpickup_placements。旧0.23.0の1〜50面照合はこの5面だけ新承認へ更新し、旧入力列は履歴として保持する。[統合・検証](../docs/releases/0.24.1.md)。
 
 0.23.2：背景33景は `../design/backgrounds/complete/data/*.json` と同ディレクトリの `renderer.js`、実行時の選択は `ui/backgrounds.js` が正本。`tools/build_backgrounds.py` が通信不要の `dist/backgrounds.js` を生成し、正式な `npm run build`／`check:generated` に登録する。`dist/render.js` は既存の最終移動フレームで旧／新マップを決定した後、画面座標に背景を描き、その上へ既存の地形・機体・射線・演出を重ねる。背景にカメラ変換や当たり判定を与えない。[実装と検証](../docs/releases/0.23.2.md)。

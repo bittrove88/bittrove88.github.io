@@ -237,7 +237,7 @@ function create(canvas,configuration={}){
   // Continue only exterior soil beyond the world edge. Interior island gaps and
   // the collision polygons remain unchanged when the camera leaves a margin.
   for(const o of world.solids){
-   if(unified){root.ArcVisualArt.drawSolid(ctx,o,world,{theme:s.spec.theme,time,dpr,view,width:w,height:h,reducedMotion:options.reducedMotion});continue;}
+   if(unified){root.ArcComponentArt.drawSolid(ctx,o,world,{state:s,theme:s.spec.theme,time,dpr,view,width:w,height:h,reducedMotion:options.reducedMotion});continue;}
    const surface=o.kind==='floor'?o.poly.slice(0,-2).map(p=>({...p})):null;
    if(surface){const a=surface[0],b=surface.at(-1),left=(-view.x-shakeX-2)/scale,right=(w-view.x-shakeX+2)/scale;if(a.x<=.001&&left<a.x)surface.unshift({x:left,y:a.y});if(b.x>=arenaWidth-.001&&right>b.x)surface.push({x:right,y:b.y});}
    const bottomY=surface?Math.max(...o.poly.slice(-2).map(p=>p.y),(h-view.y)/scale+50):0,shape=surface?[...surface,{x:surface.at(-1).x,y:bottomY},{x:surface[0].x,y:bottomY}]:o.poly;
@@ -273,7 +273,7 @@ function create(canvas,configuration={}){
   }
   const fieldBounds={left:-view.x/scale,right:(fieldW-view.x)/scale,top:(Math.max(top,header?.bottom||0)+3-view.y)/scale,bottom:(Math.min(bottom,controls?.top||h)-3-view.y)/scale},specialHud=canvasRect(document.getElementById('specialHUD')),fieldLabels=[],fieldAvoid=specialHud?[{left:(specialHud.left-view.x)/scale,right:(specialHud.right-view.x)/scale,top:(specialHud.top-view.y)/scale,bottom:(specialHud.bottom-view.y)/scale}]:[],fieldOptions={dpr,bounds:fieldBounds,avoid:fieldAvoid,labels:fieldLabels};
   for(const r of world.regions){
-   if(root.ArcVisualArt){root.ArcVisualArt.drawRegion(ctx,r,{...fieldOptions,time,reducedMotion:options.reducedMotion,deferBadge:true});continue;}
+   if(root.ArcVisualArt){root.ArcComponentArt.drawRegion(ctx,r,{...fieldOptions,time,reducedMotion:options.reducedMotion,deferBadge:true});continue;}
    if(r.kind==='M'){
     const active=r.on!==false&&(r.strength??1)>0;
     circle(r.x,r.y,r.radius,active?'#b1a4ff16':'#8790a00d',active?'#d9bdff88':'#a4afb333');
@@ -299,8 +299,8 @@ function create(canvas,configuration={}){
    ctx.restore();
    if(r.kind==='V'){path([{x:r.x1+4,y:r.y2},{x:r.x2-4,y:r.y2}],active?'#ffdbac':'#7c848d',5/scale);for(let x=r.x1+10;x<r.x2-6;x+=15)path([{x,y:r.y2-4/scale},{x:x+4,y:r.y2+4/scale}],'#365366',2/scale);}
   }
-  for(const t of world.terminals){if(root.ArcVisualArt){root.ArcVisualArt.drawTerminal(ctx,t,s,fieldOptions);continue;}circle(t.x,t.y,20,'#183d56','#e5c3ff');ctx.fillStyle='#e9ceff';ctx.font='22px system-ui';ctx.textAlign='center';ctx.fillText('↻',t.x,t.y+7);if(s.effects.pendingPolarity)path([{x:t.x,y:t.y},{x:t.x+35,y:t.y-35}],'#f6c9ff',3,[4,4]);}
-  if(root.ArcVisualArt)for(const r of world.regions)root.ArcVisualArt.drawRegion(ctx,r,{...fieldOptions,labelOnly:true});
+  for(const t of world.terminals){if(root.ArcVisualArt){root.ArcComponentArt.drawTerminal(ctx,t,s,fieldOptions);continue;}circle(t.x,t.y,20,'#183d56','#e5c3ff');ctx.fillStyle='#e9ceff';ctx.font='22px system-ui';ctx.textAlign='center';ctx.fillText('↻',t.x,t.y+7);if(s.effects.pendingPolarity)path([{x:t.x,y:t.y},{x:t.x+35,y:t.y-35}],'#f6c9ff',3,[4,4]);}
+  if(root.ArcVisualArt)for(const r of world.regions)root.ArcComponentArt.drawRegion(ctx,r,{...fieldOptions,labelOnly:true});
   if(s.skillEffects?.gravity&&root.ArcVisualArt){const g=s.skillEffects.gravity,english=root.ArcI18n?.language==='en';root.ArcVisualArt.fieldBadge(ctx,s.units[0].x,s.units[0].y-100/scale,(english?'GRAVITY':'重力')+' ×'+g.factor+' '+(g.factor<1?'↑':'↓')+' · '+g.turns+(english?' turns':'ターン'),g.factor<1?'#86e7ff':'#ffbd8c',fieldOptions);}
   if(demonstration?.focus){const focus=demonstration.focus,radius=focus.radius||85,glow=ctx.createRadialGradient(focus.x,focus.y,0,focus.x,focus.y,radius);glow.addColorStop(0,'#f5ffc415');glow.addColorStop(1,'#f5ffc400');circle(focus.x,focus.y,radius,glow);}
   if(!lobby&&!localDemo&&s.telegraph){
