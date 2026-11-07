@@ -1,26 +1,34 @@
-# ARCLINE v2 環境分離：段階1（本番無変更の安全性検証）
+# ARCLINE 検証環境：別オリジン・一時状態での運用
 
-ゲーム本体の唯一の正本は ARCLINE/game/。環境専用の起動・保存・公開のための設定は ARCLINE/environments/ に分離する。ここにゲーム本体や本番セーブを複製しない。
+2026-11-07のユーザー合意による計画修正。現行の正本は [STG運用計画 v2](../docs/change-requests/ARCLINE_V2_STAGING_SAFETY_PHASE1.md)。計画文書の更新段階であり、STGの起動・配信・保存隔離は未実装。
 
-## 合意した将来仕様（未実装）
-- STG公開先：/ARCLINE-staging/ 。ゲーム本体は /ARCLINE-staging/game/dist/ 。
-- STG UI：開始ステージ1〜100の数値入力と開始ボタンだけ。
-- 入力Nは N面を開始地点、1〜N面を選択可能とする。N=1は初回の通常プレイを再現。
-- 難易度・機体・装備は通常のゲームUIから操作する。
-- STGの進行状態はメモリ上のみ。本番のブラウザ保存を読み込まず、書き換えず、削除しない。
-- 本番・STGの共通ゲーム本体と素材は同一ソース・同一ビルド。環境差は起動・保存・PWA・公開パスに限定する。
+## 運用の基本
 
-## この段階で実装したもの
-- tools/verify_staging_site.py：組み立て済みPagesサイト全体のベースラインとSTG更新候補を比較。STG以外のファイル変更・削除・追加を検出すると失敗。
-- tests/test_verify_staging_site.py：その保護機能の単体テスト。
+- 本番は既存のGitHub Pagesと公開URLを維持。検証用サイトは本番と異なるオリジンへ配信する。同じホストの別パスや同じGitHubアカウントの別リポジトリは、オリジン分離にならない。
+- STGは指定した状況から遊ぶための環境。進行・機体・在庫・取得履歴・言語・操作設定は一時メモリだけに保持し、再読み込み／タブ終了でプレイ状態を破棄する。
+- localStorage・sessionStorage・IndexedDB・Cookieへゲーム状態を読み書きしない。本番SDKのloadData/saveDataや旧キー削除へも接続しない。
+- 最初の起動UIは開始ステージ1〜100と開始ボタン。難易度・機体・装備は通常のゲームUIを使う。初期状態の規則を固定し、再現条件・コミット・一時状態であることを確認できるようにする。
+- 開発途中はPR単位のプレビュー、公開前は採用変更を統合した固定候補をSTGとして使う。初期は同じ配信基盤を使い、環境を多数常設しない。
+- ゲーム本体の正本は `ARCLINE/game/`。本番と共通の生成手順を使い、起動・保存・環境表示・PWA・配信パスの差だけを環境側で管理する。STG専用ゲームを手作業で保守しない。
+- STG成果物は必要なゲーム・素材だけを含め、他サイトや制作ZIPを配布しない。本番への自動昇格は行わない。
 
-実行：
-    python3 -m unittest discover -s ARCLINE/environments/tests -v
-    python3 ARCLINE/environments/tools/verify_staging_site.py --baseline /path/to/approved-live-snapshot --candidate /path/to/site-artifact
+## 初期導入に含めないもの
 
-ベースラインは「現在公開中の承認済みサイト」の固定された完全スナップショットを使用する。単なるmain HEADは、並行公開や遅延があるため一致を保証しない。識別子・ハッシュを記録し、公開直前に競合を検知すること。
+永続セーブ、クラウド同期、ユーザーセーブの収集、セーブ書き出し／取り込み、大量の再現条件UI、PWAインストール、Service Workerによるオフライン保持。同一サイトの完全スナップショット合成やPages公開方式変更も必須工程から外す。
 
-## 未実装：別PRで対応
-STG起動UI、保存のメモリ化、難易度別初期状態、PWA設定、素材パス修正、サイト成果物の合成、Pages発行方式変更、本番昇格、ロールバック。今回の試験成功はゲーム本体または実際のPages公開の安全性を証明しない。
+本番の保存・移行処理を変更する場合は、その作業に必要な自動テスト／専用検証を実施する。メモリで動くSTGの成功を、本番の永続保存の成功と扱わない。
 
-同一ドメインのブラウザ保存領域は共有される。STGの実装上の保護は可能だが権限分離ではなく、未信頼スクリプトから本番セーブを隔離できない。
+## 既存の安全性PoC
+
+`tools/verify_staging_site.py` と `tests/test_verify_staging_site.py` は、同一サイトの `/ARCLINE-staging/` 以外を保持する旧方式のPoCとして残す。現行の配信先を指定するコードでも、別オリジン配信の必須ゲートでもない。対応する専用CIは検査ツール自身を確認するもので、実際のSTG配信・保存隔離・ゲームの安全性を証明しない。
+
+```sh
+python3 -m unittest discover -s ARCLINE/environments/tests -v
+python3 ARCLINE/environments/tools/verify_staging_site.py --baseline /path/to/approved-live-snapshot --candidate /path/to/site-artifact
+```
+
+旧方式を将来再利用する場合、baselineは現在配信中の承認済みサイトの固定された完全成果物とし、並行公開も別途制御する。main HEADだけでは配信中の内容と一致するとは限らない。
+
+## 次の作業
+
+実装・配信設定・ユーザー操作・受入条件の一覧は [STG運用計画 v2](../docs/change-requests/ARCLINE_V2_STAGING_SAFETY_PHASE1.md) を参照。PR #65は計画修正と既存PoCの保管、PR #89は独立した将来ギミック資料として扱う。

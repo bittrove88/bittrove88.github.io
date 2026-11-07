@@ -2477,124 +2477,98 @@
   },
   {
     "stage": 17,
-    "name": "山裾の二つの入口",
-    "goal": "山の肩へ登るか、裾の開口から低く撃つ",
+    "name": "岩肩へ返す反射のくぼみ",
+    "goal": "浅いくぼみで一回反射させ、岩肩の向こうへ返す。短い歩行で入射位置を変える。",
     "floor": [
       [
         0,
-        12
+        26
       ],
       [
         16,
+        26
+      ],
+      [
+        24,
+        25
+      ],
+      [
+        30,
+        20
+      ],
+      [
+        36,
         12
       ],
       [
-        26,
+        53,
         12
       ],
       [
-        34,
-        11
+        59,
+        22
       ],
       [
-        41,
-        9
-      ],
-      [
-        52,
-        9
-      ],
-      [
-        60,
-        9
+        64,
+        29
       ],
       [
         69,
-        11
+        29
       ],
       [
-        77,
-        12
+        75,
+        19
       ],
       [
         82,
         12
       ],
       [
-        100,
+        92,
         12
+      ],
+      [
+        100,
+        16
       ]
     ],
     "parts": [
       {
-        "id": "017-CAVERN-ROOF",
+        "id": "017-CHIPPED-EDGE",
         "kind": "roof",
         "poly": [
           [
-            53,
-            29
-          ],
-          [
-            60,
-            36
-          ],
-          [
-            70,
-            37
-          ],
-          [
-            79,
-            34
-          ],
-          [
-            82,
-            30
-          ],
-          [
-            78,
-            28
-          ],
-          [
-            56,
-            28
-          ]
-        ],
-        "breakable": false
-      },
-      {
-        "id": "017-FRAGILE-ROOF-TIP",
-        "kind": "roof",
-        "poly": [
-          [
-            69,
-            26
-          ],
-          [
-            73,
-            27
-          ],
-          [
-            76,
+            71,
             25
           ],
           [
-            74,
-            22
+            75,
+            19
           ],
           [
-            69,
-            22
+            79,
+            18
+          ],
+          [
+            77,
+            15
+          ],
+          [
+            73,
+            17
           ]
         ],
-        "breakable": true
+        "breakable": true,
+        "purpose": "岩肩の右斜面に接続した任意の一片。切り欠きを開くと肩上からの出口を広げる。"
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          22,
-          52,
+          30,
+          56,
           12
         ]
       }
@@ -2602,72 +2576,25 @@
     "recommended": "ban",
     "spawn": [
       16,
-      82
+      87
     ],
-    "route": "山の肩へ登るか、裾の開口から低く撃つ",
-    "nameEn": "Two Mountain Entrances",
-    "goalEn": "Choose the mountain shoulder or the low opening.",
-    "floorSegments": [
-      [
-        [
-          0,
-          12
-        ],
-        [
-          16,
-          12
-        ],
-        [
-          26,
-          12
-        ],
-        [
-          34,
-          11
-        ],
-        [
-          41,
-          9
-        ],
-        [
-          52,
-          9
-        ],
-        [
-          60,
-          9
-        ],
-        [
-          69,
-          11
-        ],
-        [
-          77,
-          12
-        ],
-        [
-          82,
-          12
-        ],
-        [
-          100,
-          12
-        ]
-      ]
-    ],
+    "route": "初級の主題は一回反射。開始側の頭上と鏡への入射帯を開け、任意の肩越え経路を残す。",
+    "nameEn": "A Mirror Pocket Below the Rock Shoulder",
+    "goalEn": "Reflect once from the pocket and send the shot over the rock shoulder. A short walk changes the entry point.",
     "spawnPoints": [
       [
         16,
-        12.0
+        26
       ],
       [
-        82,
-        12.0
+        87,
+        12
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "6.0-approved-001-050",
-    "enemyAirHeight": 0
+    "terrainRevision": "7.1-approved-idea-refinement",
+    "enemyAirHeight": 0,
+    "enemyProfile": 0
   },
   {
     "stage": 18,
@@ -5666,250 +5593,165 @@
   },
   {
     "stage": 33,
-    "name": "谷の二つの鏡",
-    "goal": "広い谷の底で弾を跳ね、右の岸へ運ぶ",
+    "name": "背中合わせの鏡岸",
+    "goal": "中央の射点から、左へ返す鏡と右へ送る鏡の入射方向を選ぶ。",
     "floor": [
       [
         0,
-        22
+        27
       ],
       [
-        16,
-        22
+        12,
+        27
       ],
       [
-        30,
-        22
+        18,
+        25
       ],
       [
-        40,
-        14
+        34,
+        12
       ],
       [
-        50,
-        4
+        38,
+        12
       ],
       [
-        62,
-        4
+        41,
+        29
       ],
       [
-        76,
-        7
+        44,
+        33
       ],
       [
-        91,
-        19
+        49,
+        33
+      ],
+      [
+        53,
+        25
+      ],
+      [
+        58,
+        10
+      ],
+      [
+        64,
+        10
+      ],
+      [
+        80,
+        18
+      ],
+      [
+        88,
+        25
+      ],
+      [
+        96,
+        25
       ],
       [
         105,
-        19
+        12
       ],
       [
         124,
-        19
+        12
       ]
     ],
     "parts": [
       {
-        "id": "033-BASIN-BUTTRESS",
+        "id": "033-BREAKABLE-EAVE",
         "poly": [
           [
-            57,
-            4
+            69,
+            36
           ],
           [
-            60,
-            4
+            75,
+            39
           ],
           [
-            64,
-            5
+            82,
+            38
           ],
           [
-            66,
-            21
+            85,
+            34
           ],
           [
-            63,
-            26
+            81,
+            27.5
           ],
           [
-            60,
-            22
-          ],
-          [
-            58,
-            12
+            73,
+            27.5
           ]
         ],
-        "kind": "wall",
-        "breakable": false,
-        "purpose": "谷底の真ん中に実際に射線を遮る幅広い岩の隔壁"
-      },
-      {
-        "id": "033-LEFT-BROKEN-ARCH",
-        "poly": [
-          [
-            38,
-            26
-          ],
-          [
-            44,
-            31
-          ],
-          [
-            52,
-            32
-          ],
-          [
-            58,
-            28
-          ],
-          [
-            56,
-            24
-          ],
-          [
-            45,
-            23
-          ]
-        ],
-        "kind": "roof",
-        "breakable": false,
-        "purpose": "左反射面の頭上にせり出し、反射の入射角を選ばせる"
-      },
-      {
-        "id": "033-RIGHT-BREACH",
-        "poly": [
-          [
-            98,
-            19
-          ],
-          [
-            104,
-            19
-          ],
-          [
-            104,
-            30
-          ],
-          [
-            99,
-            33
-          ],
-          [
-            97,
-            30
-          ]
-        ],
-        "kind": "wall",
         "breakable": true,
-        "purpose": "右岸の反射床の奥に位置する壊せる門板"
+        "kind": "roof"
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          30,
-          52,
-          4
+          18,
+          36,
+          12
         ]
       },
       {
         "type": "W",
         "v": [
-          75,
-          96,
-          7
+          62,
+          80,
+          10
         ]
       },
       {
         "type": "C",
         "v": [
-          66,
-          108,
-          19,
-          43
+          90,
+          110,
+          46,
+          62
         ]
       },
       {
         "type": "K",
         "v": [
-          67,
-          34,
+          99,
+          50,
           25
         ],
-        "sizeFactor": 1.8,
-        "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
+        "sizeFactor": 1.8
       }
     ],
     "recommended": "rico",
     "spawn": [
-      16,
+      46,
       114
     ],
-    "route": "広い谷の底で弾を跳ね、右の岸へ運ぶ",
-    "nameEn": "Two Mirrors in the Valley",
-    "goalEn": "Bounce through the broad valley toward the right bank.",
-    "floorSegments": [
-      [
-        [
-          0,
-          22
-        ],
-        [
-          16,
-          22
-        ],
-        [
-          30,
-          22
-        ],
-        [
-          40,
-          14
-        ],
-        [
-          50,
-          4
-        ],
-        [
-          62,
-          4
-        ],
-        [
-          76,
-          7
-        ],
-        [
-          91,
-          19
-        ],
-        [
-          105,
-          19
-        ],
-        [
-          124,
-          19
-        ]
-      ]
-    ],
+    "route": "17面の一回反射の発見から進み、左右で異なる入射方向を比較する。雲と結晶の連続使用は必須にしない。",
+    "nameEn": "Back-to-Back Mirror Banks",
+    "goalEn": "Choose between a leftward entry that returns over the rock and a rightward entry beneath it.",
     "spawnPoints": [
       [
-        16,
-        22
+        46,
+        33
       ],
       [
         114,
-        19
+        12
       ]
     ],
     "worldWidth": 1240,
-    "terrainRevision": "6.0-approved-001-050",
-    "enemyAirHeight": 0
+    "terrainRevision": "7.1-approved-idea-refinement",
+    "enemyAirHeight": 0,
+    "enemyProfile": 1
   },
   {
     "stage": 34,
@@ -6332,208 +6174,131 @@
   },
   {
     "stage": 36,
-    "name": "水晶と割れた門",
-    "goal": "門を壊してから、水晶側と床側の経路を比べる",
+    "name": "結晶へ入れる斜面の交差",
+    "goal": "斜面から結晶へ入れ、東岸へ返す。梁の先から門を開く経路も選べる。",
     "floor": [
       [
         0,
-        10
-      ],
-      [
-        16,
-        10
-      ],
-      [
-        30,
-        10
-      ],
-      [
-        38,
-        8
-      ],
-      [
-        46,
-        4
-      ],
-      [
-        58,
-        4
-      ],
-      [
-        70,
         12
       ],
       [
-        83,
+        16,
+        12
+      ],
+      [
+        29,
+        12
+      ],
+      [
+        36,
+        15
+      ],
+      [
+        45,
+        25
+      ],
+      [
+        56,
+        30
+      ],
+      [
+        63,
         31
       ],
       [
-        99,
-        31
+        69,
+        26
+      ],
+      [
+        76,
+        14
+      ],
+      [
+        84,
+        14
+      ],
+      [
+        94,
+        25
+      ],
+      [
+        108,
+        25
       ],
       [
         120,
-        31
+        22
       ]
     ],
     "parts": [
       {
-        "id": "036-LEFT-LOW",
-        "kind": "wall",
+        "id": "036-DESCENDING-BEAM",
         "poly": [
           [
-            42,
-            4
+            57,
+            35
           ],
           [
-            48,
-            4
+            63,
+            38
           ],
           [
-            48,
-            18
-          ],
-          [
-            42,
-            18
-          ]
-        ],
-        "breakable": false
-      },
-      {
-        "id": "036-LEFT-HIGH",
-        "kind": "wall",
-        "poly": [
-          [
-            42,
-            30
-          ],
-          [
-            48,
-            30
-          ],
-          [
-            48,
-            47
-          ],
-          [
-            42,
-            47
-          ]
-        ],
-        "breakable": false
-      },
-      {
-        "id": "036-RIGHT-LOW",
-        "kind": "wall",
-        "poly": [
-          [
-            70,
-            12
-          ],
-          [
-            76,
-            12
-          ],
-          [
-            76,
-            20
-          ],
-          [
-            70,
-            20
-          ]
-        ],
-        "breakable": false
-      },
-      {
-        "id": "036-RIGHT-HIGH",
-        "kind": "wall",
-        "poly": [
-          [
-            70,
-            32
-          ],
-          [
-            76,
-            32
-          ],
-          [
-            76,
-            48
-          ],
-          [
-            70,
-            48
-          ]
-        ],
-        "breakable": false
-      },
-      {
-        "id": "036-LOW-PLUG",
-        "kind": "wall",
-        "poly": [
-          [
-            53,
-            4
-          ],
-          [
-            59,
-            4
-          ],
-          [
-            59,
-            16
-          ],
-          [
-            53,
-            16
-          ]
-        ],
-        "breakable": true
-      },
-      {
-        "id": "036-SUSPENDED-BRIDGE",
-        "kind": "bridge",
-        "poly": [
-          [
-            49,
-            43
-          ],
-          [
-            55,
-            47
+            77,
+            31
           ],
           [
             80,
-            47
+            25
           ],
           [
-            87,
-            43
+            73,
+            27
+          ],
+          [
+            60,
+            31
+          ]
+        ],
+        "breakable": false,
+        "kind": "roof"
+      },
+      {
+        "id": "036-LOW-GATE",
+        "poly": [
+          [
+            78,
+            14
           ],
           [
             83,
-            40
+            14
           ],
           [
-            55,
-            40
+            83,
+            33
+          ],
+          [
+            80,
+            36
+          ],
+          [
+            77,
+            32
           ]
         ],
-        "breakable": false
+        "breakable": true,
+        "kind": "wall"
       }
     ],
     "features": [
       {
         "type": "K",
         "v": [
-          80,
+          86,
           39,
           35
         ],
-        "sizeFactor": 1.8,
-        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+        "sizeFactor": 1.8
       }
     ],
     "recommended": "rico",
@@ -6541,66 +6306,23 @@
       16,
       106
     ],
-    "route": "門を壊してから、水晶側と床側の経路を比べる",
-    "nameEn": "Crystal and Cracked Gate",
-    "goalEn": "Open the gate, then compare crystal and floor routes.",
-    "terrainRevision": "6.0-approved-001-050",
-    "floorSegments": [
-      [
-        [
-          0,
-          10
-        ],
-        [
-          16,
-          10
-        ],
-        [
-          30,
-          10
-        ],
-        [
-          38,
-          8
-        ],
-        [
-          46,
-          4
-        ],
-        [
-          58,
-          4
-        ],
-        [
-          70,
-          12
-        ],
-        [
-          83,
-          31
-        ],
-        [
-          99,
-          31
-        ],
-        [
-          120,
-          31
-        ]
-      ]
-    ],
+    "route": "結晶への入射方向が主題。鏡のくぼみや上下二階建てを繰り返さず、破壊門は別の低路にだけ置く。",
+    "nameEn": "Crossing Slopes into the Crystal",
+    "goalEn": "Send a shot into the crystal toward the east bank, or open the gate from the end of the beam.",
+    "terrainRevision": "7.1-approved-idea-refinement",
     "spawnPoints": [
       [
         16,
-        10
+        12
       ],
       [
         106,
-        31
+        25
       ]
     ],
     "worldWidth": 1200,
-    "enemyAirHeight": 0
+    "enemyAirHeight": 0,
+    "enemyProfile": 1
   },
   {
     "stage": 37,
@@ -6958,218 +6680,164 @@
   },
   {
     "stage": 39,
-    "name": "反転する道標",
-    "goal": "向きの変わる水晶を見て、低い床か上空を選ぶ",
+    "name": "結晶の向きで選ぶ射点",
+    "goal": "結晶の向きに合わせ、西の斜面から入れるか、東の裾から折り返すかを選ぶ。",
     "floor": [
       [
         0,
-        10
+        40
       ],
       [
-        16,
-        10
+        30,
+        40
       ],
       [
-        28,
-        10
+        38,
+        23.272727272727273
       ],
       [
-        36,
-        8
+        41,
+        17
       ],
       [
         48,
-        7
+        12
       ],
       [
-        58,
-        13
+        74,
+        12
       ],
       [
-        68,
-        22
+        79,
+        20
       ],
       [
-        80,
-        29
+        84,
+        20
       ],
       [
-        93,
-        29
+        91,
+        10
       ],
       [
         105,
-        29
+        10
       ]
     ],
     "parts": [
       {
-        "id": "039-SHORT-CAVERN-ROOF",
+        "id": "039-CRYSTAL-ENTRY-EAVE",
         "poly": [
           [
-            29,
-            32
-          ],
-          [
-            36,
-            39
-          ],
-          [
-            47,
-            41
-          ],
-          [
-            57,
-            37
-          ],
-          [
-            58,
-            30
-          ],
-          [
-            56,
-            23
+            43,
+            47
           ],
           [
             46,
-            21
+            53
           ],
           [
-            35,
-            21
+            52,
+            52
           ],
           [
-            29,
-            23
+            54,
+            45
+          ],
+          [
+            52,
+            35
+          ],
+          [
+            48,
+            37
+          ],
+          [
+            44,
+            40
           ]
         ],
-        "kind": "roof",
         "breakable": false,
-        "purpose": "x29からだけ始まる短い洞窟天井。左x0〜29は完全に空いた空"
+        "kind": "roof"
       },
       {
-        "id": "039-BREAKABLE-EXIT",
+        "id": "039-EAVE-CHIP",
         "poly": [
           [
-            58,
-            26
+            51,
+            50
           ],
           [
-            62,
-            31
+            55,
+            49
           ],
           [
-            67,
-            30
+            56,
+            44
           ],
           [
-            67,
-            25
+            53,
+            42
           ],
           [
-            61,
-            23
+            51,
+            44
           ]
         ],
-        "kind": "roof",
         "breakable": true,
-        "purpose": "洞窟の右出口の小さな壊れる天井。既存の複数破壊単位を保持"
+        "kind": "roof"
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          76,
-          101,
-          29
+          54,
+          70,
+          12
         ]
       },
       {
         "type": "K",
         "v": [
-          71,
-          39,
+          60,
+          30,
           15
         ],
-        "sizeFactor": 1.8,
-        "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+        "sizeFactor": 1.8
       },
       {
         "type": "B",
         "v": [
-          31,
-          9.25,
-          29,
+          38,
+          23.272727272727273,
+          13,
           0
         ]
       }
     ],
     "recommended": "rico",
     "spawn": [
-      36,
-      92
+      25,
+      97
     ],
-    "route": "向きの変わる水晶を見て、低い床か上空を選ぶ",
-    "nameEn": "Turning Signposts",
-    "goalEn": "Watch the crystal change direction before choosing a shot.",
-    "floorSegments": [
-      [
-        [
-          0,
-          10
-        ],
-        [
-          16,
-          10
-        ],
-        [
-          28,
-          10
-        ],
-        [
-          36,
-          8
-        ],
-        [
-          48,
-          7
-        ],
-        [
-          58,
-          13
-        ],
-        [
-          68,
-          22
-        ],
-        [
-          80,
-          29
-        ],
-        [
-          93,
-          29
-        ],
-        [
-          105,
-          29
-        ]
-      ]
-    ],
+    "route": "固定結晶の36面から進み、同じ角度を繰り返さず射点を選び直す。橋待ちと結晶待ちを同時課題にしない。",
+    "nameEn": "Firing Positions for the Turning Crystal",
+    "goalEn": "Choose the west bank or the east foothill to match the crystal direction. The bridge changes the lower firing position.",
     "spawnPoints": [
       [
-        36,
-        8
+        25,
+        40
       ],
       [
-        92,
-        29
+        97,
+        10
       ]
     ],
     "worldWidth": 1050,
-    "terrainRevision": "6.0-approved-001-050",
-    "enemyAirHeight": 0
+    "terrainRevision": "7.1-approved-idea-refinement",
+    "enemyAirHeight": 0,
+    "enemyProfile": 1
   },
   {
     "stage": 40,
@@ -8724,200 +8392,172 @@
   },
   {
     "stage": 47,
-    "name": "鉱車の上下路",
-    "goal": "下段を転がすか、上段から梁の先を狙う",
+    "name": "梁を越す上路と鏡の下路",
+    "goal": "上段から岩梁を越すか、下段の鏡で返すか。上下で通る障害と射撃方向を変える。",
     "floor": [
       [
         0,
-        27
+        29
       ],
       [
-        16,
-        27
+        10,
+        29
+      ],
+      [
+        18,
+        31
+      ],
+      [
+        22,
+        31
       ],
       [
         27,
-        27
+        20
       ],
       [
-        34,
-        19
-      ],
-      [
-        43,
+        35,
         8
       ],
       [
-        61,
+        58,
+        6
+      ],
+      [
+        78,
+        12
+      ],
+      [
+        87,
+        17
+      ],
+      [
+        91,
+        17
+      ],
+      [
+        97,
         8
-      ],
-      [
-        71,
-        14
-      ],
-      [
-        83,
-        22
-      ],
-      [
-        100,
-        22
       ],
       [
         115,
-        22
+        8
       ]
     ],
     "parts": [
       {
         "id": "047-TOP-CART-TRACK",
-        "kind": "island",
         "poly": [
           [
-            42,
-            39
-          ],
-          [
-            48,
-            45
-          ],
-          [
-            65,
-            45
-          ],
-          [
-            71,
-            41
-          ],
-          [
-            67,
+            35,
             36
           ],
           [
-            48,
+            40,
+            40
+          ],
+          [
+            46,
+            40
+          ],
+          [
+            49,
             36
+          ],
+          [
+            45,
+            33
+          ],
+          [
+            39,
+            32
           ]
         ],
         "breakable": false,
-        "purpose": "自機から260px以上空を開けた上段軌道"
+        "kind": "island"
       },
       {
         "id": "047-BROKEN-TUNNEL",
-        "kind": "roof",
         "poly": [
           [
-            77,
+            58,
+            37
+          ],
+          [
+            61,
+            42
+          ],
+          [
+            68,
+            44
+          ],
+          [
+            71,
+            40
+          ],
+          [
+            68,
+            36
+          ],
+          [
+            63,
             34
           ],
           [
-            82,
-            39
+            60,
+            28
           ],
           [
-            91,
-            39
-          ],
-          [
-            96,
-            35
-          ],
-          [
-            92,
-            31
-          ],
-          [
-            81,
+            57,
             31
           ]
         ],
         "breakable": true,
-        "purpose": "右岸手前の破壊屋根"
+        "kind": "roof"
       }
     ],
     "features": [
       {
         "type": "W",
         "v": [
-          40,
-          69,
+          60,
+          78,
           8
         ]
       },
       {
         "type": "B",
         "v": [
-          70,
+          22,
+          31,
           14,
-          24,
-          0
+          0,
+          22
         ]
       }
     ],
     "recommended": "koro",
     "spawn": [
-      16,
-      101
+      10,
+      103
     ],
-    "route": "下段を転がすか、上段から梁の先を狙う",
-    "nameEn": "Upper and Lower Mine Routes",
-    "goalEn": "Roll along the low floor or fire from the upper shelf.",
-    "floorSegments": [
-      [
-        [
-          0,
-          27
-        ],
-        [
-          16,
-          27
-        ],
-        [
-          27,
-          27
-        ],
-        [
-          34,
-          19
-        ],
-        [
-          43,
-          8
-        ],
-        [
-          61,
-          8
-        ],
-        [
-          71,
-          14
-        ],
-        [
-          83,
-          22
-        ],
-        [
-          100,
-          22
-        ],
-        [
-          115,
-          22
-        ]
-      ]
-    ],
+    "route": "上下の二経路だけを比較する鉱車面。結晶や三つ目の精密経路を追加せず、下段の鏡を上段には付けない。",
+    "nameEn": "Over the Beam or Along the Lower Mirror",
+    "goalEn": "Arc over the beam from the upper shelf, or reflect from the inclined lower mirror.",
     "spawnPoints": [
       [
-        16,
-        27
+        10,
+        29
       ],
       [
-        101,
-        22
+        103,
+        8
       ]
     ],
     "worldWidth": 1150,
-    "terrainRevision": "6.0-approved-001-050",
-    "enemyAirHeight": 0
+    "terrainRevision": "7.1-approved-idea-refinement",
+    "enemyAirHeight": 0,
+    "enemyProfile": 2
   },
   {
     "stage": 48,
