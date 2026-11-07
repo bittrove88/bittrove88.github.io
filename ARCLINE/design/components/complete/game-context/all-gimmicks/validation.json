@@ -1,0 +1,1126 @@
+{
+  "scope": "Actual engine actions and actual game renderer with disposable browser-only component art. Not production integration or uninterrupted campaign play. Normal difficulty, 960x480, 15 fps, silent.",
+  "gameFilesWritten": false,
+  "chapters": 13,
+  "totalSeconds": 102.46666666666667,
+  "totalFrames": 1537,
+  "uniqueNativeWorlds": 62,
+  "colliderChecks": 11171,
+  "saveStable": true,
+  "javaScriptErrors": [],
+  "activeTypes": [
+    "B",
+    "C",
+    "F",
+    "K",
+    "M",
+    "T",
+    "U",
+    "V",
+    "W"
+  ],
+  "coveredTypes": [
+    "W",
+    "K",
+    "B",
+    "C",
+    "F",
+    "U",
+    "V",
+    "M",
+    "T"
+  ],
+  "additionalCoverage": [
+    "destructible material",
+    "underside reflection",
+    "fixed bedrock wall/ceiling"
+  ],
+  "states": [
+    {
+      "id": "destruction",
+      "title": "01 破壊材",
+      "description": "通常弾の爆風で実際の破壊単位が消え、残った形が保持されます。",
+      "stage": 14,
+      "start": 0,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 0.9777777777777763,
+          "events": [
+            {
+              "type": "impact",
+              "t": 0.9777777777777763
+            },
+            {
+              "type": "break",
+              "t": 0.9777777777777763,
+              "solidId": "014-FRAGILE-CANOPY@0"
+            },
+            {
+              "type": "break",
+              "t": 0.9777777777777763,
+              "solidId": "014-FRAGILE-CANOPY@1"
+            }
+          ],
+          "end": {
+            "x": 509.2727792449227,
+            "y": 210,
+            "t": 0.9777777777777763,
+            "hit": null,
+            "contact": {
+              "x": 509.2727792449227,
+              "y": 210,
+              "nx": 0,
+              "ny": -1,
+              "solidId": "014-FRAGILE-CANOPY@1"
+            },
+            "bullet": 0
+          }
+        }
+      ],
+      "events": [
+        {
+          "x": 509.2727792449227,
+          "y": 210,
+          "t": 0.9777777777777763,
+          "type": "impact",
+          "bullet": 0
+        },
+        {
+          "x": 509.2727792449227,
+          "y": 210,
+          "t": 0.9777777777777763,
+          "type": "break",
+          "solidId": "014-FRAGILE-CANOPY@0",
+          "bullet": 0
+        },
+        {
+          "x": 509.2727792449227,
+          "y": 210,
+          "t": 0.9777777777777763,
+          "type": "break",
+          "solidId": "014-FRAGILE-CANOPY@1",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 61,
+      "startSeconds": 0,
+      "seconds": 4.066666666666666
+    },
+    {
+      "id": "reflector",
+      "title": "02 反射面 W",
+      "description": "共通のミント色の面で弾が反射します。",
+      "stage": 11,
+      "start": 61,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 2.755555555555548,
+          "events": [
+            {
+              "type": "bounce",
+              "t": 1.1999999999999977,
+              "solidId": "W0:011-HANGING-LEDGE:e1:1",
+              "surface": "reflector"
+            },
+            {
+              "type": "expired",
+              "t": 2.755555555555548
+            }
+          ],
+          "end": {
+            "x": 1041.6316662171826,
+            "y": 322.3458554154056,
+            "t": 2.755555555555548
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 580.6128956913411,
+          "y": 138.5,
+          "t": 1.1999999999999977,
+          "count": 1,
+          "surface": "reflector",
+          "solidId": "W0:011-HANGING-LEDGE:e1:1",
+          "bullet": 0
+        },
+        {
+          "x": 1041.6316662171826,
+          "y": 322.3458554154056,
+          "t": 2.755555555555548,
+          "type": "expired",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 134,
+      "startSeconds": 4.066666666666666,
+      "seconds": 4.866666666666666
+    },
+    {
+      "id": "ceiling-reflector",
+      "title": "03 天井側の反射面",
+      "description": "裏側の面でも本来の衝突と反射を使います。",
+      "stage": 8,
+      "start": 134,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 80,
+          "duration": 4.344444444444432,
+          "events": [
+            {
+              "type": "bounce",
+              "t": 0.8333333333333324,
+              "solidId": "W0:008-CAVE-ROOF:e0:1",
+              "surface": "reflector"
+            },
+            {
+              "type": "bounce",
+              "t": 3.244444444444435,
+              "solidId": "W0:008-CAVE-ROOF:e2:1",
+              "surface": "reflector"
+            },
+            {
+              "type": "expired",
+              "t": 4.344444444444432
+            }
+          ],
+          "end": {
+            "x": 1042.3731245413287,
+            "y": 20.992403042047457,
+            "t": 4.344444444444432
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 549.1669759522815,
+          "y": 159.9857437018659,
+          "t": 0.8333333333333324,
+          "count": 1,
+          "surface": "reflector",
+          "solidId": "W0:008-CAVE-ROOF:e0:1",
+          "bullet": 0
+        },
+        {
+          "type": "bounce",
+          "x": 805.9999963734134,
+          "y": 97.57451956232083,
+          "t": 3.244444444444435,
+          "count": 2,
+          "surface": "reflector",
+          "solidId": "W0:008-CAVE-ROOF:e2:1",
+          "bullet": 0
+        },
+        {
+          "x": 1042.3731245413287,
+          "y": 20.992403042047457,
+          "t": 4.344444444444432,
+          "type": "expired",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 231,
+      "startSeconds": 8.933333333333334,
+      "seconds": 6.466666666666667
+    },
+    {
+      "id": "crystal",
+      "title": "04 反射板 K",
+      "description": "通常の反射面と同じ機能色。薄い独立板に当たった弾も反射します。",
+      "stage": 31,
+      "start": 231,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 45,
+          "power": 60,
+          "duration": 4.511111111111098,
+          "events": [
+            {
+              "type": "bounce",
+              "t": 0.9222222222222209,
+              "solidId": "W0:031-CAVE-CEILING:e0:1",
+              "surface": "reflector"
+            },
+            {
+              "type": "bounce",
+              "t": 2.3666666666666605,
+              "solidId": "W0:031-CAVE-CEILING:e1:1",
+              "surface": "reflector"
+            },
+            {
+              "type": "bounce",
+              "t": 3.511111111111101,
+              "solidId": "K1",
+              "surface": "crystal"
+            },
+            {
+              "type": "impact",
+              "t": 4.511111111111098
+            }
+          ],
+          "end": {
+            "x": 502.8203223479019,
+            "y": 148.24459058862294,
+            "t": 4.511111111111098,
+            "hit": null,
+            "contact": {
+              "x": 502.8203223479019,
+              "y": 148.24459058862294,
+              "nx": -0.07669649888473705,
+              "ny": -0.9970544855015816,
+              "solidId": "W0:031-CAVE-CEILING:e1:1"
+            },
+            "bullet": 0
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 423.4902483413365,
+          "y": 192.05173669268416,
+          "t": 0.9222222222222209,
+          "count": 1,
+          "surface": "reflector",
+          "solidId": "W0:031-CAVE-CEILING:e0:1",
+          "bullet": 0
+        },
+        {
+          "type": "bounce",
+          "x": 527.472386566032,
+          "y": 144.84384663218154,
+          "t": 2.3666666666666605,
+          "count": 2,
+          "surface": "reflector",
+          "solidId": "W0:031-CAVE-CEILING:e1:1",
+          "bullet": 0
+        },
+        {
+          "type": "bounce",
+          "x": 571.4781756285524,
+          "y": 137.8657214114753,
+          "t": 3.511111111111101,
+          "count": 3,
+          "surface": "crystal",
+          "solidId": "K1",
+          "bullet": 0
+        },
+        {
+          "x": 502.8203223479019,
+          "y": 148.24459058862294,
+          "t": 4.511111111111098,
+          "type": "impact",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 330,
+      "startSeconds": 15.4,
+      "seconds": 6.6
+    },
+    {
+      "id": "rotating-crystal",
+      "title": "05 回転する反射板 K",
+      "description": "39面のターン境界で板の角度が切り替わります。",
+      "stage": 39,
+      "start": 330,
+      "actions": [
+        {
+          "type": "E.boundary",
+          "round": 2,
+          "changes": []
+        },
+        {
+          "type": "E.boundary",
+          "round": 3,
+          "changes": []
+        },
+        {
+          "type": "E.boundary",
+          "round": 4,
+          "changes": []
+        },
+        {
+          "type": "E.boundary",
+          "round": 5,
+          "changes": []
+        }
+      ],
+      "events": [],
+      "fixtures": [],
+      "end": 473,
+      "startSeconds": 22,
+      "seconds": 9.533333333333333
+    },
+    {
+      "id": "bridge",
+      "title": "06 可動橋 B",
+      "description": "実際の0.6秒の地形トランジションと接地後の機体を表示します。",
+      "stage": 37,
+      "start": 473,
+      "actions": [
+        {
+          "type": "E.boundary",
+          "round": 2,
+          "changes": []
+        },
+        {
+          "type": "E.boundary",
+          "round": 3,
+          "changes": []
+        },
+        {
+          "type": "E.boundary",
+          "round": 4,
+          "changes": []
+        },
+        {
+          "type": "E.boundary",
+          "round": 5,
+          "changes": []
+        }
+      ],
+      "events": [],
+      "fixtures": [],
+      "end": 611,
+      "startSeconds": 31.533333333333335,
+      "seconds": 9.2
+    },
+    {
+      "id": "cloud",
+      "title": "07 減速雲 C",
+      "description": "雲の中を通過した弾に実際の減速判定が発生します。",
+      "stage": 26,
+      "start": 611,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 15,
+          "power": 30,
+          "duration": 3.1333333333333244,
+          "events": [
+            {
+              "type": "bounce",
+              "t": 1.1111111111111092,
+              "solidId": "W1:026-LOWER-ISLET:e1:1",
+              "surface": "reflector"
+            },
+            {
+              "type": "cloud",
+              "t": 1.1777777777777756
+            },
+            {
+              "type": "expired",
+              "t": 3.1333333333333244
+            }
+          ],
+          "end": {
+            "x": 666.8786788158113,
+            "y": 560.4795430797842,
+            "t": 3.1333333333333244
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 409.2013507289946,
+          "y": 328.5,
+          "t": 1.1111111111111092,
+          "count": 1,
+          "surface": "reflector",
+          "solidId": "W1:026-LOWER-ISLET:e1:1",
+          "bullet": 0
+        },
+        {
+          "type": "cloud",
+          "x": 420.8504161940408,
+          "y": 312.37691323949196,
+          "t": 1.1777777777777756,
+          "bullet": 0
+        },
+        {
+          "x": 666.8786788158113,
+          "y": 560.4795430797842,
+          "t": 3.1333333333333244,
+          "type": "expired",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [
+        {
+          "stage": 90,
+          "effects": {
+            "thinCloud": true
+          },
+          "combatSkipped": true
+        }
+      ],
+      "end": 719,
+      "startSeconds": 40.733333333333334,
+      "seconds": 7.2
+    },
+    {
+      "id": "wind",
+      "title": "08 風 F",
+      "description": "右風・左風は本物のターン更新。強弱は速度だけで表します。",
+      "stage": 59,
+      "start": 719,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 1.6888888888888849,
+          "events": [
+            {
+              "type": "wind",
+              "t": 0.5555555555555556
+            },
+            {
+              "type": "critical",
+              "t": 1.6888888888888849
+            }
+          ],
+          "end": {
+            "x": 790.8218082595091,
+            "y": 217.5294161215742,
+            "t": 1.6888888888888849,
+            "hit": {
+              "t": 0.3360153296187106,
+              "x": 790.8218082595091,
+              "y": 217.5294161215742,
+              "kind": "body",
+              "unit": 1,
+              "part": -1,
+              "critical": true
+            },
+            "contact": {
+              "x": 790.8218082595091,
+              "y": 217.5294161215742,
+              "nx": -1,
+              "ny": 0,
+              "unit": 1
+            },
+            "bullet": 0
+          }
+        },
+        {
+          "type": "E.boundary",
+          "round": 2,
+          "changes": []
+        },
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 2.0777777777777726,
+          "events": [
+            {
+              "type": "wind",
+              "t": 0.5555555555555556
+            },
+            {
+              "type": "impact",
+              "t": 2.0777777777777726
+            }
+          ],
+          "end": {
+            "x": 790,
+            "y": 347.0045611219187,
+            "t": 2.0777777777777726,
+            "hit": null,
+            "contact": {
+              "x": 790,
+              "y": 347.0045611219187,
+              "nx": -1,
+              "ny": 0,
+              "solidId": "floor1"
+            },
+            "bullet": 0
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "wind",
+          "x": 371.61427810798995,
+          "y": 101.19645764635027,
+          "t": 0.5555555555555556,
+          "bullet": 0
+        },
+        {
+          "x": 790.8218082595091,
+          "y": 217.5294161215742,
+          "t": 1.6888888888888849,
+          "type": "critical",
+          "bullet": 0
+        },
+        {
+          "type": "wind",
+          "x": 371.61427810798995,
+          "y": 101.19645764635027,
+          "t": 0.5555555555555556,
+          "bullet": 0
+        },
+        {
+          "x": 790,
+          "y": 347.0045611219187,
+          "t": 2.0777777777777726,
+          "type": "impact",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [
+        {
+          "stage": 60,
+          "effects": {
+            "broken": 0
+          },
+          "combatSkipped": true
+        },
+        {
+          "stage": 60,
+          "effects": {
+            "broken": 1
+          },
+          "combatSkipped": true
+        },
+        {
+          "stage": 60,
+          "effects": {
+            "broken": 2
+          },
+          "combatSkipped": true
+        }
+      ],
+      "end": 946,
+      "startSeconds": 47.93333333333333,
+      "seconds": 15.133333333333333
+    },
+    {
+      "id": "updraft",
+      "title": "09 上昇気流 U",
+      "description": "範囲に入った弾に上向きの力がかかります。",
+      "stage": 44,
+      "start": 946,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 1.5777777777777742,
+          "events": [
+            {
+              "type": "updraft",
+              "t": 0.9222222222222209
+            },
+            {
+              "type": "impact",
+              "t": 1.5777777777777742
+            }
+          ],
+          "end": {
+            "x": 706.9009982050228,
+            "y": 170.33860251296815,
+            "t": 1.5777777777777742,
+            "hit": null,
+            "contact": {
+              "x": 706.9009982050228,
+              "y": 170.33860251296815,
+              "nx": -0.8137334712067349,
+              "ny": -0.5812381937190964,
+              "solidId": "044-LOADING-HIGH"
+            },
+            "bullet": 0
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 492.3572894361876,
+          "y": 147.3179575948728,
+          "t": 0.9222222222222209,
+          "bullet": 0
+        },
+        {
+          "x": 706.9009982050228,
+          "y": 170.33860251296815,
+          "t": 1.5777777777777742,
+          "type": "impact",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 1001,
+      "startSeconds": 63.06666666666667,
+      "seconds": 3.6666666666666665
+    },
+    {
+      "id": "vent",
+      "title": "10 間欠噴気 V",
+      "description": "ターンごとの停止・噴出を実際の境界更新で切り替えます。",
+      "stage": 65,
+      "start": 1001,
+      "actions": [
+        {
+          "type": "E.boundary",
+          "round": 2,
+          "changes": []
+        },
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 15,
+          "power": 30,
+          "duration": 1.3555555555555527,
+          "events": [
+            {
+              "type": "vent",
+              "t": 0.9666666666666652
+            },
+            {
+              "type": "impact",
+              "t": 1.3555555555555527
+            }
+          ],
+          "end": {
+            "x": 456.44895978242783,
+            "y": 420,
+            "t": 1.3555555555555527,
+            "hit": null,
+            "contact": {
+              "x": 456.44895978242783,
+              "y": 420,
+              "nx": 0,
+              "ny": -1,
+              "solidId": "floor0"
+            },
+            "bullet": 0
+          }
+        },
+        {
+          "type": "E.boundary",
+          "round": 3,
+          "changes": []
+        }
+      ],
+      "events": [
+        {
+          "type": "vent",
+          "x": 381.4867919680838,
+          "y": 343.2083485135476,
+          "t": 0.9666666666666652,
+          "bullet": 0
+        },
+        {
+          "x": 456.44895978242783,
+          "y": 420,
+          "t": 1.3555555555555527,
+          "type": "impact",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 1131,
+      "startSeconds": 66.73333333333333,
+      "seconds": 8.666666666666666
+    },
+    {
+      "id": "magnet",
+      "title": "11 磁場 M",
+      "description": "正極・負極で弾道が変化。強弱・停止も確認できます。",
+      "stage": 80,
+      "start": 1131,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 15,
+          "power": 60,
+          "duration": 0.7666666666666659,
+          "events": [
+            {
+              "type": "magnet",
+              "t": 0.6333333333333331
+            },
+            {
+              "type": "impact",
+              "t": 0.7666666666666659
+            },
+            {
+              "type": "break",
+              "t": 0.7666666666666659,
+              "solidId": "080-C01@0"
+            }
+          ],
+          "end": {
+            "x": 490,
+            "y": 395.75496001452154,
+            "t": 0.7666666666666659,
+            "hit": null,
+            "contact": {
+              "x": 490,
+              "y": 395.75496001452154,
+              "nx": -1,
+              "ny": 0,
+              "solidId": "080-C01@0"
+            },
+            "bullet": 0
+          }
+        },
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 15,
+          "power": 60,
+          "duration": 0.7666666666666659,
+          "events": [
+            {
+              "type": "magnet",
+              "t": 0.6333333333333331
+            },
+            {
+              "type": "impact",
+              "t": 0.7666666666666659
+            },
+            {
+              "type": "break",
+              "t": 0.7666666666666659,
+              "solidId": "080-C01@0"
+            }
+          ],
+          "end": {
+            "x": 490,
+            "y": 387.7232309658677,
+            "t": 0.7666666666666659,
+            "hit": null,
+            "contact": {
+              "x": 490,
+              "y": 387.7232309658677,
+              "nx": -1,
+              "ny": 0,
+              "solidId": "080-C01@0"
+            },
+            "bullet": 0
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "magnet",
+          "x": 439.7321192933148,
+          "y": 378.1571156494211,
+          "t": 0.6333333333333331,
+          "bullet": 0
+        },
+        {
+          "x": 490,
+          "y": 395.75496001452154,
+          "t": 0.7666666666666659,
+          "type": "impact",
+          "bullet": 0
+        },
+        {
+          "x": 490,
+          "y": 395.75496001452154,
+          "t": 0.7666666666666659,
+          "type": "break",
+          "solidId": "080-C01@0",
+          "bullet": 0
+        },
+        {
+          "type": "magnet",
+          "x": 439.7321192933148,
+          "y": 378.1571156494211,
+          "t": 0.6333333333333331,
+          "bullet": 0
+        },
+        {
+          "x": 490,
+          "y": 387.7232309658677,
+          "t": 0.7666666666666659,
+          "type": "impact",
+          "bullet": 0
+        },
+        {
+          "x": 490,
+          "y": 387.7232309658677,
+          "t": 0.7666666666666659,
+          "type": "break",
+          "solidId": "080-C01@0",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [
+        {
+          "effects": {
+            "polarity": -1
+          },
+          "note": "負極の磁場",
+          "combatSkipped": true
+        },
+        {
+          "effects": {
+            "broken": 1
+          },
+          "note": "弱い磁場",
+          "combatSkipped": true
+        },
+        {
+          "effects": {
+            "broken": 2
+          },
+          "note": "停止：円弧・極性・粒子は非表示",
+          "combatSkipped": true
+        }
+      ],
+      "end": 1298,
+      "startSeconds": 75.4,
+      "seconds": 11.133333333333333
+    },
+    {
+      "id": "terminal",
+      "title": "12 極性端子 T",
+      "description": "命中直後は反転予約、次のターン境界で磁場の極性が変わります。",
+      "stage": 80,
+      "start": 1298,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 0.9222222222222209,
+          "events": [
+            {
+              "type": "terminal",
+              "t": 0.2902467427665099,
+              "id": "T1"
+            },
+            {
+              "type": "magnet",
+              "t": 0.6444444444444442
+            },
+            {
+              "type": "impact",
+              "t": 0.9222222222222209
+            },
+            {
+              "type": "break",
+              "t": 0.9222222222222209,
+              "solidId": "080-C01@0"
+            }
+          ],
+          "end": {
+            "x": 490,
+            "y": 300.45329044459544,
+            "t": 0.9222222222222209,
+            "hit": null,
+            "contact": {
+              "x": 490,
+              "y": 300.45329044459544,
+              "nx": -1,
+              "ny": 0,
+              "solidId": "080-C01@0"
+            },
+            "bullet": 0
+          }
+        },
+        {
+          "type": "E.boundary",
+          "round": 2,
+          "changes": [
+            {
+              "type": "polarity",
+              "value": -1
+            }
+          ]
+        },
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 35,
+          "power": 60,
+          "duration": 2.15555555555555,
+          "events": [
+            {
+              "type": "terminal",
+              "t": 0.2902467427665099,
+              "id": "T1"
+            },
+            {
+              "type": "magnet",
+              "t": 0.6444444444444442
+            },
+            {
+              "type": "impact",
+              "t": 2.15555555555555
+            }
+          ],
+          "end": {
+            "x": 841.7391484601977,
+            "y": 248.84056769320148,
+            "t": 2.15555555555555,
+            "hit": null,
+            "contact": {
+              "x": 841.7391484601977,
+              "y": 248.84056769320148,
+              "nx": -0.5547001962252291,
+              "ny": -0.8320502943378437,
+              "solidId": "floor0"
+            },
+            "bullet": 0
+          }
+        },
+        {
+          "type": "E.boundary",
+          "round": 3,
+          "changes": [
+            {
+              "type": "polarity",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "terminal",
+          "id": "T1",
+          "x": 290,
+          "y": 300,
+          "t": 0.2902467427665099,
+          "bullet": 0
+        },
+        {
+          "type": "magnet",
+          "x": 400.88531115725,
+          "y": 286.55251150592477,
+          "t": 0.6444444444444442,
+          "bullet": 0
+        },
+        {
+          "x": 490,
+          "y": 300.45329044459544,
+          "t": 0.9222222222222209,
+          "type": "impact",
+          "bullet": 0
+        },
+        {
+          "x": 490,
+          "y": 300.45329044459544,
+          "t": 0.9222222222222209,
+          "type": "break",
+          "solidId": "080-C01@0",
+          "bullet": 0
+        },
+        {
+          "type": "terminal",
+          "id": "T1",
+          "x": 290,
+          "y": 300,
+          "t": 0.2902467427665099,
+          "bullet": 0
+        },
+        {
+          "type": "magnet",
+          "x": 400.88531115725,
+          "y": 286.55251150592477,
+          "t": 0.6444444444444442,
+          "bullet": 0
+        },
+        {
+          "x": 841.7391484601977,
+          "y": 248.84056769320148,
+          "t": 2.15555555555555,
+          "type": "impact",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 1482,
+      "startSeconds": 86.53333333333333,
+      "seconds": 12.266666666666667
+    },
+    {
+      "id": "fixed-blocker",
+      "title": "13 固定の天井・壁",
+      "description": "動かない固定障害物も、背景から区別できるか確認します。",
+      "stage": 34,
+      "start": 1482,
+      "actions": [
+        {
+          "type": "E.launch / E.applyEvents / E.resolve",
+          "angle": 20,
+          "power": 100,
+          "duration": 0.5666666666666667,
+          "events": [
+            {
+              "type": "pickup",
+              "t": 0.44592009614499745,
+              "id": "SK034"
+            },
+            {
+              "type": "impact",
+              "t": 0.5666666666666667
+            }
+          ],
+          "end": {
+            "x": 543.5923633081774,
+            "y": 270,
+            "t": 0.5666666666666667,
+            "hit": null,
+            "contact": {
+              "x": 543.5923633081774,
+              "y": 270,
+              "nx": 0,
+              "ny": 1,
+              "solidId": "034-RIGHT-CAVE-ROOF"
+            },
+            "bullet": 0
+          }
+        }
+      ],
+      "events": [
+        {
+          "type": "pickup",
+          "id": "SK034",
+          "x": 495.09000000000003,
+          "y": 283.81,
+          "t": 0.44592009614499745,
+          "bullet": 0
+        },
+        {
+          "x": 543.5923633081774,
+          "y": 270,
+          "t": 0.5666666666666667,
+          "type": "impact",
+          "bullet": 0
+        }
+      ],
+      "fixtures": [],
+      "end": 1537,
+      "startSeconds": 98.8,
+      "seconds": 3.6666666666666665
+    }
+  ],
+  "pageVerification": {
+    "individualVideosPlayed": 13,
+    "seekChecked": 13,
+    "halfSpeedChecked": 13,
+    "mobileWidth": 393,
+    "mobileOverflow": false,
+    "javaScriptErrors": []
+  }
+}
