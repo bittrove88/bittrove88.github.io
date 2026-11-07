@@ -1,6 +1,6 @@
 # ARCLINE 開発エージェント運用ルール
 
-**2026-11-07 STG計画修正（未実装）：** [現行計画と作業分担](docs/change-requests/ARCLINE_V2_STAGING_SAFETY_PHASE1.md)。STGは別オリジン・メモリ内の一時状態・必要な状況の再現を基本とし、永続セーブを導入しない。同一サイトへのスナップショット合成は必須工程から外す。ゲーム本体・配信設定の実装は別作業であり、本文を読んだだけで開始しない。
+**2026-11-07 STG初期実装（本番未反映）：** [運用計画と作業分担](docs/change-requests/ARCLINE_V2_STAGING_SAFETY_PHASE1.md)。GitHub Pagesの専用リポジトリから固定コミットを手動配信。STGはメモリ内の一時状態で動作し、永続セーブ・本番SDKを使用しない。同一オリジンなので保存非干渉を検証する。環境コードはenvironments/に限定し、本番ゲーム・Pages設定・公開URLを維持する。
 
 **0.24.1の最終デザイン承認：** 企画を選択適用した17・33・36・39・47面を正本へ反映。39面は中腹の橋と下の着地先を含む修正版を承認済み。旧「1〜50面不変」はこの5面だけ更新し、他95面・HP・行動上限・AI・物理・schema8/reset2を維持。[採用元](design/stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json)／[統合・検証](docs/releases/0.24.1.md)。
 

@@ -1,0 +1,110 @@
+# Install this file in the STG-only repository, not the production repository.
+name: ARCLINE STG manual publish
+on:
+  push:
+    branches: [main]
+    paths: ['staging-source.json']
+  workflow_dispatch:
+    inputs:
+      source_commit:
+        description: '検証するソースの完全な40桁コミットSHA'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: arcline-staging-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.event.repository.name == 'arcline-staging'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: deployment
+          persist-credentials: false
+      - name: Validate fixed source commit
+        id: source
+        env:
+          SOURCE_COMMIT: ${{ inputs.source_commit }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          sha = os.environ['SOURCE_COMMIT'] or json.loads(Path('deployment/staging-source.json').read_text())['sourceCommit']
+          if not re.fullmatch(r'[0-9a-f]{40}', sha):
+              raise SystemExit('A full source commit SHA is required')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('commit=' + sha + '\n')
+          PY
+      - uses: actions/checkout@v4
+        with:
+          repository: bittrove88/bittrove88.github.io
+          ref: ${{ steps.source.outputs.commit }}
+          fetch-depth: 0
+          path: source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: source/ARCLINE/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Development dependencies
+        working-directory: source/ARCLINE
+        run: |
+          npm ci
+          pip install -r requirements-dev.txt
+      - name: Prepare browser
+        working-directory: source/ARCLINE
+        run: |
+          if [ ! -x /usr/bin/google-chrome ] && [ ! -x /usr/bin/chromium ]; then
+            npx playwright install --with-deps chromium
+          fi
+      - name: Verify source and session
+        working-directory: source/ARCLINE
+        run: |
+          npm test
+          npm run check:generated
+          node environments/tests/staging-session.test.cjs
+      - name: Build STG artifact
+        env:
+          SOURCE_COMMIT: ${{ steps.source.outputs.commit }}
+          SITE_OUTPUT: ${{ runner.temp }}/arcline-staging-site
+        run: >-
+          python3 source/ARCLINE/environments/tools/build_staging.py
+          --output "$SITE_OUTPUT" --source-commit "$SOURCE_COMMIT"
+          --site-path /arcline-staging/ --require-clean
+      - name: Verify isolated browser session and packaged assets
+        working-directory: source/ARCLINE
+        env:
+          ARCLINE_STAGING_SITE: ${{ runner.temp }}/arcline-staging-site
+          ARCLINE_EVIDENCE_DIR: ${{ runner.temp }}/arcline-staging-evidence
+        run: |
+          python3 -m unittest discover -s environments/tests -v
+          node environments/tests/staging-browser.test.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: staging-evidence
+          path: ${{ runner.temp }}/arcline-staging-evidence
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/arcline-staging-site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish only this repository's Pages site
+        id: deployment
+        uses: actions/deploy-pages@v4
