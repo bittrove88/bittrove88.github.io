@@ -1,0 +1,46 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARCLINE 作用領域の動き</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#F3F0E8;color:#304748;font:16px system-ui,sans-serif}header,main,footer{max-width:1280px;margin:auto;padding:24px}h1{font-size:clamp(24px,4vw,36px)}p{line-height:1.7}.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:14px 0}label{display:flex;gap:6px;align-items:center}button,select{font:inherit;padding:10px;border:1px solid #9DAE9F;border-radius:4px;background:#FCFAF5;color:#304748;max-width:100%}input{accent-color:#355D5C}input[type=range]{width:180px}a{color:#315F61}.viewer{overflow:auto;background:#EDEBE3;border:1px solid #C6C8B8}canvas{display:block;width:100%;height:auto}.viewer.grid canvas{min-width:1050px}.status{font-size:14px;color:#726B62}#current{padding:9px 13px;background:#E4E9DE;font-weight:600}footer{font-size:14px}.links{display:flex;flex-wrap:wrap;gap:18px}[hidden]{display:none!important}</style>
+<header><p class="status">ARCLINE / FIELD MOTION STUDY</p><h1>作用領域の動きと切り替わり</h1><p>風の向き、噴気のON/OFF、磁場の極性と弱化を、動きで比較できます。枠線は透過させ、文字と状態記号は読みやすさを保ちます。</p>
+<div class="controls"><label>表示 <select id="layout"><option value="focus">背景上で拡大</option><option value="grid">全13状態を並べる</option></select></label><label>背景 <select id="context"></select></label><label>ギミック <select id="effect"><option value="F">風</option><option value="C">減速雲</option><option value="U">上昇気流</option><option value="V">噴気</option><option value="M">磁場</option></select></label><label>状態 <select id="case"></select></label></div>
+<div class="controls"><button id="play" type="button">一時停止</button><button id="restart" type="button">最初から</button><label><input id="cycle" type="checkbox" checked>4秒ごとに状態を比較</label><label><input id="reduced" type="checkbox">動きを抑える</label><label>再生位置 <input id="time" type="range" min="0" max="16" step="0.05" value="0"></label><output id="seconds">0.00秒</output></div>
+<p id="current" aria-live="polite"></p><p id="note"></p><p class="status">演出のデザイン見本です。4秒の切り替えは比較用で、ゲームの手番周期ではありません。中央の領域は演出見本として重ねており、配置追加・実際の弾道・機体・HUDの検証ではありません。</p></header>
+<main><div class="viewer"><canvas id="art" aria-label="作用領域の動きのプレビュー"></canvas></div><p class="links"><a href="gimmick-motion.gif">全状態のアニメーションGIF</a><a href="gimmick-motion.mp4">全状態の動画</a><a href="index.html">全テーマの比較</a><a href="DESIGN_REVIEW.md">デザインの再評価と注意点</a></p></main>
+<footer>ゲーム未統合。領域の機能と共通識別色を維持し、線と演出のみを検討する資料です。非表示タブでは再生を停止します。「動きを抑える」では静止した矢印・弧と文字で確認できます。</footer>
+<script>
+/* COMPONENT_RENDERER */
+/* COMPONENT_DATA */
+const $=id=>document.getElementById(id),data=COLLECTION.motion,canvas=$('art');
+let playhead=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0,last=null,lastDraw=null,lastAnnouncement='';
+$('reduced').checked=!playing;$('cycle').checked=playing;
+$('context').innerHTML=data.contexts.map(c=>`<option value="${c.id}">${c.title}</option>`).join('');
+function cases(){return data.cases.filter(c=>c.effect===$('effect').value);}
+function selected(){const list=cases();return $('cycle').checked?list[Math.floor(playhead/data.config.stateDurationSeconds)%list.length]:list.find(c=>c.id===$('case').value)||list[0];}
+function configure(){const list=cases();$('case').innerHTML=list.map(c=>`<option value="${c.id}">${c.title}</option>`).join('');playhead=0;render();}
+function render(){
+ const grid=$('layout').value==='grid',c=selected(),context=data.contexts.find(c=>c.id===$('context').value);let graph=grid?data.overview:{...context.graph,nodes:[...context.graph.nodes,...c.nodes]};
+ if(!grid&&innerWidth<760)graph={...graph,width:430,nodes:[{type:'group',transform:[1,0,0,1,-285,0],children:graph.nodes}]};
+ if(canvas.width!==graph.width||canvas.height!==graph.height){canvas.width=graph.width;canvas.height=graph.height;}
+ canvas.parentElement.classList.toggle('grid',grid);ArcComponentCollection.draw(canvas.getContext('2d'),graph.width,graph.height,graph,{fieldMotion:true,time:playhead,reducedMotion:$('reduced').checked});
+ $('context').disabled=grid;$('effect').disabled=grid;$('case').disabled=grid;$('cycle').disabled=grid;
+ const label=grid?'全13状態を同時比較：ONは動き、OFFは静止':c.title;
+ if(label!==lastAnnouncement){$('current').textContent=label;lastAnnouncement=label;}
+ $('note').textContent=grid?'風向き・正負・弱化・停止を並べて比較します。ラベルの状態は固定です。':c.note;
+ if(!grid&&$('cycle').checked)$('case').value=c.id;
+ $('time').value=playhead%16;$('seconds').textContent=playhead.toFixed(2)+'秒';$('play').textContent=playing?'一時停止':'再生';
+ globalThis.motionPreviewState={caseId:c.id,effect:c.effect,state:c.state,grid,time:playhead,playing,reduced:$('reduced').checked};
+}
+function tick(stamp){raf=0;if(!playing||document.hidden)return;if(last===null)last=stamp;
+ if(lastDraw===null||stamp-lastDraw>=1000/24){playhead+=Math.min((stamp-last)/1000,.25);last=lastDraw=stamp;render();}raf=requestAnimationFrame(tick);
+}
+function schedule(){if(raf)cancelAnimationFrame(raf);raf=0;last=lastDraw=null;if(playing&&!document.hidden)raf=requestAnimationFrame(tick);render();}
+function pause(){playing=false;schedule();}function play(){playing=true;schedule();}
+$('play').onclick=()=>{playing=!playing;schedule();};$('restart').onclick=()=>{playhead=0;render();};
+$('effect').onchange=configure;$('case').onchange=()=>{$('cycle').checked=false;render();};
+for(const id of ['layout','context','cycle'])$(id).onchange=()=>{playhead=0;render();};
+$('reduced').onchange=()=>{if($('reduced').checked)playing=false;schedule();};
+$('time').oninput=()=>{playing=false;playhead=Number($('time').value);schedule();};
+document.addEventListener('visibilitychange',schedule);
+addEventListener('resize',render);
+globalThis.GimmickPreview=Object.freeze({pause,play,renderAt(time){playing=false;playhead=Math.max(0,Number(time)||0);schedule();},state:()=>({...motionPreviewState})});
+configure();schedule();
+</script></html>

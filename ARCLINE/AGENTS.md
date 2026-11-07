@@ -1,5 +1,7 @@
 # ARCLINE 開発エージェント運用ルール
 
+**2026-11-07 作用領域の改訂1.3：** [動き](design/components/complete/gimmick-motion.html) ／ [再評価](design/components/complete/DESIGN_REVIEW.md)。枠のみ主線60%・補助線20%の不透明度へ。ラベル・地形・機能面は不透明を維持。13状態のアニメーション・GIF／MP4は演出比較用で、ゲーム未統合。比較用の秒数を手番周期へ取り込まない。物理・状態・地形・保存は維持。
+
 **2026-11-07 コンポーネントの輪郭改訂1.2：** [配色・輪郭](design/components/complete/ART_DIRECTION.md#コンポーネント用の配色と輪郭)。暗いinkの混色をやめ、素材と同じ色相の線へ変更。通常外周0.8px・接地辺1.8pxを維持。正本は `render-style.json` の `valueScale`。破壊材・反射面・状態の共通識別色と、物理・当たり判定は維持。
 
 **2026-11-07 全テーマのコンポーネント制作：** [制作セット](design/components/complete/README.md) ／ [実装引き継ぎ](design/components/complete/IMPLEMENTATION_HANDOFF.md)。背景PR106の固定コミットに対応する通常20・大ボス9・最終4、共通状態、103マップ比較を制作。新作は個別デザイン確認待ち・ゲーム未統合。テーマ別JSONと共通機能色を正本とし、ゲームの地形・物理・状態・保存を維持。100面はmapIndexを優先し、通常96〜99面と区別。PR108の背景統合とは別差分。

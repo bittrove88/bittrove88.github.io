@@ -1,0 +1,163 @@
+{
+  "schema": "arcline.field-motion-study/v1",
+  "stateDurationSeconds": 4,
+  "note": "Animation timing is an art comparison, not the game turn cycle. No projectile simulation.",
+  "cases": [
+    {
+      "id": "cloud",
+      "title": "C：減速雲",
+      "effect": "C",
+      "note": "薄い雲のまとまり。矢印を付けず、風との混同を避ける。",
+      "state": {
+        "kind": "C",
+        "direction": 1,
+        "on": true,
+        "slow": 0.72
+      }
+    },
+    {
+      "id": "wind-right",
+      "title": "F：右へ",
+      "effect": "F",
+      "note": "短い矢印が右へ流れる。",
+      "state": {
+        "kind": "F",
+        "direction": 1,
+        "on": true,
+        "strength": 0.35
+      }
+    },
+    {
+      "id": "wind-left",
+      "title": "F：左へ",
+      "effect": "F",
+      "note": "向きと共通色を同時に切り替える。",
+      "state": {
+        "kind": "F",
+        "direction": -1,
+        "on": true,
+        "strength": 0.35
+      }
+    },
+    {
+      "id": "updraft",
+      "title": "U：上昇気流",
+      "effect": "U",
+      "note": "長めの間隔で、上向きの流れを示す。",
+      "state": {
+        "kind": "U",
+        "direction": 1,
+        "on": true,
+        "strength": 0.35
+      }
+    },
+    {
+      "id": "vent-on",
+      "title": "V：噴気 ON",
+      "effect": "V",
+      "note": "上向きの短い噴出を繰り返す。ONの間の動きの見本。",
+      "state": {
+        "kind": "V",
+        "direction": 1,
+        "on": true,
+        "strength": 0.35
+      }
+    },
+    {
+      "id": "vent-off",
+      "title": "V：噴気 OFF",
+      "effect": "V",
+      "note": "噴出は止まり、位置の枠とOFFラベルだけ残る。",
+      "state": {
+        "kind": "V",
+        "direction": 1,
+        "on": false,
+        "strength": 0.35
+      }
+    },
+    {
+      "id": "magnet-positive",
+      "title": "M：正極性",
+      "effect": "M",
+      "note": "時計回りの弧と＋記号。",
+      "state": {
+        "kind": "M",
+        "direction": 1,
+        "on": true,
+        "strength": 1
+      }
+    },
+    {
+      "id": "magnet-negative",
+      "title": "M：負極性",
+      "effect": "M",
+      "note": "反時計回りの弧と−記号。",
+      "state": {
+        "kind": "M",
+        "direction": -1,
+        "on": true,
+        "strength": 1
+      }
+    },
+    {
+      "id": "magnet-weak",
+      "title": "M：弱化",
+      "effect": "M",
+      "note": "動く弧を1本に減らし、速度も抑える。",
+      "state": {
+        "kind": "M",
+        "direction": 1,
+        "on": true,
+        "strength": 0.5
+      }
+    },
+    {
+      "id": "magnet-off",
+      "title": "M：停止",
+      "effect": "M",
+      "note": "回転は停止し、OFFを明示する。",
+      "state": {
+        "kind": "M",
+        "direction": 1,
+        "on": true,
+        "strength": 0
+      }
+    },
+    {
+      "id": "wind-weak",
+      "title": "F：風の弱化",
+      "effect": "F",
+      "note": "矢印の数と速さを抑え、弱ONを併記する。",
+      "state": {
+        "kind": "F",
+        "direction": 1,
+        "on": true,
+        "strength": 0.18
+      }
+    },
+    {
+      "id": "wind-off",
+      "title": "F：風の停止",
+      "effect": "F",
+      "note": "矢印は消し、領域の位置とOFFを残す。",
+      "state": {
+        "kind": "F",
+        "direction": 1,
+        "on": true,
+        "strength": 0
+      }
+    },
+    {
+      "id": "cloud-thin",
+      "title": "C：薄くなった雲",
+      "effect": "C",
+      "note": "雲を薄くし、速度倍率×0.85を併記する。",
+      "state": {
+        "kind": "C",
+        "direction": 1,
+        "on": true,
+        "slow": 0.85
+      }
+    }
+  ]
+}

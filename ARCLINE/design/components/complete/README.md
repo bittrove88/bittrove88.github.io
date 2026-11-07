@@ -4,6 +4,8 @@
 
 **制作済み・新作のデザイン確認待ち・ゲーム未統合。** 方針の承認、個別アートの承認、実ゲームの検証を区別する。背景の編集正本は変更しない。
 
+**作用領域の改訂1.3：** [動きと切替のプレビュー](gimmick-motion.html) ／ [アニメーションGIF](gimmick-motion.gif) ／ [動画](gimmick-motion.mp4) ／ [デザイナーとしての再評価](DESIGN_REVIEW.md)。枠の主線を不透明度60%、補助線20%へ抑え、方向・弱化・停止を少数の動きで表した。文字は不透明、地形・機能色・物理は維持。ZIP展開後の `gimmick-motion.html` で操作できる。
+
 **輪郭改訂1.2：** [調整前後の比較](png/outline-comparison.png)。暗いinkの混色をやめ、素材と同じ色相の線へ変更した。通常外周0.8px・機能部品0.9px・接地辺1.8pxは維持。砂岩は砂色、氷は青、破壊材は紫でなじませる。[配色と輪郭の考え方](ART_DIRECTION.md#コンポーネント用の配色と輪郭)を参照。
 
 [比較ギャラリー](index.html) ／ [制作セットZIP](ARCLINE_Component_Collection.zip) ／ [設計一覧](ART_DIRECTION.md) ／ [実装引き継ぎ](IMPLEMENTATION_HANDOFF.md) ／ [内部確認](REVIEW_NOTES.md) ／ [検証記録](VALIDATION.md)
@@ -23,6 +25,7 @@ ZIPを展開して `index.html` をブラウザで開く。ページはデータ
 | `data/*.json` 全33件 | 個別の地盤材・支持材パレットと正規化した色面。テーマ別美術の編集正本 |
 | `shared-materials.json` | 破壊材・反射面・橋・端子・作用領域の共通色。テーマ内で複製・上書きしない |
 | `render-style.json` | 全テーマ共通の線幅・素材色の明るさ調整。配色パレットとは分けて管理 |
+| `motion-cases.json`、`motion.template.html` | 13状態の比較見本と操作ページ。比較用の状態・秒数であり、ゲームの手番や物理の正本ではない |
 | `build.py`、`vector.py` | 部品の造形、状態表示、図版の構成。マップの生成元ではない |
 | `manifest.json` | 全33景のID・面・最終mapIndex・出力先 |
 | `worlds.json` | 現行1〜99面＋最終4戦場の103比較用スナップショット。ゲームに読み戻さない |
@@ -40,6 +43,7 @@ python3 ARCLINE/design/components/complete/build.py --check
 
 # ARCLINEのPlaywright依存・ChromiumでPNGと検証記録を生成
 node ARCLINE/design/components/complete/render_verify.cjs
+node ARCLINE/design/components/complete/motion_verify.cjs
 python3 ARCLINE/design/components/complete/package.py
 python3 ARCLINE/design/components/complete/package.py --check
 ```
@@ -47,5 +51,7 @@ python3 ARCLINE/design/components/complete/package.py --check
 `ARCLINE_CHROMIUM` でブラウザの実行ファイル、`ARCLINE_COMPONENT_EVIDENCE_DIR` で確認画像の出力先を指定できる。`snapshot_worlds.cjs` は現行ゲームの比較用データを書き直す補助ツールで、通常の美術再生成には使わない。基準ゲームを変更する場合に限り、出典コミット・ハッシュと比較結果を更新する。
 
 `renderer.js` の `ArcComponentCollection.draw(ctx, width, height, graph, options)` は、この独立ギャラリー用のCanvas描画器。`select(manifest, stage, mapIndex)` はテーマ選択の参照実装。ゲームの `world` オブジェクトを受け取る実装ではない。`chargeZoom` は美術の90%比較であり、実ゲームのカメラ判定を再実装していない。
+
+動きは `fieldMotion:true, time:秒数`、静止した手掛かりは `reducedMotion:true` で確認できる。GIF／MP4の再生成にはFFmpegが必要。確認用の一時フレームは `ARCLINE_MOTION_EVIDENCE_DIR`（既定 `/tmp/arcline-field-motion`）へ出力する。動きのプレビューは `prefers-reduced-motion` を尊重し、非表示タブでは再生を進めない。
 
 ゲーム本体への組み込み、実際の機体・射線・HUDとの視認性、実戦、実機、性能、公開は別工程。[接続時に維持する条件](IMPLEMENTATION_HANDOFF.md)を参照する。

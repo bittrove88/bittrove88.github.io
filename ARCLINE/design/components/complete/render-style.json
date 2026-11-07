@@ -1,6 +1,6 @@
 {
   "schema": "arcline.component-render-style/v1",
-  "revision": "1.2",
+  "revision": "1.3",
   "naturalOutline": {
     "width": 0.8,
     "valueScale": 0.97
@@ -14,6 +14,8 @@
   "bridgeContactWidth": 2,
   "fieldBorderWidth": 2.2,
   "fieldStateWidth": 1.3,
-  "contract": "Opaque outlines keep the hue of their own material body, without mixing in the legacy dark ink. Theme palettes and shared functional colors remain canonical. Widths are screen pixels in map previews.",
-  "fieldOutlineValueScale": 0.82
+  "contract": "Terrain remains opaque. Only field frames and directional motion cues use transparency. Field labels stay fully opaque; material palettes and gameplay geometry are unchanged.",
+  "fieldOutlineValueScale": 0.82,
+  "fieldFrameOpacity": 0.6,
+  "fieldHaloOpacity": 0.2
 }

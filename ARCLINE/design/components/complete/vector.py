@@ -46,6 +46,7 @@ def svg(scene):
    return '<g'+attrs+'>'+content+'</g>'
   if t=='text':return f'<text x="{n(a["x"])}" y="{n(a["y"])}" font-size="{a["size"]}" font-weight="{a["weight"]}" fill="{a["fill"]}">{esc(a["text"])}</text>'
   attrs=' fill="'+a['fill']+'"'
+  if 'opacity' in a:attrs+=' opacity="'+n(a['opacity'])+'"'
   if a.get('stroke'):attrs+=' stroke="'+a['stroke']+'" stroke-width="'+n(a['strokeWidth'])+'" stroke-linejoin="round" stroke-linecap="round"'+(' vector-effect="non-scaling-stroke"' if a.get('screenStroke') else '')
   if t=='ellipse':return '<ellipse '+ ' '.join(k+'="'+n(a[k])+'"' for k in ['cx','cy','rx','ry'])+attrs+'/>'
   return '<path d="'+esc(a['d'])+'"'+attrs+'/>'

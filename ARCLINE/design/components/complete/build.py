@@ -61,12 +61,12 @@ def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
  label,c=field_label(r)
  if r['kind']=='M':
   x,y,rad=r['x'],r['y'],r['radius'];d=f'M{x-rad} {y} A{rad} {rad} 0 0 1 {x} {y-rad} M{x} {y+rad} A{rad} {rad} 0 0 0 {x+rad} {y}'
-  nodes=[path(d,'none',outline_color(c,R['fieldOutlineValueScale']),R['fieldBorderWidth'],True),path(d,'none',c,R['fieldStateWidth'],True)];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
+  nodes=[path(d,'none',outline_color(c,R['fieldOutlineValueScale']),R['fieldBorderWidth'],True,opacity=R['fieldHaloOpacity'],role='fieldFrame'),path(d,'none',c,R['fieldStateWidth'],True,opacity=R['fieldFrameOpacity'],role='fieldFrame')];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
  else:
   x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];q=min(18,(x2-x1)/4,(y2-y1)/4)
   d=f'M{x1+q} {y1} H{x1} V{y1+q} M{x2-q} {y1} H{x2} V{y1+q} M{x1} {y2-q} V{y2} H{x1+q} M{x2-q} {y2} H{x2} V{y2-q}'
-  nodes=[path(d,'none',outline_color(c,R['fieldOutlineValueScale']),R['fieldBorderWidth'],True),path(d,'none',c,R['fieldStateWidth'],True)];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
- return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']})
+  nodes=[path(d,'none',outline_color(c,R['fieldOutlineValueScale']),R['fieldBorderWidth'],True,opacity=R['fieldHaloOpacity'],role='fieldFrame'),path(d,'none',c,R['fieldStateWidth'],True,opacity=R['fieldFrameOpacity'],role='fieldFrame')];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
+ return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c})
 def terminal(x,y,mat,pending=False):
  p=S['terminal'];out=[solid([(x-23,y+18),(x+23,y+18),(x+23,y+30),(x-23,y+30)],mat),rect(x-17,y-14,34,33,p['body']),rect(x-12,y-8,24,20,p['display']),text(x-8,y+9,'＋',18,p['symbol'],600)]
  if pending:out+=badge(x,y-27,'次の手番 −','#FFD389',109)
@@ -129,7 +129,7 @@ def state_sheet():
  mechanics=[('反射面 W',[reflector([(25,77),(410,77),(410,91),(25,91)])]),('反射板 K',[reflector([(84,117),(329,41),(333,48),(88,124)])]),('橋 B：水平 / 開いた姿勢',[bridge([(25,89),(211,89),(211,102),(25,102)],(25,95)),bridge([(295,126),(325,35),(337,39),(307,130)],(300,128))])]
  for i,(label,children) in enumerate(mechanics):
   x=48+i*512;y=376;nodes.append(rect(x,y,480,187,'#FBFAF5'));nodes.append(text(x+18,y+29,label,18,weight=600));nodes.append(translated(children,x+20,y+28))
- examples=[({'kind':'C','direction':1,'on':True,'slow':.72},'C：減速雲'),({'kind':'F','direction':1,'on':True},'F：右へ'),({'kind':'F','direction':-1,'on':True},'F：左へ'),({'kind':'U','direction':1,'on':True},'U：上昇気流'),({'kind':'V','direction':1,'on':True},'V：噴気 ON'),({'kind':'V','direction':1,'on':False},'V：噴気 OFF'),({'kind':'M','direction':1,'on':True,'strength':1},'M：正極性'),({'kind':'M','direction':-1,'on':True,'strength':1},'M：負極性'),({'kind':'M','direction':1,'on':True,'strength':.5},'M：弱化'),({'kind':'M','direction':1,'on':True,'strength':0},'M：停止'),({'kind':'F','direction':1,'on':True,'strength':.18},'F：風の弱化'),({'kind':'F','direction':1,'on':True,'strength':0},'F：風の停止'),({'kind':'C','direction':1,'on':True,'slow':.85},'C：薄くなった雲')]
+ examples=[(c['state'],c['title']) for c in read('motion-cases.json')['cases']]
  for i,(r,title) in enumerate(examples):
   x=48+i%5*307;y=596+i//5*193;nodes.append(rect(x,y,278,171,'#FBFAF5'));nodes.append(text(x+16,y+29,title,16,weight=600));a={**r,'x':x+139,'y':y+105,'radius':43,'x1':x+42,'x2':x+237,'y1':y+80,'y2':y+145};nodes.append(region(a))
  nodes.append(rect(48,1193,736,204,'#FBFAF5'));nodes.append(text(70,1225,'T：現在の操作部と切り替え予約を分離',20,weight=600));nodes.append(terminal(220,1319,mat));nodes.append(terminal(576,1319,mat,True))
@@ -150,6 +150,22 @@ def outline_comparison(rows,maps):
    nodes.append(text(x,y-12,style['title'],17,weight=600));nodes.append(group(graph['nodes'],[.752,0,0,.752,x,y]))
  nodes.append(text(24,1252,'入江は砂色、氷は青、破壊材は紫。反射辺と状態の識別色を維持し、輪郭の黒っぽさを抑える。',15,'#6C6865'))
  return {'schema':'arcline.vector-art/v1','id':'outline-comparison','width':1600,'height':1270,'backgroundColor':'#F3F0E8','nodes':nodes}
+def motion_study(maps):
+ config=read('motion-cases.json');cases=[]
+ for c in config['cases']:
+  sample={**c['state'],'x':500,'y':242,'radius':104,'x1':354,'x2':646,'y1':140,'y2':355}
+  cases.append({**c,'nodes':[region(sample)]})
+ def strip_fields(a):
+  out=copy.deepcopy(a)
+  if 'children' in out:out['children']=[strip_fields(c) for c in out['children'] if c.get('role')!='field']
+  return out
+ contexts=[{'id':stage,'title':title,'graph':{**maps[stage],'nodes':[strip_fields(n) for n in maps[stage]['nodes']]}} for stage,title in [('4','入江・淡い背景'),('61','火山・暖かい背景'),('59','氷河・冷たい背景')]]
+ nodes=[rect(0,0,1600,780,'#F3F0E8'),text(48,44,'ARCLINE / 作用領域の動きと状態',28,weight=600),text(48,78,'枠は控えめに。動き・矢印・記号・文字で、方向と現在の状態を伝える。',17,'#6C6865')]
+ for i,c in enumerate(config['cases']):
+  x=48+i%5*307;y=106+i//5*210;nodes+=[rect(x,y,278,190,'#FBFAF5'),text(x+16,y+29,c['title'],16,weight=600)]
+  sample={**c['state'],'x':x+139,'y':y+117,'radius':45,'x1':x+42,'x2':x+237,'y1':y+84,'y2':y+164};nodes.append(region(sample))
+ nodes.append(text(48,763,'演出見本・ゲーム未統合。状態は固定比較。停止の枠とラベルを残し、動く手掛かりだけ止める。',15,'#6C6865'))
+ return {'config':config,'cases':cases,'contexts':contexts,'overview':{'schema':'arcline.vector-art/v1','id':'motion-overview','width':1600,'height':780,'backgroundColor':'#F3F0E8','nodes':nodes}}
 def validate_inputs():
  sources=read('source-manifest.json')
  for ref in sources['references']:
@@ -159,6 +175,7 @@ def validate_inputs():
   if hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()!=ref['sha256']:raise ValueError('Outline baseline changed: '+ref['file'])
  for kind in ['naturalOutline','functionalOutline']:
   assert 0<R[kind]['width']<=1 and 0<R[kind]['valueScale']<=1
+ for key in ['fieldFrameOpacity','fieldHaloOpacity']:assert 0<R[key]<=1
  assert len(SCENES)==33 and len(W['worlds'])==103
  assert {s['themeIndex'] for s in SCENES.values() if s['kind']=='normal'}==set(range(20))
  assert len([s for s in SCENES.values() if s['kind']=='boss'])==9
@@ -181,9 +198,12 @@ def main():
  graphs['outline-comparison']=outline_comparison(rows,maps)
  for name,graph in graphs.items():
   outputs['graphs/'+name+'.json']=json.dumps(graph,ensure_ascii=False,separators=(',',':'));outputs['svg/'+name+'.svg']=svg(graph)
- bundle={'manifest':M,'styles':SCENES,'renderStyle':R,'worlds':W['worlds'],'graphs':graphs,'maps':maps}
+ motion=motion_study(maps)
+ bundle={'motion':motion,'manifest':M,'styles':SCENES,'renderStyle':R,'worlds':W['worlds'],'graphs':graphs,'maps':maps}
  outputs['collection.json']=json.dumps(bundle,ensure_ascii=False,separators=(',',':'))
  template=(P/'gallery.template.html').read_text();code=(P/'renderer.js').read_text();outputs['index.html']=template.replace('/* COMPONENT_RENDERER */',code).replace('/* COMPONENT_DATA */','const COLLECTION='+outputs['collection.json'].replace('</','<\\/')+';')
+ motion_template=(P/'motion.template.html').read_text()
+ outputs['gimmick-motion.html']=motion_template.replace('/* COMPONENT_RENDERER */',code).replace('/* COMPONENT_DATA */','const COLLECTION='+outputs['collection.json'].replace('</','<\\/')+';')
  changed=[]
  for name,value in outputs.items():
   target=P/name
