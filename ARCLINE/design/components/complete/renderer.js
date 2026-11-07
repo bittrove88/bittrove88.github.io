@@ -63,7 +63,7 @@ function fieldMotion(ctx,r,time,u,visible){
    }return;
   }
   const horizontal=r.kind==='F',fullW=source.x2-source.x1,fullH=source.y2-source.y1,speed=horizontal?36*u*(r.strength??.35)/.35:(r.kind==='V'?48:30)*u,period=(horizontal?fullW:fullH)/Math.max(.01,speed),lanes=Math.max(1,Math.min(horizontal?3:2,Math.ceil((horizontal?h:w)/((horizontal?80:70)*u))));
-  ctx.save();ctx.fillStyle=r.color;ctx.globalAlpha*=r.flowBandOpacity??.14;ctx.fillRect(source.x1,source.y1,fullW,fullH);ctx.restore();
+  ctx.save();ctx.fillStyle=r.color;ctx.globalAlpha*=r.flowBandOpacity??.07;ctx.fillRect(source.x1,source.y1,fullW,fullH);ctx.restore();
   for(let i=0;i<lanes;i++){
    const phase=((t/period+i/lanes+.24)%1+1)%1;
    if(horizontal){

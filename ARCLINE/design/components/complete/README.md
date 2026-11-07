@@ -4,7 +4,7 @@
 
 **制作済み・新作のデザイン確認待ち・ゲーム未統合。** 方針の承認、個別アートの承認、実ゲームの検証を区別する。背景の編集正本は変更しない。
 
-**作用範囲改訂1.7：** [氷河・夕景の新しい表示だけを見る](game-context/flow-range-review.png) ／ [全33景を操作して比較](visibility-review.html) ／ [実動作](game-context/all-gimmicks/index.html)。風・気流・噴気は実際の領域を薄い帯で示し、発生端から終端まで流線をつなぐ。画面外の噴出口は「噴出口↓」で案内。スイッチは明暗差を抑えた配色へ調整し、物理・範囲・強度は維持。
+**作用範囲改訂1.7：** [氷河・夕景の新しい表示だけを見る](game-context/flow-range-review.png) ／ [全33景を操作して比較](visibility-review.html) ／ [実動作](game-context/all-gimmicks/index.html)。帯の不透明度は14％から7％へ半減。風・気流・噴気は実際の領域を薄い帯で示し、発生端から終端まで流線をつなぐ。画面外の噴出口は「噴出口↓」で案内。スイッチは明暗差を抑えた配色へ調整し、物理・範囲・強度は維持。
 
 **視認性改訂1.6：** [全33景の調整前後を操作](visibility-review.html) ／ [全景一覧](png/visibility-all-themes.png) ／ [実画面の比較](game-context/visibility-before-after.png) ／ [変更・検査](VISIBILITY_REVIEW.md)。共通の機能色を濃くし、動く線を2px・85％と細い明色で描く。雲は青灰色の面へ。弱化時も見えやすさを維持し、磁場以外の領域枠とOFF表示は追加しない。
 
