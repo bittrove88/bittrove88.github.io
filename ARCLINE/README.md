@@ -1,5 +1,7 @@
 # ARCLINE
 
+[全33景のギミック視認性・改訂1.6](design/components/complete/visibility-review.html)：共通色を濃くし、動く線を2px・85％と細い明色へ。調整前後を操作して比較でき、実画面の比較・全ギミックの動作動画も更新。背景・通常地形・物理・保存は維持し、正式ゲームには未統合。
+
 [全テーマの地形・オブジェクト制作セット](design/components/complete/README.md)：背景PR106の通常20テーマ・大ボス9景・最終4戦場に対応。テーマ固有の地盤材・支持材、共通ギミックの状態シート、編集JSON・SVG・PNG・比較ギャラリー・引き継ぎを収録。ゲーム未統合。
 
 [ギミックの動きと切替のプレビュー](design/components/complete/gimmick-motion.html)：風・噴気・磁場・減速雲など13状態、透過した枠、背景上の比較、GIF／動画を収録。[デザイナーとしての再評価と注意点](design/components/complete/DESIGN_REVIEW.md)。

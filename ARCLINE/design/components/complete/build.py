@@ -20,7 +20,7 @@ def solid(points,mat,cap=None,fragile=False,screen=False,solid_id=None):
  else:planes=mat['planes']
  for a in planes:nodes.append(poly([(x+w*u,y+h*v) for u,v in a['points']],p[a['color']]))
  if fragile:
-  nodes.append(line([(x+w*.53,y+h*.15),(x+w*.45,y+h*.4),(x+w*.54,y+h*.59),(x+w*.46,y+h*.85)],p['cap'],2.2,screen));nodes.append(line([(x+w*.45,y+h*.4),(x+w*.25,y+h*.48)],p['cap'],1.5,screen))
+  nodes.append(line([(x+w*.53,y+h*.15),(x+w*.45,y+h*.4),(x+w*.54,y+h*.59),(x+w*.46,y+h*.85)],p['cap'],2.6,screen));nodes.append(line([(x+w*.45,y+h*.4),(x+w*.25,y+h*.48)],p['cap'],1.7,screen))
  for a,b in cap or []:nodes.append(line([a,b],p['cap'],R['contactEdgeWidth'],screen))
  rule=R['functionalOutline' if fragile else 'naturalOutline']
  out=[group(nodes,clip=clip_path(points),role='materialFill'),poly(points,'none',outline_color(p['face'],rule['valueScale']),rule['width'],screen,role='materialOutline')]
@@ -47,13 +47,21 @@ def field_label(r):
 def badge(x,y,label,color,width=None,unit=1):
  width=(width or max(64,len(label)*10+18))*unit
  return [rect(x-width/2,y-18*unit,width,26*unit,S['fieldKinds']['ink'],role='stateBadge',bounds=[x-width/2,y-18*unit,x+width/2,y+8*unit]),text(x-width/2+8*unit,y,label,13*unit,color,600)]
+def field_key(r):return r['kind']+('+' if r.get('direction',1)>0 else '-') if r['kind'] in ['F','M'] else r['kind']
+def cue_path(d,c,accent):
+ return [path(d,'none',accent,R['cueHaloWidth'],True,opacity=R['cueHaloOpacity'],role='cueAccent'),path(d,'none',c,R['cueWidth'],True,opacity=R['cueOpacity'],role='cueCore')]
+def cloud_path(x,y,u,thin):
+ a=.8 if thin else 1
+ def q(dx,dy):return str(x+dx*u*a)+' '+str(y+dy*u*a)
+ return 'M'+q(-36,10)+' C'+q(-55,9)+' '+q(-48,-9)+' '+q(-28,-8)+' C'+q(-26,-24)+' '+q(-5,-24)+' '+q(3,-11)+' C'+q(21,-17)+' '+q(37,-11)+' '+q(35,-1)+' C'+q(52,0)+' '+q(50,12)+' '+q(29,12)+' Z'
 def static_field(r,u,c):
  nodes=[];k=r['kind'];direction=r.get('direction',1)
+ accent=S['fieldAccents'][field_key(r)]
  if k=='M':
   weak=r.get('strength',1)<1
   for i in range(1 if weak else 2):
    radius=r['radius']*(.56 if weak else .38+i*.26);a=i*2.3*direction;b=a+direction*1.15;x,y=r['x'],r['y']
-   nodes.append(path(f'M{x+math.cos(a)*radius} {y+math.sin(a)*radius} A{radius} {radius} 0 0 {1 if direction>0 else 0} {x+math.cos(b)*radius} {y+math.sin(b)*radius}','none',c,1.4,True,opacity=.28 if weak else .42))
+   nodes+=cue_path(f'M{x+math.cos(a)*radius} {y+math.sin(a)*radius} A{radius} {radius} 0 0 {1 if direction>0 else 0} {x+math.cos(b)*radius} {y+math.sin(b)*radius}',c,accent)
   bounds=clip_path([(r['x']-r['radius'],r['y']-r['radius']),(r['x']+r['radius'],r['y']-r['radius']),(r['x']+r['radius'],r['y']+r['radius']),(r['x']-r['radius'],r['y']+r['radius'])])
  else:
   x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];w,h=x2-x1,y2-y1;cols=max(1,min(3,math.ceil(w/(125*u))));rows=max(1,min(2,math.ceil(h/(95*u))));bounds=clip_path([(x1,y1),(x2,y1),(x2,y2),(x1,y2)])
@@ -61,18 +69,17 @@ def static_field(r,u,c):
    for i in range(cols):
     if k=='C':
      thin=r.get('slow',.72)>.72;x=x1+w*(i+.5)/cols;y=y1+h*(j+.52)/rows+math.sin(i+j)*2*u
-     d=''
-     for z in range(2 if thin else 3):
-      cx=x+(z-1)*18*u;cy=y-(z%2)*5*u;rx,ry=26*u,10*u;d+=f'M{cx+rx} {cy} A{rx} {ry} 0 1 0 {cx-rx} {cy} A{rx} {ry} 0 1 0 {cx+rx} {cy} Z '
+     d=cloud_path(x,y,u,thin)
      nodes.append(path(d,c,opacity=R['thinCloudOpacity' if thin else 'cloudOpacity']))
+     nodes.append(path(d,'none',accent,R['cloudEdgeWidth'],True,opacity=R['cloudEdgeOpacity'],role='cueAccent'))
     else:
      horizontal=k=='F';x=x1+i/cols*w if horizontal and direction>0 else x2-i/cols*w if horizontal else x1+w*(i+.5)/cols;y=y1+h*(j+.5)/rows if horizontal else y2-j/rows*h;dx=direction if horizontal else 0;dy=0 if horizontal else -1
-     nodes.append(line([(x-dx*12*u,y-dy*12*u),(x+dx*12*u,y+dy*12*u)],c,1.4,True,opacity=.4))
-     nodes.append(line([(x+dx*8*u-dy*3*u,y+dy*8*u+dx*3*u),(x+dx*12*u,y+dy*12*u),(x+dx*8*u+dy*3*u,y+dy*8*u-dx*3*u)],c,1.4,True,opacity=.4))
+     d=f'M{x-dx*12*u} {y-dy*12*u} L{x+dx*12*u} {y+dy*12*u} M{x+dx*8*u-dy*3*u} {y+dy*8*u+dx*3*u} L{x+dx*12*u} {y+dy*12*u} L{x+dx*8*u+dy*3*u} {y+dy*8*u-dx*3*u}'
+     nodes+=cue_path(d,c,accent)
   if k=='F':
    for j in range(rows):
     x=x1+6*u if direction>0 else x2-6*u;y=y1+h*(j+.5)/rows
-    nodes.append(path(f'M{x} {y+3*u} Q{x+direction*5*u} {y-3*u} {x+direction*13*u} {y}','none',c,1.4,True,opacity=.28))
+    nodes+=cue_path(f'M{x} {y+3*u} Q{x+direction*5*u} {y-3*u} {x+direction*13*u} {y}',c,accent)
  return [group(nodes,clip=bounds,role='fieldStill')]
 def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
  label,c=field_label(r)
@@ -82,8 +89,9 @@ def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
  if active and r['kind']=='M':
   x,y,rad=r['x'],r['y'],r['radius'];d=f'M{x-rad} {y} A{rad} {rad} 0 0 1 {x} {y-rad} M{x} {y+rad} A{rad} {rad} 0 0 0 {x+rad} {y}'
   nodes.append(path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame'))
-  if labels:nodes.append(text(x-6*unit,y+6*unit,'＋' if r.get('direction',1)>0 else '−',18*unit,c,600,role='fieldPolarity'))
- return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c,'cloudOpacity':R['cloudOpacity'],'thinCloudOpacity':R['thinCloudOpacity']})
+  if labels:nodes.append(text(x-6*unit,y+6*unit,'＋' if r.get('direction',1)>0 else '−',18*unit,c,700,stroke=S['fieldAccents'][field_key(r)],strokeWidth=2,screenStroke=True,role='fieldPolarity'))
+ settings={k:R[k] for k in ['cloudOpacity','thinCloudOpacity','cueOpacity','cueWidth','cueHaloWidth','cueHaloOpacity','cloudEdgeWidth','cloudEdgeOpacity']}
+ return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c,'accent':S['fieldAccents'][field_key(r)],**settings})
 def terminal(x,y,mat,pending=False):
  p=S['terminal'];out=[solid([(x-23,y+18),(x+23,y+18),(x+23,y+30),(x-23,y+30)],mat),rect(x-17,y-14,34,33,p['body']),rect(x-12,y-8,24,20,p['display']),text(x-8,y+9,'＋',18,p['symbol'],600)]
  if pending:out+=badge(x,y-27,'次の手番 −','#FFD389',109)
@@ -191,6 +199,8 @@ def terrain_comparison(maps):
  nodes.append(text(24,1610,'素材の大面は不透明。破壊材・反射面は共通色を維持し、機体や射線を主役にする。',15,'#6C6865'))
  return {'schema':'arcline.vector-art/v1','id':'terrain-comparison','width':1600,'height':1630,'backgroundColor':'#F3F0E8','nodes':nodes}
 def validate_inputs():
+ for ref in read('visibility-reference.json')['files']:
+  assert hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()==ref['sha256'],'Visibility baseline changed: '+ref['file']
  sources=read('source-manifest.json')
  for ref in sources['references']:
   if hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()!=ref['sha256']:raise ValueError('Reference changed: '+ref['file'])

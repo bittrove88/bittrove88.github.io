@@ -4,6 +4,8 @@
 
 **制作済み・新作のデザイン確認待ち・ゲーム未統合。** 方針の承認、個別アートの承認、実ゲームの検証を区別する。背景の編集正本は変更しない。
 
+**視認性改訂1.6：** [全33景の調整前後を操作](visibility-review.html) ／ [全景一覧](png/visibility-all-themes.png) ／ [実画面の比較](game-context/visibility-before-after.png) ／ [変更・検査](VISIBILITY_REVIEW.md)。共通の機能色を濃くし、動く線を2px・85％と細い明色で描く。雲は青灰色の面へ。弱化時も見えやすさを維持し、磁場以外の領域枠とOFF表示は追加しない。
+
 **全ギミックの実動作：** [13項目を選んで再生](game-context/all-gimmicks/index.html) ／ [約102秒の通し動画](game-context/all-gimmicks/all-gimmicks.mp4)。通常弾の反射・破壊・減速、橋と板の切り替え、風・上昇気流・噴気・磁場、端子の命中から次手番の極性反転までを、実エンジンと実ゲーム描画で収録。途中戦闘を省略した状態見本は動画内に明記した。
 
 **改訂1.5：** [地形の調整前後](png/terrain-comparison.png) ／ [実ゲームの描画・HUDで確認](game-context/index.html) ／ [動きと切替](gimmick-motion.html)。地形の内部コントラストと彩度を抑え、磁場以外の枠・定型ラベルとOFF表示を省いた。雲は濃さを戻し、風は同じ見た目のまま流速で強さを伝える。
@@ -27,6 +29,7 @@ ZIPを展開して `index.html` をブラウザで開く。ページはデータ
 | `data/*.json` 全33件 | 個別の地盤材・支持材パレットと正規化した色面。テーマ別美術の編集正本 |
 | `shared-materials.json` | 破壊材・反射面・橋・端子・作用領域の共通色。テーマ内で複製・上書きしない |
 | `render-style.json` | 全テーマ共通の線幅・素材色の明るさ調整。配色パレットとは分けて管理 |
+| `visibility.template.html`、`visibility_verify.cjs` | 全33背景×13状態と共通実体部品の比較、通常／90％・スマホ2サイズの明暗差検査。`references/visibility-v15/` は固定した前版 |
 | `motion-cases.json`、`motion.template.html` | 13状態の比較見本と操作ページ。比較用の状態・秒数であり、ゲームの手番や物理の正本ではない |
 | `build.py`、`vector.py` | 部品の造形、状態表示、図版の構成。マップの生成元ではない |
 | `manifest.json` | 全33景のID・面・最終mapIndex・出力先 |

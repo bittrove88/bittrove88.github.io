@@ -1,6 +1,6 @@
 {
   "schema": "arcline.component-render-style/v1",
-  "revision": "1.5",
+  "revision": "1.6",
   "naturalOutline": {
     "width": 0.8,
     "valueScale": 0.97
@@ -13,14 +13,20 @@
   "reflectiveEdgeWidth": 3,
   "bridgeContactWidth": 2,
   "fieldStateWidth": 1.0,
-  "contract": "Terrain remains opaque. Only field frames and directional motion cues use transparency. Field labels stay fully opaque; material palettes and gameplay geometry are unchanged.",
+  "contract": "Opaque terrain; shared functional hues have a stronger core and a thin light accent. Sparse field cues use fixed screen widths and a visibility floor, including weak states. Only active magnetic fields have a faint area frame. Inactive fields are invisible. Physics and geometry are unchanged.",
   "fieldFrameOpacity": 0.25,
   "hiddenWhenInactive": true,
   "framedFieldKinds": [
     "M"
   ],
   "fieldLabels": "magnet-polarity-only",
-  "cloudOpacity": 0.4,
-  "thinCloudOpacity": 0.27,
-  "windStrengthEncoding": "speed-only"
+  "cloudOpacity": 0.68,
+  "thinCloudOpacity": 0.55,
+  "windStrengthEncoding": "speed-only",
+  "cueOpacity": 0.85,
+  "cueWidth": 2,
+  "cueHaloWidth": 3.6,
+  "cueHaloOpacity": 0.85,
+  "cloudEdgeWidth": 1.4,
+  "cloudEdgeOpacity": 0.8
 }

@@ -44,7 +44,9 @@ def svg(scene):
     count+=1;key=prefix+'_clip_'+str(count);defs.append('<clipPath id="'+key+'"><path d="'+esc(a['clip'])+'"/></clipPath>');content='<g clip-path="url(#'+key+')">'+content+'</g>'
    if a.get('role')=='collisionOverlay':return ''
    return '<g'+attrs+'>'+content+'</g>'
-  if t=='text':return f'<text x="{n(a["x"])}" y="{n(a["y"])}" font-size="{a["size"]}" font-weight="{a["weight"]}" fill="{a["fill"]}">{esc(a["text"])}</text>'
+  if t=='text':
+   stroke=(' stroke="'+a['stroke']+'" stroke-width="'+n(a['strokeWidth'])+'" stroke-linejoin="round" paint-order="stroke fill"'+(' vector-effect="non-scaling-stroke"' if a.get('screenStroke') else '')) if a.get('stroke') else ''
+   return f'<text x="{n(a["x"])}" y="{n(a["y"])}" font-size="{a["size"]}" font-weight="{a["weight"]}" fill="{a["fill"]}"{stroke}>{esc(a["text"])}</text>'
   attrs=' fill="'+a['fill']+'"'
   if 'opacity' in a:attrs+=' opacity="'+n(a['opacity'])+'"'
   if a.get('stroke'):attrs+=' stroke="'+a['stroke']+'" stroke-width="'+n(a['strokeWidth'])+'" stroke-linejoin="round" stroke-linecap="round"'+(' vector-effect="non-scaling-stroke"' if a.get('screenStroke') else '')
