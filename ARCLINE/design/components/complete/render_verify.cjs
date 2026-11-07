@@ -31,7 +31,7 @@ async function main(){
     for(let i=0;i<visible.length;i++){assert(JSON.stringify(visible[i].collider)===JSON.stringify(row.world.solids[i].poly.map(p=>[p.x,p.y])),'collider changed '+row.id);colliders++;}
     const badges=walk(foreground).filter(n=>n.role==='stateBadge');assert(badges.length===0,'no routine field badges');
     const regions=nodes.filter(n=>n.role==='field');assert(regions.length===row.world.regions.length,'field count');
-    regions.forEach((n,i)=>{for(const key of ['kind','direction','on','strength'])assert((n.sourceState[key]??null)===(row.world.regions[i][key]??null),'field state '+key);fields++;});
+    regions.forEach((n,i)=>{const region=row.world.regions[i];for(const key of ['kind','direction','on','strength'])assert((n.sourceState[key]??null)===(region[key]??null),'field state '+key);const bands=walk(n).filter(a=>a.role==='fieldRange'),active=region.on!==false&&(region.strength??1)>0;assert(bands.length===(active&&['F','U','V'].includes(region.kind)?1:0),'active flow area only');if(bands.length)assert(JSON.stringify(bands[0].bounds)===JSON.stringify([region.x1,region.y1,region.x2,region.y2]),'flow area changed physics extent');fields++;});
    }
    for(const [stage,index] of [[0,null],[101,null],['10',null],[100,null],[100,-1],[100,4],[100,1.2],[100,'1'],[NaN,null],[true,null]]){assert(ArcComponentCollection.select(COLLECTION.manifest,stage,index)===null,'invalid selector');selections++;}
    const freeze=o=>{if(o&&typeof o==='object'&&!Object.isFrozen(o)){Object.freeze(o);Object.values(o).forEach(freeze);}};freeze(COLLECTION);

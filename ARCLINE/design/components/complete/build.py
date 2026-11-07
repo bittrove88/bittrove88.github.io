@@ -48,8 +48,10 @@ def badge(x,y,label,color,width=None,unit=1):
  width=(width or max(64,len(label)*10+18))*unit
  return [rect(x-width/2,y-18*unit,width,26*unit,S['fieldKinds']['ink'],role='stateBadge',bounds=[x-width/2,y-18*unit,x+width/2,y+8*unit]),text(x-width/2+8*unit,y,label,13*unit,color,600)]
 def field_key(r):return r['kind']+('+' if r.get('direction',1)>0 else '-') if r['kind'] in ['F','M'] else r['kind']
-def cue_path(d,c,accent):
- return [path(d,'none',accent,R['cueHaloWidth'],True,opacity=R['cueHaloOpacity'],role='cueAccent'),path(d,'none',c,R['cueWidth'],True,opacity=R['cueOpacity'],role='cueCore')]
+def cue_path(d,c,accent,flow=False,trace=False):
+ width,opacity,halo,halo_opacity=(R['flowCueWidth'],R['flowCueOpacity'],R['flowHaloWidth'],R['flowHaloOpacity']) if flow else (R['cueWidth'],R['cueOpacity'],R['cueHaloWidth'],R['cueHaloOpacity'])
+ if trace:width*=.55;halo*=.7;opacity*=.65;halo_opacity*=.65
+ return [path(d,'none',accent,halo,True,opacity=halo_opacity,role='cueAccent'),path(d,'none',c,width,True,opacity=opacity,role='cueCore')]
 def cloud_path(x,y,u,thin):
  a=.8 if thin else 1
  def q(dx,dy):return str(x+dx*u*a)+' '+str(y+dy*u*a)
@@ -57,6 +59,24 @@ def cloud_path(x,y,u,thin):
 def static_field(r,u,c):
  nodes=[];k=r['kind'];direction=r.get('direction',1)
  accent=S['fieldAccents'][field_key(r)]
+ if k in ['F','U','V']:
+  x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];w,h=x2-x1,y2-y1;bounds=clip_path([(x1,y1),(x2,y1),(x2,y2),(x1,y2)])
+  nodes.append(rect(x1,y1,w,h,c,opacity=R['flowBandOpacity'],role='fieldRange',bounds=[x1,y1,x2,y2]))
+  horizontal=k=='F';lanes=max(1,min(3 if horizontal else 2,math.ceil((h if horizontal else w)/((80 if horizontal else 70)*u))))
+  def arrow(x,y,dx,dy,length=9):
+   return cue_path(f'M{x-dx*length*u} {y-dy*length*u} L{x+dx*length*u} {y+dy*length*u} M{x+dx*(length-5)*u-dy*4*u} {y+dy*(length-5)*u+dx*4*u} L{x+dx*length*u} {y+dy*length*u} L{x+dx*(length-5)*u+dy*4*u} {y+dy*(length-5)*u-dx*4*u}',c,accent,True)
+  for i in range(lanes):
+   if horizontal:
+    y=y1+h*(i+.5)/lanes;sx=x1+8*u if direction>0 else x2-8*u;ex=x2-8*u if direction>0 else x1+8*u
+    nodes+=cue_path(f'M{x1+8*u} {y} C{x1+w*.3} {y-8*u} {x1+w*.7} {y+8*u} {x2-8*u} {y}',c,accent,True,True)
+    nodes+=cue_path(f'M{sx+direction*8*u} {y-5*u} L{sx} {y-5*u} M{sx+direction*8*u} {y+5*u} L{sx} {y+5*u}',c,accent,True)
+    nodes+=arrow(ex-direction*7*u,y,direction,0,5)
+    p=.3 if direction>0 else .7;x=x1+w*p;yy=y+24*u*p*(1-p)*(2*p-1);nodes+=arrow(x,yy,direction,0)
+   else:
+    x=x1+w*(i+.5)/lanes;nodes+=cue_path(f'M{x} {y2-10*u} C{x-5*u} {y2-h*.3} {x+5*u} {y1+h*.3} {x} {y1+9*u}',c,accent,True,True)
+    nodes+=cue_path(f'M{x-7*u} {y2-4*u} L{x-7*u} {y2-9*u} Q{x} {y2-15*u} {x+7*u} {y2-9*u} L{x+7*u} {y2-4*u}',c,accent,True)
+    nodes+=arrow(x,y1+14*u,0,-1,5);nodes+=arrow(x,y1+h*(.45+i*.16),0,-1)
+  return [group(nodes,clip=bounds,role='fieldStill')]
  if k=='M':
   weak=r.get('strength',1)<1
   for i in range(1 if weak else 2):
@@ -72,14 +92,6 @@ def static_field(r,u,c):
      d=cloud_path(x,y,u,thin)
      nodes.append(path(d,c,opacity=R['thinCloudOpacity' if thin else 'cloudOpacity']))
      nodes.append(path(d,'none',accent,R['cloudEdgeWidth'],True,opacity=R['cloudEdgeOpacity'],role='cueAccent'))
-    else:
-     horizontal=k=='F';x=x1+i/cols*w if horizontal and direction>0 else x2-i/cols*w if horizontal else x1+w*(i+.5)/cols;y=y1+h*(j+.5)/rows if horizontal else y2-j/rows*h;dx=direction if horizontal else 0;dy=0 if horizontal else -1
-     d=f'M{x-dx*12*u} {y-dy*12*u} L{x+dx*12*u} {y+dy*12*u} M{x+dx*8*u-dy*3*u} {y+dy*8*u+dx*3*u} L{x+dx*12*u} {y+dy*12*u} L{x+dx*8*u+dy*3*u} {y+dy*8*u-dx*3*u}'
-     nodes+=cue_path(d,c,accent)
-  if k=='F':
-   for j in range(rows):
-    x=x1+6*u if direction>0 else x2-6*u;y=y1+h*(j+.5)/rows
-    nodes+=cue_path(f'M{x} {y+3*u} Q{x+direction*5*u} {y-3*u} {x+direction*13*u} {y}',c,accent)
  return [group(nodes,clip=bounds,role='fieldStill')]
 def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
  label,c=field_label(r)
@@ -90,7 +102,7 @@ def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
   x,y,rad=r['x'],r['y'],r['radius'];d=f'M{x-rad} {y} A{rad} {rad} 0 0 1 {x} {y-rad} M{x} {y+rad} A{rad} {rad} 0 0 0 {x+rad} {y}'
   nodes.append(path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame'))
   if labels:nodes.append(text(x-6*unit,y+6*unit,'＋' if r.get('direction',1)>0 else '−',18*unit,c,700,stroke=S['fieldAccents'][field_key(r)],strokeWidth=2,screenStroke=True,role='fieldPolarity'))
- settings={k:R[k] for k in ['cloudOpacity','thinCloudOpacity','cueOpacity','cueWidth','cueHaloWidth','cueHaloOpacity','cloudEdgeWidth','cloudEdgeOpacity']}
+ settings={k:R[k] for k in ['cloudOpacity','thinCloudOpacity','cueOpacity','cueWidth','cueHaloWidth','cueHaloOpacity','cloudEdgeWidth','cloudEdgeOpacity','flowCueWidth','flowCueOpacity','flowHaloWidth','flowHaloOpacity','flowBandOpacity','offscreenFlowSourceHint']}
  return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c,'accent':S['fieldAccents'][field_key(r)],**settings})
 def terminal(x,y,mat,pending=False):
  p=S['terminal'];out=[solid([(x-23,y+18),(x+23,y+18),(x+23,y+30),(x-23,y+30)],mat),rect(x-17,y-14,34,33,p['body']),rect(x-12,y-8,24,20,p['display']),text(x-8,y+9,'＋',18,p['symbol'],600)]

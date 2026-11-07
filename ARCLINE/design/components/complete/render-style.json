@@ -1,6 +1,6 @@
 {
   "schema": "arcline.component-render-style/v1",
-  "revision": "1.6",
+  "revision": "1.7",
   "naturalOutline": {
     "width": 0.8,
     "valueScale": 0.97
@@ -13,13 +13,13 @@
   "reflectiveEdgeWidth": 3,
   "bridgeContactWidth": 2,
   "fieldStateWidth": 1.0,
-  "contract": "Opaque terrain; shared functional hues have a stronger core and a thin light accent. Sparse field cues use fixed screen widths and a visibility floor, including weak states. Only active magnetic fields have a faint area frame. Inactive fields are invisible. Physics and geometry are unchanged.",
+  "contract": "Opaque terrain. Shared functional colors and thin light accents remain common across themes. Active wind/updraft/vent regions add a flat 14% area tint and complete streamlines from their true source edge to their true exit. Source hints point off-screen without relocating emitters. Only active magnets have a faint area frame. Inactive fields are invisible. Physics and geometry remain unchanged.",
   "fieldFrameOpacity": 0.25,
   "hiddenWhenInactive": true,
   "framedFieldKinds": [
     "M"
   ],
-  "fieldLabels": "magnet-polarity-only",
+  "fieldLabels": "magnet-polarity-and-clipped-flow-source-only",
   "cloudOpacity": 0.68,
   "thinCloudOpacity": 0.55,
   "windStrengthEncoding": "speed-only",
@@ -28,5 +28,12 @@
   "cueHaloWidth": 3.6,
   "cueHaloOpacity": 0.85,
   "cloudEdgeWidth": 1.4,
-  "cloudEdgeOpacity": 0.8
+  "cloudEdgeOpacity": 0.8,
+  "flowCueWidth": 2.4,
+  "flowCueOpacity": 0.95,
+  "flowHaloWidth": 4.0,
+  "flowHaloOpacity": 0.95,
+  "flowBandOpacity": 0.14,
+  "flowRangeEncoding": "flat-tint-full-streamlines-true-source-and-exit",
+  "offscreenFlowSourceHint": true
 }
