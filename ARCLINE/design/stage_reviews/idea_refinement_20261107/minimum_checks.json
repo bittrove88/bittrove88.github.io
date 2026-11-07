@@ -1,0 +1,300 @@
+{
+  "base": "74aed2be47e429cea3f502416a5d0b768adb3318",
+  "scope": "Design examples only. Round-3 fixtures advance boundaries without enemy turns. No AI, victory, balance, inventory campaign or device validation.",
+  "stages": [
+    {
+      "stage": 17,
+      "character": "gun",
+      "spawnsClear": true,
+      "initialCenterlineBlocked": true,
+      "headSpaceOpen": true,
+      "pickupsClear": true,
+      "examples": [
+        {
+          "label": "A: one W bounce",
+          "position": [
+            30,
+            19.5
+          ],
+          "angle": -6,
+          "power": 60,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 4,
+          "bounces": [
+            {
+              "solidId": "W0:floor0:5",
+              "surface": "reflector"
+            }
+          ]
+        }
+      ],
+      "reflectiveSurfaces": [
+        "W0:floor0:4",
+        "W0:floor0:5",
+        "W0:floor0:6"
+      ]
+    },
+    {
+      "stage": 33,
+      "character": "gun",
+      "spawnsClear": true,
+      "initialCenterlineBlocked": true,
+      "headSpaceOpen": true,
+      "pickupsClear": true,
+      "examples": [
+        {
+          "label": "B-right",
+          "position": [
+            60.8,
+            10
+          ],
+          "angle": 3,
+          "power": 65,
+          "damage": [
+            0,
+            1
+          ],
+          "neighbors": 5,
+          "bounces": [
+            {
+              "solidId": "W1:floor0:11",
+              "surface": "reflector"
+            }
+          ]
+        },
+        {
+          "label": "A-left",
+          "position": [
+            42.4,
+            29.3
+          ],
+          "angle": 24,
+          "power": 80,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 6,
+          "bounces": [
+            {
+              "solidId": "W0:floor0:3",
+              "surface": "reflector"
+            }
+          ]
+        }
+      ],
+      "reflectiveSurfaces": [
+        "W0:floor0:3",
+        "W0:floor0:4",
+        "W1:floor0:10",
+        "W1:floor0:11"
+      ]
+    },
+    {
+      "stage": 36,
+      "character": "gun",
+      "spawnsClear": true,
+      "initialCenterlineBlocked": true,
+      "headSpaceOpen": true,
+      "pickupsClear": true,
+      "examples": [
+        {
+          "label": "A: K",
+          "position": [
+            30,
+            12.642857142857144
+          ],
+          "angle": 45,
+          "power": 75,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 2,
+          "bounces": [
+            {
+              "solidId": "K0",
+              "surface": "crystal"
+            }
+          ]
+        },
+        {
+          "label": "B: opened gate, no K",
+          "position": [
+            75.40101639395662,
+            31.49872950755422
+          ],
+          "angle": 33,
+          "power": 55,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 9,
+          "bounces": []
+        }
+      ],
+      "reflectiveSurfaces": []
+    },
+    {
+      "stage": 39,
+      "character": "gun",
+      "spawnsClear": true,
+      "initialCenterlineBlocked": true,
+      "headSpaceOpen": true,
+      "pickupsClear": true,
+      "examples": [
+        {
+          "label": "A: K pose A",
+          "position": [
+            25,
+            40
+          ],
+          "angle": 0,
+          "power": 40,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 3,
+          "bounces": [
+            {
+              "solidId": "K1",
+              "surface": "crystal"
+            }
+          ]
+        },
+        {
+          "label": "B: K pose B",
+          "position": [
+            75.50131282746877,
+            14.801050261975012
+          ],
+          "angle": 78,
+          "power": 65,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 5,
+          "bounces": [
+            {
+              "solidId": "K1",
+              "surface": "crystal"
+            }
+          ]
+        },
+        {
+          "label": "W-only alternative",
+          "position": [
+            39,
+            21.18181818181818
+          ],
+          "angle": 39,
+          "power": 45,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 3,
+          "bounces": [
+            {
+              "solidId": "W0:floor1:4",
+              "surface": "reflector"
+            }
+          ]
+        }
+      ],
+      "reflectiveSurfaces": [
+        "W0:floor1:4"
+      ]
+    },
+    {
+      "stage": 47,
+      "character": "gun",
+      "spawnsClear": true,
+      "initialCenterlineBlocked": true,
+      "headSpaceOpen": true,
+      "pickupsClear": true,
+      "examples": [
+        {
+          "label": "lower, pose A",
+          "position": [
+            56.8,
+            6.259130434782605
+          ],
+          "angle": -9,
+          "power": 60,
+          "damage": [
+            0,
+            1
+          ],
+          "neighbors": 3,
+          "bounces": [
+            {
+              "solidId": "W0:floor0:7",
+              "surface": "reflector"
+            }
+          ]
+        },
+        {
+          "label": "upper, pose A",
+          "position": [
+            43.342304386616924,
+            40
+          ],
+          "angle": 57,
+          "power": 55,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 5,
+          "bounces": []
+        },
+        {
+          "label": "lower, pose B",
+          "position": [
+            56.8,
+            6.259130434782605
+          ],
+          "angle": -9,
+          "power": 60,
+          "damage": [
+            0,
+            1
+          ],
+          "neighbors": 3,
+          "bounces": [
+            {
+              "solidId": "W0:floor0:7",
+              "surface": "reflector"
+            }
+          ]
+        },
+        {
+          "label": "upper, pose B",
+          "position": [
+            43.6458378521452,
+            40
+          ],
+          "angle": 57,
+          "power": 55,
+          "damage": [
+            0,
+            1.5
+          ],
+          "neighbors": 5,
+          "bounces": []
+        }
+      ],
+      "reflectiveSurfaces": [
+        "W0:floor0:7"
+      ]
+    }
+  ],
+  "status": "PASS"
+}
