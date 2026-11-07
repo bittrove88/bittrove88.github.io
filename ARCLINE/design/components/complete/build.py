@@ -4,7 +4,10 @@ import argparse,copy,hashlib,json,math,re
 from vector import path,poly,line,rect,ellipse,text,group,translated,clip_path,wrap,background,svg
 P=Path(__file__).parent
 def read(name):return json.loads((P/name).read_text())
-M=read('manifest.json');S=read('shared-materials.json')['materials'];W=read('worlds.json');SCENES={r['id']:read(r['data']) for r in M['scenes']};BG={k:read(v['backgroundRef']) for k,v in SCENES.items()}
+M=read('manifest.json');S=read('shared-materials.json')['materials'];R=read('render-style.json');W=read('worlds.json');SCENES={r['id']:read(r['data']) for r in M['scenes']};BG={k:read(v['backgroundRef']) for k,v in SCENES.items()}
+def outline_color(ink,body,weight):
+ # An opaque material color, not alpha over a changing background.
+ return '#'+''.join(f'{round(int(ink[i:i+2],16)*weight+int(body[i:i+2],16)*(1-weight)):02X}' for i in [1,3,5])
 def select(stage,map_index=None):
  if not isinstance(stage,int) or isinstance(stage,bool) or not 1<=stage<=100:return None
  if stage==100:return SCENES.get('final-100-'+str(map_index)) if type(map_index)==int and 0<=map_index<=3 else None
@@ -18,18 +21,21 @@ def solid(points,mat,cap=None,fragile=False,screen=False,solid_id=None):
  for a in planes:nodes.append(poly([(x+w*u,y+h*v) for u,v in a['points']],p[a['color']]))
  if fragile:
   nodes.append(line([(x+w*.53,y+h*.15),(x+w*.45,y+h*.4),(x+w*.54,y+h*.59),(x+w*.46,y+h*.85)],p['cap'],2.2,screen));nodes.append(line([(x+w*.45,y+h*.4),(x+w*.25,y+h*.48)],p['cap'],1.5,screen))
- for a,b in cap or []:nodes.append(line([a,b],p['cap'],4,screen))
- out=[group(nodes,clip=clip_path(points),role='materialFill'),poly(points,'none',p['ink'],1.4,screen)]
+ for a,b in cap or []:nodes.append(line([a,b],p['cap'],R['contactEdgeWidth'],screen))
+ rule=R['functionalOutline' if fragile else 'naturalOutline']
+ out=[group(nodes,clip=clip_path(points),role='materialFill'),poly(points,'none',outline_color(p['ink'],p['face'],rule['inkWeight']),rule['width'],screen,role='materialOutline')]
  return group(out,role='solid',solidId=solid_id,collider=points,material='shared-breakable' if fragile else mat['name'])
 def reflector(points,screen=False):
  p=S['reflector'];a,b=points[:2];dx,dy=b[0]-a[0],b[1]-a[1];length=math.hypot(dx,dy) or 1
- inner=[poly(points,p['body']),line([a,b],p['edge'],3,screen)]
+ inner=[poly(points,p['body']),line([a,b],p['edge'],R['reflectiveEdgeWidth'],screen)]
  for k in range(1,4):
   t=k/4;x,y=a[0]+dx*t,a[1]+dy*t;inner.append(line([(x-dx/length*4,y-dy/length*4),(x-dy/length*4,y+dx/length*4)],p['marks'],1.3,screen))
- return group([group(inner,clip=clip_path(points)),poly(points,'none','#344E51',1.4,screen)],role='reflector',collider=points)
+ rule=R['functionalOutline']
+ return group([group(inner,clip=clip_path(points)),poly(points,'none',outline_color('#344E51',p['body'],rule['inkWeight']),rule['width'],screen)],role='reflector',collider=points)
 def bridge(points,hinge,screen=False):
  p=S['bridge'];a,b=points[:2]
- return group([poly(points,p['body'],p['ink'],1.4,screen),line([a,b],p['contact'],3,screen),ellipse(*hinge,7,7,p['hinge'],p['ink'],1.4)],role='bridge',collider=points)
+ rule=R['functionalOutline'];ink=outline_color(p['ink'],p['body'],rule['inkWeight'])
+ return group([poly(points,p['body'],ink,rule['width'],screen),line([a,b],p['contact'],R['bridgeContactWidth'],screen),ellipse(*hinge,7,7,p['hinge'],outline_color(p['ink'],p['hinge'],rule['inkWeight']),rule['width'])],role='bridge',collider=points)
 def field_label(r):
  active=r.get('on',True) and r.get('strength',1)>0;k=r['kind'];d=r.get('direction',1);symbol='×' if not active else {'C':'≈','F':'→' if d>0 else '←','U':'↑','V':'↑','M':'↻' if d>0 else '↺'}[k]
  color=S['fieldKinds']['off' if not active else k+('+' if d>0 else '-') if k in ['M','F'] else k]
@@ -55,11 +61,11 @@ def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
  label,c=field_label(r)
  if r['kind']=='M':
   x,y,rad=r['x'],r['y'],r['radius'];d=f'M{x-rad} {y} A{rad} {rad} 0 0 1 {x} {y-rad} M{x} {y+rad} A{rad} {rad} 0 0 0 {x+rad} {y}'
-  nodes=[path(d,'none','#304C58',3,True),path(d,'none',c,1.5,True)];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
+  nodes=[path(d,'none','#304C58',R['fieldBorderWidth'],True),path(d,'none',c,R['fieldStateWidth'],True)];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
  else:
   x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];q=min(18,(x2-x1)/4,(y2-y1)/4)
   d=f'M{x1+q} {y1} H{x1} V{y1+q} M{x2-q} {y1} H{x2} V{y1+q} M{x1} {y2-q} V{y2} H{x1+q} M{x2-q} {y2} H{x2} V{y2-q}'
-  nodes=[path(d,'none','#304C58',3,True),path(d,'none',c,1.5,True)];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
+  nodes=[path(d,'none','#304C58',R['fieldBorderWidth'],True),path(d,'none',c,R['fieldStateWidth'],True)];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
  return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']})
 def terminal(x,y,mat,pending=False):
  p=S['terminal'];out=[solid([(x-23,y+18),(x+23,y+18),(x+23,y+30),(x-23,y+30)],mat),rect(x-17,y-14,34,33,p['body']),rect(x-12,y-8,24,20,p['display']),text(x-8,y+9,'＋',18,p['symbol'],600)]
@@ -136,10 +142,22 @@ def overview(items,kind):
  for i,(style,row) in enumerate(items):
   x=24+i%cols*440;y=106+i//cols*286;ma=map_art(row,style,416,225);nodes.append(translated(ma['nodes'],x,y));nodes+=wrap(x,y+248,style['title'],27,15,'#304A4C',600)
  return {'schema':'arcline.vector-art/v1','id':'overview-'+kind,'width':w,'height':h,'backgroundColor':'#F3F0E8','nodes':nodes}
+def outline_comparison(rows,maps):
+ nodes=[rect(0,0,1600,1270,'#F3F0E8'),text(24,44,'ARCLINE / 輪郭の調整前・調整後',30,weight=600),text(24,78,'本体パレット・背景・形状は同一。外周線を本体色へ寄せ、足場の縁を細くする。',17,'#6C6865'),text(24,111,'前：外周1.4px / 接地辺4px',16,weight=600),text(824,111,'後：通常外周0.8px / 接地辺1.8px',16,weight=600)]
+ for i,stage in enumerate(['4','61','59']):
+  y=149+i*364;row=rows[stage];style=select(row['stage']);before=read('references/components-v1/'+stage+'.json');after=maps[stage]
+  for x,graph in [(24,before),(824,after)]:
+   nodes.append(text(x,y-12,style['title'],17,weight=600));nodes.append(group(graph['nodes'],[.752,0,0,.752,x,y]))
+ nodes.append(text(24,1252,'反射辺と機能色は維持。暗い線で囲う表現から、素材の色面と控えめな輪郭で分ける表現へ。',15,'#6C6865'))
+ return {'schema':'arcline.vector-art/v1','id':'outline-comparison','width':1600,'height':1270,'backgroundColor':'#F3F0E8','nodes':nodes}
 def validate_inputs():
  sources=read('source-manifest.json')
  for ref in sources['references']:
   if hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()!=ref['sha256']:raise ValueError('Reference changed: '+ref['file'])
+ for ref in read('outline-reference.json')['maps']:
+  if hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()!=ref['sha256']:raise ValueError('Outline baseline changed: '+ref['file'])
+ for kind in ['naturalOutline','functionalOutline']:
+  assert 0<R[kind]['width']<=1 and 0<=R[kind]['inkWeight']<=1
  assert len(SCENES)==33 and len(W['worlds'])==103
  assert {s['themeIndex'] for s in SCENES.values() if s['kind']=='normal'}==set(range(20))
  assert len([s for s in SCENES.values() if s['kind']=='boss'])==9
@@ -159,9 +177,10 @@ def main():
  graphs['shared-states']=state_sheet()
  for kind in ['normal','boss','final']:
   items=[(s,rows['100-'+str(s['mapIndex']) if kind=='final' else str(s['sampleStage'])]) for s in SCENES.values() if s['kind']==kind];graphs['overview-'+kind]=overview(items,kind)
+ graphs['outline-comparison']=outline_comparison(rows,maps)
  for name,graph in graphs.items():
   outputs['graphs/'+name+'.json']=json.dumps(graph,ensure_ascii=False,separators=(',',':'));outputs['svg/'+name+'.svg']=svg(graph)
- bundle={'manifest':M,'styles':SCENES,'worlds':W['worlds'],'graphs':graphs,'maps':maps}
+ bundle={'manifest':M,'styles':SCENES,'renderStyle':R,'worlds':W['worlds'],'graphs':graphs,'maps':maps}
  outputs['collection.json']=json.dumps(bundle,ensure_ascii=False,separators=(',',':'))
  template=(P/'gallery.template.html').read_text();code=(P/'renderer.js').read_text();outputs['index.html']=template.replace('/* COMPONENT_RENDERER */',code).replace('/* COMPONENT_DATA */','const COLLECTION='+outputs['collection.json'].replace('</','<\\/')+';')
  changed=[]
@@ -171,5 +190,5 @@ def main():
    if not target.exists() or target.read_text()!=value:changed.append(name)
   else:target.parent.mkdir(parents=True,exist_ok=True);target.write_text(value)
  if changed:raise SystemExit('OUT OF DATE: '+', '.join(changed))
- print('PASS: 33 theme sheets, common state sheet, 3 overviews, 103 map views; '+('generated output synchronized' if args.check else 'generated'))
+ print('PASS: 33 theme sheets, common state sheet, 3 overviews, outline comparison, 103 map views; '+('generated output synchronized' if args.check else 'generated'))
 if __name__=='__main__':main()

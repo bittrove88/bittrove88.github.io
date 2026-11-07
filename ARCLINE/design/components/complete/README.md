@@ -4,6 +4,8 @@
 
 **制作済み・新作のデザイン確認待ち・ゲーム未統合。** 方針の承認、個別アートの承認、実ゲームの検証を区別する。背景の編集正本は変更しない。
 
+**輪郭改訂1.1：** [調整前後の比較](png/outline-comparison.png)。背景の素材・色相に合わせた専用パレットは維持し、通常外周を1.4pxから0.8pxへ、本体色になじむ線色へ調整。接地辺は4pxから1.8pxへ抑えた。破壊材・反射面の識別色は全テーマで共通のまま。[配色と輪郭の考え方](ART_DIRECTION.md#コンポーネント用の配色と輪郭)を参照。
+
 [比較ギャラリー](index.html) ／ [制作セットZIP](ARCLINE_Component_Collection.zip) ／ [設計一覧](ART_DIRECTION.md) ／ [実装引き継ぎ](IMPLEMENTATION_HANDOFF.md) ／ [内部確認](REVIEW_NOTES.md) ／ [検証記録](VALIDATION.md)
 
 ![通常20テーマ](png/overview-normal.png)
@@ -20,6 +22,7 @@ ZIPを展開して `index.html` をブラウザで開く。ページはデータ
 | --- | --- |
 | `data/*.json` 全33件 | 個別の地盤材・支持材パレットと正規化した色面。テーマ別美術の編集正本 |
 | `shared-materials.json` | 破壊材・反射面・橋・端子・作用領域の共通色。テーマ内で複製・上書きしない |
+| `render-style.json` | 全テーマ共通の線幅・本体色との混合率。配色パレットとは分けて管理 |
 | `build.py`、`vector.py` | 部品の造形、状態表示、図版の構成。マップの生成元ではない |
 | `manifest.json` | 全33景のID・面・最終mapIndex・出力先 |
 | `worlds.json` | 現行1〜99面＋最終4戦場の103比較用スナップショット。ゲームに読み戻さない |
@@ -28,7 +31,7 @@ ZIPを展開して `index.html` をブラウザで開く。ページはデータ
 
 配色だけでなく、色面の配置も個別JSONで編集する。`planes[].points` は部品の外接矩形に対する0〜1座標、`color` はその材質のパレットキー。描画時に実際のポリゴン内へクリップする。材質が輪郭を決める構造にはしない。
 
-生成物は `graphs/` 37件、`svg/`・`png/` 各37件、`maps/` 103件、`collection.json`、`index.html`。SVG・PNG・生成JSONを直接修正しない。
+生成物は `graphs/` 38件、`svg/`・`png/` 各38件、`maps/` 103件、`collection.json`、`index.html`。33景・共通状態・一覧3枚に輪郭の調整前後比較1枚を含む。SVG・PNG・生成JSONを直接修正しない。
 
 ```sh
 # リポジトリルートから。Python標準ライブラリのみでベクトル生成
