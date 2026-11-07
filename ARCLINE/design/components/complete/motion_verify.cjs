@@ -21,7 +21,7 @@ async function main(){
   const integrity=await page.evaluate(()=>{const before=JSON.stringify(COLLECTION);const freeze=o=>{if(o&&typeof o==='object'&&!Object.isFrozen(o)){Object.freeze(o);Object.values(o).forEach(freeze);}};freeze(COLLECTION);return before;});
   const drawing=await page.evaluate(()=>{
    const assert=(x,m)=>{if(!x)throw Error(m);},data=COLLECTION.motion,stats=[];let contextFrames=0;
-   function pixels(c,t,reduced=false,context=data.contexts[0],motion=true){const graph={...context.graph,nodes:[...context.graph.nodes,...c.nodes]},canvas=document.createElement('canvas');canvas.width=1000;canvas.height=430;ArcComponentCollection.draw(canvas.getContext('2d'),1000,430,graph,{fieldMotion:motion,time:t,reducedMotion:reduced});return canvas.getContext('2d').getImageData(0,0,1000,430).data;}
+   function pixels(c,t,reduced=false,context=data.contexts[0],motion=true){const graph={...context.graph,nodes:[...context.graph.nodes,...c.nodes]},canvas=document.createElement('canvas');canvas.width=1000;canvas.height=430;ArcComponentCollection.draw(canvas.getContext('2d'),1000,430,graph,{fieldMotion:motion,hideFields:!motion,time:t,reducedMotion:reduced});return canvas.getContext('2d').getImageData(0,0,1000,430).data;}
    function changed(a,b){let n=0;for(let i=0;i<a.length;i+=4)if(a[i]!==b[i]||a[i+1]!==b[i+1]||a[i+2]!==b[i+2])n++;return n;}
    for(const c of data.cases){
     const active=c.state.on!==false&&(c.state.strength??1)>0,a=pixels(c,0),b=pixels(c,1.25),n=changed(a,b),ink=changed(a,pixels(c,0,false,data.contexts[0],false));assert(active?n>20:n===0,'motion state '+c.id);assert(changed(pixels(c,0,true),pixels(c,3,true))===0,'reduced motion '+c.id);
@@ -29,11 +29,14 @@ async function main(){
     for(const context of data.contexts)for(const t of [0,1,3,7]){pixels(c,t,false,context);contextFrames++;}
     stats.push({id:c.id,active,movingPixels:n,cuePixels:ink});
    }
-   const stat=id=>stats.find(s=>s.id===id);assert(stat('wind-weak').cuePixels<stat('wind-right').cuePixels,'weak wind density');assert(stat('magnet-weak').cuePixels<stat('magnet-positive').cuePixels,'weak magnetic density');
+   const stat=id=>stats.find(s=>s.id===id);assert(changed(pixels(data.cases.find(c=>c.id==='wind-weak'),0),pixels(data.cases.find(c=>c.id==='wind-right'),0))===0,'wind appearance unchanged by strength');assert(changed(pixels(data.cases.find(c=>c.id==='wind-weak'),.75*.35/.18),pixels(data.cases.find(c=>c.id==='wind-right'),.75))<20,'wind strength encoded by speed');assert(stat('magnet-weak').cuePixels<stat('magnet-positive').cuePixels,'weak magnetic density');
    const probe=document.createElement('canvas').getContext('2d');probe.setTransform(2,0,0,2,9,13);probe.globalAlpha=.37;probe.filter='blur(1px)';probe.setLineDash([3,7]);
    const state=()=>JSON.stringify([Array.from(probe.getTransform().toFloat64Array()),probe.globalAlpha,probe.filter,probe.getLineDash()]);const before=state();ArcComponentCollection.draw(probe,1000,430,{...data.contexts[0].graph,nodes:[...data.contexts[0].graph.nodes,...data.cases[6].nodes]},{fieldMotion:true,time:2});assert(state()===before,'motion context state');
    const walk=a=>[a,...(a.children||[]).flatMap(walk)];let frames=0,badges=0;
-   for(const g of Object.values(COLLECTION.maps))for(const n of g.nodes.flatMap(walk)){if(n.role==='field'){const paths=n.children.filter(c=>c.role==='fieldFrame'),active=n.sourceState.on!==false&&(n.sourceState.strength??1)>0;assert(paths.length===1,'single field frame');assert(paths[0].opacity===(active?.25:.08),'state-specific frame opacity');assert(paths[0].strokeWidth===1,'thin field frame');frames++;}if(n.role==='stateBadge'){assert(n.opacity===undefined,'label opacity');badges++;}if(n.opacity!==undefined)assert(n.role==='fieldFrame','unexpected art transparency');}
+   for(const g of Object.values(COLLECTION.maps)){
+    const all=g.nodes.flatMap(walk),fieldNodes=new Set(all.filter(n=>n.role==='field').flatMap(walk));
+    for(const n of all){if(n.role==='field'){const active=n.sourceState.on!==false&&(n.sourceState.strength??1)>0,paths=n.children.filter(c=>c.role==='fieldFrame');assert(paths.length===(active&&n.sourceState.kind==='M'?1:0),'magnet frame only');if(!active)assert(n.children.length===0,'inactive field hidden');frames+=paths.length;}if(n.role==='stateBadge')badges++;if(n.opacity!==undefined)assert(fieldNodes.has(n),'opacity limited to fields');}
+   }assert(badges===0,'no routine ON/OFF labels');
    return {cases:stats,contextFrames,transparentFramePaths:frames,opaqueBadges:badges,reducedMotionCases:data.cases.length,motionContextRestored:true};
   });
   let controls=0;
@@ -54,7 +57,7 @@ async function main(){
   assert.equal(await page.evaluate(()=>JSON.stringify(COLLECTION)),integrity,'data mutated');assert.equal(await page.evaluate(()=>localStorage.length),0);assert.equal(errors.length,0);assert.equal(external.length,0);
   const reducedPage=await browser.newPage({reducedMotion:'reduce'});await reducedPage.goto(origin+'/gimmick-motion.html');assert.equal(await reducedPage.evaluate(()=>motionPreviewState.playing),false);assert.equal(await reducedPage.locator('#reduced').isChecked(),true);await reducedPage.close();
   const recordings=['gimmick-motion.gif','gimmick-motion.mp4'].map(file=>({file,bytes:fs.statSync(path.join(root,file)).size,sha256:hash(fs.readFileSync(path.join(root,file)))}));
-  const report={scope:'Independent art motion study, not game integration or ballistic simulation.',gameStateExamples:13,...drawing,uiSelections:controls,cycleStates,layouts,frameOpacity:.25,offFrameOpacity:.08,frameWidth:1,haloRemoved:true,labelsOpaque:true,pauseResume:true,reducedMotionPreference:true,dataImmutable:true,saveWrites:0,javaScriptErrors:errors,externalHTTP:external,recordings,videoFrames:520,gifFrames:192};
+  const report={scope:'Independent art motion study, not game integration or ballistic simulation.',gameStateExamples:13,...drawing,uiSelections:controls,cycleStates,layouts,frameOpacity:.25,frameWidth:1,framedKinds:['M'],inactiveHidden:true,fieldBadges:0,windStrengthEncoding:'speed-only',pauseResume:true,reducedMotionPreference:true,dataImmutable:true,saveWrites:0,javaScriptErrors:errors,externalHTTP:external,recordings,videoFrames:520,gifFrames:192};
   fs.writeFileSync(path.join(root,'motion-validation.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({...report,cases:report.cases.length},null,2));
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 }

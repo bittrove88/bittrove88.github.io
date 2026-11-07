@@ -67,7 +67,7 @@
       "id": "vent-off",
       "title": "V：噴気 OFF",
       "effect": "V",
-      "note": "噴出は止まり、位置の枠とOFFラベルだけ残る。",
+      "note": "停止時は演出・枠・画面内のOFF文字を表示しない。",
       "state": {
         "kind": "V",
         "direction": 1,
@@ -115,7 +115,7 @@
       "id": "magnet-off",
       "title": "M：停止",
       "effect": "M",
-      "note": "回転は停止し、OFFを明示する。",
+      "note": "停止時は回転・枠・極性記号を非表示。",
       "state": {
         "kind": "M",
         "direction": 1,
@@ -127,7 +127,7 @@
       "id": "wind-weak",
       "title": "F：風の弱化",
       "effect": "F",
-      "note": "矢印の数と速さを抑え、弱ONを併記する。",
+      "note": "見た目・数・出る位置は同じ。流れる速度だけを抑える。",
       "state": {
         "kind": "F",
         "direction": 1,
@@ -139,7 +139,7 @@
       "id": "wind-off",
       "title": "F：風の停止",
       "effect": "F",
-      "note": "矢印は消し、領域の位置とOFFを残す。",
+      "note": "風の演出も画面内のOFF文字も非表示。",
       "state": {
         "kind": "F",
         "direction": 1,
@@ -151,7 +151,7 @@
       "id": "cloud-thin",
       "title": "C：薄くなった雲",
       "effect": "C",
-      "note": "雲を薄くし、速度倍率×0.85を併記する。",
+      "note": "薄い雲も見失わない濃さを残す。枠や画面内の倍率ラベルは付けない。",
       "state": {
         "kind": "C",
         "direction": 1,

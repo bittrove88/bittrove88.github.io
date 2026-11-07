@@ -29,9 +29,7 @@ async function main(){
     const foreground=nodes.find(n=>n.role==='foreground'),visible=foreground.children.filter(n=>n.collider);
     assert(visible.length===row.world.solids.length,'solid count '+row.id);
     for(let i=0;i<visible.length;i++){assert(JSON.stringify(visible[i].collider)===JSON.stringify(row.world.solids[i].poly.map(p=>[p.x,p.y])),'collider changed '+row.id);colliders++;}
-    const badges=walk(foreground).filter(n=>n.role==='stateBadge');assert(badges.length===row.world.regions.length,'missing field badge');
-    const [scale,,,sy,ox,oy]=foreground.transform,[px,py]=foreground.pivot;
-    for(const badge of badges)for(const zoom of [1,.9]){const [l,t,r,b]=badge.bounds;for(const [x,y]of [[l,t],[r,b]]){const xx=(px+(x-px)*zoom)*scale+ox,yy=(py+(y-py)*zoom)*sy+oy;assert(xx>=-1e-6&&xx<=graph.width+1e-6&&yy>=-1e-6&&yy<=graph.height+1e-6,'badge clipped '+row.id);}visibleFieldBadges++;}
+    const badges=walk(foreground).filter(n=>n.role==='stateBadge');assert(badges.length===0,'no routine field badges');
     const regions=nodes.filter(n=>n.role==='field');assert(regions.length===row.world.regions.length,'field count');
     regions.forEach((n,i)=>{for(const key of ['kind','direction','on','strength'])assert((n.sourceState[key]??null)===(row.world.regions[i][key]??null),'field state '+key);fields++;});
    }

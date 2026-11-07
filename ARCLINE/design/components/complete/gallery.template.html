@@ -6,7 +6,7 @@
 <nav aria-label="表示カテゴリ"><button data-kind="normal" aria-pressed="true">通常20テーマ</button><button data-kind="boss" aria-pressed="false">大ボス9景</button><button data-kind="final" aria-pressed="false">最終4戦場</button><button data-kind="states" aria-pressed="false">共通部品・状態</button></nav>
 <div class="controls"><label>テーマ <select id="scene"></select></label><label>表示 <select id="mode"><option value="sheet">部品シート</option><option value="map">現行マップ比較</option></select></label><span class="stage-controls"><label>面 <select id="stage"></select></label></span></div>
 <div class="controls"><label><input id="background" type="checkbox" checked>背景を表示</label><label><input id="collision" type="checkbox">当たり判定の輪郭</label><label><input id="charge" type="checkbox">戦場を90%表示</label></div>
-<p><a href="gimmick-motion.html">風・噴気・磁場などの動きと切り替わりを見る →</a></p><h2 id="title"></h2><p id="description"></p><p class="status">部品シートは横スクロールで拡大表示できます。現行マップ比較の丸印は配置マーカーで、実際の機体・弾道・HUDとの視認性検証ではありません。</p>
+<p><a href="gimmick-motion.html">風・噴気・磁場などの動きと切り替わりを見る →</a> ／ <a href="game-context/index.html">実ゲームの機体・HUDと重ねた確認</a> ／ <a href="png/terrain-comparison.png">地形の調整前後</a></p><h2 id="title"></h2><p id="description"></p><p class="status">部品シートは横スクロールで拡大表示できます。この比較の丸印は配置マーカーです。実際の機体・射線・HUDを使った確認は、上の「実ゲームの機体・HUDと重ねた確認」へまとめています。</p>
 </header><main><div class="viewer"><canvas id="art" aria-label="地形とオブジェクトの比較見本"></canvas></div><p class="links"><a id="svg" href="svg/normal-00.svg">SVGを開く</a><a id="png" href="png/normal-00.png">PNGを開く</a><a href="png/outline-comparison.png">輪郭の調整前後を比較</a><a href="README.md">制作・引き継ぎ</a><a href="ART_DIRECTION.md">テーマごとの設計</a></p></main>
 <footer>背景はPR #106の固定コミットを参照。各コンポーネントの素材・描き方を制作する資料であり、マップの座標・形状・機能・物理・AI・保存を変更しません。最終4戦場は専用の素材を使い、通常96〜99面へ前倒ししません。</footer>
 <script>

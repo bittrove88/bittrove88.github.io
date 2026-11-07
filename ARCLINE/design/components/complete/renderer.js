@@ -9,8 +9,9 @@ function select(manifest,stage,mapIndex=null){
 }
 function draw(ctx,width,height,scene,options={}){
  if(!ctx||!scene||!Array.isArray(scene.nodes)||![width,height].every(x=>Number.isFinite(x)&&x>0))throw Error('Invalid component artwork');
- const initial=ctx.getTransform(),pixelScale=Math.hypot(initial.a,initial.b)||1;
+ const initial=ctx.getTransform(),pixelScale=options.pixelRatio||Math.hypot(initial.a,initial.b)||1;
  function node(a){
+  if(a.role==='fieldStill'&&options.fieldMotion||a.role==='field'&&options.hideFields)return;
   if(a.role==='background'&&options.hideBackground||a.role==='collisionOverlay'&&!options.collision)return;
   ctx.save();try{
    if(a.opacity!==undefined)ctx.globalAlpha*=a.opacity;
@@ -18,7 +19,8 @@ function draw(ctx,width,height,scene,options={}){
     if(a.transform)ctx.transform(...a.transform);
     if(a.clip)ctx.clip(new Path2D(a.clip));
     if(a.role==='foreground'&&options.chargeZoom){const [x,y]=a.pivot;ctx.translate(x,y);ctx.scale(.9,.9);ctx.translate(-x,-y);}
-    if(a.role==='field'&&a.motion&&options.fieldMotion){const m=ctx.getTransform();fieldMotion(ctx,a.motion,options.reducedMotion?0:options.time||0,pixelScale/Math.max(.0001,Math.hypot(m.a,m.b)));}
+    if(a.role==='field'&&options.fieldBounds){const b=options.fieldBounds;ctx.beginPath();ctx.rect(b.left,b.top,b.right-b.left,b.bottom-b.top);ctx.clip();}
+    if(a.role==='field'&&a.motion&&options.fieldMotion){const m=ctx.getTransform();fieldMotion(ctx,a.motion,options.reducedMotion?0:options.time||0,pixelScale/Math.max(.0001,Math.hypot(m.a,m.b)),options.fieldBounds);}
     for(const child of a.children)node(child);return;
    }
    if(a.type==='text'){ctx.fillStyle=a.fill;ctx.font=`${a.weight} ${a.size}px "Noto Sans CJK JP",Arial,sans-serif`;ctx.fillText(a.text,a.x,a.y);return;}
@@ -34,7 +36,7 @@ function draw(ctx,width,height,scene,options={}){
  }finally{ctx.restore();}
 }
 // Decorative direction cues. This never integrates projectile physics or changes region state.
-function fieldMotion(ctx,r,time,u){
+function fieldMotion(ctx,r,time,u,visible){
  if(r.on===false||(r.strength??1)<=0)return;
  const t=Number.isFinite(time)?Math.max(0,time):0,dir=r.direction<0?-1:1;
  ctx.save();try{
@@ -49,23 +51,25 @@ function fieldMotion(ctx,r,time,u){
     const x=r.x+Math.cos(b)*rad,y=r.y+Math.sin(b)*rad;arrow(x,y,-Math.sin(b)*dir,Math.cos(b)*dir,3*u);
    }return;
   }
-  const w=r.x2-r.x1,h=r.y2-r.y1;ctx.beginPath();ctx.rect(r.x1,r.y1,w,h);ctx.clip();
+  const bounds={x1:Math.max(r.x1,visible?.left??r.x1),x2:Math.min(r.x2,visible?.right??r.x2),y1:Math.max(r.y1,visible?.top??r.y1),y2:Math.min(r.y2,visible?.bottom??r.y2)};
+  const source=r;r={...r,...bounds};const w=r.x2-r.x1,h=r.y2-r.y1;if(w<=0||h<=0)return;ctx.beginPath();ctx.rect(r.x1,r.y1,w,h);ctx.clip();
   const cols=Math.max(1,Math.min(3,Math.ceil(w/(125*u)))),rows=Math.max(1,Math.min(2,Math.ceil(h/(95*u))));
   if(r.kind==='C'){
-   const thin=(r.slow??.72)>.72;ctx.globalAlpha*=thin?.10:.17;
+   const thin=(r.slow??.72)>.72;ctx.globalAlpha*=thin?(r.thinCloudOpacity??.27):(r.cloudOpacity??.40);
    for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
     const x=r.x1+w*(i+.5)/cols,y=r.y1+h*(j+.52)/rows+Math.sin(t*Math.PI/4+i+j)*2*u;
-    for(let k=0;k<(thin?2:3);k++){ctx.beginPath();ctx.ellipse(x+(k-1)*12*u,y-(k%2)*3*u,18*u,6*u,0,0,Math.PI*2);ctx.fill();}
+    ctx.beginPath();for(let k=0;k<(thin?2:3);k++){const cx=x+(k-1)*18*u,cy=y-(k%2)*5*u;ctx.moveTo(cx+26*u,cy);ctx.ellipse(cx,cy,26*u,10*u,0,0,Math.PI*2);}ctx.fill();
    }return;
   }
-  const horizontal=r.kind==='F',weak=horizontal&&(r.strength??.35)<.35,period=weak?8:horizontal?4:r.kind==='V'?4:8;
-  ctx.globalAlpha*=weak?.25:.40;
+  const horizontal=r.kind==='F',speed=horizontal?36*u*(r.strength??.35)/.35:(r.kind==='V'?48:30)*u,period=(horizontal?w:h)/Math.max(.01,speed);
+  ctx.globalAlpha*=horizontal?.40:.50;
+  if(!horizontal)ctx.strokeStyle='#'+[1,3,5].map(i=>Math.round(parseInt(r.color.slice(i,i+2),16)*.78).toString(16).padStart(2,'0')).join('');
+  if(horizontal){const sx=dir>0?source.x1+6*u:source.x2-6*u;ctx.save();ctx.globalAlpha*=.7;for(let j=0;j<rows;j++){const y=r.y1+h*(j+.5)/rows;ctx.beginPath();ctx.moveTo(sx,y+3*u);ctx.quadraticCurveTo(sx+dir*5*u,y-3*u,sx+dir*13*u,y);ctx.stroke();}ctx.restore();}
   for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
-   if(weak&&i>0)continue;
    const phase=((t/period+(horizontal?i/cols:j/rows))%1+1)%1;
    const x=horizontal?r.x1+(dir>0?phase:1-phase)*w:r.x1+w*(i+.5)/cols;
    const y=horizontal?r.y1+h*(j+.5)/rows:r.y2-phase*h;
-   arrow(x,y,horizontal?dir:0,horizontal?0:-1,(weak?8:12)*u);
+   arrow(x,y,horizontal?dir:0,horizontal?0:-1,12*u);
    if(r.kind==='V'){ctx.globalAlpha*=.65;ctx.beginPath();ctx.moveTo(x-3*u,y+14*u);ctx.quadraticCurveTo(x+5*u,y+20*u,x-2*u,y+29*u);ctx.stroke();ctx.globalAlpha/=.65;}
   }
  }finally{ctx.restore();}

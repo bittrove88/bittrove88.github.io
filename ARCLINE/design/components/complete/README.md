@@ -4,7 +4,7 @@
 
 **制作済み・新作のデザイン確認待ち・ゲーム未統合。** 方針の承認、個別アートの承認、実ゲームの検証を区別する。背景の編集正本は変更しない。
 
-**作用領域の改訂1.4：** [動きと切替のプレビュー](gimmick-motion.html) ／ [アニメーションGIF](gimmick-motion.gif) ／ [動画](gimmick-motion.mp4) ／ [デザイナーとしての再評価](DESIGN_REVIEW.md)。枠を1pxの一重線へ整理し、不透明度をON時25%・OFF時8%へ抑えた。本体の動きは1.3から維持。方向・弱化・停止を少数の動きで表す。文字は不透明、地形・機能色・物理は維持。ZIP展開後の `gimmick-motion.html` で操作できる。
+**改訂1.5：** [地形の調整前後](png/terrain-comparison.png) ／ [実ゲームの描画・HUDで確認](game-context/index.html) ／ [動きと切替](gimmick-motion.html)。地形の内部コントラストと彩度を抑え、磁場以外の枠・定型ラベルとOFF表示を省いた。雲は濃さを戻し、風は同じ見た目のまま流速で強さを伝える。
 
 **輪郭改訂1.2：** [調整前後の比較](png/outline-comparison.png)。暗いinkの混色をやめ、素材と同じ色相の線へ変更した。通常外周0.8px・機能部品0.9px・接地辺1.8pxは維持。砂岩は砂色、氷は青、破壊材は紫でなじませる。[配色と輪郭の考え方](ART_DIRECTION.md#コンポーネント用の配色と輪郭)を参照。
 
@@ -34,7 +34,7 @@ ZIPを展開して `index.html` をブラウザで開く。ページはデータ
 
 配色だけでなく、色面の配置も個別JSONで編集する。`planes[].points` は部品の外接矩形に対する0〜1座標、`color` はその材質のパレットキー。描画時に実際のポリゴン内へクリップする。材質が輪郭を決める構造にはしない。
 
-生成物は `graphs/` 38件、`svg/`・`png/` 各38件、`maps/` 103件、`collection.json`、`index.html`。33景・共通状態・一覧3枚に輪郭の調整前後比較1枚を含む。SVG・PNG・生成JSONを直接修正しない。
+生成物は `graphs/` 39件、`svg/`・`png/` 各39件、`maps/` 103件、`collection.json`、`index.html`。33景・共通状態・一覧3枚に輪郭と地形の調整前後比較各1枚を含む。SVG・PNG・生成JSONを直接修正しない。
 
 ```sh
 # リポジトリルートから。Python標準ライブラリのみでベクトル生成
@@ -44,6 +44,7 @@ python3 ARCLINE/design/components/complete/build.py --check
 # ARCLINEのPlaywright依存・ChromiumでPNGと検証記録を生成
 node ARCLINE/design/components/complete/render_verify.cjs
 node ARCLINE/design/components/complete/motion_verify.cjs
+node ARCLINE/design/components/complete/game_context_verify.cjs
 python3 ARCLINE/design/components/complete/package.py
 python3 ARCLINE/design/components/complete/package.py --check
 ```
@@ -54,4 +55,4 @@ python3 ARCLINE/design/components/complete/package.py --check
 
 動きは `fieldMotion:true, time:秒数`、静止した手掛かりは `reducedMotion:true` で確認できる。GIF／MP4の再生成にはFFmpegが必要。確認用の一時フレームは `ARCLINE_MOTION_EVIDENCE_DIR`（既定 `/tmp/arcline-field-motion`）へ出力する。動きのプレビューは `prefers-reduced-motion` を尊重し、非表示タブでは再生を進めない。
 
-ゲーム本体への組み込み、実際の機体・射線・HUDとの視認性、実戦、実機、性能、公開は別工程。[接続時に維持する条件](IMPLEMENTATION_HANDOFF.md)を参照する。
+実際の機体・射線・HUDへの一時適用は `game-context/` に確認を保存した。ゲーム本体への正式な組み込み、実戦、実機、性能、公開は別工程。[接続時に維持する条件](IMPLEMENTATION_HANDOFF.md)を参照する。

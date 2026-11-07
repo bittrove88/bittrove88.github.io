@@ -47,28 +47,43 @@ def field_label(r):
 def badge(x,y,label,color,width=None,unit=1):
  width=(width or max(64,len(label)*10+18))*unit
  return [rect(x-width/2,y-18*unit,width,26*unit,S['fieldKinds']['ink'],role='stateBadge',bounds=[x-width/2,y-18*unit,x+width/2,y+8*unit]),text(x-width/2+8*unit,y,label,13*unit,color,600)]
+def static_field(r,u,c):
+ nodes=[];k=r['kind'];direction=r.get('direction',1)
+ if k=='M':
+  weak=r.get('strength',1)<1
+  for i in range(1 if weak else 2):
+   radius=r['radius']*(.56 if weak else .38+i*.26);a=i*2.3*direction;b=a+direction*1.15;x,y=r['x'],r['y']
+   nodes.append(path(f'M{x+math.cos(a)*radius} {y+math.sin(a)*radius} A{radius} {radius} 0 0 {1 if direction>0 else 0} {x+math.cos(b)*radius} {y+math.sin(b)*radius}','none',c,1.4,True,opacity=.28 if weak else .42))
+  bounds=clip_path([(r['x']-r['radius'],r['y']-r['radius']),(r['x']+r['radius'],r['y']-r['radius']),(r['x']+r['radius'],r['y']+r['radius']),(r['x']-r['radius'],r['y']+r['radius'])])
+ else:
+  x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];w,h=x2-x1,y2-y1;cols=max(1,min(3,math.ceil(w/(125*u))));rows=max(1,min(2,math.ceil(h/(95*u))));bounds=clip_path([(x1,y1),(x2,y1),(x2,y2),(x1,y2)])
+  for j in range(rows):
+   for i in range(cols):
+    if k=='C':
+     thin=r.get('slow',.72)>.72;x=x1+w*(i+.5)/cols;y=y1+h*(j+.52)/rows+math.sin(i+j)*2*u
+     d=''
+     for z in range(2 if thin else 3):
+      cx=x+(z-1)*18*u;cy=y-(z%2)*5*u;rx,ry=26*u,10*u;d+=f'M{cx+rx} {cy} A{rx} {ry} 0 1 0 {cx-rx} {cy} A{rx} {ry} 0 1 0 {cx+rx} {cy} Z '
+     nodes.append(path(d,c,opacity=R['thinCloudOpacity' if thin else 'cloudOpacity']))
+    else:
+     horizontal=k=='F';x=x1+i/cols*w if horizontal and direction>0 else x2-i/cols*w if horizontal else x1+w*(i+.5)/cols;y=y1+h*(j+.5)/rows if horizontal else y2-j/rows*h;dx=direction if horizontal else 0;dy=0 if horizontal else -1
+     nodes.append(line([(x-dx*12*u,y-dy*12*u),(x+dx*12*u,y+dy*12*u)],c,1.4,True,opacity=.4))
+     nodes.append(line([(x+dx*8*u-dy*3*u,y+dy*8*u+dx*3*u),(x+dx*12*u,y+dy*12*u),(x+dx*8*u+dy*3*u,y+dy*8*u-dx*3*u)],c,1.4,True,opacity=.4))
+  if k=='F':
+   for j in range(rows):
+    x=x1+6*u if direction>0 else x2-6*u;y=y1+h*(j+.5)/rows
+    nodes.append(path(f'M{x} {y+3*u} Q{x+direction*5*u} {y-3*u} {x+direction*13*u} {y}','none',c,1.4,True,opacity=.28))
+ return [group(nodes,clip=bounds,role='fieldStill')]
 def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
- def label_at(x,y,label,c):
-  width=max(64,len(label)*10+18)*unit
-  if label_bounds:
-   left,top,right,bottom=label_bounds;x=max(left+width/2,min(right-width/2,x));y=max(top+18*unit,min(bottom-8*unit,y));desired=y
-   def box(yy):return (x-width/2,yy-18*unit,x+width/2,yy+8*unit)
-   def overlap(a,b):return a[0]<b[2]+3*unit and a[2]>b[0]-3*unit and a[1]<b[3]+3*unit and a[3]>b[1]-3*unit
-   if occupied is not None:
-    candidates=[desired]+[desired+sign*n*31*unit for n in range(1,9) for sign in [1,-1]]
-    y=next((yy for yy in candidates if top+18*unit<=yy<=bottom-8*unit and not any(overlap(box(yy),b) for b in occupied)),desired);occupied.append(box(y))
-  return badge(x,y,label,c,unit=unit)
  label,c=field_label(r)
  active=r.get('on',True) and r.get('strength',1)>0
- frame_opacity=R['fieldFrameOpacity' if active else 'fieldOffFrameOpacity']
- if r['kind']=='M':
+ frame_opacity=R['fieldFrameOpacity']
+ nodes=static_field(r,unit,c) if active else []
+ if active and r['kind']=='M':
   x,y,rad=r['x'],r['y'],r['radius'];d=f'M{x-rad} {y} A{rad} {rad} 0 0 1 {x} {y-rad} M{x} {y+rad} A{rad} {rad} 0 0 0 {x+rad} {y}'
-  nodes=[path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame')];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
- else:
-  x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];q=min(18,(x2-x1)/4,(y2-y1)/4)
-  d=f'M{x1+q} {y1} H{x1} V{y1+q} M{x2-q} {y1} H{x2} V{y1+q} M{x1} {y2-q} V{y2} H{x1+q} M{x2-q} {y2} H{x2} V{y2-q}'
-  nodes=[path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame')];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
- return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c})
+  nodes.append(path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame'))
+  if labels:nodes.append(text(x-6*unit,y+6*unit,'＋' if r.get('direction',1)>0 else '−',18*unit,c,600,role='fieldPolarity'))
+ return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c,'cloudOpacity':R['cloudOpacity'],'thinCloudOpacity':R['thinCloudOpacity']})
 def terminal(x,y,mat,pending=False):
  p=S['terminal'];out=[solid([(x-23,y+18),(x+23,y+18),(x+23,y+30),(x-23,y+30)],mat),rect(x-17,y-14,34,33,p['body']),rect(x-12,y-8,24,20,p['display']),text(x-8,y+9,'＋',18,p['symbol'],600)]
  if pending:out+=badge(x,y-27,'次の手番 −','#FFD389',109)
@@ -166,8 +181,15 @@ def motion_study(maps):
  for i,c in enumerate(config['cases']):
   x=48+i%5*307;y=106+i//5*210;nodes+=[rect(x,y,278,190,'#FBFAF5'),text(x+16,y+29,c['title'],16,weight=600)]
   sample={**c['state'],'x':x+139,'y':y+117,'radius':45,'x1':x+42,'x2':x+237,'y1':y+84,'y2':y+164};nodes.append(region(sample))
- nodes.append(text(48,763,'演出見本・ゲーム未統合。状態は固定比較。停止の枠とラベルを残し、動く手掛かりだけ止める。',15,'#6C6865'))
+ nodes.append(text(48,763,'演出見本・ゲーム未統合。OFFは画面内を非表示。比較用の見出しだけで状態を案内する。',15,'#6C6865'))
  return {'config':config,'cases':cases,'contexts':contexts,'overview':{'schema':'arcline.vector-art/v1','id':'motion-overview','width':1600,'height':780,'backgroundColor':'#F3F0E8','nodes':nodes}}
+def terrain_comparison(maps):
+ nodes=[rect(0,0,1600,1630,'#F3F0E8'),text(24,44,'ARCLINE / 地形の情報量を抑える',30,weight=600),text(24,79,'背景は同一。素材の色相を残し、地形内部の明暗差・彩度・分割数を抑える。',17,'#6C6865'),text(24,111,'前：1.4',16,weight=600),text(824,111,'後：1.5',16,weight=600)]
+ for i,ref in enumerate(read('terrain-tone-review.json')['references']):
+  y=149+i*364;stage=str(ref['stage']);before=read(ref['file']);after=maps[stage]
+  for x,g in [(24,before),(824,after)]:nodes.append(group(g['nodes'],[.752,0,0,.752,x,y]))
+ nodes.append(text(24,1610,'素材の大面は不透明。破壊材・反射面は共通色を維持し、機体や射線を主役にする。',15,'#6C6865'))
+ return {'schema':'arcline.vector-art/v1','id':'terrain-comparison','width':1600,'height':1630,'backgroundColor':'#F3F0E8','nodes':nodes}
 def validate_inputs():
  sources=read('source-manifest.json')
  for ref in sources['references']:
@@ -177,8 +199,9 @@ def validate_inputs():
   if hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()!=ref['sha256']:raise ValueError('Outline baseline changed: '+ref['file'])
  for kind in ['naturalOutline','functionalOutline']:
   assert 0<R[kind]['width']<=1 and 0<R[kind]['valueScale']<=1
- for key in ['fieldFrameOpacity','fieldOffFrameOpacity']:assert 0<R[key]<=1
- assert R['fieldOffFrameOpacity']<R['fieldFrameOpacity']
+ assert 0<R['fieldFrameOpacity']<=1
+ for ref in read('terrain-tone-review.json')['references']:
+  assert hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()==ref['sha256']
  assert len(SCENES)==33 and len(W['worlds'])==103
  assert {s['themeIndex'] for s in SCENES.values() if s['kind']=='normal'}==set(range(20))
  assert len([s for s in SCENES.values() if s['kind']=='boss'])==9
@@ -199,6 +222,7 @@ def main():
  for kind in ['normal','boss','final']:
   items=[(s,rows['100-'+str(s['mapIndex']) if kind=='final' else str(s['sampleStage'])]) for s in SCENES.values() if s['kind']==kind];graphs['overview-'+kind]=overview(items,kind)
  graphs['outline-comparison']=outline_comparison(rows,maps)
+ graphs['terrain-comparison']=terrain_comparison(maps)
  for name,graph in graphs.items():
   outputs['graphs/'+name+'.json']=json.dumps(graph,ensure_ascii=False,separators=(',',':'));outputs['svg/'+name+'.svg']=svg(graph)
  motion=motion_study(maps)
