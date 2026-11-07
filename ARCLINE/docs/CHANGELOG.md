@@ -1,6 +1,6 @@
-# 最新実装候補：ARCLINE 0.23.2
+# 最新統合版：ARCLINE 0.23.2
 
-[通常20テーマ・大ボス9景・最終戦4景の背景統合と全テーマ検証](releases/0.23.2.md)。未マージ・未公開。
+[通常20テーマ・大ボス9景・最終戦4景の背景統合と全テーマ検証](releases/0.23.2.md)。mainへ統合済み。[公開状況](https://github.com/bittrove88/bittrove88.github.io/pull/108)。
 
 # ARCLINE 0.23.1
 
