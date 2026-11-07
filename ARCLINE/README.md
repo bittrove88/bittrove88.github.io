@@ -8,6 +8,8 @@
 
 # ARCLINE
 
+[強敵の造形比較20案：番号だけの検討用画像](design/strong-enemy-form-studies/README.md)。強さと存在感を起点に、体格・姿勢・装甲・装備配置へ展開。職業や名前は割り当てず、モチーフは必要に応じて添える方針です。既存54体への追加・置換とゲーム実装は未決定です。
+
 [Ver.2 第一案：敵54体のラフ18枚とキャラクター索引](design/ver2-first-proposal/README.md) ／ [全54体の見直し・第二案の優先事項](design/ver2-first-proposal/REVIEW_JA.md)。101〜200面向けの制作資料として原画を保存。名前・構造・登場順は未確定で、ゲームには未統合です。
 
 [Ver.2 第二案：54体の採用候補と29体の改訂原画](design/ver2-second-proposal/README.md)。大ボス15体・中ボス8体・通常敵6体を初回38回で整理し、B08・B09・B14・B15のフロントのみ4回追加修正（累計42回）。ボスらしい体格を保ち、悪役的な目口を抑えて機械の愛嬌を戻しています。脚・車軸・節・分離構造を見直し、残る25体は第一案を継続。[改訂レビュー](design/ver2-second-proposal/REVIEW_JA.md) ／ [相対スケール設計案](design/ver2-second-proposal/SCALE_JA.md)。ユーザー最終承認・ゲーム統合は未実施です。
