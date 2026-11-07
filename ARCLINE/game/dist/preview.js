@@ -111,6 +111,11 @@ function decorate(result,id,source){
  result.cue={control:id==='controls'?'fire':id==='aim'?'aimStick':['move','slope','height'].includes(id)?'stick':E.skills.includes(id)?'skill':/^W\d\d$/.test(id)?'weapon':'feature',axis:id==='aim'?1:0};
  const points=result.plan?.bullets.flatMap(b=>b.path.filter((p,i)=>i%8===0||i===b.path.length-1)).filter(p=>p.x>=0&&p.x<=1000&&p.y>=-250&&p.y<=560)||[];
  result.framing={points:[...points,{x:result.before.units[0].x,y:result.before.units[0].y-30},result.focus],subjects:[0,...(/^W\d\d$/.test(id)||E.skills.includes(id)||id==='boss-core'||id==='boss-swap'||id==='controls'?[1]:[])]};
+ // Keep the roof and the clearance below it visible in every lesson phase.
+ if(id==='roof'){
+  result.framing.points.push(...result.before.world.solids.filter(o=>o.kind==='roof').flatMap(o=>o.poly));
+  result.framing.keepOverview=true;
+ }
  return result;
 }
 function make(s,id,found,source){
