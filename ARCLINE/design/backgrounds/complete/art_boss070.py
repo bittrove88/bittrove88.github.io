@@ -1,0 +1,45 @@
+from art_core import Scene
+
+def make():
+ s=Scene('boss-070','フォージ・タイタン — 大炉の足元',13,'鍛冶の回廊と同じ赤煉瓦と冷えた鉄骨で描く大炉の区画。左に迫る炉壁、右の天井につながる重い鍛圧設備、低い鋳型。炉の熱は側方へ寄せ、中央の作業空間を残す。',{
+ 'sky':'#967774','wall':'#B08A7B','wallShade':'#876D70','brick':'#AD705A','brickLit':'#CF9270','brickShade':'#8E5C54','deep':'#6C5259',
+ 'heat':'#D49A61','heatLit':'#E9BC7E','heatShade':'#B97D53','iron':'#626D73','ironLit':'#8C9791','ironShade':'#4E5D68',
+ 'pipe':'#8C887B','pipeLit':'#B5A38A','floor':'#A98C72','floorLit':'#CCAA7F','floorShade':'#89766A','mold':'#796E63','moldLit':'#A08A71'})
+ s.base()
+ s.p('wall','M0 0 H1120 V604 H0 Z','far')
+ s.p('wallShade','M0 0 H1120 V111 L769 144 L507 109 L0 153 Z','back-structure')
+ s.p('ironShade','M0 55 L1120 0 V43 L0 104 Z','back-structure')
+ s.p('ironLit','M0 55 L1120 0 V13 L0 69 Z','back-structure')
+ s.p('pipe','M553 0 H585 V167 L640 201 L729 190 V224 L631 235 L558 190 Z','back-structure')
+ s.p('pipeLit','M553 0 H564 V183 L634 221 L729 210 V224 L631 235 L558 190 Z','back-structure')
+ s.p('floor','M0 509 L287 473 L523 501 L830 453 L1120 482 V604 H0 Z','middle')
+ s.p('floorLit','M0 518 L277 484 C400 528 479 539 554 581 L463 604 C277 559 160 574 0 604 Z','middle')
+ s.p('floorShade','M581 604 L704 549 L887 538 L1120 565 V604 Z','middle')
+ s.p('brick','M0 111 L181 84 L299 135 L323 471 L251 522 L0 503 Z','land')
+ s.p('brickLit','M0 111 L181 84 L299 135 L278 145 L182 110 L0 139 Z','land')
+ s.p('brickShade','M181 84 L299 135 L323 471 L251 522 L219 258 Z','land')
+ s.p('deep','M0 236 L188 216 L205 402 L0 428 Z','structure')
+ s.p('heatShade','M0 268 L161 250 L173 383 L0 404 Z','structure')
+ s.p('heat','M0 292 L137 278 L149 386 L0 404 Z','structure')
+ s.p('heatLit','M0 353 L145 341 L149 386 L0 404 Z','structure')
+ s.p('iron','M0 215 L188 196 L200 217 L0 240 Z','structure')
+ s.p('ironShade','M0 428 L207 402 L212 430 L0 458 Z','structure')
+ s.p('brickShade','M0 160 L73 151 L74 168 L0 181 Z','structure')
+ s.p('brickShade','M103 149 L184 140 L186 159 L105 170 Z','structure')
+ # Heavy forging equipment joins the ceiling, without depicting the boss's arms.
+ s.p('ironShade','M1021 0 H1120 V604 H1011 L974 282 Z','structure')
+ s.p('iron','M941 0 H1021 L974 282 L1011 604 H944 L905 285 Z','structure')
+ s.p('ironLit','M941 0 H962 L925 284 L967 604 H944 L905 285 Z','structure')
+ s.p('ironShade','M746 158 L939 126 L1001 157 L809 199 Z','structure')
+ s.p('iron','M809 199 L1001 157 V235 L814 275 Z','structure')
+ s.p('ironLit','M746 158 L939 126 L1001 157 L977 166 L939 147 L769 179 Z','structure')
+ s.p('pipe','M834 247 L887 236 L893 252 L840 266 Z','structure','fixed collar on the forging structure, not an active appendage')
+ s.p('mold','M697 488 L807 461 L888 484 L787 520 Z','structure')
+ s.p('moldLit','M697 488 L807 461 L888 484 L867 490 L807 478 L718 500 Z','structure')
+ s.p('deep','M727 489 L809 475 L856 486 L787 507 Z','structure')
+ s.p('mold','M697 488 L787 520 L888 484 L878 548 L792 579 L707 550 Z','structure')
+ s.p('moldLit','M697 488 L787 520 L790 541 L700 511 Z','structure')
+ s.p('ironShade','M0 604 V574 L132 544 L235 576 L269 604 Z','near')
+ s.p('deep','M1120 551 L1044 528 L963 566 L940 604 H1120 Z','near')
+ s.data.update(kind='boss',stage=70)
+ return s.data

@@ -1,0 +1,46 @@
+{
+  "stage": 65,
+  "version": "v3",
+  "checkedAt": "2026-11-06",
+  "scope": "only-basic-design-static",
+  "checks": {
+    "floorXAscending": true,
+    "allVerticesInBounds": true,
+    "fixedIdsUnique": true,
+    "partsAllFixed": true,
+    "playerEnemyFeetOnFloor": true,
+    "shelfAndBasinFeetOnSurfaces": true,
+    "mirrorOnlyOverFloor": true,
+    "featureVandW": true,
+    "spawnLocalSlopeWithin35Degrees": true,
+    "partsNoSelfIntersections": true,
+    "featuresInsideWorld": true
+  },
+  "parts": [
+    {
+      "id": "065-LAVA-CANTILEVER",
+      "vertices": 12
+    },
+    {
+      "id": "065-ROOFED-THROAT",
+      "vertices": 16
+    },
+    {
+      "id": "065-LOWER-RIB",
+      "vertices": 12
+    }
+  ],
+  "floorPoints": 21,
+  "shootingPointSlopeDeg": {
+    "A": 26.95,
+    "B": 26.57,
+    "P0": 3.58,
+    "E": 3.81
+  },
+  "notes": [
+    "自己交差判定と視覚確認を行う。床に根を持つ岩棚・天蓋・岩脊は意図した地形接続である。",
+    "描画は現行ジオメトリの x*10、y=500-h*10 の変換で行う。",
+    "図の線は設計上の射路であり弾道検証結果ではない。",
+    "実ゲームブラウザ画面・砲口判定・転移・射撃・敵AI・行動数は未確認。"
+  ]
+}

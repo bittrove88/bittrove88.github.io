@@ -1,0 +1,53 @@
+from art_core import Scene
+
+def make():
+ s=Scene('normal-06','水晶の反射路',6,'薄紫の石盆地を走る、静かな水晶の道。左へ傾いた大きな鉱晶、奥の低い晶洞、右岸の扇状結晶。自然の不規則な面と青磁色の透き通るような単色色面で描く。',{
+ 'sky':'#DAD3E8','skyHigh':'#C1B6D9','air':'#EBE0EB','cloud':'#F3E9EE','far':'#B6A4CD','farDark':'#9F8CBA',
+ 'ground':'#A79ABA','groundLit':'#C8B4D0','groundDark':'#8E80A6','near':'#776D95','nearLit':'#A493B7',
+ 'water':'#A7BFCB','waterLit':'#CED9DC','waterDark':'#8DA4BD','quartz':'#BCDADB','quartzLit':'#DCEBE3','quartzMint':'#A6C6CF',
+ 'quartzBlue':'#88A9C2','quartzViolet':'#A3A9D0','quartzDark':'#7F8EB4','rose':'#D4B6D1','roseShade':'#B89BC2','facet':'#E5D8E7'})
+ s.base()
+ s.p('skyHigh','M0 0 H1120 V139 L978 165 L829 153 L674 178 L503 161 L338 190 L162 157 L0 181 Z','air')
+ s.p('air','M0 291 C180 258 297 284 456 268 C657 246 799 274 1120 235 V604 H0 Z','air')
+ s.p('cloud','M580 214 C633 198 669 208 702 199 C742 189 770 205 806 207 C741 224 664 214 610 230 Z','air')
+ s.p('far','M0 371 L124 326 L211 351 L309 312 L427 369 L526 349 L623 385 L705 344 L818 374 L936 324 L1120 360 V493 H0 Z','far')
+ s.p('farDark','M705 344 L745 389 L818 374 L858 411 L936 324 L966 394 L1054 414 L1120 398 V493 H634 Z','far')
+ s.p('groundLit','M0 449 L178 422 L323 451 L475 422 L617 449 L811 427 L1120 421 V604 H0 Z','middle')
+ s.p('rose','M0 604 C206 539 379 582 552 533 C674 497 721 455 888 442 L865 464 C733 479 720 523 591 558 C407 610 243 565 161 604 Z','middle')
+ s.p('ground','M0 565 L211 541 L339 564 L426 546 L529 577 L688 553 L817 572 L1000 546 L1120 559 V604 H0 Z','middle')
+ s.p('ground','M0 604 V422 L146 387 L278 419 L349 467 L322 511 L268 552 L240 604 Z','land')
+ s.p('groundLit','M0 422 L146 387 L278 419 L349 467 L320 474 L271 442 L146 412 L0 450 Z','land')
+ s.p('groundDark','M0 481 L103 451 L193 471 L270 455 L322 511 L268 552 L240 604 H188 L205 546 L136 522 L0 540 Z','land')
+ s.p('ground','M1120 415 L1018 399 L928 429 L851 474 L878 516 L907 604 H1120 Z','land')
+ s.p('groundLit','M1120 415 L1018 399 L928 429 L851 474 L879 480 L944 449 L1025 425 L1120 442 Z','land')
+ # Each crystal has its own growth direction and face junctions.
+ faces=[
+ ('quartz','M112 421 L42 169 L81 94 L162 137 L222 371 L185 432 Z'),
+ ('quartzLit','M42 169 L81 94 L112 166 L169 409 L112 421 Z'),
+ ('quartzBlue','M81 94 L162 137 L222 371 L185 432 L169 409 L112 166 Z'),
+ ('quartzMint','M42 169 L112 166 L85 244 L72 275 Z'),
+ ('facet','M112 166 L81 94 L162 137 L139 164 Z'),
+ ('quartzViolet','M245 447 L209 299 L232 241 L281 268 L310 415 L282 450 Z'),
+ ('rose','M209 299 L232 241 L249 303 L282 450 L245 447 Z'),
+ ('quartzDark','M232 241 L281 268 L310 415 L282 450 L249 303 Z'),
+ ('quartz','M946 466 L890 363 L906 290 L973 322 L998 427 L983 470 Z'),
+ ('quartzLit','M890 363 L906 290 L933 360 L961 464 L946 466 Z'),
+ ('quartzBlue','M906 290 L973 322 L998 427 L983 470 L961 464 L933 360 Z'),
+ ('rose','M1010 474 L996 247 L1037 179 L1080 226 L1085 434 L1052 480 Z'),
+ ('facet','M996 247 L1037 179 L1040 260 L1046 476 L1010 474 Z'),
+ ('roseShade','M1037 179 L1080 226 L1085 434 L1052 480 L1046 476 L1040 260 Z'),
+ ('quartzMint','M1084 488 L1088 356 L1120 313 V487 Z'),
+ ('quartzBlue','M1088 356 L1120 313 V488 L1104 490 Z'),
+ ('quartzMint','M524 422 L535 380 L557 352 L583 401 L569 427 Z'),
+ ('quartzViolet','M557 352 L583 401 L569 427 L551 415 Z'),
+ ('rose','M599 423 L608 388 L630 375 L643 419 Z'),
+ ('roseShade','M630 375 L643 419 L625 425 L617 395 Z')]
+ for c,d in faces:s.p(c,d,'structure')
+ s.p('quartzViolet','M38 447 L77 455 L108 520 L94 571 L42 586 Z','land')
+ s.p('groundDark','M986 478 L1021 485 L1044 535 L1017 570 L999 557 Z','land')
+ s.p('facet','M378 488 L419 467 L462 473 L441 485 L402 500 Z','land')
+ s.p('roseShade','M419 467 L437 459 L462 473 L441 485 Z','land')
+ s.p('near','M0 591 L97 553 L169 572 L200 604 H0 Z','near')
+ s.p('nearLit','M0 591 L97 553 L169 572 L148 584 L99 573 L0 604 Z','near')
+ s.p('near','M1120 562 L1037 541 L946 570 L917 604 H1120 Z','near')
+ return s.data

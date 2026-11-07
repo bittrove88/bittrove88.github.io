@@ -14,10 +14,10 @@ def interpolate(points,x):
     raise ValueError(x)
 def band(n):return '入門' if n<=10 else '初級' if n<=30 else '中級' if n<=49 else '上級' if n<=79 else '超上級' if n<=89 else '最終試練'
 def part(p,n,i):
-    kind=p['kind'];x=p['x'];h=p['top']
+    kind=p['kind'];x=p.get('x',0);h=p.get('top',0)
     end=p.get('end',x+p.get('width',5));bottom=p.get('bottom',h-p.get('thickness',3))
     poly=p.get('poly',[[x,h],[end,h],[end,bottom],[x,bottom]])
-    return {'id':f'{n:03d}-C{i:02d}','poly':poly,'destructible':kind=='wall' or p.get('breakable',False)}
+    return {'id':p.get('id',f'{n:03d}-C{i:02d}'),'poly':poly,'destructible':p.get('breakable',kind=='wall'),**({'reflectiveUnderside':p['reflectiveUnderside']} if p.get('reflectiveUnderside') else {})}
 records=[]
 for bp,previous in zip(blueprints,campaign['levels']):
     n=bp['stage'];assert previous['id']==n
@@ -30,8 +30,12 @@ for bp,previous in zip(blueprints,campaign['levels']):
         f=bp['floor'];level['floors']=[f[:2],f[-2:]]
     if bp.get('floorSegments'):level['floors']=copy.deepcopy(bp['floorSegments'])
     level['terrainRevision']=bp.get('terrainRevision','5.0')
-    level['spawn']=[[x,interpolate(bp['floor'],x)] for x in bp['spawn']]
+    if 'ventStartsOn' in bp:level['ventStartsOn']=bp['ventStartsOn']
+    else:level.pop('ventStartsOn',None)
+    level['spawn']=copy.deepcopy(bp['spawnPoints']) if bp.get('spawnPoints') else [[x,interpolate(bp['floor'],x)] for x in bp['spawn']]
     if bp.get('enemyAirHeight'):level['spawn'][1][1]+=bp['enemyAirHeight']
+    if bp.get('spawnPoints'):level['spawn']=copy.deepcopy(bp['spawnPoints'])
+    if bp.get('worldWidth'):level['worldWidth']=bp['worldWidth']
     if n==100:level['phaseFeatures']=copy.deepcopy(bp.get('phaseFeatures',[bp['features'],[{'type':'C','v':[48,62,22,41]},{'type':'K','v':[69,33,28]}],[{'type':'W','v':[34,70,8]},{'type':'M','v':[58,26,12,1]}]]))
     if n==100 and bp.get('finalBattle'):
         relay=copy.deepcopy(bp['finalBattle'])
@@ -40,18 +44,8 @@ for bp,previous in zip(blueprints,campaign['levels']):
             m['components']=[dict(part(p,n,i+1),id=f'{n:03d}-M{j}-C{i+1:02d}') for i,p in enumerate(m['parts'])]
         level['finalBattle']=relay;level['worldWidth']=bp['worldWidth'];level['actionLimit']=bp['actionLimit']
         level['components']=copy.deepcopy(relay['maps'][0]['components']);level.pop('phaseFeatures',None)
-    level['lesson']={1:'controls',2:'aim',3:'move',4:'teleport',6:'reflection',7:'destruction',8:'roof',10:'boss-core',23:'C',35:'K',37:'B',41:'U',51:'F',65:'V',71:'M',73:'terminal'}.get(n)
-    # Supplies remain chapter stock; every theme has2 weapon placements.
-    level['pickups']=[]
-    slot=(n-1)%5+1
-    if slot in [2,4]:
-        ids=['W02','W04','W06','W07','W09','W12','W13','W14','W16','W17','W18','W19','W20']
-        wid=ids[((n-1)//5*2+(slot==4))%len(ids)]
-        x=bp['spawn'][0]+8;h=interpolate(bp['floor'],x)+7
-        level['pickups'].append({'id':wid,'kind':'trial','weaponId':wid,'x':x,'h':h,'placementId':f'L{n:03d}:weapon:{wid}'})
-    if n%10==7:
-        sid=['S_GUARD','S_REPAIR','S_BREACH'][((n-1)//10)%3];x=bp['spawn'][0]+4
-        level['pickups'].append({'id':f'SK{n:03d}','kind':'skill','skillId':sid,'amount':1,'x':x,'h':interpolate(bp['floor'],x)+9,'placementId':f'L{n:03d}:skill:{sid}'})
+    level['lesson']={1:'controls',2:'aim',3:'move',4:'teleport',6:'reflection',7:'destruction',8:'roof',10:'boss-core',21:'C',31:'K',37:'B',41:'U',49:'F',65:'V',71:'M',73:'terminal'}.get(n)
+    level['pickups']=[{k:v for k,v in p.items() if k!='stage'} for p in json.loads((root/'design/pickup_placements.json').read_text())['placements'] if p['stage']==n]
     level['enemyHp']=3 if n<=30 else 4 if n<=49 else 5 if n<=79 else 6 if n<=89 else 7;level['recommendedCharacter']=bp['recommended'];level['tacticalGoal']=bp['goal'];level['tacticalGoalEn']=bp.get('goalEn','Choose a firing position and prepare a clear route.');level['enemyProfile']=bp.get('enemyProfile',min(5,(n-1)//20))
     records.append({'stage':n,'difficultyBand':band(n),'theme':level['themeName'],'learningGoal':bp['goal'],'mainGimmicks':sorted(set(f['type'] for f in [*bp['features'],*[f for phase in bp.get('phaseFeatures',[]) for f in phase],*[f for m in bp.get('finalBattle',{}).get('maps',[]) for f in m.get('features',[])]])),'terrainIntent':bp['route'],'basicRoute':bp['route'],'alternativeRoute':'割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。','advantage':{'character':bp['recommended'],'reason':bp['goal']},'hint':bp['goal'],'enemyInteraction':{'spawn':level['spawn'][1],'movement':'守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。','counterplay':'準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。'},'actionBudget':level['actionLimit'],'expectedActions':bp.get('expectedActions',[3,7] if n<=30 else [5,12] if n<80 else [7,18]),'tolerance':'初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。','availableStoryCrew':[c['id'] for c in crew if c['stage']<n or c['stage']==0],'testResult':{'status':'pending','report':'stage_verification.json','stage':n}})
     record=records[-1]
@@ -75,4 +69,4 @@ for bp,previous in zip(blueprints,campaign['levels']):
 campaign['revision']='5.0';campaign['date']='2026-11-02'
 source.write_text(json.dumps(campaign,ensure_ascii=False,indent=2)+'\n')
 (root/'design/expedition_013/stage_design.json').write_text(json.dumps({'revision':'5.0','stages':records},ensure_ascii=False,indent=2)+'\n')
-print('Compiled100 authored tactical designs;20 themes;40 weapon boxes;10 skill boxes')
+print('Compiled100 authored tactical designs;20 themes;46 once-only map capsules')

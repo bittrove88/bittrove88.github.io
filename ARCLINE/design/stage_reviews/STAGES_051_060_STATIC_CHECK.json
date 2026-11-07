@@ -1,0 +1,441 @@
+{
+  "status": "PASS",
+  "sourceCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "scope": "Static geometry only. No projectile, teleport-input, combat, or device verification.",
+  "checks": [
+    "Before maps and protected enemy rules match live levels",
+    "Strict floor ordering and non-self-intersecting polygons",
+    "Exact spawns, named supports, body clearance, initial slopes <=4 degrees",
+    "130px short walks on stages 51/52 and 110px on stage 54",
+    "Capsule IDs/counts/turns preserved, centre and four 22px cardinal samples clear, old ballistic evidence removed",
+    "Conceptual straight segments clear of fixed terrain after specified windows are removed; not projectile trajectories",
+    "Bridge open/closed support, left-facing walk, sheltered exit walk, and existing fan wind states"
+  ],
+  "stages": [
+    {
+      "stage": 51,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 0,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 200,
+          "y": 40,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1010,
+          "y": 120,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "shoulder",
+          "x": 330,
+          "y": 80,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "lee",
+          "x": 780,
+          "y": 397.7777777777778,
+          "surface": "floor0",
+          "slopeDegrees": -23.962
+        }
+      ],
+      "pickups": 0,
+      "conceptualLineSegments": 5,
+      "specialChecks": []
+    },
+    {
+      "stage": 52,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 5,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 240,
+          "y": 380,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1180,
+          "y": 70,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "roof",
+          "x": 880,
+          "y": -260,
+          "surface": "052-MOUNTAIN:e2",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "window",
+          "x": 520,
+          "y": 360,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "chimney",
+          "x": 370,
+          "y": 375,
+          "surface": "floor0",
+          "slopeDegrees": -9.462
+        }
+      ],
+      "pickups": 1,
+      "conceptualLineSegments": 7,
+      "specialChecks": []
+    },
+    {
+      "stage": 53,
+      "status": "PASS",
+      "floorSegments": 2,
+      "components": 2,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 300,
+          "y": -20,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1330,
+          "y": -140,
+          "surface": "floor1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "low",
+          "x": 620,
+          "y": 280,
+          "surface": "053-LOW-SHELF:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "high",
+          "x": 910,
+          "y": -260,
+          "surface": "053-HIGH-SHELF:e1",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0,
+      "conceptualLineSegments": 7,
+      "specialChecks": []
+    },
+    {
+      "stage": 54,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 0,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 380,
+          "y": 10,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1360,
+          "y": 300,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "shoulder",
+          "x": 490,
+          "y": 50,
+          "surface": "floor0",
+          "slopeDegrees": 33.69
+        },
+        {
+          "id": "mirror",
+          "x": 790,
+          "y": 410,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 1,
+      "conceptualLineSegments": 8,
+      "specialChecks": []
+    },
+    {
+      "stage": 55,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 5,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 240,
+          "y": 100,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1410,
+          "y": -120,
+          "surface": "055-MOUNTAIN-CAP:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "summit",
+          "x": 480,
+          "y": -50,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "lee",
+          "x": 1200,
+          "y": 300,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "balcony",
+          "x": 1020,
+          "y": 80,
+          "surface": "055-MID-BALCONY:e1",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0,
+      "conceptualLineSegments": 6,
+      "specialChecks": []
+    },
+    {
+      "stage": 56,
+      "status": "PASS",
+      "floorSegments": 2,
+      "components": 2,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 230,
+          "y": -100,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1320,
+          "y": 20,
+          "surface": "floor1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "upper",
+          "x": 700,
+          "y": -100,
+          "surface": "056-UPPER-ICE-BRIDGE:e0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "lower",
+          "x": 950,
+          "y": 160,
+          "surface": "floor1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "pier",
+          "x": 680,
+          "y": 160,
+          "surface": "056-LOW-PIER:e1",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0,
+      "conceptualLineSegments": 6,
+      "specialChecks": [
+        "Fixed candidate supports clear in closed and open lower-bridge poses"
+      ]
+    },
+    {
+      "stage": 57,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 2,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 240,
+          "y": -260,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1010,
+          "y": 360,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "upper",
+          "x": 320,
+          "y": -260,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "entrance",
+          "x": 500,
+          "y": 360,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 1,
+      "conceptualLineSegments": 9,
+      "specialChecks": []
+    },
+    {
+      "stage": 58,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 11,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 650,
+          "y": 420,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1310,
+          "y": -200,
+          "surface": "058-UP-EAST:e0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "west",
+          "x": 690,
+          "y": 70,
+          "surface": "058-LOW-CENTRE:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "east",
+          "x": 1080,
+          "y": 53.33333333333333,
+          "surface": "058-LOW-EAST:e0",
+          "slopeDegrees": -18.435
+        }
+      ],
+      "pickups": 0,
+      "conceptualLineSegments": 7,
+      "specialChecks": []
+    },
+    {
+      "stage": 59,
+      "status": "PASS",
+      "floorSegments": 3,
+      "components": 6,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 1450,
+          "y": 30,
+          "surface": "059-START-ICE:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 620,
+          "y": -150,
+          "surface": "059-ENEMY-ICE:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "high",
+          "x": 1170,
+          "y": -290,
+          "surface": "059-HIGH-SHELF:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "low",
+          "x": 930,
+          "y": 230,
+          "surface": "059-LOW-MIRROR:e2",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 1,
+      "conceptualLineSegments": 7,
+      "specialChecks": [
+        "Left-facing achieved by existing 2px walk"
+      ]
+    },
+    {
+      "stage": 60,
+      "status": "PASS",
+      "floorSegments": 1,
+      "components": 2,
+      "anchors": [
+        {
+          "id": "player",
+          "x": 200,
+          "y": -170,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "enemy",
+          "x": 1220,
+          "y": -80,
+          "surface": "060-BOSS-RIM:e1",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "high",
+          "x": 240,
+          "y": -170,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "lee",
+          "x": 880,
+          "y": 380,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        },
+        {
+          "id": "exit",
+          "x": 1020,
+          "y": 380,
+          "surface": "floor0",
+          "slopeDegrees": 0
+        }
+      ],
+      "pickups": 0,
+      "conceptualLineSegments": 6,
+      "specialChecks": [
+        "140px walk from lee shelter to attack exit",
+        "Existing fan-break wind strengths .35/.18/0 preserved"
+      ]
+    }
+  ]
+}

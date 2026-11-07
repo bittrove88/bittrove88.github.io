@@ -1,0 +1,43 @@
+from art_core import Scene,annulus
+
+def make():
+ s=Scene('boss-050','ダスト・ドリラー — 琥珀の掘削室',9,'琥珀の機関から続く主掘削室。右の大きな掘削孔、左の保守架台、土の層に埋もれた動力管。青銅と琥珀色の残光を継ぎ、機械室から岩盤の仕事場へ入る。',{
+ 'sky':'#9B9B87','far':'#A8A58B','light':'#D4B77D','lightLit':'#E5CD97','rock':'#8C8D78','rockLit':'#B0A17D','rockShade':'#737D70','rockDeep':'#5F6E69',
+ 'bore':'#75837D','boreShade':'#677773','boreLit':'#8B9482','bronze':'#B18C53','bronzeLit':'#D0AD69','bronzeShade':'#8E7650',
+ 'iron':'#6B7B75','ironLit':'#9EA68E','ironShade':'#526A68','pipe':'#91987F','pipeLit':'#B5B799','floor':'#A69C7B','floorLit':'#C6B18A','dust':'#B0A27F'})
+ s.base()
+ s.p('far','M0 0 H1120 V604 H0 Z','far')
+ s.p('light','M204 0 H362 L402 199 L350 312 L241 274 L180 142 Z','far')
+ s.p('lightLit','M246 0 H305 L330 168 L299 281 L266 276 L232 139 Z','far')
+ s.e('rockShade',1004,317,312,298,'middle')
+ s.e('rockLit',1004,317,280,269,'middle')
+ s.e('boreShade',1004,323,250,241,'middle')
+ s.e('bore',1004,337,220,221,'middle')
+ s.p('boreLit','M827 199 C888 136 1023 126 1120 180 V225 C1009 179 909 195 851 248 Z','middle')
+ s.p('rock','M0 0 H538 L589 91 L548 193 L589 290 L531 421 L585 604 H0 Z','land')
+ s.p('rockLit','M411 0 H475 L513 101 L476 197 L521 296 L470 416 L509 604 H463 L423 414 L467 295 L429 197 L465 105 Z','land')
+ s.p('rockShade','M0 119 L192 78 L323 115 L386 194 L365 242 L182 193 L0 231 Z','land')
+ s.p('rockDeep','M0 296 L206 243 L381 289 L365 332 L204 298 L0 348 Z','land')
+ s.p('rockLit','M0 381 L200 335 L426 382 L412 405 L201 361 L0 411 Z','land')
+ s.p('rockDeep','M0 469 L209 421 L424 461 L437 490 L211 448 L0 498 Z','land')
+ s.p('light','M259 0 H332 L357 97 L323 193 L349 288 L309 331 L280 225 L295 134 Z','land','amber daylight reaches a fissure in the rock')
+ s.p('lightLit','M279 0 H302 L326 99 L302 190 L319 284 L309 303 L290 222 L310 135 Z','land')
+ s.p('floor','M0 539 L298 502 L561 528 L781 492 L1120 516 V604 H0 Z','land')
+ s.p('floorLit','M437 604 L571 558 L737 548 L881 509 L984 522 C851 562 716 578 617 604 Z','land')
+ s.p('iron','M0 183 L142 157 L168 175 L189 473 L155 486 L137 198 L0 225 Z','structure')
+ s.p('ironLit','M0 183 L142 157 L168 175 L152 183 L140 174 L0 199 Z','structure')
+ s.p('bronze','M0 403 L167 372 L215 392 L47 430 L0 424 Z','structure')
+ s.p('bronzeLit','M0 403 L167 372 L215 392 L196 399 L165 386 L17 418 Z','structure')
+ s.p('ironShade','M47 430 L215 392 L213 420 L49 459 Z','structure')
+ s.p('ironShade','M150 450 L170 446 L189 514 L169 520 Z','structure')
+ annulus(s,'bronzeShade',118,305,47,48,13)
+ annulus(s,'bronzeLit',112,298,39,40,11)
+ s.e('bronzeShade',112,298,13,14,'structure')
+ s.p('pipe','M574 0 H604 V126 L653 163 L735 158 V187 L645 193 L578 146 Z','structure')
+ s.p('pipeLit','M574 0 H584 V139 L649 180 L735 175 V187 L645 193 L578 146 Z','structure')
+ s.p('bronze','M624 142 L639 153 L623 179 L610 169 Z','structure')
+ s.p('dust','M267 575 C407 541 483 577 596 553 C733 522 831 555 935 536 C881 573 783 580 688 572 C518 593 410 570 267 597 Z','near')
+ s.p('rockDeep','M0 604 V572 L126 541 L229 575 L261 604 Z','near')
+ s.p('ironShade','M1120 562 L1023 539 L943 573 L921 604 H1120 Z','near')
+ s.data.update(kind='boss',stage=50)
+ return s.data

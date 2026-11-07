@@ -1,0 +1,495 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 56,
+  "date": "2026-11-05",
+  "revision": 1,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        24
+      ],
+      [
+        28,
+        24
+      ],
+      [
+        43,
+        6
+      ],
+      [
+        65,
+        6
+      ],
+      [
+        79,
+        22
+      ],
+      [
+        100,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          24
+        ],
+        [
+          28,
+          24
+        ],
+        [
+          43,
+          6
+        ],
+        [
+          65,
+          6
+        ],
+        [
+          79,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "056-C01",
+        "kind": "island",
+        "poly": [
+          [
+            49,
+            25
+          ],
+          [
+            63,
+            25
+          ],
+          [
+            63,
+            20
+          ],
+          [
+            49,
+            20
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          30,
+          24,
+          20,
+          1
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          44,
+          59,
+          8,
+          40
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 24.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 22.0
+    },
+    "pickups": []
+  },
+  "after": {
+    "width": 1440,
+    "floor": [
+      [
+        0,
+        64
+      ],
+      [
+        14,
+        60
+      ],
+      [
+        30,
+        60
+      ],
+      [
+        37,
+        60
+      ],
+      [
+        42,
+        49
+      ],
+      [
+        47,
+        34
+      ],
+      [
+        87,
+        34
+      ],
+      [
+        102,
+        34
+      ],
+      [
+        118,
+        46
+      ],
+      [
+        126,
+        48
+      ],
+      [
+        139,
+        48
+      ],
+      [
+        144,
+        45
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          64
+        ],
+        [
+          14,
+          60
+        ],
+        [
+          30,
+          60
+        ],
+        [
+          37,
+          60
+        ],
+        [
+          42,
+          49
+        ],
+        [
+          47,
+          34
+        ]
+      ],
+      [
+        [
+          87,
+          34
+        ],
+        [
+          102,
+          34
+        ],
+        [
+          118,
+          46
+        ],
+        [
+          126,
+          48
+        ],
+        [
+          139,
+          48
+        ],
+        [
+          144,
+          45
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "056-UPPER-ICE-BRIDGE",
+        "kind": "island",
+        "poly": [
+          [
+            37,
+            60
+          ],
+          [
+            103,
+            60
+          ],
+          [
+            113,
+            57
+          ],
+          [
+            113,
+            52
+          ],
+          [
+            94,
+            54
+          ],
+          [
+            45,
+            54
+          ],
+          [
+            37,
+            53
+          ]
+        ],
+        "purpose": "上段の固定氷橋。下段通路の天井にもなる。",
+        "breakable": false
+      },
+      {
+        "id": "056-LOW-PIER",
+        "kind": "island",
+        "poly": [
+          [
+            60,
+            29
+          ],
+          [
+            63,
+            34
+          ],
+          [
+            74,
+            34
+          ],
+          [
+            78,
+            30
+          ],
+          [
+            73,
+            26
+          ],
+          [
+            65,
+            26
+          ]
+        ],
+        "purpose": "開閉に依存せず立てる低い中継棚。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          47,
+          34,
+          40,
+          0
+        ],
+        "openAngleDeg": -55
+      },
+      {
+        "type": "F",
+        "v": [
+          54,
+          87,
+          38,
+          76
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 60
+    },
+    "enemy": {
+      "x": 132,
+      "h": 48
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "上段から見通しのよい曲射",
+        "points": [
+          [
+            70,
+            63
+          ],
+          [
+            96,
+            73
+          ],
+          [
+            118,
+            65
+          ],
+          [
+            132,
+            51
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "下段から短い低弧",
+        "points": [
+          [
+            95,
+            37
+          ],
+          [
+            110,
+            45
+          ],
+          [
+            124,
+            54
+          ],
+          [
+            132,
+            51
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 70,
+        "h": 60,
+        "label": "A"
+      },
+      {
+        "x": 95,
+        "h": 34,
+        "label": "B"
+      },
+      {
+        "x": 68,
+        "h": 34,
+        "label": "C"
+      }
+    ],
+    "pickups": [],
+    "material": "ice"
+  },
+  "summary": {
+    "concept": "露出した上段橋と、氷壁に守られる下段橋・転移経路を選ぶ。",
+    "terrain": "巨大氷河の裂け目と上下二重橋",
+    "changeFromPrevious": "風の章から、床が切れた氷河と二重の接続へ移る。開閉橋を唯一の足場にせず、開いた状態にも退避先を残す。"
+  },
+  "learningGoal": {
+    "source": "開閉橋の待機場所を先に選び、風下へ転移する",
+    "proposed": "露出した上段橋と、氷壁に守られる下段橋・転移経路を選ぶ。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "上段Aから広い空間で曲射する。敵を見通せるが、風と敵の弧を受けやすい。",
+    "alternative": "下段Bへ進み、上段橋を天井として使いながら低い弧で攻撃する。下段橋は周期開閉し、固定棚Cや通常転移でも待機・迂回できる。",
+    "anchors": [
+      {
+        "id": "upper",
+        "x": 70,
+        "h": 60,
+        "surface": "056-UPPER-ICE-BRIDGE",
+        "role": "上段の広い射撃空間。"
+      },
+      {
+        "id": "lower",
+        "x": 95,
+        "h": 34,
+        "surface": "floor1",
+        "role": "固定橋の下の氷壁通路。"
+      },
+      {
+        "id": "pier",
+        "x": 68,
+        "h": 34,
+        "surface": "056-LOW-PIER",
+        "role": "下段橋が開いても残る固定足場。"
+      }
+    ],
+    "benefits": [
+      "広い射角と見通しを得られる",
+      "上方の射線を天井で一部遮れる"
+    ],
+    "costs": [
+      "風と曲射へ露出する",
+      "射角が制限され、橋の開閉か転移を読む"
+    ],
+    "setupActionsTarget": [
+      1,
+      3
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:mist",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "中",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "高",
+      "ギミック手数": "中",
+      "ボス部位": "なし"
+    },
+    "risk": "Bは端子操作ではなく既存の周期開閉。下へ55度開く既存対応を使用。開閉両状態で固定射点を確認し、長橋を一ターンの140px歩行で渡り切る前提にしない。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged."
+}

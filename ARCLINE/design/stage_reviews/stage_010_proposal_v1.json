@@ -1,0 +1,429 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 10,
+  "date": "2026-11-04",
+  "status": "設計承認済み／ゲーム未反映",
+  "designBasis": "最新マップ設計方針から独立設計、現行ゲームの地形は比較参照のみ",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 10,
+    "name": "港を開く爪",
+    "goal": "浅瀬の水切りと中央の岩棚の上空を比較し、敵が6単位高い岸へ曲射する。",
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        24,
+        12
+      ],
+      [
+        38,
+        8
+      ],
+      [
+        54,
+        8
+      ],
+      [
+        72,
+        18
+      ],
+      [
+        100,
+        18
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "island",
+        "id": "010-C01",
+        "poly": [
+          [
+            45,
+            22
+          ],
+          [
+            59,
+            22
+          ],
+          [
+            59,
+            18
+          ],
+          [
+            45,
+            18
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          38,
+          56,
+          8
+        ]
+      }
+    ],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      85
+    ],
+    "route": "浅瀬の水切りと中央の岩棚の上空を比較し、敵が6単位高い岸へ曲射する。",
+    "nameEn": "Claws at the Harbour",
+    "goalEn": "Read the shallow-water reflection or arc over a low shelf to reach an elevated shore.",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          24,
+          12
+        ],
+        [
+          38,
+          8
+        ],
+        [
+          54,
+          8
+        ],
+        [
+          72,
+          18
+        ],
+        [
+          100,
+          18
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "id": "010-C01",
+          "poly": [
+            [
+              45,
+              22
+            ],
+            [
+              59,
+              22
+            ],
+            [
+              59,
+              18
+            ],
+            [
+              45,
+              18
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            38,
+            56,
+            8
+          ]
+        }
+      ],
+      "player": {
+        "x": 16,
+        "h": 12
+      },
+      "enemy": {
+        "x": 85,
+        "h": 18
+      },
+      "pickups": []
+    }
+  },
+  "after": {
+    "stage": 10,
+    "name": "港を開く爪",
+    "goal": "浅瀬の反射と岩棚越えの曲射を見比べ、高い右岸のボスに当てる",
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        12,
+        12
+      ],
+      [
+        26,
+        12
+      ],
+      [
+        33,
+        10
+      ],
+      [
+        38,
+        8
+      ],
+      [
+        48,
+        8
+      ],
+      [
+        56,
+        8
+      ],
+      [
+        64,
+        12
+      ],
+      [
+        72,
+        18
+      ],
+      [
+        85,
+        18
+      ],
+      [
+        96,
+        18
+      ],
+      [
+        100,
+        17
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "island",
+        "id": "010-SHELF01",
+        "poly": [
+          [
+            43,
+            22
+          ],
+          [
+            48,
+            23
+          ],
+          [
+            56,
+            23
+          ],
+          [
+            61,
+            20
+          ],
+          [
+            57,
+            18
+          ],
+          [
+            46,
+            18
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          38,
+          56,
+          8
+        ]
+      }
+    ],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      85
+    ],
+    "route": "左岸の平坦な位置から反射する浅瀬と岩棚上空を見比べ、右岸のボスへ弧を通す。",
+    "nameEn": "Claws at the Harbour",
+    "goalEn": "Read the shallow-water reflection or arc over a low shelf to reach an elevated shore.",
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          26,
+          12
+        ],
+        [
+          33,
+          10
+        ],
+        [
+          38,
+          8
+        ],
+        [
+          48,
+          8
+        ],
+        [
+          56,
+          8
+        ],
+        [
+          64,
+          12
+        ],
+        [
+          72,
+          18
+        ],
+        [
+          85,
+          18
+        ],
+        [
+          96,
+          18
+        ],
+        [
+          100,
+          17
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "id": "010-SHELF01",
+          "poly": [
+            [
+              43,
+              22
+            ],
+            [
+              48,
+              23
+            ],
+            [
+              56,
+              23
+            ],
+            [
+              61,
+              20
+            ],
+            [
+              57,
+              18
+            ],
+            [
+              46,
+              18
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            38,
+            56,
+            8
+          ]
+        }
+      ],
+      "player": {
+        "x": 16,
+        "h": 12
+      },
+      "enemy": {
+        "x": 85,
+        "h": 18
+      },
+      "pickups": []
+    }
+  },
+  "summary": {
+    "headline": "四角い中央棚を波食岩棚に。浅瀬の反射と高い曲射を選べるボスの入り江へ。",
+    "why": "左岸の安定射点から浅瀬で水切りするか、岩棚の上空へ弧を通して高い右岸のボスを狙う。",
+    "preserved": "Tideclawの部位・攻撃・報酬、反射ギミックW、転移、敵性能、24行動を維持。",
+    "oldGoal": "浅瀬の水切りと中央の岩棚の上空を比較し、敵が6単位高い岸へ曲射する。",
+    "newGoal": "浅瀬の反射と岩棚越えの曲射を見比べ、高い右岸のボスに当てる",
+    "learningDecision": "発展",
+    "sceneType": "波食岩棚・浅瀬の反射／右岸の大ボス"
+  },
+  "routeDesign": {
+    "primary": "広い左岸から中央岩棚の上を通る高い曲射で右岸のボスを攻撃する。",
+    "alternate": "浅瀬Wの反射を利用して低い弾道から右岸へ届く経路を探す。任意で転移し射点変更も可能にする。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 24,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": true,
+    "midboss": false,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "9面の二段岸壁・浮島から、10面は反射と弧の選択へ発展。ボスの部位CLAW/SHELLと攻撃LOW/DROP/ARCを保持。",
+    "reviewRisk": "反射ギミックが意図した場所で働くこと、岩棚上の射線が塞がれないこと、ボス部位への射撃可能性は実装時の未検証事項。",
+    "bossSpecUnchanged": {
+      "name": "Tideclaw",
+      "parts": [
+        {
+          "name": "CLAW",
+          "hp": 1,
+          "dx": 52,
+          "dy": -29,
+          "radius": 23
+        },
+        {
+          "name": "SHELL",
+          "hp": 2,
+          "dx": -26,
+          "dy": -55,
+          "radius": 22
+        }
+      ],
+      "attacks": [
+        "LOW",
+        "DROP",
+        "ARC"
+      ],
+      "reward": "BURST"
+    }
+  },
+  "implementationNote": "図面の静的整合のみ確認。物理的な反射成立・部位命中・敵AI・勝利条件・実機表示の実動作は未検証。ゲーム実装なし。",
+  "approval": "設計承認済み（ユーザー「承認次へ」）",
+  "reviewDate": "2026-11-04",
+  "approvedScope": "地形・配置・学習目標の設計のみ承認。ゲーム実装は別工程。"
+}

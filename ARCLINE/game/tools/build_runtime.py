@@ -23,6 +23,8 @@ def build():
     text=resource_block(text,'styles','\n'.join(f'<link rel="stylesheet" href="{n}?v={cache}">' for n in CONFIG['styles']),r'<link rel="stylesheet" href="[^"]+">')
     text=resource_block(text,'scripts','\n'.join(f'<script src="{n}?v={cache}"></script>' for n in CONFIG['scripts']),r'<script src="[^"]+"></script>')
     p.write_text(text)
+    # The worker imports the same cached modules as the main document.
+    p=dist/'cpu-worker.js';text=re.sub(r'(\?v=)\d+\.\d+\.\d+',lambda m:m[1]+cache,p.read_text());p.write_text(text)
     p=dist/'app.webmanifest';data=json.loads(p.read_text());data['start_url']='./?v='+version;p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     p=ROOT/'index.html';text=p.read_text();text=re.sub(r'(game/dist/[^"?]*\?v=)\d+\.\d+\.\d+',lambda m:m[1]+(version if m[1].startswith('game/dist/?') else cache),text);text=re.sub(r'updates/\d+\.\d+\.\d+/',f'updates/{version}/',text);p.write_text(text)
     print('Compiled runtime',version,'/',cache,':',len(CONFIG['scripts']),'scripts and',len(CONFIG['styles']),'styles')

@@ -1,0 +1,1408 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 52,
+  "date": "2026-11-05",
+  "revision": 3,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        9
+      ],
+      [
+        29,
+        9
+      ],
+      [
+        44,
+        14
+      ],
+      [
+        61,
+        22
+      ],
+      [
+        100,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          29,
+          9
+        ],
+        [
+          44,
+          14
+        ],
+        [
+          61,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            60,
+            35
+          ],
+          [
+            64,
+            35
+          ],
+          [
+            64,
+            19
+          ],
+          [
+            60,
+            19
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "052-C01@0",
+            "label": "D01",
+            "poly": [
+              [
+                60,
+                35
+              ],
+              [
+                64,
+                35
+              ],
+              [
+                64,
+                19
+              ],
+              [
+                60,
+                19
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "052-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            34,
+            37
+          ],
+          [
+            51,
+            37
+          ],
+          [
+            51,
+            34
+          ],
+          [
+            34,
+            34
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "052-C02@0",
+            "label": "D02-1",
+            "poly": [
+              [
+                34,
+                37
+              ],
+              [
+                42.5,
+                37
+              ],
+              [
+                42.5,
+                34
+              ],
+              [
+                34,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "052-C02@1",
+            "label": "D02-2",
+            "poly": [
+              [
+                42.5,
+                37
+              ],
+              [
+                51,
+                37
+              ],
+              [
+                51,
+                34
+              ],
+              [
+                42.5,
+                34
+              ]
+            ]
+          }
+        ],
+        "displayId": "D02",
+        "unitCount": 2
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          47,
+          67,
+          21,
+          43
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 9
+    },
+    "enemy": {
+      "x": 86,
+      "h": 22
+    },
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 33.558,
+        "h": 38.826,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "verification": {
+          "angle": 63,
+          "power": 75,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0.5
+        }
+      }
+    ],
+    "stageNumber": 52,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "width": 1320,
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        34,
+        12
+      ],
+      [
+        46,
+        14
+      ],
+      [
+        61,
+        14
+      ],
+      [
+        73,
+        18
+      ],
+      [
+        86,
+        27
+      ],
+      [
+        99,
+        35
+      ],
+      [
+        110,
+        43
+      ],
+      [
+        124,
+        43
+      ],
+      [
+        132,
+        40
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          34,
+          12
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          61,
+          14
+        ],
+        [
+          73,
+          18
+        ],
+        [
+          86,
+          27
+        ],
+        [
+          99,
+          35
+        ],
+        [
+          110,
+          43
+        ],
+        [
+          124,
+          43
+        ],
+        [
+          132,
+          40
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-WEST-CLIFF",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            72
+          ],
+          [
+            18,
+            75
+          ],
+          [
+            35,
+            69
+          ],
+          [
+            35,
+            29.8
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            0,
+            34
+          ]
+        ],
+        "purpose": "厚い左の断崖。x35〜52に自然の縦穴を残す。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "052-WEST-CLIFF",
+            "label": "F01",
+            "poly": [
+              [
+                0,
+                72
+              ],
+              [
+                18,
+                75
+              ],
+              [
+                35,
+                69
+              ],
+              [
+                35,
+                29.8
+              ],
+              [
+                19,
+                32
+              ],
+              [
+                0,
+                34
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "052-THIN-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            14
+          ],
+          [
+            64,
+            14
+          ],
+          [
+            64,
+            38
+          ],
+          [
+            57,
+            37
+          ]
+        ],
+        "purpose": "断崖下部の薄い破壊層。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "052-THIN-WINDOW@0",
+            "label": "D02",
+            "poly": [
+              [
+                57,
+                14
+              ],
+              [
+                64,
+                14
+              ],
+              [
+                64,
+                38
+              ],
+              [
+                57,
+                37
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "052-CLIFF-SPINE",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            38
+          ],
+          [
+            64,
+            38
+          ],
+          [
+            64,
+            66
+          ],
+          [
+            57,
+            59
+          ]
+        ],
+        "purpose": "窓の上の固定断崖。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "052-CLIFF-SPINE",
+            "label": "F03",
+            "poly": [
+              [
+                57,
+                38
+              ],
+              [
+                64,
+                38
+              ],
+              [
+                64,
+                66
+              ],
+              [
+                57,
+                59
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "052-MOUNTAIN",
+        "kind": "roof",
+        "poly": [
+          [
+            64,
+            66
+          ],
+          [
+            72,
+            73
+          ],
+          [
+            82,
+            76
+          ],
+          [
+            96,
+            76
+          ],
+          [
+            104,
+            70
+          ],
+          [
+            104,
+            46
+          ],
+          [
+            95,
+            43
+          ],
+          [
+            78,
+            41
+          ],
+          [
+            64,
+            38
+          ]
+        ],
+        "purpose": "自然な厚みの中央山体。上は迂回射点、下は風洞。",
+        "breakable": false,
+        "displayId": "F04",
+        "renderUnits": [
+          {
+            "id": "052-MOUNTAIN",
+            "label": "F04",
+            "poly": [
+              [
+                64,
+                66
+              ],
+              [
+                72,
+                73
+              ],
+              [
+                82,
+                76
+              ],
+              [
+                96,
+                76
+              ],
+              [
+                104,
+                70
+              ],
+              [
+                104,
+                46
+              ],
+              [
+                95,
+                43
+              ],
+              [
+                78,
+                41
+              ],
+              [
+                64,
+                38
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "052-CHIMNEY-BUTTRESS",
+        "kind": "roof",
+        "poly": [
+          [
+            52,
+            63.5
+          ],
+          [
+            57,
+            59
+          ],
+          [
+            57,
+            33
+          ],
+          [
+            52,
+            31.5
+          ]
+        ],
+        "purpose": "自然の縦穴の東側に残る岩。窓と断崖をつなぐ。",
+        "breakable": false,
+        "displayId": "F05",
+        "renderUnits": [
+          {
+            "id": "052-CHIMNEY-BUTTRESS",
+            "label": "F05",
+            "poly": [
+              [
+                52,
+                63.5
+              ],
+              [
+                57,
+                59
+              ],
+              [
+                57,
+                33
+              ],
+              [
+                52,
+                31.5
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          74,
+          95,
+          24,
+          41
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 12
+    },
+    "enemy": {
+      "x": 118,
+      "h": 43
+    },
+    "routes": [],
+    "firingPoints": [
+      {
+        "x": 88,
+        "h": 76,
+        "label": "A"
+      },
+      {
+        "x": 52,
+        "h": 14,
+        "label": "B"
+      },
+      {
+        "x": 37,
+        "h": 12.5,
+        "label": "C"
+      }
+    ],
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 51,
+        "h": 22,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "points": [
+          [
+            24,
+            12
+          ],
+          [
+            88,
+            76
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "B",
+        "points": [
+          [
+            24,
+            12
+          ],
+          [
+            52,
+            14
+          ]
+        ],
+        "kind": "teleport",
+        "status": "planned-not-an-actual-landing-trace"
+      },
+      {
+        "label": "C",
+        "points": [
+          [
+            24,
+            12
+          ],
+          [
+            37,
+            12.5
+          ]
+        ],
+        "kind": "walk",
+        "status": "planned-not-an-actual-landing-trace"
+      }
+    ],
+    "shotExamples": [
+      {
+        "id": "roof",
+        "x": 88,
+        "h": 76,
+        "plan": "alternative",
+        "round": 1,
+        "destroyed": [],
+        "angle": 48,
+        "power": 30,
+        "damage": 1.5,
+        "events": [
+          "critical"
+        ],
+        "path": [
+          [
+            90.342,
+            81.201
+          ],
+          [
+            90.94,
+            81.843
+          ],
+          [
+            91.537,
+            82.425
+          ],
+          [
+            92.135,
+            82.948
+          ],
+          [
+            92.733,
+            83.412
+          ],
+          [
+            93.331,
+            83.817
+          ],
+          [
+            93.928,
+            84.162
+          ],
+          [
+            94.526,
+            84.448
+          ],
+          [
+            95.124,
+            84.675
+          ],
+          [
+            95.722,
+            84.843
+          ],
+          [
+            96.32,
+            84.951
+          ],
+          [
+            96.917,
+            85
+          ],
+          [
+            97.515,
+            84.99
+          ],
+          [
+            98.113,
+            84.92
+          ],
+          [
+            98.711,
+            84.792
+          ],
+          [
+            99.308,
+            84.604
+          ],
+          [
+            99.906,
+            84.356
+          ],
+          [
+            100.504,
+            84.05
+          ],
+          [
+            101.102,
+            83.684
+          ],
+          [
+            101.699,
+            83.259
+          ],
+          [
+            102.297,
+            82.775
+          ],
+          [
+            102.895,
+            82.231
+          ],
+          [
+            103.493,
+            81.629
+          ],
+          [
+            104.09,
+            80.966
+          ],
+          [
+            104.688,
+            80.245
+          ],
+          [
+            105.286,
+            79.465
+          ],
+          [
+            105.884,
+            78.625
+          ],
+          [
+            106.481,
+            77.726
+          ],
+          [
+            107.079,
+            76.767
+          ],
+          [
+            107.677,
+            75.75
+          ],
+          [
+            108.275,
+            74.673
+          ],
+          [
+            108.872,
+            73.537
+          ],
+          [
+            109.47,
+            72.341
+          ],
+          [
+            110.068,
+            71.087
+          ],
+          [
+            110.666,
+            69.773
+          ],
+          [
+            111.263,
+            68.4
+          ],
+          [
+            111.861,
+            66.967
+          ],
+          [
+            112.459,
+            65.476
+          ],
+          [
+            113.057,
+            63.925
+          ],
+          [
+            113.654,
+            62.314
+          ],
+          [
+            114.252,
+            60.645
+          ],
+          [
+            114.85,
+            58.916
+          ],
+          [
+            115.448,
+            57.128
+          ],
+          [
+            116.045,
+            55.281
+          ],
+          [
+            116.643,
+            53.375
+          ],
+          [
+            117.241,
+            51.409
+          ],
+          [
+            117.839,
+            49.384
+          ],
+          [
+            118.153,
+            48.296
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      },
+      {
+        "id": "window",
+        "x": 52,
+        "h": 14,
+        "plan": "main",
+        "round": 1,
+        "destroyed": [
+          "052-THIN-WINDOW@0"
+        ],
+        "angle": 36,
+        "power": 100,
+        "damage": 1.5,
+        "events": [
+          "wind",
+          "critical"
+        ],
+        "path": [
+          [
+            54.832,
+            18.657
+          ],
+          [
+            57.241,
+            20.385
+          ],
+          [
+            59.65,
+            22.054
+          ],
+          [
+            62.059,
+            23.664
+          ],
+          [
+            64.468,
+            25.214
+          ],
+          [
+            66.877,
+            26.705
+          ],
+          [
+            69.286,
+            28.137
+          ],
+          [
+            71.695,
+            29.509
+          ],
+          [
+            74.104,
+            30.823
+          ],
+          [
+            76.526,
+            32.077
+          ],
+          [
+            78.969,
+            33.271
+          ],
+          [
+            81.432,
+            34.407
+          ],
+          [
+            83.917,
+            35.483
+          ],
+          [
+            86.422,
+            36.5
+          ],
+          [
+            88.947,
+            37.458
+          ],
+          [
+            91.494,
+            38.356
+          ],
+          [
+            94.061,
+            39.195
+          ],
+          [
+            96.645,
+            39.975
+          ],
+          [
+            99.231,
+            40.696
+          ],
+          [
+            101.816,
+            41.357
+          ],
+          [
+            104.401,
+            41.959
+          ],
+          [
+            106.987,
+            42.502
+          ],
+          [
+            109.572,
+            42.986
+          ],
+          [
+            112.157,
+            43.41
+          ],
+          [
+            114.743,
+            43.775
+          ],
+          [
+            115.216,
+            43.836
+          ]
+        ],
+        "assumedPolarity": 0,
+        "scope": "Stationary target; planned openings/terminal state; not full route or battle."
+      }
+    ],
+    "stageNumber": 52,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "summary": {
+    "concept": "薄い岩壁を壊す近道と、断崖上へ迂回する射撃を選ぶ。",
+    "terrain": "厚い断崖を貫く横穴風洞",
+    "changeFromPrevious": "主要輪郭・初期位置・主ルートと別解を維持。移動比較、破壊単位、ギミック監査の記録を追加。",
+    "reviewAgainstCompendium": "主要輪郭・初期位置・主ルートと別解を維持。移動比較、破壊単位、ギミック監査の記録を追加。"
+  },
+  "learningGoal": {
+    "source": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+    "proposed": "薄い岩壁を壊す近道と、断崖上へ迂回する射撃を選ぶ。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "薄層を破壊し、洞内Bから短い窓を通す。準備に破壊を使う代わりに、岩の天井を残したまま射撃できる。",
+    "alternative": "自然の縦穴Cへ130px歩き、断崖上Aへ転移して右端から観測台へ落とす。窓の破壊を省ける代わりに、高所への転移と露出が増える。",
+    "anchors": [
+      {
+        "id": "roof",
+        "x": 88,
+        "h": 76,
+        "surface": "052-MOUNTAIN",
+        "role": "露出した断崖上の迂回射点。",
+        "plan": "alternative"
+      },
+      {
+        "id": "window",
+        "x": 52,
+        "h": 14,
+        "surface": "floor0",
+        "role": "窓の前の洞内射点。",
+        "plan": "main"
+      },
+      {
+        "id": "chimney",
+        "x": 37,
+        "h": 12.5,
+        "surface": "floor0",
+        "role": "開始から130px歩く自然の縦穴。窓を壊さず上へ出る準備位置。",
+        "plan": "alternative"
+      }
+    ],
+    "benefits": [
+      "天井を遮蔽として残せる",
+      "窓破壊を省ける"
+    ],
+    "costs": [
+      "まず薄層を破壊する",
+      "高所で反撃に露出する"
+    ],
+    "setupActionsTarget": [
+      1,
+      3
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed.",
+    "preparationNote": "西断崖の自然の縦穴x35〜52を通って上部へ出る。縦穴への130px歩行は静的確認、断崖上への転移入力は未検証。",
+    "evidenceSequenceRequirement": "P0→移動/転移/破壊/切替→射点候補→作用ギミック→敵の実位置→単発弾道→残り手数。未測定項目は未検証として残す。",
+    "accessEvidence": "候補の支持面と固定敵への単発例を確認。実移動・転移入力・準備手順を含む証明ではない。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:spike",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "ban",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "中",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "開始洞内から単純な低弧では断崖を通れない構想。初期からの全通常弾を遮断したこと、上方迂回の転移は未検証。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "stationary-single-shot-sample-found",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_099_STATIC_CHECK.json",
+    "movementBenefit": "not-verified",
+    "enemyAi": "design-only-not-implemented",
+    "ballisticsEvidence": "STAGES_051_099_SHOT_PROBE.json",
+    "requiredCombinations": "sampled-combinations-found-full-routes-unverified",
+    "inputHash": "56d45d044d4e2fc0ac8dd193b44acf26c65e435806b1a08bb4dc21fef9b5af1c"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged.",
+  "previousProposal": "stage_052_proposal_v2.json",
+  "enemyMobility": {
+    "status": "design-requirement-not-implemented",
+    "walking": "同一支持面で徒歩前後の射線と遮蔽を比較。固定移動先を実行用データにはしない。",
+    "teleport": "51〜60面は自律転移対象外。",
+    "runtimeDestinations": null
+  },
+  "destructionPlans": {
+    "main": [
+      "052-THIN-WINDOW@0"
+    ],
+    "alternative": []
+  },
+  "destructionRegister": [
+    {
+      "id": "052-WEST-CLIFF",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "052-WEST-CLIFF",
+          "label": "F01",
+          "poly": [
+            [
+              0,
+              72
+            ],
+            [
+              18,
+              75
+            ],
+            [
+              35,
+              69
+            ],
+            [
+              35,
+              29.8
+            ],
+            [
+              19,
+              32
+            ],
+            [
+              0,
+              34
+            ]
+          ]
+        }
+      ],
+      "purpose": "厚い左の断崖。x35〜52に自然の縦穴を残す。"
+    },
+    {
+      "id": "052-THIN-WINDOW",
+      "label": "D02",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "052-THIN-WINDOW@0",
+          "label": "D02",
+          "poly": [
+            [
+              57,
+              14
+            ],
+            [
+              64,
+              14
+            ],
+            [
+              64,
+              38
+            ],
+            [
+              57,
+              37
+            ]
+          ]
+        }
+      ],
+      "purpose": "断崖下部の薄い破壊層。"
+    },
+    {
+      "id": "052-CLIFF-SPINE",
+      "label": "F03",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "052-CLIFF-SPINE",
+          "label": "F03",
+          "poly": [
+            [
+              57,
+              38
+            ],
+            [
+              64,
+              38
+            ],
+            [
+              64,
+              66
+            ],
+            [
+              57,
+              59
+            ]
+          ]
+        }
+      ],
+      "purpose": "窓の上の固定断崖。"
+    },
+    {
+      "id": "052-MOUNTAIN",
+      "label": "F04",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "052-MOUNTAIN",
+          "label": "F04",
+          "poly": [
+            [
+              64,
+              66
+            ],
+            [
+              72,
+              73
+            ],
+            [
+              82,
+              76
+            ],
+            [
+              96,
+              76
+            ],
+            [
+              104,
+              70
+            ],
+            [
+              104,
+              46
+            ],
+            [
+              95,
+              43
+            ],
+            [
+              78,
+              41
+            ],
+            [
+              64,
+              38
+            ]
+          ]
+        }
+      ],
+      "purpose": "自然な厚みの中央山体。上は迂回射点、下は風洞。"
+    },
+    {
+      "id": "052-CHIMNEY-BUTTRESS",
+      "label": "F05",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "052-CHIMNEY-BUTTRESS",
+          "label": "F05",
+          "poly": [
+            [
+              52,
+              63.5
+            ],
+            [
+              57,
+              59
+            ],
+            [
+              57,
+              33
+            ],
+            [
+              52,
+              31.5
+            ]
+          ]
+        }
+      ],
+      "purpose": "自然の縦穴の東側に残る岩。窓と断崖をつなぐ。"
+    }
+  ],
+  "sourceCompendium": {
+    "file": "ARCLINE_51-100_map_design_compendium_FINAL.md",
+    "sha256": "d957c7895a5b06f561559c24b9192007abe6b9ece4d8c4d300ba967000b748c5",
+    "role": "design-reference-not-runtime-command-or-coordinate-approval"
+  },
+  "gimmickAudit": {
+    "stage": 52,
+    "inputHash": "56d45d044d4e2fc0ac8dd193b44acf26c65e435806b1a08bb4dc21fef9b5af1c",
+    "composition": {
+      "status": "合格",
+      "expected": [
+        "F"
+      ],
+      "actual": [
+        "F"
+      ]
+    },
+    "perType": [
+      {
+        "type": "F",
+        "placement": "合格",
+        "singleShotEffect": "合格",
+        "meaning": "固定敵に命中する単発例で作用を観測。"
+      }
+    ],
+    "requiredCombinations": [],
+    "static": "合格",
+    "singleShot": "合格",
+    "actualMovement": "未検証",
+    "enemyAi": "未検証・未実装",
+    "combatAndActionBudget": "未検証",
+    "finalAcceptance": "未検証"
+  }
+}

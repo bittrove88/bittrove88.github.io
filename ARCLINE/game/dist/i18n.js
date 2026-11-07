@@ -14,7 +14,8 @@ Object.assign(dictionary,{'A precise center hit deals up to 50 damage.':'精密�
 Object.assign(dictionary,{'Prologue':'プロローグ','Epilogue':'エピローグ','Story film':'物語の映像','Replay scene':'演出をもう一度'});
 Object.assign(dictionary,{'Story mode':'ストーリーモード','Story scenes':'シーン','Change machine ▾':'機体変更 ▾'});
 let language='ja';try{if(localStorage.getItem('arcline-language')==='en')language='en';}catch{}
-function t(value){const s=String(value??'');if(language==='en'){const stage=root.ArcLevels?.find(x=>x.name===s);if(stage)return stage.nameEn||s;const theme=root.ArcLevels?.find(x=>x.themeName===s);if(theme)return root.ArcEngine?.biomes[theme.theme]?.name||s;return s;}if(dictionary[s])return dictionary[s];
+Object.assign(dictionary,Object.fromEntries([...(root.ArcSkills?.rows||[]),...(root.ArcWeapons?.weapons||[])].filter(r=>r.nameJa).map(r=>[r.name,r.nameJa])));
+function t(value){const s=String(value??'');if(language==='en'){const stage=root.ArcLevels?.find(x=>x.name===s);if(stage)return stage.nameEn||s;const theme=root.ArcLevels?.find(x=>x.themeName===s);if(theme)return root.ArcEngine?.biomes[theme.theme]?.name||s;return s;}const item=[...(root.ArcSkills?.rows||[]),...(root.ArcWeapons?.weapons||[])].find(r=>r.name===s||r.note===s);if(item?.name===s&&item.nameJa)return item.nameJa;if(item?.note===s&&item.noteJa)return item.noteJa;if(dictionary[s])return dictionary[s];
  if(/^Special (\d+)\/3$/.test(s))return s.replace(/^Special (\d+)\/3$/,'必殺 $1/3');
  if(/^Aux (\d+) shots$/.test(s))return s.replace(/^Aux (\d+) shots$/,'補助 $1発');
  const hit=s.match(/^(HIT|CORE ×(?:1\.5|2)|CORE|CRITICAL ×1\.5|CRITICAL) · ([\d.]+)$/);if(hit)return t(hit[1])+'・'+hit[2];
@@ -116,6 +117,15 @@ function applyMutations(records){
  const selected=[...roots].filter(node=>![...roots].some(other=>other!==node&&other.contains(node)));
  if(!selected.length)return;applying=true;observer.disconnect();try{for(const node of selected)translate(node);}finally{applying=false;observe();}
 }
+Object.assign(dictionary,{
+ 'Repair restores 30% max HP and uses one action.':'最大HPの30%を回復し、1行動を使います。',
+ 'Carries across chapters':'未使用の残数は章を越えて持ち越し',
+ 'Unused weapons and skills carry across chapters.':'未使用の武器・スキルは章を越えて持ち越します。',
+ 'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.':'未使用の残数は章を越えて持ち越します。マップのカプセルは難易度ごとに一度だけ取得できます。',
+ 'Stock and pickup history are carried forward.':'残数と取得履歴は引き継ぎます。',
+ 'Remaining stock and claimed pickups stay saved when retrying.':'再挑戦でも消費後の残数と取得済み履歴は保持します。',
+ 'Special unlocks on your turns 2, 4 and 6. Guardians start with three. Unused stock carries across chapters.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。未使用の補助武器・スキルは章を越えて持ち越します。'
+});
 function setLanguage(next){language=next==='en'?'en':'ja';try{localStorage.setItem('arcline-language',language);}catch{}apply();root.dispatchEvent(new Event('arcline-language'));}
 function install(){observer=new MutationObserver(applyMutations);for(const b of document.querySelectorAll('[data-language-button]'))b.onclick=()=>setLanguage(language==='ja'?'en':'ja');apply();}
 // Rendering and text measurement keep the same translation contract.

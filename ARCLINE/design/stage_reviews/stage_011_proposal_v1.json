@@ -1,0 +1,129 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 11,
+  "date": "2026-11-04",
+  "status": "レビュー待ち／ゲーム未反映",
+  "before": {
+    "stage": 11,
+    "name": "次の便は下り坂",
+    "goal": "緩い下りの連続面に転がり弾を着地させる",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          25
+        ],
+        [
+          25,
+          25
+        ],
+        [
+          58,
+          13
+        ],
+        [
+          100,
+          13
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 25
+      },
+      "enemy": {
+        "x": 82,
+        "h": 13
+      },
+      "pickups": []
+    }
+  },
+  "after": {
+    "stage": 11,
+    "name": "次の便は下り坂",
+    "goal": "連続した自然な下り坂へ弾を接地させ、転がる距離を読む",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          25
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          20,
+          25
+        ],
+        [
+          30,
+          23
+        ],
+        [
+          40,
+          19
+        ],
+        [
+          49,
+          17
+        ],
+        [
+          58,
+          14
+        ],
+        [
+          66,
+          13
+        ],
+        [
+          82,
+          13
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 25
+      },
+      "enemy": {
+        "x": 82,
+        "h": 13
+      },
+      "pickups": []
+    },
+    "designOnly": true
+  },
+  "summary": {
+    "headline": "一直線の坂を、段階的に傾斜が変わる水路沿いの下り丘へ。",
+    "why": "高い左岸の安定射点から、斜面に落とした弾が右岸へ転がる距離を選ぶ。",
+    "preserved": "koroの転がり弾、転移、敵性能と12行動を維持。",
+    "oldGoal": "緩い下りの連続面に転がり弾を着地させる",
+    "newGoal": "連続した自然な下り坂へ弾を接地させ、転がる距離を読む",
+    "learningDecision": "発展"
+  },
+  "routeDesign": {
+    "primary": "左岸からなだらかな斜面の上へ転がり弾を着地させ、右の敵へ届かせる。",
+    "alternate": "坂の肩に歩いて着地点を変え、直射も試す。"
+  },
+  "difficulty": {
+    "band": "初級",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActions": [
+      3,
+      7
+    ]
+  },
+  "implementationNote": "静的設計のみ。射撃・敵AI・転がり・実機未検証。",
+  "approval": "未承認"
+}

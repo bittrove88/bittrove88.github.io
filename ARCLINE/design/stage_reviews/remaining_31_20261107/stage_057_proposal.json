@@ -1,0 +1,832 @@
+{
+  "stage": 57,
+  "name": "崖肩から落とす反射洞",
+  "date": "2026-11-07",
+  "status": "design-revision-complete-runtime-unverified",
+  "source": {
+    "stage": 57,
+    "proposal": "stage_057_proposal_v3.json",
+    "review": "stage_057_review_v3.md"
+  },
+  "before": {
+    "width": 1200,
+    "floor": [
+      [
+        0,
+        77
+      ],
+      [
+        14,
+        76
+      ],
+      [
+        34,
+        76
+      ],
+      [
+        42,
+        72
+      ],
+      [
+        43,
+        28
+      ],
+      [
+        49,
+        22
+      ],
+      [
+        60,
+        15
+      ],
+      [
+        72,
+        13
+      ],
+      [
+        108,
+        13
+      ],
+      [
+        120,
+        17
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          77
+        ],
+        [
+          14,
+          76
+        ],
+        [
+          34,
+          76
+        ],
+        [
+          42,
+          72
+        ],
+        [
+          43,
+          28
+        ],
+        [
+          49,
+          22
+        ],
+        [
+          60,
+          15
+        ],
+        [
+          72,
+          13
+        ],
+        [
+          108,
+          13
+        ],
+        [
+          120,
+          17
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "057-ICE-CAVE",
+        "poly": [
+          [
+            82,
+            62
+          ],
+          [
+            98,
+            60
+          ],
+          [
+            120,
+            58
+          ],
+          [
+            120,
+            34
+          ],
+          [
+            106,
+            32
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            82,
+            39
+          ]
+        ],
+        "breakable": false,
+        "purpose": "床反射の出口を覆わず洞内の高さを残す",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "057-LOW-WINDOW",
+        "poly": [
+          [
+            74,
+            13
+          ],
+          [
+            81,
+            13
+          ],
+          [
+            81,
+            40
+          ],
+          [
+            77,
+            43
+          ],
+          [
+            74,
+            41
+          ]
+        ],
+        "breakable": true,
+        "purpose": "両経路で開く独立1片の入口",
+        "displayId": "D02",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          51,
+          72,
+          14
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          44,
+          57,
+          42,
+          72
+        ]
+      }
+    ],
+    "player": {
+      "x": 26,
+      "h": 76
+    },
+    "enemy": {
+      "x": 104,
+      "h": 13
+    }
+  },
+  "after": {
+    "width": 1200,
+    "floor": [
+      [
+        0,
+        77
+      ],
+      [
+        14,
+        76
+      ],
+      [
+        34,
+        76
+      ],
+      [
+        38,
+        68
+      ],
+      [
+        42,
+        60
+      ],
+      [
+        43,
+        57
+      ],
+      [
+        43,
+        28
+      ],
+      [
+        49,
+        22
+      ],
+      [
+        60,
+        15
+      ],
+      [
+        72,
+        13
+      ],
+      [
+        108,
+        13
+      ],
+      [
+        120,
+        17
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          77
+        ],
+        [
+          14,
+          76
+        ],
+        [
+          34,
+          76
+        ],
+        [
+          38,
+          68
+        ],
+        [
+          42,
+          60
+        ],
+        [
+          43,
+          57
+        ],
+        [
+          43,
+          28
+        ],
+        [
+          49,
+          22
+        ],
+        [
+          60,
+          15
+        ],
+        [
+          72,
+          13
+        ],
+        [
+          108,
+          13
+        ],
+        [
+          120,
+          17
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          51,
+          72,
+          14
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          44,
+          57,
+          42,
+          72
+        ]
+      },
+      {
+        "type": "K",
+        "id": "057-FLOOR-REFLECTOR",
+        "v": [
+          85,
+          13.06,
+          0
+        ],
+        "sizeFactor": 2.1818181818181817
+      }
+    ],
+    "player": {
+      "x": 26,
+      "h": 76
+    },
+    "enemy": {
+      "x": 104,
+      "h": 13
+    },
+    "pickups": [
+      {
+        "id": "W19",
+        "kind": "trial",
+        "weaponId": "W19",
+        "category": "weapon",
+        "amount": 2,
+        "x": 47,
+        "h": 29,
+        "spawnTurn": 1,
+        "placementId": "L057:weapon:W19",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "parts": [
+      {
+        "id": "057-ICE-CAVE",
+        "poly": [
+          [
+            82,
+            62
+          ],
+          [
+            98,
+            60
+          ],
+          [
+            120,
+            58
+          ],
+          [
+            120,
+            34
+          ],
+          [
+            106,
+            32
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            88,
+            36.5
+          ],
+          [
+            82,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "指定された左下角を面取りし、青線位置の下面88〜100に既存の反射面を設置。",
+        "displayId": "F01",
+        "unitCount": 1,
+        "reflectiveUnderside": [
+          [
+            88,
+            36.5
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            100,
+            33
+          ]
+        ]
+      },
+      {
+        "id": "057-LOW-WINDOW",
+        "poly": [
+          [
+            74,
+            13
+          ],
+          [
+            81,
+            13
+          ],
+          [
+            81,
+            40
+          ],
+          [
+            77,
+            43
+          ],
+          [
+            74,
+            41
+          ]
+        ],
+        "breakable": true,
+        "purpose": "両経路で開く独立1片の入口",
+        "displayId": "D02",
+        "unitCount": 1
+      }
+    ],
+    "id": 57,
+    "stageNumber": 57,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 26,
+        "h": 76,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 31,
+        "h": 76,
+        "role": "切削後に残る崖肩。開始から50px"
+      },
+      {
+        "id": "B",
+        "x": 64,
+        "h": 14.333333,
+        "role": "入口前"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "fall-W-ceiling-floor",
+        "points": [
+          [
+            31,
+            79
+          ],
+          [
+            36,
+            80
+          ],
+          [
+            42,
+            60
+          ],
+          [
+            51,
+            42
+          ],
+          [
+            61,
+            14.833333
+          ],
+          [
+            88.8,
+            36.166667
+          ],
+          [
+            92,
+            13.06
+          ],
+          [
+            98,
+            26
+          ],
+          [
+            104,
+            16
+          ]
+        ],
+        "contact": "W",
+        "destroy": [
+          "057-LOW-WINDOW"
+        ]
+      },
+      {
+        "id": "entrance",
+        "points": [
+          [
+            64,
+            17.3333
+          ],
+          [
+            76,
+            27
+          ],
+          [
+            90,
+            25
+          ],
+          [
+            104,
+            16
+          ]
+        ],
+        "destroy": [
+          "057-LOW-WINDOW"
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "x": 89,
+        "h": 43,
+        "text": "追加：下面反射面"
+      },
+      {
+        "x": 82,
+        "h": 6,
+        "text": "追加：床反射板"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 57,
+    "name": "崖肩から落とす反射洞",
+    "floor": [
+      [
+        0,
+        77
+      ],
+      [
+        14,
+        76
+      ],
+      [
+        34,
+        76
+      ],
+      [
+        38,
+        68
+      ],
+      [
+        42,
+        60
+      ],
+      [
+        43,
+        57
+      ],
+      [
+        43,
+        28
+      ],
+      [
+        49,
+        22
+      ],
+      [
+        60,
+        15
+      ],
+      [
+        72,
+        13
+      ],
+      [
+        108,
+        13
+      ],
+      [
+        120,
+        17
+      ]
+    ],
+    "parts": [
+      {
+        "id": "057-ICE-CAVE",
+        "poly": [
+          [
+            82,
+            62
+          ],
+          [
+            98,
+            60
+          ],
+          [
+            120,
+            58
+          ],
+          [
+            120,
+            34
+          ],
+          [
+            106,
+            32
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            88,
+            36.5
+          ],
+          [
+            82,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "指定された左下角を面取りし、青線位置の下面88〜100に既存の反射面を設置。",
+        "displayId": "F01",
+        "unitCount": 1,
+        "reflectiveUnderside": [
+          [
+            88,
+            36.5
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            100,
+            33
+          ]
+        ]
+      },
+      {
+        "id": "057-LOW-WINDOW",
+        "poly": [
+          [
+            74,
+            13
+          ],
+          [
+            81,
+            13
+          ],
+          [
+            81,
+            40
+          ],
+          [
+            77,
+            43
+          ],
+          [
+            74,
+            41
+          ]
+        ],
+        "breakable": true,
+        "purpose": "両経路で開く独立1片の入口",
+        "displayId": "D02",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "W",
+        "v": [
+          51,
+          72,
+          14
+        ]
+      },
+      {
+        "type": "F",
+        "v": [
+          44,
+          57,
+          42,
+          72
+        ]
+      },
+      {
+        "type": "K",
+        "id": "057-FLOOR-REFLECTOR",
+        "v": [
+          85,
+          13.06,
+          0
+        ],
+        "sizeFactor": 2.1818181818181817
+      }
+    ],
+    "worldWidth": 1200,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        26,
+        76
+      ],
+      [
+        104,
+        13
+      ]
+    ],
+    "recommended": "rico",
+    "pickups": [
+      {
+        "id": "W19",
+        "kind": "trial",
+        "weaponId": "W19",
+        "category": "weapon",
+        "amount": 2,
+        "x": 47,
+        "h": 29,
+        "spawnTurn": 1,
+        "placementId": "L057:weapon:W19",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rico",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    }
+  },
+  "design": {
+    "core": "崖肩の落差から既存Wへ入れ、洞内の天井・床の反射板を使い分ける。",
+    "change": "画像指定の崖肩の角と屋根左下を削り、床と天井下面の青線位置へ反射面を追加。崖肩の候補Aは削った部分の手前へ移した。",
+    "distinct": "垂直落差による下向きの入射と床反射が核。64面の裏回りには反射を使わない。",
+    "inherit": {
+      "concept": "垂直落差を使って底の鏡面へ落とし、破壊した窓から洞内の敵へ通す。",
+      "terrain": "垂直氷壁の足元に広がる反射洞窟",
+      "changeFromPrevious": "垂直氷壁と洞窟は維持。高所からの反射が天井へ戻る問題を避けるため、鏡面の床を右下がりに微調整。",
+      "reviewAgainstCompendium": "垂直氷壁と洞窟は維持。高所からの反射が天井へ戻る問題を避けるため、鏡面の床を右下がりに微調整。"
+    },
+    "special": "2026-11-07の画像指示による部分改訂。床73〜97の板は既存Kを水平・固定で使用し、屋根上面までWが広がる副作用を避ける。板の4px厚は地面へ埋まり上面は床の0.6px上。天井下面88〜100は実ポリゴンの辺にreflectiveUndersideを指定。既存Wと合わせた3反射は構想で、既存の反射上限・減衰のまま詳細検証へ送る。開始と敵、入口一片、F、既存W、取得物は維持。比較図は前提示版f174908との差分。"
+  },
+  "approval": {
+    "state": "pending-revision-review",
+    "reason": "指定部分の改訂後の確認待ち。前版の他の部分へのOKは保持。"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "ユーザー画像の崖肩上角と屋根左下を切削し、青線位置の床73〜97と天井下面88〜100へ反射面を追加して実描画を確認。Aは切削前の支持面を避け手前へ移した。追加面の実衝突IDを軽量確認し、屋根上面に余分なW反射がないことを確認。反射後の実命中は未検証。",
+      "runtime": "not-tested",
+      "reflectorPlacement": {
+        "floor": {
+          "solidId": "057-FLOOR-REFLECTOR",
+          "type": "existing-K-horizontal-panel",
+          "span": [
+            73,
+            97
+          ],
+          "surfaceH": 13.06
+        },
+        "ceiling": {
+          "componentId": "057-ICE-CAVE",
+          "type": "existing-reflectiveUnderside",
+          "span": [
+            88,
+            100
+          ]
+        },
+        "unrequestedRoofTopReflectors": 0
+      }
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged.",
+  "revision": {
+    "date": "2026-11-07",
+    "baseCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "request": "オレンジ箇所を削る。青い線2か所に反射板を設置。",
+    "changes": [
+      "崖肩34〜43の上角を削る",
+      "屋根左下82〜88を面取りする",
+      "床73〜97に水平反射板を固定",
+      "天井下面88〜100を反射化"
+    ],
+    "reflectorImplementation": {
+      "floor": "既存Kを水平板として使用。4px厚の下部は地面へ埋まり、上面は床の0.6px上。Wを横へ広げず、屋根上面を反射化しない。",
+      "ceiling": "既存reflectiveUnderside。実際の下面の2辺と一致。"
+    },
+    "otherGeometry": "unchanged except firing-point A and schematic path following the cut"
+  }
+}

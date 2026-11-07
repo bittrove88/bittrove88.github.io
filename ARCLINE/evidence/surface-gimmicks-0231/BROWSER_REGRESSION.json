@@ -1,0 +1,197 @@
+{
+  "status": "PASS",
+  "suiteCount": 28,
+  "initialFullRun": {
+    "command": "npm run test:browser",
+    "status": "FAIL",
+    "passed": 26,
+    "failed": [
+      "final-battle-browser",
+      "../site-tests/expedition-release"
+    ]
+  },
+  "corrections": [
+    "Use fresh native100-stage route instead of old contact/landing witnesses.",
+    "Add version0.23.1 release page required by the site reference test.",
+    "Recheck new surface UI and map inspection after label layering/HUD avoidance changes."
+  ],
+  "rows": [
+    {
+      "name": "surface-gimmicks-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "targeted rerun after correction",
+      "evidence": "SURFACE_GIMMICKS_BROWSER.json",
+      "checks": 61
+    },
+    {
+      "name": "three-change-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "map-revision-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "targeted rerun after correction",
+      "evidence": "MAP_BROWSER.json",
+      "checks": 27
+    },
+    {
+      "name": "difficulty-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "crew-supply-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "master-move-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "final-battle-browser",
+      "initialStatus": "FAIL",
+      "status": "PASS",
+      "verification": "targeted rerun after correction",
+      "evidence": "FINAL_BATTLE_BROWSER.json",
+      "checks": 36
+    },
+    {
+      "name": "final-retry-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "promo-experience-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "../site-tests/service-site",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "refactor-ui",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "player-flow-0143-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "charge-pause",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "../site-tests/cinematic-014-ui",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "../site-tests/expedition-release",
+      "initialStatus": "FAIL",
+      "status": "PASS",
+      "verification": "targeted rerun after correction",
+      "evidence": "RELEASE_WEB.json",
+      "checks": 153
+    },
+    {
+      "name": "journey-0155-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "journey-0155-resilience",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "media-220-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "chapter-flow-0170-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "start-landscape-0171-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "ending-300-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "combat-sfx-0190-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "stage-start-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "machine-swipe-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "story-continuation-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "../site-tests/promo",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "map-camera-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    },
+    {
+      "name": "landscape-view-browser",
+      "initialStatus": "PASS",
+      "status": "PASS",
+      "verification": "full browser suite"
+    }
+  ],
+  "scope": "Local Chromium regression; full suite plus explicitly recorded targeted reruns. GitHub Actions, Pages deployment and physical phones are separate."
+}

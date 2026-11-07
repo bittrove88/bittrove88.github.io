@@ -11,3 +11,55 @@
 #finalTeamTransition small{font-size:clamp(12px,2vw,18px);letter-spacing:.12em;color:#f0c489}#finalTeamTransition[data-travel="true"]{background:transparent;justify-content:flex-start;padding-top:12vh;text-shadow:0 2px 12px #102e3f;overflow:hidden}#finalTeamTransition[data-travel="true"]:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,#0c2535,#274956);z-index:-1;transform:translateX(-110%)}#finalTeamTransition[data-travel="true"].is-entering{animation:travel-caption var(--team-duration,2.2s) linear both}#finalTeamTransition[data-travel="true"].is-entering:before{animation:travel-curtain var(--team-duration,2.2s) ease-in-out both}
 @keyframes travel-curtain{0%,25%{transform:translateX(-110%)}46%,60%{transform:translateX(0)}88%,100%{transform:translateX(110%)}}@keyframes travel-caption{0%{opacity:0}12%,85%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){#finalTeamTransition[data-travel="true"].is-entering,#finalTeamTransition[data-travel="true"].is-entering:before{animation:none}#finalTeamTransition[data-travel="true"]{background:#102e3ff2}}
+
+/* Keep both final-battle retries and the exit reachable on short screens. */
+#overlay[data-final-retry="true"] .modal {
+  display: grid;
+  width: min(640px, 100%);
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.8fr);
+  grid-template-rows: auto auto auto;
+  gap: 6px 12px;
+  padding: 10px 12px;
+  text-align: left;
+}
+#overlay[data-final-retry="true"] #resultIcon {
+  display: none;
+}
+#overlay[data-final-retry="true"] #modalEyebrow {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  font-size: 11px;
+}
+#overlay[data-final-retry="true"] #modalTitle {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  font-size: 22px;
+  align-self: center;
+}
+#overlay[data-final-retry="true"] #modalDetail {
+  grid-column: 1;
+  grid-row: 3;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.3;
+}
+#overlay[data-final-retry="true"] :is(#retryFinalCharacter, #resume, #returnLobby) {
+  grid-column: 2;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 5px 8px;
+  font-size: 13px;
+  line-height: 1.3;
+}
+#overlay[data-final-retry="true"] #retryFinalCharacter {
+  grid-row: 1;
+}
+#overlay[data-final-retry="true"] #resume {
+  grid-row: 2;
+}
+#overlay[data-final-retry="true"] #returnLobby {
+  grid-row: 3;
+}

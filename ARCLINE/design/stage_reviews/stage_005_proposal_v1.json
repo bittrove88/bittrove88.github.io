@@ -1,0 +1,248 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 5,
+  "date": "2026-11-04",
+  "status": "設計承認済み／ゲーム未反映",
+  "designBasis": "最新マップデザインガイドから地形骨格を新規設計、既存地形は比較参照",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 5,
+    "name": "巻上げ場の花印",
+    "goal": "低い肩を越える弧でドラムを止める",
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        30,
+        11
+      ],
+      [
+        44,
+        17
+      ],
+      [
+        58,
+        11
+      ],
+      [
+        100,
+        11
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      17,
+      80
+    ],
+    "route": "低い肩を越える弧でドラムを止める",
+    "nameEn": "Flowers by the Winch",
+    "goalEn": "Send an arc over the low ridge toward the drum.",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          30,
+          11
+        ],
+        [
+          44,
+          17
+        ],
+        [
+          58,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "player": {
+        "x": 17,
+        "h": 11
+      },
+      "enemy": {
+        "x": 80,
+        "h": 11
+      },
+      "pickups": []
+    }
+  },
+  "after": {
+    "stage": 5,
+    "name": "巻上げ場の花印",
+    "goal": "中央の岩丘を越える弧を選び、中ボスへ確実に当てる",
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        7,
+        13
+      ],
+      [
+        17,
+        13
+      ],
+      [
+        27,
+        13
+      ],
+      [
+        34,
+        15
+      ],
+      [
+        44,
+        20
+      ],
+      [
+        53,
+        18
+      ],
+      [
+        59,
+        11
+      ],
+      [
+        69,
+        10
+      ],
+      [
+        78,
+        12
+      ],
+      [
+        92,
+        12
+      ],
+      [
+        100,
+        13
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      17,
+      80
+    ],
+    "route": "開始の安定岸から高い弧を通して防波丘の向こうの中ボスを狙う。",
+    "nameEn": "Flowers by the Winch",
+    "goalEn": "Send an arc over the low ridge toward the drum.",
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          17,
+          13
+        ],
+        [
+          27,
+          13
+        ],
+        [
+          34,
+          15
+        ],
+        [
+          44,
+          20
+        ],
+        [
+          53,
+          18
+        ],
+        [
+          59,
+          11
+        ],
+        [
+          69,
+          10
+        ],
+        [
+          78,
+          12
+        ],
+        [
+          92,
+          12
+        ],
+        [
+          100,
+          13
+        ]
+      ],
+      "parts": [],
+      "features": [],
+      "player": {
+        "x": 17,
+        "h": 13
+      },
+      "enemy": {
+        "x": 80,
+        "h": 12
+      },
+      "pickups": []
+    }
+  },
+  "summary": {
+    "headline": "初の中ボスは、弧を描く防波丘の向こう側に配置。",
+    "why": "遮るのは短い岩の丘だけ。敵の位置は見えるので、高い弧で丘を越える判断を楽しむ。",
+    "preserved": "中ボスの仕組み・耐久・敵の攻撃ルールと18行動はそのまま。追加ギミックなし。",
+    "oldGoal": "低い肩を越える弧でドラムを止める",
+    "newGoal": "中央の岩丘を越える弧を選び、中ボスへ確実に当てる",
+    "learningDecision": "発展",
+    "sceneType": "防波丘の反対側／中ボス"
+  },
+  "routeDesign": {
+    "primary": "開始の安定岸から高い弧を通して防波丘の向こうの中ボスを狙う。",
+    "alternate": "丘の手前に少し進んで別の弧を選ぶ。ただし坂上の不安定な場所を必須にしない。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 18,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": false,
+    "midboss": true,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "大きな山が1つあるだけで射線が変わる面にし、3面の下り道・4面の分断水路と骨格を変える。",
+    "reviewRisk": "中ボスの反撃と高い丘の遮蔽を重ねすぎない。高さと敵の可視性をレビューする。"
+  },
+  "implementationNote": "設計図のみ、実装・射撃シミュレーションは行っていない。",
+  "approval": "設計承認済み（ユーザー「4-9は承認」）",
+  "reviewDate": "2026-11-04",
+  "approvedScope": "地形骨格・敵味方の配置・提案学習目標を設計承認。ゲーム実装・射撃の成功検証は別工程。"
+}

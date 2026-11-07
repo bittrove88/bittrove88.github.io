@@ -1,0 +1,64 @@
+{
+  "stage": 76,
+  "version": 3,
+  "status": "static-shape-confirmed-design-approval-pending",
+  "scope": "data loading and obvious spatial consistency only",
+  "supports": [
+    {
+      "id": "P0",
+      "supported": true,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "enemy",
+      "supported": true,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "R",
+      "supported": true,
+      "bodyClear": true,
+      "slopeDeg": 0
+    }
+  ],
+  "M": {
+    "initialDirection": -1,
+    "minimumCircleToGroundClearancePx": 149.285,
+    "solidInsideCircle": false
+  },
+  "sameInitialConditions": {
+    "left": {
+      "x": 35,
+      "h": 42
+    },
+    "right": {
+      "x": 145,
+      "h": 42
+    },
+    "enemy": {
+      "x": 90,
+      "h": 12
+    },
+    "horizontalDistanceEach": 55
+  },
+  "space": {
+    "bothSchematicShotPathsClear": true,
+    "terminalOperationStraightClear": true,
+    "bankLipsBlockRepresentativeDirectDownwardLines": true,
+    "centralDropGapPx": 160
+  },
+  "mechanics": "Velocity rotation equation inspected: +x with polarity +1 turns toward +y (down); -x with polarity -1 also turns toward +y. No trajectory simulated.",
+  "notTested": [
+    "actual movement",
+    "teleport",
+    "muzzle",
+    "terminal hit and turn boundary",
+    "M trajectory and hit",
+    "enemy movement and counterattack",
+    "16 action victory"
+  ],
+  "rendering": "Chromium full map and old/new comparison visually inspected",
+  "runtimeChanged": false
+}

@@ -1,0 +1,1298 @@
+{
+  "schema": "arcline-map-compendium-proposal-v1",
+  "stage": 71,
+  "date": "2026-11-06",
+  "status": "design-approved-runtime-unverified",
+  "revisionOf": "stage_071_proposal_v3.json",
+  "sourcePr74": {
+    "latestProposal": "stage_071_proposal_v2.json",
+    "latestReview": "stage_071_review_v2.md",
+    "retained": [
+      "磁性谷",
+      "反射床Wと磁場M",
+      "低所の複合射撃",
+      "高所の短射",
+      "enemy:pole・HP5・16行動"
+    ],
+    "issue": "同形3浮島とP0単発命中が残る。敵の自律転移は未実装。"
+  },
+  "after": {
+    "width": 1540,
+    "floor": [
+      [
+        0,
+        51
+      ],
+      [
+        12,
+        52
+      ],
+      [
+        23,
+        55
+      ],
+      [
+        31,
+        54
+      ],
+      [
+        37,
+        49
+      ],
+      [
+        42,
+        43
+      ],
+      [
+        48,
+        32
+      ],
+      [
+        54,
+        18
+      ],
+      [
+        61,
+        10
+      ],
+      [
+        69,
+        7
+      ],
+      [
+        89,
+        7
+      ],
+      [
+        95,
+        10
+      ],
+      [
+        102,
+        19
+      ],
+      [
+        110,
+        30
+      ],
+      [
+        119,
+        41
+      ],
+      [
+        125,
+        45
+      ],
+      [
+        136,
+        47
+      ],
+      [
+        147,
+        47
+      ],
+      [
+        154,
+        43
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          51
+        ],
+        [
+          12,
+          52
+        ],
+        [
+          23,
+          55
+        ],
+        [
+          31,
+          54
+        ],
+        [
+          37,
+          49
+        ],
+        [
+          42,
+          43
+        ],
+        [
+          48,
+          32
+        ],
+        [
+          54,
+          18
+        ],
+        [
+          61,
+          10
+        ],
+        [
+          69,
+          7
+        ],
+        [
+          89,
+          7
+        ],
+        [
+          95,
+          10
+        ],
+        [
+          102,
+          19
+        ],
+        [
+          110,
+          30
+        ],
+        [
+          119,
+          41
+        ],
+        [
+          125,
+          45
+        ],
+        [
+          136,
+          47
+        ],
+        [
+          147,
+          47
+        ],
+        [
+          154,
+          43
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "071-FLOAT-BLOCK-LEFT",
+        "displayId": "F01",
+        "kind": "block",
+        "poly": [
+          [
+            57,
+            25
+          ],
+          [
+            61,
+            29
+          ],
+          [
+            66,
+            29
+          ],
+          [
+            69,
+            26
+          ],
+          [
+            65,
+            23
+          ],
+          [
+            59,
+            23
+          ]
+        ],
+        "breakable": false,
+        "purpose": "谷底への進入口を確保した、左側の小型浮遊ブロック。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "071-FLOAT-BLOCK-LEFT",
+            "label": "F01",
+            "poly": [
+              [
+                57,
+                25
+              ],
+              [
+                61,
+                29
+              ],
+              [
+                66,
+                29
+              ],
+              [
+                69,
+                26
+              ],
+              [
+                65,
+                23
+              ],
+              [
+                59,
+                23
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "071-FLOAT-BLOCK-MID",
+        "displayId": "F02",
+        "kind": "block",
+        "poly": [
+          [
+            95,
+            37
+          ],
+          [
+            99,
+            41
+          ],
+          [
+            104,
+            42
+          ],
+          [
+            108,
+            40
+          ],
+          [
+            106,
+            36
+          ],
+          [
+            99,
+            35
+          ]
+        ],
+        "breakable": false,
+        "purpose": "谷の右寄りに浮く小型の射撃中継ブロック。",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "071-FLOAT-BLOCK-MID",
+            "label": "F02",
+            "poly": [
+              [
+                95,
+                37
+              ],
+              [
+                99,
+                41
+              ],
+              [
+                104,
+                42
+              ],
+              [
+                108,
+                40
+              ],
+              [
+                106,
+                36
+              ],
+              [
+                99,
+                35
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "071-CHAINED-ORE-BARRIER",
+        "displayId": "F03",
+        "kind": "block",
+        "poly": [
+          [
+            111,
+            59
+          ],
+          [
+            116,
+            72
+          ],
+          [
+            122,
+            84
+          ],
+          [
+            126,
+            86
+          ],
+          [
+            130,
+            82
+          ],
+          [
+            132,
+            77
+          ],
+          [
+            135,
+            76
+          ],
+          [
+            138,
+            76
+          ],
+          [
+            140,
+            64
+          ],
+          [
+            140,
+            49
+          ],
+          [
+            139,
+            46
+          ],
+          [
+            135,
+            47
+          ],
+          [
+            134,
+            59
+          ],
+          [
+            130,
+            69
+          ],
+          [
+            126,
+            75
+          ],
+          [
+            122,
+            71
+          ],
+          [
+            117,
+            63
+          ],
+          [
+            113,
+            56
+          ]
+        ],
+        "breakable": true,
+        "purpose": "v3の尖った鉱脈外形を変えずに4片D01～D04へ分割した連結鉱塊。",
+        "unitCount": 4,
+        "renderUnits": [
+          {
+            "id": "071-CHAINED-ORE-BARRIER-1",
+            "label": "D01",
+            "poly": [
+              [
+                111,
+                59
+              ],
+              [
+                116,
+                72
+              ],
+              [
+                122,
+                71
+              ],
+              [
+                117,
+                63
+              ],
+              [
+                113,
+                56
+              ]
+            ]
+          },
+          {
+            "id": "071-CHAINED-ORE-BARRIER-2",
+            "label": "D02",
+            "poly": [
+              [
+                116,
+                72
+              ],
+              [
+                122,
+                84
+              ],
+              [
+                126,
+                86
+              ],
+              [
+                130,
+                82
+              ],
+              [
+                132,
+                77
+              ],
+              [
+                126,
+                75
+              ],
+              [
+                122,
+                71
+              ]
+            ]
+          },
+          {
+            "id": "071-CHAINED-ORE-BARRIER-3",
+            "label": "D03",
+            "poly": [
+              [
+                126,
+                75
+              ],
+              [
+                132,
+                77
+              ],
+              [
+                135,
+                76
+              ],
+              [
+                138,
+                76
+              ],
+              [
+                140,
+                64
+              ],
+              [
+                140,
+                56
+              ],
+              [
+                130,
+                69
+              ]
+            ]
+          },
+          {
+            "id": "071-CHAINED-ORE-BARRIER-4",
+            "label": "D04",
+            "poly": [
+              [
+                130,
+                69
+              ],
+              [
+                140,
+                56
+              ],
+              [
+                140,
+                49
+              ],
+              [
+                139,
+                46
+              ],
+              [
+                135,
+                47
+              ],
+              [
+                134,
+                59
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          91,
+          29,
+          23,
+          1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          69,
+          89,
+          7
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 55
+    },
+    "enemy": {
+      "x": 147,
+      "h": 47
+    },
+    "pickups": [],
+    "firingPoints": [
+      {
+        "x": 72,
+        "h": 7,
+        "label": "A"
+      },
+      {
+        "x": 101,
+        "h": 41.4,
+        "label": "C"
+      },
+      {
+        "x": 137,
+        "h": 76,
+        "label": "B"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "A",
+        "kind": "planned",
+        "points": [
+          [
+            23,
+            55
+          ],
+          [
+            45,
+            42
+          ],
+          [
+            60,
+            18
+          ],
+          [
+            72,
+            7
+          ]
+        ],
+        "status": "unverified"
+      },
+      {
+        "label": "C",
+        "kind": "planned",
+        "points": [
+          [
+            23,
+            55
+          ],
+          [
+            70,
+            52
+          ],
+          [
+            101,
+            41.4
+          ]
+        ],
+        "status": "unverified"
+      },
+      {
+        "label": "B",
+        "kind": "planned",
+        "points": [
+          [
+            23,
+            55
+          ],
+          [
+            86,
+            66
+          ],
+          [
+            118,
+            76
+          ],
+          [
+            137,
+            76
+          ]
+        ],
+        "status": "unverified"
+      }
+    ],
+    "routes": [
+      {
+        "label": "A：谷底W→磁場M（以降未検証）",
+        "kind": "main",
+        "points": [
+          [
+            72,
+            9
+          ],
+          [
+            79,
+            10
+          ],
+          [
+            89,
+            18
+          ],
+          [
+            91,
+            29
+          ]
+        ],
+        "status": "schematic-not-physical-result"
+      },
+      {
+        "label": "C：中段小ブロックから上越し",
+        "kind": "middle",
+        "points": [
+          [
+            101,
+            45
+          ],
+          [
+            111,
+            58
+          ],
+          [
+            123,
+            74
+          ],
+          [
+            137,
+            82
+          ],
+          [
+            147,
+            51
+          ]
+        ],
+        "status": "schematic-not-physical-result"
+      },
+      {
+        "label": "B：鉱脈右肩から短射",
+        "kind": "alternative",
+        "points": [
+          [
+            137,
+            79
+          ],
+          [
+            141,
+            71
+          ],
+          [
+            147,
+            51
+          ]
+        ],
+        "status": "schematic-not-physical-result"
+      }
+    ],
+    "shotExamples": [],
+    "replayViews": [],
+    "angleReview": [],
+    "stageNumber": 71,
+    "worldHold": 1
+  },
+  "summary": {
+    "terrain": "谷を塞がない小型浮遊ブロック2つと、旧形状のまま4分割した鋭い鉱脈",
+    "concept": "低所AでW/Mを使用し、Cは中段の小ブロックから曲射、Bは分割鉱脈の右肩から射撃する。",
+    "alternative": "鉱脈D01～D04は個別の破壊候補。壊す片による開口の差は全49面承認後の実検証対象。"
+  },
+  "learningGoal": {
+    "proposed": "洞穴内の反射、中段の曲射、鋭い高所の短射で固有の判断を生む。",
+    "decision": "R全面再設計"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:pole",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "routeDesign": {
+    "main": "谷底AからW/Mを検討する。",
+    "alternative": "中段Cから曲射、鉱脈右肩Bから短射。D01～D04の破壊別の開口は未検証。",
+    "anchors": [
+      {
+        "id": "A",
+        "surface": "floor",
+        "x": 72,
+        "h": 7
+      },
+      {
+        "id": "C",
+        "surface": "071-FLOAT-BLOCK-MID",
+        "x": 101,
+        "h": 41.4
+      },
+      {
+        "id": "B",
+        "surface": "071-CHAINED-ORE-BARRIER-3",
+        "x": 137,
+        "h": 76
+      }
+    ],
+    "budgetMeaning": "既存16行動を維持し、ゲーム動作は全49面の設計承認後に検証する。"
+  },
+  "approval": {
+    "state": "approved",
+    "scope": "geometry-and-tactical-intent-only",
+    "version": "stage_071_proposal_v5.json",
+    "approvedOn": "2026-11-06",
+    "source": "user-chat-explicit-approval",
+    "runtimeVerification": "deferred-until-all-49-designs-approved"
+  },
+  "verification": {
+    "static": "limited-passed-stage_071_static_check_v5.json",
+    "rendering": "coordinate-derived-SVG-not-runtime-screen",
+    "movement": "not-tested",
+    "ballistics": "not-tested",
+    "breakage": "not-tested",
+    "enemyAI": "not-tested",
+    "combat": "not-tested"
+  },
+  "destructionRegister": [
+    {
+      "id": "071-FLOAT-BLOCK-LEFT",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "071-FLOAT-BLOCK-LEFT",
+          "label": "F01",
+          "poly": [
+            [
+              57,
+              25
+            ],
+            [
+              61,
+              29
+            ],
+            [
+              66,
+              29
+            ],
+            [
+              69,
+              26
+            ],
+            [
+              65,
+              23
+            ],
+            [
+              59,
+              23
+            ]
+          ]
+        }
+      ],
+      "purpose": "谷底への進入口を確保した、左側の小型浮遊ブロック。"
+    },
+    {
+      "id": "071-FLOAT-BLOCK-MID",
+      "label": "F02",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "071-FLOAT-BLOCK-MID",
+          "label": "F02",
+          "poly": [
+            [
+              95,
+              37
+            ],
+            [
+              99,
+              41
+            ],
+            [
+              104,
+              42
+            ],
+            [
+              108,
+              40
+            ],
+            [
+              106,
+              36
+            ],
+            [
+              99,
+              35
+            ]
+          ]
+        }
+      ],
+      "purpose": "谷の右寄りに浮く小型の射撃中継ブロック。"
+    },
+    {
+      "id": "071-CHAINED-ORE-BARRIER",
+      "label": "F03",
+      "breakable": true,
+      "unitCount": 4,
+      "units": [
+        {
+          "id": "071-CHAINED-ORE-BARRIER-1",
+          "label": "D01",
+          "poly": [
+            [
+              111,
+              59
+            ],
+            [
+              116,
+              72
+            ],
+            [
+              122,
+              71
+            ],
+            [
+              117,
+              63
+            ],
+            [
+              113,
+              56
+            ]
+          ]
+        },
+        {
+          "id": "071-CHAINED-ORE-BARRIER-2",
+          "label": "D02",
+          "poly": [
+            [
+              116,
+              72
+            ],
+            [
+              122,
+              84
+            ],
+            [
+              126,
+              86
+            ],
+            [
+              130,
+              82
+            ],
+            [
+              132,
+              77
+            ],
+            [
+              126,
+              75
+            ],
+            [
+              122,
+              71
+            ]
+          ]
+        },
+        {
+          "id": "071-CHAINED-ORE-BARRIER-3",
+          "label": "D03",
+          "poly": [
+            [
+              126,
+              75
+            ],
+            [
+              132,
+              77
+            ],
+            [
+              135,
+              76
+            ],
+            [
+              138,
+              76
+            ],
+            [
+              140,
+              64
+            ],
+            [
+              140,
+              56
+            ],
+            [
+              130,
+              69
+            ]
+          ]
+        },
+        {
+          "id": "071-CHAINED-ORE-BARRIER-4",
+          "label": "D04",
+          "poly": [
+            [
+              130,
+              69
+            ],
+            [
+              140,
+              56
+            ],
+            [
+              140,
+              49
+            ],
+            [
+              139,
+              46
+            ],
+            [
+              135,
+              47
+            ],
+            [
+              134,
+              59
+            ]
+          ]
+        }
+      ],
+      "purpose": "v3の尖った鉱脈外形を変えずに4片D01～D04へ分割した連結鉱塊。"
+    }
+  ],
+  "blueprintCandidate": {
+    "stage": 71,
+    "name": "鉱石を引く二つの線",
+    "nameEn": "Two Lines Through Magnetic Ore",
+    "floor": [
+      [
+        0,
+        51
+      ],
+      [
+        12,
+        52
+      ],
+      [
+        23,
+        55
+      ],
+      [
+        31,
+        54
+      ],
+      [
+        37,
+        49
+      ],
+      [
+        42,
+        43
+      ],
+      [
+        48,
+        32
+      ],
+      [
+        54,
+        18
+      ],
+      [
+        61,
+        10
+      ],
+      [
+        69,
+        7
+      ],
+      [
+        89,
+        7
+      ],
+      [
+        95,
+        10
+      ],
+      [
+        102,
+        19
+      ],
+      [
+        110,
+        30
+      ],
+      [
+        119,
+        41
+      ],
+      [
+        125,
+        45
+      ],
+      [
+        136,
+        47
+      ],
+      [
+        147,
+        47
+      ],
+      [
+        154,
+        43
+      ]
+    ],
+    "parts": [
+      {
+        "id": "071-FLOAT-BLOCK-LEFT",
+        "kind": "block",
+        "poly": [
+          [
+            57,
+            25
+          ],
+          [
+            61,
+            29
+          ],
+          [
+            66,
+            29
+          ],
+          [
+            69,
+            26
+          ],
+          [
+            65,
+            23
+          ],
+          [
+            59,
+            23
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "071-FLOAT-BLOCK-MID",
+        "kind": "block",
+        "poly": [
+          [
+            95,
+            37
+          ],
+          [
+            99,
+            41
+          ],
+          [
+            104,
+            42
+          ],
+          [
+            108,
+            40
+          ],
+          [
+            106,
+            36
+          ],
+          [
+            99,
+            35
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "071-CHAINED-ORE-BARRIER-1",
+        "kind": "wall",
+        "poly": [
+          [
+            111,
+            59
+          ],
+          [
+            116,
+            72
+          ],
+          [
+            122,
+            71
+          ],
+          [
+            117,
+            63
+          ],
+          [
+            113,
+            56
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "071-CHAINED-ORE-BARRIER-2",
+        "kind": "wall",
+        "poly": [
+          [
+            116,
+            72
+          ],
+          [
+            122,
+            84
+          ],
+          [
+            126,
+            86
+          ],
+          [
+            130,
+            82
+          ],
+          [
+            132,
+            77
+          ],
+          [
+            126,
+            75
+          ],
+          [
+            122,
+            71
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "071-CHAINED-ORE-BARRIER-3",
+        "kind": "wall",
+        "poly": [
+          [
+            126,
+            75
+          ],
+          [
+            132,
+            77
+          ],
+          [
+            135,
+            76
+          ],
+          [
+            138,
+            76
+          ],
+          [
+            140,
+            64
+          ],
+          [
+            140,
+            56
+          ],
+          [
+            130,
+            69
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "071-CHAINED-ORE-BARRIER-4",
+        "kind": "wall",
+        "poly": [
+          [
+            130,
+            69
+          ],
+          [
+            140,
+            56
+          ],
+          [
+            140,
+            49
+          ],
+          [
+            139,
+            46
+          ],
+          [
+            135,
+            47
+          ],
+          [
+            134,
+            59
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          91,
+          29,
+          23,
+          1
+        ]
+      },
+      {
+        "type": "W",
+        "v": [
+          69,
+          89,
+          7
+        ]
+      }
+    ],
+    "spawnPoints": [
+      [
+        23,
+        55
+      ],
+      [
+        147,
+        47
+      ]
+    ],
+    "worldWidth": 1540,
+    "recommended": "rin",
+    "route": "低い洞窟のW/M、中段の上越し、鋭い高所の短射",
+    "terrainRevision": "stage071-v5-design-approved-runtime-unverified"
+  },
+  "implementationNote": "承認済み設計のみ。実装正本への適用・リプレイ・AI・ゲーム本体は変更していない。4つの独立した破壊IDは blueprintCandidate.parts の4 entriesで表現する（renderUnitsのみでは独立破壊できないため）。"
+}

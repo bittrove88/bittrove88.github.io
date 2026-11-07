@@ -1,0 +1,661 @@
+{
+  "schema": "arcline-stage-design-proposal-v4",
+  "stage": 76,
+  "date": "2026-11-06",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "両岸から撃ち込む磁気降下槽",
+  "source": {
+    "pr": 88,
+    "commit": "38539a6ded3433e82c4a61f40c3d0cd759fea0bf",
+    "proposal": "stage_076_proposal_v3.json",
+    "instructionRef": "review/arcline-map-redesign-handoff-20261105",
+    "decision": "retain-geometry-clarify-preparation-and-exposure"
+  },
+  "before": {
+    "id": "076-new",
+    "stageNumber": 76,
+    "width": 1800,
+    "floor": [
+      [
+        0,
+        45
+      ],
+      [
+        12,
+        44
+      ],
+      [
+        26,
+        42
+      ],
+      [
+        52,
+        42
+      ],
+      [
+        58,
+        34
+      ],
+      [
+        65,
+        15
+      ],
+      [
+        74,
+        12
+      ],
+      [
+        106,
+        12
+      ],
+      [
+        115,
+        18
+      ],
+      [
+        122,
+        34
+      ],
+      [
+        128,
+        42
+      ],
+      [
+        156,
+        42
+      ],
+      [
+        170,
+        45
+      ],
+      [
+        180,
+        44
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          45
+        ],
+        [
+          12,
+          44
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          52,
+          42
+        ],
+        [
+          58,
+          34
+        ],
+        [
+          65,
+          15
+        ],
+        [
+          74,
+          12
+        ],
+        [
+          106,
+          12
+        ],
+        [
+          115,
+          18
+        ],
+        [
+          122,
+          34
+        ],
+        [
+          128,
+          42
+        ],
+        [
+          156,
+          42
+        ],
+        [
+          170,
+          45
+        ],
+        [
+          180,
+          44
+        ]
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          90,
+          48,
+          20,
+          -1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          45,
+          55
+        ]
+      }
+    ],
+    "player": {
+      "x": 35,
+      "h": 42
+    },
+    "enemy": {
+      "x": 90,
+      "h": 12
+    },
+    "pickups": [],
+    "anchors": [
+      {
+        "id": "L",
+        "x": 35,
+        "h": 42
+      },
+      {
+        "id": "R",
+        "x": 145,
+        "h": 42
+      }
+    ],
+    "movement": [
+      [
+        [
+          35,
+          42
+        ],
+        [
+          58,
+          76
+        ],
+        [
+          112,
+          76
+        ],
+        [
+          145,
+          42
+        ]
+      ]
+    ],
+    "attacks": [
+      {
+        "kind": "alternate",
+        "points": [
+          [
+            35,
+            45
+          ],
+          [
+            53,
+            55
+          ],
+          [
+            71,
+            55
+          ],
+          [
+            81,
+            44
+          ],
+          [
+            87,
+            29
+          ],
+          [
+            90,
+            15
+          ]
+        ]
+      },
+      {
+        "kind": "main",
+        "points": [
+          [
+            145,
+            45
+          ],
+          [
+            127,
+            55
+          ],
+          [
+            109,
+            55
+          ],
+          [
+            99,
+            44
+          ],
+          [
+            93,
+            29
+          ],
+          [
+            90,
+            15
+          ]
+        ]
+      }
+    ]
+  },
+  "after": {
+    "id": "076-refined",
+    "stageNumber": 76,
+    "width": 1800,
+    "floor": [
+      [
+        0,
+        45
+      ],
+      [
+        12,
+        44
+      ],
+      [
+        26,
+        42
+      ],
+      [
+        52,
+        42
+      ],
+      [
+        58,
+        34
+      ],
+      [
+        65,
+        15
+      ],
+      [
+        74,
+        12
+      ],
+      [
+        106,
+        12
+      ],
+      [
+        115,
+        18
+      ],
+      [
+        122,
+        34
+      ],
+      [
+        128,
+        42
+      ],
+      [
+        156,
+        42
+      ],
+      [
+        170,
+        45
+      ],
+      [
+        180,
+        44
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          45
+        ],
+        [
+          12,
+          44
+        ],
+        [
+          26,
+          42
+        ],
+        [
+          52,
+          42
+        ],
+        [
+          58,
+          34
+        ],
+        [
+          65,
+          15
+        ],
+        [
+          74,
+          12
+        ],
+        [
+          106,
+          12
+        ],
+        [
+          115,
+          18
+        ],
+        [
+          122,
+          34
+        ],
+        [
+          128,
+          42
+        ],
+        [
+          156,
+          42
+        ],
+        [
+          170,
+          45
+        ],
+        [
+          180,
+          44
+        ]
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          90,
+          48,
+          20,
+          -1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          45,
+          55
+        ]
+      }
+    ],
+    "player": {
+      "x": 35,
+      "h": 42
+    },
+    "enemy": {
+      "x": 90,
+      "h": 12
+    },
+    "pickups": [],
+    "anchors": [
+      {
+        "id": "L",
+        "x": 35,
+        "h": 42
+      },
+      {
+        "id": "R",
+        "x": 145,
+        "h": 42
+      },
+      {
+        "id": "L-back",
+        "x": 29,
+        "h": 42,
+        "role": "射撃前に選ぶ後方支持面。安全性は未検証"
+      },
+      {
+        "id": "R-back",
+        "x": 153,
+        "h": 42,
+        "role": "射撃前に選ぶ後方支持面。安全性は未検証"
+      }
+    ],
+    "movement": [],
+    "attacks": [
+      {
+        "kind": "main",
+        "points": [
+          [
+            35,
+            45
+          ],
+          [
+            53,
+            55
+          ],
+          [
+            71,
+            55
+          ],
+          [
+            81,
+            44
+          ],
+          [
+            87,
+            29
+          ],
+          [
+            90,
+            15
+          ]
+        ],
+        "state": "after-T-boundary-polarity-plus-one"
+      },
+      {
+        "kind": "alternate",
+        "points": [
+          [
+            145,
+            45
+          ],
+          [
+            127,
+            55
+          ],
+          [
+            109,
+            55
+          ],
+          [
+            99,
+            44
+          ],
+          [
+            93,
+            29
+          ],
+          [
+            90,
+            15
+          ]
+        ],
+        "state": "initial-polarity-minus-one-after-reposition"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 76,
+    "name": "両岸から撃ち込む磁気降下槽",
+    "goal": "端子で極性を反転して左岸から撃つか、初期極性のまま右岸から逆向きに撃ち、敵の上で弾を下へ曲げる。",
+    "floor": [
+      [
+        0,
+        45
+      ],
+      [
+        12,
+        44
+      ],
+      [
+        26,
+        42
+      ],
+      [
+        52,
+        42
+      ],
+      [
+        58,
+        34
+      ],
+      [
+        65,
+        15
+      ],
+      [
+        74,
+        12
+      ],
+      [
+        106,
+        12
+      ],
+      [
+        115,
+        18
+      ],
+      [
+        122,
+        34
+      ],
+      [
+        128,
+        42
+      ],
+      [
+        156,
+        42
+      ],
+      [
+        170,
+        45
+      ],
+      [
+        180,
+        44
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          90,
+          48,
+          20,
+          -1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          45,
+          55
+        ]
+      }
+    ],
+    "recommended": "rin",
+    "spawn": [
+      35,
+      90
+    ],
+    "route": "左岸：Tで+1へ反転して右向きにMへ。右岸：初期−1で左向きにMへ。どちらも開いた磁場から中央の低い敵へ弾を落とす設計。",
+    "nameEn": "Two Banks, One Magnetic Drop",
+    "goalEn": "Compare two elevated launch points across a magnetic gorge.",
+    "terrainRevision": "5.4",
+    "spawnPoints": [
+      [
+        35,
+        42
+      ],
+      [
+        90,
+        12
+      ]
+    ],
+    "worldWidth": 1800
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:pole",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "下へ曲げたいなら、極性だけでなく入射方向も見る。左岸でTを使うか、同じ距離の右岸へ移って逆方向からMへ撃つ。",
+  "mechanism": {
+    "initial": -1,
+    "afterTerminal": 1,
+    "rotation": "physics.js rotates velocity, not a positional attraction. Right-going velocity with +1 turns down; left-going velocity with -1 turns down.",
+    "terminalTiming": "existing turn boundary",
+    "noAutomaticTerrainChanges": true
+  },
+  "designIntent": {
+    "firstSpace": "Mの円全体とその直下から敵までの下降空間を空ける。左右の入射空間を定めた後、その外側に岸を描く。",
+    "left": "Tへの一射を使い、左岸に残って+1で右向きの弾を下へ回す。",
+    "right": "Tを使わず右岸へ既存転移で再配置し、−1で左向きの弾を下へ回す。",
+    "cost": "端子操作と極性変更／転移と向き直り。敵までの距離や射点高度の有利さには依存させない。",
+    "geometryDecision": "v3の地形・M/T・出現位置・実装候補を保持。左右の入射・退出と下降帯が既に開いており、空中障害の追加は発見を増やさず作用空間を狭めるため見送る。",
+    "presentation": "単発転移に見える放物線を削除。左右の準備、射撃位置に残る反撃、平坦な後方支持面を図示。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "static": "stage_076_static_check_v4.json",
+    "walk": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "terminalOperation": "not-tested",
+    "counterattack": "not-tested",
+    "victory16": "not-tested"
+  },
+  "implementationNote": "Design only; approved seven stages and game runtime unchanged. No stage 78+ work.",
+  "preparation": {
+    "primary": "LでT操作を一射。手番境界で+1に変わった状態から、右向きにMへ攻撃。操作射撃でも敵の手番が入る。",
+    "optional": "初期−1を保持して右岸へ転移。着地後に左へ歩いて向き直る。図は着地の実績でも一発到達の保証でもない。",
+    "transferActionCount": "not-tested",
+    "walkBudgetPx": 140,
+    "localSetbacks": [
+      {
+        "from": "L",
+        "to": "L-back",
+        "horizontalPx": 60
+      },
+      {
+        "from": "R",
+        "to": "R-back",
+        "horizontalPx": 80
+      }
+    ],
+    "counterattack": "射撃した位置で受ける。射撃後同手番の退避は不可。支持面は立て直し候補で、反撃を防ぐ保証ではない。",
+    "comparison": "左岸のT操作を主経路とし、右岸は転移装備・残数・反撃リスクを受け入れる場合の別の入射候補。両経路を同じ手数・同じ安全性とみなさない。"
+  }
+}

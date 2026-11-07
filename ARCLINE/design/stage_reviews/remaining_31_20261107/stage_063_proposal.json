@@ -1,0 +1,774 @@
+{
+  "stage": 63,
+  "name": "二枚隔壁の順序を読む",
+  "date": "2026-11-07",
+  "status": "design-approved-runtime-unverified",
+  "source": {
+    "stage": 63,
+    "proposal": "stage_063_proposal_v1.json",
+    "review": "stage_063_review_v1.md"
+  },
+  "before": {
+    "width": 1420,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        34,
+        10
+      ],
+      [
+        44,
+        15
+      ],
+      [
+        54,
+        24
+      ],
+      [
+        61,
+        24
+      ],
+      [
+        76,
+        30
+      ],
+      [
+        83,
+        35
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        125,
+        44
+      ],
+      [
+        142,
+        44
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          34,
+          10
+        ],
+        [
+          44,
+          15
+        ],
+        [
+          54,
+          24
+        ],
+        [
+          61,
+          24
+        ],
+        [
+          76,
+          30
+        ],
+        [
+          83,
+          35
+        ],
+        [
+          100,
+          40
+        ],
+        [
+          125,
+          44
+        ],
+        [
+          142,
+          44
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "063-NEAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            49,
+            19
+          ],
+          [
+            55,
+            24
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            49,
+            40
+          ]
+        ],
+        "purpose": "低路の手前隔壁。",
+        "breakable": true,
+        "displayId": "D01",
+        "renderUnits": [
+          {
+            "id": "063-NEAR-GATE@0",
+            "label": "D01",
+            "poly": [
+              [
+                49,
+                19
+              ],
+              [
+                55,
+                24
+              ],
+              [
+                55,
+                42
+              ],
+              [
+                49,
+                40
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "063-FAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            92,
+            38
+          ],
+          [
+            100,
+            40
+          ],
+          [
+            100,
+            64
+          ],
+          [
+            92,
+            64
+          ]
+        ],
+        "purpose": "高い射線を遮る奥隔壁。",
+        "breakable": true,
+        "displayId": "D02",
+        "renderUnits": [
+          {
+            "id": "063-FAR-GATE@0",
+            "label": "D02",
+            "poly": [
+              [
+                92,
+                38
+              ],
+              [
+                100,
+                40
+              ],
+              [
+                100,
+                64
+              ],
+              [
+                92,
+                64
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "063-HIGH-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            64,
+            45
+          ],
+          [
+            69,
+            50
+          ],
+          [
+            81,
+            50
+          ],
+          [
+            85,
+            46
+          ],
+          [
+            77,
+            41
+          ],
+          [
+            68,
+            41
+          ]
+        ],
+        "purpose": "手前隔壁を迂回する独立棚。",
+        "breakable": false,
+        "displayId": "F03",
+        "renderUnits": [
+          {
+            "id": "063-HIGH-PERCH",
+            "label": "F03",
+            "poly": [
+              [
+                64,
+                45
+              ],
+              [
+                69,
+                50
+              ],
+              [
+                81,
+                50
+              ],
+              [
+                85,
+                46
+              ],
+              [
+                77,
+                41
+              ],
+              [
+                68,
+                41
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 26,
+      "h": 10
+    },
+    "enemy": {
+      "x": 130,
+      "h": 44
+    }
+  },
+  "after": {
+    "width": 1420,
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        34,
+        10
+      ],
+      [
+        44,
+        15
+      ],
+      [
+        54,
+        24
+      ],
+      [
+        61,
+        24
+      ],
+      [
+        66,
+        28
+      ],
+      [
+        74,
+        28
+      ],
+      [
+        83,
+        35
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        125,
+        44
+      ],
+      [
+        142,
+        44
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          34,
+          10
+        ],
+        [
+          44,
+          15
+        ],
+        [
+          54,
+          24
+        ],
+        [
+          61,
+          24
+        ],
+        [
+          66,
+          28
+        ],
+        [
+          74,
+          28
+        ],
+        [
+          83,
+          35
+        ],
+        [
+          100,
+          40
+        ],
+        [
+          125,
+          44
+        ],
+        [
+          142,
+          44
+        ]
+      ]
+    ],
+    "features": [],
+    "player": {
+      "x": 26,
+      "h": 10
+    },
+    "enemy": {
+      "x": 130,
+      "h": 44
+    },
+    "pickups": [],
+    "parts": [
+      {
+        "id": "063-NEAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            49,
+            19
+          ],
+          [
+            55,
+            24
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            49,
+            40
+          ]
+        ],
+        "breakable": true,
+        "purpose": "低路の手前隔壁。",
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "063-FAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            92,
+            38
+          ],
+          [
+            100,
+            40
+          ],
+          [
+            100,
+            64
+          ],
+          [
+            92,
+            64
+          ]
+        ],
+        "breakable": true,
+        "purpose": "高い射線を遮る奥隔壁。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "063-HIGH-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            62,
+            44
+          ],
+          [
+            68,
+            50
+          ],
+          [
+            76,
+            50
+          ],
+          [
+            79,
+            53
+          ],
+          [
+            84,
+            53
+          ],
+          [
+            87,
+            47
+          ],
+          [
+            81,
+            41
+          ],
+          [
+            72,
+            42
+          ],
+          [
+            68,
+            40
+          ]
+        ],
+        "breakable": false,
+        "purpose": "手前隔壁を迂回する独立棚。",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "id": 63,
+    "stageNumber": 63,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 26,
+        "h": 10,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 70,
+        "h": 28,
+        "role": "手前の隔壁後の平坦部"
+      },
+      {
+        "id": "B",
+        "x": 72,
+        "h": 50,
+        "role": "奥門側へ張り出す段付きの迂回棚"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "sequential",
+        "points": [
+          [
+            70,
+            31
+          ],
+          [
+            85,
+            38
+          ],
+          [
+            105,
+            44
+          ],
+          [
+            130,
+            47
+          ]
+        ],
+        "destroy": [
+          "063-NEAR-GATE",
+          "063-FAR-GATE"
+        ]
+      },
+      {
+        "id": "perch",
+        "points": [
+          [
+            72,
+            53
+          ],
+          [
+            96,
+            62
+          ],
+          [
+            113,
+            58
+          ],
+          [
+            130,
+            47
+          ]
+        ],
+        "destroy": [
+          "063-FAR-GATE"
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 63,
+    "name": "二枚隔壁の順序を読む",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        34,
+        10
+      ],
+      [
+        44,
+        15
+      ],
+      [
+        54,
+        24
+      ],
+      [
+        61,
+        24
+      ],
+      [
+        66,
+        28
+      ],
+      [
+        74,
+        28
+      ],
+      [
+        83,
+        35
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        125,
+        44
+      ],
+      [
+        142,
+        44
+      ]
+    ],
+    "parts": [
+      {
+        "id": "063-NEAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            49,
+            19
+          ],
+          [
+            55,
+            24
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            49,
+            40
+          ]
+        ],
+        "breakable": true,
+        "purpose": "低路の手前隔壁。",
+        "displayId": "D01",
+        "unitCount": 1
+      },
+      {
+        "id": "063-FAR-GATE",
+        "kind": "wall",
+        "poly": [
+          [
+            92,
+            38
+          ],
+          [
+            100,
+            40
+          ],
+          [
+            100,
+            64
+          ],
+          [
+            92,
+            64
+          ]
+        ],
+        "breakable": true,
+        "purpose": "高い射線を遮る奥隔壁。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "063-HIGH-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            62,
+            44
+          ],
+          [
+            68,
+            50
+          ],
+          [
+            76,
+            50
+          ],
+          [
+            79,
+            53
+          ],
+          [
+            84,
+            53
+          ],
+          [
+            87,
+            47
+          ],
+          [
+            81,
+            41
+          ],
+          [
+            72,
+            42
+          ],
+          [
+            68,
+            40
+          ]
+        ],
+        "breakable": false,
+        "purpose": "手前隔壁を迂回する独立棚。",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "worldWidth": 1420,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        26,
+        10
+      ],
+      [
+        130,
+        44
+      ]
+    ],
+    "recommended": "rin",
+    "pickups": []
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:blast",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。",
+    "change": "途中射点を平坦にし、単位幅の異なる二枚を明示。",
+    "distinct": "二枚を順に開く体験はこの面に集約し、後半で再利用しない。",
+    "inherit": {
+      "terrain": "高さが食い違う二重防御回廊",
+      "concept": "手前の低い隔壁を開け、途中射点から奥の必要な一片を壊す。",
+      "alternative": "高い独立棚へ転移して片方を迂回し、破壊回数を抑える。"
+    },
+    "special": ""
+  },
+  "approval": {
+    "state": "approved",
+    "date": "2026-11-07",
+    "approvedDesignCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "evidence": "ユーザー「オレンジの箇所を削ってください。青い線の箇所に反射板を設置。他はok」。56・57面を除く29面の提示設計を承認。",
+    "afterSha256": "c081845fea12bf9dedb3c45d9c448ae612b3ea6bad6c7869734d9322d54f2ad2"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "初回で途中射点の模式線が高棚に重なるため、棚下の低い射撃空間へ修正。迂回棚を奥門側へ向く段付き形状にし、奥門を開く条件と二枚の順序を再描画で確認した。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

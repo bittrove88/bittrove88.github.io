@@ -1,0 +1,841 @@
+{
+  "schema": "arcline-stage-design-proposal-v2",
+  "stage": 79,
+  "date": "2026-11-07",
+  "status": "completed-design-review-pending-runtime-unverified",
+  "name": "折り下げ橋と固定保守台",
+  "source": {
+    "proposal": "stage_079_proposal_v1.json",
+    "review": "stage_079_review_v1.md",
+    "baseApproved78": "fbe85a7db64894c17283d0951b825767938acf30",
+    "policyBranch": "review/arcline-map-redesign-handoff-20261105"
+  },
+  "before": {
+    "width": 1580,
+    "floor": [
+      [
+        0,
+        40
+      ],
+      [
+        42,
+        40
+      ],
+      [
+        107,
+        42
+      ],
+      [
+        158,
+        42
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          40
+        ],
+        [
+          42,
+          40
+        ]
+      ],
+      [
+        [
+          107,
+          42
+        ],
+        [
+          158,
+          42
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-UPPER",
+        "kind": "island",
+        "poly": [
+          [
+            58,
+            64
+          ],
+          [
+            64,
+            69
+          ],
+          [
+            86,
+            69
+          ],
+          [
+            91,
+            64
+          ],
+          [
+            83,
+            59
+          ],
+          [
+            66,
+            59
+          ]
+        ],
+        "purpose": "開放的だが露出する上段。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "079-UPPER",
+            "label": "F01",
+            "poly": [
+              [
+                58,
+                64
+              ],
+              [
+                64,
+                69
+              ],
+              [
+                86,
+                69
+              ],
+              [
+                91,
+                64
+              ],
+              [
+                83,
+                59
+              ],
+              [
+                66,
+                59
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "079-LOW-PIER",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            20
+          ],
+          [
+            79,
+            25
+          ],
+          [
+            92,
+            25
+          ],
+          [
+            97,
+            20
+          ],
+          [
+            89,
+            15
+          ],
+          [
+            79,
+            15
+          ]
+        ],
+        "purpose": "可動橋に頼らず残る固定低棚。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "079-LOW-PIER",
+            "label": "F02",
+            "poly": [
+              [
+                73,
+                20
+              ],
+              [
+                79,
+                25
+              ],
+              [
+                92,
+                25
+              ],
+              [
+                97,
+                20
+              ],
+              [
+                89,
+                15
+              ],
+              [
+                79,
+                15
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          42,
+          40,
+          64,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          87,
+          23,
+          20,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          49,
+          27
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 40
+    },
+    "enemy": {
+      "x": 138,
+      "h": 42
+    }
+  },
+  "after": {
+    "id": "079-v2",
+    "stageNumber": 79,
+    "width": 1600,
+    "floor": [
+      [
+        0,
+        57
+      ],
+      [
+        18,
+        56
+      ],
+      [
+        39,
+        53
+      ],
+      [
+        53,
+        52
+      ],
+      [
+        65,
+        52
+      ],
+      [
+        66,
+        9
+      ],
+      [
+        123,
+        9
+      ],
+      [
+        134,
+        55
+      ],
+      [
+        160,
+        55
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          123,
+          9
+        ]
+      ],
+      [
+        [
+          134,
+          55
+        ],
+        [
+          160,
+          55
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-RECEIVING-ROCK",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            52
+          ],
+          [
+            85,
+            52
+          ],
+          [
+            89,
+            48
+          ],
+          [
+            85,
+            43
+          ],
+          [
+            75,
+            43
+          ],
+          [
+            73,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋の先の小型浮岩。水平橋から移って撃つ固定射点。折り下げ後も支持が残る。"
+      },
+      {
+        "id": "079-FIXED-SERVICE-PIER",
+        "displayId": "F02",
+        "kind": "pier",
+        "poly": [
+          [
+            65,
+            9
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            75,
+            24
+          ],
+          [
+            75,
+            9
+          ]
+        ],
+        "breakable": false,
+        "purpose": "谷底へ接続する固定保守台。橋が折り下がってもT操作とM射撃の支持を失わない。"
+      },
+      {
+        "id": "079-HINGE-SERVICE-ARM",
+        "displayId": "F03",
+        "kind": "fixed-service-arm",
+        "poly": [
+          [
+            54,
+            52
+          ],
+          [
+            58,
+            52
+          ],
+          [
+            58,
+            62
+          ],
+          [
+            68,
+            62
+          ],
+          [
+            68,
+            66
+          ],
+          [
+            54,
+            66
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左地盤に根元を持つ短い整備アーム。P0の頭上の高角発射帯を限定し、橋を渡ってAへ出るとその制約を外せる。Mや低い経路は覆わない。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          65,
+          52,
+          8,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          110,
+          34,
+          18,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          71,
+          35
+        ]
+      }
+    ],
+    "player": {
+      "x": 63,
+      "h": 52
+    },
+    "enemy": {
+      "x": 149,
+      "h": 55
+    },
+    "pickups": [
+      {
+        "id": "SK079",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 50,
+        "h": 61,
+        "spawnTurn": 1,
+        "placementId": "L079:skill:S_SPECIAL_REFILL",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 63,
+        "h": 52
+      },
+      {
+        "id": "A",
+        "x": 75,
+        "h": 52
+      },
+      {
+        "id": "L",
+        "x": 70,
+        "h": 24
+      }
+    ],
+    "attacks": [
+      {
+        "kind": "bridge-primary",
+        "points": [
+          [
+            75,
+            55
+          ],
+          [
+            94,
+            64
+          ],
+          [
+            120,
+            68
+          ],
+          [
+            149,
+            58
+          ]
+        ],
+        "state": "outside-M; both poses after reaching fixed A"
+      },
+      {
+        "kind": "fixed-pier-M",
+        "points": [
+          [
+            70,
+            27
+          ],
+          [
+            81,
+            36
+          ],
+          [
+            96,
+            40
+          ],
+          [
+            110,
+            53
+          ],
+          [
+            127,
+            65
+          ],
+          [
+            149,
+            58
+          ]
+        ],
+        "state": "after-T; polarity-minus-one"
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 79,
+    "name": "折り下げ橋と固定保守台",
+    "nameEn": "Drop Bridge and Fixed Service Pier",
+    "goal": "水平橋から固定射点へ渡るか、橋の下の固定台で極性を変えて狙うか選ぶ。",
+    "goalEn": "Cross to a fixed firing rock or use the service pier and magnetic route.",
+    "floor": [
+      [
+        0,
+        57
+      ],
+      [
+        18,
+        56
+      ],
+      [
+        39,
+        53
+      ],
+      [
+        53,
+        52
+      ],
+      [
+        65,
+        52
+      ],
+      [
+        66,
+        9
+      ],
+      [
+        123,
+        9
+      ],
+      [
+        134,
+        55
+      ],
+      [
+        160,
+        55
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          123,
+          9
+        ]
+      ],
+      [
+        [
+          134,
+          55
+        ],
+        [
+          160,
+          55
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "079-RECEIVING-ROCK",
+        "displayId": "F01",
+        "kind": "island",
+        "poly": [
+          [
+            73,
+            52
+          ],
+          [
+            85,
+            52
+          ],
+          [
+            89,
+            48
+          ],
+          [
+            85,
+            43
+          ],
+          [
+            75,
+            43
+          ],
+          [
+            73,
+            46
+          ]
+        ],
+        "breakable": false,
+        "purpose": "橋の先の小型浮岩。水平橋から移って撃つ固定射点。折り下げ後も支持が残る。"
+      },
+      {
+        "id": "079-FIXED-SERVICE-PIER",
+        "displayId": "F02",
+        "kind": "pier",
+        "poly": [
+          [
+            65,
+            9
+          ],
+          [
+            65,
+            24
+          ],
+          [
+            75,
+            24
+          ],
+          [
+            75,
+            9
+          ]
+        ],
+        "breakable": false,
+        "purpose": "谷底へ接続する固定保守台。橋が折り下がってもT操作とM射撃の支持を失わない。"
+      },
+      {
+        "id": "079-HINGE-SERVICE-ARM",
+        "displayId": "F03",
+        "kind": "fixed-service-arm",
+        "poly": [
+          [
+            54,
+            52
+          ],
+          [
+            58,
+            52
+          ],
+          [
+            58,
+            62
+          ],
+          [
+            68,
+            62
+          ],
+          [
+            68,
+            66
+          ],
+          [
+            54,
+            66
+          ]
+        ],
+        "breakable": false,
+        "purpose": "左地盤に根元を持つ短い整備アーム。P0の頭上の高角発射帯を限定し、橋を渡ってAへ出るとその制約を外せる。Mや低い経路は覆わない。"
+      }
+    ],
+    "features": [
+      {
+        "type": "B",
+        "v": [
+          65,
+          52,
+          8,
+          0
+        ],
+        "openAngleDeg": -30
+      },
+      {
+        "type": "M",
+        "v": [
+          110,
+          34,
+          18,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          71,
+          35
+        ]
+      }
+    ],
+    "recommended": "rin",
+    "spawn": [
+      63,
+      149
+    ],
+    "spawnPoints": [
+      [
+        63,
+        52
+      ],
+      [
+        149,
+        55
+      ]
+    ],
+    "worldWidth": 1600,
+    "terrainRevision": "5.2",
+    "hold": 1,
+    "route": "橋が水平な間に120pxの構想歩行で固定Aへ移り、M上側の通常弧を狙う。別の選択は固定Lへ転移しTを一射、既存境界で−1へ反転後に橋・浮岩の下からMへ入れる。",
+    "floorSegments": [
+      [
+        [
+          0,
+          57
+        ],
+        [
+          18,
+          56
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          53,
+          52
+        ],
+        [
+          65,
+          52
+        ]
+      ],
+      [
+        [
+          65,
+          9
+        ],
+        [
+          123,
+          9
+        ]
+      ],
+      [
+        [
+          134,
+          55
+        ],
+        [
+          160,
+          55
+        ]
+      ]
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:volt",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "discovery": "橋は今渡れるかを決める。渡った先で橋上に残らず、場の外から撃つか、固定台に降りて極性を変えるか選ぶ。",
+  "designIntent": {
+    "inherit": "接続橋・M空洞・独立した固定低棚とT。既存のB水平／−30度の折り下げ、hold1を保持。",
+    "rebuild": "全域を渡す640pxの橋と上下同形島を廃止。80pxの短い橋と小さな受け側浮岩、谷底につながる固定保守台へ再構成。",
+    "primary": "P0は根元が左地盤につながる短い整備アームの下。水平橋の120pxの通過帯で固定Aへ出ると、頭上に制約されていた高角発射帯が開く。射撃前に固定Aへ渡り切る設計。",
+    "alternative": "Lへ転移し、Tを一射。既存境界で初期+1から−1に反転後、橋のスイング域と浮岩の下を通してMへ右向きに入れ上へ回す構想。転移とTの準備は別の反撃を伴う。",
+    "bridgeTiming": "手番周期の姿勢を読む。Tが橋を動かす前提はない。橋上に残って次境界を迎える挙動や移送を主攻略に利用しない。待機の無償手番は仮定しない。",
+    "counterattack": "射撃後はその射点で反撃を受ける。AもLも安全とは呼ばない。固定足場が残ることと被弾防止を区別。",
+    "mechanicsSeparation": "主経路はBを移動に使いM/Tを必要にしない。L経路はBの上を歩かずM/Tを使う。一発の全機構連鎖は必須にしない。"
+  },
+  "approval": {
+    "state": "pending"
+  },
+  "verification": {
+    "static": "stage_079_static_check_v2.json",
+    "walking": "not-tested",
+    "bridgeBoundaryMovement": "not-tested",
+    "teleport": "not-tested",
+    "Toperation": "not-tested",
+    "Mtrajectory": "not-tested",
+    "counterattack": "not-tested",
+    "victory16": "not-tested"
+  },
+  "implementationNote": "Design only; approved nine maps and game runtime unchanged. No stage81+ work."
+}

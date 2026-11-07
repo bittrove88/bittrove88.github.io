@@ -1,0 +1,160 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v1",
+  "stage": 3,
+  "revisionDate": "2026-11-04",
+  "status": "設計承認済み・ゲーム未実装",
+  "worldWidthPx": 1000,
+  "designBasis": "v4 ground-up terrain vocabulary adapted to stage 3 low-pressure tutorial, not direct editing of original terrain",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd",
+    "v4Sha": "15fd4f425d3799523d7f39d452c433d3f2447210"
+  },
+  "before": {
+    "stage": 3,
+    "name": "荷車を追い越して",
+    "goal": "下り坂を歩き、平らな射点へ止まる",
+    "floor": [
+      [
+        0,
+        22
+      ],
+      [
+        27,
+        22
+      ],
+      [
+        52,
+        10
+      ],
+      [
+        100,
+        10
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      16,
+      70
+    ],
+    "route": "下り坂を歩き、平らな射点へ止まる",
+    "nameEn": "Past the Waiting Cart",
+    "goalEn": "Walk downhill and stop at a level firing point."
+  },
+  "after": {
+    "stage": 3,
+    "name": "荷車を追い越して",
+    "goal": "下り坂を抜けて平らな射点を選び、谷底の敵を狙う",
+    "floor": [
+      [
+        0,
+        21
+      ],
+      [
+        8,
+        21.5
+      ],
+      [
+        14,
+        22
+      ],
+      [
+        24,
+        22
+      ],
+      [
+        32,
+        20
+      ],
+      [
+        42,
+        16
+      ],
+      [
+        52,
+        12
+      ],
+      [
+        61,
+        12
+      ],
+      [
+        69,
+        10.5
+      ],
+      [
+        77,
+        10.5
+      ],
+      [
+        86,
+        12.5
+      ],
+      [
+        100,
+        13
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      16,
+      73
+    ],
+    "route": "まず尾根から谷の形を見渡す。必要なら下り坂を降りて平らな射点で狙い直す。",
+    "nameEn": "Past the Waiting Cart",
+    "goalEn": "Walk downhill and stop at a level firing point.",
+    "terrainRevision": "stage-003-design-proposal-v1"
+  },
+  "summary": {
+    "changeSize": "地形骨格の再設計",
+    "headline": "一直線の下り坂を、起伏のある丘と小さな谷へ刷新。",
+    "why": "敵を谷底に置き、尾根の上から撃つか、坂を降りて平らな射点を探すかを選べる形にする。",
+    "preserved": "入門難易度、機体gun、幅1000px、障害物・ギミックなし、敵プロフィール・HP・行動制限は維持。",
+    "learningDecision": "発展",
+    "oldGoal": "下り坂を歩き、平らな射点へ止まる",
+    "newGoal": "下り坂を抜けて平らな射点を選び、谷底の敵を狙う"
+  },
+  "spawnBefore": {
+    "player": {
+      "x": 16,
+      "h": 22
+    },
+    "enemy": {
+      "x": 70,
+      "h": 10
+    }
+  },
+  "spawnAfter": {
+    "player": {
+      "x": 16,
+      "h": 22
+    },
+    "enemy": {
+      "x": 73,
+      "h": 10.5
+    }
+  },
+  "designRationale": [
+    "最初は上段の緩い丘で射撃位置が分かる",
+    "坂の途中で砲口傾斜の影響が生じる",
+    "谷の手前には平らな中継棚を残し入門難度を維持",
+    "敵は小さな谷底で周囲の地形に守られるが屋根で射線を塞がない",
+    "マップ幅を延ばして移動ターンを増やすことはしない"
+  ],
+  "gameConstraints": {
+    "profile": 0,
+    "enemyHp": 3,
+    "actionLimit": 12,
+    "knownPickups": [],
+    "simulation": "未実施（ユーザー指定）",
+    "levelDifficulty": "入門"
+  },
+  "approval": "ユーザーOKにより設計承認済み（2026-11-04）",
+  "reviewHtml": "map_review_gallery.html#stage-003",
+  "approvedScope": "風化した丘・谷地形の提案を設計承認。実ゲーム未反映。"
+}

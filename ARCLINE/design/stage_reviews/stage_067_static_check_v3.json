@@ -1,0 +1,45 @@
+{
+  "stage": 67,
+  "version": "v3",
+  "date": "2026-11-06",
+  "scope": "minimum-static-only",
+  "checks": {
+    "jsonLoaded": true,
+    "floorIncreasing": true,
+    "verticesWithinBounds": true,
+    "fixedPartIDsAndPolygonsValid": true,
+    "spawnFeetMatchFloor": true,
+    "lowFootOnFloor": true,
+    "highFootOnRoofTop": true,
+    "slopeBelow35Degrees": true,
+    "walkRepresentativeHeadroomClear": true,
+    "AToEnemyConceptNotBlockedByRoof": true,
+    "BConceptAvoidsRock": true,
+    "BConceptCrossesVent": true,
+    "P0ToEnemyCenterLineHitsGround": true,
+    "pickupAboveFloorAndOutsideRoof": true,
+    "existingEnemyBudgetAndPickupKept": true
+  },
+  "metrics": {
+    "worldWidth": 1360,
+    "floorVertices": 18,
+    "maxSlopeDegrees": 34.44,
+    "fixedParts": 2,
+    "features": [
+      "V"
+    ],
+    "roofsArea": [
+      185.5,
+      340.5
+    ],
+    "sampledWalkHeadCollisions": 0
+  },
+  "deferred": [
+    "実エンジン徒歩と転移着地",
+    "発射角・噴出作用・命中",
+    "敵AI、反撃、16行動勝敗",
+    "W07の実取得",
+    "ブラウザ画面と全seed実戦"
+  ],
+  "warning": "模式線のポリゴン非交差は、実弾の命中証明ではない。"
+}

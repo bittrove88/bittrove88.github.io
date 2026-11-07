@@ -20,7 +20,8 @@ for level in levels:
     assert level['themeName'] == campaign['themes'][index // 5]['name']
     assert len(level['skills']) <= 2
     assert all(len(floor) >= 2 for floor in level['floors'])
-    assert all(all(a[0] < b[0] for a, b in zip(floor, floor[1:])) for floor in level['floors'])
+    # A vertical cliff is a valid polygon edge; floorY skips it as a support.
+    assert all(all(a[0] <= b[0] and a != b for a, b in zip(floor, floor[1:])) for floor in level['floors'])
     assert all(f['type'] in 'SRBWCKUFVMT' for f in level['features'])
     assert level['contentRevision'] == '5.0'
     assert level['teleport'] == (level['id'] >= 4)
@@ -28,14 +29,21 @@ for level in levels:
     assert all(c['poly'] and len(c['poly']) >= 3 for c in level['components'])
     assert len({c['id'] for c in level['components']}) == len(level['components'])
     assert not level['boss'] or 'SWAP' not in level['skills']
-assert all(len({f['type'] for f in s['features'] if f['type'] in 'BWCKUFVMT'})<=1 for s in levels[:30])
+assert all(not s['features'] for s in levels[:5])
+assert not any(f['type']=='C' for s in levels[:20] for f in s['features'])
+assert not any(f['type']=='K' for s in levels[:30] for f in s['features'])
 assert sum(bool(s.get('midboss')) for s in levels) == 10
 assert all(bool(s.get('midboss')) == (s['id']%10==5) for s in levels)
 assert sum(len(s.get('clearRewards',[])) for s in levels) == 10
 assert all(r.get('skillId') in ('S_GUARD','S_REPAIR','S_BREACH') and r.get('amount')==1 and isinstance(r.get('placementId'),str) for s in levels for r in s.get('clearRewards',[]))
-assert all(p.get('skillId') in ('S_GUARD','S_REPAIR','S_BREACH') for s in levels for p in s['pickups'] if p['kind']=='skill')
+assert sum(p['kind']=='trial' for s in levels for p in s['pickups'])==20
+assert sum(p.get('category')=='normal-skill' for s in levels for p in s['pickups'])==20
+assert sum(p.get('category')=='rare-skill' for s in levels for p in s['pickups'])==6
+assert all(sum(p.get('skillId')==sid for s in levels for p in s['pickups'])==2 for sid in ['S_FULL_REPAIR','S_INVINCIBLE','S_ALL_ATTACK'])
+assert all(p['spawnTurn'] in [1,5] for s in levels for p in s['pickups'])
+assert not levels[99]['pickups']
 assert len({json.dumps([s['floors'],[c['poly'] for c in s['components']],s['features']]) for s in levels}) == 100
-assert sum(len(s['pickups']) for s in levels) == 50
+assert sum(len(s['pickups']) for s in levels) == 46
 out = ROOT / 'game/dist/levels.js'
 out.write_text("(function(root){'use strict';\nconst levels="
                + json.dumps(levels, ensure_ascii=False, separators=(',', ':'))

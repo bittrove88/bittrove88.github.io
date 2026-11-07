@@ -1,0 +1,136 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v1",
+  "stage": 2,
+  "status": "設計承認済み・ゲーム未実装",
+  "revisionDate": "2026-11-04",
+  "sourceBlueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+  "worldWidthPx": 1000,
+  "unitScalePx": 10,
+  "before": {
+    "stage": 2,
+    "name": "丘の肩の道標",
+    "goal": "緩い坂の上で砲口が上がることを確かめる",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        25,
+        10
+      ],
+      [
+        45,
+        18
+      ],
+      [
+        100,
+        18
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      18,
+      68
+    ],
+    "route": "緩い坂の上で砲口が上がることを確かめる",
+    "nameEn": "Shoulder of the Hill",
+    "goalEn": "Notice how a slope raises the muzzle."
+  },
+  "after": {
+    "stage": 2,
+    "name": "丘の肩の道標",
+    "goal": "緩い坂の上で砲口が上がることを確かめる",
+    "floor": [
+      [
+        0,
+        10
+      ],
+      [
+        23,
+        10
+      ],
+      [
+        34,
+        13
+      ],
+      [
+        45,
+        16
+      ],
+      [
+        52,
+        18
+      ],
+      [
+        100,
+        18
+      ]
+    ],
+    "parts": [],
+    "features": [],
+    "recommended": "gun",
+    "spawn": [
+      18,
+      68
+    ],
+    "route": "緩い坂の上で砲口が上がることを確かめる",
+    "nameEn": "Shoulder of the Hill",
+    "goalEn": "Notice how a slope raises the muzzle.",
+    "terrainRevision": "stage-002-review-proposal-v1"
+  },
+  "summary": {
+    "changeSize": "小",
+    "headline": "短い急坂を、少し長くて緩やかな坂にする。",
+    "reason": "2面は坂で砲口角が変わることを体感する面。段差や新しいギミックを足すより、最初の斜面を読みやすくする。",
+    "difficultyIntent": "導入難易度を据え置く方向。ただし勝率・敵の反撃は未検証。",
+    "learningDecision": "維持",
+    "learningGoal": "緩い坂の上で砲口が上がることを確かめる",
+    "primary": "坂を上がると車体が少しずつ上向きになることを学ぶ。",
+    "alternative": "斜面の手前の平地から射角を調整して、上段の敵を狙う。"
+  },
+  "preservation": {
+    "worldWidth": 1000,
+    "playerX": 18,
+    "enemyX": 68,
+    "playerBaseHeight": 10,
+    "enemyBaseHeight": 18,
+    "parts": 0,
+    "features": 0,
+    "enemyProfile": 0,
+    "enemyHp": 3,
+    "actionLimit": 12,
+    "trialItem": {
+      "id": "W02",
+      "kind": "trial",
+      "weaponId": "W02",
+      "x": 26,
+      "h": 17.4,
+      "placementId": "L002:weapon:W02"
+    },
+    "recommended": "gun"
+  },
+  "visualMetrics": {
+    "oldRampRange": [
+      25,
+      45
+    ],
+    "newRampRange": [
+      23,
+      52
+    ],
+    "oldSteepestSlopeDeg": 21.8,
+    "newSteepestSlopeDeg": 15.95,
+    "heightDifferencePx": 80
+  },
+  "checks": {
+    "static": "出撃X・出撃高さ・通常戦ステータス・ギミック/部品を変更しないことをデータ上確認。",
+    "pickupPosition": "お試し武器W02の座標はそのまま。新地形での取りやすさは未検証。",
+    "simulation": "実施しない（ユーザー方針）。",
+    "approval": "設計承認済み"
+  },
+  "approval": "設計承認済み（2026-11-04 ユーザー「OKです」）",
+  "reviewHtml": "map_review_gallery.html#stage-002"
+}

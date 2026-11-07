@@ -1,0 +1,292 @@
+{
+  "stage": 89,
+  "version": 2,
+  "scope": "static floor contact/reflection direction, spaces and representative rays; no projectile/input/combat execution",
+  "dataConsistent": true,
+  "states": [
+    {
+      "D04Removed": false,
+      "destructionUnits": [
+        "089-ARMOUR-CUTOUT@0"
+      ],
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        },
+        {
+          "id": "B-keel",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        },
+        {
+          "id": "B-fire",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        }
+      ],
+      "selfIntersections": [],
+      "keelHullConnection": true,
+      "Wsurfaces": [
+        {
+          "id": "W1:089-RETURN-KEEL:e1:1",
+          "support": "089-RETURN-KEEL:e1"
+        }
+      ],
+      "intendedWContact": true,
+      "staticReflectionDirection": {
+        "incomingLeft": true,
+        "outgoingRight": true,
+        "outgoingUp": true
+      },
+      "WschematicSpaceClear": true,
+      "outerSchematicClear": true,
+      "transferSchematicClear": true,
+      "outerSchematicEntersC": true,
+      "WschematicAvoidsC": true,
+      "transferSchematicAvoidsC": true,
+      "cutoutLowerArcClear": false,
+      "turnBand": {
+        "from": 120,
+        "to": 119,
+        "horizontalPx": 10,
+        "clear": true
+      },
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "B-keel",
+          "clear": true
+        },
+        {
+          "id": "B-fire",
+          "clear": true
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "facing": 1,
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocked": 45
+        },
+        {
+          "id": "B-keel",
+          "facing": 1,
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocked": 45
+        },
+        {
+          "id": "B-fire",
+          "facing": -1,
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocked": 45
+        }
+      ],
+      "barrels": [
+        {
+          "id": "P0",
+          "facing": 1,
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "B-keel",
+          "facing": 1,
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "B-fire",
+          "facing": -1,
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        }
+      ],
+      "pickups": [
+        {
+          "id": "SK089",
+          "insideSolid": false
+        }
+      ]
+    },
+    {
+      "D04Removed": true,
+      "destructionUnits": [
+        "089-ARMOUR-CUTOUT@0"
+      ],
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        },
+        {
+          "id": "B-keel",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        },
+        {
+          "id": "B-fire",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0
+        }
+      ],
+      "selfIntersections": [],
+      "keelHullConnection": true,
+      "Wsurfaces": [
+        {
+          "id": "W1:089-RETURN-KEEL:e1:1",
+          "support": "089-RETURN-KEEL:e1"
+        }
+      ],
+      "intendedWContact": true,
+      "staticReflectionDirection": {
+        "incomingLeft": true,
+        "outgoingRight": true,
+        "outgoingUp": true
+      },
+      "WschematicSpaceClear": true,
+      "outerSchematicClear": true,
+      "transferSchematicClear": true,
+      "outerSchematicEntersC": true,
+      "WschematicAvoidsC": true,
+      "transferSchematicAvoidsC": true,
+      "cutoutLowerArcClear": true,
+      "turnBand": {
+        "from": 120,
+        "to": 119,
+        "horizontalPx": 10,
+        "clear": true
+      },
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "B-keel",
+          "clear": true
+        },
+        {
+          "id": "B-fire",
+          "clear": true
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "facing": 1,
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocked": 45
+        },
+        {
+          "id": "B-keel",
+          "facing": 1,
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocked": 45
+        },
+        {
+          "id": "B-fire",
+          "facing": -1,
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocked": 45
+        }
+      ],
+      "barrels": [
+        {
+          "id": "P0",
+          "facing": 1,
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "B-keel",
+          "facing": 1,
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "B-fire",
+          "facing": -1,
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        }
+      ],
+      "pickups": [
+        {
+          "id": "SK089",
+          "insideSolid": false
+        }
+      ]
+    }
+  ],
+  "notTested": [
+    "actual W bounce followed by target hit",
+    "C trajectory and tolerance",
+    "teleport/landing/action count",
+    "actual turning input",
+    "D04 break count",
+    "enemy AI/counterattack",
+    "20-action victory",
+    "device display"
+  ]
+}
