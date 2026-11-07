@@ -1,0 +1,1598 @@
+{
+  "stage": 58,
+  "status": "review-ready",
+  "baseline": {
+    "version": "0.24.1",
+    "main": "fee9c40da693ccb6f9dc42f64b846269ae5de4c5",
+    "blueprintSha256": "a18751ca6295e7312e37ae27c5dc75a0d6a6753977b84f0a4c2040fceaec1fbb"
+  },
+  "reason": "中層の西端を30pxだけ奥へ引き、最初の常設裂け目を260pxから290pxへ広げる。中層中央の受け面・上層・風・破壊片は保持。",
+  "changedPart": "058-MIDDLE-EAST-ICE",
+  "before": {
+    "blueprint": {
+      "stage": 58,
+      "name": "ずれた氷裂の三層洞",
+      "goal": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
+      "floor": [
+        [
+          0,
+          7
+        ],
+        [
+          24,
+          7
+        ],
+        [
+          41,
+          11
+        ],
+        [
+          55,
+          9
+        ],
+        [
+          72,
+          9
+        ],
+        [
+          84,
+          6
+        ],
+        [
+          112,
+          6
+        ],
+        [
+          136,
+          10
+        ],
+        [
+          158,
+          10
+        ],
+        [
+          180,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "id": "058-LOW-WEST-ICE",
+          "displayId": "F01",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              0,
+              42
+            ],
+            [
+              18,
+              44
+            ],
+            [
+              37,
+              39
+            ],
+            [
+              44,
+              32
+            ],
+            [
+              44,
+              22
+            ],
+            [
+              27,
+              25
+            ],
+            [
+              0,
+              27
+            ]
+          ],
+          "breakable": false,
+          "purpose": "下側開口の左に残す自然氷棚。中央の開口を覆わない。"
+        },
+        {
+          "id": "058-MIDDLE-EAST-ICE",
+          "displayId": "F02",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              76,
+              35
+            ],
+            [
+              85,
+              39
+            ],
+            [
+              103,
+              39
+            ],
+            [
+              115,
+              35
+            ],
+            [
+              127,
+              38
+            ],
+            [
+              143,
+              41
+            ],
+            [
+              163,
+              37
+            ],
+            [
+              180,
+              39
+            ],
+            [
+              180,
+              28
+            ],
+            [
+              159,
+              25
+            ],
+            [
+              141,
+              29
+            ],
+            [
+              127,
+              26
+            ],
+            [
+              110,
+              23
+            ],
+            [
+              85,
+              24
+            ],
+            [
+              76,
+              28
+            ]
+          ],
+          "breakable": false,
+          "purpose": "中層の連続した右氷棚。Aの支持を持ち、左の常設開口から上面へ狙う。"
+        },
+        {
+          "id": "058-UPPER-WEST-ICE",
+          "displayId": "F03",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              0,
+              77
+            ],
+            [
+              21,
+              78
+            ],
+            [
+              39,
+              74
+            ],
+            [
+              54,
+              70
+            ],
+            [
+              54,
+              56
+            ],
+            [
+              35,
+              60
+            ],
+            [
+              19,
+              62
+            ],
+            [
+              0,
+              61
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上層西の氷盤。下層開口とずらした縁で、P0/Aの上方空間を残す。"
+        },
+        {
+          "id": "058-UPPER-EAST-ICE",
+          "displayId": "F04",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              118,
+              70
+            ],
+            [
+              134,
+              70
+            ],
+            [
+              140,
+              82
+            ],
+            [
+              146,
+              82
+            ],
+            [
+              153,
+              70
+            ],
+            [
+              180,
+              70
+            ],
+            [
+              180,
+              55
+            ],
+            [
+              153,
+              54
+            ],
+            [
+              138,
+              57
+            ],
+            [
+              122,
+              57
+            ],
+            [
+              118,
+              62
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵を支える上層東の氷盤。上面の氷背で直射を遮り、上を越す弧を残す。"
+        },
+        {
+          "id": "058-LOW-EDGE-SEAM",
+          "displayId": "D05",
+          "kind": "ice-fragment",
+          "poly": [
+            [
+              44,
+              22
+            ],
+            [
+              50,
+              25
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              44,
+              32
+            ]
+          ],
+          "breakable": true,
+          "purpose": "下側開口の左端だけに接続する独立氷片。温存しても中央260pxは開く。"
+        },
+        {
+          "id": "058-UPPER-EDGE-SEAM",
+          "displayId": "D06",
+          "kind": "ice-fragment",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              118,
+              62
+            ],
+            [
+              118,
+              70
+            ],
+            [
+              110,
+              68
+            ]
+          ],
+          "breakable": true,
+          "purpose": "上側開口の右端だけに接続する独立氷片。温存しても中央560pxは開く。"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            101,
+            122,
+            48,
+            80
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        62,
+        162
+      ],
+      "route": "主攻略は下側の常設開口から中層Aへ転移しF越しに氷背を越す構想。任意に上側の常設開口からBへ移りFを外す。D05/D06の破壊は必須にしない。",
+      "nameEn": "Three Ice Levels, Offset Open Shafts",
+      "goalEn": "Use permanent ice clefts to reach the middle shelf, then choose the wind route or the upper route.",
+      "terrainRevision": "7.0-approved-051-099",
+      "spawnPoints": [
+        [
+          62,
+          9
+        ],
+        [
+          162,
+          70
+        ]
+      ],
+      "worldWidth": 1800
+    },
+    "runtime": {
+      "id": 58,
+      "name": "ずれた氷裂の三層洞",
+      "nameEn": "Three Ice Levels, Offset Open Shafts",
+      "theme": 11,
+      "boss": false,
+      "spawn": [
+        [
+          62,
+          9
+        ],
+        [
+          162,
+          70
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            7
+          ],
+          [
+            24,
+            7
+          ],
+          [
+            41,
+            11
+          ],
+          [
+            55,
+            9
+          ],
+          [
+            72,
+            9
+          ],
+          [
+            84,
+            6
+          ],
+          [
+            112,
+            6
+          ],
+          [
+            136,
+            10
+          ],
+          [
+            158,
+            10
+          ],
+          [
+            180,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "058-LOW-WEST-ICE",
+          "poly": [
+            [
+              0,
+              42
+            ],
+            [
+              18,
+              44
+            ],
+            [
+              37,
+              39
+            ],
+            [
+              44,
+              32
+            ],
+            [
+              44,
+              22
+            ],
+            [
+              27,
+              25
+            ],
+            [
+              0,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-MIDDLE-EAST-ICE",
+          "poly": [
+            [
+              76,
+              35
+            ],
+            [
+              85,
+              39
+            ],
+            [
+              103,
+              39
+            ],
+            [
+              115,
+              35
+            ],
+            [
+              127,
+              38
+            ],
+            [
+              143,
+              41
+            ],
+            [
+              163,
+              37
+            ],
+            [
+              180,
+              39
+            ],
+            [
+              180,
+              28
+            ],
+            [
+              159,
+              25
+            ],
+            [
+              141,
+              29
+            ],
+            [
+              127,
+              26
+            ],
+            [
+              110,
+              23
+            ],
+            [
+              85,
+              24
+            ],
+            [
+              76,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-UPPER-WEST-ICE",
+          "poly": [
+            [
+              0,
+              77
+            ],
+            [
+              21,
+              78
+            ],
+            [
+              39,
+              74
+            ],
+            [
+              54,
+              70
+            ],
+            [
+              54,
+              56
+            ],
+            [
+              35,
+              60
+            ],
+            [
+              19,
+              62
+            ],
+            [
+              0,
+              61
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-UPPER-EAST-ICE",
+          "poly": [
+            [
+              118,
+              70
+            ],
+            [
+              134,
+              70
+            ],
+            [
+              140,
+              82
+            ],
+            [
+              146,
+              82
+            ],
+            [
+              153,
+              70
+            ],
+            [
+              180,
+              70
+            ],
+            [
+              180,
+              55
+            ],
+            [
+              153,
+              54
+            ],
+            [
+              138,
+              57
+            ],
+            [
+              122,
+              57
+            ],
+            [
+              118,
+              62
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-LOW-EDGE-SEAM",
+          "poly": [
+            [
+              44,
+              22
+            ],
+            [
+              50,
+              25
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              44,
+              32
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "058-UPPER-EDGE-SEAM",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              118,
+              62
+            ],
+            [
+              118,
+              70
+            ],
+            [
+              110,
+              68
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            101,
+            122,
+            48,
+            80
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 1,
+      "themeName": "凍てつく峡谷",
+      "themeGoal": "風・反射・遮蔽の内外を選ぶ",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mist",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
+      "tacticalGoalEn": "Use permanent ice clefts to reach the middle shelf, then choose the wind route or the upper route.",
+      "enemyHp": 5,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1800
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 58,
+      "name": "ずれた氷裂の三層洞",
+      "goal": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
+      "floor": [
+        [
+          0,
+          7
+        ],
+        [
+          24,
+          7
+        ],
+        [
+          41,
+          11
+        ],
+        [
+          55,
+          9
+        ],
+        [
+          72,
+          9
+        ],
+        [
+          84,
+          6
+        ],
+        [
+          112,
+          6
+        ],
+        [
+          136,
+          10
+        ],
+        [
+          158,
+          10
+        ],
+        [
+          180,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "id": "058-LOW-WEST-ICE",
+          "displayId": "F01",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              0,
+              42
+            ],
+            [
+              18,
+              44
+            ],
+            [
+              37,
+              39
+            ],
+            [
+              44,
+              32
+            ],
+            [
+              44,
+              22
+            ],
+            [
+              27,
+              25
+            ],
+            [
+              0,
+              27
+            ]
+          ],
+          "breakable": false,
+          "purpose": "下側開口の左に残す自然氷棚。中央の開口を覆わない。"
+        },
+        {
+          "id": "058-MIDDLE-EAST-ICE",
+          "displayId": "F02",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              79,
+              35
+            ],
+            [
+              85,
+              39
+            ],
+            [
+              103,
+              39
+            ],
+            [
+              115,
+              35
+            ],
+            [
+              127,
+              38
+            ],
+            [
+              143,
+              41
+            ],
+            [
+              163,
+              37
+            ],
+            [
+              180,
+              39
+            ],
+            [
+              180,
+              28
+            ],
+            [
+              159,
+              25
+            ],
+            [
+              141,
+              29
+            ],
+            [
+              127,
+              26
+            ],
+            [
+              110,
+              23
+            ],
+            [
+              85,
+              24
+            ],
+            [
+              79,
+              28
+            ]
+          ],
+          "breakable": false,
+          "purpose": "中層の連続した右氷棚。Aの支持を持ち、左の常設開口から上面へ狙う。"
+        },
+        {
+          "id": "058-UPPER-WEST-ICE",
+          "displayId": "F03",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              0,
+              77
+            ],
+            [
+              21,
+              78
+            ],
+            [
+              39,
+              74
+            ],
+            [
+              54,
+              70
+            ],
+            [
+              54,
+              56
+            ],
+            [
+              35,
+              60
+            ],
+            [
+              19,
+              62
+            ],
+            [
+              0,
+              61
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上層西の氷盤。下層開口とずらした縁で、P0/Aの上方空間を残す。"
+        },
+        {
+          "id": "058-UPPER-EAST-ICE",
+          "displayId": "F04",
+          "kind": "ice-shelf",
+          "poly": [
+            [
+              118,
+              70
+            ],
+            [
+              134,
+              70
+            ],
+            [
+              140,
+              82
+            ],
+            [
+              146,
+              82
+            ],
+            [
+              153,
+              70
+            ],
+            [
+              180,
+              70
+            ],
+            [
+              180,
+              55
+            ],
+            [
+              153,
+              54
+            ],
+            [
+              138,
+              57
+            ],
+            [
+              122,
+              57
+            ],
+            [
+              118,
+              62
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵を支える上層東の氷盤。上面の氷背で直射を遮り、上を越す弧を残す。"
+        },
+        {
+          "id": "058-LOW-EDGE-SEAM",
+          "displayId": "D05",
+          "kind": "ice-fragment",
+          "poly": [
+            [
+              44,
+              22
+            ],
+            [
+              50,
+              25
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              44,
+              32
+            ]
+          ],
+          "breakable": true,
+          "purpose": "下側開口の左端だけに接続する独立氷片。温存しても中央260pxは開く。"
+        },
+        {
+          "id": "058-UPPER-EDGE-SEAM",
+          "displayId": "D06",
+          "kind": "ice-fragment",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              118,
+              62
+            ],
+            [
+              118,
+              70
+            ],
+            [
+              110,
+              68
+            ]
+          ],
+          "breakable": true,
+          "purpose": "上側開口の右端だけに接続する独立氷片。温存しても中央560pxは開く。"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            101,
+            122,
+            48,
+            80
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        62,
+        162
+      ],
+      "route": "主攻略は下側の常設開口から中層Aへ転移しF越しに氷背を越す構想。任意に上側の常設開口からBへ移りFを外す。D05/D06の破壊は必須にしない。",
+      "nameEn": "Three Ice Levels, Offset Open Shafts",
+      "goalEn": "Use permanent ice clefts to reach the middle shelf, then choose the wind route or the upper route.",
+      "terrainRevision": "7.0-approved-051-099",
+      "spawnPoints": [
+        [
+          62,
+          9
+        ],
+        [
+          162,
+          70
+        ]
+      ],
+      "worldWidth": 1800
+    },
+    "runtime": {
+      "id": 58,
+      "name": "ずれた氷裂の三層洞",
+      "nameEn": "Three Ice Levels, Offset Open Shafts",
+      "theme": 11,
+      "boss": false,
+      "spawn": [
+        [
+          62,
+          9
+        ],
+        [
+          162,
+          70
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            7
+          ],
+          [
+            24,
+            7
+          ],
+          [
+            41,
+            11
+          ],
+          [
+            55,
+            9
+          ],
+          [
+            72,
+            9
+          ],
+          [
+            84,
+            6
+          ],
+          [
+            112,
+            6
+          ],
+          [
+            136,
+            10
+          ],
+          [
+            158,
+            10
+          ],
+          [
+            180,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "058-LOW-WEST-ICE",
+          "poly": [
+            [
+              0,
+              42
+            ],
+            [
+              18,
+              44
+            ],
+            [
+              37,
+              39
+            ],
+            [
+              44,
+              32
+            ],
+            [
+              44,
+              22
+            ],
+            [
+              27,
+              25
+            ],
+            [
+              0,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-MIDDLE-EAST-ICE",
+          "poly": [
+            [
+              79,
+              35
+            ],
+            [
+              85,
+              39
+            ],
+            [
+              103,
+              39
+            ],
+            [
+              115,
+              35
+            ],
+            [
+              127,
+              38
+            ],
+            [
+              143,
+              41
+            ],
+            [
+              163,
+              37
+            ],
+            [
+              180,
+              39
+            ],
+            [
+              180,
+              28
+            ],
+            [
+              159,
+              25
+            ],
+            [
+              141,
+              29
+            ],
+            [
+              127,
+              26
+            ],
+            [
+              110,
+              23
+            ],
+            [
+              85,
+              24
+            ],
+            [
+              79,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-UPPER-WEST-ICE",
+          "poly": [
+            [
+              0,
+              77
+            ],
+            [
+              21,
+              78
+            ],
+            [
+              39,
+              74
+            ],
+            [
+              54,
+              70
+            ],
+            [
+              54,
+              56
+            ],
+            [
+              35,
+              60
+            ],
+            [
+              19,
+              62
+            ],
+            [
+              0,
+              61
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-UPPER-EAST-ICE",
+          "poly": [
+            [
+              118,
+              70
+            ],
+            [
+              134,
+              70
+            ],
+            [
+              140,
+              82
+            ],
+            [
+              146,
+              82
+            ],
+            [
+              153,
+              70
+            ],
+            [
+              180,
+              70
+            ],
+            [
+              180,
+              55
+            ],
+            [
+              153,
+              54
+            ],
+            [
+              138,
+              57
+            ],
+            [
+              122,
+              57
+            ],
+            [
+              118,
+              62
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "058-LOW-EDGE-SEAM",
+          "poly": [
+            [
+              44,
+              22
+            ],
+            [
+              50,
+              25
+            ],
+            [
+              50,
+              35
+            ],
+            [
+              44,
+              32
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "058-UPPER-EDGE-SEAM",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              118,
+              62
+            ],
+            [
+              118,
+              70
+            ],
+            [
+              110,
+              68
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            101,
+            122,
+            48,
+            80
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 1,
+      "themeName": "凍てつく峡谷",
+      "themeGoal": "風・反射・遮蔽の内外を選ぶ",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mist",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
+      "tacticalGoalEn": "Use permanent ice clefts to reach the middle shelf, then choose the wind route or the upper route.",
+      "enemyHp": 5,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1800
+    }
+  },
+  "qualityEvidence": {
+    "internalRevision": "受け面を張り出す初案は既存の上層転移を遮ったため撤回し、岩先を引いて開口を広げる案へ改善。",
+    "audit": {
+      "onlyOnePolygonChanged": true,
+      "initial": [
+        {
+          "safe": true,
+          "actual": [
+            62,
+            9
+          ],
+          "authored": [
+            62,
+            9
+          ]
+        },
+        {
+          "safe": true,
+          "actual": [
+            162,
+            70
+          ],
+          "authored": [
+            162,
+            70
+          ]
+        }
+      ],
+      "featuresUnchanged": true,
+      "pickupsUnchanged": true,
+      "rulesUnchanged": true
+    },
+    "openingWidthPx": {
+      "before": 260,
+      "after": 290
+    },
+    "preservedEntry": {
+      "angle": 66,
+      "power": 100,
+      "before": {
+        "position": [
+          136.378622045199,
+          74.75724409039799
+        ],
+        "retaliation": {
+          "round": 1,
+          "moved": 0,
+          "angle": 53.618168409354986,
+          "power": 53.06080199074931,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              1363.78622045199,
+              -247.5724409039799
+            ],
+            [
+              1620,
+              -200
+            ]
+          ],
+          "hpBefore": [
+            7,
+            5
+          ],
+          "hpAfter": [
+            7,
+            5
+          ]
+        }
+      },
+      "after": {
+        "position": [
+          136.378622045199,
+          74.75724409039799
+        ],
+        "retaliation": {
+          "round": 1,
+          "moved": 0,
+          "angle": 53.618168409354986,
+          "power": 53.06080199074931,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              1363.78622045199,
+              -247.5724409039799
+            ],
+            [
+              1620,
+              -200
+            ]
+          ],
+          "hpBefore": [
+            7,
+            5
+          ],
+          "hpAfter": [
+            7,
+            5
+          ]
+        }
+      }
+    },
+    "postEntryShot": {
+      "angle": -6,
+      "power": 40,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "x": 1601.9244699282556,
+          "y": -247.18482107590734,
+          "t": 1.6888888888888849,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 9,
+        "rows": [
+          {
+            "angle": -8,
+            "power": 37,
+            "damage": [
+              0,
+              1
+            ],
+            "events": []
+          },
+          {
+            "angle": -8,
+            "power": 40,
+            "damage": [
+              0,
+              1.5
+            ],
+            "events": [
+              {
+                "x": 1608.8080542560565,
+                "y": -250.90917415743013,
+                "t": 1.6444444444444406,
+                "type": "critical",
+                "bullet": 0
+              }
+            ]
+          },
+          {
+            "angle": -8,
+            "power": 43,
+            "damage": [
+              0,
+              0.5
+            ],
+            "events": []
+          },
+          {
+            "angle": -6,
+            "power": 37,
+            "damage": [
+              0,
+              0.5
+            ],
+            "events": []
+          },
+          {
+            "angle": -6,
+            "power": 40,
+            "damage": [
+              0,
+              1.5
+            ],
+            "events": [
+              {
+                "x": 1601.9244699282556,
+                "y": -247.18482107590734,
+                "t": 1.6888888888888849,
+                "type": "critical",
+                "bullet": 0
+              }
+            ]
+          },
+          {
+            "angle": -6,
+            "power": 43,
+            "damage": [
+              0,
+              1
+            ],
+            "events": []
+          },
+          {
+            "angle": -4,
+            "power": 37,
+            "damage": [
+              0,
+              0.5
+            ],
+            "events": []
+          },
+          {
+            "angle": -4,
+            "power": 40,
+            "damage": [
+              0,
+              1.5
+            ],
+            "events": [
+              {
+                "x": 1595.0762470852785,
+                "y": -240.4338422648648,
+                "t": 1.7444444444444402,
+                "type": "critical",
+                "bullet": 0
+              }
+            ]
+          },
+          {
+            "angle": -4,
+            "power": 43,
+            "damage": [
+              0,
+              1
+            ],
+            "events": []
+          }
+        ]
+      }
+    },
+    "scope": "Gun/Normal/seed4697. One native teleport, autonomous enemy response, then a W01 firing example. Input-neighbor samples are not a human success rate or a full match.",
+    "executedPostEntry": {
+      "shotCount": 2,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "x": 1601.9244699282556,
+          "y": -247.18482107590734,
+          "t": 1.6888888888888849,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "destroyed": [],
+      "position": [
+        [
+          136.378622045199,
+          74.75724409039799
+        ],
+        [
+          162,
+          70
+        ]
+      ]
+    }
+  }
+}

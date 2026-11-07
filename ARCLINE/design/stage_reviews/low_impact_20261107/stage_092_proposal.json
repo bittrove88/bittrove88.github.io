@@ -1,0 +1,1918 @@
+{
+  "stage": 92,
+  "status": "review-ready",
+  "baseline": {
+    "version": "0.24.1",
+    "main": "fee9c40da693ccb6f9dc42f64b846269ae5de4c5",
+    "blueprintSha256": "bac3a539de83486a848a3e407c10fd710e80de71760c9ad2662e61f3a82a089b"
+  },
+  "reason": "西の保全棚の水平部を120pxから200pxへ広げ、最初の転移後に平坦な足場を取りやすくする。高さ・磁場・風・出撃と取得物は保持。",
+  "changedPart": "092-WEST-SERVICE",
+  "before": {
+    "blueprint": {
+      "stage": 92,
+      "name": "折り返す保全棚の使い分け",
+      "goal": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          18,
+          13
+        ]
+      ],
+      "parts": [
+        {
+          "id": "092-WEST-SERVICE",
+          "kind": "island",
+          "poly": [
+            [
+              20,
+              40
+            ],
+            [
+              28,
+              48
+            ],
+            [
+              40,
+              48
+            ],
+            [
+              43,
+              44
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              24,
+              33
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左へ折り返す最初の保全棚。",
+          "displayId": "F01",
+          "unitCount": 1
+        },
+        {
+          "id": "092-MID-SERVICE",
+          "kind": "island",
+          "poly": [
+            [
+              69,
+              55
+            ],
+            [
+              77,
+              59
+            ],
+            [
+              90,
+              59
+            ],
+            [
+              98,
+              53
+            ],
+            [
+              94,
+              48
+            ],
+            [
+              77,
+              48
+            ]
+          ],
+          "breakable": false,
+          "purpose": "風域へ入る中段の保全棚。",
+          "displayId": "F02",
+          "unitCount": 1
+        },
+        {
+          "id": "092-UPPER-SERVICE",
+          "kind": "island",
+          "poly": [
+            [
+              94,
+              75
+            ],
+            [
+              101,
+              81
+            ],
+            [
+              112,
+              81
+            ],
+            [
+              117,
+              75
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              103,
+              70
+            ],
+            [
+              98,
+              65
+            ]
+          ],
+          "breakable": false,
+          "purpose": "断崖手前の短い上棚。",
+          "displayId": "F03",
+          "unitCount": 1
+        },
+        {
+          "id": "092-CURVED-CLIFF",
+          "kind": "wall",
+          "poly": [
+            [
+              109,
+              11
+            ],
+            [
+              117,
+              8
+            ],
+            [
+              125,
+              94
+            ],
+            [
+              118,
+              90
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              113,
+              39
+            ]
+          ],
+          "breakable": false,
+          "purpose": "大きく反った断崖の輪郭。",
+          "displayId": "F04",
+          "unitCount": 1
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            74,
+            57,
+            26,
+            -1
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            115,
+            48,
+            88
+          ]
+        }
+      ],
+      "recommended": "yui",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "nameEn": "Choose Your Maintenance Shelves",
+      "goalEn": "Turn west toward the magnet or climb east toward the wind; use only the shelves you need.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            9,
+            17
+          ],
+          [
+            18,
+            13
+          ]
+        ],
+        [
+          [
+            47,
+            14
+          ],
+          [
+            52,
+            16
+          ],
+          [
+            65,
+            16
+          ],
+          [
+            69,
+            13
+          ]
+        ],
+        [
+          [
+            118,
+            90
+          ],
+          [
+            125,
+            94
+          ],
+          [
+            150,
+            94
+          ],
+          [
+            160,
+            88
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          61,
+          16
+        ],
+        [
+          134,
+          94
+        ]
+      ],
+      "worldWidth": 1600,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 92,
+      "name": "折り返す保全棚の使い分け",
+      "nameEn": "Choose Your Maintenance Shelves",
+      "theme": 18,
+      "boss": false,
+      "spawn": [
+        [
+          61,
+          16
+        ],
+        [
+          134,
+          94
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            9,
+            17
+          ],
+          [
+            18,
+            13
+          ]
+        ],
+        [
+          [
+            47,
+            14
+          ],
+          [
+            52,
+            16
+          ],
+          [
+            65,
+            16
+          ],
+          [
+            69,
+            13
+          ]
+        ],
+        [
+          [
+            118,
+            90
+          ],
+          [
+            125,
+            94
+          ],
+          [
+            150,
+            94
+          ],
+          [
+            160,
+            88
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "092-WEST-SERVICE",
+          "poly": [
+            [
+              20,
+              40
+            ],
+            [
+              28,
+              48
+            ],
+            [
+              40,
+              48
+            ],
+            [
+              43,
+              44
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              24,
+              33
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "092-MID-SERVICE",
+          "poly": [
+            [
+              69,
+              55
+            ],
+            [
+              77,
+              59
+            ],
+            [
+              90,
+              59
+            ],
+            [
+              98,
+              53
+            ],
+            [
+              94,
+              48
+            ],
+            [
+              77,
+              48
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "092-UPPER-SERVICE",
+          "poly": [
+            [
+              94,
+              75
+            ],
+            [
+              101,
+              81
+            ],
+            [
+              112,
+              81
+            ],
+            [
+              117,
+              75
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              103,
+              70
+            ],
+            [
+              98,
+              65
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "092-CURVED-CLIFF",
+          "poly": [
+            [
+              109,
+              11
+            ],
+            [
+              117,
+              8
+            ],
+            [
+              125,
+              94
+            ],
+            [
+              118,
+              90
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              113,
+              39
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            74,
+            57,
+            26,
+            -1
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            115,
+            48,
+            88
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W14",
+          "kind": "trial",
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 30,
+          "h": 19,
+          "spawnTurn": 1,
+          "placementId": "L092:weapon:W14",
+          "verification": {
+            "angle": 116,
+            "power": 50,
+            "neighborHits": 4,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "要塞の重層門",
+      "themeGoal": "安全な主経路と、二〜三要素の短縮路を選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "yui",
+      "tacticalGoal": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "tacticalGoalEn": "Turn west toward the magnet or climb east toward the wind; use only the shelves you need.",
+      "enemyHp": 7,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1600
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 92,
+      "name": "折り返す保全棚の使い分け",
+      "goal": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          18,
+          13
+        ]
+      ],
+      "parts": [
+        {
+          "id": "092-WEST-SERVICE",
+          "kind": "island",
+          "poly": [
+            [
+              20,
+              40
+            ],
+            [
+              28,
+              48
+            ],
+            [
+              48,
+              48
+            ],
+            [
+              51,
+              44
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              24,
+              33
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左へ折り返す最初の保全棚。",
+          "displayId": "F01",
+          "unitCount": 1
+        },
+        {
+          "id": "092-MID-SERVICE",
+          "kind": "island",
+          "poly": [
+            [
+              69,
+              55
+            ],
+            [
+              77,
+              59
+            ],
+            [
+              90,
+              59
+            ],
+            [
+              98,
+              53
+            ],
+            [
+              94,
+              48
+            ],
+            [
+              77,
+              48
+            ]
+          ],
+          "breakable": false,
+          "purpose": "風域へ入る中段の保全棚。",
+          "displayId": "F02",
+          "unitCount": 1
+        },
+        {
+          "id": "092-UPPER-SERVICE",
+          "kind": "island",
+          "poly": [
+            [
+              94,
+              75
+            ],
+            [
+              101,
+              81
+            ],
+            [
+              112,
+              81
+            ],
+            [
+              117,
+              75
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              103,
+              70
+            ],
+            [
+              98,
+              65
+            ]
+          ],
+          "breakable": false,
+          "purpose": "断崖手前の短い上棚。",
+          "displayId": "F03",
+          "unitCount": 1
+        },
+        {
+          "id": "092-CURVED-CLIFF",
+          "kind": "wall",
+          "poly": [
+            [
+              109,
+              11
+            ],
+            [
+              117,
+              8
+            ],
+            [
+              125,
+              94
+            ],
+            [
+              118,
+              90
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              113,
+              39
+            ]
+          ],
+          "breakable": false,
+          "purpose": "大きく反った断崖の輪郭。",
+          "displayId": "F04",
+          "unitCount": 1
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            74,
+            57,
+            26,
+            -1
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            115,
+            48,
+            88
+          ]
+        }
+      ],
+      "recommended": "yui",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "nameEn": "Choose Your Maintenance Shelves",
+      "goalEn": "Turn west toward the magnet or climb east toward the wind; use only the shelves you need.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            9,
+            17
+          ],
+          [
+            18,
+            13
+          ]
+        ],
+        [
+          [
+            47,
+            14
+          ],
+          [
+            52,
+            16
+          ],
+          [
+            65,
+            16
+          ],
+          [
+            69,
+            13
+          ]
+        ],
+        [
+          [
+            118,
+            90
+          ],
+          [
+            125,
+            94
+          ],
+          [
+            150,
+            94
+          ],
+          [
+            160,
+            88
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          61,
+          16
+        ],
+        [
+          134,
+          94
+        ]
+      ],
+      "worldWidth": 1600,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 92,
+      "name": "折り返す保全棚の使い分け",
+      "nameEn": "Choose Your Maintenance Shelves",
+      "theme": 18,
+      "boss": false,
+      "spawn": [
+        [
+          61,
+          16
+        ],
+        [
+          134,
+          94
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            9,
+            17
+          ],
+          [
+            18,
+            13
+          ]
+        ],
+        [
+          [
+            47,
+            14
+          ],
+          [
+            52,
+            16
+          ],
+          [
+            65,
+            16
+          ],
+          [
+            69,
+            13
+          ]
+        ],
+        [
+          [
+            118,
+            90
+          ],
+          [
+            125,
+            94
+          ],
+          [
+            150,
+            94
+          ],
+          [
+            160,
+            88
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "092-WEST-SERVICE",
+          "poly": [
+            [
+              20,
+              40
+            ],
+            [
+              28,
+              48
+            ],
+            [
+              48,
+              48
+            ],
+            [
+              51,
+              44
+            ],
+            [
+              35,
+              39
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              24,
+              33
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "092-MID-SERVICE",
+          "poly": [
+            [
+              69,
+              55
+            ],
+            [
+              77,
+              59
+            ],
+            [
+              90,
+              59
+            ],
+            [
+              98,
+              53
+            ],
+            [
+              94,
+              48
+            ],
+            [
+              77,
+              48
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "092-UPPER-SERVICE",
+          "poly": [
+            [
+              94,
+              75
+            ],
+            [
+              101,
+              81
+            ],
+            [
+              112,
+              81
+            ],
+            [
+              117,
+              75
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              103,
+              70
+            ],
+            [
+              98,
+              65
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "092-CURVED-CLIFF",
+          "poly": [
+            [
+              109,
+              11
+            ],
+            [
+              117,
+              8
+            ],
+            [
+              125,
+              94
+            ],
+            [
+              118,
+              90
+            ],
+            [
+              115,
+              68
+            ],
+            [
+              113,
+              39
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "M",
+          "v": [
+            74,
+            57,
+            26,
+            -1
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            115,
+            48,
+            88
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W14",
+          "kind": "trial",
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 30,
+          "h": 19,
+          "spawnTurn": 1,
+          "placementId": "L092:weapon:W14",
+          "verification": {
+            "angle": 116,
+            "power": 50,
+            "neighborHits": 4,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "要塞の重層門",
+      "themeGoal": "安全な主経路と、二〜三要素の短縮路を選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "yui",
+      "tacticalGoal": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "tacticalGoalEn": "Turn west toward the magnet or climb east toward the wind; use only the shelves you need.",
+      "enemyHp": 7,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1600
+    }
+  },
+  "qualityEvidence": {
+    "internalRevision": "40pxの拡張では記録した着地が斜面に残ったため、80pxまで広げて水平な着地を確認する。",
+    "audit": {
+      "onlyOnePolygonChanged": true,
+      "initial": [
+        {
+          "safe": true,
+          "actual": [
+            61,
+            16
+          ],
+          "authored": [
+            61,
+            16
+          ]
+        },
+        {
+          "safe": true,
+          "actual": [
+            134,
+            94
+          ],
+          "authored": [
+            134,
+            94
+          ]
+        }
+      ],
+      "featuresUnchanged": true,
+      "pickupsUnchanged": true,
+      "rulesUnchanged": true
+    },
+    "levelWidthPx": {
+      "before": 120,
+      "after": 200
+    },
+    "runs": {
+      "before": {
+        "teleport": {
+          "angle": 84,
+          "power": 70,
+          "position": [
+            42.58192447923549,
+            44.557434027686014
+          ],
+          "slopeDeg": 53.13010235415598,
+          "safe": true,
+          "retaliation": {
+            "round": 1,
+            "moved": 25,
+            "angle": 17.779788295645268,
+            "power": 78.19949609893374,
+            "damage": [
+              0,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                425.8192447923549,
+                54.42565972313984
+              ],
+              [
+                1365,
+                -440
+              ]
+            ],
+            "hpBefore": [
+              7,
+              7
+            ],
+            "hpAfter": [
+              7,
+              7
+            ]
+          }
+        },
+        "shot": {
+          "angle": 81,
+          "power": 95,
+          "damage": [
+            0,
+            0.5
+          ],
+          "events": [
+            {
+              "type": "magnet",
+              "x": 496.31541626919386,
+              "y": 12.657422447052932,
+              "t": 0.03333333333333333,
+              "bullet": 0
+            },
+            {
+              "type": "wind",
+              "x": 880.087404522121,
+              "y": -369.9879452325224,
+              "t": 1.0666666666666649,
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 5,
+            "rows": [
+              {
+                "angle": 79,
+                "power": 92,
+                "damage": [
+                  0,
+                  0
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 496.5994213501894,
+                    "y": 14.70014299485318,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 880.591489724624,
+                    "y": -333.547005163711,
+                    "t": 1.0444444444444427,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 79,
+                "power": 95,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 497.2022787366586,
+                    "y": 14.40780248862905,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 880.2379889191639,
+                    "y": -329.05747735896676,
+                    "t": 0.9888888888888874,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 79,
+                "power": 98,
+                "damage": [
+                  0,
+                  0
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 497.805136123128,
+                    "y": 14.115461982404916,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 881.6791790738273,
+                    "y": -326.23300429807233,
+                    "t": 0.9444444444444431,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 92,
+                "damage": [
+                  0,
+                  0
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 495.72312866368867,
+                    "y": 12.970624286710612,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 880.868396754501,
+                    "y": -375.42702639119153,
+                    "t": 1.1333333333333313,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 95,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 496.31541626919386,
+                    "y": 12.657422447052932,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 880.087404522121,
+                    "y": -369.9879452325224,
+                    "t": 1.0666666666666649,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 98,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 496.90770387469905,
+                    "y": 12.34422060739525,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 881.0787419953439,
+                    "y": -365.01438852143804,
+                    "t": 1.0111111111111095,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 83,
+                "power": 92,
+                "damage": [
+                  0,
+                  0
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 494.7870104585642,
+                    "y": 11.27274132835797,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 83,
+                "power": 95,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 495.36800667189283,
+                    "y": 10.939059743463316,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 83,
+                "power": 98,
+                "damage": [
+                  0,
+                  1.5
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 495.94900288522143,
+                    "y": 10.605378158568664,
+                    "t": 0.03333333333333333,
+                    "bullet": 0
+                  },
+                  {
+                    "x": 1350.0303935572247,
+                    "y": -489.1461025369834,
+                    "t": 3.1666666666666576,
+                    "type": "critical",
+                    "bullet": 0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "after": {
+        "teleport": {
+          "angle": 84,
+          "power": 70,
+          "position": [
+            44.910893292347644,
+            48
+          ],
+          "slopeDeg": 0,
+          "safe": true,
+          "retaliation": {
+            "round": 1,
+            "moved": 25,
+            "angle": 2.7797882956452673,
+            "power": 100,
+            "damage": [
+              0,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                449.10893292347646,
+                20
+              ],
+              [
+                1365,
+                -440
+              ]
+            ],
+            "hpBefore": [
+              7,
+              7
+            ],
+            "hpAfter": [
+              7,
+              7
+            ]
+          }
+        },
+        "shot": {
+          "angle": 15,
+          "power": 95,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "magnet",
+              "x": 489.7475789372938,
+              "y": -16.88909238089661,
+              "t": 0.011111111111111112,
+              "bullet": 0
+            },
+            {
+              "type": "wind",
+              "x": 880.7876252582802,
+              "y": -222.7915660916624,
+              "t": 0.7666666666666659,
+              "bullet": 0
+            },
+            {
+              "x": 1335.5938551630654,
+              "y": -471.8121682532058,
+              "t": 2.2222222222222165,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 7,
+            "rows": [
+              {
+                "angle": 13,
+                "power": 92,
+                "damage": [
+                  0,
+                  0
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.8852375013333,
+                    "y": -15.413951678674813,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 883.283701524665,
+                    "y": -203.13708905074253,
+                    "t": 0.777777777777777,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 13,
+                "power": 95,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 490.10284681580197,
+                    "y": -15.464190747478275,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 881.6498613743838,
+                    "y": -200.8249013870089,
+                    "t": 0.7444444444444438,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 13,
+                "power": 98,
+                "damage": [
+                  0,
+                  1.5
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 490.32045613027066,
+                    "y": -15.514429816281739,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 883.8457517758819,
+                    "y": -201.40712232834892,
+                    "t": 0.7222222222222217,
+                    "bullet": 0
+                  },
+                  {
+                    "x": 1334.0460260943,
+                    "y": -463.6886383405698,
+                    "t": 1.999999999999995,
+                    "type": "critical",
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 15,
+                "power": 92,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.5318555027559,
+                    "y": -16.83128946082371,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 881.6213443062408,
+                    "y": -224.74728966296573,
+                    "t": 0.7999999999999992,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 15,
+                "power": 95,
+                "damage": [
+                  0,
+                  1.5
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.7475789372938,
+                    "y": -16.88909238089661,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 880.7876252582802,
+                    "y": -222.7915660916624,
+                    "t": 0.7666666666666659,
+                    "bullet": 0
+                  },
+                  {
+                    "x": 1335.5938551630654,
+                    "y": -471.8121682532058,
+                    "t": 2.2222222222222165,
+                    "type": "critical",
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 15,
+                "power": 98,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.9633023718317,
+                    "y": -16.946895300969505,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 883.5270328185283,
+                    "y": -223.83352730622042,
+                    "t": 0.7444444444444438,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 17,
+                "power": 92,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.1292243996896,
+                    "y": -18.235430985196842,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 882.2829673612332,
+                    "y": -250.3188263635847,
+                    "t": 0.8333333333333324,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 17,
+                "power": 95,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.3427991285213,
+                    "y": -18.300727332584923,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 882.4595054317164,
+                    "y": -248.96208473844055,
+                    "t": 0.7999999999999992,
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 17,
+                "power": 98,
+                "damage": [
+                  0,
+                  0
+                ],
+                "events": [
+                  {
+                    "type": "magnet",
+                    "x": 489.55637385735304,
+                    "y": -18.366023679973,
+                    "t": 0.011111111111111112,
+                    "bullet": 0
+                  },
+                  {
+                    "type": "wind",
+                    "x": 881.6385569886049,
+                    "y": -246.485415612805,
+                    "t": 0.7666666666666659,
+                    "bullet": 0
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "executed": {
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "magnet",
+              "x": 489.7475789372938,
+              "y": -16.88909238089661,
+              "t": 0.011111111111111112,
+              "bullet": 0
+            },
+            {
+              "type": "wind",
+              "x": 880.7876252582802,
+              "y": -222.7915660916624,
+              "t": 0.7666666666666659,
+              "bullet": 0
+            },
+            {
+              "x": 1335.5938551630654,
+              "y": -471.8121682532058,
+              "t": 2.2222222222222165,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "destroyed": []
+        }
+      }
+    },
+    "teleportNeighbors": {
+      "before": {
+        "inputs": 9,
+        "westLandings": 5,
+        "levelLandings": 0,
+        "rows": [
+          {
+            "angle": 82,
+            "power": 67,
+            "success": false,
+            "surface": "floor1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 82,
+            "power": 70,
+            "success": false,
+            "surface": "floor1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 82,
+            "power": 73,
+            "success": true,
+            "position": [
+              40.88771225136379,
+              46.07485849909081
+            ],
+            "surface": "092-WEST-SERVICE:e2",
+            "slopeDeg": 43.907413615997314
+          },
+          {
+            "angle": 84,
+            "power": 67,
+            "success": false,
+            "surface": "floor1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 84,
+            "power": 70,
+            "success": true,
+            "position": [
+              42.58192447923549,
+              44.557434027686014
+            ],
+            "surface": "092-WEST-SERVICE:e2",
+            "slopeDeg": 53.13010235415598
+          },
+          {
+            "angle": 84,
+            "power": 73,
+            "success": true,
+            "position": [
+              40.35515208243953,
+              46.429898611706975
+            ],
+            "surface": "092-WEST-SERVICE:e2",
+            "slopeDeg": 38.13371075776873
+          },
+          {
+            "angle": 86,
+            "power": 67,
+            "success": false,
+            "surface": "floor1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 86,
+            "power": 70,
+            "success": true,
+            "position": [
+              41.617049235943355,
+              45.84393435207553
+            ],
+            "surface": "092-WEST-SERVICE:e2",
+            "slopeDeg": 53.13010235415598
+          },
+          {
+            "angle": 86,
+            "power": 73,
+            "success": true,
+            "position": [
+              38.32880996396337,
+              47.78079335735775
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 6.254841229570596
+          }
+        ]
+      },
+      "after": {
+        "inputs": 9,
+        "westLandings": 9,
+        "levelLandings": 6,
+        "rows": [
+          {
+            "angle": 82,
+            "power": 67,
+            "success": true,
+            "position": [
+              49.1784762936571,
+              46.428698275123864
+            ],
+            "surface": "092-WEST-SERVICE:e2",
+            "slopeDeg": 53.13010235415598
+          },
+          {
+            "angle": 82,
+            "power": 70,
+            "success": true,
+            "position": [
+              45.98740409629965,
+              48
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 82,
+            "power": 73,
+            "success": true,
+            "position": [
+              41.72546322179237,
+              48
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 84,
+            "power": 67,
+            "success": true,
+            "position": [
+              48.39577216948363,
+              46.402818553677584
+            ],
+            "surface": "092-WEST-SERVICE:e2",
+            "slopeDeg": 38.61053926503995
+          },
+          {
+            "angle": 84,
+            "power": 70,
+            "success": true,
+            "position": [
+              44.910893292347644,
+              48
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 84,
+            "power": 73,
+            "success": true,
+            "position": [
+              40.70772444272543,
+              48
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 86,
+            "power": 67,
+            "success": true,
+            "position": [
+              47.70596272866261,
+              46.86269151422492
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 29.62490873183334
+          },
+          {
+            "angle": 86,
+            "power": 70,
+            "success": true,
+            "position": [
+              43.305649775781326,
+              48
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 0
+          },
+          {
+            "angle": 86,
+            "power": 73,
+            "success": true,
+            "position": [
+              38.32880996396337,
+              48
+            ],
+            "surface": "092-WEST-SERVICE:e1",
+            "slopeDeg": 0
+          }
+        ]
+      }
+    },
+    "pickupContact": {
+      "before": [
+        {
+          "type": "pickup",
+          "id": "W14",
+          "x": 300,
+          "y": 310,
+          "t": 2.0378564391998326,
+          "bullet": 0
+        }
+      ],
+      "after": [
+        {
+          "type": "pickup",
+          "id": "W14",
+          "x": 300,
+          "y": 310,
+          "t": 2.0378564391998326,
+          "bullet": 0
+        }
+      ]
+    },
+    "scope": "Gun/Normal/seed4697. One native teleport and enemy response, followed by a W01 M/F shot. Neighbor examples measure fixed inputs, not human success rate or a full match."
+  }
+}
