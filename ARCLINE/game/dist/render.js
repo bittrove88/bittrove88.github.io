@@ -5,7 +5,8 @@ function create(canvas,configuration={}){
  if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const unified=!!root.ArcVisualArt&&configuration.artStyle!=='legacy';
  let arenaWidth=1000;
- const isArenaPickup=item=>!item.collected&&!item.hidden&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
+ const isPlacedPickup=item=>!item.collected&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
+ const isArenaPickup=item=>!item.hidden&&isPlacedPickup(item);
  const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},normalView={...view},chargeZoom=0,lastCameraTime=0,cameraKey='',aimCache=null,frameCache=null,guideCache=null;
  function canvasRect(element){
   if(!element)return null;
@@ -203,6 +204,29 @@ function create(canvas,configuration={}){
   const constrainX=(x,scale)=>Math.max(leftMargin-criticalMin*scale,Math.min(fieldW-rightMargin-criticalMax*scale,x));
   const target={scale:scaleTarget,x:constrainX(fieldW*.5-(phoneLandscape?(criticalMin+criticalMax):(minX+maxX))*.5*scaleTarget,scaleTarget),y:offsetY};
   if(phoneLandscape&&(baseline.maxY-baseline.minY)*scaleTarget>bottom-top){target.y=(top+bottom)/2-(s.units[0].y-22)*scaleTarget;}
+  // Frame the physical capsule, rather than a tethered off-screen marker.
+  // Reserve turn-five placements from entry too, so spawning cannot move the
+  // camera. Fixed pixel margins include the icon, bob and bilingual name.
+  const framePickups=!lobby&&!localDemo?s.pickups.filter(isPlacedPickup):[];
+  if(framePickups.length){
+   const pickupTop=Math.max(top,header?.bottom||0)+30,pickupBottom=Math.min(bottom,controls?.top||h)-58;
+   const tallPhone=phoneLandscape&&(baseline.maxY-baseline.minY)*target.scale>bottom-top;
+   const actorTop=tallPhone?s.units[0].y-76:baseline.minY,actorBottom=tallPhone?s.units[0].y+8:baseline.maxY;
+   const limits=scale=>({
+    left:Math.max(leftMargin-criticalMin*scale,...framePickups.map(p=>leftMargin+28-p.x*scale)),
+    right:Math.min(fieldW-rightMargin-criticalMax*scale,...framePickups.map(p=>fieldW-rightMargin-28-p.x*scale)),
+    top:Math.max(top-actorTop*scale,...framePickups.map(p=>pickupTop-p.y*scale)),
+    bottom:Math.min(bottom-actorBottom*scale,...framePickups.map(p=>pickupBottom-p.y*scale))
+   });
+   let bounds=limits(target.scale);
+   if(bounds.left>bounds.right||bounds.top>bounds.bottom){
+    let low=0,high=target.scale;
+    for(let n=0;n<24;n++){const mid=(low+high)/2,b=limits(mid);if(b.left<=b.right&&b.top<=b.bottom)low=mid;else high=mid;}
+    target.scale=low;bounds=limits(low);
+   }
+   target.x=Math.max(bounds.left,Math.min(bounds.right,target.x));
+   target.y=Math.max(bounds.top,Math.min(bounds.bottom,target.y));
+  }
   const nextKey=[s.stage,lobby,w,h,localDemo?'preview':'battle'].join(':');
   const newScene=cameraKey!==nextKey;view=normalView;if(newScene)chargeZoom=0;
   if(newScene||options.reducedMotion)view=target;

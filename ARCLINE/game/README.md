@@ -1,3 +1,5 @@
+0.24.3：初期画面内の46カプセルを保証する表示と31個の配置調整は `dist/render.js`／`design/pickup_placements.json`。難易度カードの枠内折返しは `styles/chapter-flow.css`、低い天井の説明の画角は `dist/preview.js`。ボス戦開始時の `audio-manager.prepare` と `ending_media.json` の勝利曲開始位置0.21秒で読み込み待ちと先頭無音を削減。原音源・保存・地形・物理は維持。[検証](../docs/releases/0.24.3.md)。
+
 # コードと生成物の編集先
 
 0.24.1：承認された17・33・36・39・47面は `design/stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json` の元JSONとハッシュに固定。生成元は引き続きstage_blueprintsとpickup_placements。旧0.23.0の1〜50面照合はこの5面だけ新承認へ更新し、旧入力列は履歴として保持する。[統合・検証](../docs/releases/0.24.1.md)。

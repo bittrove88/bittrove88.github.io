@@ -17,6 +17,7 @@
         return url.href;
       });
     const positions = new Map();
+    const prepared = new Map();
     let active = null,
       generation = 0,
       unlocked = false,
@@ -100,6 +101,15 @@
         else a.error = String(error);
       }
     }
+    function prepare(id) {
+      if (!tracks[id]) throw Error("Unknown BGM: " + id);
+      if (active?.id === id || prepared.has(id)) return;
+      const media = make();
+      media.preload = "auto";
+      media.src = resolve(tracks[id]);
+      media.load?.();
+      prepared.set(id, media);
+    }
     function request(id, settings = {}) {
       if (!tracks[id]) throw Error("Unknown BGM: " + id);
       if (active?.id === id && !settings.restart) return state();
@@ -110,14 +120,17 @@
         active.media.load?.();
       }
       const track = tracks[id],
-        media = make(),
+        media = prepared.get(id) || make(),
         t = now();
+      const wasPrepared = prepared.delete(id);
       const a = (active = {
         id,
         token: ++generation,
         media,
         duration: track.duration,
-        position: settings.restart ? 0 : positions.get(id) || 0,
+        position: settings.restart
+          ? track.startOffset || 0
+          : positions.get(id) || track.startOffset || 0,
         tick: t,
         lastMovement: t,
         ended: false,
@@ -177,7 +190,7 @@
           play(a);
         }
       });
-      media.src = resolve(track);
+      if (!wasPrepared) media.src = resolve(track);
       seek();
       if (id === "ENDING" && !unlocked && !muted)
         fallback(a, "audio gesture unavailable");
@@ -255,6 +268,7 @@
       }
     }
     return {
+      prepare,
       request,
       sync,
       state,
@@ -278,7 +292,16 @@
   // starts its selected track at zero. Same-track continuity elsewhere remains.
   const restartForStage = (stage, spec = {}) =>
     !!((spec.boss && !spec.midboss) || (stage > 1 && stage % 10 === 1));
-  const victoryFor = (state, context = {}) => !!(state?.result === "win" && state.stage >= 10 && state.stage < 100 && state.stage % 10 === 0 && state.spec?.boss && !state.spec.midboss && !context.practice);
+  const victoryFor = (state, context = {}) =>
+    !!(
+      state?.result === "win" &&
+      state.stage >= 10 &&
+      state.stage < 100 &&
+      state.stage % 10 === 0 &&
+      state.spec?.boss &&
+      !state.spec.midboss &&
+      !context.practice
+    );
   const api = { create, forStage, restartForStage, victoryFor };
   if (typeof module !== "undefined") module.exports = api;
   else root.ArcAudio = api;
