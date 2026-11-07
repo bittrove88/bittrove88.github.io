@@ -4,6 +4,8 @@
 
 **[キャラクター企画・全案記録](CHARACTER_PLANNING_ARCHIVE.md)** を、没案・中間案・改訂前を含む一元記録の入口とします。通番C0001〜C0231、生成分は全74原画・162企画版。既存世界とARCの参考設定65件、未生成の発想4件も同じファイルに記録しています。
 
+主人公と12ジョブの正式参照PNGは[assets/](../assets/)に3枚保存済み。12ジョブの旧版画像は置きません。
+
 ## 制作資料
 
 | 資料 | 内容・状態 |
@@ -15,7 +17,7 @@
 | [強敵の外観比較・初回](strong-enemy-appearance-studies/README.md) | マント、多腕、白い丸形、肩の量感など20案、4画像。人型比率を見直す前の履歴 |
 | [強敵の外観比較・r02](strong-enemy-appearance-studies/revision-02/README.md) | 固有の車体・飛行機体へ全20案を再設計。採用候補4画像と保持部修正前1画像 |
 | [r02の設計文書](strong-enemy-appearance-studies/revision-02/DESIGN_JA.md) | 画像化前に定義した20案の機体・モチーフ・継承点・避ける形 |
-| [画像出典と保存状況](ASSET_MANIFEST.md) | FIXと記載されたARC原画の実ファイル状況、既存世界の参照、生成原画の台帳 |
+| [画像出典と保存状況](ASSET_MANIFEST.md) | ARC原画・FIXジョブ画像・旧10機画風参照のPNG3点（保存済み）、生成敵の出典 |
 | [移動・紐付けの検査記録](MIGRATION_CHECK.json) | 原画74枚のハッシュ、通番、相対リンク、既存ゲームの保全 |
 
 ## 仕様との関係

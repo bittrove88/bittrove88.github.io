@@ -30,15 +30,21 @@
 | [05_handoff/OPEN_ITEMS_AND_TESTS.md](05_handoff/OPEN_ITEMS_AND_TESTS.md) | 数値・統合・保存などの未決事項と受け入れ確認 | 保存済み |
 | [05_handoff/IMPLEMENTATION_HANDOFF.md](05_handoff/IMPLEMENTATION_HANDOFF.md) | 既存1〜100面を保全する実装引き継ぎ | 保存済み |
 | [05_handoff/CODEX_START_PROMPT.md](05_handoff/CODEX_START_PROMPT.md) | 後続セッションへの開始指示 | 保存済み |
-| [assets/README.md](assets/README.md) | 未アップロードの主人公原画4点のテキスト索引 | 索引のみ保存済み |
+| [assets/README.md](assets/README.md) | 主人公・12ジョブ・旧10機画風参照のPNG3点 | 正式名で保存済み |
 | [06_gimmicks/README.md](06_gimmicks/README.md) | V2-01〜V2-17の将来ギミック案・空中障害・採用基準 | 企画ストック・未承認 |
 | [06_gimmicks/RELOCATION.json](06_gimmicks/RELOCATION.json) | 元PR・出典コミット・原文と17候補の保存確認 | 保存検査 |
 | [MANIFEST.json](MANIFEST.json) | 仕様・制作資料の一覧と保存状態 | 保存済み |
 
 
-## GitHub保存状態（2026-11-07）
+## GitHub保存状態（2026-11-08更新）
 
-このディレクトリのMarkdown仕様書・12ジョブJSONはGitHubの`main`へ格納済みです。**主人公とジョブの参照PNG原画4点は現時点ではGitHubに未アップロード**です。`assets/README.md`と`04_art/ASSET_MANIFEST.md`に原本名と用途を記録しています。原本はこの対話で提供した`ARCLINEver2_design_spec_2026-11-04.zip`に保存されています。敵の制作原画74枚は `04_art/` に保存済みで、この未収録4点とは区別します。
+主人公・ジョブ・画風参照用のPNG原画は3点とも[assets/](assets/)に正式名で格納済みです。
+
+- [ARC主人公の原画](assets/ARC_BASE_ORIGINAL_REFERENCE.png)
+- [12ジョブ最終FIX画像](assets/ARC_12_JOBS_FIXED_LINEUP.png)
+- [1〜100面の旧10機・画風参照](assets/OLD_10_CAST_STYLE_REFERENCE.png)
+
+12ジョブの修正前画像は**旧版不要のため保管しません**。Ver.2敵の企画原画74枚は[04_art/](04_art/README.md)に別途保存済みであり、これら3点とは区別します。
 
 現行ゲーム`ARCLINE/`配下の実装・保存・公開URLは今回変更していません。
 

@@ -2,14 +2,15 @@
 
 [制作資料の入口](README.md) ／ [全案記録・74原画の出典索引](CHARACTER_PLANNING_ARCHIVE.md)
 
-## 主人公ARCとジョブの参照
+## 主人公ARCとジョブの原画（2026-11-08の正式保存状態）
 
-| 資料 | 設定上の扱い | 実ファイルの状態 |
+| 資料 | 正式ファイル | 使用方法 |
 |---|---|---|
-| ユーザー提示のARC基本設定画 | [主人公基準](../01_protagonist/ARC_BASE.md)がFIXと記載。四輪・単眼・小型車体の基準 | 会話添付。予定名 `assets/ARC_BASE_ORIGINAL_REFERENCE.png` はリポジトリ未収録 |
-| 12ジョブの最終ラインナップ | [ジョブ仕様](../02_jobs/JOB_CATALOG.md)と[決定事項](../00_overview/DECISIONS_AND_SCOPE.md)が外観FIXを記載 | 会話添付。予定名 `assets/ARC_12_JOBS_FIXED_LINEUP.png` はリポジトリ未収録 |
+| ユーザー制作ARC設定画 | [ARC_BASE_ORIGINAL_REFERENCE.png](../assets/ARC_BASE_ORIGINAL_REFERENCE.png) | シアン単眼、四輪、車体の比率・構造の原型FIX |
+| 12ジョブのFIX画像 | [ARC_12_JOBS_FIXED_LINEUP.png](../assets/ARC_12_JOBS_FIXED_LINEUP.png) | 同じARCの12ジョブの外装・配色・アイキャッチのFIX |
+| 旧10キャラ画像 | [OLD_10_CAST_STYLE_REFERENCE.png](../assets/OLD_10_CAST_STYLE_REFERENCE.png) | 1〜100面のキャラクター。画風・誌面デザインの参考のみ |
 
-「FIXと記載された設定」と「PNGが保存されていること」を区別します。予定名へ別の画像を割り当てたり、原画の代わりを生成したりしていません。全案記録のARC参照行C0214〜C0227も、画像が未収録であることを明記しています。
+上記PNGはGitHubの`ARCLINEver2/assets/`内に保存済み。旧版12ジョブ画像は保存しません。文字の誤植・技の効果は[12ジョブの仕様](../02_jobs/JOB_CATALOG.md)を正本とします。
 
 ## 1〜100面の参照原画
 
@@ -35,15 +36,8 @@
 
 原画名、生成元名、寸法、SHA-256は[全案記録の出典索引](CHARACTER_PLANNING_ARCHIVE.md)に一元記録しています。移動時に画像の再圧縮・切り抜き・名称変更は行っていません。敵の原画の正式採用・ゲーム素材への登録は未実施です。
 
-## mainに追記された原本パッケージの記録
+## 原本の管理
 
-以下は既存仕様の原本4点の記録です。敵の生成原画74枚とは別の資料です。
+主人公・ジョブの原画は3点を正式なファイル名で保管しています。以前の「PNG未収録」という状態は2026-11-08に解消しました。旧版12ジョブ画像は不要のため追加しません。
 
-| 原本名 | 参照用途 | 状態 |
-|---|---|---|
-| `ARC_BASE_ORIGINAL_REFERENCE.png` | ユーザーが作成した主人公ARCの三面図・大きな単眼・四輪・基本カラー | 主人公FIX |
-| `OLD_10_CAST_STYLE_REFERENCE.png` | 既存1〜100面の10機。画風・セル塗り・ラインナップの誌面参照のみ | 旧キャスト |
-| `ARC_12_JOBS_FIXED_LINEUP.png` | 直近「これでFIX」のジョブウェア一覧 | 外観方針FIX。日本語文字校正は別途 |
-| `ARC_12_JOBS_PREVIOUS_CONCEPT.png` | 最終修正前の制作履歴。メカニック黄・ウォーリアー赤など旧案 | 過去案であり現仕様ではない |
-
-**GitHub上のPNG原本は未配置です。** 原画は前回のローカル保存パッケージ `ARCLINEver2_design_spec_2026-11-04.zip` に保管されています。GitHubに同名PNGをアップロードする際は、原画を再生成・変更せずそのまま配置します。原画の外観と生成文字が食い違う場合は、`02_jobs/JOB_CATALOG.md` が正本。
+既存の敵原画74点や1〜100面の既存キャラ原画については、上記の出典リンクと個別の台帳を引き続き参照してください。

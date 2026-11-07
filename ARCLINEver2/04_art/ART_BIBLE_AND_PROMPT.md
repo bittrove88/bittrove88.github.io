@@ -1,5 +1,13 @@
 # 画像制作アートバイブル・一枚絵生成プロンプト
 
+## GitHubに保存された3枚の正式参照画像
+
+- [Image A：既存10機の画風](../assets/OLD_10_CAST_STYLE_REFERENCE.png)
+- [Image B：主人公ARC原画（形状・比率の正本）](../assets/ARC_BASE_ORIGINAL_REFERENCE.png)
+- [Image C：12ジョブ最終FIX画像](../assets/ARC_12_JOBS_FIXED_LINEUP.png)
+
+修正前の12ジョブ画像は旧版不要のため参照・保存しない。画像の文字よりも[ジョブカタログ](../02_jobs/JOB_CATALOG.md)を優先する。
+
 ## 参照画像の役割
 - **Image A: 旧10キャラ一覧**：1〜100面のイラスト。輪郭線、セル塗り、メカデフォルメ、公式資料風レイアウトのみ参照。
 - **Image B: ユーザー制作のARC原画**：主人公ARCの丸い4輪車体、大きなシアン単眼、ウィング、上部砲塔、サイズ感の**構造上の最優先基準**。

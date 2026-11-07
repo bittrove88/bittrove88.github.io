@@ -3,9 +3,9 @@
 | 項目 | 状態 | 参照 |
 |---|---|---|
 | 1〜100面は旧10キャラ、101面以降の主人公はARC | **FIX** | [01_protagonist/ARC_BASE.md](../01_protagonist/ARC_BASE.md) |
-| ARCの原画、大きなシアン単眼、4輪、ウィング、主砲基部 | **FIX** | `assets/ARC_BASE_ORIGINAL_REFERENCE.png` |
+| ARCの原画、大きなシアン単眼、4輪、ウィング、主砲基部 | **FIX** | [ARC原画](../assets/ARC_BASE_ORIGINAL_REFERENCE.png) |
 | 12形態は同一ARCのジョブウェア換装 | **FIX** | [01_protagonist/ARC_BASE.md](../01_protagonist/ARC_BASE.md) |
-| 12ジョブの最新FIX画像 | **FIX（画像の外観方向性）** | `assets/ARC_12_JOBS_FIXED_LINEUP.png` |
+| 12ジョブの最新FIX画像 | **FIX（画像の外観方向性）** | [12ジョブFIX画像](../assets/ARC_12_JOBS_FIXED_LINEUP.png) |
 | メカニック：ソフトグリーン・優しい | **FIX** | [02_jobs/JOB_CATALOG.md](../02_jobs/JOB_CATALOG.md) |
 | ウォーリアー：オレンジ・斧 | **FIX** | [02_jobs/JOB_CATALOG.md](../02_jobs/JOB_CATALOG.md) |
 | シーフ：シーフ帽・アームではなく解析レンズ／工具 | **FIX** | [02_jobs/JOB_CATALOG.md](../02_jobs/JOB_CATALOG.md) |
@@ -30,5 +30,9 @@
 | Ver.2敵54枠の第一案・改訂案 | 制作候補・最終採用未承認／ゲーム未統合 | [原画と台帳](../04_art/README.md) |
 | 強敵の造形比較・外観比較・非人型への再設計 | 検討案・正式追加未決定 | [全案記録](../04_art/CHARACTER_PLANNING_ARCHIVE.md) |
 | 没案・中間案を含む231記録と生成原画74枚 | 保存済み・番号と原画を保持 | [全案記録](../04_art/CHARACTER_PLANNING_ARCHIVE.md) |
-| ARC原型・FIXジョブ画像の実ファイル | 既存仕様はFIXを記載／このリポジトリの実ファイルは未収録 | [画像出典と保存状況](../04_art/ASSET_MANIFEST.md) |
+| ARC原型・FIXジョブ画像の実ファイル | **GitHubに原画PNG3点を保存済み**（旧版は未収録） | [画像出典と保存状況](../04_art/ASSET_MANIFEST.md) |
 | 将来ギミック17候補（V2-01〜V2-17） | 企画ストック・採用／配置／実装は未承認 | [機構案と検討基準](../06_gimmicks/README.md) |
+
+## 2026-11-08 原画アップロード確認
+
+主人公ARC・FIX済み12ジョブ・旧10機画風参照の3画像は、すべて[assets/](../assets/)に正式名で格納済み。修正前の12ジョブ画像は保存しない。
