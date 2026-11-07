@@ -1,0 +1,942 @@
+{
+  "stage": 41,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 41,
+      "name": "掘らない支柱",
+      "goal": "支柱を壊さず手前の梁を開放し、上昇気流の高弾道で上部の敵を狙う。",
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          26,
+          10
+        ],
+        [
+          31,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "id": "041-LOW-PILLAR",
+          "kind": "wall",
+          "poly": [
+            [
+              37,
+              9
+            ],
+            [
+              43,
+              9
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              37,
+              18
+            ]
+          ],
+          "breakable": false,
+          "purpose": "低い固定柱"
+        },
+        {
+          "id": "041-UPPER-PILLAR",
+          "kind": "wall",
+          "poly": [
+            [
+              37,
+              45
+            ],
+            [
+              43,
+              45
+            ],
+            [
+              43,
+              53
+            ],
+            [
+              37,
+              53
+            ]
+          ],
+          "breakable": false,
+          "purpose": "柱の上側。高さ18〜45は射撃窓"
+        },
+        {
+          "id": "041-RELAY-PLATFORM",
+          "kind": "island",
+          "poly": [
+            [
+              66,
+              20
+            ],
+            [
+              70,
+              27
+            ],
+            [
+              81,
+              27
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              79,
+              19
+            ],
+            [
+              70,
+              18
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上昇流を抜けた先の中継棚"
+        },
+        {
+          "id": "041-CRACKED-HEAD",
+          "kind": "roof",
+          "poly": [
+            [
+              75,
+              45
+            ],
+            [
+              80,
+              49
+            ],
+            [
+              88,
+              49
+            ],
+            [
+              91,
+              45
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              78,
+              41
+            ]
+          ],
+          "breakable": true,
+          "purpose": "高弧の別ルートを開ける梁"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            65,
+            14,
+            44
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        95
+      ],
+      "route": "支柱を壊さず手前の梁を開放し、上昇気流の高弾道で上部の敵を狙う。",
+      "nameEn": "A Support Worth Keeping",
+      "goalEn": "Keep the support, remove a cracked beam, and fire upward through an airshaft.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            26,
+            10
+          ],
+          [
+            31,
+            11
+          ]
+        ],
+        [
+          [
+            79,
+            28
+          ],
+          [
+            95,
+            28
+          ],
+          [
+            110,
+            28
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          9
+        ],
+        [
+          95,
+          28
+        ]
+      ],
+      "worldWidth": 1100,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 41,
+      "name": "掘らない支柱",
+      "nameEn": "A Support Worth Keeping",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          9
+        ],
+        [
+          95,
+          28
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            26,
+            10
+          ],
+          [
+            31,
+            11
+          ]
+        ],
+        [
+          [
+            79,
+            28
+          ],
+          [
+            95,
+            28
+          ],
+          [
+            110,
+            28
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "041-LOW-PILLAR",
+          "poly": [
+            [
+              37,
+              9
+            ],
+            [
+              43,
+              9
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              37,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-UPPER-PILLAR",
+          "poly": [
+            [
+              37,
+              45
+            ],
+            [
+              43,
+              45
+            ],
+            [
+              43,
+              53
+            ],
+            [
+              37,
+              53
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-RELAY-PLATFORM",
+          "poly": [
+            [
+              66,
+              20
+            ],
+            [
+              70,
+              27
+            ],
+            [
+              81,
+              27
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              79,
+              19
+            ],
+            [
+              70,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-CRACKED-HEAD",
+          "poly": [
+            [
+              75,
+              45
+            ],
+            [
+              80,
+              49
+            ],
+            [
+              88,
+              49
+            ],
+            [
+              91,
+              45
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              78,
+              41
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            65,
+            14,
+            44
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": "U",
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "支柱を壊さず手前の梁を開放し、上昇気流の高弾道で上部の敵を狙う。",
+      "tacticalGoalEn": "Keep the support, remove a cracked beam, and fire upward through an airshaft.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1100
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 41,
+      "name": "掘らない支柱",
+      "goal": "柱の大きな窓へ弾を通し、上昇流で高い岸へ持ち上げる。",
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          26,
+          10
+        ],
+        [
+          31,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "id": "041-LOW-PILLAR",
+          "kind": "wall",
+          "poly": [
+            [
+              37,
+              9
+            ],
+            [
+              43,
+              9
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              37,
+              18
+            ]
+          ],
+          "breakable": false,
+          "purpose": "低い固定柱"
+        },
+        {
+          "id": "041-UPPER-PILLAR",
+          "kind": "wall",
+          "poly": [
+            [
+              37,
+              45
+            ],
+            [
+              43,
+              45
+            ],
+            [
+              43,
+              53
+            ],
+            [
+              37,
+              53
+            ]
+          ],
+          "breakable": false,
+          "purpose": "柱の上側。高さ18〜45は射撃窓"
+        },
+        {
+          "id": "041-RELAY-PLATFORM",
+          "kind": "island",
+          "poly": [
+            [
+              66,
+              20
+            ],
+            [
+              70,
+              27
+            ],
+            [
+              81,
+              27
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              79,
+              19
+            ],
+            [
+              70,
+              18
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上昇流を抜けた先の中継棚"
+        },
+        {
+          "id": "041-CRACKED-HEAD",
+          "kind": "roof",
+          "poly": [
+            [
+              75,
+              45
+            ],
+            [
+              80,
+              49
+            ],
+            [
+              88,
+              49
+            ],
+            [
+              91,
+              45
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              78,
+              41
+            ]
+          ],
+          "breakable": true,
+          "purpose": "高弧の別ルートを開ける梁"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            65,
+            14,
+            44
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        95
+      ],
+      "route": "柱の大きな窓へ弾を通し、上昇流で高い岸へ持ち上げる。",
+      "nameEn": "A Support Worth Keeping",
+      "goalEn": "Send the shot through the broad pillar opening and lift it to the high bank.",
+      "terrainRevision": "10.0-review-completion",
+      "floorSegments": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            26,
+            10
+          ],
+          [
+            31,
+            11
+          ]
+        ],
+        [
+          [
+            79,
+            28
+          ],
+          [
+            95,
+            28
+          ],
+          [
+            110,
+            28
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          9
+        ],
+        [
+          95,
+          28
+        ]
+      ],
+      "worldWidth": 1100,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 41,
+      "name": "掘らない支柱",
+      "nameEn": "A Support Worth Keeping",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          9
+        ],
+        [
+          95,
+          28
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            26,
+            10
+          ],
+          [
+            31,
+            11
+          ]
+        ],
+        [
+          [
+            79,
+            28
+          ],
+          [
+            95,
+            28
+          ],
+          [
+            110,
+            28
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "041-LOW-PILLAR",
+          "poly": [
+            [
+              37,
+              9
+            ],
+            [
+              43,
+              9
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              37,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-UPPER-PILLAR",
+          "poly": [
+            [
+              37,
+              45
+            ],
+            [
+              43,
+              45
+            ],
+            [
+              43,
+              53
+            ],
+            [
+              37,
+              53
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-RELAY-PLATFORM",
+          "poly": [
+            [
+              66,
+              20
+            ],
+            [
+              70,
+              27
+            ],
+            [
+              81,
+              27
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              79,
+              19
+            ],
+            [
+              70,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "041-CRACKED-HEAD",
+          "poly": [
+            [
+              75,
+              45
+            ],
+            [
+              80,
+              49
+            ],
+            [
+              88,
+              49
+            ],
+            [
+              91,
+              45
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              78,
+              41
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            65,
+            14,
+            44
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": "U",
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "柱の大きな窓へ弾を通し、上昇流で高い岸へ持ち上げる。",
+      "tacticalGoalEn": "Send the shot through the broad pillar opening and lift it to the high bank.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1100
+    }
+  },
+  "qualityEvidence": {
+    "shot": {
+      "angle": 27,
+      "power": 80,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 442.12958121224034,
+          "y": 263.8570608321065,
+          "t": 0.5444444444444445,
+          "bullet": 0
+        },
+        {
+          "x": 920.7777080027595,
+          "y": 187.65313330384453,
+          "t": 1.5777777777777742,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 4,
+        "rows": [
+          {
+            "angle": 24,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 85,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 85,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          9.1
+        ],
+        [
+          95,
+          28
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          9
+        ],
+        [
+          95,
+          28
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1100
+    },
+    "experience": "柱の窓とUの上昇を、そのまま初出の基準として見せる。",
+    "improvement": "固定柱を壊す必要があると誤読させる目的文を訂正。地形は維持し、次の42・43・44を別の行動へ変える。",
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Text-only clarification; geometry and prior native inputs retained."
+    }
+  }
+}

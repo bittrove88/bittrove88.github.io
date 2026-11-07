@@ -1,0 +1,1235 @@
+{
+  "stage": 83,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 83,
+      "name": "雲の横窓と風に届く斜めの裂け目",
+      "goal": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
+      "floor": [
+        [
+          0,
+          5
+        ],
+        [
+          18,
+          5
+        ],
+        [
+          146,
+          5
+        ],
+        [
+          158,
+          5
+        ]
+      ],
+      "parts": [
+        {
+          "id": "083-START",
+          "poly": [
+            [
+              8,
+              31
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              48,
+              36
+            ],
+            [
+              54,
+              32
+            ],
+            [
+              46,
+              26
+            ],
+            [
+              34,
+              25
+            ],
+            [
+              21,
+              21
+            ],
+            [
+              12,
+              25
+            ]
+          ],
+          "breakable": false,
+          "purpose": "頭上開放の出発庭園",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "083-SIDE-WINDOW",
+          "poly": [
+            [
+              54,
+              33
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              64,
+              51
+            ],
+            [
+              54,
+              51
+            ]
+          ],
+          "breakable": true,
+          "purpose": "雲に横から入る独立1片",
+          "displayId": "D02",
+          "unitCount": 1,
+          "kind": "wall"
+        },
+        {
+          "id": "083-ARCH-LIP",
+          "poly": [
+            [
+              52,
+              65
+            ],
+            [
+              59,
+              65
+            ],
+            [
+              67,
+              83
+            ],
+            [
+              78,
+              79
+            ],
+            [
+              78,
+              63
+            ],
+            [
+              65,
+              59
+            ],
+            [
+              52,
+              54
+            ]
+          ],
+          "breakable": false,
+          "purpose": "常設の斜め開口の右縁。横窓とは別の入射を作る",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "083-ENEMY",
+          "poly": [
+            [
+              117,
+              37
+            ],
+            [
+              123,
+              43
+            ],
+            [
+              149,
+              43
+            ],
+            [
+              154,
+              38
+            ],
+            [
+              144,
+              32
+            ],
+            [
+              128,
+              32
+            ]
+          ],
+          "breakable": false,
+          "purpose": "既存の敵庭園",
+          "displayId": "F04",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            58,
+            112,
+            31,
+            62
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            121,
+            52,
+            79
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
+      "nameEn": "The Cloud Window and Slanted Wind Cleft",
+      "goalEn": "Use the side window through the cloud or rise through the cleft into the wind.",
+      "floorSegments": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            5
+          ]
+        ],
+        [
+          [
+            146,
+            5
+          ],
+          [
+            158,
+            5
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          26,
+          36
+        ],
+        [
+          136,
+          43
+        ]
+      ],
+      "worldWidth": 1580,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 83,
+      "name": "雲の横窓と風に届く斜めの裂け目",
+      "nameEn": "The Cloud Window and Slanted Wind Cleft",
+      "theme": 16,
+      "boss": false,
+      "spawn": [
+        [
+          26,
+          36
+        ],
+        [
+          136,
+          43
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            5
+          ]
+        ],
+        [
+          [
+            146,
+            5
+          ],
+          [
+            158,
+            5
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "083-START",
+          "poly": [
+            [
+              8,
+              31
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              48,
+              36
+            ],
+            [
+              54,
+              32
+            ],
+            [
+              46,
+              26
+            ],
+            [
+              34,
+              25
+            ],
+            [
+              21,
+              21
+            ],
+            [
+              12,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "083-SIDE-WINDOW",
+          "poly": [
+            [
+              54,
+              33
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              64,
+              51
+            ],
+            [
+              54,
+              51
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "083-ARCH-LIP",
+          "poly": [
+            [
+              52,
+              65
+            ],
+            [
+              59,
+              65
+            ],
+            [
+              67,
+              83
+            ],
+            [
+              78,
+              79
+            ],
+            [
+              78,
+              63
+            ],
+            [
+              65,
+              59
+            ],
+            [
+              52,
+              54
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "083-ENEMY",
+          "poly": [
+            [
+              117,
+              37
+            ],
+            [
+              123,
+              43
+            ],
+            [
+              149,
+              43
+            ],
+            [
+              154,
+              38
+            ],
+            [
+              144,
+              32
+            ],
+            [
+              128,
+              32
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            58,
+            112,
+            31,
+            62
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            121,
+            52,
+            79
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "空中庭園",
+      "themeGoal": "持っている武器で、地形と相手の位置を変えて遊ぶ",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
+      "tacticalGoalEn": "Use the side window through the cloud or rise through the cleft into the wind.",
+      "enemyHp": 6,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1580
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 83,
+      "name": "雲の横窓と風に届く斜めの裂け目",
+      "goal": "同じ高さの岸へ、横窓を開けて雲を通すか、上の裂け目から風へ送る。",
+      "floor": [
+        [
+          0,
+          5
+        ],
+        [
+          18,
+          5
+        ],
+        [
+          146,
+          5
+        ],
+        [
+          158,
+          5
+        ]
+      ],
+      "parts": [
+        {
+          "id": "083-START",
+          "poly": [
+            [
+              8,
+              31
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              48,
+              36
+            ],
+            [
+              54,
+              32
+            ],
+            [
+              46,
+              26
+            ],
+            [
+              34,
+              25
+            ],
+            [
+              21,
+              21
+            ],
+            [
+              12,
+              25
+            ]
+          ],
+          "breakable": false,
+          "purpose": "頭上開放の出発庭園",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "083-SIDE-WINDOW",
+          "poly": [
+            [
+              54,
+              33
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              64,
+              51
+            ],
+            [
+              54,
+              51
+            ]
+          ],
+          "breakable": true,
+          "purpose": "雲に横から入る独立1片",
+          "displayId": "D02",
+          "unitCount": 1,
+          "kind": "wall"
+        },
+        {
+          "id": "083-ARCH-LIP",
+          "poly": [
+            [
+              52,
+              65
+            ],
+            [
+              59,
+              65
+            ],
+            [
+              67,
+              83
+            ],
+            [
+              78,
+              79
+            ],
+            [
+              78,
+              63
+            ],
+            [
+              65,
+              59
+            ],
+            [
+              52,
+              54
+            ]
+          ],
+          "breakable": false,
+          "purpose": "常設の斜め開口の右縁。横窓とは別の入射を作る",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "083-ENEMY",
+          "poly": [
+            [
+              103,
+              30
+            ],
+            [
+              109,
+              36
+            ],
+            [
+              135,
+              36
+            ],
+            [
+              140,
+              31
+            ],
+            [
+              130,
+              25
+            ],
+            [
+              114,
+              25
+            ]
+          ],
+          "breakable": false,
+          "purpose": "既存の敵庭園",
+          "displayId": "F04",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            58,
+            112,
+            31,
+            62
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            121,
+            52,
+            79
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "同じ高さの岸へ、横窓を開けて雲を通すか、上の裂け目から風へ送る。",
+      "nameEn": "The Cloud Window and Slanted Wind Cleft",
+      "goalEn": "Open the side window through the cloud, or send a higher arc through the wind to the level shore.",
+      "floorSegments": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            5
+          ]
+        ],
+        [
+          [
+            146,
+            5
+          ],
+          [
+            158,
+            5
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          26,
+          36
+        ],
+        [
+          114,
+          36
+        ]
+      ],
+      "worldWidth": 1580,
+      "terrainRevision": "10.0-review-completion"
+    },
+    "runtime": {
+      "id": 83,
+      "name": "雲の横窓と風に届く斜めの裂け目",
+      "nameEn": "The Cloud Window and Slanted Wind Cleft",
+      "theme": 16,
+      "boss": false,
+      "spawn": [
+        [
+          26,
+          36
+        ],
+        [
+          114,
+          36
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            18,
+            5
+          ]
+        ],
+        [
+          [
+            146,
+            5
+          ],
+          [
+            158,
+            5
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "083-START",
+          "poly": [
+            [
+              8,
+              31
+            ],
+            [
+              18,
+              36
+            ],
+            [
+              48,
+              36
+            ],
+            [
+              54,
+              32
+            ],
+            [
+              46,
+              26
+            ],
+            [
+              34,
+              25
+            ],
+            [
+              21,
+              21
+            ],
+            [
+              12,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "083-SIDE-WINDOW",
+          "poly": [
+            [
+              54,
+              33
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              64,
+              51
+            ],
+            [
+              54,
+              51
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "083-ARCH-LIP",
+          "poly": [
+            [
+              52,
+              65
+            ],
+            [
+              59,
+              65
+            ],
+            [
+              67,
+              83
+            ],
+            [
+              78,
+              79
+            ],
+            [
+              78,
+              63
+            ],
+            [
+              65,
+              59
+            ],
+            [
+              52,
+              54
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "083-ENEMY",
+          "poly": [
+            [
+              103,
+              30
+            ],
+            [
+              109,
+              36
+            ],
+            [
+              135,
+              36
+            ],
+            [
+              140,
+              31
+            ],
+            [
+              130,
+              25
+            ],
+            [
+              114,
+              25
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            58,
+            112,
+            31,
+            62
+          ]
+        },
+        {
+          "type": "F",
+          "v": [
+            88,
+            121,
+            52,
+            79
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "空中庭園",
+      "themeGoal": "持っている武器で、地形と相手の位置を変えて遊ぶ",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "同じ高さの岸へ、横窓を開けて雲を通すか、上の裂け目から風へ送る。",
+      "tacticalGoalEn": "Open the side window through the cloud, or send a higher arc through the wind to the level shore.",
+      "enemyHp": 6,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1580
+    }
+  },
+  "qualityEvidence": {
+    "initial": {
+      "angle": 33,
+      "power": 90,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "cloud",
+          "x": 581.5462957502758,
+          "y": -45.7034949136504,
+          "t": 0.5777777777777777,
+          "bullet": 0
+        },
+        {
+          "type": "wind",
+          "x": 880.9315604131624,
+          "y": -36.708781299397025,
+          "t": 1.399999999999997,
+          "bullet": 0
+        },
+        {
+          "x": 1112.5711409015041,
+          "y": 103.55501164573477,
+          "t": 2.0222222222222173,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 3,
+        "rows": [
+          {
+            "angle": 30,
+            "power": 85,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 85,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 36,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 36,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 36,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "walk": {
+      "input": 10000,
+      "moved": 140
+    },
+    "first": {
+      "angle": -12,
+      "power": 55,
+      "damage": [
+        0,
+        0
+      ],
+      "destroyed": [
+        "083-SIDE-WINDOW@0"
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 9,
+        "rows": [
+          {
+            "angle": -15,
+            "power": 50,
+            "hit": true
+          },
+          {
+            "angle": -15,
+            "power": 55,
+            "hit": true
+          },
+          {
+            "angle": -15,
+            "power": 60,
+            "hit": true
+          },
+          {
+            "angle": -12,
+            "power": 50,
+            "hit": true
+          },
+          {
+            "angle": -12,
+            "power": 55,
+            "hit": true
+          },
+          {
+            "angle": -12,
+            "power": 60,
+            "hit": true
+          },
+          {
+            "angle": -9,
+            "power": 50,
+            "hit": true
+          },
+          {
+            "angle": -9,
+            "power": 55,
+            "hit": true
+          },
+          {
+            "angle": -9,
+            "power": 60,
+            "hit": true
+          }
+        ]
+      }
+    },
+    "counter": {
+      "round": 1,
+      "moved": 0,
+      "angle": 35.34526208695024,
+      "power": 100,
+      "damage": [
+        0,
+        0
+      ],
+      "kind": "FAMILY2",
+      "position": [
+        [
+          400,
+          140
+        ],
+        [
+          1140,
+          140
+        ]
+      ],
+      "hpBefore": [
+        7,
+        6
+      ],
+      "hpAfter": [
+        7,
+        6
+      ]
+    },
+    "after": {
+      "angle": 24,
+      "power": 95,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "cloud",
+          "x": 580.5724102081451,
+          "y": 42.97435357040432,
+          "t": 0.2555555555555554,
+          "bullet": 0
+        },
+        {
+          "x": 1109.1023239970232,
+          "y": 115.48333204115522,
+          "t": 1.5222222222222188,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 7,
+        "rows": [
+          {
+            "angle": 21,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 100,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 100,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          26,
+          36
+        ],
+        [
+          114,
+          36
+        ]
+      ],
+      "authored": [
+        [
+          26,
+          36
+        ],
+        [
+          114,
+          36
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1580
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

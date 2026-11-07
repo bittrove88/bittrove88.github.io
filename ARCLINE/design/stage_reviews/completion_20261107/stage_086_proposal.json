@@ -1,0 +1,1302 @@
+{
+  "stage": 86,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 86,
+      "name": "下甲板の反射湾と上昇棚",
+      "goal": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
+      "floor": [
+        [
+          0,
+          18
+        ],
+        [
+          12,
+          20
+        ],
+        [
+          31,
+          20
+        ],
+        [
+          43,
+          18
+        ],
+        [
+          70,
+          18
+        ],
+        [
+          88,
+          30
+        ]
+      ],
+      "parts": [
+        {
+          "id": "086-LEFT-HULL",
+          "poly": [
+            [
+              0,
+              61
+            ],
+            [
+              18,
+              64
+            ],
+            [
+              37,
+              59
+            ],
+            [
+              37,
+              46
+            ],
+            [
+              21,
+              43
+            ],
+            [
+              0,
+              45
+            ]
+          ],
+          "breakable": false,
+          "purpose": "開始の背後に残す船首",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "086-DECK-HATCH",
+          "poly": [
+            [
+              116,
+              62
+            ],
+            [
+              124,
+              64
+            ],
+            [
+              124,
+              46
+            ],
+            [
+              116,
+              45
+            ]
+          ],
+          "breakable": true,
+          "purpose": "常設縦通路の端の任意1片",
+          "displayId": "D02",
+          "unitCount": 1,
+          "kind": "wall"
+        },
+        {
+          "id": "086-MAIN-DECK",
+          "poly": [
+            [
+              124,
+              80
+            ],
+            [
+              138,
+              80
+            ],
+            [
+              142,
+              64
+            ],
+            [
+              158,
+              64
+            ],
+            [
+              170,
+              58
+            ],
+            [
+              170,
+              44
+            ],
+            [
+              151,
+              46
+            ],
+            [
+              124,
+              46
+            ]
+          ],
+          "breakable": false,
+          "purpose": "高い船首縁と平坦な敵上甲板",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "086-EXTERIOR-PERCH",
+          "poly": [
+            [
+              90,
+              69
+            ],
+            [
+              94,
+              75
+            ],
+            [
+              102,
+              75
+            ],
+            [
+              108,
+              70
+            ],
+            [
+              101,
+              64
+            ],
+            [
+              95,
+              64
+            ]
+          ],
+          "breakable": false,
+          "purpose": "反射経路の上にあるU用棚。W範囲の外",
+          "displayId": "F04",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            133,
+            144,
+            60,
+            73
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            70,
+            88,
+            18
+          ]
+        },
+        {
+          "type": "U",
+          "v": [
+            90,
+            104,
+            80,
+            110
+          ]
+        }
+      ],
+      "recommended": "rin",
+      "spawn": [
+        16,
+        86
+      ],
+      "route": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
+      "nameEn": "Lower Deck Mirror Bay and Updraft Shelf",
+      "goalEn": "Reflect below the work beam into the cloud or use the upper updraft shelf.",
+      "terrainRevision": "7.0-approved-051-099",
+      "floorSegments": [
+        [
+          [
+            0,
+            18
+          ],
+          [
+            12,
+            20
+          ],
+          [
+            31,
+            20
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            70,
+            18
+          ],
+          [
+            88,
+            30
+          ]
+        ],
+        [
+          [
+            104,
+            24
+          ],
+          [
+            170,
+            24
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          52,
+          18
+        ],
+        [
+          148,
+          64
+        ]
+      ],
+      "worldWidth": 1700
+    },
+    "runtime": {
+      "id": 86,
+      "name": "下甲板の反射湾と上昇棚",
+      "nameEn": "Lower Deck Mirror Bay and Updraft Shelf",
+      "theme": 17,
+      "boss": false,
+      "spawn": [
+        [
+          52,
+          18
+        ],
+        [
+          148,
+          64
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            18
+          ],
+          [
+            12,
+            20
+          ],
+          [
+            31,
+            20
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            70,
+            18
+          ],
+          [
+            88,
+            30
+          ]
+        ],
+        [
+          [
+            104,
+            24
+          ],
+          [
+            170,
+            24
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "086-LEFT-HULL",
+          "poly": [
+            [
+              0,
+              61
+            ],
+            [
+              18,
+              64
+            ],
+            [
+              37,
+              59
+            ],
+            [
+              37,
+              46
+            ],
+            [
+              21,
+              43
+            ],
+            [
+              0,
+              45
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "086-DECK-HATCH",
+          "poly": [
+            [
+              116,
+              62
+            ],
+            [
+              124,
+              64
+            ],
+            [
+              124,
+              46
+            ],
+            [
+              116,
+              45
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "086-MAIN-DECK",
+          "poly": [
+            [
+              124,
+              80
+            ],
+            [
+              138,
+              80
+            ],
+            [
+              142,
+              64
+            ],
+            [
+              158,
+              64
+            ],
+            [
+              170,
+              58
+            ],
+            [
+              170,
+              44
+            ],
+            [
+              151,
+              46
+            ],
+            [
+              124,
+              46
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "086-EXTERIOR-PERCH",
+          "poly": [
+            [
+              90,
+              69
+            ],
+            [
+              94,
+              75
+            ],
+            [
+              102,
+              75
+            ],
+            [
+              108,
+              70
+            ],
+            [
+              101,
+              64
+            ],
+            [
+              95,
+              64
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            133,
+            144,
+            60,
+            73
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            70,
+            88,
+            18
+          ]
+        },
+        {
+          "type": "U",
+          "v": [
+            90,
+            104,
+            80,
+            110
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "嵐の空母",
+      "themeGoal": "空中・室内・上下を、既知の二つの力でつなぐ",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "rin",
+      "tacticalGoal": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
+      "tacticalGoalEn": "Reflect below the work beam into the cloud or use the upper updraft shelf.",
+      "enemyHp": 6,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1700
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 86,
+      "name": "下甲板の反射湾と上昇棚",
+      "goal": "作業桁の下の鏡湾から下甲板へ返すか、外の棚から上昇流へ送り船口へ落とす。",
+      "floor": [
+        [
+          0,
+          18
+        ],
+        [
+          12,
+          20
+        ],
+        [
+          31,
+          20
+        ],
+        [
+          43,
+          18
+        ],
+        [
+          59,
+          18
+        ],
+        [
+          66,
+          29
+        ],
+        [
+          73,
+          29
+        ],
+        [
+          83,
+          18
+        ],
+        [
+          108,
+          18
+        ]
+      ],
+      "parts": [
+        {
+          "id": "086-LEFT-HULL",
+          "poly": [
+            [
+              0,
+              61
+            ],
+            [
+              18,
+              64
+            ],
+            [
+              37,
+              59
+            ],
+            [
+              37,
+              46
+            ],
+            [
+              21,
+              43
+            ],
+            [
+              0,
+              45
+            ]
+          ],
+          "breakable": false,
+          "purpose": "開始の背後に残す船首",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "086-MAIN-DECK",
+          "poly": [
+            [
+              132,
+              72
+            ],
+            [
+              170,
+              64
+            ],
+            [
+              170,
+              24
+            ],
+            [
+              164,
+              24
+            ],
+            [
+              164,
+              52
+            ],
+            [
+              132,
+              56
+            ]
+          ],
+          "breakable": false,
+          "purpose": "高い船首縁と平坦な敵上甲板",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "086-EXTERIOR-PERCH",
+          "poly": [
+            [
+              90,
+              69
+            ],
+            [
+              94,
+              75
+            ],
+            [
+              102,
+              75
+            ],
+            [
+              108,
+              70
+            ],
+            [
+              101,
+              64
+            ],
+            [
+              95,
+              64
+            ]
+          ],
+          "breakable": false,
+          "purpose": "反射経路の上にあるU用棚。W範囲の外",
+          "displayId": "F04",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "086-WORK-BEAM",
+          "poly": [
+            [
+              70,
+              60
+            ],
+            [
+              108,
+              60
+            ],
+            [
+              108,
+              50
+            ],
+            [
+              70,
+              50
+            ]
+          ],
+          "breakable": false,
+          "purpose": "船内を返す下面反射の作業桁",
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            70,
+            110,
+            18
+          ]
+        },
+        {
+          "type": "C",
+          "v": [
+            111,
+            130,
+            26,
+            47
+          ]
+        },
+        {
+          "type": "U",
+          "v": [
+            90,
+            104,
+            80,
+            110
+          ]
+        }
+      ],
+      "recommended": "rin",
+      "spawn": [
+        16,
+        86
+      ],
+      "route": "作業桁の下の鏡湾から下甲板へ返すか、外の棚から上昇流へ送り船口へ落とす。",
+      "nameEn": "Lower Deck Mirror Bay and Updraft Shelf",
+      "goalEn": "Bounce through the mirror bay below the work beam, or use the exterior updraft shelf to descend into the hull entrance.",
+      "terrainRevision": "10.0-review-completion",
+      "floorSegments": [
+        [
+          [
+            0,
+            18
+          ],
+          [
+            12,
+            20
+          ],
+          [
+            31,
+            20
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            59,
+            18
+          ],
+          [
+            66,
+            29
+          ],
+          [
+            73,
+            29
+          ],
+          [
+            83,
+            18
+          ],
+          [
+            108,
+            18
+          ]
+        ],
+        [
+          [
+            108,
+            24
+          ],
+          [
+            170,
+            24
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          52,
+          18
+        ],
+        [
+          125,
+          24
+        ]
+      ],
+      "worldWidth": 1700
+    },
+    "runtime": {
+      "id": 86,
+      "name": "下甲板の反射湾と上昇棚",
+      "nameEn": "Lower Deck Mirror Bay and Updraft Shelf",
+      "theme": 17,
+      "boss": false,
+      "spawn": [
+        [
+          52,
+          18
+        ],
+        [
+          125,
+          24
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            18
+          ],
+          [
+            12,
+            20
+          ],
+          [
+            31,
+            20
+          ],
+          [
+            43,
+            18
+          ],
+          [
+            59,
+            18
+          ],
+          [
+            66,
+            29
+          ],
+          [
+            73,
+            29
+          ],
+          [
+            83,
+            18
+          ],
+          [
+            108,
+            18
+          ]
+        ],
+        [
+          [
+            108,
+            24
+          ],
+          [
+            170,
+            24
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "086-LEFT-HULL",
+          "poly": [
+            [
+              0,
+              61
+            ],
+            [
+              18,
+              64
+            ],
+            [
+              37,
+              59
+            ],
+            [
+              37,
+              46
+            ],
+            [
+              21,
+              43
+            ],
+            [
+              0,
+              45
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "086-MAIN-DECK",
+          "poly": [
+            [
+              132,
+              72
+            ],
+            [
+              170,
+              64
+            ],
+            [
+              170,
+              24
+            ],
+            [
+              164,
+              24
+            ],
+            [
+              164,
+              52
+            ],
+            [
+              132,
+              56
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "086-EXTERIOR-PERCH",
+          "poly": [
+            [
+              90,
+              69
+            ],
+            [
+              94,
+              75
+            ],
+            [
+              102,
+              75
+            ],
+            [
+              108,
+              70
+            ],
+            [
+              101,
+              64
+            ],
+            [
+              95,
+              64
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "086-WORK-BEAM",
+          "poly": [
+            [
+              70,
+              60
+            ],
+            [
+              108,
+              60
+            ],
+            [
+              108,
+              50
+            ],
+            [
+              70,
+              50
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            70,
+            110,
+            18
+          ]
+        },
+        {
+          "type": "C",
+          "v": [
+            111,
+            130,
+            26,
+            47
+          ]
+        },
+        {
+          "type": "U",
+          "v": [
+            90,
+            104,
+            80,
+            110
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "嵐の空母",
+      "themeGoal": "空中・室内・上下を、既知の二つの力でつなぐ",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "rin",
+      "tacticalGoal": "作業桁の下の鏡湾から下甲板へ返すか、外の棚から上昇流へ送り船口へ落とす。",
+      "tacticalGoalEn": "Bounce through the mirror bay below the work beam, or use the exterior updraft shelf to descend into the hull entrance.",
+      "enemyHp": 6,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1700
+    }
+  },
+  "qualityEvidence": {
+    "main": {
+      "angle": 54,
+      "power": 50,
+      "damage": [
+        0,
+        0.5
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 934.201345531923,
+          "y": 318.5,
+          "t": 1.999999999999995,
+          "count": 1,
+          "surface": "reflector",
+          "solidId": "W0:floor0:8",
+          "bullet": 0
+        },
+        {
+          "type": "cloud",
+          "x": 1111.418599098103,
+          "y": 173.75195713738006,
+          "t": 2.9999999999999916,
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 7,
+        "rows": [
+          {
+            "angle": 51,
+            "power": 45,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 51,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 51,
+            "power": 55,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 45,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 55,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 45,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 55,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          }
+        ]
+      }
+    },
+    "alt": {
+      "input": {
+        "angle": 72,
+        "power": 90,
+        "x": 98.50232986369953,
+        "h": 75,
+        "surface": "086-EXTERIOR-PERCH:e1"
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          98.50232986369953,
+          75
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 0,
+          "angle": 80.34526208695024,
+          "power": 100,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              985.0232986369953,
+              -250
+            ],
+            [
+              1250,
+              260
+            ]
+          ],
+          "hpBefore": [
+            7,
+            6
+          ],
+          "hpAfter": [
+            7,
+            6
+          ]
+        }
+      },
+      "shot": {
+        "angle": 69,
+        "power": 30,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "updraft",
+            "x": 998.3665319583986,
+            "y": -310.7603112132458,
+            "t": 0.011111111111111112,
+            "bullet": 0
+          },
+          {
+            "type": "cloud",
+            "x": 1228.0684420186435,
+            "y": 32.329088082930966,
+            "t": 3.199999999999991,
+            "bullet": 0
+          },
+          {
+            "x": 1247.543619559666,
+            "y": 207.09747267402963,
+            "t": 3.5777777777777673,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 8,
+          "rows": [
+            {
+              "angle": 66,
+              "power": 25,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 66,
+              "power": 30,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 66,
+              "power": 35,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 69,
+              "power": 25,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 69,
+              "power": 30,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 69,
+              "power": 35,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 72,
+              "power": 25,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 72,
+              "power": 30,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 72,
+              "power": 35,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          52,
+          18
+        ],
+        [
+          125,
+          24
+        ]
+      ],
+      "authored": [
+        [
+          52,
+          18
+        ],
+        [
+          125,
+          24
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1700
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

@@ -1,0 +1,7195 @@
+{
+  "stage": 100,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "User authorized continuing remaining map design under preserved dedicated relay rules; grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 100,
+      "name": "アークハート — 最後の帰還",
+      "goal": "固定順10機で本体へ各100ダメージ。4戦場の高低差と遮蔽を読み、最後のガンで核を止める。",
+      "floor": [
+        [
+          0,
+          8
+        ],
+        [
+          35,
+          8
+        ],
+        [
+          58,
+          21
+        ],
+        [
+          80,
+          21
+        ],
+        [
+          100,
+          12
+        ],
+        [
+          127,
+          12
+        ],
+        [
+          146,
+          23
+        ],
+        [
+          177,
+          23
+        ],
+        [
+          194,
+          11
+        ],
+        [
+          218,
+          11
+        ],
+        [
+          239,
+          25
+        ],
+        [
+          274,
+          25
+        ],
+        [
+          300,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "wall",
+          "x": 110,
+          "top": 35,
+          "width": 4,
+          "bottom": 12
+        },
+        {
+          "kind": "wall",
+          "x": 190,
+          "top": 40,
+          "width": 4,
+          "bottom": 11
+        },
+        {
+          "kind": "island",
+          "x": 126,
+          "end": 143,
+          "top": 39,
+          "thickness": 4
+        },
+        {
+          "kind": "island",
+          "x": 240,
+          "end": 263,
+          "top": 40,
+          "thickness": 4
+        },
+        {
+          "kind": "roof",
+          "x": 109,
+          "end": 127,
+          "top": 47,
+          "thickness": 3,
+          "breakable": true
+        },
+        {
+          "kind": "roof",
+          "x": 161,
+          "end": 184,
+          "top": 51,
+          "thickness": 3,
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            166,
+            212,
+            11
+          ]
+        }
+      ],
+      "recommended": "gun",
+      "spawn": [
+        65,
+        150
+      ],
+      "route": "外殻は壁・水面の二択、内殻は浮島・雲と結晶、核防護は段差・磁場、最後は高台のガンから低天井と反射を読み、10機で順に本体を撃破する。",
+      "nameEn": "Archeart — The Last Return",
+      "goalEn": "Win the fixed ten-machine relay using four distinct multi-level arenas.",
+      "terrainRevision": "5.4",
+      "enemyProfile": 6,
+      "worldWidth": 3000,
+      "actionLimit": 28,
+      "finalBattle": {
+        "order": [
+          "hana",
+          "koro",
+          "ban",
+          "sora",
+          "rico",
+          "hibari",
+          "mogu",
+          "rin",
+          "yui",
+          "gun"
+        ],
+        "requiredDamage": 5,
+        "specialAmmo": 3,
+        "fixedHp": 70,
+        "minSpawnDistance": 800,
+        "transitionSeconds": 2.2,
+        "maps": [
+          {
+            "name": {
+              "ja": "外殻 — 三つの射線",
+              "en": "Outer gates — Three approaches"
+            },
+            "floor": [
+              [
+                0,
+                8
+              ],
+              [
+                35,
+                8
+              ],
+              [
+                58,
+                21
+              ],
+              [
+                80,
+                21
+              ],
+              [
+                100,
+                12
+              ],
+              [
+                127,
+                12
+              ],
+              [
+                146,
+                23
+              ],
+              [
+                177,
+                23
+              ],
+              [
+                194,
+                11
+              ],
+              [
+                218,
+                11
+              ],
+              [
+                239,
+                25
+              ],
+              [
+                274,
+                25
+              ],
+              [
+                300,
+                12
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "wall",
+                "x": 110,
+                "top": 35,
+                "width": 4,
+                "bottom": 12
+              },
+              {
+                "kind": "wall",
+                "x": 190,
+                "top": 40,
+                "width": 4,
+                "bottom": 11
+              },
+              {
+                "kind": "island",
+                "x": 126,
+                "end": 143,
+                "top": 39,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 240,
+                "end": 263,
+                "top": 40,
+                "thickness": 4
+              },
+              {
+                "kind": "roof",
+                "x": 109,
+                "end": 127,
+                "top": 47,
+                "thickness": 3,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 161,
+                "end": 184,
+                "top": 51,
+                "thickness": 3,
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "W",
+                "v": [
+                  166,
+                  212,
+                  11
+                ]
+              }
+            ],
+            "spawns": {
+              "hana": [
+                65,
+                21
+              ],
+              "koro": [
+                245,
+                25
+              ],
+              "ban": [
+                60,
+                21
+              ]
+            },
+            "bossSpawn": [
+              150,
+              23
+            ]
+          },
+          {
+            "name": {
+              "ja": "内殻 — 空と鏡の回廊",
+              "en": "Inner shell — Sky and mirrors"
+            },
+            "floor": [
+              [
+                0,
+                10
+              ],
+              [
+                38,
+                10
+              ],
+              [
+                60,
+                24
+              ],
+              [
+                81,
+                24
+              ],
+              [
+                100,
+                12
+              ],
+              [
+                128,
+                12
+              ],
+              [
+                146,
+                22
+              ],
+              [
+                195,
+                22
+              ],
+              [
+                214,
+                10
+              ],
+              [
+                250,
+                10
+              ],
+              [
+                273,
+                25
+              ],
+              [
+                300,
+                12
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "x": 65,
+                "end": 83,
+                "top": 39,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 216,
+                "end": 235,
+                "top": 36,
+                "thickness": 4
+              },
+              {
+                "kind": "wall",
+                "x": 149,
+                "top": 42,
+                "width": 4,
+                "bottom": 22
+              },
+              {
+                "kind": "roof",
+                "x": 165,
+                "end": 188,
+                "top": 48,
+                "thickness": 3,
+                "breakable": true
+              },
+              {
+                "kind": "wall",
+                "x": 203,
+                "top": 36,
+                "width": 4,
+                "bottom": 11
+              },
+              {
+                "kind": "island",
+                "x": 266,
+                "end": 289,
+                "top": 40,
+                "thickness": 4
+              }
+            ],
+            "features": [
+              {
+                "type": "C",
+                "v": [
+                  132,
+                  155,
+                  25,
+                  47
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  204,
+                  36,
+                  30
+                ]
+              }
+            ],
+            "spawns": {
+              "sora": [
+                74,
+                39
+              ],
+              "rico": [
+                275,
+                40
+              ],
+              "hibari": [
+                80,
+                39
+              ]
+            },
+            "bossSpawn": [
+              180,
+              22
+            ]
+          },
+          {
+            "name": {
+              "ja": "核の防護 — 壊して結ぶ",
+              "en": "Core shield — Break and connect"
+            },
+            "floor": [
+              [
+                0,
+                7
+              ],
+              [
+                35,
+                7
+              ],
+              [
+                58,
+                21
+              ],
+              [
+                80,
+                21
+              ],
+              [
+                100,
+                10
+              ],
+              [
+                124,
+                10
+              ],
+              [
+                146,
+                24
+              ],
+              [
+                166,
+                24
+              ],
+              [
+                186,
+                12
+              ],
+              [
+                224,
+                12
+              ],
+              [
+                245,
+                5
+              ],
+              [
+                265,
+                5
+              ],
+              [
+                284,
+                18
+              ],
+              [
+                300,
+                18
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "wall",
+                "x": 92,
+                "top": 41,
+                "width": 4,
+                "bottom": 12
+              },
+              {
+                "kind": "wall",
+                "x": 177,
+                "top": 41,
+                "width": 4,
+                "bottom": 14
+              },
+              {
+                "kind": "island",
+                "x": 75,
+                "end": 91,
+                "top": 40,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 186,
+                "end": 205,
+                "top": 40,
+                "thickness": 4
+              },
+              {
+                "kind": "roof",
+                "x": 124,
+                "end": 145,
+                "top": 47,
+                "thickness": 3,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 225,
+                "end": 244,
+                "top": 49,
+                "thickness": 3,
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "M",
+                "v": [
+                  168,
+                  30,
+                  11,
+                  1
+                ]
+              },
+              {
+                "type": "W",
+                "v": [
+                  100,
+                  159,
+                  10
+                ]
+              }
+            ],
+            "spawns": {
+              "mogu": [
+                74,
+                21
+              ],
+              "rin": [
+                250,
+                5
+              ],
+              "yui": [
+                65,
+                21
+              ]
+            },
+            "bossSpawn": [
+              157,
+              24
+            ],
+            "backdrop": "cave"
+          },
+          {
+            "name": {
+              "ja": "最後の一射 — ガン",
+              "en": "The last shot — GUN"
+            },
+            "floor": [
+              [
+                0,
+                7
+              ],
+              [
+                35,
+                7
+              ],
+              [
+                57,
+                20
+              ],
+              [
+                78,
+                20
+              ],
+              [
+                100,
+                9
+              ],
+              [
+                134,
+                9
+              ],
+              [
+                156,
+                20
+              ],
+              [
+                193,
+                20
+              ],
+              [
+                213,
+                28
+              ],
+              [
+                269,
+                28
+              ],
+              [
+                288,
+                16
+              ],
+              [
+                300,
+                16
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "wall",
+                "x": 204,
+                "top": 48,
+                "width": 4,
+                "bottom": 27
+              },
+              {
+                "kind": "island",
+                "x": 182,
+                "end": 200,
+                "top": 39,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 265,
+                "end": 281,
+                "top": 42,
+                "thickness": 4
+              },
+              {
+                "kind": "roof",
+                "x": 222,
+                "end": 259,
+                "top": 48,
+                "thickness": 3,
+                "breakable": true
+              }
+            ],
+            "features": [
+              {
+                "type": "K",
+                "v": [
+                  218,
+                  39,
+                  -20
+                ]
+              }
+            ],
+            "spawns": {
+              "gun": [
+                160,
+                20
+              ]
+            },
+            "bossSpawn": [
+              245,
+              28
+            ]
+          }
+        ],
+        "actionLimits": {
+          "hana": 28,
+          "koro": 28,
+          "ban": 28,
+          "sora": 28,
+          "rico": 28,
+          "hibari": 28,
+          "mogu": 28,
+          "rin": 28,
+          "yui": 28,
+          "gun": 28
+        }
+      },
+      "expectedActions": [
+        30,
+        60
+      ]
+    },
+    "runtime": {
+      "id": 100,
+      "name": "アークハート — 最後の帰還",
+      "nameEn": "Archeart — The Last Return",
+      "theme": 19,
+      "boss": true,
+      "spawn": [
+        [
+          65,
+          21
+        ],
+        [
+          150,
+          23
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            8
+          ],
+          [
+            35,
+            8
+          ],
+          [
+            58,
+            21
+          ],
+          [
+            80,
+            21
+          ],
+          [
+            100,
+            12
+          ],
+          [
+            127,
+            12
+          ],
+          [
+            146,
+            23
+          ],
+          [
+            177,
+            23
+          ],
+          [
+            194,
+            11
+          ],
+          [
+            218,
+            11
+          ],
+          [
+            239,
+            25
+          ],
+          [
+            274,
+            25
+          ],
+          [
+            300,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "100-M0-C01",
+          "poly": [
+            [
+              110,
+              35
+            ],
+            [
+              114,
+              35
+            ],
+            [
+              114,
+              12
+            ],
+            [
+              110,
+              12
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "100-M0-C02",
+          "poly": [
+            [
+              190,
+              40
+            ],
+            [
+              194,
+              40
+            ],
+            [
+              194,
+              11
+            ],
+            [
+              190,
+              11
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "100-M0-C03",
+          "poly": [
+            [
+              126,
+              39
+            ],
+            [
+              143,
+              39
+            ],
+            [
+              143,
+              35
+            ],
+            [
+              126,
+              35
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "100-M0-C04",
+          "poly": [
+            [
+              240,
+              40
+            ],
+            [
+              263,
+              40
+            ],
+            [
+              263,
+              36
+            ],
+            [
+              240,
+              36
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "100-M0-C05",
+          "poly": [
+            [
+              109,
+              47
+            ],
+            [
+              127,
+              47
+            ],
+            [
+              127,
+              44
+            ],
+            [
+              109,
+              44
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "100-M0-C06",
+          "poly": [
+            [
+              161,
+              51
+            ],
+            [
+              184,
+              51
+            ],
+            [
+              184,
+              48
+            ],
+            [
+              161,
+              48
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            166,
+            212,
+            11
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 28,
+      "enemyProfile": 6,
+      "hold": 1,
+      "themeName": "夜明けの核",
+      "themeGoal": "得意な射点と経路を段階に合わせて選び直す",
+      "stageInTheme": 5,
+      "themeRole": "Boss",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "bossSpec": {
+        "name": "Archeart",
+        "parts": [
+          {
+            "name": "LEFT GATE",
+            "hp": 2,
+            "dx": 44,
+            "dy": -53,
+            "radius": 23
+          },
+          {
+            "name": "RIGHT GATE",
+            "hp": 2,
+            "dx": -44,
+            "dy": -53,
+            "radius": 23
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "DROP",
+          "LOW"
+        ],
+        "reward": "BLINK"
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:archeart",
+      "recommendedCharacter": "gun",
+      "tacticalGoal": "固定順10機で本体へ各100ダメージ。4戦場の高低差と遮蔽を読み、最後のガンで核を止める。",
+      "tacticalGoalEn": "Win the fixed ten-machine relay using four distinct multi-level arenas.",
+      "enemyHp": 7,
+      "terrainRevision": "5.4",
+      "finalBattle": {
+        "order": [
+          "hana",
+          "koro",
+          "ban",
+          "sora",
+          "rico",
+          "hibari",
+          "mogu",
+          "rin",
+          "yui",
+          "gun"
+        ],
+        "requiredDamage": 5,
+        "specialAmmo": 3,
+        "fixedHp": 70,
+        "minSpawnDistance": 800,
+        "transitionSeconds": 2.2,
+        "maps": [
+          {
+            "name": {
+              "ja": "外殻 — 三つの射線",
+              "en": "Outer gates — Three approaches"
+            },
+            "floor": [
+              [
+                0,
+                8
+              ],
+              [
+                35,
+                8
+              ],
+              [
+                58,
+                21
+              ],
+              [
+                80,
+                21
+              ],
+              [
+                100,
+                12
+              ],
+              [
+                127,
+                12
+              ],
+              [
+                146,
+                23
+              ],
+              [
+                177,
+                23
+              ],
+              [
+                194,
+                11
+              ],
+              [
+                218,
+                11
+              ],
+              [
+                239,
+                25
+              ],
+              [
+                274,
+                25
+              ],
+              [
+                300,
+                12
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "wall",
+                "x": 110,
+                "top": 35,
+                "width": 4,
+                "bottom": 12
+              },
+              {
+                "kind": "wall",
+                "x": 190,
+                "top": 40,
+                "width": 4,
+                "bottom": 11
+              },
+              {
+                "kind": "island",
+                "x": 126,
+                "end": 143,
+                "top": 39,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 240,
+                "end": 263,
+                "top": 40,
+                "thickness": 4
+              },
+              {
+                "kind": "roof",
+                "x": 109,
+                "end": 127,
+                "top": 47,
+                "thickness": 3,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 161,
+                "end": 184,
+                "top": 51,
+                "thickness": 3,
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "W",
+                "v": [
+                  166,
+                  212,
+                  11
+                ]
+              }
+            ],
+            "spawns": {
+              "hana": [
+                65,
+                21
+              ],
+              "koro": [
+                245,
+                25
+              ],
+              "ban": [
+                60,
+                21
+              ]
+            },
+            "bossSpawn": [
+              150,
+              23
+            ],
+            "floors": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  35,
+                  8
+                ],
+                [
+                  58,
+                  21
+                ],
+                [
+                  80,
+                  21
+                ],
+                [
+                  100,
+                  12
+                ],
+                [
+                  127,
+                  12
+                ],
+                [
+                  146,
+                  23
+                ],
+                [
+                  177,
+                  23
+                ],
+                [
+                  194,
+                  11
+                ],
+                [
+                  218,
+                  11
+                ],
+                [
+                  239,
+                  25
+                ],
+                [
+                  274,
+                  25
+                ],
+                [
+                  300,
+                  12
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M0-C01",
+                "poly": [
+                  [
+                    110,
+                    35
+                  ],
+                  [
+                    114,
+                    35
+                  ],
+                  [
+                    114,
+                    12
+                  ],
+                  [
+                    110,
+                    12
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M0-C02",
+                "poly": [
+                  [
+                    190,
+                    40
+                  ],
+                  [
+                    194,
+                    40
+                  ],
+                  [
+                    194,
+                    11
+                  ],
+                  [
+                    190,
+                    11
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M0-C03",
+                "poly": [
+                  [
+                    126,
+                    39
+                  ],
+                  [
+                    143,
+                    39
+                  ],
+                  [
+                    143,
+                    35
+                  ],
+                  [
+                    126,
+                    35
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M0-C04",
+                "poly": [
+                  [
+                    240,
+                    40
+                  ],
+                  [
+                    263,
+                    40
+                  ],
+                  [
+                    263,
+                    36
+                  ],
+                  [
+                    240,
+                    36
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M0-C05",
+                "poly": [
+                  [
+                    109,
+                    47
+                  ],
+                  [
+                    127,
+                    47
+                  ],
+                  [
+                    127,
+                    44
+                  ],
+                  [
+                    109,
+                    44
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M0-C06",
+                "poly": [
+                  [
+                    161,
+                    51
+                  ],
+                  [
+                    184,
+                    51
+                  ],
+                  [
+                    184,
+                    48
+                  ],
+                  [
+                    161,
+                    48
+                  ]
+                ],
+                "destructible": false
+              }
+            ]
+          },
+          {
+            "name": {
+              "ja": "内殻 — 空と鏡の回廊",
+              "en": "Inner shell — Sky and mirrors"
+            },
+            "floor": [
+              [
+                0,
+                10
+              ],
+              [
+                38,
+                10
+              ],
+              [
+                60,
+                24
+              ],
+              [
+                81,
+                24
+              ],
+              [
+                100,
+                12
+              ],
+              [
+                128,
+                12
+              ],
+              [
+                146,
+                22
+              ],
+              [
+                195,
+                22
+              ],
+              [
+                214,
+                10
+              ],
+              [
+                250,
+                10
+              ],
+              [
+                273,
+                25
+              ],
+              [
+                300,
+                12
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "x": 65,
+                "end": 83,
+                "top": 39,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 216,
+                "end": 235,
+                "top": 36,
+                "thickness": 4
+              },
+              {
+                "kind": "wall",
+                "x": 149,
+                "top": 42,
+                "width": 4,
+                "bottom": 22
+              },
+              {
+                "kind": "roof",
+                "x": 165,
+                "end": 188,
+                "top": 48,
+                "thickness": 3,
+                "breakable": true
+              },
+              {
+                "kind": "wall",
+                "x": 203,
+                "top": 36,
+                "width": 4,
+                "bottom": 11
+              },
+              {
+                "kind": "island",
+                "x": 266,
+                "end": 289,
+                "top": 40,
+                "thickness": 4
+              }
+            ],
+            "features": [
+              {
+                "type": "C",
+                "v": [
+                  132,
+                  155,
+                  25,
+                  47
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  204,
+                  36,
+                  30
+                ]
+              }
+            ],
+            "spawns": {
+              "sora": [
+                74,
+                39
+              ],
+              "rico": [
+                275,
+                40
+              ],
+              "hibari": [
+                80,
+                39
+              ]
+            },
+            "bossSpawn": [
+              180,
+              22
+            ],
+            "floors": [
+              [
+                [
+                  0,
+                  10
+                ],
+                [
+                  38,
+                  10
+                ],
+                [
+                  60,
+                  24
+                ],
+                [
+                  81,
+                  24
+                ],
+                [
+                  100,
+                  12
+                ],
+                [
+                  128,
+                  12
+                ],
+                [
+                  146,
+                  22
+                ],
+                [
+                  195,
+                  22
+                ],
+                [
+                  214,
+                  10
+                ],
+                [
+                  250,
+                  10
+                ],
+                [
+                  273,
+                  25
+                ],
+                [
+                  300,
+                  12
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M1-C01",
+                "poly": [
+                  [
+                    65,
+                    39
+                  ],
+                  [
+                    83,
+                    39
+                  ],
+                  [
+                    83,
+                    35
+                  ],
+                  [
+                    65,
+                    35
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C02",
+                "poly": [
+                  [
+                    216,
+                    36
+                  ],
+                  [
+                    235,
+                    36
+                  ],
+                  [
+                    235,
+                    32
+                  ],
+                  [
+                    216,
+                    32
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C03",
+                "poly": [
+                  [
+                    149,
+                    42
+                  ],
+                  [
+                    153,
+                    42
+                  ],
+                  [
+                    153,
+                    22
+                  ],
+                  [
+                    149,
+                    22
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M1-C04",
+                "poly": [
+                  [
+                    165,
+                    48
+                  ],
+                  [
+                    188,
+                    48
+                  ],
+                  [
+                    188,
+                    45
+                  ],
+                  [
+                    165,
+                    45
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M1-C05",
+                "poly": [
+                  [
+                    203,
+                    36
+                  ],
+                  [
+                    207,
+                    36
+                  ],
+                  [
+                    207,
+                    11
+                  ],
+                  [
+                    203,
+                    11
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M1-C06",
+                "poly": [
+                  [
+                    266,
+                    40
+                  ],
+                  [
+                    289,
+                    40
+                  ],
+                  [
+                    289,
+                    36
+                  ],
+                  [
+                    266,
+                    36
+                  ]
+                ],
+                "destructible": false
+              }
+            ]
+          },
+          {
+            "name": {
+              "ja": "核の防護 — 壊して結ぶ",
+              "en": "Core shield — Break and connect"
+            },
+            "floor": [
+              [
+                0,
+                7
+              ],
+              [
+                35,
+                7
+              ],
+              [
+                58,
+                21
+              ],
+              [
+                80,
+                21
+              ],
+              [
+                100,
+                10
+              ],
+              [
+                124,
+                10
+              ],
+              [
+                146,
+                24
+              ],
+              [
+                166,
+                24
+              ],
+              [
+                186,
+                12
+              ],
+              [
+                224,
+                12
+              ],
+              [
+                245,
+                5
+              ],
+              [
+                265,
+                5
+              ],
+              [
+                284,
+                18
+              ],
+              [
+                300,
+                18
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "wall",
+                "x": 92,
+                "top": 41,
+                "width": 4,
+                "bottom": 12
+              },
+              {
+                "kind": "wall",
+                "x": 177,
+                "top": 41,
+                "width": 4,
+                "bottom": 14
+              },
+              {
+                "kind": "island",
+                "x": 75,
+                "end": 91,
+                "top": 40,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 186,
+                "end": 205,
+                "top": 40,
+                "thickness": 4
+              },
+              {
+                "kind": "roof",
+                "x": 124,
+                "end": 145,
+                "top": 47,
+                "thickness": 3,
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "x": 225,
+                "end": 244,
+                "top": 49,
+                "thickness": 3,
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "M",
+                "v": [
+                  168,
+                  30,
+                  11,
+                  1
+                ]
+              },
+              {
+                "type": "W",
+                "v": [
+                  100,
+                  159,
+                  10
+                ]
+              }
+            ],
+            "spawns": {
+              "mogu": [
+                74,
+                21
+              ],
+              "rin": [
+                250,
+                5
+              ],
+              "yui": [
+                65,
+                21
+              ]
+            },
+            "bossSpawn": [
+              157,
+              24
+            ],
+            "backdrop": "cave",
+            "floors": [
+              [
+                [
+                  0,
+                  7
+                ],
+                [
+                  35,
+                  7
+                ],
+                [
+                  58,
+                  21
+                ],
+                [
+                  80,
+                  21
+                ],
+                [
+                  100,
+                  10
+                ],
+                [
+                  124,
+                  10
+                ],
+                [
+                  146,
+                  24
+                ],
+                [
+                  166,
+                  24
+                ],
+                [
+                  186,
+                  12
+                ],
+                [
+                  224,
+                  12
+                ],
+                [
+                  245,
+                  5
+                ],
+                [
+                  265,
+                  5
+                ],
+                [
+                  284,
+                  18
+                ],
+                [
+                  300,
+                  18
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M2-C01",
+                "poly": [
+                  [
+                    92,
+                    41
+                  ],
+                  [
+                    96,
+                    41
+                  ],
+                  [
+                    96,
+                    12
+                  ],
+                  [
+                    92,
+                    12
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C02",
+                "poly": [
+                  [
+                    177,
+                    41
+                  ],
+                  [
+                    181,
+                    41
+                  ],
+                  [
+                    181,
+                    14
+                  ],
+                  [
+                    177,
+                    14
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C03",
+                "poly": [
+                  [
+                    75,
+                    40
+                  ],
+                  [
+                    91,
+                    40
+                  ],
+                  [
+                    91,
+                    36
+                  ],
+                  [
+                    75,
+                    36
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C04",
+                "poly": [
+                  [
+                    186,
+                    40
+                  ],
+                  [
+                    205,
+                    40
+                  ],
+                  [
+                    205,
+                    36
+                  ],
+                  [
+                    186,
+                    36
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C05",
+                "poly": [
+                  [
+                    124,
+                    47
+                  ],
+                  [
+                    145,
+                    47
+                  ],
+                  [
+                    145,
+                    44
+                  ],
+                  [
+                    124,
+                    44
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C06",
+                "poly": [
+                  [
+                    225,
+                    49
+                  ],
+                  [
+                    244,
+                    49
+                  ],
+                  [
+                    244,
+                    46
+                  ],
+                  [
+                    225,
+                    46
+                  ]
+                ],
+                "destructible": false
+              }
+            ]
+          },
+          {
+            "name": {
+              "ja": "最後の一射 — ガン",
+              "en": "The last shot — GUN"
+            },
+            "floor": [
+              [
+                0,
+                7
+              ],
+              [
+                35,
+                7
+              ],
+              [
+                57,
+                20
+              ],
+              [
+                78,
+                20
+              ],
+              [
+                100,
+                9
+              ],
+              [
+                134,
+                9
+              ],
+              [
+                156,
+                20
+              ],
+              [
+                193,
+                20
+              ],
+              [
+                213,
+                28
+              ],
+              [
+                269,
+                28
+              ],
+              [
+                288,
+                16
+              ],
+              [
+                300,
+                16
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "wall",
+                "x": 204,
+                "top": 48,
+                "width": 4,
+                "bottom": 27
+              },
+              {
+                "kind": "island",
+                "x": 182,
+                "end": 200,
+                "top": 39,
+                "thickness": 4
+              },
+              {
+                "kind": "island",
+                "x": 265,
+                "end": 281,
+                "top": 42,
+                "thickness": 4
+              },
+              {
+                "kind": "roof",
+                "x": 222,
+                "end": 259,
+                "top": 48,
+                "thickness": 3,
+                "breakable": true
+              }
+            ],
+            "features": [
+              {
+                "type": "K",
+                "v": [
+                  218,
+                  39,
+                  -20
+                ]
+              }
+            ],
+            "spawns": {
+              "gun": [
+                160,
+                20
+              ]
+            },
+            "bossSpawn": [
+              245,
+              28
+            ],
+            "floors": [
+              [
+                [
+                  0,
+                  7
+                ],
+                [
+                  35,
+                  7
+                ],
+                [
+                  57,
+                  20
+                ],
+                [
+                  78,
+                  20
+                ],
+                [
+                  100,
+                  9
+                ],
+                [
+                  134,
+                  9
+                ],
+                [
+                  156,
+                  20
+                ],
+                [
+                  193,
+                  20
+                ],
+                [
+                  213,
+                  28
+                ],
+                [
+                  269,
+                  28
+                ],
+                [
+                  288,
+                  16
+                ],
+                [
+                  300,
+                  16
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M3-C01",
+                "poly": [
+                  [
+                    204,
+                    48
+                  ],
+                  [
+                    208,
+                    48
+                  ],
+                  [
+                    208,
+                    27
+                  ],
+                  [
+                    204,
+                    27
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M3-C02",
+                "poly": [
+                  [
+                    182,
+                    39
+                  ],
+                  [
+                    200,
+                    39
+                  ],
+                  [
+                    200,
+                    35
+                  ],
+                  [
+                    182,
+                    35
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C03",
+                "poly": [
+                  [
+                    265,
+                    42
+                  ],
+                  [
+                    281,
+                    42
+                  ],
+                  [
+                    281,
+                    38
+                  ],
+                  [
+                    265,
+                    38
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M3-C04",
+                "poly": [
+                  [
+                    222,
+                    48
+                  ],
+                  [
+                    259,
+                    48
+                  ],
+                  [
+                    259,
+                    45
+                  ],
+                  [
+                    222,
+                    45
+                  ]
+                ],
+                "destructible": true
+              }
+            ]
+          }
+        ],
+        "actionLimits": {
+          "hana": 28,
+          "koro": 28,
+          "ban": 28,
+          "sora": 28,
+          "rico": 28,
+          "hibari": 28,
+          "mogu": 28,
+          "rin": 28,
+          "yui": 28,
+          "gun": 28
+        }
+      },
+      "worldWidth": 3000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 100,
+      "name": "アークハート — 最後の帰還",
+      "goal": "盆地・分断回廊・縦穴・斜めの裂け目で射点を選び直し、固定10機でそれぞれ本体へ100ダメージを通す。",
+      "floor": [
+        [
+          0,
+          45
+        ],
+        [
+          35,
+          45
+        ],
+        [
+          52,
+          40
+        ],
+        [
+          105,
+          40
+        ],
+        [
+          130,
+          18
+        ],
+        [
+          160,
+          18
+        ],
+        [
+          181,
+          8
+        ],
+        [
+          205,
+          48
+        ],
+        [
+          265,
+          48
+        ],
+        [
+          285,
+          30
+        ],
+        [
+          300,
+          30
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "island",
+          "poly": [
+            [
+              82,
+              74
+            ],
+            [
+              99,
+              71
+            ],
+            [
+              108,
+              64
+            ],
+            [
+              104,
+              58
+            ],
+            [
+              84,
+              61
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "kind": "wall",
+          "poly": [
+            [
+              119,
+              28
+            ],
+            [
+              129,
+              28
+            ],
+            [
+              129,
+              46
+            ],
+            [
+              119,
+              46
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            166,
+            212,
+            11
+          ]
+        }
+      ],
+      "recommended": "gun",
+      "spawn": [
+        65,
+        150
+      ],
+      "route": "第1戦場は連続した盆地、第2戦場は分断された高い回廊、第3戦場は一片を開く縦穴、第4戦場は斜めの裂け目と一回反射。各担当機体の広い支持から、射点と入射を選ぶ。",
+      "nameEn": "Archeart — The Last Return",
+      "goalEn": "Choose firing positions across the basin, broken passage, open shaft and slanted cleft. Each fixed machine must deal100 damage.",
+      "terrainRevision": "10.0-review-completion",
+      "enemyProfile": 6,
+      "worldWidth": 3000,
+      "actionLimit": 28,
+      "finalBattle": {
+        "order": [
+          "hana",
+          "koro",
+          "ban",
+          "sora",
+          "rico",
+          "hibari",
+          "mogu",
+          "rin",
+          "yui",
+          "gun"
+        ],
+        "requiredDamage": 5,
+        "specialAmmo": 3,
+        "fixedHp": 70,
+        "minSpawnDistance": 800,
+        "transitionSeconds": 2.2,
+        "maps": [
+          {
+            "name": {
+              "ja": "外殻 — 三つの射線",
+              "en": "Outer gates — Three approaches"
+            },
+            "floor": [
+              [
+                0,
+                45
+              ],
+              [
+                35,
+                45
+              ],
+              [
+                52,
+                40
+              ],
+              [
+                105,
+                40
+              ],
+              [
+                130,
+                18
+              ],
+              [
+                160,
+                18
+              ],
+              [
+                181,
+                8
+              ],
+              [
+                205,
+                48
+              ],
+              [
+                265,
+                48
+              ],
+              [
+                285,
+                30
+              ],
+              [
+                300,
+                30
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    82,
+                    74
+                  ],
+                  [
+                    99,
+                    71
+                  ],
+                  [
+                    108,
+                    64
+                  ],
+                  [
+                    104,
+                    58
+                  ],
+                  [
+                    84,
+                    61
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    119,
+                    28
+                  ],
+                  [
+                    129,
+                    28
+                  ],
+                  [
+                    129,
+                    46
+                  ],
+                  [
+                    119,
+                    46
+                  ]
+                ],
+                "breakable": true
+              }
+            ],
+            "features": [
+              {
+                "type": "W",
+                "v": [
+                  166,
+                  212,
+                  11
+                ]
+              }
+            ],
+            "spawns": {
+              "hana": [
+                65,
+                40
+              ],
+              "koro": [
+                245,
+                48
+              ],
+              "ban": [
+                60,
+                40
+              ]
+            },
+            "bossSpawn": [
+              150,
+              18
+            ]
+          },
+          {
+            "name": {
+              "ja": "内殻 — 空と鏡の回廊",
+              "en": "Inner shell — Sky and mirrors"
+            },
+            "floor": [
+              [
+                0,
+                8
+              ],
+              [
+                18,
+                8
+              ],
+              [
+                295,
+                8
+              ],
+              [
+                300,
+                8
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    52,
+                    61
+                  ],
+                  [
+                    65,
+                    70
+                  ],
+                  [
+                    96,
+                    70
+                  ],
+                  [
+                    106,
+                    63
+                  ],
+                  [
+                    94,
+                    52
+                  ],
+                  [
+                    72,
+                    54
+                  ],
+                  [
+                    60,
+                    48
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    248,
+                    75
+                  ],
+                  [
+                    260,
+                    88
+                  ],
+                  [
+                    291,
+                    88
+                  ],
+                  [
+                    299,
+                    80
+                  ],
+                  [
+                    292,
+                    68
+                  ],
+                  [
+                    272,
+                    67
+                  ],
+                  [
+                    254,
+                    65
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    160,
+                    28
+                  ],
+                  [
+                    168,
+                    36
+                  ],
+                  [
+                    192,
+                    36
+                  ],
+                  [
+                    201,
+                    28
+                  ],
+                  [
+                    187,
+                    18
+                  ],
+                  [
+                    171,
+                    21
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    100,
+                    19
+                  ],
+                  [
+                    113,
+                    28
+                  ],
+                  [
+                    132,
+                    28
+                  ],
+                  [
+                    145,
+                    55
+                  ],
+                  [
+                    153,
+                    53
+                  ],
+                  [
+                    151,
+                    20
+                  ],
+                  [
+                    132,
+                    11
+                  ],
+                  [
+                    114,
+                    13
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    214,
+                    89
+                  ],
+                  [
+                    229,
+                    96
+                  ],
+                  [
+                    245,
+                    91
+                  ],
+                  [
+                    248,
+                    78
+                  ],
+                  [
+                    230,
+                    68
+                  ],
+                  [
+                    214,
+                    70
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    211,
+                    20
+                  ],
+                  [
+                    221,
+                    27
+                  ],
+                  [
+                    237,
+                    27
+                  ],
+                  [
+                    244,
+                    20
+                  ],
+                  [
+                    234,
+                    12
+                  ],
+                  [
+                    219,
+                    14
+                  ]
+                ],
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "C",
+                "v": [
+                  116,
+                  150,
+                  42,
+                  76
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  205,
+                  110,
+                  25
+                ],
+                "sizeFactor": 1.8
+              }
+            ],
+            "spawns": {
+              "sora": [
+                74,
+                70
+              ],
+              "rico": [
+                275,
+                88
+              ],
+              "hibari": [
+                80,
+                70
+              ]
+            },
+            "bossSpawn": [
+              180,
+              36
+            ],
+            "floorSegments": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  18,
+                  8
+                ]
+              ],
+              [
+                [
+                  295,
+                  8
+                ],
+                [
+                  300,
+                  8
+                ]
+              ]
+            ]
+          },
+          {
+            "name": {
+              "ja": "核の防護 — 壊して結ぶ",
+              "en": "Core shield — Break and connect"
+            },
+            "floor": [
+              [
+                0,
+                72
+              ],
+              [
+                85,
+                72
+              ],
+              [
+                94,
+                12
+              ],
+              [
+                120,
+                8
+              ],
+              [
+                185,
+                8
+              ],
+              [
+                203,
+                18
+              ],
+              [
+                265,
+                18
+              ],
+              [
+                285,
+                30
+              ],
+              [
+                300,
+                30
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    147,
+                    33
+                  ],
+                  [
+                    153,
+                    42
+                  ],
+                  [
+                    170,
+                    42
+                  ],
+                  [
+                    179,
+                    34
+                  ],
+                  [
+                    169,
+                    25
+                  ],
+                  [
+                    154,
+                    27
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    90,
+                    12
+                  ],
+                  [
+                    100,
+                    12
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    90,
+                    50
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    90,
+                    50
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    100,
+                    95
+                  ],
+                  [
+                    90,
+                    98
+                  ]
+                ],
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    88,
+                    112
+                  ],
+                  [
+                    106,
+                    120
+                  ],
+                  [
+                    122,
+                    112
+                  ],
+                  [
+                    119,
+                    95
+                  ],
+                  [
+                    102,
+                    91
+                  ],
+                  [
+                    88,
+                    98
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    202,
+                    81
+                  ],
+                  [
+                    224,
+                    89
+                  ],
+                  [
+                    270,
+                    75
+                  ],
+                  [
+                    270,
+                    62
+                  ],
+                  [
+                    228,
+                    72
+                  ],
+                  [
+                    202,
+                    65
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    215,
+                    18
+                  ],
+                  [
+                    223,
+                    18
+                  ],
+                  [
+                    223,
+                    50
+                  ],
+                  [
+                    215,
+                    50
+                  ]
+                ],
+                "breakable": true
+              }
+            ],
+            "features": [
+              {
+                "type": "M",
+                "v": [
+                  182,
+                  52,
+                  16,
+                  1
+                ]
+              },
+              {
+                "type": "W",
+                "v": [
+                  100,
+                  159,
+                  10
+                ]
+              }
+            ],
+            "spawns": {
+              "mogu": [
+                74,
+                72
+              ],
+              "rin": [
+                250,
+                18
+              ],
+              "yui": [
+                65,
+                72
+              ]
+            },
+            "bossSpawn": [
+              157,
+              42
+            ],
+            "backdrop": "cave"
+          },
+          {
+            "name": {
+              "ja": "最後の一射 — ガン",
+              "en": "The last shot — GUN"
+            },
+            "floor": [
+              [
+                0,
+                8
+              ],
+              [
+                110,
+                8
+              ],
+              [
+                134,
+                30
+              ],
+              [
+                151,
+                58
+              ],
+              [
+                173,
+                58
+              ],
+              [
+                190,
+                36
+              ],
+              [
+                207,
+                16
+              ],
+              [
+                224,
+                16
+              ],
+              [
+                239,
+                25
+              ],
+              [
+                260,
+                25
+              ],
+              [
+                276,
+                48
+              ],
+              [
+                300,
+                48
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    187,
+                    60
+                  ],
+                  [
+                    196,
+                    82
+                  ],
+                  [
+                    207,
+                    69
+                  ],
+                  [
+                    211,
+                    50
+                  ],
+                  [
+                    207,
+                    43
+                  ],
+                  [
+                    198,
+                    44
+                  ]
+                ],
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "K",
+                "v": [
+                  225,
+                  48,
+                  -20
+                ],
+                "sizeFactor": 1.8
+              }
+            ],
+            "spawns": {
+              "gun": [
+                160,
+                58
+              ]
+            },
+            "bossSpawn": [
+              245,
+              25
+            ]
+          }
+        ],
+        "actionLimits": {
+          "hana": 28,
+          "koro": 28,
+          "ban": 28,
+          "sora": 28,
+          "rico": 28,
+          "hibari": 28,
+          "mogu": 28,
+          "rin": 28,
+          "yui": 28,
+          "gun": 28
+        }
+      },
+      "expectedActions": [
+        30,
+        60
+      ],
+      "spawnPoints": [
+        [
+          65,
+          40
+        ],
+        [
+          150,
+          18
+        ]
+      ]
+    },
+    "runtime": {
+      "id": 100,
+      "name": "アークハート — 最後の帰還",
+      "nameEn": "Archeart — The Last Return",
+      "theme": 19,
+      "boss": true,
+      "spawn": [
+        [
+          65,
+          40
+        ],
+        [
+          150,
+          18
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            45
+          ],
+          [
+            35,
+            45
+          ],
+          [
+            52,
+            40
+          ],
+          [
+            105,
+            40
+          ],
+          [
+            130,
+            18
+          ],
+          [
+            160,
+            18
+          ],
+          [
+            181,
+            8
+          ],
+          [
+            205,
+            48
+          ],
+          [
+            265,
+            48
+          ],
+          [
+            285,
+            30
+          ],
+          [
+            300,
+            30
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "100-M0-C01",
+          "poly": [
+            [
+              82,
+              74
+            ],
+            [
+              99,
+              71
+            ],
+            [
+              108,
+              64
+            ],
+            [
+              104,
+              58
+            ],
+            [
+              84,
+              61
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "100-M0-C02",
+          "poly": [
+            [
+              119,
+              28
+            ],
+            [
+              129,
+              28
+            ],
+            [
+              129,
+              46
+            ],
+            [
+              119,
+              46
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            166,
+            212,
+            11
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 28,
+      "enemyProfile": 6,
+      "hold": 1,
+      "themeName": "夜明けの核",
+      "themeGoal": "得意な射点と経路を段階に合わせて選び直す",
+      "stageInTheme": 5,
+      "themeRole": "Boss",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "bossSpec": {
+        "name": "Archeart",
+        "parts": [
+          {
+            "name": "LEFT GATE",
+            "hp": 2,
+            "dx": 44,
+            "dy": -53,
+            "radius": 23
+          },
+          {
+            "name": "RIGHT GATE",
+            "hp": 2,
+            "dx": -44,
+            "dy": -53,
+            "radius": 23
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "DROP",
+          "LOW"
+        ],
+        "reward": "BLINK"
+      },
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:archeart",
+      "recommendedCharacter": "gun",
+      "tacticalGoal": "盆地・分断回廊・縦穴・斜めの裂け目で射点を選び直し、固定10機でそれぞれ本体へ100ダメージを通す。",
+      "tacticalGoalEn": "Choose firing positions across the basin, broken passage, open shaft and slanted cleft. Each fixed machine must deal100 damage.",
+      "enemyHp": 7,
+      "terrainRevision": "10.0-review-completion",
+      "finalBattle": {
+        "order": [
+          "hana",
+          "koro",
+          "ban",
+          "sora",
+          "rico",
+          "hibari",
+          "mogu",
+          "rin",
+          "yui",
+          "gun"
+        ],
+        "requiredDamage": 5,
+        "specialAmmo": 3,
+        "fixedHp": 70,
+        "minSpawnDistance": 800,
+        "transitionSeconds": 2.2,
+        "maps": [
+          {
+            "name": {
+              "ja": "外殻 — 三つの射線",
+              "en": "Outer gates — Three approaches"
+            },
+            "floor": [
+              [
+                0,
+                45
+              ],
+              [
+                35,
+                45
+              ],
+              [
+                52,
+                40
+              ],
+              [
+                105,
+                40
+              ],
+              [
+                130,
+                18
+              ],
+              [
+                160,
+                18
+              ],
+              [
+                181,
+                8
+              ],
+              [
+                205,
+                48
+              ],
+              [
+                265,
+                48
+              ],
+              [
+                285,
+                30
+              ],
+              [
+                300,
+                30
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    82,
+                    74
+                  ],
+                  [
+                    99,
+                    71
+                  ],
+                  [
+                    108,
+                    64
+                  ],
+                  [
+                    104,
+                    58
+                  ],
+                  [
+                    84,
+                    61
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    119,
+                    28
+                  ],
+                  [
+                    129,
+                    28
+                  ],
+                  [
+                    129,
+                    46
+                  ],
+                  [
+                    119,
+                    46
+                  ]
+                ],
+                "breakable": true
+              }
+            ],
+            "features": [
+              {
+                "type": "W",
+                "v": [
+                  166,
+                  212,
+                  11
+                ]
+              }
+            ],
+            "spawns": {
+              "hana": [
+                65,
+                40
+              ],
+              "koro": [
+                245,
+                48
+              ],
+              "ban": [
+                60,
+                40
+              ]
+            },
+            "bossSpawn": [
+              150,
+              18
+            ],
+            "floors": [
+              [
+                [
+                  0,
+                  45
+                ],
+                [
+                  35,
+                  45
+                ],
+                [
+                  52,
+                  40
+                ],
+                [
+                  105,
+                  40
+                ],
+                [
+                  130,
+                  18
+                ],
+                [
+                  160,
+                  18
+                ],
+                [
+                  181,
+                  8
+                ],
+                [
+                  205,
+                  48
+                ],
+                [
+                  265,
+                  48
+                ],
+                [
+                  285,
+                  30
+                ],
+                [
+                  300,
+                  30
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M0-C01",
+                "poly": [
+                  [
+                    82,
+                    74
+                  ],
+                  [
+                    99,
+                    71
+                  ],
+                  [
+                    108,
+                    64
+                  ],
+                  [
+                    104,
+                    58
+                  ],
+                  [
+                    84,
+                    61
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M0-C02",
+                "poly": [
+                  [
+                    119,
+                    28
+                  ],
+                  [
+                    129,
+                    28
+                  ],
+                  [
+                    129,
+                    46
+                  ],
+                  [
+                    119,
+                    46
+                  ]
+                ],
+                "destructible": true
+              }
+            ]
+          },
+          {
+            "name": {
+              "ja": "内殻 — 空と鏡の回廊",
+              "en": "Inner shell — Sky and mirrors"
+            },
+            "floor": [
+              [
+                0,
+                8
+              ],
+              [
+                18,
+                8
+              ],
+              [
+                295,
+                8
+              ],
+              [
+                300,
+                8
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    52,
+                    61
+                  ],
+                  [
+                    65,
+                    70
+                  ],
+                  [
+                    96,
+                    70
+                  ],
+                  [
+                    106,
+                    63
+                  ],
+                  [
+                    94,
+                    52
+                  ],
+                  [
+                    72,
+                    54
+                  ],
+                  [
+                    60,
+                    48
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    248,
+                    75
+                  ],
+                  [
+                    260,
+                    88
+                  ],
+                  [
+                    291,
+                    88
+                  ],
+                  [
+                    299,
+                    80
+                  ],
+                  [
+                    292,
+                    68
+                  ],
+                  [
+                    272,
+                    67
+                  ],
+                  [
+                    254,
+                    65
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    160,
+                    28
+                  ],
+                  [
+                    168,
+                    36
+                  ],
+                  [
+                    192,
+                    36
+                  ],
+                  [
+                    201,
+                    28
+                  ],
+                  [
+                    187,
+                    18
+                  ],
+                  [
+                    171,
+                    21
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    100,
+                    19
+                  ],
+                  [
+                    113,
+                    28
+                  ],
+                  [
+                    132,
+                    28
+                  ],
+                  [
+                    145,
+                    55
+                  ],
+                  [
+                    153,
+                    53
+                  ],
+                  [
+                    151,
+                    20
+                  ],
+                  [
+                    132,
+                    11
+                  ],
+                  [
+                    114,
+                    13
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    214,
+                    89
+                  ],
+                  [
+                    229,
+                    96
+                  ],
+                  [
+                    245,
+                    91
+                  ],
+                  [
+                    248,
+                    78
+                  ],
+                  [
+                    230,
+                    68
+                  ],
+                  [
+                    214,
+                    70
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    211,
+                    20
+                  ],
+                  [
+                    221,
+                    27
+                  ],
+                  [
+                    237,
+                    27
+                  ],
+                  [
+                    244,
+                    20
+                  ],
+                  [
+                    234,
+                    12
+                  ],
+                  [
+                    219,
+                    14
+                  ]
+                ],
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "C",
+                "v": [
+                  116,
+                  150,
+                  42,
+                  76
+                ]
+              },
+              {
+                "type": "K",
+                "v": [
+                  205,
+                  110,
+                  25
+                ],
+                "sizeFactor": 1.8
+              }
+            ],
+            "spawns": {
+              "sora": [
+                74,
+                70
+              ],
+              "rico": [
+                275,
+                88
+              ],
+              "hibari": [
+                80,
+                70
+              ]
+            },
+            "bossSpawn": [
+              180,
+              36
+            ],
+            "floorSegments": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  18,
+                  8
+                ]
+              ],
+              [
+                [
+                  295,
+                  8
+                ],
+                [
+                  300,
+                  8
+                ]
+              ]
+            ],
+            "floors": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  18,
+                  8
+                ]
+              ],
+              [
+                [
+                  295,
+                  8
+                ],
+                [
+                  300,
+                  8
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M1-C01",
+                "poly": [
+                  [
+                    52,
+                    61
+                  ],
+                  [
+                    65,
+                    70
+                  ],
+                  [
+                    96,
+                    70
+                  ],
+                  [
+                    106,
+                    63
+                  ],
+                  [
+                    94,
+                    52
+                  ],
+                  [
+                    72,
+                    54
+                  ],
+                  [
+                    60,
+                    48
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C02",
+                "poly": [
+                  [
+                    248,
+                    75
+                  ],
+                  [
+                    260,
+                    88
+                  ],
+                  [
+                    291,
+                    88
+                  ],
+                  [
+                    299,
+                    80
+                  ],
+                  [
+                    292,
+                    68
+                  ],
+                  [
+                    272,
+                    67
+                  ],
+                  [
+                    254,
+                    65
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C03",
+                "poly": [
+                  [
+                    160,
+                    28
+                  ],
+                  [
+                    168,
+                    36
+                  ],
+                  [
+                    192,
+                    36
+                  ],
+                  [
+                    201,
+                    28
+                  ],
+                  [
+                    187,
+                    18
+                  ],
+                  [
+                    171,
+                    21
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C04",
+                "poly": [
+                  [
+                    100,
+                    19
+                  ],
+                  [
+                    113,
+                    28
+                  ],
+                  [
+                    132,
+                    28
+                  ],
+                  [
+                    145,
+                    55
+                  ],
+                  [
+                    153,
+                    53
+                  ],
+                  [
+                    151,
+                    20
+                  ],
+                  [
+                    132,
+                    11
+                  ],
+                  [
+                    114,
+                    13
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C05",
+                "poly": [
+                  [
+                    214,
+                    89
+                  ],
+                  [
+                    229,
+                    96
+                  ],
+                  [
+                    245,
+                    91
+                  ],
+                  [
+                    248,
+                    78
+                  ],
+                  [
+                    230,
+                    68
+                  ],
+                  [
+                    214,
+                    70
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M1-C06",
+                "poly": [
+                  [
+                    211,
+                    20
+                  ],
+                  [
+                    221,
+                    27
+                  ],
+                  [
+                    237,
+                    27
+                  ],
+                  [
+                    244,
+                    20
+                  ],
+                  [
+                    234,
+                    12
+                  ],
+                  [
+                    219,
+                    14
+                  ]
+                ],
+                "destructible": false
+              }
+            ]
+          },
+          {
+            "name": {
+              "ja": "核の防護 — 壊して結ぶ",
+              "en": "Core shield — Break and connect"
+            },
+            "floor": [
+              [
+                0,
+                72
+              ],
+              [
+                85,
+                72
+              ],
+              [
+                94,
+                12
+              ],
+              [
+                120,
+                8
+              ],
+              [
+                185,
+                8
+              ],
+              [
+                203,
+                18
+              ],
+              [
+                265,
+                18
+              ],
+              [
+                285,
+                30
+              ],
+              [
+                300,
+                30
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    147,
+                    33
+                  ],
+                  [
+                    153,
+                    42
+                  ],
+                  [
+                    170,
+                    42
+                  ],
+                  [
+                    179,
+                    34
+                  ],
+                  [
+                    169,
+                    25
+                  ],
+                  [
+                    154,
+                    27
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    90,
+                    12
+                  ],
+                  [
+                    100,
+                    12
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    90,
+                    50
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    90,
+                    50
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    100,
+                    95
+                  ],
+                  [
+                    90,
+                    98
+                  ]
+                ],
+                "breakable": true
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    88,
+                    112
+                  ],
+                  [
+                    106,
+                    120
+                  ],
+                  [
+                    122,
+                    112
+                  ],
+                  [
+                    119,
+                    95
+                  ],
+                  [
+                    102,
+                    91
+                  ],
+                  [
+                    88,
+                    98
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    202,
+                    81
+                  ],
+                  [
+                    224,
+                    89
+                  ],
+                  [
+                    270,
+                    75
+                  ],
+                  [
+                    270,
+                    62
+                  ],
+                  [
+                    228,
+                    72
+                  ],
+                  [
+                    202,
+                    65
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    215,
+                    18
+                  ],
+                  [
+                    223,
+                    18
+                  ],
+                  [
+                    223,
+                    50
+                  ],
+                  [
+                    215,
+                    50
+                  ]
+                ],
+                "breakable": true
+              }
+            ],
+            "features": [
+              {
+                "type": "M",
+                "v": [
+                  182,
+                  52,
+                  16,
+                  1
+                ]
+              },
+              {
+                "type": "W",
+                "v": [
+                  100,
+                  159,
+                  10
+                ]
+              }
+            ],
+            "spawns": {
+              "mogu": [
+                74,
+                72
+              ],
+              "rin": [
+                250,
+                18
+              ],
+              "yui": [
+                65,
+                72
+              ]
+            },
+            "bossSpawn": [
+              157,
+              42
+            ],
+            "backdrop": "cave",
+            "floors": [
+              [
+                [
+                  0,
+                  72
+                ],
+                [
+                  85,
+                  72
+                ],
+                [
+                  94,
+                  12
+                ],
+                [
+                  120,
+                  8
+                ],
+                [
+                  185,
+                  8
+                ],
+                [
+                  203,
+                  18
+                ],
+                [
+                  265,
+                  18
+                ],
+                [
+                  285,
+                  30
+                ],
+                [
+                  300,
+                  30
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M2-C01",
+                "poly": [
+                  [
+                    147,
+                    33
+                  ],
+                  [
+                    153,
+                    42
+                  ],
+                  [
+                    170,
+                    42
+                  ],
+                  [
+                    179,
+                    34
+                  ],
+                  [
+                    169,
+                    25
+                  ],
+                  [
+                    154,
+                    27
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C02",
+                "poly": [
+                  [
+                    90,
+                    12
+                  ],
+                  [
+                    100,
+                    12
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    90,
+                    50
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C03",
+                "poly": [
+                  [
+                    90,
+                    50
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    100,
+                    95
+                  ],
+                  [
+                    90,
+                    98
+                  ]
+                ],
+                "destructible": true
+              },
+              {
+                "id": "100-M2-C04",
+                "poly": [
+                  [
+                    88,
+                    112
+                  ],
+                  [
+                    106,
+                    120
+                  ],
+                  [
+                    122,
+                    112
+                  ],
+                  [
+                    119,
+                    95
+                  ],
+                  [
+                    102,
+                    91
+                  ],
+                  [
+                    88,
+                    98
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C05",
+                "poly": [
+                  [
+                    202,
+                    81
+                  ],
+                  [
+                    224,
+                    89
+                  ],
+                  [
+                    270,
+                    75
+                  ],
+                  [
+                    270,
+                    62
+                  ],
+                  [
+                    228,
+                    72
+                  ],
+                  [
+                    202,
+                    65
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C06",
+                "poly": [
+                  [
+                    215,
+                    18
+                  ],
+                  [
+                    223,
+                    18
+                  ],
+                  [
+                    223,
+                    50
+                  ],
+                  [
+                    215,
+                    50
+                  ]
+                ],
+                "destructible": true
+              }
+            ]
+          },
+          {
+            "name": {
+              "ja": "最後の一射 — ガン",
+              "en": "The last shot — GUN"
+            },
+            "floor": [
+              [
+                0,
+                8
+              ],
+              [
+                110,
+                8
+              ],
+              [
+                134,
+                30
+              ],
+              [
+                151,
+                58
+              ],
+              [
+                173,
+                58
+              ],
+              [
+                190,
+                36
+              ],
+              [
+                207,
+                16
+              ],
+              [
+                224,
+                16
+              ],
+              [
+                239,
+                25
+              ],
+              [
+                260,
+                25
+              ],
+              [
+                276,
+                48
+              ],
+              [
+                300,
+                48
+              ]
+            ],
+            "parts": [
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    187,
+                    60
+                  ],
+                  [
+                    196,
+                    82
+                  ],
+                  [
+                    207,
+                    69
+                  ],
+                  [
+                    211,
+                    50
+                  ],
+                  [
+                    207,
+                    43
+                  ],
+                  [
+                    198,
+                    44
+                  ]
+                ],
+                "breakable": false
+              }
+            ],
+            "features": [
+              {
+                "type": "K",
+                "v": [
+                  225,
+                  48,
+                  -20
+                ],
+                "sizeFactor": 1.8
+              }
+            ],
+            "spawns": {
+              "gun": [
+                160,
+                58
+              ]
+            },
+            "bossSpawn": [
+              245,
+              25
+            ],
+            "floors": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  110,
+                  8
+                ],
+                [
+                  134,
+                  30
+                ],
+                [
+                  151,
+                  58
+                ],
+                [
+                  173,
+                  58
+                ],
+                [
+                  190,
+                  36
+                ],
+                [
+                  207,
+                  16
+                ],
+                [
+                  224,
+                  16
+                ],
+                [
+                  239,
+                  25
+                ],
+                [
+                  260,
+                  25
+                ],
+                [
+                  276,
+                  48
+                ],
+                [
+                  300,
+                  48
+                ]
+              ]
+            ],
+            "components": [
+              {
+                "id": "100-M3-C01",
+                "poly": [
+                  [
+                    187,
+                    60
+                  ],
+                  [
+                    196,
+                    82
+                  ],
+                  [
+                    207,
+                    69
+                  ],
+                  [
+                    211,
+                    50
+                  ],
+                  [
+                    207,
+                    43
+                  ],
+                  [
+                    198,
+                    44
+                  ]
+                ],
+                "destructible": false
+              }
+            ]
+          }
+        ],
+        "actionLimits": {
+          "hana": 28,
+          "koro": 28,
+          "ban": 28,
+          "sora": 28,
+          "rico": 28,
+          "hibari": 28,
+          "mogu": 28,
+          "rin": 28,
+          "yui": 28,
+          "gun": 28
+        }
+      },
+      "worldWidth": 3000
+    }
+  },
+  "qualityEvidence": {
+    "finalMaps": {
+      "0": {
+        "entrySetup": "For design entry inspection only, prior machine quotas advanced through the existing FinalTeam API. Full real relay remains final verification.",
+        "rows": [
+          {
+            "id": "hana",
+            "entry": [
+              {
+                "x": 650,
+                "h": 40,
+                "safe": true
+              },
+              {
+                "x": 1500,
+                "h": 18,
+                "safe": true
+              }
+            ],
+            "shot": {
+              "angle": 69,
+              "power": 90,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "x": 1547.3456821951092,
+                  "y": 244.2446399578181,
+                  "t": 4.099999999999988,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 5,
+                "rows": [
+                  {
+                    "angle": 66,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 95,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 95,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 72,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 72,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 72,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "koro",
+            "entry": [
+              {
+                "x": 2450,
+                "h": 48,
+                "safe": true
+              },
+              {
+                "x": 1500,
+                "h": 18,
+                "safe": true
+              }
+            ],
+            "shot": {
+              "angle": 15,
+              "power": 75,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "x": 1523.2987821140464,
+                  "y": 250.24094174346277,
+                  "t": 1.84444444444444,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": 12,
+                    "power": 70,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 75,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 15,
+                    "power": 70,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 15,
+                    "power": 75,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 15,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 18,
+                    "power": 70,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 18,
+                    "power": 75,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 18,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "ban",
+            "entry": [
+              {
+                "x": 600,
+                "h": 40,
+                "safe": true
+              },
+              {
+                "x": 1500,
+                "h": 18,
+                "safe": true
+              }
+            ],
+            "shot": {
+              "angle": 66,
+              "power": 85,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "x": 1497.245330961467,
+                  "y": 232.15861164931565,
+                  "t": 3.822222222222211,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 5,
+                "rows": [
+                  {
+                    "angle": 63,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 63,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 63,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "1": {
+        "rows": [
+          {
+            "id": "sora",
+            "entry": [
+              {
+                "x": 740,
+                "h": 70,
+                "safe": true
+              },
+              {
+                "x": 1800,
+                "h": 36,
+                "safe": true
+              }
+            ],
+            "shot": {
+              "angle": 9,
+              "power": 95,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "type": "cloud",
+                  "x": 1165.737572056087,
+                  "y": -236.39317003819318,
+                  "t": 0.622222222222222,
+                  "bullet": 0
+                },
+                {
+                  "x": 1734.6435212762233,
+                  "y": 78.46180250164728,
+                  "t": 1.8888888888888842,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": 6,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              }
+            },
+            "mechanism": {
+              "angle": 9,
+              "power": 95,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "type": "cloud",
+                  "x": 1165.737572056087,
+                  "y": -236.39317003819318,
+                  "t": 0.622222222222222,
+                  "bullet": 0
+                },
+                {
+                  "x": 1734.6435212762233,
+                  "y": 78.46180250164728,
+                  "t": 1.8888888888888842,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": 6,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 12,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "rico",
+            "entry": [
+              {
+                "x": 2750,
+                "h": 88,
+                "safe": true
+              },
+              {
+                "x": 1800,
+                "h": 36,
+                "safe": true
+              }
+            ],
+            "shot": {
+              "angle": 48,
+              "power": 65,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "x": 1799.1510611817648,
+                  "y": 52.015019222795,
+                  "t": 3.18888888888888,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 3,
+                "rows": [
+                  {
+                    "angle": 45,
+                    "power": 60,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 45,
+                    "power": 65,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 45,
+                    "power": 70,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 48,
+                    "power": 60,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 48,
+                    "power": 65,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 48,
+                    "power": 70,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 51,
+                    "power": 60,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 51,
+                    "power": 65,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 51,
+                    "power": 70,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            },
+            "mechanism": {
+              "angle": 45,
+              "power": 75,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "type": "bounce",
+                  "x": 2082.2902580181794,
+                  "y": -586.5978722807658,
+                  "t": 1.8222222222222177,
+                  "count": 1,
+                  "surface": "crystal",
+                  "solidId": "K1",
+                  "bullet": 0
+                },
+                {
+                  "x": 1811.3652099409067,
+                  "y": 54.86159885423888,
+                  "t": 5.3999999999999835,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 2,
+                "rows": [
+                  {
+                    "angle": 42,
+                    "power": 70,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 42,
+                    "power": 75,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 42,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 45,
+                    "power": 70,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 45,
+                    "power": 75,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 45,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 48,
+                    "power": 70,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 48,
+                    "power": 75,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 48,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "hibari",
+            "entry": [
+              {
+                "x": 800,
+                "h": 70,
+                "safe": true
+              },
+              {
+                "x": 1800,
+                "h": 36,
+                "safe": true
+              }
+            ],
+            "shot": {
+              "angle": 6,
+              "power": 95,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "type": "cloud",
+                  "x": 1165.3818192366605,
+                  "y": -224.36613965381395,
+                  "t": 0.5222222222222224,
+                  "bullet": 0
+                },
+                {
+                  "x": 1733.0330259394027,
+                  "y": 88.23211302235477,
+                  "t": 1.7777777777777735,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": 3,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 3,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 3,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  }
+                ]
+              }
+            },
+            "mechanism": {
+              "angle": 6,
+              "power": 95,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "type": "cloud",
+                  "x": 1165.3818192366605,
+                  "y": -224.36613965381395,
+                  "t": 0.5222222222222224,
+                  "bullet": 0
+                },
+                {
+                  "x": 1733.0330259394027,
+                  "y": 88.23211302235477,
+                  "t": 1.7777777777777735,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": 3,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 3,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 3,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      0.5
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "2": {
+        "rows": [
+          {
+            "id": "mogu",
+            "entry": [
+              {
+                "x": 740,
+                "h": 72,
+                "safe": true
+              },
+              {
+                "x": 1570,
+                "h": 42,
+                "safe": true
+              }
+            ],
+            "initial": null,
+            "first": {
+              "angle": -9,
+              "power": 90,
+              "damage": [
+                0,
+                0
+              ],
+              "destroyed": [
+                "100-M2-C03@0"
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 9,
+                "rows": [
+                  {
+                    "angle": -12,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": -12,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": -12,
+                    "power": 95,
+                    "hit": true
+                  },
+                  {
+                    "angle": -9,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": -9,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": -9,
+                    "power": 95,
+                    "hit": true
+                  },
+                  {
+                    "angle": -6,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": -6,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": -6,
+                    "power": 95,
+                    "hit": true
+                  }
+                ]
+              }
+            },
+            "after": {
+              "angle": -3,
+              "power": 90,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "x": 1507.08677388687,
+                  "y": 13.912224100572972,
+                  "t": 1.2222222222222199,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": -6,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": -6,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": -6,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": -3,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": -3,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": -3,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 0,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 0,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 0,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "rin",
+            "entry": [
+              {
+                "x": 2500,
+                "h": 18,
+                "safe": true
+              },
+              {
+                "x": 1570,
+                "h": 42,
+                "safe": true
+              }
+            ],
+            "initial": {
+              "angle": 57,
+              "power": 80,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "type": "magnet",
+                  "x": 1971.6880329457663,
+                  "y": -65.97353247523913,
+                  "t": 1.7444444444444402,
+                  "bullet": 0
+                },
+                {
+                  "x": 1589.3559453271564,
+                  "y": 1.8103072446182018,
+                  "t": 2.922222222222214,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 2,
+                "rows": [
+                  {
+                    "angle": 54,
+                    "power": 75,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 54,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 54,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 57,
+                    "power": 75,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 57,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 57,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 60,
+                    "power": 75,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 60,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 60,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            },
+            "first": {
+              "angle": 3,
+              "power": 85,
+              "damage": [
+                0,
+                0
+              ],
+              "destroyed": [
+                "100-M2-C06@0"
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 9,
+                "rows": [
+                  {
+                    "angle": 0,
+                    "power": 80,
+                    "hit": true
+                  },
+                  {
+                    "angle": 0,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": 0,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": 3,
+                    "power": 80,
+                    "hit": true
+                  },
+                  {
+                    "angle": 3,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": 3,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": 6,
+                    "power": 80,
+                    "hit": true
+                  },
+                  {
+                    "angle": 6,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": 6,
+                    "power": 90,
+                    "hit": true
+                  }
+                ]
+              }
+            },
+            "after": {
+              "angle": 39,
+              "power": 85,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "type": "magnet",
+                  "x": 1956.4511621242937,
+                  "y": 56.06505204878119,
+                  "t": 1.1666666666666645,
+                  "bullet": 0
+                },
+                {
+                  "x": 1577.2948869092008,
+                  "y": -6.864483921181568,
+                  "t": 2.0777777777777726,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 3,
+                "rows": [
+                  {
+                    "angle": 36,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 36,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 36,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 39,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 39,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 39,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 42,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 42,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 42,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "yui",
+            "entry": [
+              {
+                "x": 650,
+                "h": 72,
+                "safe": true
+              },
+              {
+                "x": 1570,
+                "h": 42,
+                "safe": true
+              }
+            ],
+            "initial": {
+              "angle": 66,
+              "power": 85,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "x": 1576.4325338498736,
+                  "y": -7.121905377157606,
+                  "t": 3.9444444444444327,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 3,
+                "rows": [
+                  {
+                    "angle": 63,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 63,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 63,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 80,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 66,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 85,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 69,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  }
+                ]
+              }
+            },
+            "first": {
+              "angle": 0,
+              "power": 85,
+              "damage": [
+                0,
+                0
+              ],
+              "destroyed": [
+                "100-M2-C03@0"
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 9,
+                "rows": [
+                  {
+                    "angle": -3,
+                    "power": 80,
+                    "hit": true
+                  },
+                  {
+                    "angle": -3,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": -3,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": 0,
+                    "power": 80,
+                    "hit": true
+                  },
+                  {
+                    "angle": 0,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": 0,
+                    "power": 90,
+                    "hit": true
+                  },
+                  {
+                    "angle": 3,
+                    "power": 80,
+                    "hit": true
+                  },
+                  {
+                    "angle": 3,
+                    "power": 85,
+                    "hit": true
+                  },
+                  {
+                    "angle": 3,
+                    "power": 90,
+                    "hit": true
+                  }
+                ]
+              }
+            },
+            "after": {
+              "angle": 6,
+              "power": 85,
+              "damage": [
+                0,
+                2
+              ],
+              "events": [
+                {
+                  "x": 1548.317503901832,
+                  "y": 5.7107161107817035,
+                  "t": 1.5333333333333299,
+                  "type": "weak",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 8,
+                "rows": [
+                  {
+                    "angle": 3,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 3,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 3,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 6,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 80,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 85,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 9,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "rinMagnetAfterBreak": {
+          "first": {
+            "angle": 3,
+            "power": 85,
+            "damage": [
+              0,
+              0
+            ],
+            "destroyed": [
+              "100-M2-C06@0"
+            ],
+            "neighbors": {
+              "inputs": 9,
+              "hits": 9,
+              "rows": [
+                {
+                  "angle": 0,
+                  "power": 80,
+                  "hit": true
+                },
+                {
+                  "angle": 0,
+                  "power": 85,
+                  "hit": true
+                },
+                {
+                  "angle": 0,
+                  "power": 90,
+                  "hit": true
+                },
+                {
+                  "angle": 3,
+                  "power": 80,
+                  "hit": true
+                },
+                {
+                  "angle": 3,
+                  "power": 85,
+                  "hit": true
+                },
+                {
+                  "angle": 3,
+                  "power": 90,
+                  "hit": true
+                },
+                {
+                  "angle": 6,
+                  "power": 80,
+                  "hit": true
+                },
+                {
+                  "angle": 6,
+                  "power": 85,
+                  "hit": true
+                },
+                {
+                  "angle": 6,
+                  "power": 90,
+                  "hit": true
+                }
+              ]
+            }
+          },
+          "magnet": {
+            "angle": 39,
+            "power": 85,
+            "damage": [
+              0,
+              2
+            ],
+            "events": [
+              {
+                "type": "magnet",
+                "x": 1956.4511621242937,
+                "y": 56.06505204878119,
+                "t": 1.1666666666666645,
+                "bullet": 0
+              },
+              {
+                "x": 1577.2948869092008,
+                "y": -6.864483921181568,
+                "t": 2.0777777777777726,
+                "type": "weak",
+                "bullet": 0
+              }
+            ],
+            "neighbors": {
+              "inputs": 9,
+              "hits": 3,
+              "rows": [
+                {
+                  "angle": 36,
+                  "power": 80,
+                  "hit": false,
+                  "damage": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "angle": 36,
+                  "power": 85,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 36,
+                  "power": 90,
+                  "hit": false,
+                  "damage": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "angle": 39,
+                  "power": 80,
+                  "hit": false,
+                  "damage": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "angle": 39,
+                  "power": 85,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    2
+                  ]
+                },
+                {
+                  "angle": 39,
+                  "power": 90,
+                  "hit": false,
+                  "damage": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "angle": 42,
+                  "power": 80,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 42,
+                  "power": 85,
+                  "hit": false,
+                  "damage": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "angle": 42,
+                  "power": 90,
+                  "hit": false,
+                  "damage": [
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          },
+          "well": {
+            "input": {
+              "angle": 15,
+              "power": 95,
+              "x": 144.94194656889107,
+              "h": 8,
+              "surface": "floor0"
+            },
+            "warp": {
+              "success": true,
+              "position": [
+                144.94194656889107,
+                8
+              ],
+              "counter": {
+                "round": 9,
+                "moved": 0,
+                "angle": 32,
+                "power": 33.865848964266476,
+                "damage": [
+                  0,
+                  0
+                ],
+                "kind": "LOW",
+                "position": [
+                  [
+                    1449.4194656889108,
+                    420
+                  ],
+                  [
+                    1570,
+                    80
+                  ]
+                ],
+                "hpBefore": [
+                  2.4,
+                  50
+                ],
+                "hpAfter": [
+                  2.4,
+                  50
+                ]
+              }
+            },
+            "shot": {
+              "angle": 84,
+              "power": 95,
+              "damage": [
+                0,
+                1
+              ],
+              "events": [
+                {
+                  "type": "bounce",
+                  "x": 1158.8814535972024,
+                  "y": 412.1564221182658,
+                  "t": 4.3222222222222095,
+                  "count": 1,
+                  "surface": "reflector",
+                  "solidId": "W1:floor0:3",
+                  "bullet": 0
+                },
+                {
+                  "x": 1523.960960193199,
+                  "y": 4.090562716070889,
+                  "t": 7.33333333333331,
+                  "type": "part",
+                  "bullet": 0
+                }
+              ],
+              "neighbors": {
+                "inputs": 9,
+                "hits": 3,
+                "rows": [
+                  {
+                    "angle": 81,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 81,
+                    "power": 95,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 81,
+                    "power": 100,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 84,
+                    "power": 90,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 84,
+                    "power": 95,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "angle": 84,
+                    "power": 100,
+                    "hit": true,
+                    "damage": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "angle": 87,
+                    "power": 90,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 87,
+                    "power": 95,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "angle": 87,
+                    "power": 100,
+                    "hit": false,
+                    "damage": [
+                      0,
+                      0
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "3": {
+        "entry": [
+          {
+            "x": 1600,
+            "h": 58,
+            "safe": true
+          },
+          {
+            "x": 2450,
+            "h": 25,
+            "safe": true
+          }
+        ],
+        "initial": {
+          "angle": 57,
+          "power": 70,
+          "damage": [
+            0,
+            2
+          ],
+          "events": [
+            {
+              "x": 2447.833256690016,
+              "y": 162.09800796107908,
+              "t": 3.255555555555546,
+              "type": "weak",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 3,
+            "rows": [
+              {
+                "angle": 54,
+                "power": 65,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 54,
+                "power": 70,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 54,
+                "power": 75,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 57,
+                "power": 65,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 57,
+                "power": 70,
+                "hit": true,
+                "damage": [
+                  0,
+                  2
+                ]
+              },
+              {
+                "angle": 57,
+                "power": 75,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 60,
+                "power": 65,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 60,
+                "power": 70,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 60,
+                "power": 75,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          }
+        },
+        "lower": {
+          "input": {
+            "angle": -6,
+            "power": 50,
+            "x": 217.10941586583118,
+            "h": 16,
+            "surface": "floor0"
+          },
+          "warp": {
+            "success": true,
+            "position": [
+              217.10941586583118,
+              16
+            ],
+            "counter": {
+              "round": 10,
+              "moved": 0,
+              "angle": 56.12719596484676,
+              "power": 35.69271505028009,
+              "damage": [
+                1.1,
+                0
+              ],
+              "kind": "ARC",
+              "position": [
+                [
+                  2171.0941586583117,
+                  340
+                ],
+                [
+                  2450,
+                  250
+                ]
+              ],
+              "hpBefore": [
+                3.5,
+                50
+              ],
+              "hpAfter": [
+                2.4,
+                50
+              ]
+            }
+          },
+          "shot": {
+            "angle": 75,
+            "power": 75,
+            "damage": [
+              0,
+              2
+            ],
+            "events": [
+              {
+                "type": "bounce",
+                "x": 2268.9248804326157,
+                "y": 20.164054431259657,
+                "t": 0.6888888888888884,
+                "count": 1,
+                "surface": "crystal",
+                "solidId": "K0",
+                "bullet": 0
+              },
+              {
+                "x": 2437.655486614429,
+                "y": 165.41813931459404,
+                "t": 1.3666666666666638,
+                "type": "weak",
+                "bullet": 0
+              }
+            ],
+            "neighbors": {
+              "inputs": 9,
+              "hits": 9,
+              "rows": [
+                {
+                  "angle": 72,
+                  "power": 70,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 72,
+                  "power": 75,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 72,
+                  "power": 80,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 75,
+                  "power": 70,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    2
+                  ]
+                },
+                {
+                  "angle": 75,
+                  "power": 75,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    2
+                  ]
+                },
+                {
+                  "angle": 75,
+                  "power": 80,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    2
+                  ]
+                },
+                {
+                  "angle": 78,
+                  "power": 70,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 78,
+                  "power": 75,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "angle": 78,
+                  "power": 80,
+                  "hit": true,
+                  "damage": [
+                    0,
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/FINAL_MATCHES.json",
+      "scope": "Normal and Hard, actual ten-machine relay; empty entry inventory and W01 only."
+    }
+  }
+}

@@ -1126,9 +1126,9 @@
       "normalWitness": {
         "character": "gun",
         "actions": 3,
-        "description": "通常 57°/75% → 歩行-140px→通常 126°/55% → 歩行-65px→通常 120°/65%。敵の実手番を含む固定seedの成立例。",
+        "description": "通常 63°/75% → 通常 60°/95% → 通常 60°/75%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 31,
           "difficulty": "normal",
           "id": "gun",
@@ -1136,13 +1136,14 @@
         }
       },
       "nativeActionLimit": 16,
-      "minimumRemainingHp": 7,
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。限定的な入力・実描画・固定seedの勝利は初見の楽しさや勝率とは別。",
+      "minimumRemainingHp": 6,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0260/MATCHES_CHANGED.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "blueprintSha256": "400411470be83ae84ce8940b0144a9de78fb16cd5f885c42242d17d8249cd141"
+      "blueprintSha256": "e0d15a34eb38570f99bb268fc5bbe77418f0982e08d78abf046b1f70728b4e2a",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 32,
@@ -1239,54 +1240,33 @@
     {
       "stage": 34,
       "status": "PASS",
-      "gunSeedWins": 3,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
       "gunActions": [
         3,
         3
       ],
-      "recommendedCharacter": "rico",
-      "recommendedWin": true,
-      "recommendedActions": 3,
-      "nativeActionLimit": 16,
-      "minimumRemainingHp": 6,
       "normalWitness": {
         "character": "gun",
         "actions": 3,
-        "description": "通常 6°/65% → 通常 6°/65% → 通常 0°/80%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 6°/55% → 通常 6°/55% → 通常 6°/55%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 34,
-          "seedVariant": 1
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "recommendedWitness": {
-        "character": "rico",
-        "actions": 3,
-        "description": "通常 0°/50% → 必殺 -12°/40% → 通常 0°/50%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
-        "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
-          "stage": 34,
-          "seedVariant": null
-        }
-      },
-      "featuredTechniqueVerified": true,
-      "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 6,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-        "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
-        "../../evidence/chapter-flow-0170/matches/FEATURED_ROUTES.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "featuredWitness": {
-        "character": "rico",
-        "actions": 3,
-        "description": "通常 0°/50% → 必殺 -12°/55% → 通常 0°/50%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
-        "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/FEATURED_ROUTES.json",
-          "stage": 34,
-          "seedVariant": null
-        }
-      },
-      "blueprintSha256": "92ab292b397cb3dd013b9cbb52ece919e9d98d2f155db255f712e120f31a1adc"
+      "blueprintSha256": "feb54976030a9a296da341c5825b6c1df034f5f1a0c41c2417666ca68d3046e5",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 35,
@@ -1568,134 +1548,100 @@
         "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
         "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
       ],
-      "blueprintSha256": "11a0f51d596cded2072f66c6f8320f1264476b21807e90922a908a6139ea942c"
+      "blueprintSha256": "f37bf5e24be8827d4fc8eff763969cb1f292f38cab378c711c91348f475fc06f"
     },
     {
       "stage": 42,
       "status": "PASS",
-      "gunSeedWins": 3,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
       "gunActions": [
         3,
         3
       ],
-      "recommendedCharacter": "mogu",
-      "recommendedWin": true,
-      "recommendedActions": 3,
-      "nativeActionLimit": 16,
-      "minimumRemainingHp": 6.5,
       "normalWitness": {
         "character": "gun",
         "actions": 3,
-        "description": "右へ12.2歩行 → 通常 12°/90% → 通常 12°/90% → 通常 12°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "歩行140px→通常 -6°/70% → 通常 -12°/80% → 通常 -12°/80%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 42,
-          "seedVariant": 1
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "recommendedWitness": {
-        "character": "mogu",
-        "actions": 3,
-        "description": "右へ12.2歩行 → 通常 12°/85% → 必殺 18°/55% → 通常 12°/85%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
-        "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
-          "stage": 42,
-          "seedVariant": null
-        }
-      },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 6,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-        "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "blueprintSha256": "a02b8f77e7acc31e114cb6a3732060f98e9643ea77245dde4aafb3b8a30e71bb"
+      "blueprintSha256": "51d4db9f62b8db0d3f3fedf9d07dda5d1dabce63ddb1725dec52f0e61cddde1b",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 43,
       "status": "PASS",
-      "gunSeedWins": 3,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
       "gunActions": [
-        3,
-        3
+        4,
+        4
       ],
-      "recommendedCharacter": "mogu",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "nativeActionLimit": 16,
       "normalWitness": {
         "character": "gun",
-        "actions": 3,
-        "description": "gun:通常 45°/75% → gun:通常 45°/75% → gun:通常 45°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
-        "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "stage": 43,
-          "seed": 4697,
-          "strategy": "direct"
-        }
-      },
-      "recommendedWitness": {
-        "character": "mogu",
         "actions": 4,
-        "description": "mogu:転移 104°/35% → mogu:通常 69°/80% → mogu:通常 69°/80% → mogu:通常 69°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 24°/95% → 通常 30°/75% → 通常 30°/75% → 通常 30°/75%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 43,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "minimumRemainingHp": 6.5,
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 5,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-        "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-        "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-        "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "blueprintSha256": "425b29dd86ad1024695e71c5419a75fe3050654d79be241c207ceaa91d0ab7e5"
+      "blueprintSha256": "ded6a49e76b94437cc2eaf4f19ee3089e200eecc3e1925c892e745bf99edcf88",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 44,
       "status": "PASS",
-      "gunSeedWins": 3,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
       "gunActions": [
-        3,
-        3
+        4,
+        4
       ],
-      "recommendedCharacter": "mogu",
-      "recommendedWin": true,
-      "recommendedActions": 3,
-      "nativeActionLimit": 16,
-      "minimumRemainingHp": 6,
       "normalWitness": {
         "character": "gun",
-        "actions": 3,
-        "description": "通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "転移 33°/75% → 通常 150°/30% → 通常 96°/75% → 通常 96°/75%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 44,
-          "seedVariant": 1
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "recommendedWitness": {
-        "character": "mogu",
-        "actions": 3,
-        "description": "転移 40°/65% → 必殺 96°/50% → 通常 96°/85%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
-        "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
-          "stage": 44,
-          "seedVariant": null
-        }
-      },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 4,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-        "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "blueprintSha256": "768411ec232986fe5506f82594db24936b9aa72c7c4eb967080e15b791ebad75"
+      "blueprintSha256": "e2c8c1011ab00f4dd7c48629c321b8464e98f51850eacb7eb699ec1c264e9c52",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 45,
@@ -1736,52 +1682,38 @@
         "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
         "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
       ],
-      "blueprintSha256": "afbbb8fa8ad8f3fcb79e9b4fde64d738700382b9d05bdad37d62d5d1951ef84c"
+      "blueprintSha256": "ce4bff8f2f0db810d832c40477ba5d3565c623816224c01bf7f853494e9cc778"
     },
     {
       "stage": 46,
       "status": "PASS",
-      "gunSeedWins": 3,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
       "gunActions": [
         3,
         3
       ],
-      "recommendedCharacter": "mogu",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "nativeActionLimit": 16,
       "normalWitness": {
         "character": "gun",
         "actions": 3,
-        "description": "gun:通常 69°/80% → gun:通常 69°/80% → gun:通常 75°/95%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 69°/45% → 通常 30°/85% → 通常 30°/85%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 46,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "recommendedWitness": {
-        "character": "mogu",
-        "actions": 4,
-        "description": "mogu:転移 112°/75% → mogu:通常 69°/80% → mogu:通常 75°/95% → mogu:通常 75°/95%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
-        "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "stage": 46,
-          "seed": 4697,
-          "strategy": "shelf"
-        }
-      },
-      "minimumRemainingHp": 6,
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 6.5,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-        "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-        "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-        "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "blueprintSha256": "700e5849f749c9e0a23108a0cbf2125c4c8302c5219778e739e952f0ed52e66f"
+      "blueprintSha256": "64f7eabe7269e1a4fb1b05011f029fdefd80dea91ea79007fe6267144e291640",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 47,
@@ -1826,47 +1758,33 @@
     {
       "stage": 48,
       "status": "PASS",
-      "gunSeedWins": 3,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
       "gunActions": [
         3,
         3
       ],
-      "recommendedCharacter": "mogu",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "nativeActionLimit": 16,
       "normalWitness": {
         "character": "gun",
         "actions": 3,
-        "description": "gun:通常 51°/65% → gun:通常 51°/65% → gun:通常 51°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 33°/75% → 通常 24°/30% → 通常 30°/60%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 48,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "recommendedWitness": {
-        "character": "mogu",
-        "actions": 4,
-        "description": "mogu:転移 96°/65% → mogu:通常 48°/78% → mogu:通常 51°/80% → mogu:通常 51°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
-        "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "stage": 48,
-          "seed": 4697,
-          "strategy": "shelf"
-        }
-      },
-      "minimumRemainingHp": 6,
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 5,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-        "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-        "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-        "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
       ],
-      "blueprintSha256": "41c1e77c4a09d2e80dc49ec5f8154daae13c46396eabff724067d5e3d9df613f"
+      "blueprintSha256": "79c87c80b5ff97bba13ad657e8c2639d55288cafb176cecb76ea12b03abd7863",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路"
     },
     {
       "stage": 49,
@@ -2428,41 +2346,47 @@
     {
       "stage": 63,
       "status": "PASS",
-      "blueprintSha256": "97c319067b242540ad4ec58b8163557b6607145f7d0c6795f19dcf1f0e8653f7",
-      "recommendedCharacter": "rin",
-      "recommendedWin": true,
-      "recommendedActions": 3,
-      "hardGunWin": true,
-      "hardGunActions": 4,
-      "nativeActionLimit": 16,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        7,
+        7
+      ],
       "normalWitness": {
         "character": "gun",
-        "actions": 4,
-        "description": "通常 63°/100% → 通常 63°/100% → 通常 63°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 7,
+        "description": "通常 18°/80% → 転移 36°/65% → 通常 42°/65% → 通常 42°/75% → 歩行-70px→通常 126°/75% → 通常 138°/80% → 通常 138°/80%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
-          "stage": 63,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "rin",
-        "actions": 3,
-        "description": "通常 63°/100% → 必殺 63°/100% → 通常 63°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 63,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 16,
+      "minimumRemainingHp": 5.29375,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 7,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 7,
+        "description": "通常 18°/80% → 転移 36°/65% → 通常 42°/65% → 通常 42°/75% → 歩行-70px→通常 126°/75% → 通常 138°/80% → 通常 138°/80%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 63,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "78a6effe766afc3c9b9b0345796f7bdb37faf0ecd23e2b447a282f9f8ac892d1",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 64,
@@ -3143,41 +3067,47 @@
     {
       "stage": 81,
       "status": "PASS",
-      "blueprintSha256": "243f965c3292a6d498f526710bd25671248aedb223c575ac6d81a548bfcef5ce",
-      "recommendedCharacter": "yui",
-      "recommendedWin": true,
-      "recommendedActions": 5,
-      "hardGunWin": true,
-      "hardGunActions": 5,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        5,
+        5
+      ],
       "normalWitness": {
         "character": "gun",
         "actions": 5,
-        "description": "転移 66°/100% → 通常 -15°/25% → 通常 -15°/25% → 通常 -15°/25% → 通常 -15°/25%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "description": "転移 75°/85% → 通常 9°/55% → 通常 12°/40% → 通常 12°/40% → 通常 12°/40%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 81,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "yui",
-        "actions": 5,
-        "description": "転移 66°/100% → 必殺 -15°/40% → 通常 -15°/25% → 必殺 -15°/40% → 通常 -15°/25%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 81,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 3.1059999999999994,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 5,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 5,
+        "description": "転移 60°/100% → 通常 102°/60% → 通常 114°/50% → 通常 96°/95% → 通常 114°/50%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 81,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "93e6c6117759bb045fca526fd0a6253c495a84d0830446c67b8ab5e22c1f3844",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 82,
@@ -3221,41 +3151,47 @@
     {
       "stage": 83,
       "status": "PASS",
-      "blueprintSha256": "a3e5d25f14a4ff24dec71216748a2af5b4ba3de2b7f72b64db73a0e4022f6137",
-      "recommendedCharacter": "sora",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "hardGunWin": true,
-      "hardGunActions": 4,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        5,
+        5
+      ],
       "normalWitness": {
         "character": "gun",
-        "actions": 4,
-        "description": "通常 63°/95% → 通常 123°/100% → 通常 123°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 5,
+        "description": "歩行140px→通常 -12°/55% → 通常 24°/95% → 通常 24°/95% → 通常 24°/95% → 通常 24°/95%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 83,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "sora",
-        "actions": 4,
-        "description": "通常 63°/95% → 通常 123°/100% → 通常 123°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 83,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 3.1060000000000008,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 5,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 5,
+        "description": "歩行140px→通常 -12°/55% → 通常 24°/95% → 通常 24°/95% → 通常 24°/95% → 通常 24°/95%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 83,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "6bd39ee3a074d37ca8e180d8a8e548c6015716285bb99b964071e1e15cb17691",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 84,
@@ -3338,119 +3274,137 @@
     {
       "stage": 86,
       "status": "PASS",
-      "blueprintSha256": "442a6d51bebdef876218303df9b91769b6bd9a08d2a51ff6f66c2a5c1a9784ce",
-      "recommendedCharacter": "rin",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "hardGunWin": true,
-      "hardGunActions": 5,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        5,
+        5
+      ],
       "normalWitness": {
         "character": "gun",
         "actions": 5,
-        "description": "通常 75°/95% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "description": "通常 54°/50% → 通常 36°/75% → 通常 36°/75% → 通常 36°/75% → 通常 36°/75%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 86,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "rin",
-        "actions": 4,
-        "description": "通常 75°/95% → 必殺 45°/100% → 通常 45°/100% → 必殺 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 86,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 3.1060000000000008,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 5,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 5,
+        "description": "通常 54°/50% → 通常 36°/75% → 通常 36°/75% → 通常 36°/75% → 通常 36°/75%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 86,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "6a310b5c9fcbb8d6c68401292484aeddb5f5f66d03024d7c8532c6d46828ff35",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 87,
       "status": "PASS",
-      "blueprintSha256": "29f591ed68d4a709d92c2877ec55f34664a3eb96d33743f4242e190e9602aeaf",
-      "recommendedCharacter": "hibari",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "hardGunWin": true,
-      "hardGunActions": 4,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        5,
+        5
+      ],
       "normalWitness": {
         "character": "gun",
-        "actions": 4,
-        "description": "通常 117°/100% → 通常 117°/100% → 通常 117°/100% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 5,
+        "description": "転移 -6°/95% → 通常 48°/45% → 通常 24°/45% → 通常 18°/50% → 通常 24°/45%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 87,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "hibari",
-        "actions": 4,
-        "description": "通常 117°/100% → 通常 117°/100% → 必殺 117°/100% → 必殺 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 87,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 2.8255000000000003,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 5,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 5,
+        "description": "転移 -6°/95% → 通常 48°/45% → 通常 24°/45% → 通常 18°/50% → 通常 24°/45%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 87,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "195f3ec3e85c217b81b468e677959f57863b1fc90b291a53a7dfad050a1c8cef",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 88,
       "status": "PASS",
-      "blueprintSha256": "f9609351d699b5e6740385a3ab80d5768cdfa93bbd2596d279de81c011234fd2",
-      "recommendedCharacter": "sora",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "hardGunWin": true,
-      "hardGunActions": 5,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        5,
+        5
+      ],
       "normalWitness": {
         "character": "gun",
         "actions": 5,
-        "description": "通常 123°/100% → 転移 120°/100% → 通常 93°/80% → 通常 93°/80% → 通常 93°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "description": "転移 78°/70% → 通常 42°/85% → 通常 6°/95% → 通常 6°/95% → 通常 6°/95%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 88,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "sora",
-        "actions": 4,
-        "description": "通常 123°/100% → 転移 120°/100% → 必殺 98°/85% → 必殺 98°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 88,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 3.6119999999999997,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 5,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 5,
+        "description": "転移 78°/70% → 通常 42°/85% → 通常 6°/95% → 通常 6°/95% → 通常 6°/95%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 88,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "1d5ba5d7657aad41c4c90c68ac05564f0b78f5cf155c6c33645c2e7297f6ed34",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 89,
@@ -3533,41 +3487,47 @@
     {
       "stage": 91,
       "status": "PASS",
-      "blueprintSha256": "6f2d39b0d5cc5f0239372991e6ab58d1868d8b93541ecc81109a44872ff80f93",
-      "recommendedCharacter": "rin",
-      "recommendedWin": true,
-      "recommendedActions": 4,
-      "hardGunWin": true,
-      "hardGunActions": 5,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        6,
+        6
+      ],
       "normalWitness": {
         "character": "gun",
-        "actions": 5,
-        "description": "通常 69°/90% → 通常 117°/90% → 通常 111°/100% → 通常 111°/100% → 通常 75°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 6,
+        "description": "通常 -12°/45% → 通常 6°/70% → 通常 -12°/75% → 通常 12°/65% → 通常 6°/70% → 通常 24°/85%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 91,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "rin",
-        "actions": 4,
-        "description": "通常 69°/90% → 必殺 117°/90% → 通常 111°/100% → 必殺 111°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 91,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 3.7000000000000006,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 6,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 6,
+        "description": "通常 -12°/45% → 通常 6°/70% → 通常 -12°/75% → 通常 12°/65% → 通常 6°/70% → 通常 24°/85%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 91,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "0d3353d058dbbab0661cd199dcac16688f9d6f1b01a87c29de35a2f3c07137c8",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 92,
@@ -3770,80 +3730,92 @@
     {
       "stage": 97,
       "status": "PASS",
-      "blueprintSha256": "ada14f912b2a1bb5709d498dd1c7f77b3e3233e638636558a208ea62bda279bb",
-      "recommendedCharacter": "sora",
-      "recommendedWin": true,
-      "recommendedActions": 5,
-      "hardGunWin": true,
-      "hardGunActions": 5,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        6,
+        6
+      ],
       "normalWitness": {
         "character": "gun",
-        "actions": 5,
-        "description": "通常 129°/80% → 通常 129°/80% → 通常 123°/100% → 通常 129°/80% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 6,
+        "description": "転移 81°/95% → 歩行-8px→通常 63°/55% → 通常 24°/55% → 通常 24°/60% → 通常 24°/60% → 通常 6°/100%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 97,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "sora",
-        "actions": 5,
-        "description": "通常 129°/80% → 通常 129°/80% → 通常 123°/100% → 通常 129°/80% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 97,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 2.6000000000000005,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 6,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 6,
+        "description": "転移 96°/90% → 歩行8px→通常 66°/90% → 歩行-70px→通常 144°/85% → 歩行52.5px→通常 60°/85% → 通常 60°/85% → 歩行-70px→通常 168°/90%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 97,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "e64a74b931149065f722577f3f4bd1c5d859d3399920e70c06fdbf5bef06ee34",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾2経路／Hardガン通常弾1経路"
     },
     {
       "stage": 98,
       "status": "PASS",
-      "blueprintSha256": "14e2ea0e8717934767e2d9ef8bdf5d0fd2c81371fc8ba1ed7f83db78d52f2f41",
-      "recommendedCharacter": "koro",
-      "recommendedWin": true,
-      "recommendedActions": 5,
-      "hardGunWin": true,
-      "hardGunActions": 6,
-      "nativeActionLimit": 20,
+      "normalGunWin": true,
+      "gunSeedWins": 1,
+      "gunActions": [
+        7,
+        7
+      ],
       "normalWitness": {
         "character": "gun",
-        "actions": 6,
-        "description": "通常 33°/90% → 通常 57°/100% → 通常 33°/90% → 通常 57°/100% → 通常 33°/90% → 通常 57°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 7,
+        "description": "転移 -15°/95% → 転移 57°/65% → 通常 30°/60% → 通常 18°/50% → 通常 18°/85% → 通常 18°/50% → 通常 18°/85%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
-          "stage": 98,
-          "difficulty": "hard",
-          "seed": 4697
-        }
-      },
-      "recommendedWitness": {
-        "character": "koro",
-        "actions": 5,
-        "description": "通常 33°/90% → 必殺 57°/100% → 通常 33°/90% → 必殺 57°/100% → 通常 33°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
-        "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
           "stage": 98,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+      "nativeActionLimit": 20,
+      "minimumRemainingHp": 4.442499999999999,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
-        "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
-      ]
+        "../../evidence/maps-0270/MATCHES_CHANGED.json"
+      ],
+      "hardGunWin": true,
+      "hardGunActions": 7,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 7,
+        "description": "転移 -15°/95% → 転移 57°/65% → 通常 30°/60% → 通常 18°/50% → 通常 18°/85% → 通常 18°/50% → 通常 18°/85%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/MATCHES_CHANGED.json",
+          "stage": 98,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "blueprintSha256": "0cf65dfd8e245feb3f78f015e4a6b9448ed66a691d9dceb273093a2cbefad853",
+      "featuredTechniqueVerified": false,
+      "validationSummary": "Normalガン通常弾1経路／Hardガン通常弾1経路"
     },
     {
       "stage": 99,
@@ -3887,64 +3859,53 @@
     {
       "stage": 100,
       "status": "PASS",
-      "teamSeedWins": 3,
-      "teamActions": [
+      "normalGunWin": false,
+      "gunSeedWins": 0,
+      "gunActions": [
         30,
-        32
+        30
       ],
-      "order": [
-        "hana",
-        "koro",
-        "ban",
-        "sora",
-        "rico",
-        "hibari",
-        "mogu",
-        "rin",
-        "yui",
-        "gun"
-      ],
-      "requiredDamage": 100,
-      "fixedHp": 70,
-      "minSpawnDistance": 800,
-      "worldWidth": 3000,
-      "maps": 4,
-      "recommendedCharacter": "team",
-      "recommendedWin": true,
-      "recommendedActions": 34,
-      "nativeActionLimit": 80,
       "normalWitness": {
-        "character": "team",
+        "character": "gun",
         "actions": 30,
-        "description": "hana:通常 57°/80% → 左へ140px歩行→hana:通常 141°/100% → hana:通常 141°/100% → koro:通常 39°/80% → 左へ140px歩行→koro:通常 75°/75% → koro:通常 75°/75% → ban:通常 69°/95% → 左へ140px歩行→ban:通常 147°/95% → ban:通常 147°/95% → sora:通常 20°/92% → sora:通常 20°/92% → sora:通常 20°/92% → rico:通常 21°/80% → 右へ120px歩行→rico:通常 129°/80% → rico:通常 129°/80% → hibari:通常 15°/100% → 左へ130px歩行→hibari:通常 135°/80% → hibari:通常 135°/80% → 左へ140px歩行→mogu:通常 111°/100% → 左へ140px歩行→mogu:通常 135°/95% → mogu:通常 135°/95% → rin:通常 57°/85% → 左へ140px歩行→rin:通常 39°/80% → rin:通常 39°/80% → yui:通常 63°/60% → 左へ140px歩行→yui:通常 135°/90% → yui:通常 135°/90% → 右へ140px歩行→gun:通常 72°/78% → 左へ140px歩行→gun:通常 136°/77% → gun:通常 136°/77%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 72°/95% → 歩行-140px→通常 96°/100% → 通常 96°/100% → 通常 6°/90% → 歩行-140px→通常 0°/60% → 通常 0°/60% → 通常 30°/85% → 歩行-140px→通常 96°/95% → 通常 96°/95% → 通常 18°/85% → 歩行-140px→通常 168°/80% → 通常 168°/80% → 通常 48°/65% → 歩行-140px→通常 54°/55% → 通常 54°/55% → 通常 12°/95% → 歩行-140px→通常 138°/80% → 通常 138°/80% → 歩行-70px→通常 108°/95% → 歩行-140px→通常 114°/90% → 通常 114°/90% → 通常 60°/80% → 歩行-140px→通常 30°/95% → 通常 30°/95% → 通常 0°/95% → 歩行-140px→通常 114°/90% → 通常 114°/90% → 通常 66°/80% → 歩行-140px→通常 168°/100% → 通常 168°/100%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
+          "report": "../../evidence/maps-0270/FINAL_MATCHES.json",
           "stage": 100,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
         }
       },
-      "recommendedWitness": {
-        "character": "team",
-        "actions": 34,
-        "description": "hana:転移 88°/95% → 左へ140px歩行→hana:必殺 134°/80% → hana:通常 111°/95% → hana:通常 111°/95% → 左へ140px歩行→koro:通常 75°/75% → koro:通常 75°/75% → koro:通常 15°/70% → 左へ140px歩行→ban:通常 147°/95% → ban:通常 147°/95% → ban:通常 147°/95% → sora:転移 72°/65% → 左へ140px歩行→sora:必殺 119°/99% → sora:通常 105°/100% → 左へ140px歩行→sora:通常 75°/100% → rico:必殺 -3°/50% → rico:通常 21°/80% → 右へ120px歩行→rico:通常 111°/100% → hibari:通常 15°/100% → hibari:通常 15°/100% → 左へ130px歩行→hibari:通常 135°/80% → mogu:転移 144°/45% → mogu:通常 45°/95% → 左へ140px歩行→mogu:通常 135°/100% → mogu:通常 135°/100% → rin:必殺 57°/85% → 左へ140px歩行→rin:通常 39°/80% → rin:通常 39°/80% → yui:必殺 63°/60% → 左へ140px歩行→yui:通常 135°/90% → yui:通常 135°/90% → gun:転移 88°/75% → 左へ140px歩行→gun:通常 162°/82% → gun:通常 162°/82% → gun:通常 165°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
-        "evidence": {
-          "report": "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "stage": 100,
-          "seed": 424242,
-          "strategy": "shelf"
-        }
-      },
-      "minimumRemainingHp": 2.4,
-      "featuredTechniqueVerified": false,
-      "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+      "nativeActionLimit": 28,
+      "minimumRemainingHp": 3.5,
+      "humanDifficulty": "未測定。実入力と固定seedの勝利は人間の初見の楽しさ・勝率とは別。",
       "reports": [
-        "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-        "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-        "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-        "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
+        "../../evidence/maps-0270/FINAL_MATCHES.json"
       ],
-      "blueprintSha256": "9516c1700984ad89c55d3de561ac7743d866cc3c33e092bc8191399bb0114f3c"
+      "hardGunWin": false,
+      "hardGunActions": 30,
+      "hardWitness": {
+        "character": "gun",
+        "actions": 30,
+        "description": "通常 72°/95% → 歩行-140px→通常 96°/100% → 通常 96°/100% → 通常 6°/90% → 歩行-140px→通常 0°/60% → 通常 0°/60% → 通常 30°/85% → 歩行-140px→通常 96°/95% → 通常 96°/95% → 通常 18°/85% → 歩行-140px→通常 168°/80% → 通常 168°/80% → 通常 48°/65% → 歩行-140px→通常 54°/55% → 通常 54°/55% → 通常 12°/95% → 歩行-140px→通常 138°/80% → 通常 138°/80% → 歩行-70px→通常 108°/95% → 歩行-140px→通常 114°/90% → 通常 114°/90% → 通常 60°/80% → 歩行-140px→通常 30°/95% → 通常 30°/95% → 通常 0°/95% → 歩行-140px→通常 114°/90% → 通常 114°/90% → 通常 66°/80% → 歩行-140px→通常 168°/100% → 通常 168°/100%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0270/FINAL_MATCHES.json",
+          "stage": 100,
+          "difficulty": "hard",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "finalRelay": {
+        "normal": true,
+        "hard": true,
+        "allTenQuotas": 5,
+        "actionsPerRun": 30,
+        "fixedRulesPreserved": true
+      },
+      "blueprintSha256": "53cc5e737d433ae9e913cbb648c310f73539316af25b61db074a1ad2ddcfd5b6",
+      "featuredTechniqueVerified": false
     }
   ],
   "terrainRevision": "0.17.0",
@@ -3997,8 +3958,8 @@
     "method": "300 Gun/no-special full matches with3 enemy seeds +100 recommended-machine full matches +16 featured-technique full matches. Actual HP, damage, walking limits, supplies and enemy turns. No synthetic victories."
   },
   "currentAcceptance": {
-    "report": "../../evidence/maps-0260/ACCEPTANCE.json",
-    "matches": 7,
-    "scope": "Normal/Gun4, upper M-entry Normal/Rin71, Hard/Gun71 and73. Native W01/teleport and autonomous enemy turns. Not all solutions/characters/seeds or human difficulty."
+    "report": "../../evidence/maps-0270/ACCEPTANCE.json",
+    "matches": 28,
+    "scope": "Normal/Gun16 changed ordinary maps, Hard/Gun9 late maps, an additional high-wind97 route; final100 actual ten-machine relay in Normal and Hard,30 actions each. W01 only, empty inventory, real autonomous enemy turns. Text-only41/45 retain earlier native witnesses."
   }
 }

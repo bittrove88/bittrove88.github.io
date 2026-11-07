@@ -1,0 +1,848 @@
+{
+  "stage": 48,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 48,
+      "name": "斜めの通風門",
+      "goal": "低い斜坑から上昇気流で浮島裏へ回し、結晶を使って敵側高台へ通す。",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          27,
+          10
+        ],
+        [
+          34,
+          9
+        ],
+        [
+          42,
+          7
+        ],
+        [
+          52,
+          8
+        ],
+        [
+          63,
+          13
+        ],
+        [
+          75,
+          18
+        ],
+        [
+          87,
+          28
+        ],
+        [
+          92,
+          31
+        ],
+        [
+          108,
+          31
+        ],
+        [
+          125,
+          31
+        ]
+      ],
+      "parts": [
+        {
+          "id": "048-WIND-TOWER-LOW",
+          "kind": "wall",
+          "poly": [
+            [
+              39,
+              8
+            ],
+            [
+              46,
+              8
+            ],
+            [
+              46,
+              17
+            ],
+            [
+              39,
+              17
+            ]
+          ],
+          "breakable": true,
+          "purpose": "下側は破壊可能な小扉"
+        },
+        {
+          "id": "048-WIND-TOWER-UPPER",
+          "kind": "wall",
+          "poly": [
+            [
+              39,
+              29
+            ],
+            [
+              46,
+              29
+            ],
+            [
+              46,
+              42
+            ],
+            [
+              39,
+              42
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上側は固定。高さ17〜29の射撃窓"
+        },
+        {
+          "id": "048-UPPER-ISLET",
+          "kind": "island",
+          "poly": [
+            [
+              69,
+              26
+            ],
+            [
+              75,
+              33
+            ],
+            [
+              82,
+              33
+            ],
+            [
+              87,
+              29
+            ],
+            [
+              83,
+              25
+            ],
+            [
+              75,
+              24
+            ]
+          ],
+          "breakable": false,
+          "purpose": "中継射点"
+        },
+        {
+          "id": "048-PRISM-CEILING",
+          "kind": "roof",
+          "poly": [
+            [
+              106,
+              48
+            ],
+            [
+              111,
+              53
+            ],
+            [
+              121,
+              53
+            ],
+            [
+              125,
+              48
+            ],
+            [
+              122,
+              44
+            ],
+            [
+              111,
+              44
+            ]
+          ],
+          "breakable": false,
+          "purpose": "結晶から右へ離した敵上部屋根"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            47,
+            67,
+            13,
+            46
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            89,
+            41,
+            -22
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        108
+      ],
+      "route": "低い斜坑から上昇気流で浮島裏へ回し、結晶を使って敵側高台へ通す。",
+      "nameEn": "The Slanted Air Gate",
+      "goalEn": "Use an uplift shelf and a crystal to reach the elevated workshop.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            27,
+            10
+          ],
+          [
+            34,
+            9
+          ],
+          [
+            42,
+            7
+          ],
+          [
+            52,
+            8
+          ],
+          [
+            63,
+            13
+          ],
+          [
+            75,
+            18
+          ],
+          [
+            87,
+            28
+          ],
+          [
+            92,
+            31
+          ],
+          [
+            108,
+            31
+          ],
+          [
+            125,
+            31
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          10
+        ],
+        [
+          108,
+          31
+        ]
+      ],
+      "worldWidth": 1250,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 48,
+      "name": "斜めの通風門",
+      "nameEn": "The Slanted Air Gate",
+      "theme": 9,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          10
+        ],
+        [
+          108,
+          31
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            27,
+            10
+          ],
+          [
+            34,
+            9
+          ],
+          [
+            42,
+            7
+          ],
+          [
+            52,
+            8
+          ],
+          [
+            63,
+            13
+          ],
+          [
+            75,
+            18
+          ],
+          [
+            87,
+            28
+          ],
+          [
+            92,
+            31
+          ],
+          [
+            108,
+            31
+          ],
+          [
+            125,
+            31
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "048-WIND-TOWER-LOW",
+          "poly": [
+            [
+              39,
+              8
+            ],
+            [
+              46,
+              8
+            ],
+            [
+              46,
+              17
+            ],
+            [
+              39,
+              17
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "048-WIND-TOWER-UPPER",
+          "poly": [
+            [
+              39,
+              29
+            ],
+            [
+              46,
+              29
+            ],
+            [
+              46,
+              42
+            ],
+            [
+              39,
+              42
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "048-UPPER-ISLET",
+          "poly": [
+            [
+              69,
+              26
+            ],
+            [
+              75,
+              33
+            ],
+            [
+              82,
+              33
+            ],
+            [
+              87,
+              29
+            ],
+            [
+              83,
+              25
+            ],
+            [
+              75,
+              24
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "048-PRISM-CEILING",
+          "poly": [
+            [
+              106,
+              48
+            ],
+            [
+              111,
+              53
+            ],
+            [
+              121,
+              53
+            ],
+            [
+              125,
+              48
+            ],
+            [
+              122,
+              44
+            ],
+            [
+              111,
+              44
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            47,
+            67,
+            13,
+            46
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            89,
+            41,
+            -22
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "琥珀の機関",
+      "themeGoal": "上昇と減速の前後関係を読む",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "低い斜坑から上昇気流で浮島裏へ回し、結晶を使って敵側高台へ通す。",
+      "tacticalGoalEn": "Use an uplift shelf and a crystal to reach the elevated workshop.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1250
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 48,
+      "name": "斜めの通風門",
+      "goal": "張り出しの外へUで上げ、結晶から下の低岸へ弾を落とす。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          125,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "id": "048-HIGH-ROCK-TONGUE",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              0,
+              45
+            ],
+            [
+              60,
+              45
+            ],
+            [
+              65,
+              40
+            ],
+            [
+              60,
+              35
+            ],
+            [
+              8,
+              35
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              0,
+              12
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            30,
+            65,
+            43,
+            75
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            74,
+            68,
+            12
+          ],
+          "sizeFactor": 3.6
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        108
+      ],
+      "route": "張り出しの外へUで上げ、結晶から下の低岸へ弾を落とす。",
+      "nameEn": "The Slanted Air Gate",
+      "goalEn": "Lift the shot beyond the ledge with the updraft, then send it down to the low bank from the crystal.",
+      "terrainRevision": "10.0-review-completion",
+      "spawnPoints": [
+        [
+          18,
+          45
+        ],
+        [
+          94,
+          12
+        ]
+      ],
+      "worldWidth": 1250,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 48,
+      "name": "斜めの通風門",
+      "nameEn": "The Slanted Air Gate",
+      "theme": 9,
+      "boss": false,
+      "spawn": [
+        [
+          18,
+          45
+        ],
+        [
+          94,
+          12
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            125,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "048-HIGH-ROCK-TONGUE",
+          "poly": [
+            [
+              0,
+              45
+            ],
+            [
+              60,
+              45
+            ],
+            [
+              65,
+              40
+            ],
+            [
+              60,
+              35
+            ],
+            [
+              8,
+              35
+            ],
+            [
+              8,
+              12
+            ],
+            [
+              0,
+              12
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            30,
+            65,
+            43,
+            75
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            74,
+            68,
+            12
+          ],
+          "sizeFactor": 3.6
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "琥珀の機関",
+      "themeGoal": "上昇と減速の前後関係を読む",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "張り出しの外へUで上げ、結晶から下の低岸へ弾を落とす。",
+      "tacticalGoalEn": "Lift the shot beyond the ledge with the updraft, then send it down to the low bank from the crystal.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1250
+    }
+  },
+  "qualityEvidence": {
+    "shot": {
+      "angle": 33,
+      "power": 75,
+      "damage": [
+        0,
+        1
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 303.0050166319957,
+          "y": -48.84335476516694,
+          "t": 0.22222222222222213,
+          "bullet": 0
+        },
+        {
+          "type": "bounce",
+          "x": 597.3711248047408,
+          "y": -205.63341866074956,
+          "t": 0.9222222222222209,
+          "count": 1,
+          "surface": "crystal",
+          "solidId": "K1",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 9,
+        "rows": [
+          {
+            "angle": 30,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 36,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 36,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 36,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          }
+        ]
+      }
+    },
+    "withoutUSameInput": [
+      0,
+      0
+    ],
+    "withoutKSameInput": [
+      0,
+      0
+    ],
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          18,
+          45
+        ],
+        [
+          94,
+          12
+        ]
+      ],
+      "authored": [
+        [
+          18,
+          45
+        ],
+        [
+          94,
+          12
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1250
+    },
+    "experience": "高い張り出しからUへ上げ、広い結晶で下の岸へ一回落とす。",
+    "improvement": "低い自機から高い右敵へ撃つ構図をやめた。反射面は現行のsizeFactorで長さ396pxに広げ、U→Kの9近傍入力を確保。初期の頭上は開けた。",
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

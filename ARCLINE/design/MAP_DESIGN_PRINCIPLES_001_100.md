@@ -180,6 +180,8 @@
 
 ### 現在の実装・承認・確認範囲
 
+- **0.27.0の見直し：** [全100面の最終判断・テーマ・10面比較](stage_reviews/MAP_REVIEW_FINAL_DECISIONS_001_100_20261107.md)。今回の改善シリーズは地形39面・案内2面・維持59面。通常16面と100面4戦場を一面ずつ制作し、41・45面は案内のみ訂正。[実画面と検証範囲](stage_reviews/completion_20261107/README.md)。設計の変更後レビュー・本番公開・人間の初見評価は別の状態で記録する。
+
 - [ゲーム版数・保存形式](../game/runtime.json)、[現行100面の生成データ](runtime_campaign_20x5.json)、[実際の敵補正・行動処理](../game/dist/engine.js)。生成データを手編集せず、地形は[stage_blueprints](expedition_013/stage_blueprints.json)、取得物は[pickup_placements](pickup_placements.json)を変更元にする。
 - [1〜50面の承認記録](stage_reviews/STAGES_001_050_APPROVED_FINAL.json)、[51〜99面の承認記録](stage_reviews/STAGES_051_099_APPROVED_RUNTIME.json)、[0.24.1で差し替えた5面の採用記録](stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json)。後続で採用された範囲だけが旧記録を更新する。
 - [0.24.0：51〜99面統合・全100面の動作確認](../docs/releases/0.24.0.md)、[0.24.1：5面改訂・統合と検証](../docs/releases/0.24.1.md)、[5面の設計レビュー](stage_reviews/idea_refinement_20261107/README.md)。設計時点の画像・JSONと、最終的に採用した正本は区別する。

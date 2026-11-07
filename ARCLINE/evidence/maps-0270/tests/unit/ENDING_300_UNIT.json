@@ -1,0 +1,124 @@
+{
+  "status": "PASS",
+  "checks": 2506,
+  "langs": [
+    {
+      "lang": "ja",
+      "originalSeconds": 98.2,
+      "rate": 1.15,
+      "storyEnd": 85.3913043478261
+    },
+    {
+      "lang": "en",
+      "originalSeconds": 99.1375,
+      "rate": 1.1609788696537677,
+      "storyEnd": 85.3913043478261
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "players_roll",
+      "start": "storyEnd",
+      "end": 105
+    },
+    {
+      "kind": "enemies",
+      "start": 105,
+      "end": 115,
+      "groups": [
+        "enemies-1",
+        "enemies-2"
+      ],
+      "overlap": 1.8
+    },
+    {
+      "kind": "midbosses",
+      "start": 115,
+      "end": 127,
+      "groups": [
+        "midbosses-1",
+        "midbosses-2"
+      ],
+      "overlap": 2.1
+    },
+    {
+      "kind": "bosses",
+      "start": 127,
+      "end": 145,
+      "groups": [
+        "bosses-1",
+        "bosses-2",
+        "bosses-3"
+      ],
+      "overlap": 3.5
+    },
+    {
+      "kind": "archeart",
+      "start": 145,
+      "end": 149.5,
+      "groups": [
+        "archeart"
+      ],
+      "overlap": 0
+    },
+    {
+      "kind": "players_gather",
+      "start": 149.5,
+      "end": "duration-6"
+    },
+    {
+      "kind": "logo",
+      "start": "duration-6",
+      "end": "duration"
+    },
+    {
+      "kind": "silence",
+      "start": "duration",
+      "end": "duration+2.5"
+    }
+  ],
+  "roster": [
+    "player:gun",
+    "player:hana",
+    "player:koro",
+    "player:ban",
+    "player:sora",
+    "player:rico",
+    "player:hibari",
+    "player:mogu",
+    "player:rin",
+    "player:yui",
+    "enemy:pebble",
+    "enemy:slate",
+    "enemy:spike",
+    "enemy:flint",
+    "enemy:mole",
+    "enemy:riff",
+    "enemy:gust",
+    "enemy:pole",
+    "enemy:hang",
+    "enemy:mist",
+    "enemy:volt",
+    "enemy:blast",
+    "midboss:harbor-knot",
+    "midboss:bridge-mender",
+    "midboss:mist-bell",
+    "midboss:reflect-ram",
+    "midboss:lift-mole",
+    "midboss:gale-scout",
+    "midboss:cinder-chef",
+    "midboss:ore-shepherd",
+    "midboss:bloom-tender",
+    "midboss:line-warden",
+    "boss:tideclaw",
+    "boss:gatekeeper",
+    "boss:cloudray",
+    "boss:prism-guardian",
+    "boss:dust-driller",
+    "boss:whitehowl",
+    "boss:forge-titan",
+    "boss:polaris-core",
+    "boss:skycarrier",
+    "boss:archeart"
+  ]
+}

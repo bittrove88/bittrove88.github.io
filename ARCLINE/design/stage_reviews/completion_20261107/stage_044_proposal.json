@@ -1,0 +1,1072 @@
+{
+  "stage": 44,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 44,
+      "name": "積み荷と上昇流",
+      "goal": "上昇流の前で撃つか、奥の荷台へ転移して避ける",
+      "floor": [
+        [
+          0,
+          22
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          26,
+          22
+        ]
+      ],
+      "parts": [
+        {
+          "id": "044-LOADING-LOW",
+          "kind": "island",
+          "poly": [
+            [
+              29,
+              25
+            ],
+            [
+              34,
+              31
+            ],
+            [
+              44,
+              31
+            ],
+            [
+              48,
+              27
+            ],
+            [
+              44,
+              23
+            ],
+            [
+              34,
+              23
+            ]
+          ],
+          "breakable": false,
+          "purpose": "低い積荷台"
+        },
+        {
+          "id": "044-LOADING-HIGH",
+          "kind": "island",
+          "poly": [
+            [
+              70,
+              32
+            ],
+            [
+              75,
+              39
+            ],
+            [
+              83,
+              39
+            ],
+            [
+              87,
+              34
+            ],
+            [
+              83,
+              29
+            ],
+            [
+              75,
+              29
+            ]
+          ],
+          "breakable": false,
+          "purpose": "高い積荷台"
+        },
+        {
+          "id": "044-LOADING-RIGHT",
+          "kind": "island",
+          "poly": [
+            [
+              88,
+              23
+            ],
+            [
+              91,
+              28
+            ],
+            [
+              98,
+              28
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              96,
+              21
+            ],
+            [
+              91,
+              21
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵手前の積荷台"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            49,
+            65,
+            16,
+            47
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            40,
+            31,
+            25,
+            0
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            99,
+            119,
+            16
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        110
+      ],
+      "route": "上昇流の前で撃つか、奥の荷台へ転移して避ける",
+      "nameEn": "Cargo and Rising Air",
+      "goalEn": "Use the updraft or teleport beyond it.",
+      "floorSegments": [
+        [
+          [
+            0,
+            22
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            26,
+            22
+          ]
+        ],
+        [
+          [
+            99,
+            16
+          ],
+          [
+            111,
+            16
+          ],
+          [
+            120,
+            16
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          22
+        ],
+        [
+          110,
+          16
+        ]
+      ],
+      "worldWidth": 1200,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 44,
+      "name": "積み荷と上昇流",
+      "nameEn": "Cargo and Rising Air",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          22
+        ],
+        [
+          110,
+          16
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            22
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            26,
+            22
+          ]
+        ],
+        [
+          [
+            99,
+            16
+          ],
+          [
+            111,
+            16
+          ],
+          [
+            120,
+            16
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "044-LOADING-LOW",
+          "poly": [
+            [
+              29,
+              25
+            ],
+            [
+              34,
+              31
+            ],
+            [
+              44,
+              31
+            ],
+            [
+              48,
+              27
+            ],
+            [
+              44,
+              23
+            ],
+            [
+              34,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "044-LOADING-HIGH",
+          "poly": [
+            [
+              70,
+              32
+            ],
+            [
+              75,
+              39
+            ],
+            [
+              83,
+              39
+            ],
+            [
+              87,
+              34
+            ],
+            [
+              83,
+              29
+            ],
+            [
+              75,
+              29
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "044-LOADING-RIGHT",
+          "poly": [
+            [
+              88,
+              23
+            ],
+            [
+              91,
+              28
+            ],
+            [
+              98,
+              28
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              96,
+              21
+            ],
+            [
+              91,
+              21
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            49,
+            65,
+            16,
+            47
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            40,
+            31,
+            25,
+            0
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            99,
+            119,
+            16
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK044",
+          "kind": "skill",
+          "skillId": "S_POWER_UP_II",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 40.92481,
+          "h": 21.39627,
+          "spawnTurn": 1,
+          "placementId": "L044:skill:S_POWER_UP_II",
+          "verification": {
+            "angle": -2,
+            "power": 80,
+            "walk": 0,
+            "neighborHits": 6,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "上昇流の前で撃つか、奥の荷台へ転移して避ける",
+      "tacticalGoalEn": "Use the updraft or teleport beyond it.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1200
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 44,
+      "name": "積み荷と上昇流",
+      "goal": "手前のUから送るか、奥の荷台へ転移して反対側から狙う。",
+      "floor": [
+        [
+          0,
+          22
+        ],
+        [
+          16,
+          22
+        ],
+        [
+          26,
+          22
+        ]
+      ],
+      "parts": [
+        {
+          "id": "044-FRONT-CARGO",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              31,
+              25
+            ],
+            [
+              37,
+              30
+            ],
+            [
+              52,
+              30
+            ],
+            [
+              58,
+              26
+            ],
+            [
+              52,
+              25
+            ],
+            [
+              37,
+              24
+            ]
+          ]
+        },
+        {
+          "id": "044-REAR-CARGO",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              76,
+              29
+            ],
+            [
+              84,
+              36
+            ],
+            [
+              109,
+              36
+            ],
+            [
+              116,
+              31
+            ],
+            [
+              108,
+              26
+            ],
+            [
+              84,
+              25
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            49,
+            66,
+            16,
+            47
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            40,
+            31,
+            25,
+            0
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        110
+      ],
+      "route": "手前のUから送るか、奥の荷台へ転移して反対側から狙う。",
+      "nameEn": "Cargo and Rising Air",
+      "goalEn": "Shoot through the updraft, or teleport onto the rear cargo and fire from the other side.",
+      "floorSegments": [
+        [
+          [
+            0,
+            22
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            26,
+            22
+          ]
+        ],
+        [
+          [
+            99,
+            16
+          ],
+          [
+            111,
+            16
+          ],
+          [
+            120,
+            16
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          22
+        ],
+        [
+          86,
+          36
+        ]
+      ],
+      "worldWidth": 1200,
+      "terrainRevision": "10.0-review-completion",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 44,
+      "name": "積み荷と上昇流",
+      "nameEn": "Cargo and Rising Air",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          22
+        ],
+        [
+          86,
+          36
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            22
+          ],
+          [
+            16,
+            22
+          ],
+          [
+            26,
+            22
+          ]
+        ],
+        [
+          [
+            99,
+            16
+          ],
+          [
+            111,
+            16
+          ],
+          [
+            120,
+            16
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "044-FRONT-CARGO",
+          "poly": [
+            [
+              31,
+              25
+            ],
+            [
+              37,
+              30
+            ],
+            [
+              52,
+              30
+            ],
+            [
+              58,
+              26
+            ],
+            [
+              52,
+              25
+            ],
+            [
+              37,
+              24
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "044-REAR-CARGO",
+          "poly": [
+            [
+              76,
+              29
+            ],
+            [
+              84,
+              36
+            ],
+            [
+              109,
+              36
+            ],
+            [
+              116,
+              31
+            ],
+            [
+              108,
+              26
+            ],
+            [
+              84,
+              25
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            49,
+            66,
+            16,
+            47
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            40,
+            31,
+            25,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK044",
+          "kind": "skill",
+          "skillId": "S_POWER_UP_II",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 40.92481,
+          "h": 21.39627,
+          "spawnTurn": 1,
+          "placementId": "L044:skill:S_POWER_UP_II",
+          "verification": {
+            "angle": -6,
+            "power": 90,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "手前のUから送るか、奥の荷台へ転移して反対側から狙う。",
+      "tacticalGoalEn": "Shoot through the updraft, or teleport onto the rear cargo and fire from the other side.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1200
+    }
+  },
+  "qualityEvidence": {
+    "front": {
+      "angle": 24,
+      "power": 85,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 492.57114860224567,
+          "y": 155.0408958473833,
+          "t": 0.5777777777777777,
+          "bullet": 0
+        },
+        {
+          "x": 829.6731920570202,
+          "y": 124.42531866833222,
+          "t": 1.233333333333331,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 7,
+        "rows": [
+          {
+            "angle": 21,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "rear": {
+      "input": {
+        "angle": 33,
+        "power": 75,
+        "x": 104.38217654328132,
+        "h": 36,
+        "surface": "044-REAR-CARGO:e1"
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          104.38217654328132,
+          36
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 0,
+          "angle": 4.219820082932711,
+          "power": 65.53768630605191,
+          "damage": [
+            1,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              1043.8217654328132,
+              140
+            ],
+            [
+              860,
+              140
+            ]
+          ],
+          "hpBefore": [
+            7,
+            4
+          ],
+          "hpAfter": [
+            6,
+            4
+          ]
+        }
+      },
+      "facing": 1,
+      "shot": {
+        "angle": 150,
+        "power": 30,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 886.4576610757096,
+            "y": 101.84474790036123,
+            "t": 0.7333333333333327,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 9,
+          "rows": [
+            {
+              "angle": 147,
+              "power": 25,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 147,
+              "power": 30,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 147,
+              "power": 35,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 150,
+              "power": 25,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 150,
+              "power": 30,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 150,
+              "power": 35,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 153,
+              "power": 25,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 153,
+              "power": 30,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 153,
+              "power": 35,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "afterShotFacing": 1
+    },
+    "landingCount": 14,
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          22
+        ],
+        [
+          86,
+          36
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          22
+        ],
+        [
+          86,
+          36
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1200
+    },
+    "experience": "Uの手前から高い荷台へ送るか、奥へ回って左向きに撃つ。",
+    "improvement": "小さな荷台三つを、大きい前後二枚に整理。奥への転移は一手と実際の反撃を伴い、射撃方向と狙いの幅を変える。 荷台の下面だけを3高さ単位削り、元の取得物の周囲に空間を残した。",
+    "pickup": {
+      "before": {
+        "id": "SK044",
+        "kind": "skill",
+        "skillId": "S_POWER_UP_II",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 40.92481,
+        "h": 21.39627,
+        "spawnTurn": 1,
+        "placementId": "L044:skill:S_POWER_UP_II",
+        "verification": {
+          "angle": -2,
+          "power": 80,
+          "walk": 0,
+          "neighborHits": 6,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "verification": {
+        "angle": -6,
+        "power": 90,
+        "neighborHits": 9,
+        "neighborShots": 9,
+        "walkInput": 0,
+        "moved": 0,
+        "attackDamage": 0,
+        "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+      },
+      "relocation": null
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

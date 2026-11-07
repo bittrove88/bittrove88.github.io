@@ -4689,8 +4689,8 @@
           "type": "K",
           "v": [
             38,
-            32,
-            -15
+            38,
+            -10
           ],
           "sizeFactor": 1.8
         }
@@ -4715,7 +4715,7 @@
       "tacticalGoal": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
       "tacticalGoalEn": "Bounce once from the entrance crystal into the open cave.",
       "enemyHp": 4,
-      "terrainRevision": "9.0-intro-review",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 900
     },
     {
@@ -5152,7 +5152,15 @@
             15
           ],
           [
-            89,
+            81,
+            19
+          ],
+          [
+            86,
+            19
+          ],
+          [
+            90,
             15
           ],
           [
@@ -5162,40 +5170,6 @@
         ]
       ],
       "components": [
-        {
-          "id": "034-LEFT-CAVE-ROOF",
-          "poly": [
-            [
-              0,
-              30
-            ],
-            [
-              8,
-              36
-            ],
-            [
-              23,
-              38
-            ],
-            [
-              28,
-              36
-            ],
-            [
-              28,
-              22
-            ],
-            [
-              15,
-              21
-            ],
-            [
-              0,
-              22
-            ]
-          ],
-          "destructible": false
-        },
         {
           "id": "034-RIGHT-CAVE-ROOF",
           "poly": [
@@ -5265,16 +5239,6 @@
             73,
             0
           ]
-        },
-        {
-          "type": "K",
-          "v": [
-            59,
-            39,
-            -30
-          ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
         }
       ],
       "skills": {},
@@ -5291,11 +5255,13 @@
           "placementId": "L034:skill:S_CHARGE_SLOW_II",
           "verification": {
             "angle": 20,
-            "power": 90,
-            "walk": 0,
+            "power": 85,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
           }
         }
       ],
@@ -5314,10 +5280,10 @@
       "midboss": false,
       "encounterId": "enemy:flint",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "鏡床の反射と低い遮蔽を読み、複数回跳ねる道を探す",
-      "tacticalGoalEn": "Use the floor and low cover to plan two bounces.",
+      "tacticalGoal": "鏡床で最初に当てる位置を変え、低い屋根の下を続けて返す。",
+      "tacticalGoalEn": "Change the first contact on the mirrored floor and follow the rebounds beneath the low roof.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1080
     },
     {
@@ -6705,10 +6671,10 @@
       "midboss": false,
       "encounterId": "enemy:mole",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "支柱を壊さず手前の梁を開放し、上昇気流の高弾道で上部の敵を狙う。",
-      "tacticalGoalEn": "Keep the support, remove a cracked beam, and fire upward through an airshaft.",
+      "tacticalGoal": "柱の大きな窓へ弾を通し、上昇流で高い岸へ持ち上げる。",
+      "tacticalGoalEn": "Send the shot through the broad pillar opening and lift it to the high bank.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1100
     },
     {
@@ -6720,92 +6686,58 @@
       "spawn": [
         [
           16,
-          29
+          12
         ],
         [
           93,
-          21
+          16
         ]
       ],
       "floors": [
         [
           [
             0,
-            29
+            12
           ],
           [
-            16,
-            29
+            20,
+            12
           ],
           [
-            24,
-            28
+            29,
+            26
           ],
           [
-            32,
-            23
+            40,
+            26
           ],
           [
-            39,
-            15
+            48,
+            20
           ],
           [
-            47,
-            9
-          ],
-          [
-            57,
+            55,
             8
           ],
           [
-            68,
-            11
+            66,
+            8
           ],
           [
-            80,
-            21
+            77,
+            12
           ],
           [
-            93,
-            21
+            86,
+            16
           ],
           [
             112,
-            21
+            16
           ]
         ]
       ],
       "components": [
-        {
-          "id": "042-VENT-BALCONY",
-          "poly": [
-            [
-              27,
-              34
-            ],
-            [
-              31,
-              39
-            ],
-            [
-              39,
-              39
-            ],
-            [
-              44,
-              36
-            ],
-            [
-              42,
-              31
-            ],
-            [
-              32,
-              31
-            ]
-          ],
-          "destructible": false
-        },
         {
           "id": "042-BROKEN-AWNING",
           "poly": [
@@ -6841,19 +6773,10 @@
         {
           "type": "U",
           "v": [
-            44,
-            68,
-            10,
-            37
-          ]
-        },
-        {
-          "type": "B",
-          "v": [
-            44,
-            39,
-            27,
-            0
+            41,
+            74,
+            7,
+            23
           ]
         }
       ],
@@ -6870,12 +6793,14 @@
           "spawnTurn": 1,
           "placementId": "L042:weapon:W16",
           "verification": {
-            "angle": 4,
-            "power": 90,
-            "walk": 0,
-            "neighborHits": 5,
+            "angle": 46,
+            "power": 80,
+            "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 0
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
           }
         }
       ],
@@ -6894,10 +6819,10 @@
       "midboss": false,
       "encounterId": "enemy:pebble",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "高い棚を先に確保し、通気域を上から越える",
-      "tacticalGoalEn": "Secure the high shelf to cross above the updraft.",
+      "tacticalGoal": "上へ歩いてUの外から低く狙うか、下の通気口から弾を持ち上げる。",
+      "tacticalGoalEn": "Walk up to fire above the updraft, or lift a shot from its lower entrance.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1120
     },
     {
@@ -6990,34 +6915,56 @@
           "poly": [
             [
               78,
-              46
+              52
             ],
             [
               83,
-              53
+              59
             ],
             [
               92,
-              54
+              60
             ],
             [
               102,
-              48
+              54
             ],
             [
               100,
-              41
+              47
             ],
             [
               88,
-              41
+              47
             ],
             [
               79,
-              42
+              48
             ]
           ],
           "destructible": false
+        },
+        {
+          "id": "043-CRACKED-LIFT",
+          "poly": [
+            [
+              50,
+              40
+            ],
+            [
+              60,
+              42
+            ],
+            [
+              60,
+              27
+            ],
+            [
+              50,
+              25
+            ]
+          ],
+          "destructible": true
         },
         {
           "id": "043-HINGE-ISLAND",
@@ -7055,28 +7002,9 @@
           "type": "U",
           "v": [
             44,
-            58,
+            60,
             14,
-            33
-          ]
-        },
-        {
-          "type": "K",
-          "v": [
-            62,
-            39,
-            23
-          ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
-        },
-        {
-          "type": "B",
-          "v": [
-            67,
-            29,
-            17,
-            0
+            36
           ]
         }
       ],
@@ -7097,10 +7025,10 @@
       "midboss": false,
       "encounterId": "enemy:mole",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "低い射点から近い天井片を抜き、敵側の高台へ反射射撃する。",
-      "tacticalGoalEn": "Open roof windows from a split cave and reach the higher ledge.",
+      "tacticalGoal": "気流の出口を覆う一片を壊し、開いた上方へ次の弾を持ち上げる。",
+      "tacticalGoalEn": "Break one fragment over the updraft exit, then lift the next shot through the opening.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1120
     },
     {
@@ -7115,8 +7043,8 @@
           22
         ],
         [
-          110,
-          16
+          86,
+          36
         ]
       ],
       "floors": [
@@ -7151,91 +7079,61 @@
       ],
       "components": [
         {
-          "id": "044-LOADING-LOW",
+          "id": "044-FRONT-CARGO",
           "poly": [
             [
-              29,
+              31,
               25
             ],
             [
-              34,
-              31
+              37,
+              30
             ],
             [
-              44,
-              31
+              52,
+              30
             ],
             [
-              48,
-              27
+              58,
+              26
             ],
             [
-              44,
-              23
+              52,
+              25
             ],
             [
-              34,
-              23
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "044-LOADING-HIGH",
-          "poly": [
-            [
-              70,
-              32
-            ],
-            [
-              75,
-              39
-            ],
-            [
-              83,
-              39
-            ],
-            [
-              87,
-              34
-            ],
-            [
-              83,
-              29
-            ],
-            [
-              75,
-              29
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "044-LOADING-RIGHT",
-          "poly": [
-            [
-              88,
-              23
-            ],
-            [
-              91,
-              28
-            ],
-            [
-              98,
-              28
-            ],
-            [
-              101,
+              37,
               24
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "044-REAR-CARGO",
+          "poly": [
+            [
+              76,
+              29
             ],
             [
-              96,
-              21
+              84,
+              36
             ],
             [
-              91,
-              21
+              109,
+              36
+            ],
+            [
+              116,
+              31
+            ],
+            [
+              108,
+              26
+            ],
+            [
+              84,
+              25
             ]
           ],
           "destructible": false
@@ -7246,7 +7144,7 @@
           "type": "U",
           "v": [
             49,
-            65,
+            66,
             16,
             47
           ]
@@ -7258,14 +7156,6 @@
             31,
             25,
             0
-          ]
-        },
-        {
-          "type": "W",
-          "v": [
-            99,
-            119,
-            16
           ]
         }
       ],
@@ -7282,12 +7172,14 @@
           "spawnTurn": 1,
           "placementId": "L044:skill:S_POWER_UP_II",
           "verification": {
-            "angle": -2,
-            "power": 80,
-            "walk": 0,
-            "neighborHits": 6,
+            "angle": -6,
+            "power": 90,
+            "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 0
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
           }
         }
       ],
@@ -7306,10 +7198,10 @@
       "midboss": false,
       "encounterId": "enemy:pebble",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "上昇流の前で撃つか、奥の荷台へ転移して避ける",
-      "tacticalGoalEn": "Use the updraft or teleport beyond it.",
+      "tacticalGoal": "手前のUから送るか、奥の荷台へ転移して反対側から狙う。",
+      "tacticalGoalEn": "Shoot through the updraft, or teleport onto the rear cargo and fire from the other side.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1200
     },
     {
@@ -7494,10 +7386,10 @@
         }
       ],
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "ドライブを止め、柱の横から安全な射点を選ぶ",
-      "tacticalGoalEn": "Stop the drive and choose a firing point beside the column.",
+      "tacticalGoal": "柱の手前と脇の棚で、昇降ドライブと本体へ通す角度を選ぶ。",
+      "tacticalGoalEn": "Choose angles to the lift drive and body from the approach and side shelf.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1250
     },
     {
@@ -7508,175 +7400,94 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          14
+          80,
+          33
         ],
         [
-          99,
-          19
+          22,
+          16
         ]
       ],
       "floors": [
         [
           [
             0,
-            14
-          ],
-          [
-            16,
-            14
-          ],
-          [
-            26,
-            13
-          ],
-          [
-            35,
-            11
-          ],
-          [
-            45,
-            8
-          ],
-          [
-            58,
-            8
-          ],
-          [
-            68,
-            11
-          ],
-          [
-            78,
             16
           ],
           [
-            88,
-            19
+            26,
+            16
           ],
           [
-            99,
-            19
+            31,
+            22
+          ],
+          [
+            36,
+            22
+          ],
+          [
+            44,
+            12
+          ],
+          [
+            55,
+            18
+          ],
+          [
+            72,
+            27
+          ],
+          [
+            84,
+            36
           ],
           [
             115,
-            18
+            36
           ]
         ]
       ],
       "components": [
         {
-          "id": "046-CAVERN-CANOPY",
+          "id": "046-DIAGONAL-CUT",
           "poly": [
             [
-              21,
-              29
+              45,
+              52
             ],
             [
-              26,
-              36
+              63,
+              60
             ],
             [
-              33,
-              38
+              76,
+              64
             ],
             [
-              40,
-              34
+              77,
+              54
             ],
             [
-              40,
-              27
+              63,
+              48
             ],
             [
-              33,
-              26
-            ],
-            [
-              24,
-              26
+              45,
+              41
             ]
           ],
           "destructible": false
-        },
-        {
-          "id": "046-LOFT",
-          "poly": [
-            [
-              67,
-              25
-            ],
-            [
-              73,
-              31
-            ],
-            [
-              81,
-              31
-            ],
-            [
-              85,
-              27
-            ],
-            [
-              81,
-              23
-            ],
-            [
-              72,
-              23
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "046-EXIT-ROOF",
-          "poly": [
-            [
-              87,
-              39
-            ],
-            [
-              92,
-              43
-            ],
-            [
-              101,
-              43
-            ],
-            [
-              107,
-              39
-            ],
-            [
-              103,
-              35
-            ],
-            [
-              92,
-              35
-            ]
-          ],
-          "destructible": true
         }
       ],
       "features": [
         {
           "type": "U",
           "v": [
-            42,
-            65,
-            11,
-            44
-          ]
-        },
-        {
-          "type": "B",
-          "v": [
-            36,
-            25,
-            25,
-            0
+            32,
+            52,
+            12,
+            36
           ]
         }
       ],
@@ -7697,10 +7508,10 @@
       "midboss": false,
       "encounterId": "enemy:mole",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "自機側の高台から換気窓を通る弧を作り、下段の敵へ落とす。",
-      "tacticalGoalEn": "Aim downward across a ventilated cut and keep the supporting wall intact.",
+      "tacticalGoal": "右の斜めの切り通しを横へ通し、出口のUで左の低岸へ弧をつなぐ。",
+      "tacticalGoalEn": "Fire left through the sloping cut and use the exit updraft to reach the low bank.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1150
     },
     {
@@ -7912,167 +7723,57 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          10
+          18,
+          45
         ],
         [
-          108,
-          31
+          94,
+          12
         ]
       ],
       "floors": [
         [
           [
             0,
-            10
-          ],
-          [
-            16,
-            10
-          ],
-          [
-            27,
-            10
-          ],
-          [
-            34,
-            9
-          ],
-          [
-            42,
-            7
-          ],
-          [
-            52,
-            8
-          ],
-          [
-            63,
-            13
-          ],
-          [
-            75,
-            18
-          ],
-          [
-            87,
-            28
-          ],
-          [
-            92,
-            31
-          ],
-          [
-            108,
-            31
+            12
           ],
           [
             125,
-            31
+            12
           ]
         ]
       ],
       "components": [
         {
-          "id": "048-WIND-TOWER-LOW",
+          "id": "048-HIGH-ROCK-TONGUE",
           "poly": [
             [
-              39,
-              8
+              0,
+              45
             ],
             [
-              46,
-              8
+              60,
+              45
             ],
             [
-              46,
-              17
+              65,
+              40
             ],
             [
-              39,
-              17
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "048-WIND-TOWER-UPPER",
-          "poly": [
-            [
-              39,
-              29
+              60,
+              35
             ],
             [
-              46,
-              29
+              8,
+              35
             ],
             [
-              46,
-              42
+              8,
+              12
             ],
             [
-              39,
-              42
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "048-UPPER-ISLET",
-          "poly": [
-            [
-              69,
-              26
-            ],
-            [
-              75,
-              33
-            ],
-            [
-              82,
-              33
-            ],
-            [
-              87,
-              29
-            ],
-            [
-              83,
-              25
-            ],
-            [
-              75,
-              24
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "048-PRISM-CEILING",
-          "poly": [
-            [
-              106,
-              48
-            ],
-            [
-              111,
-              53
-            ],
-            [
-              121,
-              53
-            ],
-            [
-              125,
-              48
-            ],
-            [
-              122,
-              44
-            ],
-            [
-              111,
-              44
+              0,
+              12
             ]
           ],
           "destructible": false
@@ -8082,21 +7783,20 @@
         {
           "type": "U",
           "v": [
-            47,
-            67,
-            13,
-            46
+            30,
+            65,
+            43,
+            75
           ]
         },
         {
           "type": "K",
           "v": [
-            89,
-            41,
-            -22
+            74,
+            68,
+            12
           ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+          "sizeFactor": 3.6
         }
       ],
       "skills": {},
@@ -8116,10 +7816,10 @@
       "midboss": false,
       "encounterId": "enemy:mole",
       "recommendedCharacter": "mogu",
-      "tacticalGoal": "低い斜坑から上昇気流で浮島裏へ回し、結晶を使って敵側高台へ通す。",
-      "tacticalGoalEn": "Use an uplift shelf and a crystal to reach the elevated workshop.",
+      "tacticalGoal": "張り出しの外へUで上げ、結晶から下の低岸へ弾を落とす。",
+      "tacticalGoalEn": "Lift the shot beyond the ledge with the updraft, then send it down to the low bank from the crystal.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1250
     },
     {
@@ -11327,23 +11027,19 @@
           ],
           [
             44,
-            15
+            18
           ],
           [
-            54,
-            24
+            52,
+            18
           ],
           [
             61,
             24
           ],
           [
-            66,
-            28
-          ],
-          [
             74,
-            28
+            24
           ],
           [
             83,
@@ -11368,23 +11064,49 @@
           "id": "063-NEAR-GATE",
           "poly": [
             [
-              49,
-              19
+              44,
+              18
             ],
             [
-              55,
-              24
+              52,
+              18
             ],
             [
-              55,
-              42
+              52,
+              38
             ],
             [
-              49,
-              40
+              44,
+              38
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "063-NEAR-RIB",
+          "poly": [
+            [
+              44,
+              38
+            ],
+            [
+              52,
+              38
+            ],
+            [
+              56,
+              58
+            ],
+            [
+              51,
+              65
+            ],
+            [
+              44,
+              62
+            ]
+          ],
+          "destructible": false
         },
         {
           "id": "063-FAR-GATE",
@@ -11399,53 +11121,79 @@
             ],
             [
               100,
-              64
+              58
             ],
             [
               92,
-              64
+              58
             ]
           ],
           "destructible": true
+        },
+        {
+          "id": "063-FAR-RIB",
+          "poly": [
+            [
+              92,
+              58
+            ],
+            [
+              100,
+              58
+            ],
+            [
+              104,
+              80
+            ],
+            [
+              99,
+              91
+            ],
+            [
+              92,
+              87
+            ]
+          ],
+          "destructible": false
         },
         {
           "id": "063-HIGH-PERCH",
           "poly": [
             [
               62,
-              44
+              58
             ],
             [
               68,
-              50
+              64
             ],
             [
               76,
-              50
+              64
             ],
             [
               79,
-              53
+              67
             ],
             [
               84,
-              53
+              67
             ],
             [
               87,
-              47
+              61
             ],
             [
               81,
-              41
+              55
             ],
             [
               72,
-              42
+              56
             ],
             [
               68,
-              40
+              54
             ]
           ],
           "destructible": false
@@ -11469,10 +11217,10 @@
       "midboss": false,
       "encounterId": "enemy:blast",
       "recommendedCharacter": "rin",
-      "tacticalGoal": "手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。",
-      "tacticalGoalEn": "Open the near partition for an intermediate firing point or bypass it on the high shelf.",
+      "tacticalGoal": "手前の一片を開き、中間の床から奥の隔壁へ向く。高棚なら手前を迂回する。",
+      "tacticalGoalEn": "Open the near fragment to reach the middle floor and face the far partition, or bypass the first through the high shelf.",
       "enemyHp": 5,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1420
     },
     {
@@ -15275,8 +15023,8 @@
           33
         ],
         [
-          129,
-          75
+          94,
+          34
         ]
       ],
       "floors": [
@@ -15454,14 +15202,6 @@
             57,
             88
           ]
-        },
-        {
-          "type": "K",
-          "v": [
-            50,
-            76,
-            -55
-          ]
         }
       ],
       "skills": {},
@@ -15481,10 +15221,10 @@
       "midboss": false,
       "encounterId": "enemy:hang",
       "recommendedCharacter": "yui",
-      "tacticalGoal": "外庭園から結晶で根を越すか、内側の足場へ移って風の窓を使うか選ぶ。",
-      "tacticalGoalEn": "Use the crystal from outside or the wind window from inside the root ring.",
+      "tacticalGoal": "根輪の内側へ入って低く撃つか、外側の高い縁から風へ落とす。",
+      "tacticalGoalEn": "Enter the root ring for a low shot, or drop through the wind from its outer rim.",
       "enemyHp": 6,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1700
     },
     {
@@ -15743,8 +15483,8 @@
           36
         ],
         [
-          136,
-          43
+          114,
+          36
         ]
       ],
       "floors": [
@@ -15868,28 +15608,28 @@
           "id": "083-ENEMY",
           "poly": [
             [
-              117,
-              37
+              103,
+              30
             ],
             [
-              123,
-              43
+              109,
+              36
             ],
             [
-              149,
-              43
+              135,
+              36
             ],
             [
-              154,
-              38
+              140,
+              31
             ],
             [
-              144,
-              32
+              130,
+              25
             ],
             [
-              128,
-              32
+              114,
+              25
             ]
           ],
           "destructible": false
@@ -15932,10 +15672,10 @@
       "midboss": false,
       "encounterId": "enemy:hang",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
-      "tacticalGoalEn": "Use the side window through the cloud or rise through the cleft into the wind.",
+      "tacticalGoal": "同じ高さの岸へ、横窓を開けて雲を通すか、上の裂け目から風へ送る。",
+      "tacticalGoalEn": "Open the side window through the cloud, or send a higher arc through the wind to the level shore.",
       "enemyHp": 6,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1580
     },
     {
@@ -16627,8 +16367,8 @@
           18
         ],
         [
-          148,
-          64
+          125,
+          24
         ]
       ],
       "floors": [
@@ -16650,17 +16390,29 @@
             18
           ],
           [
-            70,
+            59,
             18
           ],
           [
-            88,
-            30
+            66,
+            29
+          ],
+          [
+            73,
+            29
+          ],
+          [
+            83,
+            18
+          ],
+          [
+            108,
+            18
           ]
         ],
         [
           [
-            104,
+            108,
             24
           ],
           [
@@ -16701,61 +16453,31 @@
           "destructible": false
         },
         {
-          "id": "086-DECK-HATCH",
-          "poly": [
-            [
-              116,
-              62
-            ],
-            [
-              124,
-              64
-            ],
-            [
-              124,
-              46
-            ],
-            [
-              116,
-              45
-            ]
-          ],
-          "destructible": true
-        },
-        {
           "id": "086-MAIN-DECK",
           "poly": [
             [
-              124,
-              80
+              132,
+              72
             ],
             [
-              138,
-              80
-            ],
-            [
-              142,
-              64
-            ],
-            [
-              158,
+              170,
               64
             ],
             [
               170,
-              58
+              24
             ],
             [
-              170,
-              44
+              164,
+              24
             ],
             [
-              151,
-              46
+              164,
+              52
             ],
             [
-              124,
-              46
+              132,
+              56
             ]
           ],
           "destructible": false
@@ -16789,24 +16511,46 @@
             ]
           ],
           "destructible": false
+        },
+        {
+          "id": "086-WORK-BEAM",
+          "poly": [
+            [
+              70,
+              60
+            ],
+            [
+              108,
+              60
+            ],
+            [
+              108,
+              50
+            ],
+            [
+              70,
+              50
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
         {
-          "type": "C",
-          "v": [
-            133,
-            144,
-            60,
-            73
-          ]
-        },
-        {
           "type": "W",
           "v": [
             70,
-            88,
+            110,
             18
+          ]
+        },
+        {
+          "type": "C",
+          "v": [
+            111,
+            130,
+            26,
+            47
           ]
         },
         {
@@ -16836,10 +16580,10 @@
       "midboss": false,
       "encounterId": "enemy:hang",
       "recommendedCharacter": "rin",
-      "tacticalGoal": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
-      "tacticalGoalEn": "Reflect below the work beam into the cloud or use the upper updraft shelf.",
+      "tacticalGoal": "作業桁の下の鏡湾から下甲板へ返すか、外の棚から上昇流へ送り船口へ落とす。",
+      "tacticalGoalEn": "Bounce through the mirror bay below the work beam, or use the exterior updraft shelf to descend into the hull entrance.",
       "enemyHp": 6,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1700
     },
     {
@@ -16851,11 +16595,11 @@
       "spawn": [
         [
           62,
-          25
+          60
         ],
         [
           165,
-          50
+          25
         ]
       ],
       "floors": [
@@ -16886,35 +16630,31 @@
           "poly": [
             [
               28,
-              29
+              64
             ],
             [
               39,
-              27
+              60
             ],
             [
-              48,
-              25
+              74,
+              60
             ],
             [
-              80,
-              25
-            ],
-            [
-              80,
-              16
+              74,
+              50
             ],
             [
               63,
-              10
+              45
             ],
             [
               44,
-              13
+              48
             ],
             [
               31,
-              19
+              54
             ]
           ],
           "destructible": false
@@ -16954,27 +16694,27 @@
           "poly": [
             [
               138,
-              50
+              25
             ],
             [
               172,
-              50
+              25
             ],
             [
               177,
-              44
+              19
             ],
             [
               171,
-              31
+              6
             ],
             [
               145,
-              32
+              7
             ],
             [
               138,
-              40
+              15
             ]
           ],
           "destructible": false
@@ -16984,19 +16724,19 @@
           "poly": [
             [
               146,
-              50
+              25
             ],
             [
               151,
-              50
+              25
             ],
             [
               151,
-              65
+              40
             ],
             [
               146,
-              65
+              40
             ]
           ],
           "destructible": true
@@ -17006,12 +16746,12 @@
         {
           "type": "B",
           "v": [
-            80,
-            25,
+            74,
+            74,
             28,
             0
           ],
-          "openAngleDeg": 75
+          "openAngleDeg": -75
         },
         {
           "type": "C",
@@ -17031,15 +16771,19 @@
           "weaponId": "W11",
           "category": "weapon",
           "amount": 2,
-          "x": 59,
-          "h": 34,
+          "x": 66,
+          "h": 69,
           "spawnTurn": 5,
           "placementId": "L087:weapon:W11",
           "verification": {
-            "angle": 92,
-            "power": 30,
-            "neighborHits": 5,
-            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+            "angle": 44,
+            "power": 55,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
           }
         }
       ],
@@ -17058,10 +16802,10 @@
       "midboss": false,
       "encounterId": "enemy:volt",
       "recommendedCharacter": "hibari",
-      "tacticalGoal": "固定P0で橋の遮蔽状態を読みCを通すか、雲外の固定棚へ移ってCを避けるか選ぶ。",
-      "tacticalGoalEn": "Read the cargo flap cover from a fixed dock, or relocate outside the cloud.",
+      "tacticalGoal": "高い固定荷台から荷役板の姿勢を読んで雲へ落とすか、雲外の貨物棚へ回る。",
+      "tacticalGoalEn": "Read the flap from the fixed upper dock and descend through the cloud, or relocate to the outer cargo perch.",
       "enemyHp": 6,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1800
     },
     {
@@ -17073,7 +16817,7 @@
       "spawn": [
         [
           58,
-          10
+          24
         ],
         [
           140,
@@ -17084,6 +16828,22 @@
         [
           [
             0,
+            10
+          ],
+          [
+            48,
+            10
+          ],
+          [
+            54,
+            24
+          ],
+          [
+            60,
+            24
+          ],
+          [
+            66,
             10
           ],
           [
@@ -17140,19 +16900,19 @@
           "poly": [
             [
               78,
-              49
+              63
             ],
             [
               86,
-              47
+              61
             ],
             [
               86,
-              38
+              52
             ],
             [
               78,
-              38
+              52
             ]
           ],
           "destructible": true
@@ -17162,23 +16922,23 @@
           "poly": [
             [
               86,
-              47
+              61
             ],
             [
               105,
-              47
+              61
             ],
             [
               105,
-              36
+              50
             ],
             [
               91,
-              38
+              52
             ],
             [
               86,
-              38
+              52
             ]
           ],
           "destructible": false
@@ -17197,10 +16957,11 @@
         {
           "type": "K",
           "v": [
-            112,
-            78,
-            -30
-          ]
+            115,
+            81,
+            0
+          ],
+          "sizeFactor": 2
         }
       ],
       "skills": {},
@@ -17216,12 +16977,14 @@
           "spawnTurn": 1,
           "placementId": "L088:skill:S_ALL_ATTACK",
           "verification": {
-            "angle": 52,
-            "power": 30,
-            "walk": 0,
-            "neighborHits": 9,
+            "angle": -12,
+            "power": 25,
+            "neighborHits": 6,
             "neighborShots": 9,
-            "attackDamage": 0
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
           }
         }
       ],
@@ -17240,10 +17003,10 @@
       "midboss": false,
       "encounterId": "enemy:hang",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
-      "tacticalGoalEn": "Enter the wind from the permanent shaft or use the crystal from the eastern eave.",
+      "tacticalGoal": "見える整備口から風へ送り、庇へ移ったら外側の結晶から同じ上甲板を狙う。",
+      "tacticalGoalEn": "Send a shot through the visible maintenance shaft, or relocate onto the eave and use the outer crystal.",
       "enemyHp": 6,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1560
     },
     {
@@ -17817,8 +17580,8 @@
           20
         ],
         [
-          83,
-          50
+          94,
+          26.125
         ]
       ],
       "floors": [
@@ -17895,31 +17658,31 @@
           "poly": [
             [
               67,
-              43
+              57
             ],
             [
               76,
-              50
+              64
             ],
             [
               94,
-              50
+              64
             ],
             [
               106,
-              43
+              57
             ],
             [
               99,
-              36
+              50
             ],
             [
               82,
-              39
+              53
             ],
             [
               71,
-              34
+              48
             ]
           ],
           "destructible": false
@@ -17977,19 +17740,19 @@
           "poly": [
             [
               55,
+              24
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              65,
               57
             ],
             [
-              65,
-              60
-            ],
-            [
-              65,
-              78
-            ],
-            [
               55,
-              74
+              54
             ]
           ],
           "destructible": true
@@ -18007,15 +17770,23 @@
             ],
             [
               55,
-              57
+              14
+            ],
+            [
+              65,
+              14
+            ],
+            [
+              65,
+              24
             ],
             [
               55,
-              74
+              24
             ],
             [
               48,
-              69
+              35
             ]
           ],
           "destructible": false
@@ -18025,35 +17796,35 @@
           "poly": [
             [
               26,
-              57
+              33
             ],
             [
               34,
-              64
+              40
             ],
             [
               45,
-              64
+              40
             ],
             [
               51,
-              57
+              33
             ],
             [
               45,
-              53
+              29
             ],
             [
               39,
-              50
+              26
             ],
             [
               34,
-              51
+              27
             ],
             [
               29,
-              49
+              25
             ]
           ],
           "destructible": false
@@ -18063,16 +17834,17 @@
         {
           "type": "K",
           "v": [
-            74,
-            68,
-            40
-          ]
+            71,
+            40,
+            30
+          ],
+          "sizeFactor": 1.8
         },
         {
           "type": "W",
           "v": [
-            126,
-            137,
+            123,
+            146,
             18
           ]
         }
@@ -18094,10 +17866,10 @@
       "midboss": false,
       "encounterId": "enemy:flint",
       "recommendedCharacter": "rin",
-      "tacticalGoal": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
-      "tacticalGoalEn": "Open the right gate for a floor reflection or the left gate for a crystal approach.",
+      "tacticalGoal": "右正門を一片開けて鏡床へ返すか、左側門へ回って結晶から落とす。開ける門を選ぶ。",
+      "tacticalGoalEn": "Open the right gate for a floor rebound, or approach the left gate and descend from the crystal. Choose one entrance.",
       "enemyHp": 7,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1600
     },
     {
@@ -19415,8 +19187,8 @@
       "boss": false,
       "spawn": [
         [
-          85,
-          83
+          84,
+          31
         ],
         [
           156,
@@ -19535,31 +19307,47 @@
           "poly": [
             [
               69,
-              72
+              44
             ],
             [
               77,
-              83
+              31
             ],
             [
-              95,
-              83
+              88,
+              31
             ],
             [
-              106,
-              77
+              96,
+              45
             ],
             [
               100,
-              67
+              79
             ],
             [
-              83,
-              70
+              107,
+              73
+            ],
+            [
+              112,
+              57
+            ],
+            [
+              108,
+              30
+            ],
+            [
+              94,
+              19
+            ],
+            [
+              80,
+              21
             ],
             [
               72,
-              65
+              28
             ]
           ],
           "destructible": false
@@ -19577,11 +19365,11 @@
             ],
             [
               148,
-              54
+              40
             ],
             [
               142,
-              51
+              39
             ]
           ],
           "destructible": true
@@ -19591,10 +19379,10 @@
         {
           "type": "F",
           "v": [
-            93,
-            129,
-            44,
-            77
+            28,
+            48,
+            74,
+            101
           ]
         },
         {
@@ -19603,7 +19391,8 @@
             118,
             57,
             -85
-          ]
+          ],
+          "sizeFactor": 2.4
         },
         {
           "type": "U",
@@ -19628,12 +19417,14 @@
           "spawnTurn": 1,
           "placementId": "L097:weapon:W16",
           "verification": {
-            "angle": -2,
+            "angle": 84,
             "power": 85,
-            "walk": 0,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 0
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
           }
         }
       ],
@@ -19652,10 +19443,10 @@
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
-      "tacticalGoalEn": "Choose the low updraft island, reverse crystal entry or high wind route.",
+      "tacticalGoal": "岩背の内側から、低島の上昇流・中段の折返し結晶・高岸の風のどこへ移るか選ぶ。",
+      "tacticalGoalEn": "Leave the rock hollow for the low updraft, middle return crystal, or high wind bank.",
       "enemyHp": 7,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 1840
     },
     {
@@ -19799,28 +19590,28 @@
           "id": "098-HIGH-LEAF",
           "poly": [
             [
+              64,
+              66
+            ],
+            [
+              69,
+              71
+            ],
+            [
+              76,
+              71
+            ],
+            [
+              84,
+              65
+            ],
+            [
               75,
-              80
+              63
             ],
             [
-              80,
-              85
-            ],
-            [
-              87,
-              85
-            ],
-            [
-              95,
-              79
-            ],
-            [
-              86,
-              77
-            ],
-            [
-              79,
-              78
+              68,
+              64
             ]
           ],
           "destructible": false
@@ -19893,28 +19684,28 @@
           "id": "098-EAST-LOW",
           "poly": [
             [
-              145,
-              11
+              138,
+              32
             ],
             [
-              151,
-              17
+              144,
+              38
             ],
             [
-              162,
-              17
-            ],
-            [
-              166,
-              12
+              155,
+              38
             ],
             [
               159,
-              7
+              33
             ],
             [
-              151,
-              6
+              152,
+              28
+            ],
+            [
+              144,
+              27
             ]
           ],
           "destructible": false
@@ -19923,24 +19714,24 @@
           "id": "098-HIGH-SCREEN",
           "poly": [
             [
-              143,
-              73
+              58,
+              86
             ],
             [
-              148,
-              80
+              64,
+              121
             ],
             [
-              154,
-              78
+              73,
+              125
             ],
             [
-              155,
-              70
+              78,
+              113
             ],
             [
-              149,
-              67
+              74,
+              75
             ]
           ],
           "destructible": false
@@ -20046,10 +19837,10 @@
       "midboss": false,
       "encounterId": "enemy:volt",
       "recommendedCharacter": "koro",
-      "tacticalGoal": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
-      "tacticalGoalEn": "Read the opposite bridge poses and choose a relay island or an independent low island.",
+      "tacticalGoal": "西橋の水平先と上り先、東橋の高路と降下先を見て、残る固定島から射点を選ぶ。",
+      "tacticalGoalEn": "Read each bridge: west relay or rising leaf, east high span or descending perch. Choose a fixed landing and firing point.",
       "enemyHp": 7,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "10.0-review-completion",
       "worldWidth": 2020
     },
     {
@@ -20318,66 +20109,58 @@
       "spawn": [
         [
           65,
-          21.0
+          40
         ],
         [
           150,
-          23.0
+          18
         ]
       ],
       "floors": [
         [
           [
             0,
-            8
+            45
           ],
           [
             35,
+            45
+          ],
+          [
+            52,
+            40
+          ],
+          [
+            105,
+            40
+          ],
+          [
+            130,
+            18
+          ],
+          [
+            160,
+            18
+          ],
+          [
+            181,
             8
           ],
           [
-            58,
-            21
+            205,
+            48
           ],
           [
-            80,
-            21
+            265,
+            48
           ],
           [
-            100,
-            12
-          ],
-          [
-            127,
-            12
-          ],
-          [
-            146,
-            23
-          ],
-          [
-            177,
-            23
-          ],
-          [
-            194,
-            11
-          ],
-          [
-            218,
-            11
-          ],
-          [
-            239,
-            25
-          ],
-          [
-            274,
-            25
+            285,
+            30
           ],
           [
             300,
-            12
+            30
           ]
         ]
       ],
@@ -20386,133 +20169,49 @@
           "id": "100-M0-C01",
           "poly": [
             [
-              110,
-              35
+              82,
+              74
             ],
             [
-              114,
-              35
+              99,
+              71
             ],
             [
-              114,
-              12
+              108,
+              64
             ],
             [
-              110,
-              12
+              104,
+              58
+            ],
+            [
+              84,
+              61
             ]
           ],
-          "destructible": true
+          "destructible": false
         },
         {
           "id": "100-M0-C02",
           "poly": [
             [
-              190,
-              40
+              119,
+              28
             ],
             [
-              194,
-              40
+              129,
+              28
             ],
             [
-              194,
-              11
+              129,
+              46
             ],
             [
-              190,
-              11
+              119,
+              46
             ]
           ],
           "destructible": true
-        },
-        {
-          "id": "100-M0-C03",
-          "poly": [
-            [
-              126,
-              39
-            ],
-            [
-              143,
-              39
-            ],
-            [
-              143,
-              35
-            ],
-            [
-              126,
-              35
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "100-M0-C04",
-          "poly": [
-            [
-              240,
-              40
-            ],
-            [
-              263,
-              40
-            ],
-            [
-              263,
-              36
-            ],
-            [
-              240,
-              36
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "100-M0-C05",
-          "poly": [
-            [
-              109,
-              47
-            ],
-            [
-              127,
-              47
-            ],
-            [
-              127,
-              44
-            ],
-            [
-              109,
-              44
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "100-M0-C06",
-          "poly": [
-            [
-              161,
-              51
-            ],
-            [
-              184,
-              51
-            ],
-            [
-              184,
-              48
-            ],
-            [
-              161,
-              48
-            ]
-          ],
-          "destructible": false
         }
       ],
       "features": [
@@ -20567,10 +20266,10 @@
       "midboss": false,
       "encounterId": "boss:archeart",
       "recommendedCharacter": "gun",
-      "tacticalGoal": "固定順10機で本体へ各100ダメージ。4戦場の高低差と遮蔽を読み、最後のガンで核を止める。",
-      "tacticalGoalEn": "Win the fixed ten-machine relay using four distinct multi-level arenas.",
+      "tacticalGoal": "盆地・分断回廊・縦穴・斜めの裂け目で射点を選び直し、固定10機でそれぞれ本体へ100ダメージを通す。",
+      "tacticalGoalEn": "Choose firing positions across the basin, broken passage, open shaft and slanted cleft. Each fixed machine must deal100 damage.",
       "enemyHp": 7,
-      "terrainRevision": "5.4",
+      "terrainRevision": "10.0-review-completion",
       "finalBattle": {
         "order": [
           "hana",
@@ -20598,101 +20297,97 @@
             "floor": [
               [
                 0,
-                8
+                45
               ],
               [
                 35,
+                45
+              ],
+              [
+                52,
+                40
+              ],
+              [
+                105,
+                40
+              ],
+              [
+                130,
+                18
+              ],
+              [
+                160,
+                18
+              ],
+              [
+                181,
                 8
               ],
               [
-                58,
-                21
+                205,
+                48
               ],
               [
-                80,
-                21
+                265,
+                48
               ],
               [
-                100,
-                12
-              ],
-              [
-                127,
-                12
-              ],
-              [
-                146,
-                23
-              ],
-              [
-                177,
-                23
-              ],
-              [
-                194,
-                11
-              ],
-              [
-                218,
-                11
-              ],
-              [
-                239,
-                25
-              ],
-              [
-                274,
-                25
+                285,
+                30
               ],
               [
                 300,
-                12
+                30
               ]
             ],
             "parts": [
               {
-                "kind": "wall",
-                "x": 110,
-                "top": 35,
-                "width": 4,
-                "bottom": 12
-              },
-              {
-                "kind": "wall",
-                "x": 190,
-                "top": 40,
-                "width": 4,
-                "bottom": 11
-              },
-              {
                 "kind": "island",
-                "x": 126,
-                "end": 143,
-                "top": 39,
-                "thickness": 4
-              },
-              {
-                "kind": "island",
-                "x": 240,
-                "end": 263,
-                "top": 40,
-                "thickness": 4
-              },
-              {
-                "kind": "roof",
-                "x": 109,
-                "end": 127,
-                "top": 47,
-                "thickness": 3,
-                "breakable": true
-              },
-              {
-                "kind": "roof",
-                "x": 161,
-                "end": 184,
-                "top": 51,
-                "thickness": 3,
+                "poly": [
+                  [
+                    82,
+                    74
+                  ],
+                  [
+                    99,
+                    71
+                  ],
+                  [
+                    108,
+                    64
+                  ],
+                  [
+                    104,
+                    58
+                  ],
+                  [
+                    84,
+                    61
+                  ]
+                ],
                 "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    119,
+                    28
+                  ],
+                  [
+                    129,
+                    28
+                  ],
+                  [
+                    129,
+                    46
+                  ],
+                  [
+                    119,
+                    46
+                  ]
+                ],
+                "breakable": true
               }
             ],
             "features": [
@@ -20708,74 +20403,66 @@
             "spawns": {
               "hana": [
                 65,
-                21
+                40
               ],
               "koro": [
                 245,
-                25
+                48
               ],
               "ban": [
                 60,
-                21
+                40
               ]
             },
             "bossSpawn": [
               150,
-              23
+              18
             ],
             "floors": [
               [
                 [
                   0,
-                  8
+                  45
                 ],
                 [
                   35,
+                  45
+                ],
+                [
+                  52,
+                  40
+                ],
+                [
+                  105,
+                  40
+                ],
+                [
+                  130,
+                  18
+                ],
+                [
+                  160,
+                  18
+                ],
+                [
+                  181,
                   8
                 ],
                 [
-                  58,
-                  21
+                  205,
+                  48
                 ],
                 [
-                  80,
-                  21
+                  265,
+                  48
                 ],
                 [
-                  100,
-                  12
-                ],
-                [
-                  127,
-                  12
-                ],
-                [
-                  146,
-                  23
-                ],
-                [
-                  177,
-                  23
-                ],
-                [
-                  194,
-                  11
-                ],
-                [
-                  218,
-                  11
-                ],
-                [
-                  239,
-                  25
-                ],
-                [
-                  274,
-                  25
+                  285,
+                  30
                 ],
                 [
                   300,
-                  12
+                  30
                 ]
               ]
             ],
@@ -20784,133 +20471,49 @@
                 "id": "100-M0-C01",
                 "poly": [
                   [
-                    110,
-                    35
+                    82,
+                    74
                   ],
                   [
-                    114,
-                    35
+                    99,
+                    71
                   ],
                   [
-                    114,
-                    12
+                    108,
+                    64
                   ],
                   [
-                    110,
-                    12
+                    104,
+                    58
+                  ],
+                  [
+                    84,
+                    61
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M0-C02",
                 "poly": [
                   [
-                    190,
-                    40
+                    119,
+                    28
                   ],
                   [
-                    194,
-                    40
+                    129,
+                    28
                   ],
                   [
-                    194,
-                    11
+                    129,
+                    46
                   ],
                   [
-                    190,
-                    11
+                    119,
+                    46
                   ]
                 ],
                 "destructible": true
-              },
-              {
-                "id": "100-M0-C03",
-                "poly": [
-                  [
-                    126,
-                    39
-                  ],
-                  [
-                    143,
-                    39
-                  ],
-                  [
-                    143,
-                    35
-                  ],
-                  [
-                    126,
-                    35
-                  ]
-                ],
-                "destructible": false
-              },
-              {
-                "id": "100-M0-C04",
-                "poly": [
-                  [
-                    240,
-                    40
-                  ],
-                  [
-                    263,
-                    40
-                  ],
-                  [
-                    263,
-                    36
-                  ],
-                  [
-                    240,
-                    36
-                  ]
-                ],
-                "destructible": false
-              },
-              {
-                "id": "100-M0-C05",
-                "poly": [
-                  [
-                    109,
-                    47
-                  ],
-                  [
-                    127,
-                    47
-                  ],
-                  [
-                    127,
-                    44
-                  ],
-                  [
-                    109,
-                    44
-                  ]
-                ],
-                "destructible": true
-              },
-              {
-                "id": "100-M0-C06",
-                "poly": [
-                  [
-                    161,
-                    51
-                  ],
-                  [
-                    184,
-                    51
-                  ],
-                  [
-                    184,
-                    48
-                  ],
-                  [
-                    161,
-                    48
-                  ]
-                ],
-                "destructible": false
               }
             ]
           },
@@ -20922,184 +20525,298 @@
             "floor": [
               [
                 0,
-                10
+                8
               ],
               [
-                38,
-                10
+                18,
+                8
               ],
               [
-                60,
-                24
-              ],
-              [
-                81,
-                24
-              ],
-              [
-                100,
-                12
-              ],
-              [
-                128,
-                12
-              ],
-              [
-                146,
-                22
-              ],
-              [
-                195,
-                22
-              ],
-              [
-                214,
-                10
-              ],
-              [
-                250,
-                10
-              ],
-              [
-                273,
-                25
+                295,
+                8
               ],
               [
                 300,
-                12
+                8
               ]
             ],
             "parts": [
               {
                 "kind": "island",
-                "x": 65,
-                "end": 83,
-                "top": 39,
-                "thickness": 4
+                "poly": [
+                  [
+                    52,
+                    61
+                  ],
+                  [
+                    65,
+                    70
+                  ],
+                  [
+                    96,
+                    70
+                  ],
+                  [
+                    106,
+                    63
+                  ],
+                  [
+                    94,
+                    52
+                  ],
+                  [
+                    72,
+                    54
+                  ],
+                  [
+                    60,
+                    48
+                  ]
+                ],
+                "breakable": false
               },
               {
                 "kind": "island",
-                "x": 216,
-                "end": 235,
-                "top": 36,
-                "thickness": 4
+                "poly": [
+                  [
+                    248,
+                    75
+                  ],
+                  [
+                    260,
+                    88
+                  ],
+                  [
+                    291,
+                    88
+                  ],
+                  [
+                    299,
+                    80
+                  ],
+                  [
+                    292,
+                    68
+                  ],
+                  [
+                    272,
+                    67
+                  ],
+                  [
+                    254,
+                    65
+                  ]
+                ],
+                "breakable": false
               },
               {
-                "kind": "wall",
-                "x": 149,
-                "top": 42,
-                "width": 4,
-                "bottom": 22
+                "kind": "island",
+                "poly": [
+                  [
+                    160,
+                    28
+                  ],
+                  [
+                    168,
+                    36
+                  ],
+                  [
+                    192,
+                    36
+                  ],
+                  [
+                    201,
+                    28
+                  ],
+                  [
+                    187,
+                    18
+                  ],
+                  [
+                    171,
+                    21
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "island",
+                "poly": [
+                  [
+                    100,
+                    19
+                  ],
+                  [
+                    113,
+                    28
+                  ],
+                  [
+                    132,
+                    28
+                  ],
+                  [
+                    145,
+                    55
+                  ],
+                  [
+                    153,
+                    53
+                  ],
+                  [
+                    151,
+                    20
+                  ],
+                  [
+                    132,
+                    11
+                  ],
+                  [
+                    114,
+                    13
+                  ]
+                ],
+                "breakable": false
               },
               {
                 "kind": "roof",
-                "x": 165,
-                "end": 188,
-                "top": 48,
-                "thickness": 3,
-                "breakable": true
-              },
-              {
-                "kind": "wall",
-                "x": 203,
-                "top": 36,
-                "width": 4,
-                "bottom": 11
+                "poly": [
+                  [
+                    214,
+                    89
+                  ],
+                  [
+                    229,
+                    96
+                  ],
+                  [
+                    245,
+                    91
+                  ],
+                  [
+                    248,
+                    78
+                  ],
+                  [
+                    230,
+                    68
+                  ],
+                  [
+                    214,
+                    70
+                  ]
+                ],
+                "breakable": false
               },
               {
                 "kind": "island",
-                "x": 266,
-                "end": 289,
-                "top": 40,
-                "thickness": 4
+                "poly": [
+                  [
+                    211,
+                    20
+                  ],
+                  [
+                    221,
+                    27
+                  ],
+                  [
+                    237,
+                    27
+                  ],
+                  [
+                    244,
+                    20
+                  ],
+                  [
+                    234,
+                    12
+                  ],
+                  [
+                    219,
+                    14
+                  ]
+                ],
+                "breakable": false
               }
             ],
             "features": [
               {
                 "type": "C",
                 "v": [
-                  132,
-                  155,
-                  25,
-                  47
+                  116,
+                  150,
+                  42,
+                  76
                 ]
               },
               {
                 "type": "K",
                 "v": [
-                  204,
-                  36,
-                  30
-                ]
+                  205,
+                  110,
+                  25
+                ],
+                "sizeFactor": 1.8
               }
             ],
             "spawns": {
               "sora": [
                 74,
-                39
+                70
               ],
               "rico": [
                 275,
-                40
+                88
               ],
               "hibari": [
                 80,
-                39
+                70
               ]
             },
             "bossSpawn": [
               180,
-              22
+              36
+            ],
+            "floorSegments": [
+              [
+                [
+                  0,
+                  8
+                ],
+                [
+                  18,
+                  8
+                ]
+              ],
+              [
+                [
+                  295,
+                  8
+                ],
+                [
+                  300,
+                  8
+                ]
+              ]
             ],
             "floors": [
               [
                 [
                   0,
-                  10
+                  8
                 ],
                 [
-                  38,
-                  10
-                ],
+                  18,
+                  8
+                ]
+              ],
+              [
                 [
-                  60,
-                  24
-                ],
-                [
-                  81,
-                  24
-                ],
-                [
-                  100,
-                  12
-                ],
-                [
-                  128,
-                  12
-                ],
-                [
-                  146,
-                  22
-                ],
-                [
-                  195,
-                  22
-                ],
-                [
-                  214,
-                  10
-                ],
-                [
-                  250,
-                  10
-                ],
-                [
-                  273,
-                  25
+                  295,
+                  8
                 ],
                 [
                   300,
-                  12
+                  8
                 ]
               ]
             ],
@@ -21108,20 +20825,32 @@
                 "id": "100-M1-C01",
                 "poly": [
                   [
-                    65,
-                    39
-                  ],
-                  [
-                    83,
-                    39
-                  ],
-                  [
-                    83,
-                    35
+                    52,
+                    61
                   ],
                   [
                     65,
-                    35
+                    70
+                  ],
+                  [
+                    96,
+                    70
+                  ],
+                  [
+                    106,
+                    63
+                  ],
+                  [
+                    94,
+                    52
+                  ],
+                  [
+                    72,
+                    54
+                  ],
+                  [
+                    60,
+                    48
                   ]
                 ],
                 "destructible": false
@@ -21130,20 +20859,32 @@
                 "id": "100-M1-C02",
                 "poly": [
                   [
-                    216,
-                    36
+                    248,
+                    75
                   ],
                   [
-                    235,
-                    36
+                    260,
+                    88
                   ],
                   [
-                    235,
-                    32
+                    291,
+                    88
                   ],
                   [
-                    216,
-                    32
+                    299,
+                    80
+                  ],
+                  [
+                    292,
+                    68
+                  ],
+                  [
+                    272,
+                    67
+                  ],
+                  [
+                    254,
+                    65
                   ]
                 ],
                 "destructible": false
@@ -21152,86 +20893,126 @@
                 "id": "100-M1-C03",
                 "poly": [
                   [
-                    149,
-                    42
+                    160,
+                    28
                   ],
                   [
-                    153,
-                    42
+                    168,
+                    36
                   ],
                   [
-                    153,
-                    22
+                    192,
+                    36
                   ],
                   [
-                    149,
-                    22
+                    201,
+                    28
+                  ],
+                  [
+                    187,
+                    18
+                  ],
+                  [
+                    171,
+                    21
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M1-C04",
                 "poly": [
                   [
-                    165,
-                    48
+                    100,
+                    19
                   ],
                   [
-                    188,
-                    48
+                    113,
+                    28
                   ],
                   [
-                    188,
-                    45
+                    132,
+                    28
                   ],
                   [
-                    165,
-                    45
+                    145,
+                    55
+                  ],
+                  [
+                    153,
+                    53
+                  ],
+                  [
+                    151,
+                    20
+                  ],
+                  [
+                    132,
+                    11
+                  ],
+                  [
+                    114,
+                    13
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M1-C05",
                 "poly": [
                   [
-                    203,
-                    36
+                    214,
+                    89
                   ],
                   [
-                    207,
-                    36
+                    229,
+                    96
                   ],
                   [
-                    207,
-                    11
+                    245,
+                    91
                   ],
                   [
-                    203,
-                    11
+                    248,
+                    78
+                  ],
+                  [
+                    230,
+                    68
+                  ],
+                  [
+                    214,
+                    70
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M1-C06",
                 "poly": [
                   [
-                    266,
-                    40
+                    211,
+                    20
                   ],
                   [
-                    289,
-                    40
+                    221,
+                    27
                   ],
                   [
-                    289,
-                    36
+                    237,
+                    27
                   ],
                   [
-                    266,
-                    36
+                    244,
+                    20
+                  ],
+                  [
+                    234,
+                    12
+                  ],
+                  [
+                    219,
+                    14
                   ]
                 ],
                 "destructible": false
@@ -21246,114 +21027,206 @@
             "floor": [
               [
                 0,
-                7
+                72
               ],
               [
-                35,
-                7
+                85,
+                72
               ],
               [
-                58,
-                21
-              ],
-              [
-                80,
-                21
-              ],
-              [
-                100,
-                10
-              ],
-              [
-                124,
-                10
-              ],
-              [
-                146,
-                24
-              ],
-              [
-                166,
-                24
-              ],
-              [
-                186,
+                94,
                 12
               ],
               [
-                224,
-                12
+                120,
+                8
               ],
               [
-                245,
-                5
+                185,
+                8
+              ],
+              [
+                203,
+                18
               ],
               [
                 265,
-                5
+                18
               ],
               [
-                284,
-                18
+                285,
+                30
               ],
               [
                 300,
-                18
+                30
               ]
             ],
             "parts": [
               {
-                "kind": "wall",
-                "x": 92,
-                "top": 41,
-                "width": 4,
-                "bottom": 12
-              },
-              {
-                "kind": "wall",
-                "x": 177,
-                "top": 41,
-                "width": 4,
-                "bottom": 14
-              },
-              {
                 "kind": "island",
-                "x": 75,
-                "end": 91,
-                "top": 40,
-                "thickness": 4
+                "poly": [
+                  [
+                    147,
+                    33
+                  ],
+                  [
+                    153,
+                    42
+                  ],
+                  [
+                    170,
+                    42
+                  ],
+                  [
+                    179,
+                    34
+                  ],
+                  [
+                    169,
+                    25
+                  ],
+                  [
+                    154,
+                    27
+                  ]
+                ],
+                "breakable": false
               },
               {
-                "kind": "island",
-                "x": 186,
-                "end": 205,
-                "top": 40,
-                "thickness": 4
+                "kind": "wall",
+                "poly": [
+                  [
+                    90,
+                    12
+                  ],
+                  [
+                    100,
+                    12
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    90,
+                    50
+                  ]
+                ],
+                "breakable": false
               },
               {
-                "kind": "roof",
-                "x": 124,
-                "end": 145,
-                "top": 47,
-                "thickness": 3,
+                "kind": "wall",
+                "poly": [
+                  [
+                    90,
+                    50
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    100,
+                    95
+                  ],
+                  [
+                    90,
+                    98
+                  ]
+                ],
                 "breakable": true
               },
               {
                 "kind": "roof",
-                "x": 225,
-                "end": 244,
-                "top": 49,
-                "thickness": 3,
+                "poly": [
+                  [
+                    88,
+                    112
+                  ],
+                  [
+                    106,
+                    120
+                  ],
+                  [
+                    122,
+                    112
+                  ],
+                  [
+                    119,
+                    95
+                  ],
+                  [
+                    102,
+                    91
+                  ],
+                  [
+                    88,
+                    98
+                  ]
+                ],
                 "breakable": false
+              },
+              {
+                "kind": "roof",
+                "poly": [
+                  [
+                    202,
+                    81
+                  ],
+                  [
+                    224,
+                    89
+                  ],
+                  [
+                    270,
+                    75
+                  ],
+                  [
+                    270,
+                    62
+                  ],
+                  [
+                    228,
+                    72
+                  ],
+                  [
+                    202,
+                    65
+                  ]
+                ],
+                "breakable": false
+              },
+              {
+                "kind": "wall",
+                "poly": [
+                  [
+                    215,
+                    18
+                  ],
+                  [
+                    223,
+                    18
+                  ],
+                  [
+                    223,
+                    50
+                  ],
+                  [
+                    215,
+                    50
+                  ]
+                ],
+                "breakable": true
               }
             ],
             "features": [
               {
                 "type": "M",
                 "v": [
-                  168,
-                  30,
-                  11,
+                  182,
+                  52,
+                  16,
                   1
                 ]
               },
@@ -21369,79 +21242,59 @@
             "spawns": {
               "mogu": [
                 74,
-                21
+                72
               ],
               "rin": [
                 250,
-                5
+                18
               ],
               "yui": [
                 65,
-                21
+                72
               ]
             },
             "bossSpawn": [
               157,
-              24
+              42
             ],
             "backdrop": "cave",
             "floors": [
               [
                 [
                   0,
-                  7
+                  72
                 ],
                 [
-                  35,
-                  7
+                  85,
+                  72
                 ],
                 [
-                  58,
-                  21
-                ],
-                [
-                  80,
-                  21
-                ],
-                [
-                  100,
-                  10
-                ],
-                [
-                  124,
-                  10
-                ],
-                [
-                  146,
-                  24
-                ],
-                [
-                  166,
-                  24
-                ],
-                [
-                  186,
+                  94,
                   12
                 ],
                 [
-                  224,
-                  12
+                  120,
+                  8
                 ],
                 [
-                  245,
-                  5
+                  185,
+                  8
+                ],
+                [
+                  203,
+                  18
                 ],
                 [
                   265,
-                  5
+                  18
                 ],
                 [
-                  284,
-                  18
+                  285,
+                  30
                 ],
                 [
                   300,
-                  18
+                  30
                 ]
               ]
             ],
@@ -21450,86 +21303,102 @@
                 "id": "100-M2-C01",
                 "poly": [
                   [
-                    92,
-                    41
+                    147,
+                    33
                   ],
                   [
-                    96,
-                    41
+                    153,
+                    42
                   ],
                   [
-                    96,
-                    12
+                    170,
+                    42
                   ],
                   [
-                    92,
-                    12
-                  ]
-                ],
-                "destructible": true
-              },
-              {
-                "id": "100-M2-C02",
-                "poly": [
-                  [
-                    177,
-                    41
+                    179,
+                    34
                   ],
                   [
-                    181,
-                    41
+                    169,
+                    25
                   ],
                   [
-                    181,
-                    14
-                  ],
-                  [
-                    177,
-                    14
-                  ]
-                ],
-                "destructible": true
-              },
-              {
-                "id": "100-M2-C03",
-                "poly": [
-                  [
-                    75,
-                    40
-                  ],
-                  [
-                    91,
-                    40
-                  ],
-                  [
-                    91,
-                    36
-                  ],
-                  [
-                    75,
-                    36
+                    154,
+                    27
                   ]
                 ],
                 "destructible": false
               },
               {
+                "id": "100-M2-C02",
+                "poly": [
+                  [
+                    90,
+                    12
+                  ],
+                  [
+                    100,
+                    12
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    90,
+                    50
+                  ]
+                ],
+                "destructible": false
+              },
+              {
+                "id": "100-M2-C03",
+                "poly": [
+                  [
+                    90,
+                    50
+                  ],
+                  [
+                    100,
+                    50
+                  ],
+                  [
+                    100,
+                    95
+                  ],
+                  [
+                    90,
+                    98
+                  ]
+                ],
+                "destructible": true
+              },
+              {
                 "id": "100-M2-C04",
                 "poly": [
                   [
-                    186,
-                    40
+                    88,
+                    112
                   ],
                   [
-                    205,
-                    40
+                    106,
+                    120
                   ],
                   [
-                    205,
-                    36
+                    122,
+                    112
                   ],
                   [
-                    186,
-                    36
+                    119,
+                    95
+                  ],
+                  [
+                    102,
+                    91
+                  ],
+                  [
+                    88,
+                    98
                   ]
                 ],
                 "destructible": false
@@ -21538,45 +21407,53 @@
                 "id": "100-M2-C05",
                 "poly": [
                   [
-                    124,
-                    47
+                    202,
+                    81
                   ],
                   [
-                    145,
-                    47
+                    224,
+                    89
                   ],
                   [
-                    145,
-                    44
+                    270,
+                    75
                   ],
                   [
-                    124,
-                    44
+                    270,
+                    62
+                  ],
+                  [
+                    228,
+                    72
+                  ],
+                  [
+                    202,
+                    65
                   ]
                 ],
-                "destructible": true
+                "destructible": false
               },
               {
                 "id": "100-M2-C06",
                 "poly": [
                   [
-                    225,
-                    49
+                    215,
+                    18
                   ],
                   [
-                    244,
-                    49
+                    223,
+                    18
                   ],
                   [
-                    244,
-                    46
+                    223,
+                    50
                   ],
                   [
-                    225,
-                    46
+                    215,
+                    50
                   ]
                 ],
-                "destructible": false
+                "destructible": true
               }
             ]
           },
@@ -21588,153 +21465,155 @@
             "floor": [
               [
                 0,
-                7
+                8
               ],
               [
-                35,
-                7
-              ],
-              [
-                57,
-                20
-              ],
-              [
-                78,
-                20
-              ],
-              [
-                100,
-                9
+                110,
+                8
               ],
               [
                 134,
-                9
+                30
               ],
               [
-                156,
-                20
+                151,
+                58
               ],
               [
-                193,
-                20
+                173,
+                58
               ],
               [
-                213,
-                28
+                190,
+                36
               ],
               [
-                269,
-                28
-              ],
-              [
-                288,
+                207,
                 16
+              ],
+              [
+                224,
+                16
+              ],
+              [
+                239,
+                25
+              ],
+              [
+                260,
+                25
+              ],
+              [
+                276,
+                48
               ],
               [
                 300,
-                16
+                48
               ]
             ],
             "parts": [
               {
-                "kind": "wall",
-                "x": 204,
-                "top": 48,
-                "width": 4,
-                "bottom": 27
-              },
-              {
                 "kind": "island",
-                "x": 182,
-                "end": 200,
-                "top": 39,
-                "thickness": 4
-              },
-              {
-                "kind": "island",
-                "x": 265,
-                "end": 281,
-                "top": 42,
-                "thickness": 4
-              },
-              {
-                "kind": "roof",
-                "x": 222,
-                "end": 259,
-                "top": 48,
-                "thickness": 3,
-                "breakable": true
+                "poly": [
+                  [
+                    187,
+                    60
+                  ],
+                  [
+                    196,
+                    82
+                  ],
+                  [
+                    207,
+                    69
+                  ],
+                  [
+                    211,
+                    50
+                  ],
+                  [
+                    207,
+                    43
+                  ],
+                  [
+                    198,
+                    44
+                  ]
+                ],
+                "breakable": false
               }
             ],
             "features": [
               {
                 "type": "K",
                 "v": [
-                  218,
-                  39,
+                  225,
+                  48,
                   -20
-                ]
+                ],
+                "sizeFactor": 1.8
               }
             ],
             "spawns": {
               "gun": [
                 160,
-                20
+                58
               ]
             },
             "bossSpawn": [
               245,
-              28
+              25
             ],
             "floors": [
               [
                 [
                   0,
-                  7
+                  8
                 ],
                 [
-                  35,
-                  7
-                ],
-                [
-                  57,
-                  20
-                ],
-                [
-                  78,
-                  20
-                ],
-                [
-                  100,
-                  9
+                  110,
+                  8
                 ],
                 [
                   134,
-                  9
+                  30
                 ],
                 [
-                  156,
-                  20
+                  151,
+                  58
                 ],
                 [
-                  193,
-                  20
+                  173,
+                  58
                 ],
                 [
-                  213,
-                  28
+                  190,
+                  36
                 ],
                 [
-                  269,
-                  28
-                ],
-                [
-                  288,
+                  207,
                   16
+                ],
+                [
+                  224,
+                  16
+                ],
+                [
+                  239,
+                  25
+                ],
+                [
+                  260,
+                  25
+                ],
+                [
+                  276,
+                  48
                 ],
                 [
                   300,
-                  16
+                  48
                 ]
               ]
             ],
@@ -21743,89 +21622,31 @@
                 "id": "100-M3-C01",
                 "poly": [
                   [
-                    204,
-                    48
+                    187,
+                    60
                   ],
                   [
-                    208,
-                    48
+                    196,
+                    82
                   ],
                   [
-                    208,
-                    27
+                    207,
+                    69
                   ],
                   [
-                    204,
-                    27
-                  ]
-                ],
-                "destructible": true
-              },
-              {
-                "id": "100-M3-C02",
-                "poly": [
-                  [
-                    182,
-                    39
+                    211,
+                    50
                   ],
                   [
-                    200,
-                    39
+                    207,
+                    43
                   ],
                   [
-                    200,
-                    35
-                  ],
-                  [
-                    182,
-                    35
+                    198,
+                    44
                   ]
                 ],
                 "destructible": false
-              },
-              {
-                "id": "100-M3-C03",
-                "poly": [
-                  [
-                    265,
-                    42
-                  ],
-                  [
-                    281,
-                    42
-                  ],
-                  [
-                    281,
-                    38
-                  ],
-                  [
-                    265,
-                    38
-                  ]
-                ],
-                "destructible": false
-              },
-              {
-                "id": "100-M3-C04",
-                "poly": [
-                  [
-                    222,
-                    48
-                  ],
-                  [
-                    259,
-                    48
-                  ],
-                  [
-                    259,
-                    45
-                  ],
-                  [
-                    222,
-                    45
-                  ]
-                ],
-                "destructible": true
               }
             ]
           }
