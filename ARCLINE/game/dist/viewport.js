@@ -25,7 +25,6 @@
  function install(app,onChange=()=>{}){
   let state=null,mirrors=[],scrollGesture=null,fitFrame=0;
   const scrollTouches=new Set();
-  const safeProbe=document.createElement('div');safeProbe.dataset.viewportSafeArea='true';safeProbe.setAttribute('aria-hidden','true');safeProbe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;width:0;height:0;padding-top:env(safe-area-inset-top,0px);padding-right:env(safe-area-inset-right,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px)';document.body.append(safeProbe);
   const viewport=root.visualViewport,options={passive:false,capture:true};
   function cancelGesture(){
    const id=scrollGesture?.id;for(const row of scrollGesture?.snaps||[])row.node.style.scrollSnapType=row.snap;scrollGesture=null;
@@ -88,10 +87,10 @@
    }
    const matches=query=>root.matchMedia(query.replace(/\((min|max)-(width|height):\s*([\d.]+)px\)/g,(_,limit,axis,n)=>'('+((limit==='min'?(axis==='width'?width:height)>=Number(n):(axis==='width'?width:height)<=Number(n))?'min-width:0px':'min-width:1000000px')+')').replace(/\(orientation:\s*(landscape|portrait)\)/g,(_,orientation)=>'('+((orientation==='landscape'?width>=height:width<height)?'min-width:0px':'min-width:1000000px')+')')).matches;
    const serialize=rules=>[...rules].map(rule=>rule.type===4?(matches(rule.conditionText)?serialize(rule.cssRules):''):rule.cssText).join('\n');
-   // The outer app frame already excludes the native safe area. Do not apply
-   // the same inset again inside rotated panels.
-
-   const virtualCSS=text=>text.replace(/([\d.]+)(dvh|svh|lvh|vh|dvw|svw|lvw|vw|vmin|vmax)\b/g,(_,n,unit)=>(Number(n)*(unit==='vmin'?Math.min(width,height):unit==='vmax'?Math.max(width,height):unit.endsWith('vw')?width:height)/100)+'px').replace(/env\(safe-area-inset-(top|right|bottom|left)([^)]*)\)/g,()=> '0px');
+   // Keep the full-bleed surface used before 0.24.5. Insets belong to the
+   // existing UI rules, in landscape coordinates, rather than the canvas frame.
+   const sides=['top','right','bottom','left'],turn=state.rotation/90;
+   const virtualCSS=text=>text.replace(/([\d.]+)(dvh|svh|lvh|vh|dvw|svw|lvw|vw|vmin|vmax)\b/g,(_,n,unit)=>(Number(n)*(unit==='vmin'?Math.min(width,height):unit==='vmax'?Math.max(width,height):unit.endsWith('vw')?width:height)/100)+'px').replace(/env\(safe-area-inset-(top|right|bottom|left)([^)]*)\)/g,(_,side,tail)=>'env(safe-area-inset-'+sides[(sides.indexOf(side)+turn+4)%4]+tail+')');
    for(const row of mirrors)row.copy.textContent=row.disabled?'':virtualCSS(serialize(row.sheet.cssRules));
   }
   function fit(){
@@ -100,11 +99,9 @@
    // resume. Its unzoomed layout viewport is the actual application window.
    const standalone=!!root.navigator?.standalone||root.matchMedia('(display-mode: standalone)').matches;
    const layout=standalone&&Math.abs(scale-1)<.01&&!editing;
-   const fullWidth=layout?root.innerWidth:(viewport?.width||root.innerWidth)*scale,fullHeight=layout?root.innerHeight:(viewport?.height||root.innerHeight)*scale;
-   const css=getComputedStyle(safeProbe),inset=side=>Math.max(0,parseFloat(css.getPropertyValue('padding-'+side))||0);
-   const safeLeft=inset('left'),safeRight=inset('right'),safeTop=inset('top'),safeBottom=editing&&fullHeight<root.innerHeight-80?0:inset('bottom');
-   const nativeWidth=Math.max(1,fullWidth-safeLeft-safeRight),nativeHeight=Math.max(1,fullHeight-safeTop-safeBottom),left=(layout?0:viewport?.offsetLeft||0)+safeLeft/scale,top=(layout?0:viewport?.offsetTop||0)+safeTop/scale;
-   const portrait=fullWidth<fullHeight,nativeAngle=typeof root.orientation==='number'?root.orientation:root.screen?.orientation?.angle,rotation=rotationFor(fullWidth,fullHeight,nativeAngle),width=portrait?nativeHeight:nativeWidth,height=portrait?nativeWidth:nativeHeight;
+   const nativeWidth=layout?root.innerWidth:(viewport?.width||root.innerWidth)*scale,nativeHeight=layout?root.innerHeight:(viewport?.height||root.innerHeight)*scale,
+    left=layout?0:viewport?.offsetLeft||0,top=layout?0:viewport?.offsetTop||0;
+   const portrait=nativeWidth<nativeHeight,nativeAngle=typeof root.orientation==='number'?root.orientation:root.screen?.orientation?.angle,rotation=rotationFor(nativeWidth,nativeHeight,nativeAngle),width=portrait?nativeHeight:nativeWidth,height=portrait?nativeWidth:nativeHeight;
    const next={width,height,scale,left,top,rotation};
    if(state&&Object.keys(next).every(k=>Math.abs(next[k]-state[k])<.01))return false;
    cancelGesture();scrollTouches.clear();
