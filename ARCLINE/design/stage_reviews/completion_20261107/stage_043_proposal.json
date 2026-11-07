@@ -1,0 +1,1117 @@
+{
+  "stage": 43,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 43,
+      "name": "天井の細い裂け目",
+      "goal": "低い射点から近い天井片を抜き、敵側の高台へ反射射撃する。",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          43,
+          13
+        ]
+      ],
+      "parts": [
+        {
+          "id": "043-LEFT-CAVE-SHELL",
+          "kind": "roof",
+          "poly": [
+            [
+              26,
+              29
+            ],
+            [
+              30,
+              37
+            ],
+            [
+              36,
+              39
+            ],
+            [
+              43,
+              36
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              35,
+              25
+            ],
+            [
+              28,
+              26
+            ]
+          ],
+          "breakable": false,
+          "purpose": "洞窟左側天井。隙間の左端はx43"
+        },
+        {
+          "id": "043-RIGHT-CAVE-SHELL",
+          "kind": "roof",
+          "poly": [
+            [
+              78,
+              46
+            ],
+            [
+              83,
+              53
+            ],
+            [
+              92,
+              54
+            ],
+            [
+              102,
+              48
+            ],
+            [
+              100,
+              41
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              79,
+              42
+            ]
+          ],
+          "breakable": false,
+          "purpose": "洞窟右側天井。隙間の右端はx78"
+        },
+        {
+          "id": "043-HINGE-ISLAND",
+          "kind": "island",
+          "poly": [
+            [
+              64,
+              22
+            ],
+            [
+              69,
+              28
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              77,
+              24
+            ],
+            [
+              74,
+              21
+            ],
+            [
+              68,
+              20
+            ]
+          ],
+          "breakable": false,
+          "purpose": "地上より高い橋台"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            58,
+            14,
+            33
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            62,
+            39,
+            23
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+        },
+        {
+          "type": "B",
+          "v": [
+            67,
+            29,
+            17,
+            0
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        94
+      ],
+      "route": "低い射点から近い天井片を抜き、敵側の高台へ反射射撃する。",
+      "nameEn": "A Narrow Roof Opening",
+      "goalEn": "Open roof windows from a split cave and reach the higher ledge.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            30,
+            12
+          ],
+          [
+            43,
+            13
+          ]
+        ],
+        [
+          [
+            78,
+            25
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            112,
+            25
+          ]
+        ]
+      ],
+      "terrainRevision": "6.0-approved-001-050",
+      "spawnPoints": [
+        [
+          16,
+          11
+        ],
+        [
+          94,
+          25
+        ]
+      ],
+      "worldWidth": 1120,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 43,
+      "name": "天井の細い裂け目",
+      "nameEn": "A Narrow Roof Opening",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          11
+        ],
+        [
+          94,
+          25
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            30,
+            12
+          ],
+          [
+            43,
+            13
+          ]
+        ],
+        [
+          [
+            78,
+            25
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            112,
+            25
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "043-LEFT-CAVE-SHELL",
+          "poly": [
+            [
+              26,
+              29
+            ],
+            [
+              30,
+              37
+            ],
+            [
+              36,
+              39
+            ],
+            [
+              43,
+              36
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              35,
+              25
+            ],
+            [
+              28,
+              26
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "043-RIGHT-CAVE-SHELL",
+          "poly": [
+            [
+              78,
+              46
+            ],
+            [
+              83,
+              53
+            ],
+            [
+              92,
+              54
+            ],
+            [
+              102,
+              48
+            ],
+            [
+              100,
+              41
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              79,
+              42
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "043-HINGE-ISLAND",
+          "poly": [
+            [
+              64,
+              22
+            ],
+            [
+              69,
+              28
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              77,
+              24
+            ],
+            [
+              74,
+              21
+            ],
+            [
+              68,
+              20
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            58,
+            14,
+            33
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            62,
+            39,
+            23
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは110px固定。拡大にはエンジン改修が必要"
+        },
+        {
+          "type": "B",
+          "v": [
+            67,
+            29,
+            17,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "低い射点から近い天井片を抜き、敵側の高台へ反射射撃する。",
+      "tacticalGoalEn": "Open roof windows from a split cave and reach the higher ledge.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1120
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 43,
+      "name": "天井の細い裂け目",
+      "goal": "気流の出口を覆う一片を壊し、開いた上方へ次の弾を持ち上げる。",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          43,
+          13
+        ]
+      ],
+      "parts": [
+        {
+          "id": "043-LEFT-CAVE-SHELL",
+          "kind": "roof",
+          "poly": [
+            [
+              26,
+              29
+            ],
+            [
+              30,
+              37
+            ],
+            [
+              36,
+              39
+            ],
+            [
+              43,
+              36
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              35,
+              25
+            ],
+            [
+              28,
+              26
+            ]
+          ],
+          "breakable": false,
+          "purpose": "洞窟左側天井。隙間の左端はx43"
+        },
+        {
+          "id": "043-RIGHT-CAVE-SHELL",
+          "kind": "roof",
+          "poly": [
+            [
+              78,
+              52
+            ],
+            [
+              83,
+              59
+            ],
+            [
+              92,
+              60
+            ],
+            [
+              102,
+              54
+            ],
+            [
+              100,
+              47
+            ],
+            [
+              88,
+              47
+            ],
+            [
+              79,
+              48
+            ]
+          ],
+          "breakable": false,
+          "purpose": "洞窟右側天井。隙間の右端はx78"
+        },
+        {
+          "id": "043-CRACKED-LIFT",
+          "kind": "roof",
+          "breakable": true,
+          "poly": [
+            [
+              50,
+              40
+            ],
+            [
+              60,
+              42
+            ],
+            [
+              60,
+              27
+            ],
+            [
+              50,
+              25
+            ]
+          ]
+        },
+        {
+          "id": "043-HINGE-ISLAND",
+          "kind": "island",
+          "poly": [
+            [
+              64,
+              22
+            ],
+            [
+              69,
+              28
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              77,
+              24
+            ],
+            [
+              74,
+              21
+            ],
+            [
+              68,
+              20
+            ]
+          ],
+          "breakable": false,
+          "purpose": "地上より高い洞口の中継支持。開いた気流の出口と通路の高さを分ける。"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            60,
+            14,
+            36
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        94
+      ],
+      "route": "気流の出口を覆う一片を壊し、開いた上方へ次の弾を持ち上げる。",
+      "nameEn": "A Narrow Roof Opening",
+      "goalEn": "Break one fragment over the updraft exit, then lift the next shot through the opening.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            30,
+            12
+          ],
+          [
+            43,
+            13
+          ]
+        ],
+        [
+          [
+            78,
+            25
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            112,
+            25
+          ]
+        ]
+      ],
+      "terrainRevision": "10.0-review-completion",
+      "spawnPoints": [
+        [
+          16,
+          11
+        ],
+        [
+          94,
+          25
+        ]
+      ],
+      "worldWidth": 1120,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 43,
+      "name": "天井の細い裂け目",
+      "nameEn": "A Narrow Roof Opening",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          11
+        ],
+        [
+          94,
+          25
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            30,
+            12
+          ],
+          [
+            43,
+            13
+          ]
+        ],
+        [
+          [
+            78,
+            25
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            112,
+            25
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "043-LEFT-CAVE-SHELL",
+          "poly": [
+            [
+              26,
+              29
+            ],
+            [
+              30,
+              37
+            ],
+            [
+              36,
+              39
+            ],
+            [
+              43,
+              36
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              35,
+              25
+            ],
+            [
+              28,
+              26
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "043-RIGHT-CAVE-SHELL",
+          "poly": [
+            [
+              78,
+              52
+            ],
+            [
+              83,
+              59
+            ],
+            [
+              92,
+              60
+            ],
+            [
+              102,
+              54
+            ],
+            [
+              100,
+              47
+            ],
+            [
+              88,
+              47
+            ],
+            [
+              79,
+              48
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "043-CRACKED-LIFT",
+          "poly": [
+            [
+              50,
+              40
+            ],
+            [
+              60,
+              42
+            ],
+            [
+              60,
+              27
+            ],
+            [
+              50,
+              25
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "043-HINGE-ISLAND",
+          "poly": [
+            [
+              64,
+              22
+            ],
+            [
+              69,
+              28
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              77,
+              24
+            ],
+            [
+              74,
+              21
+            ],
+            [
+              68,
+              20
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            60,
+            14,
+            36
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "気流の出口を覆う一片を壊し、開いた上方へ次の弾を持ち上げる。",
+      "tacticalGoalEn": "Break one fragment over the updraft exit, then lift the next shot through the opening.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1120
+    }
+  },
+  "qualityEvidence": {
+    "initial": {
+      "angle": 21,
+      "power": 95,
+      "damage": [
+        0,
+        1
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 445.0839314539029,
+          "y": 269.0742670648016,
+          "t": 0.43333333333333346,
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 1,
+        "rows": [
+          {
+            "angle": 18,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 18,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 18,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "firstBreak": {
+      "angle": 24,
+      "power": 95,
+      "neighborHits": 7,
+      "damage": [
+        0,
+        0
+      ],
+      "destroyed": [
+        "043-CRACKED-LIFT@0"
+      ]
+    },
+    "shot": {
+      "angle": 30,
+      "power": 75,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 444.29879314743425,
+          "y": 237.75834150907886,
+          "t": 0.5999999999999999,
+          "bullet": 0
+        },
+        {
+          "x": 917.4345000640062,
+          "y": 206.7444545438451,
+          "t": 1.711111111111107,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 5,
+        "rows": [
+          {
+            "angle": 27,
+            "power": 70,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "sameInputBefore": [
+      0,
+      0
+    ],
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          11.071428571428573
+        ],
+        [
+          94,
+          25
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          11
+        ],
+        [
+          94,
+          25
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1120
+    },
+    "experience": "Uの出口を覆う一片だけを壊し、次の弾を上へ通す。",
+    "improvement": "Kと橋を外して破壊の結果を明確化。敵側の固定屋根も6高さ単位上げた。破壊前の同じ射撃は届かず、開いた後は5近傍入力で成立。",
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

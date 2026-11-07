@@ -1,0 +1,2101 @@
+{
+  "stage": 98,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 98,
+      "name": "逆位相の橋と九つの固定島",
+      "goal": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
+      "floor": [
+        [
+          0,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "parts": [
+        {
+          "id": "098-START",
+          "poly": [
+            [
+              8,
+              58
+            ],
+            [
+              15,
+              65
+            ],
+            [
+              31,
+              65
+            ],
+            [
+              36,
+              58
+            ],
+            [
+              29,
+              51
+            ],
+            [
+              19,
+              54
+            ],
+            [
+              14,
+              50
+            ]
+          ],
+          "breakable": false,
+          "purpose": "広い出発島",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-WEST-PIVOT",
+          "poly": [
+            [
+              36,
+              32
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              51,
+              38
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              27
+            ],
+            [
+              42,
+              28
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B1の固定付け根",
+          "displayId": "F02",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-CENTRE-RELAY",
+          "poly": [
+            [
+              78,
+              32
+            ],
+            [
+              83,
+              38
+            ],
+            [
+              105,
+              38
+            ],
+            [
+              110,
+              33
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              92,
+              28
+            ],
+            [
+              86,
+              23
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B1が上がっても残る中央射点",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-HIGH-LEAF",
+          "poly": [
+            [
+              75,
+              80
+            ],
+            [
+              80,
+              85
+            ],
+            [
+              87,
+              85
+            ],
+            [
+              95,
+              79
+            ],
+            [
+              86,
+              77
+            ],
+            [
+              79,
+              78
+            ]
+          ],
+          "breakable": false,
+          "purpose": "主経路の必須中継にしない上の短い島",
+          "displayId": "F04",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-EAST-PIVOT",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              114,
+              65
+            ],
+            [
+              122,
+              65
+            ],
+            [
+              127,
+              59
+            ],
+            [
+              119,
+              54
+            ],
+            [
+              114,
+              56
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B2の固定付け根",
+          "displayId": "F05",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-LOW-SHELTER",
+          "poly": [
+            [
+              54,
+              8
+            ],
+            [
+              58,
+              14
+            ],
+            [
+              64,
+              14
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              77,
+              12
+            ],
+            [
+              68,
+              4
+            ],
+            [
+              59,
+              6
+            ]
+          ],
+          "breakable": false,
+          "purpose": "Vと低い鏡を使える固定待避・中継島",
+          "displayId": "F06",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-EAST-LOW",
+          "poly": [
+            [
+              145,
+              11
+            ],
+            [
+              151,
+              17
+            ],
+            [
+              162,
+              17
+            ],
+            [
+              166,
+              12
+            ],
+            [
+              159,
+              7
+            ],
+            [
+              151,
+              6
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B2の東へ出る頭上開放の独立低島",
+          "displayId": "F07",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-HIGH-SCREEN",
+          "poly": [
+            [
+              143,
+              73
+            ],
+            [
+              148,
+              80
+            ],
+            [
+              154,
+              78
+            ],
+            [
+              155,
+              70
+            ],
+            [
+              149,
+              67
+            ]
+          ],
+          "breakable": false,
+          "purpose": "橋とは別に残る短い上方遮蔽",
+          "displayId": "F08",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-ENEMY",
+          "poly": [
+            [
+              165,
+              32
+            ],
+            [
+              168,
+              38
+            ],
+            [
+              173,
+              38
+            ],
+            [
+              177,
+              26
+            ],
+            [
+              189,
+              26
+            ],
+            [
+              194,
+              20
+            ],
+            [
+              183,
+              15
+            ],
+            [
+              174,
+              18
+            ],
+            [
+              169,
+              20
+            ]
+          ],
+          "breakable": false,
+          "purpose": "広い前肩と低い敵平坦部",
+          "displayId": "F09",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "id": "B-WEST",
+          "v": [
+            51,
+            38,
+            31,
+            0
+          ],
+          "openAngleDeg": 65
+        },
+        {
+          "type": "B",
+          "id": "B-EAST",
+          "v": [
+            122,
+            65,
+            32,
+            1
+          ],
+          "openAngleDeg": -58
+        },
+        {
+          "type": "V",
+          "v": [
+            59,
+            74,
+            18,
+            50
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            65,
+            73,
+            14
+          ]
+        }
+      ],
+      "recommended": "koro",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
+      "nameEn": "Opposite Bridges and Nine Fixed Islands",
+      "goalEn": "Read the opposite bridge poses and choose a relay island or an independent low island.",
+      "floorSegments": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            7,
+            4
+          ]
+        ],
+        [
+          [
+            196,
+            4
+          ],
+          [
+            202,
+            4
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          24,
+          65
+        ],
+        [
+          183,
+          26
+        ]
+      ],
+      "worldWidth": 2020,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 98,
+      "name": "逆位相の橋と九つの固定島",
+      "nameEn": "Opposite Bridges and Nine Fixed Islands",
+      "theme": 19,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          65
+        ],
+        [
+          183,
+          26
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            7,
+            4
+          ]
+        ],
+        [
+          [
+            196,
+            4
+          ],
+          [
+            202,
+            4
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "098-START",
+          "poly": [
+            [
+              8,
+              58
+            ],
+            [
+              15,
+              65
+            ],
+            [
+              31,
+              65
+            ],
+            [
+              36,
+              58
+            ],
+            [
+              29,
+              51
+            ],
+            [
+              19,
+              54
+            ],
+            [
+              14,
+              50
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-WEST-PIVOT",
+          "poly": [
+            [
+              36,
+              32
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              51,
+              38
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              27
+            ],
+            [
+              42,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-CENTRE-RELAY",
+          "poly": [
+            [
+              78,
+              32
+            ],
+            [
+              83,
+              38
+            ],
+            [
+              105,
+              38
+            ],
+            [
+              110,
+              33
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              92,
+              28
+            ],
+            [
+              86,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-HIGH-LEAF",
+          "poly": [
+            [
+              75,
+              80
+            ],
+            [
+              80,
+              85
+            ],
+            [
+              87,
+              85
+            ],
+            [
+              95,
+              79
+            ],
+            [
+              86,
+              77
+            ],
+            [
+              79,
+              78
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-EAST-PIVOT",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              114,
+              65
+            ],
+            [
+              122,
+              65
+            ],
+            [
+              127,
+              59
+            ],
+            [
+              119,
+              54
+            ],
+            [
+              114,
+              56
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-LOW-SHELTER",
+          "poly": [
+            [
+              54,
+              8
+            ],
+            [
+              58,
+              14
+            ],
+            [
+              64,
+              14
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              77,
+              12
+            ],
+            [
+              68,
+              4
+            ],
+            [
+              59,
+              6
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-EAST-LOW",
+          "poly": [
+            [
+              145,
+              11
+            ],
+            [
+              151,
+              17
+            ],
+            [
+              162,
+              17
+            ],
+            [
+              166,
+              12
+            ],
+            [
+              159,
+              7
+            ],
+            [
+              151,
+              6
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-HIGH-SCREEN",
+          "poly": [
+            [
+              143,
+              73
+            ],
+            [
+              148,
+              80
+            ],
+            [
+              154,
+              78
+            ],
+            [
+              155,
+              70
+            ],
+            [
+              149,
+              67
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-ENEMY",
+          "poly": [
+            [
+              165,
+              32
+            ],
+            [
+              168,
+              38
+            ],
+            [
+              173,
+              38
+            ],
+            [
+              177,
+              26
+            ],
+            [
+              189,
+              26
+            ],
+            [
+              194,
+              20
+            ],
+            [
+              183,
+              15
+            ],
+            [
+              174,
+              18
+            ],
+            [
+              169,
+              20
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "id": "B-WEST",
+          "v": [
+            51,
+            38,
+            31,
+            0
+          ],
+          "openAngleDeg": 65
+        },
+        {
+          "type": "B",
+          "id": "B-EAST",
+          "v": [
+            122,
+            65,
+            32,
+            1
+          ],
+          "openAngleDeg": -58
+        },
+        {
+          "type": "V",
+          "v": [
+            59,
+            74,
+            18,
+            50
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            65,
+            73,
+            14
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "夜明けの核",
+      "themeGoal": "得意な射点と経路を段階に合わせて選び直す",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt",
+      "recommendedCharacter": "koro",
+      "tacticalGoal": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
+      "tacticalGoalEn": "Read the opposite bridge poses and choose a relay island or an independent low island.",
+      "enemyHp": 7,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 2020
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 98,
+      "name": "逆位相の橋と九つの固定島",
+      "goal": "西橋の水平先と上り先、東橋の高路と降下先を見て、残る固定島から射点を選ぶ。",
+      "floor": [
+        [
+          0,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "parts": [
+        {
+          "id": "098-START",
+          "poly": [
+            [
+              8,
+              58
+            ],
+            [
+              15,
+              65
+            ],
+            [
+              31,
+              65
+            ],
+            [
+              36,
+              58
+            ],
+            [
+              29,
+              51
+            ],
+            [
+              19,
+              54
+            ],
+            [
+              14,
+              50
+            ]
+          ],
+          "breakable": false,
+          "purpose": "広い出発島",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-WEST-PIVOT",
+          "poly": [
+            [
+              36,
+              32
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              51,
+              38
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              27
+            ],
+            [
+              42,
+              28
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B1の固定付け根",
+          "displayId": "F02",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-CENTRE-RELAY",
+          "poly": [
+            [
+              78,
+              32
+            ],
+            [
+              83,
+              38
+            ],
+            [
+              105,
+              38
+            ],
+            [
+              110,
+              33
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              92,
+              28
+            ],
+            [
+              86,
+              23
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B1が上がっても残る中央射点",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-HIGH-LEAF",
+          "poly": [
+            [
+              64,
+              66
+            ],
+            [
+              69,
+              71
+            ],
+            [
+              76,
+              71
+            ],
+            [
+              84,
+              65
+            ],
+            [
+              75,
+              63
+            ],
+            [
+              68,
+              64
+            ]
+          ],
+          "breakable": false,
+          "purpose": "主経路の必須中継にしない上の短い島",
+          "displayId": "F04",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-EAST-PIVOT",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              114,
+              65
+            ],
+            [
+              122,
+              65
+            ],
+            [
+              127,
+              59
+            ],
+            [
+              119,
+              54
+            ],
+            [
+              114,
+              56
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B2の固定付け根",
+          "displayId": "F05",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-LOW-SHELTER",
+          "poly": [
+            [
+              54,
+              8
+            ],
+            [
+              58,
+              14
+            ],
+            [
+              64,
+              14
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              77,
+              12
+            ],
+            [
+              68,
+              4
+            ],
+            [
+              59,
+              6
+            ]
+          ],
+          "breakable": false,
+          "purpose": "Vと低い鏡を使える固定待避・中継島",
+          "displayId": "F06",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-EAST-LOW",
+          "poly": [
+            [
+              138,
+              32
+            ],
+            [
+              144,
+              38
+            ],
+            [
+              155,
+              38
+            ],
+            [
+              159,
+              33
+            ],
+            [
+              152,
+              28
+            ],
+            [
+              144,
+              27
+            ]
+          ],
+          "breakable": false,
+          "purpose": "B2の東へ出る頭上開放の独立低島",
+          "displayId": "F07",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-HIGH-SCREEN",
+          "poly": [
+            [
+              58,
+              86
+            ],
+            [
+              64,
+              121
+            ],
+            [
+              73,
+              125
+            ],
+            [
+              78,
+              113
+            ],
+            [
+              74,
+              75
+            ]
+          ],
+          "breakable": false,
+          "purpose": "開始島の容易な山越えに干渉し、中継先を選ぶ理由を作る上方の遮蔽。",
+          "displayId": "F08",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "098-ENEMY",
+          "poly": [
+            [
+              165,
+              32
+            ],
+            [
+              168,
+              38
+            ],
+            [
+              173,
+              38
+            ],
+            [
+              177,
+              26
+            ],
+            [
+              189,
+              26
+            ],
+            [
+              194,
+              20
+            ],
+            [
+              183,
+              15
+            ],
+            [
+              174,
+              18
+            ],
+            [
+              169,
+              20
+            ]
+          ],
+          "breakable": false,
+          "purpose": "広い前肩と低い敵平坦部",
+          "displayId": "F09",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "id": "B-WEST",
+          "v": [
+            51,
+            38,
+            31,
+            0
+          ],
+          "openAngleDeg": 65
+        },
+        {
+          "type": "B",
+          "id": "B-EAST",
+          "v": [
+            122,
+            65,
+            32,
+            1
+          ],
+          "openAngleDeg": -58
+        },
+        {
+          "type": "V",
+          "v": [
+            59,
+            74,
+            18,
+            50
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            65,
+            73,
+            14
+          ]
+        }
+      ],
+      "recommended": "koro",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "西橋の水平先と上り先、東橋の高路と降下先を見て、残る固定島から射点を選ぶ。",
+      "nameEn": "Opposite Bridges and Nine Fixed Islands",
+      "goalEn": "Read each bridge: west relay or rising leaf, east high span or descending perch. Choose a fixed landing and firing point.",
+      "floorSegments": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            7,
+            4
+          ]
+        ],
+        [
+          [
+            196,
+            4
+          ],
+          [
+            202,
+            4
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          24,
+          65
+        ],
+        [
+          183,
+          26
+        ]
+      ],
+      "worldWidth": 2020,
+      "terrainRevision": "10.0-review-completion"
+    },
+    "runtime": {
+      "id": 98,
+      "name": "逆位相の橋と九つの固定島",
+      "nameEn": "Opposite Bridges and Nine Fixed Islands",
+      "theme": 19,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          65
+        ],
+        [
+          183,
+          26
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            4
+          ],
+          [
+            7,
+            4
+          ]
+        ],
+        [
+          [
+            196,
+            4
+          ],
+          [
+            202,
+            4
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "098-START",
+          "poly": [
+            [
+              8,
+              58
+            ],
+            [
+              15,
+              65
+            ],
+            [
+              31,
+              65
+            ],
+            [
+              36,
+              58
+            ],
+            [
+              29,
+              51
+            ],
+            [
+              19,
+              54
+            ],
+            [
+              14,
+              50
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-WEST-PIVOT",
+          "poly": [
+            [
+              36,
+              32
+            ],
+            [
+              40,
+              38
+            ],
+            [
+              51,
+              38
+            ],
+            [
+              54,
+              33
+            ],
+            [
+              49,
+              27
+            ],
+            [
+              42,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-CENTRE-RELAY",
+          "poly": [
+            [
+              78,
+              32
+            ],
+            [
+              83,
+              38
+            ],
+            [
+              105,
+              38
+            ],
+            [
+              110,
+              33
+            ],
+            [
+              101,
+              24
+            ],
+            [
+              92,
+              28
+            ],
+            [
+              86,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-HIGH-LEAF",
+          "poly": [
+            [
+              64,
+              66
+            ],
+            [
+              69,
+              71
+            ],
+            [
+              76,
+              71
+            ],
+            [
+              84,
+              65
+            ],
+            [
+              75,
+              63
+            ],
+            [
+              68,
+              64
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-EAST-PIVOT",
+          "poly": [
+            [
+              110,
+              59
+            ],
+            [
+              114,
+              65
+            ],
+            [
+              122,
+              65
+            ],
+            [
+              127,
+              59
+            ],
+            [
+              119,
+              54
+            ],
+            [
+              114,
+              56
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-LOW-SHELTER",
+          "poly": [
+            [
+              54,
+              8
+            ],
+            [
+              58,
+              14
+            ],
+            [
+              64,
+              14
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              77,
+              12
+            ],
+            [
+              68,
+              4
+            ],
+            [
+              59,
+              6
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-EAST-LOW",
+          "poly": [
+            [
+              138,
+              32
+            ],
+            [
+              144,
+              38
+            ],
+            [
+              155,
+              38
+            ],
+            [
+              159,
+              33
+            ],
+            [
+              152,
+              28
+            ],
+            [
+              144,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-HIGH-SCREEN",
+          "poly": [
+            [
+              58,
+              86
+            ],
+            [
+              64,
+              121
+            ],
+            [
+              73,
+              125
+            ],
+            [
+              78,
+              113
+            ],
+            [
+              74,
+              75
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "098-ENEMY",
+          "poly": [
+            [
+              165,
+              32
+            ],
+            [
+              168,
+              38
+            ],
+            [
+              173,
+              38
+            ],
+            [
+              177,
+              26
+            ],
+            [
+              189,
+              26
+            ],
+            [
+              194,
+              20
+            ],
+            [
+              183,
+              15
+            ],
+            [
+              174,
+              18
+            ],
+            [
+              169,
+              20
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "id": "B-WEST",
+          "v": [
+            51,
+            38,
+            31,
+            0
+          ],
+          "openAngleDeg": 65
+        },
+        {
+          "type": "B",
+          "id": "B-EAST",
+          "v": [
+            122,
+            65,
+            32,
+            1
+          ],
+          "openAngleDeg": -58
+        },
+        {
+          "type": "V",
+          "v": [
+            59,
+            74,
+            18,
+            50
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            65,
+            73,
+            14
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "夜明けの核",
+      "themeGoal": "得意な射点と経路を段階に合わせて選び直す",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:volt",
+      "recommendedCharacter": "koro",
+      "tacticalGoal": "西橋の水平先と上り先、東橋の高路と降下先を見て、残る固定島から射点を選ぶ。",
+      "tacticalGoalEn": "Read each bridge: west relay or rising leaf, east high span or descending perch. Choose a fixed landing and firing point.",
+      "enemyHp": 7,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 2020
+    }
+  },
+  "qualityEvidence": {
+    "initial": null,
+    "walks": [
+      {
+        "input": -10000,
+        "moved": -140,
+        "position": [
+          10,
+          60
+        ],
+        "shot": null
+      },
+      {
+        "input": 10000,
+        "moved": 120,
+        "position": [
+          36,
+          58
+        ],
+        "shot": {
+          "angle": 84,
+          "power": 90,
+          "damage": [
+            0,
+            1
+          ],
+          "events": [],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 1,
+            "rows": [
+              {
+                "angle": 81,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 90,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 84,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 84,
+                "power": 90,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 84,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 87,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 87,
+                "power": 90,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 87,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "relay": {
+      "input": {
+        "angle": -15,
+        "power": 95,
+        "x": 85.32643169468504,
+        "h": 38,
+        "surface": "098-CENTRE-RELAY:e1"
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          85.32643169468504,
+          38
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 25,
+          "angle": 73.77978829564526,
+          "power": 89.19949609893374,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              853.2643169468504,
+              120
+            ],
+            [
+              1855,
+              240
+            ]
+          ],
+          "hpBefore": [
+            7,
+            7
+          ],
+          "hpAfter": [
+            7,
+            7
+          ]
+        }
+      },
+      "shot": {
+        "angle": 57,
+        "power": 80,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 1830.2821426025841,
+            "y": 199.29097742582422,
+            "t": 3.2888888888888794,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 3,
+          "rows": [
+            {
+              "angle": 54,
+              "power": 75,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 54,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 54,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 57,
+              "power": 75,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 57,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 57,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 75,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          24,
+          65
+        ],
+        [
+          183,
+          26
+        ]
+      ],
+      "authored": [
+        [
+          24,
+          65
+        ],
+        [
+          183,
+          26
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 2020
+    },
+    "east": {
+      "input": {
+        "angle": 57,
+        "power": 65,
+        "x": 122.28013873673883,
+        "h": 65,
+        "surface": "098-EAST-PIVOT:e1"
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          122.28013873673883,
+          65
+        ],
+        "counter": {
+          "round": 2,
+          "moved": 25,
+          "angle": 45,
+          "power": 79.17263100445271,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY1",
+          "position": [
+            [
+              1222.8013873673883,
+              -150
+            ],
+            [
+              1880,
+              246
+            ]
+          ],
+          "hpBefore": [
+            7,
+            7
+          ],
+          "hpAfter": [
+            7,
+            7
+          ]
+        }
+      },
+      "shot": {
+        "angle": 30,
+        "power": 60,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 1855.6967661825352,
+            "y": 204.7554468481693,
+            "t": 1.4555555555555524,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 7,
+          "rows": [
+            {
+              "angle": 27,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 27,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 27,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 55,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 33,
+              "power": 55,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 33,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 33,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "sameInputOtherPose": [
+        0,
+        0
+      ]
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

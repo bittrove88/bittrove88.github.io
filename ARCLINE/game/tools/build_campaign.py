@@ -62,7 +62,7 @@ for bp,previous in zip(blueprints,campaign['levels']):
     verified=verification.get(n)
     if verified and verified.get('blueprintSha256')==hashlib.sha256(json.dumps(bp,sort_keys=True,separators=(',',':')).encode()).hexdigest():
         record['testResult']={k:v for k,v in verified.items() if k not in ['normalWitness','recommendedWitness','featuredWitness']}
-        record['basicRouteProof']=verified.get('featuredWitness') or verified.get('recommendedWitness')
+        record['basicRouteProof']=verified.get('featuredWitness') or verified.get('recommendedWitness') or verified.get('normalWitness')
         record['alternativeRoute']=verified['normalWitness']['description']
         record['alternativeRouteProof']=verified['normalWitness']
     campaign['levels'][n-1]=level

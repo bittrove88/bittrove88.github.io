@@ -1,8 +1,12 @@
+0.26.0の31・37・71・73面は `../design/stage_reviews/STAGES_INTRO_REFINEMENT_RUNTIME_20261107.json` と固定された元JSONへ結び付ける。生成元は引き続きstage_blueprintsとpickup_placements。37面の取得確認入力を更新し、全46個の座標・在庫・保存は保持。[4面の変更後レビュー](../design/stage_reviews/intro_20261107/README.md)。
+
 0.24.4：地形の線の調整正本は `../design/components/runtime-approval.json` の `runtimeStyleOverrides`。承認時の素材JSONを固定したまま、`tools/build_components.py` が輪郭・接地辺の幅と濃さだけを上書きする。元の面色・領域表示は維持。[検証](../docs/releases/0.24.4.md)。
 
 0.24.3：初期画面内の46カプセルを保証する表示と31個の配置調整は `dist/render.js`／`design/pickup_placements.json`。難易度カードの枠内折返しは `styles/chapter-flow.css`、低い天井の説明の画角は `dist/preview.js`。ボス戦開始時の `audio-manager.prepare` と `ending_media.json` の勝利曲開始位置0.21秒で読み込み待ちと先頭無音を削減。原音源・保存・地形・物理は維持。[検証](../docs/releases/0.24.3.md)。
 
 # コードと生成物の編集先
+
+2026-11-07 美術1.9：空中庭園81〜85面の素材配色と名称だけを `design/components/complete/data/normal-16.json` で更新し、明示依頼を `runtime-approval.json` に記録。`ui/component-art.js` は地盤の閉じ底を線で描かず、元の材質面を地中へ連続表示する。カメラによって地表側の模様を伸縮させず、衝突ポリゴンは変更しない。有限の浮島・壁には従来の輪郭を残す。[範囲と確認](../evidence/garden-surface-20261107/README.md)。
 
 0.24.2のコンポーネント美術は `ui/component-art.js` と `../design/components/complete/data/*.json`・`shared-materials.json`・`render-style.json`・共通 `renderer.js` が正本。`tools/build_components.py` が同じ描画器・承認素材・実装アダプターを `dist/component-art.js` へ生成する。承認素材のハッシュは `../design/components/runtime-approval.json`。`render.js` は実際の世界と、背景と同じ最終移動の状態を渡し、衝突や保存には描画データを読み戻さない。[統合と検証](../docs/releases/0.24.2.md)。
 
@@ -66,6 +70,8 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 `tests/map-revision.test.cjs` は基準683d5b0に対して未変更70面の設計・実初期状態と13の実装モジュールを厳密照合。床座標による集計（高低差3以下0/60、同高度1/60）と、実行時安全配置後の同高度4/60を分離。後者89/92/94/98は全て変更対象外のため変更せず、実配置3以下の目標未達を記録します。
 
 マップシート `design/expedition_013/arcline_100_maps_atlas.html` は `game/tools/build_map_atlas.py` が現行の `design/runtime_campaign_20x5.json`・`design/expedition_013/stage_design.json` から100面・20テーマ・100面リレー4戦場の表示データを再同期します。マップの線画は `dist/geometry.js` と同じ床・障害物・反射床・開閉橋・反射結晶・効果領域の座標解釈で描画します。特に `W` は水域ではなく実在する床の反射材で、第三パラメータを「水面の高さ」として使わないこと。`tests/map-atlas.test.cjs` でデータとレンダリングの両方を検証し、100面未満への暗黙の短縮を禁止します。
+
+2026-11-07：同じHTMLに実ゲームの背景・材質・機構・機体を表示する標準ビューを追加。`dist/backgrounds.js`・`dist/component-art.js`・`dist/render.js` 等の現行25モジュールと `tools/atlas_viewer.{css,js}` を一つのHTMLへ埋め込み、ハッシュで同期を検査します。編集は生成元で行い `npm run build` で更新。遅延描画、全体表示・拡大・ドラッグ、1〜6ターンの環境切替、HTML／PNG保存に対応。ゲーム起動・セーブ管理は読み込まず、地形図への切替も保持。[使い方・範囲](../design/expedition_013/NATIVE_ATLAS.md)。
 
 0.22.1：100面はfinalBattle.actionLimitsの各28行動・必殺3。final-team.jsの出撃時スナップショットをgame.jsが戦闘内だけに保持し、敗北画面から同じ機体へ復帰する。持ち物・敵・地形も出撃時へ戻し、恒久セーブは変更しない。先頭からの再挑戦も維持。
 

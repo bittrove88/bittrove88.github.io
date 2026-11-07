@@ -1,0 +1,861 @@
+{
+  "stage": 46,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 46,
+      "name": "風を残す切り通し",
+      "goal": "自機側の高台から換気窓を通る弧を作り、下段の敵へ落とす。",
+      "floor": [
+        [
+          0,
+          14
+        ],
+        [
+          16,
+          14
+        ],
+        [
+          26,
+          13
+        ],
+        [
+          35,
+          11
+        ],
+        [
+          45,
+          8
+        ],
+        [
+          58,
+          8
+        ],
+        [
+          68,
+          11
+        ],
+        [
+          78,
+          16
+        ],
+        [
+          88,
+          19
+        ],
+        [
+          99,
+          19
+        ],
+        [
+          115,
+          18
+        ]
+      ],
+      "parts": [
+        {
+          "id": "046-CAVERN-CANOPY",
+          "kind": "roof",
+          "poly": [
+            [
+              21,
+              29
+            ],
+            [
+              26,
+              36
+            ],
+            [
+              33,
+              38
+            ],
+            [
+              40,
+              34
+            ],
+            [
+              40,
+              27
+            ],
+            [
+              33,
+              26
+            ],
+            [
+              24,
+              26
+            ]
+          ],
+          "breakable": false,
+          "purpose": "手前の横穴洞窟"
+        },
+        {
+          "id": "046-LOFT",
+          "kind": "island",
+          "poly": [
+            [
+              67,
+              25
+            ],
+            [
+              73,
+              31
+            ],
+            [
+              81,
+              31
+            ],
+            [
+              85,
+              27
+            ],
+            [
+              81,
+              23
+            ],
+            [
+              72,
+              23
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右側上空の独立射点"
+        },
+        {
+          "id": "046-EXIT-ROOF",
+          "kind": "roof",
+          "poly": [
+            [
+              87,
+              39
+            ],
+            [
+              92,
+              43
+            ],
+            [
+              101,
+              43
+            ],
+            [
+              107,
+              39
+            ],
+            [
+              103,
+              35
+            ],
+            [
+              92,
+              35
+            ]
+          ],
+          "breakable": true,
+          "purpose": "壊すことで上空射線が増える屋根"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            42,
+            65,
+            11,
+            44
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            36,
+            25,
+            25,
+            0
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        99
+      ],
+      "route": "自機側の高台から換気窓を通る弧を作り、下段の敵へ落とす。",
+      "nameEn": "Leave a Window for Air",
+      "goalEn": "Aim downward across a ventilated cut and keep the supporting wall intact.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            14
+          ],
+          [
+            16,
+            14
+          ],
+          [
+            26,
+            13
+          ],
+          [
+            35,
+            11
+          ],
+          [
+            45,
+            8
+          ],
+          [
+            58,
+            8
+          ],
+          [
+            68,
+            11
+          ],
+          [
+            78,
+            16
+          ],
+          [
+            88,
+            19
+          ],
+          [
+            99,
+            19
+          ],
+          [
+            115,
+            18
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          14
+        ],
+        [
+          99,
+          19
+        ]
+      ],
+      "worldWidth": 1150,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 46,
+      "name": "風を残す切り通し",
+      "nameEn": "Leave a Window for Air",
+      "theme": 9,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          14
+        ],
+        [
+          99,
+          19
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            14
+          ],
+          [
+            16,
+            14
+          ],
+          [
+            26,
+            13
+          ],
+          [
+            35,
+            11
+          ],
+          [
+            45,
+            8
+          ],
+          [
+            58,
+            8
+          ],
+          [
+            68,
+            11
+          ],
+          [
+            78,
+            16
+          ],
+          [
+            88,
+            19
+          ],
+          [
+            99,
+            19
+          ],
+          [
+            115,
+            18
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "046-CAVERN-CANOPY",
+          "poly": [
+            [
+              21,
+              29
+            ],
+            [
+              26,
+              36
+            ],
+            [
+              33,
+              38
+            ],
+            [
+              40,
+              34
+            ],
+            [
+              40,
+              27
+            ],
+            [
+              33,
+              26
+            ],
+            [
+              24,
+              26
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "046-LOFT",
+          "poly": [
+            [
+              67,
+              25
+            ],
+            [
+              73,
+              31
+            ],
+            [
+              81,
+              31
+            ],
+            [
+              85,
+              27
+            ],
+            [
+              81,
+              23
+            ],
+            [
+              72,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "046-EXIT-ROOF",
+          "poly": [
+            [
+              87,
+              39
+            ],
+            [
+              92,
+              43
+            ],
+            [
+              101,
+              43
+            ],
+            [
+              107,
+              39
+            ],
+            [
+              103,
+              35
+            ],
+            [
+              92,
+              35
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            42,
+            65,
+            11,
+            44
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            36,
+            25,
+            25,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "琥珀の機関",
+      "themeGoal": "上昇と減速の前後関係を読む",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "自機側の高台から換気窓を通る弧を作り、下段の敵へ落とす。",
+      "tacticalGoalEn": "Aim downward across a ventilated cut and keep the supporting wall intact.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1150
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 46,
+      "name": "風を残す切り通し",
+      "goal": "右の斜めの切り通しを横へ通し、出口のUで左の低岸へ弧をつなぐ。",
+      "floor": [
+        [
+          0,
+          16
+        ],
+        [
+          26,
+          16
+        ],
+        [
+          31,
+          22
+        ],
+        [
+          36,
+          22
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          55,
+          18
+        ],
+        [
+          72,
+          27
+        ],
+        [
+          84,
+          36
+        ],
+        [
+          115,
+          36
+        ]
+      ],
+      "parts": [
+        {
+          "id": "046-DIAGONAL-CUT",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              45,
+              52
+            ],
+            [
+              63,
+              60
+            ],
+            [
+              76,
+              64
+            ],
+            [
+              77,
+              54
+            ],
+            [
+              63,
+              48
+            ],
+            [
+              45,
+              41
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            32,
+            52,
+            12,
+            36
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        99
+      ],
+      "route": "右の斜めの切り通しを横へ通し、出口のUで左の低岸へ弧をつなぐ。",
+      "nameEn": "Leave a Window for Air",
+      "goalEn": "Fire left through the sloping cut and use the exit updraft to reach the low bank.",
+      "terrainRevision": "10.0-review-completion",
+      "spawnPoints": [
+        [
+          80,
+          33
+        ],
+        [
+          22,
+          16
+        ]
+      ],
+      "worldWidth": 1150,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 46,
+      "name": "風を残す切り通し",
+      "nameEn": "Leave a Window for Air",
+      "theme": 9,
+      "boss": false,
+      "spawn": [
+        [
+          80,
+          33
+        ],
+        [
+          22,
+          16
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            16
+          ],
+          [
+            26,
+            16
+          ],
+          [
+            31,
+            22
+          ],
+          [
+            36,
+            22
+          ],
+          [
+            44,
+            12
+          ],
+          [
+            55,
+            18
+          ],
+          [
+            72,
+            27
+          ],
+          [
+            84,
+            36
+          ],
+          [
+            115,
+            36
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "046-DIAGONAL-CUT",
+          "poly": [
+            [
+              45,
+              52
+            ],
+            [
+              63,
+              60
+            ],
+            [
+              76,
+              64
+            ],
+            [
+              77,
+              54
+            ],
+            [
+              63,
+              48
+            ],
+            [
+              45,
+              41
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            32,
+            52,
+            12,
+            36
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "琥珀の機関",
+      "themeGoal": "上昇と減速の前後関係を読む",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:mole",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "右の斜めの切り通しを横へ通し、出口のUで左の低岸へ弧をつなぐ。",
+      "tacticalGoalEn": "Fire left through the sloping cut and use the exit updraft to reach the low bank.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1150
+    }
+  },
+  "qualityEvidence": {
+    "shot": {
+      "angle": 69,
+      "power": 45,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 462.5574639660895,
+          "y": 141.62840621816133,
+          "t": 1.1444444444444424,
+          "bullet": 0
+        },
+        {
+          "x": 241.72172417783455,
+          "y": 295.8828867448286,
+          "t": 2.011111111111106,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 6,
+        "rows": [
+          {
+            "angle": 66,
+            "power": 40,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 66,
+            "power": 45,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 66,
+            "power": 50,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 69,
+            "power": 40,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 69,
+            "power": 45,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 69,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 40,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 45,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          80,
+          33
+        ],
+        [
+          22,
+          16
+        ]
+      ],
+      "authored": [
+        [
+          80,
+          33
+        ],
+        [
+          22,
+          16
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1150
+    },
+    "withoutUSameInput": [
+      0,
+      0
+    ],
+    "corridorSamples": [
+      {
+        "x": 75.47605084562903,
+        "h": 36.94145250014704
+      },
+      {
+        "x": 69.80220532154746,
+        "h": 39.80110072529622
+      },
+      {
+        "x": 64.12835979746589,
+        "h": 41.17926746896393
+      },
+      {
+        "x": 58.454514273384326,
+        "h": 41.07595273115016
+      },
+      {
+        "x": 52.780668749302755,
+        "h": 39.491156511854896
+      },
+      {
+        "x": 47.106823225221184,
+        "h": 36.42487881107816
+      }
+    ],
+    "experience": "右の斜めの床から、長い通風路を左へ撃ち抜く。",
+    "improvement": "中央U＋点在する棚と橋を撤去し、床と高い天井の間に斜めの通路を作った。自機側から入射し、出口でUを通す。敵の頭上は開けた。",
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

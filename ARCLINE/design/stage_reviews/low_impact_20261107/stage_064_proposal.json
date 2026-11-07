@@ -1,0 +1,1170 @@
+{
+  "stage": 64,
+  "status": "review-ready",
+  "baseline": {
+    "version": "0.24.1",
+    "main": "fee9c40da693ccb6f9dc42f64b846269ae5de4c5",
+    "blueprintSha256": "b65ce214344f908afee1349c1e9e298c10ed99b3444e0c6855ee5895d6ab926b"
+  },
+  "reason": "右側の逆向き射撃用の水平部を30pxから90pxへ広げ、右の上りを71.6度から56.3度に緩める。敵・庇・左側の主経路・取得物は保持。",
+  "changedPart": "floor0",
+  "before": {
+    "blueprint": {
+      "stage": 64,
+      "name": "崖下盆地の裏へ回る",
+      "goal": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "floor": [
+        [
+          0,
+          78
+        ],
+        [
+          34,
+          78
+        ],
+        [
+          44,
+          72
+        ],
+        [
+          45,
+          14
+        ],
+        [
+          60,
+          12
+        ],
+        [
+          70,
+          12
+        ],
+        [
+          79,
+          38
+        ],
+        [
+          85,
+          38
+        ],
+        [
+          94,
+          17
+        ],
+        [
+          101,
+          17
+        ],
+        [
+          103,
+          26
+        ],
+        [
+          106,
+          26
+        ],
+        [
+          109,
+          17
+        ],
+        [
+          130,
+          17
+        ],
+        [
+          140,
+          21
+        ]
+      ],
+      "parts": [
+        {
+          "id": "064-SIDE-PERCH",
+          "poly": [
+            [
+              42,
+              43
+            ],
+            [
+              50,
+              47
+            ],
+            [
+              57,
+              45
+            ],
+            [
+              69,
+              45
+            ],
+            [
+              73,
+              41
+            ],
+            [
+              66,
+              36
+            ],
+            [
+              55,
+              36
+            ],
+            [
+              43,
+              35
+            ]
+          ],
+          "breakable": false,
+          "purpose": "崖に接続した側方の張り出し",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "064-BASIN-HOOD",
+          "poly": [
+            [
+              88,
+              49
+            ],
+            [
+              97,
+              53
+            ],
+            [
+              105,
+              49
+            ],
+            [
+              105,
+              37
+            ],
+            [
+              97,
+              39
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              88,
+              42
+            ]
+          ],
+          "breakable": false,
+          "purpose": "前後二つの入口の間にある庇",
+          "displayId": "F02",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [],
+      "recommended": "rin",
+      "spawn": [
+        16,
+        86
+      ],
+      "route": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "nameEn": "Around the Back of the Cliff Basin",
+      "goalEn": "Drop through the upper opening or circle behind the basin and fire left.",
+      "terrainRevision": "7.0-approved-051-099",
+      "spawnPoints": [
+        [
+          24,
+          78
+        ],
+        [
+          97,
+          17
+        ]
+      ],
+      "worldWidth": 1400
+    },
+    "runtime": {
+      "id": 64,
+      "name": "崖下盆地の裏へ回る",
+      "nameEn": "Around the Back of the Cliff Basin",
+      "theme": 12,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          78
+        ],
+        [
+          97,
+          17
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            78
+          ],
+          [
+            34,
+            78
+          ],
+          [
+            44,
+            72
+          ],
+          [
+            45,
+            14
+          ],
+          [
+            60,
+            12
+          ],
+          [
+            70,
+            12
+          ],
+          [
+            79,
+            38
+          ],
+          [
+            85,
+            38
+          ],
+          [
+            94,
+            17
+          ],
+          [
+            101,
+            17
+          ],
+          [
+            103,
+            26
+          ],
+          [
+            106,
+            26
+          ],
+          [
+            109,
+            17
+          ],
+          [
+            130,
+            17
+          ],
+          [
+            140,
+            21
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "064-SIDE-PERCH",
+          "poly": [
+            [
+              42,
+              43
+            ],
+            [
+              50,
+              47
+            ],
+            [
+              57,
+              45
+            ],
+            [
+              69,
+              45
+            ],
+            [
+              73,
+              41
+            ],
+            [
+              66,
+              36
+            ],
+            [
+              55,
+              36
+            ],
+            [
+              43,
+              35
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "064-BASIN-HOOD",
+          "poly": [
+            [
+              88,
+              49
+            ],
+            [
+              97,
+              53
+            ],
+            [
+              105,
+              49
+            ],
+            [
+              105,
+              37
+            ],
+            [
+              97,
+              39
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              88,
+              42
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK064",
+          "kind": "skill",
+          "skillId": "S_REPAIR",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 30,
+          "h": 87,
+          "spawnTurn": 1,
+          "placementId": "L064:skill:S_REPAIR",
+          "verification": {
+            "angle": 36,
+            "power": 40,
+            "neighborHits": 6,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 3,
+      "hold": 1,
+      "themeName": "火山の外縁",
+      "themeGoal": "噴出・停止のどちらでも通る経路を読む",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "rin",
+      "tacticalGoal": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "tacticalGoalEn": "Drop through the upper opening or circle behind the basin and fire left.",
+      "enemyHp": 5,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1400
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 64,
+      "name": "崖下盆地の裏へ回る",
+      "goal": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "floor": [
+        [
+          0,
+          78
+        ],
+        [
+          34,
+          78
+        ],
+        [
+          44,
+          72
+        ],
+        [
+          45,
+          14
+        ],
+        [
+          60,
+          12
+        ],
+        [
+          70,
+          12
+        ],
+        [
+          79,
+          38
+        ],
+        [
+          85,
+          38
+        ],
+        [
+          94,
+          17
+        ],
+        [
+          101,
+          17
+        ],
+        [
+          103,
+          26
+        ],
+        [
+          112,
+          26
+        ],
+        [
+          118,
+          17
+        ],
+        [
+          130,
+          17
+        ],
+        [
+          140,
+          21
+        ]
+      ],
+      "parts": [
+        {
+          "id": "064-SIDE-PERCH",
+          "poly": [
+            [
+              42,
+              43
+            ],
+            [
+              50,
+              47
+            ],
+            [
+              57,
+              45
+            ],
+            [
+              69,
+              45
+            ],
+            [
+              73,
+              41
+            ],
+            [
+              66,
+              36
+            ],
+            [
+              55,
+              36
+            ],
+            [
+              43,
+              35
+            ]
+          ],
+          "breakable": false,
+          "purpose": "崖に接続した側方の張り出し",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "064-BASIN-HOOD",
+          "poly": [
+            [
+              88,
+              49
+            ],
+            [
+              97,
+              53
+            ],
+            [
+              105,
+              49
+            ],
+            [
+              105,
+              37
+            ],
+            [
+              97,
+              39
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              88,
+              42
+            ]
+          ],
+          "breakable": false,
+          "purpose": "前後二つの入口の間にある庇",
+          "displayId": "F02",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [],
+      "recommended": "rin",
+      "spawn": [
+        16,
+        86
+      ],
+      "route": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "nameEn": "Around the Back of the Cliff Basin",
+      "goalEn": "Drop through the upper opening or circle behind the basin and fire left.",
+      "terrainRevision": "7.0-approved-051-099",
+      "spawnPoints": [
+        [
+          24,
+          78
+        ],
+        [
+          97,
+          17
+        ]
+      ],
+      "worldWidth": 1400
+    },
+    "runtime": {
+      "id": 64,
+      "name": "崖下盆地の裏へ回る",
+      "nameEn": "Around the Back of the Cliff Basin",
+      "theme": 12,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          78
+        ],
+        [
+          97,
+          17
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            78
+          ],
+          [
+            34,
+            78
+          ],
+          [
+            44,
+            72
+          ],
+          [
+            45,
+            14
+          ],
+          [
+            60,
+            12
+          ],
+          [
+            70,
+            12
+          ],
+          [
+            79,
+            38
+          ],
+          [
+            85,
+            38
+          ],
+          [
+            94,
+            17
+          ],
+          [
+            101,
+            17
+          ],
+          [
+            103,
+            26
+          ],
+          [
+            112,
+            26
+          ],
+          [
+            118,
+            17
+          ],
+          [
+            130,
+            17
+          ],
+          [
+            140,
+            21
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "064-SIDE-PERCH",
+          "poly": [
+            [
+              42,
+              43
+            ],
+            [
+              50,
+              47
+            ],
+            [
+              57,
+              45
+            ],
+            [
+              69,
+              45
+            ],
+            [
+              73,
+              41
+            ],
+            [
+              66,
+              36
+            ],
+            [
+              55,
+              36
+            ],
+            [
+              43,
+              35
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "064-BASIN-HOOD",
+          "poly": [
+            [
+              88,
+              49
+            ],
+            [
+              97,
+              53
+            ],
+            [
+              105,
+              49
+            ],
+            [
+              105,
+              37
+            ],
+            [
+              97,
+              39
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              88,
+              42
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK064",
+          "kind": "skill",
+          "skillId": "S_REPAIR",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 30,
+          "h": 87,
+          "spawnTurn": 1,
+          "placementId": "L064:skill:S_REPAIR",
+          "verification": {
+            "angle": 36,
+            "power": 40,
+            "neighborHits": 6,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 3,
+      "hold": 1,
+      "themeName": "火山の外縁",
+      "themeGoal": "噴出・停止のどちらでも通る経路を読む",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "rin",
+      "tacticalGoal": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "tacticalGoalEn": "Drop through the upper opening or circle behind the basin and fire left.",
+      "enemyHp": 5,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1400
+    }
+  },
+  "qualityEvidence": {
+    "audit": {
+      "onlyOnePolygonChanged": true,
+      "initial": [
+        {
+          "safe": true,
+          "actual": [
+            24,
+            78
+          ],
+          "authored": [
+            24,
+            78
+          ]
+        },
+        {
+          "safe": true,
+          "actual": [
+            97,
+            17
+          ],
+          "authored": [
+            97,
+            17
+          ]
+        }
+      ],
+      "featuresUnchanged": true,
+      "pickupsUnchanged": true,
+      "rulesUnchanged": true
+    },
+    "levelWidthPx": {
+      "before": 30,
+      "after": 90
+    },
+    "rightApproachSlopeDeg": {
+      "before": 71.56505117707799,
+      "after": 56.309932474020215
+    },
+    "runs": {
+      "before": {
+        "teleport": {
+          "angle": 60,
+          "power": 70,
+          "landing": [
+            116.441900524797,
+            17
+          ],
+          "retaliation": {
+            "round": 1,
+            "moved": 24,
+            "angle": 38,
+            "power": 36.15326472953893,
+            "damage": [
+              1.05,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                1164.41900524797,
+                330
+              ],
+              [
+                994,
+                321
+              ]
+            ],
+            "hpBefore": [
+              7,
+              5
+            ],
+            "hpAfter": [
+              5.95,
+              5
+            ]
+          }
+        },
+        "walk": {
+          "input": -100,
+          "moved": -70,
+          "position": [
+            109.441900524797,
+            19.33714921280449
+          ],
+          "slopeDeg": 49.44496065789043,
+          "safe": true
+        },
+        "shot": {
+          "angle": 12,
+          "power": 30,
+          "damage": [
+            0,
+            1
+          ],
+          "events": [],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 9,
+            "rows": [
+              {
+                "angle": 10,
+                "power": 27,
+                "damage": [
+                  0,
+                  1.5
+                ],
+                "events": [
+                  {
+                    "x": 995.1525464459495,
+                    "y": 268.0214326236682,
+                    "t": 1.1111111111111092,
+                    "type": "critical",
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 10,
+                "power": 30,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              },
+              {
+                "angle": 10,
+                "power": 33,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              },
+              {
+                "angle": 12,
+                "power": 27,
+                "damage": [
+                  0,
+                  1.5
+                ],
+                "events": [
+                  {
+                    "x": 999.9764778045615,
+                    "y": 268.5815563670397,
+                    "t": 1.1333333333333313,
+                    "type": "critical",
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 12,
+                "power": 30,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": 12,
+                "power": 33,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              },
+              {
+                "angle": 14,
+                "power": 27,
+                "damage": [
+                  0,
+                  1.5
+                ],
+                "events": [
+                  {
+                    "x": 1004.9811790401201,
+                    "y": 270.0101102642865,
+                    "t": 1.1666666666666645,
+                    "type": "critical",
+                    "bullet": 0
+                  }
+                ]
+              },
+              {
+                "angle": 14,
+                "power": 30,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": 14,
+                "power": 33,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              }
+            ]
+          }
+        }
+      },
+      "after": {
+        "teleport": {
+          "angle": 60,
+          "power": 70,
+          "landing": [
+            115.04256883601197,
+            21.436146745982047
+          ],
+          "retaliation": {
+            "round": 1,
+            "moved": 24,
+            "angle": 38,
+            "power": 39.15326472953893,
+            "damage": [
+              1.05,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                1150.4256883601197,
+                285.63853254017954
+              ],
+              [
+                994,
+                321
+              ]
+            ],
+            "hpBefore": [
+              7,
+              5
+            ],
+            "hpAfter": [
+              5.95,
+              5
+            ]
+          }
+        },
+        "walk": {
+          "input": -100,
+          "moved": -60,
+          "position": [
+            109.04256883601197,
+            26
+          ],
+          "slopeDeg": 0,
+          "safe": true
+        },
+        "shot": {
+          "angle": -12,
+          "power": 25,
+          "damage": [
+            0,
+            1
+          ],
+          "events": [],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 9,
+            "rows": [
+              {
+                "angle": -14,
+                "power": 22,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": -14,
+                "power": 25,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": -14,
+                "power": 28,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              },
+              {
+                "angle": -12,
+                "power": 22,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": -12,
+                "power": 25,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": -12,
+                "power": 28,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              },
+              {
+                "angle": -10,
+                "power": 22,
+                "damage": [
+                  0,
+                  1
+                ],
+                "events": []
+              },
+              {
+                "angle": -10,
+                "power": 25,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              },
+              {
+                "angle": -10,
+                "power": 28,
+                "damage": [
+                  0,
+                  0.5
+                ],
+                "events": []
+              }
+            ]
+          }
+        },
+        "executed": {
+          "damage": [
+            0,
+            1
+          ],
+          "events": [],
+          "destroyed": []
+        }
+      }
+    },
+    "initial": {
+      "before": {
+        "upperShot": {
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "x": 958.5207269688406,
+              "y": 279.2037104703384,
+              "t": 2.0444444444444394,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "destroyed": []
+        },
+        "pickupEvents": [
+          {
+            "type": "pickup",
+            "id": "SK064",
+            "x": 300,
+            "y": -370,
+            "t": 0.16009187215932472,
+            "bullet": 0
+          }
+        ]
+      },
+      "after": {
+        "upperShot": {
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "x": 958.5207269688406,
+              "y": 279.2037104703384,
+              "t": 2.0444444444444394,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "destroyed": []
+        },
+        "pickupEvents": [
+          {
+            "type": "pickup",
+            "id": "SK064",
+            "x": 300,
+            "y": -370,
+            "t": 0.16009187215932472,
+            "bullet": 0
+          }
+        ]
+      }
+    },
+    "scope": "Gun/Normal/seed4697. One native teleport, enemy response and fixed walk, followed by one W01 shot. Existing upper shot and pickup contact preserved. Neighbor samples are not a win rate."
+  }
+}

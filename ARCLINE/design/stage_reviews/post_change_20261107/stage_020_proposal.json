@@ -1,0 +1,903 @@
+{
+  "stage": 20,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "破壊一片の効果を既存二部位への射角へ結び付ける。HP・部位・攻撃型は保持。",
+  "before": {
+    "blueprint": {
+      "stage": 20,
+      "name": "行きも帰りも開く門",
+      "goal": "下段から門の破壊可能な屋根端を外し、高い砲座の低砲・高砲を撃ち分ける。",
+      "floor": [
+        [
+          0,
+          8
+        ],
+        [
+          16,
+          8
+        ],
+        [
+          29,
+          8
+        ],
+        [
+          36,
+          9
+        ],
+        [
+          43,
+          11
+        ],
+        [
+          51,
+          13
+        ],
+        [
+          60,
+          17
+        ],
+        [
+          67,
+          20
+        ],
+        [
+          85,
+          20
+        ],
+        [
+          100,
+          20
+        ]
+      ],
+      "parts": [
+        {
+          "id": "020-OLD-ARCH",
+          "kind": "roof",
+          "poly": [
+            [
+              30,
+              31
+            ],
+            [
+              34,
+              36
+            ],
+            [
+              40,
+              37
+            ],
+            [
+              44,
+              34
+            ],
+            [
+              42,
+              30
+            ],
+            [
+              35,
+              29
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "020-CRACKED-ROOF",
+          "kind": "roof",
+          "poly": [
+            [
+              43,
+              31
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              57,
+              35
+            ],
+            [
+              63,
+              31
+            ],
+            [
+              61,
+              28
+            ],
+            [
+              47,
+              28
+            ]
+          ],
+          "breakable": true
+        },
+        {
+          "id": "020-LOW-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              61,
+              17
+            ],
+            [
+              66,
+              19
+            ],
+            [
+              66,
+              29
+            ],
+            [
+              61,
+              29
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            31,
+            52,
+            0
+          ]
+        }
+      ],
+      "recommended": "ban",
+      "spawn": [
+        16,
+        85
+      ],
+      "route": "下段から門の破壊可能な屋根端を外し、高い砲座の低砲・高砲を撃ち分ける。",
+      "nameEn": "A Gate for Both Directions",
+      "goalEn": "Use low and high firing paths around a two-tier gate.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            8
+          ],
+          [
+            16,
+            8
+          ],
+          [
+            29,
+            8
+          ],
+          [
+            36,
+            9
+          ],
+          [
+            43,
+            11
+          ],
+          [
+            51,
+            13
+          ],
+          [
+            60,
+            17
+          ],
+          [
+            67,
+            20
+          ],
+          [
+            85,
+            20
+          ],
+          [
+            100,
+            20
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          8
+        ],
+        [
+          85,
+          20
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 20,
+      "name": "行きも帰りも開く門",
+      "nameEn": "A Gate for Both Directions",
+      "theme": 3,
+      "boss": true,
+      "spawn": [
+        [
+          16,
+          8
+        ],
+        [
+          85,
+          20
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            8
+          ],
+          [
+            16,
+            8
+          ],
+          [
+            29,
+            8
+          ],
+          [
+            36,
+            9
+          ],
+          [
+            43,
+            11
+          ],
+          [
+            51,
+            13
+          ],
+          [
+            60,
+            17
+          ],
+          [
+            67,
+            20
+          ],
+          [
+            85,
+            20
+          ],
+          [
+            100,
+            20
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "020-OLD-ARCH",
+          "poly": [
+            [
+              30,
+              31
+            ],
+            [
+              34,
+              36
+            ],
+            [
+              40,
+              37
+            ],
+            [
+              44,
+              34
+            ],
+            [
+              42,
+              30
+            ],
+            [
+              35,
+              29
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "020-CRACKED-ROOF",
+          "poly": [
+            [
+              43,
+              31
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              57,
+              35
+            ],
+            [
+              63,
+              31
+            ],
+            [
+              61,
+              28
+            ],
+            [
+              47,
+              28
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "020-LOW-GATE",
+          "poly": [
+            [
+              61,
+              17
+            ],
+            [
+              66,
+              19
+            ],
+            [
+              66,
+              29
+            ],
+            [
+              61,
+              29
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            31,
+            52,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 24,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "遺跡の入口",
+      "themeGoal": "屋根と窓を、上下・内外の関係で読む",
+      "stageInTheme": 5,
+      "themeRole": "Boss",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "bossSpec": {
+        "name": "Gatekeeper",
+        "parts": [
+          {
+            "name": "LOW GUN",
+            "hp": 2,
+            "dx": 24,
+            "dy": -57,
+            "radius": 22
+          },
+          {
+            "name": "HIGH GUN",
+            "hp": 2,
+            "dx": -19,
+            "dy": -77,
+            "radius": 22
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "DROP",
+          "MARK"
+        ],
+        "reward": "BLINK"
+      },
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:gatekeeper",
+      "recommendedCharacter": "ban",
+      "tacticalGoal": "下段から門の破壊可能な屋根端を外し、高い砲座の低砲・高砲を撃ち分ける。",
+      "tacticalGoalEn": "Use low and high firing paths around a two-tier gate.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 20,
+      "name": "行きも帰りも開く門",
+      "goal": "門袖の一片を開き、低砲・高砲へ別の角度を通す。外側の高い射点も選べる。",
+      "floor": [
+        [
+          0,
+          8
+        ],
+        [
+          16,
+          8
+        ],
+        [
+          29,
+          8
+        ],
+        [
+          36,
+          9
+        ],
+        [
+          43,
+          11
+        ],
+        [
+          51,
+          13
+        ],
+        [
+          60,
+          17
+        ],
+        [
+          67,
+          20
+        ],
+        [
+          85,
+          20
+        ],
+        [
+          100,
+          20
+        ]
+      ],
+      "parts": [
+        {
+          "id": "020-LOW-GATE-SLEEVE",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              30,
+              27
+            ],
+            [
+              39,
+              32
+            ],
+            [
+              50,
+              30
+            ],
+            [
+              50,
+              20
+            ],
+            [
+              35,
+              21
+            ]
+          ]
+        },
+        {
+          "id": "020-UPPER-GATE-SLEEVE",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              58,
+              40
+            ],
+            [
+              67,
+              43
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              75,
+              33
+            ],
+            [
+              58,
+              33
+            ]
+          ]
+        },
+        {
+          "id": "020-CRACKED-ROOF-END",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              50,
+              13
+            ],
+            [
+              58,
+              16
+            ],
+            [
+              58,
+              34
+            ],
+            [
+              50,
+              34
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            31,
+            52,
+            0
+          ]
+        }
+      ],
+      "recommended": "ban",
+      "spawn": [
+        16,
+        85
+      ],
+      "route": "門袖の一片を開き、低砲・高砲へ別の角度を通す。外側の高い射点も選べる。",
+      "nameEn": "A Gate for Both Directions",
+      "goalEn": "Open one gate sleeve to aim separately at the low and high cannons, or take an outer high firing point.",
+      "terrainRevision": "8.0-post-review-authorized",
+      "floorSegments": [
+        [
+          [
+            0,
+            8
+          ],
+          [
+            16,
+            8
+          ],
+          [
+            29,
+            8
+          ],
+          [
+            36,
+            9
+          ],
+          [
+            43,
+            11
+          ],
+          [
+            51,
+            13
+          ],
+          [
+            60,
+            17
+          ],
+          [
+            67,
+            20
+          ],
+          [
+            85,
+            20
+          ],
+          [
+            100,
+            20
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          8
+        ],
+        [
+          85,
+          20
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 20,
+      "name": "行きも帰りも開く門",
+      "nameEn": "A Gate for Both Directions",
+      "theme": 3,
+      "boss": true,
+      "spawn": [
+        [
+          16,
+          8
+        ],
+        [
+          85,
+          20
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            8
+          ],
+          [
+            16,
+            8
+          ],
+          [
+            29,
+            8
+          ],
+          [
+            36,
+            9
+          ],
+          [
+            43,
+            11
+          ],
+          [
+            51,
+            13
+          ],
+          [
+            60,
+            17
+          ],
+          [
+            67,
+            20
+          ],
+          [
+            85,
+            20
+          ],
+          [
+            100,
+            20
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "020-LOW-GATE-SLEEVE",
+          "poly": [
+            [
+              30,
+              27
+            ],
+            [
+              39,
+              32
+            ],
+            [
+              50,
+              30
+            ],
+            [
+              50,
+              20
+            ],
+            [
+              35,
+              21
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "020-UPPER-GATE-SLEEVE",
+          "poly": [
+            [
+              58,
+              40
+            ],
+            [
+              67,
+              43
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              75,
+              33
+            ],
+            [
+              58,
+              33
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "020-CRACKED-ROOF-END",
+          "poly": [
+            [
+              50,
+              13
+            ],
+            [
+              58,
+              16
+            ],
+            [
+              58,
+              34
+            ],
+            [
+              50,
+              34
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            31,
+            52,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 24,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "遺跡の入口",
+      "themeGoal": "屋根と窓を、上下・内外の関係で読む",
+      "stageInTheme": 5,
+      "themeRole": "Boss",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "bossSpec": {
+        "name": "Gatekeeper",
+        "parts": [
+          {
+            "name": "LOW GUN",
+            "hp": 2,
+            "dx": 24,
+            "dy": -57,
+            "radius": 22
+          },
+          {
+            "name": "HIGH GUN",
+            "hp": 2,
+            "dx": -19,
+            "dy": -77,
+            "radius": 22
+          }
+        ],
+        "attacks": [
+          "LOW",
+          "DROP",
+          "MARK"
+        ],
+        "reward": "BLINK"
+      },
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "boss",
+      "midboss": false,
+      "encounterId": "boss:gatekeeper",
+      "recommendedCharacter": "ban",
+      "tacticalGoal": "門袖の一片を開き、低砲・高砲へ別の角度を通す。外側の高い射点も選べる。",
+      "tacticalGoalEn": "Open one gate sleeve to aim separately at the low and high cannons, or take an outer high firing point.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "上下へずれた門袖の一片を開くと、既存の低砲・高砲へ低い射線を通せる。",
+    "render": "stage_020_before.png / stage_020_after.png / stage_020_after_input.png",
+    "improvement": "複数の壊れる屋根・門を一つの開口へ整理。固定門袖を上下へずらし、初期の高い曲射は外側射点と共に別解へ残す。破壊後は低砲0°/75、高砲0°/85の実射を限定確認。",
+    "limitedNativeCheck": {
+      "break": {
+        "a": -6,
+        "p": 80
+      },
+      "response": {
+        "round": 1,
+        "moved": 0,
+        "angle": 0.022022314369678497,
+        "power": 81.65717215184122,
+        "damage": [
+          0.5,
+          0
+        ],
+        "kind": "LOW",
+        "position": [
+          [
+            160,
+            420
+          ],
+          [
+            850,
+            300
+          ]
+        ],
+        "hpBefore": [
+          7,
+          10
+        ],
+        "hpAfter": [
+          6.5,
+          10
+        ]
+      },
+      "targets": {
+        "0": {
+          "a": 0,
+          "p": 75,
+          "damage": 1
+        },
+        "1": {
+          "a": 0,
+          "p": 85,
+          "damage": 1
+        }
+      },
+      "partsUnchanged": true,
+      "sameInputBefore": {}
+    },
+    "difference": "16面の下段への移動ではなく、ここは開いた場所から既存二部位を狙い分ける。すべての機構を直列の必須手順にしない。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          8
+        ],
+        [
+          85,
+          20
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          8
+        ],
+        [
+          85,
+          20
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    }
+  }
+}

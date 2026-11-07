@@ -1,0 +1,1010 @@
+{
+  "stage": 42,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 42,
+      "name": "斜坑の換気棚",
+      "goal": "高い棚を先に確保し、通気域を上から越える",
+      "floor": [
+        [
+          0,
+          29
+        ],
+        [
+          16,
+          29
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          39,
+          15
+        ],
+        [
+          47,
+          9
+        ],
+        [
+          57,
+          8
+        ],
+        [
+          68,
+          11
+        ],
+        [
+          80,
+          21
+        ],
+        [
+          93,
+          21
+        ],
+        [
+          112,
+          21
+        ]
+      ],
+      "parts": [
+        {
+          "id": "042-VENT-BALCONY",
+          "kind": "island",
+          "poly": [
+            [
+              27,
+              34
+            ],
+            [
+              31,
+              39
+            ],
+            [
+              39,
+              39
+            ],
+            [
+              44,
+              36
+            ],
+            [
+              42,
+              31
+            ],
+            [
+              32,
+              31
+            ]
+          ],
+          "breakable": false,
+          "purpose": "手前の換気棚"
+        },
+        {
+          "id": "042-BROKEN-AWNING",
+          "kind": "roof",
+          "poly": [
+            [
+              76,
+              43
+            ],
+            [
+              81,
+              48
+            ],
+            [
+              90,
+              48
+            ],
+            [
+              94,
+              43
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              80,
+              40
+            ]
+          ],
+          "breakable": true,
+          "purpose": "右岸頭上の破壊屋根"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            68,
+            10,
+            37
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            44,
+            39,
+            27,
+            0
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        93
+      ],
+      "route": "高い棚を先に確保し、通気域を上から越える",
+      "nameEn": "The Ventilation Shelf",
+      "goalEn": "Secure the high shelf to cross above the updraft.",
+      "floorSegments": [
+        [
+          [
+            0,
+            29
+          ],
+          [
+            16,
+            29
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            32,
+            23
+          ],
+          [
+            39,
+            15
+          ],
+          [
+            47,
+            9
+          ],
+          [
+            57,
+            8
+          ],
+          [
+            68,
+            11
+          ],
+          [
+            80,
+            21
+          ],
+          [
+            93,
+            21
+          ],
+          [
+            112,
+            21
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          29
+        ],
+        [
+          93,
+          21
+        ]
+      ],
+      "worldWidth": 1120,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 42,
+      "name": "斜坑の換気棚",
+      "nameEn": "The Ventilation Shelf",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          29
+        ],
+        [
+          93,
+          21
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            29
+          ],
+          [
+            16,
+            29
+          ],
+          [
+            24,
+            28
+          ],
+          [
+            32,
+            23
+          ],
+          [
+            39,
+            15
+          ],
+          [
+            47,
+            9
+          ],
+          [
+            57,
+            8
+          ],
+          [
+            68,
+            11
+          ],
+          [
+            80,
+            21
+          ],
+          [
+            93,
+            21
+          ],
+          [
+            112,
+            21
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "042-VENT-BALCONY",
+          "poly": [
+            [
+              27,
+              34
+            ],
+            [
+              31,
+              39
+            ],
+            [
+              39,
+              39
+            ],
+            [
+              44,
+              36
+            ],
+            [
+              42,
+              31
+            ],
+            [
+              32,
+              31
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "042-BROKEN-AWNING",
+          "poly": [
+            [
+              76,
+              43
+            ],
+            [
+              81,
+              48
+            ],
+            [
+              90,
+              48
+            ],
+            [
+              94,
+              43
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              80,
+              40
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            44,
+            68,
+            10,
+            37
+          ]
+        },
+        {
+          "type": "B",
+          "v": [
+            44,
+            39,
+            27,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W16",
+          "kind": "trial",
+          "weaponId": "W16",
+          "category": "weapon",
+          "amount": 2,
+          "x": 35.74165,
+          "h": 30.59249,
+          "spawnTurn": 1,
+          "placementId": "L042:weapon:W16",
+          "verification": {
+            "angle": 4,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 5,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "高い棚を先に確保し、通気域を上から越える",
+      "tacticalGoalEn": "Secure the high shelf to cross above the updraft.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1120
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 42,
+      "name": "斜坑の換気棚",
+      "goal": "上へ歩いてUの外から低く狙うか、下の通気口から弾を持ち上げる。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          20,
+          12
+        ],
+        [
+          29,
+          26
+        ],
+        [
+          40,
+          26
+        ],
+        [
+          48,
+          20
+        ],
+        [
+          55,
+          8
+        ],
+        [
+          66,
+          8
+        ],
+        [
+          77,
+          12
+        ],
+        [
+          86,
+          16
+        ],
+        [
+          112,
+          16
+        ]
+      ],
+      "parts": [
+        {
+          "id": "042-BROKEN-AWNING",
+          "kind": "roof",
+          "poly": [
+            [
+              76,
+              43
+            ],
+            [
+              81,
+              48
+            ],
+            [
+              90,
+              48
+            ],
+            [
+              94,
+              43
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              80,
+              40
+            ]
+          ],
+          "breakable": true,
+          "purpose": "右岸頭上の破壊屋根"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            41,
+            74,
+            7,
+            23
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        93
+      ],
+      "route": "上へ歩いてUの外から低く狙うか、下の通気口から弾を持ち上げる。",
+      "nameEn": "The Ventilation Shelf",
+      "goalEn": "Walk up to fire above the updraft, or lift a shot from its lower entrance.",
+      "spawnPoints": [
+        [
+          16,
+          12
+        ],
+        [
+          93,
+          16
+        ]
+      ],
+      "worldWidth": 1120,
+      "terrainRevision": "10.0-review-completion",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 42,
+      "name": "斜坑の換気棚",
+      "nameEn": "The Ventilation Shelf",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          12
+        ],
+        [
+          93,
+          16
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            20,
+            12
+          ],
+          [
+            29,
+            26
+          ],
+          [
+            40,
+            26
+          ],
+          [
+            48,
+            20
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            66,
+            8
+          ],
+          [
+            77,
+            12
+          ],
+          [
+            86,
+            16
+          ],
+          [
+            112,
+            16
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "042-BROKEN-AWNING",
+          "poly": [
+            [
+              76,
+              43
+            ],
+            [
+              81,
+              48
+            ],
+            [
+              90,
+              48
+            ],
+            [
+              94,
+              43
+            ],
+            [
+              91,
+              40
+            ],
+            [
+              80,
+              40
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            41,
+            74,
+            7,
+            23
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W16",
+          "kind": "trial",
+          "weaponId": "W16",
+          "category": "weapon",
+          "amount": 2,
+          "x": 35.74165,
+          "h": 30.59249,
+          "spawnTurn": 1,
+          "placementId": "L042:weapon:W16",
+          "verification": {
+            "angle": 46,
+            "power": 80,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble",
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "上へ歩いてUの外から低く狙うか、下の通気口から弾を持ち上げる。",
+      "tacticalGoalEn": "Walk up to fire above the updraft, or lift a shot from its lower entrance.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1120
+    }
+  },
+  "qualityEvidence": {
+    "walk": {
+      "input": 10000,
+      "moved": 140,
+      "position": [
+        30,
+        25.22222222222222
+      ],
+      "safe": true
+    },
+    "shot": {
+      "angle": -6,
+      "power": 70,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "pickup",
+          "id": "W16",
+          "x": 357.4165,
+          "y": 194.07509999999996,
+          "t": 0.038883571961922915,
+          "bullet": 0
+        },
+        {
+          "x": 904.376986680358,
+          "y": 300.55118375300356,
+          "t": 1.2888888888888863,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 7,
+        "rows": [
+          {
+            "angle": -9,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": -9,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": -9,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": -6,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": -6,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": -6,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": -3,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": -3,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": -3,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "lower": {
+      "input": {
+        "angle": 57,
+        "power": 50,
+        "x": 62.077898749830595,
+        "h": 8,
+        "surface": "floor0"
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          62.077898749830595,
+          8
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 0,
+          "angle": 35.21982008293271,
+          "power": 39.53768630605191,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              620.7789874983059,
+              420
+            ],
+            [
+              930,
+              340
+            ]
+          ],
+          "hpBefore": [
+            7,
+            4
+          ],
+          "hpAfter": [
+            7,
+            4
+          ]
+        }
+      },
+      "shot": {
+        "angle": 18,
+        "power": 70,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "updraft",
+            "x": 659.0220267479966,
+            "y": 381.5740833039674,
+            "t": 0.011111111111111112,
+            "bullet": 0
+          },
+          {
+            "x": 899.006851113006,
+            "y": 318.65170704202035,
+            "t": 0.5555555555555556,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 9,
+          "rows": [
+            {
+              "angle": 15,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 15,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 15,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 18,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 18,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 18,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 21,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 21,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 21,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          12
+        ],
+        [
+          93,
+          16
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          12
+        ],
+        [
+          93,
+          16
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1120
+    },
+    "experience": "一度登ってUの外から低く撃つか、下へ入ってUで持ち上げる。",
+    "improvement": "浮き棚と橋を外し、歩ける斜坑の肩を高い射点にした。既存の取得物を岩へ埋めない高さに上面を削り、取得物の座標を保持。",
+    "pickup": {
+      "before": {
+        "id": "W16",
+        "kind": "trial",
+        "weaponId": "W16",
+        "category": "weapon",
+        "amount": 2,
+        "x": 35.74165,
+        "h": 30.59249,
+        "spawnTurn": 1,
+        "placementId": "L042:weapon:W16",
+        "verification": {
+          "angle": 4,
+          "power": 90,
+          "walk": 0,
+          "neighborHits": 5,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "verification": {
+        "angle": 46,
+        "power": 80,
+        "neighborHits": 9,
+        "neighborShots": 9,
+        "walkInput": 0,
+        "moved": 0,
+        "attackDamage": 0,
+        "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+      },
+      "relocation": null
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

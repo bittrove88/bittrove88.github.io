@@ -1,0 +1,1590 @@
+{
+  "stage": 91,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 91,
+      "name": "斜め城壁の正門と側門",
+      "goal": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
+      "floor": [
+        [
+          0,
+          28
+        ],
+        [
+          12,
+          35
+        ],
+        [
+          24,
+          36
+        ],
+        [
+          36,
+          31
+        ],
+        [
+          45,
+          18
+        ],
+        [
+          58,
+          14
+        ],
+        [
+          70,
+          22
+        ],
+        [
+          83,
+          33
+        ],
+        [
+          99,
+          23
+        ],
+        [
+          111,
+          18
+        ],
+        [
+          126,
+          24
+        ],
+        [
+          137,
+          18
+        ],
+        [
+          146,
+          18
+        ],
+        [
+          150,
+          20
+        ],
+        [
+          158,
+          20
+        ],
+        [
+          160,
+          19
+        ]
+      ],
+      "parts": [
+        {
+          "id": "091-CORE-ARCH",
+          "kind": "island",
+          "poly": [
+            [
+              67,
+              43
+            ],
+            [
+              76,
+              50
+            ],
+            [
+              94,
+              50
+            ],
+            [
+              106,
+              43
+            ],
+            [
+              99,
+              36
+            ],
+            [
+              82,
+              39
+            ],
+            [
+              71,
+              34
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵砲座を支える湾曲した中央アーチ。",
+          "displayId": "F01",
+          "unitCount": 1
+        },
+        {
+          "id": "091-LOW-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              109,
+              18.833333333
+            ],
+            [
+              118,
+              18
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              109,
+              50
+            ]
+          ],
+          "breakable": true,
+          "purpose": "右正門の開口。",
+          "displayId": "D02",
+          "unitCount": 1
+        },
+        {
+          "id": "091-EAST-WALL",
+          "kind": "wall",
+          "poly": [
+            [
+              109,
+              50
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              124,
+              65
+            ],
+            [
+              116,
+              73
+            ],
+            [
+              108,
+              64
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右上から斜めに張り出す城壁。",
+          "displayId": "F03",
+          "unitCount": 1
+        },
+        {
+          "id": "091-UPPER-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              55,
+              57
+            ],
+            [
+              65,
+              60
+            ],
+            [
+              65,
+              78
+            ],
+            [
+              55,
+              74
+            ]
+          ],
+          "breakable": true,
+          "purpose": "左の側面から開ける斜めの上門。",
+          "displayId": "D04",
+          "unitCount": 1
+        },
+        {
+          "id": "091-WEST-WALL",
+          "kind": "wall",
+          "poly": [
+            [
+              43,
+              29
+            ],
+            [
+              51,
+              21
+            ],
+            [
+              55,
+              57
+            ],
+            [
+              55,
+              74
+            ],
+            [
+              48,
+              69
+            ]
+          ],
+          "breakable": false,
+          "purpose": "側路の下をえぐる傾いた西壁。",
+          "displayId": "F05",
+          "unitCount": 1
+        },
+        {
+          "id": "091-SIDE",
+          "kind": "island",
+          "poly": [
+            [
+              26,
+              57
+            ],
+            [
+              34,
+              64
+            ],
+            [
+              45,
+              64
+            ],
+            [
+              51,
+              57
+            ],
+            [
+              45,
+              53
+            ],
+            [
+              39,
+              50
+            ],
+            [
+              34,
+              51
+            ],
+            [
+              29,
+              49
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左側の結晶へ向く側面砲座。",
+          "displayId": "F06",
+          "unitCount": 1
+        }
+      ],
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            74,
+            68,
+            40
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            126,
+            137,
+            18
+          ]
+        }
+      ],
+      "recommended": "rin",
+      "spawn": [
+        16,
+        87
+      ],
+      "route": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
+      "nameEn": "Front and Side Gates of the Slanted Wall",
+      "goalEn": "Open the right gate for a floor reflection or the left gate for a crystal approach.",
+      "terrainRevision": "7.0-approved-051-099",
+      "spawnPoints": [
+        [
+          154,
+          20
+        ],
+        [
+          83,
+          50
+        ]
+      ],
+      "worldWidth": 1600
+    },
+    "runtime": {
+      "id": 91,
+      "name": "斜め城壁の正門と側門",
+      "nameEn": "Front and Side Gates of the Slanted Wall",
+      "theme": 18,
+      "boss": false,
+      "spawn": [
+        [
+          154,
+          20
+        ],
+        [
+          83,
+          50
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            28
+          ],
+          [
+            12,
+            35
+          ],
+          [
+            24,
+            36
+          ],
+          [
+            36,
+            31
+          ],
+          [
+            45,
+            18
+          ],
+          [
+            58,
+            14
+          ],
+          [
+            70,
+            22
+          ],
+          [
+            83,
+            33
+          ],
+          [
+            99,
+            23
+          ],
+          [
+            111,
+            18
+          ],
+          [
+            126,
+            24
+          ],
+          [
+            137,
+            18
+          ],
+          [
+            146,
+            18
+          ],
+          [
+            150,
+            20
+          ],
+          [
+            158,
+            20
+          ],
+          [
+            160,
+            19
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "091-CORE-ARCH",
+          "poly": [
+            [
+              67,
+              43
+            ],
+            [
+              76,
+              50
+            ],
+            [
+              94,
+              50
+            ],
+            [
+              106,
+              43
+            ],
+            [
+              99,
+              36
+            ],
+            [
+              82,
+              39
+            ],
+            [
+              71,
+              34
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "091-LOW-GATE",
+          "poly": [
+            [
+              109,
+              18.833333333
+            ],
+            [
+              118,
+              18
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              109,
+              50
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "091-EAST-WALL",
+          "poly": [
+            [
+              109,
+              50
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              124,
+              65
+            ],
+            [
+              116,
+              73
+            ],
+            [
+              108,
+              64
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "091-UPPER-GATE",
+          "poly": [
+            [
+              55,
+              57
+            ],
+            [
+              65,
+              60
+            ],
+            [
+              65,
+              78
+            ],
+            [
+              55,
+              74
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "091-WEST-WALL",
+          "poly": [
+            [
+              43,
+              29
+            ],
+            [
+              51,
+              21
+            ],
+            [
+              55,
+              57
+            ],
+            [
+              55,
+              74
+            ],
+            [
+              48,
+              69
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "091-SIDE",
+          "poly": [
+            [
+              26,
+              57
+            ],
+            [
+              34,
+              64
+            ],
+            [
+              45,
+              64
+            ],
+            [
+              51,
+              57
+            ],
+            [
+              45,
+              53
+            ],
+            [
+              39,
+              50
+            ],
+            [
+              34,
+              51
+            ],
+            [
+              29,
+              49
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            74,
+            68,
+            40
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            126,
+            137,
+            18
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "要塞の重層門",
+      "themeGoal": "安全な主経路と、二〜三要素の短縮路を選ぶ",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint",
+      "recommendedCharacter": "rin",
+      "tacticalGoal": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
+      "tacticalGoalEn": "Open the right gate for a floor reflection or the left gate for a crystal approach.",
+      "enemyHp": 7,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1600
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 91,
+      "name": "斜め城壁の正門と側門",
+      "goal": "右正門を一片開けて鏡床へ返すか、左側門へ回って結晶から落とす。開ける門を選ぶ。",
+      "floor": [
+        [
+          0,
+          28
+        ],
+        [
+          12,
+          35
+        ],
+        [
+          24,
+          36
+        ],
+        [
+          36,
+          31
+        ],
+        [
+          45,
+          18
+        ],
+        [
+          58,
+          14
+        ],
+        [
+          70,
+          22
+        ],
+        [
+          83,
+          33
+        ],
+        [
+          99,
+          23
+        ],
+        [
+          111,
+          18
+        ],
+        [
+          126,
+          24
+        ],
+        [
+          137,
+          18
+        ],
+        [
+          146,
+          18
+        ],
+        [
+          150,
+          20
+        ],
+        [
+          158,
+          20
+        ],
+        [
+          160,
+          19
+        ]
+      ],
+      "parts": [
+        {
+          "id": "091-CORE-ARCH",
+          "kind": "island",
+          "poly": [
+            [
+              67,
+              57
+            ],
+            [
+              76,
+              64
+            ],
+            [
+              94,
+              64
+            ],
+            [
+              106,
+              57
+            ],
+            [
+              99,
+              50
+            ],
+            [
+              82,
+              53
+            ],
+            [
+              71,
+              48
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵の上方に広い側方空間を残す固定アーチ。敵は下の斜面に立ち、左右の門から入射する。",
+          "displayId": "F01",
+          "unitCount": 1
+        },
+        {
+          "id": "091-LOW-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              109,
+              18.833333333
+            ],
+            [
+              118,
+              18
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              109,
+              50
+            ]
+          ],
+          "breakable": true,
+          "purpose": "右正門の開口。",
+          "displayId": "D02",
+          "unitCount": 1
+        },
+        {
+          "id": "091-EAST-WALL",
+          "kind": "wall",
+          "poly": [
+            [
+              109,
+              50
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              124,
+              65
+            ],
+            [
+              116,
+              73
+            ],
+            [
+              108,
+              64
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右上から斜めに張り出す城壁。",
+          "displayId": "F03",
+          "unitCount": 1
+        },
+        {
+          "id": "091-UPPER-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              55,
+              24
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              65,
+              57
+            ],
+            [
+              55,
+              54
+            ]
+          ],
+          "breakable": true,
+          "purpose": "左側面の一片を開け、結晶へ入れる側門。",
+          "displayId": "D04",
+          "unitCount": 1
+        },
+        {
+          "id": "091-WEST-WALL",
+          "kind": "wall",
+          "poly": [
+            [
+              43,
+              29
+            ],
+            [
+              51,
+              21
+            ],
+            [
+              55,
+              14
+            ],
+            [
+              65,
+              14
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              55,
+              24
+            ],
+            [
+              48,
+              35
+            ]
+          ],
+          "breakable": false,
+          "purpose": "側門の下を支える低い固定城壁。側面の開口は独立片で開く。",
+          "displayId": "F05",
+          "unitCount": 1
+        },
+        {
+          "id": "091-SIDE",
+          "kind": "island",
+          "poly": [
+            [
+              26,
+              33
+            ],
+            [
+              34,
+              40
+            ],
+            [
+              45,
+              40
+            ],
+            [
+              51,
+              33
+            ],
+            [
+              45,
+              29
+            ],
+            [
+              39,
+              26
+            ],
+            [
+              34,
+              27
+            ],
+            [
+              29,
+              25
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左側の結晶へ向く側面砲座。",
+          "displayId": "F06",
+          "unitCount": 1
+        }
+      ],
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            71,
+            40,
+            30
+          ],
+          "sizeFactor": 1.8
+        },
+        {
+          "type": "W",
+          "v": [
+            123,
+            146,
+            18
+          ]
+        }
+      ],
+      "recommended": "rin",
+      "spawn": [
+        16,
+        87
+      ],
+      "route": "右正門を一片開けて鏡床へ返すか、左側門へ回って結晶から落とす。開ける門を選ぶ。",
+      "nameEn": "Front and Side Gates of the Slanted Wall",
+      "goalEn": "Open the right gate for a floor rebound, or approach the left gate and descend from the crystal. Choose one entrance.",
+      "terrainRevision": "10.0-review-completion",
+      "spawnPoints": [
+        [
+          154,
+          20
+        ],
+        [
+          94,
+          26.125
+        ]
+      ],
+      "worldWidth": 1600
+    },
+    "runtime": {
+      "id": 91,
+      "name": "斜め城壁の正門と側門",
+      "nameEn": "Front and Side Gates of the Slanted Wall",
+      "theme": 18,
+      "boss": false,
+      "spawn": [
+        [
+          154,
+          20
+        ],
+        [
+          94,
+          26.125
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            28
+          ],
+          [
+            12,
+            35
+          ],
+          [
+            24,
+            36
+          ],
+          [
+            36,
+            31
+          ],
+          [
+            45,
+            18
+          ],
+          [
+            58,
+            14
+          ],
+          [
+            70,
+            22
+          ],
+          [
+            83,
+            33
+          ],
+          [
+            99,
+            23
+          ],
+          [
+            111,
+            18
+          ],
+          [
+            126,
+            24
+          ],
+          [
+            137,
+            18
+          ],
+          [
+            146,
+            18
+          ],
+          [
+            150,
+            20
+          ],
+          [
+            158,
+            20
+          ],
+          [
+            160,
+            19
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "091-CORE-ARCH",
+          "poly": [
+            [
+              67,
+              57
+            ],
+            [
+              76,
+              64
+            ],
+            [
+              94,
+              64
+            ],
+            [
+              106,
+              57
+            ],
+            [
+              99,
+              50
+            ],
+            [
+              82,
+              53
+            ],
+            [
+              71,
+              48
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "091-LOW-GATE",
+          "poly": [
+            [
+              109,
+              18.833333333
+            ],
+            [
+              118,
+              18
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              109,
+              50
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "091-EAST-WALL",
+          "poly": [
+            [
+              109,
+              50
+            ],
+            [
+              118,
+              50
+            ],
+            [
+              124,
+              65
+            ],
+            [
+              116,
+              73
+            ],
+            [
+              108,
+              64
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "091-UPPER-GATE",
+          "poly": [
+            [
+              55,
+              24
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              65,
+              57
+            ],
+            [
+              55,
+              54
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "091-WEST-WALL",
+          "poly": [
+            [
+              43,
+              29
+            ],
+            [
+              51,
+              21
+            ],
+            [
+              55,
+              14
+            ],
+            [
+              65,
+              14
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              55,
+              24
+            ],
+            [
+              48,
+              35
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "091-SIDE",
+          "poly": [
+            [
+              26,
+              33
+            ],
+            [
+              34,
+              40
+            ],
+            [
+              45,
+              40
+            ],
+            [
+              51,
+              33
+            ],
+            [
+              45,
+              29
+            ],
+            [
+              39,
+              26
+            ],
+            [
+              34,
+              27
+            ],
+            [
+              29,
+              25
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            71,
+            40,
+            30
+          ],
+          "sizeFactor": 1.8
+        },
+        {
+          "type": "W",
+          "v": [
+            123,
+            146,
+            18
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "要塞の重層門",
+      "themeGoal": "安全な主経路と、二〜三要素の短縮路を選ぶ",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:flint",
+      "recommendedCharacter": "rin",
+      "tacticalGoal": "右正門を一片開けて鏡床へ返すか、左側門へ回って結晶から落とす。開ける門を選ぶ。",
+      "tacticalGoalEn": "Open the right gate for a floor rebound, or approach the left gate and descend from the crystal. Choose one entrance.",
+      "enemyHp": 7,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1600
+    }
+  },
+  "qualityEvidence": {
+    "initial": null,
+    "first": {
+      "angle": -12,
+      "power": 45,
+      "damage": [
+        0,
+        0
+      ],
+      "destroyed": [
+        "091-LOW-GATE@0"
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 9,
+        "rows": [
+          {
+            "angle": -15,
+            "power": 40,
+            "hit": true
+          },
+          {
+            "angle": -15,
+            "power": 45,
+            "hit": true
+          },
+          {
+            "angle": -15,
+            "power": 50,
+            "hit": true
+          },
+          {
+            "angle": -12,
+            "power": 40,
+            "hit": true
+          },
+          {
+            "angle": -12,
+            "power": 45,
+            "hit": true
+          },
+          {
+            "angle": -12,
+            "power": 50,
+            "hit": true
+          },
+          {
+            "angle": -9,
+            "power": 40,
+            "hit": true
+          },
+          {
+            "angle": -9,
+            "power": 45,
+            "hit": true
+          },
+          {
+            "angle": -9,
+            "power": 50,
+            "hit": true
+          }
+        ]
+      }
+    },
+    "right": {
+      "angle": 6,
+      "power": 70,
+      "damage": [
+        0,
+        1
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 1294.1668472005629,
+          "y": 276.9278306431058,
+          "t": 0.4555555555555557,
+          "count": 1,
+          "surface": "reflector",
+          "solidId": "W1:floor0:11",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 5,
+        "rows": [
+          {
+            "angle": 3,
+            "power": 65,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 3,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 3,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 6,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 6,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 6,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 9,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 9,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 9,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          154,
+          20
+        ],
+        [
+          94,
+          26.125
+        ]
+      ],
+      "authored": [
+        [
+          154,
+          20
+        ],
+        [
+          94,
+          26.125
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1600
+    },
+    "left": {
+      "input": {
+        "angle": 63,
+        "power": 100
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          38.768834047653954,
+          40
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 0,
+          "angle": -4.089264121744781,
+          "power": 100,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              387.6883404765395,
+              100
+            ],
+            [
+              940,
+              238.75
+            ]
+          ],
+          "hpBefore": [
+            7,
+            7
+          ],
+          "hpAfter": [
+            7,
+            7
+          ]
+        }
+      },
+      "walk": {
+        "input": 20,
+        "moved": 16
+      },
+      "first": null,
+      "enemyOpenedGate": true,
+      "shot": {
+        "angle": 39,
+        "power": 40,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "bounce",
+            "x": 722.7055422559698,
+            "y": 105.60349743411547,
+            "t": 1.399999999999997,
+            "count": 1,
+            "surface": "crystal",
+            "solidId": "K0",
+            "bullet": 0
+          },
+          {
+            "x": 912.0812538900773,
+            "y": 203.27618778334534,
+            "t": 2.0666666666666615,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 3,
+          "rows": [
+            {
+              "angle": 36,
+              "power": 35,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 36,
+              "power": 40,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 36,
+              "power": 45,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 35,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 40,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 45,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 42,
+              "power": 35,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 42,
+              "power": 40,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 42,
+              "power": 45,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "leftLandings": 2,
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

@@ -1,0 +1,1718 @@
+{
+  "stage": 97,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 97,
+      "name": "低島U・折返しK・高島F",
+      "goal": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
+      "floor": [
+        [
+          0,
+          66
+        ],
+        [
+          9,
+          72
+        ],
+        [
+          20,
+          70
+        ],
+        [
+          30,
+          70
+        ],
+        [
+          40,
+          64
+        ]
+      ],
+      "parts": [
+        {
+          "id": "097-LOW",
+          "kind": "island",
+          "poly": [
+            [
+              44,
+              16
+            ],
+            [
+              49,
+              26
+            ],
+            [
+              65,
+              26
+            ],
+            [
+              76,
+              20
+            ],
+            [
+              69,
+              14
+            ],
+            [
+              58,
+              12
+            ],
+            [
+              51,
+              15
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左に広がるU用の低島。",
+          "displayId": "F01",
+          "unitCount": 1
+        },
+        {
+          "id": "097-MIDDLE",
+          "kind": "island",
+          "poly": [
+            [
+              109,
+              34
+            ],
+            [
+              119,
+              44
+            ],
+            [
+              133,
+              44
+            ],
+            [
+              145,
+              32
+            ],
+            [
+              137,
+              28
+            ],
+            [
+              123,
+              30
+            ],
+            [
+              115,
+              25
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右へ下がる細長い中継島。",
+          "displayId": "F02",
+          "unitCount": 1
+        },
+        {
+          "id": "097-HIGH",
+          "kind": "island",
+          "poly": [
+            [
+              69,
+              72
+            ],
+            [
+              77,
+              83
+            ],
+            [
+              95,
+              83
+            ],
+            [
+              106,
+              77
+            ],
+            [
+              100,
+              67
+            ],
+            [
+              83,
+              70
+            ],
+            [
+              72,
+              65
+            ]
+          ],
+          "breakable": false,
+          "purpose": "中央高所の短い開始島。",
+          "displayId": "F03",
+          "unitCount": 1
+        },
+        {
+          "id": "097-ENEMY-WINDOW",
+          "kind": "wall",
+          "poly": [
+            [
+              142,
+              31
+            ],
+            [
+              148,
+              31
+            ],
+            [
+              148,
+              54
+            ],
+            [
+              142,
+              51
+            ]
+          ],
+          "breakable": true,
+          "purpose": "低い敵棚の前の独立窓。",
+          "displayId": "D04",
+          "unitCount": 1
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            93,
+            129,
+            44,
+            77
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            118,
+            57,
+            -85
+          ]
+        },
+        {
+          "type": "U",
+          "v": [
+            44,
+            62,
+            24,
+            63
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
+      "nameEn": "Low Updraft, Returning Crystal, High Wind",
+      "goalEn": "Choose the low updraft island, reverse crystal entry or high wind route.",
+      "floorSegments": [
+        [
+          [
+            0,
+            66
+          ],
+          [
+            9,
+            72
+          ],
+          [
+            20,
+            70
+          ],
+          [
+            30,
+            70
+          ],
+          [
+            40,
+            64
+          ]
+        ],
+        [
+          [
+            145,
+            31
+          ],
+          [
+            169,
+            31
+          ],
+          [
+            184,
+            24
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          85,
+          83
+        ],
+        [
+          156,
+          31
+        ]
+      ],
+      "worldWidth": 1840,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 97,
+      "name": "低島U・折返しK・高島F",
+      "nameEn": "Low Updraft, Returning Crystal, High Wind",
+      "theme": 19,
+      "boss": false,
+      "spawn": [
+        [
+          85,
+          83
+        ],
+        [
+          156,
+          31
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            66
+          ],
+          [
+            9,
+            72
+          ],
+          [
+            20,
+            70
+          ],
+          [
+            30,
+            70
+          ],
+          [
+            40,
+            64
+          ]
+        ],
+        [
+          [
+            145,
+            31
+          ],
+          [
+            169,
+            31
+          ],
+          [
+            184,
+            24
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "097-LOW",
+          "poly": [
+            [
+              44,
+              16
+            ],
+            [
+              49,
+              26
+            ],
+            [
+              65,
+              26
+            ],
+            [
+              76,
+              20
+            ],
+            [
+              69,
+              14
+            ],
+            [
+              58,
+              12
+            ],
+            [
+              51,
+              15
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "097-MIDDLE",
+          "poly": [
+            [
+              109,
+              34
+            ],
+            [
+              119,
+              44
+            ],
+            [
+              133,
+              44
+            ],
+            [
+              145,
+              32
+            ],
+            [
+              137,
+              28
+            ],
+            [
+              123,
+              30
+            ],
+            [
+              115,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "097-HIGH",
+          "poly": [
+            [
+              69,
+              72
+            ],
+            [
+              77,
+              83
+            ],
+            [
+              95,
+              83
+            ],
+            [
+              106,
+              77
+            ],
+            [
+              100,
+              67
+            ],
+            [
+              83,
+              70
+            ],
+            [
+              72,
+              65
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "097-ENEMY-WINDOW",
+          "poly": [
+            [
+              142,
+              31
+            ],
+            [
+              148,
+              31
+            ],
+            [
+              148,
+              54
+            ],
+            [
+              142,
+              51
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            93,
+            129,
+            44,
+            77
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            118,
+            57,
+            -85
+          ]
+        },
+        {
+          "type": "U",
+          "v": [
+            44,
+            62,
+            24,
+            63
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W16",
+          "kind": "trial",
+          "weaponId": "W16",
+          "category": "weapon",
+          "amount": 2,
+          "x": 93.55701,
+          "h": 85.19748,
+          "spawnTurn": 1,
+          "placementId": "L097:weapon:W16",
+          "verification": {
+            "angle": -2,
+            "power": 85,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "夜明けの核",
+      "themeGoal": "得意な射点と経路を段階に合わせて選び直す",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
+      "tacticalGoalEn": "Choose the low updraft island, reverse crystal entry or high wind route.",
+      "enemyHp": 7,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1840
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 97,
+      "name": "低島U・折返しK・高島F",
+      "goal": "岩背の内側から、低島の上昇流・中段の折返し結晶・高岸の風のどこへ移るか選ぶ。",
+      "floor": [
+        [
+          0,
+          66
+        ],
+        [
+          9,
+          72
+        ],
+        [
+          20,
+          70
+        ],
+        [
+          30,
+          70
+        ],
+        [
+          40,
+          64
+        ]
+      ],
+      "parts": [
+        {
+          "id": "097-LOW",
+          "kind": "island",
+          "poly": [
+            [
+              44,
+              16
+            ],
+            [
+              49,
+              26
+            ],
+            [
+              65,
+              26
+            ],
+            [
+              76,
+              20
+            ],
+            [
+              69,
+              14
+            ],
+            [
+              58,
+              12
+            ],
+            [
+              51,
+              15
+            ]
+          ],
+          "breakable": false,
+          "purpose": "左に広がるU用の低島。",
+          "displayId": "F01",
+          "unitCount": 1
+        },
+        {
+          "id": "097-MIDDLE",
+          "kind": "island",
+          "poly": [
+            [
+              109,
+              34
+            ],
+            [
+              119,
+              44
+            ],
+            [
+              133,
+              44
+            ],
+            [
+              145,
+              32
+            ],
+            [
+              137,
+              28
+            ],
+            [
+              123,
+              30
+            ],
+            [
+              115,
+              25
+            ]
+          ],
+          "breakable": false,
+          "purpose": "右へ下がる細長い中継島。",
+          "displayId": "F02",
+          "unitCount": 1
+        },
+        {
+          "id": "097-HIGH",
+          "kind": "island",
+          "poly": [
+            [
+              69,
+              44
+            ],
+            [
+              77,
+              31
+            ],
+            [
+              88,
+              31
+            ],
+            [
+              96,
+              45
+            ],
+            [
+              100,
+              79
+            ],
+            [
+              107,
+              73
+            ],
+            [
+              112,
+              57
+            ],
+            [
+              108,
+              30
+            ],
+            [
+              94,
+              19
+            ],
+            [
+              80,
+              21
+            ],
+            [
+              72,
+              28
+            ]
+          ],
+          "breakable": false,
+          "purpose": "東に高い岩背を持つ開始のくぼみ。頭上を開き、左右の機構別の射点へ向く。",
+          "displayId": "F03",
+          "unitCount": 1
+        },
+        {
+          "id": "097-ENEMY-WINDOW",
+          "kind": "wall",
+          "poly": [
+            [
+              142,
+              31
+            ],
+            [
+              148,
+              31
+            ],
+            [
+              148,
+              40
+            ],
+            [
+              142,
+              39
+            ]
+          ],
+          "breakable": true,
+          "purpose": "低い敵棚の前の独立窓。",
+          "displayId": "D04",
+          "unitCount": 1
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            28,
+            48,
+            74,
+            101
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            118,
+            57,
+            -85
+          ],
+          "sizeFactor": 2.4
+        },
+        {
+          "type": "U",
+          "v": [
+            44,
+            62,
+            24,
+            63
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "岩背の内側から、低島の上昇流・中段の折返し結晶・高岸の風のどこへ移るか選ぶ。",
+      "nameEn": "Low Updraft, Returning Crystal, High Wind",
+      "goalEn": "Leave the rock hollow for the low updraft, middle return crystal, or high wind bank.",
+      "floorSegments": [
+        [
+          [
+            0,
+            66
+          ],
+          [
+            9,
+            72
+          ],
+          [
+            20,
+            70
+          ],
+          [
+            30,
+            70
+          ],
+          [
+            40,
+            64
+          ]
+        ],
+        [
+          [
+            145,
+            31
+          ],
+          [
+            169,
+            31
+          ],
+          [
+            184,
+            24
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          84,
+          31
+        ],
+        [
+          156,
+          31
+        ]
+      ],
+      "worldWidth": 1840,
+      "terrainRevision": "10.0-review-completion"
+    },
+    "runtime": {
+      "id": 97,
+      "name": "低島U・折返しK・高島F",
+      "nameEn": "Low Updraft, Returning Crystal, High Wind",
+      "theme": 19,
+      "boss": false,
+      "spawn": [
+        [
+          84,
+          31
+        ],
+        [
+          156,
+          31
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            66
+          ],
+          [
+            9,
+            72
+          ],
+          [
+            20,
+            70
+          ],
+          [
+            30,
+            70
+          ],
+          [
+            40,
+            64
+          ]
+        ],
+        [
+          [
+            145,
+            31
+          ],
+          [
+            169,
+            31
+          ],
+          [
+            184,
+            24
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "097-LOW",
+          "poly": [
+            [
+              44,
+              16
+            ],
+            [
+              49,
+              26
+            ],
+            [
+              65,
+              26
+            ],
+            [
+              76,
+              20
+            ],
+            [
+              69,
+              14
+            ],
+            [
+              58,
+              12
+            ],
+            [
+              51,
+              15
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "097-MIDDLE",
+          "poly": [
+            [
+              109,
+              34
+            ],
+            [
+              119,
+              44
+            ],
+            [
+              133,
+              44
+            ],
+            [
+              145,
+              32
+            ],
+            [
+              137,
+              28
+            ],
+            [
+              123,
+              30
+            ],
+            [
+              115,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "097-HIGH",
+          "poly": [
+            [
+              69,
+              44
+            ],
+            [
+              77,
+              31
+            ],
+            [
+              88,
+              31
+            ],
+            [
+              96,
+              45
+            ],
+            [
+              100,
+              79
+            ],
+            [
+              107,
+              73
+            ],
+            [
+              112,
+              57
+            ],
+            [
+              108,
+              30
+            ],
+            [
+              94,
+              19
+            ],
+            [
+              80,
+              21
+            ],
+            [
+              72,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "097-ENEMY-WINDOW",
+          "poly": [
+            [
+              142,
+              31
+            ],
+            [
+              148,
+              31
+            ],
+            [
+              148,
+              40
+            ],
+            [
+              142,
+              39
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            28,
+            48,
+            74,
+            101
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            118,
+            57,
+            -85
+          ],
+          "sizeFactor": 2.4
+        },
+        {
+          "type": "U",
+          "v": [
+            44,
+            62,
+            24,
+            63
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W16",
+          "kind": "trial",
+          "weaponId": "W16",
+          "category": "weapon",
+          "amount": 2,
+          "x": 93.55701,
+          "h": 85.19748,
+          "spawnTurn": 1,
+          "placementId": "L097:weapon:W16",
+          "verification": {
+            "angle": 84,
+            "power": 85,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "夜明けの核",
+      "themeGoal": "得意な射点と経路を段階に合わせて選び直す",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "岩背の内側から、低島の上昇流・中段の折返し結晶・高岸の風のどこへ移るか選ぶ。",
+      "tacticalGoalEn": "Leave the rock hollow for the low updraft, middle return crystal, or high wind bank.",
+      "enemyHp": 7,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1840
+    }
+  },
+  "qualityEvidence": {
+    "initial": {
+      "angle": 75,
+      "power": 95,
+      "damage": [
+        0,
+        1
+      ],
+      "events": [],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 2,
+        "rows": [
+          {
+            "angle": 72,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 100,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "name": "low",
+        "landings": 92,
+        "input": {
+          "angle": 96,
+          "power": 90,
+          "x": 56.09222356085039,
+          "h": 26,
+          "surface": "097-LOW:e1"
+        },
+        "warp": {
+          "success": true,
+          "position": [
+            56.09222356085039,
+            26
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 15,
+            "angle": 68,
+            "power": 86.85507964899298,
+            "damage": [
+              1.1,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                560.9222356085039,
+                240
+              ],
+              [
+                1575,
+                190
+              ]
+            ],
+            "hpBefore": [
+              7,
+              7
+            ],
+            "hpAfter": [
+              5.9,
+              7
+            ]
+          }
+        },
+        "walk": {
+          "input": 10,
+          "moved": 8
+        },
+        "shot": {
+          "angle": 66,
+          "power": 90,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "updraft",
+              "x": 585.8831536247648,
+              "y": 175.90515441630356,
+              "t": 0.011111111111111112,
+              "bullet": 0
+            },
+            {
+              "type": "pickup",
+              "id": "W16",
+              "x": 935.5701,
+              "y": -351.97479999999996,
+              "t": 1.3473662098046002,
+              "bullet": 0
+            },
+            {
+              "x": 1552.0440861916225,
+              "y": 147.16670882403983,
+              "t": 3.9555555555555437,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 3,
+            "rows": [
+              {
+                "angle": 63,
+                "power": 85,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 63,
+                "power": 90,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 63,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 90,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 69,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 69,
+                "power": 90,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 69,
+                "power": 95,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "middle",
+        "landings": 3,
+        "input": {
+          "angle": 81,
+          "power": 95,
+          "x": 127.5571733321716,
+          "h": 44,
+          "surface": "097-MIDDLE:e1"
+        },
+        "warp": {
+          "success": true,
+          "position": [
+            125.26193546298164,
+            44
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 15,
+            "angle": 68,
+            "power": 55.85507964899298,
+            "damage": [
+              1.1,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                1252.6193546298164,
+                60
+              ],
+              [
+                1575,
+                190
+              ]
+            ],
+            "hpBefore": [
+              7,
+              7
+            ],
+            "hpAfter": [
+              5.9,
+              7
+            ]
+          }
+        },
+        "walk": {
+          "input": -10,
+          "moved": -8
+        },
+        "shot": {
+          "angle": 63,
+          "power": 55,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "bounce",
+              "x": 1186.166614991018,
+              "y": -73.55395279877668,
+              "t": 0.26666666666666655,
+              "count": 1,
+              "surface": "crystal",
+              "solidId": "K1",
+              "bullet": 0
+            },
+            {
+              "x": 1565.6352234833432,
+              "y": 138.4483340436944,
+              "t": 2.299999999999994,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 6,
+            "rows": [
+              {
+                "angle": 60,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 60,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 60,
+                "power": 60,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 63,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 63,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 63,
+                "power": 60,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 50,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "high",
+        "landings": 44,
+        "input": {
+          "angle": 108,
+          "power": 85,
+          "x": 32.10220988408801,
+          "h": 68.73867406954719,
+          "surface": "floor0"
+        },
+        "warp": {
+          "success": true,
+          "position": [
+            35.59014694643883,
+            66.6459118321367
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 15,
+            "angle": 62.34526208695024,
+            "power": 85.85507964899298,
+            "damage": [
+              0,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                355.9014694643883,
+                -166.45911832136701
+              ],
+              [
+                1575,
+                190
+              ]
+            ],
+            "hpBefore": [
+              7,
+              7
+            ],
+            "hpAfter": [
+              7,
+              7
+            ]
+          }
+        },
+        "walk": {
+          "input": 10,
+          "moved": 8
+        },
+        "shot": {
+          "angle": 78,
+          "power": 80,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "wind",
+              "x": 433.6034895422632,
+              "y": -243.39485927960212,
+              "t": 0.08888888888888889,
+              "bullet": 0
+            },
+            {
+              "x": 1570.327938612961,
+              "y": 137.3540893038608,
+              "t": 3.3222222222222126,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 3,
+            "rows": [
+              {
+                "angle": 75,
+                "power": 75,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 75,
+                "power": 80,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 75,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 78,
+                "power": 75,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 78,
+                "power": 80,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 78,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 75,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 80,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 81,
+                "power": 85,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          84,
+          31
+        ],
+        [
+          156,
+          31
+        ]
+      ],
+      "authored": [
+        [
+          84,
+          31
+        ],
+        [
+          156,
+          31
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1840
+    },
+    "pickup": {
+      "before": {
+        "id": "W16",
+        "kind": "trial",
+        "weaponId": "W16",
+        "category": "weapon",
+        "amount": 2,
+        "x": 93.55701,
+        "h": 85.19748,
+        "spawnTurn": 1,
+        "placementId": "L097:weapon:W16",
+        "verification": {
+          "angle": -2,
+          "power": 85,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "verification": {
+        "angle": 84,
+        "power": 85,
+        "neighborHits": 9,
+        "neighborShots": 9,
+        "walkInput": 0,
+        "moved": 0,
+        "attackDamage": 0,
+        "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+      },
+      "relocation": null
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

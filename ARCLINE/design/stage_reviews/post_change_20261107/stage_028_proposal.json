@@ -1,0 +1,1173 @@
+{
+  "stage": 28,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "破壊一手と徒歩の射点変更を比較できる斜めの回廊。入口の自機頭上は開放。",
+  "before": {
+    "blueprint": {
+      "stage": 28,
+      "name": "回廊の壊れた屋根",
+      "goal": "屋根を一片壊すか、回廊の先から撃つ",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          36,
+          10
+        ],
+        [
+          46,
+          9
+        ],
+        [
+          55,
+          9
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          73,
+          19
+        ],
+        [
+          82,
+          19
+        ],
+        [
+          100,
+          19
+        ]
+      ],
+      "parts": [
+        {
+          "id": "028-LOW-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              38,
+              9
+            ],
+            [
+              45,
+              9
+            ],
+            [
+              45,
+              22
+            ],
+            [
+              38,
+              22
+            ]
+          ],
+          "breakable": true,
+          "physicalBlockCount": 1
+        },
+        {
+          "id": "028-OVERHEAD-WINDOW",
+          "kind": "roof",
+          "poly": [
+            [
+              58,
+              29
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              72,
+              32
+            ],
+            [
+              77,
+              28
+            ],
+            [
+              74,
+              25
+            ],
+            [
+              63,
+              26
+            ]
+          ],
+          "breakable": true,
+          "physicalBlockCount": 2
+        },
+        {
+          "id": "028-FIXED-PORTICO",
+          "kind": "roof",
+          "poly": [
+            [
+              28,
+              24
+            ],
+            [
+              32,
+              30
+            ],
+            [
+              37,
+              31
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              30,
+              22
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            48,
+            79,
+            15,
+            40
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "屋根を一片壊すか、回廊の先から撃つ",
+      "nameEn": "Broken Corridor Roof",
+      "goalEn": "Open one roof piece or shoot from beyond the corridor.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            16,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            36,
+            10
+          ],
+          [
+            46,
+            9
+          ],
+          [
+            55,
+            9
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            73,
+            19
+          ],
+          [
+            82,
+            19
+          ],
+          [
+            100,
+            19
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          19
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 28,
+      "name": "回廊の壊れた屋根",
+      "nameEn": "Broken Corridor Roof",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          19
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            16,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            36,
+            10
+          ],
+          [
+            46,
+            9
+          ],
+          [
+            55,
+            9
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            73,
+            19
+          ],
+          [
+            82,
+            19
+          ],
+          [
+            100,
+            19
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "028-LOW-GATE",
+          "poly": [
+            [
+              38,
+              9
+            ],
+            [
+              45,
+              9
+            ],
+            [
+              45,
+              22
+            ],
+            [
+              38,
+              22
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "028-OVERHEAD-WINDOW",
+          "poly": [
+            [
+              58,
+              29
+            ],
+            [
+              64,
+              33
+            ],
+            [
+              72,
+              32
+            ],
+            [
+              77,
+              28
+            ],
+            [
+              74,
+              25
+            ],
+            [
+              63,
+              26
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "028-FIXED-PORTICO",
+          "poly": [
+            [
+              28,
+              24
+            ],
+            [
+              32,
+              30
+            ],
+            [
+              37,
+              31
+            ],
+            [
+              38,
+              27
+            ],
+            [
+              35,
+              22
+            ],
+            [
+              30,
+              22
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            48,
+            79,
+            15,
+            40
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK028",
+          "kind": "skill",
+          "skillId": "S_INVINCIBLE",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 57.832,
+          "h": 25.559,
+          "spawnTurn": 1,
+          "placementId": "L028:skill:S_INVINCIBLE",
+          "verification": {
+            "angle": 24,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 3,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "屋根を一片壊すか、回廊の先から撃つ",
+      "tacticalGoalEn": "Open one roof piece or shoot from beyond the corridor.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 28,
+      "name": "回廊の壊れた屋根",
+      "goal": "近い屋根端を一片開くか、固定回廊へ歩いて横へ通す。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          36,
+          10
+        ],
+        [
+          46,
+          9
+        ],
+        [
+          55,
+          9
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          73,
+          19
+        ],
+        [
+          82,
+          19
+        ],
+        [
+          100,
+          19
+        ]
+      ],
+      "parts": [
+        {
+          "id": "028-FRAGILE-EAVE",
+          "kind": "roof",
+          "poly": [
+            [
+              28,
+              43
+            ],
+            [
+              37,
+              43
+            ],
+            [
+              37,
+              26
+            ],
+            [
+              28,
+              18
+            ]
+          ],
+          "breakable": true
+        },
+        {
+          "id": "028-FIXED-CORRIDOR",
+          "kind": "roof",
+          "poly": [
+            [
+              37,
+              34
+            ],
+            [
+              49,
+              41
+            ],
+            [
+              63,
+              39
+            ],
+            [
+              74,
+              32
+            ],
+            [
+              72,
+              25
+            ],
+            [
+              55,
+              27
+            ],
+            [
+              37,
+              26
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            48,
+            72,
+            15,
+            35
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "近い屋根端を一片開くか、固定回廊へ歩いて横へ通す。",
+      "nameEn": "Broken Corridor Roof",
+      "goalEn": "Open one nearby roof piece, or walk into the fixed corridor and fire through its side.",
+      "terrainRevision": "8.0-post-review-authorized",
+      "floorSegments": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            16,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            36,
+            10
+          ],
+          [
+            46,
+            9
+          ],
+          [
+            55,
+            9
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            73,
+            19
+          ],
+          [
+            82,
+            19
+          ],
+          [
+            100,
+            19
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          19
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 28,
+      "name": "回廊の壊れた屋根",
+      "nameEn": "Broken Corridor Roof",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          19
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            16,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            36,
+            10
+          ],
+          [
+            46,
+            9
+          ],
+          [
+            55,
+            9
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            73,
+            19
+          ],
+          [
+            82,
+            19
+          ],
+          [
+            100,
+            19
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "028-FRAGILE-EAVE",
+          "poly": [
+            [
+              28,
+              43
+            ],
+            [
+              37,
+              43
+            ],
+            [
+              37,
+              26
+            ],
+            [
+              28,
+              18
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "028-FIXED-CORRIDOR",
+          "poly": [
+            [
+              37,
+              34
+            ],
+            [
+              49,
+              41
+            ],
+            [
+              63,
+              39
+            ],
+            [
+              74,
+              32
+            ],
+            [
+              72,
+              25
+            ],
+            [
+              55,
+              27
+            ],
+            [
+              37,
+              26
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            48,
+            72,
+            15,
+            35
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK028",
+          "kind": "skill",
+          "skillId": "S_INVINCIBLE",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 56.09249,
+          "h": 20.89378,
+          "spawnTurn": 1,
+          "placementId": "L028:skill:S_INVINCIBLE",
+          "verification": {
+            "angle": 15,
+            "power": 90,
+            "neighborHits": 6,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "近い屋根端を一片開くか、固定回廊へ歩いて横へ通す。",
+      "tacticalGoalEn": "Open one nearby roof piece, or walk into the fixed corridor and fire through its side.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "手前で屋根端一片を開いて撃つか、固定回廊へ歩いて横出口から通す。",
+    "render": "stage_028_before.png / stage_028_after.png / stage_028_after_input.png",
+    "improvement": "初案の浅い弧が両準備を省いたため、壊れる屋根端の前側だけを下げ、上側を固定回廊より高くした。破壊後の近傍5/9、140px歩行後7/9、初期の高弧3/9を比較。",
+    "limitedNativeCheck": {
+      "initial": {
+        "angle": 75,
+        "power": 95,
+        "damage": [
+          0,
+          1
+        ],
+        "events": [],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 3,
+          "rows": [
+            {
+              "angle": 72,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 72,
+              "power": 95,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 72,
+              "power": 100,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 75,
+              "power": 90,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 75,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 75,
+              "power": 100,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 78,
+              "power": 90,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 78,
+              "power": 95,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 78,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            }
+          ]
+        }
+      },
+      "walk": {
+        "input": 10000,
+        "moved": 140,
+        "shot": {
+          "angle": 36,
+          "power": 95,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "cloud",
+              "x": 483.0619942527487,
+              "y": 297.047792078351,
+              "t": 0.24444444444444433,
+              "bullet": 0
+            },
+            {
+              "x": 789.0122766279767,
+              "y": 288.8723532650028,
+              "t": 0.9666666666666652,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 7,
+            "rows": [
+              {
+                "angle": 33,
+                "power": 90,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 33,
+                "power": 95,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 33,
+                "power": 100,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 36,
+                "power": 90,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 36,
+                "power": 95,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 36,
+                "power": 100,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 39,
+                "power": 90,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 39,
+                "power": 95,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 39,
+                "power": 100,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        },
+        "body": true
+      },
+      "break": {
+        "angle": 36,
+        "power": 85,
+        "destroyed": [
+          "028-FRAGILE-EAVE@0"
+        ],
+        "enemy": {
+          "round": 1,
+          "moved": 0,
+          "angle": 33.35352045483887,
+          "power": 100,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              160,
+              380
+            ],
+            [
+              820,
+              310
+            ]
+          ],
+          "hpBefore": [
+            7,
+            3
+          ],
+          "hpAfter": [
+            7,
+            3
+          ]
+        },
+        "shot": {
+          "angle": 21,
+          "power": 95,
+          "damage": [
+            0,
+            1
+          ],
+          "events": [
+            {
+              "type": "cloud",
+              "x": 483.184797421631,
+              "y": 264.97801663666627,
+              "t": 0.4888888888888891,
+              "bullet": 0
+            },
+            {
+              "type": "pickup",
+              "id": "SK028",
+              "x": 578.32,
+              "y": 244.41,
+              "t": 0.6730493593622063,
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 5,
+            "rows": [
+              {
+                "angle": 18,
+                "power": 90,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 18,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 18,
+                "power": 100,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 21,
+                "power": 90,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 21,
+                "power": 95,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 21,
+                "power": 100,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 24,
+                "power": 90,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 24,
+                "power": 95,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 24,
+                "power": 100,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "difference": "7面の破壊導入と違い、前へ歩く射点も使える。16面の下段へ移る開口や29面の空港デッキへの転移とは空間を分ける。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          19
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          19
+        ]
+      ],
+      "straightBlocked": false,
+      "worldWidth": 1000
+    }
+  }
+}

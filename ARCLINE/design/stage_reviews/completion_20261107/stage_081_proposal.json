@@ -1,0 +1,1371 @@
+{
+  "stage": 81,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 81,
+      "name": "割れた根輪の内と外",
+      "goal": "外庭園から結晶で根を越すか、内側の足場へ移って風の窓を使うか選ぶ。",
+      "floor": [
+        [
+          0,
+          5
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          160,
+          5
+        ],
+        [
+          170,
+          5
+        ]
+      ],
+      "parts": [
+        {
+          "id": "081-OUTER-GARDEN",
+          "displayId": "F01",
+          "kind": "island",
+          "poly": [
+            [
+              10,
+              28
+            ],
+            [
+              17,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              34,
+              20
+            ],
+            [
+              18,
+              22
+            ]
+          ],
+          "breakable": false,
+          "purpose": "根輪の外の開始庭園。頭上は開き、Kへ斜めに入射する。"
+        },
+        {
+          "id": "081-SPLIT-ROOT-RING",
+          "displayId": "F02",
+          "kind": "root-ring",
+          "poly": [
+            [
+              61,
+              82
+            ],
+            [
+              65,
+              69
+            ],
+            [
+              69,
+              52
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              86,
+              34
+            ],
+            [
+              101,
+              34
+            ],
+            [
+              109,
+              45
+            ],
+            [
+              114,
+              61
+            ],
+            [
+              118,
+              75
+            ],
+            [
+              136,
+              75
+            ],
+            [
+              142,
+              68
+            ],
+            [
+              145,
+              52
+            ],
+            [
+              139,
+              35
+            ],
+            [
+              125,
+              18
+            ],
+            [
+              102,
+              10
+            ],
+            [
+              82,
+              12
+            ],
+            [
+              64,
+              23
+            ],
+            [
+              54,
+              43
+            ],
+            [
+              52,
+              62
+            ],
+            [
+              55,
+              76
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上が割れた一体の根輪。内側の固定足場と右の敵庭園をつなぎ、直射を根で遮る。内側の頭上は開いている。"
+        },
+        {
+          "id": "081-DRY-SIDE-BRANCH",
+          "displayId": "D03",
+          "kind": "wall",
+          "poly": [
+            [
+              36,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              42,
+              28.2
+            ],
+            [
+              42,
+              45
+            ],
+            [
+              36,
+              44
+            ]
+          ],
+          "breakable": true,
+          "purpose": "開始庭園の側面だけを覆う枯れ枝。主攻略は残して上からKへ入れる。除去は側方の局所遮蔽を失う選択で、根輪の固定支持は残る。"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            87,
+            114,
+            57,
+            88
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            50,
+            76,
+            -55
+          ]
+        }
+      ],
+      "recommended": "yui",
+      "spawn": [
+        25,
+        129
+      ],
+      "route": "外のP0からKに一回反射させ、Fの上側を回して右根の敵を狙う構想。任意に根輪内のAへ転移し、現在の風向きを読んでFを通す。D03の破壊は必須にしない。",
+      "nameEn": "Inside and Outside the Split Root Ring",
+      "goalEn": "Use the crystal from outside or the wind window from inside the root ring.",
+      "floorSegments": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        [
+          [
+            160,
+            5
+          ],
+          [
+            170,
+            5
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          25,
+          33
+        ],
+        [
+          129,
+          75
+        ]
+      ],
+      "worldWidth": 1700,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 81,
+      "name": "割れた根輪の内と外",
+      "nameEn": "Inside and Outside the Split Root Ring",
+      "theme": 16,
+      "boss": false,
+      "spawn": [
+        [
+          25,
+          33
+        ],
+        [
+          129,
+          75
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        [
+          [
+            160,
+            5
+          ],
+          [
+            170,
+            5
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "081-OUTER-GARDEN",
+          "poly": [
+            [
+              10,
+              28
+            ],
+            [
+              17,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              34,
+              20
+            ],
+            [
+              18,
+              22
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "081-SPLIT-ROOT-RING",
+          "poly": [
+            [
+              61,
+              82
+            ],
+            [
+              65,
+              69
+            ],
+            [
+              69,
+              52
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              86,
+              34
+            ],
+            [
+              101,
+              34
+            ],
+            [
+              109,
+              45
+            ],
+            [
+              114,
+              61
+            ],
+            [
+              118,
+              75
+            ],
+            [
+              136,
+              75
+            ],
+            [
+              142,
+              68
+            ],
+            [
+              145,
+              52
+            ],
+            [
+              139,
+              35
+            ],
+            [
+              125,
+              18
+            ],
+            [
+              102,
+              10
+            ],
+            [
+              82,
+              12
+            ],
+            [
+              64,
+              23
+            ],
+            [
+              54,
+              43
+            ],
+            [
+              52,
+              62
+            ],
+            [
+              55,
+              76
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "081-DRY-SIDE-BRANCH",
+          "poly": [
+            [
+              36,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              42,
+              28.2
+            ],
+            [
+              42,
+              45
+            ],
+            [
+              36,
+              44
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            87,
+            114,
+            57,
+            88
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            50,
+            76,
+            -55
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "空中庭園",
+      "themeGoal": "持っている武器で、地形と相手の位置を変えて遊ぶ",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "yui",
+      "tacticalGoal": "外庭園から結晶で根を越すか、内側の足場へ移って風の窓を使うか選ぶ。",
+      "tacticalGoalEn": "Use the crystal from outside or the wind window from inside the root ring.",
+      "enemyHp": 6,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1700
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 81,
+      "name": "割れた根輪の内と外",
+      "goal": "根輪の内側へ入って低く撃つか、外側の高い縁から風へ落とす。",
+      "floor": [
+        [
+          0,
+          5
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          160,
+          5
+        ],
+        [
+          170,
+          5
+        ]
+      ],
+      "parts": [
+        {
+          "id": "081-OUTER-GARDEN",
+          "displayId": "F01",
+          "kind": "island",
+          "poly": [
+            [
+              10,
+              28
+            ],
+            [
+              17,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              34,
+              20
+            ],
+            [
+              18,
+              22
+            ]
+          ],
+          "breakable": false,
+          "purpose": "根輪の外の開始庭園。頭上を開き、根輪の内側と高い外縁へ移る出発支持。"
+        },
+        {
+          "id": "081-SPLIT-ROOT-RING",
+          "displayId": "F02",
+          "kind": "root-ring",
+          "poly": [
+            [
+              61,
+              82
+            ],
+            [
+              65,
+              69
+            ],
+            [
+              69,
+              52
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              86,
+              34
+            ],
+            [
+              101,
+              34
+            ],
+            [
+              109,
+              45
+            ],
+            [
+              114,
+              61
+            ],
+            [
+              118,
+              75
+            ],
+            [
+              136,
+              75
+            ],
+            [
+              142,
+              68
+            ],
+            [
+              145,
+              52
+            ],
+            [
+              139,
+              35
+            ],
+            [
+              125,
+              18
+            ],
+            [
+              102,
+              10
+            ],
+            [
+              82,
+              12
+            ],
+            [
+              64,
+              23
+            ],
+            [
+              54,
+              43
+            ],
+            [
+              52,
+              62
+            ],
+            [
+              55,
+              76
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上が割れた一体の根輪。低い内側の敵支持と高い外縁を作り、左の根で初期直射を遮る。内側の頭上は開いている。"
+        },
+        {
+          "id": "081-DRY-SIDE-BRANCH",
+          "displayId": "D03",
+          "kind": "wall",
+          "poly": [
+            [
+              36,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              42,
+              28.2
+            ],
+            [
+              42,
+              45
+            ],
+            [
+              36,
+              44
+            ]
+          ],
+          "breakable": true,
+          "purpose": "開始庭園の側面だけを覆う枯れ枝。根輪の内外へ移る上空を開き、除去は局所遮蔽の変更に限る。"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            87,
+            114,
+            57,
+            88
+          ]
+        }
+      ],
+      "recommended": "yui",
+      "spawn": [
+        25,
+        129
+      ],
+      "route": "根輪の内側へ入って低く撃つか、外側の高い縁から風へ落とす。",
+      "nameEn": "Inside and Outside the Split Root Ring",
+      "goalEn": "Enter the root ring for a low shot, or drop through the wind from its outer rim.",
+      "floorSegments": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        [
+          [
+            160,
+            5
+          ],
+          [
+            170,
+            5
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          25,
+          33
+        ],
+        [
+          94,
+          34
+        ]
+      ],
+      "worldWidth": 1700,
+      "terrainRevision": "10.0-review-completion"
+    },
+    "runtime": {
+      "id": 81,
+      "name": "割れた根輪の内と外",
+      "nameEn": "Inside and Outside the Split Root Ring",
+      "theme": 16,
+      "boss": false,
+      "spawn": [
+        [
+          25,
+          33
+        ],
+        [
+          94,
+          34
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            5
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        [
+          [
+            160,
+            5
+          ],
+          [
+            170,
+            5
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "081-OUTER-GARDEN",
+          "poly": [
+            [
+              10,
+              28
+            ],
+            [
+              17,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              43,
+              27
+            ],
+            [
+              34,
+              20
+            ],
+            [
+              18,
+              22
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "081-SPLIT-ROOT-RING",
+          "poly": [
+            [
+              61,
+              82
+            ],
+            [
+              65,
+              69
+            ],
+            [
+              69,
+              52
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              86,
+              34
+            ],
+            [
+              101,
+              34
+            ],
+            [
+              109,
+              45
+            ],
+            [
+              114,
+              61
+            ],
+            [
+              118,
+              75
+            ],
+            [
+              136,
+              75
+            ],
+            [
+              142,
+              68
+            ],
+            [
+              145,
+              52
+            ],
+            [
+              139,
+              35
+            ],
+            [
+              125,
+              18
+            ],
+            [
+              102,
+              10
+            ],
+            [
+              82,
+              12
+            ],
+            [
+              64,
+              23
+            ],
+            [
+              54,
+              43
+            ],
+            [
+              52,
+              62
+            ],
+            [
+              55,
+              76
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "081-DRY-SIDE-BRANCH",
+          "poly": [
+            [
+              36,
+              33
+            ],
+            [
+              38,
+              33
+            ],
+            [
+              42,
+              28.2
+            ],
+            [
+              42,
+              45
+            ],
+            [
+              36,
+              44
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            87,
+            114,
+            57,
+            88
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "空中庭園",
+      "themeGoal": "持っている武器で、地形と相手の位置を変えて遊ぶ",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "yui",
+      "tacticalGoal": "根輪の内側へ入って低く撃つか、外側の高い縁から風へ落とす。",
+      "tacticalGoalEn": "Enter the root ring for a low shot, or drop through the wind from its outer rim.",
+      "enemyHp": 6,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1700
+    }
+  },
+  "qualityEvidence": {
+    "initial": {
+      "angle": 75,
+      "power": 95,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "wind",
+          "x": 870.4208845495788,
+          "y": -111.77559654922084,
+          "t": 3.7111111111111,
+          "bullet": 0
+        },
+        {
+          "x": 938.5735679252258,
+          "y": 107.0328352680447,
+          "t": 4.111111111111099,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 3,
+        "rows": [
+          {
+            "angle": 72,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 100,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          }
+        ]
+      }
+    },
+    "choices": [
+      {
+        "name": "inside",
+        "count": 3,
+        "input": {
+          "angle": 75,
+          "power": 85,
+          "x": 80.83233417195716,
+          "h": 36.29674036801904,
+          "surface": "081-SPLIT-ROOT-RING:e3"
+        },
+        "warp": {
+          "success": true,
+          "position": [
+            80.83233417195716,
+            36.29674036801904
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 0,
+            "angle": 64.34526208695024,
+            "power": 30.543912548874506,
+            "damage": [
+              1.1,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                808.3233417195715,
+                137.03259631980958
+              ],
+              [
+                940,
+                160
+              ]
+            ],
+            "hpBefore": [
+              7,
+              6
+            ],
+            "hpAfter": [
+              5.9,
+              6
+            ]
+          }
+        },
+        "shot": {
+          "angle": 9,
+          "power": 55,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "x": 909.1362206815246,
+              "y": 140.90295128799085,
+              "t": 0.16666666666666663,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 9,
+            "rows": [
+              {
+                "angle": 6,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 6,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 6,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 9,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 9,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 9,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 12,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 12,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 12,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "outer",
+        "count": 2,
+        "input": {
+          "angle": 60,
+          "power": 100,
+          "x": 130.4754803505065,
+          "h": 75,
+          "surface": "081-SPLIT-ROOT-RING:e8"
+        },
+        "warp": {
+          "success": true,
+          "position": [
+            130.4754803505065,
+            75
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 0,
+            "angle": 80.34526208695024,
+            "power": 78.5439125488745,
+            "damage": [
+              0,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                1304.754803505065,
+                -250
+              ],
+              [
+                940,
+                160
+              ]
+            ],
+            "hpBefore": [
+              7,
+              6
+            ],
+            "hpAfter": [
+              7,
+              6
+            ]
+          }
+        },
+        "shot": {
+          "angle": 102,
+          "power": 60,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "wind",
+              "x": 1093.1700061495028,
+              "y": -379.2059861245486,
+              "t": 2.444444444444438,
+              "bullet": 0
+            },
+            {
+              "x": 960.1342450793614,
+              "y": 114.42857290946924,
+              "t": 3.4555555555555455,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 6,
+            "rows": [
+              {
+                "angle": 99,
+                "power": 55,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 99,
+                "power": 60,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 99,
+                "power": 65,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 102,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 102,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 102,
+                "power": 65,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 105,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 105,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 105,
+                "power": 65,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          25,
+          33
+        ],
+        [
+          94,
+          34
+        ]
+      ],
+      "authored": [
+        [
+          25,
+          33
+        ],
+        [
+          94,
+          34
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1700
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

@@ -1,0 +1,1062 @@
+{
+  "stage": 88,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 88,
+      "name": "格納庫の常設整備シャフト",
+      "goal": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          73,
+          10
+        ],
+        [
+          105,
+          31
+        ],
+        [
+          125,
+          61
+        ],
+        [
+          156,
+          61
+        ]
+      ],
+      "parts": [
+        {
+          "id": "088-HANGAR-WEST",
+          "poly": [
+            [
+              0,
+              47
+            ],
+            [
+              30,
+              50
+            ],
+            [
+              48,
+              47
+            ],
+            [
+              48,
+              39
+            ],
+            [
+              33,
+              35
+            ],
+            [
+              0,
+              37
+            ]
+          ],
+          "breakable": false,
+          "purpose": "開始の西側の固定格納庫天井",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "088-HATCH",
+          "poly": [
+            [
+              78,
+              49
+            ],
+            [
+              86,
+              47
+            ],
+            [
+              86,
+              38
+            ],
+            [
+              78,
+              38
+            ]
+          ],
+          "breakable": true,
+          "purpose": "整備口の東端を任意に広げる1片",
+          "displayId": "D02",
+          "unitCount": 1,
+          "kind": "wall"
+        },
+        {
+          "id": "088-HANGAR-EAST",
+          "poly": [
+            [
+              86,
+              47
+            ],
+            [
+              105,
+              47
+            ],
+            [
+              105,
+              36
+            ],
+            [
+              91,
+              38
+            ],
+            [
+              86,
+              38
+            ]
+          ],
+          "breakable": false,
+          "purpose": "短い東庇。上面が別射点",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            60,
+            75,
+            28,
+            88
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            112,
+            78,
+            -30
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
+      "nameEn": "The Hangar Maintenance Shaft",
+      "goalEn": "Enter the wind from the permanent shaft or use the crystal from the eastern eave.",
+      "spawnPoints": [
+        [
+          58,
+          10
+        ],
+        [
+          140,
+          61
+        ]
+      ],
+      "worldWidth": 1560,
+      "terrainRevision": "7.0-approved-051-099"
+    },
+    "runtime": {
+      "id": 88,
+      "name": "格納庫の常設整備シャフト",
+      "nameEn": "The Hangar Maintenance Shaft",
+      "theme": 17,
+      "boss": false,
+      "spawn": [
+        [
+          58,
+          10
+        ],
+        [
+          140,
+          61
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            73,
+            10
+          ],
+          [
+            105,
+            31
+          ],
+          [
+            125,
+            61
+          ],
+          [
+            156,
+            61
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "088-HANGAR-WEST",
+          "poly": [
+            [
+              0,
+              47
+            ],
+            [
+              30,
+              50
+            ],
+            [
+              48,
+              47
+            ],
+            [
+              48,
+              39
+            ],
+            [
+              33,
+              35
+            ],
+            [
+              0,
+              37
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "088-HATCH",
+          "poly": [
+            [
+              78,
+              49
+            ],
+            [
+              86,
+              47
+            ],
+            [
+              86,
+              38
+            ],
+            [
+              78,
+              38
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "088-HANGAR-EAST",
+          "poly": [
+            [
+              86,
+              47
+            ],
+            [
+              105,
+              47
+            ],
+            [
+              105,
+              36
+            ],
+            [
+              91,
+              38
+            ],
+            [
+              86,
+              38
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            60,
+            75,
+            28,
+            88
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            112,
+            78,
+            -30
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK088",
+          "kind": "skill",
+          "skillId": "S_ALL_ATTACK",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 67.85469,
+          "h": 19.50972,
+          "spawnTurn": 1,
+          "placementId": "L088:skill:S_ALL_ATTACK",
+          "verification": {
+            "angle": 52,
+            "power": 30,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "嵐の空母",
+      "themeGoal": "空中・室内・上下を、既知の二つの力でつなぐ",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
+      "tacticalGoalEn": "Enter the wind from the permanent shaft or use the crystal from the eastern eave.",
+      "enemyHp": 6,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1560
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 88,
+      "name": "格納庫の常設整備シャフト",
+      "goal": "見える整備口から風へ送り、庇へ移ったら外側の結晶から同じ上甲板を狙う。",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          48,
+          10
+        ],
+        [
+          54,
+          24
+        ],
+        [
+          60,
+          24
+        ],
+        [
+          66,
+          10
+        ],
+        [
+          73,
+          10
+        ],
+        [
+          105,
+          31
+        ],
+        [
+          125,
+          61
+        ],
+        [
+          156,
+          61
+        ]
+      ],
+      "parts": [
+        {
+          "id": "088-HANGAR-WEST",
+          "poly": [
+            [
+              0,
+              47
+            ],
+            [
+              30,
+              50
+            ],
+            [
+              48,
+              47
+            ],
+            [
+              48,
+              39
+            ],
+            [
+              33,
+              35
+            ],
+            [
+              0,
+              37
+            ]
+          ],
+          "breakable": false,
+          "purpose": "開始の西側の固定格納庫天井",
+          "displayId": "F01",
+          "unitCount": 1,
+          "kind": "island"
+        },
+        {
+          "id": "088-HATCH",
+          "poly": [
+            [
+              78,
+              63
+            ],
+            [
+              86,
+              61
+            ],
+            [
+              86,
+              52
+            ],
+            [
+              78,
+              52
+            ]
+          ],
+          "breakable": true,
+          "purpose": "整備口の東端を任意に広げる1片",
+          "displayId": "D02",
+          "unitCount": 1,
+          "kind": "wall"
+        },
+        {
+          "id": "088-HANGAR-EAST",
+          "poly": [
+            [
+              86,
+              61
+            ],
+            [
+              105,
+              61
+            ],
+            [
+              105,
+              50
+            ],
+            [
+              91,
+              52
+            ],
+            [
+              86,
+              52
+            ]
+          ],
+          "breakable": false,
+          "purpose": "短い東庇。上面が別射点",
+          "displayId": "F03",
+          "unitCount": 1,
+          "kind": "island"
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            60,
+            75,
+            28,
+            88
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            115,
+            81,
+            0
+          ],
+          "sizeFactor": 2
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "見える整備口から風へ送り、庇へ移ったら外側の結晶から同じ上甲板を狙う。",
+      "nameEn": "The Hangar Maintenance Shaft",
+      "goalEn": "Send a shot through the visible maintenance shaft, or relocate onto the eave and use the outer crystal.",
+      "spawnPoints": [
+        [
+          58,
+          24
+        ],
+        [
+          140,
+          61
+        ]
+      ],
+      "worldWidth": 1560,
+      "terrainRevision": "10.0-review-completion"
+    },
+    "runtime": {
+      "id": 88,
+      "name": "格納庫の常設整備シャフト",
+      "nameEn": "The Hangar Maintenance Shaft",
+      "theme": 17,
+      "boss": false,
+      "spawn": [
+        [
+          58,
+          24
+        ],
+        [
+          140,
+          61
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            48,
+            10
+          ],
+          [
+            54,
+            24
+          ],
+          [
+            60,
+            24
+          ],
+          [
+            66,
+            10
+          ],
+          [
+            73,
+            10
+          ],
+          [
+            105,
+            31
+          ],
+          [
+            125,
+            61
+          ],
+          [
+            156,
+            61
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "088-HANGAR-WEST",
+          "poly": [
+            [
+              0,
+              47
+            ],
+            [
+              30,
+              50
+            ],
+            [
+              48,
+              47
+            ],
+            [
+              48,
+              39
+            ],
+            [
+              33,
+              35
+            ],
+            [
+              0,
+              37
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "088-HATCH",
+          "poly": [
+            [
+              78,
+              63
+            ],
+            [
+              86,
+              61
+            ],
+            [
+              86,
+              52
+            ],
+            [
+              78,
+              52
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "088-HANGAR-EAST",
+          "poly": [
+            [
+              86,
+              61
+            ],
+            [
+              105,
+              61
+            ],
+            [
+              105,
+              50
+            ],
+            [
+              91,
+              52
+            ],
+            [
+              86,
+              52
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            60,
+            75,
+            28,
+            88
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            115,
+            81,
+            0
+          ],
+          "sizeFactor": 2
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK088",
+          "kind": "skill",
+          "skillId": "S_ALL_ATTACK",
+          "category": "rare-skill",
+          "amount": 2,
+          "x": 67.85469,
+          "h": 19.50972,
+          "spawnTurn": 1,
+          "placementId": "L088:skill:S_ALL_ATTACK",
+          "verification": {
+            "angle": -12,
+            "power": 25,
+            "neighborHits": 6,
+            "neighborShots": 9,
+            "walkInput": 0,
+            "moved": 0,
+            "attackDamage": 0,
+            "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 20,
+      "enemyProfile": 4,
+      "hold": 1,
+      "themeName": "嵐の空母",
+      "themeGoal": "空中・室内・上下を、既知の二つの力でつなぐ",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:hang",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "見える整備口から風へ送り、庇へ移ったら外側の結晶から同じ上甲板を狙う。",
+      "tacticalGoalEn": "Send a shot through the visible maintenance shaft, or relocate onto the eave and use the outer crystal.",
+      "enemyHp": 6,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1560
+    }
+  },
+  "qualityEvidence": {
+    "main": {
+      "angle": 75,
+      "power": 95,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "wind",
+          "x": 600.0412213924384,
+          "y": 159.76069907323873,
+          "t": 0.06666666666666667,
+          "bullet": 0
+        },
+        {
+          "x": 1383.2939630895894,
+          "y": -158.11337455688175,
+          "t": 3.411111111111101,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 2,
+        "rows": [
+          {
+            "angle": 72,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 72,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 75,
+            "power": 100,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 78,
+            "power": 100,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          }
+        ]
+      }
+    },
+    "alt": {
+      "input": {
+        "angle": 78,
+        "power": 70,
+        "x": 94.12620953927552,
+        "h": 61,
+        "surface": "088-HANGAR-EAST:e0"
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          94.12620953927552,
+          61
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 0,
+          "angle": 74.34526208695024,
+          "power": 76.5439125488745,
+          "damage": [
+            1.1,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              941.2620953927552,
+              -110
+            ],
+            [
+              1400,
+              -110
+            ]
+          ],
+          "hpBefore": [
+            7,
+            6
+          ],
+          "hpAfter": [
+            5.9,
+            6
+          ]
+        }
+      },
+      "shot": {
+        "angle": 42,
+        "power": 85,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "bounce",
+            "x": 1165.8930865039763,
+            "y": -304.5,
+            "t": 0.47777777777777797,
+            "count": 1,
+            "surface": "crystal",
+            "solidId": "K1",
+            "bullet": 0
+          },
+          {
+            "x": 1371.6143392410884,
+            "y": -144.46010687273505,
+            "t": 1.0222222222222206,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 7,
+          "rows": [
+            {
+              "angle": 39,
+              "power": 80,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 42,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 42,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 42,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 45,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 45,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 45,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          58,
+          24
+        ],
+        [
+          140,
+          61
+        ]
+      ],
+      "authored": [
+        [
+          58,
+          24
+        ],
+        [
+          140,
+          61
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1560
+    },
+    "improvement": "開始支持を見える肩へ上げ、整備口の床へ降りる空間を残した。既存取得物の下は低い床へ戻し、座標を変えず埋没を解消。東庇を14h上げ、結晶は水平な受け面へ変更し7/9の反射幅を確保。",
+    "pickup": {
+      "before": {
+        "id": "SK088",
+        "kind": "skill",
+        "skillId": "S_ALL_ATTACK",
+        "category": "rare-skill",
+        "amount": 2,
+        "x": 67.85469,
+        "h": 19.50972,
+        "spawnTurn": 1,
+        "placementId": "L088:skill:S_ALL_ATTACK",
+        "verification": {
+          "angle": 52,
+          "power": 30,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "verification": {
+        "angle": -12,
+        "power": 25,
+        "neighborHits": 6,
+        "neighborShots": 9,
+        "walkInput": 0,
+        "moved": 0,
+        "attackDamage": 0,
+        "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+      },
+      "relocation": null
+    },
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Actual meaningful input prefix followed by W01; real autonomous enemy turns."
+    }
+  }
+}

@@ -61,5 +61,14 @@ for(let i=0;i<relay.length;i++){
  ok(image.includes('class="atlas-component"')&&image.endsWith('</svg>'),'final arena '+(i+1)+' renders');
  eq((image.match(/class="atlas-component"/g)||[]).length,m.components.length,'final arena '+(i+1)+' collision polygons');
 }
-const report={status:'PASS',checks,stages:100,themes:20,finalArenas:4,scope:'All production geometry and labels,rendered collision polygons,reflector overlays,bridge hinges,crystal orientation,magnetic region and full final relay.'};
+// The art view must contain the exact live renderer and art sources, so future
+// regeneration cannot leave an old screenshot or a hand-copied material palette.
+const native=JSON.parse(html.match(/<script id="atlasNativeManifest" type="application\/json">([\s\S]*?)<\/script>/)[1]);
+eq([native.version,native.stages,native.uniqueMaps,native.backgroundScenes],[require('../runtime.json').version,100,103,33],'current standalone native-art inventory');
+const crypto=require('crypto'),sha=text=>crypto.createHash('sha256').update(text).digest('hex'),embedded=[...html.matchAll(/<(script|style) data-atlas-source="([^"]+)">([\s\S]*?)<\/\1>/g)];
+eq(embedded.length,Object.keys(native.sources).length,'every native source embedded');
+for(const [,tag,name,body]of embedded){const actual=body.slice(1,-1).replace(/<\\\/script/gi,'</script');eq(actual,read(name),'exact native source '+name);eq(sha(actual),native.sources[name],'native source fingerprint '+name);}
+for(const name of ['levels','backgrounds','component-art','render'])ok(native.sources['game/dist/'+name+'.js'],'live '+name+' included');
+ok(!native.sources['game/dist/game.js']&&!native.sources['game/dist/save.js'],'viewer excludes game boot and save manager');
+const report={status:'PASS',checks,stages:100,themes:20,finalArenas:4,scope:'All production geometry/labels and four final arenas; exact embedded live backgrounds,component materials,renderer and all100 runtime levels; standalone viewer excludes game boot/save manager.'};
 console.log(report);

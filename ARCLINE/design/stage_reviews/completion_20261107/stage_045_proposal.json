@@ -1,0 +1,1020 @@
+{
+  "stage": 45,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized continuing all remaining map improvements, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 45,
+      "name": "止まった昇降台",
+      "goal": "ドライブを止め、柱の横から安全な射点を選ぶ",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          28,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "id": "045-LIFT-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              65,
+              21
+            ],
+            [
+              70,
+              28
+            ],
+            [
+              79,
+              28
+            ],
+            [
+              83,
+              23
+            ],
+            [
+              79,
+              20
+            ],
+            [
+              69,
+              19
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上昇流の外側にある足場"
+        },
+        {
+          "id": "045-LIFT-BRAKE",
+          "kind": "wall",
+          "poly": [
+            [
+              85,
+              21
+            ],
+            [
+              92,
+              21
+            ],
+            [
+              92,
+              35
+            ],
+            [
+              85,
+              35
+            ]
+          ],
+          "breakable": true,
+          "purpose": "壊して射線を開く昇降ブレーキ"
+        },
+        {
+          "id": "045-SHAFT-RIB",
+          "kind": "roof",
+          "poly": [
+            [
+              109,
+              44
+            ],
+            [
+              114,
+              49
+            ],
+            [
+              123,
+              48
+            ],
+            [
+              125,
+              45
+            ],
+            [
+              121,
+              42
+            ],
+            [
+              113,
+              41
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵頭上の固定梁"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            30,
+            60,
+            10,
+            44
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        106
+      ],
+      "route": "ドライブを止め、柱の横から安全な射点を選ぶ",
+      "nameEn": "The Stopped Lift",
+      "goalEn": "Stop the drive and choose a firing point beside the column.",
+      "floorSegments": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            28,
+            10
+          ]
+        ],
+        [
+          [
+            91,
+            29
+          ],
+          [
+            105,
+            29
+          ],
+          [
+            125,
+            29
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          10
+        ],
+        [
+          106,
+          29
+        ]
+      ],
+      "worldWidth": 1250,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 45,
+      "name": "止まった昇降台",
+      "nameEn": "The Stopped Lift",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          10
+        ],
+        [
+          106,
+          29
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            28,
+            10
+          ]
+        ],
+        [
+          [
+            91,
+            29
+          ],
+          [
+            105,
+            29
+          ],
+          [
+            125,
+            29
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "045-LIFT-DECK",
+          "poly": [
+            [
+              65,
+              21
+            ],
+            [
+              70,
+              28
+            ],
+            [
+              79,
+              28
+            ],
+            [
+              83,
+              23
+            ],
+            [
+              79,
+              20
+            ],
+            [
+              69,
+              19
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "045-LIFT-BRAKE",
+          "poly": [
+            [
+              85,
+              21
+            ],
+            [
+              92,
+              21
+            ],
+            [
+              92,
+              35
+            ],
+            [
+              85,
+              35
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "045-SHAFT-RIB",
+          "poly": [
+            [
+              109,
+              44
+            ],
+            [
+              114,
+              49
+            ],
+            [
+              123,
+              48
+            ],
+            [
+              125,
+              45
+            ],
+            [
+              121,
+              42
+            ],
+            [
+              113,
+              41
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            30,
+            60,
+            10,
+            44
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 18,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 5,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:lift-mole",
+      "midbossSpec": {
+        "name": "Lift Mole",
+        "parts": [
+          {
+            "name": "昇降ドライブ",
+            "hp": 1.2,
+            "dx": 2,
+            "dy": -60,
+            "radius": 17
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "LOW",
+          "TWIN"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_REPAIR",
+          "placementId": "L045:C05-MID-S01"
+        }
+      ],
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "ドライブを止め、柱の横から安全な射点を選ぶ",
+      "tacticalGoalEn": "Stop the drive and choose a firing point beside the column.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1250
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 45,
+      "name": "止まった昇降台",
+      "goal": "柱の手前と脇の棚で、昇降ドライブと本体へ通す角度を選ぶ。",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          28,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "id": "045-LIFT-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              65,
+              21
+            ],
+            [
+              70,
+              28
+            ],
+            [
+              79,
+              28
+            ],
+            [
+              83,
+              23
+            ],
+            [
+              79,
+              20
+            ],
+            [
+              69,
+              19
+            ]
+          ],
+          "breakable": false,
+          "purpose": "上昇流の外側にある足場"
+        },
+        {
+          "id": "045-LIFT-BRAKE",
+          "kind": "wall",
+          "poly": [
+            [
+              85,
+              21
+            ],
+            [
+              92,
+              21
+            ],
+            [
+              92,
+              35
+            ],
+            [
+              85,
+              35
+            ]
+          ],
+          "breakable": true,
+          "purpose": "壊して射線を開く昇降ブレーキ"
+        },
+        {
+          "id": "045-SHAFT-RIB",
+          "kind": "roof",
+          "poly": [
+            [
+              109,
+              44
+            ],
+            [
+              114,
+              49
+            ],
+            [
+              123,
+              48
+            ],
+            [
+              125,
+              45
+            ],
+            [
+              121,
+              42
+            ],
+            [
+              113,
+              41
+            ]
+          ],
+          "breakable": false,
+          "purpose": "敵頭上の固定梁"
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            30,
+            60,
+            10,
+            44
+          ]
+        }
+      ],
+      "recommended": "mogu",
+      "spawn": [
+        16,
+        106
+      ],
+      "route": "柱の手前と脇の棚で、昇降ドライブと本体へ通す角度を選ぶ。",
+      "nameEn": "The Stopped Lift",
+      "goalEn": "Choose angles to the lift drive and body from the approach and side shelf.",
+      "floorSegments": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            28,
+            10
+          ]
+        ],
+        [
+          [
+            91,
+            29
+          ],
+          [
+            105,
+            29
+          ],
+          [
+            125,
+            29
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          10
+        ],
+        [
+          106,
+          29
+        ]
+      ],
+      "worldWidth": 1250,
+      "terrainRevision": "10.0-review-completion",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 45,
+      "name": "止まった昇降台",
+      "nameEn": "The Stopped Lift",
+      "theme": 8,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          10
+        ],
+        [
+          106,
+          29
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            16,
+            10
+          ],
+          [
+            28,
+            10
+          ]
+        ],
+        [
+          [
+            91,
+            29
+          ],
+          [
+            105,
+            29
+          ],
+          [
+            125,
+            29
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "045-LIFT-DECK",
+          "poly": [
+            [
+              65,
+              21
+            ],
+            [
+              70,
+              28
+            ],
+            [
+              79,
+              28
+            ],
+            [
+              83,
+              23
+            ],
+            [
+              79,
+              20
+            ],
+            [
+              69,
+              19
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "045-LIFT-BRAKE",
+          "poly": [
+            [
+              85,
+              21
+            ],
+            [
+              92,
+              21
+            ],
+            [
+              92,
+              35
+            ],
+            [
+              85,
+              35
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "045-SHAFT-RIB",
+          "poly": [
+            [
+              109,
+              44
+            ],
+            [
+              114,
+              49
+            ],
+            [
+              123,
+              48
+            ],
+            [
+              125,
+              45
+            ],
+            [
+              121,
+              42
+            ],
+            [
+              113,
+              41
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "U",
+          "v": [
+            30,
+            60,
+            10,
+            44
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 18,
+      "enemyProfile": 2,
+      "hold": 2,
+      "themeName": "上昇の坑道",
+      "themeGoal": "縦の空間へ、通常弧と気流で抜く",
+      "stageInTheme": 5,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "midboss",
+      "midboss": true,
+      "encounterId": "midboss:lift-mole",
+      "midbossSpec": {
+        "name": "Lift Mole",
+        "parts": [
+          {
+            "name": "昇降ドライブ",
+            "hp": 1.2,
+            "dx": 2,
+            "dy": -60,
+            "radius": 17
+          }
+        ],
+        "attacks": [
+          "ARC",
+          "LOW",
+          "TWIN"
+        ]
+      },
+      "clearRewards": [
+        {
+          "amount": 1,
+          "skillId": "S_REPAIR",
+          "placementId": "L045:C05-MID-S01"
+        }
+      ],
+      "recommendedCharacter": "mogu",
+      "tacticalGoal": "柱の手前と脇の棚で、昇降ドライブと本体へ通す角度を選ぶ。",
+      "tacticalGoalEn": "Choose angles to the lift drive and body from the approach and side shelf.",
+      "enemyHp": 4,
+      "terrainRevision": "10.0-review-completion",
+      "worldWidth": 1250
+    }
+  },
+  "qualityEvidence": {
+    "beforePart": {
+      "angle": 30,
+      "power": 70,
+      "damage": [
+        0,
+        1
+      ],
+      "events": [
+        {
+          "type": "updraft",
+          "x": 303.1347542365949,
+          "y": 302.47222222222223,
+          "t": 0.2777777777777777,
+          "bullet": 0
+        },
+        {
+          "x": 1041.0794852268457,
+          "y": 151.6420048146912,
+          "t": 2.0999999999999948,
+          "type": "part",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 3,
+        "rows": [
+          {
+            "angle": 27,
+            "power": 65,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 70,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 65,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 70,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "side": {
+      "input": {
+        "angle": 51,
+        "power": 40
+      },
+      "warp": {
+        "success": true,
+        "position": [
+          72.58503549363509,
+          28
+        ],
+        "counter": {
+          "round": 1,
+          "moved": 0,
+          "angle": 84,
+          "power": 100,
+          "damage": [
+            1,
+            0
+          ],
+          "kind": "ARC",
+          "position": [
+            [
+              725.8503549363509,
+              220
+            ],
+            [
+              1060,
+              210
+            ]
+          ],
+          "hpBefore": [
+            7,
+            6
+          ],
+          "hpAfter": [
+            6,
+            6
+          ]
+        }
+      },
+      "partShot": {
+        "angle": 27,
+        "power": 55,
+        "damage": [
+          0,
+          1
+        ],
+        "events": [
+          {
+            "x": 1041.9350704250917,
+            "y": 144.439600935793,
+            "t": 0.8777777777777767,
+            "type": "part",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 5,
+          "rows": [
+            {
+              "angle": 24,
+              "power": 50,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 24,
+              "power": 55,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 24,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 27,
+              "power": 50,
+              "hit": false,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 27,
+              "power": 55,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 27,
+              "power": 60,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 50,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 55,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 30,
+              "power": 60,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          10
+        ],
+        [
+          106,
+          29
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          10
+        ],
+        [
+          106,
+          29
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1250
+    },
+    "experience": "中ボス固有のドライブと本体を、支柱脇の射点から狙い分ける。",
+    "improvement": "部位と棚が既に異なる判断を作るため地形は維持。反撃を受ける棚を無条件に安全と呼ぶ説明を直した。",
+    "fullMatches": {
+      "report": "evidence/maps-0270/MATCHES_CHANGED.json",
+      "scope": "Text-only clarification; geometry and prior native inputs retained."
+    }
+  }
+}

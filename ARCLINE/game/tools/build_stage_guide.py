@@ -27,6 +27,7 @@ def proof(d):
     if d['stage']==100:
         return '<p class="proof">10機全員・各HP70／本体へ各100ダメージの実戦成立。4マップ各3,000px、出現距離800px以上、歩行140px以内。人の難易度は未確認。</p><p>'+esc(witness.get('description',''))+'</p>'
     summary='Normal推奨機体1条件／Hardガン通常弾1条件' if result.get('hardGunWin') else 'ガン通常弾のみ3条件／推奨機体1条件'
+    summary=result.get('validationSummary',summary)
     counts=result.get('gunActions',[result.get('hardGunActions',0)]*2)
     body='<p class="proof">実戦成立：'+summary+('／追加ルートの成立検査' if result['featuredTechniqueVerified'] else '')+'</p>'
     body+='<dl><dt>基本の狙い</dt><dd>'+esc(d['basicRoute'])+'</dd><dt>推奨機体の実行例</dt><dd>'+esc(witness.get('description',''))+'</dd><dt>ガンでの代替例</dt><dd>'+esc(alt.get('description',''))+'</dd><dt>敵との関係</dt><dd>'+esc(d['enemyInteraction']['counterplay'])+'</dd><dt>許容と実測</dt><dd>'+esc(d['tolerance'])+' 実測'+str(counts[0])+'〜'+str(counts[1])+'行動／制限'+str(d['actionBudget'])+'。敵行動を含む探索結果で、人の所要手数ではありません。</dd></dl>'

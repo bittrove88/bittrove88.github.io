@@ -1,0 +1,3846 @@
+{
+  "baseline": "22cf9b589ec37f101cf8ce9739a1da12f56e4b37",
+  "version": "0.27.0",
+  "authorization": "Latest continuation instruction: finish remaining map reviews and ordinary terrain/placement improvements one map at a time, actual rendering and improvement, then grouped post-change review. Dedicated final relay rules preserved.",
+  "stages": [
+    {
+      "stage": 31,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_031_proposal.json",
+      "sourceSha256": "b4aeb739d9cbb301ad7ea5e4b60d5dc0f8388499e65580bc10c3176d81860d5b",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              12
+            ],
+            [
+              28,
+              12
+            ],
+            [
+              33,
+              26
+            ],
+            [
+              35,
+              26
+            ],
+            [
+              45,
+              23
+            ],
+            [
+              53,
+              14
+            ],
+            [
+              90,
+              14
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "031-CRYSTAL-CAVE",
+            "kind": "roof",
+            "breakable": false,
+            "poly": [
+              [
+                52,
+                45
+              ],
+              [
+                69,
+                49
+              ],
+              [
+                90,
+                46
+              ],
+              [
+                90,
+                0
+              ],
+              [
+                87,
+                0
+              ],
+              [
+                87,
+                34
+              ],
+              [
+                66,
+                34
+              ],
+              [
+                52,
+                36
+              ]
+            ]
+          }
+        ],
+        "features": [
+          {
+            "type": "K",
+            "v": [
+              38,
+              38,
+              -10
+            ],
+            "sizeFactor": 1.8
+          }
+        ],
+        "spawn": [
+          [
+            24,
+            12
+          ],
+          [
+            61,
+            14
+          ]
+        ],
+        "worldWidth": 900
+      }
+    },
+    {
+      "stage": 34,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_034_proposal.json",
+      "sourceSha256": "70e0c4c916fb305d31717ad3942388347b4d24143007d1ca23a2818bed524901",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              11
+            ],
+            [
+              15,
+              11
+            ],
+            [
+              29,
+              11
+            ],
+            [
+              39,
+              10
+            ],
+            [
+              55,
+              10
+            ],
+            [
+              63,
+              11
+            ],
+            [
+              73,
+              15
+            ],
+            [
+              81,
+              19
+            ],
+            [
+              86,
+              19
+            ],
+            [
+              90,
+              15
+            ],
+            [
+              108,
+              15
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "034-RIGHT-CAVE-ROOF",
+            "poly": [
+              [
+                45,
+                37
+              ],
+              [
+                53,
+                36
+              ],
+              [
+                60,
+                31
+              ],
+              [
+                59,
+                23
+              ],
+              [
+                52,
+                23
+              ],
+              [
+                45,
+                23
+              ]
+            ],
+            "kind": "roof",
+            "breakable": false,
+            "purpose": "x45から始まる固定屋根。x28〜45は物理的な開口（幅170px）"
+          },
+          {
+            "id": "034-BREAKABLE-EXIT",
+            "poly": [
+              [
+                62,
+                31
+              ],
+              [
+                67,
+                34
+              ],
+              [
+                74,
+                33
+              ],
+              [
+                79,
+                29
+              ],
+              [
+                75,
+                25
+              ],
+              [
+                64,
+                25
+              ]
+            ],
+            "kind": "roof",
+            "breakable": true,
+            "purpose": "出口側の別の破壊可能な天井片。天窓は壊さなくても開いている"
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              12,
+              73,
+              0
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            11
+          ],
+          [
+            92,
+            15
+          ]
+        ],
+        "worldWidth": 1080
+      }
+    },
+    {
+      "stage": 41,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "instruction-only",
+      "source": "design/stage_reviews/completion_20261107/stage_041_proposal.json",
+      "sourceSha256": "caddacbfce85adf5b53adff467016b20fa6440fed08b7bf7b6a2df65d11a2d22",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              9
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              26,
+              10
+            ],
+            [
+              31,
+              11
+            ]
+          ],
+          [
+            [
+              79,
+              28
+            ],
+            [
+              95,
+              28
+            ],
+            [
+              110,
+              28
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "041-LOW-PILLAR",
+            "kind": "wall",
+            "poly": [
+              [
+                37,
+                9
+              ],
+              [
+                43,
+                9
+              ],
+              [
+                43,
+                18
+              ],
+              [
+                37,
+                18
+              ]
+            ],
+            "breakable": false,
+            "purpose": "低い固定柱"
+          },
+          {
+            "id": "041-UPPER-PILLAR",
+            "kind": "wall",
+            "poly": [
+              [
+                37,
+                45
+              ],
+              [
+                43,
+                45
+              ],
+              [
+                43,
+                53
+              ],
+              [
+                37,
+                53
+              ]
+            ],
+            "breakable": false,
+            "purpose": "柱の上側。高さ18〜45は射撃窓"
+          },
+          {
+            "id": "041-RELAY-PLATFORM",
+            "kind": "island",
+            "poly": [
+              [
+                66,
+                20
+              ],
+              [
+                70,
+                27
+              ],
+              [
+                81,
+                27
+              ],
+              [
+                84,
+                23
+              ],
+              [
+                79,
+                19
+              ],
+              [
+                70,
+                18
+              ]
+            ],
+            "breakable": false,
+            "purpose": "上昇流を抜けた先の中継棚"
+          },
+          {
+            "id": "041-CRACKED-HEAD",
+            "kind": "roof",
+            "poly": [
+              [
+                75,
+                45
+              ],
+              [
+                80,
+                49
+              ],
+              [
+                88,
+                49
+              ],
+              [
+                91,
+                45
+              ],
+              [
+                88,
+                41
+              ],
+              [
+                78,
+                41
+              ]
+            ],
+            "breakable": true,
+            "purpose": "高弧の別ルートを開ける梁"
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              44,
+              65,
+              14,
+              44
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            9
+          ],
+          [
+            95,
+            28
+          ]
+        ],
+        "worldWidth": 1100
+      }
+    },
+    {
+      "stage": 42,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_042_proposal.json",
+      "sourceSha256": "48b0e139f5157ecb806b8b39104ec38529aee33256dadf89d5f8b5c07ef69ac6",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              12
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              29,
+              26
+            ],
+            [
+              40,
+              26
+            ],
+            [
+              48,
+              20
+            ],
+            [
+              55,
+              8
+            ],
+            [
+              66,
+              8
+            ],
+            [
+              77,
+              12
+            ],
+            [
+              86,
+              16
+            ],
+            [
+              112,
+              16
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "042-BROKEN-AWNING",
+            "kind": "roof",
+            "poly": [
+              [
+                76,
+                43
+              ],
+              [
+                81,
+                48
+              ],
+              [
+                90,
+                48
+              ],
+              [
+                94,
+                43
+              ],
+              [
+                91,
+                40
+              ],
+              [
+                80,
+                40
+              ]
+            ],
+            "breakable": true,
+            "purpose": "右岸頭上の破壊屋根"
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              41,
+              74,
+              7,
+              23
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            12
+          ],
+          [
+            93,
+            16
+          ]
+        ],
+        "worldWidth": 1120
+      }
+    },
+    {
+      "stage": 43,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_043_proposal.json",
+      "sourceSha256": "bb96ca0e969c6347c5f59d1641d7183a4c535d8e4be4fa58ce1ca121aa579ee9",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              11
+            ],
+            [
+              16,
+              11
+            ],
+            [
+              30,
+              12
+            ],
+            [
+              43,
+              13
+            ]
+          ],
+          [
+            [
+              78,
+              25
+            ],
+            [
+              94,
+              25
+            ],
+            [
+              112,
+              25
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "043-LEFT-CAVE-SHELL",
+            "kind": "roof",
+            "poly": [
+              [
+                26,
+                29
+              ],
+              [
+                30,
+                37
+              ],
+              [
+                36,
+                39
+              ],
+              [
+                43,
+                36
+              ],
+              [
+                43,
+                27
+              ],
+              [
+                35,
+                25
+              ],
+              [
+                28,
+                26
+              ]
+            ],
+            "breakable": false,
+            "purpose": "洞窟左側天井。隙間の左端はx43"
+          },
+          {
+            "id": "043-RIGHT-CAVE-SHELL",
+            "kind": "roof",
+            "poly": [
+              [
+                78,
+                52
+              ],
+              [
+                83,
+                59
+              ],
+              [
+                92,
+                60
+              ],
+              [
+                102,
+                54
+              ],
+              [
+                100,
+                47
+              ],
+              [
+                88,
+                47
+              ],
+              [
+                79,
+                48
+              ]
+            ],
+            "breakable": false,
+            "purpose": "洞窟右側天井。隙間の右端はx78"
+          },
+          {
+            "id": "043-CRACKED-LIFT",
+            "kind": "roof",
+            "breakable": true,
+            "poly": [
+              [
+                50,
+                40
+              ],
+              [
+                60,
+                42
+              ],
+              [
+                60,
+                27
+              ],
+              [
+                50,
+                25
+              ]
+            ]
+          },
+          {
+            "id": "043-HINGE-ISLAND",
+            "kind": "island",
+            "poly": [
+              [
+                64,
+                22
+              ],
+              [
+                69,
+                28
+              ],
+              [
+                74,
+                28
+              ],
+              [
+                77,
+                24
+              ],
+              [
+                74,
+                21
+              ],
+              [
+                68,
+                20
+              ]
+            ],
+            "breakable": false,
+            "purpose": "地上より高い洞口の中継支持。開いた気流の出口と通路の高さを分ける。"
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              44,
+              60,
+              14,
+              36
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            11
+          ],
+          [
+            94,
+            25
+          ]
+        ],
+        "worldWidth": 1120
+      }
+    },
+    {
+      "stage": 44,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_044_proposal.json",
+      "sourceSha256": "14887bda0aacf27d5ab721943d077e9c7bd24327a6dae6df5adbe7d9866a1043",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              22
+            ],
+            [
+              16,
+              22
+            ],
+            [
+              26,
+              22
+            ]
+          ],
+          [
+            [
+              99,
+              16
+            ],
+            [
+              111,
+              16
+            ],
+            [
+              120,
+              16
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "044-FRONT-CARGO",
+            "kind": "island",
+            "breakable": false,
+            "poly": [
+              [
+                31,
+                25
+              ],
+              [
+                37,
+                30
+              ],
+              [
+                52,
+                30
+              ],
+              [
+                58,
+                26
+              ],
+              [
+                52,
+                25
+              ],
+              [
+                37,
+                24
+              ]
+            ]
+          },
+          {
+            "id": "044-REAR-CARGO",
+            "kind": "island",
+            "breakable": false,
+            "poly": [
+              [
+                76,
+                29
+              ],
+              [
+                84,
+                36
+              ],
+              [
+                109,
+                36
+              ],
+              [
+                116,
+                31
+              ],
+              [
+                108,
+                26
+              ],
+              [
+                84,
+                25
+              ]
+            ]
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              49,
+              66,
+              16,
+              47
+            ]
+          },
+          {
+            "type": "B",
+            "v": [
+              40,
+              31,
+              25,
+              0
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            22
+          ],
+          [
+            86,
+            36
+          ]
+        ],
+        "worldWidth": 1200
+      }
+    },
+    {
+      "stage": 45,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "instruction-only",
+      "source": "design/stage_reviews/completion_20261107/stage_045_proposal.json",
+      "sourceSha256": "1a707ae4936d0ec184bceaa4320f3268e0509842494acd8badeb81d53383625a",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              10
+            ],
+            [
+              16,
+              10
+            ],
+            [
+              28,
+              10
+            ]
+          ],
+          [
+            [
+              91,
+              29
+            ],
+            [
+              105,
+              29
+            ],
+            [
+              125,
+              29
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "045-LIFT-DECK",
+            "kind": "island",
+            "poly": [
+              [
+                65,
+                21
+              ],
+              [
+                70,
+                28
+              ],
+              [
+                79,
+                28
+              ],
+              [
+                83,
+                23
+              ],
+              [
+                79,
+                20
+              ],
+              [
+                69,
+                19
+              ]
+            ],
+            "breakable": false,
+            "purpose": "上昇流の外側にある足場"
+          },
+          {
+            "id": "045-LIFT-BRAKE",
+            "kind": "wall",
+            "poly": [
+              [
+                85,
+                21
+              ],
+              [
+                92,
+                21
+              ],
+              [
+                92,
+                35
+              ],
+              [
+                85,
+                35
+              ]
+            ],
+            "breakable": true,
+            "purpose": "壊して射線を開く昇降ブレーキ"
+          },
+          {
+            "id": "045-SHAFT-RIB",
+            "kind": "roof",
+            "poly": [
+              [
+                109,
+                44
+              ],
+              [
+                114,
+                49
+              ],
+              [
+                123,
+                48
+              ],
+              [
+                125,
+                45
+              ],
+              [
+                121,
+                42
+              ],
+              [
+                113,
+                41
+              ]
+            ],
+            "breakable": false,
+            "purpose": "敵頭上の固定梁"
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              30,
+              60,
+              10,
+              44
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            10
+          ],
+          [
+            106,
+            29
+          ]
+        ],
+        "worldWidth": 1250
+      }
+    },
+    {
+      "stage": 46,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_046_proposal.json",
+      "sourceSha256": "00617d2bdd1fca38aed2c835464136902f506664b878ee7e3f517d51ee1fe4b4",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              16
+            ],
+            [
+              26,
+              16
+            ],
+            [
+              31,
+              22
+            ],
+            [
+              36,
+              22
+            ],
+            [
+              44,
+              12
+            ],
+            [
+              55,
+              18
+            ],
+            [
+              72,
+              27
+            ],
+            [
+              84,
+              36
+            ],
+            [
+              115,
+              36
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "046-DIAGONAL-CUT",
+            "kind": "roof",
+            "breakable": false,
+            "poly": [
+              [
+                45,
+                52
+              ],
+              [
+                63,
+                60
+              ],
+              [
+                76,
+                64
+              ],
+              [
+                77,
+                54
+              ],
+              [
+                63,
+                48
+              ],
+              [
+                45,
+                41
+              ]
+            ]
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              32,
+              52,
+              12,
+              36
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            80,
+            33
+          ],
+          [
+            22,
+            16
+          ]
+        ],
+        "worldWidth": 1150
+      }
+    },
+    {
+      "stage": 48,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_048_proposal.json",
+      "sourceSha256": "6e6858f3f9cfa6856a9cbfb17089840d1607353eaae7c351fe0766c41fb72b3c",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              12
+            ],
+            [
+              125,
+              12
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "048-HIGH-ROCK-TONGUE",
+            "kind": "island",
+            "breakable": false,
+            "poly": [
+              [
+                0,
+                45
+              ],
+              [
+                60,
+                45
+              ],
+              [
+                65,
+                40
+              ],
+              [
+                60,
+                35
+              ],
+              [
+                8,
+                35
+              ],
+              [
+                8,
+                12
+              ],
+              [
+                0,
+                12
+              ]
+            ]
+          }
+        ],
+        "features": [
+          {
+            "type": "U",
+            "v": [
+              30,
+              65,
+              43,
+              75
+            ]
+          },
+          {
+            "type": "K",
+            "v": [
+              74,
+              68,
+              12
+            ],
+            "sizeFactor": 3.6
+          }
+        ],
+        "spawn": [
+          [
+            18,
+            45
+          ],
+          [
+            94,
+            12
+          ]
+        ],
+        "worldWidth": 1250
+      }
+    },
+    {
+      "stage": 63,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_063_proposal.json",
+      "sourceSha256": "a994f288cb1a68bce1add246cb7716623760e5120992721c74b3697aca2c2475",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              10
+            ],
+            [
+              34,
+              10
+            ],
+            [
+              44,
+              18
+            ],
+            [
+              52,
+              18
+            ],
+            [
+              61,
+              24
+            ],
+            [
+              74,
+              24
+            ],
+            [
+              83,
+              35
+            ],
+            [
+              100,
+              40
+            ],
+            [
+              125,
+              44
+            ],
+            [
+              142,
+              44
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "063-NEAR-GATE",
+            "kind": "wall",
+            "breakable": true,
+            "poly": [
+              [
+                44,
+                18
+              ],
+              [
+                52,
+                18
+              ],
+              [
+                52,
+                38
+              ],
+              [
+                44,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "063-NEAR-RIB",
+            "kind": "wall",
+            "breakable": false,
+            "poly": [
+              [
+                44,
+                38
+              ],
+              [
+                52,
+                38
+              ],
+              [
+                56,
+                58
+              ],
+              [
+                51,
+                65
+              ],
+              [
+                44,
+                62
+              ]
+            ]
+          },
+          {
+            "id": "063-FAR-GATE",
+            "kind": "wall",
+            "breakable": true,
+            "poly": [
+              [
+                92,
+                38
+              ],
+              [
+                100,
+                40
+              ],
+              [
+                100,
+                58
+              ],
+              [
+                92,
+                58
+              ]
+            ]
+          },
+          {
+            "id": "063-FAR-RIB",
+            "kind": "wall",
+            "breakable": false,
+            "poly": [
+              [
+                92,
+                58
+              ],
+              [
+                100,
+                58
+              ],
+              [
+                104,
+                80
+              ],
+              [
+                99,
+                91
+              ],
+              [
+                92,
+                87
+              ]
+            ]
+          },
+          {
+            "id": "063-HIGH-PERCH",
+            "kind": "island",
+            "poly": [
+              [
+                62,
+                58
+              ],
+              [
+                68,
+                64
+              ],
+              [
+                76,
+                64
+              ],
+              [
+                79,
+                67
+              ],
+              [
+                84,
+                67
+              ],
+              [
+                87,
+                61
+              ],
+              [
+                81,
+                55
+              ],
+              [
+                72,
+                56
+              ],
+              [
+                68,
+                54
+              ]
+            ],
+            "breakable": false,
+            "purpose": "手前隔壁を迂回する独立棚。",
+            "displayId": "F03",
+            "unitCount": 1
+          }
+        ],
+        "features": [],
+        "spawn": [
+          [
+            26,
+            10
+          ],
+          [
+            130,
+            44
+          ]
+        ],
+        "worldWidth": 1420
+      }
+    },
+    {
+      "stage": 81,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_081_proposal.json",
+      "sourceSha256": "80ed63f737ae0b04bd3e1f9fa4f3d6bc10da0ec92417327dc17db55c4e5a86b0",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              5
+            ],
+            [
+              8,
+              5
+            ]
+          ],
+          [
+            [
+              160,
+              5
+            ],
+            [
+              170,
+              5
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "081-OUTER-GARDEN",
+            "displayId": "F01",
+            "kind": "island",
+            "poly": [
+              [
+                10,
+                28
+              ],
+              [
+                17,
+                33
+              ],
+              [
+                38,
+                33
+              ],
+              [
+                43,
+                27
+              ],
+              [
+                34,
+                20
+              ],
+              [
+                18,
+                22
+              ]
+            ],
+            "breakable": false,
+            "purpose": "根輪の外の開始庭園。頭上を開き、根輪の内側と高い外縁へ移る出発支持。"
+          },
+          {
+            "id": "081-SPLIT-ROOT-RING",
+            "displayId": "F02",
+            "kind": "root-ring",
+            "poly": [
+              [
+                61,
+                82
+              ],
+              [
+                65,
+                69
+              ],
+              [
+                69,
+                52
+              ],
+              [
+                77,
+                38
+              ],
+              [
+                86,
+                34
+              ],
+              [
+                101,
+                34
+              ],
+              [
+                109,
+                45
+              ],
+              [
+                114,
+                61
+              ],
+              [
+                118,
+                75
+              ],
+              [
+                136,
+                75
+              ],
+              [
+                142,
+                68
+              ],
+              [
+                145,
+                52
+              ],
+              [
+                139,
+                35
+              ],
+              [
+                125,
+                18
+              ],
+              [
+                102,
+                10
+              ],
+              [
+                82,
+                12
+              ],
+              [
+                64,
+                23
+              ],
+              [
+                54,
+                43
+              ],
+              [
+                52,
+                62
+              ],
+              [
+                55,
+                76
+              ]
+            ],
+            "breakable": false,
+            "purpose": "上が割れた一体の根輪。低い内側の敵支持と高い外縁を作り、左の根で初期直射を遮る。内側の頭上は開いている。"
+          },
+          {
+            "id": "081-DRY-SIDE-BRANCH",
+            "displayId": "D03",
+            "kind": "wall",
+            "poly": [
+              [
+                36,
+                33
+              ],
+              [
+                38,
+                33
+              ],
+              [
+                42,
+                28.2
+              ],
+              [
+                42,
+                45
+              ],
+              [
+                36,
+                44
+              ]
+            ],
+            "breakable": true,
+            "purpose": "開始庭園の側面だけを覆う枯れ枝。根輪の内外へ移る上空を開き、除去は局所遮蔽の変更に限る。"
+          }
+        ],
+        "features": [
+          {
+            "type": "F",
+            "v": [
+              87,
+              114,
+              57,
+              88
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            25,
+            33
+          ],
+          [
+            94,
+            34
+          ]
+        ],
+        "worldWidth": 1700
+      }
+    },
+    {
+      "stage": 83,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_083_proposal.json",
+      "sourceSha256": "1fec29b989262a97a1764faa1c958d716fd1b416ac03370e38095edc8d906c3d",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              5
+            ],
+            [
+              18,
+              5
+            ]
+          ],
+          [
+            [
+              146,
+              5
+            ],
+            [
+              158,
+              5
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "083-START",
+            "poly": [
+              [
+                8,
+                31
+              ],
+              [
+                18,
+                36
+              ],
+              [
+                48,
+                36
+              ],
+              [
+                54,
+                32
+              ],
+              [
+                46,
+                26
+              ],
+              [
+                34,
+                25
+              ],
+              [
+                21,
+                21
+              ],
+              [
+                12,
+                25
+              ]
+            ],
+            "breakable": false,
+            "purpose": "頭上開放の出発庭園",
+            "displayId": "F01",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "083-SIDE-WINDOW",
+            "poly": [
+              [
+                54,
+                33
+              ],
+              [
+                64,
+                33
+              ],
+              [
+                64,
+                51
+              ],
+              [
+                54,
+                51
+              ]
+            ],
+            "breakable": true,
+            "purpose": "雲に横から入る独立1片",
+            "displayId": "D02",
+            "unitCount": 1,
+            "kind": "wall"
+          },
+          {
+            "id": "083-ARCH-LIP",
+            "poly": [
+              [
+                52,
+                65
+              ],
+              [
+                59,
+                65
+              ],
+              [
+                67,
+                83
+              ],
+              [
+                78,
+                79
+              ],
+              [
+                78,
+                63
+              ],
+              [
+                65,
+                59
+              ],
+              [
+                52,
+                54
+              ]
+            ],
+            "breakable": false,
+            "purpose": "常設の斜め開口の右縁。横窓とは別の入射を作る",
+            "displayId": "F03",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "083-ENEMY",
+            "poly": [
+              [
+                103,
+                30
+              ],
+              [
+                109,
+                36
+              ],
+              [
+                135,
+                36
+              ],
+              [
+                140,
+                31
+              ],
+              [
+                130,
+                25
+              ],
+              [
+                114,
+                25
+              ]
+            ],
+            "breakable": false,
+            "purpose": "既存の敵庭園",
+            "displayId": "F04",
+            "unitCount": 1,
+            "kind": "island"
+          }
+        ],
+        "features": [
+          {
+            "type": "C",
+            "v": [
+              58,
+              112,
+              31,
+              62
+            ]
+          },
+          {
+            "type": "F",
+            "v": [
+              88,
+              121,
+              52,
+              79
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            26,
+            36
+          ],
+          [
+            114,
+            36
+          ]
+        ],
+        "worldWidth": 1580
+      }
+    },
+    {
+      "stage": 86,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_086_proposal.json",
+      "sourceSha256": "3204616894e784b66deab5fe98005c21ade4426e58d3f4e9fcabbc9193b54c72",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              18
+            ],
+            [
+              12,
+              20
+            ],
+            [
+              31,
+              20
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              59,
+              18
+            ],
+            [
+              66,
+              29
+            ],
+            [
+              73,
+              29
+            ],
+            [
+              83,
+              18
+            ],
+            [
+              108,
+              18
+            ]
+          ],
+          [
+            [
+              108,
+              24
+            ],
+            [
+              170,
+              24
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "086-LEFT-HULL",
+            "poly": [
+              [
+                0,
+                61
+              ],
+              [
+                18,
+                64
+              ],
+              [
+                37,
+                59
+              ],
+              [
+                37,
+                46
+              ],
+              [
+                21,
+                43
+              ],
+              [
+                0,
+                45
+              ]
+            ],
+            "breakable": false,
+            "purpose": "開始の背後に残す船首",
+            "displayId": "F01",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "086-MAIN-DECK",
+            "poly": [
+              [
+                132,
+                72
+              ],
+              [
+                170,
+                64
+              ],
+              [
+                170,
+                24
+              ],
+              [
+                164,
+                24
+              ],
+              [
+                164,
+                52
+              ],
+              [
+                132,
+                56
+              ]
+            ],
+            "breakable": false,
+            "purpose": "右側の上甲板と背面の固定船体。下の船口と広い下甲板の空間を作る。",
+            "displayId": "F03",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "086-EXTERIOR-PERCH",
+            "poly": [
+              [
+                90,
+                69
+              ],
+              [
+                94,
+                75
+              ],
+              [
+                102,
+                75
+              ],
+              [
+                108,
+                70
+              ],
+              [
+                101,
+                64
+              ],
+              [
+                95,
+                64
+              ]
+            ],
+            "breakable": false,
+            "purpose": "反射経路の上にあるU用棚。W範囲の外",
+            "displayId": "F04",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "086-WORK-BEAM",
+            "poly": [
+              [
+                70,
+                60
+              ],
+              [
+                108,
+                60
+              ],
+              [
+                108,
+                50
+              ],
+              [
+                70,
+                50
+              ]
+            ],
+            "breakable": false,
+            "purpose": "鏡湾の上方に残る作業桁。低い床反射路と、外の上昇棚へ入る空間を分ける。",
+            "kind": "island"
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              70,
+              110,
+              18
+            ]
+          },
+          {
+            "type": "C",
+            "v": [
+              111,
+              130,
+              26,
+              47
+            ]
+          },
+          {
+            "type": "U",
+            "v": [
+              90,
+              104,
+              80,
+              110
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            52,
+            18
+          ],
+          [
+            125,
+            24
+          ]
+        ],
+        "worldWidth": 1700
+      }
+    },
+    {
+      "stage": 87,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_087_proposal.json",
+      "sourceSha256": "42adbcc673d8a1ca61404928127d2d34172b1fe887c509466dd3404bd7f933fd",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              8,
+              0
+            ]
+          ],
+          [
+            [
+              178,
+              0
+            ],
+            [
+              180,
+              0
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "087-CARGO-DOCK",
+            "displayId": "F01",
+            "kind": "cargo-hull",
+            "poly": [
+              [
+                28,
+                64
+              ],
+              [
+                39,
+                60
+              ],
+              [
+                74,
+                60
+              ],
+              [
+                74,
+                50
+              ],
+              [
+                63,
+                45
+              ],
+              [
+                44,
+                48
+              ],
+              [
+                31,
+                54
+              ]
+            ],
+            "breakable": false,
+            "purpose": "開始位置を持つ固定貨物甲板。橋の上を射点にせず、手前の固定P0から撃つ。"
+          },
+          {
+            "id": "087-OUTER-CARGO",
+            "displayId": "F02",
+            "kind": "cargo-island",
+            "poly": [
+              [
+                119,
+                32
+              ],
+              [
+                122,
+                38
+              ],
+              [
+                134,
+                38
+              ],
+              [
+                138,
+                32
+              ],
+              [
+                132,
+                23
+              ],
+              [
+                122,
+                24
+              ]
+            ],
+            "breakable": false,
+            "purpose": "Cの右外にある固定貨物棚。橋を渡るのでなく転移の準備を受け入れて雲を避ける。"
+          },
+          {
+            "id": "087-RECEIVER-HULL",
+            "displayId": "F03",
+            "kind": "carrier-hull",
+            "poly": [
+              [
+                138,
+                25
+              ],
+              [
+                172,
+                25
+              ],
+              [
+                177,
+                19
+              ],
+              [
+                171,
+                6
+              ],
+              [
+                145,
+                7
+              ],
+              [
+                138,
+                15
+              ]
+            ],
+            "breakable": false,
+            "purpose": "敵側の固定船体。低い前縁と側壁が初期敵への直射を遮る。独立遮板を壊しても船体は残る。"
+          },
+          {
+            "id": "087-DECK-SCREEN",
+            "displayId": "D04",
+            "kind": "wall",
+            "poly": [
+              [
+                146,
+                25
+              ],
+              [
+                151,
+                25
+              ],
+              [
+                151,
+                40
+              ],
+              [
+                146,
+                40
+              ]
+            ],
+            "breakable": true,
+            "purpose": "甲板上の独立遮板。主構想は上を通す。破壊すると外側棚からの低めの山越し帯が開く。"
+          }
+        ],
+        "features": [
+          {
+            "type": "B",
+            "v": [
+              74,
+              74,
+              28,
+              0
+            ],
+            "openAngleDeg": -75
+          },
+          {
+            "type": "C",
+            "v": [
+              90,
+              118,
+              34,
+              70
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            62,
+            60
+          ],
+          [
+            165,
+            25
+          ]
+        ],
+        "worldWidth": 1800
+      }
+    },
+    {
+      "stage": 88,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_088_proposal.json",
+      "sourceSha256": "01127d1d87e08122f2f907663a961f96c53a83353171a2077545ea7bb312cf34",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              10
+            ],
+            [
+              48,
+              10
+            ],
+            [
+              54,
+              24
+            ],
+            [
+              60,
+              24
+            ],
+            [
+              66,
+              10
+            ],
+            [
+              73,
+              10
+            ],
+            [
+              105,
+              31
+            ],
+            [
+              125,
+              61
+            ],
+            [
+              156,
+              61
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "088-HANGAR-WEST",
+            "poly": [
+              [
+                0,
+                47
+              ],
+              [
+                30,
+                50
+              ],
+              [
+                48,
+                47
+              ],
+              [
+                48,
+                39
+              ],
+              [
+                33,
+                35
+              ],
+              [
+                0,
+                37
+              ]
+            ],
+            "breakable": false,
+            "purpose": "開始の西側の固定格納庫天井",
+            "displayId": "F01",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "088-HATCH",
+            "poly": [
+              [
+                78,
+                63
+              ],
+              [
+                86,
+                61
+              ],
+              [
+                86,
+                52
+              ],
+              [
+                78,
+                52
+              ]
+            ],
+            "breakable": true,
+            "purpose": "整備口の東端を任意に広げる1片",
+            "displayId": "D02",
+            "unitCount": 1,
+            "kind": "wall"
+          },
+          {
+            "id": "088-HANGAR-EAST",
+            "poly": [
+              [
+                86,
+                61
+              ],
+              [
+                105,
+                61
+              ],
+              [
+                105,
+                50
+              ],
+              [
+                91,
+                52
+              ],
+              [
+                86,
+                52
+              ]
+            ],
+            "breakable": false,
+            "purpose": "短い東庇。上面が別射点",
+            "displayId": "F03",
+            "unitCount": 1,
+            "kind": "island"
+          }
+        ],
+        "features": [
+          {
+            "type": "F",
+            "v": [
+              60,
+              75,
+              28,
+              88
+            ]
+          },
+          {
+            "type": "K",
+            "v": [
+              115,
+              81,
+              0
+            ],
+            "sizeFactor": 2
+          }
+        ],
+        "spawn": [
+          [
+            58,
+            24
+          ],
+          [
+            140,
+            61
+          ]
+        ],
+        "worldWidth": 1560
+      }
+    },
+    {
+      "stage": 91,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_091_proposal.json",
+      "sourceSha256": "beb0e7f1a0c80d5e36498db2409313c6aed45e26f03603871ba0aad205b03713",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              28
+            ],
+            [
+              12,
+              35
+            ],
+            [
+              24,
+              36
+            ],
+            [
+              36,
+              31
+            ],
+            [
+              45,
+              18
+            ],
+            [
+              58,
+              14
+            ],
+            [
+              70,
+              22
+            ],
+            [
+              83,
+              33
+            ],
+            [
+              99,
+              23
+            ],
+            [
+              111,
+              18
+            ],
+            [
+              126,
+              24
+            ],
+            [
+              137,
+              18
+            ],
+            [
+              146,
+              18
+            ],
+            [
+              150,
+              20
+            ],
+            [
+              158,
+              20
+            ],
+            [
+              160,
+              19
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "091-CORE-ARCH",
+            "kind": "island",
+            "poly": [
+              [
+                67,
+                57
+              ],
+              [
+                76,
+                64
+              ],
+              [
+                94,
+                64
+              ],
+              [
+                106,
+                57
+              ],
+              [
+                99,
+                50
+              ],
+              [
+                82,
+                53
+              ],
+              [
+                71,
+                48
+              ]
+            ],
+            "breakable": false,
+            "purpose": "敵の上方に広い側方空間を残す固定アーチ。敵は下の斜面に立ち、左右の門から入射する。",
+            "displayId": "F01",
+            "unitCount": 1
+          },
+          {
+            "id": "091-LOW-GATE",
+            "kind": "wall",
+            "poly": [
+              [
+                109,
+                18.833333333
+              ],
+              [
+                118,
+                18
+              ],
+              [
+                118,
+                50
+              ],
+              [
+                109,
+                50
+              ]
+            ],
+            "breakable": true,
+            "purpose": "右正門の開口。",
+            "displayId": "D02",
+            "unitCount": 1
+          },
+          {
+            "id": "091-EAST-WALL",
+            "kind": "wall",
+            "poly": [
+              [
+                109,
+                50
+              ],
+              [
+                118,
+                50
+              ],
+              [
+                124,
+                65
+              ],
+              [
+                116,
+                73
+              ],
+              [
+                108,
+                64
+              ]
+            ],
+            "breakable": false,
+            "purpose": "右上から斜めに張り出す城壁。",
+            "displayId": "F03",
+            "unitCount": 1
+          },
+          {
+            "id": "091-UPPER-GATE",
+            "kind": "wall",
+            "poly": [
+              [
+                55,
+                24
+              ],
+              [
+                65,
+                24
+              ],
+              [
+                65,
+                57
+              ],
+              [
+                55,
+                54
+              ]
+            ],
+            "breakable": true,
+            "purpose": "左側面の一片を開け、結晶へ入れる側門。",
+            "displayId": "D04",
+            "unitCount": 1
+          },
+          {
+            "id": "091-WEST-WALL",
+            "kind": "wall",
+            "poly": [
+              [
+                43,
+                29
+              ],
+              [
+                51,
+                21
+              ],
+              [
+                55,
+                14
+              ],
+              [
+                65,
+                14
+              ],
+              [
+                65,
+                24
+              ],
+              [
+                55,
+                24
+              ],
+              [
+                48,
+                35
+              ]
+            ],
+            "breakable": false,
+            "purpose": "側門の下を支える低い固定城壁。側面の開口は独立片で開く。",
+            "displayId": "F05",
+            "unitCount": 1
+          },
+          {
+            "id": "091-SIDE",
+            "kind": "island",
+            "poly": [
+              [
+                26,
+                33
+              ],
+              [
+                34,
+                40
+              ],
+              [
+                45,
+                40
+              ],
+              [
+                51,
+                33
+              ],
+              [
+                45,
+                29
+              ],
+              [
+                39,
+                26
+              ],
+              [
+                34,
+                27
+              ],
+              [
+                29,
+                25
+              ]
+            ],
+            "breakable": false,
+            "purpose": "左側の結晶へ向く側面砲座。",
+            "displayId": "F06",
+            "unitCount": 1
+          }
+        ],
+        "features": [
+          {
+            "type": "K",
+            "v": [
+              71,
+              40,
+              30
+            ],
+            "sizeFactor": 1.8
+          },
+          {
+            "type": "W",
+            "v": [
+              123,
+              146,
+              18
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            154,
+            20
+          ],
+          [
+            94,
+            26.125
+          ]
+        ],
+        "worldWidth": 1600
+      }
+    },
+    {
+      "stage": 97,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_097_proposal.json",
+      "sourceSha256": "9d94cf6e00af5264070ba063b80bb573938b7d3b5dbecc98c6ee21bf929cba37",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              66
+            ],
+            [
+              9,
+              72
+            ],
+            [
+              20,
+              70
+            ],
+            [
+              30,
+              70
+            ],
+            [
+              40,
+              64
+            ]
+          ],
+          [
+            [
+              145,
+              31
+            ],
+            [
+              169,
+              31
+            ],
+            [
+              184,
+              24
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "097-LOW",
+            "kind": "island",
+            "poly": [
+              [
+                44,
+                16
+              ],
+              [
+                49,
+                26
+              ],
+              [
+                65,
+                26
+              ],
+              [
+                76,
+                20
+              ],
+              [
+                69,
+                14
+              ],
+              [
+                58,
+                12
+              ],
+              [
+                51,
+                15
+              ]
+            ],
+            "breakable": false,
+            "purpose": "左に広がるU用の低島。",
+            "displayId": "F01",
+            "unitCount": 1
+          },
+          {
+            "id": "097-MIDDLE",
+            "kind": "island",
+            "poly": [
+              [
+                109,
+                34
+              ],
+              [
+                119,
+                44
+              ],
+              [
+                133,
+                44
+              ],
+              [
+                145,
+                32
+              ],
+              [
+                137,
+                28
+              ],
+              [
+                123,
+                30
+              ],
+              [
+                115,
+                25
+              ]
+            ],
+            "breakable": false,
+            "purpose": "右へ下がる細長い中継島。",
+            "displayId": "F02",
+            "unitCount": 1
+          },
+          {
+            "id": "097-HIGH",
+            "kind": "island",
+            "poly": [
+              [
+                69,
+                44
+              ],
+              [
+                77,
+                31
+              ],
+              [
+                88,
+                31
+              ],
+              [
+                96,
+                45
+              ],
+              [
+                100,
+                79
+              ],
+              [
+                107,
+                73
+              ],
+              [
+                112,
+                57
+              ],
+              [
+                108,
+                30
+              ],
+              [
+                94,
+                19
+              ],
+              [
+                80,
+                21
+              ],
+              [
+                72,
+                28
+              ]
+            ],
+            "breakable": false,
+            "purpose": "東に高い岩背を持つ開始のくぼみ。頭上を開き、左右の機構別の射点へ向く。",
+            "displayId": "F03",
+            "unitCount": 1
+          },
+          {
+            "id": "097-ENEMY-WINDOW",
+            "kind": "wall",
+            "poly": [
+              [
+                142,
+                31
+              ],
+              [
+                148,
+                31
+              ],
+              [
+                148,
+                40
+              ],
+              [
+                142,
+                39
+              ]
+            ],
+            "breakable": true,
+            "purpose": "低い敵棚の前の独立窓。",
+            "displayId": "D04",
+            "unitCount": 1
+          }
+        ],
+        "features": [
+          {
+            "type": "F",
+            "v": [
+              28,
+              48,
+              74,
+              101
+            ]
+          },
+          {
+            "type": "K",
+            "v": [
+              118,
+              57,
+              -85
+            ],
+            "sizeFactor": 2.4
+          },
+          {
+            "type": "U",
+            "v": [
+              44,
+              62,
+              24,
+              63
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            84,
+            31
+          ],
+          [
+            156,
+            31
+          ]
+        ],
+        "worldWidth": 1840
+      }
+    },
+    {
+      "stage": 98,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_098_proposal.json",
+      "sourceSha256": "ae9bfa4e9ca9abd7284e20ef10fe738ae26fec2ac70e77871eea52f3549f870b",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              4
+            ],
+            [
+              7,
+              4
+            ]
+          ],
+          [
+            [
+              196,
+              4
+            ],
+            [
+              202,
+              4
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "098-START",
+            "poly": [
+              [
+                8,
+                58
+              ],
+              [
+                15,
+                65
+              ],
+              [
+                31,
+                65
+              ],
+              [
+                36,
+                58
+              ],
+              [
+                29,
+                51
+              ],
+              [
+                19,
+                54
+              ],
+              [
+                14,
+                50
+              ]
+            ],
+            "breakable": false,
+            "purpose": "広い出発島",
+            "displayId": "F01",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-WEST-PIVOT",
+            "poly": [
+              [
+                36,
+                32
+              ],
+              [
+                40,
+                38
+              ],
+              [
+                51,
+                38
+              ],
+              [
+                54,
+                33
+              ],
+              [
+                49,
+                27
+              ],
+              [
+                42,
+                28
+              ]
+            ],
+            "breakable": false,
+            "purpose": "B1の固定付け根",
+            "displayId": "F02",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-CENTRE-RELAY",
+            "poly": [
+              [
+                78,
+                32
+              ],
+              [
+                83,
+                38
+              ],
+              [
+                105,
+                38
+              ],
+              [
+                110,
+                33
+              ],
+              [
+                101,
+                24
+              ],
+              [
+                92,
+                28
+              ],
+              [
+                86,
+                23
+              ]
+            ],
+            "breakable": false,
+            "purpose": "B1が上がっても残る中央射点",
+            "displayId": "F03",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-HIGH-LEAF",
+            "poly": [
+              [
+                64,
+                66
+              ],
+              [
+                69,
+                71
+              ],
+              [
+                76,
+                71
+              ],
+              [
+                84,
+                65
+              ],
+              [
+                75,
+                63
+              ],
+              [
+                68,
+                64
+              ]
+            ],
+            "breakable": false,
+            "purpose": "主経路の必須中継にしない上の短い島",
+            "displayId": "F04",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-EAST-PIVOT",
+            "poly": [
+              [
+                110,
+                59
+              ],
+              [
+                114,
+                65
+              ],
+              [
+                122,
+                65
+              ],
+              [
+                127,
+                59
+              ],
+              [
+                119,
+                54
+              ],
+              [
+                114,
+                56
+              ]
+            ],
+            "breakable": false,
+            "purpose": "B2の固定付け根",
+            "displayId": "F05",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-LOW-SHELTER",
+            "poly": [
+              [
+                54,
+                8
+              ],
+              [
+                58,
+                14
+              ],
+              [
+                64,
+                14
+              ],
+              [
+                73,
+                18
+              ],
+              [
+                77,
+                12
+              ],
+              [
+                68,
+                4
+              ],
+              [
+                59,
+                6
+              ]
+            ],
+            "breakable": false,
+            "purpose": "Vと低い鏡を使える固定待避・中継島",
+            "displayId": "F06",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-EAST-LOW",
+            "poly": [
+              [
+                138,
+                32
+              ],
+              [
+                144,
+                38
+              ],
+              [
+                155,
+                38
+              ],
+              [
+                159,
+                33
+              ],
+              [
+                152,
+                28
+              ],
+              [
+                144,
+                27
+              ]
+            ],
+            "breakable": false,
+            "purpose": "B2の東へ出る頭上開放の独立低島",
+            "displayId": "F07",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-HIGH-SCREEN",
+            "poly": [
+              [
+                58,
+                86
+              ],
+              [
+                64,
+                121
+              ],
+              [
+                73,
+                125
+              ],
+              [
+                78,
+                113
+              ],
+              [
+                74,
+                75
+              ]
+            ],
+            "breakable": false,
+            "purpose": "開始島の容易な山越えに干渉し、中継先を選ぶ理由を作る上方の遮蔽。",
+            "displayId": "F08",
+            "unitCount": 1,
+            "kind": "island"
+          },
+          {
+            "id": "098-ENEMY",
+            "poly": [
+              [
+                165,
+                32
+              ],
+              [
+                168,
+                38
+              ],
+              [
+                173,
+                38
+              ],
+              [
+                177,
+                26
+              ],
+              [
+                189,
+                26
+              ],
+              [
+                194,
+                20
+              ],
+              [
+                183,
+                15
+              ],
+              [
+                174,
+                18
+              ],
+              [
+                169,
+                20
+              ]
+            ],
+            "breakable": false,
+            "purpose": "広い前肩と低い敵平坦部",
+            "displayId": "F09",
+            "unitCount": 1,
+            "kind": "island"
+          }
+        ],
+        "features": [
+          {
+            "type": "B",
+            "id": "B-WEST",
+            "v": [
+              51,
+              38,
+              31,
+              0
+            ],
+            "openAngleDeg": 65
+          },
+          {
+            "type": "B",
+            "id": "B-EAST",
+            "v": [
+              122,
+              65,
+              32,
+              1
+            ],
+            "openAngleDeg": -58
+          },
+          {
+            "type": "V",
+            "v": [
+              59,
+              74,
+              18,
+              50
+            ]
+          },
+          {
+            "type": "W",
+            "v": [
+              65,
+              73,
+              14
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            24,
+            65
+          ],
+          [
+            183,
+            26
+          ]
+        ],
+        "worldWidth": 2020
+      }
+    },
+    {
+      "stage": 100,
+      "status": "implemented-post-change-review-pending",
+      "changeKind": "dedicated-four-arena-geometry",
+      "source": "design/stage_reviews/completion_20261107/stage_100_proposal.json",
+      "sourceSha256": "c206bb47e7d6e1e7beb6bb3de809761b7061d4f7be454d5d9c9af985ce53d329",
+      "terrainRevision": "10.0-review-completion",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              45
+            ],
+            [
+              35,
+              45
+            ],
+            [
+              52,
+              40
+            ],
+            [
+              105,
+              40
+            ],
+            [
+              130,
+              18
+            ],
+            [
+              160,
+              18
+            ],
+            [
+              181,
+              8
+            ],
+            [
+              205,
+              48
+            ],
+            [
+              265,
+              48
+            ],
+            [
+              285,
+              30
+            ],
+            [
+              300,
+              30
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "kind": "island",
+            "poly": [
+              [
+                82,
+                74
+              ],
+              [
+                99,
+                71
+              ],
+              [
+                108,
+                64
+              ],
+              [
+                104,
+                58
+              ],
+              [
+                84,
+                61
+              ]
+            ],
+            "breakable": false
+          },
+          {
+            "kind": "wall",
+            "poly": [
+              [
+                119,
+                28
+              ],
+              [
+                129,
+                28
+              ],
+              [
+                129,
+                46
+              ],
+              [
+                119,
+                46
+              ]
+            ],
+            "breakable": true
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              166,
+              212,
+              11
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            65,
+            40
+          ],
+          [
+            150,
+            18
+          ]
+        ],
+        "worldWidth": 3000
+      }
+    }
+  ],
+  "geometryChangedStages": [
+    31,
+    34,
+    42,
+    43,
+    44,
+    46,
+    48,
+    63,
+    81,
+    83,
+    86,
+    87,
+    88,
+    91,
+    97,
+    98,
+    100
+  ],
+  "textOnlyStages": [
+    41,
+    45
+  ],
+  "pickupVerificationChanges": [
+    34,
+    42,
+    44,
+    87,
+    88,
+    97
+  ],
+  "pickupCoordinateChanges": [
+    87
+  ],
+  "pickupChanges": [
+    {
+      "stage": 34,
+      "before": {
+        "stage": 34,
+        "id": "SK034",
+        "kind": "skill",
+        "skillId": "S_CHARGE_SLOW_II",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 49.509,
+        "h": 21.619,
+        "spawnTurn": 1,
+        "placementId": "L034:skill:S_CHARGE_SLOW_II",
+        "verification": {
+          "angle": 20,
+          "power": 90,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 1.5
+        }
+      },
+      "after": {
+        "stage": 34,
+        "id": "SK034",
+        "kind": "skill",
+        "skillId": "S_CHARGE_SLOW_II",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 49.509,
+        "h": 21.619,
+        "spawnTurn": 1,
+        "placementId": "L034:skill:S_CHARGE_SLOW_II",
+        "verification": {
+          "angle": 20,
+          "power": 85,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "walkInput": 0,
+          "moved": 0,
+          "attackDamage": 0,
+          "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+        }
+      }
+    },
+    {
+      "stage": 42,
+      "before": {
+        "stage": 42,
+        "id": "W16",
+        "kind": "trial",
+        "weaponId": "W16",
+        "category": "weapon",
+        "amount": 2,
+        "x": 35.74165,
+        "h": 30.59249,
+        "spawnTurn": 1,
+        "placementId": "L042:weapon:W16",
+        "verification": {
+          "angle": 4,
+          "power": 90,
+          "walk": 0,
+          "neighborHits": 5,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "after": {
+        "stage": 42,
+        "id": "W16",
+        "kind": "trial",
+        "weaponId": "W16",
+        "category": "weapon",
+        "amount": 2,
+        "x": 35.74165,
+        "h": 30.59249,
+        "spawnTurn": 1,
+        "placementId": "L042:weapon:W16",
+        "verification": {
+          "angle": 46,
+          "power": 80,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "walkInput": 0,
+          "moved": 0,
+          "attackDamage": 0,
+          "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+        }
+      }
+    },
+    {
+      "stage": 44,
+      "before": {
+        "stage": 44,
+        "id": "SK044",
+        "kind": "skill",
+        "skillId": "S_POWER_UP_II",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 40.92481,
+        "h": 21.39627,
+        "spawnTurn": 1,
+        "placementId": "L044:skill:S_POWER_UP_II",
+        "verification": {
+          "angle": -2,
+          "power": 80,
+          "walk": 0,
+          "neighborHits": 6,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "after": {
+        "stage": 44,
+        "id": "SK044",
+        "kind": "skill",
+        "skillId": "S_POWER_UP_II",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 40.92481,
+        "h": 21.39627,
+        "spawnTurn": 1,
+        "placementId": "L044:skill:S_POWER_UP_II",
+        "verification": {
+          "angle": -6,
+          "power": 90,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "walkInput": 0,
+          "moved": 0,
+          "attackDamage": 0,
+          "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+        }
+      }
+    },
+    {
+      "stage": 87,
+      "before": {
+        "stage": 87,
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 59,
+        "h": 34,
+        "spawnTurn": 5,
+        "placementId": "L087:weapon:W11",
+        "verification": {
+          "angle": 92,
+          "power": 30,
+          "neighborHits": 5,
+          "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+        }
+      },
+      "after": {
+        "stage": 87,
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 66,
+        "h": 69,
+        "spawnTurn": 5,
+        "placementId": "L087:weapon:W11",
+        "verification": {
+          "angle": 44,
+          "power": 55,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "walkInput": 0,
+          "moved": 0,
+          "attackDamage": 0,
+          "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+        }
+      }
+    },
+    {
+      "stage": 88,
+      "before": {
+        "stage": 88,
+        "id": "SK088",
+        "kind": "skill",
+        "skillId": "S_ALL_ATTACK",
+        "category": "rare-skill",
+        "amount": 2,
+        "x": 67.85469,
+        "h": 19.50972,
+        "spawnTurn": 1,
+        "placementId": "L088:skill:S_ALL_ATTACK",
+        "verification": {
+          "angle": 52,
+          "power": 30,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "after": {
+        "stage": 88,
+        "id": "SK088",
+        "kind": "skill",
+        "skillId": "S_ALL_ATTACK",
+        "category": "rare-skill",
+        "amount": 2,
+        "x": 67.85469,
+        "h": 19.50972,
+        "spawnTurn": 1,
+        "placementId": "L088:skill:S_ALL_ATTACK",
+        "verification": {
+          "angle": -12,
+          "power": 25,
+          "neighborHits": 6,
+          "neighborShots": 9,
+          "walkInput": 0,
+          "moved": 0,
+          "attackDamage": 0,
+          "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+        }
+      }
+    },
+    {
+      "stage": 97,
+      "before": {
+        "stage": 97,
+        "id": "W16",
+        "kind": "trial",
+        "weaponId": "W16",
+        "category": "weapon",
+        "amount": 2,
+        "x": 93.55701,
+        "h": 85.19748,
+        "spawnTurn": 1,
+        "placementId": "L097:weapon:W16",
+        "verification": {
+          "angle": -2,
+          "power": 85,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "after": {
+        "stage": 97,
+        "id": "W16",
+        "kind": "trial",
+        "weaponId": "W16",
+        "category": "weapon",
+        "amount": 2,
+        "x": 93.55701,
+        "h": 85.19748,
+        "spawnTurn": 1,
+        "placementId": "L097:weapon:W16",
+        "verification": {
+          "angle": 84,
+          "power": 85,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "walkInput": 0,
+          "moved": 0,
+          "attackDamage": 0,
+          "scope": "Actual initial W01; 9 inputs at angle +/-2 and power +/-3. Capsule identity, quantity and spawn turn retained."
+        }
+      }
+    }
+  ],
+  "protected": "Other81 complete blueprints/runtime levels, all gameplay/AI/HP/physics/save fields, all capsule identities/types/quantity/turns and45 coordinates. Stage100 changes geometry only, retaining all dedicated relay rules, names and backgrounds."
+}
