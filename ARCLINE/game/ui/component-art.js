@@ -83,7 +83,12 @@
           .padStart(2, "0"),
       )
       .join("");
-  function material(points, mat, caps = [], fragile = false, id) {
+  function material(points, mat, caps = [], fragile = false, id, groundBottom) {
+    const ground = Number.isFinite(groundBottom);
+    const fillPoints = points.map(([x, y], i) => [
+      x,
+      ground && i >= points.length - 2 ? Math.max(y, groundBottom) : y,
+    ]);
     const colors = fragile ? shared.breakable : mat.palette;
     const xs = points.map((p) => p[0]),
       ys = points.map((p) => p[1]);
@@ -115,14 +120,29 @@
           },
         ]
       : mat.planes;
-    const fill = [poly(points, colors.face)];
-    for (const plane of planes)
-      fill.push(
-        poly(
-          plane.points.map(([a, b]) => [x + w * a, y + h * b]),
-          colors[plane.color],
-        ),
-      );
+    const fill = [poly(fillPoints, colors.face)];
+    for (const plane of planes) {
+      const mapped = plane.points.map(([a, b]) => [x + w * a, y + h * b]);
+      const continued = [];
+      for (let i = 0; i < mapped.length; i++) {
+        const next = (i + 1) % mapped.length;
+        continued.push(mapped[i]);
+        if (
+          ground &&
+          groundBottom > y + h &&
+          plane.points[i][1] === 1 &&
+          plane.points[next][1] === 1
+        ) {
+          // Preserve the authored facet above the cutoff while continuing
+          // its bottom edge. Camera movement must not stretch the material.
+          continued.push(
+            [mapped[i][0], groundBottom],
+            [mapped[next][0], groundBottom],
+          );
+        }
+      }
+      fill.push(poly(continued, colors[plane.color]));
+    }
     if (fragile) {
       fill.push(
         line(
@@ -152,15 +172,24 @@
     const rule = fragile ? style.functionalOutline : style.naturalOutline;
     return group(
       [
-        group(fill, { clip: pointsPath(points), role: "materialFill" }),
-        poly(
-          points,
-          "none",
-          outline(colors.face, rule.valueScale),
-          rule.width,
-          true,
-          { role: "materialOutline" },
-        ),
+        group(fill, { clip: pointsPath(fillPoints), role: "materialFill" }),
+        ground
+          ? {
+              ...line(
+                points.slice(0, -2),
+                outline(colors.face, rule.valueScale),
+                rule.width,
+              ),
+              role: "materialOutline",
+            }
+          : poly(
+              points,
+              "none",
+              outline(colors.face, rule.valueScale),
+              rule.width,
+              true,
+              { role: "materialOutline" },
+            ),
       ],
       {
         role: "solid",
@@ -228,7 +257,7 @@
       { role: "bridge", collider: points },
     );
   }
-  function solidNode(solid, world, scene) {
+  function solidNode(solid, world, scene, groundBottom) {
     const points = solid.poly.map((p) => [p.x, p.y]);
     if (["reflector", "crystal"].includes(solid.kind)) return reflector(points);
     if (solid.kind === "bridge") return bridge(points, solid.hinge);
@@ -254,7 +283,16 @@
           ]);
       }
     }
-    return material(points, mat, caps, solid.kind === "fragile", solid.id);
+    return material(
+      points,
+      mat,
+      caps,
+      solid.kind === "fragile",
+      solid.id,
+      solid.kind === "floor"
+        ? Math.max(...points.map((p) => p[1]), groundBottom ?? -Infinity)
+        : undefined,
+    );
   }
   function fieldState(region) {
     const key =
@@ -414,9 +452,25 @@
         return;
     }
     exterior(ctx, solid, world, scene, options);
+    // The closing floor vertices are collision bookkeeping, not a visible
+    // underground rim. Continue bottom-reaching material planes with the soil.
+    const groundBottom =
+      solid.kind === "floor" && options.view
+        ? (options.height - options.view.y + 16) / options.view.scale
+        : undefined;
     let cached = cache.get(solid);
-    if (!cached || cached.world !== world || cached.scene !== scene) {
-      cached = { world, scene, node: solidNode(solid, world, scene) };
+    if (
+      !cached ||
+      cached.world !== world ||
+      cached.scene !== scene ||
+      cached.groundBottom !== groundBottom
+    ) {
+      cached = {
+        world,
+        scene,
+        groundBottom,
+        node: solidNode(solid, world, scene, groundBottom),
+      };
       cache.set(solid, cached);
     }
     paint(ctx, cached.node, options);

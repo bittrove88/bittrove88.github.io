@@ -2,6 +2,8 @@
 
 2026-11-07 / v0.27.0 の地形と、現行ゲームへ統合済みの背景・コンポーネント美術を使用。最新main `fa638d2` から、0.24.4の輪郭・接地辺改訂1.8と0.24.5の画面修正も取り込んでいます。
 
+追加依頼による美術1.9を反映しました。81〜85面の茶色い地盤・建築材を白石と淡い青緑へ変更し、全地盤の内部に見える人工的な閉じ底の線を除去。地表・有限の浮島・壁・反射面・破壊材の識別は維持します。[今回の見本と検証](../../evidence/garden-surface-20261107/README.md)。
+
 [HTMLを開く](arcline_100_maps_atlas.html)。公式サイトのフッター「100面マップ一覧」からも同じファイルへ移動します。本番公開の有無は、このファイルの生成・確認とは別です。
 
 - 1〜100面を20テーマごとに掲載し、100面の4戦場を下段に個別表示。104枚のカードに103種類のマップを表示します（100面の最初の戦場だけ重複掲載）。
@@ -22,8 +24,8 @@
 - 既存マップ総覧テスト787項目：全100面・最終4戦場の正本一致、従来の地形図、埋め込んだ現行コードの完全一致と指紋。
 - 既存サイトブラウザテスト：360×780・844×390・768×1024・1440×900で全104カード／103マップと背景33景を描画。拡大、絞り込み、ターン1／2、地形図、最終第4戦場、閉じる操作、保存済みデータの保持を確認。
 - デスクトップで全104カードの1〜6ターン表示、PNG保存、単体HTMLの保存と再読み込み、外部スクリプト・画像・CSS取得なしを確認。
-- `npm test` と `npm run check:generated`。マップ・ルールは0.27.0の元コミットと完全一致、背景・材質・画面修正は最新mainと完全一致を確認。
+- `npm test` と `npm run check:generated`。マップ・ルールは0.27.0の元コミットと完全一致。背景・画面修正はmainと一致させ、追加の美術1.9は上記の範囲だけ変更しています。
 
-[ブラウザ検査結果](../../evidence/native-map-atlas-20261107/RELEASE_WEB.json) ／ [正本の保持・同期](../../evidence/native-map-atlas-20261107/PRESERVATION.json) ／ [一覧](../../evidence/native-map-atlas-20261107/native-atlas-desktop.png) ／ [31面・スマホ横](../../evidence/native-map-atlas-20261107/native-stage31-844.png) ／ [最終戦4](../../evidence/native-map-atlas-20261107/native-final4-desktop.png)
+初回出力時の記録：[ブラウザ検査結果](../../evidence/native-map-atlas-20261107/RELEASE_WEB.json) ／ [正本の保持・同期](../../evidence/native-map-atlas-20261107/PRESERVATION.json) ／ [一覧](../../evidence/native-map-atlas-20261107/native-atlas-desktop.png) ／ [31面・スマホ横](../../evidence/native-map-atlas-20261107/native-stage31-844.png) ／ [最終戦4](../../evidence/native-map-atlas-20261107/native-final4-desktop.png)
 
 自動ブラウザはローカルHTTPで確認しています。この環境では管理ポリシーが `file://` を制限するため、その経路と物理端末での表示は未確認です。

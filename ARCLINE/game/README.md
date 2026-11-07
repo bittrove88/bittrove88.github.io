@@ -6,6 +6,8 @@
 
 # コードと生成物の編集先
 
+2026-11-07 美術1.9：空中庭園81〜85面の素材配色と名称だけを `design/components/complete/data/normal-16.json` で更新し、明示依頼を `runtime-approval.json` に記録。`ui/component-art.js` は地盤の閉じ底を線で描かず、元の材質面を地中へ連続表示する。カメラによって地表側の模様を伸縮させず、衝突ポリゴンは変更しない。有限の浮島・壁には従来の輪郭を残す。[範囲と確認](../evidence/garden-surface-20261107/README.md)。
+
 0.24.2のコンポーネント美術は `ui/component-art.js` と `../design/components/complete/data/*.json`・`shared-materials.json`・`render-style.json`・共通 `renderer.js` が正本。`tools/build_components.py` が同じ描画器・承認素材・実装アダプターを `dist/component-art.js` へ生成する。承認素材のハッシュは `../design/components/runtime-approval.json`。`render.js` は実際の世界と、背景と同じ最終移動の状態を渡し、衝突や保存には描画データを読み戻さない。[統合と検証](../docs/releases/0.24.2.md)。
 
 0.24.1：承認された17・33・36・39・47面は `design/stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json` の元JSONとハッシュに固定。生成元は引き続きstage_blueprintsとpickup_placements。旧0.23.0の1〜50面照合はこの5面だけ新承認へ更新し、旧入力列は履歴として保持する。[統合・検証](../docs/releases/0.24.1.md)。
