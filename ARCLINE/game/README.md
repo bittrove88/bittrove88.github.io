@@ -1,5 +1,7 @@
 # コードと生成物の編集先
 
+0.23.2：背景33景は `../design/backgrounds/complete/data/*.json` と同ディレクトリの `renderer.js`、実行時の選択は `ui/backgrounds.js` が正本。`tools/build_backgrounds.py` が通信不要の `dist/backgrounds.js` を生成し、正式な `npm run build`／`check:generated` に登録する。`dist/render.js` は既存の最終移動フレームで旧／新マップを決定した後、画面座標に背景を描き、その上へ既存の地形・機体・射線・演出を重ねる。背景にカメラ変換や当たり判定を与えない。[実装と検証](../docs/releases/0.23.2.md)。
+
 |内容|編集する正本|生成先|
 |---|---|---|
 |版数・キャッシュ・依存順序|runtime.json|dist/release-info.js、HTMLリソースブロック、manifest|
