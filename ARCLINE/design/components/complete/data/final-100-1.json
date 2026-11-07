@@ -1,0 +1,177 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "final-100-1",
+  "title": "アークハート内殻 — 空の搬送層",
+  "kind": "final",
+  "themeIndex": 19,
+  "stageRange": [
+    96,
+    100
+  ],
+  "stage": 100,
+  "mapIndex": 1,
+  "sampleStage": 100,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/final-100-1.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 19,
+    "materialStory": "空に開く搬送層。水色の鋼材と白い補強、斜めに力を受ける桁。",
+    "terrain": {
+      "name": "搬送層の青い支持脚",
+      "palette": {
+        "face": "#608B91",
+        "shade": "#315868",
+        "light": "#99B8B5",
+        "cap": "#DCD8B9",
+        "ink": "#2B4F5B",
+        "accent": "#B89D6B"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              0.44,
+              0
+            ],
+            [
+              0.76,
+              1
+            ],
+            [
+              0.48,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.65,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.76,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0.7
+            ],
+            [
+              0.3,
+              0.48
+            ],
+            [
+              0.35,
+              0.65
+            ],
+            [
+              0,
+              0.9
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "白い搬送桁",
+      "palette": {
+        "face": "#B8C6B7",
+        "shade": "#5B8A8D",
+        "light": "#DFDDC2",
+        "cap": "#F0E7C9",
+        "ink": "#3E6A72",
+        "accent": "#B49A6C"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.18
+            ],
+            [
+              0,
+              0.18
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.12,
+              0.18
+            ],
+            [
+              0.27,
+              0.18
+            ],
+            [
+              0.81,
+              1
+            ],
+            [
+              0.62,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.8,
+              0.18
+            ],
+            [
+              0.9,
+              0.18
+            ],
+            [
+              0.9,
+              1
+            ],
+            [
+              0.8,
+              1
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

@@ -1,0 +1,219 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-15",
+  "title": "極性の実験棟",
+  "kind": "normal",
+  "themeIndex": 15,
+  "stageRange": [
+    76,
+    80
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 79,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/normal-15.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 15,
+    "materialStory": "実験棟は青紫の鋼材、白い陶器、銅の接合面。支持部の積層と機能としての磁場記号を分離する。",
+    "terrain": {
+      "name": "青紫の施設床",
+      "palette": {
+        "face": "#657396",
+        "shade": "#353F64",
+        "light": "#9BAAC0",
+        "cap": "#DFD9BF",
+        "ink": "#303B59",
+        "accent": "#B48970"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.18
+            ],
+            [
+              0,
+              0.18
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.15,
+              0.18
+            ],
+            [
+              0.22,
+              0.18
+            ],
+            [
+              0.22,
+              1
+            ],
+            [
+              0.15,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.73,
+              0.18
+            ],
+            [
+              0.83,
+              0.18
+            ],
+            [
+              0.83,
+              1
+            ],
+            [
+              0.73,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "light",
+          "points": [
+            [
+              0.32,
+              0.56
+            ],
+            [
+              0.61,
+              0.56
+            ],
+            [
+              0.61,
+              0.77
+            ],
+            [
+              0.32,
+              0.77
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "陶器と銅の支持材",
+      "palette": {
+        "face": "#D3C9AF",
+        "shade": "#8B8C92",
+        "light": "#EBDFBD",
+        "cap": "#F0E8CE",
+        "ink": "#4D586F",
+        "accent": "#B77760"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.24
+            ],
+            [
+              0,
+              0.24
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0,
+              0.44
+            ],
+            [
+              1,
+              0.44
+            ],
+            [
+              1,
+              0.52
+            ],
+            [
+              0,
+              0.52
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.1,
+              0.24
+            ],
+            [
+              0.2,
+              0.24
+            ],
+            [
+              0.2,
+              1
+            ],
+            [
+              0.1,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.76,
+              0.52
+            ],
+            [
+              1,
+              0.52
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.76,
+              1
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

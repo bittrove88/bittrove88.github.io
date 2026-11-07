@@ -1,0 +1,205 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-06",
+  "title": "水晶の反射路",
+  "kind": "normal",
+  "themeIndex": 6,
+  "stageRange": [
+    31,
+    35
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 34,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/normal-06.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 6,
+    "materialStory": "薄紫の鉱床と薔薇色・青磁色の鉱晶。固定鉱物には反射材の縁や記号を付けない。",
+    "terrain": {
+      "name": "薄紫の鉱床",
+      "palette": {
+        "face": "#8D7B9E",
+        "shade": "#584F72",
+        "light": "#B7A5C0",
+        "cap": "#DCCAD5",
+        "ink": "#453F59",
+        "accent": "#A58EAD"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              0.37,
+              0
+            ],
+            [
+              0.22,
+              0.55
+            ],
+            [
+              0,
+              0.77
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.37,
+              0
+            ],
+            [
+              0.67,
+              0
+            ],
+            [
+              0.53,
+              0.44
+            ],
+            [
+              0.62,
+              0.76
+            ],
+            [
+              0.37,
+              1
+            ],
+            [
+              0.22,
+              0.55
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.67,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.59,
+              1
+            ],
+            [
+              0.62,
+              0.76
+            ],
+            [
+              0.53,
+              0.44
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "鉱晶の支持塊",
+      "palette": {
+        "face": "#A88DA8",
+        "shade": "#645D80",
+        "light": "#D2BDCA",
+        "cap": "#E9DBDC",
+        "ink": "#4C475D",
+        "accent": "#7E9EA8"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0.05,
+              0
+            ],
+            [
+              0.43,
+              0
+            ],
+            [
+              0.33,
+              0.48
+            ],
+            [
+              0,
+              0.73
+            ],
+            [
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.43,
+              0
+            ],
+            [
+              0.61,
+              0
+            ],
+            [
+              0.79,
+              0.53
+            ],
+            [
+              0.6,
+              1
+            ],
+            [
+              0.33,
+              0.48
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.61,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.6,
+              1
+            ],
+            [
+              0.79,
+              0.53
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

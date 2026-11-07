@@ -1,0 +1,210 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-14",
+  "title": "磁石の採掘場",
+  "kind": "normal",
+  "themeIndex": 14,
+  "stageRange": [
+    71,
+    75
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 74,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/normal-14.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 14,
+    "materialStory": "露天採掘場の赤錆色の段丘と黒い鉄鉱石。架台は古い青緑の鉄で支える。",
+    "terrain": {
+      "name": "鉄鉱石の段丘",
+      "palette": {
+        "face": "#935E42",
+        "shade": "#483C3C",
+        "light": "#BF8959",
+        "cap": "#D8AE7C",
+        "ink": "#3B3435",
+        "accent": "#575D68"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.16
+            ],
+            [
+              0.62,
+              0.24
+            ],
+            [
+              0,
+              0.14
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.1,
+              0.28
+            ],
+            [
+              0.38,
+              0.2
+            ],
+            [
+              0.52,
+              0.54
+            ],
+            [
+              0.26,
+              0.74
+            ],
+            [
+              0,
+              0.57
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.59,
+              0.31
+            ],
+            [
+              1,
+              0.17
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.73,
+              1
+            ],
+            [
+              0.44,
+              0.65
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "古い運搬架台",
+      "palette": {
+        "face": "#4D7064",
+        "shade": "#293F3D",
+        "light": "#839D87",
+        "cap": "#B8B092",
+        "ink": "#253A37",
+        "accent": "#9F7052"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.2
+            ],
+            [
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0.2
+            ],
+            [
+              0.13,
+              0.2
+            ],
+            [
+              0.13,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.23,
+              0.35
+            ],
+            [
+              0.78,
+              0.35
+            ],
+            [
+              0.78,
+              0.78
+            ],
+            [
+              0.23,
+              0.78
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.87,
+              0.2
+            ],
+            [
+              1,
+              0.2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.87,
+              1
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}
