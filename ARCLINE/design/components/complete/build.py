@@ -59,13 +59,15 @@ def region(r,unit=1,labels=True,label_bounds=None,occupied=None):
     y=next((yy for yy in candidates if top+18*unit<=yy<=bottom-8*unit and not any(overlap(box(yy),b) for b in occupied)),desired);occupied.append(box(y))
   return badge(x,y,label,c,unit=unit)
  label,c=field_label(r)
+ active=r.get('on',True) and r.get('strength',1)>0
+ frame_opacity=R['fieldFrameOpacity' if active else 'fieldOffFrameOpacity']
  if r['kind']=='M':
   x,y,rad=r['x'],r['y'],r['radius'];d=f'M{x-rad} {y} A{rad} {rad} 0 0 1 {x} {y-rad} M{x} {y+rad} A{rad} {rad} 0 0 0 {x+rad} {y}'
-  nodes=[path(d,'none',outline_color(c,R['fieldOutlineValueScale']),R['fieldBorderWidth'],True,opacity=R['fieldHaloOpacity'],role='fieldFrame'),path(d,'none',c,R['fieldStateWidth'],True,opacity=R['fieldFrameOpacity'],role='fieldFrame')];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
+  nodes=[path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame')];nodes+=label_at(x,y-rad-5*unit,label,c) if labels else []
  else:
   x1,x2,y1,y2=r['x1'],r['x2'],r['y1'],r['y2'];q=min(18,(x2-x1)/4,(y2-y1)/4)
   d=f'M{x1+q} {y1} H{x1} V{y1+q} M{x2-q} {y1} H{x2} V{y1+q} M{x1} {y2-q} V{y2} H{x1+q} M{x2-q} {y2} H{x2} V{y2-q}'
-  nodes=[path(d,'none',outline_color(c,R['fieldOutlineValueScale']),R['fieldBorderWidth'],True,opacity=R['fieldHaloOpacity'],role='fieldFrame'),path(d,'none',c,R['fieldStateWidth'],True,opacity=R['fieldFrameOpacity'],role='fieldFrame')];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
+  nodes=[path(d,'none',c,R['fieldStateWidth'],True,opacity=frame_opacity,role='fieldFrame')];nodes+=label_at((x1+x2)/2,y1-7*unit,label,c) if labels else []
  return group(nodes,role='field',sourceState={k:r.get(k) for k in ['kind','direction','on','strength']},motion={**r,'color':c})
 def terminal(x,y,mat,pending=False):
  p=S['terminal'];out=[solid([(x-23,y+18),(x+23,y+18),(x+23,y+30),(x-23,y+30)],mat),rect(x-17,y-14,34,33,p['body']),rect(x-12,y-8,24,20,p['display']),text(x-8,y+9,'＋',18,p['symbol'],600)]
@@ -175,7 +177,8 @@ def validate_inputs():
   if hashlib.sha256((P/ref['file']).read_bytes()).hexdigest()!=ref['sha256']:raise ValueError('Outline baseline changed: '+ref['file'])
  for kind in ['naturalOutline','functionalOutline']:
   assert 0<R[kind]['width']<=1 and 0<R[kind]['valueScale']<=1
- for key in ['fieldFrameOpacity','fieldHaloOpacity']:assert 0<R[key]<=1
+ for key in ['fieldFrameOpacity','fieldOffFrameOpacity']:assert 0<R[key]<=1
+ assert R['fieldOffFrameOpacity']<R['fieldFrameOpacity']
  assert len(SCENES)==33 and len(W['worlds'])==103
  assert {s['themeIndex'] for s in SCENES.values() if s['kind']=='normal'}==set(range(20))
  assert len([s for s in SCENES.values() if s['kind']=='boss'])==9

@@ -33,7 +33,7 @@ async function main(){
    const probe=document.createElement('canvas').getContext('2d');probe.setTransform(2,0,0,2,9,13);probe.globalAlpha=.37;probe.filter='blur(1px)';probe.setLineDash([3,7]);
    const state=()=>JSON.stringify([Array.from(probe.getTransform().toFloat64Array()),probe.globalAlpha,probe.filter,probe.getLineDash()]);const before=state();ArcComponentCollection.draw(probe,1000,430,{...data.contexts[0].graph,nodes:[...data.contexts[0].graph.nodes,...data.cases[6].nodes]},{fieldMotion:true,time:2});assert(state()===before,'motion context state');
    const walk=a=>[a,...(a.children||[]).flatMap(walk)];let frames=0,badges=0;
-   for(const g of Object.values(COLLECTION.maps))for(const n of g.nodes.flatMap(walk)){if(n.role==='fieldFrame'){assert(n.opacity===.2||n.opacity===.6,'frame opacity');frames++;}if(n.role==='stateBadge'){assert(n.opacity===undefined,'label opacity');badges++;}if(n.opacity!==undefined)assert(n.role==='fieldFrame','unexpected art transparency');}
+   for(const g of Object.values(COLLECTION.maps))for(const n of g.nodes.flatMap(walk)){if(n.role==='field'){const paths=n.children.filter(c=>c.role==='fieldFrame'),active=n.sourceState.on!==false&&(n.sourceState.strength??1)>0;assert(paths.length===1,'single field frame');assert(paths[0].opacity===(active?.25:.08),'state-specific frame opacity');assert(paths[0].strokeWidth===1,'thin field frame');frames++;}if(n.role==='stateBadge'){assert(n.opacity===undefined,'label opacity');badges++;}if(n.opacity!==undefined)assert(n.role==='fieldFrame','unexpected art transparency');}
    return {cases:stats,contextFrames,transparentFramePaths:frames,opaqueBadges:badges,reducedMotionCases:data.cases.length,motionContextRestored:true};
   });
   let controls=0;
@@ -54,7 +54,7 @@ async function main(){
   assert.equal(await page.evaluate(()=>JSON.stringify(COLLECTION)),integrity,'data mutated');assert.equal(await page.evaluate(()=>localStorage.length),0);assert.equal(errors.length,0);assert.equal(external.length,0);
   const reducedPage=await browser.newPage({reducedMotion:'reduce'});await reducedPage.goto(origin+'/gimmick-motion.html');assert.equal(await reducedPage.evaluate(()=>motionPreviewState.playing),false);assert.equal(await reducedPage.locator('#reduced').isChecked(),true);await reducedPage.close();
   const recordings=['gimmick-motion.gif','gimmick-motion.mp4'].map(file=>({file,bytes:fs.statSync(path.join(root,file)).size,sha256:hash(fs.readFileSync(path.join(root,file)))}));
-  const report={scope:'Independent art motion study, not game integration or ballistic simulation.',gameStateExamples:13,...drawing,uiSelections:controls,cycleStates,layouts,frameOpacity:.6,haloOpacity:.2,labelsOpaque:true,pauseResume:true,reducedMotionPreference:true,dataImmutable:true,saveWrites:0,javaScriptErrors:errors,externalHTTP:external,recordings,videoFrames:520,gifFrames:192};
+  const report={scope:'Independent art motion study, not game integration or ballistic simulation.',gameStateExamples:13,...drawing,uiSelections:controls,cycleStates,layouts,frameOpacity:.25,offFrameOpacity:.08,frameWidth:1,haloRemoved:true,labelsOpaque:true,pauseResume:true,reducedMotionPreference:true,dataImmutable:true,saveWrites:0,javaScriptErrors:errors,externalHTTP:external,recordings,videoFrames:520,gifFrames:192};
   fs.writeFileSync(path.join(root,'motion-validation.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({...report,cases:report.cases.length},null,2));
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 }

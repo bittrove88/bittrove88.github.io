@@ -1,6 +1,6 @@
 # ARCLINE 開発エージェント運用ルール
 
-**2026-11-07 作用領域の改訂1.3：** [動き](design/components/complete/gimmick-motion.html) ／ [再評価](design/components/complete/DESIGN_REVIEW.md)。枠のみ主線60%・補助線20%の不透明度へ。ラベル・地形・機能面は不透明を維持。13状態のアニメーション・GIF／MP4は演出比較用で、ゲーム未統合。比較用の秒数を手番周期へ取り込まない。物理・状態・地形・保存は維持。
+**2026-11-07 作用領域の改訂1.4：** [動き](design/components/complete/gimmick-motion.html) ／ [再評価](design/components/complete/DESIGN_REVIEW.md)。枠を1pxの一重線へ整理し、ON時25%・OFF時8%の不透明度へ。補助線を重ねず、本体の動きとラベルを維持。13状態のアニメーション・GIF／MP4は演出比較用でゲーム未統合。比較用の秒数を手番周期へ取り込まない。物理・状態・地形・保存は維持。
 
 **2026-11-07 コンポーネントの輪郭改訂1.2：** [配色・輪郭](design/components/complete/ART_DIRECTION.md#コンポーネント用の配色と輪郭)。暗いinkの混色をやめ、素材と同じ色相の線へ変更。通常外周0.8px・接地辺1.8pxを維持。正本は `render-style.json` の `valueScale`。破壊材・反射面・状態の共通識別色と、物理・当たり判定は維持。
 
