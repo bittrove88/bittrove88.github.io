@@ -1,0 +1,791 @@
+{
+  "schema": "ARCLINE-APPROVED-IDEA-REFINEMENT-v1",
+  "date": "2026-11-07",
+  "approval": "Final review approved after stage-39 bridge revision. Only17,33,36,39,47 replace the earlier approved terrain.",
+  "priorRuntime": "74aed2be47e429cea3f502416a5d0b768adb3318",
+  "stages": [
+    {
+      "stage": 17,
+      "name": "岩肩へ返す反射のくぼみ",
+      "approvalStatus": "user-approved-design",
+      "source": "design/stage_reviews/idea_refinement_20261107/stage_017_proposal.json",
+      "sourceSha256": "85d879062a58a1816d9678058edfa3d9698b91cfaa262e7d546fd82f208c4b9a",
+      "sourceCommit": "5136e1934f93a48577bc8058c7ab91b53997a390",
+      "terrainRevision": "7.1-approved-idea-refinement",
+      "rules": {
+        "actionLimit": 12,
+        "enemyHp": 3,
+        "enemyProfile": 0,
+        "encounterId": "enemy:spike",
+        "recommendedCharacter": "ban"
+      },
+      "geometry": {
+        "width": 1000,
+        "worldWidth": 1000,
+        "floors": [
+          [
+            [
+              0,
+              26
+            ],
+            [
+              16,
+              26
+            ],
+            [
+              24,
+              25
+            ],
+            [
+              30,
+              20
+            ],
+            [
+              36,
+              12
+            ],
+            [
+              53,
+              12
+            ],
+            [
+              59,
+              22
+            ],
+            [
+              64,
+              29
+            ],
+            [
+              69,
+              29
+            ],
+            [
+              75,
+              19
+            ],
+            [
+              82,
+              12
+            ],
+            [
+              92,
+              12
+            ],
+            [
+              100,
+              16
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "017-CHIPPED-EDGE",
+            "kind": "roof",
+            "poly": [
+              [
+                71,
+                25
+              ],
+              [
+                75,
+                19
+              ],
+              [
+                79,
+                18
+              ],
+              [
+                77,
+                15
+              ],
+              [
+                73,
+                17
+              ]
+            ],
+            "breakable": true,
+            "purpose": "岩肩の右斜面に接続した任意の一片。切り欠きを開くと肩上からの出口を広げる。"
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              30,
+              56,
+              12
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            26
+          ],
+          [
+            87,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "stage": 33,
+      "name": "背中合わせの鏡岸",
+      "approvalStatus": "user-approved-design",
+      "source": "design/stage_reviews/idea_refinement_20261107/stage_033_proposal.json",
+      "sourceSha256": "31849cac9b0fcefb428a731f46788b988b3c5207303c11fbc0c7b26250890bf5",
+      "sourceCommit": "5136e1934f93a48577bc8058c7ab91b53997a390",
+      "terrainRevision": "7.1-approved-idea-refinement",
+      "rules": {
+        "actionLimit": 16,
+        "enemyHp": 4,
+        "enemyProfile": 1,
+        "encounterId": "enemy:riff",
+        "recommendedCharacter": "rico"
+      },
+      "geometry": {
+        "width": 1240,
+        "worldWidth": 1240,
+        "floors": [
+          [
+            [
+              0,
+              27
+            ],
+            [
+              12,
+              27
+            ],
+            [
+              18,
+              25
+            ],
+            [
+              34,
+              12
+            ],
+            [
+              38,
+              12
+            ],
+            [
+              41,
+              29
+            ],
+            [
+              44,
+              33
+            ],
+            [
+              49,
+              33
+            ],
+            [
+              53,
+              25
+            ],
+            [
+              58,
+              10
+            ],
+            [
+              64,
+              10
+            ],
+            [
+              80,
+              18
+            ],
+            [
+              88,
+              25
+            ],
+            [
+              96,
+              25
+            ],
+            [
+              105,
+              12
+            ],
+            [
+              124,
+              12
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "033-BREAKABLE-EAVE",
+            "poly": [
+              [
+                69,
+                36
+              ],
+              [
+                75,
+                39
+              ],
+              [
+                82,
+                38
+              ],
+              [
+                85,
+                34
+              ],
+              [
+                81,
+                27.5
+              ],
+              [
+                73,
+                27.5
+              ]
+            ],
+            "breakable": true
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              18,
+              36,
+              12
+            ]
+          },
+          {
+            "type": "W",
+            "v": [
+              62,
+              80,
+              10
+            ]
+          },
+          {
+            "type": "C",
+            "v": [
+              90,
+              110,
+              46,
+              62
+            ]
+          },
+          {
+            "type": "K",
+            "v": [
+              99,
+              50,
+              25
+            ],
+            "sizeFactor": 1.8
+          }
+        ],
+        "spawn": [
+          [
+            46,
+            33
+          ],
+          [
+            114,
+            12
+          ]
+        ]
+      }
+    },
+    {
+      "stage": 36,
+      "name": "結晶へ入れる斜面の交差",
+      "approvalStatus": "user-approved-design",
+      "source": "design/stage_reviews/idea_refinement_20261107/stage_036_proposal.json",
+      "sourceSha256": "1be77ce4c96fc8f2ea7b46a8a35ce2e2d08b0a409f73e42bab68866914b63285",
+      "sourceCommit": "5136e1934f93a48577bc8058c7ab91b53997a390",
+      "terrainRevision": "7.1-approved-idea-refinement",
+      "rules": {
+        "actionLimit": 16,
+        "enemyHp": 4,
+        "enemyProfile": 1,
+        "encounterId": "enemy:riff",
+        "recommendedCharacter": "rico"
+      },
+      "geometry": {
+        "width": 1200,
+        "worldWidth": 1200,
+        "floors": [
+          [
+            [
+              0,
+              12
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              29,
+              12
+            ],
+            [
+              36,
+              15
+            ],
+            [
+              45,
+              25
+            ],
+            [
+              56,
+              30
+            ],
+            [
+              63,
+              31
+            ],
+            [
+              69,
+              26
+            ],
+            [
+              76,
+              14
+            ],
+            [
+              84,
+              14
+            ],
+            [
+              94,
+              25
+            ],
+            [
+              108,
+              25
+            ],
+            [
+              120,
+              22
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "036-DESCENDING-BEAM",
+            "poly": [
+              [
+                57,
+                35
+              ],
+              [
+                63,
+                38
+              ],
+              [
+                77,
+                31
+              ],
+              [
+                80,
+                25
+              ],
+              [
+                73,
+                27
+              ],
+              [
+                60,
+                31
+              ]
+            ],
+            "breakable": false
+          },
+          {
+            "id": "036-LOW-GATE",
+            "poly": [
+              [
+                78,
+                14
+              ],
+              [
+                83,
+                14
+              ],
+              [
+                83,
+                33
+              ],
+              [
+                80,
+                36
+              ],
+              [
+                77,
+                32
+              ]
+            ],
+            "breakable": true
+          }
+        ],
+        "features": [
+          {
+            "type": "K",
+            "v": [
+              86,
+              39,
+              35
+            ],
+            "sizeFactor": 1.8
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            12
+          ],
+          [
+            106,
+            25
+          ]
+        ]
+      }
+    },
+    {
+      "stage": 39,
+      "name": "結晶の向きで選ぶ射点",
+      "approvalStatus": "user-approved-design",
+      "source": "design/stage_reviews/idea_refinement_20261107/stage_039_proposal.json",
+      "sourceSha256": "e6aa27ceca33ab61f0dad8d05e887bd63f57f51760a91c7a89578e59a103282b",
+      "sourceCommit": "5136e1934f93a48577bc8058c7ab91b53997a390",
+      "terrainRevision": "7.1-approved-idea-refinement",
+      "rules": {
+        "actionLimit": 16,
+        "enemyHp": 4,
+        "enemyProfile": 1,
+        "encounterId": "enemy:slate",
+        "recommendedCharacter": "rico"
+      },
+      "geometry": {
+        "width": 1050,
+        "worldWidth": 1050,
+        "floors": [
+          [
+            [
+              0,
+              40
+            ],
+            [
+              30,
+              40
+            ],
+            [
+              38,
+              23.272727272727273
+            ],
+            [
+              41,
+              17
+            ],
+            [
+              48,
+              12
+            ],
+            [
+              74,
+              12
+            ],
+            [
+              79,
+              20
+            ],
+            [
+              84,
+              20
+            ],
+            [
+              91,
+              10
+            ],
+            [
+              105,
+              10
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "039-CRYSTAL-ENTRY-EAVE",
+            "poly": [
+              [
+                43,
+                47
+              ],
+              [
+                46,
+                53
+              ],
+              [
+                52,
+                52
+              ],
+              [
+                54,
+                45
+              ],
+              [
+                52,
+                35
+              ],
+              [
+                48,
+                37
+              ],
+              [
+                44,
+                40
+              ]
+            ],
+            "breakable": false
+          },
+          {
+            "id": "039-EAVE-CHIP",
+            "poly": [
+              [
+                51,
+                50
+              ],
+              [
+                55,
+                49
+              ],
+              [
+                56,
+                44
+              ],
+              [
+                53,
+                42
+              ],
+              [
+                51,
+                44
+              ]
+            ],
+            "breakable": true
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              54,
+              70,
+              12
+            ]
+          },
+          {
+            "type": "K",
+            "v": [
+              60,
+              30,
+              15
+            ],
+            "sizeFactor": 1.8
+          },
+          {
+            "type": "B",
+            "v": [
+              38,
+              23.272727272727273,
+              13,
+              0
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            25,
+            40
+          ],
+          [
+            97,
+            10
+          ]
+        ]
+      }
+    },
+    {
+      "stage": 47,
+      "name": "梁を越す上路と鏡の下路",
+      "approvalStatus": "user-approved-design",
+      "source": "design/stage_reviews/idea_refinement_20261107/stage_047_proposal.json",
+      "sourceSha256": "bb8bf0d78d3035eeb083ba26d2bc5f30921f2b8c8ea5e4b1142db5ff0edf64fd",
+      "sourceCommit": "5136e1934f93a48577bc8058c7ab91b53997a390",
+      "terrainRevision": "7.1-approved-idea-refinement",
+      "rules": {
+        "actionLimit": 16,
+        "enemyHp": 4,
+        "enemyProfile": 2,
+        "encounterId": "enemy:blast",
+        "recommendedCharacter": "koro"
+      },
+      "geometry": {
+        "width": 1150,
+        "worldWidth": 1150,
+        "floors": [
+          [
+            [
+              0,
+              29
+            ],
+            [
+              10,
+              29
+            ],
+            [
+              18,
+              31
+            ],
+            [
+              22,
+              31
+            ],
+            [
+              27,
+              20
+            ],
+            [
+              35,
+              8
+            ],
+            [
+              58,
+              6
+            ],
+            [
+              78,
+              12
+            ],
+            [
+              87,
+              17
+            ],
+            [
+              91,
+              17
+            ],
+            [
+              97,
+              8
+            ],
+            [
+              115,
+              8
+            ]
+          ]
+        ],
+        "parts": [
+          {
+            "id": "047-TOP-CART-TRACK",
+            "poly": [
+              [
+                35,
+                36
+              ],
+              [
+                40,
+                40
+              ],
+              [
+                46,
+                40
+              ],
+              [
+                49,
+                36
+              ],
+              [
+                45,
+                33
+              ],
+              [
+                39,
+                32
+              ]
+            ],
+            "breakable": false
+          },
+          {
+            "id": "047-BROKEN-TUNNEL",
+            "poly": [
+              [
+                58,
+                37
+              ],
+              [
+                61,
+                42
+              ],
+              [
+                68,
+                44
+              ],
+              [
+                71,
+                40
+              ],
+              [
+                68,
+                36
+              ],
+              [
+                63,
+                34
+              ],
+              [
+                60,
+                28
+              ],
+              [
+                57,
+                31
+              ]
+            ],
+            "breakable": true
+          }
+        ],
+        "features": [
+          {
+            "type": "W",
+            "v": [
+              60,
+              78,
+              8
+            ]
+          },
+          {
+            "type": "B",
+            "v": [
+              22,
+              31,
+              14,
+              0,
+              22
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            10,
+            29
+          ],
+          [
+            103,
+            8
+          ]
+        ]
+      }
+    }
+  ]
+}

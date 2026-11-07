@@ -1,6 +1,6 @@
 # 17｜岩肩へ返す反射のくぼみ
 
-**設計レビュー用・本番未反映。** [5面の一覧へ](README.md)
+**設計承認済み・0.24.1へ統合。** [統合・検証記録](../../../docs/releases/0.24.1.md)。 [5面の一覧へ](README.md)
 
 [現行／改訂の比較](stage_017_compare.svg) · [実ゲームの改訂案](stage_017_actual.png) · [現行0.24.0](stage_017_before.png) · [候補JSON](stage_017_proposal.json)
 
@@ -30,6 +30,6 @@
 |---|---|---:|---:|
 | AからW一回 | -6°／60 | 1.5 | 4/9 |
 
-開始位置の安全・見通し遮断・上方の空間・取得物の埋没を確認。近傍の意味と未確認事項は[共通記録](README.md#確認した範囲)を参照。敵AI・反撃・手数内攻略を含む対戦検証は未実施。
+開始位置の安全・見通し遮断・上方の空間・取得物の埋没を確認。近傍の意味と未確認事項は[共通記録](README.md#確認した範囲)を参照。ここまでの図は設計時の限定確認。承認後の敵の反撃・手数内攻略は0.24.1の対戦記録へ分離した。
 
 企画の核は [E01 反射のくぼみ](https://github.com/bittrove88/bittrove88.github.io/blob/review/arcline-map-redesign-handoff-20261105/ARCLINE/design/map_brainstorm/20261106_early_mid_20/README.md) から選択適用し、形状は現行の実装仕様に合わせて新しく制作した。

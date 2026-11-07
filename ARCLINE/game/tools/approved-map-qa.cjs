@@ -4,7 +4,7 @@
 const E=require('../dist/engine.js'),G=E.geometry,fs=require('fs'),path=require('path'),assert=require('assert/strict');
 const copy=s=>JSON.parse(JSON.stringify(s)),out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-approved-maps';fs.mkdirSync(out,{recursive:true});
 function score(p){return p.damage[1]*3-p.damage[0]*8+Object.values(p.partDamage||{}).reduce((a,b)=>a+b,0)*.8+(p.destroyed?.length||0)*.035;}
-function firing(s,id='W01',fine=false){let best=null;const w=E.weapons.find(w=>w.id===id)||E.combat.get(s.characterId).special,min=Math.max(-15,w.minAngle??-15),max=Math.min(170,w.maxAngle??170);
+function firing(s,id='W01',fine=false){let best=null;const w=E.weapons.find(w=>w.id===id)||E.combat.get(s.characterId).special,min=Math.max(-12,w.minAngle??-12),max=Math.min(170,w.maxAngle??170);
  for(let a=min;a<=max;a+=fine?2:6)for(let p=20;p<=100;p+=fine?2:5){const shot=E.trajectory(s,0,a,p,{weaponId:id,skill:null}),v=score(shot);if(!best||v>best.score)best={angle:a,power:p,id,score:v,damage:shot.damage,parts:shot.partDamage,destroyed:shot.destroyed};}return best;}
 function moves(s,special=false,fine=false){const choices=[];for(const input of [0,-10000,10000,-70/E.combat.get(s.characterId).walk,70/E.combat.get(s.characterId).walk]){const t=copy(s),moved=E.move(t,0,input),danger=['DROP','MARK','PREPARE'].includes(t.telegraph?.kind)&&Math.abs(t.units[0].x-t.telegraph.targetX)<106;
  for(const id of ['W01',...(special&&t.specialAmmo?[E.combat.get(t.characterId).special.id]:[])]){const shot=firing(t,id,fine);if(shot)choices.push({...shot,input,moved,danger,position:[t.units[0].x,t.units[0].y],value:shot.score-(danger?.25:0)});}}
