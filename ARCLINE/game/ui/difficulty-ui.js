@@ -197,8 +197,8 @@
       busy = true;
       root.ArcEngine.resolve(state, plan);
       result = en()
-        ? "Shot complete. Choose your difficulty."
-        : "着弾を確認。難易度を選んで始めよう。";
+        ? "Target hit. Compare another difficulty."
+        : "標的に命中。別の難易度でも比べよう。";
       busy = false;
       render();
     }
