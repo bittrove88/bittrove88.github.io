@@ -29,6 +29,13 @@
 | `05_handoff/CODEX_START_PROMPT.md` | 後続実装セッション用の開始指示文 |
 | `assets/` | 参照用ARC原画、旧10キャラ参考画像、FIXした12ジョブ画像と制作履歴 |
 
+
+## GitHub保存状態（2026-11-07）
+
+このディレクトリのMarkdown仕様書・12ジョブJSONはGitHubの`main`へ格納済みです。**PNG原画4点は現時点ではGitHubに未アップロード**です。`assets/README.md`と`04_art/ASSET_MANIFEST.md`に原本名と用途を記録しています。原本はこの対話で提供した`ARCLINEver2_design_spec_2026-11-04.zip`に保存されています。GitHub上に原画があると誤解しないでください。
+
+現行ゲーム`ARCLINE/`配下の実装・保存・公開URLは今回変更していません。
+
 ## 仕様管理の読み方
 
 - **FIX**: ユーザーが最終承認または明示指示した内容。
