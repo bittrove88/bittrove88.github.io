@@ -53,7 +53,7 @@
         facing: i ? -1 : 1,
       }));
       s.angle = 48;
-      s.power = 70;
+      s.power = 30;
       s.difficulty = choice;
       return s;
     }
@@ -103,14 +103,19 @@
           ctx.strokeStyle = "#f3d291";
           ctx.lineWidth = 5;
           ctx.beginPath();
-          ctx.arc(0, -22, 24, 0, Math.PI * 2);
+          ctx.arc(0, -22, 32, 0, Math.PI * 2);
+          ctx.moveTo(16, -22);
+          ctx.arc(0, -22, 16, 0, Math.PI * 2);
           ctx.stroke();
         }
         ctx.restore();
       }
-      const guides = choice === "hard"
-        ? root.ArcAimGuide.direction(root.ArcEngine.geometry.muzzle(state, 0, state.angle))
-        : root.ArcAimGuide.paths(plan, choice);
+      const guides =
+        choice === "hard"
+          ? root.ArcAimGuide.direction(
+              root.ArcEngine.geometry.muzzle(state, 0, state.angle),
+            )
+          : root.ArcAimGuide.paths(plan, choice);
       ctx.strokeStyle = "#e5edb6";
       ctx.lineWidth = 3;
       ctx.setLineDash([3, 8]);
@@ -123,7 +128,10 @@
       }
       ctx.setLineDash([]);
       if (flight) {
-        const age = Math.min(plan.duration, (now - flight.start) / 1000),
+        const age = Math.min(
+            plan.duration,
+            ((now - flight.start) / 1000) * 0.55,
+          ),
           path = plan.bullets[0].path,
           point = path.find((p) => p.t >= age) || path.at(-1);
         ctx.fillStyle = "#ffcc72";
@@ -170,8 +178,18 @@
         " · " +
         (result ||
           (en()
-            ? "Optional test shot. Guides: full / half / direction only."
-            : "試撃は任意。射線は全表示／半分／方向のみ。"));
+            ? [
+                "Guide to the target.",
+                "Only the first half of the guide.",
+                "Only the firing direction.",
+              ][modes.indexOf(choice)] +
+              " Compare the same shot. Testing is optional."
+            : [
+                "着弾までの射線を表示。",
+                "射線の前半だけを表示。",
+                "発射方向だけを表示。",
+              ][modes.indexOf(choice)] +
+              "同じ弾を撃ち比べよう。試撃は任意です。"));
       draw();
     }
     async function finishShot() {

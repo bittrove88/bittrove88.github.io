@@ -1,0 +1,205 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-03",
+  "title": "遺跡の入口",
+  "kind": "normal",
+  "themeIndex": 3,
+  "stageRange": [
+    16,
+    20
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 19,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/normal-03.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 3,
+    "materialStory": "焼けた赤土と乾いた砂岩。建材の薄い青緑は古い装飾として面の内側に置く。",
+    "terrain": {
+      "name": "赤土の段丘",
+      "palette": {
+        "face": "#AC866C",
+        "shade": "#A07A63",
+        "light": "#B78D6C",
+        "cap": "#CAA581",
+        "ink": "#A17D65",
+        "accent": "#B28869"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.12
+            ],
+            [
+              0.69,
+              0.2
+            ],
+            [
+              0.37,
+              0.12
+            ],
+            [
+              0,
+              0.24
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0.32
+            ],
+            [
+              0.33,
+              0.22
+            ],
+            [
+              0.63,
+              0.4
+            ],
+            [
+              1,
+              0.28
+            ],
+            [
+              1,
+              0.48
+            ],
+            [
+              0.57,
+              0.58
+            ],
+            [
+              0.22,
+              0.45
+            ],
+            [
+              0,
+              0.55
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.39,
+              0.6
+            ],
+            [
+              0.63,
+              0.51
+            ],
+            [
+              1,
+              0.65
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.54,
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "砂岩の遺構",
+      "palette": {
+        "face": "#AF9174",
+        "shade": "#9D7D67",
+        "light": "#BD9975",
+        "cap": "#CAA882",
+        "ink": "#A4866C",
+        "accent": "#9C8D76"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.2
+            ],
+            [
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0,
+              0.47
+            ],
+            [
+              1,
+              0.47
+            ],
+            [
+              1,
+              0.55
+            ],
+            [
+              0,
+              0.55
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.45,
+              0.2
+            ],
+            [
+              0.5,
+              0.2
+            ],
+            [
+              0.5,
+              0.47
+            ],
+            [
+              0.45,
+              0.47
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

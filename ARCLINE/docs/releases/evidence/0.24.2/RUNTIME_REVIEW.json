@@ -1,0 +1,154 @@
+{
+  "status": "PASS",
+  "version": "0.24.2",
+  "frames": 307,
+  "fps": 12,
+  "seconds": 25.583333333333332,
+  "artSubstitutions": 0,
+  "saveStable": true,
+  "errors": [],
+  "chapters": [
+    {
+      "id": "wind",
+      "title": "風：範囲と発生端／右風から左風",
+      "stage": 59,
+      "angle": 15,
+      "power": 30,
+      "event": "wind",
+      "startSeconds": 0,
+      "endSeconds": 7.083333333333333
+    },
+    {
+      "id": "vent",
+      "title": "噴気：停止→噴出→停止",
+      "stage": 65,
+      "angle": 35,
+      "power": 60,
+      "event": "vent",
+      "startSeconds": 7.083333333333333,
+      "endSeconds": 13.583333333333334
+    },
+    {
+      "id": "terminal",
+      "title": "端子：命中→予約→次の手番で極性反転",
+      "stage": 77,
+      "angle": 25,
+      "power": 65,
+      "event": "terminal",
+      "startSeconds": 13.583333333333334,
+      "endSeconds": 18.083333333333332
+    },
+    {
+      "id": "bridge",
+      "title": "橋・反射板：実際のターン境界で形が変わる",
+      "stage": 39,
+      "startSeconds": 18.083333333333332,
+      "endSeconds": 23
+    },
+    {
+      "id": "breakable",
+      "title": "破壊材：通常弾で実際の破壊単位が消える",
+      "stage": 14,
+      "angle": 35,
+      "power": 60,
+      "event": "break",
+      "startSeconds": 23,
+      "endSeconds": 25.583333333333332
+    }
+  ],
+  "events": [
+    {
+      "stage": 59,
+      "angle": 15,
+      "power": 30,
+      "duration": 1.7555555555555513,
+      "events": [
+        {
+          "type": "wind",
+          "t": 0.29999999999999993
+        },
+        {
+          "type": "impact",
+          "t": 1.7555555555555513
+        }
+      ]
+    },
+    {
+      "stage": 59,
+      "angle": 15,
+      "power": 30,
+      "duration": 1.7888888888888845,
+      "events": [
+        {
+          "type": "wind",
+          "t": 0.29999999999999993
+        },
+        {
+          "type": "impact",
+          "t": 1.7888888888888845
+        }
+      ]
+    },
+    {
+      "stage": 65,
+      "angle": 35,
+      "power": 60,
+      "duration": 2.3666666666666605,
+      "events": [
+        {
+          "type": "vent",
+          "t": 1.5777777777777742
+        },
+        {
+          "type": "impact",
+          "t": 2.3666666666666605
+        }
+      ]
+    },
+    {
+      "stage": 77,
+      "angle": 25,
+      "power": 65,
+      "duration": 0.5111111111111113,
+      "events": [
+        {
+          "type": "terminal",
+          "t": 0.27056743556483787,
+          "id": "T1"
+        },
+        {
+          "type": "impact",
+          "t": 0.5111111111111113
+        },
+        {
+          "type": "break",
+          "t": 0.5111111111111113,
+          "solidId": "077-WINDOW@0"
+        }
+      ]
+    },
+    {
+      "stage": 14,
+      "angle": 35,
+      "power": 60,
+      "duration": 0.9777777777777763,
+      "events": [
+        {
+          "type": "impact",
+          "t": 0.9777777777777763
+        },
+        {
+          "type": "break",
+          "t": 0.9777777777777763,
+          "solidId": "014-FRAGILE-CANOPY@0"
+        },
+        {
+          "type": "break",
+          "t": 0.9777777777777763,
+          "solidId": "014-FRAGILE-CANOPY@1"
+        }
+      ]
+    }
+  ],
+  "scope": "Production HTML and native renderer/engine, latest approved maps. No art substitution, silent recording. Enemy actions and idle turn waits skipped; actual native boundary and apply/resolve events. No physical-device or public deployment claim."
+}

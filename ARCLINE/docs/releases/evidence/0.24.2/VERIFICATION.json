@@ -1,0 +1,41 @@
+{
+  "status": "PASS_WITH_TARGETED_RECHECK",
+  "version": "0.24.2",
+  "baseline": "fee9c40da693ccb6f9dc42f64b846269ae5de4c5",
+  "approvedArt": "PR110/79d9521ddd2c8a783da2a698df1357efe4f25bb7",
+  "unitSuites": 34,
+  "browserSuites": 33,
+  "browserFirstRun": {
+    "passed": 32,
+    "failed": [
+      "../site-tests/expedition-release"
+    ],
+    "originalReport": "SUITE_BROWSER_INITIAL.json"
+  },
+  "targetedRecheck": {
+    "name": "../site-tests/expedition-release",
+    "status": "PASS",
+    "checks": 153,
+    "cause": "Missing new-version update page; added updates/0.24.2/index.html, then reran the same test without changing its assertions.",
+    "report": "RELEASE_WEB.json"
+  },
+  "generatedFiles": 146,
+  "doubleRebuild": "PASS",
+  "delivery": "PASS",
+  "artPixelParity": {
+    "cases": 237,
+    "maxMeanDifference": 0
+  },
+  "nativeVideo": {
+    "seconds": 25.583333333333332,
+    "artSubstitutions": 0,
+    "engineEventsAndTurnBoundaries": true,
+    "saveStable": true
+  },
+  "format": "Existing 12 warnings; all byte-identical to main. New UI adapter passes. See FORMAT.json.",
+  "limits": [
+    "No physical Safari/Android/PWA test or long-duration device performance claim.",
+    "Not merged or deployed.",
+    "Existing small-camera stage90 cloud visibility condition unchanged."
+  ]
+}
