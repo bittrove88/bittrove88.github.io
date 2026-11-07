@@ -20,24 +20,27 @@
 | [02_jobs/JOB_CATALOG.md](02_jobs/JOB_CATALOG.md) | 12ジョブの技・必殺技・外観・配色・個性 | 保存済み |
 | [02_jobs/ULTIMATE_HISTORY.md](02_jobs/ULTIMATE_HISTORY.md) | 候補の採否、旧必殺技の保護条件、名称変更履歴 | 保存済み |
 | [02_jobs/jobs.json](02_jobs/jobs.json) | ジョブID・技・必殺技・画像用文章のデータ | 保存済み |
+| [03_stages/STAGE_101_200.md](03_stages/STAGE_101_200.md) | 101〜200面の構成方針と検証課題 | 保存済み |
 | [03_stages/STAGE_201_300.md](03_stages/STAGE_201_300.md) | 201〜300の継承事項と未決定領域 | 保存済み |
 | [04_art/README.md](04_art/README.md) | 移動した敵の原画・設計文書・台帳の入口 | 保存済み |
 | [04_art/CHARACTER_PLANNING_ARCHIVE.md](04_art/CHARACTER_PLANNING_ARCHIVE.md) | 没案・中間案を含む231記録、全74生成原画と162企画版 | 保存済み |
 | [04_art/ASSET_MANIFEST.md](04_art/ASSET_MANIFEST.md) | ARC原画の未収録状況、既存世界の参照原画、敵画像の出典 | 保存済み |
 | [04_art/MIGRATION_CHECK.json](04_art/MIGRATION_CHECK.json) | 移動ファイル・原画・通番・参照整合性の検査 | 保存済み |
+| [04_art/ART_BIBLE_AND_PROMPT.md](04_art/ART_BIBLE_AND_PROMPT.md) | 主人公と12ジョブの画風・画像制作条件 | 保存済み |
+| [05_handoff/OPEN_ITEMS_AND_TESTS.md](05_handoff/OPEN_ITEMS_AND_TESTS.md) | 数値・統合・保存などの未決事項と受け入れ確認 | 保存済み |
+| [05_handoff/IMPLEMENTATION_HANDOFF.md](05_handoff/IMPLEMENTATION_HANDOFF.md) | 既存1〜100面を保全する実装引き継ぎ | 保存済み |
+| [05_handoff/CODEX_START_PROMPT.md](05_handoff/CODEX_START_PROMPT.md) | 後続セッションへの開始指示 | 保存済み |
+| [assets/README.md](assets/README.md) | 未アップロードの主人公原画4点のテキスト索引 | 索引のみ保存済み |
+| [06_gimmicks/README.md](06_gimmicks/README.md) | V2-01〜V2-17の将来ギミック案・空中障害・採用基準 | 企画ストック・未承認 |
+| [06_gimmicks/RELOCATION.json](06_gimmicks/RELOCATION.json) | 元PR・出典コミット・原文と17候補の保存確認 | 保存検査 |
+| [MANIFEST.json](MANIFEST.json) | 仕様・制作資料の一覧と保存状態 | 保存済み |
 
-## 予定として記載されていた未作成資料
 
-既存READMEの予定を保持し、実際に存在する資料と区別します。今回の移動作業では未決のステージ設計や実装指示を新たに確定していません。
+## GitHub保存状態（2026-11-07）
 
-| 予定パス | 内容 | 状態 |
-|---|---|---|
-| `03_stages/STAGE_101_200.md` | 101〜200の具体的なステージ設計・検証要件 | 未作成・未収録 |
-| `04_art/ART_BIBLE_AND_PROMPT.md` | ARCとジョブの一覧画像・描画条件の制作指示 | 未作成・未収録 |
-| `05_handoff/OPEN_ITEMS_AND_TESTS.md` | 数値・統合・保存・実装受け入れの未決事項 | 未作成・未収録 |
-| `05_handoff/IMPLEMENTATION_HANDOFF.md` | 既存1〜100面を保全する実装引き継ぎ | 未作成・未収録 |
-| `05_handoff/CODEX_START_PROMPT.md` | 後続セッションへの開始指示文 | 未作成・未収録 |
-| `assets/` | 参照用ARC原画とFIXジョブ画像の実ファイル | 未作成・未収録 |
+このディレクトリのMarkdown仕様書・12ジョブJSONはGitHubの`main`へ格納済みです。**主人公とジョブの参照PNG原画4点は現時点ではGitHubに未アップロード**です。`assets/README.md`と`04_art/ASSET_MANIFEST.md`に原本名と用途を記録しています。原本はこの対話で提供した`ARCLINEver2_design_spec_2026-11-04.zip`に保存されています。敵の制作原画74枚は `04_art/` に保存済みで、この未収録4点とは区別します。
+
+現行ゲーム`ARCLINE/`配下の実装・保存・公開URLは今回変更していません。
 
 ## 仕様管理の読み方
 
@@ -51,3 +54,5 @@
 ## 資料の移動について
 
 2026-11-07、`ARCLINE/design/` のVer.2専用資料93ファイルを `04_art/` へ移動しました。231件の通番と74原画を維持し、主人公・ジョブ仕様と全案記録の間にリンクを追加。旧入口には移転案内を残しています。既存の1〜100面のゲームと原本は移動しません。
+
+将来ギミック17候補は、元PR #89から [06_gimmicks/](06_gimmicks/README.md) へ集約しました。候補の採用や実装は未承認のまま保持しています。

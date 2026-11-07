@@ -34,3 +34,16 @@
 | 強敵・外観r02、保持部修正前を含む | 5 | [manifest](strong-enemy-appearance-studies/revision-02/manifest.json) |
 
 原画名、生成元名、寸法、SHA-256は[全案記録の出典索引](CHARACTER_PLANNING_ARCHIVE.md)に一元記録しています。移動時に画像の再圧縮・切り抜き・名称変更は行っていません。敵の原画の正式採用・ゲーム素材への登録は未実施です。
+
+## mainに追記された原本パッケージの記録
+
+以下は既存仕様の原本4点の記録です。敵の生成原画74枚とは別の資料です。
+
+| 原本名 | 参照用途 | 状態 |
+|---|---|---|
+| `ARC_BASE_ORIGINAL_REFERENCE.png` | ユーザーが作成した主人公ARCの三面図・大きな単眼・四輪・基本カラー | 主人公FIX |
+| `OLD_10_CAST_STYLE_REFERENCE.png` | 既存1〜100面の10機。画風・セル塗り・ラインナップの誌面参照のみ | 旧キャスト |
+| `ARC_12_JOBS_FIXED_LINEUP.png` | 直近「これでFIX」のジョブウェア一覧 | 外観方針FIX。日本語文字校正は別途 |
+| `ARC_12_JOBS_PREVIOUS_CONCEPT.png` | 最終修正前の制作履歴。メカニック黄・ウォーリアー赤など旧案 | 過去案であり現仕様ではない |
+
+**GitHub上のPNG原本は未配置です。** 原画は前回のローカル保存パッケージ `ARCLINEver2_design_spec_2026-11-04.zip` に保管されています。GitHubに同名PNGをアップロードする際は、原画を再生成・変更せずそのまま配置します。原画の外観と生成文字が食い違う場合は、`02_jobs/JOB_CATALOG.md` が正本。
