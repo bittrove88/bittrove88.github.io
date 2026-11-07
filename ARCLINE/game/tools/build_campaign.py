@@ -30,6 +30,8 @@ for bp,previous in zip(blueprints,campaign['levels']):
         f=bp['floor'];level['floors']=[f[:2],f[-2:]]
     if bp.get('floorSegments'):level['floors']=copy.deepcopy(bp['floorSegments'])
     level['terrainRevision']=bp.get('terrainRevision','5.0')
+    if 'ventStartsOn' in bp:level['ventStartsOn']=bp['ventStartsOn']
+    else:level.pop('ventStartsOn',None)
     level['spawn']=copy.deepcopy(bp['spawnPoints']) if bp.get('spawnPoints') else [[x,interpolate(bp['floor'],x)] for x in bp['spawn']]
     if bp.get('enemyAirHeight'):level['spawn'][1][1]+=bp['enemyAirHeight']
     if bp.get('spawnPoints'):level['spawn']=copy.deepcopy(bp['spawnPoints'])

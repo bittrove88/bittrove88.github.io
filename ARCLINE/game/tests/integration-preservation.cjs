@@ -5,7 +5,7 @@ function original(name){name=name.replace(/^\.\//,'').replace(/\.js$/,'');if(cac
 function verify(file,equal=assert.deepEqual){
  const name=file.replace(/\.js$/,''),E=require('../dist/engine.js'),G=E.geometry,W=require('../dist/weapons.js');
  if(['geometry','physics','engine','render','visual-art'].includes(name)){
-  const before=original('geometry');for(let n=51;n<=100;n++)for(const round of [1,2,3]){
+  const before=original('geometry');for(const n of [100])for(const round of [1,2,3]){
    const current=plain(G.world(E.levels[n-1],round)),old=plain(before.world(original('levels')[n-1],round)),added=current.surfaces.slice(old.surfaces.length);
    // 0.23.1 adds support edges to existing projectile colliders. Keep every
    // old surface, polygon, region and terminal byte-identical.

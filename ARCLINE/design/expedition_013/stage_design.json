@@ -2172,22 +2172,22 @@
       "stage": 51,
       "difficultyBand": "上級",
       "theme": "風の観測台",
-      "learningGoal": "風域の手前と奥で射点を比べ、運ばれる方向を読む",
+      "learningGoal": "130pxの山肩移動と、風域を外す谷出口を比較する。",
       "mainGimmicks": [
         "F"
       ],
-      "terrainIntent": "床の高低差13。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。風域の手前と奥で射点を比べ、運ばれる方向を読む。",
-      "basicRoute": "風域の手前と奥で射点を比べ、運ばれる方向を読む",
-      "alternativeRoute": "右へ18.0歩行 → 通常 84°/90% → 右へ18.0歩行 → 通常 36°/100% → 通常 36°/100% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差41。坂の肩と裾で砲口の高さと遮蔽が変わる。130pxの山肩移動と、風域を外す谷出口を比較する。。",
+      "basicRoute": "130pxの山肩移動と、風域を外す谷出口を比較する。",
+      "alternativeRoute": "通常 45°/70% → 通常 27°/80% → 通常 111°/95% → 通常 111°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "hibari",
         "reason": "視線が通る相手の近くで炸裂し、窓からの距離の誤差を補える。"
       },
-      "hint": "風域の手前と奥で射点を比べ、運ばれる方向を読む",
+      "hint": "130pxの山肩移動と、風域を外す谷出口を比較する。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          23.0
+          107,
+          38
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2211,42 +2211,40 @@
       "testResult": {
         "stage": 51,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "8f144ca82ff0565b3d7a4fd4bdc136e224eca8dcbb2733cce67463d2e3fae5e8",
         "recommendedCharacter": "hibari",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.666666666666666,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "9063378ddb233dd77da24a513dc460a88c2fbc5b469b8feb2b4d7837a139753a"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "hibari",
         "actions": 4,
-        "description": "通常 24°/70% → 必殺 18°/80% → 通常 30°/65% → 必殺 18°/80%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 45°/70% → 通常 27°/80% → 必殺 15°/95% → 通常 27°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 51,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "右へ18.0歩行 → 通常 84°/90% → 右へ18.0歩行 → 通常 36°/100% → 通常 36°/100% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 45°/70% → 通常 27°/80% → 通常 111°/95% → 通常 111°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 51,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2254,22 +2252,22 @@
       "stage": 52,
       "difficultyBand": "上級",
       "theme": "風の観測台",
-      "learningGoal": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+      "learningGoal": "横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。",
       "mainGimmicks": [
         "F"
       ],
-      "terrainIntent": "床の高低差13。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。。",
-      "basicRoute": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
-      "alternativeRoute": "gun:通常 69°/85% → gun:通常 69°/85% → gun:通常 69°/85% → gun:通常 45°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差32。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片2箇所を独立配置。横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。。",
+      "basicRoute": "横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。",
+      "alternativeRoute": "通常 69°/100% → 通常 69°/100% → 通常 69°/100% → 通常 69°/100% → 通常 69°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "ban",
         "reason": "着弾点から前方の扇状衝撃で、開口の先へ作用する。"
       },
-      "hint": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+      "hint": "横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。",
       "enemyInteraction": {
         "spawn": [
-          86,
-          22.0
+          118,
+          43
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2293,46 +2291,40 @@
       "testResult": {
         "stage": 52,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "707cd22dfc54d6af34ab85e88b2bfe976da0146f309e2c456c80ee30d3ae847a",
         "recommendedCharacter": "ban",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "9c0401cd3eb54e5ef6c8a0240ae630bfcbdca4147e5bc8023bc8ec2a5b8ff4dc"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "ban",
         "actions": 5,
-        "description": "ban:転移 96°/65% → ban:通常 57°/80% → ban:通常 51°/75% → ban:通常 57°/80% → ban:通常 51°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 69°/100% → 必殺 69°/100% → 転移 72°/100% → 必殺 -15°/35% → 通常 -15°/40%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 52,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "gun:通常 69°/85% → gun:通常 69°/85% → gun:通常 69°/85% → gun:通常 45°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "通常 69°/100% → 通常 69°/100% → 通常 69°/100% → 通常 69°/100% → 通常 69°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 52,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2340,23 +2332,23 @@
       "stage": 53,
       "difficultyBand": "上級",
       "theme": "風の観測台",
-      "learningGoal": "谷の棚へ転移し、高低差で横風への滞在を減らす",
+      "learningGoal": "高棚で風を避けるか、低棚からKと風を使う。",
       "mainGimmicks": [
         "F",
         "K"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差23。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。谷の棚へ転移し、高低差で横風への滞在を減らす。",
-      "basicRoute": "谷の棚へ転移し、高低差で横風への滞在を減らす",
-      "alternativeRoute": "通常 60°/100% → 通常 54°/100% → 通常 60°/100% → 右へ9.0歩行 → 通常 42°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差18。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚2箇所を独立配置。高棚で風を避けるか、低棚からKと風を使う。。",
+      "basicRoute": "高棚で風を避けるか、低棚からKと風を使う。",
+      "alternativeRoute": "通常 57°/90% → 通常 57°/90% → 通常 57°/90% → 通常 57°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "sora",
         "reason": "高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。"
       },
-      "hint": "谷の棚へ転移し、高低差で横風への滞在を減らす",
+      "hint": "高棚で風を避けるか、低棚からKと風を使う。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          28.0
+          136,
+          64
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2380,42 +2372,40 @@
       "testResult": {
         "stage": 53,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "6eff6c7b8ac3864d00454ae89cc23d20bdeb72efc015e17027d7c4a81bd6eba1",
         "recommendedCharacter": "sora",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6.166666666666667,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "b05084c287c3c3172dd19c835aa865efbffc2a6ebcacab4440fe263939b7e44c"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "sora",
         "actions": 4,
-        "description": "転移 64°/75% → 必殺 98°/90% → 通常 96°/50% → 必殺 98°/85%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 57°/90% → 通常 57°/90% → 通常 57°/90% → 通常 57°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 53,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "通常 60°/100% → 通常 54°/100% → 通常 60°/100% → 右へ9.0歩行 → 通常 42°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 57°/90% → 通常 57°/90% → 通常 57°/90% → 通常 57°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 53,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2423,23 +2413,24 @@
       "stage": 54,
       "difficultyBand": "上級",
       "theme": "風の観測台",
-      "learningGoal": "逆側の鏡床を使うか、追い風に乗せる弧で届かせる",
+      "learningGoal": "非対称な二峰の背後へ、風の山越えか谷のW反射を送る。",
       "mainGimmicks": [
         "F",
+        "U",
         "W"
       ],
-      "terrainIntent": "床の高低差11。坂の肩と裾で砲口の高さと遮蔽が変わる。逆側の鏡床を使うか、追い風に乗せる弧で届かせる。",
-      "basicRoute": "逆側の鏡床を使うか、追い風に乗せる弧で届かせる",
-      "alternativeRoute": "通常 12°/90% → 通常 12°/90% → 通常 12°/90% → 通常 12°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差40。坂の肩と裾で砲口の高さと遮蔽が変わる。非対称な二峰の背後へ、風の山越えか谷のW反射を送る。。",
+      "basicRoute": "非対称な二峰の背後へ、風の山越えか谷のW反射を送る。",
+      "alternativeRoute": "通常 45°/60% → 通常 45°/60% → 通常 45°/60% → 通常 45°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "逆側の鏡床を使うか、追い風に乗せる弧で届かせる",
+      "hint": "非対称な二峰の背後へ、風の山越えか谷のW反射を送る。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          19.0
+          136,
+          20
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2463,42 +2454,40 @@
       "testResult": {
         "stage": 54,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "a7cfe1169b8c1908db427284fd3627f2a3bb8b0f6f22dae2de045a4094ab03a5",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "9663f8298f6224979875bd7c185a4b778906b94730b89d96945f172d0a7aa23e"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
         "actions": 4,
-        "description": "通常 0°/95% → 必殺 -6°/25% → 通常 0°/95% → 必殺 -6°/25%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 45°/60% → 必殺 81°/60% → 通常 45°/60% → 必殺 81°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 54,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "通常 12°/90% → 通常 12°/90% → 通常 12°/90% → 通常 12°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 45°/60% → 通常 45°/60% → 通常 45°/60% → 通常 45°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 54,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2506,22 +2495,22 @@
       "stage": 55,
       "difficultyBand": "上級",
       "theme": "風の観測台",
-      "learningGoal": "観測器を止める順と、風の外で待つ場所を決める",
+      "learningGoal": "上段から高いセンサー、中段から装甲の縁、下段から側方の開口を狙う。",
       "mainGimmicks": [
         "F"
       ],
-      "terrainIntent": "床の高低差11。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。観測器を止める順と、風の外で待つ場所を決める。",
-      "basicRoute": "観測器を止める順と、風の外で待つ場所を決める",
-      "alternativeRoute": "右へ18.0歩行 → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差37。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片2箇所を独立配置。中継棚2箇所を独立配置。上段から高いセンサー、中段から装甲の縁、下段から側方の開口を狙う。。",
+      "basicRoute": "上段から高いセンサー、中段から装甲の縁、下段から側方の開口を狙う。",
+      "alternativeRoute": "通常 33°/90% → 通常 33°/90% → 通常 33°/90% → 通常 33°/90% → 通常 33°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "hibari",
         "reason": "視線が通る相手の近くで炸裂し、窓からの距離の誤差を補える。"
       },
-      "hint": "観測器を止める順と、風の外で待つ場所を決める",
+      "hint": "上段から高いセンサー、中段から装甲の縁、下段から側方の開口を狙う。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          22.0
+          141,
+          62
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2545,42 +2534,40 @@
       "testResult": {
         "stage": 55,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          7,
-          7
-        ],
+        "blueprintSha256": "6bf295cecabe9abcb4d06930d5b78902ddf1350d7b62841007990933938b8da9",
         "recommendedCharacter": "hibari",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 4.5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "5d757b07b251181a67924ff138acf21dade8c308e802d139aab634157c40015d"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "hibari",
         "actions": 5,
-        "description": "必殺 12°/80% → 必殺 12°/80% → 必殺 12°/80% → 通常 12°/100% → 通常 12°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "必殺 33°/85% → 必殺 33°/85% → 必殺 33°/85% → 通常 33°/90% → 通常 33°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 55,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 7,
-        "description": "右へ18.0歩行 → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95% → 通常 54°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "通常 33°/90% → 通常 33°/90% → 通常 33°/90% → 通常 33°/90% → 通常 33°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 55,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2588,23 +2575,23 @@
       "stage": 56,
       "difficultyBand": "上級",
       "theme": "凍てつく峡谷",
-      "learningGoal": "開閉橋の待機場所を先に選び、風下へ転移する",
+      "learningGoal": "下橋が開いても固定桟橋に残れることを読み、横断と射撃を分ける。",
       "mainGimmicks": [
         "B",
         "F"
       ],
-      "terrainIntent": "床の高低差18。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。開閉橋の待機場所を先に選び、風下へ転移する。",
-      "basicRoute": "開閉橋の待機場所を先に選び、風下へ転移する",
-      "alternativeRoute": "右へ11.8歩行 → 通常 54°/100% → 通常 60°/100% → 通常 54°/100% → 通常 60°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差30。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚2箇所を独立配置。下橋が開いても固定桟橋に残れることを読み、横断と射撃を分ける。。",
+      "basicRoute": "下橋が開いても固定桟橋に残れることを読み、横断と射撃を分ける。",
+      "alternativeRoute": "通常 15°/95% → 通常 15°/100% → 通常 15°/95% → 通常 21°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "開閉橋の待機場所を先に選び、風下へ転移する",
+      "hint": "下橋が開いても固定桟橋に残れることを読み、横断と射撃を分ける。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          22.0
+          132,
+          48
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2628,42 +2615,40 @@
       "testResult": {
         "stage": 56,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "c76676dbd103ce8791b3f29931c8e31a338ddc317013c9a66ee003c6f6233d07",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "5391e73cbf70a97bfdf8852cf0a3185fafe2ee8bfb26a374f94e6fb0bb91dadf"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
         "actions": 4,
-        "description": "転移 64°/75% → 必殺 96°/50% → 通常 96°/80% → 必殺 102°/35%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 15°/95% → 必殺 33°/75% → 通常 9°/95% → 必殺 51°/70%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 56,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "右へ11.8歩行 → 通常 54°/100% → 通常 60°/100% → 通常 54°/100% → 通常 60°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 15°/95% → 通常 15°/100% → 通常 15°/95% → 通常 21°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 56,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2671,23 +2656,24 @@
       "stage": 57,
       "difficultyBand": "上級",
       "theme": "凍てつく峡谷",
-      "learningGoal": "高所から下段の氷壁窓を開き、水面を利用して低い敵へ届かせる。",
+      "learningGoal": "崖肩の落差から既存Wへ入れ、洞内の天井・床の反射板を使い分ける。",
       "mainGimmicks": [
         "F",
+        "K",
         "W"
       ],
-      "terrainIntent": "床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。高所から下段の氷壁窓を開き、水面を利用して低い敵へ届かせる。。",
-      "basicRoute": "高所から下段の氷壁窓を開き、水面を利用して低い敵へ届かせる。",
-      "alternativeRoute": "gun:通常 51°/60% → gun:通常 -3°/55% → gun:通常 -3°/55% → gun:通常 -3°/55%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差64。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。崖肩の落差から既存Wへ入れ、洞内の天井・床の反射板を使い分ける。。",
+      "basicRoute": "崖肩の落差から既存Wへ入れ、洞内の天井・床の反射板を使い分ける。",
+      "alternativeRoute": "通常 -15°/65% → 通常 -15°/55% → 通常 -15°/45% → 通常 -15°/55%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "高所から下段の氷壁窓を開き、水面を利用して低い敵へ届かせる。",
+      "hint": "崖肩の落差から既存Wへ入れ、洞内の天井・床の反射板を使い分ける。",
       "enemyInteraction": {
         "spawn": [
-          86,
-          9.0
+          104,
+          13
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2711,46 +2697,40 @@
       "testResult": {
         "stage": 57,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "fd35978d3d52a5f49bfceedbc34e6cbb4ca5054a8dad43ece20f196a12b5547f",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "a0bea4dfc55c66b81519281e9dccc87156d60b0312aa6044a5045b291da6369c"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
-        "actions": 5,
-        "description": "rico:転移 112°/25% → rico:通常 3°/95% → rico:通常 3°/95% → rico:通常 3°/100% → rico:通常 3°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "通常 -15°/65% → 必殺 69°/60% → 通常 -15°/45% → 必殺 69°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 57,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 51°/60% → gun:通常 -3°/55% → gun:通常 -3°/55% → gun:通常 -3°/55%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 -15°/65% → 通常 -15°/55% → 通常 -15°/45% → 通常 -15°/55%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 57,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2758,22 +2738,22 @@
       "stage": 58,
       "difficultyBand": "上級",
       "theme": "凍てつく峡谷",
-      "learningGoal": "天井の窓を一枚だけ開き、高い敵側の射点へ低い風域から通す。",
+      "learningGoal": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
       "mainGimmicks": [
         "F"
       ],
-      "terrainIntent": "床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片2箇所を独立配置。天井の窓を一枚だけ開き、高い敵側の射点へ低い風域から通す。。",
-      "basicRoute": "天井の窓を一枚だけ開き、高い敵側の射点へ低い風域から通す。",
-      "alternativeRoute": "gun:通常 74°/96% → gun:通常 74°/96% → gun:通常 75°/100% → gun:通常 75°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差6。坂の肩と裾で砲口の高さと遮蔽が変わる。主攻略は下側の常設開口から中層Aへ転移しF越しに氷背を越す構想。任意に上側の常設開口からBへ移りFを外す。D05/D06の破壊は必須にしない。。",
+      "basicRoute": "主攻略は下側の常設開口から中層Aへ転移しF越しに氷背を越す構想。任意に上側の常設開口からBへ移りFを外す。D05/D06の破壊は必須にしない。",
+      "alternativeRoute": "転移 66°/100% → 通常 -9°/40% → 通常 -15°/40% → 通常 -15°/40% → 通常 -3°/45%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "天井の窓を一枚だけ開き、高い敵側の射点へ低い風域から通す。",
+      "hint": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          86,
-          23.0
+          162,
+          70
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2797,46 +2777,40 @@
       "testResult": {
         "stage": 58,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "0784d1f709d71fb933d091812ba0fa27f2cb4c04b99e325fa6d06f1e240f00e7",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "cb6fe7ef70a15f0882b0c8c92d3f635aa1d09c7a8e56cb88cc93a850fb14f509"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
-        "actions": 5,
-        "description": "mogu:転移 88°/55% → 左へ140px歩行→mogu:通常 110°/94% → mogu:通常 110°/94% → mogu:通常 110°/94% → mogu:通常 111°/95%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "転移 66°/100% → 必殺 -3°/40% → 通常 -3°/40% → 必殺 -9°/35%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 58,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "gun:通常 74°/96% → gun:通常 74°/96% → gun:通常 75°/100% → gun:通常 75°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "転移 66°/100% → 通常 -9°/40% → 通常 -15°/40% → 通常 -15°/40% → 通常 -3°/45%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 58,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2844,23 +2818,23 @@
       "stage": 59,
       "difficultyBand": "上級",
       "theme": "凍てつく峡谷",
-      "learningGoal": "中継棚へ渡る時刻と、横風を避ける高度を選ぶ",
+      "learningGoal": "中央氷稜の上から狙うか、下面下の下道からWで跳ね上げるか選ぶ。",
       "mainGimmicks": [
         "F",
         "W"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差24。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。中継棚へ渡る時刻と、横風を避ける高度を選ぶ。",
-      "basicRoute": "中継棚へ渡る時刻と、横風を避ける高度を選ぶ",
-      "alternativeRoute": "右へ9.0歩行 → 通常 30°/90% → 通常 36°/100% → 通常 30°/90% → 通常 30°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差26。坂の肩と裾で砲口の高さと遮蔽が変わる。F04上の射点Aと下面下の下道からF03へ向かうBを選ぶ。上は上方の弧、下はW反射とFを使う構想。。",
+      "basicRoute": "F04上の射点Aと下面下の下道からF03へ向かうBを選ぶ。上は上方の弧、下はW反射とFを使う構想。",
+      "alternativeRoute": "通常 69°/80% → 通常 69°/90% → 通常 69°/80% → 通常 111°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "sora",
         "reason": "高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。"
       },
-      "hint": "中継棚へ渡る時刻と、横風を避ける高度を選ぶ",
+      "hint": "中央氷稜の上から狙うか、下面下の下道からWで跳ね上げるか選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          25.0
+          115,
+          65
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2884,42 +2858,40 @@
       "testResult": {
         "stage": 59,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "8c6e8e203d51e62fabf008684713e5f5b1151e514f628415790e9d96b57f81c5",
         "recommendedCharacter": "sora",
         "recommendedWin": true,
-        "recommendedActions": 4,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6.666666666666667,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "1ecbcabca6b2b4241441551667a2fb55cdfa8ce9fb6d00b1250c5ef19907d03a"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "sora",
-        "actions": 4,
-        "description": "転移 32°/65% → 必殺 98°/85% → 通常 96°/55% → 必殺 104°/55%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 3,
+        "description": "通常 69°/80% → 必殺 80°/100% → 通常 99°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 59,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "右へ9.0歩行 → 通常 30°/90% → 通常 36°/100% → 通常 30°/90% → 通常 30°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 69°/80% → 通常 69°/90% → 通常 69°/80% → 通常 111°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 59,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -2927,22 +2899,22 @@
       "stage": 60,
       "difficultyBand": "上級",
       "theme": "凍てつく峡谷",
-      "learningGoal": "高所から風を読んで撃つか、下段の風陰を通し送風機を止めるかを選択する。",
+      "learningGoal": "高所からすぐ風を読んで狙うか、開いた低所で準備して出口へ進むかを選び、既存送風機を止める。",
       "mainGimmicks": [
         "F"
       ],
-      "terrainIntent": "床の高低差18。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。高所から風を読んで撃つか、下段の風陰を通し送風機を止めるかを選択する。。",
-      "basicRoute": "高所から風を読んで撃つか、下段の風陰を通し送風機を止めるかを選択する。",
-      "alternativeRoute": "gun:通常 45°/60% → gun:通常 33°/65% → gun:通常 45°/60% → gun:通常 33°/65% → gun:通常 45°/60%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差58。坂の肩と裾で砲口の高さと遮蔽が変わる。高所P0は移動を省いて送風機を狙う。低所BではD03を残すか壊すか選び、開けた場合は次手番に140px先のCへ。D04は任意の角度改善。。",
+      "basicRoute": "高所P0は移動を省いて送風機を狙う。低所BではD03を残すか壊すか選び、開けた場合は次手番に140px先のCへ。D04は任意の角度改善。",
+      "alternativeRoute": "通常 117°/100% → 通常 123°/95% → 通常 117°/100% → 通常 123°/95% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "高所から風を読んで撃つか、下段の風陰を通し送風機を止めるかを選択する。",
+      "hint": "高所からすぐ風を読んで狙うか、開いた低所で準備して出口へ進むかを選び、既存送風機を止める。",
       "enemyInteraction": {
         "spawn": [
-          87,
-          10.0
+          142,
+          58
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2966,46 +2938,40 @@
       "testResult": {
         "stage": 60,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "67c34bfc11044928af1b5c4145d712abf89bf86f02b0650215577dd1d06087ed",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
         "recommendedActions": 6,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 5.9399999999999995,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "b55eab788cbac7eff292b17986a2c3095c70e6261635fc52f536dd516a31abfd"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
         "actions": 6,
-        "description": "mogu:転移 0°/65% → 右へ42px歩行→mogu:通常 57°/30% → mogu:通常 57°/30% → mogu:通常 57°/30% → mogu:通常 57°/30% → mogu:通常 57°/30%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "必殺 117°/100% → 必殺 63°/85% → 必殺 123°/90% → 通常 123°/90% → 通常 123°/90% → 通常 123°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 60,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "gun:通常 45°/60% → gun:通常 33°/65% → gun:通常 45°/60% → gun:通常 33°/65% → gun:通常 45°/60%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 117°/100% → 通常 123°/95% → 通常 117°/100% → 通常 123°/95% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 60,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3013,20 +2979,20 @@
       "stage": 61,
       "difficultyBand": "上級",
       "theme": "火山の外縁",
-      "learningGoal": "分断された床の中央浮島へ転移し、上段の敵側門を破壊して射線を作る。",
+      "learningGoal": "門前へ渡る準備と、高尾根から門を越す照準を比較する。",
       "mainGimmicks": [],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。分断された床の中央浮島へ転移し、上段の敵側門を破壊して射線を作る。。",
-      "basicRoute": "分断された床の中央浮島へ転移し、上段の敵側門を破壊して射線を作る。",
-      "alternativeRoute": "gun:通常 75°/95% → gun:通常 69°/85% → gun:通常 57°/75% → gun:通常 57°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差17。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。門前へ渡る準備と、高尾根から門を越す照準を比較する。。",
+      "basicRoute": "門前へ渡る準備と、高尾根から門を越す照準を比較する。",
+      "alternativeRoute": "通常 69°/100% → 通常 69°/100% → 通常 123°/95% → 通常 123°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "分断された床の中央浮島へ転移し、上段の敵側門を破壊して射線を作る。",
+      "hint": "門前へ渡る準備と、高尾根から門を越す照準を比較する。",
       "enemyInteraction": {
         "spawn": [
-          87,
-          23.0
+          122,
+          49
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3051,46 +3017,40 @@
       "testResult": {
         "stage": 61,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "6600f2d90f1f52572d179744f8bd78ec917ad61be956824eb270f7d8792f3311",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 4.6375,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "c8d632008d4698305dc0e3415472aff25dc7f9c4e2964715de1e51470e32ec97"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 72°/35% → rin:通常 74°/76% → rin:通常 75°/80% → rin:通常 74°/76% → rin:通常 75°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 3,
+        "description": "通常 69°/100% → 必殺 69°/100% → 通常 123°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 61,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 75°/95% → gun:通常 69°/85% → gun:通常 57°/75% → gun:通常 57°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 69°/100% → 通常 69°/100% → 通常 123°/95% → 通常 123°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 61,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3098,20 +3058,20 @@
       "stage": 62,
       "difficultyBand": "上級",
       "theme": "火山の外縁",
-      "learningGoal": "高い自機側の稜線を使い、低い屋根の下にいる敵へ角度を調整する。",
+      "learningGoal": "逆勾配に身を沈めて準備するか肩上に出て狙うかを選び、庇と床の岩背の間へ弧を通す。",
       "mainGimmicks": [],
-      "terrainIntent": "床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。高い自機側の稜線を使い、低い屋根の下にいる敵へ角度を調整する。。",
-      "basicRoute": "高い自機側の稜線を使い、低い屋根の下にいる敵へ角度を調整する。",
-      "alternativeRoute": "gun:通常 75°/95% → gun:通常 27°/65% → gun:通常 21°/70% → gun:通常 21°/70%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差47。坂の肩と裾で砲口の高さと遮蔽が変わる。中腹Rと120px先のAで近い肩の遮蔽を得失として選ぶ。麓Bからは低い弧。射撃後はその位置で反撃を受け、退避は次手番以降。。",
+      "basicRoute": "中腹Rと120px先のAで近い肩の遮蔽を得失として選ぶ。麓Bからは低い弧。射撃後はその位置で反撃を受け、退避は次手番以降。",
+      "alternativeRoute": "通常 27°/75% → 通常 27°/75% → 通常 27°/75% → 通常 27°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "高い自機側の稜線を使い、低い屋根の下にいる敵へ角度を調整する。",
+      "hint": "逆勾配に身を沈めて準備するか肩上に出て狙うかを選び、庇と床の岩背の間へ弧を通す。",
       "enemyInteraction": {
         "spawn": [
-          87,
-          12.0
+          144,
+          17
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3136,46 +3096,40 @@
       "testResult": {
         "stage": 62,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "3380b092b841f9f8254197aabc4985be86bc149c5b4bf3b6654553b6df4710e9",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.95,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "a60fe28a078d97495d9ea2018f1e45774a2e6c49c0346c76a4996f52a28817b9"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 104°/55% → rin:通常 27°/65% → rin:通常 21°/70% → rin:通常 21°/70% → rin:通常 3°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 3,
+        "description": "通常 27°/75% → 必殺 27°/75% → 通常 27°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 62,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 75°/95% → gun:通常 27°/65% → gun:通常 21°/70% → gun:通常 21°/70%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 27°/75% → 通常 27°/75% → 通常 27°/75% → 通常 27°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 62,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3183,20 +3137,20 @@
       "stage": 63,
       "difficultyBand": "上級",
       "theme": "火山の外縁",
-      "learningGoal": "手前と奥の隔壁を順に壊し、低い射点から高い敵へ通る細い射線を作る。",
+      "learningGoal": "手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。",
       "mainGimmicks": [],
-      "terrainIntent": "床の高低差21。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。手前と奥の隔壁を順に壊し、低い射点から高い敵へ通る細い射線を作る。。",
-      "basicRoute": "手前と奥の隔壁を順に壊し、低い射点から高い敵へ通る細い射線を作る。",
-      "alternativeRoute": "gun:通常 75°/100% → gun:通常 54°/78% → gun:通常 57°/80% → gun:通常 57°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差34。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。中継棚1箇所を独立配置。手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。。",
+      "basicRoute": "手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。",
+      "alternativeRoute": "通常 63°/100% → 通常 63°/100% → 通常 63°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "手前と奥の隔壁を順に壊し、低い射点から高い敵へ通る細い射線を作る。",
+      "hint": "手前を開いて途中射点を作り、奥の片を狙う。高棚なら手前を迂回する。",
       "enemyInteraction": {
         "spawn": [
-          88,
-          28.0
+          130,
+          44
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3221,46 +3175,40 @@
       "testResult": {
         "stage": 63,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "97c319067b242540ad4ec58b8163557b6607145f7d0c6795f19dcf1f0e8653f7",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.03125,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "09ea5cf6d7333b6423d42d03d42fe11eda57ab875ffb277ac3d15fb8e320ad91"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 72°/75% → rin:通常 57°/85% → rin:通常 57°/80% → rin:通常 57°/85% → rin:通常 -3°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 3,
+        "description": "通常 63°/100% → 必殺 63°/100% → 通常 63°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 63,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 75°/100% → gun:通常 54°/78% → gun:通常 57°/80% → gun:通常 57°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 63°/100% → 通常 63°/100% → 通常 63°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 63,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3268,20 +3216,20 @@
       "stage": 64,
       "difficultyBand": "上級",
       "theme": "火山の外縁",
-      "learningGoal": "自機の高台から崖下の敵を狙うが、壁の横の安全な中継棚から角度を変えられる。",
+      "learningGoal": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
       "mainGimmicks": [],
-      "terrainIntent": "床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。自機の高台から崖下の敵を狙うが、壁の横の安全な中継棚から角度を変えられる。。",
-      "basicRoute": "自機の高台から崖下の敵を狙うが、壁の横の安全な中継棚から角度を変えられる。",
-      "alternativeRoute": "gun:通常 45°/60% → gun:通常 33°/60% → gun:通常 75°/95% → gun:通常 27°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差66。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚2箇所を独立配置。上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。。",
+      "basicRoute": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+      "alternativeRoute": "通常 3°/50% → 通常 3°/50% → 通常 3°/50% → 通常 3°/50%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "自機の高台から崖下の敵を狙うが、壁の横の安全な中継棚から角度を変えられる。",
+      "hint": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
       "enemyInteraction": {
         "spawn": [
-          86,
-          11.0
+          97,
+          17
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3306,46 +3254,40 @@
       "testResult": {
         "stage": 64,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "742de5653eff6ab30c33ad799a5c417f83a2249a7f8723ab9fb7817263683033",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 4.9,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "167b43683ea924838ba7b4ca1ae4b76d543f48a983cb149ec8564d2d834a2bc7"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 104°/85% → rin:通常 33°/60% → rin:通常 75°/95% → rin:通常 27°/65% → rin:通常 21°/70%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 3,
+        "description": "通常 3°/50% → 必殺 3°/50% → 通常 3°/50%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 64,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 45°/60% → gun:通常 33°/60% → gun:通常 75°/95% → gun:通常 27°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 3°/50% → 通常 3°/50% → 通常 3°/50% → 通常 3°/50%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 64,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3353,23 +3295,23 @@
       "stage": 65,
       "difficultyBand": "上級",
       "theme": "火山の外縁",
-      "learningGoal": "圧力弁を止め、噴出しない側へ射点を移す",
+      "learningGoal": "噴出周期に合わせ、上棚の曲射と火口底の反射を使い分ける。",
       "mainGimmicks": [
         "V",
         "W"
       ],
-      "terrainIntent": "床の高低差14。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。圧力弁を止め、噴出しない側へ射点を移す。",
-      "basicRoute": "圧力弁を止め、噴出しない側へ射点を移す",
-      "alternativeRoute": "通常 6°/95% → 通常 66°/80% → 通常 6°/95% → 通常 66°/80% → 通常 6°/95% → 通常 66°/80% → 通常 6°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差48。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。噴出ONの上棚とOFFの反射盆地から圧力弁への射撃空間を選ぶ。。",
+      "basicRoute": "噴出ONの上棚とOFFの反射盆地から圧力弁への射撃空間を選ぶ。",
+      "alternativeRoute": "通常 69°/100% → 通常 69°/95% → 通常 165°/60% → 通常 69°/95% → 通常 165°/60% → 通常 69°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "圧力弁を止め、噴出しない側へ射点を移す",
+      "hint": "噴出周期に合わせ、上棚の曲射と火口底の反射を使い分ける。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          22.0
+          131,
+          44.888888889
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3394,42 +3336,40 @@
       "testResult": {
         "stage": 65,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          7,
-          7
-        ],
+        "blueprintSha256": "6f677b29f5d13c449a027314385be533fbecb806d4d63d5e2b60174e03aa1ac0",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 6,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "ae5074c738b2b44f52805348da666c26ff3520e19a284881c05898a8646a87f4"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
         "actions": 4,
-        "description": "必殺 0°/40% → 必殺 0°/60% → 必殺 0°/40% → 通常 66°/40%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "必殺 69°/100% → 必殺 69°/95% → 必殺 165°/60% → 通常 69°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 65,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 7,
-        "description": "通常 6°/95% → 通常 66°/80% → 通常 6°/95% → 通常 66°/80% → 通常 6°/95% → 通常 66°/80% → 通常 6°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 6,
+        "description": "通常 69°/100% → 通常 69°/95% → 通常 165°/60% → 通常 69°/95% → 通常 165°/60% → 通常 69°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 65,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3437,23 +3377,23 @@
       "stage": 66,
       "difficultyBand": "上級",
       "theme": "鍛冶の回廊",
-      "learningGoal": "噴出が弱い側の棚を確保し、反射で裏を狙う",
+      "learningGoal": "炉内の結晶・噴出複合か、露出稜線からの直接射撃かを選ぶ。",
       "mainGimmicks": [
         "K",
         "V"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差20。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚2箇所を独立配置。噴出が弱い側の棚を確保し、反射で裏を狙う。",
-      "basicRoute": "噴出が弱い側の棚を確保し、反射で裏を狙う",
-      "alternativeRoute": "通常 30°/100% → 右へ9.0歩行 → 通常 30°/100% → 通常 30°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差44。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。炉内の安全性とK+Vの長射路、または右岸の露出稜線と直接短射の得失を選ぶ。。",
+      "basicRoute": "炉内の安全性とK+Vの長射路、または右岸の露出稜線と直接短射の得失を選ぶ。",
+      "alternativeRoute": "通常 -3°/85% → 通常 39°/100% → 通常 39°/100% → 通常 3°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "噴出が弱い側の棚を確保し、反射で裏を狙う",
+      "hint": "炉内の結晶・噴出複合か、露出稜線からの直接射撃かを選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          20.0
+          130,
+          71
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3478,42 +3418,40 @@
       "testResult": {
         "stage": 66,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          3,
-          4
-        ],
+        "blueprintSha256": "fd957128305a86b7491741e9e248ae705f37f2d6a26eaace29b2bf966afbfde1",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.47,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "b8bf3b651f99afc08d6d07274a10dfe127c4e320850ce2b3bc4fa1f1ade201a7"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
         "actions": 4,
-        "description": "通常 54°/65% → 必殺 54°/30% → 通常 36°/65% → 必殺 0°/45%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 -3°/85% → 必殺 45°/60% → 通常 9°/85% → 必殺 9°/70%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 66,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 3,
-        "description": "通常 30°/100% → 右へ9.0歩行 → 通常 30°/100% → 通常 30°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 -3°/85% → 通常 39°/100% → 通常 39°/100% → 通常 3°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 66,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3525,9 +3463,9 @@
       "mainGimmicks": [
         "V"
       ],
-      "terrainIntent": "床の高低差9。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。連続する裾道へ転がし、上の噴出域を避ける。",
-      "basicRoute": "連続する裾道へ転がし、上の噴出域を避ける",
-      "alternativeRoute": "右へ18.0歩行 → 通常 48°/100% → 通常 48°/100% → 通常 78°/95% → 通常 78°/80%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片2箇所を独立配置。歩行で変わる低い遮蔽経路とVに露出する転移高路。",
+      "basicRoute": "歩行で変わる低い遮蔽経路とVに露出する転移高路",
+      "alternativeRoute": "通常 -3°/95% → 通常 -9°/75% → 通常 -3°/95% → 通常 -9°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "koro",
         "reason": "床で走り、短い空隙では落下して再び接地する必殺が連続面を活かす。"
@@ -3535,8 +3473,8 @@
       "hint": "連続する裾道へ転がし、上の噴出域を避ける",
       "enemyInteraction": {
         "spawn": [
-          82,
-          19.0
+          121,
+          33
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3561,42 +3499,40 @@
       "testResult": {
         "stage": 67,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "6c4cb5ca10b3011e70bb71ec5e67660ac16b6b51271fdb4dd6851b995fa4888c",
         "recommendedCharacter": "koro",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "63f8a005e83a23d7748fa39bbcf9d215d056056ac8c2a7089cdfec74fec8e5d0"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "koro",
         "actions": 4,
-        "description": "通常 30°/65% → 必殺 -12°/25% → 通常 36°/65% → 必殺 -12°/25%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 159°/100% → 通常 153°/70% → 必殺 141°/50% → 通常 153°/70%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 67,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "右へ18.0歩行 → 通常 48°/100% → 通常 48°/100% → 通常 78°/95% → 通常 78°/80%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 -3°/95% → 通常 -9°/75% → 通常 -3°/95% → 通常 -9°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 67,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3604,23 +3540,23 @@
       "stage": 68,
       "difficultyBand": "上級",
       "theme": "鍛冶の回廊",
-      "learningGoal": "下段から加熱壁の一枚を開放し、高い敵側の横窓を狙う。",
+      "learningGoal": "常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。",
       "mainGimmicks": [
         "V",
         "W"
       ],
-      "terrainIntent": "床の高低差15。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片1箇所を独立配置。下段から加熱壁の一枚を開放し、高い敵側の横窓を狙う。。",
-      "basicRoute": "下段から加熱壁の一枚を開放し、高い敵側の横窓を狙う。",
-      "alternativeRoute": "gun:通常 69°/85% → gun:通常 63°/80% → gun:通常 27°/85% → gun:通常 27°/70%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差32。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚3箇所を独立配置。常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。。",
+      "basicRoute": "常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。",
+      "alternativeRoute": "通常 39°/100% → 通常 3°/95% → 通常 39°/100% → 通常 3°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "下段から加熱壁の一枚を開放し、高い敵側の横窓を狙う。",
+      "hint": "常設の下側横穴を進んで噴出口から送るか、上の一片を開いてWで短く返す。",
       "enemyInteraction": {
         "spawn": [
-          86,
-          22.0
+          138,
+          42
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3645,46 +3581,40 @@
       "testResult": {
         "stage": 68,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "f62644cdc3a723b5fbaf20e9d66a4aaa541e1be3bbb0255f299c27f1efffd853",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.8870000000000005,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "00f741ab35a345dceb0b314432af43dccfabbe37fdc4982aeb7ff403798222fd"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 64°/85% → rin:通常 93°/85% → rin:通常 93°/95% → rin:通常 99°/60% → rin:通常 99°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 3,
+        "description": "通常 39°/100% → 必殺 3°/95% → 通常 39°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 68,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 69°/85% → gun:通常 63°/80% → gun:通常 27°/85% → gun:通常 27°/70%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 39°/100% → 通常 3°/95% → 通常 39°/100% → 通常 3°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 68,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3692,23 +3622,23 @@
       "stage": 69,
       "difficultyBand": "上級",
       "theme": "鍛冶の回廊",
-      "learningGoal": "退避島への転移で、噴出と斜面を順に回避する",
+      "learningGoal": "左肩で身を隠し島のくぼみを歩いて右肩に出るか、下側で噴出・結晶経由の攻撃を狙う。",
       "mainGimmicks": [
         "K",
         "V"
       ],
-      "terrainIntent": "床の高低差22。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。退避島への転移で、噴出と斜面を順に回避する。",
-      "basicRoute": "退避島への転移で、噴出と斜面を順に回避する",
-      "alternativeRoute": "通常 54°/100% → 通常 54°/100% → 通常 54°/100% → 通常 54°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差43。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。同一退避島上の左右歩行で遮蔽と狙撃が反転する。下側はVとKのタイミングを読む。。",
+      "basicRoute": "同一退避島上の左右歩行で遮蔽と狙撃が反転する。下側はVとKのタイミングを読む。",
+      "alternativeRoute": "通常 69°/85% → 通常 69°/85% → 通常 75°/95% → 通常 75°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "sora",
         "reason": "高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。"
       },
-      "hint": "退避島への転移で、噴出と斜面を順に回避する",
+      "hint": "左肩で身を隠し島のくぼみを歩いて右肩に出るか、下側で噴出・結晶経由の攻撃を狙う。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          24.0
+          134,
+          30.615384615384617
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3733,42 +3663,40 @@
       "testResult": {
         "stage": 69,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "d4a3beedc9c48023f5dc4bfab5afbc689249cf633472c8376bd15a704e8e8d0e",
         "recommendedCharacter": "sora",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.375,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "5d935805586fd8f15944b787497e146ff22dd330c96b8f6ca04468d1d21857d2"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "sora",
         "actions": 4,
-        "description": "転移 24°/75% → 必殺 104°/55% → 通常 96°/55% → 必殺 104°/55%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 69°/85% → 必殺 98°/100% → 通常 105°/80% → 通常 105°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 69,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "通常 54°/100% → 通常 54°/100% → 通常 54°/100% → 通常 54°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 69°/85% → 通常 69°/85% → 通常 75°/95% → 通常 75°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 69,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3776,22 +3704,22 @@
       "stage": 70,
       "difficultyBand": "上級",
       "theme": "鍛冶の回廊",
-      "learningGoal": "噴気の周期を見て壁を開放し、高い炉座の腕へ射線を作る。",
+      "learningGoal": "炉上から奥の腕、噴出の出口から手前の腕へ入れる角度を選ぶ。",
       "mainGimmicks": [
         "V"
       ],
-      "terrainIntent": "床の高低差18。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。噴気の周期を見て壁を開放し、高い炉座の腕へ射線を作る。。",
-      "basicRoute": "噴気の周期を見て壁を開放し、高い炉座の腕へ射線を作る。",
-      "alternativeRoute": "gun:通常 39°/80% → 左へ125px歩行→gun:通常 111°/95% → 右へ140px歩行→gun:通常 39°/80% → gun:通常 51°/65% → gun:通常 27°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差51。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。中継棚1箇所を独立配置。炉上から奥の腕、噴出の出口から手前の腕へ入れる角度を選ぶ。。",
+      "basicRoute": "炉上から奥の腕、噴出の出口から手前の腕へ入れる角度を選ぶ。",
+      "alternativeRoute": "通常 39°/90% → 通常 57°/95% → 通常 117°/100% → 通常 117°/100% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "噴気の周期を見て壁を開放し、高い炉座の腕へ射線を作る。",
+      "hint": "炉上から奥の腕、噴出の出口から手前の腕へ入れる角度を選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          90,
-          23.0
+          149,
+          55
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3816,46 +3744,40 @@
       "testResult": {
         "stage": 70,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "012550a5b9cc825612ad9668b4911b2d3c35b05060bd065d21c27d5e8f5a71ab",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 6.475,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "6f6e061e0fcf384197bf4e3d021fdcafdc25db5972a78ed9cd912158d1e437f4"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 6,
-        "description": "rin:転移 88°/65% → 左へ140px歩行→rin:通常 117°/85% → 右へ140px歩行→rin:通常 57°/75% → rin:通常 57°/70% → rin:通常 57°/75% → 左へ140px歩行→rin:通常 117°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "必殺 21°/100% → 必殺 57°/95% → 必殺 117°/100% → 通常 117°/100% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 70,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "gun:通常 39°/80% → 左へ125px歩行→gun:通常 111°/95% → 右へ140px歩行→gun:通常 39°/80% → gun:通常 51°/65% → gun:通常 27°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 39°/90% → 通常 57°/95% → 通常 117°/100% → 通常 117°/100% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 70,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3868,9 +3790,9 @@
         "M",
         "W"
       ],
-      "terrainIntent": "床の高低差17。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚2箇所を独立配置。谷底の磁場に曲射を入れる経路と、上段浮島へ転移する経路を比較する。。",
-      "basicRoute": "谷底の磁場に曲射を入れる経路と、上段浮島へ転移する経路を比較する。",
-      "alternativeRoute": "gun:通常 27°/60% → gun:通常 27°/60% → gun:通常 -9°/80% → gun:通常 -9°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差48。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁4箇所を独立配置。低い洞窟のW/M、中段の上越し、鋭い高所の短射。",
+      "basicRoute": "低い洞窟のW/M、中段の上越し、鋭い高所の短射",
+      "alternativeRoute": "転移 54°/95% → 通常 75°/20% → 通常 3°/45% → 通常 -15°/60% → 通常 -15°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
@@ -3878,8 +3800,8 @@
       "hint": "谷底の磁場に曲射を入れる経路と、上段浮島へ転移する経路を比較する。",
       "enemyInteraction": {
         "spawn": [
-          87,
-          22.0
+          147,
+          47
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3904,46 +3826,40 @@
       "testResult": {
         "stage": 71,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "a06991689e176df19f19f615a0b31b56a41ec932e2110548015fccc31f370bfe",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.95,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "84da363aa83aa44f0056a8a1213a3a6e7c3e073bce49add6119aed4d6ea05b55"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 0°/65% → rin:通常 -3°/65% → rin:通常 3°/65% → rin:通常 3°/65% → rin:通常 33°/100%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "転移 54°/95% → 必殺 75°/20% → 通常 3°/45% → 必殺 -15°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 71,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "gun:通常 27°/60% → gun:通常 27°/60% → gun:通常 -9°/80% → gun:通常 -9°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "転移 54°/95% → 通常 75°/20% → 通常 3°/45% → 通常 -15°/60% → 通常 -15°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 71,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -3951,22 +3867,22 @@
       "stage": 72,
       "difficultyBand": "上級",
       "theme": "磁石の採掘場",
-      "learningGoal": "磁場の外に着地してから、割れた梁を狙う",
+      "learningGoal": "大きな露天断層を越えたのち、中央の磁場射撃と敵の背後からの逆向き射撃を選ぶ。",
       "mainGimmicks": [
         "M"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差20。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。磁場の外に着地してから、割れた梁を狙う。",
-      "basicRoute": "磁場の外に着地してから、割れた梁を狙う",
-      "alternativeRoute": "通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差20。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。A:断層の向こうの広い中央広場でM経由の越し撃ち/敵前D03の破壊を検討。B:敵の右側に転移し向きを反転して、D03とMを避ける。。",
+      "basicRoute": "A:断層の向こうの広い中央広場でM経由の越し撃ち/敵前D03の破壊を検討。B:敵の右側に転移し向きを反転して、D03とMを避ける。",
+      "alternativeRoute": "通常 57°/95% → 通常 57°/95% → 通常 63°/100% → 通常 63°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "磁場の外に着地してから、割れた梁を狙う",
+      "hint": "大きな露天断層を越えたのち、中央の磁場射撃と敵の背後からの逆向き射撃を選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          23.0
+          122,
+          40.333
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -3991,42 +3907,40 @@
       "testResult": {
         "stage": 72,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "b56888836d8b8ceadcd89da87446f2f515141d471611d3caae82a710019c5aac",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "e4d8f427c8dc2748c5b3d04c9d29673eca1a0e964c22e9891478d837837c7c45"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
         "actions": 4,
-        "description": "破壊 36°/95% → 必殺 18°/65% → 通常 18°/100% → 必殺 18°/65%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 57°/95% → 通常 57°/95% → 通常 63°/100% → 通常 63°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 72,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 57°/95% → 通常 57°/95% → 通常 63°/100% → 通常 63°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 72,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4034,23 +3948,23 @@
       "stage": 73,
       "difficultyBand": "上級",
       "theme": "磁石の採掘場",
-      "learningGoal": "下段から端子を操作し、磁場が変わった次手に上段の敵へ通す。",
+      "learningGoal": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
       "mainGimmicks": [
         "M",
         "T"
       ],
-      "terrainIntent": "床の高低差14。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。下段から端子を操作し、磁場が変わった次手に上段の敵へ通す。。",
-      "basicRoute": "下段から端子を操作し、磁場が変わった次手に上段の敵へ通す。",
-      "alternativeRoute": "gun:通常 57°/75% → gun:通常 63°/80% → gun:通常 63°/80% → gun:通常 58°/78%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差37。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。下段から横に入るか、高棚から折り返して同じ磁場へ入る。。",
+      "basicRoute": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
+      "alternativeRoute": "転移 78°/90% → 通常 39°/50% → 通常 39°/50% → 通常 45°/50% → 通常 3°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "下段から端子を操作し、磁場が変わった次手に上段の敵へ通す。",
+      "hint": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
       "enemyInteraction": {
         "spawn": [
-          88,
-          22.0
+          136,
+          48
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4075,46 +3989,40 @@
       "testResult": {
         "stage": 73,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "7c0b22ab5ac81bf1238817be0c31deeea2cb329b614df6b3fbe8c7544d642eea",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 4.9,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "eae615a9b7d48c348c805abadd3f00effe812c19663689aac66a3f56d5a3203b"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 0°/45% → rin:通常 45°/75% → rin:通常 45°/75% → rin:通常 51°/85% → rin:通常 48°/81%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "転移 78°/90% → 必殺 39°/50% → 通常 39°/50% → 必殺 45°/50%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 73,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "gun:通常 57°/75% → gun:通常 63°/80% → gun:通常 63°/80% → gun:通常 58°/78%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "転移 78°/90% → 通常 39°/50% → 通常 39°/50% → 通常 45°/50% → 通常 3°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 73,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4122,23 +4030,23 @@
       "stage": 74,
       "difficultyBand": "上級",
       "theme": "磁石の採掘場",
-      "learningGoal": "下の反射路と上の転移棚を見分け、磁場を分けて使う",
+      "learningGoal": "床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。",
       "mainGimmicks": [
         "M",
         "W"
       ],
-      "terrainIntent": "床の高低差19。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。下の反射路と上の転移棚を見分け、磁場を分けて使う。",
-      "basicRoute": "下の反射路と上の転移棚を見分け、磁場を分けて使う",
-      "alternativeRoute": "通常 12°/75% → 通常 12°/75% → 通常 18°/75% → 通常 54°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差11。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚2箇所を独立配置。床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。。",
+      "basicRoute": "床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。",
+      "alternativeRoute": "通常 27°/60% → 通常 45°/85% → 通常 21°/65% → 通常 21°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "下の反射路と上の転移棚を見分け、磁場を分けて使う",
+      "hint": "床の鏡から鉱床の下へ通すか、鉱床上から右の出口へ落とす。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          26.0
+          130,
+          13
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4163,42 +4071,40 @@
       "testResult": {
         "stage": 74,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "889143f4b7942515107e8c924b33926fd892f33d09a9c1c173c93fef9fc64076",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 7,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "c4ee09b1f7698d9ff0253805b8466dead434c934653911146a73073aa1ffff6b"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
         "actions": 4,
-        "description": "転移 40°/75% → 必殺 96°/30% → 通常 96°/65% → 必殺 96°/30%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 27°/60% → 必殺 -15°/50% → 通常 21°/65% → 必殺 51°/40%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 74,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "通常 12°/75% → 通常 12°/75% → 通常 18°/75% → 通常 54°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 27°/60% → 通常 45°/85% → 通常 21°/65% → 通常 21°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 74,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4206,22 +4112,22 @@
       "stage": 75,
       "difficultyBand": "上級",
       "theme": "磁石の採掘場",
-      "learningGoal": "マグネットアームを止め、荷の支えを残して進む",
+      "learningGoal": "直射を遮る岩肩の内側へ入り、一時防御Dを残して腕へ越し撃ちする。",
       "mainGimmicks": [
         "M"
       ],
-      "terrainIntent": "床の高低差8。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。マグネットアームを止め、荷の支えを残して進む。",
-      "basicRoute": "マグネットアームを止め、荷の支えを残して進む",
-      "alternativeRoute": "右へ18.0歩行 → 通常 90°/100% → 通常 90°/100% → 右へ18.0歩行 → 通常 36°/100% → 通常 36°/100% → 通常 36°/100% → 通常 36°/100% → 通常 36°/100% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差24。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。固定の岩肩を越え、下り斜面のCへ再配置。Dを残したまま上を越す短い弧で腕を狙う。D破壊は準備条件にしない。 別解：坑外RからMを経由し、岩肩の上と天井の下の坑口へ通す曲射を探る。Dを開けずに攻撃する構想。。",
+      "basicRoute": "固定の岩肩を越え、下り斜面のCへ再配置。Dを残したまま上を越す短い弧で腕を狙う。D破壊は準備条件にしない。 別解：坑外RからMを経由し、岩肩の上と天井の下の坑口へ通す曲射を探る。Dを開けずに攻撃する構想。",
+      "alternativeRoute": "通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "マグネットアームを止め、荷の支えを残して進む",
+      "hint": "直射を遮る岩肩の内側へ入り、一時防御Dを残して腕へ越し撃ちする。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          19.0
+          126,
+          18
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4246,42 +4152,40 @@
       "testResult": {
         "stage": 75,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          8,
-          9
-        ],
+        "blueprintSha256": "a4682319d114ca27a1bf1335aa4e6593b1c5311997e5258927d2e7585baa81ab",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 6,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 5.47,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "166d3dbb3cc36897882604965db34fdc2535e4a25c9cf54a749bcb6fa98fad26"
+          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
         "actions": 5,
-        "description": "必殺 30°/90% → 必殺 30°/90% → 必殺 30°/90% → 右へ18.0歩行 → 通常 84°/100% → 通常 84°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "必殺 33°/90% → 必殺 27°/85% → 必殺 27°/80% → 通常 27°/80% → 通常 27°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
           "stage": 75,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 8,
-        "description": "右へ18.0歩行 → 通常 90°/100% → 通常 90°/100% → 右へ18.0歩行 → 通常 36°/100% → 通常 36°/100% → 通常 36°/100% → 通常 36°/100% → 通常 36°/100% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 6,
+        "description": "通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
           "stage": 75,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4289,23 +4193,23 @@
       "stage": 76,
       "difficultyBand": "上級",
       "theme": "極性の実験棟",
-      "learningGoal": "上段と中段の二つの射点から、磁場に異なる角度で入り低い敵へ通す。",
+      "learningGoal": "極性を変え、磁場の出口を浮岩の下へ向ける。初期極性で上を越す狙いも残す。",
       "mainGimmicks": [
         "M",
         "T"
       ],
-      "terrainIntent": "床の高低差18。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚2箇所を独立配置。上段と中段の二つの射点から、磁場に異なる角度で入り低い敵へ通す。。",
-      "basicRoute": "上段と中段の二つの射点から、磁場に異なる角度で入り低い敵へ通す。",
-      "alternativeRoute": "gun:通常 -9°/80% → gun:通常 -9°/85% → gun:通常 -9°/85% → gun:通常 -9°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差34。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。主攻略は同じ岸でTを一射して+1へ切り替え、Mから浮岩の下の開放帯へ出す構想。右岸への転移は必須にしない。初期−1で上を越す狙いは任意の仮説。。",
+      "basicRoute": "主攻略は同じ岸でTを一射して+1へ切り替え、Mから浮岩の下の開放帯へ出す構想。右岸への転移は必須にしない。初期−1で上を越す狙いは任意の仮説。",
+      "alternativeRoute": "通常 63°/90% → 通常 57°/85% → 通常 57°/85% → 通常 117°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "上段と中段の二つの射点から、磁場に異なる角度で入り低い敵へ通す。",
+      "hint": "極性を変え、磁場の出口を浮岩の下へ向ける。初期極性で上を越す狙いも残す。",
       "enemyInteraction": {
         "spawn": [
-          88,
-          8.0
+          148,
+          19
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4330,46 +4234,40 @@
       "testResult": {
         "stage": 76,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "892b6424efefe14d9d5643565edfb922f09807720d102d2618a461046710279e",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 4.9,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "c1fa71216984633d79d492e72789ee85ab76e0dba47f8725320f5e63175012c6"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 16°/55% → rin:通常 15°/70% → rin:通常 15°/75% → rin:通常 15°/75% → rin:通常 15°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 3,
+        "description": "通常 63°/90% → 必殺 57°/85% → 通常 63°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 76,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "gun:通常 -9°/80% → gun:通常 -9°/85% → gun:通常 -9°/85% → gun:通常 -9°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 63°/90% → 通常 57°/85% → 通常 57°/85% → 通常 117°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 76,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4377,24 +4275,24 @@
       "stage": 77,
       "difficultyBand": "上級",
       "theme": "極性の実験棟",
-      "learningGoal": "下段の窓を開けてから端子を切り替え、高所の敵へ反射経路を作る。",
+      "learningGoal": "開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。",
       "mainGimmicks": [
         "M",
         "T",
         "W"
       ],
-      "terrainIntent": "床の高低差17。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。下段の窓を開けてから端子を切り替え、高所の敵へ反射経路を作る。。",
-      "basicRoute": "下段の窓を開けてから端子を切り替え、高所の敵へ反射経路を作る。",
-      "alternativeRoute": "gun:通常 75°/100% → gun:通常 15°/80% → gun:通常 33°/75% → gun:通常 33°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差12。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚4箇所を独立配置。開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。。",
+      "basicRoute": "開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。",
+      "alternativeRoute": "転移 60°/100% → 通常 45°/75% → 通常 45°/75% → 通常 45°/75% → 通常 45°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "下段の窓を開けてから端子を切り替え、高所の敵へ反射経路を作る。",
+      "hint": "開始近くでTとMを選ぶか、横扉の先のWへ移って反射する。二経路を同じ弾の必須連鎖にしない。",
       "enemyInteraction": {
         "spawn": [
-          88,
-          25.0
+          125,
+          56
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4419,46 +4317,40 @@
       "testResult": {
         "stage": 77,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "aede391f5cfc4247238c2f410eb863fe1571bbc43bc40439d253a5e18ade1229",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.67175,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "be09cc8051937189edc6843b01cdfbc2da6944f5bac9f021b3f036d62ebf7d38"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
-        "actions": 5,
-        "description": "rico:転移 80°/85% → rico:通常 -15°/65% → rico:通常 -15°/65% → rico:通常 -15°/70% → rico:通常 -15°/70%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "転移 60°/100% → 必殺 105°/100% → 通常 45°/75% → 必殺 111°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 77,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "gun:通常 75°/100% → gun:通常 15°/80% → gun:通常 33°/75% → gun:通常 33°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "転移 60°/100% → 通常 45°/75% → 通常 45°/75% → 通常 45°/75% → 通常 45°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 77,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4466,22 +4358,22 @@
       "stage": 78,
       "difficultyBand": "上級",
       "theme": "極性の実験棟",
-      "learningGoal": "低い棚を経由し、磁場の外の高台へ転移する",
+      "learningGoal": "坑内から磁場で遮板の上へ回すか、磁場外の監視棚で遮板を開くか選ぶ。",
       "mainGimmicks": [
         "M"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差24。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚2箇所を独立配置。低い棚を経由し、磁場の外の高台へ転移する。",
-      "basicRoute": "低い棚を経由し、磁場の外の高台へ転移する",
-      "alternativeRoute": "右へ9.0歩行 → 通常 54°/100% → 通常 18°/95% → 通常 18°/95% → 通常 18°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差56。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。主攻略は左内壁の低い足場から初期−1のMへ入れ、遮板を壊さず上の開放帯から敵を狙う構想。任意に右の固定監視棚へ転移し、D02を開いてMの外から浅く撃つ。。",
+      "basicRoute": "主攻略は左内壁の低い足場から初期−1のMへ入れ、遮板を壊さず上の開放帯から敵を狙う構想。任意に右の固定監視棚へ転移し、D02を開いてMの外から浅く撃つ。",
+      "alternativeRoute": "通常 33°/95% → 通常 33°/95% → 通常 99°/100% → 通常 75°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "低い棚を経由し、磁場の外の高台へ転移する",
+      "hint": "坑内から磁場で遮板の上へ回すか、磁場外の監視棚で遮板を開くか選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          26.0
+          148,
+          64
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4506,42 +4398,40 @@
       "testResult": {
         "stage": 78,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "7784095409d4e0de4ee0c100973269bd47e262bb87f9e18df391b108ca293fb7",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "fcdedc849603db7b82553eb99a9654f2fa53b560d17d2874b019a862192944f4"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
         "actions": 4,
-        "description": "転移 64°/75% → 必殺 102°/35% → 通常 96°/80% → 必殺 102°/35%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 33°/95% → 通常 33°/95% → 必殺 93°/80% → 必殺 123°/75%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 78,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "右へ9.0歩行 → 通常 54°/100% → 通常 18°/95% → 通常 18°/95% → 通常 18°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 33°/95% → 通常 33°/95% → 通常 99°/100% → 通常 75°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 78,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4549,24 +4439,24 @@
       "stage": 79,
       "difficultyBand": "上級",
       "theme": "極性の実験棟",
-      "learningGoal": "橋と磁場が変わる順を読み、両岸の退避点を確保する",
+      "learningGoal": "頭上の開いた射点から、敵前の岩脊を越す軌道を選ぶ。",
       "mainGimmicks": [
         "B",
         "M",
         "T"
       ],
-      "terrainIntent": "床の高低差17。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。橋と磁場が変わる順を読み、両岸の退避点を確保する。",
-      "basicRoute": "橋と磁場が変わる順を読み、両岸の退避点を確保する",
-      "alternativeRoute": "右へ11.8歩行 → 通常 72°/95% → 破壊 54°/100% → 通常 66°/100% → 通常 66°/100% → 通常 66°/100% → 通常 66°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差68。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。P0/A/Lの代表直射は敵前の固定岩脊で遮断。橋でAへ渡って通常の山越し弧を探るか、頭上の開いたLへ転移しT反転後のMで上へ回す。。",
+      "basicRoute": "P0/A/Lの代表直射は敵前の固定岩脊で遮断。橋でAへ渡って通常の山越し弧を探るか、頭上の開いたLへ転移しT反転後のMで上へ回す。",
+      "alternativeRoute": "通常 69°/100% → 通常 117°/95% → 通常 123°/90% → 通常 117°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "橋と磁場が変わる順を読み、両岸の退避点を確保する",
+      "hint": "頭上の開いた射点から、敵前の岩脊を越す軌道を選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          24.0
+          165,
+          55
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4591,42 +4481,40 @@
       "testResult": {
         "stage": 79,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          6
-        ],
+        "blueprintSha256": "42dfb4c4efed9a82b7758477e8e0d07f1f9a2b0adfaa05ad355215d62d62bb8d",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
         "recommendedActions": 3,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 16,
-        "minimumRemainingHp": 5.205,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "e2bed2d4dbd2d1d832540423645411ab17621b53ed7198930e1ae29aaa7bdd80"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
         "actions": 3,
-        "description": "通常 42°/55% → 必殺 72°/30% → 通常 6°/75%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 69°/100% → 必殺 117°/95% → 通常 123°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 79,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 6,
-        "description": "右へ11.8歩行 → 通常 72°/95% → 破壊 54°/100% → 通常 66°/100% → 通常 66°/100% → 通常 66°/100% → 通常 66°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 69°/100% → 通常 117°/95% → 通常 123°/90% → 通常 117°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 79,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4634,23 +4522,23 @@
       "stage": 80,
       "difficultyBand": "超上級",
       "theme": "極性の実験棟",
-      "learningGoal": "下段の磁場曲射と、端子切替後に上段浮島から撃つ射線を使い分け、発生器2基と核を狙う。",
+      "learningGoal": "炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。",
       "mainGimmicks": [
         "M",
         "T"
       ],
-      "terrainIntent": "床の高低差23。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚2箇所を独立配置。下段の磁場曲射と、端子切替後に上段浮島から撃つ射線を使い分け、発生器2基と核を狙う。。",
-      "basicRoute": "下段の磁場曲射と、端子切替後に上段浮島から撃つ射線を使い分け、発生器2基と核を狙う。",
-      "alternativeRoute": "gun:通常 57°/80% → gun:通常 57°/80% → gun:通常 57°/80% → gun:通常 57°/80% → gun:通常 57°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差32。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚2箇所を独立配置。炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。。",
+      "basicRoute": "炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。",
+      "alternativeRoute": "通常 99°/70% → 通常 45°/85% → 通常 45°/85% → 通常 45°/85% → 通常 45°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "下段の磁場曲射と、端子切替後に上段浮島から撃つ射線を使い分け、発生器2基と核を狙う。",
+      "hint": "炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。",
       "enemyInteraction": {
         "spawn": [
-          91,
-          27.0
+          137,
+          44
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4675,46 +4563,40 @@
       "testResult": {
         "stage": 80,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "05f9ad6a96503040918a506c391bf8ed57e033ba0131affbedaea3cd09adb559",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 28,
-        "minimumRemainingHp": 5.425,
-        "featuredTechniqueVerified": true,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "featuredTechniqueVerified": false,
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "27b72076f0ac79792563dad1d2b3d0ce6733a1ebdbb6c979be3b2fd606b1a7bc"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
-        "character": "gun",
-        "actions": 6,
-        "description": "gun:通常 33°/65% → gun:通常 21°/90% → gun:通常 21°/90% → gun:通常 21°/90% → gun:通常 21°/90% → gun:通常 21°/90%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "character": "rin",
+        "actions": 5,
+        "description": "必殺 99°/65% → 必殺 45°/65% → 必殺 45°/65% → 通常 45°/65% → 通常 45°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/TERMINAL_ROUTE.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 80,
-          "seed": 4697,
-          "strategy": "terminal"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "gun:通常 57°/80% → gun:通常 57°/80% → gun:通常 57°/80% → gun:通常 57°/80% → gun:通常 57°/80%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 99°/70% → 通常 45°/85% → 通常 45°/85% → 通常 45°/85% → 通常 45°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 80,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4722,23 +4604,23 @@
       "stage": 81,
       "difficultyBand": "超上級",
       "theme": "空中庭園",
-      "learningGoal": "低棚で遮蔽を外し、高棚から引き寄せる着地点を作る",
+      "learningGoal": "外庭園から結晶で根を越すか、内側の足場へ移って風の窓を使うか選ぶ。",
       "mainGimmicks": [
         "F",
         "K"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差24。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片2箇所を独立配置。中継棚2箇所を独立配置。低棚で遮蔽を外し、高棚から引き寄せる着地点を作る。",
-      "basicRoute": "低棚で遮蔽を外し、高棚から引き寄せる着地点を作る",
-      "alternativeRoute": "破壊 54°/85% → 右へ9.0歩行 → 通常 48°/95% → 通常 42°/100% → 通常 48°/95% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。外のP0からKに一回反射させ、Fの上側を回して右根の敵を狙う構想。任意に根輪内のAへ転移し、現在の風向きを読んでFを通す。D03の破壊は必須にしない。。",
+      "basicRoute": "外のP0からKに一回反射させ、Fの上側を回して右根の敵を狙う構想。任意に根輪内のAへ転移し、現在の風向きを読んでFを通す。D03の破壊は必須にしない。",
+      "alternativeRoute": "転移 66°/100% → 通常 -15°/25% → 通常 -15°/25% → 通常 -15°/25% → 通常 -15°/25%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "低棚で遮蔽を外し、高棚から引き寄せる着地点を作る",
+      "hint": "外庭園から結晶で根を越すか、内側の足場へ移って風の窓を使うか選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          27.0
+          129,
+          75
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4764,42 +4646,40 @@
       "testResult": {
         "stage": 81,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "243f965c3292a6d498f526710bd25671248aedb223c575ac6d81a548bfcef5ce",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.46,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "2aa3d6e7cf1d91b1075e1a893235900dfc33c16008f3e24b56e427303581f7fb"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
         "actions": 5,
-        "description": "破壊 24°/95% → 必殺 48°/70% → 通常 48°/65% → 必殺 48°/70% → 通常 48°/65%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "転移 66°/100% → 必殺 -15°/40% → 通常 -15°/25% → 必殺 -15°/40% → 通常 -15°/25%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 81,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "破壊 54°/85% → 右へ9.0歩行 → 通常 48°/95% → 通常 42°/100% → 通常 48°/95% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "転移 66°/100% → 通常 -15°/25% → 通常 -15°/25% → 通常 -15°/25% → 通常 -15°/25%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 81,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4807,23 +4687,23 @@
       "stage": 82,
       "difficultyBand": "超上級",
       "theme": "空中庭園",
-      "learningGoal": "先に割れた壁を外し、支えの下の鏡床から敵へ送る",
+      "learningGoal": "固定根を残し、根の下から床Wへ入れるか、開いた台からMへ入れるか選ぶ。",
       "mainGimmicks": [
         "M",
         "W"
       ],
-      "terrainIntent": "床の高低差15。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。先に割れた壁を外し、支えの下の鏡床から敵へ送る。",
-      "basicRoute": "先に割れた壁を外し、支えの下の鏡床から敵へ送る",
-      "alternativeRoute": "通常 48°/85% → 通常 12°/75% → 通常 12°/80% → 通常 18°/75%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差40。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。P0から常設窓の上側を通し、支持された床Wで一回反射する構想。任意に頭上の開いたAへ転移し、初期−1のMで上へ回す。両経路ともD03破壊は必須にしない。。",
+      "basicRoute": "P0から常設窓の上側を通し、支持された床Wで一回反射する構想。任意に頭上の開いたAへ転移し、初期−1のMで上へ回す。両経路ともD03破壊は必須にしない。",
+      "alternativeRoute": "通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "先に割れた壁を外し、支えの下の鏡床から敵へ送る",
+      "hint": "固定根を残し、根の下から床Wへ入れるか、開いた台からMへ入れるか選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          24.0
+          165,
+          48
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4849,42 +4729,40 @@
       "testResult": {
         "stage": 82,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "f966adce095587ce016846b53e3a410d5f49da3d75fdb74eaaab2e96fce24716",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 6,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.166666666666667,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "dceeae0edc4f3dd385e740993ef748c4a31a72f191df07b765f6e4e60e7ca680"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
         "actions": 5,
-        "description": "破壊 -6°/50% → 必殺 30°/45% → 通常 -6°/55% → 必殺 30°/45% → 通常 -6°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 -15°/90% → 必殺 27°/100% → 通常 -15°/90% → 必殺 27°/100% → 通常 -15°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 82,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "通常 48°/85% → 通常 12°/75% → 通常 12°/80% → 通常 18°/75%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 6,
+        "description": "通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90% → 通常 -15°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 82,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4892,23 +4770,23 @@
       "stage": 83,
       "difficultyBand": "超上級",
       "theme": "空中庭園",
-      "learningGoal": "雲を通る時間と屋根の穴を変え、同じ着地点を狙う",
+      "learningGoal": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
       "mainGimmicks": [
         "C",
         "F"
       ],
-      "terrainIntent": "床の高低差20。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。雲を通る時間と屋根の穴を変え、同じ着地点を狙う。",
-      "basicRoute": "雲を通る時間と屋根の穴を変え、同じ着地点を狙う",
-      "alternativeRoute": "破壊 36°/80% → 右へ11.8歩行 → 通常 84°/100% → 通常 84°/100% → 通常 84°/100% → 通常 84°/100% → 通常 84°/100% → 通常 84°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。割れた壁1箇所を独立配置。中継棚3箇所を独立配置。横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。。",
+      "basicRoute": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
+      "alternativeRoute": "通常 63°/95% → 通常 123°/100% → 通常 123°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "sora",
         "reason": "高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。"
       },
-      "hint": "雲を通る時間と屋根の穴を変え、同じ着地点を狙う",
+      "hint": "横窓から雲を長く通すか、斜めの裂け目から雲の上端を越えて風へ入れる。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          23.0
+          136,
+          43
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4934,42 +4812,40 @@
       "testResult": {
         "stage": 83,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          7,
-          7
-        ],
+        "blueprintSha256": "a3e5d25f14a4ff24dec71216748a2af5b4ba3de2b7f72b64db73a0e4022f6137",
         "recommendedCharacter": "sora",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "02cce5b0624803310e5e06576c29ca8e4adb0dc6616806c639edfe5b9a9c8d77"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "sora",
         "actions": 4,
-        "description": "通常 30°/70% → 必殺 56°/80% → 通常 12°/95% → 必殺 56°/80%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 63°/95% → 通常 123°/100% → 通常 123°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 83,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 7,
-        "description": "破壊 36°/80% → 右へ11.8歩行 → 通常 84°/100% → 通常 84°/100% → 通常 84°/100% → 通常 84°/100% → 通常 84°/100% → 通常 84°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 63°/95% → 通常 123°/100% → 通常 123°/100% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 83,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -4977,23 +4853,23 @@
       "stage": 84,
       "difficultyBand": "超上級",
       "theme": "空中庭園",
-      "learningGoal": "上段へ移り、引き寄せた敵を次の低い射線へ誘う",
+      "learningGoal": "下の島から中央Mへ向けるか、左の島から外向きのKへ向ける。",
       "mainGimmicks": [
         "K",
         "M"
       ],
-      "terrainIntent": "床の高低差12。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。上段へ移り、引き寄せた敵を次の低い射線へ誘う。",
-      "basicRoute": "上段へ移り、引き寄せた敵を次の低い射線へ誘う",
-      "alternativeRoute": "右へ36.0歩行 → 通常 36°/70% → 通常 6°/100% → 通常 12°/95% → 通常 18°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。割れた壁1箇所を独立配置。中継棚5箇所を独立配置。下の島から中央Mへ向けるか、左の島から外向きのKへ向ける。。",
+      "basicRoute": "下の島から中央Mへ向けるか、左の島から外向きのKへ向ける。",
+      "alternativeRoute": "通常 129°/100% → 通常 39°/85% → 通常 39°/85% → 通常 39°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "上段へ移り、引き寄せた敵を次の低い射線へ誘う",
+      "hint": "下の島から中央Mへ向けるか、左の島から外向きのKへ向ける。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          14.0
+          129,
+          58
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5019,42 +4895,40 @@
       "testResult": {
         "stage": 84,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "dab928ec2850068cb2fcf67ba41160ecaa32881ccc20d18536c2faf699e6f03a",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 6.333333333333334,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "77ad9700f3dafbc3e7bb59b14bc30f58f118c11c18862a7ca29a5bbb761bcff2"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
         "actions": 4,
-        "description": "通常 66°/75% → 必殺 24°/90% → 通常 24°/85% → 必殺 24°/90%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 129°/100% → 必殺 129°/100% → 通常 129°/100% → 必殺 129°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 84,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 4,
-        "description": "右へ36.0歩行 → 通常 36°/70% → 通常 6°/100% → 通常 12°/95% → 通常 18°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 129°/100% → 通常 39°/85% → 通常 39°/85% → 通常 39°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 84,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5062,23 +4936,23 @@
       "stage": 85,
       "difficultyBand": "超上級",
       "theme": "空中庭園",
-      "learningGoal": "給水装置を止め、花壇の支えを壊さず反対岸へ渡る",
+      "learningGoal": "根橋上からFを横切る弧で給水ユニットへ入れるか、根先の開口からMで撃ち上げる。",
       "mainGimmicks": [
         "F",
         "M"
       ],
-      "terrainIntent": "床の高低差14。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。給水装置を止め、花壇の支えを壊さず反対岸へ渡る。",
-      "basicRoute": "給水装置を止め、花壇の支えを壊さず反対岸へ渡る",
-      "alternativeRoute": "通常 30°/100% → 通常 36°/95% → 通常 30°/100% → 通常 36°/100% → 通常 30°/100% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。割れた壁3箇所を独立配置。天井片2箇所を独立配置。中継棚4箇所を独立配置。根橋上からFを横切る弧で給水ユニットへ入れるか、根先の開口からMで撃ち上げる。。",
+      "basicRoute": "根橋上からFを横切る弧で給水ユニットへ入れるか、根先の開口からMで撃ち上げる。",
+      "alternativeRoute": "転移 78°/100% → 通常 9°/90% → 通常 9°/85% → 通常 9°/90% → 通常 9°/85% → 通常 9°/90% → 通常 9°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "給水装置を止め、花壇の支えを壊さず反対岸へ渡る",
+      "hint": "根橋上からFを横切る弧で給水ユニットへ入れるか、根先の開口からMで撃ち上げる。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          22.0
+          137,
+          65
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5104,42 +4978,40 @@
       "testResult": {
         "stage": 85,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          6,
-          6
-        ],
+        "blueprintSha256": "2ff31d08c26b5415d2b4c09fd9181d7409340ccb5859b8f30d530be14164e0c1",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 7,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 5.166666666666667,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "d85df2a0e34e16304f706e11ed5887ea3afd2714a672b3cfb252aac316344258"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
-        "actions": 6,
-        "description": "破壊 30°/85% → 転移 64°/75% → 必殺 96°/55% → 必殺 96°/55% → 必殺 96°/55% → 通常 96°/40%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "転移 78°/100% → 必殺 9°/90% → 必殺 3°/90% → 必殺 3°/95% → 通常 9°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 85,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 6,
-        "description": "通常 30°/100% → 通常 36°/95% → 通常 30°/100% → 通常 36°/100% → 通常 30°/100% → 通常 36°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 7,
+        "description": "転移 78°/100% → 通常 9°/90% → 通常 9°/85% → 通常 9°/90% → 通常 9°/85% → 通常 9°/90% → 通常 9°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 85,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5147,23 +5019,24 @@
       "stage": 86,
       "difficultyBand": "超上級",
       "theme": "嵐の空母",
-      "learningGoal": "下段の洞窟を抜ける曲射か、中央浮島に転移して上甲板の敵を狙う。",
+      "learningGoal": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
       "mainGimmicks": [
         "C",
+        "U",
         "W"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差20。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。下段の洞窟を抜ける曲射か、中央浮島に転移して上甲板の敵を狙う。。",
-      "basicRoute": "下段の洞窟を抜ける曲射か、中央浮島に転移して上甲板の敵を狙う。",
-      "alternativeRoute": "gun:通常 45°/85% → gun:通常 45°/85% → gun:通常 45°/85% → gun:通常 45°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差12。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚3箇所を独立配置。作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。。",
+      "basicRoute": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
+      "alternativeRoute": "通常 75°/95% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "下段の洞窟を抜ける曲射か、中央浮島に転移して上甲板の敵を狙う。",
+      "hint": "作業桁の下を通した反射弾を雲へ入れるか、上昇棚からUで船外へ送る。",
       "enemyInteraction": {
         "spawn": [
-          86,
-          27.0
+          148,
+          64
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5189,46 +5062,40 @@
       "testResult": {
         "stage": 86,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          4
-        ],
+        "blueprintSha256": "442a6d51bebdef876218303df9b91769b6bd9a08d2a51ff6f66c2a5c1a9784ce",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 6.406,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "2b0812b1c1c92220d3b14a625c400fdeb65efeee57e4f458f28076bd0748d72f"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 5,
-        "description": "rin:転移 56°/55% → rin:通常 45°/65% → rin:通常 45°/65% → rin:通常 15°/85% → rin:通常 15°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "通常 75°/95% → 必殺 45°/100% → 通常 45°/100% → 必殺 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 86,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "gun:通常 45°/85% → gun:通常 45°/85% → gun:通常 45°/85% → gun:通常 45°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "通常 75°/95% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100% → 通常 45°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 86,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5236,23 +5103,23 @@
       "stage": 87,
       "difficultyBand": "超上級",
       "theme": "嵐の空母",
-      "learningGoal": "橋の閉じる側から転移し、雲の先の射点を取る",
+      "learningGoal": "固定P0で橋の遮蔽状態を読みCを通すか、雲外の固定棚へ移ってCを避けるか選ぶ。",
       "mainGimmicks": [
         "B",
         "C"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差25。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。橋の閉じる側から転移し、雲の先の射点を取る。",
-      "basicRoute": "橋の閉じる側から転移し、雲の先の射点を取る",
-      "alternativeRoute": "破壊 60°/90% → 転移 56°/75% → 通常 96°/100% → 通常 96°/100% → 通常 96°/100% → 通常 96°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。割れた壁1箇所を独立配置。橋は通行必須の経路ではなく固定P0前方の可動荷役板。起立時に低い線を遮り、P0からは上を越してCへ入れる構想。任意に雲外のAへ転移してCを避ける。遮板破壊は任意。。",
+      "basicRoute": "橋は通行必須の経路ではなく固定P0前方の可動荷役板。起立時に低い線を遮り、P0からは上を越してCへ入れる構想。任意に雲外のAへ転移してCを避ける。遮板破壊は任意。",
+      "alternativeRoute": "通常 117°/100% → 通常 117°/100% → 通常 117°/100% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "hibari",
         "reason": "視線が通る相手の近くで炸裂し、窓からの距離の誤差を補える。"
       },
-      "hint": "橋の閉じる側から転移し、雲の先の射点を取る",
+      "hint": "固定P0で橋の遮蔽状態を読みCを通すか、雲外の固定棚へ移ってCを避けるか選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          28.0
+          165,
+          50
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5278,42 +5145,40 @@
       "testResult": {
         "stage": 87,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          6,
-          6
-        ],
+        "blueprintSha256": "29f591ed68d4a709d92c2877ec55f34664a3eb96d33743f4242e190e9602aeaf",
         "recommendedCharacter": "hibari",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 4,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 3,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "316efcdd3b0d83b0f6bb7bc1d27a95b734649a472048b024508c30a386a967f6"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "hibari",
-        "actions": 5,
-        "description": "転移 64°/75% → 必殺 96°/45% → 通常 96°/50% → 必殺 96°/45% → 通常 96°/50%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 117°/100% → 通常 117°/100% → 必殺 117°/100% → 必殺 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 87,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 6,
-        "description": "破壊 60°/90% → 転移 56°/75% → 通常 96°/100% → 通常 96°/100% → 通常 96°/100% → 通常 96°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 117°/100% → 通常 117°/100% → 通常 117°/100% → 通常 117°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 87,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5321,23 +5186,23 @@
       "stage": 88,
       "difficultyBand": "超上級",
       "theme": "嵐の空母",
-      "learningGoal": "下段で屋根を割り、次に上段から落下弾を送る",
+      "learningGoal": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
       "mainGimmicks": [
         "F",
         "K"
       ],
-      "terrainIntent": "床の高低差19。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。下段で屋根を割り、次に上段から落下弾を送る。",
-      "basicRoute": "下段で屋根を割り、次に上段から落下弾を送る",
-      "alternativeRoute": "破壊 36°/85% → 転移 48°/75% → 通常 102°/75% → 通常 102°/75% → 通常 102°/75% → 通常 102°/75%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差51。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚2箇所を独立配置。開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。。",
+      "basicRoute": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
+      "alternativeRoute": "通常 123°/100% → 転移 120°/100% → 通常 93°/80% → 通常 93°/80% → 通常 93°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "sora",
         "reason": "高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。"
       },
-      "hint": "下段で屋根を割り、次に上段から落下弾を送る",
+      "hint": "開いた整備口の底からFへ入れるか、東庇の上からKの角度を使う。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          27.0
+          140,
+          61
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5363,42 +5228,40 @@
       "testResult": {
         "stage": 88,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          6
-        ],
+        "blueprintSha256": "f9609351d699b5e6740385a3ab80d5768cdfa93bbd2596d279de81c011234fd2",
         "recommendedCharacter": "sora",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.46,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "505715677d667693413bc7532926d7c4a17992907a6b63cadc3a8c527b59d5eb"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "sora",
-        "actions": 5,
-        "description": "破壊 36°/50% → 必殺 56°/90% → 通常 18°/95% → 必殺 56°/90% → 通常 18°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 123°/100% → 転移 120°/100% → 必殺 98°/85% → 必殺 98°/85%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 88,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 6,
-        "description": "破壊 36°/85% → 転移 48°/75% → 通常 102°/75% → 通常 102°/75% → 通常 102°/75% → 通常 102°/75%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "通常 123°/100% → 転移 120°/100% → 通常 93°/80% → 通常 93°/80% → 通常 93°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 88,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5406,23 +5269,23 @@
       "stage": 89,
       "difficultyBand": "超上級",
       "theme": "嵐の空母",
-      "learningGoal": "正面の壁、鏡の下路、高棚の転移を比較して選ぶ",
+      "learningGoal": "外甲板のC越し弧、装甲の切欠き、船底の逆向きW反射へ準備を振り分ける。",
       "mainGimmicks": [
         "C",
         "W"
       ],
-      "terrainIntent": "床の高低差18。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。中継棚1箇所を独立配置。正面の壁、鏡の下路、高棚の転移を比較して選ぶ。",
-      "basicRoute": "正面の壁、鏡の下路、高棚の転移を比較して選ぶ",
-      "alternativeRoute": "通常 48°/90% → 通常 0°/100% → 通常 0°/100% → 通常 24°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。外甲板P0からCを通して装甲の上を狙う構想。任意にD04を開いて低めの弧、またはBへ転移し左へ歩いてWに逆向き入射、右上へ返す構想。全経路を同時に必須にしない。。",
+      "basicRoute": "外甲板P0からCを通して装甲の上を狙う構想。任意にD04を開いて低めの弧、またはBへ転移し左へ歩いてWに逆向き入射、右上へ返す構想。全経路を同時に必須にしない。",
+      "alternativeRoute": "通常 123°/100% → 通常 123°/100% → 通常 57°/100% → 通常 123°/100% → 通常 57°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "正面の壁、鏡の下路、高棚の転移を比較して選ぶ",
+      "hint": "外甲板のC越し弧、装甲の切欠き、船底の逆向きW反射へ準備を振り分ける。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          24.0
+          165,
+          50
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5448,42 +5311,40 @@
       "testResult": {
         "stage": 89,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          4,
-          6
-        ],
+        "blueprintSha256": "7683ddfe2debbed6e698ccb74609c6fd714ab782147cb2cd90658b58bb7aa20c",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
-        "recommendedActions": 5,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "9e6ded38b22100646b448f3c33d066ef087ba314276f25fac87fbeb374f60039"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
-        "actions": 5,
-        "description": "転移 64°/75% → 必殺 150°/55% → 通常 96°/50% → 必殺 150°/55% → 通常 96°/50%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 4,
+        "description": "通常 123°/100% → 通常 123°/100% → 必殺 63°/95% → 必殺 63°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 89,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 4,
-        "description": "通常 48°/90% → 通常 0°/100% → 通常 0°/100% → 通常 24°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "通常 123°/100% → 通常 123°/100% → 通常 57°/100% → 通常 123°/100% → 通常 57°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 89,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5491,23 +5352,23 @@
       "stage": 90,
       "difficultyBand": "最終試練",
       "theme": "嵐の空母",
-      "learningGoal": "下段の風陰から射線を作り、中段に転移して雲の端を使い、上空の主砲と推進器を狙い分ける。",
+      "learningGoal": "船尾の上向き弧、中央通路の射出口、船首砲座上からの浅い弧を使い分ける。",
       "mainGimmicks": [
         "C",
         "F"
       ],
-      "terrainIntent": "床の高低差21。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚2箇所を独立配置。下段の風陰から射線を作り、中段に転移して雲の端を使い、上空の主砲と推進器を狙い分ける。。",
-      "basicRoute": "下段の風陰から射線を作り、中段に転移して雲の端を使い、上空の主砲と推進器を狙い分ける。",
-      "alternativeRoute": "左へ125px歩行→gun:通常 110°/99% → gun:通常 110°/99% → gun:通常 111°/95% → gun:通常 111°/95% → gun:通常 111°/95%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差40。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚3箇所を独立配置。船尾の上向き弧、中央通路の射出口、船首砲座上からの浅い弧を使い分ける。。",
+      "basicRoute": "船尾の上向き弧、中央通路の射出口、船首砲座上からの浅い弧を使い分ける。",
+      "alternativeRoute": "通常 3°/95% → 通常 9°/95% → 通常 -9°/90% → 通常 9°/100% → 通常 9°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "下段の風陰から射線を作り、中段に転移して雲の端を使い、上空の主砲と推進器を狙い分ける。",
+      "hint": "船尾の上向き弧、中央通路の射出口、船首砲座上からの浅い弧を使い分ける。",
       "enemyInteraction": {
         "spawn": [
           88,
-          35.0
+          100
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5533,46 +5394,40 @@
       "testResult": {
         "stage": 90,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "fd98ad40929440764f5c531aa09d1bbeeda52b7ef27663fa4476095784322abc",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 28,
-        "minimumRemainingHp": 4.800000000000001,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "951364d8542160b7594723c0549c0aac7ca801d246e8beb2c019760feb0331bb"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
-        "actions": 6,
-        "description": "yui:転移 112°/75% → 左へ72.3704px歩行→yui:通常 110°/99% → yui:通常 111°/95% → yui:通常 111°/95% → yui:通常 111°/95% → yui:通常 111°/95%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "必殺 51°/90% → 必殺 51°/90% → 必殺 9°/95% → 通常 -3°/80% → 通常 -3°/80%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 90,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "左へ125px歩行→gun:通常 110°/99% → gun:通常 110°/99% → gun:通常 111°/95% → gun:通常 111°/95% → gun:通常 111°/95%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 3°/95% → 通常 9°/95% → 通常 -9°/90% → 通常 9°/100% → 通常 9°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 90,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5580,23 +5435,23 @@
       "stage": 91,
       "difficultyBand": "最終試練",
       "theme": "要塞の重層門",
-      "learningGoal": "低い正門と高い側面の二つの破壊順を比較し、敵の高い砲座へ到達する。",
+      "learningGoal": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
       "mainGimmicks": [
         "K",
         "W"
       ],
-      "terrainIntent": "床の高低差14。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。低い正門と高い側面の二つの破壊順を比較し、敵の高い砲座へ到達する。。",
-      "basicRoute": "低い正門と高い側面の二つの破壊順を比較し、敵の高い砲座へ到達する。",
-      "alternativeRoute": "gun:通常 74°/96% → gun:通常 63°/80% → gun:通常 63°/80% → gun:通常 63°/75% → gun:通常 63°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差22。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁4箇所を独立配置。中継棚2箇所を独立配置。右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。。",
+      "basicRoute": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
+      "alternativeRoute": "通常 69°/90% → 通常 117°/90% → 通常 111°/100% → 通常 111°/100% → 通常 75°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "低い正門と高い側面の二つの破壊順を比較し、敵の高い砲座へ到達する。",
+      "hint": "右の正門だけを開いて床Wで返すか、左の側門だけを開いてKから落とす。",
       "enemyInteraction": {
         "spawn": [
-          87,
-          24.0
+          83,
+          50
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5622,46 +5477,40 @@
       "testResult": {
         "stage": 91,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "6f2d39b0d5cc5f0239372991e6ab58d1868d8b93541ecc81109a44872ff80f93",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.35,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "640ecf196577b2942e633977a169225fb9080c4b166c2169a770cff57a7e05b0"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
-        "actions": 6,
-        "description": "rin:転移 64°/55% → rin:通常 45°/65% → rin:通常 57°/85% → rin:通常 51°/65% → rin:通常 45°/70% → rin:通常 3°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 4,
+        "description": "通常 69°/90% → 必殺 117°/90% → 通常 111°/100% → 必殺 111°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 91,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "gun:通常 74°/96% → gun:通常 63°/80% → gun:通常 63°/80% → gun:通常 63°/75% → gun:通常 63°/75%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 69°/90% → 通常 117°/90% → 通常 111°/100% → 通常 111°/100% → 通常 75°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 91,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5669,23 +5518,23 @@
       "stage": 92,
       "difficultyBand": "最終試練",
       "theme": "要塞の重層門",
-      "learningGoal": "下棚と上棚を順に確保し、磁場を避ける中継点を取る",
+      "learningGoal": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
       "mainGimmicks": [
         "F",
         "M"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差27。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚2箇所を独立配置。下棚と上棚を順に確保し、磁場を避ける中継点を取る。",
-      "basicRoute": "下棚と上棚を順に確保し、磁場を避ける中継点を取る",
-      "alternativeRoute": "破壊 48°/75% → 右へ9.0歩行 → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差6。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚3箇所を独立配置。中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。。",
+      "basicRoute": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
+      "alternativeRoute": "転移 84°/70% → 通常 75°/95% → 通常 123°/100% → 通常 141°/100% → 通常 153°/95% → 通常 165°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "下棚と上棚を順に確保し、磁場を避ける中継点を取る",
+      "hint": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          29.0
+          134,
+          94
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5711,42 +5560,40 @@
       "testResult": {
         "stage": 92,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          10,
-          12
-        ],
+        "blueprintSha256": "8227361d086055f22d9f122a48358d43558616190cbce127e30a02354d766927",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
-        "recommendedActions": 4,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 6,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "31d1d2e614199854be53b6d7c760c80a1eeb3a77b2a67350e52b889ca8e7fd2d"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
-        "actions": 4,
-        "description": "通常 42°/65% → 必殺 42°/70% → 通常 42°/65% → 必殺 42°/70%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "転移 84°/70% → 必殺 75°/95% → 通常 75°/90% → 必殺 75°/95% → 通常 75°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 92,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 10,
-        "description": "破壊 48°/75% → 右へ9.0歩行 → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 6,
+        "description": "転移 84°/70% → 通常 75°/95% → 通常 123°/100% → 通常 141°/100% → 通常 153°/95% → 通常 165°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 92,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5754,24 +5601,22 @@
       "stage": 93,
       "difficultyBand": "最終試練",
       "theme": "要塞の重層門",
-      "learningGoal": "噴出の予告を見て割る天井窓を選び、高所から低所の敵へ射線を作る。",
+      "learningGoal": "左から右へ、天井→床の二反射か、床→天井→床の三反射を構想する。",
       "mainGimmicks": [
-        "K",
-        "V",
         "W"
       ],
-      "terrainIntent": "床の高低差16。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。噴出の予告を見て割る天井窓を選び、高所から低所の敵へ射線を作る。。",
-      "basicRoute": "噴出の予告を見て割る天井窓を選び、高所から低所の敵へ射線を作る。",
-      "alternativeRoute": "gun:通常 69°/80% → gun:通常 69°/80% → gun:通常 60°/71% → gun:通常 69°/80% → gun:通常 51°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差8。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚1箇所を独立配置。左から右へ、天井→床の二反射か、床→天井→床の三反射を構想する。。",
+      "basicRoute": "左から右へ、天井→床の二反射か、床→天井→床の三反射を構想する。",
+      "alternativeRoute": "通常 27°/70% → 通常 27°/70% → 通常 27°/70% → 通常 27°/65% → 通常 27°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "mogu",
         "reason": "出力で前進間隔を変える連続爆破で、外す地形を選べる。"
       },
-      "hint": "噴出の予告を見て割る天井窓を選び、高所から低所の敵へ射線を作る。",
+      "hint": "左から右へ、天井→床の二反射か、床→天井→床の三反射を構想する。",
       "enemyInteraction": {
         "spawn": [
-          88,
-          9.0
+          142,
+          10
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5797,46 +5642,40 @@
       "testResult": {
         "stage": 93,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "2777b1ebb590e6d84c2e3b4a1c52b16a5cc68f756084b3673c953a317633c5f3",
         "recommendedCharacter": "mogu",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 4.800000000000001,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "a85826dcf5cc7f39ce49ac5f00896fb9d2d857b6b746e73acf2bc797f160ea89"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "mogu",
-        "actions": 6,
-        "description": "mogu:転移 0°/35% → mogu:通常 63°/35% → mogu:通常 87°/65% → mogu:通常 -9°/55% → mogu:通常 3°/35% → mogu:通常 -9°/60%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 5,
+        "description": "通常 27°/70% → 必殺 45°/55% → 通常 27°/70% → 必殺 45°/55% → 通常 27°/70%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 93,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "gun:通常 69°/80% → gun:通常 69°/80% → gun:通常 60°/71% → gun:通常 69°/80% → gun:通常 51°/65%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 27°/70% → 通常 27°/70% → 通常 27°/70% → 通常 27°/65% → 通常 27°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 93,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5844,24 +5683,24 @@
       "stage": 94,
       "difficultyBand": "最終試練",
       "theme": "要塞の重層門",
-      "learningGoal": "遠い棚へ転移し、雲の外から横向きの反射を狙う",
+      "learningGoal": "右の高い構造材から雲を通して外板の一片へ落とすか、左船首へ回りWとMから逆向きに送る。",
       "mainGimmicks": [
         "C",
         "M",
         "W"
       ],
-      "terrainIntent": "床の高低差23。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。中継棚1箇所を独立配置。遠い棚へ転移し、雲の外から横向きの反射を狙う。",
-      "basicRoute": "遠い棚へ転移し、雲の外から横向きの反射を狙う",
-      "alternativeRoute": "左へ12.0歩行 → 通常 150°/70% → 破壊 114°/95% → 左へ0.5歩行 → 通常 144°/100% → 右へ18.0歩行 → 通常 48°/85% → 通常 54°/90% → 左へ12.0歩行 → 通常 120°/100% → 通常 126°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差20。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片2箇所を独立配置。中継棚2箇所を独立配置。右の高い構造材から雲を通して外板の一片へ落とすか、左船首へ回りWとMから逆向きに送る。。",
+      "basicRoute": "右の高い構造材から雲を通して外板の一片へ落とすか、左船首へ回りWとMから逆向きに送る。",
+      "alternativeRoute": "通常 -3°/90% → 通常 -3°/100% → 通常 -3°/90% → 通常 -3°/100% → 通常 -3°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "遠い棚へ転移し、雲の外から横向きの反射を狙う",
+      "hint": "右の高い構造材から雲を通して外板の一片へ落とすか、左船首へ回りWとMから逆向きに送る。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          27.0
+          89,
+          34
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5887,42 +5726,40 @@
       "testResult": {
         "stage": 94,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          7,
-          7
-        ],
+        "blueprintSha256": "0464e53fc5f795abf01e9c8af19601ff5b88b60d133150954d530be2e6b2e75f",
         "recommendedCharacter": "rico",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "2099423be47d3f3f880249c92c7da84129fa9e69a18486d6321265cabc200fc6"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rico",
         "actions": 5,
-        "description": "転移 64°/75% → 必殺 162°/80% → 通常 96°/50% → 必殺 162°/80% → 通常 96°/50%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 -3°/90% → 必殺 -15°/20% → 通常 3°/90% → 必殺 -15°/30% → 通常 3°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 94,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 7,
-        "description": "左へ12.0歩行 → 通常 150°/70% → 破壊 114°/95% → 左へ0.5歩行 → 通常 144°/100% → 右へ18.0歩行 → 通常 48°/85% → 通常 54°/90% → 左へ12.0歩行 → 通常 120°/100% → 通常 126°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "通常 -3°/90% → 通常 -3°/100% → 通常 -3°/90% → 通常 -3°/100% → 通常 -3°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 94,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -5930,23 +5767,23 @@
       "stage": 95,
       "difficultyBand": "最終試練",
       "theme": "要塞の重層門",
-      "learningGoal": "盾を停止してから、二つの窓の安全な方へ移る",
+      "learningGoal": "右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。",
       "mainGimmicks": [
         "F",
         "M"
       ],
-      "terrainIntent": "床の高低差13。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。盾を停止してから、二つの窓の安全な方へ移る。",
-      "basicRoute": "盾を停止してから、二つの窓の安全な方へ移る",
-      "alternativeRoute": "通常 36°/95% → 通常 48°/95% → 通常 48°/95% → 通常 48°/95% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差8。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁3箇所を独立配置。天井片2箇所を独立配置。中継棚2箇所を独立配置。右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。。",
+      "basicRoute": "右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。",
+      "alternativeRoute": "通常 75°/90% → 通常 75°/90% → 通常 75°/90% → 通常 57°/95% → 通常 69°/95% → 通常 69°/95% → 通常 69°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "盾を停止してから、二つの窓の安全な方へ移る",
+      "hint": "右下Mで既存のシールドドライブを狙い、破壊後は左の風窓から同座標の露出核へ角度を変える。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          20.0
+          84,
+          44
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -5972,42 +5809,40 @@
       "testResult": {
         "stage": 95,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          7,
-          7
-        ],
+        "blueprintSha256": "8a55664aca656b63d3c08e76203148f29b3f227b12786d8870aa94e91d81b1d0",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
         "recommendedActions": 4,
+        "hardGunWin": true,
+        "hardGunActions": 7,
         "nativeActionLimit": 24,
-        "minimumRemainingHp": 4.5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "e44682bc8cf1b565b7b6cd9e0f022e57dea758bd12d6b6ef5a9154502eaeaf73"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
         "actions": 4,
-        "description": "必殺 36°/60% → 必殺 36°/90% → 必殺 36°/85% → 通常 36°/80%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "必殺 75°/90% → 必殺 99°/95% → 必殺 75°/95% → 通常 51°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 95,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 7,
-        "description": "通常 36°/95% → 通常 48°/95% → 通常 48°/95% → 通常 48°/95% → 通常 24°/100% → 通常 24°/100% → 通常 24°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 75°/90% → 通常 75°/90% → 通常 75°/90% → 通常 57°/95% → 通常 69°/95% → 通常 69°/95% → 通常 69°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 95,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -6015,24 +5850,24 @@
       "stage": 96,
       "difficultyBand": "最終試練",
       "theme": "夜明けの核",
-      "learningGoal": "下段で磁極を切り替え、反射路から高い敵側門へ通す。",
+      "learningGoal": "環の内側から西門を一片開きW/Mをつなぐか、開いた環頂から外周棚へ出る。",
       "mainGimmicks": [
         "M",
         "T",
         "W"
       ],
-      "terrainIntent": "床の高低差15。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁2箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。下段で磁極を切り替え、反射路から高い敵側門へ通す。。",
-      "basicRoute": "下段で磁極を切り替え、反射路から高い敵側門へ通す。",
-      "alternativeRoute": "gun:通常 63°/80% → gun:通常 63°/80% → gun:通常 9°/85% → gun:通常 9°/85% → gun:通常 9°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+      "terrainIntent": "床の高低差37。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁4箇所を独立配置。中継棚3箇所を独立配置。環の内側から西門を一片開きW/Mをつなぐか、開いた環頂から外周棚へ出る。。",
+      "basicRoute": "環の内側から西門を一片開きW/Mをつなぐか、開いた環頂から外周棚へ出る。",
+      "alternativeRoute": "通常 -15°/60% → 転移 42°/95% → 通常 3°/60% → 通常 3°/60% → 通常 3°/60% → 通常 15°/65% → 通常 9°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "下段で磁極を切り替え、反射路から高い敵側門へ通す。",
+      "hint": "環の内側から西門を一片開きW/Mをつなぐか、開いた環頂から外周棚へ出る。",
       "enemyInteraction": {
         "spawn": [
-          88,
-          23.0
+          26,
+          49
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -6058,46 +5893,40 @@
       "testResult": {
         "stage": 96,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "dffa7eb4aa6df435185e9fa66d6447153c7c615eb1f51e97802e032044d946ed",
         "recommendedCharacter": "rin",
         "recommendedWin": true,
         "recommendedActions": 6,
+        "hardGunWin": true,
+        "hardGunActions": 7,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.5424999999999995,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索の成立と、人の操作難易度・初見理解・勝率を区別する。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
-          "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
-          "../../evidence/map-revision-0220/FINAL100_MATCHES.json",
-          "../../evidence/map-revision-0220/TERMINAL_ROUTE.json"
-        ],
-        "blueprintSha256": "d924bc8e99b291f7cdb294b520e89261769d2f8ef5c296f57dcbedefc118277f"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "rin",
         "actions": 6,
-        "description": "rin:転移 96°/55% → rin:通常 60°/83% → rin:通常 69°/95% → rin:通常 56°/83% → rin:通常 57°/85% → rin:通常 57°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "description": "通常 -15°/65% → 転移 42°/95% → 必殺 3°/60% → 必殺 3°/60% → 通常 3°/60% → 必殺 15°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/RECOMMENDED_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 96,
-          "seed": 4697,
-          "strategy": "shelf"
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 5,
-        "description": "gun:通常 63°/80% → gun:通常 63°/80% → gun:通常 9°/85% → gun:通常 9°/85% → gun:通常 9°/85%。新地形・通常難易度・敵反撃を含む実エンジンの成立例。人の難易度測定ではない。",
+        "actions": 7,
+        "description": "通常 -15°/60% → 転移 42°/95% → 通常 3°/60% → 通常 3°/60% → 通常 3°/60% → 通常 15°/65% → 通常 9°/65%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/map-revision-0220/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 96,
-          "seed": 4697,
-          "strategy": "direct"
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -6105,23 +5934,24 @@
       "stage": 97,
       "difficultyBand": "最終試練",
       "theme": "夜明けの核",
-      "learningGoal": "三つの高さを使い、次に撃つ窓の前へ安全に渡る",
+      "learningGoal": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
       "mainGimmicks": [
         "F",
-        "K"
+        "K",
+        "U"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差28。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。中継棚2箇所を独立配置。三つの高さを使い、次に撃つ窓の前へ安全に渡る。",
-      "basicRoute": "三つの高さを使い、次に撃つ窓の前へ安全に渡る",
-      "alternativeRoute": "通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 破壊 24°/85% → 破壊 30°/95% → 右へ9.0歩行 → 通常 60°/100% → 通常 60°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差8。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚3箇所を独立配置。低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。。",
+      "basicRoute": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
+      "alternativeRoute": "通常 129°/80% → 通常 129°/80% → 通常 123°/100% → 通常 129°/80% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "sora",
         "reason": "高い弧の頂点から落下弾を広げ、山や遮蔽の裏へ届かせる。"
       },
-      "hint": "三つの高さを使い、次に撃つ窓の前へ安全に渡る",
+      "hint": "低島からUで開始島を越すか、中段からKへ一度逆向きに入れるか、高島からFと窓を使う。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          26.471
+          156,
+          31
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -6147,42 +5977,40 @@
       "testResult": {
         "stage": 97,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          8,
-          10
-        ],
+        "blueprintSha256": "ada14f912b2a1bb5709d498dd1c7f77b3e3233e638636558a208ea62bda279bb",
         "recommendedCharacter": "sora",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 5,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "71c4d1f50cb27360d900679174fd542642f9e6cdcec00fc755e2b2d3e0e6ead2"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "sora",
         "actions": 5,
-        "description": "転移 72°/95% → 必殺 98°/80% → 通常 96°/55% → 必殺 98°/80% → 通常 96°/55%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "通常 129°/80% → 通常 129°/80% → 通常 123°/100% → 通常 129°/80% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 97,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 10,
-        "description": "通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 通常 48°/100% → 破壊 24°/85% → 破壊 30°/95% → 右へ9.0歩行 → 通常 60°/100% → 通常 60°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "通常 129°/80% → 通常 129°/80% → 通常 123°/100% → 通常 129°/80% → 通常 123°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 97,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -6190,24 +6018,24 @@
       "stage": 98,
       "difficultyBand": "最終試練",
       "theme": "夜明けの核",
-      "learningGoal": "橋が変わっても残る低路を作り、噴出の外へ渡る",
+      "learningGoal": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
       "mainGimmicks": [
         "B",
         "V",
         "W"
       ],
-      "terrainIntent": "床の高低差19。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。中継棚1箇所を独立配置。橋が変わっても残る低路を作り、噴出の外へ渡る。",
-      "basicRoute": "橋が変わっても残る低路を作り、噴出の外へ渡る",
-      "alternativeRoute": "通常 24°/90% → 右へ11.8歩行 → 通常 54°/95% → 通常 54°/90% → 通常 54°/100% → 左へ12.0歩行 → 通常 114°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。中継棚9箇所を独立配置。西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。。",
+      "basicRoute": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
+      "alternativeRoute": "通常 33°/90% → 通常 57°/100% → 通常 33°/90% → 通常 57°/100% → 通常 33°/90% → 通常 57°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "koro",
         "reason": "床で走り、短い空隙では落下して再び接地する必殺が連続面を活かす。"
       },
-      "hint": "橋が変わっても残る低路を作り、噴出の外へ渡る",
+      "hint": "西の橋が水平な間に中継へ渡り、東の橋が下降した間の降下帯を使う。次の状態では東側の独立低島を選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          25.0
+          183,
+          26
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -6233,42 +6061,40 @@
       "testResult": {
         "stage": 98,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          5,
-          5
-        ],
+        "blueprintSha256": "14e2ea0e8717934767e2d9ef8bdf5d0fd2c81371fc8ba1ed7f83db78d52f2f41",
         "recommendedCharacter": "koro",
         "recommendedWin": true,
-        "recommendedActions": 6,
+        "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 6,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 5.675,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "72535498875041b91ee5b1a23af933d51d2206ff0f04f03d23e0e17ba118608f"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "koro",
-        "actions": 6,
-        "description": "転移 64°/75% → 必殺 96°/65% → 通常 96°/55% → 必殺 96°/65% → 通常 96°/55% → 必殺 96°/65%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 5,
+        "description": "通常 33°/90% → 必殺 57°/100% → 通常 33°/90% → 必殺 57°/100% → 通常 33°/90%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 98,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 5,
-        "description": "通常 24°/90% → 右へ11.8歩行 → 通常 54°/95% → 通常 54°/90% → 通常 54°/100% → 左へ12.0歩行 → 通常 114°/100%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "actions": 6,
+        "description": "通常 33°/90% → 通常 57°/100% → 通常 33°/90% → 通常 57°/100% → 通常 33°/90% → 通常 57°/100%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 98,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },
@@ -6276,24 +6102,24 @@
       "stage": 99,
       "difficultyBand": "最終試練",
       "theme": "夜明けの核",
-      "learningGoal": "門を割り、雲の手前の射点から反射か高弾道を選ぶ",
+      "learningGoal": "中央の短い中継島、谷の低い鏡島、敵側の外周高所から、弧・W/C/M・逆向き射撃を選ぶ。",
       "mainGimmicks": [
         "C",
         "M",
         "W"
       ],
-      "terrainIntent": "床の高低差15。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片2箇所を独立配置。中継棚1箇所を独立配置。門を割り、雲の手前の射点から反射か高弾道を選ぶ。",
-      "basicRoute": "門を割り、雲の手前の射点から反射か高弾道を選ぶ",
-      "alternativeRoute": "破壊 48°/90% → 破壊 -6°/95% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+      "terrainIntent": "床の高低差63。坂の肩と裾で砲口の高さと遮蔽が変わる。中継棚3箇所を独立配置。中央の短い中継島、谷の低い鏡島、敵側の外周高所から、弧・W/C/M・逆向き射撃を選ぶ。。",
+      "basicRoute": "中央の短い中継島、谷の低い鏡島、敵側の外周高所から、弧・W/C/M・逆向き射撃を選ぶ。",
+      "alternativeRoute": "転移 54°/100% → 通常 -9°/55% → 通常 -15°/50% → 通常 -9°/55% → 通常 -15°/50% → 通常 -9°/55%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
       "advantage": {
         "character": "yui",
         "reason": "着弾地点への牽引と遅延圧縮で、次の射線へ相手を誘導できる。"
       },
-      "hint": "門を割り、雲の手前の射点から反射か高弾道を選ぶ",
+      "hint": "中央の短い中継島、谷の低い鏡島、敵側の外周高所から、弧・W/C/M・逆向き射撃を選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          82,
-          23.0
+          174,
+          18
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -6319,42 +6145,40 @@
       "testResult": {
         "stage": 99,
         "status": "PASS",
-        "gunSeedWins": 3,
-        "gunActions": [
-          6,
-          7
-        ],
+        "blueprintSha256": "2e713b0494ad463ea1e2fd8d1cf99804aa84efe17c174b766f7f17f23809a23f",
         "recommendedCharacter": "yui",
         "recommendedWin": true,
         "recommendedActions": 5,
+        "hardGunWin": true,
+        "hardGunActions": 6,
         "nativeActionLimit": 20,
-        "minimumRemainingHp": 6,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未確認。自動探索は人の狙いやすさ・楽しさ・勝率の測定ではない。",
+        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
         "reports": [
-          "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
-          "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json"
-        ],
-        "blueprintSha256": "186f8ebf1dc666e3c4f813d0c99557c5a0c4dd7be60d41b830b12bf3393e1f50"
+          "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
+          "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json"
+        ]
       },
       "basicRouteProof": {
         "character": "yui",
         "actions": 5,
-        "description": "破壊 48°/55% → 必殺 42°/75% → 通常 42°/65% → 必殺 42°/75% → 通常 42°/65%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "転移 54°/100% → 必殺 -15°/50% → 通常 -15°/50% → 必殺 -15°/50% → 通常 -15°/50%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/TACTICAL_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_recommended_normal.json",
           "stage": 99,
-          "seedVariant": null
+          "difficulty": "normal",
+          "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 6,
-        "description": "破壊 48°/90% → 破壊 -6°/95% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/95%。敵の手番を含む実戦の成立例。座標は設計スケール、角度はその時点の車体正面から。",
+        "description": "転移 54°/100% → 通常 -9°/55% → 通常 -15°/50% → 通常 -9°/55% → 通常 -15°/50% → 通常 -9°/55%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
         "evidence": {
-          "report": "../../evidence/chapter-flow-0170/matches/CAMPAIGN_MATCHES.json",
+          "report": "../../evidence/maps-0240/MATCHES_76_99_gun_hard.json",
           "stage": 99,
-          "seedVariant": 1
+          "difficulty": "hard",
+          "seed": 4697
         }
       }
     },

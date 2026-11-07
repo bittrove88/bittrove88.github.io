@@ -20,7 +20,8 @@ for level in levels:
     assert level['themeName'] == campaign['themes'][index // 5]['name']
     assert len(level['skills']) <= 2
     assert all(len(floor) >= 2 for floor in level['floors'])
-    assert all(all(a[0] < b[0] for a, b in zip(floor, floor[1:])) for floor in level['floors'])
+    # A vertical cliff is a valid polygon edge; floorY skips it as a support.
+    assert all(all(a[0] <= b[0] and a != b for a, b in zip(floor, floor[1:])) for floor in level['floors'])
     assert all(f['type'] in 'SRBWCKUFVMT' for f in level['features'])
     assert level['contentRevision'] == '5.0'
     assert level['teleport'] == (level['id'] >= 4)
