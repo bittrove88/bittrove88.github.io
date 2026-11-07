@@ -8,7 +8,7 @@ for(const file of ['engine.js','geometry.js','physics.js','levels.js','combat.js
  else {const preserved=file==='game.js'?Buffer.from(current.toString().replace(" if(s.spec.boss&&s.stage<100&&!s.spec.midboss)bgm.prepare('VICTORY');\n",'')):current;ok(original.equals(preserved),'preserve latest gameplay/map/save/actor/background source '+file);}
 }
 for(const ref of approval.materials)ok(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,ref.file))).digest('hex')===ref.sha256,'approved source '+ref.file);
-same(C.materials.renderStyle,require('../../design/components/complete/render-style.json'),'all render values come from the approved JSON');
+same(C.materials.renderStyle,{...require('../../design/components/complete/render-style.json'),...approval.runtimeStyleOverrides},'render values come from approved art and the explicit runtime line adjustment');
 same(C.materials.shared,require('../../design/components/complete/shared-materials.json').materials,'functional colors come from one shared source');
 const ids=new Set();
 function inspect(state){const before=JSON.stringify(state),scene=C.sceneFor(state);ids.add(scene.id);ok(scene.id===B.sceneFor(state).id,'component and background scene stay together');same(scene.materials,require(path.join(root,'design/components/complete/data',scene.id+'.json')).materials,'compiled scene keeps authored materials '+scene.id);

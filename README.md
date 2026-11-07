@@ -24,12 +24,17 @@ bittrove88.github.io/
 ├── storymaker/                        # StoryMaker動画ショーケース
 ├── ARCLINE/                           # サービスサイト・段階加入する10機の仲間・個別設計100面・42モデル・23場面の砲撃アドベンチャー
 │   └── updates/0.17.1/index.html        # アップデート告知
+├── ARCLINEver2/                       # 101面以降の主人公・ジョブ・敵キャラクター企画と制作資料（ゲーム未実装）
 ├── career/                            # 職務経歴と更新版Word
 ├── AGENTS.md                          # カタログ更新などの共通ルール
 ├── favicon.svg
 ├── .nojekyll
 └── README.md
 ```
+
+## 設計資料
+
+[ARCLINE Ver.2の仕様・制作資料](ARCLINEver2/README.md) ／ [キャラクター全案記録](ARCLINEver2/04_art/CHARACTER_PLANNING_ARCHIVE.md)。公開ゲームの実装とは別に管理する企画資料です。
 
 ## 公開・運用
 
