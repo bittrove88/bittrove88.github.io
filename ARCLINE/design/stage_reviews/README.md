@@ -1,6 +1,12 @@
-# ARCLINE｜PR #74 マップ設計・改修資料
+# ARCLINE｜マップ設計・改修資料
 
-現在の入口は[レビュー対応記録](PR74_REVIEW_REVISION.md)。25面を個別改修し、残る24面は骨格を維持。全49案が未承認・ゲーム未実装。
+現在の設計判断は[1〜100面を通したマップデザインの考え方](../MAP_DESIGN_PRINCIPLES_001_100.md)を参照。[0.24.0](../../docs/releases/0.24.0.md)で51〜99面を統合し、[0.24.1](../../docs/releases/0.24.1.md)で17・33・36・39・47面の承認済み改訂を統合した。[5面の設計レビュー](idea_refinement_20261107/README.md)／[5面の採用記録](STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json)。
+
+以下は**PR #74時点の履歴**。「未承認」「未実装」「残る検証」や実行コマンドは当時の範囲を表し、現在の全件再検証・旧条件への巻戻しを指示するものではない。
+
+## PR #74 マップ設計・改修資料
+
+当時の入口は[レビュー対応記録](PR74_REVIEW_REVISION.md)。25面を個別改修し、残る24面は骨格を維持。全49案が未承認・ゲーム未実装だった。
 
 [各面の一覧](STAGES_051_099_DESIGN_REVIEW.md)／[比較画面・実入力手順](map_review_gallery.html#stage-051)／[隣接面の同縮尺比較](adjacent_geometry_review.html)
 
