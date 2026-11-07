@@ -23,9 +23,10 @@ for(const file of ['engine.js','physics.js','geometry.js','combat.js','weapons.j
  const before=execFileSync('git',['show','3ebb4c9:ARCLINE/game/dist/'+file],{cwd:root});
  ok(before.equals(fs.readFileSync(path.join(root,'game/dist',file))),'gameplay/save/foreground source preserved '+file);
 }
-// 0.24.0 changes approved51-99 only; the map contract checks their exact sources.
+// The map contract separately pins approved51-99 and the five0.24.1 refinements.
 const oldLevels=execFileSync('git',['show','3ebb4c9:ARCLINE/game/dist/levels.js'],{cwd:root,encoding:'utf8'}),oldModule={exports:{}};require('vm').runInNewContext(oldLevels,{module:oldModule});
-for(const index of [...Array.from({length:50},(_,i)=>i),99])ok(JSON.stringify(E.levels[index])===JSON.stringify(oldModule.exports[index]),'unmodified map data '+(index+1));
+const refinedIds=new Set(require('../../design/stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json').stages.map(r=>r.stage));
+for(const index of [...Array.from({length:50},(_,i)=>i).filter(i=>!refinedIds.has(i+1)),99])ok(JSON.stringify(E.levels[index])===JSON.stringify(oldModule.exports[index]),'unmodified map data '+(index+1));
 const out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-backgrounds';fs.mkdirSync(out,{recursive:true});
 fs.writeFileSync(path.join(out,'BACKGROUNDS_UNIT.json'),JSON.stringify({status:'PASS',checks,artworks:ids.size,stageConditions:103,relay,scope:'Actual campaign and ten-pilot relay,reviewed source equality and byte-preserved gameplay/save/foreground modules against pre-integration main3ebb4c9.'},null,2));
 console.log('PASS backgrounds '+checks);
