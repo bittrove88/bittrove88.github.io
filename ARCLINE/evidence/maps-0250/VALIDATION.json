@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "version": "0.25.0",
-  "nativeChangedMatches": 22,
+  "nativeChangedMatches": 23,
   "unitSuites": 35,
   "generatedFiles": 146,
   "fixedNativeReplay": "tests/unit/APPROVED_MAP_REPLAY.json",
@@ -10,10 +10,40 @@
     "ALL_MAPS_BROWSER.json",
     "THREE_CHANGE_BROWSER.json",
     "SERVICE_SITE.json",
-    "roof/ROOF_BROWSER.json"
+    "roof/ROOF_BROWSER.json",
+    "CEILING_BROWSER.json"
   ],
   "workflow": "One map at a time creation -> native game rendering -> improvement -> limited quality verification, then one final grouped verification. No new per-map regression suite.",
   "humanDevices": "Not performed. Automated checks do not certify human comprehension, fun or completion rates.",
   "integratedMain": "9421d6b2582194290afdda897c0c5f88983eff89",
-  "integrationPreservation": "INTEGRATION_PRESERVATION.json"
+  "integrationPreservation": "INTEGRATION_PRESERVATION.json",
+  "ceilingFeedback": {
+    "stages": [
+      3,
+      4,
+      7,
+      8,
+      16,
+      18,
+      19,
+      23,
+      26,
+      27,
+      29
+    ],
+    "alternateStage16Route": "raised-shelf",
+    "comparison": "../../design/stage_reviews/post_change_20261107/ceiling_review/README.md",
+    "browser": "CEILING_BROWSER.json",
+    "existingReplayMatches": 159
+  },
+  "ci": "Previous e3e4a4a CI failed for missing0.25.0 release page and stale trial expectation. Release page added; trial tests now match main0.24.3 power30 and select the visible difficulty label. Both existing checks passed locally. New remote CI result is separate.",
+  "reports": {
+    "ACCEPTANCE.json": "ccb58fb34ffb123895eac75e3afebcb57a766933e12810cc392f3f6c069c1183",
+    "CEILING_BROWSER.json": "017ee2acf1dd82a79a6881765c6f7c2c5b84f13ae3d5fea09adb64f243950095",
+    "tests/unit/SUITE_UNIT.json": "da169c4e706d33477b29804b61e69b0eab374005ff50d66e77771a3a538f86c1",
+    "tests/unit/APPROVED_MAP_REPLAY.json": "3c9291cfc998e36cc520453b4e215ff714f63abccf57c4ec8684d251a795f74e",
+    "GENERATED.json": "ade653e045617b9c2ae072bb9935ecec4b7ff8a4a2b5c1be558689cc1c92dfa8",
+    "ROOF_LESSON.json": "d456cd16338f668ad5650206b807705bc8539b43dec763c2021ab9eab55f6080",
+    "roof/ROOF_BROWSER.json": "117015960bb7516cfe8223899ca0dcc0b0a2d4ee5fef5be85c51ea9605e60ad9"
+  }
 }

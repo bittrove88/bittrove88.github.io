@@ -216,27 +216,27 @@
           ],
           [
             57,
-            41
+            43
           ],
           [
             82,
-            39
+            43
+          ],
+          [
+            94,
+            40
           ],
           [
             94,
             34
           ],
           [
-            94,
-            22
-          ],
-          [
             80,
-            23
+            33
           ],
           [
             55,
-            22
+            31
           ],
           [
             31,
@@ -266,7 +266,7 @@
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "enemyAirHeight": 0
   },
   {
@@ -311,15 +311,15 @@
           ],
           [
             74,
-            22
+            30
           ],
           [
             65,
-            21
+            29
           ],
           [
             57,
-            22
+            30
           ]
         ]
       }
@@ -390,7 +390,7 @@
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "enemyAirHeight": 0
   },
   {
@@ -732,19 +732,19 @@
           ],
           [
             89,
-            20
+            28
           ],
           [
             75,
-            23
+            31
           ],
           [
             58,
-            22
+            30
           ],
           [
             44,
-            25
+            31
           ]
         ]
       },
@@ -759,11 +759,11 @@
           ],
           [
             39,
-            27
+            32
           ],
           [
             44,
-            27
+            32
           ],
           [
             44,
@@ -790,7 +790,7 @@
     "route": "岩門のひび割れを一つ壊し、開いた足元へ弾を通す。",
     "nameEn": "The Cracked Cargo Gate",
     "goalEn": "Break the cracked base, then fire through the opening beneath the leaning rock.",
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "floorSegments": [
       [
         [
@@ -913,15 +913,15 @@
           ],
           [
             77,
-            40
+            43
           ],
           [
             84,
-            25
+            34
           ],
           [
             78,
-            21
+            32
           ],
           [
             60,
@@ -940,10 +940,6 @@
           [
             60,
             33
-          ],
-          [
-            78,
-            21
           ]
         ],
         "breakable": false
@@ -958,7 +954,7 @@
     "route": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
     "nameEn": "Beneath the Eaves",
     "goalEn": "Use one bounce from the mirrored eave to reach behind the rock ridge.",
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "spawnPoints": [
       [
         16,
@@ -1957,7 +1953,7 @@
   {
     "stage": 16,
     "name": "遺跡の門扉",
-    "goal": "割れた門板を外し、開口から下の広い射点へ転移する。",
+    "goal": "門を開いて下段へ。岩肩の手前から弧を通すか、中腹の射点へ移る。",
     "floor": [
       [
         0,
@@ -1972,15 +1968,14 @@
       {
         "id": "016-RUIN-VAULT",
         "kind": "roof",
-        "breakable": false,
         "poly": [
           [
             33,
-            33
+            45
           ],
           [
             100,
-            33
+            45
           ],
           [
             100,
@@ -1992,40 +1987,45 @@
           ],
           [
             94,
-            21
+            35
           ],
           [
-            60,
-            21
+            36,
+            35
+          ],
+          [
+            36,
+            23
           ],
           [
             33,
-            21
+            23
           ]
-        ]
+        ],
+        "breakable": false
       },
       {
         "id": "016-CRACKED-ACCESS",
-        "kind": "roof",
-        "breakable": true,
+        "kind": "wall",
         "poly": [
           [
             24,
-            30
+            45
           ],
           [
             33,
-            30
+            45
           ],
           [
             33,
-            21
+            10
           ],
           [
             24,
-            21
+            10
           ]
-        ]
+        ],
+        "breakable": true
       }
     ],
     "features": [],
@@ -2034,10 +2034,10 @@
       17,
       83
     ],
-    "route": "割れた門板を外し、開口から下の広い射点へ転移する。",
+    "route": "門を開いて下段へ。岩肩の手前から弧を通すか、中腹の射点へ移る。",
     "nameEn": "The Ruin Gate",
-    "goalEn": "Break the gate slab, then teleport through the opening to the broad firing floor below.",
-    "terrainRevision": "8.0-post-review-authorized",
+    "goalEn": "Open the gate and descend. Arc over the rock shoulder or take its raised firing shelf.",
+    "terrainRevision": "8.1-ceiling-review",
     "floorSegments": [
       [
         [
@@ -2052,6 +2052,26 @@
       [
         [
           0,
+          10
+        ],
+        [
+          36,
+          10
+        ],
+        [
+          40,
+          14
+        ],
+        [
+          46,
+          21
+        ],
+        [
+          61,
+          21
+        ],
+        [
+          72,
           10
         ],
         [
@@ -2240,27 +2260,27 @@
           ],
           [
             42,
-            36
+            38
           ],
           [
             66,
-            31
+            42
           ],
           [
             89,
-            23
+            38
           ],
           [
             87,
-            18
+            30
           ],
           [
             64,
-            22
+            32
           ],
           [
             43,
-            25
+            27
           ],
           [
             29,
@@ -2278,7 +2298,7 @@
     "route": "固定の梁へ近付き、上り口の内側から低い床へ通す。",
     "nameEn": "Leave the Return Beam",
     "goalEn": "Walk up beneath the fixed beam and fire from the raised entrance toward the low floor.",
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "spawnPoints": [
       [
         16,
@@ -2373,27 +2393,27 @@
         "poly": [
           [
             77,
-            46
+            53
           ],
           [
             89,
-            47
+            54
           ],
           [
             98,
-            42
+            49
           ],
           [
             97,
-            36
+            44
           ],
           [
             85,
-            36
+            44
           ],
           [
             78,
-            37
+            45
           ]
         ]
       }
@@ -2418,7 +2438,7 @@
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "enemyAirHeight": 0
   },
   {
@@ -3030,23 +3050,23 @@
           ],
           [
             72,
-            39
+            45
           ],
           [
             85,
-            35
+            43
           ],
           [
             96,
-            28
+            39
           ],
           [
             95,
-            22
+            31
           ],
           [
             79,
-            23
+            32
           ],
           [
             66,
@@ -3085,7 +3105,7 @@
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "enemyAirHeight": 0
   },
   {
@@ -3585,27 +3605,27 @@
         "poly": [
           [
             75,
-            29
+            37
           ],
           [
             85,
-            32
+            40
           ],
           [
             97,
-            26
+            34
           ],
           [
             96,
-            20
+            28
           ],
           [
             84,
-            20
+            28
           ],
           [
             77,
-            21
+            29
           ]
         ],
         "breakable": false
@@ -3683,7 +3703,7 @@
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "enemyAirHeight": 0
   },
   {
@@ -3766,35 +3786,35 @@
         "poly": [
           [
             62,
-            25
+            33
           ],
           [
             68,
-            32
+            40
           ],
           [
             79,
-            34
+            42
           ],
           [
             90,
-            32
+            40
           ],
           [
             96,
-            27
+            35
           ],
           [
             94,
-            23
+            31
           ],
           [
             84,
-            23
+            31
           ],
           [
             68,
-            22
+            30
           ]
         ],
         "breakable": false
@@ -3867,7 +3887,7 @@
         ]
       ]
     ],
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "spawnPoints": [
       [
         18,
@@ -4112,19 +4132,31 @@
             31
           ],
           [
-            45,
+            43,
             38
           ],
           [
-            64,
+            43,
+            54
+          ],
+          [
+            52,
+            54
+          ],
+          [
+            52,
             38
           ],
           [
-            70,
+            68,
+            38
+          ],
+          [
+            73,
             33
           ],
           [
-            65,
+            68,
             28
           ],
           [
@@ -4171,27 +4203,27 @@
         "poly": [
           [
             72,
-            57
+            64
           ],
           [
             84,
-            61
+            68
           ],
           [
             98,
-            54
+            61
           ],
           [
             97,
-            45
+            56
           ],
           [
             85,
-            45
+            56
           ],
           [
             73,
-            46
+            57
           ]
         ],
         "breakable": false
@@ -4264,7 +4296,7 @@
       ]
     ],
     "worldWidth": 1000,
-    "terrainRevision": "8.0-post-review-authorized",
+    "terrainRevision": "8.1-ceiling-review",
     "enemyAirHeight": 0
   },
   {
