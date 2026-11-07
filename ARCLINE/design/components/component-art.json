@@ -1,0 +1,133 @@
+{
+  "schema": "arcline.component-art/v0.3",
+  "version": "0.3",
+  "designApproval": {
+    "approved": true,
+    "date": "2026-11-07",
+    "timezone": "Asia/Tokyo",
+    "evidenceQuote": "そういうことです。完璧です。",
+    "scope": [
+      "テーマの素材から独立した配色を設計する制作方針",
+      "破壊材・反射面などの機能部品の共通化",
+      "4面・61面と部品比較シートのv0.3見本"
+    ],
+    "excluded": [
+      "ゲーム実装",
+      "全20テーマの完成",
+      "実ゲーム・実機での視認性合格"
+    ]
+  },
+  "production": {
+    "runtimeIntegrated": false,
+    "baselineCommit": "3ebb4c9383465258bffbc9e5bc3b59d799d5038f",
+    "next": "入江4面の実機体を含む制作見本を用意し、共通部品の状態見本と火山61面へ展開する。"
+  },
+  "renderContract": {
+    "technique": "Opaque matte flat color fields, usually 3-4 major planes per material",
+    "forbidden": [
+      "Gradients",
+      "Blur",
+      "Glow",
+      "Texture/noise",
+      "Image generation",
+      "Fake collider decorations"
+    ],
+    "geometry": "Keep exact current collision polygons, support edges, destruction units, slope threshold, coordinates and field extents. Decorative facets clipped inside original polygons.",
+    "contact": "Subtle light cap only on actual supported upper edges of at most 70 degrees; no cap on a false platform.",
+    "semantics": "Shared gameplay identifiers across themes: identical destructible palette/cracks/destruction-boundary treatment, identical reflector surface/edge/ticks, consistent direction, polarity and ON/OFF symbols. Theme adjustments must preserve these identifiers.",
+    "details": "Screen-pixel edge widths; remove small decorative detail when zoomed out. Preserve essential state symbols.",
+    "background": "Retain the approved background art unchanged. Select ordinary component materials and palettes from the theme setting; match the flat matte rendering grammar while keeping foreground boundaries legible."
+  },
+  "palettePolicy": {
+    "themeSpecific": [
+      "An independent material palette selected for each setting",
+      "Ordinary terrain and platform stone",
+      "Nonfunctional mounts, foundations and supporting material"
+    ],
+    "shared": [
+      "Destructible material palette and crack marks",
+      "Reflective plate and contact-edge palette and surface symbols",
+      "Gameplay state, direction and polarity symbols"
+    ],
+    "integrationRule": "Shared functional components may attach to themed supporting materials. Do not recolor shared gameplay identifiers to match background hues. Resolve legibility with separation, spacing and outline support; no new gameplay or collision changes."
+  },
+  "themeMaterials": {
+    "cove": {
+      "themeIndex": 0,
+      "stageRange": [
+        1,
+        5
+      ],
+      "materialStoryJa": "砂色の岩、淡い砂岩色、海を感じる青緑の暗面。",
+      "material": {
+        "face": "#BCA47B",
+        "shade": "#647D73",
+        "light": "#DDC99F",
+        "cap": "#EFE1BB",
+        "ink": "#555C50"
+      }
+    },
+    "volcano": {
+      "themeIndex": 12,
+      "stageRange": [
+        61,
+        65
+      ],
+      "materialStoryJa": "炭黒の玄武岩、鉄錆の赤褐色、焼けた黄土色。",
+      "material": {
+        "face": "#49403A",
+        "shade": "#24282A",
+        "light": "#7A5A44",
+        "cap": "#C19068",
+        "ink": "#27282B",
+        "accent": "#A85234"
+      }
+    }
+  },
+  "sharedMaterials": {
+    "breakable": {
+      "face": "#92788E",
+      "shade": "#5D4C65",
+      "light": "#BCA3B7",
+      "cap": "#DDC7DE",
+      "ink": "#494047"
+    },
+    "reflector": {
+      "body": "#355F60",
+      "edge": "#A5DDCD",
+      "marks": "#CDE7DA"
+    },
+    "bridge": {
+      "body": "#687C78",
+      "ink": "#44474A",
+      "contact": "#E0D0AB",
+      "hinge": "#B89B74"
+    },
+    "field": {
+      "active": "#638D8C",
+      "inactive": "#A49C9B"
+    },
+    "terminal": {
+      "body": "#5B7475",
+      "display": "#CBD3BD",
+      "symbol": "#394F53"
+    }
+  },
+  "samples": [
+    {
+      "priority": 1,
+      "themeIndex": 0,
+      "theme": "はじまりの入江",
+      "stage": 4,
+      "reason": "Approved background; fixed ground, gap and finite floating platform"
+    },
+    {
+      "priority": 2,
+      "themeIndex": 12,
+      "theme": "火山の外縁",
+      "stage": 61,
+      "reason": "Cross-theme material check; destructible wall, fixed shelf and height difference"
+    }
+  ],
+  "artifactLimitations": "Upper maps preserve current stage4/61 polygons and show position markers only. Lower paired specimens compare the same component in two themes; they are not extra gimmicks placed in those maps. Live gameplay and physical-device legibility are unverified."
+}

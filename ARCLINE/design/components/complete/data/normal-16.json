@@ -1,0 +1,197 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-16",
+  "title": "空中庭園",
+  "kind": "normal",
+  "themeIndex": 16,
+  "stageRange": [
+    81,
+    85
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 84,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/normal-16.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 16,
+    "materialStory": "花の庭は柔らかな土と芝、明るい石。花色は大きい小面に限定し、散布する粒子にはしない。",
+    "terrain": {
+      "name": "芝と根の庭土",
+      "palette": {
+        "face": "#8F8165",
+        "shade": "#7F785E",
+        "light": "#998968",
+        "cap": "#A6A679",
+        "ink": "#83795F",
+        "accent": "#8A8563"
+      },
+      "planes": [
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.18
+            ],
+            [
+              0.78,
+              0.24
+            ],
+            [
+              0.56,
+              0.16
+            ],
+            [
+              0.27,
+              0.23
+            ],
+            [
+              0,
+              0.14
+            ]
+          ]
+        },
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0.28
+            ],
+            [
+              0.43,
+              0.23
+            ],
+            [
+              0.62,
+              0.53
+            ],
+            [
+              0.31,
+              0.72
+            ],
+            [
+              0,
+              0.56
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.67,
+              0.3
+            ],
+            [
+              1,
+              0.23
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.41,
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "白い庭園石",
+      "palette": {
+        "face": "#CEC6B2",
+        "shade": "#B6B5A3",
+        "light": "#D9CEB5",
+        "cap": "#DFD5BE",
+        "ink": "#BDB9A6",
+        "accent": "#C9B8AC"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.23
+            ],
+            [
+              0,
+              0.23
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.58,
+              0.23
+            ],
+            [
+              1,
+              0.23
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.69,
+              1
+            ],
+            [
+              0.48,
+              0.55
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.12,
+              0.62
+            ],
+            [
+              0.28,
+              0.57
+            ],
+            [
+              0.35,
+              0.77
+            ],
+            [
+              0.18,
+              0.85
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

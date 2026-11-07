@@ -1,6 +1,6 @@
 {
-  "version": "0.24.1",
-  "cacheVersion": "0.24.1",
+  "version": "0.24.2",
+  "cacheVersion": "0.24.2",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -34,6 +34,7 @@
     "visual-art.js",
     "charge-camera.js",
     "backgrounds.js",
+    "component-art.js",
     "render.js",
     "presentation.js",
     "preview.js",
@@ -279,10 +280,15 @@
     ],
     "render.js": [
       "charge-camera.js",
-      "backgrounds.js"
+      "backgrounds.js",
+      "component-art.js"
     ],
     "backgrounds.js": [
       "final-team.js"
+    ],
+    "component-art.js": [
+      "backgrounds.js",
+      "geometry.js"
     ]
   }
 }
