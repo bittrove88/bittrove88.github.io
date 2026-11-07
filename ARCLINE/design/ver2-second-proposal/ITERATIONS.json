@@ -1,5 +1,5 @@
 {
-  "generationCalls": 38,
+  "generationCalls": 42,
   "limit": 100,
   "entries": [
     {
@@ -115,7 +115,7 @@
     {
       "id": "B08",
       "revision": 2,
-      "status": "selected",
+      "status": "superseded",
       "visualReview": "二基のエンジン、二枚主翼と二枚尾翼。生成結果の固定後退翼を採用し、可変翼は廃止。機首の窓と吸気口が顔らしい。",
       "sha256": "7467abd4081700de14dc6859bf203a6dfbdec069e2c32008b4f7197a5e8efacc",
       "iteration": 11,
@@ -126,7 +126,7 @@
     {
       "id": "B09",
       "revision": 2,
-      "status": "selected",
+      "status": "superseded",
       "visualReview": "二段関節と左右四枚ずつの外翼板。小さい観測レンズと鼻カバーで控えめな顔。",
       "sha256": "cde0af594f3c5826fb19f3d1e2a732459011ea9115d02aaad37d9dd86cc24c82",
       "iteration": 12,
@@ -159,7 +159,7 @@
     {
       "id": "B14",
       "revision": 2,
-      "status": "selected",
+      "status": "superseded",
       "visualReview": "四基の三枚羽プロペラ、三つの支持脚、腹部二枚扉。小窓と吸気口で眠そうな印象。",
       "sha256": "e710790be78469d546e4827210009093d7a901de57e2f216e2b974a54d6a6dd0",
       "iteration": 15,
@@ -170,7 +170,7 @@
     {
       "id": "B15",
       "revision": 2,
-      "status": "selected",
+      "status": "superseded",
       "visualReview": "二磁極・中央コイル・四履帯ユニット。ベースの計器窓で控えめな顔。",
       "sha256": "b4c3c63dc2e1dc2f7b20eaf066da48e67d04ea57b59a27f3fd176b702d264770",
       "iteration": 16,
@@ -419,6 +419,64 @@
       "sourceFilename": "exec-64a71671-87c9-4c60-ae83-38de50a55938.png",
       "includedInGit": true,
       "file": "revisions/N20_r03.png"
+    },
+    {
+      "id": "B08",
+      "revision": 3,
+      "status": "selected",
+      "visualReview": "小さい丸い観測レンズ。斜めの窓と眉状パネル、中央の口状吸気口を除去。 胴体・翼・装置・足回りの主要構成を旧案と目視比較。",
+      "sha256": "03cf2629fc9cbb860ff2b087e11c940df3242992ae31d3a3cc6a020d26f1c0fe",
+      "iteration": 39,
+      "sourceFilename": "exec-d8dfba8f-3b8f-45ac-bde7-383931dee47f.png",
+      "includedInGit": true,
+      "file": "revisions/B08_r03.png",
+      "scope": "front_only_softening"
+    },
+    {
+      "id": "B09",
+      "revision": 3,
+      "status": "selected",
+      "visualReview": "小さい淡青色レンズと丸い鼻カバー。尖った眉、鉤状の鼻、歯状の放熱口を和らげた。 胴体・翼・装置・足回りの主要構成を旧案と目視比較。",
+      "sha256": "d0dad5358a2bc941393f95d932faff42bb73b3a0c7264cb008892c9b3d03abc8",
+      "iteration": 40,
+      "sourceFilename": "exec-a608b31d-653b-4a4f-ba43-7f4fae7fd894.png",
+      "includedInGit": true,
+      "file": "revisions/B09_r03.png",
+      "scope": "front_only_softening"
+    },
+    {
+      "id": "B14",
+      "revision": 3,
+      "status": "selected",
+      "visualReview": "丸みのある縦長の小窓。中央の口状吸気口をなくし、通気穴を片側へ。 胴体・翼・装置・足回りの主要構成を旧案と目視比較。",
+      "sha256": "4578dd2819a545bf41a5730c53a318372750468647886d89c1a3f9d5d80e88b2",
+      "iteration": 41,
+      "sourceFilename": "exec-4510f119-82fd-42d7-8a93-54545eb1b395.png",
+      "includedInGit": true,
+      "file": "revisions/B14_r03.png",
+      "scope": "front_only_softening"
+    },
+    {
+      "id": "B15",
+      "revision": 3,
+      "status": "selected",
+      "visualReview": "丸レンズと三本の状態表示。斜め二窓と口状スリットをなくし、機器としての愛嬌を戻した。 胴体・翼・装置・足回りの主要構成を旧案と目視比較。",
+      "sha256": "8d53d49abb4da0426e557701033086e7c93a5c0e0a3d4cfbfa531a33d81ccd6e",
+      "iteration": 42,
+      "sourceFilename": "exec-7465026f-ebf9-4987-83fc-eba52a3455ca.png",
+      "includedInGit": true,
+      "file": "revisions/B15_r03.png",
+      "scope": "front_only_softening"
+    }
+  ],
+  "rounds": [
+    {
+      "name": "initial_refinement",
+      "calls": 38
+    },
+    {
+      "name": "four_front_softening",
+      "calls": 4
     }
   ]
 }
