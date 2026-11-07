@@ -44,7 +44,7 @@ function renderJourney(data,selectedMap,onSelect,onRestart){
   $('journeyAreas').querySelectorAll('[data-area]').forEach(button=>button.onclick=()=>{area=+button.dataset.area;paint(true);});
   $('levelGrid').querySelectorAll('[data-stage]').forEach(button=>button.onclick=()=>{onSelect(+button.dataset.stage);if($('levelPicker').hidden)$('play').focus({preventScroll:true});});
   $('journeyPrev').onclick=()=>{area=Math.max(0,area-1);paint();};$('journeyNext').onclick=()=>{area=Math.min(total-1,area+1);paint();};
-  const tab=$('journeyAreas').querySelector('[aria-selected="true"]');tab?.scrollIntoView({block:'nearest',inline:'center'});if(focus)tab?.focus({preventScroll:true});
+  const tab=$('journeyAreas').querySelector('[aria-selected="true"]');if(tab){const strip=$('journeyAreas'),app=$('app'),r=root.ArcViewport.rect(tab,app),box=root.ArcViewport.rect(strip,app);strip.scrollLeft=Math.max(0,Math.min(strip.scrollWidth-strip.clientWidth,strip.scrollLeft+(r.left+r.right-box.left-box.right)/2));}if(focus)tab?.focus({preventScroll:true});
  }
  $('levelPicker').hidden=false;paint();$('closeLevels').focus({preventScroll:true});
 }

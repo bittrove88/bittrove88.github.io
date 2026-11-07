@@ -1,0 +1,32 @@
+{
+  "runId": 42357463433,
+  "head": "ed04e08b96c51b2f6703e69998bbd09c490425d9",
+  "url": "https://github.com/bittrove88/bittrove88.github.io/actions/runs/42357463433",
+  "status": "failure",
+  "stage": "npm run test:browser",
+  "failure": [
+    "2026-11-07T09:12:09.0327184Z AssertionError [ERR_ASSERTION]: trial drawing keeps its aspect ratio and fixed inputs 568",
+    "2026-11-07T09:12:09.0329742Z     at ok (/home/runner/work/bittrove88.github.io/bittrove88.github.io/ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs:3:170)",
+    "2026-11-07T09:12:09.0332306Z     at /home/runner/work/bittrove88.github.io/bittrove88.github.io/ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs:9:954 {",
+    "2026-11-07T09:12:09.0333780Z   generatedMessage: false,",
+    "2026-11-07T09:12:09.0334518Z   code: 'ERR_ASSERTION',",
+    "2026-11-07T09:12:09.0335100Z   actual: false,",
+    "2026-11-07T09:12:09.0335529Z   expected: true,",
+    "2026-11-07T09:12:09.0335951Z   operator: '==',",
+    "2026-11-07T09:12:09.0336490Z   diff: 'simple'",
+    "2026-11-07T09:12:09.0336937Z }",
+    "2026-11-07T09:12:09.0337133Z ",
+    "2026-11-07T09:12:09.0337503Z FAIL chapter-flow-0170-browser (1833ms)"
+  ],
+  "cause": "chapter-flow-0170-browser still expected the historical optional trial power70; 0.24.3 explicitly changed that trial to power30. Main battle physics did not change.",
+  "fix": "Update both historical trial assertions to the explicitly requested power30; keep aspect ratio and fixed-angle assertions.",
+  "additionalLocalTestIssue": {
+    "test": "chapter-flow-0170-browser",
+    "symptom": "After correcting power30, direct radio.check() could not click the internal input covered by its visible span.",
+    "resolution": "Click the visible label card and assert its radio checked, matching the real user operation and existing difficulty tests.",
+    "rerun": "CHAPTER_FLOW_BROWSER.json",
+    "checks": 46,
+    "status": "PASS",
+    "productionCodeChangedForThisIssue": false
+  }
+}
