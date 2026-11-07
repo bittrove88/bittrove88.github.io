@@ -5,7 +5,7 @@ const L=typeof module!=='undefined'?require('./lessons.js'):root.ArcLessons;
 const clone=value=>JSON.parse(JSON.stringify(value));
 const titles={controls:'HOLD · RELEASE',slope:'MOVE · AIM',height:'CHANGE YOUR POSITION',pickup:'SHOOT THE CAPSULE',reflection:'REFLECTIVE GROUND',W:'REFLECTIVE GROUND',B:'OPEN · CLOSED',C:'CLOUD SLOWS THE SHOT',K:'BOUNCE OFF THE MIRROR',U:'RIDE THE UPDRAFT',F:'LET THE WIND CARRY',V:'VENT ON · OFF',M:'FOLLOW THE CURVE',terminal:'SWITCH THE FIELD',roof:'SHOOT UNDER THE ROOF',BURST:'A WIDER BLAST',BLINK:'CHOOSE A LANDING',PUSH:'PUSH THE RIVAL',PULL:'PULL THE RIVAL',BOUNCE:'ADD ONE BOUNCE',SPLIT:'SPLIT AT THE TOP',PHASE:'THROUGH A THIN WALL',SWAP:'EXCHANGE POSITIONS','boss-swap':'TURN THE CORE','ceiling-lift':'STAY BELOW THE ROOF','gate-choices':'CHOOSE YOUR ENTRANCE'};
 for(const id of L.ids)titles[id]=L.describe(id).title;
-const eventFor={'boss-core':'part',reflection:'bounce',W:'bounce',B:'impact',C:'cloud',K:'bounce',U:'updraft',F:'wind',V:'vent',M:'magnet',terminal:'terminal',pickup:'pickup',BOUNCE:'bounce',SPLIT:'split',PHASE:'phase',BURST:'impact',W05:'bounce',W06:'bounce',W07:'roll',W08:'bounce',W09:'impact',W10:'split',W11:'impact',W12:'airburst',W13:'phase',W15:'dive',W16:'wave',W20:'bounce'};
+const eventFor={'boss-core':'part',reflection:'bounce',roof:'bounce',W:'bounce',B:'impact',C:'cloud',K:'bounce',U:'updraft',F:'wind',V:'vent',M:'magnet',terminal:'terminal',pickup:'pickup',BOUNCE:'bounce',SPLIT:'split',PHASE:'phase',BURST:'impact',W05:'bounce',W06:'bounce',W07:'roll',W08:'bounce',W09:'impact',W10:'split',W11:'impact',W12:'airburst',W13:'phase',W15:'dive',W16:'wave',W20:'bounce'};
 function snapshot(s){const copy=clone(s);copy.random=E.seeded(s.stage*997);copy.phase='aim';copy.turn=0;copy.result=null;copy.reason=null;return copy;}
 function fixture(source,id){
  const s=snapshot(source),skills=E.skills.includes(id)?{[id]:3}:{};
@@ -14,7 +14,8 @@ function fixture(source,id){
  if(id==='K')spec.features=[{type:'K',v:[54,22,38]}];
  if(id==='PHASE')spec.features=[{type:'S',v:[43,48,0,32]}];
  if(id==='W13')spec.components=[{id:'demo-drill',destructible:true,poly:[[43,32],[45,32],[45,0],[43,0]]}];
- if(['W04','roof','ceiling-lift'].includes(id))spec.features=[{type:'R',v:[40,63,25]}];
+ if(['W04','ceiling-lift'].includes(id))spec.features=[{type:'R',v:[40,63,25]}];
+ if(id==='roof')spec.components=[{id:'demo-mirrored-eave',destructible:false,poly:[[36,34],[67,34],[67,25],[36,25]],reflectiveUnderside:[[36,25],[67,25]]}];
  if(['B','gate-choices'].includes(id))spec.features=[{type:'B',v:[44,12,20,1]}];
  if(['C','U','F','V'].includes(id))spec.features=[{type:id,v:[36,56,4,34]}];
  if(id==='M'||id==='terminal')spec.features=[{type:'M',v:[48,24,13,1]},...(id==='terminal'?[{type:'T',v:[34,22]}]:[])];
@@ -65,7 +66,8 @@ function useful(s,id,plan){
  if(['PUSH','PULL','SWAP','W17','W18','W19','boss-swap'].includes(id)){
   if(plan.damage[1]<=0)return false;const after=snapshot(s);E.resolve(after,clone(plan));return after.units.some((u,i)=>Math.hypot(u.x-s.units[i].x,u.y-s.units[i].y)>8)||after.units[1].exposed>s.units[1].exposed;
  }
- if(id==='roof'||id==='ceiling-lift'){const roof=s.world.solids.find(o=>o.kind==='roof');return !!roof&&plan.bullets.some(b=>b.path.some(p=>p.x>roof.poly[0].x+10&&p.x<roof.poly[1].x-10&&p.y>roof.poly[2].y+6&&p.y<460));}
+ if(id==='roof')return plan.events.some(e=>e.type==='bounce'&&e.solidId?.includes(':under')&&plan.bullets.some(b=>b.path.some(p=>p.t>e.t+.08&&p.x>e.x+5&&p.y>e.y+5)));
+ if(id==='ceiling-lift'){const roof=s.world.solids.find(o=>o.kind==='roof');return !!roof&&plan.bullets.some(b=>b.path.some(p=>p.x>roof.poly[0].x+10&&p.x<roof.poly[1].x-10&&p.y>roof.poly[2].y+6&&p.y<460));}
  const event=eventFor[id];return event?plan.events.some(e=>e.type===event):plan.damage[1]>.1;
 }
 function find(s,id){
@@ -101,7 +103,7 @@ function truncate(plan,time){
  const p=clone(plan);for(const b of p.bullets){b.path=b.path.filter(q=>q.t<=time);b.t=Math.min(b.t,time);}p.bullets=p.bullets.filter(b=>b.path.length);p.events=p.events.filter(e=>e.t<=time);p.impacts=p.impacts.filter(i=>i.t<=time);p.duration=Math.min(p.duration,time);p.damage=[0,0];p.partDamage={};p.end=p.impacts.at(-1)||p.bullets[0].path.at(-1);p.path=p.bullets[0].path;return p;
 }
 const playbackRate=.65,resultHold=1.65;
-const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',slope:'NEW POSITION',height:'HIGH GROUND',pickup:'COLLECTED',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'CLEAR',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE','boss-swap':'CORE EXPOSED',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
+const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',slope:'NEW POSITION',height:'HIGH GROUND',pickup:'COLLECTED',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'BOUNCE',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE','boss-swap':'CORE EXPOSED',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
 function decorate(result,id,source){
  const description=L.describe(id)||{title:titles[id],instruction:'Watch the action.',outcome:'Watch what changes.',context:'DEMO'};
  Object.assign(result,description,{id,title:description.title,source});

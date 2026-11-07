@@ -1,0 +1,988 @@
+{
+  "stage": 9,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "既習得の歩行か転移を使い分ける。開始位置の照準だけと、移動後の許容を比較する。",
+  "before": {
+    "blueprint": {
+      "stage": 9,
+      "name": "岸壁の踊り場",
+      "goal": "段の手前から撃つか、上段へ転移して狙う",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          26,
+          11
+        ],
+        [
+          35,
+          10
+        ],
+        [
+          44,
+          8
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          62,
+          22
+        ],
+        [
+          70,
+          23
+        ],
+        [
+          88,
+          23
+        ],
+        [
+          96,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ],
+      "parts": [
+        {
+          "id": "009-BRIDGE01",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              37,
+              24
+            ],
+            [
+              42,
+              27
+            ],
+            [
+              53,
+              27
+            ],
+            [
+              58,
+              23
+            ],
+            [
+              52,
+              19
+            ],
+            [
+              43,
+              20
+            ],
+            [
+              38,
+              21
+            ]
+          ]
+        }
+      ],
+      "features": [],
+      "recommended": "hana",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "段の手前から撃つか、上段へ転移して狙う",
+      "nameEn": "The Quayside Landing",
+      "goalEn": "Shoot from below or teleport onto the upper shelf.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            26,
+            11
+          ],
+          [
+            35,
+            10
+          ],
+          [
+            44,
+            8
+          ],
+          [
+            50,
+            11
+          ],
+          [
+            56,
+            16
+          ],
+          [
+            62,
+            22
+          ],
+          [
+            70,
+            23
+          ],
+          [
+            88,
+            23
+          ],
+          [
+            96,
+            22
+          ],
+          [
+            100,
+            22
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          23
+        ]
+      ],
+      "worldWidth": 1000,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 9,
+      "name": "岸壁の踊り場",
+      "nameEn": "The Quayside Landing",
+      "theme": 1,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          23
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            26,
+            11
+          ],
+          [
+            35,
+            10
+          ],
+          [
+            44,
+            8
+          ],
+          [
+            50,
+            11
+          ],
+          [
+            56,
+            16
+          ],
+          [
+            62,
+            22
+          ],
+          [
+            70,
+            23
+          ],
+          [
+            88,
+            23
+          ],
+          [
+            96,
+            22
+          ],
+          [
+            100,
+            22
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "009-BRIDGE01",
+          "poly": [
+            [
+              37,
+              24
+            ],
+            [
+              42,
+              27
+            ],
+            [
+              53,
+              27
+            ],
+            [
+              58,
+              23
+            ],
+            [
+              52,
+              19
+            ],
+            [
+              43,
+              20
+            ],
+            [
+              38,
+              21
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK009",
+          "kind": "skill",
+          "skillId": "S_BARRIER",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.013,
+          "h": 31.963,
+          "spawnTurn": 1,
+          "placementId": "L009:skill:S_BARRIER",
+          "verification": {
+            "angle": 44,
+            "power": 69,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "鏡の岸壁",
+      "themeGoal": "反射する地面を、谷・洞窟・浮島で使い分ける",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "hana",
+      "tacticalGoal": "段の手前から撃つか、上段へ転移して狙う",
+      "tacticalGoalEn": "Shoot from below or teleport onto the upper shelf.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 9,
+      "name": "岸壁の踊り場",
+      "goal": "近い岸の肩まで歩くか、離れた岩棚へ転移して射線を選ぶ。",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          21,
+          11
+        ],
+        [
+          25,
+          20
+        ],
+        [
+          36,
+          20
+        ],
+        [
+          43,
+          9
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          56,
+          16
+        ],
+        [
+          62,
+          22
+        ],
+        [
+          70,
+          23
+        ],
+        [
+          88,
+          23
+        ],
+        [
+          100,
+          22
+        ]
+      ],
+      "parts": [
+        {
+          "id": "009-QUAY-LEDGE",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              40,
+              32
+            ],
+            [
+              44,
+              36
+            ],
+            [
+              57,
+              36
+            ],
+            [
+              61,
+              32
+            ],
+            [
+              56,
+              32
+            ],
+            [
+              43,
+              32
+            ]
+          ]
+        }
+      ],
+      "features": [],
+      "recommended": "hana",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "近い岸の肩まで歩くか、離れた岩棚へ転移して射線を選ぶ。",
+      "nameEn": "The Quayside Landing",
+      "goalEn": "Walk onto the near shoulder or teleport to the separate ledge to choose a firing line.",
+      "spawnPoints": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          23
+        ]
+      ],
+      "worldWidth": 1000,
+      "terrainRevision": "8.0-post-review-authorized",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 9,
+      "name": "岸壁の踊り場",
+      "nameEn": "The Quayside Landing",
+      "theme": 1,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          23
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            21,
+            11
+          ],
+          [
+            25,
+            20
+          ],
+          [
+            36,
+            20
+          ],
+          [
+            43,
+            9
+          ],
+          [
+            50,
+            11
+          ],
+          [
+            56,
+            16
+          ],
+          [
+            62,
+            22
+          ],
+          [
+            70,
+            23
+          ],
+          [
+            88,
+            23
+          ],
+          [
+            100,
+            22
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "009-QUAY-LEDGE",
+          "poly": [
+            [
+              40,
+              32
+            ],
+            [
+              44,
+              36
+            ],
+            [
+              57,
+              36
+            ],
+            [
+              61,
+              32
+            ],
+            [
+              56,
+              32
+            ],
+            [
+              43,
+              32
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK009",
+          "kind": "skill",
+          "skillId": "S_BARRIER",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.013,
+          "h": 31.963,
+          "spawnTurn": 1,
+          "placementId": "L009:skill:S_BARRIER",
+          "verification": {
+            "angle": 44,
+            "power": 69,
+            "neighborHits": 7,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "鏡の岸壁",
+      "themeGoal": "反射する地面を、谷・洞窟・浮島で使い分ける",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "hana",
+      "tacticalGoal": "近い岸の肩まで歩くか、離れた岩棚へ転移して射線を選ぶ。",
+      "tacticalGoalEn": "Walk onto the near shoulder or teleport to the separate ledge to choose a firing line.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "近い肩まで歩いて低く通すか、離れた岩棚へ転移して見下ろすかを選ぶ。",
+    "render": "stage_009_before.png / stage_009_after.png / stage_009_after_input.png",
+    "improvement": "肩先からの低い弧も棚に当たったため、棚の上面を保って下面だけ50px上げた。歩行112px後の21°/75が近傍8/9、転移後は9/9。開始の高い曲射は狭い別解として残す。",
+    "limitedNativeCheck": {
+      "walk": {
+        "input": 140,
+        "position": [
+          27.2,
+          20
+        ],
+        "shot": {
+          "angle": 21,
+          "power": 75,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "x": 792.0705617090903,
+              "y": 234.54836527576424,
+              "t": 1.0444444444444427,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 8,
+            "rows": [
+              {
+                "angle": 18,
+                "power": 70,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 18,
+                "power": 75,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 18,
+                "power": 80,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 21,
+                "power": 70,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 21,
+                "power": 75,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 21,
+                "power": 80,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 24,
+                "power": 70,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 24,
+                "power": 75,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 24,
+                "power": 80,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "teleport": {
+        "input": {
+          "angle": 72,
+          "power": 70,
+          "x": 52.878874942371375,
+          "h": 36,
+          "surface": "009-QUAY-LEDGE:e1"
+        },
+        "response": {
+          "success": true,
+          "position": [
+            52.878874942371375,
+            36
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 15,
+            "angle": 68,
+            "power": 49.00781484460458,
+            "damage": [
+              0,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                528.7887494237137,
+                140
+              ],
+              [
+                835,
+                270
+              ]
+            ],
+            "hpBefore": [
+              7,
+              3
+            ],
+            "hpAfter": [
+              7,
+              3
+            ]
+          }
+        },
+        "shot": {
+          "angle": -12,
+          "power": 55,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "x": 805.2254476307417,
+              "y": 239.37005033558745,
+              "t": 0.6777777777777774,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 9,
+            "rows": [
+              {
+                "angle": -15,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": -15,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": -15,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": -12,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": -12,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": -12,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": -9,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": -9,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": -9,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "initialBest": {
+        "angle": 63,
+        "power": 75,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 799.3122912163437,
+            "y": 224.91280213445916,
+            "t": 2.733333333333326,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 5,
+          "rows": [
+            {
+              "angle": 60,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 80,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 63,
+              "power": 70,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 63,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 63,
+              "power": 80,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 66,
+              "power": 70,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 66,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 66,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "difference": "4面の転移導入と違い、歩行には行動を消費せず射撃できる利点、転移には高い広い射点を得る利点がある。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          23
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          23
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    }
+  }
+}

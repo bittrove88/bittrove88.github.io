@@ -1,0 +1,1031 @@
+{
+  "stage": 16,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "7面の射線開通から一歩進め、破壊で次の立ち位置への入口を開く。破壊後は既存の転移で下段へ移る。",
+  "before": {
+    "blueprint": {
+      "stage": 16,
+      "name": "遺跡の門扉",
+      "goal": "裂けた門板を先に壊し、近い射点を作る",
+      "floor": [
+        [
+          0,
+          13
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          17,
+          16
+        ],
+        [
+          24,
+          17
+        ],
+        [
+          30,
+          15
+        ],
+        [
+          36,
+          12
+        ],
+        [
+          42,
+          10
+        ],
+        [
+          47,
+          10
+        ],
+        [
+          52,
+          10
+        ],
+        [
+          58,
+          10
+        ],
+        [
+          64,
+          11
+        ],
+        [
+          70,
+          14
+        ],
+        [
+          78,
+          15
+        ],
+        [
+          85,
+          15
+        ],
+        [
+          94,
+          13
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "id": "016-STONE-LINTEL",
+          "kind": "roof",
+          "poly": [
+            [
+              35,
+              24
+            ],
+            [
+              42,
+              32
+            ],
+            [
+              51,
+              33
+            ],
+            [
+              61,
+              29
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              62,
+              22
+            ],
+            [
+              43,
+              22
+            ],
+            [
+              37,
+              23
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "016-BREAKABLE-GATE",
+          "kind": "wall",
+          "poly": [
+            [
+              47,
+              10
+            ],
+            [
+              52,
+              10
+            ],
+            [
+              52,
+              22
+            ],
+            [
+              47,
+              22
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            62,
+            86,
+            0
+          ]
+        }
+      ],
+      "recommended": "ban",
+      "spawn": [
+        17,
+        83
+      ],
+      "route": "裂けた門板を先に壊し、近い射点を作る",
+      "nameEn": "The Ruin Gate",
+      "goalEn": "Break the gate panel to reach a closer firing point.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            13
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            17,
+            16
+          ],
+          [
+            24,
+            17
+          ],
+          [
+            30,
+            15
+          ],
+          [
+            36,
+            12
+          ],
+          [
+            42,
+            10
+          ],
+          [
+            47,
+            10
+          ],
+          [
+            52,
+            10
+          ],
+          [
+            58,
+            10
+          ],
+          [
+            64,
+            11
+          ],
+          [
+            70,
+            14
+          ],
+          [
+            78,
+            15
+          ],
+          [
+            85,
+            15
+          ],
+          [
+            94,
+            13
+          ],
+          [
+            100,
+            12
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          17,
+          16
+        ],
+        [
+          83,
+          15
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 16,
+      "name": "遺跡の門扉",
+      "nameEn": "The Ruin Gate",
+      "theme": 3,
+      "boss": false,
+      "spawn": [
+        [
+          17,
+          16
+        ],
+        [
+          83,
+          15
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            13
+          ],
+          [
+            10,
+            14
+          ],
+          [
+            17,
+            16
+          ],
+          [
+            24,
+            17
+          ],
+          [
+            30,
+            15
+          ],
+          [
+            36,
+            12
+          ],
+          [
+            42,
+            10
+          ],
+          [
+            47,
+            10
+          ],
+          [
+            52,
+            10
+          ],
+          [
+            58,
+            10
+          ],
+          [
+            64,
+            11
+          ],
+          [
+            70,
+            14
+          ],
+          [
+            78,
+            15
+          ],
+          [
+            85,
+            15
+          ],
+          [
+            94,
+            13
+          ],
+          [
+            100,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "016-STONE-LINTEL",
+          "poly": [
+            [
+              35,
+              24
+            ],
+            [
+              42,
+              32
+            ],
+            [
+              51,
+              33
+            ],
+            [
+              61,
+              29
+            ],
+            [
+              65,
+              24
+            ],
+            [
+              62,
+              22
+            ],
+            [
+              43,
+              22
+            ],
+            [
+              37,
+              23
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "016-BREAKABLE-GATE",
+          "poly": [
+            [
+              47,
+              10
+            ],
+            [
+              52,
+              10
+            ],
+            [
+              52,
+              22
+            ],
+            [
+              47,
+              22
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            62,
+            86,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "遺跡の入口",
+      "themeGoal": "屋根と窓を、上下・内外の関係で読む",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "ban",
+      "tacticalGoal": "裂けた門板を先に壊し、近い射点を作る",
+      "tacticalGoalEn": "Break the gate panel to reach a closer firing point.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 16,
+      "name": "遺跡の門扉",
+      "goal": "割れた門板を外し、開口から下の広い射点へ転移する。",
+      "floor": [
+        [
+          0,
+          30
+        ],
+        [
+          24,
+          30
+        ]
+      ],
+      "parts": [
+        {
+          "id": "016-RUIN-VAULT",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              33,
+              33
+            ],
+            [
+              100,
+              33
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              94,
+              0
+            ],
+            [
+              94,
+              21
+            ],
+            [
+              60,
+              21
+            ],
+            [
+              33,
+              21
+            ]
+          ]
+        },
+        {
+          "id": "016-CRACKED-ACCESS",
+          "kind": "roof",
+          "breakable": true,
+          "poly": [
+            [
+              24,
+              30
+            ],
+            [
+              33,
+              30
+            ],
+            [
+              33,
+              21
+            ],
+            [
+              24,
+              21
+            ]
+          ]
+        }
+      ],
+      "features": [],
+      "recommended": "ban",
+      "spawn": [
+        17,
+        83
+      ],
+      "route": "割れた門板を外し、開口から下の広い射点へ転移する。",
+      "nameEn": "The Ruin Gate",
+      "goalEn": "Break the gate slab, then teleport through the opening to the broad firing floor below.",
+      "terrainRevision": "8.0-post-review-authorized",
+      "floorSegments": [
+        [
+          [
+            0,
+            30
+          ],
+          [
+            24,
+            30
+          ]
+        ],
+        [
+          [
+            0,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          30
+        ],
+        [
+          78,
+          10
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 16,
+      "name": "遺跡の門扉",
+      "nameEn": "The Ruin Gate",
+      "theme": 3,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          30
+        ],
+        [
+          78,
+          10
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            30
+          ],
+          [
+            24,
+            30
+          ]
+        ],
+        [
+          [
+            0,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "016-RUIN-VAULT",
+          "poly": [
+            [
+              33,
+              33
+            ],
+            [
+              100,
+              33
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              94,
+              0
+            ],
+            [
+              94,
+              21
+            ],
+            [
+              60,
+              21
+            ],
+            [
+              33,
+              21
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "016-CRACKED-ACCESS",
+          "poly": [
+            [
+              24,
+              30
+            ],
+            [
+              33,
+              30
+            ],
+            [
+              33,
+              21
+            ],
+            [
+              24,
+              21
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "遺跡の入口",
+      "themeGoal": "屋根と窓を、上下・内外の関係で読む",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "ban",
+      "tacticalGoal": "割れた門板を外し、開口から下の広い射点へ転移する。",
+      "tacticalGoalEn": "Break the gate slab, then teleport through the opening to the broad firing floor below.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "門板を一片外し、その開口から下段の広い床へ転移して撃つ。",
+    "render": "stage_016_before.png / stage_016_after.png / stage_016_after_input.png",
+    "improvement": "単なる縦壁の破壊は7面と重なるため、上下をつなぐ門板にした。欠けた床から歩いて自然落下する未実装の動きを仮定せず、既存の転移で下段へ移動する。 最終確認で破壊を省く転移直通が見つかったため、右側の岩体を地面まで接続。開始頭上の開放と破壊後の広い経路は保持。 転移の接触点から隣の安全列を探す現行挙動も踏まえ、16面の上面を水平にし、未破壊時に下段へ抜ける候補を除いた。 実画面で固定部が重かったため、水平な上面を保って厚みを40px減らした。",
+    "limitedNativeCheck": {
+      "break": {
+        "a": -12,
+        "p": 20
+      },
+      "teleport": {
+        "angle": -15,
+        "power": 40,
+        "x": 29.3,
+        "h": 10,
+        "surface": "floor1"
+      },
+      "response": {
+        "success": true,
+        "position": [
+          29.3,
+          10
+        ],
+        "counter": {
+          "round": 2,
+          "moved": 25,
+          "angle": 7.795699547510594,
+          "power": 81.88097077608109,
+          "damage": [
+            0.5,
+            0
+          ],
+          "kind": "FAMILY1",
+          "position": [
+            [
+              293,
+              400
+            ],
+            [
+              805,
+              400
+            ]
+          ],
+          "hpBefore": [
+            7,
+            3
+          ],
+          "hpAfter": [
+            6.5,
+            3
+          ]
+        }
+      },
+      "shot": {
+        "angle": 9,
+        "power": 90,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 774.1342208942683,
+            "y": 380.8816106947641,
+            "t": 0.7555555555555549,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 8,
+          "rows": [
+            {
+              "angle": 6,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 12,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 12,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 12,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "difference": "7面は破壊だけで射線が開く。16面は破壊で入れる場所が変わり、転移一手をかけて射点を取る。自機の開始頭上は開放。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          30
+        ],
+        [
+          78,
+          10
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          30
+        ],
+        [
+          78,
+          10
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    },
+    "finalRevision": {
+      "nativeBreak": {
+        "angle": -12,
+        "power": 20,
+        "destroyed": [
+          "016-CRACKED-ACCESS@0"
+        ]
+      },
+      "firstEnemy": {
+        "round": 1,
+        "moved": 0,
+        "angle": 24.353520454838872,
+        "power": 100,
+        "damage": [
+          0,
+          0
+        ],
+        "kind": "FAMILY2",
+        "position": [
+          [
+            160,
+            200
+          ],
+          [
+            780,
+            400
+          ]
+        ],
+        "hpBefore": [
+          7,
+          3
+        ],
+        "hpAfter": [
+          7,
+          3
+        ]
+      },
+      "teleport": {
+        "success": true,
+        "position": [
+          29.3,
+          10
+        ],
+        "counter": {
+          "round": 2,
+          "moved": 25,
+          "angle": 7.795699547510594,
+          "power": 81.88097077608109,
+          "damage": [
+            0.5,
+            0
+          ],
+          "kind": "FAMILY1",
+          "position": [
+            [
+              293,
+              400
+            ],
+            [
+              805,
+              400
+            ]
+          ],
+          "hpBefore": [
+            7,
+            3
+          ],
+          "hpAfter": [
+            6.5,
+            3
+          ]
+        }
+      },
+      "shot": {
+        "angle": 9,
+        "power": 90,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 774.1342208942683,
+            "y": 380.8816106947641,
+            "t": 0.7555555555555549,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 8,
+          "rows": [
+            {
+              "angle": 6,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 12,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 12,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 12,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

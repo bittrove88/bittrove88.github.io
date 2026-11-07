@@ -93,11 +93,11 @@
       "spawn": [
         [
           18,
-          10.0
+          10
         ],
         [
           60,
-          10.0
+          10
         ]
       ],
       "floors": [
@@ -168,11 +168,11 @@
       "spawn": [
         [
           18,
-          10.0
+          10
         ],
         [
           68,
-          18.0
+          18
         ]
       ],
       "floors": [
@@ -259,66 +259,85 @@
       "spawn": [
         [
           16,
-          22.0
+          22
         ],
         [
           73,
-          10.5
+          14
         ]
       ],
       "floors": [
         [
           [
             0,
-            21
-          ],
-          [
-            8,
-            21.5
-          ],
-          [
-            14,
             22
           ],
           [
-            24,
+            20,
             22
           ],
           [
-            32,
-            20
+            25,
+            14
           ],
           [
-            42,
-            16
+            48,
+            14
           ],
           [
-            52,
-            12
+            64,
+            14
           ],
           [
-            61,
-            12
-          ],
-          [
-            69,
-            10.5
-          ],
-          [
-            77,
-            10.5
-          ],
-          [
-            86,
-            12.5
+            78,
+            14
           ],
           [
             100,
-            13
+            17
           ]
         ]
       ],
-      "components": [],
+      "components": [
+        {
+          "id": "003-COAST-OVERHANG",
+          "poly": [
+            [
+              31,
+              38
+            ],
+            [
+              57,
+              41
+            ],
+            [
+              82,
+              39
+            ],
+            [
+              94,
+              34
+            ],
+            [
+              94,
+              22
+            ],
+            [
+              80,
+              23
+            ],
+            [
+              55,
+              22
+            ],
+            [
+              31,
+              19.5
+            ]
+          ],
+          "destructible": false
+        }
+      ],
       "features": [],
       "skills": {},
       "pickups": [],
@@ -339,10 +358,10 @@
       "midboss": false,
       "encounterId": "enemy:pebble",
       "recommendedCharacter": "gun",
-      "tacticalGoal": "下り坂を歩き、平らな射点へ止まる",
-      "tacticalGoalEn": "Walk downhill and stop at a level firing point.",
+      "tacticalGoal": "短い下りを歩くと、海食洞の下を通す射線が開く。",
+      "tacticalGoalEn": "Walk down the short slope to open a firing line beneath the sea arch.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -354,11 +373,11 @@
       "spawn": [
         [
           16,
-          16.0
+          16
         ],
         [
-          83,
-          16
+          65,
+          10
         ]
       ],
       "floors": [
@@ -368,80 +387,72 @@
             15
           ],
           [
-            8,
+            12,
             16
           ],
           [
-            16,
+            27,
             16
           ],
           [
-            24,
-            16.2
-          ],
-          [
-            30,
-            15
-          ],
-          [
-            38,
+            34,
             12
           ]
         ],
         [
           [
-            48,
+            40,
             12
           ],
           [
-            53,
-            15
+            44,
+            29
           ],
           [
-            61,
-            16
+            51,
+            30
           ],
           [
-            86,
-            16
+            56,
+            29
           ],
           [
-            94,
-            17
+            62,
+            10
           ],
           [
             100,
-            17
+            10
           ]
         ]
       ],
       "components": [
         {
-          "id": "004-IS01",
+          "id": "004-PIER-CLIFF",
           "poly": [
             [
-              40,
-              19
+              54,
+              38
             ],
             [
-              43,
+              65,
+              39
+            ],
+            [
+              73,
+              35
+            ],
+            [
+              74,
               22
             ],
             [
-              51,
-              23
-            ],
-            [
-              55,
+              65,
               21
             ],
             [
-              54,
-              18
-            ],
-            [
-              46,
-              18
+              57,
+              22
             ]
           ],
           "destructible": false
@@ -463,10 +474,12 @@
           "verification": {
             "angle": 44,
             "power": 60,
-            "walk": 0,
-            "neighborHits": 9,
+            "neighborHits": 8,
             "neighborShots": 9,
-            "attackDamage": 0.5
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -487,10 +500,10 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "gun",
-      "tacticalGoal": "谷の向こうの広い足場へ転移して撃つ",
-      "tacticalGoalEn": "Teleport across the valley onto a wide landing.",
+      "tacticalGoal": "対岸の岩肩の裏へ転移し、船着場を横から狙う。",
+      "tacticalGoalEn": "Teleport behind the opposite headland and fire along the dock.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -502,11 +515,11 @@
       "spawn": [
         [
           17,
-          13.0
+          13
         ],
         [
           80,
-          12.0
+          12
         ]
       ],
       "floors": [
@@ -620,11 +633,11 @@
       "spawn": [
         [
           16,
-          15.0
+          15
         ],
         [
           82,
-          14.0
+          14
         ]
       ],
       "floors": [
@@ -716,11 +729,11 @@
       "spawn": [
         [
           16,
-          11.0
+          11
         ],
         [
           82,
-          10.0
+          10
         ]
       ],
       "floors": [
@@ -773,34 +786,72 @@
       ],
       "components": [
         {
-          "id": "007-ROCK01",
+          "id": "007-LEANING-SEA-STACK",
           "poly": [
             [
-              43,
-              12
-            ],
-            [
-              43,
-              25
-            ],
-            [
-              45,
-              30
-            ],
-            [
-              47,
-              28
-            ],
-            [
-              49,
-              31
-            ],
-            [
-              52,
+              36,
               27
             ],
             [
-              52,
+              44,
+              37
+            ],
+            [
+              62,
+              44
+            ],
+            [
+              79,
+              45
+            ],
+            [
+              100,
+              43
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              89,
+              0
+            ],
+            [
+              89,
+              20
+            ],
+            [
+              75,
+              23
+            ],
+            [
+              58,
+              22
+            ],
+            [
+              44,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "007-CRACKED-BASE",
+          "poly": [
+            [
+              39,
+              12
+            ],
+            [
+              39,
+              27
+            ],
+            [
+              44,
+              27
+            ],
+            [
+              44,
               12
             ]
           ],
@@ -832,10 +883,12 @@
           "verification": {
             "angle": 68,
             "power": 60,
-            "walk": 0,
             "neighborHits": 7,
             "neighborShots": 9,
-            "attackDamage": 0
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -856,10 +909,10 @@
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "hana",
-      "tacticalGoal": "壊せる岩箱を一つ壊して次の射線を作る",
-      "tacticalGoalEn": "Break one cracked block to open the next shot.",
+      "tacticalGoal": "岩門のひび割れを一つ壊し、開いた足元へ弾を通す。",
+      "tacticalGoalEn": "Break the cracked base, then fire through the opening beneath the leaning rock.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -874,7 +927,7 @@
           14
         ],
         [
-          82,
+          67,
           13
         ]
       ],
@@ -882,10 +935,6 @@
         [
           [
             0,
-            15
-          ],
-          [
-            8,
             15
           ],
           [
@@ -901,15 +950,19 @@
             12
           ],
           [
-            50,
-            11
+            43,
+            19
           ],
           [
-            61,
-            12
+            48,
+            31
           ],
           [
-            73,
+            53,
+            31
+          ],
+          [
+            60,
             13
           ],
           [
@@ -927,107 +980,52 @@
           "id": "008-CAVE-ROOF",
           "poly": [
             [
-              54,
-              33
+              43,
+              49
             ],
             [
-              62,
+              59,
+              55
+            ],
+            [
+              77,
               40
             ],
             [
-              72,
-              42
-            ],
-            [
-              81,
-              40
-            ],
-            [
-              92,
-              39
-            ],
-            [
-              96,
-              34
-            ],
-            [
-              95,
-              28
-            ],
-            [
-              87,
-              27
+              84,
+              25
             ],
             [
               78,
-              27
+              21
             ],
             [
-              66,
-              26
+              60,
+              33
             ],
             [
-              57,
-              26
+              43,
+              43
             ]
           ],
           "destructible": false,
           "reflectiveUnderside": [
             [
-              59,
-              26
+              43,
+              43
             ],
             [
-              66,
-              26
+              60,
+              33
             ],
             [
               78,
-              27
-            ],
-            [
-              84,
-              27
+              21
             ]
-          ]
-        },
-        {
-          "id": "008-FRAGILE-ENTRY",
-          "poly": [
-            [
-              46,
-              29
-            ],
-            [
-              51,
-              33
-            ],
-            [
-              55,
-              33
-            ],
-            [
-              55,
-              26
-            ],
-            [
-              49,
-              26
-            ]
-          ],
-          "destructible": true
-        }
-      ],
-      "features": [
-        {
-          "type": "W",
-          "v": [
-            40,
-            81,
-            11
           ]
         }
       ],
+      "features": [],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -1047,10 +1045,10 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "hana",
-      "tacticalGoal": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
-      "tacticalGoalEn": "Bounce from the mirrored underside toward the rival.",
+      "tacticalGoal": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
+      "tacticalGoalEn": "Use one bounce from the mirrored eave to reach behind the rock ridge.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -1062,11 +1060,11 @@
       "spawn": [
         [
           16,
-          11.0
+          11
         ],
         [
           82,
-          23.0
+          23
         ]
       ],
       "floors": [
@@ -1076,24 +1074,20 @@
             11
           ],
           [
-            11,
+            21,
             11
           ],
           [
-            16,
-            11
+            25,
+            20
           ],
           [
-            26,
-            11
+            36,
+            20
           ],
           [
-            35,
-            10
-          ],
-          [
-            44,
-            8
+            43,
+            9
           ],
           [
             50,
@@ -1116,10 +1110,6 @@
             23
           ],
           [
-            96,
-            22
-          ],
-          [
             100,
             22
           ]
@@ -1127,35 +1117,31 @@
       ],
       "components": [
         {
-          "id": "009-BRIDGE01",
+          "id": "009-QUAY-LEDGE",
           "poly": [
             [
-              37,
-              24
+              40,
+              32
             ],
             [
-              42,
-              27
+              44,
+              36
             ],
             [
-              53,
-              27
+              57,
+              36
             ],
             [
-              58,
-              23
+              61,
+              32
             ],
             [
-              52,
-              19
+              56,
+              32
             ],
             [
               43,
-              20
-            ],
-            [
-              38,
-              21
+              32
             ]
           ],
           "destructible": false
@@ -1177,10 +1163,12 @@
           "verification": {
             "angle": 44,
             "power": 69,
-            "walk": 0,
-            "neighborHits": 9,
+            "neighborHits": 7,
             "neighborShots": 9,
-            "attackDamage": 1
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -1201,10 +1189,10 @@
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "hana",
-      "tacticalGoal": "段の手前から撃つか、上段へ転移して狙う",
-      "tacticalGoalEn": "Shoot from below or teleport onto the upper shelf.",
+      "tacticalGoal": "近い岸の肩まで歩くか、離れた岩棚へ転移して射線を選ぶ。",
+      "tacticalGoalEn": "Walk onto the near shoulder or teleport to the separate ledge to choose a firing line.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -1216,11 +1204,11 @@
       "spawn": [
         [
           16,
-          12.0
+          12
         ],
         [
           85,
-          18.0
+          18
         ]
       ],
       "floors": [
@@ -1376,11 +1364,11 @@
       "spawn": [
         [
           16,
-          25.0
+          25
         ],
         [
           82,
-          13.0
+          13
         ]
       ],
       "floors": [
@@ -1510,12 +1498,12 @@
       "boss": false,
       "spawn": [
         [
-          9,
-          12.0
+          16,
+          12
         ],
         [
-          91,
-          12.0
+          82,
+          12
         ]
       ],
       "floors": [
@@ -1568,46 +1556,46 @@
       ],
       "components": [
         {
-          "id": "012-CRACKED-ARCH",
+          "id": "012-FIXED-LOADING-BEAM",
           "poly": [
             [
-              34,
-              24
+              30,
+              23
             ],
             [
-              42,
-              27
+              40,
+              25
             ],
             [
-              52,
-              28
+              56,
+              25
             ],
             [
-              64,
-              26
-            ],
-            [
-              68,
-              24
-            ],
-            [
-              66,
+              70,
               22
             ],
             [
-              55,
-              22
+              70,
+              17.5
             ],
             [
-              43,
-              22
+              56,
+              19
             ],
             [
-              36,
-              22
+              46,
+              19
+            ],
+            [
+              38,
+              18
+            ],
+            [
+              30,
+              17
             ]
           ],
-          "destructible": true
+          "destructible": false
         }
       ],
       "features": [],
@@ -1624,12 +1612,14 @@
           "spawnTurn": 1,
           "placementId": "L012:weapon:W09",
           "verification": {
-            "angle": 56,
-            "power": 75,
-            "walk": 0,
+            "angle": 60,
+            "power": 85,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -1650,10 +1640,10 @@
       "midboss": false,
       "encounterId": "enemy:pebble",
       "recommendedCharacter": "koro",
-      "tacticalGoal": "弾を手前の床へ落とし、梁の下を転がす",
-      "tacticalGoalEn": "Roll beneath the beam from the near floor.",
+      "tacticalGoal": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "tacticalGoalEn": "Roll from the near floor, or walk to the beam entrance and fire low.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -1665,11 +1655,11 @@
       "spawn": [
         [
           12,
-          22.0
+          22
         ],
         [
           90,
-          12.0
+          12
         ]
       ],
       "floors": [
@@ -1769,107 +1759,47 @@
       "spawn": [
         [
           16,
-          16.0
+          14
         ],
         [
-          82,
-          15.0
+          85,
+          13
         ]
       ],
       "floors": [
         [
           [
             0,
-            16
-          ],
-          [
-            16,
-            16
-          ],
-          [
-            25,
-            16
-          ],
-          [
-            33,
             14
           ],
           [
-            41,
-            12
+            40,
+            14
           ],
           [
-            56,
-            12
+            49,
+            18
           ],
           [
-            64,
+            58,
+            22
+          ],
+          [
+            67,
+            22
+          ],
+          [
+            75,
             13
           ],
           [
-            73,
-            15
-          ],
-          [
-            82,
-            15
-          ],
-          [
-            95,
-            15
-          ],
-          [
             100,
-            14
+            13
           ]
         ]
       ],
-      "components": [
-        {
-          "id": "014-FRAGILE-CANOPY",
-          "poly": [
-            [
-              41,
-              26
-            ],
-            [
-              48,
-              29
-            ],
-            [
-              58,
-              29
-            ],
-            [
-              65,
-              27
-            ],
-            [
-              64,
-              24
-            ],
-            [
-              56,
-              23
-            ],
-            [
-              46,
-              23
-            ]
-          ],
-          "destructible": true
-        }
-      ],
-      "features": [
-        {
-          "type": "W",
-          "v": [
-            34,
-            75,
-            12
-          ]
-        }
-      ],
+      "components": [],
+      "features": [],
       "skills": {},
       "pickups": [
         {
@@ -1885,10 +1815,12 @@
           "verification": {
             "angle": 20,
             "power": 45,
-            "walk": 0,
-            "neighborHits": 9,
+            "neighborHits": 5,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -1909,10 +1841,10 @@
       "midboss": false,
       "encounterId": "enemy:pebble",
       "recommendedCharacter": "koro",
-      "tacticalGoal": "山の裾の連続床を読み、手前で弾を接地させる",
-      "tacticalGoalEn": "Read the connected foothills before landing the bomb.",
+      "tacticalGoal": "緩い石畳の山を読み、手前で転がすか、越えた平面へ落とすかを選ぶ。",
+      "tacticalGoalEn": "Choose an early rolling contact or land beyond the broad paved rise.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -1924,11 +1856,11 @@
       "spawn": [
         [
           16,
-          11.0
+          11
         ],
         [
           82,
-          11.0
+          11
         ]
       ],
       "floors": [
@@ -2081,154 +2013,95 @@
       "boss": false,
       "spawn": [
         [
-          17,
-          16
+          16,
+          30
         ],
         [
-          83,
-          15
+          78,
+          10
         ]
       ],
       "floors": [
         [
           [
             0,
-            13
-          ],
-          [
-            10,
-            14
-          ],
-          [
-            17,
-            16
+            30
           ],
           [
             24,
-            17
-          ],
+            30
+          ]
+        ],
+        [
           [
-            30,
-            15
-          ],
-          [
-            36,
-            12
-          ],
-          [
-            42,
+            0,
             10
-          ],
-          [
-            47,
-            10
-          ],
-          [
-            52,
-            10
-          ],
-          [
-            58,
-            10
-          ],
-          [
-            64,
-            11
-          ],
-          [
-            70,
-            14
-          ],
-          [
-            78,
-            15
-          ],
-          [
-            85,
-            15
-          ],
-          [
-            94,
-            13
           ],
           [
             100,
-            12
+            10
           ]
         ]
       ],
       "components": [
         {
-          "id": "016-STONE-LINTEL",
+          "id": "016-RUIN-VAULT",
           "poly": [
             [
-              35,
-              24
-            ],
-            [
-              42,
-              32
-            ],
-            [
-              51,
+              33,
               33
             ],
             [
-              61,
-              29
+              100,
+              33
             ],
             [
-              65,
-              24
+              100,
+              0
             ],
             [
-              62,
-              22
+              94,
+              0
             ],
             [
-              43,
-              22
+              94,
+              21
             ],
             [
-              37,
-              23
+              60,
+              21
+            ],
+            [
+              33,
+              21
             ]
           ],
           "destructible": false
         },
         {
-          "id": "016-BREAKABLE-GATE",
+          "id": "016-CRACKED-ACCESS",
           "poly": [
             [
-              47,
-              10
+              24,
+              30
             ],
             [
-              52,
-              10
+              33,
+              30
             ],
             [
-              52,
-              22
+              33,
+              21
             ],
             [
-              47,
-              22
+              24,
+              21
             ]
           ],
           "destructible": true
         }
       ],
-      "features": [
-        {
-          "type": "W",
-          "v": [
-            62,
-            86,
-            0
-          ]
-        }
-      ],
+      "features": [],
       "skills": {},
       "pickups": [],
       "blink": [],
@@ -2248,10 +2121,10 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "ban",
-      "tacticalGoal": "裂けた門板を先に壊し、近い射点を作る",
-      "tacticalGoalEn": "Break the gate panel to reach a closer firing point.",
+      "tacticalGoal": "割れた門板を外し、開口から下の広い射点へ転移する。",
+      "tacticalGoalEn": "Break the gate slab, then teleport through the opening to the broad firing floor below.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -2416,100 +2289,80 @@
       "spawn": [
         [
           16,
-          13.0
+          8
         ],
         [
-          82,
-          13.0
+          78,
+          10
         ]
       ],
       "floors": [
         [
           [
             0,
-            13
+            8
           ],
           [
-            16,
-            13
+            21,
+            8
           ],
           [
-            27,
-            13
+            26,
+            16
           ],
           [
-            36,
-            11
-          ],
-          [
-            44,
-            10
+            39,
+            16
           ],
           [
             53,
             10
           ],
           [
-            61,
-            11
-          ],
-          [
             72,
-            13
-          ],
-          [
-            82,
-            13
+            10
           ],
           [
             100,
-            13
+            10
           ]
         ]
       ],
       "components": [
         {
-          "id": "018-STONE-ARCH",
+          "id": "018-ASCENDING-ENTRY-BEAM",
           "poly": [
             [
-              34,
-              22
+              29,
+              31
             ],
             [
-              40,
-              30
+              42,
+              36
             ],
             [
-              47,
-              34
+              66,
+              31
             ],
             [
-              55,
-              34
+              89,
+              23
+            ],
+            [
+              87,
+              18
             ],
             [
               64,
-              29
-            ],
-            [
-              69,
               22
             ],
             [
-              65,
-              20
-            ],
-            [
-              56,
-              20
-            ],
-            [
               43,
-              20
+              25
             ],
             [
-              37,
-              20
+              29,
+              24
             ]
           ],
           "destructible": false
@@ -2529,12 +2382,14 @@
           "spawnTurn": 1,
           "placementId": "L018:skill:S_FULL_REPAIR",
           "verification": {
-            "angle": 11,
-            "power": 100,
-            "walk": 0,
-            "neighborHits": 9,
+            "angle": 39,
+            "power": 50,
+            "neighborHits": 8,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -2555,10 +2410,10 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "ban",
-      "tacticalGoal": "梁の下へ入って扇状衝撃を前方へ届ける",
-      "tacticalGoalEn": "Use the low lane for a forward shockwave.",
+      "tacticalGoal": "固定の梁へ近付き、上り口の内側から低い床へ通す。",
+      "tacticalGoalEn": "Walk up beneath the fixed beam and fire from the raised entrance toward the low floor.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -2570,11 +2425,11 @@
       "spawn": [
         [
           16,
-          12.0
+          12
         ],
         [
-          93,
-          27.0
+          90,
+          24
         ]
       ],
       "floors": [
@@ -2584,93 +2439,102 @@
             12
           ],
           [
-            16,
-            12
-          ],
-          [
             25,
             12
           ],
           [
-            34,
-            10
-          ],
-          [
-            42,
+            39,
             5
           ],
           [
-            56,
+            57,
             5
           ],
           [
-            64,
-            8
+            62,
+            14
           ],
           [
-            70,
-            17
+            67,
+            34
           ],
           [
-            77,
-            27
+            72,
+            34
           ],
           [
-            82,
-            27
-          ],
-          [
-            96,
-            27
+            78,
+            24
           ],
           [
             100,
-            26
+            24
           ]
         ]
       ],
       "components": [
         {
-          "id": "019-RELAY-ISLAND",
+          "id": "019-CLIFF-RELAY",
           "poly": [
             [
-              30,
-              18
+              32,
+              35
             ],
             [
-              35,
-              23
+              38,
+              42
             ],
             [
-              42,
-              23
+              57,
+              42
             ],
             [
-              45,
-              19
+              63,
+              37
             ],
             [
-              43,
-              16
+              58,
+              33
             ],
             [
-              34,
-              16
+              39,
+              32
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "019-CLIFF-TURN",
+          "poly": [
+            [
+              77,
+              46
+            ],
+            [
+              89,
+              47
+            ],
+            [
+              98,
+              42
+            ],
+            [
+              97,
+              36
+            ],
+            [
+              85,
+              36
+            ],
+            [
+              78,
+              37
             ]
           ],
           "destructible": false
         }
       ],
-      "features": [
-        {
-          "type": "W",
-          "v": [
-            45,
-            91,
-            5
-          ]
-        }
-      ],
+      "features": [],
       "skills": {},
       "pickups": [
         {
@@ -2686,10 +2550,12 @@
           "verification": {
             "angle": 32,
             "power": 90,
-            "walk": 0,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 1
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -2710,10 +2576,10 @@
       "midboss": false,
       "encounterId": "enemy:spike",
       "recommendedCharacter": "ban",
-      "tacticalGoal": "広い中継棚へ転移し、上段の相手に弧を送る",
-      "tacticalGoalEn": "Teleport to the broad shelf and arc toward the upper rival.",
+      "tacticalGoal": "広い中継棚へ一度移り、折れた段丘の奥へ弾を送る。",
+      "tacticalGoalEn": "Teleport once to the broad relay shelf and fire past the folded terrace.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -2778,83 +2644,75 @@
       ],
       "components": [
         {
-          "id": "020-OLD-ARCH",
+          "id": "020-LOW-GATE-SLEEVE",
           "poly": [
             [
               30,
-              31
+              27
             ],
             [
-              34,
-              36
+              39,
+              32
             ],
             [
-              40,
-              37
-            ],
-            [
-              44,
-              34
-            ],
-            [
-              42,
+              50,
               30
             ],
             [
+              50,
+              20
+            ],
+            [
               35,
-              29
+              21
             ]
           ],
           "destructible": false
         },
         {
-          "id": "020-CRACKED-ROOF",
+          "id": "020-UPPER-GATE-SLEEVE",
           "poly": [
             [
-              43,
-              31
+              58,
+              40
             ],
             [
-              48,
-              35
+              67,
+              43
             ],
             [
-              57,
-              35
+              77,
+              38
             ],
             [
-              63,
-              31
+              75,
+              33
             ],
             [
-              61,
-              28
-            ],
-            [
-              47,
-              28
+              58,
+              33
             ]
           ],
-          "destructible": true
+          "destructible": false
         },
         {
-          "id": "020-LOW-GATE",
+          "id": "020-CRACKED-ROOF-END",
           "poly": [
             [
-              61,
-              17
+              50,
+              13
             ],
             [
-              66,
-              19
+              58,
+              16
             ],
             [
-              66,
-              29
+              58,
+              34
             ],
             [
-              61,
-              29
+              50,
+              34
             ]
           ],
           "destructible": true
@@ -2914,10 +2772,10 @@
       "midboss": false,
       "encounterId": "boss:gatekeeper",
       "recommendedCharacter": "ban",
-      "tacticalGoal": "下段から門の破壊可能な屋根端を外し、高い砲座の低砲・高砲を撃ち分ける。",
-      "tacticalGoalEn": "Use low and high firing paths around a two-tier gate.",
+      "tacticalGoal": "門袖の一片を開き、低砲・高砲へ別の角度を通す。外側の高い射点も選べる。",
+      "tacticalGoalEn": "Open one gate sleeve to aim separately at the low and high cannons, or take an outer high firing point.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -3226,98 +3084,42 @@
       "spawn": [
         [
           16,
-          17.34
+          22
         ],
         [
           85,
-          17
+          12
         ]
       ],
       "floors": [
         [
           [
             0,
-            17
-          ],
-          [
-            9,
-            17
-          ],
-          [
-            15,
-            17.4
+            22
           ],
           [
             20,
-            17.1
-          ],
-          [
-            24,
-            17.8
+            22
           ],
           [
             29,
-            17.6
+            18
           ],
           [
-            32,
-            18.4
+            40,
+            8
           ],
           [
-            37,
-            18.1
+            61,
+            8
           ],
           [
-            41,
-            18.7
+            69,
+            12
           ],
           [
-            45,
-            18.4
-          ],
-          [
-            49,
-            19
-          ],
-          [
-            54,
-            19
-          ],
-          [
-            58,
-            18.5
-          ],
-          [
-            62,
-            18.9
-          ],
-          [
-            66,
-            18.1
-          ],
-          [
-            71,
-            18.2
-          ],
-          [
-            75,
-            17.5
-          ],
-          [
-            80,
-            17.7
-          ],
-          [
-            85,
-            17
-          ],
-          [
-            91,
-            17.3
-          ],
-          [
-            96,
-            17
+            90,
+            12
           ],
           [
             100,
@@ -3327,61 +3129,35 @@
       ],
       "components": [
         {
-          "id": "023-FOG-MARKER",
-          "poly": [
-            [
-              41,
-              27
-            ],
-            [
-              44,
-              29
-            ],
-            [
-              51,
-              29
-            ],
-            [
-              54,
-              27
-            ],
-            [
-              51,
-              25
-            ],
-            [
-              44,
-              25
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "023-LOW-REEF",
+          "id": "023-FOG-HEADLAND",
           "poly": [
             [
               64,
-              24
+              35
             ],
             [
-              68,
-              27
+              72,
+              39
             ],
             [
-              75,
-              27
+              85,
+              35
+            ],
+            [
+              96,
+              28
+            ],
+            [
+              95,
+              22
             ],
             [
               79,
+              23
+            ],
+            [
+              66,
               24
-            ],
-            [
-              74,
-              22
-            ],
-            [
-              68,
-              22
             ]
           ],
           "destructible": false
@@ -3391,10 +3167,10 @@
         {
           "type": "C",
           "v": [
-            28,
-            82,
-            23,
-            48
+            30,
+            64,
+            19,
+            44
           ]
         }
       ],
@@ -3415,10 +3191,10 @@
       "midboss": false,
       "encounterId": "enemy:mist",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "薄い霧を通る弾の減速と落下位置を見比べる",
-      "tacticalGoalEn": "Compare the landing before and after cloud slowing.",
+      "tacticalGoal": "雲を出た弾の落下を読み、岩嘴の下の着地点へ送る。",
+      "tacticalGoalEn": "Read the drop after the cloud and send the shot beneath the headland.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -3875,31 +3651,65 @@
           "destructible": false
         },
         {
-          "id": "026-UPPER-ISLET",
+          "id": "026-HIGH-RELAY",
           "poly": [
             [
+              32,
+              35
+            ],
+            [
+              38,
+              43
+            ],
+            [
               53,
+              43
+            ],
+            [
+              58,
+              36
+            ],
+            [
+              54,
+              25
+            ],
+            [
+              39,
               26
             ],
             [
-              59,
+              32,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "026-RIGHT-EAVE",
+          "poly": [
+            [
+              75,
+              29
+            ],
+            [
+              85,
               32
             ],
             [
-              69,
-              32
+              97,
+              26
             ],
             [
-              74,
-              28
+              96,
+              20
             ],
             [
-              70,
-              24
+              84,
+              20
             ],
             [
-              59,
-              24
+              77,
+              21
             ]
           ],
           "destructible": false
@@ -3941,10 +3751,10 @@
       "midboss": false,
       "encounterId": "enemy:gust",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "左の高台で撃つか、谷底から高い弧で狙う",
-      "tacticalGoalEn": "Choose a high firing point or a steep shot from the valley.",
+      "tacticalGoal": "落差の下の鏡棚へ落として返すか、高い中継から横へ送る。",
+      "tacticalGoalEn": "Drop onto the mirrored shelf below, or fire sideways from the broad high relay.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -4008,7 +3818,7 @@
           "id": "027-START-SKY-PIER",
           "poly": [
             [
-              10,
+              9,
               29
             ],
             [
@@ -4016,19 +3826,19 @@
               33
             ],
             [
-              23,
+              39,
               33
             ],
             [
-              29,
-              30
+              43,
+              29
             ],
             [
-              26,
+              38,
               26
             ],
             [
-              14,
+              13,
               26
             ]
           ],
@@ -4077,10 +3887,10 @@
         {
           "type": "C",
           "v": [
-            32,
-            66,
-            17,
-            44
+            10,
+            27,
+            28,
+            47
           ]
         },
         {
@@ -4105,12 +3915,14 @@
           "spawnTurn": 1,
           "placementId": "L027:weapon:W10",
           "verification": {
-            "angle": -3,
-            "power": 90,
-            "walk": 0,
+            "angle": 3,
+            "power": 85,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "attackDamage": 1.5,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -4129,10 +3941,10 @@
       "midboss": false,
       "encounterId": "enemy:spike",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "短い雲域を避ける位置へ歩き、近接炸裂を届ける",
-      "tacticalGoalEn": "Move outside the small cloud and send a proximity burst.",
+      "tacticalGoal": "同じ島の先端へ短く歩き、砲口を雲の外へ出して撃つ。",
+      "tacticalGoalEn": "Walk along the same island until the muzzle is outside the cloud.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -4197,83 +4009,57 @@
       ],
       "components": [
         {
-          "id": "028-LOW-GATE",
-          "poly": [
-            [
-              38,
-              9
-            ],
-            [
-              45,
-              9
-            ],
-            [
-              45,
-              22
-            ],
-            [
-              38,
-              22
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "028-OVERHEAD-WINDOW",
-          "poly": [
-            [
-              58,
-              29
-            ],
-            [
-              64,
-              33
-            ],
-            [
-              72,
-              32
-            ],
-            [
-              77,
-              28
-            ],
-            [
-              74,
-              25
-            ],
-            [
-              63,
-              26
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "028-FIXED-PORTICO",
+          "id": "028-FRAGILE-EAVE",
           "poly": [
             [
               28,
-              24
-            ],
-            [
-              32,
-              30
+              43
             ],
             [
               37,
-              31
+              43
             ],
             [
-              38,
+              37,
+              26
+            ],
+            [
+              28,
+              18
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "028-FIXED-CORRIDOR",
+          "poly": [
+            [
+              37,
+              34
+            ],
+            [
+              49,
+              41
+            ],
+            [
+              63,
+              39
+            ],
+            [
+              74,
+              32
+            ],
+            [
+              72,
+              25
+            ],
+            [
+              55,
               27
             ],
             [
-              35,
-              22
-            ],
-            [
-              30,
-              22
+              37,
+              26
             ]
           ],
           "destructible": false
@@ -4284,9 +4070,9 @@
           "type": "C",
           "v": [
             48,
-            79,
+            72,
             15,
-            40
+            35
           ]
         }
       ],
@@ -4303,12 +4089,14 @@
           "spawnTurn": 1,
           "placementId": "L028:skill:S_INVINCIBLE",
           "verification": {
-            "angle": 24,
+            "angle": 42,
             "power": 90,
-            "walk": 0,
-            "neighborHits": 3,
+            "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "attackDamage": 0,
+            "walkInput": 10000,
+            "moved": 140,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -4327,10 +4115,10 @@
       "midboss": false,
       "encounterId": "enemy:gust",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "屋根を一片壊すか、回廊の先から撃つ",
-      "tacticalGoalEn": "Open one roof piece or shoot from beyond the corridor.",
+      "tacticalGoal": "近い屋根端を一片開くか、固定回廊へ歩いて横へ通す。",
+      "tacticalGoalEn": "Open one nearby roof piece, or walk into the fixed corridor and fire through its side.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -4387,61 +4175,31 @@
       ],
       "components": [
         {
-          "id": "029-ASCENT-DECK",
+          "id": "029-RELAY-DECK",
           "poly": [
             [
-              28,
-              19
+              40,
+              31
             ],
             [
-              32,
-              24
+              45,
+              38
             ],
             [
-              42,
-              24
-            ],
-            [
-              46,
-              21
-            ],
-            [
-              43,
-              18
-            ],
-            [
-              33,
-              18
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "029-HIGH-DECK",
-          "poly": [
-            [
-              48,
-              28
-            ],
-            [
-              53,
-              34
-            ],
-            [
-              65,
-              34
+              64,
+              38
             ],
             [
               70,
-              30
+              33
             ],
             [
               65,
-              27
+              28
             ],
             [
-              53,
-              27
+              46,
+              28
             ]
           ],
           "destructible": false
@@ -4475,6 +4233,36 @@
             ]
           ],
           "destructible": false
+        },
+        {
+          "id": "029-AIRPORT-OVERHANG",
+          "poly": [
+            [
+              72,
+              57
+            ],
+            [
+              84,
+              61
+            ],
+            [
+              98,
+              54
+            ],
+            [
+              97,
+              45
+            ],
+            [
+              85,
+              45
+            ],
+            [
+              73,
+              46
+            ]
+          ],
+          "destructible": false
         }
       ],
       "features": [
@@ -4496,17 +4284,19 @@
           "skillId": "S_ENEMY_WEAKEN",
           "category": "normal-skill",
           "amount": 2,
-          "x": 44.329,
-          "h": 34.65,
+          "x": 35,
+          "h": 24,
           "spawnTurn": 5,
           "placementId": "L029:skill:S_ENEMY_WEAKEN",
           "verification": {
-            "angle": 44,
-            "power": 100,
-            "walk": 0,
+            "angle": 33,
+            "power": 95,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 1.5
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
           }
         }
       ],
@@ -4525,10 +4315,10 @@
       "midboss": false,
       "encounterId": "enemy:spike",
       "recommendedCharacter": "sora",
-      "tacticalGoal": "孤立したデッキへ転移し、空の相手に近づく",
-      "tacticalGoalEn": "Teleport to a relay deck for a better firing position.",
+      "tacticalGoal": "広い中継デッキへ一度転移し、同じ高さの空港の側面へ通す。",
+      "tacticalGoalEn": "Teleport once to the broad relay deck and fire through the airport side at the same height.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1000
     },
     {
@@ -10300,7 +10090,7 @@
           "id": "058-MIDDLE-EAST-ICE",
           "poly": [
             [
-              76,
+              79,
               35
             ],
             [
@@ -10356,7 +10146,7 @@
               24
             ],
             [
-              76,
+              79,
               28
             ]
           ],
@@ -10526,7 +10316,7 @@
       "tacticalGoal": "壊さず開いている氷裂から中層へ移り、Fを使うか上層へ回ってFを外すか選ぶ。",
       "tacticalGoalEn": "Use permanent ice clefts to reach the middle shelf, then choose the wind route or the upper route.",
       "enemyHp": 5,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1800
     },
     {
@@ -11737,11 +11527,11 @@
             26
           ],
           [
-            106,
+            112,
             26
           ],
           [
-            109,
+            118,
             17
           ],
           [
@@ -11867,7 +11657,7 @@
       "tacticalGoal": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
       "tacticalGoalEn": "Drop through the upper opening or circle behind the basin and fire left.",
       "enemyHp": 5,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1400
     },
     {
@@ -18576,11 +18366,11 @@
               48
             ],
             [
-              40,
+              48,
               48
             ],
             [
-              43,
+              51,
               44
             ],
             [
@@ -18751,7 +18541,7 @@
       "tacticalGoal": "中央下から西のM入口へ戻るか、東の風棚へ進む。必要な棚だけを選ぶ。",
       "tacticalGoalEn": "Turn west toward the magnet or climb east toward the wind; use only the shelves you need.",
       "enemyHp": 7,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "8.0-post-review-authorized",
       "worldWidth": 1600
     },
     {

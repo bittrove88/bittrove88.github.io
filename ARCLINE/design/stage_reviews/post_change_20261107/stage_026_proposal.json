@@ -1,0 +1,1150 @@
+{
+  "stage": 26,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "支持のあるW棚へ落とす反射と、Cの手前の中継を使い分ける。",
+  "before": {
+    "blueprint": {
+      "stage": 26,
+      "name": "呼出しを追う高地",
+      "goal": "左の高台で撃つか、谷底から高い弧で狙う",
+      "floor": [
+        [
+          0,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          30,
+          24
+        ]
+      ],
+      "parts": [
+        {
+          "id": "026-LOWER-ISLET",
+          "kind": "island",
+          "poly": [
+            [
+              35,
+              13
+            ],
+            [
+              40,
+              17
+            ],
+            [
+              49,
+              17
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              51,
+              11
+            ],
+            [
+              39,
+              11
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "026-UPPER-ISLET",
+          "kind": "island",
+          "poly": [
+            [
+              53,
+              26
+            ],
+            [
+              59,
+              32
+            ],
+            [
+              69,
+              32
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              70,
+              24
+            ],
+            [
+              59,
+              24
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            42,
+            76,
+            18,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            36,
+            52,
+            0
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        84
+      ],
+      "route": "左の高台で撃つか、谷底から高い弧で狙う",
+      "nameEn": "Highland Calling",
+      "goalEn": "Choose a high firing point or a steep shot from the valley.",
+      "floorSegments": [
+        [
+          [
+            0,
+            26
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            30,
+            24
+          ]
+        ],
+        [
+          [
+            74,
+            9
+          ],
+          [
+            84,
+            9
+          ],
+          [
+            100,
+            9
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          26
+        ],
+        [
+          84,
+          9
+        ]
+      ],
+      "worldWidth": 1000,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 26,
+      "name": "呼出しを追う高地",
+      "nameEn": "Highland Calling",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          26
+        ],
+        [
+          84,
+          9
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            26
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            30,
+            24
+          ]
+        ],
+        [
+          [
+            74,
+            9
+          ],
+          [
+            84,
+            9
+          ],
+          [
+            100,
+            9
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "026-LOWER-ISLET",
+          "poly": [
+            [
+              35,
+              13
+            ],
+            [
+              40,
+              17
+            ],
+            [
+              49,
+              17
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              51,
+              11
+            ],
+            [
+              39,
+              11
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "026-UPPER-ISLET",
+          "poly": [
+            [
+              53,
+              26
+            ],
+            [
+              59,
+              32
+            ],
+            [
+              69,
+              32
+            ],
+            [
+              74,
+              28
+            ],
+            [
+              70,
+              24
+            ],
+            [
+              59,
+              24
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            42,
+            76,
+            18,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            36,
+            52,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "左の高台で撃つか、谷底から高い弧で狙う",
+      "tacticalGoalEn": "Choose a high firing point or a steep shot from the valley.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 26,
+      "name": "呼出しを追う高地",
+      "goal": "落差の下の鏡棚へ落として返すか、高い中継から横へ送る。",
+      "floor": [
+        [
+          0,
+          26
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          30,
+          24
+        ]
+      ],
+      "parts": [
+        {
+          "id": "026-LOWER-ISLET",
+          "kind": "island",
+          "poly": [
+            [
+              35,
+              13
+            ],
+            [
+              40,
+              17
+            ],
+            [
+              49,
+              17
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              51,
+              11
+            ],
+            [
+              39,
+              11
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "026-HIGH-RELAY",
+          "kind": "island",
+          "poly": [
+            [
+              32,
+              35
+            ],
+            [
+              38,
+              43
+            ],
+            [
+              53,
+              43
+            ],
+            [
+              58,
+              36
+            ],
+            [
+              54,
+              25
+            ],
+            [
+              39,
+              26
+            ],
+            [
+              32,
+              27
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "026-RIGHT-EAVE",
+          "kind": "roof",
+          "poly": [
+            [
+              75,
+              29
+            ],
+            [
+              85,
+              32
+            ],
+            [
+              97,
+              26
+            ],
+            [
+              96,
+              20
+            ],
+            [
+              84,
+              20
+            ],
+            [
+              77,
+              21
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            42,
+            76,
+            18,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            36,
+            52,
+            0
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        84
+      ],
+      "route": "落差の下の鏡棚へ落として返すか、高い中継から横へ送る。",
+      "nameEn": "Highland Calling",
+      "goalEn": "Drop onto the mirrored shelf below, or fire sideways from the broad high relay.",
+      "floorSegments": [
+        [
+          [
+            0,
+            26
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            30,
+            24
+          ]
+        ],
+        [
+          [
+            74,
+            9
+          ],
+          [
+            84,
+            9
+          ],
+          [
+            100,
+            9
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          26
+        ],
+        [
+          84,
+          9
+        ]
+      ],
+      "worldWidth": 1000,
+      "terrainRevision": "8.0-post-review-authorized",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 26,
+      "name": "呼出しを追う高地",
+      "nameEn": "Highland Calling",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          26
+        ],
+        [
+          84,
+          9
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            26
+          ],
+          [
+            16,
+            26
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            30,
+            24
+          ]
+        ],
+        [
+          [
+            74,
+            9
+          ],
+          [
+            84,
+            9
+          ],
+          [
+            100,
+            9
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "026-LOWER-ISLET",
+          "poly": [
+            [
+              35,
+              13
+            ],
+            [
+              40,
+              17
+            ],
+            [
+              49,
+              17
+            ],
+            [
+              54,
+              14
+            ],
+            [
+              51,
+              11
+            ],
+            [
+              39,
+              11
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "026-HIGH-RELAY",
+          "poly": [
+            [
+              32,
+              35
+            ],
+            [
+              38,
+              43
+            ],
+            [
+              53,
+              43
+            ],
+            [
+              58,
+              36
+            ],
+            [
+              54,
+              25
+            ],
+            [
+              39,
+              26
+            ],
+            [
+              32,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "026-RIGHT-EAVE",
+          "poly": [
+            [
+              75,
+              29
+            ],
+            [
+              85,
+              32
+            ],
+            [
+              97,
+              26
+            ],
+            [
+              96,
+              20
+            ],
+            [
+              84,
+              20
+            ],
+            [
+              77,
+              21
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            42,
+            76,
+            18,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            36,
+            52,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:gust",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "落差の下の鏡棚へ落として返すか、高い中継から横へ送る。",
+      "tacticalGoalEn": "Drop onto the mirrored shelf below, or fire sideways from the broad high relay.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "高台から下の鏡棚へ落として返すか、高い中継へ一度移るかを選ぶ。",
+    "render": "stage_026_before.png / stage_026_after.png / stage_026_after_input.png",
+    "improvement": "開始の低い弧が同等以上だったため、中継を左へ寄せ、その下面を下げた。下のW棚には落とせるが、通常の浅い弧は中継に干渉する関係へ調整。",
+    "limitedNativeCheck": {
+      "reflection": {
+        "shot": {
+          "angle": -9,
+          "power": 60,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "type": "cloud",
+              "x": 423.9761704963944,
+              "y": 304.92082913419677,
+              "t": 0.5777777777777777,
+              "bullet": 0
+            },
+            {
+              "type": "bounce",
+              "x": 461.863382156712,
+              "y": 328.5,
+              "t": 0.7111111111111106,
+              "count": 1,
+              "surface": "reflector",
+              "solidId": "W1:026-LOWER-ISLET:e1:1",
+              "bullet": 0
+            },
+            {
+              "x": 824.8102861215453,
+              "y": 360.9764437519655,
+              "t": 2.122222222222217,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 6,
+            "rows": [
+              {
+                "angle": -12,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": -12,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": -12,
+                "power": 65,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": -9,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": -9,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": -9,
+                "power": 65,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": -6,
+                "power": 55,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": -6,
+                "power": 60,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": -6,
+                "power": 65,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        },
+        "response": {
+          "round": 1,
+          "moved": 0,
+          "angle": 56.35352045483887,
+          "power": 75.53768630605191,
+          "damage": [
+            0,
+            0
+          ],
+          "kind": "FAMILY2",
+          "position": [
+            [
+              160,
+              240
+            ],
+            [
+              840,
+              410
+            ]
+          ],
+          "hpBefore": [
+            7,
+            1.5
+          ],
+          "hpAfter": [
+            7,
+            1.5
+          ]
+        }
+      },
+      "relay": {
+        "input": {
+          "angle": 57,
+          "power": 50,
+          "x": 41.49774775827372,
+          "h": 43,
+          "surface": "026-HIGH-RELAY:e1"
+        },
+        "response": {
+          "success": true,
+          "position": [
+            41.49774775827372,
+            43
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 0,
+            "angle": 60.35352045483887,
+            "power": 100,
+            "damage": [
+              0,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                414.97747758273715,
+                70
+              ],
+              [
+                840,
+                410
+              ]
+            ],
+            "hpBefore": [
+              7,
+              3
+            ],
+            "hpAfter": [
+              7,
+              3
+            ]
+          }
+        },
+        "shot": {
+          "angle": -3,
+          "power": 45,
+          "damage": [
+            0,
+            0.5
+          ],
+          "events": [
+            {
+              "type": "cloud",
+              "x": 530.2193258934152,
+              "y": 60.26179157265795,
+              "t": 0.26666666666666655,
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 5,
+            "rows": [
+              {
+                "angle": -6,
+                "power": 40,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": -6,
+                "power": 45,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": -6,
+                "power": 50,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": -3,
+                "power": 40,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": -3,
+                "power": 45,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": -3,
+                "power": 50,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 0,
+                "power": 40,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 0,
+                "power": 45,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 0,
+                "power": 50,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "nonBounceBest": {
+        "angle": 48,
+        "power": 60,
+        "damage": [
+          0,
+          0.5
+        ],
+        "events": [
+          {
+            "type": "cloud",
+            "x": 557.0174931062547,
+            "y": 60.10444058711651,
+            "t": 1.388888888888886,
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 3,
+          "rows": [
+            {
+              "angle": 45,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 45,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 45,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 48,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 48,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 48,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 51,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 51,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 51,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "difference": "23面はCを出た後の落下。26面は支持のある下の棚への接点を選ぶ。27面の同じ島での歩行とは移動量と高さを変える。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          26
+        ],
+        [
+          84,
+          9
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          26
+        ],
+        [
+          84,
+          9
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    }
+  }
+}

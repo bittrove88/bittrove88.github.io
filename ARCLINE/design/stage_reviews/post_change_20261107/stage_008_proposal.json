@@ -1,0 +1,966 @@
+{
+  "stage": 8,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "床反射と教材の不一致を取り除き、前方の庇の下面で一回だけ返す。",
+  "before": {
+    "blueprint": {
+      "stage": 8,
+      "name": "ひさしの下を通る",
+      "goal": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          61,
+          12
+        ],
+        [
+          73,
+          13
+        ],
+        [
+          91,
+          13
+        ],
+        [
+          100,
+          14
+        ]
+      ],
+      "parts": [
+        {
+          "id": "008-CAVE-ROOF",
+          "kind": "roof",
+          "poly": [
+            [
+              54,
+              33
+            ],
+            [
+              62,
+              40
+            ],
+            [
+              72,
+              42
+            ],
+            [
+              81,
+              40
+            ],
+            [
+              92,
+              39
+            ],
+            [
+              96,
+              34
+            ],
+            [
+              95,
+              28
+            ],
+            [
+              87,
+              27
+            ],
+            [
+              78,
+              27
+            ],
+            [
+              66,
+              26
+            ],
+            [
+              57,
+              26
+            ]
+          ],
+          "breakable": false,
+          "reflectiveUnderside": [
+            [
+              59,
+              26
+            ],
+            [
+              66,
+              26
+            ],
+            [
+              78,
+              27
+            ],
+            [
+              84,
+              27
+            ]
+          ],
+          "reflectionRequiresImplementation": true
+        },
+        {
+          "id": "008-FRAGILE-ENTRY",
+          "kind": "roof",
+          "poly": [
+            [
+              46,
+              29
+            ],
+            [
+              51,
+              33
+            ],
+            [
+              55,
+              33
+            ],
+            [
+              55,
+              26
+            ],
+            [
+              49,
+              26
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            40,
+            81,
+            11
+          ]
+        }
+      ],
+      "recommended": "hana",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
+      "nameEn": "Beneath the Eaves",
+      "goalEn": "Bounce from the mirrored underside toward the rival.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            15
+          ],
+          [
+            8,
+            15
+          ],
+          [
+            12,
+            14
+          ],
+          [
+            28,
+            14
+          ],
+          [
+            38,
+            12
+          ],
+          [
+            50,
+            11
+          ],
+          [
+            61,
+            12
+          ],
+          [
+            73,
+            13
+          ],
+          [
+            91,
+            13
+          ],
+          [
+            100,
+            14
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          14
+        ],
+        [
+          82,
+          13
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 8,
+      "name": "ひさしの下を通る",
+      "nameEn": "Beneath the Eaves",
+      "theme": 1,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          14
+        ],
+        [
+          82,
+          13
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            15
+          ],
+          [
+            8,
+            15
+          ],
+          [
+            12,
+            14
+          ],
+          [
+            28,
+            14
+          ],
+          [
+            38,
+            12
+          ],
+          [
+            50,
+            11
+          ],
+          [
+            61,
+            12
+          ],
+          [
+            73,
+            13
+          ],
+          [
+            91,
+            13
+          ],
+          [
+            100,
+            14
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "008-CAVE-ROOF",
+          "poly": [
+            [
+              54,
+              33
+            ],
+            [
+              62,
+              40
+            ],
+            [
+              72,
+              42
+            ],
+            [
+              81,
+              40
+            ],
+            [
+              92,
+              39
+            ],
+            [
+              96,
+              34
+            ],
+            [
+              95,
+              28
+            ],
+            [
+              87,
+              27
+            ],
+            [
+              78,
+              27
+            ],
+            [
+              66,
+              26
+            ],
+            [
+              57,
+              26
+            ]
+          ],
+          "destructible": false,
+          "reflectiveUnderside": [
+            [
+              59,
+              26
+            ],
+            [
+              66,
+              26
+            ],
+            [
+              78,
+              27
+            ],
+            [
+              84,
+              27
+            ]
+          ]
+        },
+        {
+          "id": "008-FRAGILE-ENTRY",
+          "poly": [
+            [
+              46,
+              29
+            ],
+            [
+              51,
+              33
+            ],
+            [
+              55,
+              33
+            ],
+            [
+              55,
+              26
+            ],
+            [
+              49,
+              26
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            40,
+            81,
+            11
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "鏡の岸壁",
+      "themeGoal": "反射する地面を、谷・洞窟・浮島で使い分ける",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": "roof",
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "hana",
+      "tacticalGoal": "天井下面の鏡材へ弾を当て、下向きの反射で敵を狙う。",
+      "tacticalGoalEn": "Bounce from the mirrored underside toward the rival.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 8,
+      "name": "ひさしの下を通る",
+      "goal": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          43,
+          19
+        ],
+        [
+          48,
+          31
+        ],
+        [
+          53,
+          31
+        ],
+        [
+          60,
+          13
+        ],
+        [
+          91,
+          13
+        ],
+        [
+          100,
+          14
+        ]
+      ],
+      "parts": [
+        {
+          "id": "008-CAVE-ROOF",
+          "kind": "roof",
+          "poly": [
+            [
+              43,
+              49
+            ],
+            [
+              59,
+              55
+            ],
+            [
+              77,
+              40
+            ],
+            [
+              84,
+              25
+            ],
+            [
+              78,
+              21
+            ],
+            [
+              60,
+              33
+            ],
+            [
+              43,
+              43
+            ]
+          ],
+          "reflectiveUnderside": [
+            [
+              43,
+              43
+            ],
+            [
+              60,
+              33
+            ],
+            [
+              78,
+              21
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [],
+      "recommended": "hana",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
+      "nameEn": "Beneath the Eaves",
+      "goalEn": "Use one bounce from the mirrored eave to reach behind the rock ridge.",
+      "terrainRevision": "8.0-post-review-authorized",
+      "spawnPoints": [
+        [
+          16,
+          14
+        ],
+        [
+          67,
+          13
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 8,
+      "name": "ひさしの下を通る",
+      "nameEn": "Beneath the Eaves",
+      "theme": 1,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          14
+        ],
+        [
+          67,
+          13
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            15
+          ],
+          [
+            12,
+            14
+          ],
+          [
+            28,
+            14
+          ],
+          [
+            38,
+            12
+          ],
+          [
+            43,
+            19
+          ],
+          [
+            48,
+            31
+          ],
+          [
+            53,
+            31
+          ],
+          [
+            60,
+            13
+          ],
+          [
+            91,
+            13
+          ],
+          [
+            100,
+            14
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "008-CAVE-ROOF",
+          "poly": [
+            [
+              43,
+              49
+            ],
+            [
+              59,
+              55
+            ],
+            [
+              77,
+              40
+            ],
+            [
+              84,
+              25
+            ],
+            [
+              78,
+              21
+            ],
+            [
+              60,
+              33
+            ],
+            [
+              43,
+              43
+            ]
+          ],
+          "destructible": false,
+          "reflectiveUnderside": [
+            [
+              43,
+              43
+            ],
+            [
+              60,
+              33
+            ],
+            [
+              78,
+              21
+            ]
+          ]
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "鏡の岸壁",
+      "themeGoal": "反射する地面を、谷・洞窟・浮島で使い分ける",
+      "stageInTheme": 3,
+      "themeRole": "Explore",
+      "lesson": "roof",
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "hana",
+      "tacticalGoal": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
+      "tacticalGoalEn": "Use one bounce from the mirrored eave to reach behind the rock ridge.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "岩背を越えて庇の鏡面へ当て、下向きの一回反射で奥の敵へ送る。",
+    "render": "stage_008_before.png / stage_008_after.png / stage_008_after_input.png",
+    "improvement": "初案は床を越す通常弧も同等に使えた。岩背を手前へ、敵を反射点の近くへ寄せ、庇の下面を大きな傾斜へ変更。床Wと入口の破壊片を外し、反射に集中した。",
+    "limitedNativeCheck": {
+      "shot": {
+        "angle": 36,
+        "power": 75,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "bounce",
+            "x": 593.1120483486699,
+            "y": 167.68853575715724,
+            "t": 0.9999999999999984,
+            "count": 1,
+            "surface": "reflector",
+            "solidId": "008-CAVE-ROOF:under1",
+            "bullet": 0
+          },
+          {
+            "x": 664.1555576646196,
+            "y": 317.5559120059672,
+            "t": 1.399999999999997,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 6,
+          "rows": [
+            {
+              "angle": 33,
+              "power": 70,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 33,
+              "power": 75,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 33,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 36,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 36,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 36,
+              "power": 80,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 75,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 39,
+              "power": 80,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "damage": [
+        0,
+        1.5
+      ],
+      "enemy": {
+        "round": 1,
+        "moved": 25,
+        "angle": 68.35352045483887,
+        "power": 74.53768630605191,
+        "damage": [
+          0,
+          0
+        ],
+        "kind": "FAMILY2",
+        "position": [
+          [
+            160,
+            360
+          ],
+          [
+            695,
+            370
+          ]
+        ],
+        "hpBefore": [
+          7,
+          1.5
+        ],
+        "hpAfter": [
+          7,
+          1.5
+        ]
+      },
+      "nonBounceBest": {
+        "angle": 60,
+        "power": 60,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "x": 655.706577044342,
+            "y": 320.4918546570172,
+            "t": 2.3888888888888826,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 3,
+          "rows": [
+            {
+              "angle": 57,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 57,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 57,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 60,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                1,
+                0
+              ]
+            },
+            {
+              "angle": 63,
+              "power": 55,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 63,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 63,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "difference": "6面の床から上へ返す反射と方向を逆転。7面の破壊を繰り返さず、固定の庇を一面として使う。通常の高い曲射も狭い別解として残る。",
+    "lesson": "日英教材・実弾道デモを下面反射へ統一。デモは着弾攻略とは別の局所見本。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          14
+        ],
+        [
+          67,
+          13
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          14
+        ],
+        [
+          67,
+          13
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    }
+  }
+}

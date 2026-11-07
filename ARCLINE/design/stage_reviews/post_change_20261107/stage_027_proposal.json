@@ -1,0 +1,1074 @@
+{
+  "stage": 27,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "一枚の島がCの境界をまたぐ。自機ではなく発射直後の弾の減速を歩いて外す。",
+  "before": {
+    "blueprint": {
+      "stage": 27,
+      "name": "雲の外の射点",
+      "goal": "短い雲域を避ける位置へ歩き、近接炸裂を届ける",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          28,
+          11
+        ],
+        [
+          39,
+          10
+        ],
+        [
+          51,
+          8
+        ],
+        [
+          64,
+          8
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "id": "027-START-SKY-PIER",
+          "kind": "island",
+          "poly": [
+            [
+              10,
+              29
+            ],
+            [
+              13,
+              33
+            ],
+            [
+              23,
+              33
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              26,
+              26
+            ],
+            [
+              14,
+              26
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "027-HANGAR-CANOPY",
+          "kind": "roof",
+          "poly": [
+            [
+              62,
+              25
+            ],
+            [
+              68,
+              32
+            ],
+            [
+              79,
+              34
+            ],
+            [
+              90,
+              32
+            ],
+            [
+              96,
+              27
+            ],
+            [
+              94,
+              23
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              68,
+              22
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            32,
+            66,
+            17,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            99,
+            0
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        18,
+        82
+      ],
+      "route": "短い雲域を避ける位置へ歩き、近接炸裂を届ける",
+      "nameEn": "Outside the Cloud",
+      "goalEn": "Move outside the small cloud and send a proximity burst.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            28,
+            11
+          ],
+          [
+            39,
+            10
+          ],
+          [
+            51,
+            8
+          ],
+          [
+            64,
+            8
+          ],
+          [
+            74,
+            10
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "terrainRevision": "6.0-approved-001-050",
+      "spawnPoints": [
+        [
+          18,
+          33
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 27,
+      "name": "雲の外の射点",
+      "nameEn": "Outside the Cloud",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          18,
+          33
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            28,
+            11
+          ],
+          [
+            39,
+            10
+          ],
+          [
+            51,
+            8
+          ],
+          [
+            64,
+            8
+          ],
+          [
+            74,
+            10
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "027-START-SKY-PIER",
+          "poly": [
+            [
+              10,
+              29
+            ],
+            [
+              13,
+              33
+            ],
+            [
+              23,
+              33
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              26,
+              26
+            ],
+            [
+              14,
+              26
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "027-HANGAR-CANOPY",
+          "poly": [
+            [
+              62,
+              25
+            ],
+            [
+              68,
+              32
+            ],
+            [
+              79,
+              34
+            ],
+            [
+              90,
+              32
+            ],
+            [
+              96,
+              27
+            ],
+            [
+              94,
+              23
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              68,
+              22
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            32,
+            66,
+            17,
+            44
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            99,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W10",
+          "kind": "trial",
+          "weaponId": "W10",
+          "category": "weapon",
+          "amount": 2,
+          "x": 46.171,
+          "h": 30.908,
+          "spawnTurn": 1,
+          "placementId": "L027:weapon:W10",
+          "verification": {
+            "angle": -3,
+            "power": 90,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "短い雲域を避ける位置へ歩き、近接炸裂を届ける",
+      "tacticalGoalEn": "Move outside the small cloud and send a proximity burst.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 27,
+      "name": "雲の外の射点",
+      "goal": "同じ島の先端へ短く歩き、砲口を雲の外へ出して撃つ。",
+      "floor": [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          28,
+          11
+        ],
+        [
+          39,
+          10
+        ],
+        [
+          51,
+          8
+        ],
+        [
+          64,
+          8
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "id": "027-START-SKY-PIER",
+          "kind": "island",
+          "poly": [
+            [
+              9,
+              29
+            ],
+            [
+              13,
+              33
+            ],
+            [
+              39,
+              33
+            ],
+            [
+              43,
+              29
+            ],
+            [
+              38,
+              26
+            ],
+            [
+              13,
+              26
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "027-HANGAR-CANOPY",
+          "kind": "roof",
+          "poly": [
+            [
+              62,
+              25
+            ],
+            [
+              68,
+              32
+            ],
+            [
+              79,
+              34
+            ],
+            [
+              90,
+              32
+            ],
+            [
+              96,
+              27
+            ],
+            [
+              94,
+              23
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              68,
+              22
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            10,
+            27,
+            28,
+            47
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            99,
+            0
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        18,
+        82
+      ],
+      "route": "同じ島の先端へ短く歩き、砲口を雲の外へ出して撃つ。",
+      "nameEn": "Outside the Cloud",
+      "goalEn": "Walk along the same island until the muzzle is outside the cloud.",
+      "floorSegments": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            28,
+            11
+          ],
+          [
+            39,
+            10
+          ],
+          [
+            51,
+            8
+          ],
+          [
+            64,
+            8
+          ],
+          [
+            74,
+            10
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "terrainRevision": "8.0-post-review-authorized",
+      "spawnPoints": [
+        [
+          18,
+          33
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 27,
+      "name": "雲の外の射点",
+      "nameEn": "Outside the Cloud",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          18,
+          33
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            28,
+            11
+          ],
+          [
+            39,
+            10
+          ],
+          [
+            51,
+            8
+          ],
+          [
+            64,
+            8
+          ],
+          [
+            74,
+            10
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "027-START-SKY-PIER",
+          "poly": [
+            [
+              9,
+              29
+            ],
+            [
+              13,
+              33
+            ],
+            [
+              39,
+              33
+            ],
+            [
+              43,
+              29
+            ],
+            [
+              38,
+              26
+            ],
+            [
+              13,
+              26
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "027-HANGAR-CANOPY",
+          "poly": [
+            [
+              62,
+              25
+            ],
+            [
+              68,
+              32
+            ],
+            [
+              79,
+              34
+            ],
+            [
+              90,
+              32
+            ],
+            [
+              96,
+              27
+            ],
+            [
+              94,
+              23
+            ],
+            [
+              84,
+              23
+            ],
+            [
+              68,
+              22
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            10,
+            27,
+            28,
+            47
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            75,
+            99,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W10",
+          "kind": "trial",
+          "weaponId": "W10",
+          "category": "weapon",
+          "amount": 2,
+          "x": 46.171,
+          "h": 30.908,
+          "spawnTurn": 1,
+          "placementId": "L027:weapon:W10",
+          "verification": {
+            "angle": 3,
+            "power": 85,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "同じ島の先端へ短く歩き、砲口を雲の外へ出して撃つ。",
+      "tacticalGoalEn": "Walk along the same island until the muzzle is outside the cloud.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "同じ島の中を140px歩くと、砲口が雲を抜け、発射直後の減速を外せる。",
+    "render": "stage_027_before.png / stage_027_after.png / stage_027_after_input.png",
+    "improvement": "Cを開始島の西側へ移し、島の平らな上面を東へ延ばした。歩行後にも端まで70px残し、落ちない支持と雲外の砲口を確認。",
+    "limitedNativeCheck": {
+      "before": {
+        "angle": 0,
+        "power": 90,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "cloud",
+            "x": 221.7,
+            "y": 144,
+            "t": 0.011111111111111112,
+            "bullet": 0
+          },
+          {
+            "type": "pickup",
+            "id": "W10",
+            "x": 461.71,
+            "y": 190.91999999999996,
+            "t": 0.5165091955354485,
+            "bullet": 0
+          },
+          {
+            "type": "bounce",
+            "x": 786.4759322033881,
+            "y": 398.5,
+            "t": 1.3222222222222195,
+            "count": 1,
+            "surface": "reflector",
+            "solidId": "W1:floor0:7",
+            "bullet": 0
+          },
+          {
+            "x": 792.769272549938,
+            "y": 392.8151099402076,
+            "t": 1.3444444444444417,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 3,
+          "rows": [
+            {
+              "angle": -3,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": -3,
+              "power": 90,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": -3,
+              "power": 95,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 0,
+              "power": 85,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 0,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 0,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 85,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 90,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 95,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "walk": {
+        "input": 10000,
+        "moved": 140,
+        "position": [
+          32,
+          33
+        ]
+      },
+      "after": {
+        "angle": -12,
+        "power": 65,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "pickup",
+            "id": "W10",
+            "x": 461.71,
+            "y": 190.91999999999996,
+            "t": 0.21244039931948167,
+            "bullet": 0
+          },
+          {
+            "type": "bounce",
+            "x": 790.8948626052079,
+            "y": 398.5,
+            "t": 1.0333333333333317,
+            "count": 1,
+            "surface": "reflector",
+            "solidId": "W1:floor0:7",
+            "bullet": 0
+          },
+          {
+            "x": 794.2957036356,
+            "y": 395.32885306103935,
+            "t": 1.0444444444444427,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 6,
+          "rows": [
+            {
+              "angle": -15,
+              "power": 60,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": -15,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": -15,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": -12,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": -12,
+              "power": 65,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": -12,
+              "power": 70,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": -9,
+              "power": 60,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": -9,
+              "power": 65,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": -9,
+              "power": 70,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "afterCloudEvent": false
+    },
+    "difference": "26面の上下への大きい移動から、小さい位置変更へ。23面とは逆にCを外す利点を見る。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          18,
+          33
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "authored": [
+        [
+          18,
+          33
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    }
+  }
+}

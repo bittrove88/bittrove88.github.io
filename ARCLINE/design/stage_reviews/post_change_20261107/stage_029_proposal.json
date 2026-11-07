@@ -1,0 +1,1118 @@
+{
+  "stage": 29,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "孤立した高さへの移動を、同程度の高さから横に撃つ射線へ結び付ける。",
+  "before": {
+    "blueprint": {
+      "stage": 29,
+      "name": "離れた空港デッキ",
+      "goal": "孤立したデッキへ転移し、空の相手に近づく",
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          29,
+          9
+        ],
+        [
+          40,
+          8
+        ],
+        [
+          55,
+          8
+        ],
+        [
+          67,
+          9
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "id": "029-ASCENT-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              28,
+              19
+            ],
+            [
+              32,
+              24
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              46,
+              21
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              33,
+              18
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "029-HIGH-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              48,
+              28
+            ],
+            [
+              53,
+              34
+            ],
+            [
+              65,
+              34
+            ],
+            [
+              70,
+              30
+            ],
+            [
+              65,
+              27
+            ],
+            [
+              53,
+              27
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "029-ENEMY-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              73,
+              30
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              88,
+              38
+            ],
+            [
+              94,
+              34
+            ],
+            [
+              89,
+              30
+            ],
+            [
+              77,
+              30
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            40,
+            76,
+            18,
+            48
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "孤立したデッキへ転移し、空の相手に近づく",
+      "separatedFloors": true,
+      "nameEn": "Separated Airport Decks",
+      "goalEn": "Teleport to a relay deck for a better firing position.",
+      "floorSegments": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            29,
+            9
+          ],
+          [
+            40,
+            8
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            67,
+            9
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          9
+        ],
+        [
+          82,
+          38
+        ]
+      ],
+      "worldWidth": 1000,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 29,
+      "name": "離れた空港デッキ",
+      "nameEn": "Separated Airport Decks",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          9
+        ],
+        [
+          82,
+          38
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            29,
+            9
+          ],
+          [
+            40,
+            8
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            67,
+            9
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "029-ASCENT-DECK",
+          "poly": [
+            [
+              28,
+              19
+            ],
+            [
+              32,
+              24
+            ],
+            [
+              42,
+              24
+            ],
+            [
+              46,
+              21
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              33,
+              18
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "029-HIGH-DECK",
+          "poly": [
+            [
+              48,
+              28
+            ],
+            [
+              53,
+              34
+            ],
+            [
+              65,
+              34
+            ],
+            [
+              70,
+              30
+            ],
+            [
+              65,
+              27
+            ],
+            [
+              53,
+              27
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "029-ENEMY-DECK",
+          "poly": [
+            [
+              73,
+              30
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              88,
+              38
+            ],
+            [
+              94,
+              34
+            ],
+            [
+              89,
+              30
+            ],
+            [
+              77,
+              30
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            40,
+            76,
+            18,
+            48
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK029",
+          "kind": "skill",
+          "skillId": "S_ENEMY_WEAKEN",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 44.329,
+          "h": 34.65,
+          "spawnTurn": 5,
+          "placementId": "L029:skill:S_ENEMY_WEAKEN",
+          "verification": {
+            "angle": 44,
+            "power": 100,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 1.5
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "孤立したデッキへ転移し、空の相手に近づく",
+      "tacticalGoalEn": "Teleport to a relay deck for a better firing position.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 29,
+      "name": "離れた空港デッキ",
+      "goal": "広い中継デッキへ一度転移し、同じ高さの空港の側面へ通す。",
+      "floor": [
+        [
+          0,
+          9
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          29,
+          9
+        ],
+        [
+          40,
+          8
+        ],
+        [
+          55,
+          8
+        ],
+        [
+          67,
+          9
+        ],
+        [
+          82,
+          10
+        ],
+        [
+          100,
+          10
+        ]
+      ],
+      "parts": [
+        {
+          "id": "029-RELAY-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              40,
+              31
+            ],
+            [
+              45,
+              38
+            ],
+            [
+              64,
+              38
+            ],
+            [
+              70,
+              33
+            ],
+            [
+              65,
+              28
+            ],
+            [
+              46,
+              28
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "029-ENEMY-DECK",
+          "kind": "island",
+          "poly": [
+            [
+              73,
+              30
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              88,
+              38
+            ],
+            [
+              94,
+              34
+            ],
+            [
+              89,
+              30
+            ],
+            [
+              77,
+              30
+            ]
+          ],
+          "breakable": false
+        },
+        {
+          "id": "029-AIRPORT-OVERHANG",
+          "kind": "roof",
+          "poly": [
+            [
+              72,
+              57
+            ],
+            [
+              84,
+              61
+            ],
+            [
+              98,
+              54
+            ],
+            [
+              97,
+              45
+            ],
+            [
+              85,
+              45
+            ],
+            [
+              73,
+              46
+            ]
+          ],
+          "breakable": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            40,
+            76,
+            18,
+            48
+          ]
+        }
+      ],
+      "recommended": "sora",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "広い中継デッキへ一度転移し、同じ高さの空港の側面へ通す。",
+      "separatedFloors": true,
+      "nameEn": "Separated Airport Decks",
+      "goalEn": "Teleport once to the broad relay deck and fire through the airport side at the same height.",
+      "floorSegments": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            29,
+            9
+          ],
+          [
+            40,
+            8
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            67,
+            9
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          9
+        ],
+        [
+          82,
+          38
+        ]
+      ],
+      "worldWidth": 1000,
+      "terrainRevision": "8.0-post-review-authorized",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 29,
+      "name": "離れた空港デッキ",
+      "nameEn": "Separated Airport Decks",
+      "theme": 5,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          9
+        ],
+        [
+          82,
+          38
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            9
+          ],
+          [
+            16,
+            9
+          ],
+          [
+            29,
+            9
+          ],
+          [
+            40,
+            8
+          ],
+          [
+            55,
+            8
+          ],
+          [
+            67,
+            9
+          ],
+          [
+            82,
+            10
+          ],
+          [
+            100,
+            10
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "029-RELAY-DECK",
+          "poly": [
+            [
+              40,
+              31
+            ],
+            [
+              45,
+              38
+            ],
+            [
+              64,
+              38
+            ],
+            [
+              70,
+              33
+            ],
+            [
+              65,
+              28
+            ],
+            [
+              46,
+              28
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "029-ENEMY-DECK",
+          "poly": [
+            [
+              73,
+              30
+            ],
+            [
+              77,
+              38
+            ],
+            [
+              88,
+              38
+            ],
+            [
+              94,
+              34
+            ],
+            [
+              89,
+              30
+            ],
+            [
+              77,
+              30
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "029-AIRPORT-OVERHANG",
+          "poly": [
+            [
+              72,
+              57
+            ],
+            [
+              84,
+              61
+            ],
+            [
+              98,
+              54
+            ],
+            [
+              97,
+              45
+            ],
+            [
+              85,
+              45
+            ],
+            [
+              73,
+              46
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "C",
+          "v": [
+            40,
+            76,
+            18,
+            48
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "SK029",
+          "kind": "skill",
+          "skillId": "S_ENEMY_WEAKEN",
+          "category": "normal-skill",
+          "amount": 2,
+          "x": 35,
+          "h": 24,
+          "spawnTurn": 5,
+          "placementId": "L029:skill:S_ENEMY_WEAKEN",
+          "verification": {
+            "angle": 33,
+            "power": 95,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "雲の空港",
+      "themeGoal": "相手の高度と雲の位置を別々に考える",
+      "stageInTheme": 4,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike",
+      "recommendedCharacter": "sora",
+      "tacticalGoal": "広い中継デッキへ一度転移し、同じ高さの空港の側面へ通す。",
+      "tacticalGoalEn": "Teleport once to the broad relay deck and fire through the airport side at the same height.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "敵と同じ高さに浮く広いデッキを取り、空港の開いた側面へ水平に通す。",
+    "render": "stage_029_before.png / stage_029_after.png / stage_029_after_input.png",
+    "improvement": "途中の小デッキを整理して一度の中継へ変更。開始の高弧が近傍6/9だったため、敵側の張り出し下面を40px下げた。移動後9/9に対し初期4/9の難しい別解を残す。",
+    "limitedNativeCheck": {
+      "initial": {
+        "angle": 51,
+        "power": 95,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "cloud",
+            "x": 400.1102027562757,
+            "y": 131.0441489167755,
+            "t": 0.5444444444444445,
+            "bullet": 0
+          },
+          {
+            "x": 792.7163016577587,
+            "y": 83.28266991708148,
+            "t": 1.9111111111111063,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 4,
+          "rows": [
+            {
+              "angle": 48,
+              "power": 90,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 48,
+              "power": 95,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 48,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 51,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 51,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 51,
+              "power": 100,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 54,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 54,
+              "power": 95,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            },
+            {
+              "angle": 54,
+              "power": 100,
+              "hit": false,
+              "damage": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "teleport": {
+        "input": {
+          "angle": 60,
+          "power": 70,
+          "x": 52.79080038986679,
+          "h": 38,
+          "surface": "029-RELAY-DECK:e1"
+        },
+        "response": {
+          "success": true,
+          "position": [
+            52.79080038986679,
+            38
+          ],
+          "counter": {
+            "round": 1,
+            "moved": 0,
+            "angle": 11.685018595308065,
+            "power": 89.53768630605191,
+            "damage": [
+              1,
+              0
+            ],
+            "kind": "FAMILY2",
+            "position": [
+              [
+                527.9080038986679,
+                120
+              ],
+              [
+                820,
+                120
+              ]
+            ],
+            "hpBefore": [
+              7,
+              3
+            ],
+            "hpAfter": [
+              6,
+              3
+            ]
+          }
+        }
+      },
+      "shot": {
+        "angle": 6,
+        "power": 95,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "cloud",
+            "x": 569.7497500854674,
+            "y": 89.60225526485588,
+            "t": 0.011111111111111112,
+            "bullet": 0
+          },
+          {
+            "x": 789.2771358467518,
+            "y": 102.13589388416261,
+            "t": 0.5000000000000002,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 9,
+          "rows": [
+            {
+              "angle": 3,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                0.5
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "difference": "4面の低い裏岸、19面の高所から下へ撃つ棚と異なり、29面は同程度の高さの空中デッキから横へ撃つ。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          9
+        ],
+        [
+          82,
+          38
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          9
+        ],
+        [
+          82,
+          38
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    },
+    "pickup": "旧カプセル位置が中継デッキ内部になったため、x35/h24の開放空間へ移した。種類・数量・placementId・5ターン出現とクリア補償は不変。通常弾33°/95、近傍9/9で取得を確認。"
+  }
+}

@@ -1,0 +1,1076 @@
+{
+  "stage": 7,
+  "status": "implemented-post-change-review",
+  "authorization": "Ordinary terrain changes under existing rules; user requested post-change review.",
+  "reason": "最初の破壊を一片・一つの射線変化として見せる。固定岩体を壊す必要はない。",
+  "before": {
+    "blueprint": {
+      "stage": 7,
+      "name": "岩箱の継ぎ目",
+      "goal": "壊せる岩箱を一つ壊して次の射線を作る",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          10,
+          10.5
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          33,
+          13
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          53,
+          12
+        ],
+        [
+          64,
+          10
+        ],
+        [
+          87,
+          10
+        ],
+        [
+          93,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "id": "007-ROCK01",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              43,
+              12
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              45,
+              30
+            ],
+            [
+              47,
+              28
+            ],
+            [
+              49,
+              31
+            ],
+            [
+              52,
+              27
+            ],
+            [
+              52,
+              12
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            54,
+            85,
+            10
+          ]
+        }
+      ],
+      "recommended": "hana",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "壊せる岩箱を一つ壊して次の射線を作る",
+      "nameEn": "The Cracked Cargo Gate",
+      "goalEn": "Break one cracked block to open the next shot.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            10,
+            10.5
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            25,
+            11
+          ],
+          [
+            33,
+            13
+          ],
+          [
+            41,
+            12
+          ],
+          [
+            53,
+            12
+          ],
+          [
+            64,
+            10
+          ],
+          [
+            87,
+            10
+          ],
+          [
+            93,
+            11
+          ],
+          [
+            100,
+            11
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 7,
+      "name": "岩箱の継ぎ目",
+      "nameEn": "The Cracked Cargo Gate",
+      "theme": 1,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            10,
+            10.5
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            25,
+            11
+          ],
+          [
+            33,
+            13
+          ],
+          [
+            41,
+            12
+          ],
+          [
+            53,
+            12
+          ],
+          [
+            64,
+            10
+          ],
+          [
+            87,
+            10
+          ],
+          [
+            93,
+            11
+          ],
+          [
+            100,
+            11
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "007-ROCK01",
+          "poly": [
+            [
+              43,
+              12
+            ],
+            [
+              43,
+              25
+            ],
+            [
+              45,
+              30
+            ],
+            [
+              47,
+              28
+            ],
+            [
+              49,
+              31
+            ],
+            [
+              52,
+              27
+            ],
+            [
+              52,
+              12
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            54,
+            85,
+            10
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W07",
+          "kind": "trial",
+          "weaponId": "W07",
+          "category": "weapon",
+          "amount": 2,
+          "x": 32.81,
+          "h": 40.768,
+          "spawnTurn": 1,
+          "placementId": "L007:weapon:W07",
+          "verification": {
+            "angle": 68,
+            "power": 60,
+            "walk": 0,
+            "neighborHits": 7,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "鏡の岸壁",
+      "themeGoal": "反射する地面を、谷・洞窟・浮島で使い分ける",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": "destruction",
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "hana",
+      "tacticalGoal": "壊せる岩箱を一つ壊して次の射線を作る",
+      "tacticalGoalEn": "Break one cracked block to open the next shot.",
+      "enemyHp": 3,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1000
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 7,
+      "name": "岩箱の継ぎ目",
+      "goal": "岩門のひび割れを一つ壊し、開いた足元へ弾を通す。",
+      "floor": [
+        [
+          0,
+          10
+        ],
+        [
+          10,
+          10.5
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          33,
+          13
+        ],
+        [
+          41,
+          12
+        ],
+        [
+          53,
+          12
+        ],
+        [
+          64,
+          10
+        ],
+        [
+          87,
+          10
+        ],
+        [
+          93,
+          11
+        ],
+        [
+          100,
+          11
+        ]
+      ],
+      "parts": [
+        {
+          "id": "007-LEANING-SEA-STACK",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              36,
+              27
+            ],
+            [
+              44,
+              37
+            ],
+            [
+              62,
+              44
+            ],
+            [
+              79,
+              45
+            ],
+            [
+              100,
+              43
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              89,
+              0
+            ],
+            [
+              89,
+              20
+            ],
+            [
+              75,
+              23
+            ],
+            [
+              58,
+              22
+            ],
+            [
+              44,
+              25
+            ]
+          ]
+        },
+        {
+          "id": "007-CRACKED-BASE",
+          "kind": "wall",
+          "breakable": true,
+          "poly": [
+            [
+              39,
+              12
+            ],
+            [
+              39,
+              27
+            ],
+            [
+              44,
+              27
+            ],
+            [
+              44,
+              12
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            54,
+            85,
+            10
+          ]
+        }
+      ],
+      "recommended": "hana",
+      "spawn": [
+        16,
+        82
+      ],
+      "route": "岩門のひび割れを一つ壊し、開いた足元へ弾を通す。",
+      "nameEn": "The Cracked Cargo Gate",
+      "goalEn": "Break the cracked base, then fire through the opening beneath the leaning rock.",
+      "terrainRevision": "8.0-post-review-authorized",
+      "floorSegments": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            10,
+            10.5
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            25,
+            11
+          ],
+          [
+            33,
+            13
+          ],
+          [
+            41,
+            12
+          ],
+          [
+            53,
+            12
+          ],
+          [
+            64,
+            10
+          ],
+          [
+            87,
+            10
+          ],
+          [
+            93,
+            11
+          ],
+          [
+            100,
+            11
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 7,
+      "name": "岩箱の継ぎ目",
+      "nameEn": "The Cracked Cargo Gate",
+      "theme": 1,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            10
+          ],
+          [
+            10,
+            10.5
+          ],
+          [
+            16,
+            11
+          ],
+          [
+            25,
+            11
+          ],
+          [
+            33,
+            13
+          ],
+          [
+            41,
+            12
+          ],
+          [
+            53,
+            12
+          ],
+          [
+            64,
+            10
+          ],
+          [
+            87,
+            10
+          ],
+          [
+            93,
+            11
+          ],
+          [
+            100,
+            11
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "007-LEANING-SEA-STACK",
+          "poly": [
+            [
+              36,
+              27
+            ],
+            [
+              44,
+              37
+            ],
+            [
+              62,
+              44
+            ],
+            [
+              79,
+              45
+            ],
+            [
+              100,
+              43
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              89,
+              0
+            ],
+            [
+              89,
+              20
+            ],
+            [
+              75,
+              23
+            ],
+            [
+              58,
+              22
+            ],
+            [
+              44,
+              25
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "007-CRACKED-BASE",
+          "poly": [
+            [
+              39,
+              12
+            ],
+            [
+              39,
+              27
+            ],
+            [
+              44,
+              27
+            ],
+            [
+              44,
+              12
+            ]
+          ],
+          "destructible": true
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            54,
+            85,
+            10
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W07",
+          "kind": "trial",
+          "weaponId": "W07",
+          "category": "weapon",
+          "amount": 2,
+          "x": 32.81,
+          "h": 40.768,
+          "spawnTurn": 1,
+          "placementId": "L007:weapon:W07",
+          "verification": {
+            "angle": 68,
+            "power": 60,
+            "neighborHits": 7,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "鏡の岸壁",
+      "themeGoal": "反射する地面を、谷・洞窟・浮島で使い分ける",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": "destruction",
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "hana",
+      "tacticalGoal": "岩門のひび割れを一つ壊し、開いた足元へ弾を通す。",
+      "tacticalGoalEn": "Break the cracked base, then fire through the opening beneath the leaning rock.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    }
+  },
+  "qualityEvidence": {
+    "experience": "目の前のひび割れ一片を壊すと、傾いた岩門の足元へ弾が通る。",
+    "render": "stage_007_before.png / stage_007_after.png / stage_007_after_input.png",
+    "improvement": "初案の幅110pxでは実エンジンが二片に分割したため、破壊部だけ50pxへ縮めた。固定岩体は残し、破壊一回で開くことを確認。 最終確認で破壊を省く転移直通が見つかったため、右側の岩体を地面まで接続。開始頭上の開放と破壊後の広い経路は保持。",
+    "limitedNativeCheck": {
+      "break": {
+        "angle": 12,
+        "power": 60,
+        "damage": [
+          0,
+          0
+        ],
+        "destroyed": [
+          "007-CRACKED-BASE@0"
+        ]
+      },
+      "counter": {
+        "round": 1,
+        "moved": 15,
+        "angle": 16.685018595308065,
+        "power": 49.00781484460458,
+        "damage": [
+          1,
+          0
+        ],
+        "kind": "FAMILY2",
+        "position": [
+          [
+            160,
+            390.83333333333337
+          ],
+          [
+            835,
+            400
+          ]
+        ],
+        "hpBefore": [
+          7,
+          3
+        ],
+        "hpAfter": [
+          6,
+          3
+        ]
+      },
+      "shot": {
+        "angle": 6,
+        "power": 95,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "bounce",
+            "x": 773.630237937488,
+            "y": 398.5,
+            "t": 0.9222222222222209,
+            "count": 1,
+            "surface": "reflector",
+            "solidId": "W0:floor0:8",
+            "bullet": 0
+          },
+          {
+            "x": 806.2348149215046,
+            "y": 389.556994739114,
+            "t": 0.9888888888888874,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 9,
+          "rows": [
+            {
+              "angle": 3,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "difference": "3面は自機が坂を降り、4面は裏岸へ転移。7面は位置を変えず、地形の一部を取り除く。16面で扱う移動先の開拓は足さない。",
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          16,
+          10.916666666666663
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "authored": [
+        [
+          16,
+          11
+        ],
+        [
+          82,
+          10
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1000
+    },
+    "finalRevision": {
+      "nativeBreak": {
+        "angle": 12,
+        "power": 60,
+        "destroyed": [
+          "007-CRACKED-BASE@0"
+        ]
+      },
+      "firstEnemy": {
+        "round": 1,
+        "moved": 15,
+        "angle": 16.685018595308065,
+        "power": 49.00781484460458,
+        "damage": [
+          1,
+          0
+        ],
+        "kind": "FAMILY2",
+        "position": [
+          [
+            160,
+            390.83333333333337
+          ],
+          [
+            835,
+            400
+          ]
+        ],
+        "hpBefore": [
+          7,
+          3
+        ],
+        "hpAfter": [
+          6,
+          3
+        ]
+      },
+      "teleport": null,
+      "shot": {
+        "angle": 6,
+        "power": 95,
+        "damage": [
+          0,
+          1.5
+        ],
+        "events": [
+          {
+            "type": "bounce",
+            "x": 773.630237937488,
+            "y": 398.5,
+            "t": 0.9222222222222209,
+            "count": 1,
+            "surface": "reflector",
+            "solidId": "W0:floor0:8",
+            "bullet": 0
+          },
+          {
+            "x": 806.2348149215046,
+            "y": 389.556994739114,
+            "t": 0.9888888888888874,
+            "type": "critical",
+            "bullet": 0
+          }
+        ],
+        "neighbors": {
+          "inputs": 9,
+          "hits": 9,
+          "rows": [
+            {
+              "angle": 3,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 3,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 6,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 90,
+              "hit": true,
+              "damage": [
+                0,
+                1
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 95,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            },
+            {
+              "angle": 9,
+              "power": 100,
+              "hit": true,
+              "damage": [
+                0,
+                1.5
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
