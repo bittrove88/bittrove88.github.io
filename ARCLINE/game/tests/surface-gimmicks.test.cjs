@@ -1,0 +1,42 @@
+'use strict';
+const assert=require('node:assert/strict'),E=require('../dist/engine.js'),G=E.geometry,P=require('../dist/physics.js'),A=require('../dist/visual-art.js');
+let checks=0;const ok=(v,m)=>{checks++;assert(v,m);},near=(a,b,m)=>ok(Math.abs(a-b)<1e-6,m);
+function ramp(angle){const rise=140*Math.tan(Math.abs(angle)*Math.PI/180),left=angle>0?400-rise:400,right=angle>0?400:400-rise;
+ return {id:1,features:[],floors:[[[0,10],[100,10]]],components:[{id:'ramp',poly:[[30,(500-left)/10],[44,(500-right)/10],[44,0],[30,0]]}],spawn:[[10,10],[90,10]],blink:[]};}
+function arena(spec){const s=E.campaign(1);s.spec={...s.spec,...spec,hold:1};s.world=G.world(s.spec);Object.assign(s.units[0],{x:370,y:G.floorY((s.world.surfaces[1]||s.world.surfaces[0]).points,370),slope:0,range:[35,965]});Object.assign(s.units[0],G.support(s.world,s.units[0].x,s.units[0].y));Object.assign(s.units[1],{x:900,y:400,slope:0});return s;}
+for(const angle of [-70,-60,-36,0,36,60,70]){
+ const s=arena(ramp(angle)),u=s.units[0],start={...u},pad=G.fallLanding(s.world,u.x,u.y),safe=G.safePosition(s.world,u.x,u.y);
+ ok(G.walkable(pad)&&G.walkable(safe),'standing / safe placement at '+angle);near(pad.slope,angle*Math.PI/180,'actual tangent at '+angle);ok(G.clearBody(s.world,pad),'rotated body clear at '+angle);
+ near(G.move(s,0,12),12,'walk right at '+angle);near(G.move(s,0,-24),-24,'walk left at '+angle);near(u.y,start.y-Math.tan(angle*Math.PI/180)*12,'feet follow face '+angle);
+ const hit={x:start.x,y:start.y,nx:Math.sin(start.slope),ny:-Math.cos(start.slope)},landing=G.teleportLanding(s.world,hit,s.units[1]);ok(landing&&G.walkable(landing),'warp landing at '+angle);near(landing.x,start.x,'warp keeps contact x '+angle);near(landing.y,start.y,'warp keeps contact y '+angle);
+ const m=G.muzzle(s,0,48),shot=E.trajectory(s,0,48,70);near(shot.path[0].x,m.x,'muzzle x at '+angle);near(shot.path[0].y,m.y,'muzzle y at '+angle);
+ E.rebuildWorld(s);near(u.x,start.x-12,'boundary retains slope x '+angle);near(u.y,start.y-Math.tan(angle*Math.PI/180)*12,'boundary retains slope height '+angle);
+}
+for(const angle of [-80,-75,-70.01,70.01,75,80]){
+ const s=arena(ramp(angle)),u=s.units[0],start={...u},pad=G.fallLanding(s.world,u.x,u.y);ok(pad&&G.walkable(pad)&&pad.slidePath?.length>=3,'steep contact slides then lands '+angle);ok((pad.x-u.x)*angle>0,'slides downhill '+angle);ok(G.clearBody(s.world,pad),'slide final body clear '+angle);
+ E.settleUnits(s);near(u.x,pad.x,'settling commits slide '+angle);ok(u.animation?.path?.length>=3,'visible slide follows face '+angle);
+ const warp=G.teleportLanding(s.world,{x:start.x,y:start.y,nx:Math.sin(start.slope),ny:-Math.cos(start.slope)},s.units[1]);ok(warp&&warp.slidePath&&G.walkable(warp),'steep warp slides '+angle);
+ ok(!G.walkable(G.support(s.world,start.x,start.y)),'cannot remain standing above 70 '+angle);
+}
+// Cross the foot and crest in both directions with the real 2px walk steps.
+for(const angle of[60,70]){const rise=100*Math.tan(angle*Math.PI/180),s=arena({...ramp(0),components:[],floors:[[[0,10],[30,10],[40,10+rise/10],[50,10+rise/10],[60,10],[100,10]]]});Object.assign(s.units[0],G.safePosition(s.world,250,400));near(G.move(s,0,380),380,'walk over entire '+angle+' degree hill');near(G.move(s,0,-380),-380,'return over entire '+angle+' degree hill');near(s.units[0].y,400,'returns to flat ground');}
+// New projectile colliders use exactly their visible upper polygon edges.
+const types=[['solid',{type:'S',v:[30,60,18,20]}],['roof',{type:'R',v:[30,60,20]}],['bridge',{type:'B',v:[30,20,30,0,0]}],['crystal',{type:'K',v:[45,20,60],sizeFactor:2}],['reflector',{type:'W',v:[0,100,10]}]];
+for(const [kind,feature]of types){const s=arena({...ramp(0),components:[],features:[feature]}),solid=s.world.solids.find(o=>o.kind===kind),surface=s.world.surfaces.find(f=>(f.solidId||f.id)===solid.id);ok(surface,'support registered for '+kind);const x=(surface.points[0].x+surface.points[1].x)/2,y=G.floorY(surface.points,x),p=G.fallLanding(s.world,x,y);ok(p&&G.walkable(p)&&G.clearBody(s.world,p),'ride projectile collider '+kind);const edge=surface.points,slope=Math.atan2(edge[1].y-edge[0].y,edge[1].x-edge[0].x),warp=G.teleportLanding(s.world,{x,y,nx:Math.sin(slope),ny:-Math.cos(slope)},s.units[1]);ok(warp&&Math.abs(warp.y-y)<2,'warp onto '+kind);}
+// Destroying a ridden piece removes its support and drops the rider to the floor.
+{const s=arena({...ramp(0),components:[{id:'crate',destructible:true,poly:[[30,25],[60,25],[60,20],[30,20]]}]}),u=s.units[0],p=G.fallLanding(s.world,350,250);ok(p?.surface.startsWith('crate@'),'breakable supports unit');Object.assign(u,p);const id=s.world.solids.find(o=>o.destructible&&G.inside({x:350,y:260},o.poly)).id;s.world=G.without(s.world,[id]);ok(!s.world.surfaces.some(f=>f.solidId===id),'destroyed support gone');E.settleUnits(s);near(u.y,400,'destroyed support falls to lower real ground');ok(u.animation?.fall,'destruction fall animated');}
+// A bridge changing from 70 to 75 degrees cannot keep its rider standing.
+{const s=arena({...ramp(0),components:[],features:[{type:'B',v:[30,10,30,0,70],openAngleDeg:75}]}),bridge=s.world.surfaces.find(f=>f.id==='B0');Object.assign(s.units[0],G.support(s.world,350,G.floorY(bridge.points,350)));ok(G.walkable(s.units[0]),'70 degree bridge initially supports');s.round=2;E.rebuildWorld(s);ok(G.walkable(s.units[0])&&s.units[0].surface!=='B0','75 degree bridge loses standing support');ok(G.clearBody(s.world,s.units[0]),'bridge change lands safely');}
+// Live projectile contacts, not synthetic warp results, land on a 70 degree face.
+{const s=arena(ramp(70)),u=s.units[0],x=u.x,y=u.y;s.units[0].x=100;s.units[0].y=400;s.units[0].slope=0;const a=70*Math.PI/180,origin={x:x+Math.sin(a)*90,y:y-Math.cos(a)*90,theta:Math.atan2(Math.cos(a),-Math.sin(a))},shot=P.simulate(s,0,48,70,{weaponId:'TELEPORT',origin});ok(shot.teleportContact?.solidId==='ramp','actual warp projectile hits ramp');E.resolve(s,shot);ok(shot.teleportSuccess,'native warp resolves on 70 degree ramp');near(s.units[0].slope,a,'native warp keeps 70 degree tangent');}
+// Actual body collision follows the tilted chassis rather than its old upright center.
+{const s=arena(ramp(70)),u=s.units[0],a=u.slope,center=G.actorPoint(s,0,0,-22),normal={x:Math.sin(a),y:-Math.cos(a)},origin={x:center.x+normal.x*70,y:center.y+normal.y*70,theta:Math.atan2(-normal.y,-normal.x)},shot=P.simulate(s,1,48,70,{weaponId:'W01',origin}),hit=shot.impacts.find(i=>i.hit?.unit===0);ok(hit&&shot.damage[0]>0,'enemy projectile hits tilted player');near(Math.hypot(hit.x-center.x,hit.y-center.y),31,'hit lies on rotated body collision');ok(Math.hypot(hit.x-u.x,hit.y-(u.y-22))>31,'upright center would miss this contact');}
+// Walking on an unsupported steep face triggers sliding without spending the slide distance.
+{const s=arena(ramp(75)),x=s.units[0].x;near(G.move(s,0,2),2,'only commanded step counted');ok(s.units[0].x>x+50&&s.units[0].animation?.path,'walking contact slides downhill');}
+// Headroom, enemy separation and movement range remain enforced.
+{const s=arena(ramp(60)),u=s.units[0],p={...u},other={x:u.x,y:u.y};ok(!G.fallLanding(s.world,p.x,p.y,other),'no landing inside rival');ok(!G.fallLanding(s.world,p.x,p.y,null,[500,900]),'no landing outside movement range');const block={id:'ceiling',kind:'solid',poly:[{x:p.x+5,y:p.y-60},{x:p.x+70,y:p.y-60},{x:p.x+70,y:p.y-5},{x:p.x+5,y:p.y-5}]};s.world.solids.push(block);ok(!G.clearBody(s.world,p),'slope body still respects overhead obstacle');}
+for(let n=1;n<=100;n++)for(const round of[1,2]){const s=E.campaign(n);const w=G.world(s.spec,round);for(const solid of w.solids)ok(w.surfaces.some(f=>(f.solidId||f.id)===solid.id),'every solid has upper support '+n+'/'+solid.id);ok(s.units.every(u=>u.floating||G.walkable(u)&&G.clearBody(s.world,u)),'safe supported initial placement '+n);}
+// Direction/polarity and stopped state are legible without animation or color.
+for(const kind of['F','U','V','M','C'])for(const direction of[-1,1])for(const on of[true,false]){const r={kind,direction,on,strength:1},ja=A.regionState(r),en=A.regionState(r,true);ok(ja.label.includes(on?'ON':'OFF')&&en.label.includes(on?'ON':'OFF'),'explicit on/off '+kind);ok(on||ja.symbol==='×','off has stop symbol '+kind);if(on&&['F','M'].includes(kind))ok(A.regionState({...r,direction:-direction}).symbol!==ja.symbol,'direction differs without color '+kind);}
+ok(!A.regionState({kind:'M',on:true,strength:0}).active,'disabled magnet has OFF state');
+console.log('PASS surface-gimmicks '+checks+' checks');

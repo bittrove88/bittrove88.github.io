@@ -1,0 +1,8 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),G=require('../../game/dist/geometry.js'),L=require('../../game/dist/levels.js');const H=__dirname;
+const g=JSON.parse(fs.readFileSync(path.join(H,'map_review_gallery_data.json')));
+for(const e of g.stages.filter(e=>g.reviewScope.includes(e.stage))){const p=JSON.parse(fs.readFileSync(path.join(H,e.source))),m=e.after,w=G.world({...L[e.stage-1],worldWidth:m.width,floors:m.floors,components:m.parts.map(x=>({...x,destructible:x.breakable})),features:m.features}),rows=[];
+ for(const [i,x] of m.parts.entries()){const units=w.solids.filter(v=>v.componentId===x.id&&v.kind!=='reflector'),label=(x.breakable?'D':'F')+String(i+1).padStart(2,'0');x.displayId=label;x.unitCount=units.length;x.renderUnits=units.map((u,j)=>({id:u.id,label:label+(units.length>1?'-'+(j+1):''),poly:u.poly.map(q=>[q.x/10,(500-q.y)/10])}));rows.push({id:x.id,label,breakable:x.breakable,unitCount:units.length,units:x.renderUnits,purpose:x.purpose});}
+ if(p.openingComponents)p.destructionPlans=Object.fromEntries(Object.entries(p.openingComponents).map(([key,ids])=>[key,rows.filter(r=>ids.includes(r.id)).flatMap(r=>r.units.map(u=>u.id))]));
+ p.destructionRegister=rows;e.destructionPlans=p.destructionPlans;m.accessPaths=p.routeDesign.anchors.map((q,i)=>({label:chr(i),points:[[m.player.x,m.player.h],[q.x,q.h]],kind:'planned',status:'planned-not-an-actual-landing-trace'}));m.firingPoints=p.routeDesign.anchors.map((q,i)=>({x:q.x,h:q.h,label:chr(i)}));p.after=m;fs.writeFileSync(path.join(H,e.source),JSON.stringify(p,null,2)+'\n');
+}fs.writeFileSync(path.join(H,'map_review_gallery_data.json'),JSON.stringify(g,null,2)+'\n');function chr(i){return String.fromCharCode(65+i);}

@@ -1,0 +1,417 @@
+{
+  "schema": "arcline-individual-map-proposal-v2",
+  "stage": 51,
+  "date": "2026-11-05",
+  "status": "superseded-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_by_stage_map_design_policy_v1.md#14",
+  "provenance": "New individual concept and hand-authored coordinates; rejected 51-100 proposals and allocation not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        20
+      ],
+      [
+        29,
+        20
+      ],
+      [
+        46,
+        10
+      ],
+      [
+        68,
+        10
+      ],
+      [
+        79,
+        23
+      ],
+      [
+        100,
+        23
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          20
+        ],
+        [
+          29,
+          20
+        ],
+        [
+          46,
+          10
+        ],
+        [
+          68,
+          10
+        ],
+        [
+          79,
+          23
+        ],
+        [
+          100,
+          23
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "051-C01",
+        "kind": "island",
+        "poly": [
+          [
+            44,
+            29
+          ],
+          [
+            59,
+            29
+          ],
+          [
+            59,
+            24
+          ],
+          [
+            44,
+            24
+          ]
+        ],
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          34,
+          53,
+          8,
+          39
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 20.0
+    },
+    "enemy": {
+      "x": 82,
+      "h": 23.0
+    },
+    "pickups": []
+  },
+  "after": {
+    "width": 1100,
+    "floor": [
+      [
+        0,
+        24
+      ],
+      [
+        12,
+        26
+      ],
+      [
+        18,
+        26
+      ],
+      [
+        23,
+        26
+      ],
+      [
+        29,
+        29
+      ],
+      [
+        35,
+        29
+      ],
+      [
+        42,
+        35
+      ],
+      [
+        48,
+        33
+      ],
+      [
+        57,
+        15
+      ],
+      [
+        63,
+        9
+      ],
+      [
+        69,
+        9
+      ],
+      [
+        74,
+        10
+      ],
+      [
+        82,
+        20
+      ],
+      [
+        88,
+        14
+      ],
+      [
+        96,
+        14
+      ],
+      [
+        110,
+        18
+      ]
+    ],
+    "parts": [],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          43,
+          76,
+          27,
+          56
+        ]
+      }
+    ],
+    "player": {
+      "x": 20,
+      "h": 26
+    },
+    "enemy": {
+      "x": 91,
+      "h": 14
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "尾根越し・風を読む",
+        "points": [
+          [
+            20,
+            29
+          ],
+          [
+            39,
+            57
+          ],
+          [
+            59,
+            60
+          ],
+          [
+            78,
+            39
+          ],
+          [
+            91,
+            17
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "谷底から風域の下を通す",
+        "points": [
+          [
+            65,
+            12
+          ],
+          [
+            78,
+            24
+          ],
+          [
+            91,
+            17
+          ]
+        ],
+        "status": "concept-only-not-a-measured-trajectory"
+      }
+    ],
+    "floors": [
+      [
+        [
+          0,
+          24
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          18,
+          26
+        ],
+        [
+          23,
+          26
+        ],
+        [
+          29,
+          29
+        ],
+        [
+          35,
+          29
+        ],
+        [
+          42,
+          35
+        ],
+        [
+          48,
+          33
+        ],
+        [
+          57,
+          15
+        ],
+        [
+          63,
+          9
+        ],
+        [
+          69,
+          9
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          82,
+          20
+        ],
+        [
+          88,
+          14
+        ],
+        [
+          96,
+          14
+        ],
+        [
+          110,
+          18
+        ]
+      ]
+    ],
+    "pickups": [],
+    "firingPoints": [
+      {
+        "x": 33,
+        "h": 29,
+        "label": "A"
+      },
+      {
+        "x": 65,
+        "h": 9,
+        "label": "B"
+      }
+    ]
+  },
+  "summary": {
+    "concept": "風を受ける尾根越しの曲射か、谷底へ降りて風を避ける低弾道かを選ぶ。",
+    "terrain": "非対称の二重尾根と風下の窪地",
+    "widthReason": "二つの尾根と中間の風陰を分けるため1100px。巨大な移動面にはしない。",
+    "neighborDifference": "50面の採掘盆地・複数部品・破壊準備から、屋根も島もない尾根の選択へ切り替える。52面の閉じた洞窟とも対照。"
+  },
+  "learningGoal": {
+    "source": "風域の手前と奥で射点を比べ、運ばれる方向を読む",
+    "proposed": "風を受ける尾根越しの曲射か、谷底へ降りて風を避ける低弾道かを選ぶ。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "開始棚または130px先の尾根射点から、風向きの変化を読んだ高い弧で逆斜面の敵を狙う。",
+    "alternative": "谷底x65の広い棚へ転移し、風域の下端h27より低い経路から敵の窪地へ送る。転移入力と通常弾の低弧は未検証。",
+    "anchors": [
+      {
+        "id": "ridge",
+        "x": 33,
+        "h": 29,
+        "surface": "floor0",
+        "role": "130px歩くと近い尾根射点。"
+      },
+      {
+        "id": "lee",
+        "x": 65,
+        "h": 9,
+        "surface": "floor0",
+        "role": "谷底の風陰。転移候補、入力未検証。"
+      }
+    ],
+    "setupActionsTarget": [
+      0,
+      1
+    ],
+    "totalActionsTarget": [
+      6,
+      11
+    ],
+    "budgetMeaning": "設計上の目標。クリア実績や保証ではない。歩行だけでなく窓破壊・転移と反撃を含めて実装時に確認する。",
+    "gimmick": "Fは尾根を越す上側の経路に作用させる。谷底経路は風域を避ける。51面の風はhold=1で反転する既存仕様を維持。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:gust",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "hibari",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "中",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "中",
+      "ギミック手数": "低",
+      "ボス部位": "なし"
+    },
+    "risk": "谷底の風陰は無敵の遮蔽ではない。敵ガストの弧・風の反転・初期からの相互攻撃経路を実装時に確認する。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "combat": "not-run",
+    "teleportInputs": "not-run",
+    "humanPlay": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_055_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only. No campaign generator, runtime, gameplay, inventory placement source, saves or public deployment changed.",
+  "supersededBy": "stage_051_proposal_v2.json"
+}

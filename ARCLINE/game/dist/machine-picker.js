@@ -21,7 +21,7 @@
         ? "Tap to switch. HP ratio and special ammo carry over."
         : "タップで変更。HPの割合・必殺弾の残数は引き継ぎます。";
       const fixed=root.ArcFinalTeam.active(s);$("battleMachinePicker").dataset.fixedOrder=String(fixed);
-      if(fixed){$("battleMachineTitle").textContent=en?"Fixed sortie order":"固定の出撃順";$("battleMachineNote").textContent=en?"Each machine has70 HP and must deal100 body damage. Automatic handoff; every third machine changes the arena. Durability is70 HP; one special per machine.":"各機体HP70で本体へ100ダメージ。達成後に自動交代し、3機ごとに戦場が変わります。耐久は全機体70、必殺は各1発。";}
+      if(fixed){$("battleMachineTitle").textContent=en?"Fixed sortie order":"固定の出撃順";$("battleMachineNote").textContent=en?"Each machine has70 HP and must deal100 body damage. Automatic handoff; every third machine changes the arena. Durability is70 HP; each machine starts with3 specials and28 actions.":"各機体HP70で本体へ100ダメージ。達成後に自動交代し、3機ごとに戦場が変わります。耐久は全機体70、必殺は各3発、行動上限は各28回。";}
       $("battleMachineChoices").innerHTML = (fixed?s.spec.finalBattle.order.map(id=>root.ArcCrew.get(id)):root.ArcCrew.rows.filter(c=>root.ArcCrew.owned(data,c.id)))
         .map((c) => {
           const a = root.ArcCharacters.get(c.id),

@@ -1,0 +1,18 @@
+'use strict';
+// A bounded headless combat probe using the unchanged enemy planner; no autonomous-teleport substitute.
+const fs=require('node:fs'),path=require('node:path'),S=require('./review_sandbox.cjs'),fingerprint=require('./review_fingerprint.cjs');
+const H=__dirname,read=f=>JSON.parse(fs.readFileSync(path.join(H,f))),g=read('map_review_gallery_data.json'),replays=read('STAGES_051_099_ACTION_REPLAYS.json'),rows=[];
+const chosen=process.argv.slice(2).map(Number),stages=chosen.length?chosen:[60,65,90,95];
+function bestAttack(s){const types=['W01'];if(s.specialAmmo>0)types.push(S.E.combat.get(s.characterId).special.id);let best=null;for(const id of types){const b=S.search(s,{id,angleStep:6,powerStep:10,minAngle:-12,maxAngle:168});if(!b)continue;const score=S.damage(b.shot)-b.shot.damage[0]*4-(id==='W01'?0:.05);if(!best||score>best.score)best={...b,id,score};}return best;}
+function battle(e,route,seed){const s=S.make(e,{seed}),steps=[];let prefixFailed=null,observed=new Set();for(const t of route.trace.filter(Boolean)){if(s.result)break;if(t.kind==='walk')steps.push(S.walk(s,t.requestedInputPx));else if(t.input){const a=S.fire(s,t.input.angle,t.input.power,{id:t.input.id,enemy:'runtime'});if(!a){prefixFailed='Launch rejected';break;}if(t.input.id==='TELEPORT'&&!a.teleportSuccess)prefixFailed='Teleport landing changed';for(const k of a.shot.events)observed.add(k.type);steps.push(a);}}
+ let safety=0;while(!s.result&&s.shotCount<s.shotLimit&&safety++<s.shotLimit){
+  let choice=null;for(const dx of [0,140,-140]){const c=S.clone(s),walk=S.walk(c,dx);const hit=bestAttack(c);if(hit&&(!choice||hit.score>choice.hit.score))choice={hit,walk};}
+  if(!choice||choice.hit.score<=0){const missing=s.world.solids.filter(x=>x.destructible).map(x=>x.id);const b=S.search(s,{predicate:z=>z.destroyed.some(id=>missing.includes(id))&&z.damage[0]<.25,angleStep:8,powerStep:10});if(b)choice={hit:{...b,id:'W01'},walk:null};}
+  if(!choice){prefixFailed||='No attack or break sample found';break;}
+  if(choice.walk?.requestedInputPx)steps.push(S.walk(s,choice.walk.requestedInputPx));const action=S.fire(s,choice.hit.angle,choice.hit.power,{id:choice.hit.id,enemy:'runtime'});if(!action)break;for(const x of action.shot.events)observed.add(x.type);steps.push(action);
+ }
+ return{seed,result:s.result||'UNFINISHED',actions:s.shotCount,limit:s.shotLimit,playerHp:s.units[0].hp,enemyHp:s.units[1].hp,parts:s.units[1].parts.map(x=>({name:x.name,hp:x.hp})),observed:[...observed],prefixFailed,steps,scope:'Unchanged runtime enemy attacks and walking. No enemy teleport, no human or all-character guarantee.'};}
+for(const n of stages){const e=g.stages.find(x=>x.stage===n),p=read(e.source),r=replays.stages.find(x=>x.stage===n);if(!r||r.inputHash!==fingerprint(e,p)){console.log('skip stale',n);continue;}const picks=n===60?['high','exit']:n===90?['stern','bow']:r.routes.filter(x=>x.status==='INPUT_ROUTE_AND_ATTACK_FOUND').slice(0,2).map(x=>x.goal),groups=[];
+ for(const id of picks){const route=r.routes.find(x=>x.goal===id&&x.status==='INPUT_ROUTE_AND_ATTACK_FOUND');if(!route)continue;const cases=[];for(const seed of [1,7,19]){const z=battle(e,route,seed);cases.push(z);console.log(n,id,seed,z.result,z.actions);}
+ groups.push({route:id,cases});}
+ rows.push({stage:n,inputHash:fingerprint(e,p),groups,enemyAutonomousTeleport:'NOT_IMPLEMENTED_NOT_VERIFIED'});fs.writeFileSync(path.join(H,'STAGES_PR74_COMBAT_PROBE.json'),JSON.stringify({scope:'Selected boss routes only, existing runtime enemy walking and attacks, three seeds. Autonomous enemy teleport remains unimplemented and unverified.',stages:rows},null,2)+'\n');}

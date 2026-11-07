@@ -1,0 +1,1015 @@
+{
+  "stage": 52,
+  "name": "一片の横穴と開いた縦穴",
+  "date": "2026-11-07",
+  "status": "design-approved-runtime-unverified",
+  "source": {
+    "stage": 52,
+    "proposal": "stage_052_proposal_v4.json",
+    "review": "stage_052_review_v4.md"
+  },
+  "before": {
+    "width": 1320,
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        34,
+        12
+      ],
+      [
+        46,
+        14
+      ],
+      [
+        61,
+        14
+      ],
+      [
+        73,
+        18
+      ],
+      [
+        86,
+        27
+      ],
+      [
+        99,
+        35
+      ],
+      [
+        110,
+        43
+      ],
+      [
+        124,
+        43
+      ],
+      [
+        132,
+        40
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          34,
+          12
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          61,
+          14
+        ],
+        [
+          73,
+          18
+        ],
+        [
+          86,
+          27
+        ],
+        [
+          99,
+          35
+        ],
+        [
+          110,
+          43
+        ],
+        [
+          124,
+          43
+        ],
+        [
+          132,
+          40
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-WEST-CLIFF",
+        "poly": [
+          [
+            0,
+            72
+          ],
+          [
+            17,
+            75
+          ],
+          [
+            31,
+            70
+          ],
+          [
+            31,
+            33
+          ],
+          [
+            18,
+            34
+          ],
+          [
+            0,
+            37
+          ]
+        ],
+        "purpose": "洞窟天井の先端を短縮し、縦穴と窓前の射角を確保。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F01",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "052-WEST-CLIFF",
+            "label": "F01",
+            "poly": [
+              [
+                0,
+                72
+              ],
+              [
+                17,
+                75
+              ],
+              [
+                31,
+                70
+              ],
+              [
+                31,
+                33
+              ],
+              [
+                18,
+                34
+              ],
+              [
+                0,
+                37
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "052-THIN-WINDOW",
+        "poly": [
+          [
+            55,
+            14
+          ],
+          [
+            71,
+            17.333333333
+          ],
+          [
+            71,
+            43
+          ],
+          [
+            55,
+            42
+          ]
+        ],
+        "purpose": "160pxの通射窓。分割単位を開けてから発射位置を選ぶ。",
+        "kind": "wall",
+        "breakable": true,
+        "displayId": "D02",
+        "unitCount": 2,
+        "renderUnits": [
+          {
+            "id": "052-THIN-WINDOW@0",
+            "label": "D02-1",
+            "poly": [
+              [
+                55,
+                14
+              ],
+              [
+                63,
+                15.666666666499998
+              ],
+              [
+                63,
+                42.5
+              ],
+              [
+                55,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "052-THIN-WINDOW@1",
+            "label": "D02-2",
+            "poly": [
+              [
+                63,
+                15.666666666499998
+              ],
+              [
+                71,
+                17.333333332999995
+              ],
+              [
+                71,
+                43
+              ],
+              [
+                63,
+                42.5
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "052-CLIFF-SPINE",
+        "poly": [
+          [
+            55,
+            42
+          ],
+          [
+            71,
+            43
+          ],
+          [
+            71,
+            72
+          ],
+          [
+            62,
+            69
+          ],
+          [
+            55,
+            60
+          ]
+        ],
+        "purpose": "窓の上の断崖。下段と上部迂回を分ける。",
+        "kind": "wall",
+        "breakable": false,
+        "displayId": "F03",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "052-CLIFF-SPINE",
+            "label": "F03",
+            "poly": [
+              [
+                55,
+                42
+              ],
+              [
+                71,
+                43
+              ],
+              [
+                71,
+                72
+              ],
+              [
+                62,
+                69
+              ],
+              [
+                55,
+                60
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "052-MOUNTAIN",
+        "poly": [
+          [
+            71,
+            72
+          ],
+          [
+            82,
+            76
+          ],
+          [
+            96,
+            76
+          ],
+          [
+            104,
+            70
+          ],
+          [
+            104,
+            48
+          ],
+          [
+            95,
+            44
+          ],
+          [
+            80,
+            43
+          ],
+          [
+            71,
+            43
+          ]
+        ],
+        "purpose": "観測台へ向かう上部の大きな張り出し。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F04",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "052-MOUNTAIN",
+            "label": "F04",
+            "poly": [
+              [
+                71,
+                72
+              ],
+              [
+                82,
+                76
+              ],
+              [
+                96,
+                76
+              ],
+              [
+                104,
+                70
+              ],
+              [
+                104,
+                48
+              ],
+              [
+                95,
+                44
+              ],
+              [
+                80,
+                43
+              ],
+              [
+                71,
+                43
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          74,
+          95,
+          24,
+          41
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 12
+    },
+    "enemy": {
+      "x": 118,
+      "h": 43
+    }
+  },
+  "after": {
+    "width": 1320,
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        34,
+        12
+      ],
+      [
+        46,
+        14
+      ],
+      [
+        61,
+        14
+      ],
+      [
+        73,
+        18
+      ],
+      [
+        86,
+        27
+      ],
+      [
+        99,
+        35
+      ],
+      [
+        110,
+        43
+      ],
+      [
+        124,
+        43
+      ],
+      [
+        132,
+        40
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          34,
+          12
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          61,
+          14
+        ],
+        [
+          73,
+          18
+        ],
+        [
+          86,
+          27
+        ],
+        [
+          99,
+          35
+        ],
+        [
+          110,
+          43
+        ],
+        [
+          124,
+          43
+        ],
+        [
+          132,
+          40
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          74,
+          95,
+          24,
+          41
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 12
+    },
+    "enemy": {
+      "x": 118,
+      "h": 43
+    },
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 51,
+        "h": 22,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ],
+    "parts": [
+      {
+        "id": "052-WEST-CLIFF",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            72
+          ],
+          [
+            11,
+            74
+          ],
+          [
+            16,
+            70
+          ],
+          [
+            16,
+            35
+          ],
+          [
+            0,
+            37
+          ]
+        ],
+        "breakable": false,
+        "purpose": "洞窟天井の先端を短縮し、縦穴と窓前の射角を確保。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "052-THIN-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            55,
+            14
+          ],
+          [
+            63,
+            15.6667
+          ],
+          [
+            63,
+            43
+          ],
+          [
+            55,
+            42
+          ]
+        ],
+        "breakable": true,
+        "purpose": "160pxの通射窓。分割単位を開けてから発射位置を選ぶ。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "052-CLIFF-SPINE",
+        "kind": "wall",
+        "poly": [
+          [
+            55,
+            42
+          ],
+          [
+            63,
+            43
+          ],
+          [
+            63,
+            72
+          ],
+          [
+            58,
+            66
+          ],
+          [
+            55,
+            60
+          ]
+        ],
+        "breakable": false,
+        "purpose": "窓の上の断崖。下段と上部迂回を分ける。",
+        "displayId": "F03",
+        "unitCount": 1
+      },
+      {
+        "id": "052-MOUNTAIN",
+        "kind": "roof",
+        "poly": [
+          [
+            63,
+            72
+          ],
+          [
+            82,
+            76
+          ],
+          [
+            96,
+            76
+          ],
+          [
+            104,
+            70
+          ],
+          [
+            104,
+            48
+          ],
+          [
+            95,
+            44
+          ],
+          [
+            80,
+            43
+          ],
+          [
+            63,
+            43
+          ]
+        ],
+        "breakable": false,
+        "purpose": "観測台へ向かう上部の大きな張り出し。",
+        "displayId": "F04",
+        "unitCount": 1
+      }
+    ],
+    "id": 52,
+    "stageNumber": 52,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 24,
+        "h": 12,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 49,
+        "h": 14,
+        "role": "横窓前の開放湾"
+      },
+      {
+        "id": "B",
+        "x": 88,
+        "h": 76,
+        "role": "縦穴から出る断崖上"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "window",
+        "points": [
+          [
+            49,
+            17
+          ],
+          [
+            66,
+            29
+          ],
+          [
+            86,
+            38
+          ],
+          [
+            104,
+            47
+          ],
+          [
+            118,
+            46
+          ]
+        ],
+        "destroy": [
+          "052-THIN-WINDOW"
+        ]
+      },
+      {
+        "id": "roof",
+        "points": [
+          [
+            88,
+            79
+          ],
+          [
+            104,
+            88
+          ],
+          [
+            118,
+            46
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 52,
+    "name": "一片の横穴と開いた縦穴",
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        34,
+        12
+      ],
+      [
+        46,
+        14
+      ],
+      [
+        61,
+        14
+      ],
+      [
+        73,
+        18
+      ],
+      [
+        86,
+        27
+      ],
+      [
+        99,
+        35
+      ],
+      [
+        110,
+        43
+      ],
+      [
+        124,
+        43
+      ],
+      [
+        132,
+        40
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-WEST-CLIFF",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            72
+          ],
+          [
+            11,
+            74
+          ],
+          [
+            16,
+            70
+          ],
+          [
+            16,
+            35
+          ],
+          [
+            0,
+            37
+          ]
+        ],
+        "breakable": false,
+        "purpose": "洞窟天井の先端を短縮し、縦穴と窓前の射角を確保。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "052-THIN-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            55,
+            14
+          ],
+          [
+            63,
+            15.6667
+          ],
+          [
+            63,
+            43
+          ],
+          [
+            55,
+            42
+          ]
+        ],
+        "breakable": true,
+        "purpose": "160pxの通射窓。分割単位を開けてから発射位置を選ぶ。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "052-CLIFF-SPINE",
+        "kind": "wall",
+        "poly": [
+          [
+            55,
+            42
+          ],
+          [
+            63,
+            43
+          ],
+          [
+            63,
+            72
+          ],
+          [
+            58,
+            66
+          ],
+          [
+            55,
+            60
+          ]
+        ],
+        "breakable": false,
+        "purpose": "窓の上の断崖。下段と上部迂回を分ける。",
+        "displayId": "F03",
+        "unitCount": 1
+      },
+      {
+        "id": "052-MOUNTAIN",
+        "kind": "roof",
+        "poly": [
+          [
+            63,
+            72
+          ],
+          [
+            82,
+            76
+          ],
+          [
+            96,
+            76
+          ],
+          [
+            104,
+            70
+          ],
+          [
+            104,
+            48
+          ],
+          [
+            95,
+            44
+          ],
+          [
+            80,
+            43
+          ],
+          [
+            63,
+            43
+          ]
+        ],
+        "breakable": false,
+        "purpose": "観測台へ向かう上部の大きな張り出し。",
+        "displayId": "F04",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          74,
+          95,
+          24,
+          41
+        ]
+      }
+    ],
+    "worldWidth": 1320,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        24,
+        12
+      ],
+      [
+        118,
+        43
+      ]
+    ],
+    "recommended": "ban",
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 51,
+        "h": 22,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:spike",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "ban",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    }
+  },
+  "design": {
+    "core": "横穴を壊して低く通すか、開いた縦穴から断崖上へ出る。",
+    "change": "西張り出しを後退してP0頭上を開け、破壊窓を80pxの独立片に。",
+    "distinct": "破壊の一手と縦の迂回を比較する断崖。二枚隔壁とは分ける。",
+    "inherit": {
+      "concept": "薄い岩壁を壊す近道と、断崖上へ迂回する射撃を選ぶ。",
+      "terrain": "厚い断崖を貫く横穴風洞",
+      "changeFromPrevious": "主要輪郭・初期位置・主ルートと別解を維持。移動比較、破壊単位、ギミック監査の記録を追加。",
+      "reviewAgainstCompendium": "主要輪郭・初期位置・主ルートと別解を維持。移動比較、破壊単位、ギミック監査の記録を追加。"
+    },
+    "special": ""
+  },
+  "approval": {
+    "state": "approved",
+    "date": "2026-11-07",
+    "approvedDesignCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "evidence": "ユーザー「オレンジの箇所を削ってください。青い線の箇所に反射板を設置。他はok」。56・57面を除く29面の提示設計を承認。",
+    "afterSha256": "52040e556c3e43c70e1a86322671f7f83008a34fcf9cfa3cee8a6654fb89419f"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "P0の上方を開放し、横窓と縦穴の二経路を全景・同縮尺比較で確認。横窓の1片表示を追加し、再描画して確認した。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

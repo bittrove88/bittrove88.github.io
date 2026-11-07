@@ -1,0 +1,840 @@
+{
+  "stage": 80,
+  "name": "実験炉を挟む発生器の両側",
+  "date": "2026-11-07",
+  "status": "design-approved-runtime-unverified",
+  "source": {
+    "stage": 80,
+    "proposal": "stage_080_proposal_v1.json",
+    "review": "stage_080_review_v1.md"
+  },
+  "before": {
+    "width": 1600,
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        30,
+        12
+      ],
+      [
+        44,
+        14
+      ],
+      [
+        65,
+        14
+      ],
+      [
+        91,
+        22
+      ],
+      [
+        114,
+        44
+      ],
+      [
+        151,
+        44
+      ],
+      [
+        160,
+        40
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          44,
+          14
+        ],
+        [
+          65,
+          14
+        ],
+        [
+          91,
+          22
+        ],
+        [
+          114,
+          44
+        ],
+        [
+          151,
+          44
+        ],
+        [
+          160,
+          40
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "080-UPPER",
+        "kind": "island",
+        "poly": [
+          [
+            9,
+            44
+          ],
+          [
+            15,
+            49
+          ],
+          [
+            42,
+            49
+          ],
+          [
+            47,
+            44
+          ],
+          [
+            39,
+            39
+          ],
+          [
+            17,
+            39
+          ]
+        ],
+        "purpose": "端子切替後に使う上段射点。",
+        "breakable": false,
+        "displayId": "F01",
+        "renderUnits": [
+          {
+            "id": "080-UPPER",
+            "label": "F01",
+            "poly": [
+              [
+                9,
+                44
+              ],
+              [
+                15,
+                49
+              ],
+              [
+                42,
+                49
+              ],
+              [
+                47,
+                44
+              ],
+              [
+                39,
+                39
+              ],
+              [
+                17,
+                39
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "080-GENERATOR-ARCH",
+        "kind": "island",
+        "poly": [
+          [
+            68,
+            58
+          ],
+          [
+            75,
+            63
+          ],
+          [
+            87,
+            63
+          ],
+          [
+            93,
+            58
+          ],
+          [
+            85,
+            52
+          ],
+          [
+            77,
+            52
+          ]
+        ],
+        "purpose": "中央発生器周りの遮蔽。",
+        "breakable": false,
+        "displayId": "F02",
+        "renderUnits": [
+          {
+            "id": "080-GENERATOR-ARCH",
+            "label": "F02",
+            "poly": [
+              [
+                68,
+                58
+              ],
+              [
+                75,
+                63
+              ],
+              [
+                87,
+                63
+              ],
+              [
+                93,
+                58
+              ],
+              [
+                85,
+                52
+              ],
+              [
+                77,
+                52
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "080-SIDE-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            108,
+            38
+          ],
+          [
+            114,
+            44
+          ],
+          [
+            114,
+            60
+          ],
+          [
+            108,
+            58
+          ]
+        ],
+        "purpose": "ボス側の独立破壊窓。",
+        "breakable": true,
+        "displayId": "D03",
+        "renderUnits": [
+          {
+            "id": "080-SIDE-WINDOW@0",
+            "label": "D03",
+            "poly": [
+              [
+                108,
+                38
+              ],
+              [
+                114,
+                44
+              ],
+              [
+                114,
+                60
+              ],
+              [
+                108,
+                58
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          82,
+          43,
+          31,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          49,
+          20
+        ]
+      }
+    ],
+    "player": {
+      "x": 23,
+      "h": 12
+    },
+    "enemy": {
+      "x": 137,
+      "h": 44
+    }
+  },
+  "after": {
+    "width": 1840,
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        30,
+        12
+      ],
+      [
+        44,
+        14
+      ],
+      [
+        68,
+        14
+      ],
+      [
+        91,
+        22
+      ],
+      [
+        96,
+        31
+      ],
+      [
+        104,
+        31
+      ],
+      [
+        114,
+        44
+      ],
+      [
+        151,
+        44
+      ],
+      [
+        160,
+        40
+      ],
+      [
+        184,
+        40
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          44,
+          14
+        ],
+        [
+          68,
+          14
+        ],
+        [
+          91,
+          22
+        ],
+        [
+          96,
+          31
+        ],
+        [
+          104,
+          31
+        ],
+        [
+          114,
+          44
+        ],
+        [
+          151,
+          44
+        ],
+        [
+          160,
+          40
+        ],
+        [
+          184,
+          40
+        ]
+      ]
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          82,
+          43,
+          31,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          49,
+          20
+        ]
+      }
+    ],
+    "player": {
+      "x": 100,
+      "h": 31
+    },
+    "enemy": {
+      "x": 137,
+      "h": 44
+    },
+    "pickups": [],
+    "parts": [
+      {
+        "id": "080-GENERATOR-ARCH",
+        "kind": "island",
+        "poly": [
+          [
+            68,
+            58
+          ],
+          [
+            74,
+            65
+          ],
+          [
+            82,
+            67
+          ],
+          [
+            93,
+            57
+          ],
+          [
+            86,
+            52
+          ],
+          [
+            77,
+            52
+          ],
+          [
+            72,
+            55
+          ]
+        ],
+        "breakable": false,
+        "purpose": "中央発生器周りの遮蔽。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "080-SIDE-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            108,
+            38
+          ],
+          [
+            114,
+            44
+          ],
+          [
+            114,
+            60
+          ],
+          [
+            108,
+            58
+          ]
+        ],
+        "breakable": true,
+        "purpose": "ボス側の独立破壊窓。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "080-SERVICE-DECK",
+        "poly": [
+          [
+            150,
+            56
+          ],
+          [
+            155,
+            70
+          ],
+          [
+            160,
+            66
+          ],
+          [
+            160,
+            58
+          ],
+          [
+            175,
+            58
+          ],
+          [
+            180,
+            50
+          ],
+          [
+            171,
+            49
+          ],
+          [
+            160,
+            51
+          ]
+        ],
+        "breakable": false,
+        "purpose": "折れた西縁で低い直通を遮る点検床",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "id": 80,
+    "stageNumber": 80,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 100,
+        "h": 31,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 64,
+        "h": 14,
+        "role": "磁場の左側の制御域"
+      },
+      {
+        "id": "B",
+        "x": 166,
+        "h": 58,
+        "role": "右側発生器への点検床"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "M-GEN-A",
+        "points": [
+          [
+            64,
+            17
+          ],
+          [
+            75,
+            36
+          ],
+          [
+            98,
+            49
+          ],
+          [
+            120,
+            62
+          ],
+          [
+            131.2,
+            47
+          ]
+        ],
+        "contact": "M",
+        "destroy": [
+          "080-SIDE-WINDOW"
+        ]
+      },
+      {
+        "id": "service-GEN-B",
+        "points": [
+          [
+            166,
+            61
+          ],
+          [
+            156,
+            85
+          ],
+          [
+            146,
+            72
+          ],
+          [
+            142.8,
+            47
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 80,
+    "name": "実験炉を挟む発生器の両側",
+    "floor": [
+      [
+        0,
+        12
+      ],
+      [
+        30,
+        12
+      ],
+      [
+        44,
+        14
+      ],
+      [
+        68,
+        14
+      ],
+      [
+        91,
+        22
+      ],
+      [
+        96,
+        31
+      ],
+      [
+        104,
+        31
+      ],
+      [
+        114,
+        44
+      ],
+      [
+        151,
+        44
+      ],
+      [
+        160,
+        40
+      ],
+      [
+        184,
+        40
+      ]
+    ],
+    "parts": [
+      {
+        "id": "080-GENERATOR-ARCH",
+        "kind": "island",
+        "poly": [
+          [
+            68,
+            58
+          ],
+          [
+            74,
+            65
+          ],
+          [
+            82,
+            67
+          ],
+          [
+            93,
+            57
+          ],
+          [
+            86,
+            52
+          ],
+          [
+            77,
+            52
+          ],
+          [
+            72,
+            55
+          ]
+        ],
+        "breakable": false,
+        "purpose": "中央発生器周りの遮蔽。",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "080-SIDE-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            108,
+            38
+          ],
+          [
+            114,
+            44
+          ],
+          [
+            114,
+            60
+          ],
+          [
+            108,
+            58
+          ]
+        ],
+        "breakable": true,
+        "purpose": "ボス側の独立破壊窓。",
+        "displayId": "D02",
+        "unitCount": 1
+      },
+      {
+        "id": "080-SERVICE-DECK",
+        "poly": [
+          [
+            150,
+            56
+          ],
+          [
+            155,
+            70
+          ],
+          [
+            160,
+            66
+          ],
+          [
+            160,
+            58
+          ],
+          [
+            175,
+            58
+          ],
+          [
+            180,
+            50
+          ],
+          [
+            171,
+            49
+          ],
+          [
+            160,
+            51
+          ]
+        ],
+        "breakable": false,
+        "purpose": "折れた西縁で低い直通を遮る点検床",
+        "displayId": "F03",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          82,
+          43,
+          31,
+          1
+        ]
+      },
+      {
+        "type": "T",
+        "v": [
+          49,
+          20
+        ]
+      }
+    ],
+    "worldWidth": 1840,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        100,
+        31
+      ],
+      [
+        137,
+        44
+      ]
+    ],
+    "recommended": "rin",
+    "pickups": []
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 28,
+      "enemyHp": 6,
+      "enemyProfile": 3,
+      "encounterId": "boss:polaris-core",
+      "boss": true,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "炉と磁場の間から始め、左の制御域へ戻るか、右の点検床へ渡る。",
+    "change": "開始を中央の分岐へ移し、左右二基を同じ既存高さのまま狙い分ける点検床を設けた。",
+    "distinct": "中央から異なる側へ準備するボス戦。磁場の極性と発生器破壊の影響を比較し、70面の噴出周期とは分ける。",
+    "inherit": {
+      "terrain": "極性実験炉と二層制御施設",
+      "concept": "下段磁場経路から二基の発生器を撃ち分ける。",
+      "alternative": "端子の極性と上段射点を組み替えて核や別側の部位へ送る。"
+    },
+    "special": "GEN A/Bは同じdy=-30の既存配置。本体・核・部位のHPと攻撃は変更しない。左側のT操作、窓破壊、右側への転移は有料の準備として最終検証する。部位破壊前後のM弱化も既存処理に従う。"
+  },
+  "approval": {
+    "state": "approved",
+    "date": "2026-11-07",
+    "approvedDesignCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "evidence": "ユーザー「オレンジの箇所を削ってください。青い線の箇所に反射板を設置。他はok」。56・57面を除く29面の提示設計を承認。",
+    "afterSha256": "bf406c1d5986d4058b350b796dfe7b1dac307d187fe3fc334b17f5ef5bf06013"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "最初の描画で中央開始の斜面干渉と用途を失った左上棚を確認。開始を平坦な分岐へ修正し左上棚を除去、中央遮蔽も左右非対称に再形状化。再描画でGEN A/Bを既存同高さで確認。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

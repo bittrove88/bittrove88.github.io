@@ -1,0 +1,387 @@
+{
+  "schema": "ARCLINE-map-stage-proposal-v2",
+  "stage": 8,
+  "date": "2026-11-04",
+  "status": "設計承認済み／ゲーム未反映",
+  "designBasis": "マップデザインガイドから独立設計、旧地形は比較のみ",
+  "source": {
+    "blueprintSha": "1b9b44e5c85062b969a9a6408211e02ee4762a9b",
+    "runtimeSha": "c06f39e087af7619f3de5d336f2a653a9da1eef1",
+    "stageDesignSha": "5fa6aea9ad85e075e46d46b46a6b4b14594ef9cd"
+  },
+  "before": {
+    "stage": 8,
+    "name": "ひさしの下を通る",
+    "goal": "低い角度ならひさしの下を通せる",
+    "floor": [
+      [
+        0,
+        14
+      ],
+      [
+        29,
+        14
+      ],
+      [
+        38,
+        12
+      ],
+      [
+        61,
+        12
+      ],
+      [
+        73,
+        14
+      ],
+      [
+        100,
+        14
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "roof",
+        "x": 39,
+        "end": 57,
+        "top": 32,
+        "thickness": 3,
+        "breakable": true
+      }
+    ],
+    "features": [],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "低い角度ならひさしの下を通せる",
+    "nameEn": "Beneath the Eaves",
+    "goalEn": "Use a low angle to pass below the roof.",
+    "terrainRevision": "0.17.0",
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          14
+        ],
+        [
+          29,
+          14
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          61,
+          12
+        ],
+        [
+          73,
+          14
+        ],
+        [
+          100,
+          14
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "id": "old-8-0",
+          "poly": [
+            [
+              39,
+              32
+            ],
+            [
+              57,
+              32
+            ],
+            [
+              57,
+              29
+            ],
+            [
+              39,
+              29
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 14
+      },
+      "enemy": {
+        "x": 82,
+        "h": 14
+      },
+      "pickups": []
+    }
+  },
+  "after": {
+    "stage": 8,
+    "name": "ひさしの下を通る",
+    "goal": "自然な洞窟の入口を見極め、低い弧を奥の敵へ通す",
+    "floor": [
+      [
+        0,
+        15
+      ],
+      [
+        8,
+        15
+      ],
+      [
+        12,
+        14
+      ],
+      [
+        28,
+        14
+      ],
+      [
+        38,
+        12
+      ],
+      [
+        50,
+        11
+      ],
+      [
+        61,
+        12
+      ],
+      [
+        73,
+        13
+      ],
+      [
+        91,
+        13
+      ],
+      [
+        100,
+        14
+      ]
+    ],
+    "parts": [
+      {
+        "kind": "roof",
+        "id": "008-CAVE01",
+        "poly": [
+          [
+            48,
+            33
+          ],
+          [
+            56,
+            39
+          ],
+          [
+            66,
+            41
+          ],
+          [
+            78,
+            38
+          ],
+          [
+            88,
+            41
+          ],
+          [
+            94,
+            37
+          ],
+          [
+            94,
+            29
+          ],
+          [
+            86,
+            26
+          ],
+          [
+            75,
+            27
+          ],
+          [
+            64,
+            25
+          ],
+          [
+            55,
+            25
+          ],
+          [
+            48,
+            28
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [],
+    "recommended": "hana",
+    "spawn": [
+      16,
+      82
+    ],
+    "route": "入口の高さと洞窟内の敵を見比べ、低弾道で大きな開口へ撃ち込む。",
+    "nameEn": "Beneath the Eaves",
+    "goalEn": "Use a low angle to pass below the roof.",
+    "terrainRevision": "0.17.0",
+    "designOnly": true,
+    "view": {
+      "width": 1000,
+      "floor": [
+        [
+          0,
+          15
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          12,
+          14
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          38,
+          12
+        ],
+        [
+          50,
+          11
+        ],
+        [
+          61,
+          12
+        ],
+        [
+          73,
+          13
+        ],
+        [
+          91,
+          13
+        ],
+        [
+          100,
+          14
+        ]
+      ],
+      "parts": [
+        {
+          "kind": "roof",
+          "id": "008-CAVE01",
+          "poly": [
+            [
+              48,
+              33
+            ],
+            [
+              56,
+              39
+            ],
+            [
+              66,
+              41
+            ],
+            [
+              78,
+              38
+            ],
+            [
+              88,
+              41
+            ],
+            [
+              94,
+              37
+            ],
+            [
+              94,
+              29
+            ],
+            [
+              86,
+              26
+            ],
+            [
+              75,
+              27
+            ],
+            [
+              64,
+              25
+            ],
+            [
+              55,
+              25
+            ],
+            [
+              48,
+              28
+            ]
+          ],
+          "breakable": true
+        }
+      ],
+      "features": [],
+      "player": {
+        "x": 16,
+        "h": 14
+      },
+      "enemy": {
+        "x": 82,
+        "h": 13
+      },
+      "pickups": []
+    }
+  },
+  "summary": {
+    "headline": "四角いひさしを、入口の広い自然洞窟へ再設計。",
+    "why": "敵は洞窟内。低い射線で入口を通すか、地形を使って位置を変える楽しさを作る。",
+    "preserved": "入門難易度とhanaの基本射撃。壊せる天井の仕組み、敵の強さと12行動。",
+    "oldGoal": "低い角度ならひさしの下を通せる",
+    "newGoal": "自然な洞窟の入口を見極め、低い弧を奥の敵へ通す",
+    "learningDecision": "発展",
+    "sceneType": "自然洞窟／敵が洞窟の奥"
+  },
+  "routeDesign": {
+    "primary": "入口の高さと洞窟内の敵を見比べ、低弾道で大きな開口へ撃ち込む。",
+    "alternate": "洞窟の手前まで前進して天井の影響を減らす。壊せる部分の破壊も任意の攻略手段として残す。"
+  },
+  "difficulty": {
+    "band": "入門",
+    "enemyProfile": 0,
+    "enemyHpField": 3,
+    "actionLimit": 12,
+    "expectedActions": [
+      3,
+      7
+    ],
+    "boss": false,
+    "midboss": false,
+    "stageEnemyErrorMultiplier": 1,
+    "stageEnemyDamageMultiplier": 1,
+    "priority": "敵の配置は天井下ではなく横穴内に置き、洞窟の開口・奥行き・下がり天井に意味を持たせる。",
+    "reviewRisk": "洞窟天井が自機から敵への唯一の射線を塞がないか、初級の操作として窓が十分広いかを実装時に確認する。"
+  },
+  "implementationNote": "ギミック衝突・射撃成功・移動手数・敵AI・iPhone実機は未検証。ユーザー要望によりシミュレーションは実施していない。",
+  "approval": "設計承認済み（ユーザー「4-9は承認」）",
+  "reviewDate": "2026-11-04",
+  "approvedScope": "地形・配置・学習目標の設計を承認。実装・テストは別工程。"
+}

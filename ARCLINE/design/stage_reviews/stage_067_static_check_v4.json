@@ -1,0 +1,180 @@
+{
+  "stage": 67,
+  "version": "v4",
+  "date": "2026-11-06",
+  "scope": "minimum-static-only",
+  "checks": {
+    "jsonLoaded": true,
+    "floorIncreasing": true,
+    "verticesWithinBounds": true,
+    "fixedPartIDsAndPolygonsValid": true,
+    "spawnFeetMatchFloor": true,
+    "lowFootOnFloor": true,
+    "highFootOnRoofTop": true,
+    "slopeBelow35Degrees": true,
+    "walkRepresentativeHeadroomClear": true,
+    "AToEnemyConceptNotBlockedByRoof": true,
+    "BConceptAvoidsRock": true,
+    "BConceptCrossesVent": true,
+    "P0ToEnemyCenterLineHitsGround": true,
+    "pickupAboveFloorAndOutsideRoof": true,
+    "existingEnemyBudgetAndPickupKept": true,
+    "左右の庇の開口増": true,
+    "ポリゴンが自己交差しない": true,
+    "座標が表示範囲内": true,
+    "プレイヤー・敵・Aは床上": true,
+    "Bは屋根頂部": true,
+    "独立固定ID維持": true,
+    "敵・V・W07・16手維持": true
+  },
+  "metrics": {
+    "worldWidth": 1360,
+    "floorVertices": 18,
+    "maxSlopeDegrees": 34.44,
+    "fixedParts": 2,
+    "features": [
+      "V"
+    ],
+    "roofsArea": [
+      185.5,
+      340.5
+    ],
+    "sampledWalkHeadCollisions": 0
+  },
+  "deferred": [
+    "実エンジン徒歩と転移着地",
+    "発射角・噴出作用・命中",
+    "敵AI、反撃、16行動勝敗",
+    "W07の実取得",
+    "ブラウザ画面と全seed実戦"
+  ],
+  "warning": "模式線のポリゴン非交差は、実弾の命中証明ではない。",
+  "status": "design-approved-runtime-unverified",
+  "geometryChange": {
+    "F01": [
+      [
+        4,
+        29
+      ],
+      [
+        8,
+        37
+      ],
+      [
+        13,
+        44
+      ],
+      [
+        19,
+        50
+      ],
+      [
+        25,
+        54
+      ],
+      [
+        30,
+        54
+      ],
+      [
+        36,
+        49
+      ],
+      [
+        41,
+        45
+      ],
+      [
+        39,
+        42
+      ],
+      [
+        34,
+        45
+      ],
+      [
+        28,
+        48
+      ],
+      [
+        22,
+        48
+      ],
+      [
+        16,
+        44
+      ],
+      [
+        10,
+        36
+      ],
+      [
+        8,
+        31
+      ]
+    ],
+    "F02": [
+      [
+        83,
+        45
+      ],
+      [
+        89,
+        49
+      ],
+      [
+        101,
+        53
+      ],
+      [
+        112,
+        53
+      ],
+      [
+        123,
+        48
+      ],
+      [
+        131,
+        40
+      ],
+      [
+        134,
+        34
+      ],
+      [
+        131,
+        32
+      ],
+      [
+        127,
+        38
+      ],
+      [
+        121,
+        44
+      ],
+      [
+        112,
+        47
+      ],
+      [
+        103,
+        46
+      ],
+      [
+        96,
+        44
+      ],
+      [
+        89,
+        43
+      ]
+    ],
+    "leftOpeningIncreasePx": 38,
+    "rightOpeningIncreasePx": 40
+  },
+  "limitations": [
+    "設計形状の静的点検のみ。歩行・転移・弾道・敵AI・行動限界の実動作は全49面設計承認後に検証。"
+  ]
+}

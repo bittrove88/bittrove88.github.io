@@ -1,0 +1,51 @@
+{
+  "stage": 69,
+  "version": "v2",
+  "checkedAt": "2026-11-06",
+  "scope": "lightweight-geometry-only",
+  "checks": {
+    "schemaCompatibleData": true,
+    "allFloorSegmentsIncreasing": true,
+    "allVerticesWithinWorld": true,
+    "fixedIslandPolygonValid": true,
+    "fixedComponentIDUnique": true,
+    "spawnGroundSupports": true,
+    "islandAnchorSupports": true,
+    "leftBankCOnGround": true,
+    "leftShoulderShieldedFromEnemyStraightLine": true,
+    "rightShoulderEnemyStraightLineClear": true,
+    "P0DirectLineIntersectsIsland": true,
+    "lowerCrystalConceptLineBelowIsland": true,
+    "crestWalkSurfaceModerateSlope": true,
+    "KCrystalOutsideRock": true,
+    "ventUnderIsland": true,
+    "pickupOutsideIsland": true,
+    "noExtraRulesIntroduced": true
+  },
+  "metrics": {
+    "mapWidthPx": 1520,
+    "groundSegments": 3,
+    "groundVertices": 18,
+    "mainIslandVertices": 19,
+    "fixedParts": 1,
+    "destructibleParts": 0,
+    "featureTypes": [
+      "V",
+      "K"
+    ],
+    "islandPolygonAreaUnitsSquared": 1403.5
+  },
+  "staticObservations": [
+    "P0→敵中心の直線と、左肩A→敵中心の直線は島F01に交差する。",
+    "右肩B→敵中心の直線（各足元+3単位）と島F01の非交差を確認。",
+    "同じ島上のA→Bの上面傾斜は指定区間で35°未満。端の急斜面は歩行経路に含めない。",
+    "Cから結晶Kへ向けた折線の全区間は島内に重ならない。ただし実弾の飛行経路や反射ではない。",
+    "K点は島内ではなく下方、Vは島下面以下、技能アイテムは床上にあり島外。"
+  ],
+  "deferred": [
+    "ゲーム本体での着地・歩行・転移・砲身衝突",
+    "V/Kが実際に働く弾道、角度、命中と待機",
+    "敵反撃・AI・16行動内の勝利",
+    "実ブラウザ画面・全キャラ・複数seed・技能SK069取得"
+  ]
+}

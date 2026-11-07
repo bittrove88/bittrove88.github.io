@@ -1,0 +1,1213 @@
+{
+  "schema": "arcline-stage-design-proposal-v4",
+  "stage": 75,
+  "date": "2026-11-06",
+  "status": "design-approved-runtime-unverified",
+  "sourceApprovalBase": {
+    "pr": 84,
+    "commit": "62efe96fc38f9fe8e49c5d2a6fbf539d58decbe1"
+  },
+  "sourcePr74": {
+    "number": 74,
+    "proposal": "stage_075_proposal_v1.json",
+    "review": "stage_075_review_v1.md"
+  },
+  "directionDecision": {
+    "state": "A-selected-with-user-correction",
+    "source": "user-chat",
+    "userInstruction": "aで良いが、破壊可能ブロックは直線射線を遮るものではなく一時的な防御ブロックに近いため、破壊可能ブロックとは別で直射を避ける構造にしてください。",
+    "meaning": "Direction selected; not final design approval."
+  },
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        17
+      ],
+      [
+        31,
+        17
+      ],
+      [
+        45,
+        11
+      ],
+      [
+        64,
+        11
+      ],
+      [
+        79,
+        19
+      ],
+      [
+        100,
+        19
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          17
+        ],
+        [
+          31,
+          17
+        ],
+        [
+          45,
+          11
+        ],
+        [
+          64,
+          11
+        ],
+        [
+          79,
+          19
+        ],
+        [
+          100,
+          19
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "075-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            43,
+            31
+          ],
+          [
+            47,
+            31
+          ],
+          [
+            47,
+            11
+          ],
+          [
+            43,
+            11
+          ]
+        ],
+        "breakable": true,
+        "renderUnits": [
+          {
+            "id": "075-C01@0",
+            "label": "D01",
+            "poly": [
+              [
+                43,
+                31
+              ],
+              [
+                47,
+                31
+              ],
+              [
+                47,
+                11
+              ],
+              [
+                43,
+                11
+              ]
+            ]
+          }
+        ],
+        "displayId": "D01",
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          57,
+          28,
+          13,
+          1
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 17
+    },
+    "enemy": {
+      "x": 82,
+      "h": 19
+    },
+    "pickups": [],
+    "stageNumber": 75,
+    "worldHold": 1,
+    "ventStartsOn": false
+  },
+  "after": {
+    "id": "A",
+    "title": "岩肩を越えて入る、横穴の切羽",
+    "width": 1600,
+    "floor": [
+      [
+        0,
+        29
+      ],
+      [
+        12,
+        28
+      ],
+      [
+        22,
+        27
+      ],
+      [
+        34,
+        29
+      ],
+      [
+        46,
+        33
+      ],
+      [
+        59,
+        38
+      ],
+      [
+        71,
+        42
+      ],
+      [
+        82,
+        36
+      ],
+      [
+        94,
+        28
+      ],
+      [
+        106,
+        20
+      ],
+      [
+        113,
+        18
+      ],
+      [
+        136,
+        18
+      ],
+      [
+        142,
+        18
+      ],
+      [
+        146,
+        22
+      ],
+      [
+        155,
+        27
+      ],
+      [
+        160,
+        29
+      ]
+    ],
+    "discovery": "直射を遮る岩肩の内側へ入り、一時防御Dを残して腕へ越し撃ちする。",
+    "main": "固定の岩肩を越え、下り斜面のCへ再配置。Dを残したまま上を越す短い弧で腕を狙う。D破壊は準備条件にしない。",
+    "alternate": "坑外RからMを経由し、岩肩の上と天井の下の坑口へ通す曲射を探る。Dを開けずに攻撃する構想。",
+    "parts": [
+      {
+        "id": "075-ADIT-BEDROCK",
+        "displayId": "F01",
+        "kind": "roof",
+        "poly": [
+          [
+            76,
+            70
+          ],
+          [
+            85,
+            75
+          ],
+          [
+            100,
+            78
+          ],
+          [
+            119,
+            75
+          ],
+          [
+            137,
+            68
+          ],
+          [
+            151,
+            61
+          ],
+          [
+            160,
+            56
+          ],
+          [
+            160,
+            29
+          ],
+          [
+            155,
+            27
+          ],
+          [
+            146,
+            22
+          ],
+          [
+            142,
+            18
+          ],
+          [
+            140,
+            35
+          ],
+          [
+            135,
+            49
+          ],
+          [
+            123,
+            54
+          ],
+          [
+            107,
+            59
+          ],
+          [
+            91,
+            60
+          ],
+          [
+            81,
+            60
+          ],
+          [
+            76,
+            59
+          ]
+        ],
+        "breakable": false,
+        "purpose": "背面岩盤に接続する固定の坑道天井。床の岩肩とともに坑口の上限をつくり、坑内上方を覆う。",
+        "renderUnits": [
+          {
+            "id": "075-ADIT-BEDROCK",
+            "label": "F01",
+            "poly": [
+              [
+                76,
+                70
+              ],
+              [
+                85,
+                75
+              ],
+              [
+                100,
+                78
+              ],
+              [
+                119,
+                75
+              ],
+              [
+                137,
+                68
+              ],
+              [
+                151,
+                61
+              ],
+              [
+                160,
+                56
+              ],
+              [
+                160,
+                29
+              ],
+              [
+                155,
+                27
+              ],
+              [
+                146,
+                22
+              ],
+              [
+                142,
+                18
+              ],
+              [
+                140,
+                35
+              ],
+              [
+                135,
+                49
+              ],
+              [
+                123,
+                54
+              ],
+              [
+                107,
+                59
+              ],
+              [
+                91,
+                60
+              ],
+              [
+                81,
+                60
+              ],
+              [
+                76,
+                59
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      },
+      {
+        "id": "075-TEMP-DEFENSE",
+        "displayId": "D01",
+        "kind": "wall",
+        "poly": [
+          [
+            102,
+            22.666666666666668
+          ],
+          [
+            106,
+            20.0
+          ],
+          [
+            110,
+            18.857142857142858
+          ],
+          [
+            110,
+            29
+          ],
+          [
+            106,
+            34
+          ],
+          [
+            102,
+            32
+          ]
+        ],
+        "breakable": true,
+        "purpose": "下り斜面上の幅80pxの一時防御ブロック。近いCの前方で低い反撃を受ける想定。直射遮断の恒久条件・支持体・開門手順には使わない。",
+        "renderUnits": [
+          {
+            "id": "075-TEMP-DEFENSE@0",
+            "label": "D01",
+            "poly": [
+              [
+                102,
+                22.666666666666668
+              ],
+              [
+                106,
+                20.0
+              ],
+              [
+                110,
+                18.857142857142858
+              ],
+              [
+                110,
+                29
+              ],
+              [
+                106,
+                34
+              ],
+              [
+                102,
+                32
+              ]
+            ]
+          }
+        ],
+        "unitCount": 1
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          63,
+          55,
+          16,
+          1
+        ]
+      }
+    ],
+    "player": {
+      "x": 18,
+      "h": 27.4
+    },
+    "enemy": {
+      "x": 126,
+      "h": 18.0
+    },
+    "anchors": [
+      {
+        "id": "C",
+        "x": 96,
+        "h": 26.666666666666668,
+        "role": "Dを温存する坑内の越し撃ち射点",
+        "state": "intact-or-all-D-removed"
+      },
+      {
+        "id": "R",
+        "x": 48,
+        "h": 33.76923076923077,
+        "role": "坑外からMへ入れる射点",
+        "state": "intact-or-all-D-removed"
+      }
+    ],
+    "movement": [
+      [
+        [
+          18,
+          27.4
+        ],
+        [
+          34,
+          29.0
+        ],
+        [
+          46,
+          33.0
+        ],
+        [
+          59,
+          38.0
+        ],
+        [
+          71,
+          42.0
+        ],
+        [
+          82,
+          36.0
+        ],
+        [
+          96,
+          26.666666666666668
+        ]
+      ]
+    ],
+    "attacks": [
+      {
+        "kind": "main",
+        "points": [
+          [
+            96,
+            29.666666666666668
+          ],
+          [
+            105,
+            42
+          ],
+          [
+            114,
+            37
+          ],
+          [
+            122.6,
+            22
+          ]
+        ],
+        "state": "D-retained-and-D-removed"
+      },
+      {
+        "kind": "alternate",
+        "points": [
+          [
+            48,
+            36.76923076923077
+          ],
+          [
+            57,
+            55
+          ],
+          [
+            66,
+            61
+          ],
+          [
+            76,
+            56
+          ],
+          [
+            88,
+            49
+          ],
+          [
+            102,
+            39
+          ],
+          [
+            113,
+            31
+          ],
+          [
+            122.6,
+            22
+          ]
+        ],
+        "state": "D-retained-and-D-removed"
+      }
+    ],
+    "decision": "固定の岩肩を越えて坑内へ入るか、坑外からMと坑口へ通すか。Dはどちらの直射防止条件にも数えない。",
+    "label": "固定岩肩＝坑外からの直射遮断　／　D＝坑内射点の一時防御",
+    "limits": [
+      "Dの温存は必須ではない。全D除去後もP0/Rから本体・腕への代表直線は固定床の岩肩に遮られる。",
+      "坑内まで移った後の射撃位置で直射が開くことは許容する。あらゆる射点からの直射禁止を主張しない。",
+      "Dが防ぐ反撃の種類・回数、実弾道、砲身、転移、手数内勝利は未検証。"
+    ],
+    "floors": [
+      [
+        [
+          0,
+          29
+        ],
+        [
+          12,
+          28
+        ],
+        [
+          22,
+          27
+        ],
+        [
+          34,
+          29
+        ],
+        [
+          46,
+          33
+        ],
+        [
+          59,
+          38
+        ],
+        [
+          71,
+          42
+        ],
+        [
+          82,
+          36
+        ],
+        [
+          94,
+          28
+        ],
+        [
+          106,
+          20
+        ],
+        [
+          113,
+          18
+        ],
+        [
+          136,
+          18
+        ],
+        [
+          142,
+          18
+        ],
+        [
+          146,
+          22
+        ],
+        [
+          155,
+          27
+        ],
+        [
+          160,
+          29
+        ]
+      ]
+    ],
+    "stageNumber": 75,
+    "firingPoints": [
+      {
+        "id": "C",
+        "x": 96,
+        "h": 26.666666666666668,
+        "role": "Dを温存する坑内の越し撃ち射点",
+        "state": "intact-or-all-D-removed"
+      },
+      {
+        "id": "R",
+        "x": 48,
+        "h": 33.76923076923077,
+        "role": "坑外からMへ入れる射点",
+        "state": "intact-or-all-D-removed"
+      }
+    ],
+    "accessPaths": [
+      {
+        "label": "C",
+        "points": [
+          [
+            18,
+            27.4
+          ],
+          [
+            34,
+            29.0
+          ],
+          [
+            46,
+            33.0
+          ],
+          [
+            59,
+            38.0
+          ],
+          [
+            71,
+            42.0
+          ],
+          [
+            82,
+            36.0
+          ],
+          [
+            96,
+            26.666666666666668
+          ]
+        ],
+        "kind": "planned-walking-or-existing-teleport-reposition",
+        "status": "not-tested"
+      }
+    ],
+    "routes": [
+      {
+        "label": "main",
+        "points": [
+          [
+            96,
+            29.666666666666668
+          ],
+          [
+            105,
+            42
+          ],
+          [
+            114,
+            37
+          ],
+          [
+            122.6,
+            22
+          ]
+        ],
+        "status": "schematic-not-ballistic"
+      },
+      {
+        "label": "alternate",
+        "points": [
+          [
+            48,
+            36.76923076923077
+          ],
+          [
+            57,
+            55
+          ],
+          [
+            66,
+            61
+          ],
+          [
+            76,
+            56
+          ],
+          [
+            88,
+            49
+          ],
+          [
+            102,
+            39
+          ],
+          [
+            113,
+            31
+          ],
+          [
+            122.6,
+            22
+          ]
+        ],
+        "status": "schematic-not-ballistic"
+      }
+    ],
+    "pickups": [],
+    "worldHold": 1
+  },
+  "summary": {
+    "terrain": "一続きの固定地盤の岩肩から、厚い天井を持つ横穴へ下る採掘斜面。独立部品は固定天井F01と一時防御D01の2つ。",
+    "concept": "固定の岩肩を越え、下り斜面のCへ再配置。Dを残したまま上を越す短い弧で腕を狙う。D破壊は準備条件にしない。",
+    "alternative": "坑外RからMを経由し、岩肩の上と天井の下の坑口へ通す曲射を探る。Dを開けずに攻撃する構想。",
+    "permanentDirectFireControl": "Non-destructible floor shoulder, independent of all D units. Applies to P0 and exterior R, not every possible close firing position.",
+    "temporaryDefense": "D01 is expendable cover before C, not a required gate; both planned attacks retain it."
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 24,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "midboss:ore-shepherd",
+      "boss": false,
+      "midboss": true,
+      "hold": 1,
+      "recommendedCharacter": "mogu",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "preserved": {
+    "magnetDirection": 1,
+    "magnetCount": 1,
+    "encounterId": "midboss:ore-shepherd",
+    "actionLimit": 24,
+    "bodyHp": 7,
+    "armHp": 1.5,
+    "armDx": 34,
+    "armDy": -40,
+    "armRadius": 18,
+    "attacks": [
+      "CURVE",
+      "TWIN",
+      "LOW"
+    ],
+    "pickups": [],
+    "clearRewards": [
+      {
+        "amount": 1,
+        "skillId": "S_REPAIR",
+        "placementId": "L075:C08-MID-S01"
+      }
+    ]
+  },
+  "roleSeparation": {
+    "permanent": {
+      "id": "floor0",
+      "role": "rock shoulder blocks direct exterior sight even after all destructible pieces are gone",
+      "destructible": false
+    },
+    "temporary": {
+      "id": "075-TEMP-DEFENSE@0",
+      "role": "expendable defense; keep and shoot over it; no destruction prerequisite",
+      "destructible": true
+    },
+    "noAutomaticLink": [
+      "D destruction does not change M",
+      "D destruction does not remove ceiling or floor",
+      "boss arm destruction uses existing attack weakening only"
+    ]
+  },
+  "destructionPlans": {
+    "main": [],
+    "alternative": []
+  },
+  "destructionRegister": [
+    {
+      "id": "075-ADIT-BEDROCK",
+      "label": "F01",
+      "breakable": false,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-ADIT-BEDROCK",
+          "label": "F01",
+          "poly": [
+            [
+              76,
+              70
+            ],
+            [
+              85,
+              75
+            ],
+            [
+              100,
+              78
+            ],
+            [
+              119,
+              75
+            ],
+            [
+              137,
+              68
+            ],
+            [
+              151,
+              61
+            ],
+            [
+              160,
+              56
+            ],
+            [
+              160,
+              29
+            ],
+            [
+              155,
+              27
+            ],
+            [
+              146,
+              22
+            ],
+            [
+              142,
+              18
+            ],
+            [
+              140,
+              35
+            ],
+            [
+              135,
+              49
+            ],
+            [
+              123,
+              54
+            ],
+            [
+              107,
+              59
+            ],
+            [
+              91,
+              60
+            ],
+            [
+              81,
+              60
+            ],
+            [
+              76,
+              59
+            ]
+          ]
+        }
+      ],
+      "purpose": "背面岩盤に接続する固定の坑道天井。床の岩肩とともに坑口の上限をつくり、坑内上方を覆う。"
+    },
+    {
+      "id": "075-TEMP-DEFENSE",
+      "label": "D01",
+      "breakable": true,
+      "unitCount": 1,
+      "units": [
+        {
+          "id": "075-TEMP-DEFENSE@0",
+          "label": "D01",
+          "poly": [
+            [
+              102,
+              22.666666666666668
+            ],
+            [
+              106,
+              20.0
+            ],
+            [
+              110,
+              18.857142857142858
+            ],
+            [
+              110,
+              29
+            ],
+            [
+              106,
+              34
+            ],
+            [
+              102,
+              32
+            ]
+          ]
+        }
+      ],
+      "purpose": "下り斜面上の幅80pxの一時防御ブロック。近いCの前方で低い反撃を受ける想定。直射遮断の恒久条件・支持体・開門手順には使わない。"
+    }
+  ],
+  "blueprintCandidate": {
+    "stage": 75,
+    "name": "岩肩を越えて入る、横穴の切羽",
+    "goal": "直射を遮る岩肩の内側へ入り、一時防御Dを残して腕へ越し撃ちする。",
+    "floor": [
+      [
+        0,
+        29
+      ],
+      [
+        12,
+        28
+      ],
+      [
+        22,
+        27
+      ],
+      [
+        34,
+        29
+      ],
+      [
+        46,
+        33
+      ],
+      [
+        59,
+        38
+      ],
+      [
+        71,
+        42
+      ],
+      [
+        82,
+        36
+      ],
+      [
+        94,
+        28
+      ],
+      [
+        106,
+        20
+      ],
+      [
+        113,
+        18
+      ],
+      [
+        136,
+        18
+      ],
+      [
+        142,
+        18
+      ],
+      [
+        146,
+        22
+      ],
+      [
+        155,
+        27
+      ],
+      [
+        160,
+        29
+      ]
+    ],
+    "parts": [
+      {
+        "id": "075-ADIT-BEDROCK",
+        "kind": "roof",
+        "poly": [
+          [
+            76,
+            70
+          ],
+          [
+            85,
+            75
+          ],
+          [
+            100,
+            78
+          ],
+          [
+            119,
+            75
+          ],
+          [
+            137,
+            68
+          ],
+          [
+            151,
+            61
+          ],
+          [
+            160,
+            56
+          ],
+          [
+            160,
+            29
+          ],
+          [
+            155,
+            27
+          ],
+          [
+            146,
+            22
+          ],
+          [
+            142,
+            18
+          ],
+          [
+            140,
+            35
+          ],
+          [
+            135,
+            49
+          ],
+          [
+            123,
+            54
+          ],
+          [
+            107,
+            59
+          ],
+          [
+            91,
+            60
+          ],
+          [
+            81,
+            60
+          ],
+          [
+            76,
+            59
+          ]
+        ],
+        "breakable": false
+      },
+      {
+        "id": "075-TEMP-DEFENSE",
+        "kind": "wall",
+        "poly": [
+          [
+            102,
+            22.666666666666668
+          ],
+          [
+            106,
+            20.0
+          ],
+          [
+            110,
+            18.857142857142858
+          ],
+          [
+            110,
+            29
+          ],
+          [
+            106,
+            34
+          ],
+          [
+            102,
+            32
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "M",
+        "v": [
+          63,
+          55,
+          16,
+          1
+        ]
+      }
+    ],
+    "recommended": "mogu",
+    "spawn": [
+      18,
+      126
+    ],
+    "route": "固定の岩肩を越え、下り斜面のCへ再配置。Dを残したまま上を越す短い弧で腕を狙う。D破壊は準備条件にしない。 別解：坑外RからMを経由し、岩肩の上と天井の下の坑口へ通す曲射を探る。Dを開けずに攻撃する構想。",
+    "nameEn": "Adit Beyond the Rock Shoulder",
+    "goalEn": "Cross the permanent rock shoulder and arc over temporary cover toward the magnet arm.",
+    "spawnPoints": [
+      [
+        18,
+        27.4
+      ],
+      [
+        126,
+        18.0
+      ]
+    ],
+    "worldWidth": 1600,
+    "terrainRevision": "stage075-shouldered-adit-v4-design-pending"
+  },
+  "approval": {
+    "state": "approved",
+    "scope": "geometry-and-tactical-intent",
+    "direction": "A-selected-with-correction",
+    "finalApproval": true,
+    "approvedOn": "2026-11-06",
+    "source": "user-chat-explicit-approval",
+    "userText": "承認次へ",
+    "approvedRevisionCommit": "c92bcc0894743ece1d01e168f94dde1b02483c5d",
+    "reviewPr": 87,
+    "record": "stage_075_approval_v4.md"
+  },
+  "verification": {
+    "static": "stage_075_static_check_v4.json",
+    "rendering": "coordinate-derived-svg-not-game-screenshot",
+    "movement": "not-tested",
+    "teleport": "not-tested",
+    "muzzle": "not-tested",
+    "ballistics": "not-tested",
+    "M": "not-tested",
+    "actualDestruction": "not-tested",
+    "enemyAI": "not-tested",
+    "counterattack": "not-tested",
+    "victory24": "not-tested"
+  },
+  "implementationNote": "Design candidate only. Runtime, approved six stages and stage 76+ unchanged. Detailed gameplay verification after all 49 stage-design approvals."
+}

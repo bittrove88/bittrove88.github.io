@@ -1,0 +1,408 @@
+{
+  "stage": 79,
+  "version": 3,
+  "scope": "static shape, launch/arrival spaces and representative direct rays only; no shot or input execution",
+  "dataConsistent": true,
+  "removedRoof": true,
+  "poses": [
+    {
+      "round": 1,
+      "bridgeOpen": false,
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "floor2"
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "floor0"
+        },
+        {
+          "id": "A",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "079-RECEIVING-ROCK:e0"
+        },
+        {
+          "id": "L",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "079-OPEN-SERVICE-PIER:e1"
+        }
+      ],
+      "selfIntersections": [],
+      "Mclearances": [
+        {
+          "id": "floor0",
+          "clearancePx": 360
+        },
+        {
+          "id": "floor1",
+          "clearancePx": 110
+        },
+        {
+          "id": "floor2",
+          "clearancePx": 60
+        },
+        {
+          "id": "079-RECEIVING-ROCK",
+          "clearancePx": 136.22776601683796
+        },
+        {
+          "id": "079-OPEN-SERVICE-PIER",
+          "clearancePx": 48.03508501982759
+        },
+        {
+          "id": "B0",
+          "clearancePx": 297.47670100225827
+        }
+      ],
+      "schematicShotSpaces": [
+        {
+          "kind": "bridge-over-ridge",
+          "clear": true
+        },
+        {
+          "kind": "service-M-over-ridge",
+          "clear": true
+        }
+      ],
+      "transferSpaces": [
+        {
+          "to": "A",
+          "schematicClear": true
+        },
+        {
+          "to": "L",
+          "schematicClear": true
+        }
+      ],
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "A",
+          "clear": true
+        },
+        {
+          "id": "L",
+          "clear": true
+        }
+      ],
+      "terminalLineClear": true,
+      "barrels": [
+        {
+          "id": "P0",
+          "blocked": [],
+          "angleSamples": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35
+        },
+        {
+          "id": "A",
+          "blocked": [],
+          "angleSamples": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35
+        },
+        {
+          "id": "L",
+          "blocked": [],
+          "angleSamples": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "rayCount": 45,
+          "blockedByEnemyRidge": 45,
+          "openRays": 0
+        },
+        {
+          "id": "A",
+          "rayCount": 45,
+          "blockedByEnemyRidge": 45,
+          "openRays": 0
+        },
+        {
+          "id": "L",
+          "rayCount": 45,
+          "blockedByEnemyRidge": 45,
+          "openRays": 0
+        }
+      ],
+      "P0UpwardDepartureSamples": [
+        {
+          "angle": 0,
+          "first150PxClear": true
+        },
+        {
+          "angle": 10,
+          "first150PxClear": true
+        },
+        {
+          "angle": 20,
+          "first150PxClear": true
+        },
+        {
+          "angle": 30,
+          "first150PxClear": true
+        },
+        {
+          "angle": 40,
+          "first150PxClear": true
+        },
+        {
+          "angle": 50,
+          "first150PxClear": true
+        },
+        {
+          "angle": 60,
+          "first150PxClear": true
+        },
+        {
+          "angle": 70,
+          "first150PxClear": true
+        },
+        {
+          "angle": 80,
+          "first150PxClear": true
+        }
+      ],
+      "LHeadroom": {
+        "xRange": [
+          93,
+          99
+        ],
+        "heightFromFootPx": 450,
+        "clear": true
+      },
+      "flatCrossingBandPx": 120
+    },
+    {
+      "round": 2,
+      "bridgeOpen": true,
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "floor2"
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "floor0"
+        },
+        {
+          "id": "A",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "079-RECEIVING-ROCK:e0"
+        },
+        {
+          "id": "L",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "079-OPEN-SERVICE-PIER:e1"
+        }
+      ],
+      "selfIntersections": [],
+      "Mclearances": [
+        {
+          "id": "floor0",
+          "clearancePx": 360
+        },
+        {
+          "id": "floor1",
+          "clearancePx": 110
+        },
+        {
+          "id": "floor2",
+          "clearancePx": 60
+        },
+        {
+          "id": "079-RECEIVING-ROCK",
+          "clearancePx": 136.22776601683796
+        },
+        {
+          "id": "079-OPEN-SERVICE-PIER",
+          "clearancePx": 48.03508501982759
+        },
+        {
+          "id": "B0",
+          "clearancePx": 298.87305740981566
+        }
+      ],
+      "schematicShotSpaces": [
+        {
+          "kind": "bridge-over-ridge",
+          "clear": true
+        },
+        {
+          "kind": "service-M-over-ridge",
+          "clear": true
+        }
+      ],
+      "transferSpaces": [
+        {
+          "to": "A",
+          "schematicClear": true
+        },
+        {
+          "to": "L",
+          "schematicClear": true
+        }
+      ],
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "A",
+          "clear": true
+        },
+        {
+          "id": "L",
+          "clear": true
+        }
+      ],
+      "terminalLineClear": true,
+      "barrels": [
+        {
+          "id": "P0",
+          "blocked": [],
+          "angleSamples": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35
+        },
+        {
+          "id": "A",
+          "blocked": [],
+          "angleSamples": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35
+        },
+        {
+          "id": "L",
+          "blocked": [],
+          "angleSamples": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "rayCount": 45,
+          "blockedByEnemyRidge": 45,
+          "openRays": 0
+        },
+        {
+          "id": "A",
+          "rayCount": 45,
+          "blockedByEnemyRidge": 45,
+          "openRays": 0
+        },
+        {
+          "id": "L",
+          "rayCount": 45,
+          "blockedByEnemyRidge": 45,
+          "openRays": 0
+        }
+      ],
+      "P0UpwardDepartureSamples": [
+        {
+          "angle": 0,
+          "first150PxClear": true
+        },
+        {
+          "angle": 10,
+          "first150PxClear": true
+        },
+        {
+          "angle": 20,
+          "first150PxClear": true
+        },
+        {
+          "angle": 30,
+          "first150PxClear": true
+        },
+        {
+          "angle": 40,
+          "first150PxClear": true
+        },
+        {
+          "angle": 50,
+          "first150PxClear": true
+        },
+        {
+          "angle": 60,
+          "first150PxClear": true
+        },
+        {
+          "angle": 70,
+          "first150PxClear": true
+        },
+        {
+          "angle": 80,
+          "first150PxClear": true
+        }
+      ],
+      "LHeadroom": {
+        "xRange": [
+          93,
+          99
+        ],
+        "heightFromFootPx": 450,
+        "clear": true
+      }
+    }
+  ],
+  "notTested": [
+    "actual teleport trajectories/landing/action count",
+    "actual walking",
+    "bridge boundary actor settlement",
+    "T switching input",
+    "M/ordinary hit trajectories",
+    "enemy AI/counterattack",
+    "16-action victory",
+    "device display"
+  ]
+}

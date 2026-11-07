@@ -1,0 +1,469 @@
+{
+  "stage": 87,
+  "version": 2,
+  "scope": "static poses, collision/soft region separation and representative rays only; no input/projectile/combat execution",
+  "dataConsistent": true,
+  "states": [
+    {
+      "round": 1,
+      "bridgeOpen": false,
+      "D04Removed": false,
+      "destructionUnits": [
+        "087-DECK-SCREEN@0"
+      ],
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-RECEIVER-HULL:e0"
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-CARGO-DOCK:e2"
+        },
+        {
+          "id": "A-out",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-OUTER-CARGO:e1"
+        }
+      ],
+      "selfIntersections": [],
+      "schematicShotSpaces": [
+        {
+          "kind": "P0-through-C",
+          "clear": true
+        },
+        {
+          "kind": "A-outside-C",
+          "clear": true
+        }
+      ],
+      "transferSchematicClear": true,
+      "P0SchematicEntersC": true,
+      "outerSchematicAvoidsC": true,
+      "transferSchematicAvoidsC": true,
+      "lowIncomingExample": {
+        "points": [
+          [
+            100,
+            40
+          ],
+          [
+            62,
+            28
+          ]
+        ],
+        "blockedByBridge": false
+      },
+      "optionalLowerArcClear": false,
+      "cloudIsNotPhysicalOccluder": true,
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "A-out",
+          "clear": true
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        },
+        {
+          "id": "A-out",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        }
+      ],
+      "barrels": [
+        {
+          "id": "P0",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "A-out",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        }
+      ],
+      "pickups": [
+        {
+          "id": "W11",
+          "insideSolid": false
+        }
+      ]
+    },
+    {
+      "round": 1,
+      "bridgeOpen": false,
+      "D04Removed": true,
+      "destructionUnits": [
+        "087-DECK-SCREEN@0"
+      ],
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-RECEIVER-HULL:e0"
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-CARGO-DOCK:e2"
+        },
+        {
+          "id": "A-out",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-OUTER-CARGO:e1"
+        }
+      ],
+      "selfIntersections": [],
+      "schematicShotSpaces": [
+        {
+          "kind": "P0-through-C",
+          "clear": true
+        },
+        {
+          "kind": "A-outside-C",
+          "clear": true
+        }
+      ],
+      "transferSchematicClear": true,
+      "P0SchematicEntersC": true,
+      "outerSchematicAvoidsC": true,
+      "transferSchematicAvoidsC": true,
+      "lowIncomingExample": {
+        "points": [
+          [
+            100,
+            40
+          ],
+          [
+            62,
+            28
+          ]
+        ],
+        "blockedByBridge": false
+      },
+      "optionalLowerArcClear": true,
+      "cloudIsNotPhysicalOccluder": true,
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "A-out",
+          "clear": true
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        },
+        {
+          "id": "A-out",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        }
+      ],
+      "barrels": [
+        {
+          "id": "P0",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "A-out",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        }
+      ],
+      "pickups": [
+        {
+          "id": "W11",
+          "insideSolid": false
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "bridgeOpen": true,
+      "D04Removed": false,
+      "destructionUnits": [
+        "087-DECK-SCREEN@0"
+      ],
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-RECEIVER-HULL:e0"
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-CARGO-DOCK:e2"
+        },
+        {
+          "id": "A-out",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-OUTER-CARGO:e1"
+        }
+      ],
+      "selfIntersections": [],
+      "schematicShotSpaces": [
+        {
+          "kind": "P0-through-C",
+          "clear": true
+        },
+        {
+          "kind": "A-outside-C",
+          "clear": true
+        }
+      ],
+      "transferSchematicClear": true,
+      "P0SchematicEntersC": true,
+      "outerSchematicAvoidsC": true,
+      "transferSchematicAvoidsC": true,
+      "lowIncomingExample": {
+        "points": [
+          [
+            100,
+            40
+          ],
+          [
+            62,
+            28
+          ]
+        ],
+        "blockedByBridge": true
+      },
+      "optionalLowerArcClear": false,
+      "cloudIsNotPhysicalOccluder": true,
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "A-out",
+          "clear": true
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        },
+        {
+          "id": "A-out",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        }
+      ],
+      "barrels": [
+        {
+          "id": "P0",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "A-out",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        }
+      ],
+      "pickups": [
+        {
+          "id": "W11",
+          "insideSolid": false
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "bridgeOpen": true,
+      "D04Removed": true,
+      "destructionUnits": [
+        "087-DECK-SCREEN@0"
+      ],
+      "supports": [
+        {
+          "id": "enemy",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-RECEIVER-HULL:e0"
+        },
+        {
+          "id": "P0",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-CARGO-DOCK:e2"
+        },
+        {
+          "id": "A-out",
+          "supported": true,
+          "bodyClear": true,
+          "heightErrorPx": 0,
+          "supportId": "087-OUTER-CARGO:e1"
+        }
+      ],
+      "selfIntersections": [],
+      "schematicShotSpaces": [
+        {
+          "kind": "P0-through-C",
+          "clear": true
+        },
+        {
+          "kind": "A-outside-C",
+          "clear": true
+        }
+      ],
+      "transferSchematicClear": true,
+      "P0SchematicEntersC": true,
+      "outerSchematicAvoidsC": true,
+      "transferSchematicAvoidsC": true,
+      "lowIncomingExample": {
+        "points": [
+          [
+            100,
+            40
+          ],
+          [
+            62,
+            28
+          ]
+        ],
+        "blockedByBridge": true
+      },
+      "optionalLowerArcClear": true,
+      "cloudIsNotPhysicalOccluder": true,
+      "openVerticalSpaces": [
+        {
+          "id": "P0",
+          "clear": true
+        },
+        {
+          "id": "A-out",
+          "clear": true
+        }
+      ],
+      "directRayChecks": [
+        {
+          "id": "P0",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        },
+        {
+          "id": "A-out",
+          "rayCount": 45,
+          "open": 0,
+          "fixedHullBlocksEvenWithoutBridgeOrD04": 45
+        }
+      ],
+      "barrels": [
+        {
+          "id": "P0",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        },
+        {
+          "id": "A-out",
+          "samplesDeg": [
+            0,
+            80
+          ],
+          "step": 1,
+          "lengthPx": 35,
+          "blocked": []
+        }
+      ],
+      "pickups": [
+        {
+          "id": "W11",
+          "insideSolid": false
+        }
+      ]
+    }
+  ],
+  "notTested": [
+    "B protection against actual enemy shots",
+    "C trajectory and hit tolerance",
+    "teleport drift/landing/action count",
+    "D04 break count",
+    "enemy AI/counterattack",
+    "20-action victory",
+    "device display"
+  ]
+}

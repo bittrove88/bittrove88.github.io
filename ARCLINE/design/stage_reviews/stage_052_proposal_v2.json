@@ -1,0 +1,602 @@
+{
+  "schema": "arcline-individual-map-proposal-v3",
+  "stage": 52,
+  "date": "2026-11-05",
+  "revision": 2,
+  "status": "review-pending-not-approved-not-implemented",
+  "sourceMainCommit": "5f81de5a159a132fd84be7200fe7611945230718",
+  "sourcePolicy": "stage_051_100_design_direction_v2.md",
+  "provenance": "User-specified 51-60 concepts; individually hand-authored terrain. Rejected 51-100 allocations not loaded.",
+  "before": {
+    "width": 1000,
+    "floor": [
+      [
+        0,
+        9
+      ],
+      [
+        29,
+        9
+      ],
+      [
+        44,
+        14
+      ],
+      [
+        61,
+        22
+      ],
+      [
+        100,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          29,
+          9
+        ],
+        [
+          44,
+          14
+        ],
+        [
+          61,
+          22
+        ],
+        [
+          100,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-C01",
+        "kind": "wall",
+        "poly": [
+          [
+            60,
+            35
+          ],
+          [
+            64,
+            35
+          ],
+          [
+            64,
+            19
+          ],
+          [
+            60,
+            19
+          ]
+        ],
+        "breakable": true
+      },
+      {
+        "id": "052-C02",
+        "kind": "roof",
+        "poly": [
+          [
+            34,
+            37
+          ],
+          [
+            51,
+            37
+          ],
+          [
+            51,
+            34
+          ],
+          [
+            34,
+            34
+          ]
+        ],
+        "breakable": true
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          47,
+          67,
+          21,
+          43
+        ]
+      }
+    ],
+    "player": {
+      "x": 16,
+      "h": 9.0
+    },
+    "enemy": {
+      "x": 86,
+      "h": 22.0
+    },
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 33.558,
+        "h": 38.826,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "verification": {
+          "angle": 63,
+          "power": 75,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0.5
+        }
+      }
+    ]
+  },
+  "after": {
+    "width": 1320,
+    "floor": [
+      [
+        0,
+        11
+      ],
+      [
+        16,
+        12
+      ],
+      [
+        34,
+        12
+      ],
+      [
+        46,
+        14
+      ],
+      [
+        61,
+        14
+      ],
+      [
+        73,
+        18
+      ],
+      [
+        86,
+        27
+      ],
+      [
+        99,
+        35
+      ],
+      [
+        110,
+        43
+      ],
+      [
+        124,
+        43
+      ],
+      [
+        132,
+        40
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          34,
+          12
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          61,
+          14
+        ],
+        [
+          73,
+          18
+        ],
+        [
+          86,
+          27
+        ],
+        [
+          99,
+          35
+        ],
+        [
+          110,
+          43
+        ],
+        [
+          124,
+          43
+        ],
+        [
+          132,
+          40
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "052-WEST-CLIFF",
+        "kind": "roof",
+        "poly": [
+          [
+            0,
+            72
+          ],
+          [
+            18,
+            75
+          ],
+          [
+            35,
+            69
+          ],
+          [
+            35,
+            29.8
+          ],
+          [
+            19,
+            32
+          ],
+          [
+            0,
+            34
+          ]
+        ],
+        "purpose": "厚い左の断崖。x35〜52に自然の縦穴を残す。",
+        "breakable": false
+      },
+      {
+        "id": "052-THIN-WINDOW",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            14
+          ],
+          [
+            64,
+            14
+          ],
+          [
+            64,
+            38
+          ],
+          [
+            57,
+            37
+          ]
+        ],
+        "purpose": "断崖下部の薄い破壊層。",
+        "breakable": true
+      },
+      {
+        "id": "052-CLIFF-SPINE",
+        "kind": "wall",
+        "poly": [
+          [
+            57,
+            38
+          ],
+          [
+            64,
+            38
+          ],
+          [
+            64,
+            66
+          ],
+          [
+            57,
+            59
+          ]
+        ],
+        "purpose": "窓の上の固定断崖。",
+        "breakable": false
+      },
+      {
+        "id": "052-MOUNTAIN",
+        "kind": "roof",
+        "poly": [
+          [
+            64,
+            66
+          ],
+          [
+            72,
+            73
+          ],
+          [
+            82,
+            76
+          ],
+          [
+            96,
+            76
+          ],
+          [
+            104,
+            70
+          ],
+          [
+            104,
+            46
+          ],
+          [
+            95,
+            43
+          ],
+          [
+            78,
+            41
+          ],
+          [
+            64,
+            38
+          ]
+        ],
+        "purpose": "自然な厚みの中央山体。上は迂回射点、下は風洞。",
+        "breakable": false
+      },
+      {
+        "id": "052-CHIMNEY-BUTTRESS",
+        "kind": "roof",
+        "poly": [
+          [
+            52,
+            63.5
+          ],
+          [
+            57,
+            59
+          ],
+          [
+            57,
+            33
+          ],
+          [
+            52,
+            31.5
+          ]
+        ],
+        "purpose": "自然の縦穴の東側に残る岩。窓と断崖をつなぐ。",
+        "breakable": false
+      }
+    ],
+    "features": [
+      {
+        "type": "F",
+        "v": [
+          74,
+          95,
+          24,
+          41
+        ]
+      }
+    ],
+    "player": {
+      "x": 24,
+      "h": 12
+    },
+    "enemy": {
+      "x": 118,
+      "h": 43
+    },
+    "routes": [
+      {
+        "kind": "main",
+        "label": "薄層を壊して風洞を開通",
+        "points": [
+          [
+            52,
+            17
+          ],
+          [
+            63,
+            24
+          ],
+          [
+            85,
+            36
+          ],
+          [
+            105,
+            45
+          ],
+          [
+            118,
+            46
+          ]
+        ],
+        "requiresDestroyed": [
+          "052-THIN-WINDOW"
+        ],
+        "status": "concept-only-not-measured-trajectory"
+      },
+      {
+        "kind": "alternative",
+        "label": "断崖上から観測台へ",
+        "points": [
+          [
+            88,
+            79
+          ],
+          [
+            99,
+            81
+          ],
+          [
+            110,
+            66
+          ],
+          [
+            118,
+            46
+          ]
+        ],
+        "requiresDestroyed": [],
+        "status": "concept-only-not-measured-trajectory"
+      }
+    ],
+    "firingPoints": [
+      {
+        "x": 88,
+        "h": 76,
+        "label": "A"
+      },
+      {
+        "x": 52,
+        "h": 14,
+        "label": "B"
+      },
+      {
+        "x": 37,
+        "h": 12.5,
+        "label": "C"
+      }
+    ],
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 51,
+        "h": 22,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "designStatus": "proposed-unverified",
+        "needsReverification": true
+      }
+    ]
+  },
+  "summary": {
+    "concept": "薄い岩壁を壊す近道と、断崖上へ迂回する射撃を選ぶ。",
+    "terrain": "厚い断崖を貫く横穴風洞",
+    "changeFromPrevious": "前案の細い独立柱と薄い天井を、厚い断崖と一体の風洞へ変更。窓を壊す価値が「入口の開通」として形状から読める。"
+  },
+  "learningGoal": {
+    "source": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+    "proposed": "薄い岩壁を壊す近道と、断崖上へ迂回する射撃を選ぶ。",
+    "decision": "発展"
+  },
+  "routeDesign": {
+    "main": "薄層を破壊し、洞内Bから短い窓を通す。準備に破壊を使う代わりに、岩の天井を残したまま射撃できる。",
+    "alternative": "自然の縦穴Cへ130px歩き、断崖上Aへ転移して右端から観測台へ落とす。窓の破壊を省ける代わりに、高所への転移と露出が増える。",
+    "anchors": [
+      {
+        "id": "roof",
+        "x": 88,
+        "h": 76,
+        "surface": "052-MOUNTAIN",
+        "role": "露出した断崖上の迂回射点。"
+      },
+      {
+        "id": "window",
+        "x": 52,
+        "h": 14,
+        "surface": "floor0",
+        "role": "窓の前の洞内射点。"
+      },
+      {
+        "id": "chimney",
+        "x": 37,
+        "h": 12.5,
+        "surface": "floor0",
+        "role": "開始から130px歩く自然の縦穴。窓を壊さず上へ出る準備位置。"
+      }
+    ],
+    "benefits": [
+      "天井を遮蔽として残せる",
+      "窓破壊を省ける"
+    ],
+    "costs": [
+      "まず薄層を破壊する",
+      "高所で反撃に露出する"
+    ],
+    "setupActionsTarget": [
+      1,
+      3
+    ],
+    "totalActionsTarget": [
+      7,
+      13
+    ],
+    "budgetMeaning": "Design target, not a measured clear. Includes preparing windows, teleport and exposure; no combat simulation performed.",
+    "preparationNote": "西断崖の自然の縦穴x35〜52を通って上部へ出る。縦穴への130px歩行は静的確認、断崖上への転移入力は未検証。"
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 2,
+      "encounterId": "enemy:spike",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "ban",
+      "enemyErrorStageMultiplier": 0.9,
+      "enemyDamageStageMultiplier": 1,
+      "walkingBudgetPx": 140,
+      "enemyLearning": {
+        "normalRetainedAngleError": 0.25,
+        "normalReleaseWalkPx": 50,
+        "hardRetainedAngleError": 0,
+        "hardReleaseWalkPx": 70
+      }
+    },
+    "loads": {
+      "地形理解": "高",
+      "照準": "中",
+      "敵の反撃": "中",
+      "位置移動": "中",
+      "ギミック手数": "高",
+      "ボス部位": "なし"
+    },
+    "risk": "開始洞内から単純な低弧では断崖を通れない構想。初期からの全通常弾を遮断したこと、上方迂回の転移は未検証。"
+  },
+  "verification": {
+    "static": "pass",
+    "ballistics": "not-run",
+    "teleportInputs": "not-run",
+    "combat": "not-run",
+    "physicalDevices": "not-run",
+    "diagramRoutes": "concept-only-not-measured-trajectories",
+    "staticEvidence": "STAGES_051_060_STATIC_CHECK.json"
+  },
+  "approval": {
+    "state": "pending",
+    "approvedBy": null,
+    "approvedAt": null
+  },
+  "implementationNote": "Design only; campaign geometry source, runtime, pickups, saves and production are unchanged.",
+  "previousProposal": "stage_052_proposal_v1.json"
+}

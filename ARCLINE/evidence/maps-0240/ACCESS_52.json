@@ -1,0 +1,2358 @@
+{
+  "status": "REACHED",
+  "stage": 52,
+  "goal": [
+    49,
+    14
+  ],
+  "trace": [
+    {
+      "angle": 6,
+      "power": 70,
+      "teleport": true,
+      "d": 5.795168880745962,
+      "moved": 0,
+      "before": [
+        240,
+        380
+      ],
+      "after": [
+        495.79516888074596,
+        360
+      ],
+      "damage": [
+        0,
+        0
+      ],
+      "destroyed": [],
+      "teleportSuccess": true,
+      "enemy": {
+        "round": 1,
+        "moved": 0,
+        "angle": 81.01651673577726,
+        "power": 100,
+        "damage": [
+          0,
+          0
+        ],
+        "kind": "FAMILY2",
+        "position": [
+          [
+            495.79516888074596,
+            360
+          ],
+          [
+            1180,
+            70
+          ]
+        ],
+        "hpBefore": [
+          7,
+          5
+        ],
+        "hpAfter": [
+          7,
+          5
+        ]
+      }
+    }
+  ],
+  "state": {
+    "spec": {
+      "id": 52,
+      "name": "一片の横穴と開いた縦穴",
+      "nameEn": "Send Through the Window",
+      "theme": 10,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          12
+        ],
+        [
+          118,
+          43
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            11
+          ],
+          [
+            16,
+            12
+          ],
+          [
+            34,
+            12
+          ],
+          [
+            46,
+            14
+          ],
+          [
+            61,
+            14
+          ],
+          [
+            73,
+            18
+          ],
+          [
+            86,
+            27
+          ],
+          [
+            99,
+            35
+          ],
+          [
+            110,
+            43
+          ],
+          [
+            124,
+            43
+          ],
+          [
+            132,
+            40
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "052-WEST-CLIFF",
+          "poly": [
+            [
+              0,
+              72
+            ],
+            [
+              11,
+              74
+            ],
+            [
+              16,
+              70
+            ],
+            [
+              16,
+              35
+            ],
+            [
+              0,
+              37
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "052-THIN-WINDOW",
+          "poly": [
+            [
+              55,
+              14
+            ],
+            [
+              63,
+              15.6667
+            ],
+            [
+              63,
+              43
+            ],
+            [
+              55,
+              42
+            ]
+          ],
+          "destructible": true
+        },
+        {
+          "id": "052-CLIFF-SPINE",
+          "poly": [
+            [
+              55,
+              42
+            ],
+            [
+              63,
+              43
+            ],
+            [
+              63,
+              72
+            ],
+            [
+              58,
+              66
+            ],
+            [
+              55,
+              60
+            ]
+          ],
+          "destructible": false
+        },
+        {
+          "id": "052-MOUNTAIN",
+          "poly": [
+            [
+              63,
+              72
+            ],
+            [
+              82,
+              76
+            ],
+            [
+              96,
+              76
+            ],
+            [
+              104,
+              70
+            ],
+            [
+              104,
+              48
+            ],
+            [
+              95,
+              44
+            ],
+            [
+              80,
+              43
+            ],
+            [
+              63,
+              43
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "F",
+          "v": [
+            74,
+            95,
+            24,
+            41
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W11",
+          "kind": "trial",
+          "weaponId": "W11",
+          "category": "weapon",
+          "amount": 2,
+          "x": 51,
+          "h": 22,
+          "spawnTurn": 1,
+          "placementId": "L052:weapon:W11",
+          "verification": {
+            "angle": 16,
+            "power": 90,
+            "neighborHits": 5,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 2,
+      "hold": 1,
+      "themeName": "風の観測台",
+      "themeGoal": "横風を受ける距離と、自分の位置を選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:spike",
+      "recommendedCharacter": "ban",
+      "tacticalGoal": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+      "tacticalGoalEn": "Break a window into a windy cliff observatory or use an outer arc.",
+      "enemyHp": 5,
+      "terrainRevision": "7.0-approved-051-099",
+      "worldWidth": 1320
+    },
+    "world": {
+      "solids": [
+        {
+          "id": "floor0",
+          "kind": "floor",
+          "poly": [
+            {
+              "x": 0,
+              "y": 390
+            },
+            {
+              "x": 160,
+              "y": 380
+            },
+            {
+              "x": 340,
+              "y": 380
+            },
+            {
+              "x": 460,
+              "y": 360
+            },
+            {
+              "x": 610,
+              "y": 360
+            },
+            {
+              "x": 730,
+              "y": 320
+            },
+            {
+              "x": 860,
+              "y": 230
+            },
+            {
+              "x": 990,
+              "y": 150
+            },
+            {
+              "x": 1100,
+              "y": 70
+            },
+            {
+              "x": 1240,
+              "y": 70
+            },
+            {
+              "x": 1320,
+              "y": 100
+            },
+            {
+              "x": 1320,
+              "y": 560
+            },
+            {
+              "x": 0,
+              "y": 560
+            }
+          ]
+        },
+        {
+          "id": "052-WEST-CLIFF",
+          "componentId": "052-WEST-CLIFF",
+          "kind": "bedrock",
+          "destructible": false,
+          "poly": [
+            {
+              "x": 0,
+              "y": -220
+            },
+            {
+              "x": 110,
+              "y": -240
+            },
+            {
+              "x": 160,
+              "y": -200
+            },
+            {
+              "x": 160,
+              "y": 150
+            },
+            {
+              "x": 0,
+              "y": 130
+            }
+          ]
+        },
+        {
+          "id": "052-THIN-WINDOW@0",
+          "componentId": "052-THIN-WINDOW",
+          "kind": "fragile",
+          "destructible": true,
+          "poly": [
+            {
+              "x": 550,
+              "y": 360
+            },
+            {
+              "x": 630,
+              "y": 343.33299999999997
+            },
+            {
+              "x": 630,
+              "y": 70
+            },
+            {
+              "x": 550,
+              "y": 80
+            }
+          ]
+        },
+        {
+          "id": "052-CLIFF-SPINE",
+          "componentId": "052-CLIFF-SPINE",
+          "kind": "bedrock",
+          "destructible": false,
+          "poly": [
+            {
+              "x": 550,
+              "y": 80
+            },
+            {
+              "x": 630,
+              "y": 70
+            },
+            {
+              "x": 630,
+              "y": -220
+            },
+            {
+              "x": 580,
+              "y": -160
+            },
+            {
+              "x": 550,
+              "y": -100
+            }
+          ]
+        },
+        {
+          "id": "052-MOUNTAIN",
+          "componentId": "052-MOUNTAIN",
+          "kind": "bedrock",
+          "destructible": false,
+          "poly": [
+            {
+              "x": 630,
+              "y": -220
+            },
+            {
+              "x": 820,
+              "y": -260
+            },
+            {
+              "x": 960,
+              "y": -260
+            },
+            {
+              "x": 1040,
+              "y": -200
+            },
+            {
+              "x": 1040,
+              "y": 20
+            },
+            {
+              "x": 950,
+              "y": 60
+            },
+            {
+              "x": 800,
+              "y": 70
+            },
+            {
+              "x": 630,
+              "y": 70
+            }
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "id": "F0",
+          "kind": "F",
+          "x1": 740,
+          "x2": 950,
+          "y1": 90,
+          "y2": 260,
+          "direction": -1,
+          "strength": 0.35,
+          "on": true,
+          "slow": 0.72
+        }
+      ],
+      "waters": [],
+      "terminals": [],
+      "surfaces": [
+        {
+          "id": "floor0",
+          "points": [
+            {
+              "x": 0,
+              "y": 390
+            },
+            {
+              "x": 160,
+              "y": 380
+            },
+            {
+              "x": 340,
+              "y": 380
+            },
+            {
+              "x": 460,
+              "y": 360
+            },
+            {
+              "x": 610,
+              "y": 360
+            },
+            {
+              "x": 730,
+              "y": 320
+            },
+            {
+              "x": 860,
+              "y": 230
+            },
+            {
+              "x": 990,
+              "y": 150
+            },
+            {
+              "x": 1100,
+              "y": 70
+            },
+            {
+              "x": 1240,
+              "y": 70
+            },
+            {
+              "x": 1320,
+              "y": 100
+            }
+          ]
+        },
+        {
+          "id": "052-WEST-CLIFF:e0",
+          "solidId": "052-WEST-CLIFF",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 0,
+              "y": -220
+            },
+            {
+              "x": 110,
+              "y": -240
+            }
+          ]
+        },
+        {
+          "id": "052-WEST-CLIFF:e1",
+          "solidId": "052-WEST-CLIFF",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 110,
+              "y": -240
+            },
+            {
+              "x": 160,
+              "y": -200
+            }
+          ]
+        },
+        {
+          "id": "052-THIN-WINDOW@0:e2",
+          "solidId": "052-THIN-WINDOW@0",
+          "kind": "fragile",
+          "points": [
+            {
+              "x": 550,
+              "y": 80
+            },
+            {
+              "x": 630,
+              "y": 70
+            }
+          ]
+        },
+        {
+          "id": "052-CLIFF-SPINE:e2",
+          "solidId": "052-CLIFF-SPINE",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 580,
+              "y": -160
+            },
+            {
+              "x": 630,
+              "y": -220
+            }
+          ]
+        },
+        {
+          "id": "052-CLIFF-SPINE:e3",
+          "solidId": "052-CLIFF-SPINE",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 550,
+              "y": -100
+            },
+            {
+              "x": 580,
+              "y": -160
+            }
+          ]
+        },
+        {
+          "id": "052-MOUNTAIN:e0",
+          "solidId": "052-MOUNTAIN",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 630,
+              "y": -220
+            },
+            {
+              "x": 820,
+              "y": -260
+            }
+          ]
+        },
+        {
+          "id": "052-MOUNTAIN:e1",
+          "solidId": "052-MOUNTAIN",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 820,
+              "y": -260
+            },
+            {
+              "x": 960,
+              "y": -260
+            }
+          ]
+        },
+        {
+          "id": "052-MOUNTAIN:e2",
+          "solidId": "052-MOUNTAIN",
+          "kind": "bedrock",
+          "points": [
+            {
+              "x": 960,
+              "y": -260
+            },
+            {
+              "x": 1040,
+              "y": -200
+            }
+          ]
+        }
+      ],
+      "width": 1320
+    },
+    "stage": 52,
+    "map": 51,
+    "bossPhase": 0,
+    "round": 2,
+    "turn": 0,
+    "phase": "aim",
+    "units": [
+      {
+        "x": 495.79516888074596,
+        "y": 360,
+        "slope": 0,
+        "surface": "floor0",
+        "facing": 1,
+        "hp": 7,
+        "maxHp": 7,
+        "range": [
+          35,
+          1285
+        ],
+        "exposed": 0,
+        "parts": [],
+        "animation": {
+          "from": {
+            "x": 495.79516888074596,
+            "y": 360,
+            "slope": 0
+          },
+          "age": 0,
+          "duration": 0.25,
+          "lift": 0,
+          "fall": true
+        },
+        "teleportFlash": {
+          "age": 0
+        }
+      },
+      {
+        "x": 1180,
+        "y": 70,
+        "slope": 0,
+        "surface": "floor0",
+        "facing": -1,
+        "hp": 5,
+        "maxHp": 5,
+        "range": [
+          35,
+          1285
+        ],
+        "exposed": 0,
+        "parts": [],
+        "encounterId": "enemy:spike",
+        "hitShape": {
+          "x": 0,
+          "y": -22,
+          "rx": 31,
+          "ry": 29
+        },
+        "core": null,
+        "weaponPivot": {
+          "x": 0,
+          "y": -26
+        },
+        "muzzleLength": 35
+      }
+    ],
+    "characterId": "gun",
+    "specialAmmo": 1,
+    "playerTurn": 2,
+    "specialUnlocks": 1,
+    "specialChargeSerial": 1,
+    "weaponStock": {},
+    "skills": {},
+    "skillCaps": {
+      "BURST": 6,
+      "BLINK": 6,
+      "PUSH": 6,
+      "BOUNCE": 6,
+      "PULL": 6,
+      "SPLIT": 6,
+      "PHASE": 6,
+      "SWAP": 6,
+      "S_CHARGE_SLOW_I": 6,
+      "S_CHARGE_SLOW_II": 6,
+      "S_POWER_UP_I": 6,
+      "S_POWER_UP_II": 6,
+      "S_SPECIAL_REFILL": 6,
+      "S_FREE_MOVE": 6,
+      "S_BARRIER": 6,
+      "S_ENEMY_WEAKEN": 6,
+      "S_ENEMY_SKIP": 6,
+      "S_LOW_GRAVITY": 6,
+      "S_HIGH_GRAVITY": 6,
+      "S_REPAIR": 6,
+      "S_FULL_REPAIR": 6,
+      "S_INVINCIBLE": 6,
+      "S_ALL_ATTACK": 6,
+      "S_GUARD": 6,
+      "S_BREACH": 6
+    },
+    "pickups": [
+      {
+        "id": "W11",
+        "kind": "trial",
+        "weaponId": "W11",
+        "category": "weapon",
+        "amount": 2,
+        "x": 510,
+        "h": 22,
+        "spawnTurn": 1,
+        "placementId": "L052:weapon:W11",
+        "verification": {
+          "angle": 16,
+          "power": 90,
+          "neighborHits": 5,
+          "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+        },
+        "y": 280,
+        "radius": 22,
+        "collected": false,
+        "hidden": false,
+        "skill": null
+      }
+    ],
+    "pendingLoot": [],
+    "collectedPickupIds": [],
+    "selectedSkill": null,
+    "skillUsed": false,
+    "shotCount": 1,
+    "shotLimit": 16,
+    "angle": 48,
+    "power": 20,
+    "result": null,
+    "reason": null,
+    "weaponId": "W01",
+    "mode": "W01",
+    "lastPickupWeaponId": null,
+    "last": [
+      null,
+      null
+    ],
+    "effects": {
+      "broken": 0,
+      "polarity": 0,
+      "destroyed": [],
+      "deferEnvironment": false,
+      "environmentRound": 2
+    },
+    "pendingChanges": [],
+    "boundaryLog": [
+      {
+        "round": 2,
+        "changes": []
+      }
+    ],
+    "rewardGiven": false,
+    "telegraph": null,
+    "matchSeed": 4697,
+    "teleportMode": false,
+    "preview": null,
+    "difficulty": "normal",
+    "skillEffects": {},
+    "enemyLearning": {
+      "active": false,
+      "walk": 0,
+      "owner": "gun"
+    },
+    "blink": [],
+    "activeShot": null,
+    "time": 0.6,
+    "lastCpuFamily": "FAMILY2",
+    "guardActive": false,
+    "walkUsed": 0
+  },
+  "states": [
+    {
+      "spec": {
+        "id": 52,
+        "name": "一片の横穴と開いた縦穴",
+        "nameEn": "Send Through the Window",
+        "theme": 10,
+        "boss": false,
+        "spawn": [
+          [
+            24,
+            12
+          ],
+          [
+            118,
+            43
+          ]
+        ],
+        "floors": [
+          [
+            [
+              0,
+              11
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              34,
+              12
+            ],
+            [
+              46,
+              14
+            ],
+            [
+              61,
+              14
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              86,
+              27
+            ],
+            [
+              99,
+              35
+            ],
+            [
+              110,
+              43
+            ],
+            [
+              124,
+              43
+            ],
+            [
+              132,
+              40
+            ]
+          ]
+        ],
+        "components": [
+          {
+            "id": "052-WEST-CLIFF",
+            "poly": [
+              [
+                0,
+                72
+              ],
+              [
+                11,
+                74
+              ],
+              [
+                16,
+                70
+              ],
+              [
+                16,
+                35
+              ],
+              [
+                0,
+                37
+              ]
+            ],
+            "destructible": false
+          },
+          {
+            "id": "052-THIN-WINDOW",
+            "poly": [
+              [
+                55,
+                14
+              ],
+              [
+                63,
+                15.6667
+              ],
+              [
+                63,
+                43
+              ],
+              [
+                55,
+                42
+              ]
+            ],
+            "destructible": true
+          },
+          {
+            "id": "052-CLIFF-SPINE",
+            "poly": [
+              [
+                55,
+                42
+              ],
+              [
+                63,
+                43
+              ],
+              [
+                63,
+                72
+              ],
+              [
+                58,
+                66
+              ],
+              [
+                55,
+                60
+              ]
+            ],
+            "destructible": false
+          },
+          {
+            "id": "052-MOUNTAIN",
+            "poly": [
+              [
+                63,
+                72
+              ],
+              [
+                82,
+                76
+              ],
+              [
+                96,
+                76
+              ],
+              [
+                104,
+                70
+              ],
+              [
+                104,
+                48
+              ],
+              [
+                95,
+                44
+              ],
+              [
+                80,
+                43
+              ],
+              [
+                63,
+                43
+              ]
+            ],
+            "destructible": false
+          }
+        ],
+        "features": [
+          {
+            "type": "F",
+            "v": [
+              74,
+              95,
+              24,
+              41
+            ]
+          }
+        ],
+        "skills": {},
+        "pickups": [
+          {
+            "id": "W11",
+            "kind": "trial",
+            "weaponId": "W11",
+            "category": "weapon",
+            "amount": 2,
+            "x": 51,
+            "h": 22,
+            "spawnTurn": 1,
+            "placementId": "L052:weapon:W11",
+            "verification": {
+              "angle": 16,
+              "power": 90,
+              "neighborHits": 5,
+              "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+            }
+          }
+        ],
+        "blink": [],
+        "teleport": true,
+        "actionLimit": 16,
+        "enemyProfile": 2,
+        "hold": 1,
+        "themeName": "風の観測台",
+        "themeGoal": "横風を受ける距離と、自分の位置を選ぶ",
+        "stageInTheme": 2,
+        "themeRole": "Explore",
+        "lesson": null,
+        "contentRevision": "5.0",
+        "encounterKind": "normal",
+        "midboss": false,
+        "encounterId": "enemy:spike",
+        "recommendedCharacter": "ban",
+        "tacticalGoal": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+        "tacticalGoalEn": "Break a window into a windy cliff observatory or use an outer arc.",
+        "enemyHp": 5,
+        "terrainRevision": "7.0-approved-051-099",
+        "worldWidth": 1320
+      },
+      "world": {
+        "solids": [
+          {
+            "id": "floor0",
+            "kind": "floor",
+            "poly": [
+              {
+                "x": 0,
+                "y": 390
+              },
+              {
+                "x": 160,
+                "y": 380
+              },
+              {
+                "x": 340,
+                "y": 380
+              },
+              {
+                "x": 460,
+                "y": 360
+              },
+              {
+                "x": 610,
+                "y": 360
+              },
+              {
+                "x": 730,
+                "y": 320
+              },
+              {
+                "x": 860,
+                "y": 230
+              },
+              {
+                "x": 990,
+                "y": 150
+              },
+              {
+                "x": 1100,
+                "y": 70
+              },
+              {
+                "x": 1240,
+                "y": 70
+              },
+              {
+                "x": 1320,
+                "y": 100
+              },
+              {
+                "x": 1320,
+                "y": 560
+              },
+              {
+                "x": 0,
+                "y": 560
+              }
+            ]
+          },
+          {
+            "id": "052-WEST-CLIFF",
+            "componentId": "052-WEST-CLIFF",
+            "kind": "bedrock",
+            "destructible": false,
+            "poly": [
+              {
+                "x": 0,
+                "y": -220
+              },
+              {
+                "x": 110,
+                "y": -240
+              },
+              {
+                "x": 160,
+                "y": -200
+              },
+              {
+                "x": 160,
+                "y": 150
+              },
+              {
+                "x": 0,
+                "y": 130
+              }
+            ]
+          },
+          {
+            "id": "052-THIN-WINDOW@0",
+            "componentId": "052-THIN-WINDOW",
+            "kind": "fragile",
+            "destructible": true,
+            "poly": [
+              {
+                "x": 550,
+                "y": 360
+              },
+              {
+                "x": 630,
+                "y": 343.33299999999997
+              },
+              {
+                "x": 630,
+                "y": 70
+              },
+              {
+                "x": 550,
+                "y": 80
+              }
+            ]
+          },
+          {
+            "id": "052-CLIFF-SPINE",
+            "componentId": "052-CLIFF-SPINE",
+            "kind": "bedrock",
+            "destructible": false,
+            "poly": [
+              {
+                "x": 550,
+                "y": 80
+              },
+              {
+                "x": 630,
+                "y": 70
+              },
+              {
+                "x": 630,
+                "y": -220
+              },
+              {
+                "x": 580,
+                "y": -160
+              },
+              {
+                "x": 550,
+                "y": -100
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN",
+            "componentId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "destructible": false,
+            "poly": [
+              {
+                "x": 630,
+                "y": -220
+              },
+              {
+                "x": 820,
+                "y": -260
+              },
+              {
+                "x": 960,
+                "y": -260
+              },
+              {
+                "x": 1040,
+                "y": -200
+              },
+              {
+                "x": 1040,
+                "y": 20
+              },
+              {
+                "x": 950,
+                "y": 60
+              },
+              {
+                "x": 800,
+                "y": 70
+              },
+              {
+                "x": 630,
+                "y": 70
+              }
+            ]
+          }
+        ],
+        "regions": [
+          {
+            "id": "F0",
+            "kind": "F",
+            "x1": 740,
+            "x2": 950,
+            "y1": 90,
+            "y2": 260,
+            "direction": 1,
+            "strength": 0.35,
+            "on": true,
+            "slow": 0.72
+          }
+        ],
+        "waters": [],
+        "terminals": [],
+        "surfaces": [
+          {
+            "id": "floor0",
+            "points": [
+              {
+                "x": 0,
+                "y": 390
+              },
+              {
+                "x": 160,
+                "y": 380
+              },
+              {
+                "x": 340,
+                "y": 380
+              },
+              {
+                "x": 460,
+                "y": 360
+              },
+              {
+                "x": 610,
+                "y": 360
+              },
+              {
+                "x": 730,
+                "y": 320
+              },
+              {
+                "x": 860,
+                "y": 230
+              },
+              {
+                "x": 990,
+                "y": 150
+              },
+              {
+                "x": 1100,
+                "y": 70
+              },
+              {
+                "x": 1240,
+                "y": 70
+              },
+              {
+                "x": 1320,
+                "y": 100
+              }
+            ]
+          },
+          {
+            "id": "052-WEST-CLIFF:e0",
+            "solidId": "052-WEST-CLIFF",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 0,
+                "y": -220
+              },
+              {
+                "x": 110,
+                "y": -240
+              }
+            ]
+          },
+          {
+            "id": "052-WEST-CLIFF:e1",
+            "solidId": "052-WEST-CLIFF",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 110,
+                "y": -240
+              },
+              {
+                "x": 160,
+                "y": -200
+              }
+            ]
+          },
+          {
+            "id": "052-THIN-WINDOW@0:e2",
+            "solidId": "052-THIN-WINDOW@0",
+            "kind": "fragile",
+            "points": [
+              {
+                "x": 550,
+                "y": 80
+              },
+              {
+                "x": 630,
+                "y": 70
+              }
+            ]
+          },
+          {
+            "id": "052-CLIFF-SPINE:e2",
+            "solidId": "052-CLIFF-SPINE",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 580,
+                "y": -160
+              },
+              {
+                "x": 630,
+                "y": -220
+              }
+            ]
+          },
+          {
+            "id": "052-CLIFF-SPINE:e3",
+            "solidId": "052-CLIFF-SPINE",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 550,
+                "y": -100
+              },
+              {
+                "x": 580,
+                "y": -160
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN:e0",
+            "solidId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 630,
+                "y": -220
+              },
+              {
+                "x": 820,
+                "y": -260
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN:e1",
+            "solidId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 820,
+                "y": -260
+              },
+              {
+                "x": 960,
+                "y": -260
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN:e2",
+            "solidId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 960,
+                "y": -260
+              },
+              {
+                "x": 1040,
+                "y": -200
+              }
+            ]
+          }
+        ],
+        "width": 1320
+      },
+      "stage": 52,
+      "map": 51,
+      "bossPhase": 0,
+      "round": 1,
+      "turn": 0,
+      "phase": "aim",
+      "units": [
+        {
+          "x": 240,
+          "y": 380,
+          "slope": 0,
+          "surface": "floor0",
+          "facing": 1,
+          "hp": 7,
+          "maxHp": 7,
+          "range": [
+            35,
+            1285
+          ],
+          "exposed": 0,
+          "parts": []
+        },
+        {
+          "x": 1180,
+          "y": 70,
+          "slope": 0,
+          "surface": "floor0",
+          "facing": -1,
+          "hp": 5,
+          "maxHp": 5,
+          "range": [
+            35,
+            1285
+          ],
+          "exposed": 0,
+          "parts": [],
+          "encounterId": "enemy:spike",
+          "hitShape": {
+            "x": 0,
+            "y": -22,
+            "rx": 31,
+            "ry": 29
+          },
+          "core": null,
+          "weaponPivot": {
+            "x": 0,
+            "y": -26
+          },
+          "muzzleLength": 35
+        }
+      ],
+      "characterId": "gun",
+      "specialAmmo": 0,
+      "playerTurn": 1,
+      "specialUnlocks": 0,
+      "specialChargeSerial": 0,
+      "weaponStock": {},
+      "skills": {},
+      "skillCaps": {
+        "BURST": 6,
+        "BLINK": 6,
+        "PUSH": 6,
+        "BOUNCE": 6,
+        "PULL": 6,
+        "SPLIT": 6,
+        "PHASE": 6,
+        "SWAP": 6,
+        "S_CHARGE_SLOW_I": 6,
+        "S_CHARGE_SLOW_II": 6,
+        "S_POWER_UP_I": 6,
+        "S_POWER_UP_II": 6,
+        "S_SPECIAL_REFILL": 6,
+        "S_FREE_MOVE": 6,
+        "S_BARRIER": 6,
+        "S_ENEMY_WEAKEN": 6,
+        "S_ENEMY_SKIP": 6,
+        "S_LOW_GRAVITY": 6,
+        "S_HIGH_GRAVITY": 6,
+        "S_REPAIR": 6,
+        "S_FULL_REPAIR": 6,
+        "S_INVINCIBLE": 6,
+        "S_ALL_ATTACK": 6,
+        "S_GUARD": 6,
+        "S_BREACH": 6
+      },
+      "pickups": [
+        {
+          "id": "W11",
+          "kind": "trial",
+          "weaponId": "W11",
+          "category": "weapon",
+          "amount": 2,
+          "x": 510,
+          "h": 22,
+          "spawnTurn": 1,
+          "placementId": "L052:weapon:W11",
+          "verification": {
+            "angle": 16,
+            "power": 90,
+            "neighborHits": 5,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          },
+          "y": 280,
+          "radius": 22,
+          "collected": false,
+          "hidden": false,
+          "skill": null
+        }
+      ],
+      "pendingLoot": [],
+      "collectedPickupIds": [],
+      "selectedSkill": null,
+      "skillUsed": false,
+      "shotCount": 0,
+      "shotLimit": 16,
+      "angle": 48,
+      "power": 20,
+      "result": null,
+      "reason": null,
+      "weaponId": "W01",
+      "mode": "W01",
+      "lastPickupWeaponId": null,
+      "last": [
+        null,
+        null
+      ],
+      "effects": {
+        "broken": 0,
+        "polarity": 0,
+        "destroyed": []
+      },
+      "pendingChanges": [],
+      "boundaryLog": [],
+      "rewardGiven": false,
+      "telegraph": null,
+      "matchSeed": 4697,
+      "teleportMode": false,
+      "preview": null,
+      "difficulty": "normal",
+      "skillEffects": {},
+      "enemyLearning": {
+        "active": false,
+        "walk": 0,
+        "owner": "gun"
+      },
+      "blink": []
+    },
+    {
+      "spec": {
+        "id": 52,
+        "name": "一片の横穴と開いた縦穴",
+        "nameEn": "Send Through the Window",
+        "theme": 10,
+        "boss": false,
+        "spawn": [
+          [
+            24,
+            12
+          ],
+          [
+            118,
+            43
+          ]
+        ],
+        "floors": [
+          [
+            [
+              0,
+              11
+            ],
+            [
+              16,
+              12
+            ],
+            [
+              34,
+              12
+            ],
+            [
+              46,
+              14
+            ],
+            [
+              61,
+              14
+            ],
+            [
+              73,
+              18
+            ],
+            [
+              86,
+              27
+            ],
+            [
+              99,
+              35
+            ],
+            [
+              110,
+              43
+            ],
+            [
+              124,
+              43
+            ],
+            [
+              132,
+              40
+            ]
+          ]
+        ],
+        "components": [
+          {
+            "id": "052-WEST-CLIFF",
+            "poly": [
+              [
+                0,
+                72
+              ],
+              [
+                11,
+                74
+              ],
+              [
+                16,
+                70
+              ],
+              [
+                16,
+                35
+              ],
+              [
+                0,
+                37
+              ]
+            ],
+            "destructible": false
+          },
+          {
+            "id": "052-THIN-WINDOW",
+            "poly": [
+              [
+                55,
+                14
+              ],
+              [
+                63,
+                15.6667
+              ],
+              [
+                63,
+                43
+              ],
+              [
+                55,
+                42
+              ]
+            ],
+            "destructible": true
+          },
+          {
+            "id": "052-CLIFF-SPINE",
+            "poly": [
+              [
+                55,
+                42
+              ],
+              [
+                63,
+                43
+              ],
+              [
+                63,
+                72
+              ],
+              [
+                58,
+                66
+              ],
+              [
+                55,
+                60
+              ]
+            ],
+            "destructible": false
+          },
+          {
+            "id": "052-MOUNTAIN",
+            "poly": [
+              [
+                63,
+                72
+              ],
+              [
+                82,
+                76
+              ],
+              [
+                96,
+                76
+              ],
+              [
+                104,
+                70
+              ],
+              [
+                104,
+                48
+              ],
+              [
+                95,
+                44
+              ],
+              [
+                80,
+                43
+              ],
+              [
+                63,
+                43
+              ]
+            ],
+            "destructible": false
+          }
+        ],
+        "features": [
+          {
+            "type": "F",
+            "v": [
+              74,
+              95,
+              24,
+              41
+            ]
+          }
+        ],
+        "skills": {},
+        "pickups": [
+          {
+            "id": "W11",
+            "kind": "trial",
+            "weaponId": "W11",
+            "category": "weapon",
+            "amount": 2,
+            "x": 51,
+            "h": 22,
+            "spawnTurn": 1,
+            "placementId": "L052:weapon:W11",
+            "verification": {
+              "angle": 16,
+              "power": 90,
+              "neighborHits": 5,
+              "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+            }
+          }
+        ],
+        "blink": [],
+        "teleport": true,
+        "actionLimit": 16,
+        "enemyProfile": 2,
+        "hold": 1,
+        "themeName": "風の観測台",
+        "themeGoal": "横風を受ける距離と、自分の位置を選ぶ",
+        "stageInTheme": 2,
+        "themeRole": "Explore",
+        "lesson": null,
+        "contentRevision": "5.0",
+        "encounterKind": "normal",
+        "midboss": false,
+        "encounterId": "enemy:spike",
+        "recommendedCharacter": "ban",
+        "tacticalGoal": "下段から壁の細い窓を壊し、高い観測台の敵へ風の影響が短い射線を作る。",
+        "tacticalGoalEn": "Break a window into a windy cliff observatory or use an outer arc.",
+        "enemyHp": 5,
+        "terrainRevision": "7.0-approved-051-099",
+        "worldWidth": 1320
+      },
+      "world": {
+        "solids": [
+          {
+            "id": "floor0",
+            "kind": "floor",
+            "poly": [
+              {
+                "x": 0,
+                "y": 390
+              },
+              {
+                "x": 160,
+                "y": 380
+              },
+              {
+                "x": 340,
+                "y": 380
+              },
+              {
+                "x": 460,
+                "y": 360
+              },
+              {
+                "x": 610,
+                "y": 360
+              },
+              {
+                "x": 730,
+                "y": 320
+              },
+              {
+                "x": 860,
+                "y": 230
+              },
+              {
+                "x": 990,
+                "y": 150
+              },
+              {
+                "x": 1100,
+                "y": 70
+              },
+              {
+                "x": 1240,
+                "y": 70
+              },
+              {
+                "x": 1320,
+                "y": 100
+              },
+              {
+                "x": 1320,
+                "y": 560
+              },
+              {
+                "x": 0,
+                "y": 560
+              }
+            ]
+          },
+          {
+            "id": "052-WEST-CLIFF",
+            "componentId": "052-WEST-CLIFF",
+            "kind": "bedrock",
+            "destructible": false,
+            "poly": [
+              {
+                "x": 0,
+                "y": -220
+              },
+              {
+                "x": 110,
+                "y": -240
+              },
+              {
+                "x": 160,
+                "y": -200
+              },
+              {
+                "x": 160,
+                "y": 150
+              },
+              {
+                "x": 0,
+                "y": 130
+              }
+            ]
+          },
+          {
+            "id": "052-THIN-WINDOW@0",
+            "componentId": "052-THIN-WINDOW",
+            "kind": "fragile",
+            "destructible": true,
+            "poly": [
+              {
+                "x": 550,
+                "y": 360
+              },
+              {
+                "x": 630,
+                "y": 343.33299999999997
+              },
+              {
+                "x": 630,
+                "y": 70
+              },
+              {
+                "x": 550,
+                "y": 80
+              }
+            ]
+          },
+          {
+            "id": "052-CLIFF-SPINE",
+            "componentId": "052-CLIFF-SPINE",
+            "kind": "bedrock",
+            "destructible": false,
+            "poly": [
+              {
+                "x": 550,
+                "y": 80
+              },
+              {
+                "x": 630,
+                "y": 70
+              },
+              {
+                "x": 630,
+                "y": -220
+              },
+              {
+                "x": 580,
+                "y": -160
+              },
+              {
+                "x": 550,
+                "y": -100
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN",
+            "componentId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "destructible": false,
+            "poly": [
+              {
+                "x": 630,
+                "y": -220
+              },
+              {
+                "x": 820,
+                "y": -260
+              },
+              {
+                "x": 960,
+                "y": -260
+              },
+              {
+                "x": 1040,
+                "y": -200
+              },
+              {
+                "x": 1040,
+                "y": 20
+              },
+              {
+                "x": 950,
+                "y": 60
+              },
+              {
+                "x": 800,
+                "y": 70
+              },
+              {
+                "x": 630,
+                "y": 70
+              }
+            ]
+          }
+        ],
+        "regions": [
+          {
+            "id": "F0",
+            "kind": "F",
+            "x1": 740,
+            "x2": 950,
+            "y1": 90,
+            "y2": 260,
+            "direction": -1,
+            "strength": 0.35,
+            "on": true,
+            "slow": 0.72
+          }
+        ],
+        "waters": [],
+        "terminals": [],
+        "surfaces": [
+          {
+            "id": "floor0",
+            "points": [
+              {
+                "x": 0,
+                "y": 390
+              },
+              {
+                "x": 160,
+                "y": 380
+              },
+              {
+                "x": 340,
+                "y": 380
+              },
+              {
+                "x": 460,
+                "y": 360
+              },
+              {
+                "x": 610,
+                "y": 360
+              },
+              {
+                "x": 730,
+                "y": 320
+              },
+              {
+                "x": 860,
+                "y": 230
+              },
+              {
+                "x": 990,
+                "y": 150
+              },
+              {
+                "x": 1100,
+                "y": 70
+              },
+              {
+                "x": 1240,
+                "y": 70
+              },
+              {
+                "x": 1320,
+                "y": 100
+              }
+            ]
+          },
+          {
+            "id": "052-WEST-CLIFF:e0",
+            "solidId": "052-WEST-CLIFF",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 0,
+                "y": -220
+              },
+              {
+                "x": 110,
+                "y": -240
+              }
+            ]
+          },
+          {
+            "id": "052-WEST-CLIFF:e1",
+            "solidId": "052-WEST-CLIFF",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 110,
+                "y": -240
+              },
+              {
+                "x": 160,
+                "y": -200
+              }
+            ]
+          },
+          {
+            "id": "052-THIN-WINDOW@0:e2",
+            "solidId": "052-THIN-WINDOW@0",
+            "kind": "fragile",
+            "points": [
+              {
+                "x": 550,
+                "y": 80
+              },
+              {
+                "x": 630,
+                "y": 70
+              }
+            ]
+          },
+          {
+            "id": "052-CLIFF-SPINE:e2",
+            "solidId": "052-CLIFF-SPINE",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 580,
+                "y": -160
+              },
+              {
+                "x": 630,
+                "y": -220
+              }
+            ]
+          },
+          {
+            "id": "052-CLIFF-SPINE:e3",
+            "solidId": "052-CLIFF-SPINE",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 550,
+                "y": -100
+              },
+              {
+                "x": 580,
+                "y": -160
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN:e0",
+            "solidId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 630,
+                "y": -220
+              },
+              {
+                "x": 820,
+                "y": -260
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN:e1",
+            "solidId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 820,
+                "y": -260
+              },
+              {
+                "x": 960,
+                "y": -260
+              }
+            ]
+          },
+          {
+            "id": "052-MOUNTAIN:e2",
+            "solidId": "052-MOUNTAIN",
+            "kind": "bedrock",
+            "points": [
+              {
+                "x": 960,
+                "y": -260
+              },
+              {
+                "x": 1040,
+                "y": -200
+              }
+            ]
+          }
+        ],
+        "width": 1320
+      },
+      "stage": 52,
+      "map": 51,
+      "bossPhase": 0,
+      "round": 2,
+      "turn": 0,
+      "phase": "aim",
+      "units": [
+        {
+          "x": 495.79516888074596,
+          "y": 360,
+          "slope": 0,
+          "surface": "floor0",
+          "facing": 1,
+          "hp": 7,
+          "maxHp": 7,
+          "range": [
+            35,
+            1285
+          ],
+          "exposed": 0,
+          "parts": [],
+          "animation": {
+            "from": {
+              "x": 495.79516888074596,
+              "y": 360,
+              "slope": 0
+            },
+            "age": 0,
+            "duration": 0.25,
+            "lift": 0,
+            "fall": true
+          },
+          "teleportFlash": {
+            "age": 0
+          }
+        },
+        {
+          "x": 1180,
+          "y": 70,
+          "slope": 0,
+          "surface": "floor0",
+          "facing": -1,
+          "hp": 5,
+          "maxHp": 5,
+          "range": [
+            35,
+            1285
+          ],
+          "exposed": 0,
+          "parts": [],
+          "encounterId": "enemy:spike",
+          "hitShape": {
+            "x": 0,
+            "y": -22,
+            "rx": 31,
+            "ry": 29
+          },
+          "core": null,
+          "weaponPivot": {
+            "x": 0,
+            "y": -26
+          },
+          "muzzleLength": 35
+        }
+      ],
+      "characterId": "gun",
+      "specialAmmo": 1,
+      "playerTurn": 2,
+      "specialUnlocks": 1,
+      "specialChargeSerial": 1,
+      "weaponStock": {},
+      "skills": {},
+      "skillCaps": {
+        "BURST": 6,
+        "BLINK": 6,
+        "PUSH": 6,
+        "BOUNCE": 6,
+        "PULL": 6,
+        "SPLIT": 6,
+        "PHASE": 6,
+        "SWAP": 6,
+        "S_CHARGE_SLOW_I": 6,
+        "S_CHARGE_SLOW_II": 6,
+        "S_POWER_UP_I": 6,
+        "S_POWER_UP_II": 6,
+        "S_SPECIAL_REFILL": 6,
+        "S_FREE_MOVE": 6,
+        "S_BARRIER": 6,
+        "S_ENEMY_WEAKEN": 6,
+        "S_ENEMY_SKIP": 6,
+        "S_LOW_GRAVITY": 6,
+        "S_HIGH_GRAVITY": 6,
+        "S_REPAIR": 6,
+        "S_FULL_REPAIR": 6,
+        "S_INVINCIBLE": 6,
+        "S_ALL_ATTACK": 6,
+        "S_GUARD": 6,
+        "S_BREACH": 6
+      },
+      "pickups": [
+        {
+          "id": "W11",
+          "kind": "trial",
+          "weaponId": "W11",
+          "category": "weapon",
+          "amount": 2,
+          "x": 510,
+          "h": 22,
+          "spawnTurn": 1,
+          "placementId": "L052:weapon:W11",
+          "verification": {
+            "angle": 16,
+            "power": 90,
+            "neighborHits": 5,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
+          },
+          "y": 280,
+          "radius": 22,
+          "collected": false,
+          "hidden": false,
+          "skill": null
+        }
+      ],
+      "pendingLoot": [],
+      "collectedPickupIds": [],
+      "selectedSkill": null,
+      "skillUsed": false,
+      "shotCount": 1,
+      "shotLimit": 16,
+      "angle": 48,
+      "power": 20,
+      "result": null,
+      "reason": null,
+      "weaponId": "W01",
+      "mode": "W01",
+      "lastPickupWeaponId": null,
+      "last": [
+        null,
+        null
+      ],
+      "effects": {
+        "broken": 0,
+        "polarity": 0,
+        "destroyed": [],
+        "deferEnvironment": false,
+        "environmentRound": 2
+      },
+      "pendingChanges": [],
+      "boundaryLog": [
+        {
+          "round": 2,
+          "changes": []
+        }
+      ],
+      "rewardGiven": false,
+      "telegraph": null,
+      "matchSeed": 4697,
+      "teleportMode": false,
+      "preview": null,
+      "difficulty": "normal",
+      "skillEffects": {},
+      "enemyLearning": {
+        "active": false,
+        "walk": 0,
+        "owner": "gun"
+      },
+      "blink": [],
+      "activeShot": null,
+      "time": 0.6,
+      "lastCpuFamily": "FAMILY2",
+      "guardActive": false,
+      "walkUsed": 0
+    }
+  ]
+}

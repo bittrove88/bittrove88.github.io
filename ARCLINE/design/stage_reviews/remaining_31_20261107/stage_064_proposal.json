@@ -1,0 +1,761 @@
+{
+  "stage": 64,
+  "name": "崖下盆地の裏へ回る",
+  "date": "2026-11-07",
+  "status": "design-approved-runtime-unverified",
+  "source": {
+    "stage": 64,
+    "proposal": "stage_064_proposal_v2.json",
+    "review": "stage_064_review_v2.md"
+  },
+  "before": {
+    "width": 1120,
+    "floor": [
+      [
+        0,
+        78
+      ],
+      [
+        34,
+        78
+      ],
+      [
+        44,
+        72
+      ],
+      [
+        45,
+        14
+      ],
+      [
+        66,
+        12
+      ],
+      [
+        82,
+        17
+      ],
+      [
+        100,
+        17
+      ],
+      [
+        112,
+        22
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          78
+        ],
+        [
+          34,
+          78
+        ],
+        [
+          44,
+          72
+        ],
+        [
+          45,
+          14
+        ],
+        [
+          66,
+          12
+        ],
+        [
+          82,
+          17
+        ],
+        [
+          100,
+          17
+        ],
+        [
+          112,
+          22
+        ]
+      ]
+    ],
+    "parts": [
+      {
+        "id": "064-SIDE-PERCH",
+        "kind": "island",
+        "poly": [
+          [
+            50,
+            40
+          ],
+          [
+            55,
+            45
+          ],
+          [
+            69,
+            45
+          ],
+          [
+            73,
+            41
+          ],
+          [
+            66,
+            36
+          ],
+          [
+            56,
+            36
+          ]
+        ],
+        "purpose": "崖中腹から敵と近い高さを作る。",
+        "breakable": false,
+        "displayId": "F01",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "064-SIDE-PERCH",
+            "label": "F01",
+            "poly": [
+              [
+                50,
+                40
+              ],
+              [
+                55,
+                45
+              ],
+              [
+                69,
+                45
+              ],
+              [
+                73,
+                41
+              ],
+              [
+                66,
+                36
+              ],
+              [
+                56,
+                36
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "064-BASIN-HOOD",
+        "poly": [
+          [
+            88,
+            47
+          ],
+          [
+            99,
+            51
+          ],
+          [
+            112,
+            48
+          ],
+          [
+            112,
+            35
+          ],
+          [
+            103,
+            35
+          ],
+          [
+            98,
+            38
+          ],
+          [
+            88,
+            40
+          ]
+        ],
+        "purpose": "左の洞口へ広い斜めの開口を作った段状の岩庇。",
+        "kind": "roof",
+        "breakable": false,
+        "displayId": "F02",
+        "unitCount": 1,
+        "renderUnits": [
+          {
+            "id": "064-BASIN-HOOD",
+            "label": "F02",
+            "poly": [
+              [
+                88,
+                47
+              ],
+              [
+                99,
+                51
+              ],
+              [
+                112,
+                48
+              ],
+              [
+                112,
+                35
+              ],
+              [
+                103,
+                35
+              ],
+              [
+                98,
+                38
+              ],
+              [
+                88,
+                40
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "features": [],
+    "player": {
+      "x": 24,
+      "h": 78
+    },
+    "enemy": {
+      "x": 92,
+      "h": 17
+    }
+  },
+  "after": {
+    "width": 1400,
+    "floor": [
+      [
+        0,
+        78
+      ],
+      [
+        34,
+        78
+      ],
+      [
+        44,
+        72
+      ],
+      [
+        45,
+        14
+      ],
+      [
+        60,
+        12
+      ],
+      [
+        70,
+        12
+      ],
+      [
+        79,
+        38
+      ],
+      [
+        85,
+        38
+      ],
+      [
+        94,
+        17
+      ],
+      [
+        101,
+        17
+      ],
+      [
+        103,
+        26
+      ],
+      [
+        106,
+        26
+      ],
+      [
+        109,
+        17
+      ],
+      [
+        130,
+        17
+      ],
+      [
+        140,
+        21
+      ]
+    ],
+    "floors": [
+      [
+        [
+          0,
+          78
+        ],
+        [
+          34,
+          78
+        ],
+        [
+          44,
+          72
+        ],
+        [
+          45,
+          14
+        ],
+        [
+          60,
+          12
+        ],
+        [
+          70,
+          12
+        ],
+        [
+          79,
+          38
+        ],
+        [
+          85,
+          38
+        ],
+        [
+          94,
+          17
+        ],
+        [
+          101,
+          17
+        ],
+        [
+          103,
+          26
+        ],
+        [
+          106,
+          26
+        ],
+        [
+          109,
+          17
+        ],
+        [
+          130,
+          17
+        ],
+        [
+          140,
+          21
+        ]
+      ]
+    ],
+    "features": [],
+    "player": {
+      "x": 24,
+      "h": 78
+    },
+    "enemy": {
+      "x": 97,
+      "h": 17
+    },
+    "pickups": [
+      {
+        "id": "SK064",
+        "kind": "skill",
+        "skillId": "S_REPAIR",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 30,
+        "h": 87,
+        "spawnTurn": 1,
+        "placementId": "L064:skill:S_REPAIR",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ],
+    "parts": [
+      {
+        "id": "064-SIDE-PERCH",
+        "poly": [
+          [
+            42,
+            43
+          ],
+          [
+            50,
+            47
+          ],
+          [
+            57,
+            45
+          ],
+          [
+            69,
+            45
+          ],
+          [
+            73,
+            41
+          ],
+          [
+            66,
+            36
+          ],
+          [
+            55,
+            36
+          ],
+          [
+            43,
+            35
+          ]
+        ],
+        "breakable": false,
+        "purpose": "崖に接続した側方の張り出し",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "064-BASIN-HOOD",
+        "poly": [
+          [
+            88,
+            49
+          ],
+          [
+            97,
+            53
+          ],
+          [
+            105,
+            49
+          ],
+          [
+            105,
+            37
+          ],
+          [
+            97,
+            39
+          ],
+          [
+            91,
+            40
+          ],
+          [
+            88,
+            42
+          ]
+        ],
+        "breakable": false,
+        "purpose": "前後二つの入口の間にある庇",
+        "displayId": "F02",
+        "unitCount": 1
+      }
+    ],
+    "id": 64,
+    "stageNumber": 64,
+    "worldHold": 1,
+    "anchors": [
+      {
+        "id": "P0",
+        "x": 24,
+        "h": 78,
+        "role": "開始位置"
+      },
+      {
+        "id": "A",
+        "x": 62,
+        "h": 45,
+        "role": "崖側の中継"
+      },
+      {
+        "id": "B",
+        "x": 123,
+        "h": 17,
+        "role": "盆地の右裏・頭上開放"
+      }
+    ],
+    "attacks": [
+      {
+        "id": "drop",
+        "points": [
+          [
+            62,
+            48
+          ],
+          [
+            75,
+            56
+          ],
+          [
+            88,
+            36
+          ],
+          [
+            97,
+            20
+          ]
+        ]
+      },
+      {
+        "id": "reverse-entry",
+        "points": [
+          [
+            123,
+            20
+          ],
+          [
+            113,
+            31
+          ],
+          [
+            106,
+            32
+          ],
+          [
+            97,
+            20
+          ]
+        ]
+      }
+    ]
+  },
+  "blueprintCandidate": {
+    "stage": 64,
+    "name": "崖下盆地の裏へ回る",
+    "floor": [
+      [
+        0,
+        78
+      ],
+      [
+        34,
+        78
+      ],
+      [
+        44,
+        72
+      ],
+      [
+        45,
+        14
+      ],
+      [
+        60,
+        12
+      ],
+      [
+        70,
+        12
+      ],
+      [
+        79,
+        38
+      ],
+      [
+        85,
+        38
+      ],
+      [
+        94,
+        17
+      ],
+      [
+        101,
+        17
+      ],
+      [
+        103,
+        26
+      ],
+      [
+        106,
+        26
+      ],
+      [
+        109,
+        17
+      ],
+      [
+        130,
+        17
+      ],
+      [
+        140,
+        21
+      ]
+    ],
+    "parts": [
+      {
+        "id": "064-SIDE-PERCH",
+        "poly": [
+          [
+            42,
+            43
+          ],
+          [
+            50,
+            47
+          ],
+          [
+            57,
+            45
+          ],
+          [
+            69,
+            45
+          ],
+          [
+            73,
+            41
+          ],
+          [
+            66,
+            36
+          ],
+          [
+            55,
+            36
+          ],
+          [
+            43,
+            35
+          ]
+        ],
+        "breakable": false,
+        "purpose": "崖に接続した側方の張り出し",
+        "displayId": "F01",
+        "unitCount": 1
+      },
+      {
+        "id": "064-BASIN-HOOD",
+        "poly": [
+          [
+            88,
+            49
+          ],
+          [
+            97,
+            53
+          ],
+          [
+            105,
+            49
+          ],
+          [
+            105,
+            37
+          ],
+          [
+            97,
+            39
+          ],
+          [
+            91,
+            40
+          ],
+          [
+            88,
+            42
+          ]
+        ],
+        "breakable": false,
+        "purpose": "前後二つの入口の間にある庇",
+        "displayId": "F02",
+        "unitCount": 1
+      }
+    ],
+    "features": [],
+    "worldWidth": 1400,
+    "hold": 1,
+    "spawnPoints": [
+      [
+        24,
+        78
+      ],
+      [
+        97,
+        17
+      ]
+    ],
+    "recommended": "rin",
+    "pickups": [
+      {
+        "id": "SK064",
+        "kind": "skill",
+        "skillId": "S_REPAIR",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 30,
+        "h": 87,
+        "spawnTurn": 1,
+        "placementId": "L064:skill:S_REPAIR",
+        "needsReverification": true,
+        "designStatus": "proposed-unverified"
+      }
+    ]
+  },
+  "difficulty": {
+    "currentRules": {
+      "actionLimit": 16,
+      "enemyHp": 5,
+      "enemyProfile": 3,
+      "encounterId": "enemy:slate",
+      "boss": false,
+      "midboss": false,
+      "hold": 1,
+      "recommendedCharacter": "rin",
+      "enemyErrorStageMultiplier": 0.75,
+      "enemyDamageStageMultiplier": 1.05,
+      "walkingBudgetPx": 140
+    }
+  },
+  "design": {
+    "core": "上から開口へ落とすか、盆地の右裏へ回って左向きに低く送る。",
+    "change": "側棚を崖へ接続し、盆地の前稜と背面口を分ける。両射点の頭上は開放。",
+    "distinct": "垂直崖の反対側へ回り、射撃方向を反転する盆地。62面の同側の山肩往復と区別。",
+    "inherit": {
+      "terrain": "垂直断崖と崖下の岩陰盆地",
+      "concept": "高所から崖沿いの開口へ落とし、盆地の敵を狙う。",
+      "alternative": "中腹棚または入口前へ転移し、庇下へ低い弧を通す。"
+    },
+    "special": ""
+  },
+  "approval": {
+    "state": "approved",
+    "date": "2026-11-07",
+    "approvedDesignCommit": "f174908f366b08e8a82248faa2d361fd00196ca8",
+    "evidence": "ユーザー「オレンジの箇所を削ってください。青い線の箇所に反射板を設置。他はok」。56・57面を除く29面の提示設計を承認。",
+    "afterSha256": "39c62a420a31f0d1aa3716badeb1b5335e963a93b571687e990726650c5b9c61"
+  },
+  "verification": {
+    "minimum": {
+      "data": "consistent",
+      "obviousSelfIntersection": "none",
+      "representativePositions": "supported/no obvious overlap",
+      "schematicSpaces": "no unintended solid crossing",
+      "visualReview": "初回の独立六角棚を、崖に接続した側方張り出しへ修正。前の落射口と盆地裏の左向き射撃口を全景・同縮尺比較で確認し、両射点の頭上と岩背を越す構想空間を再確認した。",
+      "runtime": "not-tested"
+    },
+    "walking": "not-tested",
+    "teleport": "not-tested",
+    "ballistics": "not-tested",
+    "AI-counterattack-victory": "not-tested"
+  },
+  "phases": [
+    1
+  ],
+  "implementationNote": "Design only; 18 approved maps, runtime, inventory and difficulty unchanged."
+}

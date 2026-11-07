@@ -1,0 +1,139 @@
+{
+  "stage": 75,
+  "version": "A-v4",
+  "status": "static-shape-confirmed-design-approved-runtime-unverified",
+  "source": "stage_075_proposal_v4.json",
+  "scope": "existing geometry.world, data consistency, representative support/body samples, fixed/temporary role separation and schematic space only",
+  "blueprintDataMatchesDrawing": true,
+  "polygonSelfIntersections": 0,
+  "supportHeightTolerancePx": 0.5,
+  "supports": [
+    {
+      "id": "P0",
+      "heightErrorPx": 0,
+      "slopeDeg": 5.7106,
+      "bodyClear": true
+    },
+    {
+      "id": "enemy",
+      "heightErrorPx": 0,
+      "slopeDeg": 0,
+      "bodyClear": true
+    },
+    {
+      "id": "C",
+      "heightErrorPx": 0,
+      "slopeDeg": 33.6901,
+      "bodyClear": true
+    },
+    {
+      "id": "R",
+      "heightErrorPx": 0,
+      "slopeDeg": -21.0375,
+      "bodyClear": true
+    }
+  ],
+  "plannedApproachMaxSlopeDeg": 33.6901,
+  "minimumPitMouthVerticalClearancePx": 197.273,
+  "destructible": {
+    "id": "075-TEMP-DEFENSE@0",
+    "widthPx": 80,
+    "runtimeFragmentCount": 1,
+    "oneHitRemoval": "not-claimed-not-tested",
+    "requiredToOpenRoutes": false
+  },
+  "allDRemoved": {
+    "fixedGeometryExactlyUnchanged": true,
+    "magnetRegionExactlyUnchanged": true,
+    "exteriorSightBands": [
+      {
+        "state": "intact",
+        "origin": "P0",
+        "originX": 18,
+        "originHeightOffsets": [
+          2.6,
+          6.6
+        ],
+        "targetSamples": "8 boundary samples each for existing body ellipse and arm circle",
+        "segmentCount": 32,
+        "allFirstBlocker": "floor0",
+        "meaning": "Representative exterior straight sight bands only; no muzzle calculation or trajectory simulation"
+      },
+      {
+        "state": "intact",
+        "origin": "R",
+        "originX": 48,
+        "originHeightOffsets": [
+          2.6,
+          6.6
+        ],
+        "targetSamples": "8 boundary samples each for existing body ellipse and arm circle",
+        "segmentCount": 32,
+        "allFirstBlocker": "floor0",
+        "meaning": "Representative exterior straight sight bands only; no muzzle calculation or trajectory simulation"
+      },
+      {
+        "state": "all-D-removed",
+        "origin": "P0",
+        "originX": 18,
+        "originHeightOffsets": [
+          2.6,
+          6.6
+        ],
+        "targetSamples": "8 boundary samples each for existing body ellipse and arm circle",
+        "segmentCount": 32,
+        "allFirstBlocker": "floor0",
+        "meaning": "Representative exterior straight sight bands only; no muzzle calculation or trajectory simulation"
+      },
+      {
+        "state": "all-D-removed",
+        "origin": "R",
+        "originX": 48,
+        "originHeightOffsets": [
+          2.6,
+          6.6
+        ],
+        "targetSamples": "8 boundary samples each for existing body ellipse and arm circle",
+        "segmentCount": 32,
+        "allFirstBlocker": "floor0",
+        "meaning": "Representative exterior straight sight bands only; no muzzle calculation or trajectory simulation"
+      }
+    ]
+  },
+  "temporaryDefense": {
+    "representativeArmToCBodySegmentWithD": "blocked-by-D",
+    "sameSegmentWithoutD": "clear",
+    "meaning": "Illustrates temporary defense, not proof against actual enemy attacks"
+  },
+  "schematicRoutes": [
+    {
+      "kind": "main",
+      "destructionPrerequisite": [],
+      "schematicSegmentsClearWithDIntact": true,
+      "status": "concept-only-not-an-actual-trajectory"
+    },
+    {
+      "kind": "alternate",
+      "destructionPrerequisite": [],
+      "schematicSegmentsClearWithDIntact": true,
+      "status": "concept-only-not-an-actual-trajectory"
+    }
+  ],
+  "rendering": {
+    "engine": "Chromium",
+    "svgCount": 3,
+    "visualReview": "full map, rough comparison, intact/removed states and diversity; coordinate-derived diagrams, not game screenshots"
+  },
+  "notTested": [
+    "actual walking or transfer actions",
+    "teleport landing",
+    "actual muzzle and barrel",
+    "M deflection and ballistics",
+    "destruction damage or shot count",
+    "arm hit or weakening in battle",
+    "enemy AI and counterattack",
+    "24-action victory"
+  ],
+  "runtimeChanged": false,
+  "finalDesignApproval": true
+}

@@ -10,7 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: ARCLINE
@@ -32,7 +32,13 @@ jobs:
           python-version: '3.12'
       - run: npm ci
       - run: pip install -r requirements-dev.txt
-      - run: npx playwright install --with-deps chromium
+      - name: Prepare browser
+        run: |
+          if [ -x /usr/bin/google-chrome ] || [ -x /usr/bin/chromium ]; then
+            echo "Using installed browser; the test runner verifies native AAC decoding."
+          else
+            npx playwright install --with-deps chromium
+          fi
       - run: npm test
       - run: npm run check:generated
       - name: Check rotated touch input

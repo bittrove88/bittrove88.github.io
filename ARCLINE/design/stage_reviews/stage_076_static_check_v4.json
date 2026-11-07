@@ -1,0 +1,157 @@
+{
+  "stage": 76,
+  "version": 4,
+  "scope": "static geometry only; no actual input, projectile or combat simulation",
+  "sourceCommit": "38539a6ded3433e82c4a61f40c3d0cd759fea0bf",
+  "geometryAndBlueprintUnchanged": true,
+  "conditionsUnchanged": true,
+  "supports": [
+    {
+      "id": "P0",
+      "supported": true,
+      "heightErrorPx": 0,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "enemy",
+      "supported": true,
+      "heightErrorPx": 0,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "L",
+      "supported": true,
+      "heightErrorPx": 0,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "R",
+      "supported": true,
+      "heightErrorPx": 0,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "L-back",
+      "supported": true,
+      "heightErrorPx": 0,
+      "bodyClear": true,
+      "slopeDeg": 0
+    },
+    {
+      "id": "R-back",
+      "supported": true,
+      "heightErrorPx": 0,
+      "bodyClear": true,
+      "slopeDeg": 0
+    }
+  ],
+  "selfIntersections": [],
+  "magnet": {
+    "minimumGroundClearancePx": 149.28498393145958,
+    "lowerCircleToFloorGapPx": 160,
+    "count": 1,
+    "initial": -1
+  },
+  "schematicPaths": [
+    {
+      "kind": "main",
+      "clear": true
+    },
+    {
+      "kind": "alternate",
+      "clear": true
+    }
+  ],
+  "terminalLineClear": true,
+  "barrelClearance": [
+    {
+      "id": "L",
+      "model": "current default player pivot and 35px barrel",
+      "sampledAnglesDeg": [
+        0,
+        80
+      ],
+      "stepDeg": 1,
+      "blockedAnglesDeg": []
+    },
+    {
+      "id": "R",
+      "model": "current default player pivot and 35px barrel",
+      "sampledAnglesDeg": [
+        0,
+        80
+      ],
+      "stepDeg": 1,
+      "blockedAnglesDeg": []
+    },
+    {
+      "id": "L-back",
+      "model": "current default player pivot and 35px barrel",
+      "sampledAnglesDeg": [
+        0,
+        80
+      ],
+      "stepDeg": 1,
+      "blockedAnglesDeg": []
+    },
+    {
+      "id": "R-back",
+      "model": "current default player pivot and 35px barrel",
+      "sampledAnglesDeg": [
+        0,
+        80
+      ],
+      "stepDeg": 1,
+      "blockedAnglesDeg": []
+    }
+  ],
+  "supportBands": [
+    {
+      "id": "L",
+      "xRangePx": [
+        260,
+        520
+      ],
+      "height": 42
+    },
+    {
+      "id": "R",
+      "xRangePx": [
+        1280,
+        1560
+      ],
+      "height": 42
+    }
+  ],
+  "setbacks": [
+    {
+      "from": "L",
+      "to": "L-back",
+      "horizontalPx": 60,
+      "within140PxBudget": true,
+      "clearRepresentativeBodyAlongBand": true
+    },
+    {
+      "from": "R",
+      "to": "R-back",
+      "horizontalPx": 80,
+      "within140PxBudget": true,
+      "clearRepresentativeBodyAlongBand": true
+    }
+  ],
+  "geometryBlob": "7b797e8e03a9193682211837c35b706e67748f83",
+  "rendering": "separate Chromium step; see stage_076_review_v4.md",
+  "notTested": [
+    "actual walking and facing input",
+    "transfer equipment availability and teleport flight/landing/action count",
+    "T projectile hit and boundary switching",
+    "M trajectory and target hit",
+    "enemy AI/movement/counterattack",
+    "16-action victory",
+    "device rendering"
+  ]
+}
