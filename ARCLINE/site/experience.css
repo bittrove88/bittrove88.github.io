@@ -6,3 +6,27 @@
 @media(prefers-reduced-motion:reduce){.world-opening *,.journey-reveal{transition:none!important;animation:none!important;transform:none!important}.journey-reveal{opacity:1}}
 
 .opening-title img{filter:brightness(0) invert(1)}
+
+/* The story opening resolves into a current, native game map. */
+.world-opening[data-phase="title"]{background:transparent}
+.world-opening[data-phase="title"] .opening-daily,.world-opening[data-phase="title"] .opening-broken{opacity:0}
+.world-opening[data-phase="title"] .opening-shade{background:linear-gradient(#102b3620,transparent 45%)}
+.world-opening[data-phase="title"] .opening-title{inset:auto 24px 55px;padding:14px 18px;gap:8px;border-radius:10px;background:#143b49e8;transform:none}
+.world-opening[data-phase="title"] .opening-title img{width:min(70%,230px)}
+.world-opening[data-phase="title"] .opening-title span{font-size:13px}
+.hero-art-top span,.hero-art-bottom span{background:#143b49cf;border-radius:4px;padding:4px 6px}
+.world-thumbnails{grid-template-columns:repeat(3,minmax(0,1fr))}
+.world-route{flex-wrap:wrap}
+.maps-section{padding-top:88px;padding-bottom:88px}
+.site-map-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.site-map-card{min-width:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#faf8ef}
+.native-map{display:block;width:100%;aspect-ratio:16/9;background:#cfdfd6}
+.site-map-card>div{padding:18px 20px 20px}
+.site-map-card .eyebrow{margin:0 0 8px;color:var(--muted);font-size:11px}
+.site-map-card h3{font-size:20px;line-height:1.5;margin:0 0 7px;overflow-wrap:anywhere}
+.site-map-card p{font-size:13px;line-height:1.8;margin:0;color:var(--muted)}
+.maps-link{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin-top:26px}
+.maps-link small{font-size:12px;color:var(--muted)}
+@media(max-width:600px){.world-route button{font-size:12px;padding:8px 9px}.site-map-grid{grid-template-columns:minmax(0,1fr);gap:16px}.maps-section{padding-top:54px;padding-bottom:54px}.site-map-card>div{padding:15px 16px 17px}.site-map-card h3{font-size:18px}.maps-link{align-items:flex-start;flex-direction:column;gap:10px}.maps-link .button{width:100%;justify-content:center}.world-opening[data-phase="title"] .opening-title{left:18px;right:18px;bottom:48px;padding:10px 14px}.world-thumbnails figcaption{flex-wrap:wrap;gap:4px}}
+.demo-bar{background:#143b49f2;color:#edf2df}
+.demo-controls{background:#143b49f2;color:#edf2df}
