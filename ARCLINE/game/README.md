@@ -69,6 +69,8 @@ BGM管理は `ui/audio-manager.js`、絶対時刻の回想構成は `ui/ending-c
 
 マップシート `design/expedition_013/arcline_100_maps_atlas.html` は `game/tools/build_map_atlas.py` が現行の `design/runtime_campaign_20x5.json`・`design/expedition_013/stage_design.json` から100面・20テーマ・100面リレー4戦場の表示データを再同期します。マップの線画は `dist/geometry.js` と同じ床・障害物・反射床・開閉橋・反射結晶・効果領域の座標解釈で描画します。特に `W` は水域ではなく実在する床の反射材で、第三パラメータを「水面の高さ」として使わないこと。`tests/map-atlas.test.cjs` でデータとレンダリングの両方を検証し、100面未満への暗黙の短縮を禁止します。
 
+2026-11-07：同じHTMLに実ゲームの背景・材質・機構・機体を表示する標準ビューを追加。`dist/backgrounds.js`・`dist/component-art.js`・`dist/render.js` 等の現行25モジュールと `tools/atlas_viewer.{css,js}` を一つのHTMLへ埋め込み、ハッシュで同期を検査します。編集は生成元で行い `npm run build` で更新。遅延描画、全体表示・拡大・ドラッグ、1〜6ターンの環境切替、HTML／PNG保存に対応。ゲーム起動・セーブ管理は読み込まず、地形図への切替も保持。[使い方・範囲](../design/expedition_013/NATIVE_ATLAS.md)。
+
 0.22.1：100面はfinalBattle.actionLimitsの各28行動・必殺3。final-team.jsの出撃時スナップショットをgame.jsが戦闘内だけに保持し、敗北画面から同じ機体へ復帰する。持ち物・敵・地形も出撃時へ戻し、恒久セーブは変更しない。先頭からの再挑戦も維持。
 
 0.23.0：1〜50面は承認済み `design/stage_reviews/STAGES_001_050_APPROVED_FINAL.json` を地形正本へ反映。`build_campaign.py` は独立床・出撃点・幅・下面反射材も引き継ぐ。51〜100面の地形と最終戦構成は変更しない。`design/pickup_placements.json` が46配置・1/5ターン・補充量・実弾道証拠の正本。生成は `npm run build`、検査は `npm run check:generated`。

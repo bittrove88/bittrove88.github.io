@@ -1,10 +1,11 @@
 """Refresh every atlas map and theme from canonical runtime/design data."""
 from pathlib import Path
-import json,re
+import json,re,hashlib
 from release import CONFIG
 root=Path(__file__).resolve().parents[2]
 p=root/'design/expedition_013/arcline_100_maps_atlas.html'
 text=p.read_text()
+text=re.sub(r'<!-- ATLAS_NATIVE_START -->.*?<!-- ATLAS_NATIVE_END -->', '', text, flags=re.S)
 levels=json.loads((root/'design/runtime_campaign_20x5.json').read_text())['levels']
 design=json.loads((root/'design/expedition_013/stage_design.json').read_text())['stages']
 def payload(tag):return json.loads(re.search(r'<script id="'+tag+r'" type="application/json">(.*?)</script>',text,re.S)[1])
@@ -31,5 +32,20 @@ for tag,data in [('payload',rows),('themePayload',themes)]:
     pattern=r'(<script id="'+tag+r'" type="application/json">).*?(</script>)'
     text=re.sub(pattern,lambda m:m[1]+json.dumps(data,ensure_ascii=False,separators=(',',':'))+m[2],text,count=1,flags=re.S)
 text=re.sub(r'ARCLINE v\d+\.\d+\.\d+ / Campaign',f'ARCLINE v{CONFIG["version"]} / Campaign',text)
+# The standalone atlas embeds the exact current game modules, with no game boot,
+# save manager, network assets or copied approximation of the art renderer.
+modules=['i18n','levels','combat','skills','weapons','geometry','physics','inventory','crew','crew-usage','final-team','encounters','engine','visual-style','visual-registry','characters','aim-guide','effects','actor-bodies','visual-art','charge-camera','backgrounds','component-art','render','map-camera']
+sources=[f'game/dist/{name}.js' for name in modules]
+sources+=['game/tools/atlas_viewer.css','game/tools/atlas_viewer.js']
+manifest={'version':CONFIG['version'],'stages':100,'uniqueMaps':103,'backgroundScenes':33,'sources':{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in sources}}
+block=['<!-- ATLAS_NATIVE_START -->','<script id="atlasNativeManifest" type="application/json">'+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+'</script>']
+css=(root/'game/tools/atlas_viewer.css').read_text()
+block.append('<style data-atlas-source="game/tools/atlas_viewer.css">\n'+css+'\n</style>')
+for name in [*[f'game/dist/{name}.js' for name in modules],'game/tools/atlas_viewer.js']:
+    code=(root/name).read_text()
+    code=re.sub(r'</script',r'<\\/script',code,flags=re.I)
+    block.append('<script data-atlas-source="'+name+'">\n'+code+'\n</script>')
+block.append('<!-- ATLAS_NATIVE_END -->')
+text=text.replace('</body>', ''.join(block)+'</body>')
 p.write_text(text)
-print('Updated compact atlas:100 current maps,20 themes and all4 final arenas')
+print('Updated standalone atlas:100 current maps,20 themes,all4 final arenas and exact native background/component rendering')
