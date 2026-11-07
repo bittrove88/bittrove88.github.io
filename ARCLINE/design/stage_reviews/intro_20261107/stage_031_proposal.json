@@ -1,0 +1,916 @@
+{
+  "stage": 31,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized next introduction-map batch, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 31,
+      "name": "一度だけの折り返し",
+      "goal": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          17,
+          12
+        ],
+        [
+          27,
+          11
+        ],
+        [
+          38,
+          10
+        ],
+        [
+          52,
+          10
+        ],
+        [
+          67,
+          14
+        ],
+        [
+          82,
+          14
+        ],
+        [
+          90,
+          14
+        ]
+      ],
+      "parts": [
+        {
+          "id": "031-CAVE-CEILING",
+          "poly": [
+            [
+              39,
+              28
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              61,
+              36
+            ],
+            [
+              76,
+              35
+            ],
+            [
+              90,
+              31
+            ],
+            [
+              90,
+              24
+            ],
+            [
+              79,
+              24
+            ],
+            [
+              64,
+              25
+            ],
+            [
+              51,
+              24
+            ],
+            [
+              41,
+              23
+            ]
+          ],
+          "breakable": false,
+          "kind": "roof",
+          "purpose": "敵の上を覆う右岸洞窟"
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            22,
+            73,
+            10
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            57,
+            36,
+            -20
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
+        }
+      ],
+      "recommended": "rico",
+      "spawn": [
+        14,
+        81
+      ],
+      "route": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
+      "nameEn": "One Clear Bounce",
+      "goalEn": "Read the large crystal and mirrored floor to reach the cave.",
+      "terrainRevision": "6.0-approved-001-050",
+      "floorSegments": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            17,
+            12
+          ],
+          [
+            27,
+            11
+          ],
+          [
+            38,
+            10
+          ],
+          [
+            52,
+            10
+          ],
+          [
+            67,
+            14
+          ],
+          [
+            82,
+            14
+          ],
+          [
+            90,
+            14
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          14,
+          12
+        ],
+        [
+          81,
+          14
+        ]
+      ],
+      "worldWidth": 900,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 31,
+      "name": "一度だけの折り返し",
+      "nameEn": "One Clear Bounce",
+      "theme": 6,
+      "boss": false,
+      "spawn": [
+        [
+          14,
+          12
+        ],
+        [
+          81,
+          14
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            17,
+            12
+          ],
+          [
+            27,
+            11
+          ],
+          [
+            38,
+            10
+          ],
+          [
+            52,
+            10
+          ],
+          [
+            67,
+            14
+          ],
+          [
+            82,
+            14
+          ],
+          [
+            90,
+            14
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "031-CAVE-CEILING",
+          "poly": [
+            [
+              39,
+              28
+            ],
+            [
+              48,
+              35
+            ],
+            [
+              61,
+              36
+            ],
+            [
+              76,
+              35
+            ],
+            [
+              90,
+              31
+            ],
+            [
+              90,
+              24
+            ],
+            [
+              79,
+              24
+            ],
+            [
+              64,
+              25
+            ],
+            [
+              51,
+              24
+            ],
+            [
+              41,
+              23
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "W",
+          "v": [
+            22,
+            73,
+            10
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            57,
+            36,
+            -20
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "水晶の反射路",
+      "themeGoal": "一枚の反射板に違う場所から入射する",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": "K",
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "rico",
+      "tacticalGoal": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
+      "tacticalGoalEn": "Read the large crystal and mirrored floor to reach the cave.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 900
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 31,
+      "name": "一度だけの折り返し",
+      "goal": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          33,
+          26
+        ],
+        [
+          35,
+          26
+        ],
+        [
+          45,
+          23
+        ],
+        [
+          53,
+          14
+        ],
+        [
+          90,
+          14
+        ]
+      ],
+      "parts": [
+        {
+          "id": "031-CRYSTAL-CAVE",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              52,
+              45
+            ],
+            [
+              69,
+              49
+            ],
+            [
+              90,
+              46
+            ],
+            [
+              90,
+              0
+            ],
+            [
+              87,
+              0
+            ],
+            [
+              87,
+              34
+            ],
+            [
+              66,
+              34
+            ],
+            [
+              52,
+              36
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            38,
+            32,
+            -15
+          ],
+          "sizeFactor": 1.8
+        }
+      ],
+      "recommended": "rico",
+      "spawn": [
+        14,
+        81
+      ],
+      "route": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
+      "nameEn": "One Clear Bounce",
+      "goalEn": "Bounce once from the entrance crystal into the open cave.",
+      "terrainRevision": "9.0-intro-review",
+      "spawnPoints": [
+        [
+          24,
+          12
+        ],
+        [
+          61,
+          14
+        ]
+      ],
+      "worldWidth": 900,
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 31,
+      "name": "一度だけの折り返し",
+      "nameEn": "One Clear Bounce",
+      "theme": 6,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          12
+        ],
+        [
+          61,
+          14
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            33,
+            26
+          ],
+          [
+            35,
+            26
+          ],
+          [
+            45,
+            23
+          ],
+          [
+            53,
+            14
+          ],
+          [
+            90,
+            14
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "031-CRYSTAL-CAVE",
+          "poly": [
+            [
+              52,
+              45
+            ],
+            [
+              69,
+              49
+            ],
+            [
+              90,
+              46
+            ],
+            [
+              90,
+              0
+            ],
+            [
+              87,
+              0
+            ],
+            [
+              87,
+              34
+            ],
+            [
+              66,
+              34
+            ],
+            [
+              52,
+              36
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "K",
+          "v": [
+            38,
+            32,
+            -15
+          ],
+          "sizeFactor": 1.8
+        }
+      ],
+      "skills": {},
+      "pickups": [],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "水晶の反射路",
+      "themeGoal": "一枚の反射板に違う場所から入射する",
+      "stageInTheme": 1,
+      "themeRole": "Explore",
+      "lesson": "K",
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:riff",
+      "recommendedCharacter": "rico",
+      "tacticalGoal": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
+      "tacticalGoalEn": "Bounce once from the entrance crystal into the open cave.",
+      "enemyHp": 4,
+      "terrainRevision": "9.0-intro-review",
+      "worldWidth": 900
+    }
+  },
+  "qualityEvidence": {
+    "shot": {
+      "angle": 57,
+      "power": 75,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 358.76734510312315,
+          "y": 192.3139837731265,
+          "t": 0.3666666666666667,
+          "count": 1,
+          "surface": "crystal",
+          "solidId": "K0",
+          "bullet": 0
+        },
+        {
+          "x": 581.138415529814,
+          "y": 326.68589632934555,
+          "t": 0.9999999999999984,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 9,
+        "rows": [
+          {
+            "angle": 54,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          }
+        ]
+      }
+    },
+    "direct": {
+      "angle": 57,
+      "power": 50,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "x": 594.0613945310853,
+          "y": 311.41126449591326,
+          "t": 1.84444444444444,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 2,
+        "rows": [
+          {
+            "angle": 54,
+            "power": 45,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 50,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 55,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 45,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 55,
+            "hit": false,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 45,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 50,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 55,
+            "hit": false,
+            "damage": [
+              0,
+              0.5
+            ]
+          }
+        ]
+      }
+    },
+    "withoutCrystalSameInput": [
+      0,
+      0
+    ],
+    "rico": {
+      "angle": 57,
+      "power": 75,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "type": "bounce",
+          "x": 358.76734510312315,
+          "y": 192.3139837731265,
+          "t": 0.3666666666666667,
+          "count": 1,
+          "surface": "crystal",
+          "solidId": "K0",
+          "bullet": 0
+        },
+        {
+          "x": 581.138415529814,
+          "y": 326.68589632934555,
+          "t": 0.9999999999999984,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 9,
+        "rows": [
+          {
+            "angle": 54,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 54,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          }
+        ]
+      }
+    },
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          24,
+          12
+        ],
+        [
+          61,
+          14
+        ]
+      ],
+      "authored": [
+        [
+          24,
+          12
+        ],
+        [
+          61,
+          14
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 900
+    },
+    "experience": "見える一枚の結晶から、手前の岩肩を越えて洞室へ一回返す。",
+    "improvement": "反射後の距離を短くし、入口の岩肩と下りを整理。通常Gunの近傍9入力すべてで結晶反射から命中。高い敵や低い天井で入力を細くしない。"
+  }
+}

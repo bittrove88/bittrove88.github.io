@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('fs'),path=require('path'),vm=require('vm');
 const E=require('../dist/engine.js'),G=E.geometry,W=require('../dist/weapons.js'),K=require('../dist/skills.js'),I=require('../dist/inventory.js'),S=require('../dist/save.js'),R=require('../dist/campaign-run.js'),T=require('../dist/final-team.js');
 let checks=0;const eq=(a,b,m)=>{checks++;assert.deepEqual(a,b,m)},ok=(v,m)=>{checks++;assert(v,m)},near=(a,b,m)=>ok(Math.abs(a-b)<1e-7,m),copy=x=>JSON.parse(JSON.stringify(x));
-const postReview=require('../../design/stage_reviews/STAGES_POST_REVIEW_RUNTIME_20261107.json').stages;
+const postReview=[...require('../../design/stage_reviews/STAGES_POST_REVIEW_RUNTIME_20261107.json').stages,...require('../../design/stage_reviews/STAGES_INTRO_REFINEMENT_RUNTIME_20261107.json').stages];
 require('./integration-preservation.cjs').verifyPostReview();
 const baseline=require('./fixtures/integration-baseline.json'),refined=require('../../design/stage_reviews/STAGES_IDEA_REFINEMENT_APPROVED_RUNTIME.json').stages,refinedIds=new Set([...refined,...postReview].map(r=>r.stage)),approved=require('../../design/stage_reviews/STAGES_001_050_APPROVED_FINAL.json').stages.map(old=>postReview.find(r=>r.stage===old.stage)||refined.find(r=>r.stage===old.stage)||old);
 const redesignedKeys=new Set(['floors','components','features','phaseFeatures','staticFeatures','spawn','blink','worldWidth','terrainRevision','name','nameEn','recommendedCharacter','tacticalGoal','tacticalGoalEn','pickups','ventStartsOn']);

@@ -4604,11 +4604,11 @@
       "boss": false,
       "spawn": [
         [
-          14,
+          24,
           12
         ],
         [
-          81,
+          61,
           14
         ]
       ],
@@ -4619,27 +4619,23 @@
             12
           ],
           [
-            17,
+            28,
             12
           ],
           [
-            27,
-            11
+            33,
+            26
           ],
           [
-            38,
-            10
+            35,
+            26
           ],
           [
-            52,
-            10
+            45,
+            23
           ],
           [
-            67,
-            14
-          ],
-          [
-            82,
+            53,
             14
           ],
           [
@@ -4650,47 +4646,39 @@
       ],
       "components": [
         {
-          "id": "031-CAVE-CEILING",
+          "id": "031-CRYSTAL-CAVE",
           "poly": [
             [
-              39,
-              28
+              52,
+              45
             ],
             [
-              48,
-              35
+              69,
+              49
             ],
             [
-              61,
+              90,
+              46
+            ],
+            [
+              90,
+              0
+            ],
+            [
+              87,
+              0
+            ],
+            [
+              87,
+              34
+            ],
+            [
+              66,
+              34
+            ],
+            [
+              52,
               36
-            ],
-            [
-              76,
-              35
-            ],
-            [
-              90,
-              31
-            ],
-            [
-              90,
-              24
-            ],
-            [
-              79,
-              24
-            ],
-            [
-              64,
-              25
-            ],
-            [
-              51,
-              24
-            ],
-            [
-              41,
-              23
             ]
           ],
           "destructible": false
@@ -4698,22 +4686,13 @@
       ],
       "features": [
         {
-          "type": "W",
-          "v": [
-            22,
-            73,
-            10
-          ]
-        },
-        {
           "type": "K",
           "v": [
-            57,
-            36,
-            -20
+            38,
+            32,
+            -15
           ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
+          "sizeFactor": 1.8
         }
       ],
       "skills": {},
@@ -4733,10 +4712,10 @@
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
-      "tacticalGoalEn": "Read the large crystal and mirrored floor to reach the cave.",
+      "tacticalGoal": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
+      "tacticalGoalEn": "Bounce once from the entrance crystal into the open cave.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "9.0-intro-review",
       "worldWidth": 900
     },
     {
@@ -5704,75 +5683,79 @@
       "boss": false,
       "spawn": [
         [
-          16,
-          20
+          24,
+          30
         ],
         [
-          110,
-          24
+          97,
+          34
         ]
       ],
       "floors": [
         [
           [
             0,
-            20
+            30
           ],
           [
             15,
-            20
+            30
           ],
           [
             31,
-            20
+            30
           ],
           [
             36,
-            20
+            30
           ]
         ],
         [
           [
-            94,
-            24
+            86,
+            37
           ],
           [
-            109,
-            24
+            89,
+            37
+          ],
+          [
+            94,
+            34
           ],
           [
             125,
-            24
+            34
           ]
         ]
       ],
       "components": [
         {
-          "id": "037-HINGE-RELAY",
+          "id": "037-LOWER-REFUGE",
           "poly": [
             [
-              53,
-              17
+              36,
+              3
             ],
             [
-              58,
-              22
+              43,
+              10
             ],
             [
-              74,
-              23
-            ],
-            [
-              84,
-              21
+              76,
+              10
             ],
             [
               82,
-              16
+              7
             ],
             [
-              60,
-              16
+              76,
+              3
+            ],
+            [
+              43,
+              -2
             ]
           ],
           "destructible": false
@@ -5783,28 +5766,10 @@
           "type": "B",
           "v": [
             36,
-            20,
+            30,
             25,
             0
           ]
-        },
-        {
-          "type": "W",
-          "v": [
-            57,
-            84,
-            20
-          ]
-        },
-        {
-          "type": "K",
-          "v": [
-            71,
-            33,
-            30
-          ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
         }
       ],
       "skills": {},
@@ -5820,12 +5785,14 @@
           "spawnTurn": 1,
           "placementId": "L037:weapon:W14",
           "verification": {
-            "angle": 36,
-            "power": 55,
-            "walk": 0,
+            "angle": 0,
+            "power": 70,
             "neighborHits": 9,
             "neighborShots": 9,
-            "attackDamage": 0
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 from the authored entry position; angle +/-2 and power +/-3 nine-input pickup probe. Same coordinates, identity, quantity and spawn turn."
           }
         }
       ],
@@ -5844,10 +5811,10 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "橋が閉じる間は低い谷へ、開く間は上を通す",
-      "tacticalGoalEn": "Choose a low valley route or the open bridge route.",
+      "tacticalGoal": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
+      "tacticalGoalEn": "Advance on the level bridge; use the fixed island below when it rises.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "9.0-intro-review",
       "worldWidth": 1250
     },
     {
@@ -13288,275 +13255,123 @@
       "boss": false,
       "spawn": [
         [
-          23,
-          55
+          22,
+          14
         ],
         [
-          147,
-          47
+          102,
+          25
         ]
       ],
       "floors": [
         [
           [
             0,
-            51
-          ],
-          [
-            12,
-            52
-          ],
-          [
-            23,
-            55
+            14
           ],
           [
             31,
-            54
+            14
           ],
           [
-            37,
-            49
+            43,
+            8
           ],
           [
-            42,
-            43
-          ],
-          [
-            48,
-            32
-          ],
-          [
-            54,
-            18
-          ],
-          [
-            61,
-            10
-          ],
-          [
-            69,
+            58,
             7
           ],
           [
-            89,
-            7
+            67,
+            13
           ],
           [
-            95,
-            10
+            74,
+            29
           ],
           [
-            102,
-            19
+            83,
+            36
           ],
           [
-            110,
+            90,
             30
           ],
           [
-            119,
-            41
-          ],
-          [
-            125,
-            45
+            96,
+            25
           ],
           [
             136,
-            47
-          ],
-          [
-            147,
-            47
+            25
           ],
           [
             154,
-            43
+            29
           ]
         ]
       ],
       "components": [
         {
-          "id": "071-FLOAT-BLOCK-LEFT",
+          "id": "071-NEAR-ORE-SHELF",
           "poly": [
             [
-              57,
-              25
+              37,
+              38
             ],
             [
-              61,
-              29
+              43,
+              44
             ],
             [
-              66,
-              29
+              54,
+              44
             ],
             [
-              69,
-              26
-            ],
-            [
-              65,
-              23
-            ],
-            [
-              59,
-              23
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "071-FLOAT-BLOCK-MID",
-          "poly": [
-            [
-              95,
-              37
-            ],
-            [
-              99,
-              41
-            ],
-            [
-              104,
-              42
-            ],
-            [
-              108,
+              60,
               40
             ],
             [
-              106,
+              53,
               36
             ],
             [
-              99,
+              42,
               35
             ]
           ],
           "destructible": false
         },
         {
-          "id": "071-CHAINED-ORE-BARRIER-1",
+          "id": "071-HANGING-ORE",
           "poly": [
             [
-              111,
-              59
-            ],
-            [
-              116,
-              72
-            ],
-            [
-              122,
-              71
-            ],
-            [
-              117,
+              88,
               63
             ],
             [
-              113,
-              56
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "071-CHAINED-ORE-BARRIER-2",
-          "poly": [
-            [
-              116,
-              72
-            ],
-            [
-              122,
-              84
-            ],
-            [
-              126,
-              86
-            ],
-            [
-              130,
-              82
-            ],
-            [
-              132,
+              93,
               77
             ],
             [
-              126,
-              75
+              101,
+              79
             ],
             [
-              122,
-              71
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "071-CHAINED-ORE-BARRIER-3",
-          "poly": [
-            [
-              126,
-              75
+              109,
+              68
             ],
             [
-              132,
-              77
+              112,
+              51
             ],
             [
-              135,
-              76
+              103,
+              48
             ],
             [
-              138,
-              76
-            ],
-            [
-              140,
-              64
-            ],
-            [
-              140,
-              56
-            ],
-            [
-              130,
-              69
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "071-CHAINED-ORE-BARRIER-4",
-          "poly": [
-            [
-              130,
-              69
-            ],
-            [
-              140,
-              56
-            ],
-            [
-              140,
-              49
-            ],
-            [
-              139,
-              46
-            ],
-            [
-              135,
-              47
-            ],
-            [
-              134,
-              59
+              95,
+              54
             ]
           ],
           "destructible": true
@@ -13566,18 +13381,10 @@
         {
           "type": "M",
           "v": [
-            91,
-            29,
-            23,
-            1
-          ]
-        },
-        {
-          "type": "W",
-          "v": [
-            69,
-            89,
-            7
+            51,
+            27,
+            25,
+            -1
           ]
         }
       ],
@@ -13598,10 +13405,10 @@
       "midboss": false,
       "encounterId": "enemy:pole",
       "recommendedCharacter": "rin",
-      "tacticalGoal": "谷底の磁場に曲射を入れる経路と、上段浮島へ転移する経路を比較する。",
-      "tacticalGoalEn": "Compare a magnetic valley trajectory with two aerial mining shelves.",
+      "tacticalGoal": "手前の磁場で弾を持ち上げ、鉱石の肩を越す。上下の射点で入射を選ぶ。",
+      "tacticalGoalEn": "Bend the shot upward in the near magnetic field and clear the ore ridge. Choose a low or raised entry.",
       "enemyHp": 5,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "9.0-intro-review",
       "worldWidth": 1540
     },
     {
@@ -13860,145 +13667,97 @@
       "boss": false,
       "spawn": [
         [
-          44,
-          14
+          125,
+          49
         ],
         [
-          136,
-          48
+          54,
+          17
         ]
       ],
       "floors": [
         [
           [
             0,
-            11
+            17
           ],
           [
-            15,
-            12
+            58,
+            17
           ],
           [
-            33,
-            12
+            62,
+            20
           ],
           [
-            41,
-            14
+            68,
+            29
           ],
           [
-            59,
-            14
+            72,
+            29
           ],
           [
-            76,
-            21
+            80,
+            10
           ],
           [
             90,
-            30
+            10
           ],
           [
-            105,
-            40
+            101,
+            26
           ],
           [
-            125,
-            48
+            115,
+            49
           ],
           [
             150,
-            48
+            49
           ]
         ]
       ],
       "components": [
         {
-          "id": "073-LOW-HOOD",
+          "id": "073-WEST-ORE-CAVE",
           "poly": [
             [
               0,
-              43
+              55
             ],
             [
-              25,
-              46
+              19,
+              60
             ],
             [
-              38,
-              40
-            ],
-            [
-              38,
-              28
-            ],
-            [
-              0,
-              29
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "073-CONTROL-GATE",
-          "poly": [
-            [
-              93,
-              32
-            ],
-            [
-              101,
-              37
-            ],
-            [
-              101,
-              74
-            ],
-            [
-              97,
-              76
-            ],
-            [
-              93,
-              70
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "073-UPPER",
-          "poly": [
-            [
-              61,
-              61
-            ],
-            [
-              69,
-              69
-            ],
-            [
-              80,
-              69
-            ],
-            [
-              87,
-              65
-            ],
-            [
-              88,
-              59
-            ],
-            [
-              77,
+              49,
               58
             ],
             [
-              68,
-              54
+              70,
+              52
             ],
             [
-              62,
-              56
+              69,
+              43
+            ],
+            [
+              47,
+              42
+            ],
+            [
+              6,
+              43
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              0,
+              0
             ]
           ],
           "destructible": false
@@ -14008,17 +13767,17 @@
         {
           "type": "M",
           "v": [
-            76,
-            40,
-            24,
+            58,
+            36,
+            14,
             1
           ]
         },
         {
           "type": "T",
           "v": [
-            43,
-            20
+            117,
+            58
           ]
         }
       ],
@@ -14039,10 +13798,10 @@
       "midboss": false,
       "encounterId": "enemy:pole",
       "recommendedCharacter": "rin",
-      "tacticalGoal": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
-      "tacticalGoalEn": "Enter the field sideways from below or turn back into it from the high shelf.",
+      "tacticalGoal": "端子を撃って極性を反転し、次の手番で左の洞室へ弾を曲げ落とす。",
+      "tacticalGoalEn": "Hit the terminal to reverse polarity, then bend the next shot down into the western cave.",
       "enemyHp": 5,
-      "terrainRevision": "7.0-approved-051-099",
+      "terrainRevision": "9.0-intro-review",
       "worldWidth": 1500
     },
     {

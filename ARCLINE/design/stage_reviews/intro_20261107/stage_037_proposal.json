@@ -1,0 +1,1188 @@
+{
+  "stage": 37,
+  "status": "implemented-post-change-review-pending",
+  "authorization": "Ordinary map work under current rules; user authorized next introduction-map batch, with grouped post-change review.",
+  "before": {
+    "blueprint": {
+      "stage": 37,
+      "name": "山間の光の橋",
+      "goal": "橋が閉じる間は低い谷へ、開く間は上を通す",
+      "floor": [
+        [
+          0,
+          20
+        ],
+        [
+          15,
+          20
+        ],
+        [
+          31,
+          20
+        ],
+        [
+          36,
+          20
+        ]
+      ],
+      "parts": [
+        {
+          "id": "037-HINGE-RELAY",
+          "poly": [
+            [
+              53,
+              17
+            ],
+            [
+              58,
+              22
+            ],
+            [
+              74,
+              23
+            ],
+            [
+              84,
+              21
+            ],
+            [
+              82,
+              16
+            ],
+            [
+              60,
+              16
+            ]
+          ],
+          "breakable": false,
+          "kind": "island",
+          "purpose": "開閉橋の先の幅広い中継島"
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "v": [
+            36,
+            20,
+            25,
+            0
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            57,
+            84,
+            20
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            71,
+            33,
+            30
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+        }
+      ],
+      "recommended": "rico",
+      "spawn": [
+        16,
+        110
+      ],
+      "route": "橋が閉じる間は低い谷へ、開く間は上を通す",
+      "nameEn": "A Bridge of Light",
+      "goalEn": "Choose a low valley route or the open bridge route.",
+      "floorSegments": [
+        [
+          [
+            0,
+            20
+          ],
+          [
+            15,
+            20
+          ],
+          [
+            31,
+            20
+          ],
+          [
+            36,
+            20
+          ]
+        ],
+        [
+          [
+            94,
+            24
+          ],
+          [
+            109,
+            24
+          ],
+          [
+            125,
+            24
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          20
+        ],
+        [
+          110,
+          24
+        ]
+      ],
+      "worldWidth": 1250,
+      "terrainRevision": "6.0-approved-001-050",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 37,
+      "name": "山間の光の橋",
+      "nameEn": "A Bridge of Light",
+      "theme": 7,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          20
+        ],
+        [
+          110,
+          24
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            20
+          ],
+          [
+            15,
+            20
+          ],
+          [
+            31,
+            20
+          ],
+          [
+            36,
+            20
+          ]
+        ],
+        [
+          [
+            94,
+            24
+          ],
+          [
+            109,
+            24
+          ],
+          [
+            125,
+            24
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "037-HINGE-RELAY",
+          "poly": [
+            [
+              53,
+              17
+            ],
+            [
+              58,
+              22
+            ],
+            [
+              74,
+              23
+            ],
+            [
+              84,
+              21
+            ],
+            [
+              82,
+              16
+            ],
+            [
+              60,
+              16
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "v": [
+            36,
+            20,
+            25,
+            0
+          ]
+        },
+        {
+          "type": "W",
+          "v": [
+            57,
+            84,
+            20
+          ]
+        },
+        {
+          "type": "K",
+          "v": [
+            71,
+            33,
+            30
+          ],
+          "sizeFactor": 1.8,
+          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W14",
+          "kind": "trial",
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 42.68138,
+          "h": 32.51849,
+          "spawnTurn": 1,
+          "placementId": "L037:weapon:W14",
+          "verification": {
+            "angle": 36,
+            "power": 55,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "プリズム城壁",
+      "themeGoal": "橋・雲・反射の既知の組合せを選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": "B",
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "rico",
+      "tacticalGoal": "橋が閉じる間は低い谷へ、開く間は上を通す",
+      "tacticalGoalEn": "Choose a low valley route or the open bridge route.",
+      "enemyHp": 4,
+      "terrainRevision": "6.0-approved-001-050",
+      "worldWidth": 1250
+    }
+  },
+  "after": {
+    "blueprint": {
+      "stage": 37,
+      "name": "山間の光の橋",
+      "goal": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
+      "floor": [
+        [
+          0,
+          30
+        ],
+        [
+          15,
+          30
+        ],
+        [
+          31,
+          30
+        ],
+        [
+          36,
+          30
+        ]
+      ],
+      "parts": [
+        {
+          "id": "037-LOWER-REFUGE",
+          "kind": "island",
+          "breakable": false,
+          "poly": [
+            [
+              36,
+              3
+            ],
+            [
+              43,
+              10
+            ],
+            [
+              76,
+              10
+            ],
+            [
+              82,
+              7
+            ],
+            [
+              76,
+              3
+            ],
+            [
+              43,
+              -2
+            ]
+          ]
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "v": [
+            36,
+            30,
+            25,
+            0
+          ]
+        }
+      ],
+      "recommended": "rico",
+      "spawn": [
+        16,
+        110
+      ],
+      "route": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
+      "nameEn": "A Bridge of Light",
+      "goalEn": "Advance on the level bridge; use the fixed island below when it rises.",
+      "floorSegments": [
+        [
+          [
+            0,
+            30
+          ],
+          [
+            15,
+            30
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            36,
+            30
+          ]
+        ],
+        [
+          [
+            86,
+            37
+          ],
+          [
+            89,
+            37
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            125,
+            34
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          24,
+          30
+        ],
+        [
+          97,
+          34
+        ]
+      ],
+      "worldWidth": 1250,
+      "terrainRevision": "9.0-intro-review",
+      "enemyAirHeight": 0
+    },
+    "runtime": {
+      "id": 37,
+      "name": "山間の光の橋",
+      "nameEn": "A Bridge of Light",
+      "theme": 7,
+      "boss": false,
+      "spawn": [
+        [
+          24,
+          30
+        ],
+        [
+          97,
+          34
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            30
+          ],
+          [
+            15,
+            30
+          ],
+          [
+            31,
+            30
+          ],
+          [
+            36,
+            30
+          ]
+        ],
+        [
+          [
+            86,
+            37
+          ],
+          [
+            89,
+            37
+          ],
+          [
+            94,
+            34
+          ],
+          [
+            125,
+            34
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "037-LOWER-REFUGE",
+          "poly": [
+            [
+              36,
+              3
+            ],
+            [
+              43,
+              10
+            ],
+            [
+              76,
+              10
+            ],
+            [
+              82,
+              7
+            ],
+            [
+              76,
+              3
+            ],
+            [
+              43,
+              -2
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [
+        {
+          "type": "B",
+          "v": [
+            36,
+            30,
+            25,
+            0
+          ]
+        }
+      ],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W14",
+          "kind": "trial",
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 42.68138,
+          "h": 32.51849,
+          "spawnTurn": 1,
+          "placementId": "L037:weapon:W14",
+          "verification": {
+            "angle": 0,
+            "power": 70,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 from the authored entry position; angle +/-2 and power +/-3 nine-input pickup probe. Same coordinates, identity, quantity and spawn turn."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 16,
+      "enemyProfile": 1,
+      "hold": 2,
+      "themeName": "プリズム城壁",
+      "themeGoal": "橋・雲・反射の既知の組合せを選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": "B",
+      "contentRevision": "5.0",
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:slate",
+      "recommendedCharacter": "rico",
+      "tacticalGoal": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
+      "tacticalGoalEn": "Advance on the level bridge; use the fixed island below when it rises.",
+      "enemyHp": 4,
+      "terrainRevision": "9.0-intro-review",
+      "worldWidth": 1250
+    }
+  },
+  "qualityEvidence": {
+    "closed": {
+      "angle": 24,
+      "power": 80,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "x": 939.012240786493,
+          "y": 138.87107917304115,
+          "t": 1.3666666666666638,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 5,
+        "rows": [
+          {
+            "angle": 21,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 24,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 80,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 85,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "open": {
+      "angle": 60,
+      "power": 75,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "x": 967.5243830758213,
+          "y": 107.09900776925245,
+          "t": 2.8333333333333255,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 3,
+        "rows": [
+          {
+            "angle": 57,
+            "power": 70,
+            "hit": true,
+            "damage": [
+              0,
+              0.5
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 75,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 57,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 70,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 60,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 63,
+            "power": 70,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 63,
+            "power": 75,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 63,
+            "power": 80,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "first": {
+      "angle": 18,
+      "power": 90,
+      "damage": [
+        0,
+        1
+      ],
+      "events": [
+        {
+          "type": "pickup",
+          "id": "W14",
+          "x": 426.81379999999996,
+          "y": 174.81510000000003,
+          "t": 0,
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 5,
+        "rows": [
+          {
+            "angle": 15,
+            "power": 85,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 15,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 15,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 18,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 18,
+            "power": 90,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 18,
+            "power": 95,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 85,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 90,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 21,
+            "power": 95,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "second": {
+      "angle": 30,
+      "power": 60,
+      "damage": [
+        0,
+        1.5
+      ],
+      "events": [
+        {
+          "x": 945.0801630869036,
+          "y": 119.56086422240253,
+          "t": 1.1444444444444424,
+          "type": "critical",
+          "bullet": 0
+        }
+      ],
+      "neighbors": {
+        "inputs": 9,
+        "hits": 6,
+        "rows": [
+          {
+            "angle": 27,
+            "power": 55,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 60,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 27,
+            "power": 65,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 55,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 60,
+            "hit": true,
+            "damage": [
+              0,
+              1.5
+            ]
+          },
+          {
+            "angle": 30,
+            "power": 65,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 55,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 60,
+            "hit": true,
+            "damage": [
+              0,
+              1
+            ]
+          },
+          {
+            "angle": 33,
+            "power": 65,
+            "hit": false,
+            "damage": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "afterRise": {
+      "position": [
+        52,
+        10
+      ],
+      "safe": true,
+      "surface": "037-LOWER-REFUGE:e1",
+      "advance": {
+        "input": 10000,
+        "position": [
+          66,
+          10
+        ],
+        "shot": {
+          "angle": 69,
+          "power": 65,
+          "damage": [
+            0,
+            1.5
+          ],
+          "events": [
+            {
+              "x": 975.4045692748718,
+              "y": 113.97877824304717,
+              "t": 1.9444444444444395,
+              "type": "critical",
+              "bullet": 0
+            }
+          ],
+          "neighbors": {
+            "inputs": 9,
+            "hits": 6,
+            "rows": [
+              {
+                "angle": 66,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 65,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "angle": 66,
+                "power": 70,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 69,
+                "power": 60,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 69,
+                "power": 65,
+                "hit": true,
+                "damage": [
+                  0,
+                  1.5
+                ]
+              },
+              {
+                "angle": 69,
+                "power": 70,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 72,
+                "power": 60,
+                "hit": false,
+                "damage": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "angle": 72,
+                "power": 65,
+                "hit": true,
+                "damage": [
+                  0,
+                  0.5
+                ]
+              },
+              {
+                "angle": 72,
+                "power": 70,
+                "hit": true,
+                "damage": [
+                  0,
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "closedInputWhenRaised": [
+      0,
+      0
+    ],
+    "audit": {
+      "safe": [
+        true,
+        true
+      ],
+      "spawns": [
+        [
+          24,
+          30
+        ],
+        [
+          97,
+          34
+        ]
+      ],
+      "authored": [
+        [
+          24,
+          30
+        ],
+        [
+          97,
+          34
+        ]
+      ],
+      "straightBlocked": true,
+      "worldWidth": 1250
+    },
+    "experience": "橋の上で前へ進み、起きた橋の先では下の固定島を射点にする。",
+    "improvement": "初出の橋一本と広い受け島に整理。上空は開放し、高い曲射も別解として残す。水平時の低い射線と起きた時の遮蔽・落下を実際の境界で確認。敵前の低い岩肩で水平な直射だけを遮る。",
+    "pickup": {
+      "before": {
+        "stage": 37,
+        "id": "W14",
+        "kind": "trial",
+        "weaponId": "W14",
+        "category": "weapon",
+        "amount": 2,
+        "x": 42.68138,
+        "h": 32.51849,
+        "spawnTurn": 1,
+        "placementId": "L037:weapon:W14",
+        "verification": {
+          "angle": 36,
+          "power": 55,
+          "walk": 0,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "after": {
+        "stage": 37,
+        "id": "W14",
+        "kind": "trial",
+        "weaponId": "W14",
+        "category": "weapon",
+        "amount": 2,
+        "x": 42.68138,
+        "h": 32.51849,
+        "spawnTurn": 1,
+        "placementId": "L037:weapon:W14",
+        "verification": {
+          "angle": 0,
+          "power": 70,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 0,
+          "walkInput": 0,
+          "moved": 0,
+          "scope": "Actual W01 from the authored entry position; angle +/-2 and power +/-3 nine-input pickup probe. Same coordinates, identity, quantity and spawn turn."
+        }
+      }
+    }
+  }
+}

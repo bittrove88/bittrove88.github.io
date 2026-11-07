@@ -1788,22 +1788,21 @@
       "stage": 31,
       "difficultyBand": "中級",
       "theme": "水晶の反射路",
-      "learningGoal": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
+      "learningGoal": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
       "mainGimmicks": [
-        "K",
-        "W"
+        "K"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差4。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。。",
-      "basicRoute": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
-      "alternativeRoute": "割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。",
+      "terrainIntent": "床の高低差14。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。入口の結晶へ一度当て、奥の洞室へ弾を返す。。",
+      "basicRoute": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
+      "alternativeRoute": "通常 57°/75% → 歩行-140px→通常 126°/55% → 歩行-65px→通常 120°/65%。敵の実手番を含む固定seedの成立例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "大型結晶と鏡床を読み、洞窟内の敵へ通る経路を選ぶ。",
+      "hint": "入口の結晶へ一度当て、奥の洞室へ弾を返す。",
       "enemyInteraction": {
         "spawn": [
-          81,
+          61,
           14
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
@@ -1825,9 +1824,46 @@
         "hibari"
       ],
       "testResult": {
-        "status": "pending",
-        "report": "stage_verification.json",
-        "stage": 31
+        "stage": 31,
+        "status": "PASS",
+        "normalGunWin": true,
+        "gunSeedWins": 1,
+        "gunActions": [
+          3,
+          3
+        ],
+        "nativeActionLimit": 16,
+        "minimumRemainingHp": 7,
+        "featuredTechniqueVerified": false,
+        "humanDifficulty": "未測定。限定的な入力・実描画・固定seedの勝利は初見の楽しさや勝率とは別。",
+        "reports": [
+          "../../evidence/maps-0260/MATCHES_CHANGED.json"
+        ],
+        "blueprintSha256": "400411470be83ae84ce8940b0144a9de78fb16cd5f885c42242d17d8249cd141"
+      },
+      "basicRouteProof": {
+        "character": "gun",
+        "actions": 3,
+        "description": "通常 57°/75% → 歩行-140px→通常 126°/55% → 歩行-65px→通常 120°/65%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+          "stage": 31,
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "alternativeRouteProof": {
+        "character": "gun",
+        "actions": 3,
+        "description": "通常 57°/75% → 歩行-140px→通常 126°/55% → 歩行-65px→通常 120°/65%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+          "stage": 31,
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
+        }
       }
     },
     {
@@ -2065,24 +2101,22 @@
       "stage": 37,
       "difficultyBand": "中級",
       "theme": "プリズム城壁",
-      "learningGoal": "橋が閉じる間は低い谷へ、開く間は上を通す",
+      "learningGoal": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
       "mainGimmicks": [
-        "B",
-        "K",
-        "W"
+        "B"
       ],
-      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。中継棚1箇所を独立配置。橋が閉じる間は低い谷へ、開く間は上を通す。",
-      "basicRoute": "橋が閉じる間は低い谷へ、開く間は上を通す",
-      "alternativeRoute": "割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。",
+      "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。中継棚1箇所を独立配置。水平な橋で前へ進み、橋が起きたら下の固定島から狙う。。",
+      "basicRoute": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
+      "alternativeRoute": "歩行140px→通常 18°/90% → 歩行140px→通常 30°/60% → 歩行140px→通常 69°/65%。敵の実手番を含む固定seedの成立例。",
       "advantage": {
         "character": "rico",
         "reason": "実際に鏡面で跳ねるたび強くなり、低い反射路を攻撃に変える。"
       },
-      "hint": "橋が閉じる間は低い谷へ、開く間は上を通す",
+      "hint": "水平な橋で前へ進み、橋が起きたら下の固定島から狙う。",
       "enemyInteraction": {
         "spawn": [
-          110,
-          24
+          97,
+          34
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -2103,9 +2137,46 @@
         "hibari"
       ],
       "testResult": {
-        "status": "pending",
-        "report": "stage_verification.json",
-        "stage": 37
+        "stage": 37,
+        "status": "PASS",
+        "normalGunWin": true,
+        "gunSeedWins": 1,
+        "gunActions": [
+          3,
+          3
+        ],
+        "nativeActionLimit": 16,
+        "minimumRemainingHp": 6,
+        "featuredTechniqueVerified": false,
+        "humanDifficulty": "未測定。限定的な入力・実描画・固定seedの勝利は初見の楽しさや勝率とは別。",
+        "reports": [
+          "../../evidence/maps-0260/MATCHES_CHANGED.json"
+        ],
+        "blueprintSha256": "cf9631a89bbfcd66df258bc6c42d050515f63bd423985e9f65efa97250866b79"
+      },
+      "basicRouteProof": {
+        "character": "gun",
+        "actions": 3,
+        "description": "歩行140px→通常 18°/90% → 歩行140px→通常 30°/60% → 歩行140px→通常 69°/65%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+          "stage": 37,
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
+        }
+      },
+      "alternativeRouteProof": {
+        "character": "gun",
+        "actions": 3,
+        "description": "歩行140px→通常 18°/90% → 歩行140px→通常 30°/60% → 歩行140px→通常 69°/65%。敵の実手番を含む固定seedの成立例。",
+        "evidence": {
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+          "stage": 37,
+          "difficulty": "normal",
+          "id": "gun",
+          "seed": 4697
+        }
       }
     },
     {
@@ -4365,23 +4436,22 @@
       "stage": 71,
       "difficultyBand": "上級",
       "theme": "磁石の採掘場",
-      "learningGoal": "谷底の磁場に曲射を入れる経路と、上段浮島へ転移する経路を比較する。",
+      "learningGoal": "手前の磁場で弾を持ち上げ、鉱石の肩を越す。上下の射点で入射を選ぶ。",
       "mainGimmicks": [
-        "M",
-        "W"
+        "M"
       ],
-      "terrainIntent": "床の高低差48。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁4箇所を独立配置。低い洞窟のW/M、中段の上越し、鋭い高所の短射。",
-      "basicRoute": "低い洞窟のW/M、中段の上越し、鋭い高所の短射",
-      "alternativeRoute": "転移 54°/95% → 通常 75°/20% → 通常 3°/45% → 通常 -15°/60% → 通常 -15°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+      "terrainIntent": "床の高低差29。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。中継棚1箇所を独立配置。手前の磁場で弾を持ち上げ、鉱石の肩を越す。上下の射点で入射を選ぶ。。",
+      "basicRoute": "手前の磁場で弾を持ち上げ、鉱石の肩を越す。上下の射点で入射を選ぶ。",
+      "alternativeRoute": "通常 18°/70% → 歩行-70px→通常 108°/100% → 通常 156°/70% → 通常 108°/100%。敵の実手番を含む固定seedの成立例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "谷底の磁場に曲射を入れる経路と、上段浮島へ転移する経路を比較する。",
+      "hint": "手前の磁場で弾を持ち上げ、鉱石の肩を越す。上下の射点で入射を選ぶ。",
       "enemyInteraction": {
         "spawn": [
-          147,
-          47
+          102,
+          25
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4406,39 +4476,56 @@
       "testResult": {
         "stage": 71,
         "status": "PASS",
-        "blueprintSha256": "a06991689e176df19f19f615a0b31b56a41ec932e2110548015fccc31f370bfe",
-        "recommendedCharacter": "rin",
-        "recommendedWin": true,
-        "recommendedActions": 4,
-        "hardGunWin": true,
-        "hardGunActions": 5,
+        "normalGunWin": true,
+        "gunSeedWins": 1,
+        "gunActions": [
+          4,
+          4
+        ],
         "nativeActionLimit": 16,
+        "minimumRemainingHp": 2.3750000000000004,
         "featuredTechniqueVerified": false,
-        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
+        "humanDifficulty": "未測定。限定的な入力・実描画・固定seedの勝利は初見の楽しさや勝率とは別。",
         "reports": [
-          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
-          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
-        ]
+          "../../evidence/maps-0260/MATCHES_CHANGED.json"
+        ],
+        "hardGunWin": true,
+        "hardGunActions": 4,
+        "hardWitness": {
+          "character": "gun",
+          "actions": 4,
+          "description": "通常 18°/70% → 歩行-70px→通常 108°/100% → 通常 156°/70% → 通常 108°/100%。敵の実手番を含む固定seedの成立例。",
+          "evidence": {
+            "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+            "stage": 71,
+            "difficulty": "hard",
+            "id": "gun",
+            "seed": 4697
+          }
+        },
+        "blueprintSha256": "b65199cefc60761d8725adb33a9fae3bc64aff68d1094d1b03725cc7c4db840e"
       },
       "basicRouteProof": {
-        "character": "rin",
+        "character": "gun",
         "actions": 4,
-        "description": "転移 54°/95% → 必殺 75°/20% → 通常 3°/45% → 必殺 -15°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "description": "通常 18°/70% → 歩行-70px→通常 108°/100% → 通常 156°/70% → 通常 108°/100%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
           "stage": 71,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 5,
-        "description": "転移 54°/95% → 通常 75°/20% → 通常 3°/45% → 通常 -15°/60% → 通常 -15°/60%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "actions": 4,
+        "description": "通常 18°/70% → 歩行-70px→通常 108°/100% → 通常 156°/70% → 通常 108°/100%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
           "stage": 71,
-          "difficulty": "hard",
+          "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       }
@@ -4528,23 +4615,23 @@
       "stage": 73,
       "difficultyBand": "上級",
       "theme": "磁石の採掘場",
-      "learningGoal": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
+      "learningGoal": "端子を撃って極性を反転し、次の手番で左の洞室へ弾を曲げ落とす。",
       "mainGimmicks": [
         "M",
         "T"
       ],
-      "terrainIntent": "床の高低差37。坂の肩と裾で砲口の高さと遮蔽が変わる。割れた壁1箇所を独立配置。天井片1箇所を独立配置。中継棚1箇所を独立配置。下段から横に入るか、高棚から折り返して同じ磁場へ入る。。",
-      "basicRoute": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
-      "alternativeRoute": "転移 78°/90% → 通常 39°/50% → 通常 39°/50% → 通常 45°/50% → 通常 3°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+      "terrainIntent": "床の高低差39。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。端子を撃って極性を反転し、次の手番で左の洞室へ弾を曲げ落とす。。",
+      "basicRoute": "端子を撃って極性を反転し、次の手番で左の洞室へ弾を曲げ落とす。",
+      "alternativeRoute": "通常 42°/35% → 通常 0°/75% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/100%。敵の実手番を含む固定seedの成立例。",
       "advantage": {
         "character": "rin",
         "reason": "狭く速い精密弾を、破壊後に開いた長い射線へ通せる。"
       },
-      "hint": "下段から横に入るか、高棚から折り返して同じ磁場へ入る。",
+      "hint": "端子を撃って極性を反転し、次の手番で左の洞室へ弾を曲げ落とす。",
       "enemyInteraction": {
         "spawn": [
-          136,
-          48
+          54,
+          17
         ],
         "movement": "守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。",
         "counterplay": "準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。"
@@ -4569,39 +4656,56 @@
       "testResult": {
         "stage": 73,
         "status": "PASS",
-        "blueprintSha256": "7c0b22ab5ac81bf1238817be0c31deeea2cb329b614df6b3fbe8c7544d642eea",
-        "recommendedCharacter": "rin",
-        "recommendedWin": true,
-        "recommendedActions": 4,
+        "normalGunWin": true,
+        "gunSeedWins": 1,
+        "gunActions": [
+          5,
+          5
+        ],
+        "nativeActionLimit": 16,
+        "minimumRemainingHp": 4.375,
+        "featuredTechniqueVerified": false,
+        "humanDifficulty": "未測定。限定的な入力・実描画・固定seedの勝利は初見の楽しさや勝率とは別。",
+        "reports": [
+          "../../evidence/maps-0260/MATCHES_CHANGED.json"
+        ],
         "hardGunWin": true,
         "hardGunActions": 5,
-        "nativeActionLimit": 16,
-        "featuredTechniqueVerified": false,
-        "humanDifficulty": "未測定。自動探索は人の勝率・楽しさの測定ではない。",
-        "reports": [
-          "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
-          "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json"
-        ]
+        "hardWitness": {
+          "character": "gun",
+          "actions": 5,
+          "description": "通常 42°/35% → 通常 0°/75% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/100%。敵の実手番を含む固定seedの成立例。",
+          "evidence": {
+            "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
+            "stage": 73,
+            "difficulty": "hard",
+            "id": "gun",
+            "seed": 4697
+          }
+        },
+        "blueprintSha256": "f7412c3af33b768b4ee8fb40d0be82bc87e7d563439532685230c5fc1e926b27"
       },
       "basicRouteProof": {
-        "character": "rin",
-        "actions": 4,
-        "description": "転移 78°/90% → 必殺 39°/50% → 通常 39°/50% → 必殺 45°/50%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "character": "gun",
+        "actions": 5,
+        "description": "通常 42°/35% → 通常 0°/75% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/100%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_51_75_recommended_normal.json",
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
           "stage": 73,
           "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       },
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 5,
-        "description": "転移 78°/90% → 通常 39°/50% → 通常 39°/50% → 通常 45°/50% → 通常 3°/95%。実歩行・敵の反撃を含む固定seedの自動攻略例。",
+        "description": "通常 42°/35% → 通常 0°/75% → 通常 -6°/95% → 通常 -6°/95% → 通常 -6°/100%。敵の実手番を含む固定seedの成立例。",
         "evidence": {
-          "report": "../../evidence/maps-0240/MATCHES_51_75_gun_hard.json",
+          "report": "../../evidence/maps-0260/MATCHES_CHANGED.json",
           "stage": 73,
-          "difficulty": "hard",
+          "difficulty": "normal",
+          "id": "gun",
           "seed": 4697
         }
       }

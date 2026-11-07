@@ -1,3 +1,5 @@
+0.26.0の31・37・71・73面は `../design/stage_reviews/STAGES_INTRO_REFINEMENT_RUNTIME_20261107.json` と固定された元JSONへ結び付ける。生成元は引き続きstage_blueprintsとpickup_placements。37面の取得確認入力を更新し、全46個の座標・在庫・保存は保持。[4面の変更後レビュー](../design/stage_reviews/intro_20261107/README.md)。
+
 0.24.3：初期画面内の46カプセルを保証する表示と31個の配置調整は `dist/render.js`／`design/pickup_placements.json`。難易度カードの枠内折返しは `styles/chapter-flow.css`、低い天井の説明の画角は `dist/preview.js`。ボス戦開始時の `audio-manager.prepare` と `ending_media.json` の勝利曲開始位置0.21秒で読み込み待ちと先頭無音を削減。原音源・保存・地形・物理は維持。[検証](../docs/releases/0.24.3.md)。
 
 # コードと生成物の編集先

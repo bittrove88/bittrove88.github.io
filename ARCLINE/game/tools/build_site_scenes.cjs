@@ -5,9 +5,9 @@ const clone=x=>JSON.parse(JSON.stringify(x)),rows={};
 function action(s,plan,labelJa,labelEn,extra={}){const before=clone(s),shot=E.launch(s,plan.angle,plan.power,plan);if(!shot)throw Error('Rejected demonstration action');E.resolve(s,shot);while(s.pendingLoot.length)E.resolveLoot(s,null,true);return {before,after:clone(s),plan:clone(shot),label:{ja:labelJa,en:labelEn},...extra};}
 function enemy(s){E.next(s);const from=clone(s.units[1]),x=E.enemyMoveTarget(s);G.move(s,1,x-s.units[1].x);const plan=E.cpuPlan(s,E.seeded(77));const step=action(s,plan,'準備にも相手の手番が返る','Preparation still gives the rival a turn',{walkFrom:from,walkSide:1});E.next(s);s.phase='aim';return step;}
 {
- const s=E.campaign(31,{equippedCharacterId:'gun',matchSeed:77,battleInventory:{}}),p=Q.firing(s,'W01',p=>p.damage[1]>.4&&p.damage[0]===0&&p.events.filter(e=>e.type==='bounce').length===1&&p.events.some(e=>e.type==='bounce'&&e.surface==='reflector'));
+ const s=E.campaign(31,{equippedCharacterId:'gun',matchSeed:77,battleInventory:{}}),p=Q.firing(s,'W01',p=>p.damage[1]>.4&&p.damage[0]===0&&p.events.filter(e=>e.type==='bounce').length===1&&p.events.some(e=>e.type==='bounce'&&e.surface==='crystal'));
  if(!p)throw Error('No single-bounce demonstration');
- rows.reflection={id:'reflection',stage:31,reason:{ja:'低い屋根の下から、明るい鏡床で一度だけ跳ねる。',en:'One bounce from the bright mirror floor passes under the roof.'},steps:[action(s,p.plan,'鏡床へ当て、敵に命中','Hit the mirror floor, then the rival')],proof:{source:'production engine5.0',valid:true,bounces:1,reflectorHit:true,enemyDamage:p.plan.damage[1]}};
+ rows.reflection={id:'reflection',stage:31,reason:{ja:'入口の結晶で一度返し、岩肩の奥の敵へ通す。',en:'One bounce from the entrance crystal reaches behind the rock ridge.'},steps:[action(s,p.plan,'結晶で返して、敵に命中','Bounce from the crystal, then hit the rival')],proof:{source:'production engine5.0',valid:true,bounces:1,crystalHit:true,enemyDamage:p.plan.damage[1]}};
 }
 {
  const s=E.campaign(7,{equippedCharacterId:'gun',matchSeed:77,battleInventory:{}}),p=Q.firing(s,'W01',p=>p.destroyed.length>0&&p.damage[1]===0&&p.damage[0]===0);if(!p)throw Error('No cover break');
