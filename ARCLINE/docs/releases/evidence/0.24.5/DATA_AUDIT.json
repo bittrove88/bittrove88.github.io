@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "baseline": "0.24.2",
+  "refs": {
+    "0.24.2": "691e4bd",
+    "0.24.3": "0d34da8",
+    "0.24.4": "ed04e08"
+  },
+  "checks": [
+    {
+      "version": "0.24.2",
+      "ref": "691e4bd",
+      "levels": 100,
+      "rulesGeometryEnemyHPActionLimitsSpawnsAndPickupMetadataUnchanged": true,
+      "gameLogicExceptRequestedVictoryPreloadUnchanged": true,
+      "workerExceptCacheUnchanged": true,
+      "scriptGraphAndSaveVersionsUnchanged": true,
+      "componentFunctionsAndFillPalettesUnchanged": true,
+      "changedCapsuleCoordinates": 0
+    },
+    {
+      "version": "0.24.3",
+      "ref": "0d34da8",
+      "levels": 100,
+      "rulesGeometryEnemyHPActionLimitsSpawnsAndPickupMetadataUnchanged": true,
+      "gameLogicExceptRequestedVictoryPreloadUnchanged": true,
+      "workerExceptCacheUnchanged": true,
+      "scriptGraphAndSaveVersionsUnchanged": true,
+      "componentFunctionsAndFillPalettesUnchanged": true,
+      "changedCapsuleCoordinates": 31
+    },
+    {
+      "version": "0.24.4",
+      "ref": "ed04e08",
+      "levels": 100,
+      "rulesGeometryEnemyHPActionLimitsSpawnsAndPickupMetadataUnchanged": true,
+      "gameLogicExceptRequestedVictoryPreloadUnchanged": true,
+      "workerExceptCacheUnchanged": true,
+      "scriptGraphAndSaveVersionsUnchanged": true,
+      "componentFunctionsAndFillPalettesUnchanged": true,
+      "changedCapsuleCoordinates": 31
+    }
+  ],
+  "onlyChangedRenderStyleKeysIn0244": [
+    "bridgeContactWidth",
+    "contactEdgeWidth",
+    "functionalOutline",
+    "naturalOutline",
+    "reflectiveEdgeWidth"
+  ],
+  "enemyMovementComparison": {
+    "stages": 99,
+    "framesPerStage": 75,
+    "seed": 17,
+    "round": 2,
+    "versions": 3,
+    "identicalTargetsAndWorldCoordinates": true,
+    "scope": "Native enemy target selection and frame-by-frame geometry walking; no claim about every full battle or physical device."
+  },
+  "viewportAndSwipe": [
+    {
+      "version": "v242",
+      "ref": "691e4bd",
+      "swipeMoved": 0,
+      "appHeightWithStaleVisualViewport": 798,
+      "enemyWorldPositionsIdentical": true,
+      "enemyClientSpanY": 50.571428571428896
+    },
+    {
+      "version": "v243",
+      "ref": "0d34da8",
+      "swipeMoved": 0,
+      "appHeightWithStaleVisualViewport": 798,
+      "enemyWorldPositionsIdentical": true,
+      "enemyClientSpanY": 50.571428571428896
+    },
+    {
+      "version": "v244",
+      "ref": "ed04e08",
+      "swipeMoved": 0,
+      "appHeightWithStaleVisualViewport": 798,
+      "enemyWorldPositionsIdentical": true,
+      "enemyClientSpanY": 50.571428571428896
+    },
+    {
+      "version": "current",
+      "ref": "working-tree",
+      "swipeMoved": 215,
+      "appHeightWithStaleVisualViewport": 852,
+      "enemyWorldPositionsIdentical": true,
+      "enemyClientSpanY": 0
+    }
+  ],
+  "scope": "All100 level rule/geometry fields preserved except the31 expressly requested capsule coordinates and acquisition witnesses; source equality checks cover documented intentional exceptions. Controlled Chromium viewport simulation reproduces existing bugs in allthree older releases.",
+  "stationaryCameraComparison": {
+    "stages": 100,
+    "drawsPerStage": 90,
+    "sampledFrames": "60..89",
+    "toleranceCssPx": 0.5,
+    "rows": [
+      {
+        "version": "v242",
+        "ref": "691e4bd",
+        "stagesWithSpanAboveTolerance": 0,
+        "pageErrors": []
+      },
+      {
+        "version": "v243",
+        "ref": "0d34da8",
+        "stagesWithSpanAboveTolerance": 0,
+        "pageErrors": []
+      },
+      {
+        "version": "v244",
+        "ref": "ed04e08",
+        "stagesWithSpanAboveTolerance": 0,
+        "pageErrors": []
+      }
+    ]
+  }
+}
