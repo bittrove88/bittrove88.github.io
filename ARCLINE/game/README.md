@@ -1,3 +1,5 @@
+0.24.3：初期画面内の46カプセルを保証する表示と31個の配置調整は `dist/render.js`／`design/pickup_placements.json`。難易度カードの枠内折返しは `styles/chapter-flow.css`、低い天井の説明の画角は `dist/preview.js`。ボス戦開始時の `audio-manager.prepare` と `ending_media.json` の勝利曲開始位置0.21秒で読み込み待ちと先頭無音を削減。原音源・保存・地形・物理は維持。[検証](../docs/releases/0.24.3.md)。
+
 # コードと生成物の編集先
 
 0.24.2のコンポーネント美術は `ui/component-art.js` と `../design/components/complete/data/*.json`・`shared-materials.json`・`render-style.json`・共通 `renderer.js` が正本。`tools/build_components.py` が同じ描画器・承認素材・実装アダプターを `dist/component-art.js` へ生成する。承認素材のハッシュは `../design/components/runtime-approval.json`。`render.js` は実際の世界と、背景と同じ最終移動の状態を渡し、衝突や保存には描画データを読み戻さない。[統合と検証](../docs/releases/0.24.2.md)。

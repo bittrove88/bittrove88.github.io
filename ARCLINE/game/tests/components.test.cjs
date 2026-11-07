@@ -3,8 +3,9 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const E=require('../dist/engine.js'),C=require('../dist/component-art.js'),B=require('../dist/backgrounds.js'),F=require('../dist/final-team.js'),T=require('../dist/final-travel.js');
 const root=path.resolve(__dirname,'../..'),approval=require('../../design/components/runtime-approval.json');let checks=0,polygons=0,regions=0;const ok=(x,m)=>{checks++;assert(x,m);},same=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
 for(const file of ['engine.js','geometry.js','physics.js','levels.js','combat.js','weapons.js','skills.js','inventory.js','crew.js','crew-usage.js','final-team.js','campaign-run.js','save.js','game.js','visual-art.js','characters.js','backgrounds.js']){
- if(file==='levels.js'){require('./integration-preservation.cjs').verifyPostReview();continue;}
- const original=execFileSync('git',['show',approval.mainBaseline+':ARCLINE/game/dist/'+file],{cwd:root});ok(original.equals(fs.readFileSync(path.join(root,'game/dist',file))),'preserve latest gameplay/map/save/actor/background source '+file);
+ const original=execFileSync('git',['show',approval.mainBaseline+':ARCLINE/game/dist/'+file],{cwd:root});const current=fs.readFileSync(path.join(root,'game/dist',file));
+ if(file==='levels.js'){require('./integration-preservation.cjs').verifyPostReview();}
+ else {const preserved=file==='game.js'?Buffer.from(current.toString().replace(" if(s.spec.boss&&s.stage<100&&!s.spec.midboss)bgm.prepare('VICTORY');\n",'')):current;ok(original.equals(preserved),'preserve latest gameplay/map/save/actor/background source '+file);}
 }
 for(const ref of approval.materials)ok(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,ref.file))).digest('hex')===ref.sha256,'approved source '+ref.file);
 same(C.materials.renderStyle,require('../../design/components/complete/render-style.json'),'all render values come from the approved JSON');

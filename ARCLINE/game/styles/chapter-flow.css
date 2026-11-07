@@ -295,6 +295,28 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
 }
+/* The label is the grid item; its visible span must fit that same cell. */
+#initialDifficultyOptions label {
+  display: block;
+  padding: 0;
+}
+#initialDifficultyOptions label > span {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 6px;
+}
+#initialDifficultyOptions strong,
+#initialDifficultyOptions small,
+#difficultyChoice .difficulty-options small {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#initialDifficultyOptions strong {
+  line-height: 1.3;
+}
 @media (orientation: landscape) and (max-height: 500px) {
   .trial-range {
     grid-column: 2;

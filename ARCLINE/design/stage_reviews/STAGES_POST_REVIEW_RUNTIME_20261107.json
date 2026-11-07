@@ -1,7 +1,7 @@
 {
   "schema": "ARCLINE-POST-CHANGE-REVIEW-v1",
   "date": "2026-11-07",
-  "baselineMain": "691e4bd44c5d8fb4bc1fa0ea1da745fb48049ea5",
+  "baselineMain": "9421d6b2582194290afdda897c0c5f88983eff89",
   "authorization": "User approved the three small changes, and authorized normal terrain changes under existing rules with review after implementation. HP/AI/physics/save changes require separate confirmation.",
   "stages": [
     {
@@ -102,7 +102,7 @@
       "stage": 4,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_004_proposal.json",
-      "sourceSha256": "5b0cf8c07f551df997487af96fa8c2f29873d5ff54e0c69b64b030d560c1528d",
+      "sourceSha256": "48158f02b8640592f060cf949e280ab09101df75f9f7f193f4b23a137aef6e63",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -202,7 +202,7 @@
       "stage": 7,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_007_proposal.json",
-      "sourceSha256": "01110fcf63480e5ff84e9d09edf97623f8719b11b644e0c00e98de564c5f7c0e",
+      "sourceSha256": "6b654c39d18782e5a50bb0eede9f7e9cb85adae7be6b9ff54e5e3b61d5fca3ef",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -472,7 +472,7 @@
       "stage": 9,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_009_proposal.json",
-      "sourceSha256": "7d92f4cdf030f31e0ca56d8f33c3e14ef31362d8c44128705f6f0824942da4e1",
+      "sourceSha256": "9fa66f36f8396a2d342d3fa24831ffe2e1cbbeebe1864ec0b0b811ee636206dc",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -574,7 +574,7 @@
       "stage": 12,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_012_proposal.json",
-      "sourceSha256": "9c4ce8ab15e1f5baaa121abc55f811d24f677de5148ba4c081a6fe56318fa30c",
+      "sourceSha256": "3c2caa462cc2660cd21a98b0d207674600ab84a8f3c9e1710fd718dec441ca1f",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -688,7 +688,7 @@
       "stage": 14,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_014_proposal.json",
-      "sourceSha256": "5f46eafddd2cca4b4ebe5e16952146ca258edabd7534acae36c9c5072e5c786e",
+      "sourceSha256": "473ff7a5262675c680798f8151352d257ac60033ab94acba33c77bd9956afdc3",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -939,7 +939,7 @@
       "stage": 19,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_019_proposal.json",
-      "sourceSha256": "f229c102630535fbf0f3a7d2206d0f7d815dd4b4b2e1860e679922eed85870eb",
+      "sourceSha256": "bd0676d028f4c00838c055a12b93a8ed6762eeafb77c0385275b51f0515fd694",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -1644,7 +1644,7 @@
       "stage": 28,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_028_proposal.json",
-      "sourceSha256": "6affc3741c2925e5be00c1d4f547a85b9eaaa194fee45bc80d432cea90a813df",
+      "sourceSha256": "2d2757fea5e9f79402b36b4c6faa7a75efba7a5faaeb04e329aabb872d51b0b1",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -1779,7 +1779,7 @@
       "stage": 29,
       "status": "implemented-under-post-change-review-authorization",
       "source": "design/stage_reviews/post_change_20261107/stage_029_proposal.json",
-      "sourceSha256": "1530eca9bfc2e3b524feee26b6af5f3331df755c6121065bd0a8c827f25481ec",
+      "sourceSha256": "988643f0029e19e71c8d2c9dfe63745faf2511847797ee0a1611d3b6323611c4",
       "terrainRevision": "8.0-post-review-authorized",
       "geometry": {
         "floors": [
@@ -2670,7 +2670,28 @@
           ]
         ],
         "worldWidth": 1600
-      }
+      },
+      "integrationPickupOverride": [
+        {
+          "id": "W14",
+          "kind": "trial",
+          "weaponId": "W14",
+          "category": "weapon",
+          "amount": 2,
+          "x": 69.77378,
+          "h": 18.81085,
+          "spawnTurn": 1,
+          "placementId": "L092:weapon:W14",
+          "verification": {
+            "angle": 8,
+            "power": 30,
+            "walk": 0,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0
+          }
+        }
+      ]
     }
   ],
   "scope": {
@@ -2717,17 +2738,17 @@
         "skillId": "S_REPAIR",
         "category": "normal-skill",
         "amount": 2,
-        "x": 43.212,
-        "h": 34.478,
+        "x": 42.2195,
+        "h": 25.04936,
         "spawnTurn": 1,
         "placementId": "L004:skill:S_REPAIR",
         "verification": {
-          "angle": 44,
-          "power": 60,
+          "angle": 20,
+          "power": 75,
           "walk": 0,
           "neighborHits": 9,
           "neighborShots": 9,
-          "attackDamage": 0.5
+          "attackDamage": 1.5
         }
       },
       "after": {
@@ -2737,14 +2758,14 @@
         "skillId": "S_REPAIR",
         "category": "normal-skill",
         "amount": 2,
-        "x": 43.212,
-        "h": 34.478,
+        "x": 42.2195,
+        "h": 25.04936,
         "spawnTurn": 1,
         "placementId": "L004:skill:S_REPAIR",
         "verification": {
-          "angle": 44,
-          "power": 60,
-          "neighborHits": 8,
+          "angle": 20,
+          "power": 75,
+          "neighborHits": 9,
           "neighborShots": 9,
           "attackDamage": 0,
           "walkInput": 0,
@@ -2763,15 +2784,15 @@
         "weaponId": "W07",
         "category": "weapon",
         "amount": 2,
-        "x": 32.81,
-        "h": 40.768,
+        "x": 33.44553,
+        "h": 18.90748,
         "spawnTurn": 1,
         "placementId": "L007:weapon:W07",
         "verification": {
-          "angle": 68,
-          "power": 60,
+          "angle": 20,
+          "power": 65,
           "walk": 0,
-          "neighborHits": 7,
+          "neighborHits": 9,
           "neighborShots": 9,
           "attackDamage": 0
         }
@@ -2783,14 +2804,14 @@
         "weaponId": "W07",
         "category": "weapon",
         "amount": 2,
-        "x": 32.81,
-        "h": 40.768,
+        "x": 33.44553,
+        "h": 18.90748,
         "spawnTurn": 1,
         "placementId": "L007:weapon:W07",
         "verification": {
-          "angle": 68,
-          "power": 60,
-          "neighborHits": 7,
+          "angle": 20,
+          "power": 65,
+          "neighborHits": 9,
           "neighborShots": 9,
           "attackDamage": 0,
           "walkInput": 0,
@@ -2809,17 +2830,17 @@
         "skillId": "S_BARRIER",
         "category": "normal-skill",
         "amount": 2,
-        "x": 44.013,
-        "h": 31.963,
+        "x": 41.69586,
+        "h": 20.18989,
         "spawnTurn": 1,
         "placementId": "L009:skill:S_BARRIER",
         "verification": {
-          "angle": 44,
-          "power": 69,
+          "angle": 32,
+          "power": 50,
           "walk": 0,
-          "neighborHits": 9,
+          "neighborHits": 6,
           "neighborShots": 9,
-          "attackDamage": 1
+          "attackDamage": 0
         }
       },
       "after": {
@@ -2829,14 +2850,14 @@
         "skillId": "S_BARRIER",
         "category": "normal-skill",
         "amount": 2,
-        "x": 44.013,
-        "h": 31.963,
+        "x": 41.69586,
+        "h": 20.18989,
         "spawnTurn": 1,
         "placementId": "L009:skill:S_BARRIER",
         "verification": {
-          "angle": 44,
-          "power": 69,
-          "neighborHits": 7,
+          "angle": 42,
+          "power": 45,
+          "neighborHits": 6,
           "neighborShots": 9,
           "attackDamage": 0,
           "walkInput": 0,
@@ -2855,17 +2876,17 @@
         "weaponId": "W09",
         "category": "weapon",
         "amount": 2,
-        "x": 34.373,
-        "h": 41.94,
+        "x": 34.93537,
+        "h": 22.94706,
         "spawnTurn": 1,
         "placementId": "L012:weapon:W09",
         "verification": {
           "angle": 56,
-          "power": 75,
+          "power": 45,
           "walk": 0,
-          "neighborHits": 9,
+          "neighborHits": 3,
           "neighborShots": 9,
-          "attackDamage": 1.5
+          "attackDamage": 0
         }
       },
       "after": {
@@ -2875,13 +2896,13 @@
         "weaponId": "W09",
         "category": "weapon",
         "amount": 2,
-        "x": 34.373,
-        "h": 41.94,
+        "x": 34,
+        "h": 15,
         "spawnTurn": 1,
         "placementId": "L012:weapon:W09",
         "verification": {
-          "angle": 60,
-          "power": 85,
+          "angle": 0,
+          "power": 80,
           "neighborHits": 9,
           "neighborShots": 9,
           "attackDamage": 0,
@@ -2922,13 +2943,13 @@
         "category": "normal-skill",
         "amount": 2,
         "x": 44.787,
-        "h": 17.078,
+        "h": 21,
         "spawnTurn": 1,
         "placementId": "L014:skill:S_CHARGE_SLOW_I",
         "verification": {
-          "angle": 20,
-          "power": 45,
-          "neighborHits": 5,
+          "angle": 12,
+          "power": 90,
+          "neighborHits": 9,
           "neighborShots": 9,
           "attackDamage": 0,
           "walkInput": 0,
@@ -2993,17 +3014,17 @@
         "skillId": "S_POWER_UP_I",
         "category": "normal-skill",
         "amount": 2,
-        "x": 49.651,
-        "h": 30.327,
+        "x": 49.83205,
+        "h": 22.89725,
         "spawnTurn": 5,
         "placementId": "L019:skill:S_POWER_UP_I",
         "verification": {
-          "angle": 32,
-          "power": 90,
+          "angle": 50,
+          "power": 50,
           "walk": 0,
-          "neighborHits": 9,
+          "neighborHits": 4,
           "neighborShots": 9,
-          "attackDamage": 1
+          "attackDamage": 0
         }
       },
       "after": {
@@ -3013,14 +3034,14 @@
         "skillId": "S_POWER_UP_I",
         "category": "normal-skill",
         "amount": 2,
-        "x": 49.651,
-        "h": 30.327,
+        "x": 49.83205,
+        "h": 22.89725,
         "spawnTurn": 5,
         "placementId": "L019:skill:S_POWER_UP_I",
         "verification": {
-          "angle": 32,
-          "power": 90,
-          "neighborHits": 9,
+          "angle": 50,
+          "power": 50,
+          "neighborHits": 3,
           "neighborShots": 9,
           "attackDamage": 0,
           "walkInput": 0,
@@ -3085,17 +3106,17 @@
         "skillId": "S_INVINCIBLE",
         "category": "rare-skill",
         "amount": 2,
-        "x": 57.832,
-        "h": 25.559,
+        "x": 56.09249,
+        "h": 20.89378,
         "spawnTurn": 1,
         "placementId": "L028:skill:S_INVINCIBLE",
         "verification": {
-          "angle": 24,
-          "power": 90,
+          "angle": 56,
+          "power": 55,
           "walk": 0,
-          "neighborHits": 3,
+          "neighborHits": 4,
           "neighborShots": 9,
-          "attackDamage": 1.5
+          "attackDamage": 0
         }
       },
       "after": {
@@ -3105,18 +3126,18 @@
         "skillId": "S_INVINCIBLE",
         "category": "rare-skill",
         "amount": 2,
-        "x": 57.832,
-        "h": 25.559,
+        "x": 56.09249,
+        "h": 20.89378,
         "spawnTurn": 1,
         "placementId": "L028:skill:S_INVINCIBLE",
         "verification": {
-          "angle": 42,
+          "angle": 15,
           "power": 90,
-          "neighborHits": 9,
+          "neighborHits": 6,
           "neighborShots": 9,
           "attackDamage": 0,
-          "walkInput": 10000,
-          "moved": 140,
+          "walkInput": 0,
+          "moved": 0,
           "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
         }
       }
@@ -3131,17 +3152,17 @@
         "skillId": "S_ENEMY_WEAKEN",
         "category": "normal-skill",
         "amount": 2,
-        "x": 44.329,
-        "h": 34.65,
+        "x": 45.71526,
+        "h": 21.65913,
         "spawnTurn": 5,
         "placementId": "L029:skill:S_ENEMY_WEAKEN",
         "verification": {
-          "angle": 44,
-          "power": 100,
+          "angle": 56,
+          "power": 50,
           "walk": 0,
-          "neighborHits": 9,
+          "neighborHits": 4,
           "neighborShots": 9,
-          "attackDamage": 1.5
+          "attackDamage": 0
         }
       },
       "after": {
@@ -3151,14 +3172,14 @@
         "skillId": "S_ENEMY_WEAKEN",
         "category": "normal-skill",
         "amount": 2,
-        "x": 35,
-        "h": 24,
+        "x": 45.71526,
+        "h": 21.65913,
         "spawnTurn": 5,
         "placementId": "L029:skill:S_ENEMY_WEAKEN",
         "verification": {
-          "angle": 33,
-          "power": 95,
-          "neighborHits": 9,
+          "angle": 56,
+          "power": 50,
+          "neighborHits": 4,
           "neighborShots": 9,
           "attackDamage": 0,
           "walkInput": 0,
@@ -3167,5 +3188,8 @@
         }
       }
     }
-  ]
+  ],
+  "designBaselineMain": "691e4bd44c5d8fb4bc1fa0ea1da745fb48049ea5",
+  "integratedBaselineMain": "9421d6b2582194290afdda897c0c5f88983eff89",
+  "integrationNote": "Retain main0.24.3 camera/pickup/roof/victory/master/trial fixes and STG foundation. Only stage12/14 pickup coordinates adjusted for new terrain; other current coordinates retained. Immutable approved proposal sources remain historical, with stage92 pickup overlay recorded explicitly."
 }

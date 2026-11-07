@@ -219,6 +219,7 @@ function start(retryContext=null){
  save.save();
  encounter=ArcStory.entry(s.stage,ArcI18n.language)?{age:0,duration:E.guardian(s)?3.2:2.8,boss:E.guardian(s)}:null;paintEncounter();
  sfx.prepare(s.characterId);specialNotice.reset(gameToken);bgm.request(ArcAudio.forStage(s.stage,s.spec),{restart:ArcAudio.restartForStage(s.stage,s.spec)});$('lobby').hidden=true;$('battle').hidden=false;$('battle').classList.remove('resolved');$('overlay').hidden=true;$('levelPicker').hidden=true;$('collectionPanel').hidden=true;$('weaponPicker').hidden=true;$('tutorial').hidden=true;$('skillPicker').hidden=true;audioSync();hud();if(!openLoot(firstDemo))firstDemo();if(!demo&&$('lootPicker').hidden)$('world').focus({preventScroll:true});tone(s.spec.boss?130:520,s.spec.boss?.4:.15,'triangle');
+ if(s.spec.boss&&s.stage<100&&!s.spec.midboss)bgm.prepare('VICTORY');
 }
 function startCharge(id){
  if(!canAim()||charge||s.selectedSkill==='BLINK')return;
