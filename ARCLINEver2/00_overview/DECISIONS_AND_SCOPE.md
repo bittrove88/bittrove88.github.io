@@ -30,4 +30,8 @@
 - 101〜300各面の個別地形、敵、ボス、報酬、物語、習得順、技のダメージ・消費・持続、装備切替UI、属性採否は**未決定**。
 
 ## 正本と実装境界
-外観・短文と動きは `02_jobs/JOB_CATALOG.md`、技の分類は `02_jobs/JOB_SYSTEM.md`、必殺技の保護条件は `02_jobs/ULTIMATE_HISTORY.md`。資料の格納のみではゲーム本体を変更しない。現在の旧ARCLINEの実装、保存、公開URLを保護。
+外観・短文と動きは [02_jobs/JOB_CATALOG.md](../02_jobs/JOB_CATALOG.md)、技の分類は [02_jobs/JOB_SYSTEM.md](../02_jobs/JOB_SYSTEM.md)、必殺技の保護条件は [02_jobs/ULTIMATE_HISTORY.md](../02_jobs/ULTIMATE_HISTORY.md)。資料の格納のみではゲーム本体を変更しない。現在の旧ARCLINEの実装、保存、公開URLを保護。
+
+## 敵キャラクター企画と原画
+
+[全案記録](../04_art/CHARACTER_PLANNING_ARCHIVE.md)に、没案・中間案を含む通し番号、名称、分類、発想、形状、画像を保存。通常24・中ボス15・大ボス15は制作した候補枠で、実装数や登場面の確定ではない。強敵の独立比較案も正式な追加・置換は未決定。主人公ARCの共通骨格は敵全機へ適用しない。
