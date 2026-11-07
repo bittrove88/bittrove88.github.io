@@ -2256,125 +2256,99 @@
     },
     {
       "id": 17,
-      "name": "山裾の二つの入口",
-      "nameEn": "Two Mountain Entrances",
+      "name": "岩肩へ返す反射のくぼみ",
+      "nameEn": "A Mirror Pocket Below the Rock Shoulder",
       "theme": 3,
       "boss": false,
       "spawn": [
         [
           16,
-          12.0
+          26
         ],
         [
-          82,
-          12.0
+          87,
+          12
         ]
       ],
       "floors": [
         [
           [
             0,
-            12
+            26
           ],
           [
             16,
+            26
+          ],
+          [
+            24,
+            25
+          ],
+          [
+            30,
+            20
+          ],
+          [
+            36,
             12
           ],
           [
-            26,
+            53,
             12
           ],
           [
-            34,
-            11
+            59,
+            22
           ],
           [
-            41,
-            9
-          ],
-          [
-            52,
-            9
-          ],
-          [
-            60,
-            9
+            64,
+            29
           ],
           [
             69,
-            11
+            29
           ],
           [
-            77,
-            12
+            75,
+            19
           ],
           [
             82,
             12
           ],
           [
-            100,
+            92,
             12
+          ],
+          [
+            100,
+            16
           ]
         ]
       ],
       "components": [
         {
-          "id": "017-CAVERN-ROOF",
+          "id": "017-CHIPPED-EDGE",
           "poly": [
             [
-              53,
-              29
-            ],
-            [
-              60,
-              36
-            ],
-            [
-              70,
-              37
-            ],
-            [
-              79,
-              34
-            ],
-            [
-              82,
-              30
-            ],
-            [
-              78,
-              28
-            ],
-            [
-              56,
-              28
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "017-FRAGILE-ROOF-TIP",
-          "poly": [
-            [
-              69,
-              26
-            ],
-            [
-              73,
-              27
-            ],
-            [
-              76,
+              71,
               25
             ],
             [
-              74,
-              22
+              75,
+              19
             ],
             [
-              69,
-              22
+              79,
+              18
+            ],
+            [
+              77,
+              15
+            ],
+            [
+              73,
+              17
             ]
           ],
           "destructible": true
@@ -2384,8 +2358,8 @@
         {
           "type": "W",
           "v": [
-            22,
-            52,
+            30,
+            56,
             12
           ]
         }
@@ -2403,12 +2377,10 @@
           "spawnTurn": 1,
           "placementId": "L017:weapon:W12",
           "verification": {
-            "angle": 20,
-            "power": 75,
-            "walk": 0,
-            "neighborHits": 9,
-            "neighborShots": 9,
-            "attackDamage": 1
+            "angle": -12,
+            "power": 30,
+            "neighborHits": 5,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
           }
         }
       ],
@@ -2429,10 +2401,10 @@
       "midboss": false,
       "encounterId": "enemy:spike",
       "recommendedCharacter": "ban",
-      "tacticalGoal": "山の肩へ登るか、裾の開口から低く撃つ",
-      "tacticalGoalEn": "Choose the mountain shoulder or the low opening.",
+      "tacticalGoal": "浅いくぼみで一回反射させ、岩肩の向こうへ返す。短い歩行で入射位置を変える。",
+      "tacticalGoalEn": "Reflect once from the pocket and send the shot over the rock shoulder. A short walk changes the entry point.",
       "enemyHp": 3,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "7.1-approved-idea-refinement",
       "worldWidth": 1000
     },
     {
@@ -5159,151 +5131,115 @@
     },
     {
       "id": 33,
-      "name": "谷の二つの鏡",
-      "nameEn": "Two Mirrors in the Valley",
+      "name": "背中合わせの鏡岸",
+      "nameEn": "Back-to-Back Mirror Banks",
       "theme": 6,
       "boss": false,
       "spawn": [
         [
-          16,
-          22
+          46,
+          33
         ],
         [
           114,
-          19
+          12
         ]
       ],
       "floors": [
         [
           [
             0,
-            22
+            27
           ],
           [
-            16,
-            22
+            12,
+            27
           ],
           [
-            30,
-            22
+            18,
+            25
           ],
           [
-            40,
-            14
+            34,
+            12
           ],
           [
-            50,
-            4
+            38,
+            12
           ],
           [
-            62,
-            4
+            41,
+            29
           ],
           [
-            76,
-            7
+            44,
+            33
           ],
           [
-            91,
-            19
+            49,
+            33
+          ],
+          [
+            53,
+            25
+          ],
+          [
+            58,
+            10
+          ],
+          [
+            64,
+            10
+          ],
+          [
+            80,
+            18
+          ],
+          [
+            88,
+            25
+          ],
+          [
+            96,
+            25
           ],
           [
             105,
-            19
+            12
           ],
           [
             124,
-            19
+            12
           ]
         ]
       ],
       "components": [
         {
-          "id": "033-BASIN-BUTTRESS",
+          "id": "033-BREAKABLE-EAVE",
           "poly": [
             [
-              57,
-              4
+              69,
+              36
             ],
             [
-              60,
-              4
+              75,
+              39
             ],
             [
-              64,
-              5
+              82,
+              38
             ],
             [
-              66,
-              21
+              85,
+              34
             ],
             [
-              63,
-              26
+              81,
+              27.5
             ],
             [
-              60,
-              22
-            ],
-            [
-              58,
-              12
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "033-LEFT-BROKEN-ARCH",
-          "poly": [
-            [
-              38,
-              26
-            ],
-            [
-              44,
-              31
-            ],
-            [
-              52,
-              32
-            ],
-            [
-              58,
-              28
-            ],
-            [
-              56,
-              24
-            ],
-            [
-              45,
-              23
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "033-RIGHT-BREACH",
-          "poly": [
-            [
-              98,
-              19
-            ],
-            [
-              104,
-              19
-            ],
-            [
-              104,
-              30
-            ],
-            [
-              99,
-              33
-            ],
-            [
-              97,
-              30
+              73,
+              27.5
             ]
           ],
           "destructible": true
@@ -5313,37 +5249,36 @@
         {
           "type": "W",
           "v": [
-            30,
-            52,
-            4
+            18,
+            36,
+            12
           ]
         },
         {
           "type": "W",
           "v": [
-            75,
-            96,
-            7
+            62,
+            80,
+            10
           ]
         },
         {
           "type": "C",
           "v": [
-            66,
-            108,
-            19,
-            43
+            90,
+            110,
+            46,
+            62
           ]
         },
         {
           "type": "K",
           "v": [
-            67,
-            34,
+            99,
+            50,
             25
           ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "現行Kは長さ110px固定。拡大にはジオメトリ改修が必要"
+          "sizeFactor": 1.8
         }
       ],
       "skills": {},
@@ -5363,10 +5298,10 @@
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "広い谷の底で弾を跳ね、右の岸へ運ぶ",
-      "tacticalGoalEn": "Bounce through the broad valley toward the right bank.",
+      "tacticalGoal": "中央の射点から、左へ返す鏡と右へ送る鏡の入射方向を選ぶ。",
+      "tacticalGoalEn": "Choose between a leftward entry that returns over the rock and a rightward entry beneath it.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "7.1-approved-idea-refinement",
       "worldWidth": 1240
     },
     {
@@ -5777,216 +5712,143 @@
     },
     {
       "id": 36,
-      "name": "水晶と割れた門",
-      "nameEn": "Crystal and Cracked Gate",
+      "name": "結晶へ入れる斜面の交差",
+      "nameEn": "Crossing Slopes into the Crystal",
       "theme": 7,
       "boss": false,
       "spawn": [
         [
           16,
-          10
+          12
         ],
         [
           106,
-          31
+          25
         ]
       ],
       "floors": [
         [
           [
             0,
-            10
-          ],
-          [
-            16,
-            10
-          ],
-          [
-            30,
-            10
-          ],
-          [
-            38,
-            8
-          ],
-          [
-            46,
-            4
-          ],
-          [
-            58,
-            4
-          ],
-          [
-            70,
             12
           ],
           [
-            83,
+            16,
+            12
+          ],
+          [
+            29,
+            12
+          ],
+          [
+            36,
+            15
+          ],
+          [
+            45,
+            25
+          ],
+          [
+            56,
+            30
+          ],
+          [
+            63,
             31
           ],
           [
-            99,
-            31
+            69,
+            26
+          ],
+          [
+            76,
+            14
+          ],
+          [
+            84,
+            14
+          ],
+          [
+            94,
+            25
+          ],
+          [
+            108,
+            25
           ],
           [
             120,
-            31
+            22
           ]
         ]
       ],
       "components": [
         {
-          "id": "036-LEFT-LOW",
+          "id": "036-DESCENDING-BEAM",
           "poly": [
             [
-              42,
-              4
+              57,
+              35
             ],
             [
-              48,
-              4
+              63,
+              38
             ],
             [
-              48,
-              18
-            ],
-            [
-              42,
-              18
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "036-LEFT-HIGH",
-          "poly": [
-            [
-              42,
-              30
-            ],
-            [
-              48,
-              30
-            ],
-            [
-              48,
-              47
-            ],
-            [
-              42,
-              47
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "036-RIGHT-LOW",
-          "poly": [
-            [
-              70,
-              12
-            ],
-            [
-              76,
-              12
-            ],
-            [
-              76,
-              20
-            ],
-            [
-              70,
-              20
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "036-RIGHT-HIGH",
-          "poly": [
-            [
-              70,
-              32
-            ],
-            [
-              76,
-              32
-            ],
-            [
-              76,
-              48
-            ],
-            [
-              70,
-              48
-            ]
-          ],
-          "destructible": false
-        },
-        {
-          "id": "036-LOW-PLUG",
-          "poly": [
-            [
-              53,
-              4
-            ],
-            [
-              59,
-              4
-            ],
-            [
-              59,
-              16
-            ],
-            [
-              53,
-              16
-            ]
-          ],
-          "destructible": true
-        },
-        {
-          "id": "036-SUSPENDED-BRIDGE",
-          "poly": [
-            [
-              49,
-              43
-            ],
-            [
-              55,
-              47
+              77,
+              31
             ],
             [
               80,
-              47
+              25
             ],
             [
-              87,
-              43
+              73,
+              27
             ],
             [
-              83,
-              40
-            ],
-            [
-              55,
-              40
+              60,
+              31
             ]
           ],
           "destructible": false
+        },
+        {
+          "id": "036-LOW-GATE",
+          "poly": [
+            [
+              78,
+              14
+            ],
+            [
+              83,
+              14
+            ],
+            [
+              83,
+              33
+            ],
+            [
+              80,
+              36
+            ],
+            [
+              77,
+              32
+            ]
+          ],
+          "destructible": true
         }
       ],
       "features": [
         {
           "type": "K",
           "v": [
-            80,
+            86,
             39,
             35
           ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+          "sizeFactor": 1.8
         }
       ],
       "skills": {},
@@ -6006,10 +5868,10 @@
       "midboss": false,
       "encounterId": "enemy:riff",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "門を壊してから、水晶側と床側の経路を比べる",
-      "tacticalGoalEn": "Open the gate, then compare crystal and floor routes.",
+      "tacticalGoal": "斜面から結晶へ入れ、東岸へ返す。梁の先から門を開く経路も選べる。",
+      "tacticalGoalEn": "Send a shot into the crystal toward the east bank, or open the gate from the end of the beam.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "7.1-approved-idea-refinement",
       "worldWidth": 1200
     },
     {
@@ -6373,129 +6235,121 @@
     },
     {
       "id": 39,
-      "name": "反転する道標",
-      "nameEn": "Turning Signposts",
+      "name": "結晶の向きで選ぶ射点",
+      "nameEn": "Firing Positions for the Turning Crystal",
       "theme": 7,
       "boss": false,
       "spawn": [
         [
-          36,
-          8
+          25,
+          40
         ],
         [
-          92,
-          29
+          97,
+          10
         ]
       ],
       "floors": [
         [
           [
             0,
-            10
+            40
           ],
           [
-            16,
-            10
+            30,
+            40
           ],
           [
-            28,
-            10
+            38,
+            23.272727272727273
           ],
           [
-            36,
-            8
+            41,
+            17
           ],
           [
             48,
-            7
+            12
           ],
           [
-            58,
-            13
+            74,
+            12
           ],
           [
-            68,
-            22
+            79,
+            20
           ],
           [
-            80,
-            29
+            84,
+            20
           ],
           [
-            93,
-            29
+            91,
+            10
           ],
           [
             105,
-            29
+            10
           ]
         ]
       ],
       "components": [
         {
-          "id": "039-SHORT-CAVERN-ROOF",
+          "id": "039-CRYSTAL-ENTRY-EAVE",
           "poly": [
             [
-              29,
-              32
-            ],
-            [
-              36,
-              39
-            ],
-            [
-              47,
-              41
-            ],
-            [
-              57,
-              37
-            ],
-            [
-              58,
-              30
-            ],
-            [
-              56,
-              23
+              43,
+              47
             ],
             [
               46,
-              21
+              53
             ],
             [
-              35,
-              21
+              52,
+              52
             ],
             [
-              29,
-              23
+              54,
+              45
+            ],
+            [
+              52,
+              35
+            ],
+            [
+              48,
+              37
+            ],
+            [
+              44,
+              40
             ]
           ],
           "destructible": false
         },
         {
-          "id": "039-BREAKABLE-EXIT",
+          "id": "039-EAVE-CHIP",
           "poly": [
             [
-              58,
-              26
+              51,
+              50
             ],
             [
-              62,
-              31
+              55,
+              49
             ],
             [
-              67,
-              30
+              56,
+              44
             ],
             [
-              67,
-              25
+              53,
+              42
             ],
             [
-              61,
-              23
+              51,
+              44
             ]
           ],
           "destructible": true
@@ -6505,27 +6359,26 @@
         {
           "type": "W",
           "v": [
-            76,
-            101,
-            29
+            54,
+            70,
+            12
           ]
         },
         {
           "type": "K",
           "v": [
-            71,
-            39,
+            60,
+            30,
             15
           ],
-          "sizeFactor": 1.8,
-          "implementationRequired": "Kの現行反射長110px→計画上198px。実装改修が必要"
+          "sizeFactor": 1.8
         },
         {
           "type": "B",
           "v": [
-            31,
-            9.25,
-            29,
+            38,
+            23.272727272727273,
+            13,
             0
           ]
         }
@@ -6538,17 +6391,15 @@
           "skillId": "S_ENEMY_SKIP",
           "category": "normal-skill",
           "amount": 2,
-          "x": 56.542,
-          "h": 21.464,
+          "x": 53,
+          "h": 20,
           "spawnTurn": 5,
           "placementId": "L039:skill:S_ENEMY_SKIP",
           "verification": {
-            "angle": 41,
-            "power": 90,
-            "walk": 0,
-            "neighborHits": 9,
-            "neighborShots": 9,
-            "attackDamage": 0
+            "angle": -12,
+            "power": 40,
+            "neighborHits": 4,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
           }
         }
       ],
@@ -6567,10 +6418,10 @@
       "midboss": false,
       "encounterId": "enemy:slate",
       "recommendedCharacter": "rico",
-      "tacticalGoal": "向きの変わる水晶を見て、低い床か上空を選ぶ",
-      "tacticalGoalEn": "Watch the crystal change direction before choosing a shot.",
+      "tacticalGoal": "結晶の向きに合わせ、西の斜面から入れるか、東の裾から折り返すかを選ぶ。",
+      "tacticalGoalEn": "Choose the west bank or the east foothill to match the crystal direction. The bridge changes the lower firing position.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "7.1-approved-idea-refinement",
       "worldWidth": 1050
     },
     {
@@ -8063,61 +7914,69 @@
     },
     {
       "id": 47,
-      "name": "鉱車の上下路",
-      "nameEn": "Upper and Lower Mine Routes",
+      "name": "梁を越す上路と鏡の下路",
+      "nameEn": "Over the Beam or Along the Lower Mirror",
       "theme": 9,
       "boss": false,
       "spawn": [
         [
-          16,
-          27
+          10,
+          29
         ],
         [
-          101,
-          22
+          103,
+          8
         ]
       ],
       "floors": [
         [
           [
             0,
-            27
+            29
           ],
           [
-            16,
-            27
+            10,
+            29
+          ],
+          [
+            18,
+            31
+          ],
+          [
+            22,
+            31
           ],
           [
             27,
-            27
+            20
           ],
           [
-            34,
-            19
-          ],
-          [
-            43,
+            35,
             8
           ],
           [
-            61,
+            58,
+            6
+          ],
+          [
+            78,
+            12
+          ],
+          [
+            87,
+            17
+          ],
+          [
+            91,
+            17
+          ],
+          [
+            97,
             8
-          ],
-          [
-            71,
-            14
-          ],
-          [
-            83,
-            22
-          ],
-          [
-            100,
-            22
           ],
           [
             115,
-            22
+            8
           ]
         ]
       ],
@@ -8126,28 +7985,28 @@
           "id": "047-TOP-CART-TRACK",
           "poly": [
             [
-              42,
-              39
-            ],
-            [
-              48,
-              45
-            ],
-            [
-              65,
-              45
-            ],
-            [
-              71,
-              41
-            ],
-            [
-              67,
+              35,
               36
             ],
             [
-              48,
+              40,
+              40
+            ],
+            [
+              46,
+              40
+            ],
+            [
+              49,
               36
+            ],
+            [
+              45,
+              33
+            ],
+            [
+              39,
+              32
             ]
           ],
           "destructible": false
@@ -8156,27 +8015,35 @@
           "id": "047-BROKEN-TUNNEL",
           "poly": [
             [
-              77,
+              58,
+              37
+            ],
+            [
+              61,
+              42
+            ],
+            [
+              68,
+              44
+            ],
+            [
+              71,
+              40
+            ],
+            [
+              68,
+              36
+            ],
+            [
+              63,
               34
             ],
             [
-              82,
-              39
+              60,
+              28
             ],
             [
-              91,
-              39
-            ],
-            [
-              96,
-              35
-            ],
-            [
-              92,
-              31
-            ],
-            [
-              81,
+              57,
               31
             ]
           ],
@@ -8187,18 +8054,19 @@
         {
           "type": "W",
           "v": [
-            40,
-            69,
+            60,
+            78,
             8
           ]
         },
         {
           "type": "B",
           "v": [
-            70,
+            22,
+            31,
             14,
-            24,
-            0
+            0,
+            22
           ]
         }
       ],
@@ -8210,17 +8078,15 @@
           "weaponId": "W23",
           "category": "weapon",
           "amount": 2,
-          "x": 51.102,
-          "h": 12.673,
+          "x": 56.206415665148185,
+          "h": 12.71990183729597,
           "spawnTurn": 1,
           "placementId": "L047:weapon:W23",
           "verification": {
-            "angle": -5,
-            "power": 49,
-            "walk": 0,
-            "neighborHits": 9,
-            "neighborShots": 9,
-            "attackDamage": 1.5
+            "angle": 64,
+            "power": 65,
+            "neighborHits": 3,
+            "scope": "Actual W01 trajectory from initial position; 9 inputs angle ±2/output ±3, item revealed for native collision probe."
           }
         }
       ],
@@ -8239,10 +8105,10 @@
       "midboss": false,
       "encounterId": "enemy:blast",
       "recommendedCharacter": "koro",
-      "tacticalGoal": "下段を転がすか、上段から梁の先を狙う",
-      "tacticalGoalEn": "Roll along the low floor or fire from the upper shelf.",
+      "tacticalGoal": "上段から岩梁を越すか、下段の鏡で返すか。上下で通る障害と射撃方向を変える。",
+      "tacticalGoalEn": "Arc over the beam from the upper shelf, or reflect from the inclined lower mirror.",
       "enemyHp": 4,
-      "terrainRevision": "6.0-approved-001-050",
+      "terrainRevision": "7.1-approved-idea-refinement",
       "worldWidth": 1150
     },
     {
