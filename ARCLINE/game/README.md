@@ -1,3 +1,5 @@
+0.24.4：地形の線の調整正本は `../design/components/runtime-approval.json` の `runtimeStyleOverrides`。承認時の素材JSONを固定したまま、`tools/build_components.py` が輪郭・接地辺の幅と濃さだけを上書きする。元の面色・領域表示は維持。[検証](../docs/releases/0.24.4.md)。
+
 0.24.3：初期画面内の46カプセルを保証する表示と31個の配置調整は `dist/render.js`／`design/pickup_placements.json`。難易度カードの枠内折返しは `styles/chapter-flow.css`、低い天井の説明の画角は `dist/preview.js`。ボス戦開始時の `audio-manager.prepare` と `ending_media.json` の勝利曲開始位置0.21秒で読み込み待ちと先頭無音を削減。原音源・保存・地形・物理は維持。[検証](../docs/releases/0.24.3.md)。
 
 # コードと生成物の編集先
