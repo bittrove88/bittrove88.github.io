@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "change": "修正単位で選択した検査を実行するCIへ変更",
+  "reason": "CIと検査ツールの実行範囲・停止条件を変更するため、実際のCLIを使う自己検査で選択と除外を確認する。ゲーム本編・生成元・素材には変更がない。",
+  "files": [
+    ".github/workflows/arcline-checks.yml",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tests/verification-planning.test.cjs",
+    "ARCLINE/game/tools/plan-checks.cjs",
+    "ARCLINE/game/tools/run-check-plan.cjs",
+    "ARCLINE/game/tools/select_browser.cjs",
+    "ARCLINE/game/tools/test.cjs"
+  ],
+  "suites": {
+    "unit": ["verification-planning"]
+  },
+  "checks": {
+    "generated": false,
+    "baseline": false,
+    "package": false,
+    "python": false,
+    "nativeAudio": false
+  },
+  "manual": [
+    "CI YAMLの構文と条件を確認する",
+    "追加した文書リンクとGit差分を確認する"
+  ],
+  "excluded": [
+    {
+      "scope": "戦闘・全マップ・保存・仲間加入の再検査",
+      "reason": "本編の処理とデータを変更しないため"
+    },
+    {
+      "scope": "音声・映画・全生成物・配布パッケージの再検査",
+      "reason": "素材・生成元・配布物を変更しないため"
+    }
+  ]
+}
