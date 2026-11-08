@@ -231,7 +231,7 @@ function releaseCharge(id){
 }
 function launch(plan=null){
  if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
- if(!shot)return;persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
+ if(!shot)return;shot.presentationAge=0;shot.motion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
 }
 function beginVictory(){if(victoryToken===gameToken||!ArcAudio.victoryFor(s,runContext||{}))return;victoryToken=gameToken;bgm.request('VICTORY',{restart:true});audioSync();}
 function finishResult(){
@@ -270,7 +270,7 @@ async function persistAdvance(){
 function advanceTurn(){
  const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial,beforeTeam=s.finalTeam?.serial,beforeState={...s,units:beforeUnits,world:beforeWorld};E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(beforeTeam!==s.finalTeam?.serial){cpuJob=null;cpuReady=null;jobId++;transition=s.finalTeam?.travel?ArcFinalTravel.create(beforeState,renderer.view,s.finalTeam.travel,reducedMotion):null;s.time=transition?.duration||s.time;clearInput();renderer.resetCamera();sfx.prepare(s.characterId);}if(s.phase==='over'){finishResult();return;}
  if(beforeTeam!==s.finalTeam?.serial)finalRetryEntry=ArcFinalTeam.snapshot(s);
- if(s.turn){s.time=0;if(!cpuJob&&!cpuReady)requestCPU();}else{shot=null;}
+ if(s.turn){s.time=s.telegraph?.technique?s.telegraph.windup:0;if(!cpuJob&&!cpuReady)requestCPU();}else{shot=null;}
  hud();
 }
 function requestCPU(){
@@ -280,6 +280,7 @@ function requestCPU(){
 }
 if(typeof Worker!=='undefined')try{worker=new Worker('cpu-worker.js?v='+ArcRelease.cacheVersion);worker.onmessage=event=>{const r=event.data;if(!cpuJob||r.id!==cpuJob.id||cpuJob.token!==gameToken)return;if(r.error){platformStatus.errors.push(r.error);worker.terminate();worker=null;requestCPU();return;}cpuReady=r;platformStatus.cpuJobs.push({worker:true,elapsed:r.elapsed});};worker.onerror=e=>{platformStatus.errors.push(e.message);worker.terminate();worker=null;if(s&&(s.turn||cpuJob))requestCPU();};}catch(e){platformStatus.errors.push(String(e));}
 function update(dt,realDt=dt){
+ let actionDt=dt;
  sfxSync();updateSpecialNotice();
  if(mapCamera?.active)return;
  if(!hostPaused()&&!manualPaused)ArcCharacterHero.updateAll(dt);
@@ -301,9 +302,9 @@ function update(dt,realDt=dt){
   s.cpuMoveTime+=dt;const ratio=Math.min(1,s.cpuMoveTime/s.cpuMoveDuration),x=s.cpuStart+(s.cpuTarget-s.cpuStart)*ratio;G.move(s,1,x-s.units[1].x);
   if(ratio>=1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
  }else if(s.phase==='flight'){
-  flight+=dt;sfx.update(Math.min(flight,shot.duration));const before=shot.appliedEvents;E.applyEvents(s,shot,flight,acquired);
+  shot.presentationAge+=dt;const previousFlight=flight;flight=shot.motion.at(shot.presentationAge);actionDt=Math.max(0,flight-previousFlight);sfx.update(Math.min(flight,shot.duration));const before=shot.appliedEvents;E.applyEvents(s,shot,flight,acquired);
   for(const e of shot.events.slice(before,shot.appliedEvents)){if(e.type==='cloud')tone(180,.09,'triangle',.03);if(e.type==='phase')tone(1400,.08,'sine',.04);}
-  if(flight>=shot.duration){
+  if(flight>=shot.duration-1e-8&&shot.motion.done(shot.presentationAge)){
    const last=shot,parts=s.units.map(u=>u.parts.map(p=>p.hp));E.resolve(s,last,acquired);tail={shot:last,age:0};impact={...last.end,age:0,weaponId:last.weaponId,shot:last,damage:last.damage};shot=null;
    s.units.forEach((u,i)=>{const broken=u.parts.flatMap((p,j)=>p.hp<=0&&parts[i][j]>0?[j]:[]);if(last.damage[i]>0||broken.length)u.reaction={age:0,damage:last.damage[i],side:last.side,broken};});
    if(!last.events.some(e=>e.type==='pickup'))feedback=last.teleport&&!last.teleportSuccess?'No landing':'';sfx.finish();if(last.teleport)tone(580,.3,'sine',.15);
@@ -319,7 +320,7 @@ function update(dt,realDt=dt){
  }
  for(const p of pickupEffects)p.age+=dt;pickupEffects=pickupEffects.filter(p=>p.age<.8);
  for(const u of s.units)if(u.teleportFlash&&(u.teleportFlash.age+=dt)>.8)delete u.teleportFlash;
- for(const u of s.units)if(u.animation){u.animation.age+=dt;if(u.animation.age>=u.animation.duration)delete u.animation;}
+ for(const u of s.units)if(u.animation){u.animation.age+=actionDt;if(u.animation.age>=u.animation.duration)delete u.animation;}
  for(const u of s.units){if(u.recoil&&(u.recoil.age+=dt)>.22)delete u.recoil;if(u.reaction&&(u.reaction.age+=dt)>.7)delete u.reaction;}
  if(reward){reward.age+=dt;if(reward.age>3)reward=null;}
  if(ending)ending.age+=dt;

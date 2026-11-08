@@ -2,6 +2,7 @@
 'use strict';
 const E=typeof module!=='undefined'?require('./engine.js'):root.ArcEngine,G=E.geometry;
 const L=typeof module!=='undefined'?require('./lessons.js'):root.ArcLessons;
+const Motion=typeof module!=='undefined'?require('./attack-motion.js'):root.ArcAttackMotion;
 const clone=value=>JSON.parse(JSON.stringify(value));
 const titles={controls:'HOLD · RELEASE',slope:'MOVE · AIM',height:'CHANGE YOUR POSITION',pickup:'SHOOT THE CAPSULE',reflection:'REFLECTIVE GROUND',W:'REFLECTIVE GROUND',B:'OPEN · CLOSED',C:'CLOUD SLOWS THE SHOT',K:'BOUNCE OFF THE MIRROR',U:'RIDE THE UPDRAFT',F:'LET THE WIND CARRY',V:'VENT ON · OFF',M:'FOLLOW THE CURVE',terminal:'SWITCH THE FIELD',roof:'SHOOT UNDER THE ROOF',BURST:'A WIDER BLAST',BLINK:'CHOOSE A LANDING',PUSH:'PUSH THE RIVAL',PULL:'PULL THE RIVAL',BOUNCE:'ADD ONE BOUNCE',SPLIT:'SPLIT AT THE TOP',PHASE:'THROUGH A THIN WALL',SWAP:'EXCHANGE POSITIONS','boss-swap':'TURN THE CORE','ceiling-lift':'STAY BELOW THE ROOF','gate-choices':'CHOOSE YOUR ENTRANCE'};
 for(const id of L.ids)titles[id]=L.describe(id).title;
@@ -47,7 +48,8 @@ function useful(s,id,plan){
   return after.world.regions.some(r=>r.kind==='M'&&r.direction!==s.world.regions.find(v=>v.id===r.id)?.direction);
  }
  if(id==='W09')return plan.bullets.length===3&&plan.damage[1]>.1;
- if(id==='W11')return plan.bullets.length===2&&plan.impacts.filter(i=>i.hit?.unit===1).length===2;
+ if(id==='W10'||id==='W21')return plan.events.some(e=>e.type==='split')&&plan.damage[1]>.1;
+ if(id==='W11')return plan.bullets.length===(E.weapon(s,0,'W11').shots||2)&&plan.impacts.filter(i=>i.hit?.unit===1).length>=2;
  if(id==='W02')return plan.damage[1]>=1.2;
  if(id==='BURST'){const plain=E.trajectory(s,0,plan.angle,plan.power,{skill:null});return plan.damage[1]>plain.damage[1]+.1;}
  if(['PHASE','W13'].includes(id)){
@@ -111,6 +113,7 @@ function decorate(result,id,source){
  if(source==='boss-demo')result.context='BOSS DEMO';
  result.focus={...result.focus,radius:170};result.annotation={x:result.focus.x,y:result.focus.y,label:annotations[id]||description.title};
  result.cue={control:id==='controls'?'fire':id==='aim'?'aimStick':['move','slope','height'].includes(id)?'stick':E.skills.includes(id)?'skill':/^W\d\d$/.test(id)?'weapon':'feature',axis:id==='aim'?1:0};
+ if(result.plan&&Motion){result.attackMotion=Motion.create(result.plan);result.flightEnd=result.flightStart+result.attackMotion.duration/(result.playbackRate||1);result.duration=result.flightEnd+(result.resultHold||resultHold);}
  const points=result.plan?.bullets.flatMap(b=>b.path.filter((p,i)=>i%8===0||i===b.path.length-1)).filter(p=>p.x>=0&&p.x<=1000&&p.y>=-250&&p.y<=560)||[];
  result.framing={points:[...points,{x:result.before.units[0].x,y:result.before.units[0].y-30},result.focus],subjects:[0,...(/^W\d\d$/.test(id)||E.skills.includes(id)||id==='boss-core'||id==='boss-swap'||id==='controls'?[1]:[])]};
  // Keep the roof and the clearance below it visible in every lesson phase.
@@ -182,7 +185,7 @@ function at(preview,age=preview?.age||0){
  if(preview.duration>0)time%=preview.duration;
  if(preview.variants){for(let i=0;i<preview.variants.length;i++){const candidate=preview.variants[i];if(time<candidate.duration||i===preview.variants.length-1){local=candidate;index=i;break;}time-=candidate.duration;}}
  const phase=time<local.flightStart?'WATCH':time<local.flightEnd?'SHOT':'RESULT',rate=local.playbackRate||1;
- const flight=local.plan?E.clamp((time-local.flightStart)*rate,0,local.plan.duration):0;
+ const playback=Math.max(0,(time-local.flightStart)*rate),flight=local.plan?(local.attackMotion?local.attackMotion.at(playback):E.clamp(playback,0,local.plan.duration)):0;
  const effectProgress=local.plan?E.clamp((time-local.flightEnd)/.35,0,1):E.clamp((time-local.flightStart)/Math.max(.01,local.flightEnd-local.flightStart),0,1);
  const pose={...local.pose};if(local.motion?.kind==='aim'&&phase==='WATCH'){const t=E.clamp(time/Math.max(.01,local.flightStart),0,1),ease=t*t*(3-2*t);pose.angle=local.motion.fromAngle+(local.motion.toAngle-local.motion.fromAngle)*ease;}
  const displayPower=local.id==='controls'&&phase==='WATCH'?E.chargePower(time,local.state):pose.power;
@@ -193,10 +196,10 @@ function at(preview,age=preview?.age||0){
 function specialPreview(original,id){
  const weapon=E.combat.weapons.find(w=>w.id===id&&w.special);if(!weapon)return null;
  const state=fixture(original,id);state.characterId=weapon.machineId;state.specialAmmo=3;state.mode=id;state.selectedSkill=null;state.weaponStock={};
- const target={gun:520,ban:590,hibari:650,hana:440,rin:720,mogu:650,koro:800,sora:580,rico:760,yui:650}[weapon.machineId];
+ const target={gun:520,ban:590,hibari:650,hana:440,rin:720,mogu:weapon.volley?600:650,koro:800,sora:580,rico:760,yui:650}[weapon.machineId];
  state.spec.components=[];state.spec.features=[];
  if(weapon.machineId==='gun')state.spec.components=[{id:'demo-cover',destructible:true,poly:[[40,20],[46,20],[46,12],[40,12]]}];
- if(weapon.machineId==='mogu')state.spec.components=[{id:'demo-cover',destructible:true,poly:[[40,28],[52,28],[52,12],[40,12]]}];
+ if(weapon.machineId==='mogu')state.spec.components=weapon.volley?[44,48,52].map((x,i)=>({id:'demo-cover-'+i,destructible:true,poly:[[x,28],[x+2,28],[x+2,12],[x,12]]})):[{id:'demo-cover',destructible:true,poly:[[40,28],[52,28],[52,12],[40,12]]}];
  if(weapon.machineId==='rico')state.spec.features=[{type:'R',v:[30,85,28]}];
  if(weapon.machineId==='koro')state.spec.floors=[[[0,12],[48,12]],[[58,4],[100,4]]];
  state.world=G.world(state.spec);const hp=E.combat.get(state.characterId).hp/E.combat.pointsPerUnit;
@@ -206,12 +209,12 @@ function specialPreview(original,id){
   if(weapon.machineId==='gun')return plan.damage[1]>.2&&plan.destroyed.length>0;
   if(weapon.machineId==='ban')return hit&&events.some(e=>e.type==='shockwave')&&!plan.impacts.some(i=>i.hit?.unit===1)&&state.units[1].x-plan.end.x>70;
   if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');
-  if(weapon.machineId==='hana')return plan.bullets.length===3&&plan.damage[1]>1.2;
+  if(weapon.machineId==='hana')return plan.bullets.filter(b=>!b.effect).length===(weapon.volley?.length||3)&&plan.damage[1]>.6;
   if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=2.45;
-  if(weapon.machineId==='mogu')return events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
+  if(weapon.machineId==='mogu')return weapon.volley?hit&&plan.bullets.filter(b=>!b.effect).length===3&&plan.destroyed.length>=2:events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
   if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;
-  if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.length===9&&events.some(e=>e.type==='split');
-  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length===4&&plan.damage[1]>=weapon.damageCap-1e-6;
+  if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.filter(b=>!b.effect).length===weapon.splitCount+1&&events.some(e=>e.type==='split');
+  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length===weapon.maxBounces&&plan.damage[1]>=weapon.damageCap-1e-6;
   return hit&&events.some(e=>e.type==='pull'&&Math.abs(e.to.x-e.from.x)>60)&&events.some(e=>e.type==='compression');
  };
  let found=null;

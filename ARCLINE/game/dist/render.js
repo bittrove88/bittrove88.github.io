@@ -335,10 +335,11 @@ function create(canvas,configuration={}){
   if(demonstration?.focus){const focus=demonstration.focus,radius=focus.radius||85,glow=ctx.createRadialGradient(focus.x,focus.y,0,focus.x,focus.y,radius);glow.addColorStop(0,'#f5ffc415');glow.addColorStop(1,'#f5ffc400');circle(focus.x,focus.y,radius,glow);}
   if(!lobby&&!localDemo&&s.telegraph){
    const t=s.telegraph,y=G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y;
-   path([{x:t.targetX-t.radius,y:y+5},{x:t.targetX+t.radius,y:y+5}],'#ffc09c',5,[7,6]);
+   for(const dx of t.columns||[0])path([{x:t.targetX+dx-t.radius,y:y+5},{x:t.targetX+dx+t.radius,y:y+5}],'#ffc09c',5,[7,6]);
    for(let x=t.targetX-t.radius;x<t.targetX+t.radius;x+=15)path([{x,y:y+14},{x:x+9,y:y+4}],'#ffccac',2);
-   ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#ffe2c2';ctx.fillText('!',t.targetX,y+20/scale);
+   ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#ffe2c2';ctx.fillText(t.technique?(root.ArcI18n?.language==='en'?t.nameEn:t.name)||'!':'!',t.targetX,y+20/scale);
   }
+  if(s.effects.gravityField||demonstration?.after?.effects.gravityField){const f=s.effects.gravityField||demonstration.after.effects.gravityField;ctx.save();ctx.globalAlpha=.65;circle(f.x,f.y,f.radius,'#a6b6cc12','#c7d6ea');circle(f.x,f.y,9/scale,'#172432','#e5edf5');for(let i=0;i<3;i++){ctx.beginPath();ctx.ellipse(f.x,f.y,f.radius*.8,f.radius*.25,i*Math.PI/3,0,Math.PI*2);ctx.strokeStyle='#a8bdd0';ctx.lineWidth=1/scale;ctx.stroke();}ctx.restore();}
   for(const item of s.pickups){if(localDemo&&demonstration.id!=='pickup')continue;if(!isArenaPickup(item)||demonstration?.plan?.events.some(e=>e.type==='pickup'&&e.id===item.id&&demoFlight>=e.t))continue;const y=item.y+(options.reducedMotion?0:Math.sin(time*Math.PI+item.x)*4);
    if(unified){root.ArcVisualArt.drawPickup(ctx,item,{time,dpr,reducedMotion:options.reducedMotion,bounds:{left:-view.x/scale,right:(w-view.x)/scale,top:(Math.max(top,header?.bottom||0)+2-view.y)/scale,bottom:(bottom-view.y)/scale}});continue;}
    const trial=item.kind==='trial',ammo=item.kind==='ammo',skillBox=item.kind==='skill';ctx.save();ctx.translate(item.x,y);round(-22,-18,44,36,7,skillBox?'#536987':trial?'#6d7858':'#596b78');ctx.strokeStyle=trial?'#efffb8':'#d5efff';ctx.lineWidth=2/scale;ctx.strokeRect(-20,-16,40,32);
@@ -370,7 +371,7 @@ function create(canvas,configuration={}){
     path([{x:x-r*.6,y},{x:x+r*.6,y}],'#fff0b0',2/scale);
     path([{x,y:y-r*.6},{x,y:y+r*.6}],'#fff0b0',2/scale);
     ctx.font=`800 ${12/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#fff0b0';
-    ctx.fillText('×8',x,y-15/scale);
+    ctx.fillText('×'+(ArcWeapons.get(plan.weaponId).splitCount||8),x,y-15/scale);
     ctx.restore();
    }
    ctx.restore();
@@ -398,6 +399,8 @@ function create(canvas,configuration={}){
   }
   function shotAt(plan,t,alpha=1){
    const look=plan.side===1?{...appearance(plan.weaponId),color:'#ffab8c'}:appearance(plan.weaponId),rail=plan.weaponId==='W14'||plan.weaponId==='S_RIN';
+   if(root.ArcEffects)root.ArcEffects.forContext(ctx).draw(plan,t,{scale,alpha,reducedMotion:options.reducedMotion});
+   else{
    for(const b of plan.bullets){if(t<b.start)continue;let i=b.path.findIndex(p=>p.t>t);if(i<0)i=b.path.length;
     const points=b.path.slice(0,i),alive=t<=b.t;if(!points.length)continue;
     ctx.save();ctx.globalAlpha=alpha*.34;path(points,look.color,3/scale);
@@ -413,8 +416,9 @@ function create(canvas,configuration={}){
    for(const e of plan.events)if(e.type==='shockwave'&&t>=e.t&&t-e.t<.65){const age=(t-e.t)/.65,r=e.length*Math.min(1,age*2.5),a=e.halfAngle*Math.PI/180,base=e.direction<0?Math.PI:0;ctx.save();ctx.globalAlpha=alpha*(1-age);ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.arc(e.x,e.y,r,base-a,base+a);ctx.closePath();ctx.fillStyle=look.color+'30';ctx.fill();ctx.lineWidth=3/scale;ctx.strokeStyle=look.color;ctx.stroke();ctx.restore();}
    for(const e of plan.events)if(e.type==='pull'&&t>=e.t&&t-e.t<e.duration){const progress=(t-e.t)/e.duration;ctx.save();ctx.globalAlpha=alpha*(1-progress*.5);path([{x:e.from.x+(e.to.x-e.from.x)*progress,y:e.from.y+(e.to.y-e.from.y)*progress-22},{x:e.x,y:e.y}],look.color,3/scale,[5/scale,4/scale]);circle(e.x,e.y,(10+Math.sin(progress*Math.PI)*10)/scale,look.color+'44',look.color);ctx.restore();}
    for(const hit of plan.teleport?[]:plan.impacts||[])explosion(hit,t-hit.t,{...look,blast:root.ArcEffects?root.ArcEffects.impactBlast(plan,hit,look):look.blast},scale,options.reducedMotion,alpha);
-   const enemy=1-plan.side,damage=plan.damage?.[enemy]||0;
-   const marker=plan.impacts.find(i=>i.hit?.unit===enemy&&i.hit.kind==='weak')||plan.impacts.find(i=>i.hit?.unit===enemy)||plan.impacts.at(-1);
+   }
+   const enemy=1-plan.side,timed=plan.events.filter(e=>e.type==='damage'&&e.unit===enemy),arrived=timed.filter(e=>e.t<=t),damage=timed.length?Math.min(plan.damage?.[enemy]||0,arrived.reduce((n,e)=>n+e.value,0)):plan.damage?.[enemy]||0;
+   const marker=timed.length?arrived.at(-1):plan.impacts.find(i=>i.hit?.unit===enemy&&i.hit.kind==='weak')||plan.impacts.find(i=>i.hit?.unit===enemy)||plan.impacts.at(-1);
    if(!localDemo&&damage>0&&marker&&t>=marker.t&&t-marker.t<.9){const age=t-marker.t;ctx.save();ctx.globalAlpha=alpha*(1-age/.9);ctx.textAlign='center';ctx.font=`800 ${20/scale}px system-ui`;ctx.lineWidth=4/scale;ctx.strokeStyle='#19384c';ctx.fillStyle='#fff6c4';const special=!!ArcWeapons.get(plan.weaponId).special,label=(plan.events.some(e=>e.type==='critical')?(special?'CRITICAL':'CRITICAL ×1.5'):plan.events.some(e=>e.type==='weak')?(special?'CORE':'CORE ×'+(s.units[enemy].core?.multiplier||2)):'HIT')+' · '+E.combat.points(damage);ctx.strokeText(label,marker.x,marker.y-(48+age*38)/scale);ctx.fillText(label,marker.x,marker.y-(48+age*38)/scale);ctx.restore();}
   }
   if(shot)shotAt(shot,flight,1);

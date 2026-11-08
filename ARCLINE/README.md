@@ -183,3 +183,5 @@ python3 game/tools/build_playables.py --output /tmp/arcline-package
 [物語全文・ネタバレ](design/expedition_013/STORY_JA.md) ／ [23ショット](cinematics/) ／ [デザイン原本](design/sheets/) ／ [0.14.3](updates/0.14.3/) ／ [0.14.2](updates/0.14.2/) ／ [0.14.1](updates/0.14.1/)
 
 CODEX_HANDOFF、初期EXPORT_MANIFEST、旧版設計・検査結果は履歴として保持し、現在の合格数へ加算しない。ルートGitと通常pushを使い、別Gitの初期化・force push・他コンテンツへの無関係な変更をしない。
+
+攻撃0.29.0の変更後レビュー：[全技の動作確認](game/attack-review/)／[変更・検証記録](docs/releases/0.29.0-attacks.md)。未マージ・未公開。

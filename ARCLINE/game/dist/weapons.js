@@ -2,6 +2,7 @@
 'use strict';
 const C=typeof module!=='undefined'?require('./combat.js'):root.ArcCombat;
 const K=typeof module!=='undefined'?require('./skills.js'):root.ArcSkills;
+const A=typeof module!=='undefined'?require('./attack-catalog.js'):root.ArcAttackCatalog||{weapons:{},enemyTechniques:{}};
 const names=['Standard','Heavy Shell','Needle','Mortar','Hopper','Ricochet','Roller','Skipper','Fan Shot','Cluster','Twin','Airburst','Drill','Rail','Archer','Undercut','Impact','Magnet','Lifter','Pinball'];
 const weapons=names.map((name,i)=>({id:'W'+String(i+1).padStart(2,'0'),name,...C.ballistics,damage:1,blast:60,shots:1,bounces:0}));
 weapons[0].blast=64;
@@ -54,11 +55,13 @@ weapons.push(
 );
 const namesJa={W01:'通常弾',W03:'貫通針',W04:'迫撃弾',W05:'ホッパー',W06:'跳弾',W08:'低空跳弾',W13:'ドリル',W15:'急降下弾',W17:'押し出し弾',W18:'引き寄せ弾',W20:'ピンボール',W02:'重榴弾',W07:'転がる弾',W09:'扇状弾',W10:'分裂弾',W11:'連射弾',W12:'空中炸裂弾',W14:'レール弾',W16:'地走り弾',W19:'打ち上げ弾',W21:'二波雨弾',W22:'空中広域弾',W23:'吸収弾'};
 weapons.forEach(w=>{w.nameJa=namesJa[w.id]||w.name;w.legacy=w.id!=='W01'&&!activeIds.includes(w.id);});
-function getEnemy(id){return legacyWeapons.find(w=>w.id===id)||legacyWeapons[0];}
+for(const [id,row]of Object.entries(A.weapons)){const w=weapons.find(w=>w.id===id);if(w)Object.assign(w,row.params,{name:row.name,nameJa:row.nameJa,appearance:{...w.appearance,...row.appearance}});}
+const enemyTechniques=Object.entries(A.enemyTechniques||{}).map(([id,r])=>({id,...C.ballistics,shots:1,bounces:0,damage:1,blast:60,...r.params,name:r.name,nameJa:r.nameJa,enemyTechnique:true,appearance:{...r.appearance}}));
+function getEnemy(id){return enemyTechniques.find(w=>w.id===id)||legacyWeapons.find(w=>w.id===id)||legacyWeapons[0];}
 const coreUnlocks={W01:0,W02:3,W06:8,W14:13,W07:28,W12:35,W15:43,W10:48,W13:14,W16:67,W17:75,W19:84};
 const teleport={id:'TELEPORT',name:'Teleport',...C.ballistics,damage:0,blast:0,shots:1,bounces:0,teleport:true,appearance:{color:'#a9e9ff',shape:'ring',glyph:'◎',label:'WARP',size:7}};
 const skills=['BURST','BLINK','PUSH','BOUNCE','PULL','SPLIT','PHASE','SWAP',...K.ids];
-function get(id,characterId){if(id==='TELEPORT')return teleport;if(id==='W01'&&characterId)return C.get(characterId).normal;return weapons.find(w=>w.id===id)||C.weapons.find(w=>w.id===id)||weapons[0];}
+function get(id,characterId){if(id==='TELEPORT')return teleport;if(id==='W01'&&characterId)return C.get(characterId).normal;return weapons.find(w=>w.id===id)||C.weapons.find(w=>w.id===id)||enemyTechniques.find(w=>w.id===id)||weapons[0];}
 // Shared vector symbols for map capsules and inventory; no glyph-font fallback.
 const iconPaths={
  W01:'M12 5a7 7 0 1 0 0 14 7 7 0 1 0 0-14Z',
