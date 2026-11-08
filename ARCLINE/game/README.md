@@ -1,3 +1,5 @@
+0.29.4：マスターモードの進行・在庫編集は `dist/master-progress.js`、画面は `ui/master-mode.js` と `styles/master-mode.css`。現行カタログと在庫上限を使い、永続在庫と出撃チェックポイントを同時更新。[範囲](../docs/releases/0.29.4.md)。
+
 検証は修正単位で計画し、必要なスイート名を選択する。[検証運用](../docs/VERIFICATION.md)／[CI計画](../verification-plan.json)。`test.cjs <mode> <suite...> --list` で実行せず選択内容を確認できる。
 
 0.29.3：敵の変化を伝える3つの本文の正本は `../design/narrative_0_13.json`、`tools/build_story.py` と正式ビルドで再生成する。編集revision0.14.2・既読namespace0.13.0。[範囲](../docs/releases/0.29.3.md)。
