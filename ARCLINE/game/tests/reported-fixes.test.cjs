@@ -211,7 +211,7 @@ for (const file of [
 ]) {
   if(require('./attack-integration-preservation.cjs').changed(file)){require('./attack-integration-preservation.cjs').verify();continue;}
   eq(
-    fs.readFileSync(path.join(root, "game/dist", file)),
+    require("./recruit-ai-preservation.cjs").source(file,fs.readFileSync(path.join(root, "game/dist", file))),
     previous("game/dist/" + file),
     "all unrelated gameplay and prior UI fixes preserved " + file,
   );

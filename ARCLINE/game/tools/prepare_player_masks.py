@@ -14,9 +14,12 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser()
 p.add_argument('--output', required=True, type=Path)
+p.add_argument('--ids', nargs='*', help='Optionally prepare only selected player IDs')
 args = p.parse_args()
 args.output.mkdir(parents=True, exist_ok=True)
 for row in json.loads((ROOT/'design/ending-roll-preparation/player-masks.json').read_text())['rows']:
+    if args.ids and row['id'] not in args.ids:
+        continue
     image = Image.open(ROOT/f"assets/characters/unlock/{row['id']}.png").convert('RGB')
     mask = Image.new('L', image.size)
     draw = ImageDraw.Draw(mask)
@@ -25,10 +28,13 @@ for row in json.loads((ROOT/'design/ending-roll-preparation/player-masks.json').
     for poly in row['holes']:
         draw.polygon([tuple(pt) for pt in poly], fill=0)
     inside = np.array(mask)
-    foreground = cv2.erode(inside, cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(49,49)))
+    boundary = row.get("refinement") == "boundary-only-v2"
+    foreground = cv2.erode(inside, cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(7,7) if boundary else (49,49)))
     outside = cv2.dilate(inside, cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(9,9)))
     segmentation = np.where(inside>0,cv2.GC_PR_FGD,cv2.GC_BGD).astype('uint8')
     segmentation[(outside>0)&(inside==0)] = cv2.GC_PR_BGD
+    if boundary:
+        segmentation[outside==0] = cv2.GC_BGD
     segmentation[foreground>0] = cv2.GC_FGD
     keep = Image.new('L', image.size)
     draw = ImageDraw.Draw(keep)
@@ -38,6 +44,12 @@ for row in json.loads((ROOT/'design/ending-roll-preparation/player-masks.json').
     cv2.setRNGSeed(0)
     cv2.grabCut(np.array(image),segmentation,None,np.zeros((1,65)),np.zeros((1,65)),5,cv2.GC_INIT_WITH_MASK)
     alpha = np.where((segmentation==cv2.GC_FGD)|(segmentation==cv2.GC_PR_FGD),255,0).astype('uint8')
+    if row.get('preserveAlphaRegions'):
+        previous_path = ROOT/row['previousAlphaSource']
+        assert hashlib.sha256(previous_path.read_bytes()).hexdigest() == row['previousAlphaSha256']
+        previous = np.array(Image.open(previous_path).convert('L'))
+        for x1,y1,x2,y2 in row['preserveAlphaRegions']:
+            alpha[y1:y2,x1:x2] = np.maximum(alpha[y1:y2,x1:x2], previous[y1:y2,x1:x2])
     output = args.output/f"{row['id']}.png"
     Image.fromarray(alpha).save(output)
     print(row['id'], cv2.__version__, hashlib.sha256(output.read_bytes()).hexdigest())
