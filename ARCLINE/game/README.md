@@ -1,3 +1,5 @@
+検証は修正単位で計画し、必要なスイート名を選択する。[検証運用](../docs/VERIFICATION.md)／[CI計画](../verification-plan.json)。`test.cjs <mode> <suite...> --list` で実行せず選択内容を確認できる。
+
 0.29.3：敵の変化を伝える3つの本文の正本は `../design/narrative_0_13.json`、`tools/build_story.py` と正式ビルドで再生成する。編集revision0.14.2・既読namespace0.13.0。[範囲](../docs/releases/0.29.3.md)。
 
 0.29.1：本編の演出時計は `dist/game.js` が所有し、関数をWorkerへ送る射撃計画に保存しない。フリーズの回帰検証は `tests/battle-turn-continuity-browser.test.cjs`。[原因・検証範囲](../docs/releases/0.29.1.md)。

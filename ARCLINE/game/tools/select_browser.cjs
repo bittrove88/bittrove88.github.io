@@ -1,9 +1,10 @@
 'use strict';
-// Native AAC is part of the acceptance test. Select a locally installed browser
-// by decoding the approved bytes, rather than assuming bundled codecs exist.
+// Audio acceptance decodes approved AAC bytes; scoped non-audio checks can
+// select an installed browser without probing unrelated media.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),{chromium}=require('playwright');
-module.exports=async function selectBrowser(output){
+module.exports=async function selectBrowser(output,options={}){
  const candidates=process.env.ARCLINE_CHROMIUM?[process.env.ARCLINE_CHROMIUM]:['/usr/bin/chromium','/usr/bin/google-chrome',chromium.executablePath()];
+ if(options.nativeAudio===false){const selected=[...new Set(candidates)].find(f=>fs.existsSync(f));if(!selected)throw Error('No installed browser');fs.writeFileSync(path.join(output,'BROWSER_SELECTION.json'),JSON.stringify({status:'SELECTED',selected,nativeAudio:false},null,2)+'\n');return selected;}
  const track=fs.readFileSync(path.resolve(__dirname,'../../assets/audio/bgm/bgm_title.m4a')),rows=[];
  const server=http.createServer((q,r)=>{if(q.url==='/track.m4a'){r.setHeader('Content-Type','audio/mp4');r.end(track);}else{r.setHeader('Content-Type','text/html');r.end('<button id="play">Play</button>');}});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));

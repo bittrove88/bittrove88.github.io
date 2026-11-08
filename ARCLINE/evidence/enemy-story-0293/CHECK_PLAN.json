@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "mode": "planned",
+  "change": "既存の物語3枠に敵の行動変化を日英で織り込む",
+  "reason": "本文3枠と編集revision・キャッシュ識別だけを更新する。承認範囲以外の物語全文、保存namespace、映像字幕の保護と、該当3場面の日英表示・生成物を確認する。戦闘のソースは0.29.2と同一。",
+  "files": [
+    "ARCLINE/AGENTS.md",
+    "ARCLINE/README.md",
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/expedition_013/STAGES_JA.md",
+    "ARCLINE/design/expedition_013/STORY_JA.md",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/design/narrative_0_13.json",
+    "ARCLINE/design/story_emotion_0141/TEXT_DIFF.json",
+    "ARCLINE/design/story_emotion_0141/TEXT_DIFF.md",
+    "ARCLINE/design/story_emotion_0141/enemy-awareness-0293.json",
+    "ARCLINE/docs/CHANGELOG.md",
+    "ARCLINE/docs/releases/0.29.3.md",
+    "ARCLINE/evidence/enemy-story-0293/GENERATED.json",
+    "ARCLINE/evidence/enemy-story-0293/README.md",
+    "ARCLINE/evidence/enemy-story-0293/STORY_LAYOUT.json",
+    "ARCLINE/evidence/enemy-story-0293/clear41-568-ja.png",
+    "ARCLINE/evidence/enemy-story-0293/clear41-844-en.png",
+    "ARCLINE/evidence/enemy-story-0293/clear41-844-ja.png",
+    "ARCLINE/evidence/enemy-story-0293/entry41-568-ja.png",
+    "ARCLINE/evidence/enemy-story-0293/entry41-844-en.png",
+    "ARCLINE/evidence/enemy-story-0293/entry41-844-ja.png",
+    "ARCLINE/evidence/enemy-story-0293/entry71-568-ja.png",
+    "ARCLINE/evidence/enemy-story-0293/entry71-844-en.png",
+    "ARCLINE/evidence/enemy-story-0293/entry71-844-ja.png",
+    "ARCLINE/game/README.md",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/cinematic-data.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/story.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/enemy-story-browser.test.cjs",
+    "ARCLINE/game/tests/integration-preservation.cjs",
+    "ARCLINE/game/tests/recruit-ai-preservation.cjs",
+    "ARCLINE/game/tests/story-awareness-preservation.cjs",
+    "ARCLINE/game/tests/story-emotion-0141.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tools/build_playables.py",
+    "ARCLINE/game/tools/export_story_revision.py",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.29.3/index.html",
+    "ARCLINE/verification-plan.json"
+  ],
+  "suites": {
+    "unit": [
+      "story-emotion-0141",
+      "cinematic-014"
+    ],
+    "browser": [
+      "enemy-story-browser"
+    ],
+    "input": [],
+    "visual": [],
+    "delivery": []
+  },
+  "checks": {
+    "generated": true,
+    "baseline": false,
+    "package": false,
+    "python": true,
+    "nativeAudio": false
+  },
+  "manual": [
+    "本編・敵AI・物理・地形・保存・操作のソースが0.29.2と一致することをGit差分で確認済み",
+    "先行CI run460の単体44件は全件通過。同じゲームコードと保護検査の結果を再利用する",
+    "オフライン配布の構成は変更せず、生成ツールのリリース説明だけを更新。Python構文を確認する",
+    "公開URL直接表示と物理端末は未確認"
+  ],
+  "excluded": [
+    {
+      "scope": "全マップ再攻略・全キャラ・敵行動・入力一式",
+      "reason": "本文・検査計画以外の本編ソースは同一で、先行CI460の単体44件と既存の18表示パターンが成功済み。該当表示だけをCIへ移す。"
+    },
+    {
+      "scope": "BGM・音声デコード・エンディング再生・配布物の全体再検査",
+      "reason": "音源・映像字幕・物理・配布構成を変更しない。今回の文章と編集revision以外を保護する単体検査と、生成物一致を実行する。"
+    }
+  ],
+  "suiteCount": 3,
+  "needsBrowser": true,
+  "needsPython": true,
+  "base": "4e235b5014933df04f6f68680477f4372b55a48d"
+}
