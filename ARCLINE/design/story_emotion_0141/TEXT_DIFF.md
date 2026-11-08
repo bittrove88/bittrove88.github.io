@@ -1,8 +1,8 @@
-# ARCLINE 0.14.1 — 日英の文章差分
+# ARCLINE 0.14.2 — 日英の文章差分
 
 **結末までのネタバレを含みます。** 公開0.14のコミット `3bdbf4f35367b1e9d2ef611454c681d7b84ce104` と現在の正本から生成。前版で画像原稿に分離していた表示文も比較対象とする。文章を短く分けるため、改行は別の字幕キューを示す。
 
-元の0.13本文はGit履歴に保持。編集revisionは0.14.1、保存の物語namespaceは0.13.0、schema8と既読IDは維持する。
+元の0.13本文はGit履歴に保持。編集revisionは0.14.2、保存の物語namespaceは0.13.0、schema8と既読IDは維持する。
 
 ## 正本の主な差分
 
@@ -25,6 +25,46 @@ The ten unreturned machines in the old records were the ten themselves. They fol
 **変更後**
 
 古い記録にある未帰還10機は自分たちだった。便りの宛先を確かめ、待つ相手へ、今度は全員の返事を届ける。
+
+### `/chapters/4/opening/en`
+
+**変更前**
+
+Find what to preserve as well as where to dig.
+
+**変更後**
+
+The enemy shifts its firing position. Choose what must stand.
+
+### `/chapters/4/opening/ja`
+
+**変更前**
+
+近道だけじゃない。残すべきものを探そう。
+
+**変更後**
+
+敵も足場を変え、射点を探り始めた。残すべき支えを見極めよう。
+
+### `/chapters/7/opening/en`
+
+**変更前**
+
+There was more after that stop signal.
+
+**変更後**
+
+Enemy lights blink to distant ledges. Follow the stop signal's trail.
+
+### `/chapters/7/opening/ja`
+
+**変更前**
+
+あの日の停止信号には、続きがあった。
+
+**変更後**
+
+敵の灯が消え、離れた足場にともる。停止信号の続きを追おう。
 
 ### `/epilogue/frames/3/text/en`
 
@@ -165,6 +205,26 @@ Rin adds what is known and what remains uncertain to Hibari’s observations. Sh
 **変更後**
 
 ヒバリの観測に、リンが確かな範囲と不確かな範囲を添える。確度を伝えれば、不完全でも誰かの道しるべになれる。迂回路は、待つ誰かを運べた。リンも仲間に加わり、一行は確かめながら進んでいく。
+
+### `/stageClears/32/event/en`
+
+**変更前**
+
+The approach to the mine is clear.
+
+**変更後**
+
+The enemy remembered the ledge its shots had reached. Mogu moved on and opened the way into the mine.
+
+### `/stageClears/32/event/ja`
+
+**変更前**
+
+坑道へ続く足場を確保した。
+
+**変更後**
+
+弾が迫った足場を、敵は覚えていた。モグはそこを離れ、坑道へ続く道を開いた。
 
 ## 実際に表示する23ショットの字幕
 
