@@ -3,8 +3,11 @@ const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_pro
 const D=require('../dist/cinematic-data.js'),S=require('../dist/story.js'),Crew=require('../dist/crew.js'),Save=require('../dist/save.js');
 const root=path.resolve(__dirname,'../../..'),out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-story-emotion-0141';fs.mkdirSync(out,{recursive:true});let checks=0;const ok=(v,m)=>{checks++;assert(v,m);};
 const baseline=JSON.parse(cp.execFileSync('git',['show','3bdbf4f:ARCLINE/design/narrative_0_13.json'],{cwd:root,encoding:'utf8'}));
-ok(S.revision==='0.14.1'&&S.presentation.saveNarrativeVersion==='0.13.0','editorial revision and existing save namespace are separate');
-for(const key of ['chapters','relations','stageClears','foreshadow','world'])ok(JSON.stringify(S[key])===JSON.stringify(baseline[key]),'approved world/100-stage structure preserved '+key);
+const awareness=require('../../design/story_emotion_0141/enemy-awareness-0293.json');
+const normalized=require('./story-awareness-preservation.cjs').story(S);
+for(const c of awareness.changes){const row=S[c.collection].find(r=>(r.start??r.stage)===c.stage);ok(JSON.stringify(row[c.field])===JSON.stringify(c.after),'authorized bilingual enemy-story passage '+c.stage+'/'+c.field);ok(c.after.ja.length<=55&&c.after.en.length<=120,'short story passage '+c.stage);}
+ok(S.revision===awareness.revision&&S.presentation.saveNarrativeVersion==='0.13.0','editorial revision and existing save namespace are separate');
+for(const key of ['chapters','relations','stageClears','foreshadow','world'])ok(JSON.stringify(normalized[key])===JSON.stringify(baseline[key]),'approved world/100-stage structure preserved '+key);
 ok(JSON.stringify(S.presentation.returnOrder)===JSON.stringify(['gun','hana','koro','ban','sora','hibari','rico','mogu','rin','yui']),'approved return-lamp image positions remain stable after the requested recruitment swap');
 ok(S.prologue.frames[0].text.ja===baseline.prologue.frames[0].text.ja&&S.prologue.frames[1].text.en===baseline.prologue.frames[1].text.en,'ordinary life and Divide parent prose kept');
 ok(D.get('P03-02').symbolic&&D.get('P03-02').durationMs===5000&&!/昔|記録|left this harbour/.test(JSON.stringify(D.get('P03-02').text)),'gathering is a brief future image, not a newly invented historical event');

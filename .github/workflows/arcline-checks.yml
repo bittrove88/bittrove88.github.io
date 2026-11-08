@@ -1,10 +1,16 @@
 name: ARCLINE checks
 on:
   pull_request:
-    paths: ['ARCLINE/**', '.github/workflows/arcline-checks.yml']
+    paths: ["ARCLINE/**", ".github/workflows/arcline-checks.yml"]
   push:
     branches: [main]
-    paths: ['ARCLINE/**', '.github/workflows/arcline-checks.yml']
+    paths: ["ARCLINE/**", ".github/workflows/arcline-checks.yml"]
+  workflow_dispatch:
+    inputs:
+      full_suite:
+        description: "全体検証を明示して実行する"
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -16,38 +22,39 @@ jobs:
         working-directory: ARCLINE
     env:
       ARCLINE_EVIDENCE_DIR: /tmp/arcline-ci
+      ARCLINE_CHECK_PLAN: /tmp/arcline-ci/CHECK_PLAN.json
       ARCLINE_PACKAGE_DIR: /tmp/arcline-package
       ARCLINE_BASELINE_ROOT: /tmp/arcline-baseline
+      ARCLINE_PLAN_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+      ARCLINE_FULL_CHECKS: ${{ github.event_name == 'workflow_dispatch' && inputs.full_suite || false }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: ARCLINE/package-lock.json
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+          node-version: "22"
+      - name: Plan checks for this change
+        id: plan
+        run: node game/tools/plan-checks.cjs --output "$ARCLINE_CHECK_PLAN"
       - run: npm ci
+        if: steps.plan.outputs.needs_tests == 'true'
+      - uses: actions/setup-python@v5
+        if: steps.plan.outputs.needs_python == 'true'
+        with:
+          python-version: "3.12"
       - run: pip install -r requirements-dev.txt
+        if: steps.plan.outputs.needs_python == 'true'
       - name: Prepare browser
+        if: steps.plan.outputs.needs_browser == 'true'
         run: |
           if [ -x /usr/bin/google-chrome ] || [ -x /usr/bin/chromium ]; then
-            echo "Using installed browser; the test runner verifies native AAC decoding."
+            echo "Using installed browser."
           else
             npx playwright install --with-deps chromium
           fi
-      - run: npm test
-      - run: npm run check:generated
-      - name: Check rotated touch input
-        run: node game/tools/test.cjs input
-      - run: npm run test:browser
-      - run: python3 game/tools/create_layout_baseline.py --output /tmp/arcline-baseline
-      - run: node game/tools/test.cjs visual
-      - run: python3 game/tools/build_playables.py --output /tmp/arcline-package
-      - run: node game/tools/test.cjs delivery
+      - name: Run planned checks
+        run: node game/tools/run-check-plan.cjs "$ARCLINE_CHECK_PLAN"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

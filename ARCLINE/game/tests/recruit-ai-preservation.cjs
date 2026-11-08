@@ -10,6 +10,28 @@ function source(file, bytes) {
   bytes = require("./damage-sync-preservation.cjs").source(file, bytes);
   const patch = manifest.sourcePatches[file];
   if (!patch) return bytes;
+  // Release builds rewrite import query versions, while the Worker body stays pinned.
+  if (file === "cpu-worker.js") {
+    const text = bytes.toString(),
+      line = text.split("\n").find((l) => l.startsWith("importScripts("));
+    const pinned = patch.edits
+      .map((e) => e.after)
+      .join("\n")
+      .match(/\.js\?v=([^']+)/)[1];
+    assert(
+      line &&
+        [...line.matchAll(/\.js\?v=([^']+)/g)].every(
+          (m) => m[1] === require("../runtime.json").cacheVersion,
+        ),
+      "Worker imports use the current cache version",
+    );
+    bytes = Buffer.from(
+      text.replace(
+        line,
+        line.replace(/(\.js\?v=)[^']+/g, (_, prefix) => prefix + pinned),
+      ),
+    );
+  }
   assert.equal(
     sha(bytes),
     patch.afterSha256,

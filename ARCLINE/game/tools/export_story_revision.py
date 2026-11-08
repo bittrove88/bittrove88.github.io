@@ -25,7 +25,7 @@ for s in old_shots:
 out=root/'design/story_emotion_0141';out.mkdir(exist_ok=True)
 joins=[{'id':m['id'],'before':next(x for x in old['machines'] if x['id']==m['id'])['line'],'after':m['joinLine']} for m in new['machines'] if m.get('joinLine')]
 (out/'TEXT_DIFF.json').write_text(json.dumps({'baselineCommit':base,'fromRevision':old['revision'],'toRevision':new['revision'],'changes':changes,'displayedSubtitleDiff':shots,'joinLineDiff':joins},ensure_ascii=False,indent=2)+'\n')
-lines=['# ARCLINE 0.14.1 — 日英の文章差分','', '**結末までのネタバレを含みます。** 公開0.14のコミット `'+base+'` と現在の正本から生成。前版で画像原稿に分離していた表示文も比較対象とする。文章を短く分けるため、改行は別の字幕キューを示す。','', '元の0.13本文はGit履歴に保持。編集revisionは0.14.1、保存の物語namespaceは0.13.0、schema8と既読IDは維持する。','', '## 正本の主な差分','']
+lines=['# ARCLINE '+new['revision']+' — 日英の文章差分','', '**結末までのネタバレを含みます。** 公開0.14のコミット `'+base+'` と現在の正本から生成。前版で画像原稿に分離していた表示文も比較対象とする。文章を短く分けるため、改行は別の字幕キューを示す。','', '元の0.13本文はGit履歴に保持。編集revisionは'+new['revision']+'、保存の物語namespaceは0.13.0、schema8と既読IDは維持する。','', '## 正本の主な差分','']
 for c in changes:
     if c['path'].endswith(('/ja','/en')):
         lines.extend(['### `'+c['path']+'`','','**変更前**', '',str(c['before']),'','**変更後**','',str(c['after']),''])

@@ -22,16 +22,6 @@
         }
       ]
     },
-    "cpu-worker.js": {
-      "beforeSha256": "3bf86ee61717986f8d4a95d6c1ec8c417c9581d5891af8122aacd85692550376",
-      "afterSha256": "54918ad6b334fab864a7121e0a38851d59aa9539b766e4d76cfdd3d6a07acb08",
-      "edits": [
-        {
-          "before": "'use strict';\nimportScripts('crew.js?v=0.29.2','crew-usage.js?v=0.29.2','levels.js?v=0.29.2','attack-catalog.js?v=0.29.2','combat.js?v=0.29.2','battle-catalog.js?v=0.29.2','skills.js?v=0.29.2','weapons.js?v=0.29.2','inventory.js?v=0.29.2','geometry.js?v=0.29.2','physics.js?v=0.29.2','encounters.js?v=0.29.2','final-team.js?v=0.29.2','enemy-attacks.js?v=0.29.2','enemy-actions.js?v=0.29.2','engine.js?v=0.29.2');\nonmessage=e=>{\n const {id,state,seed}=e.data,start=performance.now();\n try{state.random=ArcEngine.seeded(seed);const result=ArcEngine.planEnemyAction(state,state.random);postMessage({id,...result,elapsed:performance.now()-start});}\n catch(error){postMessage({id,error:String(error)});}\n",
-          "after": "'use strict';\nimportScripts('crew.js?v=0.29.3','crew-usage.js?v=0.29.3','levels.js?v=0.29.3','attack-catalog.js?v=0.29.3','combat.js?v=0.29.3','battle-catalog.js?v=0.29.3','skills.js?v=0.29.3','weapons.js?v=0.29.3','inventory.js?v=0.29.3','geometry.js?v=0.29.3','physics.js?v=0.29.3','encounters.js?v=0.29.3','final-team.js?v=0.29.3','enemy-attacks.js?v=0.29.3','enemy-actions.js?v=0.29.3','engine.js?v=0.29.3');\nonmessage=e=>{\n const {id,state,seed}=e.data,start=performance.now();\n try{state.random=ArcEngine.seeded(seed);const result=ArcEngine.planEnemyAction(state,state.random);postMessage({id,...result,elapsed:performance.now()-start});}\n catch(error){postMessage({id,error:String(error)});}\n"
-        }
-      ]
-    },
     "effects.js": {
       "beforeSha256": "c1803aea32807291154945d670cd10e9296d8466b9fac5b4ac572a16e7094a87",
       "afterSha256": "2d01a6c7e493bcab5d29c2ba66111add9a57ea247d14d3831b11f219c3ea1493",
@@ -123,16 +113,6 @@
         {
           "before": "  if(weapon.machineId==='ban')return hit&&events.some(e=>e.type==='shockwave')&&!plan.impacts.some(i=>i.hit?.unit===1)&&state.units[1].x-plan.end.x>70;\n  if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');\n  if(weapon.machineId==='hana')return plan.bullets.filter(b=>!b.effect).length===(weapon.volley?.length||3)&&plan.damage[1]>.6;\n  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=2.45;\n  if(weapon.machineId==='mogu')return weapon.volley?hit&&plan.bullets.filter(b=>!b.effect).length===3&&plan.destroyed.length>=2:events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;\n  if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;\n  if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.filter(b=>!b.effect).length===weapon.splitCount+1&&events.some(e=>e.type==='split');\n  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length===weapon.maxBounces&&plan.damage[1]>=weapon.damageCap-1e-6;\n  return hit&&events.some(e=>e.type==='pull'&&Math.abs(e.to.x-e.from.x)>60)&&events.some(e=>e.type==='compression');\n",
           "after": "  if(weapon.machineId==='ban')return hit&&events.some(e=>e.type==='shockwave')&&!plan.impacts.some(i=>i.hit?.unit===1)&&state.units[1].x-plan.end.x>70;\n  if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');\n  if(weapon.machineId==='hana')return plan.bullets.filter(b=>!b.effect).length===(weapon.volley?.length||3)&&plan.damage[1]>.6;\n  if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=2.45;\n  if(weapon.machineId==='mogu')return hit&&events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;\n  if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;\n  if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.filter(b=>!b.effect).length===weapon.splitCount+1&&events.some(e=>e.type==='split');\n  if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length===weapon.maxBounces&&plan.damage[1]>=weapon.damageCap-1e-6;\n  return hit&&events.some(e=>e.type==='pull'&&Math.abs(e.to.x-e.from.x)>60)&&events.some(e=>e.type==='compression');\n"
-        }
-      ]
-    },
-    "release-info.js": {
-      "beforeSha256": "4b836b0ebf633a1e9da0e5a2efa0d484d2c9d3562477fc0d24d48c9abf8d2684",
-      "afterSha256": "c8cbc6ec9a7ed60a1a722e7a5ae05bfd9c99c4c9e36ef88abcaa07bfe348214b",
-      "edits": [
-        {
-          "before": "/* Generated from game/runtime.json. */\n(function(root){const data=Object.freeze({\"version\":\"0.29.2\",\"cacheVersion\":\"0.29.2\",\"campaignVersion\":\"5.0\",\"saveSchema\":8,\"resetVersion\":2});if(typeof module!==\"undefined\")module.exports=data;else root.ArcRelease=data;})(globalThis);\n",
-          "after": "/* Generated from game/runtime.json. */\n(function(root){const data=Object.freeze({\"version\":\"0.29.3\",\"cacheVersion\":\"0.29.3\",\"campaignVersion\":\"5.0\",\"saveSchema\":8,\"resetVersion\":2});if(typeof module!==\"undefined\")module.exports=data;else root.ArcRelease=data;})(globalThis);\n"
         }
       ]
     },

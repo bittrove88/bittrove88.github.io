@@ -29,7 +29,7 @@ function verify(file,equal=assert.deepEqual){
  else if(name==='campaign-run'){const Run=require('../dist/campaign-run.js');equal(Run.chapter(100),10,'chapters retained');equal(Run.decode(Run.checkpoint(99,{weapons:{W03:2}},['L002:weapon:W02'],'test',7)).inventory,{weapons:{W03:2},skills:{}},'checkpoint retains legacy stock');}
  else if(name==='save'){const S=require('../dist/save.js');equal([S.key,S.schemaVersion,S.resetVersion],[original('save').key,8,2],'save identity preserved');}
  else if(name==='combat'){require('./attack-integration-preservation.cjs').verify();}
- else {const current=require(path.resolve(__dirname,'../dist',file)),before=original(name);for(const key of Object.keys(before))if(typeof before[key]!=='function')equal(plain(current[key]),plain(before[key]),'unchanged catalog '+file+'/'+key);}
+ else {const current=require(path.resolve(__dirname,'../dist',file)),before=original(name);for(const key of Object.keys(before))if(typeof before[key]!=='function')equal(name==='journal'&&key==='story'?require('./story-awareness-preservation.cjs').story(current[key]):plain(current[key]),plain(before[key]),'unchanged catalog '+file+'/'+key);}
 }
 // Later user-authorized map edits supersede only their pinned sources. Keep the
 // earlier approvals immutable and compare every other field/map to main0.24.2.

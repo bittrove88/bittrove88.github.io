@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "mode": "planned",
+  "change": "マスターモードで武器とスキルの所持をなし／すべてから設定",
+  "reason": "進行設定に在庫変更を加えるため、独立したカテゴリ選択・有限回数・次の出撃・保存失敗と再読み込みを確認する。既存の隠し入口、進行更新、日英の小型画面も隣接範囲として確認する。",
+  "files": [
+    "ARCLINE/AGENTS.md",
+    "ARCLINE/README.md",
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/expedition_013/STAGES_JA.md",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/docs/CHANGELOG.md",
+    "ARCLINE/docs/releases/0.29.4.md",
+    "ARCLINE/game/README.md",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/master-mode.css",
+    "ARCLINE/game/dist/master-mode.js",
+    "ARCLINE/game/dist/master-progress.js",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/styles/master-mode.css",
+    "ARCLINE/game/tests/master-move-browser.test.cjs",
+    "ARCLINE/game/tests/master-move.test.cjs",
+    "ARCLINE/game/tools/build_playables.py",
+    "ARCLINE/game/ui/master-mode.js",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.29.4/index.html",
+    "ARCLINE/verification-plan.json"
+  ],
+  "suites": {
+    "unit": [
+      "master-move"
+    ],
+    "browser": [
+      "master-move-browser"
+    ],
+    "input": [],
+    "visual": [],
+    "delivery": []
+  },
+  "checks": {
+    "generated": true,
+    "baseline": false,
+    "package": false,
+    "python": true,
+    "nativeAudio": false
+  },
+  "manual": [
+    "通常弾・必殺技・戦闘・AI・地形・保存形式を変更しないことを差分確認する",
+    "公開URL直接表示と物理端末は未確認"
+  ],
+  "excluded": [
+    {
+      "scope": "全キャラ・全マップの再攻略、敵AI・物理・音声・全ブラウザ",
+      "reason": "変更はマスターの在庫準備・画面・リリース参照のみ。必要な保存と実戦への受渡しは対象スイートで確認する。"
+    },
+    {
+      "scope": "配布物全体と映像再生",
+      "reason": "配布構成と素材は変えず、生成物一致を確認する。"
+    }
+  ],
+  "suiteCount": 2,
+  "needsBrowser": true,
+  "needsPython": true,
+  "base": "5129717a09dc868ce6b632bbac75add19f512632"
+}
