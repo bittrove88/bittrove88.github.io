@@ -64,7 +64,8 @@ def build():
         elif '没案' in state or '除外' in state or '不採用' in state:stage='没案・除外'
         elif '中間' in state or '旧案' in state:stage='旧案・中間案'
         else:stage='参考・検討'
-        record=dict(id=number,name=names[0],legacy=legacy,role=role,phase=phase_name,status=state,stage=stage,category=plain(category),idea=plain(idea),shape=plain(shape),review=plain(review),image=image,position=position,region=[0,0,1,1],width=1,height=1,sourceLinks=[])
+        version='ver1' if phase_name=='1〜100面の参考企画' else 'ver2'
+        record=dict(version=version,id=number,name=names[0],legacy=legacy,role=role,phase=phase_name,status=state,stage=stage,category=plain(category),idea=plain(idea),shape=plain(shape),review=plain(review),image=image,position=position,region=[0,0,1,1],width=1,height=1,sourceLinks=[])
         for label,link in re.findall(r'\[([^\]]+)\]\(([^)]+)\)',review):
             if link.startswith('http'):continue
             target=(HERE/link).resolve()
