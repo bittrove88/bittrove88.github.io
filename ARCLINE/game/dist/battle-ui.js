@@ -37,7 +37,8 @@
       pan: svg('<path d="M7 21a13 13 0 1 0 7-12M7 21V8m0 0h13M7 8l13 13"/>'),
     };
     let aimDesign = "barrel",
-      lastStage = 0,
+      lastState = null,
+      lastWorld = null,
       quickView = null,
       panGesture = null;
     function addLabel(parent, text) {
@@ -772,9 +773,11 @@
     const baseHud = hooks.baseHud;
     hooks.setHud(function () {
       // Reset views at the native stage update, before the next gesture can begin.
-      const stage = hooks.state()?.stage || 0;
-      if (stage !== lastStage) {
-        lastStage = stage;
+      const state = hooks.state(),
+        world = state?.spec || null;
+      if (state !== lastState || world !== lastWorld) {
+        lastState = state;
+        lastWorld = world;
         quickView = null;
         clearGestures();
         reset.hidden = true;

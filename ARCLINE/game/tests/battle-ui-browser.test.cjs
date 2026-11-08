@@ -464,7 +464,13 @@ function fixture(stage = 9, lang = "ja", guidesSeen = true) {
     await touch("touchEnd", []);
     assert.equal(await p.evaluate("s.angle"), adjusted);
     assert.equal(await p.locator("#quickViewReset").isVisible(), true);
-    await p.locator("#quickViewReset").click();
+    // Use the real retry confirmation: the stage number stays the same, but the view resets.
+    await p.locator("#pause").click();
+    await p.locator("#retryLevel").click();
+    await p.locator("#resume").click();
+    await p.waitForFunction("canAim()");
+    assert.equal(await p.locator("#quickViewReset").isVisible(), false);
+    report.checks.push({ kind: "retry-view-reset", nativeConfirmation: true });
     const scale = await p.evaluate("renderer.view.scale");
     await touch("touchStart", [
       [1, 340, 150],
