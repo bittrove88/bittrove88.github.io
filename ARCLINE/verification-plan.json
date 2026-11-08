@@ -1,43 +1,37 @@
 {
   "version": 1,
-  "change": "既存の物語3枠に敵の行動変化を日英で織り込む",
-  "reason": "本文3枠と編集revision・キャッシュ識別だけを更新する。承認範囲以外の物語全文、保存namespace、映像字幕の保護と、該当3場面の日英表示・生成物を確認する。戦闘のソースは0.29.2と同一。",
+  "change": "マスターモードで武器とスキルの所持をなし／すべてから設定",
+  "reason": "進行設定に在庫変更を加えるため、独立したカテゴリ選択・有限回数・次の出撃・保存失敗と再読み込みを確認する。既存の隠し入口、進行更新、日英の小型画面も隣接範囲として確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/design/narrative_0_13.json",
-    "ARCLINE/design/story_emotion_0141/TEXT_DIFF.json",
-    "ARCLINE/design/story_emotion_0141/enemy-awareness-0293.json",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/cinematic-data.js",
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/master-mode.css",
+    "ARCLINE/game/dist/master-mode.js",
+    "ARCLINE/game/dist/master-progress.js",
     "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/story.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/enemy-story-browser.test.cjs",
-    "ARCLINE/game/tests/integration-preservation.cjs",
-    "ARCLINE/game/tests/recruit-ai-preservation.cjs",
-    "ARCLINE/game/tests/story-awareness-preservation.cjs",
-    "ARCLINE/game/tests/story-emotion-0141.test.cjs",
-    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/styles/master-mode.css",
+    "ARCLINE/game/tests/master-move-browser.test.cjs",
+    "ARCLINE/game/tests/master-move.test.cjs",
     "ARCLINE/game/tools/build_playables.py",
-    "ARCLINE/game/tools/export_story_revision.py",
+    "ARCLINE/game/ui/master-mode.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.29.3/index.html"
+    "ARCLINE/updates/0.29.4/index.html"
   ],
   "suites": {
     "unit": [
-      "story-emotion-0141",
-      "cinematic-014"
+      "master-move"
     ],
     "browser": [
-      "enemy-story-browser"
+      "master-move-browser"
     ]
   },
   "checks": {
@@ -48,19 +42,17 @@
     "nativeAudio": false
   },
   "manual": [
-    "本編・敵AI・物理・地形・保存・操作のソースが0.29.2と一致することをGit差分で確認済み",
-    "先行CI run460の単体44件は全件通過。同じゲームコードと保護検査の結果を再利用する",
-    "オフライン配布の構成は変更せず、生成ツールのリリース説明だけを更新。Python構文を確認する",
+    "通常弾・必殺技・戦闘・AI・地形・保存形式を変更しないことを差分確認する",
     "公開URL直接表示と物理端末は未確認"
   ],
   "excluded": [
     {
-      "scope": "全マップ再攻略・全キャラ・敵行動・入力一式",
-      "reason": "本文・検査計画以外の本編ソースは同一で、先行CI460の単体44件と既存の18表示パターンが成功済み。該当表示だけをCIへ移す。"
+      "scope": "全キャラ・全マップの再攻略、敵AI・物理・音声・全ブラウザ",
+      "reason": "変更はマスターの在庫準備・画面・リリース参照のみ。必要な保存と実戦への受渡しは対象スイートで確認する。"
     },
     {
-      "scope": "BGM・音声デコード・エンディング再生・配布物の全体再検査",
-      "reason": "音源・映像字幕・物理・配布構成を変更しない。今回の文章と編集revision以外を保護する単体検査と、生成物一致を実行する。"
+      "scope": "配布物全体と映像再生",
+      "reason": "配布構成と素材は変えず、生成物一致を確認する。"
     }
   ]
 }
