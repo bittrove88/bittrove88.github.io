@@ -45,7 +45,7 @@ for (const f of [
   "charge-camera.js",
 ])
   eq(
-    fs.readFileSync(path.join(root, "game/dist", f)),
+    require("./damage-sync-preservation.cjs").source(f, fs.readFileSync(path.join(root, "game/dist", f))),
     cp.execFileSync("git", [
       "show",
       Guard.manifest.base + ":ARCLINE/game/dist/" + f,
@@ -279,7 +279,7 @@ const matches = require("../../evidence/recruit-enemy-0292/CURRENT_ENEMY_MATCHES
 ok(matches.rows.length === 6, "six real current-AI full matches");
 for (const [file, hash] of Object.entries(matches.sources))
   eq(
-    sha(fs.readFileSync(path.join(root, "game/dist", file))),
+    sha(require("./damage-sync-preservation.cjs").source(file, fs.readFileSync(path.join(root, "game/dist", file)))),
     hash,
     "recorded current-AI source fingerprint " + file,
   );
@@ -296,7 +296,8 @@ eq(
   matches.sources,
   "full and representative records use the same current AI",
 );
-for (const row of matches.rows) {
+for (const historical of matches.rows) {
+  const row = require("./damage-sync-preservation.cjs").replay(historical,"CURRENT_ENEMY_MATCHES");
   const s = E.campaign(row.stage, {
     equippedCharacterId: row.id,
     difficulty: row.difficulty,

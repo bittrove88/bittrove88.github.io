@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, "../.."),
   manifest = require("../../design/recruit-art-0292/CHANGE_SCOPE.json");
 const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
 function source(file, bytes) {
+  bytes = require("./damage-sync-preservation.cjs").source(file, bytes);
   const patch = manifest.sourcePatches[file];
   if (!patch) return bytes;
   assert.equal(

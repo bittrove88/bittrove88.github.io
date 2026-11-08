@@ -80,6 +80,18 @@
       if (event.type === "break") add("D01", event, "debris", 1, -3, 0.015);
       if (event.type === "shockwave" && shot.weaponId === "S_BAN")
         add("S01", event, "special", 6);
+      if (
+        shot.side === 0 &&
+        (event.type === "damage" || event.type === "part-damage") &&
+        ["ring", "cone", "wave"].includes(event.source)
+      )
+        add(
+          event.source === "ring" ? "I03_HIBARI" : weapon.impact,
+          event,
+          "hit",
+          4,
+          -5,
+        );
       if (event.type === "split") add("S02", event, "special", 6);
       if (
         (event.type === "gravity-well" ||
