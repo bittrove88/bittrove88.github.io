@@ -401,16 +401,48 @@ function fixture(stage = 9, lang = "ja", guidesSeen = true) {
     const p = await page({ width: 844, height: 390 }, fixture());
     await p.waitForFunction("canAim()");
     const cdp = await p.context().newCDPSession(p);
-    const touch = (type, points) =>
-      cdp.send("Input.dispatchTouchEvent", {
+    const touch = async (type, points) => {
+      await cdp.send("Input.dispatchTouchEvent", {
         type,
         touchPoints: points.map(([id, x, y]) => ({ id, x, y })),
       });
+      // Give each physical input sample a frame; CDP can coalesce an instant move/end.
+      await p.evaluate(() => new Promise(requestAnimationFrame));
+    };
+    await p.evaluate(() => {
+      window.uiTouchTrace = [];
+      for (const type of [
+        "pointerdown",
+        "pointermove",
+        "pointerup",
+        "pointercancel",
+        "resize",
+      ])
+        window.addEventListener(
+          type,
+          (e) =>
+            uiTouchTrace.push({
+              type,
+              target: e.target?.id,
+              allowed: canAim(),
+              angle: s.angle,
+              x: e.clientX,
+              y: e.clientY,
+            }),
+          true,
+        );
+    });
     const angle = await p.evaluate("s.angle");
     await touch("touchStart", [[1, 660, 150]]);
+    // A first swipe must survive the initial 300ms guide poll after stage entry.
+    await p.waitForTimeout(350);
     await touch("touchMove", [[1, 660, 180]]);
     await touch("touchEnd", []);
-    assert.notEqual(await p.evaluate("s.angle"), angle);
+    assert.equal(
+      await p.evaluate("s.angle"),
+      angle - 12,
+      JSON.stringify(await p.evaluate(() => uiTouchTrace)),
+    );
     assert.ok(
       await p.evaluate(() => {
         const actual = Number(

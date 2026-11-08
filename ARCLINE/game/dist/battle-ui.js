@@ -378,6 +378,13 @@
     }
     function syncBattleLanguage() {
       syncMapCopy();
+      byId("world").setAttribute(
+        "aria-label",
+        local(
+          "戦場。左4/5で斜角、右1/5でマップ移動。二本指で拡大縮小。下の発射を長押し。矢印キーとスペースでも操作できます。",
+          "Battlefield. Left 80% adjusts aim; right 20% pans the map. Pinch with two fingers to zoom. Hold Fire below. Arrow keys and Space are also available.",
+        ),
+      );
       topChange.innerHTML = local("キャラ<br>チェンジ", "Change<br>Char.");
       topChange.setAttribute(
         "aria-label",
@@ -764,6 +771,14 @@
     });
     const baseHud = hooks.baseHud;
     hooks.setHud(function () {
+      // Reset views at the native stage update, before the next gesture can begin.
+      const stage = hooks.state()?.stage || 0;
+      if (stage !== lastStage) {
+        lastStage = stage;
+        quickView = null;
+        clearGestures();
+        reset.hidden = true;
+      }
       baseHud();
       if (!hooks.state()) return;
       byId("pauseMachineChange").textContent = ArcFinalTeam.active(
@@ -1250,14 +1265,8 @@
       cardDrag = null;
       suppressCardClick = null;
     });
-    /* Show these once in the isolated session, after the existing native lessons. */
+    /* Show each guide once per save, after the existing native lessons. */
     setInterval(() => {
-      if (hooks.state()?.stage !== lastStage) {
-        lastStage = hooks.state()?.stage;
-        quickView = null;
-        clearGestures();
-        reset.hidden = true;
-      }
       if (!hooks.canAim() || hooks.charge()) {
         clearGestures();
         return;
