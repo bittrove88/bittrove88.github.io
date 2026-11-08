@@ -1,0 +1,124 @@
+{
+  "status": "PARTIAL",
+  "run": "https://github.com/bittrove88/bittrove88.github.io/actions/runs/42536920963",
+  "head": "197a4ff574703351a3b3d1f2d5c165269808b649",
+  "passed": [
+    {
+      "name": "damage-sync",
+      "ms": 1275,
+      "status": "PASS"
+    },
+    {
+      "name": "special-damage",
+      "ms": 286,
+      "status": "PASS"
+    },
+    {
+      "name": "special-targeting",
+      "ms": 104,
+      "status": "PASS"
+    },
+    {
+      "name": "machine-combat",
+      "ms": 2087,
+      "status": "PASS"
+    },
+    {
+      "name": "special-evolution",
+      "ms": 339,
+      "status": "PASS"
+    },
+    {
+      "name": "auxiliary-evolution",
+      "ms": 227,
+      "status": "PASS"
+    },
+    {
+      "name": "combat-sfx-0190",
+      "ms": 6741,
+      "status": "PASS"
+    },
+    {
+      "name": "charge-camera",
+      "ms": 188,
+      "status": "PASS"
+    },
+    {
+      "name": "three-change",
+      "ms": 2774,
+      "status": "PASS"
+    },
+    {
+      "name": "final-battle",
+      "ms": 2581,
+      "status": "PASS"
+    },
+    {
+      "name": "recruit-enemy",
+      "ms": 111563,
+      "status": "PASS"
+    },
+    {
+      "name": "story-emotion-0141",
+      "ms": 67,
+      "status": "PASS"
+    },
+    {
+      "name": "master-move",
+      "ms": 69,
+      "status": "PASS"
+    },
+    {
+      "name": "verification-planning",
+      "ms": 396,
+      "status": "PASS"
+    },
+    {
+      "name": "damage-sync-browser",
+      "ms": 25840,
+      "status": "PASS"
+    },
+    {
+      "name": "attack-review-browser",
+      "ms": 21596,
+      "status": "PASS"
+    },
+    {
+      "name": "battle-turn-continuity-browser",
+      "ms": 86269,
+      "status": "PASS"
+    },
+    {
+      "name": "enemy-story-browser",
+      "ms": 8098,
+      "status": "PASS"
+    },
+    {
+      "name": "master-move-browser",
+      "ms": 11776,
+      "status": "PASS"
+    },
+    {
+      "name": "../site-tests/service-site",
+      "ms": 19194,
+      "status": "PASS"
+    }
+  ],
+  "failed": {
+    "name": "promo-experience-browser",
+    "reason": "Timed out waiting for bgm_victory.m4a readyState>=3 at promo-experience-browser.test.cjs:25. The suite requires native AAC, but the original plan disabled the AAC browser selection probe."
+  },
+  "notRun": [
+    "generated",
+    "package"
+  ],
+  "correction": "Enable nativeAudio and rerun the failed browser suite plus the checks stopped by fail-fast. Reuse 14 unit and 6 browser successes because all runtime, game, site and test source bytes remain at the same verified head.",
+  "unchangedRuntimeVerified": true,
+  "localRetry": {
+    "status": "PASS",
+    "suite": "promo-experience-browser",
+    "ms": 13661,
+    "nativeAACBrowser": "/usr/bin/chromium",
+    "browserVersion": "154.0.8037.57"
+  }
+}

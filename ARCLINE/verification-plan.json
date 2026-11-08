@@ -1,7 +1,7 @@
 {
   "version": 1,
   "change": "攻撃の命中演出・HP・ダメージ計算を同期し、先行PR130・131・132を保持して0.29.5へ統合",
-  "reason": "全32自機攻撃の計算・命中時HPと描画、大ボス上限、最終リレーの残量、実際の敵手番への復帰を確認する。先行した物語3枠とマスターの在庫設定、検証計画の保護を追加確認する。",
+  "reason": "初回GitHub CI（run42536920963、head197a4ff）で単体14・ブラウザ6スイートが成功。ゲーム・サイト・テストのソースを変更しないため、この20スイートの成功は再利用する。失敗したpromo-experience-browserは勝利BGMの実AAC再生も含むためnativeAudioを有効にしてブラウザを選び直す。失敗で未実行だった生成物一致・ZIP作成も確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -51,29 +51,7 @@
     "ARCLINE/updates/0.29.5/index.html"
   ],
   "suites": {
-    "unit": [
-      "damage-sync",
-      "special-damage",
-      "special-targeting",
-      "machine-combat",
-      "special-evolution",
-      "auxiliary-evolution",
-      "combat-sfx-0190",
-      "charge-camera",
-      "three-change",
-      "final-battle",
-      "recruit-enemy",
-      "story-emotion-0141",
-      "master-move",
-      "verification-planning"
-    ],
     "browser": [
-      "damage-sync-browser",
-      "attack-review-browser",
-      "battle-turn-continuity-browser",
-      "enemy-story-browser",
-      "master-move-browser",
-      "../site-tests/service-site",
       "promo-experience-browser"
     ]
   },
@@ -82,16 +60,21 @@
     "baseline": false,
     "package": true,
     "python": true,
-    "nativeAudio": false
+    "nativeAudio": true
   },
   "manual": [
     "先行main1c1b13bの物語・在庫設定・運用ツールを保持したことをGit差分で照合する",
-    "mainへのマージ・本番配信・物理スマホの確認はこのローカル統合検証に含めない"
+    "mainへのマージ・本番配信・物理スマホの確認はこのローカル統合検証に含めない",
+    "初回CI成功時head197a4ffからゲーム・サイト・テストのソースが不変であることをGit差分で確認する"
   ],
   "excluded": [
     {
       "scope": "無関係な音声・エンディング・全画面比較・全100面の再攻略",
       "reason": "先行マージとの共有変更は版番号・生成物・物語保護検査。先行統合前の45単体／42ブラウザ・161対戦などの成功記録を再利用し、追加影響のない成功済み検査を繰り返さない。"
+    },
+    {
+      "scope": "初回CIで成功した単体14・ブラウザ6スイート",
+      "reason": "同一のゲーム・サイト・テストのソースで成功済み。変更は検証計画と記録のみ。CI_INITIAL.jsonにrun・head・全成功結果を記録する。"
     }
   ]
 }
