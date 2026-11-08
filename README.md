@@ -24,7 +24,7 @@ bittrove88.github.io/
 ├── storymaker/                        # StoryMaker動画ショーケース
 ├── ARCLINE/                           # サービスサイト・段階加入する10機の仲間・個別設計100面・42モデル・23場面の砲撃アドベンチャー
 │   └── updates/0.17.1/index.html        # アップデート告知
-├── ARCLINEver2/                       # 101面以降の主人公・ジョブ・敵キャラクター企画と制作資料（ゲーム未実装）
+├── ARCLINEver2/                       # キャラクター企画図鑑・101面以降の主人公・ジョブ・敵の制作資料（ゲーム未実装）
 ├── career/                            # 職務経歴と更新版Word
 ├── AGENTS.md                          # カタログ更新などの共通ルール
 ├── favicon.svg
@@ -78,6 +78,7 @@ UNITEは既存どおりReact・ReactDOM（unpkg）、Tailwind CDN、Google Fonts
 
 | コンテンツ | URL |
 | --- | --- |
+| ARCLINE キャラクター企画図鑑 | [自キャラ・敵キャラの画像と全案記録](ARCLINEver2/) |
 | ARCLINE | [サービスサイト](ARCLINE/) ・ [ゲーム](ARCLINE/game/dist/) ・ [キャラ確認](ARCLINE/characters/) ・ [デザイン比較・統一計画](ARCLINE/design/sheets/) ・ [ゲーム反映計画](ARCLINE/design/sheets/implementation.html) ・ [100面の地形と攻略設計](ARCLINE/design/expedition_013/) ・ [アップデート告知](ARCLINE/updates/0.17.1/) |
 | UNITE Roulette | `/unite-roulette/` |
 | キャラルーレット30 | `/character-roulette-30/` |

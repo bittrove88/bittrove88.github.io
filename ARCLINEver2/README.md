@@ -1,5 +1,7 @@
 # ARCLINE ver.2｜101面以降の主人公・ジョブ・ステージ設計資料
 
+[自キャラ・敵キャラを画像と確認するHTML図鑑](index.html)
+
 > 作成日: 2026-11-04（JST） / 起点: ユーザーとChatGPTの企画対話 / **設計資料であり、コード実装や実機検証の完了を意味しない**。
 
 ## この資料の位置づけ
@@ -24,7 +26,7 @@
 | [03_stages/STAGE_201_300.md](03_stages/STAGE_201_300.md) | 201〜300の継承事項と未決定領域 | 保存済み |
 | [04_art/README.md](04_art/README.md) | 移動した敵の原画・設計文書・台帳の入口 | 保存済み |
 | [04_art/CHARACTER_PLANNING_ARCHIVE.md](04_art/CHARACTER_PLANNING_ARCHIVE.md) | 没案・中間案を含む231記録、全74生成原画と162企画版 | 保存済み |
-| [04_art/ASSET_MANIFEST.md](04_art/ASSET_MANIFEST.md) | ARC原画の未収録状況、既存世界の参照原画、敵画像の出典 | 保存済み |
+| [04_art/ASSET_MANIFEST.md](04_art/ASSET_MANIFEST.md) | ARC原画の保存状況、既存世界の参照原画、敵画像の出典 | 保存済み |
 | [04_art/MIGRATION_CHECK.json](04_art/MIGRATION_CHECK.json) | 移動ファイル・原画・通番・参照整合性の検査 | 保存済み |
 | [04_art/ART_BIBLE_AND_PROMPT.md](04_art/ART_BIBLE_AND_PROMPT.md) | 主人公と12ジョブの画風・画像制作条件 | 保存済み |
 | [05_handoff/OPEN_ITEMS_AND_TESTS.md](05_handoff/OPEN_ITEMS_AND_TESTS.md) | 数値・統合・保存などの未決事項と受け入れ確認 | 保存済み |
