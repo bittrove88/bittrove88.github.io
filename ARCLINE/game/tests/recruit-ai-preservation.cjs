@@ -4,7 +4,7 @@ const fs = require("node:fs"),
   crypto = require("node:crypto"),
   assert = require("node:assert/strict");
 const root = path.resolve(__dirname, "../.."),
-  manifest = require("../../design/recruit-art-0291/CHANGE_SCOPE.json");
+  manifest = require("../../design/recruit-art-0292/CHANGE_SCOPE.json");
 const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
 function source(file, bytes) {
   const patch = manifest.sourcePatches[file];

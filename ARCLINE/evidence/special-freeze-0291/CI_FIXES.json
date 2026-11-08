@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scope": "Targeted reruns after first CI failure; production game logic is unchanged from the already passing turn-continuity regression.",
+  "rows": [
+    {
+      "suite": "promo-experience-browser",
+      "status": "PASS",
+      "checks": 85
+    },
+    {
+      "suite": "service-site",
+      "status": "PASS",
+      "checks": 622
+    },
+    {
+      "suite": "expedition-release",
+      "status": "PASS",
+      "checks": 215
+    }
+  ],
+  "changes": [
+    "Victory fixture advances the controller-owned shotMotion clock.",
+    "Atlas and image URL queries follow the live release; captured-image provenance and source hashes remain unchanged.",
+    "The current release notice explicitly states preservation of existing progression."
+  ]
+}

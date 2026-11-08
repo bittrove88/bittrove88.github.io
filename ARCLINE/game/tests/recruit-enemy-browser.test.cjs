@@ -489,6 +489,62 @@ const server = http.createServer((q, r) => {
         JSON.stringify(worker.actual.plan),
       "Worker and fallback return the same shot",
     );
+    // Run the actual shot -> Worker -> walk/teleport -> next-player-turn flow.
+    // Two physical miss shots keep this ordinary fight alive without synthetic HP.
+    const handoff = await p.evaluate(async () => {
+      lobby();
+      s = E.campaign(71, { matchSeed: 4697 });
+      s.phase = "aim";
+      $("lobby").hidden = true;
+      $("battle").hidden = false;
+      const jobsBefore = platformStatus.cpuJobs.length,
+        phases = new Set();
+      for (let turn = 0; turn < 2; turn++) {
+        const round = s.round;
+        E.selectWeapon(s, "W01");
+        s.angle = 170;
+        s.power = 20;
+        launch();
+        if (!shot) throw Error("Native observation shot did not launch");
+        let completed = false;
+        for (let frame = 0; frame < 6000; frame++) {
+          update(0.1);
+          draw();
+          phases.add(s.phase);
+          if (s.result)
+            throw Error("Observation ended before the enemy handoff");
+          if (s.round > round && s.turn === 0 && s.phase === "aim") {
+            completed = true;
+            break;
+          }
+          await new Promise((resolve) => setTimeout(resolve, 4));
+        }
+        if (!completed) throw Error("Native enemy handoff did not finish");
+      }
+      return {
+        actions: s.enemyActionLog.map((a) => a.kind),
+        phases: [...phases],
+        playerActions: s.shotCount,
+        canAim: canAim(),
+        workerJobs: platformStatus.cpuJobs
+          .slice(jobsBefore)
+          .filter((j) => j.worker).length,
+      };
+    });
+    ok(
+      handoff.actions.includes("walk-shoot") &&
+        handoff.phases.includes("cpuMove"),
+      "actual Worker handoff visibly walks before shooting",
+    );
+    ok(
+      handoff.actions.includes("teleport") &&
+        handoff.phases.includes("cpuTeleport"),
+      "actual Worker handoff teleports on the next useful turn",
+    );
+    ok(
+      handoff.playerActions === 2 && handoff.canAim && handoff.workerJobs === 2,
+      "two native shots complete both Worker handoffs and return live player controls",
+    );
     const fallback = await p.evaluate(async () => {
       worker?.terminate();
       worker = null;
@@ -579,6 +635,7 @@ const server = http.createServer((q, r) => {
           phoneRows,
           loading: pending,
           fallback,
+          handoff,
           phase,
           errors,
           scope:

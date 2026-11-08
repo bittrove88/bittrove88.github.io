@@ -4,6 +4,8 @@ const K=ArcSkills;
 // Temporary, opt-in ending review. Its synthetic progress never reaches storage.
 const endingPreview=new URLSearchParams(location.search).get('preview')==='ending';
 let victoryToken=-1;
+// Keep function-bearing presentation clocks out of shots sent to the CPU Worker.
+let shotMotion=null;
 let finalRetryEntry=null;
 const bgm=ArcAudio.create(),specialLesson=ArcSpecialUi.createLesson(),specialNotice=ArcSpecialUi.createNotice($('battle'));
 let movieOpening=false,mapCamera=null,viewport=null;
@@ -213,7 +215,7 @@ function start(retryContext=null){
  if(pendingAdvance&&save.ready){const token=gameToken,n=selectedMap;persistAdvance().then(ok=>{if(ok&&token===gameToken&&n===selectedMap)start(retryContext);});return;}
  if(crewSupply.request(selectedMap+1,()=>start(retryContext)))return;
  runContext=R.begin(save.data,selectedMap+1);
- ArcMenus.close(false);const entry=runContext.entry;save.data.journal.introSeen=true;ArcJournal.markRead(save.data,['introduction']);$('chapterMessage').hidden=true;skillLessonQueue=[];$('clearRewardLine').hidden=true;clearInput();s=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode,matchSeed:entry.seed,pickupLedger:entry.pickupLedger,pendingLoot:entry.pending});lastChargeSerial=0;s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;lootContinuation=null;$('lootPicker').hidden=true;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
+ ArcMenus.close(false);const entry=runContext.entry;save.data.journal.introSeen=true;ArcJournal.markRead(save.data,['introduction']);$('chapterMessage').hidden=true;skillLessonQueue=[];$('clearRewardLine').hidden=true;clearInput();s=E.campaign(selectedMap+1,{...save.data,battleInventory:entry.inventory,battleMode:entry.mode,matchSeed:entry.seed,pickupLedger:entry.pickupLedger,pendingLoot:entry.pending});lastChargeSerial=0;s.difficulty=ArcAimGuide.normalize(save.data.difficulty);s.power=20;transition=null;shot=null;shotMotion=null;tail=null;impact=null;demo=null;ending=null;reward=null;lastSkill=null;pickupEffects=[];feedback='';manualPaused=false;lootContinuation=null;$('lootPicker').hidden=true;delete $('battle').dataset.preview;delete $('battle').dataset.lesson;buildSkills();
  if(retryContext?.finalRetry)ArcFinalTeam.restore(s,retryContext.finalRetry);
  finalRetryEntry=ArcFinalTeam.snapshot(s);$('retryFinalCharacter').hidden=true;delete $('overlay').dataset.finalRetry;
  save.save();
@@ -231,7 +233,7 @@ function releaseCharge(id){
 }
 function launch(plan=null){
  if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
- if(!shot)return;shot.presentationAge=0;shot.motion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
+ if(!shot)return;shot.presentationAge=0;shotMotion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
 }
 function beginVictory(){if(victoryToken===gameToken||!ArcAudio.victoryFor(s,runContext||{}))return;victoryToken=gameToken;bgm.request('VICTORY',{restart:true});audioSync();}
 function finishResult(){
@@ -270,7 +272,7 @@ async function persistAdvance(){
 function advanceTurn(){
  const beforeWorld=s.world,beforeUnits=s.units.map(u=>({...u})),beforeSpecial=s.specialAmmo,beforeSpecialSerial=s.specialChargeSerial,beforeTeam=s.finalTeam?.serial,beforeState={...s,units:beforeUnits,world:beforeWorld};E.next(s);specialNotice.gain(beforeSpecial,s,gameToken,beforeSpecialSerial);if(s.phase==='transition')transition={world:beforeWorld,units:beforeUnits,age:0,duration:.6};if(beforeTeam!==s.finalTeam?.serial){cpuJob=null;cpuReady=null;jobId++;transition=s.finalTeam?.travel?ArcFinalTravel.create(beforeState,renderer.view,s.finalTeam.travel,reducedMotion):null;s.time=transition?.duration||s.time;clearInput();renderer.resetCamera();sfx.prepare(s.characterId);}if(s.phase==='over'){finishResult();return;}
  if(beforeTeam!==s.finalTeam?.serial)finalRetryEntry=ArcFinalTeam.snapshot(s);
- if(s.turn){s.time=s.telegraph?.technique?s.telegraph.windup:0;if(!cpuJob&&!cpuReady)requestCPU();}else{cpuJob=null;cpuReady=null;jobId++;shot=null;}
+ if(s.turn){s.time=s.telegraph?.technique?s.telegraph.windup:0;if(!cpuJob&&!cpuReady)requestCPU();}else{cpuJob=null;cpuReady=null;jobId++;shot=null;shotMotion=null;}
  hud();
 }
 function requestCPU(){
@@ -303,10 +305,10 @@ function update(dt,realDt=dt){
   s.cpuMoveTime+=dt;const ratio=Math.min(1,s.cpuMoveTime/s.cpuMoveDuration),x=s.cpuStart+(s.cpuTarget-s.cpuStart)*ratio;E.move(s,1,x-s.units[1].x);
   if(ratio>=1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
  }else if(s.phase==='flight'){
-  shot.presentationAge+=dt;const previousFlight=flight;flight=shot.motion.at(shot.presentationAge);actionDt=Math.max(0,flight-previousFlight);sfx.update(Math.min(flight,shot.duration));const before=shot.appliedEvents;E.applyEvents(s,shot,flight,acquired);
+  shot.presentationAge+=dt;const previousFlight=flight;flight=shotMotion.at(shot.presentationAge);actionDt=Math.max(0,flight-previousFlight);sfx.update(Math.min(flight,shot.duration));const before=shot.appliedEvents;E.applyEvents(s,shot,flight,acquired);
   for(const e of shot.events.slice(before,shot.appliedEvents)){if(e.type==='cloud')tone(180,.09,'triangle',.03);if(e.type==='phase')tone(1400,.08,'sine',.04);}
-  if(flight>=shot.duration-1e-8&&shot.motion.done(shot.presentationAge)){
-   const last=shot,parts=s.units.map(u=>u.parts.map(p=>p.hp));E.resolve(s,last,acquired);tail={shot:last,age:0};impact={...last.end,age:0,weaponId:last.weaponId,shot:last,damage:last.damage};shot=null;
+  if(flight>=shot.duration-1e-8&&shotMotion.done(shot.presentationAge)){
+   const last=shot,parts=s.units.map(u=>u.parts.map(p=>p.hp));E.resolve(s,last,acquired);tail={shot:last,age:0};impact={...last.end,age:0,weaponId:last.weaponId,shot:last,damage:last.damage};shot=null;shotMotion=null;
    s.units.forEach((u,i)=>{const broken=u.parts.flatMap((p,j)=>p.hp<=0&&parts[i][j]>0?[j]:[]);if(last.damage[i]>0||broken.length)u.reaction={age:0,damage:last.damage[i],side:last.side,broken};});
    if(!last.events.some(e=>e.type==='pickup'))feedback=last.teleport&&!last.teleportSuccess?'No landing':'';sfx.finish();if(last.teleport)tone(580,.3,'sine',.15);
    if(s.phase==='over'){beginVictory();ending={age:0,winner:s.result==='win'?0:s.result==='lose'?1:-1,final:s.stage===100&&s.result==='win'};s.phase='finish';}else{s.phase='impact';if(s.turn===0&&!s.finalTeam?.pending)requestCPU();}s.time=s.phase==='finish'?.8:1.4;
@@ -317,7 +319,7 @@ function update(dt,realDt=dt){
   else if(s.time<=0){tail=null;if(s.phase==='finish'){s.phase='over';finishResult();}else advanceTurn();}
  }else if(s.phase==='repair'){s.time-=dt;if(s.repair)s.repair.age+=dt;if(s.time<=0)advanceTurn();
  }else if(s.phase==='transition'){
-  s.time-=dt;if(tail)tail.age+=dt;if(transition){transition.age+=dt;if(transition.kind==='final-travel'&&!transition.reframed&&transition.age>=transition.duration*.55){transition.reframed=true;renderer.resetCamera();}}if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;tail=null;if(!openLoot(afterLootAim))afterLootAim();hud();}
+  s.time-=dt;if(tail)tail.age+=dt;if(transition){transition.age+=dt;if(transition.kind==='final-travel'&&!transition.reframed&&transition.age>=transition.duration*.55){transition.reframed=true;renderer.resetCamera();}}if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;shotMotion=null;tail=null;if(!openLoot(afterLootAim))afterLootAim();hud();}
  }
  for(const p of pickupEffects)p.age+=dt;pickupEffects=pickupEffects.filter(p=>p.age<.8);
  for(const u of s.units)if(u.teleportFlash&&(u.teleportFlash.age+=dt)>.8)delete u.teleportFlash;
@@ -337,7 +339,7 @@ function pause(){mapCamera?.close(false);if(ArcStoryView.active||ArcExpeditionUi
 function confirmPauseAction(kind){
  if(!s||!manualPaused||s.result)return;dialog=kind;$('overlay').dataset.kind=kind;$('modalTitle').textContent=kind==='retry'?'Retry this level?':'Return to title?';$('modalDetail').textContent=ArcFinalTeam.active(s)?'This level restarts from its entry stock.':'Remaining stock and claimed pickups stay saved when retrying.';$('resume').textContent=kind==='retry'?'Retry level':'Return to title';$('returnLobby').textContent='CANCEL';$('resume').focus();
 }
-function lobby(){if(ArcStoryView.state?.ending)return;mapCamera?.close(false);ArcScreens.close('specialLesson',false);bgm.request('TITLE');specialNotice.reset(-1);ArcStoryView.hideResult();ArcMenus.close(false);$('chapterMessage').hidden=true;clearInput();gameToken++;s=null;runContext=null;shot=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;lootContinuation=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lootPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
+function lobby(){if(ArcStoryView.state?.ending)return;mapCamera?.close(false);ArcScreens.close('specialLesson',false);bgm.request('TITLE');specialNotice.reset(-1);ArcStoryView.hideResult();ArcMenus.close(false);$('chapterMessage').hidden=true;clearInput();gameToken++;s=null;runContext=null;shot=null;shotMotion=null;tail=null;impact=null;demo=null;encounter=null;ending=null;reward=null;transition=null;lootContinuation=null;pickupEffects=[];cpuReady=null;cpuJob=null;manualPaused=false;$('encounterBanner').hidden=true;$('tutorial').hidden=true;$('rewardNotice').hidden=true;$('weaponPicker').hidden=true;$('lootPicker').hidden=true;$('lobby').hidden=false;$('battle').hidden=true;$('overlay').hidden=true;selectedMap=save.data.chapterRun?save.data.chapterRun.stage-1:Math.min(selectedMap,Math.min(99,save.data.cleared));syncLobby();audioSync();save.save();}
 async function playStoryMovie(id,onDone=()=>{},replay=false,trigger=null){
  if(movieOpening||ArcStoryView.active)return false;
  movieOpening=true;

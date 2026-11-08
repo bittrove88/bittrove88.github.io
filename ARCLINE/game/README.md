@@ -1,5 +1,7 @@
+0.29.1：本編の演出時計は `dist/game.js` が所有し、関数をWorkerへ送る射撃計画に保存しない。フリーズの回帰検証は `tests/battle-turn-continuity-browser.test.cjs`。[原因・検証範囲](../docs/releases/0.29.1.md)。
+
 グラフィック・モーション・演出を制作・改修する前に、[デザインガイド](../docs/design/ARCLINE_GRAPHICS_MOTION_GUIDE.md)を参照する。判断基準、技ごとの設計項目、通常速度での評価と改善手順を共通の開発指針とする。
-**0.29.1：** 仲間原画のα正本は `design/ending-roll-preparation/player-masks.json` と `design/recruit-art-0291/alpha/`。任意の再準備は `prepare_player_masks.py`（OpenCV5.0.0.93）、正式ビルドは既存コマンド。通常敵の判断は `dist/enemy-actions.js`、接続は `engine.js`・`game.js`・`cpu-worker.js`。原画待機は `expedition-ui.js` と `character-hero.js`、音楽は既存 `audioSync`。[仕様と検証](../docs/releases/0.29.1.md)。
+**0.29.2：** 仲間原画のα正本は `design/ending-roll-preparation/player-masks.json` と `design/recruit-art-0292/alpha/`。任意の再準備は `prepare_player_masks.py`（OpenCV5.0.0.93）、正式ビルドは既存コマンド。通常敵の判断は `dist/enemy-actions.js`、接続は `engine.js`・`game.js`・`cpu-worker.js`。原画待機は `expedition-ui.js` と `character-hero.js`、音楽は既存 `audioSync`。[仕様と検証](../docs/releases/0.29.2.md)。
 
 0.28.1：下部UIは `styles/battle-ui.css`、雲の共有輪郭は `dist/geometry.js` と `design/components/complete/renderer.js`、加入は `dist/character-hero.js`・`expedition-ui.js`、8/12面はstage_blueprintsが正本。[範囲・保護・検証](../docs/releases/0.28.1.md)。
 
