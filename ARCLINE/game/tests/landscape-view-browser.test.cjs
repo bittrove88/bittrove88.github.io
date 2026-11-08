@@ -20,7 +20,7 @@ async function drag(page,cdp,from,to){await touch(cdp,'touchStart',[{id:1,...awa
    ok(await page.locator('[data-landscape-toggle],[data-landscape-flip]').count()===0,'landscape is mandatory without an off toggle');
    ok(await page.evaluate('viewport.state.width>viewport.state.height&&canAim()&&!document.getElementById("rotationGate")'),'portrait launch automatically stays landscape');
    ok(await page.evaluate('document.getElementById("world").clientWidth')===height,'logical canvas width follows landscape, not browser portrait');
-   ok(await page.evaluate('getComputedStyle(document.getElementById("stick")).width')=== '84px','landscape CSS stays active in portrait browser');
+   ok(await page.evaluate('getComputedStyle(document.getElementById("stick")).width')=== '68px','landscape CSS stays active in portrait browser');
    for(const id of ['stick','aimStick','fire','pause','mapCameraToggle']){
     const r=await page.locator('#'+id).boundingBox();ok(r.x>=-.1&&r.y>=-.1&&r.x+r.width<=width+.1&&r.y+r.height<=height+.1,'rotated control fits '+id+'/'+width);
     ok(await page.locator('#'+id).evaluate(e=>{const r=e.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return hit===e||e.contains(hit);}), 'rotated control receives touch '+id);

@@ -32,7 +32,7 @@ const battleSnapshot=()=>JSON.stringify({angle:s.angle,power:s.power,units:s.uni
    await page.evaluate(()=>{for(let k=0;k<20&&Math.abs(s.units[0].slope)<.05;k++)E.move(s,0,12);s.angle=E.clamp(64,minimumAngle(),maximumAngle());hud();draw();});
    ok(await page.evaluate('Math.abs(s.units[0].slope)>.05'),'aim regression starts on an actual slope');
    const toggle=await page.locator('#mapCameraToggle').boundingBox();
-   ok(toggle.width>=44&&toggle.height>=44&&toggle.x>=0&&toggle.y>=0&&toggle.x+toggle.width<=width+1,'camera toggle is visible touch target '+width);
+   ok(toggle.width===52&&toggle.height===36&&toggle.x>=0&&toggle.y>=0&&toggle.x+toggle.width<=width+1,'camera toggle is visible touch target '+width);
    const initial=await page.evaluate(battleSnapshot),saveBefore=await page.evaluate('JSON.stringify(save.data)'),trajectory=await page.evaluate('JSON.stringify(E.trajectory(s,0,s.angle,65))');
    await activate('#mapCameraToggle');await page.waitForFunction('mapCamera.active');
    ok(await page.evaluate('!canAim()&&document.getElementById("battle").inert&&ArcScreens.active==="mapCamera"'),'inspection blocks combat and owns focus');

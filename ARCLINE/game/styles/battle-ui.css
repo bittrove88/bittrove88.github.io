@@ -1,0 +1,1813 @@
+/* Battle layout. Native combat and charge gauge are retained. */
+.battle-ui .battle-top {
+  left: 50% !important;
+  right: auto !important;
+  top: max(2px, env(safe-area-inset-top)) !important;
+  transform: translateX(-50%) !important;
+  width: min(100% - 24px, 560.4px) !important;
+  max-width: none !important;
+  grid-template-columns: minmax(0, 169.2px) 166px minmax(0, 169.2px) !important;
+  gap: 28px !important;
+  align-items: start;
+}
+.battle-ui .health-card {
+  margin-top: 10px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  min-width: 0;
+  width: 100% !important;
+  box-shadow: none;
+}
+.battle-ui .hp-title {
+  height: 17px;
+  justify-content: flex-start !important;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 17px;
+  text-shadow: 0 1px 4px #102d3e;
+}
+.battle-ui .hp-title strong {
+  font-size: 11px;
+  max-width: 105px;
+}
+.battle-ui .hp-title span {
+  font-size: 11px;
+  font-weight: 600;
+}
+.battle-ui .hp-track {
+  margin-top: 4px;
+  height: 5px;
+}
+.battle-ui .hp-track:after {
+  display: none;
+  content: none;
+}
+.battle-ui #pbar {
+  background: #cee4b8;
+}
+.battle-ui #ebar {
+  background: #eabb9e;
+}
+.battle-ui .battle-tools {
+  display: flex !important;
+  gap: 5px;
+  align-items: start;
+  width: 166px;
+}
+.battle-ui .battle-tools button {
+  width: 52px !important;
+  min-width: 52px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 !important;
+  border-radius: 9px !important;
+  font-size: 10px !important;
+  line-height: 12px;
+  background: #163847eb;
+  border: 1px solid #b6cabf36;
+  color: #e6f2d7;
+  white-space: normal;
+}
+.battle-ui .battle-tools #pause {
+  font-size: 19px !important;
+}
+.battle-ui .turn-pill {
+  left: max(10px, env(safe-area-inset-left)) !important;
+  right: auto !important;
+  top: max(3px, env(safe-area-inset-top)) !important;
+  font-size: 10px;
+  line-height: 14px;
+  transform: none !important;
+}
+.battle-ui #specialHUD {
+  display: none !important;
+}
+.battle-ui #shotBudget {
+  left: auto !important;
+  right: 0 !important;
+  top: auto !important;
+  bottom: -17px !important;
+  font-size: 10px;
+  line-height: 14px;
+  transform: none !important;
+  background: none;
+  padding: 0;
+  letter-spacing: 0;
+}
+/* Stable dock dimensions from the approved battle; native charge styling is untouched. */
+.battle-ui #battleControls {
+  --dock-size: 68px;
+  --dock-icon: 40px;
+  --move-x: 6px;
+  --aim-x: 98px;
+  --fire-x: 6px;
+  --tools-left: 184px;
+  --tools-right: 92px;
+  width: calc(100% - 24px) !important;
+  max-width: 960px;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  bottom: max(22px, env(safe-area-inset-bottom)) !important;
+  height: 84px !important;
+}
+.battle-ui .stick-wrap,
+.battle-ui .aim-stick-wrap,
+.battle-ui .fire-wrap {
+  position: absolute !important;
+  width: var(--dock-size) !important;
+  height: 84px !important;
+  top: auto !important;
+  bottom: 0 !important;
+  transform: none !important;
+}
+.battle-ui .stick-wrap {
+  left: var(--move-x) !important;
+  right: auto !important;
+}
+.battle-ui .aim-stick-wrap {
+  left: var(--aim-x) !important;
+  right: auto !important;
+}
+.battle-ui .fire-wrap {
+  left: auto !important;
+  right: var(--fire-x) !important;
+}
+.battle-ui #stick,
+.battle-ui #aimStick,
+.battle-ui #fire {
+  width: var(--dock-size) !important;
+  height: var(--dock-size) !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+.battle-ui #stick,
+.battle-ui #aimStick {
+  box-shadow: inset 0 1px 0 #d7e7bc12;
+  background: linear-gradient(145deg, #487b80, #2c596b);
+  border: 1px solid #c8e1bcbb;
+}
+.battle-ui #stick > span,
+.battle-ui .aim-axis {
+  display: none;
+}
+.battle-ui #stickKnob,
+.battle-ui #aimStickKnob {
+  inset: calc((var(--dock-size) - var(--dock-icon)) / 2 - 1px) !important;
+  width: var(--dock-icon) !important;
+  height: var(--dock-icon) !important;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #e6ffb8;
+  font-size: 0;
+}
+/* Native input continues to control the angle; its icon stays centered and only rotates. */
+.battle-ui #aimStickKnob {
+  transform: none !important;
+}
+.battle-ui #aimStickKnob:after {
+  display: none;
+}
+.battle-ui .battle-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: block;
+  pointer-events: none;
+}
+.battle-ui #stickKnob .battle-icon,
+.battle-ui #aimStickKnob svg,
+.battle-ui #fire > .battle-icon {
+  width: var(--dock-icon);
+  height: var(--dock-icon);
+}
+.battle-ui .battle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--dock-size);
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 14px;
+  color: #d2dfd0;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.battle-ui .stick-wrap > #moveBudget,
+.battle-ui .aim-stick-wrap > #angleText,
+.battle-ui .fire-wrap > #shotBudget {
+  position: absolute !important;
+  top: auto !important;
+  bottom: -17px !important;
+  left: 0 !important;
+  right: auto !important;
+  width: var(--dock-size);
+  line-height: 14px;
+  font-size: 10px !important;
+  letter-spacing: 0;
+  font-weight: 500;
+  text-align: center;
+  color: #b8cdbb;
+}
+.battle-ui #fire .bolt,
+.battle-ui #fire #chargeValue {
+  display: none;
+}
+.battle-ui #fire {
+  padding: 0;
+  justify-content: center;
+  background: linear-gradient(130deg, #eff7ce, #c6dca9);
+  border: 2px solid #e1ecbe99;
+  color: #143e4c;
+  box-shadow:
+    0 3px 0 #699987,
+    0 7px 18px #0a28364d;
+}
+.battle-ui #fire > .battle-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.battle-ui #fire .charge-ring {
+  width: 78px;
+  height: 78px;
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+/* Position only: native 17px title + 2px gap + 26px charge track stay intact. */
+.battle-ui #powerHUD {
+  left: var(--tools-left) !important;
+  right: var(--tools-right) !important;
+  top: 0 !important;
+  width: auto !important;
+  height: 45px !important;
+}
+.battle-ui #actionRow {
+  position: absolute;
+  left: var(--tools-left) !important;
+  right: var(--tools-right) !important;
+  top: auto !important;
+  bottom: 0 !important;
+  height: 36px !important;
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+.battle-ui #actionRow[data-teleport="false"][data-skills="true"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.battle-ui #actionRow[data-teleport="true"][data-skills="false"] {
+  grid-template-columns: 104px minmax(0, 1fr);
+}
+.battle-ui #actionRow[data-teleport="false"][data-skills="false"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+.battle-ui #warpToggle,
+.battle-ui #weaponToggle,
+.battle-ui #skillToggle {
+  height: 36px !important;
+  min-height: 36px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  margin: 0;
+  padding: 2px 8px !important;
+  position: static !important;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  border: 1px solid #a9c3b342 !important;
+  background: #173e4de8 !important;
+  color: #edf5d0 !important;
+  text-align: left;
+  font-weight: 500;
+}
+.battle-ui #weaponToggle {
+  overflow: hidden;
+  border-color: #bdcfa75c !important;
+}
+.battle-ui #skills {
+  order: 3;
+  position: static !important;
+  width: 100%;
+  min-width: 0;
+}
+.battle-ui #actionRow .battle-icon {
+  width: 22px !important;
+  height: 22px !important;
+  color: #b6cbbb;
+}
+.battle-ui #warpToggle .battle-menu-copy,
+.battle-ui #skillToggle .battle-menu-copy,
+.battle-ui #weaponToggle .weapon-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  line-height: 13px;
+}
+.battle-ui .battle-menu-copy > small,
+.battle-ui #weaponState {
+  display: block !important;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  color: #b3c7bc;
+  white-space: nowrap;
+}
+.battle-ui .battle-menu-copy > strong,
+.battle-ui #weaponName,
+.battle-ui #skillName {
+  display: block;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  color: #e5ecda;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  letter-spacing: 0;
+}
+.battle-ui #weaponName {
+  color: #f0f3da;
+  font-weight: 700;
+}
+.battle-ui #skillName {
+  color: #c5d3c5;
+  font-weight: 500;
+}
+.battle-ui #battleTeleportState {
+  color: #a9c0b5;
+  font-weight: 500;
+}
+.battle-ui #weaponStock,
+.battle-ui #skillStock {
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: 500;
+  color: #b8cbbb;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.battle-ui .battle-chevron {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  color: #b6cbbb;
+}
+.battle-ui #weaponGlyph,
+.battle-ui .weapon-chevron,
+.battle-ui .warp-icon {
+  display: none !important;
+}
+.battle-ui #warpToggle[aria-pressed="true"],
+.battle-ui #skillToggle[data-selected="true"] {
+  background: #315448 !important;
+  border-color: #c5dca783 !important;
+}
+.battle-ui #warpToggle[aria-pressed="true"] #battleTeleportState {
+  color: #e1f4bf;
+  font-weight: 650;
+}
+.battle-ui #skillToggle[data-used="true"] #skillStock {
+  color: #a9bfb5;
+}
+.battle-ui #overlay[data-kind="pause"] .modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  max-height: calc(100% - 16px);
+  overflow: auto;
+}
+.battle-ui
+  #overlay[data-kind="pause"]
+  .modal
+  > :is(#resultIcon, #modalEyebrow, #modalTitle, #modalDetail, #resume) {
+  grid-column: 1/-1;
+  margin: 0;
+}
+.battle-ui #overlay[data-kind="pause"] #resultIcon {
+  display: none;
+}
+.battle-ui #overlay[data-kind="pause"] #modalTitle {
+  font-size: 22px;
+}
+.battle-ui #overlay[data-kind="pause"] #modalDetail:empty {
+  display: none;
+}
+.battle-ui #overlay[data-kind="pause"] #pauseSettings {
+  display: contents;
+}
+.battle-ui
+  #overlay[data-kind="pause"]
+  :is(#pauseMachineChange, #pauseSettings button, #retryLevel, #returnLobby) {
+  width: 100%;
+  height: 36px !important;
+  min-height: 36px !important;
+  margin: 0;
+  padding: 5px 8px;
+  border: 1px solid #a4c3b45c;
+  border-radius: 7px;
+  background: #163d4f;
+  color: #e5eedc;
+  font-size: 12px;
+  display: block;
+}
+.battle-ui #overlay[data-kind="pause"] #resume {
+  height: 42px;
+  min-height: 42px;
+  padding: 6px;
+}
+.battle-ui #overlay[data-kind="pause"] #modalTitle {
+  grid-area: 1/1;
+  line-height: 27px;
+}
+.battle-ui #overlay[data-kind="pause"] #modalEyebrow {
+  grid-area: 1/2;
+  align-self: center;
+}
+.battle-ui #overlay[data-kind="pause"] #resume {
+  grid-area: 2/1/3/3;
+}
+.battle-ui #overlay[data-kind="pause"] #pauseMachineChange {
+  grid-area: 3/1;
+}
+.battle-ui #overlay[data-kind="pause"] .pause-fullscreen {
+  grid-area: 3/2;
+}
+.battle-ui #overlay[data-kind="pause"] .pause-language {
+  grid-area: 4/1;
+}
+.battle-ui #overlay[data-kind="pause"] #mirrorControls {
+  grid-area: 4/2;
+}
+.battle-ui #overlay[data-kind="pause"] #retryLevel {
+  grid-area: 5/1;
+}
+.battle-ui #overlay[data-kind="pause"] #returnLobby {
+  grid-area: 5/2;
+}
+.battle-ui #battleMachinePicker .quick-machines {
+  width: min(680px, calc(100% - 20px));
+  max-height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+}
+.battle-ui #battleMachinePicker header {
+  flex-shrink: 0;
+}
+.battle-ui #battleMachineChoices {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(var(--battle-columns, 3), minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+.battle-ui #battleMachineChoices button {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  column-gap: 8px;
+  row-gap: 1px;
+  align-items: center;
+  min-height: 78px;
+  text-align: left;
+  padding: 9px;
+  border-radius: 10px;
+}
+.battle-ui #battleMachineChoices .character-art {
+  grid-column: 1;
+  grid-row: 1/5;
+  width: 54px;
+  height: 54px !important;
+  min-width: 54px;
+}
+.battle-ui #battleMachineChoices strong {
+  grid-column: 2;
+  font-size: 15px;
+  line-height: 20px;
+}
+.battle-ui #battleMachineChoices button > span {
+  grid-column: 2;
+  font-size: 10px;
+  line-height: 14px;
+}
+.battle-ui #battleMachineChoices small {
+  grid-column: 2;
+  font-size: 10px;
+  line-height: 13px;
+}
+.battle-ui #battleMachineChoices .battle-character-hp {
+  color: #ddf2cd;
+}
+.battle-ui #battleMachineNote {
+  order: 3;
+  font-size: 10px;
+  line-height: 14px;
+  color: #97b2b7;
+  margin: 0;
+  flex-shrink: 0;
+}
+.battle-coach {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: #082638d9;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  pointer-events: auto;
+}
+.battle-coach[hidden] {
+  display: none;
+}
+.battle-coach > div {
+  width: min(570px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  background: #12374a;
+  border: 1px solid #91b8a466;
+  border-radius: 16px;
+  padding: 16px;
+}
+.battle-coach header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.battle-coach h2 {
+  font-size: 19px;
+  margin: 0;
+}
+.battle-coach p {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #c3d8d4;
+}
+.battle-guide-halves {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+.battle-guide-halves > div {
+  padding: 12px;
+  background: #264e60;
+  border-radius: 10px;
+  text-align: center;
+}
+.battle-guide-halves svg {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 8px;
+  color: #e2f3c8;
+}
+.battle-guide-halves strong {
+  font-size: 14px;
+}
+.battle-guide-halves small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+.battle-coach button {
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 12px;
+}
+.battle-coach .battle-aim-options {
+  display: flex;
+  gap: 10px;
+  margin: 14px 0;
+}
+.battle-aim-options button {
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+}
+.battle-aim-options svg {
+  width: 36px;
+  height: 36px;
+}
+.battle-aim-options button[aria-pressed="true"] {
+  border-color: #efffc2;
+  background: #456d70;
+}
+.battle-coach .coach-close {
+  padding: 4px 12px;
+}
+.battle-ui #quickViewReset {
+  position: absolute;
+  right: 12px;
+  top: 52px;
+  font-size: 10px;
+  height: 30px;
+  pointer-events: auto;
+  border-radius: 7px;
+  background: #173f51cc;
+}
+#battleCharacterResources {
+  flex-shrink: 0;
+  order: 0;
+  margin: 6px 0 0;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #0c2b3866;
+  color: #c7d9c8;
+  font-size: 11px;
+  line-height: 16px;
+}
+.battle-ui #app[data-controls="right"] #battleControls {
+  --tools-left: 92px;
+  --tools-right: 184px;
+}
+.battle-ui #app[data-controls="right"] .stick-wrap {
+  left: auto !important;
+  right: var(--move-x) !important;
+}
+.battle-ui #app[data-controls="right"] .aim-stick-wrap {
+  left: auto !important;
+  right: var(--aim-x) !important;
+}
+.battle-ui #app[data-controls="right"] .fire-wrap {
+  left: var(--fire-x) !important;
+  right: auto !important;
+}
+@media (max-width: 650px) {
+  .battle-ui .battle-top {
+    width: min(100% - 24px, 532.4px) !important;
+    gap: 14px !important;
+  }
+  .battle-ui #battleMachineChoices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .battle-ui .turn-pill {
+    top: 40px !important;
+  }
+  .battle-ui #battleControls {
+    --move-x: 0px;
+    --aim-x: 76px;
+    --fire-x: 0px;
+    --tools-left: 152px;
+    --tools-right: 76px;
+    width: calc(100% - 20px) !important;
+  }
+  .battle-ui #app[data-controls="right"] #battleControls {
+    --tools-left: 76px;
+    --tools-right: 152px;
+  }
+  .battle-ui #actionRow {
+    grid-template-columns: 84px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 4px;
+  }
+  .battle-ui #actionRow[data-teleport="true"][data-skills="false"] {
+    grid-template-columns: 84px minmax(0, 1fr);
+  }
+  .battle-ui #warpToggle,
+  .battle-ui #weaponToggle,
+  .battle-ui #skillToggle {
+    padding: 2px 4px !important;
+    gap: 4px;
+  }
+  .battle-ui .battle-menu-copy > small,
+  .battle-ui #weaponState {
+    font-size: 9px;
+    line-height: 12px;
+  }
+  .battle-ui .battle-menu-copy > strong,
+  .battle-ui #weaponName,
+  .battle-ui #skillName {
+    font-size: 11px;
+    line-height: 15px;
+  }
+  .battle-ui #weaponStock,
+  .battle-ui #skillStock {
+    font-size: 9px;
+  }
+  .battle-ui .battle-chevron {
+    display: none;
+  }
+}
+.battle-ui #battle[data-final-team="true"] #finalTeamHUD {
+  top: 42px;
+  left: 10px;
+  min-height: 36px;
+  width: 180px;
+  max-width: 40%;
+  font-size: 10px;
+}
+.battle-ui #battleMachinePicker[data-fixed-order="true"] #battleMachineNote {
+  order: 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: #c3d8d0;
+  margin: 8px 0;
+}
+
+.battle-ui #battleCharacters #playerName:after {
+  display: none;
+  content: none;
+}
+
+.battle-touch-ratio {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  overflow: hidden;
+  margin: 14px 0 0;
+  border: 1px solid #a9c3b342;
+  border-radius: 8px;
+  font-size: 10px;
+  line-height: 30px;
+  text-align: center;
+  white-space: nowrap;
+}
+.battle-touch-ratio span:first-child {
+  background: #345d68;
+  color: #e5efd5;
+}
+.battle-touch-ratio span:last-child {
+  background: #203f50;
+  color: #c2d8d3;
+  border-left: 1px solid #a9c3b342;
+}
+/* Compact inventory cards share spacing and hierarchy; full native descriptions remain readable. */
+.battle-ui #weaponChoices,
+.battle-ui #skillChoices {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 8px;
+  align-content: start;
+}
+.battle-ui #weaponChoices button,
+.battle-ui #skillChoices .skill {
+  position: relative;
+  min-height: 60px;
+  height: auto;
+  padding: 6px 8px;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  grid-template-rows: auto;
+  align-items: center;
+  gap: 7px;
+  border-radius: 9px;
+}
+.battle-ui #weaponChoices strong,
+.battle-ui #skillChoices .skill-name {
+  font-size: 14px !important;
+  line-height: 17px;
+  font-weight: 650;
+}
+.battle-ui #weaponChoices .weapon-choice-copy small,
+.battle-ui #skillChoices .skill-note {
+  position: static;
+  display: block;
+  font-size: 11px;
+  line-height: 14px;
+  color: #c4d9ce;
+  font-weight: 400;
+  white-space: normal;
+  overflow: visible;
+}
+.battle-ui #skillChoices .skill-icon {
+  position: static;
+  grid-column: auto;
+  grid-row: auto;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+.battle-ui #skillChoices .skill-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.battle-ui .battle-skill-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  text-align: left;
+}
+.battle-ui .battle-skill-heading {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.battle-ui .battle-skill-stock {
+  display: grid;
+  gap: 3px;
+  justify-items: end;
+  max-width: 70px;
+  text-align: right;
+}
+.battle-ui #skillChoices .skill-count {
+  position: static;
+  grid-column: auto;
+  grid-row: auto;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 650;
+  color: #f0f8c9;
+}
+.battle-ui #skillChoices .skill-state {
+  position: static;
+  grid-column: auto;
+  grid-row: auto;
+  font-size: 10px;
+  line-height: 12px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.battle-ui .battle-rare-tag {
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid #ffdb7666;
+  background: #ffdb7612;
+  color: #ffdf8f;
+  font-size: 9px;
+  line-height: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+/* One selected appearance for teleport, equipped attack, reserved skill and current character. */
+.battle-ui {
+  --battle-selected-bg: #365d52;
+  --battle-selected-border: #d9e9ad;
+  --battle-selected-text: #f1f8d9;
+}
+.battle-ui #warpToggle[aria-pressed="true"],
+.battle-ui #weaponToggle[data-selected="true"],
+.battle-ui #skillToggle[data-selected="true"],
+.battle-ui #weaponChoices button[aria-pressed="true"],
+.battle-ui #skillChoices button[aria-pressed="true"],
+.battle-ui #battleMachineChoices button[aria-pressed="true"] {
+  background: var(--battle-selected-bg) !important;
+  border-color: var(--battle-selected-border) !important;
+  box-shadow: inset 0 0 0 1px #d9e9ad35 !important;
+  color: var(--battle-selected-text) !important;
+  opacity: 1;
+}
+/* Ten character cards: five columns and two rows on a phone in landscape. */
+.battle-ui #battleMachinePicker:not([data-fixed-order="true"]) .quick-machines {
+  width: min(900px, 100%);
+  max-height: 100%;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: 8px;
+  overflow: hidden;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  .quick-machines
+  > header {
+  grid-row: 1;
+  min-height: 40px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleCharacterResources {
+  grid-row: 2;
+  order: initial;
+  margin: 0;
+  padding: 4px 8px;
+  line-height: 15px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineNote {
+  grid-row: 4;
+  order: initial;
+  font-size: 9px;
+  line-height: 12px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices {
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: minmax(110px, auto);
+  gap: 7px;
+  margin: 0;
+  min-height: 0;
+  overflow: auto;
+  align-content: start;
+  padding: 1px;
+  scrollbar-gutter: stable;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  button {
+  position: relative;
+  min-width: 0;
+  min-height: 110px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 44px 17px 13px 11px 12px;
+  gap: 1px;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .character-art {
+  grid-column: 1;
+  grid-row: 1;
+  width: 86px !important;
+  min-width: 0;
+  height: 44px !important;
+  max-width: 100%;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  strong {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 14px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-hp {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: 11px;
+  line-height: 13px;
+  white-space: nowrap;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-role {
+  grid-column: 1;
+  grid-row: 4;
+  max-width: 100%;
+  font-size: 9px;
+  line-height: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #aec7bd;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-special {
+  grid-column: 1;
+  grid-row: 5;
+  max-width: 100%;
+  font-size: 10px;
+  line-height: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #cfdfc4;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-status {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 8px;
+  line-height: 10px;
+  background: #173a39d9;
+  color: #e5efc6;
+}
+@media (max-height: 340px) {
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    .quick-machines {
+    padding: 8px;
+    gap: 5px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    .quick-machines
+    > header {
+    min-height: 32px;
+  }
+  .battle-ui #battleMachineTitle {
+    font-size: 18px;
+  }
+  .battle-ui #closeBattleMachines {
+    min-height: 32px;
+    height: 32px;
+    min-width: 32px;
+    width: 32px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices {
+    grid-auto-rows: minmax(91px, auto);
+    gap: 5px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    button {
+    min-height: 91px;
+    grid-template-rows: 32px 15px 12px 10px 11px;
+    gap: 0;
+    padding: 4px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .character-art {
+    width: 72px !important;
+    height: 32px !important;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    strong {
+    font-size: 13px;
+    line-height: 15px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-hp {
+    font-size: 10px;
+    line-height: 12px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-role {
+    font-size: 8px;
+    line-height: 10px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-special {
+    font-size: 9px;
+    line-height: 11px;
+  }
+}
+.battle-ui #skillChoices .battle-skill-heading,
+.battle-ui #skillChoices .skill-note {
+  grid-column: 1/-1;
+  grid-row: auto;
+  min-width: 0;
+  width: auto;
+  max-width: none;
+}
+.battle-ui #skillChoices .skill-name {
+  position: static;
+  grid-column: auto;
+  grid-row: auto;
+  width: auto;
+  max-width: none;
+  white-space: normal;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-status {
+  grid-column: auto;
+  grid-row: auto;
+  width: max-content;
+  max-width: calc(100% - 8px);
+  white-space: nowrap;
+}
+/* Blue is the single selection color; the left inset keeps selection visible without color alone. */
+.battle-ui {
+  --battle-selected-bg: #245b86;
+  --battle-selected-border: #8bd3ff;
+  --battle-selected-text: #f2fbff;
+}
+.battle-ui #warpToggle[aria-pressed="true"],
+.battle-ui #weaponToggle[data-selected="true"],
+.battle-ui #skillToggle[data-selected="true"],
+.battle-ui #weaponChoices button[aria-pressed="true"],
+.battle-ui #skillChoices button[aria-pressed="true"],
+.battle-ui #battleMachineChoices button[aria-pressed="true"] {
+  border-width: 2px !important;
+  box-shadow:
+    inset 3px 0 0 #ade2ff,
+    inset 0 0 0 1px #a1daff55 !important;
+}
+.battle-ui #warpToggle[aria-pressed="true"] #battleTeleportState {
+  color: #effaff;
+}
+.battle-ui .battle-inventory-group {
+  grid-column: 1/-1;
+  margin: 5px 0 0;
+  color: #b9d1d4;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+/* One-line skill summaries; complete effects and the usage method appear in the inspector. */
+.battle-ui #skillChoices {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.battle-ui #skillChoices .skill {
+  min-height: 64px;
+  grid-template-columns: 28px minmax(0, 1fr) 62px;
+  gap: 8px;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+.battle-ui #skillChoices .skill-icon {
+  color: var(--battle-skill-color) !important;
+  width: 28px;
+  height: 28px;
+}
+.battle-ui #skillChoices .skill-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.battle-ui #skillChoices .skill-name {
+  font-size: 14px !important;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.battle-ui #skillChoices .battle-skill-heading {
+  flex-wrap: nowrap;
+  gap: 4px;
+  overflow: hidden;
+}
+.battle-ui #skillChoices .skill-note {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  line-height: 17px;
+}
+.battle-ui #skillChoices .battle-skill-stock {
+  max-width: none;
+  gap: 4px;
+}
+.battle-ui .battle-skill-method {
+  color: #c9e1ea;
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.battle-ui #skillChoices .battle-native-skill-state {
+  display: none;
+}
+.battle-ui #skillChoices .skill[data-unavailable="true"] {
+  opacity: 0.68;
+}
+.battle-ui #skillChoices .skill[aria-pressed="true"] {
+  opacity: 1;
+}
+.battle-ui #battleSkillInspector {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  flex: none;
+  padding: 9px 10px;
+  border: 1px solid #7cb8dc66;
+  border-radius: 10px;
+  background: #102e42;
+}
+.battle-ui .battle-skill-detail {
+  min-width: 0;
+}
+.battle-ui .battle-skill-detail-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 22px;
+}
+.battle-ui #battleSkillTitle {
+  font-size: 14px;
+  line-height: 20px;
+}
+.battle-ui #battleSkillIcon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+.battle-ui #battleSkillIcon svg {
+  width: 24px;
+  height: 24px;
+}
+.battle-ui #battleSkillDescription {
+  font-size: 11px;
+  line-height: 16px;
+  margin: 3px 0;
+  color: #d0e0dc;
+}
+.battle-ui #battleSkillHow {
+  display: block;
+  font-size: 11px;
+  line-height: 16px;
+  color: #9ed5fb;
+}
+.battle-ui #battleSkillUse {
+  min-height: 38px;
+  min-width: 125px;
+  padding: 7px 10px;
+  border: 1px solid #8bd3ff;
+  border-radius: 8px;
+  background: #28658e;
+  color: #f1faff;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.battle-ui #battleSkillUse:disabled {
+  opacity: 0.48;
+  cursor: default;
+}
+.battle-ui #battleSkillInspector[data-empty="true"] #battleSkillIcon,
+.battle-ui #battleSkillInspector[data-empty="true"] #battleSkillHow {
+  display: none;
+}
+.battle-ui #battleSkillToast {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 122px;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: 7px 12px;
+  border: 1px solid #8bd3ff88;
+  border-radius: 8px;
+  background: #163c53ec;
+  color: #e6f5ff;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  pointer-events: none;
+}
+/* Dragging from any card scrolls the list, in game coordinates even when the viewport is rotated. */
+.battle-ui #weaponStockScroll,
+.battle-ui #weaponStockScroll *,
+.battle-ui #skillStockScroll,
+.battle-ui #skillStockScroll *,
+.battle-ui #battleMachineChoices,
+.battle-ui #battleMachineChoices * {
+  touch-action: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.battle-ui #weaponChoices button:disabled,
+.battle-ui #battleMachineChoices button:disabled {
+  pointer-events: none;
+}
+/* Larger character text takes precedence over squeezing every card into a narrow display. */
+.battle-ui #battleMachinePicker:not([data-fixed-order="true"]) .quick-machines {
+  padding: 10px;
+  gap: 6px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  .quick-machines
+  > header {
+  min-height: 36px;
+}
+.battle-ui #closeBattleMachines {
+  min-width: 36px;
+  width: 36px;
+  min-height: 36px;
+  height: 36px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(80px, auto);
+  gap: 6px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  button {
+  min-height: 80px;
+  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-rows: 20px 16px 14px 15px;
+  column-gap: 6px;
+  row-gap: 0;
+  padding: 4px;
+  justify-items: start;
+  text-align: left;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .character-art {
+  grid-column: 1;
+  grid-row: 1/5;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 0;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  strong {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 17px;
+  line-height: 20px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-hp {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 13px;
+  line-height: 16px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-role {
+  grid-column: 2;
+  grid-row: 3;
+  font-size: 11px;
+  line-height: 14px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-special {
+  grid-column: 2;
+  grid-row: 4;
+  font-size: 12px;
+  line-height: 15px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-status {
+  left: 3px;
+  right: auto;
+  top: 3px;
+  font-size: 9px;
+  line-height: 12px;
+  padding: 0 3px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices[data-count="10"]
+  button:nth-child(9) {
+  grid-column: 2;
+}
+@media (max-width: 650px) {
+  .battle-ui #skillChoices .skill {
+    grid-template-columns: 24px minmax(0, 1fr) 54px;
+    gap: 6px;
+    padding: 6px;
+    min-height: 62px;
+  }
+  .battle-ui #skillChoices .skill-icon,
+  .battle-ui #skillChoices .skill-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .battle-ui #skillChoices .skill-note {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .battle-ui #skillChoices .skill-name {
+    font-size: 13px !important;
+  }
+  .battle-ui .battle-skill-method {
+    font-size: 9px;
+  }
+  .battle-ui #battleSkillInspector {
+    gap: 8px;
+    padding: 7px;
+  }
+  .battle-ui #battleSkillUse {
+    min-width: 110px;
+    font-size: 11px;
+  }
+  .battle-ui #battleSkillDescription {
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .battle-ui #battleSkillHow {
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    button {
+    grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 5px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .character-art {
+    width: 44px !important;
+    height: 52px !important;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    strong {
+    font-size: 15px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-hp {
+    font-size: 12px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices[data-count="10"]
+    button:nth-child(9) {
+    grid-column: auto;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices[data-count="10"]
+    button:nth-child(10) {
+    grid-column: 2;
+  }
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices {
+  grid-auto-rows: minmax(78px, auto);
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  button {
+  min-height: 78px;
+}
+.battle-ui #battle[data-enemy-direction] .enemy .hp-title {
+  padding-left: 0 !important;
+}
+.battle-ui #battle .enemy .hp-title:before {
+  display: none !important;
+  content: none !important;
+}
+.battle-ui #weaponChoices .weapon-choice-stock small {
+  display: none !important;
+}
+.battle-ui #weaponChoices .weapon-choice-copy small {
+  white-space: normal;
+}
+/* Requested grid: skill summaries use the full card width below icon, name and count. */
+.battle-ui #skillChoices {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.battle-ui #skillChoices .skill {
+  grid-template-columns: 26px minmax(0, 1fr) 26px;
+  grid-template-rows: 26px 17px;
+  column-gap: 7px;
+  row-gap: 3px;
+  min-height: 62px;
+  padding: 6px 8px;
+}
+.battle-ui #skillChoices .battle-skill-copy,
+.battle-ui #skillChoices .battle-skill-stock {
+  display: contents;
+}
+.battle-ui #skillChoices .skill .skill-icon {
+  grid-column: 1;
+  grid-row: 1;
+}
+.battle-ui #skillChoices .skill .battle-skill-heading {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+.battle-ui #skillChoices .skill .skill-count {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+.battle-ui #skillChoices .skill .skill-note {
+  grid-column: 1/-1;
+  grid-row: 2;
+}
+.battle-ui #skillChoices .battle-skill-method {
+  display: none;
+}
+/* Five columns and two rows, retaining larger names and HP rather than the old tiny type. */
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: minmax(114px, auto);
+  gap: 6px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  button {
+  min-height: 114px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 38px 20px 16px 12px 14px;
+  gap: 1px;
+  padding: 4px;
+  justify-items: center;
+  text-align: center;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .character-art {
+  grid-column: 1;
+  grid-row: 1;
+  width: 84px !important;
+  height: 38px !important;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  strong {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 17px;
+  line-height: 20px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-hp {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: 13px;
+  line-height: 16px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-role {
+  grid-column: 1;
+  grid-row: 4;
+  font-size: 10px;
+  line-height: 12px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices
+  .battle-character-special {
+  grid-column: 1;
+  grid-row: 5;
+  font-size: 12px;
+  line-height: 14px;
+}
+.battle-ui
+  #battleMachinePicker:not([data-fixed-order="true"])
+  #battleMachineChoices[data-count="10"]
+  button:nth-child(n) {
+  grid-column: auto;
+}
+@media (max-width: 650px) {
+  .battle-ui #skillChoices .skill {
+    grid-template-columns: 22px minmax(0, 1fr) 22px;
+    column-gap: 5px;
+    padding: 6px;
+    min-height: 61px;
+  }
+  .battle-ui #skillChoices .skill-icon,
+  .battle-ui #skillChoices .skill-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .battle-ui #skillChoices .skill-name {
+    font-size: 13px !important;
+  }
+  .battle-ui #skillChoices .skill-note {
+    font-size: 11px;
+  }
+}
+@media (max-height: 340px) {
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    .quick-machines {
+    padding: 8px;
+    gap: 5px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    .quick-machines
+    > header {
+    min-height: 32px;
+  }
+  .battle-ui #closeBattleMachines {
+    min-width: 32px;
+    width: 32px;
+    min-height: 32px;
+    height: 32px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices {
+    grid-auto-rows: minmax(95px, auto);
+    gap: 4px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    button {
+    min-height: 95px;
+    grid-template-rows: 24px 17px 14px 11px 12px;
+    gap: 1px;
+    padding: 3px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .character-art {
+    width: 76px !important;
+    height: 24px !important;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    strong {
+    font-size: 15px;
+    line-height: 17px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-hp {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-role {
+    font-size: 9px;
+    line-height: 11px;
+  }
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-special {
+    font-size: 11px;
+    line-height: 12px;
+  }
+}
+@media (max-height: 340px) {
+  .battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    .quick-machines {
+    padding: 7px;
+    gap: 3px;
+  }
+}
+@media (max-width: 650px) {
+  .battle-ui #skillChoices [data-skill^="S_CHARGE_SLOW_"] .skill-name {
+    font-size: 12px !important;
+  }
+}
+/* English names remain readable in three columns; summaries stay on one line. */
+@media (max-width: 650px) {
+  html[lang="en"].battle-ui #skillChoices .skill {
+    grid-template-rows: minmax(34px, auto) 17px;
+    min-height: 70px;
+  }
+  html[lang="en"].battle-ui #skillChoices .battle-skill-heading {
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 1px 4px;
+    overflow: visible;
+  }
+  html[lang="en"].battle-ui #skillChoices .skill-name {
+    white-space: normal;
+    overflow: visible;
+    line-height: 16px;
+    text-overflow: clip;
+  }
+  html[lang="en"].battle-ui
+    #battleMachinePicker:not([data-fixed-order="true"])
+    #battleMachineChoices
+    .battle-character-special {
+    font-size: 10px;
+  }
+}
+.battle-ui .battle-tools #pause {
+  display: grid;
+  place-items: center;
+}
+.battle-ui .battle-tools #pause svg {
+  width: 20px;
+  height: 20px;
+}
+/* Keep the guide title and confirmation visible when English copy needs scrolling. */
+.battle-coach > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+.battle-coach > div > header,
+.battle-coach > div > .coach-done {
+  flex: none;
+}
+.battle-coach-content {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.battle-coach-content > p:first-child {
+  margin-top: 0;
+}
+.battle-coach-content > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Sort only owned cards; native ownership filtering leaves no reserved item slots. */
+.battle-ui #weaponChoices,
+.battle-ui #skillChoices {
+  grid-auto-flow: row;
+}
+
+/* Match weapon copy to the corresponding skill copy at each viewport size. */
+.battle-ui {
+  --battle-card-copy-size: 12px;
+  --battle-card-copy-line: 17px;
+  --battle-detail-copy-size: 11px;
+  --battle-detail-copy-line: 16px;
+}
+.battle-ui #weaponChoices .weapon-choice-copy small,
+.battle-ui #skillChoices .skill-note {
+  font-size: var(--battle-card-copy-size);
+  line-height: var(--battle-card-copy-line);
+}
+.battle-ui #weaponPicker .weapon-picker-note,
+.battle-ui #battleSkillDescription,
+.battle-ui #battleSkillHow {
+  font-size: var(--battle-detail-copy-size);
+  line-height: var(--battle-detail-copy-line);
+}
+@media (max-width: 650px) {
+  .battle-ui {
+    --battle-card-copy-size: 11px;
+    --battle-card-copy-line: 16px;
+    --battle-detail-copy-size: 10px;
+    --battle-detail-copy-line: 14px;
+  }
+}
+/* Keep the approved layout; reclaim empty space only in very short viewports. */
+@media (max-height: 280px) {
+  .battle-ui .health-card,
+  .battle-ui #battleCharacters {
+    min-height: 0;
+  }
+  .battle-ui #battleControls {
+    bottom: max(18px, env(safe-area-inset-bottom)) !important;
+  }
+}

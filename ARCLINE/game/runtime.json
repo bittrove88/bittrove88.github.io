@@ -1,15 +1,16 @@
 {
-  "version": "0.27.0",
-  "cacheVersion": "0.27.0",
+  "version": "0.28.0",
+  "cacheVersion": "0.28.0",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
-  "releasedAt": "2026-11-07",
+  "releasedAt": "2026-11-08",
   "scripts": [
     "release-info.js",
     "i18n.js",
     "levels.js",
     "combat.js",
+    "battle-catalog.js",
     "skills.js",
     "weapons.js",
     "geometry.js",
@@ -67,6 +68,8 @@
     "master-progress.js",
     "master-mode.js",
     "crew-supply.js",
+    "battle-aim.js",
+    "battle-ui.js",
     "game.js",
     "fullscreen.js"
   ],
@@ -81,7 +84,8 @@
     "experience.css",
     "final-team.css",
     "master-mode.css",
-    "crew-supply.css"
+    "crew-supply.css",
+    "battle-ui.css"
   ],
   "generated": {
     "style.css": "styles/gameplay.css",
@@ -112,7 +116,11 @@
     "final-travel.js": "ui/final-travel.js",
     "crew-supply.js": "ui/crew-supply.js",
     "crew-supply.css": "styles/crew-supply.css",
-    "charge-camera.js": "ui/charge-camera.js"
+    "charge-camera.js": "ui/charge-camera.js",
+    "battle-catalog.js": "ui/battle-catalog.js",
+    "battle-aim.js": "ui/battle-aim.js",
+    "battle-ui.js": "ui/battle-ui.js",
+    "battle-ui.css": "styles/battle-ui.css"
   },
   "requires": {
     "screens.js": [],
@@ -184,7 +192,8 @@
       "master-mode.js",
       "final-travel.js",
       "crew-supply.js",
-      "charge-camera.js"
+      "charge-camera.js",
+      "battle-ui.js"
     ],
     "device.js": [
       "screens.js",
@@ -289,6 +298,25 @@
     "component-art.js": [
       "backgrounds.js",
       "geometry.js"
+    ],
+    "battle-catalog.js": [],
+    "battle-aim.js": [],
+    "battle-ui.js": [
+      "i18n.js",
+      "engine.js",
+      "skills.js",
+      "weapons.js",
+      "presentation.js",
+      "characters.js",
+      "combat.js",
+      "screens.js",
+      "viewport.js",
+      "final-team.js",
+      "battle-catalog.js",
+      "battle-aim.js"
+    ],
+    "skills.js": [
+      "battle-catalog.js"
     ]
   }
 }

@@ -20,6 +20,7 @@
     "mapCamera",
     "masterMode",
     "crewSupply",
+    "battleCoach",
   ];
   const isOpen = (id) => !!$(id) && !$(id).hidden;
   function open(id, options = {}) {

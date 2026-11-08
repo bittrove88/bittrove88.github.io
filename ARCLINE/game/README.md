@@ -1,3 +1,5 @@
+0.28.0 UI本番準備：`ui/battle-ui.js` が既存コマンド・生きた状態を受けて表示と入力導線を所有し、`ui/battle-catalog.js`・`battle-aim.js` と `styles/battle-ui.css` を正式生成する。共有スキル図形はArcSkillsの描画APIから本編・Worker・単体総覧・サービスサイトで利用。戦闘の数値・100面・保存形式は維持。[実装と検証](../docs/releases/0.28.0-ui.md)。未マージ・未公開。
+
 0.26.0の31・37・71・73面は `../design/stage_reviews/STAGES_INTRO_REFINEMENT_RUNTIME_20261107.json` と固定された元JSONへ結び付ける。生成元は引き続きstage_blueprintsとpickup_placements。37面の取得確認入力を更新し、全46個の座標・在庫・保存は保持。[4面の変更後レビュー](../design/stage_reviews/intro_20261107/README.md)。
 
 0.24.4：地形の線の調整正本は `../design/components/runtime-approval.json` の `runtimeStyleOverrides`。承認時の素材JSONを固定したまま、`tools/build_components.py` が輪郭・接地辺の幅と濃さだけを上書きする。元の面色・領域表示は維持。[検証](../docs/releases/0.24.4.md)。

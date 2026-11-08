@@ -401,7 +401,7 @@ $('previewOK').onclick=()=>{unlockAudio();endDemo();};
 $('environment').onpointerdown=()=>{if(canAim())previewPress=setTimeout(()=>{const kind=s.spec.features.find(f=>'WBCKUFVM'.includes(f.type))?.type;if(kind)runDemo(kind);},450);};$('environment').onpointerup=$('environment').onpointercancel=()=>clearTimeout(previewPress);
 function setAngle(angle){if(!canAim())return;s.angle=E.clamp(angle,minimumAngle(),maximumAngle());hud();}
 $('aimRange').oninput=e=>setAngle(Number(e.target.value));$('aimUp').onclick=()=>setAngle(s.angle+3);$('aimDown').onclick=()=>setAngle(s.angle-3);
-input=ArcBattleInput.create({state:()=>s,charge:()=>charge,allowed:canAim,activate:unlockAudio,startCharge,releaseCharge,clearInput,changed:hud,previewing:()=>!!demo,setAngle,switchMap,minimumAngle,maximumAngle,worldAction:e=>{
+input=ArcBattleInput.create({state:()=>s,charge:()=>charge,allowed:canAim,activate:unlockAudio,startCharge,releaseCharge,clearInput,changed:()=>hud(),previewing:()=>!!demo,setAngle,switchMap,minimumAngle,maximumAngle,worldAction:e=>{
  if(s?.selectedSkill!=='BLINK'||!canAim())return false;
  const p=renderer.toWorld(e.clientX,e.clientY),i=s.blink.findIndex(b=>Math.hypot(p.x-b.x,p.y-(b.y-22))<60);
  if(i>=0){if(s.blinkCandidate===i){if(E.blink(s,i)){persistStock();lastSkill='BLINK';feedback='';}s.blinkCandidate=null;}else{s.blinkCandidate=i;feedback='TAP AGAIN TO BLINK';}}else{s.selectedSkill=null;s.blinkCandidate=null;feedback='';}hud();return true;
@@ -417,6 +417,14 @@ document.addEventListener('keydown',e=>{
  input.keydown(e);
 });
 mapCamera=ArcMapCamera.create({state:()=>s,allowed:()=>canAim()&&!charge&&!specialLesson.active,available:()=>!hostPaused()&&!manualPaused,clearInput,changed:()=>{previous=0;hud();},draw,resetCamera:()=>renderer.resetCamera()});
+// The UI owns presentation and inspection gestures; combat and persistence stay native.
+ArcBattleUi.install({
+ state:()=>s,charge:()=>charge,demo:()=>demo,paused:()=>manualPaused,
+ canAim,preview:activePreview,clearInput,draw,refresh:()=>hud(),
+ baseHud:hud,setHud:next=>{hud=next;},
+ baseBuildSkills:buildSkills,buildSkills:()=>buildSkills(),setBuildSkills:next=>{buildSkills=next;},
+ renderer,mapCamera,input,machinePicker,save
+});
 // Safari can retain an existing page zoom. Keep the whole game inside its visible viewport.
 viewport=ArcViewport.install($('app'),()=>{clearInput();mapCamera?.resize();previous=0;draw();});
 window.addEventListener('blur',clearInput);window.addEventListener('resize',()=>viewport.fit());

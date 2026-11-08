@@ -40,8 +40,9 @@ const activeIds=rows.map(s=>s.id);
 rows.push({id:'S_GUARD',name:'Guard',nameJa:'ガード',glyph:'⬡',note:'Legacy guard: halve the next attack.',noteJa:'旧スキル。次の攻撃のダメージを半減。',path:'M12 2 21 6v7c0 5-5 8-9 10-4-2-9-5-9-10V6Z'}, {id:'S_BREACH',name:'Breach',nameJa:'砕路（旧）',glyph:'✧',note:'Legacy breach: break nearby cover.',noteJa:'旧スキル。着弾点の近くの遮蔽物も破壊。',path:'M3 3h18v18H3Z M13 3l-4 7 7 3-5 8'});
 const ids=rows.map(s=>s.id),get=id=>rows.find(s=>s.id===id)||null;
 function compatible(id,weapon){return activeIds.includes(id)||id==='S_GUARD'||id==='S_BREACH'&&!weapon.special&&!weapon.teleport;}
-function iconPath(id){return get(id)?.path||paths[id]||'M12 2 22 12 12 22 2 12Z';}
-function markup(id){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${iconPath(id)}"/></svg>`;}
-function draw(ctx,id,x,y,size=22,color='#e9f5cc'){ctx.save();ctx.translate(x-size/2,y-size/2);ctx.scale(size/24,size/24);ctx.strokeStyle=color;ctx.lineWidth=1.7;ctx.lineCap='round';ctx.lineJoin='round';if(typeof Path2D!=='undefined')ctx.stroke(new Path2D(iconPath(id)));else{ctx.strokeRect(4,4,16,16);}ctx.restore();}
+const Art=typeof module!=='undefined'?require('./battle-catalog.js'):root.ArcBattleCatalog;
+function iconPath(id){return Art?.skillRows[id]?.path||get(id)?.path||paths[id]||'M12 2 22 12 12 22 2 12Z';}
+function markup(id){return Art?.skillRows[id]?Art.icon(id):`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${iconPath(id)}"/></svg>`;}
+function draw(ctx,id,x,y,size=22,color='#e9f5cc'){const info=Art?.skillRows[id];ctx.save();ctx.translate(x-size/2,y-size/2);ctx.scale(size/24,size/24);ctx.strokeStyle=info?Art.groups[info.group].color:color;ctx.lineWidth=info?1.8:1.7;ctx.lineCap='round';ctx.lineJoin='round';if(typeof Path2D!=='undefined')ctx.stroke(new Path2D(iconPath(id)));else ctx.strokeRect(4,4,16,16);ctx.restore();}
 const api={iconPath,rows,ids,activeIds,get,compatible,markup,draw};if(typeof module!=='undefined')module.exports=api;else root.ArcSkills=api;
 })(globalThis);
