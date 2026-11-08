@@ -300,6 +300,17 @@
       '"/></svg>'
     );
   }
+  const attacks =
+    typeof module !== "undefined"
+      ? require("./attack-catalog.js")
+      : root.ArcAttackCatalog;
+  for (const [id, row] of Object.entries(attacks?.weapons || {})) {
+    weaponNames[id] = { ja: row.nameJa, en: row.name };
+    weaponNotes[id] = row.noteJa || row.nameJa;
+    weaponNotesEn[id] = row.noteEn || row.name;
+  }
+  for (const [id, row] of Object.entries(attacks?.specials || {}))
+    specialNotes[id] = row.noteJa || row.nameJa;
   const api = Object.freeze({
     groups,
     skillRows,

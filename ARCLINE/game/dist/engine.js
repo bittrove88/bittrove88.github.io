@@ -8,6 +8,7 @@ const N=node?require('./encounters.js'):root.ArcEncounters;
 const guardian=state=>N.guardian(state.spec);
 const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
 const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
+const EnemyAttacks=node?require('./enemy-attacks.js'):root.ArcEnemyAttacks;
 const biomes=[
 {name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
 {name:'Mirror Flats',sky:['#234454','#bbd5ce'],land:'#527f83',edge:'#c3fff1',material:'mirror',accent:'#9affdf'},
@@ -67,6 +68,7 @@ function campaign(stage=1,save={}){
 }
 function telegraph(s){
  if(!guardian(s)){s.telegraph=null;return;}
+ const technique=EnemyAttacks?.telegraph(s);if(technique){s.telegraph=technique;return;}
  const attacks=N.forSpec(s.spec).attacks,kind=attacks[(s.round-1)%attacks.length];
  const targetX=s.units[0].x;
  const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
@@ -161,6 +163,7 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
   if(e.type==='break'&&!s.effects.destroyed.includes(e.solidId)){s.effects.destroyed.push(e.solidId);s.world=G.without(s.world,[e.solidId]);}
   if(e.type==='terminal')s.effects.pendingPolarity=-(s.effects.polarity||s.world.regions.find(r=>r.kind==='M')?.direction||1);
   if(e.type==='pull'){const u=s.units[e.unit];Object.assign(u,e.to);u.animation={from:{...e.from},age:0,duration:e.duration,lift:0};u.reactionKind='pull';u.displaced=1;}
+  if(e.type==='damage'){shot.appliedDamage=shot.appliedDamage||[0,0];shot.sourceAppliedDamage=shot.sourceAppliedDamage||[0,0];if(e.unit===1&&shot.enemyHpAtLaunch===undefined)shot.enemyHpAtLaunch=s.units[1].hp;const raw=Math.max(0,Math.min(e.value,shot.damage[e.unit]-shot.sourceAppliedDamage[e.unit]));const amount=shot.side===0&&e.unit===1?FinalTeam.credit(s,shot.finalOwner||s.characterId,raw):raw;s.units[e.unit].hp=Math.max(0,s.units[e.unit].hp-amount);shot.sourceAppliedDamage[e.unit]+=raw;shot.appliedDamage[e.unit]+=amount;}
  }
 }
 function launch(s,angle=s.angle,power=s.power,plan=null){
@@ -205,9 +208,9 @@ function liftLanding(s,side,height,distance){
  }return candidates.sort((a,b)=>(u.y-b.y)-(u.y-a.y)||Math.abs(a.x-u.x)-Math.abs(b.x-u.x))[0]||null;
 }
 function displace(s,side,shot){
- const w=W.get(shot.weaponId),u=s.units[1-side],hit=shot.impacts.find(x=>x.hit?.unit===1-side);
+ const w=side?W.getEnemy(shot.weaponId):W.get(shot.weaponId),u=s.units[1-side],hit=shot.impacts.find(x=>x.hit?.unit===1-side);
  if(!shot.damage[1-side]||!(w.push||w.pull||w.lift||['PUSH','PULL','SWAP'].includes(shot.skill)))return;
- const away=Math.sign(u.x-s.units[side].x)||1,before={x:u.x,y:u.y,slope:u.slope,surface:u.surface,floating:u.floating};
+ const contact=shot.impacts.find(i=>i.hit?.unit===1-side)||shot.impacts[0],away=Math.sign(u.x-(w.pushFromImpact&&contact?contact.x:s.units[side].x))||1,before={x:u.x,y:u.y,slope:u.slope,surface:u.surface,floating:u.floating};
  if(guardian(s)&&side===0&&shot.skill==='SWAP'){u.exposed=2;u.facingCore=s.units[0].x<u.x?-1:1;u.reactionKind='rotate';return;}
  if(shot.skill==='SWAP'&&hit&&shot.bullets.find(b=>b.id===hit.bullet)?.primary){
   const a=s.units[0],b=s.units[1],pa={x:a.x,y:a.y,slope:a.slope,surface:a.surface,range:a.range},pb={x:b.x,y:b.y,slope:b.slope,surface:b.surface,range:b.range};Object.assign(a,pb);Object.assign(b,pa);a.animation={from:pa,age:0,duration:.6,lift:0};b.animation={from:pb,age:0,duration:.6,lift:0};a.displaced=1;b.displaced=1;
@@ -232,16 +235,17 @@ function displace(s,side,shot){
 }
 function resolve(s,shot,onCollect=()=>{}){
  if(shot.resolved)return [0,0];applyEvents(s,shot,Infinity,onCollect);shot.resolved=true;
+ EnemyAttacks?.resolve(s,shot);
  if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){landUnit(u,landing,landing.entry);delete u.entry;u.teleportFlash={age:0};}s.teleportMode=false;}
  settleUnits(s);
  if(shot.side===1){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
 
- if(shot.side===0)shot.enemyHpBefore=s.units[1].hp;
- if(shot.side===0)shot.damage[1]=FinalTeam.credit(s,shot.finalOwner||s.characterId,shot.damage[1]);
- s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-shot.damage[i]));
+ if(shot.side===0)shot.enemyHpBefore=shot.enemyHpAtLaunch??s.units[1].hp;
+ if(shot.side===0)shot.damage[1]=(shot.appliedDamage?.[1]||0)+FinalTeam.credit(s,shot.finalOwner||s.characterId,Math.max(0,shot.damage[1]-(shot.sourceAppliedDamage?.[1]||0)));
+ s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-Math.max(0,shot.damage[i]-(shot.appliedDamage?.[i]||0))));
  if(shot.side===1)s.guardActive=false;
  if(shot.side===0&&!shot.teleport&&!shot.skillAttack){for(const key of ['power','charge'])if(s.skillEffects?.[key]?.single)delete s.skillEffects[key];}
- if(shot.side===0&&W.get(shot.weaponId).drain){const w=W.get(shot.weaponId),u=s.units[0],actual=Math.min(shot.damage[1],shot.enemyHpBefore??shot.damage[1]);shot.drained=Math.min(actual*w.drain,u.maxHp*w.drainHpCap,u.maxHp-u.hp);u.hp+=shot.drained;}
+ if(shot.side===0&&W.get(shot.weaponId).drain){const w=W.get(shot.weaponId),u=s.units[0],actual=Math.min(shot.damage[1],shot.enemyHpBefore??shot.damage[1]);shot.drained=Math.min(actual*w.drain,w.drainHpCap==null?Infinity:u.maxHp*w.drainHpCap,u.maxHp-u.hp);u.hp+=shot.drained;if(shot.drained>0){const from=shot.impacts.at(-1)||shot.end;shot.events.push({type:'drain',x:from.x,y:from.y,to:{x:u.x,y:u.y-22},amount:shot.drained,t:shot.duration,duration:.6});}}
  const boss=s.units[1];
  if(guardian(s)&&shot.side===0){
   for(const [i,damage] of Object.entries(shot.partDamage)){const p=boss.parts[i];if(p)p.hp=Math.max(0,p.hp-damage);}
@@ -331,14 +335,15 @@ function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,m
 function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));const moved=G.move(s,side,amount);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
 const solveCache=new Map();
 function solve(s,side,opts={}){
- const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=W.get(weaponId,side?null:s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
- const physics={weaponId,skill,...(opts.curve?{curve:opts.curve}:{})};
+ const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
+ const physics={weaponId,skill,...(opts.curve?{curve:opts.curve}:{}),...(opts.targetPoint?{targetPoint:opts.targetPoint}:{})};
  // Defensive damage factors must not change an enemy's physical aiming route.
- const aimState=side===1&&s.skillEffects?{...s,skillEffects:{...s.skillEffects,barrier:undefined,weaken:undefined,invincible:undefined}}:s;
- const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,s.units.map(u=>[Math.round(u.x),Math.round(u.y),u.facing,u.parts.map(p=>p.hp>0),u.exposed]),s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,s.skillEffects,side,physics,minAngle,maxAngle,opts.requireEvent]);
+ let aimState=side===1&&s.skillEffects?{...s,skillEffects:{...s.skillEffects,barrier:undefined,weaken:undefined,invincible:undefined}}:s;
+ if(side===1&&opts.targetPoint)aimState={...aimState,units:aimState.units.map((u,i)=>i===0?{...u,x:opts.targetPoint.x,y:opts.targetPoint.y+22}:u)};
+ const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,w.scatter?[s.matchSeed,s.shotCount]:null,s.units.map(u=>[u.x,u.y,u.slope,u.facing,u.parts.map(p=>p.hp>0),u.exposed]),s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,s.skillEffects,side,physics,minAngle,maxAngle,opts.requireEvent]);
  if(solveCache.has(key))return solveCache.get(key);
  let best={score:-Infinity,angle:48,power:70};
- const score=shot=>shot.damage[1-side]-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-s.units[1-side].x,shot.end.y-s.units[1-side].y))*.00001;
+ const score=shot=>shot.damage[1-side]-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-aimState.units[1-side].x,shot.end.y-aimState.units[1-side].y))*.00001;
  for(let a=minAngle;a<=maxAngle;a+=6)for(let power=20;power<=100;power+=5){const shot=trajectory(aimState,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
  const coarse={...best};for(let a=Math.max(minAngle,coarse.angle-5);a<=Math.min(maxAngle,coarse.angle+5);a+=2)for(let power=Math.max(20,coarse.power-5);power<=Math.min(100,coarse.power+5);power+=2){const shot=trajectory(aimState,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
  if(solveCache.size>512)solveCache.clear();solveCache.set(key,best);return best;
@@ -362,8 +367,9 @@ function cpuPlan(s,random=s.random){
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
  const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
  const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};
+ if(s.telegraph?.technique)settings={weaponId:s.telegraph.technique,minAngle:W.getEnemy(s.telegraph.technique).minAngle??-8,maxAngle:84,targetPoint:{x:s.telegraph.targetX,y:s.telegraph.targetY}};
  const normalAttack=!guardian(s)||['LOW','ARC'].includes(kind);
- const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=solve(s,1,settings);if(best.score<=0){settings={};best=solve(s,1);}
+ const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
@@ -376,11 +382,13 @@ function cpuPlan(s,random=s.random){
   plan=P.simulate(s,1,angle,power,{weaponId:kind==='PREPARE'?'W02':'W01',volley});
 
  }
- if(guardian(s)&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));}
+ if(s.telegraph?.technique)plan=EnemyAttacks.plan(s,angle,power);
+ if(guardian(s)&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));for(const e of plan.events)if(e.type==='damage')e.value*=.5;}
  // Scale only enemy-to-player damage, once, after the existing broken-part half.
  plan.damage[0]*=balance.damage;
+ for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=balance.damage;
  plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
- return plan;
+ return EnemyAttacks?EnemyAttacks.decorate(s,plan):plan;
 }
 function combineShots(shots){
  const bullets=[],events=[],impacts=[],damage=[0,0],partDamage={};let nextId=0;

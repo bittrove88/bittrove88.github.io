@@ -26,39 +26,32 @@ ok(!!wave,'Ban emits shockwave');
 near(wave.length,140,'Ban event length');
 near(wave.halfAngle,28,'Ban event half angle');
 
-// MOGU always has three time-separated explosions, advancing deeper in the fired
-// horizontal direction. Charge increases spacing and does not multiply per-pulse damage.
+// Mogu launches three physical rounds. Earlier contacts can open the path for later rounds.
 const mogu=C.get('mogu').special;
-const origin={x:700,y:415,theta:0,dir:1,dx:1,dy:0};
-const low=E.trajectory(flat('mogu'),0,0,20,{weaponId:mogu.id,origin});
-const high=E.trajectory(flat('mogu'),0,0,100,{weaponId:mogu.id,origin});
-for(const [name,plan] of [['low',low],['high',high]]){
- ok(plan.impacts.length===3,name+' power: three explosions');
- ok(plan.events.filter(e=>e.type==='breach-pulse').length===2,name+' power: two delayed pulses');
- ok(plan.impacts[1].x>plan.impacts[0].x&&plan.impacts[2].x>plan.impacts[1].x,name+' power: blasts advance');
- near(plan.impacts[1].t-plan.impacts[0].t,mogu.pulseDelay,name+' power: delay to second');
- near(plan.impacts[2].t-plan.impacts[1].t,mogu.pulseDelay,name+' power: delay to third');
- ok(plan.damage[1]<=mogu.damageCap+1e-7,name+' power: damage cap');
+for(const power of [20,100]){
+ const p=E.trajectory(flat('mogu'),0,0,power,{weaponId:mogu.id,origin:{x:700,y:415,theta:0,dir:1,dx:1,dy:0}});
+ ok(p.bullets.filter(b=>!b.effect).length===3,'three real Mogu projectiles');
+ ok(p.impacts.length===3,'three Mogu impacts');
+ ok(!p.events.some(e=>e.type==='breach-pulse'),'no synthetic post-impact shots');
+ ok(p.bullets.filter(b=>!b.effect).map(b=>b.start).join(',')==='0,0.22,0.44','three timed starts');
+ ok(p.impacts.map(h=>h.blast).sort((a,b)=>a-b).join(',')==='32,50,75','growing three-stage blasts');
+ ok(p.damage[1]<=mogu.damageCap+1e-7,'one action aggregate cap');
 }
-const lowStep=low.impacts[1].x-low.impacts[0].x,highStep=high.impacts[1].x-high.impacts[0].x;
-ok(highStep>lowStep+10,'higher charge moves the second explosion farther');
-near(lowStep,mogu.pulseAdvance*.4,'minimum charge spacing');
-near(highStep,mogu.pulseAdvance,'maximum charge spacing');
 
-// SORA: the projected carrier line finishes at the real eight-way split,
+// SORA: the projected carrier line finishes at the real twelve-way split,
 // even when Hard hides ordinary future trajectories.
 const sora=C.get('sora').special,scene=flat('sora');
-near(sora.minAngle,50,'Sora special can aim as low as 50 degrees');
+near(sora.minAngle,40,'Sora special can aim as low as 40 degrees');
 near(sora.maxAngle,125,'Sora special upper aim bound stays 125 degrees');
 scene.playerTurn=2;E.chargeSpecial(scene);E.selectWeapon(scene,sora.id);
-near(E.minimumAngle(scene),50,'Sora UI selection exposes 50 degrees');
+near(E.minimumAngle(scene),40,'Sora UI selection exposes 40 degrees');
 near(E.maximumAngle(scene),125,'Sora UI selection keeps 125 degrees');
 E.selectWeapon(scene,'W01');
 near(E.minimumAngle(scene),-15,'Sora normal weapon retains full low-angle aiming');
 const plan=E.trajectory(scene,0,80,90,{weaponId:sora.id});
 const before=JSON.stringify(plan),event=plan.events.find(e=>e.type==='split');
 ok(!!event,'Sora splits at the apex');
-ok(plan.bullets.length===9,'Sora one carrier and eight descending bullets');
+ok(plan.bullets.length===13,'Sora one carrier and twelve descending bullets');
 const projected=A.splitProjection(plan);
 ok(!!projected,'Sora split guide exists');
 near(projected.point.x,event.x,'Sora marker X matches actual split');

@@ -55,11 +55,22 @@ function simulate(s,side,angle,power,options={}){
   return {id:bulletId++,x:source.x,y:source.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:delay,start:delay,age:0,budget,primary,path:[{x:source.x,y:source.y,t:delay}],forceEntries:new Set(),initialBounces:0,clouds:new Set(),magnetTime:{},bounces:0,solidBounces:0,phaseRemaining:Math.max(weapon.phase||0,skill==='PHASE'?60:0),phaseUsed:false,phaseSolid:null,phaseExit:false,solidSkip:null,splitDone:false,archerDone:false,roll:0,rollDistance:0,...(weapon.resumeRoll?{rollElapsed:0}:{})};
  };
  const queue=[];
- if(options.volley?.length){for(const v of options.volley)queue.push(newBullet(v.offset||0,v.delay||0,damageBudget,true,v.origin||origin,v.power??power));}
- else if(weapon.volley){for(const v of weapon.volley){const offset=(v.barrel||0)*4.84*(origin.dir||1),back=v.barrel?6.16:0,source={...origin,x:origin.x-origin.dx*back-Math.sin(origin.theta)*offset,y:origin.y-origin.dy*back+Math.cos(origin.theta)*offset};queue.push(newBullet(v.offset,v.delay,damageBudget,true,source));}}
+ if(options.volley?.length){for(const v of options.volley){const b=newBullet(v.offset||0,v.delay||0,v.damage??damageBudget,true,v.origin||origin,v.power??power);if(v.appearance)b.appearance=v.appearance;if(v.blast!==undefined)b.blast=v.blast;b.stage=queue.length;queue.push(b);}}
+ else if(weapon.converge){for(let i=-1;i<=1;i++){const p=newBullet(0,0,damageBudget/3,i===0);p.convergeBranch=true;p.branchIndex=i;queue.push(p);}}
+ else if(weapon.scatter){let seed=((s.matchSeed||1)^Math.imul((s.shotCount||0)+1,2654435761)^Math.imul(s.round||1,2246822519))>>>0;for(let i=0;i<weapon.scatter;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const offset=((i+seed/4294967296)/weapon.scatter*2-1)*weapon.scatterAngle;queue.push(newBullet(offset,0,damageBudget,i===0));}}
+ else if(weapon.volley){for(const v of weapon.volley){const offset=(v.barrel||0)*4.84*(origin.dir||1),back=v.barrel?6.16:0,source={...origin,x:origin.x-(origin.dx??Math.cos(origin.theta))*back-Math.sin(origin.theta)*offset,y:origin.y-(origin.dy??Math.sin(origin.theta))*back+Math.cos(origin.theta)*offset},bullet=newBullet(v.offset,v.delay,v.damage??damageBudget,true,source);bullet.stage=queue.length;if(v.blast!==undefined)bullet.blast=v.blast;if(v.appearance)bullet.appearance=v.appearance;if(weapon.weave)bullet.weavePhase=queue.length*Math.PI*2/weapon.volley.length;queue.push(bullet);}}
  else if(weapon.fan){for(const o of (skill==='SPLIT'?[-15,0,15]:[-13,0,13])){const bullet=newBullet(o,0,weapon.childDamage??damageBudget/3,o===0);bullet.splitDone=true;queue.push(bullet);}}
  else if(weapon.twin){queue.push(newBullet(-3,0,weapon.childDamage??damageBudget/2));queue.push(newBullet(3,.25,weapon.childDamage??damageBudget/2,false));}
  else queue.push(newBullet());
+ const convergence={finished:new Set(),arrived:[],done:false};
+ function finishConvergence(p,arrived=false){
+  if(!p.convergeBranch||convergence.finished.has(p.id))return;convergence.finished.add(p.id);if(arrived)convergence.arrived.push(p);
+  if(convergence.finished.size<3||convergence.done)return;convergence.done=true;if(!convergence.arrived.length)return;
+  const center=convergence.arrived.find(b=>b.branchIndex===0)||convergence.arrived[0],eligible=convergence.arrived.filter(b=>Math.hypot(b.x-center.x,b.y-center.y)<40&&G.lineClear(simWorld,b,center));
+  for(const b of convergence.arrived)if(!eligible.includes(b)){b.convergeBranch=false;queue.push(b);}
+  if(!eligible.length)return;const time=Math.max(...eligible.map(b=>b.t)),merged={...center,id:bulletId++,convergeBranch:false,converged:true,primary:true,budget:eligible.reduce((n,b)=>n+b.budget,0),age:0,t:time,start:time,path:[{x:center.x,y:center.y,t:time}]};
+  events.push({type:'converge',x:center.x,y:center.y,t:time,bullet:merged.id,branches:eligible.length});queue.push(merged);
+ }
  if(curve)events.push({type:'curve',x:origin.x,y:origin.y,t:startDelay,bullet:0});
  const centerOf=j=>bodyCenter({...s,units},j,true);
  function clearTo(point,target,solidId=null){const h=G.sweep(simWorld,point,target);return !h||h.t>.98||solidId&&h.solid.id===solidId;}
@@ -75,24 +86,31 @@ function simulate(s,side,angle,power,options={}){
   }
  }
  function explode(p,hit=null,contact=null){
-  const end={x:p.x,y:p.y,t:p.t},blast=(p.blast??weapon.blast)*(skill==='BURST'?1.5:1);impacts.push({...end,hit,contact,bullet:p.id,...(weapon.special?{blast}:{} )});
+  finishConvergence(p);
+  const end={x:p.x,y:p.y,t:p.t},blast=(p.blast??weapon.blast)*(skill==='BURST'?1.5:1);impacts.push({...end,hit,contact,bullet:p.id,...(weapon.special||weapon.enemyTechnique?{blast}:{} )});
   if(weapon.teleport){events.push({...end,type:'teleport-contact',bullet:p.id,contact});return;}
   events.push({...end,type:hit?.critical?'critical':hit?.kind==='weak'?'weak':hit?.kind==='part'?'part':hit?.kind==='airburst'?'airburst':'impact',bullet:p.id});
   breakPieces(p,contact,blast);
-  if(weapon.coneLength)events.push({...end,type:'shockwave',bullet:p.id,direction:origin.dir||1,length:weapon.coneLength,halfAngle:weapon.coneAngle});
+  if(!p.secondary&&weapon.afterBursts)for(const [i,b]of weapon.afterBursts.entries()){const time=p.t+b.delay;queue.push({...p,id:bulletId++,effect:'burst',secondary:true,budget:b.damage,blast:b.blast,t:time,start:time,stage:i+1,path:[{x:p.x,y:p.y,t:time}]});}
+  if(!p.secondary&&(weapon.expandingRing||weapon.progressiveCone)){const duration=weapon.areaSeconds||.6;queue.push({...p,id:bulletId++,effect:'area',secondary:true,areaKind:weapon.progressiveCone?'cone':'ring',areaRadius:weapon.progressiveCone?weapon.coneLength:weapon.expandingRing,areaDuration:duration,areaSeen:new Set(),areaParts:new Set(),budget:weapon.areaDamage??p.budget,t:p.t,start:p.t,path:[{x:p.x,y:p.y,t:p.t}]});}
+  if(!p.secondary&&weapon.afterRings)for(const [i,r]of weapon.afterRings.entries()){const t=p.t+r.delay;queue.push({...p,id:bulletId++,effect:'area',secondary:true,areaKind:'ring',areaRadius:r.radius,areaDuration:r.duration,areaSeen:new Set(),areaParts:new Set(),budget:r.damage,t,start:t,stage:i+1,path:[{x:p.x,y:p.y,t}]});}
+  if(weapon.coneLength&&!weapon.progressiveCone)events.push({...end,type:'shockwave',bullet:p.id,direction:origin.dir||1,length:weapon.coneLength,halfAngle:weapon.coneAngle});
   const waves=[];
-  if(weapon.wave){for(const dir of [-1,1]){let current=G.surfaceAt(simWorld,p.x,p.y,30);const path=[];if(current)for(let distance=0;distance<=(weapon.waveDistance||180);distance+=5){const x=p.x+dir*distance,next=G.surfaceAt(simWorld,x,current.y,12);if(!next||!G.lineClear(simWorld,{x:current.x,y:current.y-4},{x,y:next.y-4}))break;current=next;path.push({x,y:next.y-4});}if(path.length){waves.push(path);events.push({type:'wave',x:p.x,y:p.y,t:p.t,path,bullet:p.id});}}}
+  if(weapon.wave){for(const dir of [-1,1]){let current=G.surfaceAt(simWorld,p.x,p.y,30);const path=[];if(current)for(let distance=0;distance<=(weapon.waveDistance||180);distance=Math.min(weapon.waveDistance||180,distance+5)){const x=p.x+dir*distance,next=G.surfaceAt(simWorld,x,current.y,12);if(!next||!G.lineClear(simWorld,{x:current.x,y:current.y-4},{x,y:next.y-4}))break;current=next;path.push({x,y:next.y-4,...(weapon.progressiveWave?{t:p.t+distance/(weapon.waveSpeed||300)}:{})});if(distance===(weapon.waveDistance||180))break;}if(path.length){waves.push(path);events.push({type:'wave',x:p.x,y:p.y,t:p.t,path,bullet:p.id,...(weapon.progressiveWave?{duration:path.at(-1).t-p.t}:{})});}}}
+  if(weapon.progressiveWave){for(let j=0;j<2;j++){const u=units[j],q=waves.flat().filter(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25).sort((a,b)=>a.t-b.t)[0];if(q)queue.push({...p,id:bulletId++,effect:'wave-hit',target:j,t:q.t,start:q.t,path:[{x:q.x,y:q.y,t:q.t}],budget:p.budget});}}
   for(let j=0;j<2;j++){
    const u=units[j],center=centerOf(j),d=Math.hypot(p.x-center.x,p.y-center.y);
    let value=0;
-   if(hit?.unit===j)value=p.budget*(hit.kind==='weak'?(u.core?.multiplier||2):hit.critical?(weapon.criticalMultiplier??1.5):1);
+   if(weapon.progressiveCone)value=0;
+   else if(hit?.unit===j)value=weapon.progressiveDamage&&hit.kind==='part'?0:p.budget*(hit.kind==='weak'?(u.core?.multiplier||2):hit.critical?(weapon.criticalMultiplier??1.5):1);
    else if(weapon.coneLength){if(forward(p,center)&&clearTo({x:p.x,y:p.y-2},center))value=p.budget*(.35+.65*Math.max(0,1-d/weapon.coneLength));}
    else if(d<blast+(j===1&&s.spec.boss?35:12)&&G.lineClear(simWorld,{x:p.x,y:p.y-2},center))value=p.budget*(weapon.apexBurst?Math.max(0,1-d/blast):weapon.special?Math.max(.2,1-d/Math.max(1,blast+12))*.85:skill==='BURST'&&d<blast*.7?1:.5);
    if(weapon.pullToImpact&&d<=weapon.compressionRadius&&value>0)value+=weapon.compressionBonus;
-   if(weapon.wave&&waves.some(path=>path.some(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25)))value=Math.max(value,p.budget);
+   if(weapon.wave&&!weapon.progressiveWave&&waves.some(path=>path.some(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25)))value=Math.max(value,p.budget);
    damage[j]+=value;
+   if(weapon.progressiveDamage&&value>0)events.push({type:'damage',unit:j,value,x:p.x,y:p.y,t:p.t,bullet:p.id,source:p.effect||'impact'});
   }
-  if(hit?.kind==='part')partDamage[hit.part]=(partDamage[hit.part]||0)+p.budget;
+  if(hit?.kind==='part'&&!weapon.progressiveCone)partDamage[hit.part]=(partDamage[hit.part]||0)+p.budget;
   if(weapon.breachPulses&&(p.pulseIndex||0)<weapon.breachPulses-1){
    // Each of the three blast positions advances in the firing direction. Charge controls spacing, never damage.
    const distance=(weapon.pulseAdvance||22)*(.4+.6*G.clamp((power-20)/80,0,1)),direction=origin.dir||Math.sign(p.vx)||1;
@@ -105,17 +123,34 @@ function simulate(s,side,angle,power,options={}){
  // the same world at contact time, including delayed shots and split children.
  while(queue.length){
   queue.sort((a,b)=>a.t-b.t||a.id-b.id);const p=queue.shift();if(!seenBullets.has(p.id)){seenBullets.add(p.id);bullets.push(p);if(!p.primary&&(weapon.twoWave||weapon.spiral)){const solid=simWorld.solids.find(o=>G.inside(p,o.poly));if(solid){explode(p,null,{solidId:solid.id});continue;}}}let ended=false;
+  if(p.effect==='area'){
+   const age=p.t-p.start,radius=p.areaRadius*Math.min(1,age/p.areaDuration);
+   if(!p.announced){p.announced=true;events.push({type:p.areaKind==='ring'?'ring':'shockwave',x:p.x,y:p.y,t:p.start,duration:p.areaDuration,radius:p.areaRadius,length:p.areaRadius,halfAngle:weapon.coneAngle||28,direction:origin.dir||1,bullet:p.id});}
+   const reached=point=>{const dx=point.x-p.x,dy=point.y-p.y,d=Math.hypot(dx,dy);return d<=radius+12&&(p.areaKind!=='cone'||dx*(origin.dir||1)>=0&&Math.abs(Math.atan2(dy,Math.abs(dx)))<=(weapon.coneAngle||28)*Math.PI/180)&&clearTo({x:p.x,y:p.y-2},point);};
+   for(let j=0;j<2;j++){
+    const parts=j===1?G.actorParts(simState,j).filter(q=>q.hp>0):[];
+    if(parts.length){for(const [i,part]of units[j].parts.entries()){const q=G.actorParts(simState,j)[i];if(part.hp>0&&!p.areaParts.has(i)&&reached({x:units[j].x+q.dx,y:units[j].y+q.dy})){p.areaParts.add(i);partDamage[i]=(partDamage[i]||0)+p.budget;events.push({type:'area-part',part:i,value:p.budget,x:p.x,y:p.y,t:p.t,bullet:p.id});}}}
+    else if(!p.areaSeen.has(j)&&reached(centerOf(j))){p.areaSeen.add(j);damage[j]+=p.budget;events.push({type:'damage',unit:j,value:p.budget,x:p.x,y:p.y,t:p.t,bullet:p.id,source:p.areaKind});}
+   }
+   if(age<p.areaDuration-1e-8){p.t=Math.min(p.start+p.areaDuration,p.t+DT);queue.push(p);}continue;
+  }
+  if(p.effect==='wave-hit'){damage[p.target]+=p.budget;events.push({type:'damage',unit:p.target,value:p.budget,x:p.path[0].x,y:p.path[0].y,t:p.t,bullet:p.id,source:'wave'});continue;}
+  if(p.effect==='burst'){events.push({type:'secondary-burst',x:p.x,y:p.y,t:p.t,bullet:p.id,stage:p.stage});explode(p,null,p.pulseContact);continue;}
   if(p.effect){events.push({type:p.effect==='pulse'?'breach-pulse':'compression',x:p.x,y:p.y,t:p.t,bullet:p.id});explode(p,p.effect==='pulse'?hitTargets(simState,side,{x:p.x-.01,y:p.y},{x:p.x+.01,y:p.y},p.age,weapon):p.effectHit,p.pulseContact||p.effectContact);continue;}
   for(let steps=0;steps<1;steps++){
    iterations++;
-   if(p.age>=8-1e-9||p.x< -40||p.x>(s.spec.worldWidth||1000)+40||p.y>560||p.y< -1600){events.push({x:p.x,y:p.y,t:p.t,type:'expired',bullet:p.id});ended=true;break;}
+   if(p.age>=8-1e-9||p.x< -40||p.x>(s.spec.worldWidth||1000)+40||p.y>560||p.y< -1600){finishConvergence(p);events.push({x:p.x,y:p.y,t:p.t,type:'expired',bullet:p.id});ended=true;break;}
    const old={x:p.x,y:p.y};let next={x:p.x+p.vx*DT,y:p.y+p.vy*DT};
-   if(p.spiralPhase!==undefined){const t=Math.min(.85,p.age-p.spiralStart),n=Math.min(.85,p.age-p.spiralStart+DT),r=t=>32*Math.min(1,t/.2),phase=p.spiralPhase;next.x+=r(n)*Math.cos(n*10+phase)-r(t)*Math.cos(t*10+phase);next.y+=r(n)*Math.sin(n*10+phase)-r(t)*Math.sin(t*10+phase);}
+   if(p.convergeBranch){const seconds=weapon.convergeSeconds||.14,r=t=>(weapon.convergeRadius||24)*Math.sin(Math.PI*Math.min(1,t/seconds))*p.branchIndex,delta=r(p.age+DT)-r(p.age);next.x-=Math.sin(origin.theta)*delta;next.y+=Math.cos(origin.theta)*delta;}
+   if(p.weavePhase!==undefined){const a=p.age,b=a+DT,r=t=>(weapon.weaveRadius||13)*Math.min(1,t/.12),phase=p.weavePhase,omega=weapon.weaveSpeed||15;next.x+=r(b)*Math.cos(b*omega+phase)-r(a)*Math.cos(a*omega+phase);next.y+=r(b)*Math.sin(b*omega+phase)-r(a)*Math.sin(a*omega+phase);}
+   if(weapon.satellites&&p.stage>0&&p.age<.45){const a=p.age,b=Math.min(.45,a+DT),phase=p.stage*Math.PI*2/3,r=t=>22*Math.sin(Math.PI*t/.45);next.x+=Math.cos(b*11+phase)*r(b)-Math.cos(a*11+phase)*r(a);next.y+=Math.sin(b*11+phase)*r(b)-Math.sin(a*11+phase)*r(a);}
+   if(p.spiralPhase!==undefined){const limit=weapon.continuousSpiral?Infinity:.85,t=Math.min(limit,p.age-p.spiralStart),n=Math.min(limit,p.age-p.spiralStart+DT),r=t=>32*Math.min(1,t/.2),phase=p.spiralPhase;next.x+=r(n)*Math.cos(n*10+phase)-r(t)*Math.cos(t*10+phase);next.y+=r(n)*Math.sin(n*10+phase)-r(t)*Math.sin(t*10+phase);}
    if(p.roll){
     const f=G.surfaceAt(simWorld,next.x,p.y+3,15);
     if(p.rollDistance>=(weapon.rollDistance||220)||(weapon.resumeRoll?p.rollElapsed:p.roll)>=(weapon.rollSeconds||1.6)){explode(p);ended=true;break;}
     if(!f){if(!weapon.resumeRoll){explode(p);ended=true;break;}p.roll=0;p.vy=0;events.push({type:'roll-fall',x:p.x,y:p.y,t:p.t,bullet:p.id});}
     else{next.y=f.y-3;p.roll+=DT;if(weapon.resumeRoll)p.rollElapsed+=DT;p.rollDistance+=Math.abs(next.x-old.x);}
+    if(weapon.rollBursts&&p.rollDistance-(p.lastBurst||0)>=(weapon.burstEvery||80)){p.lastBurst=p.rollDistance;const stage=Math.min(6,Math.floor(p.rollDistance/(weapon.burstEvery||80))),time=p.t;queue.push({...p,id:bulletId++,effect:'burst',secondary:true,budget:weapon.burstDamage||.15,blast:22+stage*5,t:time,start:time,stage,path:[{x:p.x,y:p.y,t:time}]});}
    }
    const target=hitTargets(simState,side,old,next,p.age,weapon);
    let solid=G.sweep(simWorld,old,next,p.solidSkip||p.phaseSolid);
@@ -137,27 +172,30 @@ function simulate(s,side,angle,power,options={}){
    p.t+=DT;p.age+=DT;
    if(solid&&stop===solid&&!weapon.teleport){
     const material=solid.solid.kind,reflective=material==='reflector'||material==='crystal';
-    const canPhase=material!=='floor'&&material!=='reflector'&&(skill==='PHASE'||(weapon.id==='W13'?!!solid.solid.destructible:['solid','roof','bridge','fragile'].includes(material)));
+    const canPhase=material!=='floor'&&material!=='reflector'&&(weapon.penetrating?!!solid.solid.destructible:skill==='PHASE'||(weapon.id==='W13'?!!solid.solid.destructible:['solid','roof','bridge','fragile'].includes(material)));
     if(!p.phaseUsed&&p.phaseRemaining>0&&canPhase){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
     else if(p.bounces<(weapon.maxBounces||3)&&(reflective||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
      const restitution=weapon.restitution||.9,dot=p.vx*solid.nx+p.vy*solid.ny;p.vx=(p.vx-2*dot*solid.nx)*restitution;p.vy=(p.vy-2*dot*solid.ny)*restitution;
      if(weapon.hop&&solid.ny<-.5)p.vy=-Math.max(150,Math.abs(p.vy)*1.1);
      if(weapon.skipper&&solid.ny<-.5){p.vx*=.98;p.vy=-Math.max(55,Math.min(95,Math.abs(p.vy)*.3));}
      p.x=solid.x+solid.nx*1.5;p.y=solid.y+solid.ny*1.5;p.bounces++;p.solidBounces++;p.solidSkip=solid.solid.id;
+     if(weapon.enemyBounce===p.bounces){const wanted=Math.sign(units[1-side].x-p.x)||1,vx=wanted*Math.abs(p.vx);if(vx*solid.nx+p.vy*solid.ny>=0)p.vx=vx;}
      if(weapon.bounceDamage){p.budget=Math.min(weapon.damageCap,p.budget+weapon.bounceDamage);p.blast=Math.min(weapon.maxBlast,weapon.blast+p.bounces*weapon.bounceBlast);}
-     events.push({type:'bounce',x:p.x,y:p.y,t:p.t,count:p.bounces,surface:material,solidId:solid.solid.id,bullet:p.id});p.path.push({x:p.x,y:p.y,t:p.t});continue;
+     events.push({type:'bounce',x:p.x,y:p.y,t:p.t,count:p.bounces,surface:material,solidId:solid.solid.id,bullet:p.id});p.path.push({x:p.x,y:p.y,t:p.t});
+     if(weapon.reflectSplit&&reflective&&!p.reflectedSplit){events.push({type:'reflect-split',x:p.x,y:p.y,t:p.t,bullet:p.id});for(let i=-1;i<=1;i++){const a=i*.19,c=Math.cos(a),sn=Math.sin(a);queue.push({...p,id:bulletId++,vx:p.vx*c-p.vy*sn,vy:p.vx*sn+p.vy*c,budget:p.budget/3,reflectedSplit:true,primary:false,start:p.t,path:[{x:p.x,y:p.y,t:p.t}],appearance:{color:['#ff8faa','#94e3f3','#c4b2ff'][i+1]},forceEntries:new Set(p.forceEntries),clouds:new Set(p.clouds),magnetTime:{...p.magnetTime}});}ended=true;break;}continue;
     }else if(weapon.roller&&!p.roll&&solid.ny<-.5){p.roll=.001;p.vx=Math.sign(p.vx)*(weapon.rollSpeed||180);p.vy=0;p.y=solid.y-3;p.x=solid.x;p.solidSkip=solid.solid.id;p.path.push({x:p.x,y:p.y,t:p.t});events.push({type:'roll',x:p.x,y:p.y,t:p.t,bullet:p.id});continue;}
    }
    p.x=stop?stop.x:next.x;p.y=stop?stop.y:next.y;
    p.path.push({x:p.x,y:p.y,t:p.t});
    if(p.solidSkip&&!G.inside(p,simWorld.solids.find(o=>o.id===p.solidSkip)?.poly||[]))p.solidSkip=null;
    if(p.phaseSolid){
-    const o=simWorld.solids.find(o=>o.id===p.phaseSolid);if(!o){p.phaseSolid=null;p.phaseExit=false;}else{const travel=phaseTravel(old,p,o.poly,p.phaseRemaining);p.phaseRemaining-=travel.used;
+    const o=simWorld.solids.find(o=>o.id===p.phaseSolid);if(!o){p.phaseSolid=null;p.phaseExit=false;if(weapon.penetrating)p.phaseUsed=false;}else{const travel=phaseTravel(old,p,o.poly,p.phaseRemaining);p.phaseRemaining-=travel.used;
     if(travel.stop){p.x=travel.stop.x;p.y=travel.stop.y;p.path[p.path.length-1]={x:p.x,y:p.y,t:p.t};explode(p);ended=true;break;}
-    if(!G.inside(p,o.poly)&&p.phaseExit){p.phaseSolid=null;p.phaseExit=false;}}
+    if(!G.inside(p,o.poly)&&p.phaseExit){if(weapon.penetrating){p.phaseUsed=false;if(o.destructible){destroyed.add(o.id);events.push({type:'break',solidId:o.id,x:p.x,y:p.y,t:p.t,bullet:p.id});simWorld=G.without(simWorld,[o.id]);}}p.phaseSolid=null;p.phaseExit=false;}}
    }
    if(stop){const contact=stop.solid?{x:stop.x,y:stop.y,nx:stop.nx,ny:stop.ny,solidId:stop.solid.id}: {x:stop.x,y:stop.y,nx:Math.sign(stop.x-units[stop.unit].x)||-Math.sign(p.vx),ny:0,unit:stop.unit};
     if(weapon.pullToImpact){const j=1-side,u=units[j],center=centerOf(j),from={x:u.x,y:u.y,slope:u.slope,surface:u.surface},point={x:p.x,y:p.y-2};
+     if(weapon.gravityWell)events.push({type:'gravity-well',x:p.x,y:p.y,t:p.t,duration:weapon.pullSeconds,radius:weapon.pullRadius,bullet:p.id});
      if(Math.hypot(p.x-center.x,p.y-center.y)<=weapon.pullRadius&&clearTo(point,center)){
       const dx=G.clamp(p.x-u.x,-weapon.pullDistance,weapon.pullDistance)*(s.spec.boss&&j===1?.25:1);
       if(u.floating){const x=G.clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-units[side].x)>100&&G.lineClear(simWorld,center,{x,y:center.y}))u.x=x;}
@@ -166,7 +204,10 @@ function simulate(s,side,angle,power,options={}){
      }
      const time=p.t+weapon.pullSeconds;queue.push({...p,id:bulletId++,effect:'compression',effectHit:target===stop?target:null,effectContact:contact,t:time,start:time,path:[{x:p.x,y:p.y,t:time}]});
     }else explode(p,target===stop?target:null,contact);ended=true;break;}
+   if(p.convergeBranch&&p.age>=(weapon.convergeSeconds||.14)-1e-8){finishConvergence(p,true);ended=true;break;}
    let ax=0,ay=GRAVITY*weapon.gravity*(s.skillEffects?.gravity?.factor||1)*(p.archerDone?2.8:1);
+   if(weapon.redirectOnce&&!p.redirected&&p.age>=weapon.redirectOnce){p.redirected=true;const target=options.targetPoint||{x:s.units[1-side].x,y:s.units[1-side].y-22},theta=Math.atan2(target.y-p.y,target.x-p.x),v=Math.hypot(p.vx,p.vy);p.vx=Math.cos(theta)*v;p.vy=Math.sin(theta)*v;events.push({type:'redirect',x:p.x,y:p.y,t:p.t,bullet:p.id});}
+   const field=s.effects?.gravityField;if(field&&field.charges?.[side]>0&&Math.hypot(p.x-field.x,p.y-field.y)<field.radius){const theta=Math.atan2(field.y-p.y,field.x-p.x),a=G.clamp(Math.atan2(Math.sin(theta-Math.atan2(p.vy,p.vx)),Math.cos(theta-Math.atan2(p.vy,p.vx))),-1,1)*DT*.9,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;if(!p.fieldEntered){p.fieldEntered=true;events.push({type:'gravity-bend',x:p.x,y:p.y,t:p.t,bullet:p.id});}}
    if(curve&&p.age<=1.2){const a=curve*DT,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;}
    for(const r of simWorld.regions){
     if(!r.on||(r.kind==='C'&&p.clouds.has(r.id))||!inRegion(p,r))continue;
@@ -180,7 +221,7 @@ function simulate(s,side,angle,power,options={}){
      if(time<1.2){const a=DT*Math.PI/3*r.direction*r.strength,cos=Math.cos(a),sin=Math.sin(a),vx=p.vx;p.vx=vx*cos-p.vy*sin;p.vy=vx*sin+p.vy*cos;}
     }
    }
-   if(!p.roll){const oldVy=p.vy;p.vx=G.clamp(p.vx+G.clamp(ax,-300,300)*DT,-900,900);p.vy=G.clamp(p.vy+G.clamp(ay,-400,600)*DT,-700,900);
+   if(!p.roll){const oldVy=p.vy;p.vx=G.clamp(p.vx+G.clamp(ax,-300,300)*DT,-(weapon.maxVelocity||900),weapon.maxVelocity||900);p.vy=G.clamp(p.vy+G.clamp(ay,-400,600)*DT,-(weapon.maxVelocity||700),weapon.maxVelocity||900);
     if(oldVy<0&&p.vy>=0){
      if(weapon.apexBurst){events.push({type:'apex-burst',x:p.x,y:p.y,t:p.t,bullet:p.id});explode(p);ended=true;break;}
      if(weapon.archer&&!p.archerDone){p.vx*=.25;p.vy=Math.max(110,p.vy);p.archerDone=true;events.push({type:'dive',x:p.x,y:p.y,t:p.t,bullet:p.id});}
@@ -204,16 +245,17 @@ function simulate(s,side,angle,power,options={}){
   if(!ended)queue.push(p);
  }
  // Aggregate once per attack; no part/body double counting, no multi-bullet overkill bonus.
- const boost=side===0?(s.skillEffects?.power?.factor||1):1;damage[1]*=boost;for(const id of Object.keys(partDamage))partDamage[id]*=boost;
+ const rawDamage=damage.slice(),boost=side===0?(s.skillEffects?.power?.factor||1):1;damage[1]*=boost;for(const id of Object.keys(partDamage))partDamage[id]*=boost;
  const cap=weapon.damageCap?(s.spec.boss?weapon.bossDamageCap||weapon.damageCap:weapon.damageCap):s.spec.boss?2:events.some(e=>e.type==='critical')?1.875:1.25;
  damage[1]=Math.min(side===1?1:cap,damage[1]);damage[0]=Math.min(1,damage[0]);
  if(side===1&&s.skillEffects){const f=s.skillEffects;damage[0]*=f.invincible?0:(f.barrier?.factor??1)*(f.weaken?.factor??1);}
  const guarded=side===1&&!!s.guardActive;if(guarded)damage[0]*=.5;
- if(side===0&&W.activeIds.includes(weapon.id)){
+ if(side===0&&(W.activeIds.includes(weapon.id)||weapon.special&&weapon.progressiveDamage)){
   const total=Object.values(partDamage).reduce((sum,n)=>sum+n,0),scale=total>cap?cap/total:1;
   for(const id of Object.keys(partDamage))partDamage[id]*=scale;
  }else if(weapon.damageCap)for(const id of Object.keys(partDamage))partDamage[id]=Math.min(cap,partDamage[id]);
- const duration=Math.max(...bullets.map(b=>b.t),.01);
+ for(const e of events)if(e.type==='damage')e.value*=rawDamage[e.unit]?damage[e.unit]/rawDamage[e.unit]:0;
+ const duration=Math.max(...bullets.map(b=>b.t),...events.map(e=>e.t+(e.duration||0)),.01);
  events.sort((a,b)=>a.t-b.t);
  return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
