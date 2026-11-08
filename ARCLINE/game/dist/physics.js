@@ -4,7 +4,7 @@ const G=typeof module!=='undefined'?require('./geometry.js'):root.ArcGeometry;
 const W=typeof module!=='undefined'?require('./weapons.js'):root.ArcWeapons;
 const DT=1/90,GRAVITY=300;
 function launchSpeed(power,weapon){return G.clamp(power,20,100)*6.7*weapon.speed;}
-function inRegion(p,r){return r.kind==='M'?Math.hypot(p.x-r.x,p.y-r.y)<r.radius:p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2;}
+function inRegion(p,r){return r.kind==='C'?r.on!==false&&(r.strength??1)>0&&G.cloudContains(p,r):r.kind==='M'?Math.hypot(p.x-r.x,p.y-r.y)<r.radius:p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2;}
 // Keep established gentle-ground targeting, and rotate the contact center with
 // the chassis on the newly supported steep faces.
 function bodyCenter(s,j,useShape=false){const u=s.units[j],h=j===1&&useShape?u.hitShape:null;return Math.abs(u.slope||0)>35*Math.PI/180?G.actorPoint(s,j,h?.x||0,h?.y??-22):{x:u.x,y:u.y+(h?.y??-22)};}
@@ -169,7 +169,7 @@ function simulate(s,side,angle,power,options={}){
    let ax=0,ay=GRAVITY*weapon.gravity*(s.skillEffects?.gravity?.factor||1)*(p.archerDone?2.8:1);
    if(curve&&p.age<=1.2){const a=curve*DT,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;}
    for(const r of simWorld.regions){
-    if(!r.on||!inRegion(p,r))continue;
+    if(!r.on||(r.kind==='C'&&p.clouds.has(r.id))||!inRegion(p,r))continue;
     if(r.kind!=='C'&&!p.forceEntries.has(r.id)){p.forceEntries.add(r.id);events.push({type:{U:'updraft',F:'wind',V:'vent',M:'magnet'}[r.kind],x:p.x,y:p.y,t:p.t,bullet:p.id});}
     if(r.kind==='C'&&!p.clouds.has(r.id)){p.clouds.add(r.id);p.vx*=r.slow;p.vy*=r.slow;events.push({type:'cloud',x:p.x,y:p.y,t:p.t,bullet:p.id});}
     if(r.kind==='U')ay-=GRAVITY*1.15;

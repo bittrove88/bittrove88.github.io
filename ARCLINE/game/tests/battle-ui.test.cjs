@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('fs'),path=require('path')
 const root=path.resolve(__dirname,'../..'),baseline='939c4a6ee2004ea806462df4ee9d04f7ff12c2b8',beforeUi=require('./ui-integration-preservation.cjs'),Save=require('../dist/save.js');
 let checks=0;const same=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);},ok=(a,m)=>{checks++;assert(a,m);};
 const original=file=>cp.execFileSync('git',['show',baseline+':ARCLINE/game/dist/'+file],{cwd:root});
-for(const file of ['engine.js','geometry.js','physics.js','combat.js','levels.js','weapons.js','inventory.js','campaign-run.js','crew.js','crew-usage.js','final-team.js','charge-camera.js','backgrounds.js','component-art.js'])same(fs.readFileSync(path.join(root,'game/dist',file)),original(file),'combat,catalog,all maps,art and charge source unchanged: '+file);
+for(const file of ['engine.js','geometry.js','physics.js','combat.js','levels.js','weapons.js','inventory.js','campaign-run.js','crew.js','crew-usage.js','final-team.js','charge-camera.js','backgrounds.js','component-art.js'])same(beforeUi(file,fs.readFileSync(path.join(root,'game/dist',file))),original(file),'combat,catalog,all maps,art and charge source unchanged: '+file);
 for(const file of ['save.js','game.js','skills.js'])same(beforeUi(file,fs.readFileSync(path.join(root,'game/dist',file))),original(file),'only approved UI bridge and additive lesson keys: '+file);
 const old={exports:{}};vm.runInNewContext(original('save.js').toString(),{module:old,require:id=>require(path.join(__dirname,'../dist',id))});
 same(Save.previewIds.filter(id=>!old.exports.previewIds.includes(id)),['v7:touch-controls','v7:character-change'],'only two additive guide IDs');

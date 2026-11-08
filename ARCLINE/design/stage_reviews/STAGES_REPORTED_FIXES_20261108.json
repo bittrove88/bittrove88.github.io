@@ -1,0 +1,444 @@
+{
+  "base": "a45f6031b5e2f6b2eff74b0356554713bea631a0",
+  "scope": "Only stages8/12 authoring and stationary visible cloud footprints. Four capsule verification inputs only; all46 coordinates/IDs/amounts/turns retained. Enemy AI, damage formulas, inventory and save rules remain unchanged.",
+  "stages": [
+    {
+      "stage": 8,
+      "source": "design/stage_reviews/reported_fixes_20261108/stage_008.json",
+      "sourceSha256": "72a244c747611a82fcb1f1cbbc174d42767179ac6c83310b515fdc92c8c1ace2",
+      "terrainRevision": "8.2-flat-ceiling-lower-ridge",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              15
+            ],
+            [
+              12,
+              14
+            ],
+            [
+              28,
+              14
+            ],
+            [
+              38,
+              12
+            ],
+            [
+              43,
+              18
+            ],
+            [
+              48,
+              24
+            ],
+            [
+              53,
+              24
+            ],
+            [
+              60,
+              13
+            ],
+            [
+              91,
+              13
+            ],
+            [
+              100,
+              14
+            ]
+          ]
+        ],
+        "features": [],
+        "parts": [
+          {
+            "id": "008-CAVE-ROOF",
+            "kind": "roof",
+            "poly": [
+              [
+                40,
+                46
+              ],
+              [
+                84,
+                46
+              ],
+              [
+                84,
+                40
+              ],
+              [
+                40,
+                40
+              ]
+            ],
+            "reflectiveUnderside": [
+              [
+                40,
+                40
+              ],
+              [
+                84,
+                40
+              ]
+            ],
+            "breakable": false
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            14
+          ],
+          [
+            67,
+            13
+          ]
+        ],
+        "worldWidth": 1000
+      }
+    },
+    {
+      "stage": 12,
+      "source": "design/stage_reviews/reported_fixes_20261108/stage_012.json",
+      "sourceSha256": "3439768b2fa1dd076d48cbd2d2be1082a9c154bc1c329f63813d0a8c67ece100",
+      "terrainRevision": "8.2-raised-loading-beam",
+      "geometry": {
+        "floors": [
+          [
+            [
+              0,
+              12
+            ],
+            [
+              9,
+              12
+            ],
+            [
+              20,
+              12
+            ],
+            [
+              31,
+              12
+            ],
+            [
+              38,
+              13
+            ],
+            [
+              46,
+              14
+            ],
+            [
+              56,
+              14
+            ],
+            [
+              65,
+              13
+            ],
+            [
+              74,
+              12
+            ],
+            [
+              91,
+              12
+            ],
+            [
+              100,
+              12
+            ]
+          ]
+        ],
+        "features": [],
+        "parts": [
+          {
+            "id": "012-FIXED-LOADING-BEAM",
+            "kind": "roof",
+            "breakable": false,
+            "poly": [
+              [
+                30,
+                23
+              ],
+              [
+                40,
+                25
+              ],
+              [
+                56,
+                25
+              ],
+              [
+                70,
+                22
+              ],
+              [
+                70,
+                20.5
+              ],
+              [
+                56,
+                22
+              ],
+              [
+                46,
+                22
+              ],
+              [
+                38,
+                21
+              ],
+              [
+                30,
+                20
+              ]
+            ]
+          }
+        ],
+        "spawn": [
+          [
+            16,
+            12
+          ],
+          [
+            82,
+            12
+          ]
+        ],
+        "worldWidth": 1000
+      }
+    }
+  ],
+  "pickupVerificationChanges": [
+    {
+      "stage": 24,
+      "before": {
+        "stage": 24,
+        "id": "SK024",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 46.41213,
+        "h": 21.5228,
+        "spawnTurn": 1,
+        "placementId": "L024:skill:S_SPECIAL_REFILL",
+        "verification": {
+          "angle": 56,
+          "power": 55,
+          "walk": 0,
+          "neighborHits": 5,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      },
+      "after": {
+        "stage": 24,
+        "id": "SK024",
+        "kind": "skill",
+        "skillId": "S_SPECIAL_REFILL",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 46.41213,
+        "h": 21.5228,
+        "spawnTurn": 1,
+        "placementId": "L024:skill:S_SPECIAL_REFILL",
+        "verification": {
+          "angle": 56,
+          "power": 55,
+          "walk": 0,
+          "neighborHits": 4,
+          "neighborShots": 9,
+          "attackDamage": 0
+        }
+      }
+    },
+    {
+      "stage": 27,
+      "before": {
+        "stage": 27,
+        "id": "W10",
+        "kind": "trial",
+        "weaponId": "W10",
+        "category": "weapon",
+        "amount": 2,
+        "x": 46.171,
+        "h": 30.908,
+        "spawnTurn": 1,
+        "placementId": "L027:weapon:W10",
+        "verification": {
+          "angle": 3,
+          "power": 85,
+          "neighborHits": 9,
+          "neighborShots": 9,
+          "attackDamage": 1.5,
+          "walkInput": 0,
+          "moved": 0,
+          "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+        }
+      },
+      "after": {
+        "stage": 27,
+        "id": "W10",
+        "kind": "trial",
+        "weaponId": "W10",
+        "category": "weapon",
+        "amount": 2,
+        "x": 46.171,
+        "h": 30.908,
+        "spawnTurn": 1,
+        "placementId": "L027:weapon:W10",
+        "verification": {
+          "angle": 3,
+          "power": 56,
+          "neighborHits": 7,
+          "neighborShots": 9,
+          "attackDamage": 0,
+          "walkInput": 0,
+          "moved": 0,
+          "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+        }
+      }
+    },
+    {
+      "stage": 29,
+      "before": {
+        "stage": 29,
+        "id": "SK029",
+        "kind": "skill",
+        "skillId": "S_ENEMY_WEAKEN",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 45.71526,
+        "h": 21.65913,
+        "spawnTurn": 5,
+        "placementId": "L029:skill:S_ENEMY_WEAKEN",
+        "verification": {
+          "angle": 56,
+          "power": 50,
+          "neighborHits": 4,
+          "neighborShots": 9,
+          "attackDamage": 0,
+          "walkInput": 0,
+          "moved": 0,
+          "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+        }
+      },
+      "after": {
+        "stage": 29,
+        "id": "SK029",
+        "kind": "skill",
+        "skillId": "S_ENEMY_WEAKEN",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 45.71526,
+        "h": 21.65913,
+        "spawnTurn": 5,
+        "placementId": "L029:skill:S_ENEMY_WEAKEN",
+        "verification": {
+          "angle": 56,
+          "power": 50,
+          "neighborHits": 5,
+          "neighborShots": 9,
+          "attackDamage": 0,
+          "walkInput": 0,
+          "moved": 0,
+          "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+        }
+      }
+    },
+    {
+      "stage": 94,
+      "before": {
+        "stage": 94,
+        "id": "SK094",
+        "kind": "skill",
+        "skillId": "S_LOW_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 100.82719,
+        "h": 47.88922,
+        "spawnTurn": 1,
+        "placementId": "L094:skill:S_LOW_GRAVITY",
+        "verification": {
+          "angle": 2,
+          "power": 90,
+          "walk": 0,
+          "neighborHits": 6,
+          "neighborShots": 9,
+          "attackDamage": 0.5
+        }
+      },
+      "after": {
+        "stage": 94,
+        "id": "SK094",
+        "kind": "skill",
+        "skillId": "S_LOW_GRAVITY",
+        "category": "normal-skill",
+        "amount": 2,
+        "x": 100.82719,
+        "h": 47.88922,
+        "spawnTurn": 1,
+        "placementId": "L094:skill:S_LOW_GRAVITY",
+        "verification": {
+          "angle": 2,
+          "power": 78,
+          "walk": 0,
+          "neighborHits": 6,
+          "neighborShots": 9,
+          "attackDamage": 1
+        }
+      }
+    }
+  ],
+  "sourcePatches": {
+    "geometry.js": {
+      "beforeSha256": "98a347a7f474a6f1e6d874e1df17ba2778056962053257b770fcf707687ff4f8",
+      "afterSha256": "a26a553162fd215978e0816128ec056cae50bfff879db7cb1487a205a6d5752e",
+      "edits": [
+        {
+          "before": " const a=point(x1,h2),b=point(x2,h1);return {id,kind,poly:[a,{x:b.x,y:a.y},b,{x:a.x,y:b.y}]};\n}\nfunction floorY(points,x){if(x<points[0].x-EPS||x>points.at(-1).x+EPS)return null;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];if(x<=b.x+EPS&&b.x>a.x)return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x);}return points.at(-1).y;}\nfunction world(spec,round=1,bossPhase=0,effects={}){\n const solids=[],regions=[],waters=[],terminals=[],surfaces=[];const tick=spec.id===11?Math.max(0,round-2):Math.floor((round-1)/(spec.hold||1));\n spec.floors.forEach((f,i)=>{const top=f.map(([x,h])=>point(x,h));const poly=[...top,{x:top.at(-1).x,y:560},{x:top[0].x,y:560}];solids.push({id:'floor'+i,kind:'floor',poly});surfaces.push({id:'floor'+i,points:top});});\n",
+          "after": " const a=point(x1,h2),b=point(x2,h1);return {id,kind,poly:[a,{x:b.x,y:a.y},b,{x:a.x,y:b.y}]};\n}\nfunction floorY(points,x){if(x<points[0].x-EPS||x>points.at(-1).x+EPS)return null;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];if(x<=b.x+EPS&&b.x>a.x)return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x);}return points.at(-1).y;}\n// A cloud owns fixed world-space silhouettes. Rendering and slowing use these same vertices.\nfunction cloudPolygons(r){\n const w=r.x2-r.x1,h=r.y2-r.y1,cols=Math.max(1,Math.min(3,Math.ceil(w/125))),rows=Math.max(1,Math.min(2,Math.ceil(h/95))),out=[];\n const curves=[[-36,10,-55,9,-48,-9,-28,-8],[-28,-8,-26,-24,-5,-24,3,-11],[3,-11,21,-17,37,-11,35,-1],[35,-1,52,0,50,12,29,12]];\n for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){\n  const x=r.x1+w*(i+.5)/cols,y=r.y1+h*(j+.52)/rows+Math.sin(i+j)*2,poly=[];\n  for(const c of curves)for(let n=0;n<16;n++){const t=n/16,a=1-t;poly.push({x:x+a*a*a*c[0]+3*a*a*t*c[2]+3*a*t*t*c[4]+t*t*t*c[6],y:y+a*a*a*c[1]+3*a*a*t*c[3]+3*a*t*t*c[5]+t*t*t*c[7]});}\n  poly.push({x:x+29,y:y+12});out.push({poly,x1:Math.min(...poly.map(p=>p.x)),x2:Math.max(...poly.map(p=>p.x)),y1:Math.min(...poly.map(p=>p.y)),y2:Math.max(...poly.map(p=>p.y))});\n }return out;\n}\nfunction cloudContains(p,r){return p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2&&(r.clouds||cloudPolygons(r)).some(c=>p.x>=c.x1&&p.x<=c.x2&&p.y>=c.y1&&p.y<=c.y2&&inside(p,c.poly));}\nfunction world(spec,round=1,bossPhase=0,effects={}){\n const solids=[],regions=[],waters=[],terminals=[],surfaces=[];const tick=spec.id===11?Math.max(0,round-2):Math.floor((round-1)/(spec.hold||1));\n spec.floors.forEach((f,i)=>{const top=f.map(([x,h])=>point(x,h));const poly=[...top,{x:top.at(-1).x,y:560},{x:top[0].x,y:560}];solids.push({id:'floor'+i,kind:'floor',poly});surfaces.push({id:'floor'+i,points:top});});\n"
+        },
+        {
+          "before": "   const strength=spec.id===60?(effects.broken>=2?0:effects.broken===1?.18:.35):.35;\n   const ventStartsOn=Number.isFinite(v[4])?!!v[4]:spec.ventStartsOn===undefined?spec.id===64:!!spec.ventStartsOn;\n   const on=k!=='V'||(tick+(ventStartsOn?1:0))%2===1;\n   let offset=spec.id===30?(effects.cloudOffset||0):0;\n   regions.push({id,kind:k,x1:x1*10+offset,x2:x2*10+offset,y1:500-h2*10,y2:500-h1*10,direction,strength,on,slow:spec.id===90&&effects.thinCloud?.85:.72});\n  }\n  if(k==='M'){const [x,h,r,dir]=v;regions.push({id,kind:k,...point(x,h),radius:r*10,direction:effects.polarity||dir,strength:spec.id===80?(effects.broken>=2?0:effects.broken===1?.5:1):1,on:true});}\n  if(k==='T')terminals.push({id,...point(v[0],v[1]),radius:20});\n",
+          "after": "   const strength=spec.id===60?(effects.broken>=2?0:effects.broken===1?.18:.35):.35;\n   const ventStartsOn=Number.isFinite(v[4])?!!v[4]:spec.ventStartsOn===undefined?spec.id===64:!!spec.ventStartsOn;\n   const on=k!=='V'||(tick+(ventStartsOn?1:0))%2===1;\n   let offset=spec.id===30&&k!=='C'?(effects.cloudOffset||0):0;\n   const field={id,kind:k,x1:x1*10+offset,x2:x2*10+offset,y1:500-h2*10,y2:500-h1*10,direction,strength,on,slow:spec.id===90&&effects.thinCloud?.85:.72};\n   if(k==='C')field.clouds=cloudPolygons(field);\n   regions.push(field);\n  }\n  if(k==='M'){const [x,h,r,dir]=v;regions.push({id,kind:k,...point(x,h),radius:r*10,direction:effects.polarity||dir,strength:spec.id===80?(effects.broken>=2?0:effects.broken===1?.5:1):1,on:true});}\n  if(k==='T')terminals.push({id,...point(v[0],v[1]),radius:20});\n"
+        },
+        {
+          "before": "function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}\nfunction muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1),theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;\n const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}\nconst api={maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;\n})(globalThis);\n",
+          "after": "function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}\nfunction muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1),theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;\n const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}\nconst api={cloudPolygons,cloudContains,maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;\n})(globalThis);\n"
+        }
+      ]
+    },
+    "physics.js": {
+      "beforeSha256": "8d45576df839e57cbeaab6b7096d3d8e5a09fd486de3fb06ce38a0e236db4d21",
+      "afterSha256": "37e837a1d30f9e4eb925f13a010daafa40179dd8abf4db786b4c203b5487fd3c",
+      "edits": [
+        {
+          "before": "const W=typeof module!=='undefined'?require('./weapons.js'):root.ArcWeapons;\nconst DT=1/90,GRAVITY=300;\nfunction launchSpeed(power,weapon){return G.clamp(power,20,100)*6.7*weapon.speed;}\nfunction inRegion(p,r){return r.kind==='M'?Math.hypot(p.x-r.x,p.y-r.y)<r.radius:p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2;}\n// Keep established gentle-ground targeting, and rotate the contact center with\n// the chassis on the newly supported steep faces.\nfunction bodyCenter(s,j,useShape=false){const u=s.units[j],h=j===1&&useShape?u.hitShape:null;return Math.abs(u.slope||0)>35*Math.PI/180?G.actorPoint(s,j,h?.x||0,h?.y??-22):{x:u.x,y:u.y+(h?.y??-22)};}\n",
+          "after": "const W=typeof module!=='undefined'?require('./weapons.js'):root.ArcWeapons;\nconst DT=1/90,GRAVITY=300;\nfunction launchSpeed(power,weapon){return G.clamp(power,20,100)*6.7*weapon.speed;}\nfunction inRegion(p,r){return r.kind==='C'?r.on!==false&&(r.strength??1)>0&&G.cloudContains(p,r):r.kind==='M'?Math.hypot(p.x-r.x,p.y-r.y)<r.radius:p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2;}\n// Keep established gentle-ground targeting, and rotate the contact center with\n// the chassis on the newly supported steep faces.\nfunction bodyCenter(s,j,useShape=false){const u=s.units[j],h=j===1&&useShape?u.hitShape:null;return Math.abs(u.slope||0)>35*Math.PI/180?G.actorPoint(s,j,h?.x||0,h?.y??-22):{x:u.x,y:u.y+(h?.y??-22)};}\n"
+        },
+        {
+          "before": "   let ax=0,ay=GRAVITY*weapon.gravity*(s.skillEffects?.gravity?.factor||1)*(p.archerDone?2.8:1);\n   if(curve&&p.age<=1.2){const a=curve*DT,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;}\n   for(const r of simWorld.regions){\n    if(!r.on||!inRegion(p,r))continue;\n    if(r.kind!=='C'&&!p.forceEntries.has(r.id)){p.forceEntries.add(r.id);events.push({type:{U:'updraft',F:'wind',V:'vent',M:'magnet'}[r.kind],x:p.x,y:p.y,t:p.t,bullet:p.id});}\n    if(r.kind==='C'&&!p.clouds.has(r.id)){p.clouds.add(r.id);p.vx*=r.slow;p.vy*=r.slow;events.push({type:'cloud',x:p.x,y:p.y,t:p.t,bullet:p.id});}\n    if(r.kind==='U')ay-=GRAVITY*1.15;\n",
+          "after": "   let ax=0,ay=GRAVITY*weapon.gravity*(s.skillEffects?.gravity?.factor||1)*(p.archerDone?2.8:1);\n   if(curve&&p.age<=1.2){const a=curve*DT,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;}\n   for(const r of simWorld.regions){\n    if(!r.on||(r.kind==='C'&&p.clouds.has(r.id))||!inRegion(p,r))continue;\n    if(r.kind!=='C'&&!p.forceEntries.has(r.id)){p.forceEntries.add(r.id);events.push({type:{U:'updraft',F:'wind',V:'vent',M:'magnet'}[r.kind],x:p.x,y:p.y,t:p.t,bullet:p.id});}\n    if(r.kind==='C'&&!p.clouds.has(r.id)){p.clouds.add(r.id);p.vx*=r.slow;p.vy*=r.slow;events.push({type:'cloud',x:p.x,y:p.y,t:p.t,bullet:p.id});}\n    if(r.kind==='U')ay-=GRAVITY*1.15;\n"
+        }
+      ]
+    },
+    "component-art.js": {
+      "beforeSha256": "43659545707e11f0bd178bf0030ca600ee40c8c5bacce3d50cf6b9028a12cf42",
+      "afterSha256": "349b854462137ec4a32584d978a5d5235df87eddc528adee45f596ad17051bc3",
+      "edits": [
+        {
+          "before": "  const source=r;r={...r,...bounds};const w=r.x2-r.x1,h=r.y2-r.y1;if(w<=0||h<=0)return;ctx.beginPath();ctx.rect(r.x1,r.y1,w,h);ctx.clip();\n  const cols=Math.max(1,Math.min(3,Math.ceil(w/(125*u)))),rows=Math.max(1,Math.min(2,Math.ceil(h/(95*u))));\n  if(r.kind==='C'){\n   const thin=(r.slow??.72)>.72;\n   for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){\n    const x=r.x1+w*(i+.5)/cols,y=r.y1+h*(j+.52)/rows+Math.sin(t*Math.PI/4+i+j)*2*u;\n    const a=(thin?.8:1)*u,q=(dx,dy)=>[x+dx*a,y+dy*a];ctx.beginPath();ctx.moveTo(...q(-36,10));ctx.bezierCurveTo(...q(-55,9),...q(-48,-9),...q(-28,-8));ctx.bezierCurveTo(...q(-26,-24),...q(-5,-24),...q(3,-11));ctx.bezierCurveTo(...q(21,-17),...q(37,-11),...q(35,-1));ctx.bezierCurveTo(...q(52,0),...q(50,12),...q(29,12));ctx.closePath();ctx.save();ctx.globalAlpha*=thin?(r.thinCloudOpacity??.55):(r.cloudOpacity??.68);ctx.fill();ctx.restore();ctx.save();ctx.strokeStyle=r.accent||'#EAF4F7';ctx.lineWidth=(r.cloudEdgeWidth??1.4)*u;ctx.globalAlpha*=r.cloudEdgeOpacity??.8;ctx.stroke();ctx.restore();\n   }return;\n  }\n  // The field owns its lanes and animation phase in world coordinates. Camera\n",
+          "after": "  const source=r;r={...r,...bounds};const w=r.x2-r.x1,h=r.y2-r.y1;if(w<=0||h<=0)return;ctx.beginPath();ctx.rect(r.x1,r.y1,w,h);ctx.clip();\n  const cols=Math.max(1,Math.min(3,Math.ceil(w/(125*u)))),rows=Math.max(1,Math.min(2,Math.ceil(h/(95*u))));\n  if(r.kind==='C'){\n   const thin=(r.slow??.72)>.72,clouds=source.clouds;\n   const paintCloud=()=>{ctx.save();ctx.globalAlpha*=thin?(r.thinCloudOpacity??.55):(r.cloudOpacity??.68);ctx.fill();ctx.restore();ctx.save();ctx.strokeStyle=r.accent||'#EAF4F7';ctx.lineWidth=(r.cloudEdgeWidth??1.4)*u;ctx.globalAlpha*=r.cloudEdgeOpacity??.8;ctx.stroke();ctx.restore();};\n   if(clouds){for(const cloud of clouds){ctx.beginPath();for(const [i,p]of cloud.poly.entries())i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);ctx.closePath();paintCloud();}return;}\n   // Standalone art sheets have no physics world; keep their initial silhouettes fixed too.\n   const fullW=source.x2-source.x1,fullH=source.y2-source.y1,cols=Math.max(1,Math.min(3,Math.ceil(fullW/125))),rows=Math.max(1,Math.min(2,Math.ceil(fullH/95)));\n   for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){\n    const x=source.x1+fullW*(i+.5)/cols,y=source.y1+fullH*(j+.52)/rows+Math.sin(i+j)*2,q=(dx,dy)=>[x+dx,y+dy];ctx.beginPath();ctx.moveTo(...q(-36,10));ctx.bezierCurveTo(...q(-55,9),...q(-48,-9),...q(-28,-8));ctx.bezierCurveTo(...q(-26,-24),...q(-5,-24),...q(3,-11));ctx.bezierCurveTo(...q(21,-17),...q(37,-11),...q(35,-1));ctx.bezierCurveTo(...q(52,0),...q(50,12),...q(29,12));ctx.closePath();paintCloud();\n   }return;\n  }\n  // The field owns its lanes and animation phase in world coordinates. Camera\n"
+        }
+      ]
+    }
+  }
+}
