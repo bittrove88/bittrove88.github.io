@@ -275,7 +275,7 @@ ok(
   eq(s.enemyTactics, before, "stale action cannot change counters");
 }
 // Newly recorded current-AI inputs must still win under native enemy decisions.
-const matches = require("../../evidence/recruit-enemy-0282/CURRENT_ENEMY_MATCHES.json");
+const matches = require("../../evidence/recruit-enemy-0291/CURRENT_ENEMY_MATCHES.json");
 ok(matches.rows.length === 6, "six real current-AI full matches");
 for (const [file, hash] of Object.entries(matches.sources))
   eq(
@@ -283,7 +283,7 @@ for (const [file, hash] of Object.entries(matches.sources))
     hash,
     "recorded current-AI source fingerprint " + file,
   );
-const allMatches = require("../../evidence/recruit-enemy-0282/ALL_CURRENT_ENEMY_MATCHES.json");
+const allMatches = require("../../evidence/recruit-enemy-0291/ALL_CURRENT_ENEMY_MATCHES.json");
 ok(
   allMatches.rows.length === 48 &&
     allMatches.rows.every(

@@ -4,7 +4,7 @@ const assert=require('node:assert/strict'),cp=require('node:child_process'),vm=r
 // translated-name changes must not change damage, trajectories or skill rules.
 function prior(name){const m={exports:{}};vm.runInNewContext(cp.execFileSync('git',['show','fe495ae:ARCLINE/game/dist/'+name+'.js'],{encoding:'utf8'}),{module:m,require:id=>require(path.resolve(__dirname,'../dist',id))});return m.exports;}
 const beforeW=prior('weapons'),beforeK=prior('skills'),strip=(row,fields)=>Object.fromEntries(Object.entries(plain(row)).filter(([k])=>!fields.includes(k)));
-eq(W.weapons.map(w=>strip(w,['nameJa'])),plain(beforeW.weapons).map(w=>strip(w,['nameJa'])),'all23 weapon mechanics unchanged');
+eq(W.weapons.filter(w=>!W.activeIds.includes(w.id)).map(w=>strip(w,['nameJa'])),plain(beforeW.weapons).filter(w=>!W.activeIds.includes(w.id)).map(w=>strip(w,['nameJa'])),'inactive legacy weapon mechanics unchanged');
 eq(K.rows.map(k=>strip(k,['path','noteJa'])),plain(beforeK.rows).map(k=>strip(k,['path','noteJa'])),'skill identities and effects unchanged');eq(K.ids,plain(beforeK.ids),'legacy skill IDs preserved');eq(W.activeIds,plain(beforeW.activeIds),'auxiliary slate unchanged');
 for(const w of W.weapons){ok(w.nameJa&&w.nameJa!==w.name,'Japanese name present '+w.id);ok(W.iconPath(w.id)&&!W.iconMarkup(w.id).includes('<text'),'vector weapon icon '+w.id);if(w.id!=='W01')ok(W.iconPath(w.id)!==W.iconPath('W01'),'weapon does not fall back to normal icon '+w.id);}
 for(const id of W.skills){ok(K.iconPath(id)&&!K.markup(id).includes('<text'),'legacy/current skill icon has no glyph dependency '+id);}

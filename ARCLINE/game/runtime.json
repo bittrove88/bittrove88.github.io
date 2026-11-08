@@ -1,6 +1,6 @@
 {
-  "version": "0.28.2",
-  "cacheVersion": "0.28.2",
+  "version": "0.29.1",
+  "cacheVersion": "0.29.1",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -9,6 +9,7 @@
     "release-info.js",
     "i18n.js",
     "levels.js",
+    "attack-catalog.js",
     "combat.js",
     "battle-catalog.js",
     "skills.js",
@@ -24,6 +25,7 @@
     "journal.js",
     "save.js",
     "encounters.js",
+    "enemy-attacks.js",
     "enemy-actions.js",
     "engine.js",
     "lessons.js",
@@ -39,6 +41,7 @@
     "component-art.js",
     "render.js",
     "presentation.js",
+    "attack-motion.js",
     "preview.js",
     "viewport.js",
     "battle-input.js",
@@ -194,7 +197,8 @@
       "final-travel.js",
       "crew-supply.js",
       "charge-camera.js",
-      "battle-ui.js"
+      "battle-ui.js",
+      "attack-motion.js"
     ],
     "device.js": [
       "screens.js",
@@ -255,6 +259,7 @@
     ],
     "engine.js": [
       "final-team.js",
+      "enemy-attacks.js",
       "enemy-actions.js"
     ],
     "final-team-ui.js": [
@@ -319,6 +324,25 @@
     ],
     "skills.js": [
       "battle-catalog.js"
-    ]
+    ],
+    "combat.js": [
+      "attack-catalog.js"
+    ],
+    "weapons.js": [
+      "attack-catalog.js",
+      "combat.js"
+    ],
+    "preview.js": [
+      "attack-motion.js",
+      "engine.js"
+    ],
+    "enemy-attacks.js": [
+      "attack-catalog.js",
+      "encounters.js",
+      "weapons.js",
+      "geometry.js",
+      "physics.js"
+    ],
+    "attack-motion.js": []
   }
 }

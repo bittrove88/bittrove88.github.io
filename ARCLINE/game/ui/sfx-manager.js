@@ -44,6 +44,7 @@
           ? "F01_STRONG"
           : "F01";
     let fireIndex = 0;
+    const fireStarts = new Map();
     for (const bullet of bullets) {
       if (
         bullet.effect ||
@@ -53,8 +54,12 @@
           ))
       )
         continue;
+      if (!fireStarts.has(bullet.start))
+        fireStarts.set(bullet.start, fireIndex++);
       let id = special
-        ? special.fire[Math.min(fireIndex++, special.fire.length - 1)]
+        ? special.fire[
+            Math.min(fireStarts.get(bullet.start), special.fire.length - 1)
+          ]
         : shot.side
           ? data.enemyAttackFire[shot.attackKind] || weapon.enemyFire
           : weapon.fire;
@@ -75,7 +80,12 @@
       if (event.type === "shockwave" && shot.weaponId === "S_BAN")
         add("S01", event, "special", 6);
       if (event.type === "split") add("S02", event, "special", 6);
-      if (event.type === "pull" && shot.weaponId === "S_YUI")
+      if (
+        (event.type === "gravity-well" ||
+          (event.type === "pull" &&
+            !events.some((e) => e.type === "gravity-well"))) &&
+        shot.weaponId === "S_YUI"
+      )
         add("S04", event, "special", 6);
       if (event.type === "compression" && shot.weaponId === "S_YUI")
         add("S05", event, "special", 6);
@@ -98,6 +108,13 @@
       }
     }
     for (const impact of shot.impacts || []) {
+      if (
+        shot.weaponId === "S_BAN" &&
+        events.some(
+          (e) => e.type === "shockwave" && Math.abs(e.t - impact.t) < 0.001,
+        )
+      )
+        continue;
       const local = events.filter((event) => same(event, impact));
       if (
         local.some(
@@ -116,7 +133,7 @@
             e.type === "bounce" &&
             e.bullet === impact.bullet &&
             e.t <= impact.t,
-        ).length < 4
+        ).length < 3
       )
         id = "I01";
       if (

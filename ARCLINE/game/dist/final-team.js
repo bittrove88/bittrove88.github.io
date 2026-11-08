@@ -5,6 +5,7 @@ const config=s=>s.spec.finalBattle;
 function complete(s){return s?.stage!==100||active(s)&&s.finalTeam?.index===9&&s.characterId==='gun'&&config(s).order.every(id=>(s.finalTeam?.damage[id]||0)>=config(s).requiredDamage-1e-7);}
 function mapIndex(s){return Math.min(3,Math.floor((s.finalTeam?.index||0)/3));}
 function place(s,initial=false){
+ delete s.effects.gravityField;
  const c=config(s),t=s.finalTeam,id=c.order[t.index],index=mapIndex(s),map=c.maps[index],changed=t.map!==index;
  if(initial||changed){s.spec={...s.spec,floors:map.floors,components:map.components,features:map.features,spawn:[map.spawns[id],map.bossSpawn]};delete s.spec.phaseFeatures;s.effects.destroyed=[];s.world=G.world(s.spec,s.round,s.bossPhase,s.effects);}
  s.spec={...s.spec,spawn:[map.spawns[id],map.bossSpawn],finalBackdrop:map.backdrop||null};
@@ -46,6 +47,7 @@ function restore(s,entry){
  if(!Number.isInteger(index)||index<0||index>=c.order.length||entry.characterId!==c.order[index]||entry.matchSeed!==s.matchSeed)return false;
  if(c.order.some((id,i)=>entry.finalTeam.damage[id]!== (i<index?c.requiredDamage:0)))return false;
  const random=s.random;Object.assign(s,JSON.parse(JSON.stringify(entry)),{random,result:null,reason:null,phase:'aim'});
+ delete s.effects.gravityField;
  return true;
 }
 const duration=(s,change)=>change?.mapChanged?config(s).transitionSeconds:.6;

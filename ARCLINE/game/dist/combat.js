@@ -1,5 +1,6 @@
 (function(root){
 'use strict';
+const A=typeof module!=='undefined'?require('./attack-catalog.js'):root.ArcAttackCatalog||{specials:{}};
 // One internal HP/damage unit is twenty displayed points. Geometry stays in world units.
 const pointsPerUnit=20,ballistics=Object.freeze({speed:1,gravity:1}),teleportCharge={rise:2.6,fall:2.6,hold:.25};
 const rows=[
@@ -30,9 +31,9 @@ const specials={
 // Weapon/skill effects remain explicit action modifiers, independent of the pilot.
 const profiles=rows.map(([id,hp,walk,climb,pushResistance,seconds,speed,gravity,blast,playerType,normalNote,specialName,specialNote,color,shape])=>({
  id,hp,walk,chargeWalk:id==='yui'?1.15:1,climb,pushResistance,hitbox:1,playerType,
- charge:{rise:seconds,fall:seconds,hold:.25},normalNote:'All machines share the same base trajectory.',specialNote,
- normal:{id:'N_'+id.toUpperCase(),name:'Standard',machineId:id,normal:true,...ballistics,damage:1,blast,minAngle:-15,maxAngle:170,criticalMultiplier:1.5,damageCap:1.5,bossDamageCap:2,bounces:0,shots:1,appearance:{color:'#fff0a9',shape:id==='gun'?'shell':id==='rin'?'needle':'orb',glyph:'●',label:'NORMAL',size:id==='gun'?7:5}},
- special:{id:'S_'+id.toUpperCase(),name:specialName,machineId:id,special:true,shots:1,bounces:0,minAngle:-15,maxAngle:170,criticalMultiplier:1,...specials[id],...ballistics,appearance:{color,shape,glyph:'◆',label:'SPECIAL',size:10}}
+ charge:{rise:seconds,fall:seconds,hold:.25},normalNote:'All machines share the same base trajectory.',specialNote:A.specials[id]?.noteEn||specialNote,
+ normal:{id:'N_'+id.toUpperCase(),name:'Standard',machineId:id,normal:true,...ballistics,damage:1,blast,minAngle:-15,maxAngle:170,criticalMultiplier:1.5,damageCap:1.5,bossDamageCap:2,bounces:0,shots:1,appearance:{color,shape:id==='gun'?'shell':id==='rin'?'needle':'orb',glyph:'●',label:'NORMAL',size:id==='gun'?7:5}},
+ special:{id:'S_'+id.toUpperCase(),name:specialName,machineId:id,special:true,shots:1,bounces:0,minAngle:-15,maxAngle:170,criticalMultiplier:1,...specials[id],...ballistics,...(A.specials[id]?.params||{}),...(A.specials[id]?{name:A.specials[id].name,nameJa:A.specials[id].nameJa}:{}),appearance:{color,shape,glyph:'◆',label:'SPECIAL',size:10,...(A.specials[id]?.appearance||{})}}
 }));
 const deepFreeze=o=>{Object.freeze(o);for(const value of Object.values(o))if(value&&typeof value==='object'&&!Object.isFrozen(value))deepFreeze(value);return o;};
 profiles.forEach(deepFreeze);Object.freeze(profiles);deepFreeze(teleportCharge);

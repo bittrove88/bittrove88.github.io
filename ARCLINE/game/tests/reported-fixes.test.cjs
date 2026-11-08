@@ -208,18 +208,22 @@ for (const file of [
   "inventory.js",
   "battle-ui.js",
   "render.js",
-])
+]) {
+  if(require('./attack-integration-preservation.cjs').changed(file)){require('./attack-integration-preservation.cjs').verify();continue;}
   eq(
     require("./recruit-ai-preservation.cjs").source(file,fs.readFileSync(path.join(root, "game/dist", file))),
     previous("game/dist/" + file),
     "all unrelated gameplay and prior UI fixes preserved " + file,
   );
-for (const file of Object.keys(Fix.manifest.sourcePatches))
+}
+for (const file of Object.keys(Fix.manifest.sourcePatches)) {
+  if(file==='physics.js'){const text=fs.readFileSync(path.join(root,'game/dist',file),'utf8');for(const edit of Fix.manifest.sourcePatches[file].edits)ok(text.includes(edit.after.includes('   for(const r of simWorld.regions){')?edit.after.slice(edit.after.indexOf('   for(const r of simWorld.regions){')):edit.after),'PR126 cloud contact fix preserved');require('./attack-integration-preservation.cjs').verify();continue;}
   eq(
     Fix.source(file, fs.readFileSync(path.join(root, "game/dist", file))),
     previous("game/dist/" + file),
     "exact bounded cloud-only source delta " + file,
   );
+}
 const html = fs.readFileSync(path.join(root, "game/dist/index.html"), "utf8"),
   ui = fs.readFileSync(path.join(root, "game/dist/expedition-ui.js"), "utf8");
 ok(
@@ -250,8 +254,9 @@ for (const [file, hash] of Object.entries(acceptance.reports))
     hash,
     "pinned current native proof " + file,
   );
-for (const row of require("../../evidence/reported-fixes-0281/MAP_GUIDES.json")
+for (const historicalRow of require("../../evidence/reported-fixes-0281/MAP_GUIDES.json")
   .rows) {
+  const row=require("../../evidence/attacks-0290/MATCHES_PR126.json").rows.find(r=>[r.stage,r.id,r.difficulty,r.seed].join(":")===[historicalRow.stage,historicalRow.id,historicalRow.difficulty,historicalRow.seed].join(":"))||historicalRow;
   const state = E.campaign(row.stage, {
     equippedCharacterId: row.id,
     difficulty: row.difficulty,

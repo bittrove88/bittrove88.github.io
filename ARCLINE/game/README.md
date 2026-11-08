@@ -1,4 +1,5 @@
-**0.28.2：** 仲間原画のα正本は `design/ending-roll-preparation/player-masks.json` と `design/recruit-art-0282/alpha/`。任意の再準備は `prepare_player_masks.py`（OpenCV5.0.0.93）、正式ビルドは既存コマンド。通常敵の判断は `dist/enemy-actions.js`、接続は `engine.js`・`game.js`・`cpu-worker.js`。原画待機は `expedition-ui.js` と `character-hero.js`、音楽は既存 `audioSync`。[仕様と検証](../docs/releases/0.28.2.md)。
+グラフィック・モーション・演出を制作・改修する前に、[デザインガイド](../docs/design/ARCLINE_GRAPHICS_MOTION_GUIDE.md)を参照する。判断基準、技ごとの設計項目、通常速度での評価と改善手順を共通の開発指針とする。
+**0.29.1：** 仲間原画のα正本は `design/ending-roll-preparation/player-masks.json` と `design/recruit-art-0291/alpha/`。任意の再準備は `prepare_player_masks.py`（OpenCV5.0.0.93）、正式ビルドは既存コマンド。通常敵の判断は `dist/enemy-actions.js`、接続は `engine.js`・`game.js`・`cpu-worker.js`。原画待機は `expedition-ui.js` と `character-hero.js`、音楽は既存 `audioSync`。[仕様と検証](../docs/releases/0.29.1.md)。
 
 0.28.1：下部UIは `styles/battle-ui.css`、雲の共有輪郭は `dist/geometry.js` と `design/components/complete/renderer.js`、加入は `dist/character-hero.js`・`expedition-ui.js`、8/12面はstage_blueprintsが正本。[範囲・保護・検証](../docs/releases/0.28.1.md)。
 
@@ -98,3 +99,11 @@ WorkerのimportScriptsのキャッシュ版もbuild_runtime.pyがruntime.jsonに
 0.24.6のカメラ・表示修正：チャージの90%縮小を維持し、縮小は0.6秒・復帰は従来の0.2秒とする。`dist/render.js` は実際に自機が動いた場合だけチャージ中のカメラを追従させ、移動後の基準位置を保持する。移動上限や壁で動けない状態の入力オン／オフでは、開始時の位置へ戻さない。画面全体はセーフエリアで切り詰めず、UIの既存インセットへ戻す。左右のUI余白は別々の論理インセットを使う。共通パネルも各辺の安全余白を確保し、短い表示領域で設定見出しが欠けないようにする。画面寸法が変わらないresize通知では長押しを解除せず、実際の寸法変更時の初期化はviewportの変更通知へ一本化する。版数とキャッシュはruntime.jsonで0.24.6へ更新する。CI・公開URL・実機Safari確認は区別してリリース記録へ残す。
 
 0.23.1のチャージカメラは `ui/charge-camera.js` が上空の見積もり・チャージ内の保持・90%倍率を所有する。`render.js` の通常カメラと表示カメラを分け、`game.js` がチャージごとの表示用フラグを渡す。`physics.launchSpeed` は既存の初速の式を共有するだけで弾道を変更しない。判定へ衝突世界・実軌道・敵計画を渡さない。
+
+## 0.29.0 攻撃と個別モーション
+
+[省略のない変更指示書](../docs/change-requests/ARCLINE_CHANGE_REQUEST_v1.1.0.md)と[制作・検証記録](../docs/releases/0.29.0-attacks.md)。通常弾10色、補助武器12種、必殺技10種、通常敵12種、中ボス10体、大ボス9固有技、最終4技を扱う。仕様の正本は `../design/attacks/definitions.json`、`tools/build_attacks.py` が `dist/attack-catalog.js` を生成する。
+
+`dist/physics.js` は実弾・地形衝突・時間差の波とダメージ、`dist/enemy-attacks.js` は固定予告・専用技・一時重力場、`dist/attack-motion.js` は物理計画を変更しない表示時計。`dist/effects.js` を本編と試撃で共有する。時間変化を全技へ強制せず、斉射や三連射は自然な間隔を使う。
+
+`attack-review/` は保存を使わない動作確認画面。実マップ・遮蔽・反射・隙間・外れる弾道を切り替え、技別に弾道／着弾／敵効果／間と速度を読む。「調整後」と「時間変化なし」、通常／半速／4分の1、停止とシークを備える。起動はリポジトリルートで `python3 -m http.server 8765`、`/ARCLINE/game/attack-review/` を開く。専用の偽ダメージや保存へのショートカットは使わない。
