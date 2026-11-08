@@ -8,21 +8,26 @@ function markup(id,options={}){const p=A().get(id),lang=options.lang||'ja',s=sta
 function tile(id,data,inspected,lang){const p=A().get(id),s=state(id,data,lang);return `<button type="button" data-inspect-character="${id}" aria-pressed="${id===inspected}" aria-label="${esc(p.name+' · '+(lang==='en'?p.role:p.roleJa)+' · '+s.label)}" class="${s.owned?'owned':'locked'} ${s.equipped?'equipped':''}">${art(id,{lang})}<strong>${esc(lang==='en'?p.name:p.nameJa)}</strong><span class="roster-role">${esc(lang==='en'?p.role:p.roleJa)}</span><small>${s.equipped?'✓ ':!s.owned?lock:''}${esc(s.label)}</small></button>`;}
 function label(e){const image=e.dataset.source==='verified-image';e.querySelector('.ch-art-origin').textContent=local(e.dataset.lang,image?'キャラクター原画':'ゲーム内デザイン',image?'CHARACTER ART':'IN-GAME DESIGN');}
 function localizeArt(container,lang){for(const e of container.querySelectorAll('[data-hero-art]')){e.dataset.lang=lang;label(e);}}
-function hydrate(container,options={}){for(const e of container.querySelectorAll('[data-hero-art]')){
+function hydrate(container,options={}){return Promise.all([...container.querySelectorAll('[data-hero-art]')].map(e=>new Promise(resolve=>{
  const id=e.dataset.heroArt,canvas=e.querySelector('canvas'),img=e.querySelector('.ch-image'),flight=e.dataset.flight==='true';
  e.dataset.elapsed=String(options.reveal?0:6);e.dataset.reveal=options.reveal?'true':'false';A().paint(canvas,id);
- if(img){let settled=false;const done=async ok=>{
-  if(!e.isConnected||settled)return;
+ if(options.requireOriginal)canvas.hidden=true;
+ let settled=false;const done=async ok=>{
+  if(settled)return;
   if(ok&&flight&&img.decode)try{await img.decode();}catch{ok=false;}
-  if(!e.isConnected||settled)return;settled=true;e.dataset.source=ok?'verified-image':'canvas-fallback';
+  if(settled)return;settled=true;
+  if(!e.isConnected){resolve({ok:false,cancelled:true,id});return;}
+  e.dataset.source=ok?'verified-image':options.requireOriginal?'image-error':'canvas-fallback';
   for(const image of e.querySelectorAll('img'))image.hidden=image.classList.contains('ch-ambient')||!ok;
-  canvas.hidden=ok;if(flight&&options.reveal)e.dataset.elapsed='0';label(e);paint(e,Number(e.dataset.elapsed));
+  canvas.hidden=ok||!!options.requireOriginal;if(flight&&options.reveal)e.dataset.elapsed='0';
+  if(!options.requireOriginal||ok)label(e);paint(e,Number(e.dataset.elapsed));resolve({ok,id});
  };
- const attach=url=>{if(!e.isConnected)return;img.onload=()=>done(true);img.onerror=()=>done(false);if(url)img.src=url;if(img.complete&&img.naturalWidth)done(true);};
- if(root.ArcAssetLoader)root.ArcAssetLoader.load(e.dataset.artSrc||C().character(id).src,{retries:2,timeout:10000,assetBase:e.dataset.assetBase}).then(result=>result.ok?attach(result.url):done(false));
- else{attach();if(img.complete&&!img.naturalWidth)done(false);}
- }paint(e,Number(e.dataset.elapsed));
-}}
+ if(img){const attach=url=>{if(!e.isConnected){done(false);return;}img.onload=()=>done(true);img.onerror=()=>done(false);if(url&&img.src!==url)img.src=url;if(img.complete)done(img.naturalWidth>0);};
+  if(root.ArcAssetLoader)root.ArcAssetLoader.load(e.dataset.artSrc||C().character(id).src,{retries:2,timeout:10000,assetBase:e.dataset.assetBase}).then(result=>result.ok?attach(result.url):done(false));
+  else attach();
+ }else done(false);
+ paint(e,Number(e.dataset.elapsed));
+})));}
 
 function framing(id,w,h,t,still=false){
  const entry=C().character(id),m=motions[id],f=entry.focalPoint.desktop,box=entry.protectedBox,progress=still?.5:root.ArcCinematicPlayer.ease(t/6),maxZoom=Math.max(m[3],m[4]),base=Math.min(Math.max(w/entry.width,h/entry.height),w/(entry.width*(box[2]-box[0])*maxZoom),h/(entry.height*(box[3]-box[1])*maxZoom)),bw=entry.width*base,bh=entry.height*base,z=still?1.02:m[3]+(m[4]-m[3])*progress,iw=bw*z,ih=bh*z,focus=still?entry.focalPoint[w/h<1?'mobile':'desktop']:[f[0]+m[1]+(m[2]-m[1])*progress,f[1]+(id==='sora'?.035-.06*progress:0)];

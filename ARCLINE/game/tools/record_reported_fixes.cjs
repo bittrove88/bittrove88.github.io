@@ -63,6 +63,7 @@ for (const c of cases) {
   const started = Date.now(),
     row = Q.match(c.stage, {
       id: c.id,
+      legacyEnemy: true,
       difficulty: c.difficulty,
       seed: c.seed,
       special: !!c.special,
@@ -90,6 +91,7 @@ for (const old of require(
   const started = Date.now(),
     row = Q.match(100, {
       id: old.id,
+      legacyEnemy: true,
       difficulty: old.difficulty,
       seed: old.seed,
       special: !!old.special,
@@ -132,6 +134,7 @@ for (const [stage, id] of [
 ]) {
   const row = Q.match(stage, {
     id,
+    legacyEnemy: true,
     difficulty: "normal",
     seed: 4697,
     special: id !== "gun",

@@ -136,7 +136,7 @@ const server = http.createServer((q, r) => {
     const gate = new Promise((resolve) => (release = resolve));
     let blocked = 0;
     await p.route(
-      "**/assets/ending/roll-cutouts/players/hana.png",
+      "**/assets/ending/roll-cutouts/players/hana.png*",
       async (route) => {
         blocked++;
         await gate;

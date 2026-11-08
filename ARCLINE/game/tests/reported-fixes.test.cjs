@@ -210,7 +210,7 @@ for (const file of [
   "render.js",
 ])
   eq(
-    fs.readFileSync(path.join(root, "game/dist", file)),
+    require("./recruit-ai-preservation.cjs").source(file,fs.readFileSync(path.join(root, "game/dist", file))),
     previous("game/dist/" + file),
     "all unrelated gameplay and prior UI fixes preserved " + file,
   );

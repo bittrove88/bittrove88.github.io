@@ -41,6 +41,7 @@ function pickups(ps) {
   );
 }
 function source(file, bytes) {
+  bytes = require("./recruit-ai-preservation.cjs").source(file, bytes);
   let text = bytes.toString();
   const patch = manifest.sourcePatches[file];
   if (patch) {

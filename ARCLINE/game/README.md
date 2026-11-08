@@ -1,3 +1,5 @@
+**0.28.2：** 仲間原画のα正本は `design/ending-roll-preparation/player-masks.json` と `design/recruit-art-0282/alpha/`。任意の再準備は `prepare_player_masks.py`（OpenCV5.0.0.93）、正式ビルドは既存コマンド。通常敵の判断は `dist/enemy-actions.js`、接続は `engine.js`・`game.js`・`cpu-worker.js`。原画待機は `expedition-ui.js` と `character-hero.js`、音楽は既存 `audioSync`。[仕様と検証](../docs/releases/0.28.2.md)。
+
 0.28.1：下部UIは `styles/battle-ui.css`、雲の共有輪郭は `dist/geometry.js` と `design/components/complete/renderer.js`、加入は `dist/character-hero.js`・`expedition-ui.js`、8/12面はstage_blueprintsが正本。[範囲・保護・検証](../docs/releases/0.28.1.md)。
 
 0.28.0 UI本番準備：`ui/battle-ui.js` が既存コマンド・生きた状態を受けて表示と入力導線を所有し、`ui/battle-catalog.js`・`battle-aim.js` と `styles/battle-ui.css` を正式生成する。共有スキル図形はArcSkillsの描画APIから本編・Worker・単体総覧・サービスサイトで利用。戦闘の数値・100面・保存形式は維持。[実装と検証](../docs/releases/0.28.0-ui.md)。未マージ・未公開。
