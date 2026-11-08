@@ -20,6 +20,17 @@ function rectangle(id,x1,x2,h1,h2,kind='solid'){
  const a=point(x1,h2),b=point(x2,h1);return {id,kind,poly:[a,{x:b.x,y:a.y},b,{x:a.x,y:b.y}]};
 }
 function floorY(points,x){if(x<points[0].x-EPS||x>points.at(-1).x+EPS)return null;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];if(x<=b.x+EPS&&b.x>a.x)return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x);}return points.at(-1).y;}
+// A cloud owns fixed world-space silhouettes. Rendering and slowing use these same vertices.
+function cloudPolygons(r){
+ const w=r.x2-r.x1,h=r.y2-r.y1,cols=Math.max(1,Math.min(3,Math.ceil(w/125))),rows=Math.max(1,Math.min(2,Math.ceil(h/95))),out=[];
+ const curves=[[-36,10,-55,9,-48,-9,-28,-8],[-28,-8,-26,-24,-5,-24,3,-11],[3,-11,21,-17,37,-11,35,-1],[35,-1,52,0,50,12,29,12]];
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+  const x=r.x1+w*(i+.5)/cols,y=r.y1+h*(j+.52)/rows+Math.sin(i+j)*2,poly=[];
+  for(const c of curves)for(let n=0;n<16;n++){const t=n/16,a=1-t;poly.push({x:x+a*a*a*c[0]+3*a*a*t*c[2]+3*a*t*t*c[4]+t*t*t*c[6],y:y+a*a*a*c[1]+3*a*a*t*c[3]+3*a*t*t*c[5]+t*t*t*c[7]});}
+  poly.push({x:x+29,y:y+12});out.push({poly,x1:Math.min(...poly.map(p=>p.x)),x2:Math.max(...poly.map(p=>p.x)),y1:Math.min(...poly.map(p=>p.y)),y2:Math.max(...poly.map(p=>p.y))});
+ }return out;
+}
+function cloudContains(p,r){return p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2&&(r.clouds||cloudPolygons(r)).some(c=>p.x>=c.x1&&p.x<=c.x2&&p.y>=c.y1&&p.y<=c.y2&&inside(p,c.poly));}
 function world(spec,round=1,bossPhase=0,effects={}){
  const solids=[],regions=[],waters=[],terminals=[],surfaces=[];const tick=spec.id===11?Math.max(0,round-2):Math.floor((round-1)/(spec.hold||1));
  spec.floors.forEach((f,i)=>{const top=f.map(([x,h])=>point(x,h));const poly=[...top,{x:top.at(-1).x,y:560},{x:top[0].x,y:560}];solids.push({id:'floor'+i,kind:'floor',poly});surfaces.push({id:'floor'+i,points:top});});
@@ -77,8 +88,10 @@ function world(spec,round=1,bossPhase=0,effects={}){
    const strength=spec.id===60?(effects.broken>=2?0:effects.broken===1?.18:.35):.35;
    const ventStartsOn=Number.isFinite(v[4])?!!v[4]:spec.ventStartsOn===undefined?spec.id===64:!!spec.ventStartsOn;
    const on=k!=='V'||(tick+(ventStartsOn?1:0))%2===1;
-   let offset=spec.id===30?(effects.cloudOffset||0):0;
-   regions.push({id,kind:k,x1:x1*10+offset,x2:x2*10+offset,y1:500-h2*10,y2:500-h1*10,direction,strength,on,slow:spec.id===90&&effects.thinCloud?.85:.72});
+   let offset=spec.id===30&&k!=='C'?(effects.cloudOffset||0):0;
+   const field={id,kind:k,x1:x1*10+offset,x2:x2*10+offset,y1:500-h2*10,y2:500-h1*10,direction,strength,on,slow:spec.id===90&&effects.thinCloud?.85:.72};
+   if(k==='C')field.clouds=cloudPolygons(field);
+   regions.push(field);
   }
   if(k==='M'){const [x,h,r,dir]=v;regions.push({id,kind:k,...point(x,h),radius:r*10,direction:effects.polarity||dir,strength:spec.id===80?(effects.broken>=2?0:effects.broken===1?.5:1):1,on:true});}
   if(k==='T')terminals.push({id,...point(v[0],v[1]),radius:20});
@@ -172,5 +185,5 @@ function actorPoint(s,side,x,y){const u=s.units[side],dir=u.facing||(s.units[1-s
 function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}
 function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1),theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
  const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
-const api={maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
+const api={cloudPolygons,cloudContains,maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
 })(globalThis);

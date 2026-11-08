@@ -1,0 +1,653 @@
+{
+  "stage": 12,
+  "base": "a45f6031b5e2f6b2eff74b0356554713bea631a0",
+  "authorizedRequest": "2026-11-08 user: stage8 horizontal ceiling/lower ridge for easier reflection; stage12 slightly higher ceiling.",
+  "before": {
+    "runtime": {
+      "id": 12,
+      "name": "低い梁の運搬路",
+      "nameEn": "Under the Loading Beam",
+      "theme": 2,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          12
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            20,
+            12
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            38,
+            13
+          ],
+          [
+            46,
+            14
+          ],
+          [
+            56,
+            14
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            74,
+            12
+          ],
+          [
+            91,
+            12
+          ],
+          [
+            100,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "012-FIXED-LOADING-BEAM",
+          "poly": [
+            [
+              30,
+              23
+            ],
+            [
+              40,
+              25
+            ],
+            [
+              56,
+              25
+            ],
+            [
+              70,
+              22
+            ],
+            [
+              70,
+              17.5
+            ],
+            [
+              56,
+              19
+            ],
+            [
+              46,
+              19
+            ],
+            [
+              38,
+              18
+            ],
+            [
+              30,
+              17
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W09",
+          "kind": "trial",
+          "weaponId": "W09",
+          "category": "weapon",
+          "amount": 2,
+          "x": 34,
+          "h": 15,
+          "spawnTurn": 1,
+          "placementId": "L012:weapon:W09",
+          "verification": {
+            "angle": 0,
+            "power": 80,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "吊り橋の水路",
+      "themeGoal": "橋の状態と、自分の射点を選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble",
+      "recommendedCharacter": "koro",
+      "tacticalGoal": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "tacticalGoalEn": "Roll from the near floor, or walk to the beam entrance and fire low.",
+      "enemyHp": 3,
+      "terrainRevision": "8.0-post-review-authorized",
+      "worldWidth": 1000
+    },
+    "blueprint": {
+      "stage": 12,
+      "name": "低い梁の運搬路",
+      "goal": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          20,
+          12
+        ],
+        [
+          31,
+          12
+        ],
+        [
+          38,
+          13
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          56,
+          14
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          74,
+          12
+        ],
+        [
+          91,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "id": "012-FIXED-LOADING-BEAM",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              30,
+              23
+            ],
+            [
+              40,
+              25
+            ],
+            [
+              56,
+              25
+            ],
+            [
+              70,
+              22
+            ],
+            [
+              70,
+              17.5
+            ],
+            [
+              56,
+              19
+            ],
+            [
+              46,
+              19
+            ],
+            [
+              38,
+              18
+            ],
+            [
+              30,
+              17
+            ]
+          ]
+        }
+      ],
+      "features": [],
+      "recommended": "koro",
+      "spawn": [
+        9,
+        91
+      ],
+      "route": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "nameEn": "Under the Loading Beam",
+      "goalEn": "Roll from the near floor, or walk to the beam entrance and fire low.",
+      "terrainRevision": "8.0-post-review-authorized",
+      "floorSegments": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            20,
+            12
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            38,
+            13
+          ],
+          [
+            46,
+            14
+          ],
+          [
+            56,
+            14
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            74,
+            12
+          ],
+          [
+            91,
+            12
+          ],
+          [
+            100,
+            12
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          12
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    }
+  },
+  "after": {
+    "runtime": {
+      "id": 12,
+      "name": "低い梁の運搬路",
+      "nameEn": "Under the Loading Beam",
+      "theme": 2,
+      "boss": false,
+      "spawn": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          12
+        ]
+      ],
+      "floors": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            20,
+            12
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            38,
+            13
+          ],
+          [
+            46,
+            14
+          ],
+          [
+            56,
+            14
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            74,
+            12
+          ],
+          [
+            91,
+            12
+          ],
+          [
+            100,
+            12
+          ]
+        ]
+      ],
+      "components": [
+        {
+          "id": "012-FIXED-LOADING-BEAM",
+          "poly": [
+            [
+              30,
+              23
+            ],
+            [
+              40,
+              25
+            ],
+            [
+              56,
+              25
+            ],
+            [
+              70,
+              22
+            ],
+            [
+              70,
+              20.5
+            ],
+            [
+              56,
+              22
+            ],
+            [
+              46,
+              22
+            ],
+            [
+              38,
+              21
+            ],
+            [
+              30,
+              20
+            ]
+          ],
+          "destructible": false
+        }
+      ],
+      "features": [],
+      "skills": {},
+      "pickups": [
+        {
+          "id": "W09",
+          "kind": "trial",
+          "weaponId": "W09",
+          "category": "weapon",
+          "amount": 2,
+          "x": 34,
+          "h": 15,
+          "spawnTurn": 1,
+          "placementId": "L012:weapon:W09",
+          "verification": {
+            "angle": 0,
+            "power": 80,
+            "neighborHits": 9,
+            "neighborShots": 9,
+            "attackDamage": 0,
+            "walkInput": 0,
+            "moved": 0,
+            "scope": "Actual W01 trajectory; native walk input/movement recorded; angle +/-2 and power +/-3 nine-input probe. Item revealed only for collision observation; spawnTurn and clear reward unchanged."
+          }
+        }
+      ],
+      "blink": [],
+      "teleport": true,
+      "actionLimit": 12,
+      "enemyProfile": 0,
+      "hold": 2,
+      "themeName": "吊り橋の水路",
+      "themeGoal": "橋の状態と、自分の射点を選ぶ",
+      "stageInTheme": 2,
+      "themeRole": "Explore",
+      "lesson": null,
+      "contentRevision": "5.0",
+      "supplyRevision": "early-skills-1",
+      "clearRewards": [],
+      "encounterKind": "normal",
+      "midboss": false,
+      "encounterId": "enemy:pebble",
+      "recommendedCharacter": "koro",
+      "tacticalGoal": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "tacticalGoalEn": "Roll from the near floor, or walk to the beam entrance and fire low.",
+      "enemyHp": 3,
+      "terrainRevision": "8.2-raised-loading-beam",
+      "worldWidth": 1000
+    },
+    "blueprint": {
+      "stage": 12,
+      "name": "低い梁の運搬路",
+      "goal": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "floor": [
+        [
+          0,
+          12
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          20,
+          12
+        ],
+        [
+          31,
+          12
+        ],
+        [
+          38,
+          13
+        ],
+        [
+          46,
+          14
+        ],
+        [
+          56,
+          14
+        ],
+        [
+          65,
+          13
+        ],
+        [
+          74,
+          12
+        ],
+        [
+          91,
+          12
+        ],
+        [
+          100,
+          12
+        ]
+      ],
+      "parts": [
+        {
+          "id": "012-FIXED-LOADING-BEAM",
+          "kind": "roof",
+          "breakable": false,
+          "poly": [
+            [
+              30,
+              23
+            ],
+            [
+              40,
+              25
+            ],
+            [
+              56,
+              25
+            ],
+            [
+              70,
+              22
+            ],
+            [
+              70,
+              20.5
+            ],
+            [
+              56,
+              22
+            ],
+            [
+              46,
+              22
+            ],
+            [
+              38,
+              21
+            ],
+            [
+              30,
+              20
+            ]
+          ]
+        }
+      ],
+      "features": [],
+      "recommended": "koro",
+      "spawn": [
+        9,
+        91
+      ],
+      "route": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
+      "nameEn": "Under the Loading Beam",
+      "goalEn": "Roll from the near floor, or walk to the beam entrance and fire low.",
+      "terrainRevision": "8.2-raised-loading-beam",
+      "floorSegments": [
+        [
+          [
+            0,
+            12
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            20,
+            12
+          ],
+          [
+            31,
+            12
+          ],
+          [
+            38,
+            13
+          ],
+          [
+            46,
+            14
+          ],
+          [
+            56,
+            14
+          ],
+          [
+            65,
+            13
+          ],
+          [
+            74,
+            12
+          ],
+          [
+            91,
+            12
+          ],
+          [
+            100,
+            12
+          ]
+        ]
+      ],
+      "spawnPoints": [
+        [
+          16,
+          12
+        ],
+        [
+          82,
+          12
+        ]
+      ],
+      "worldWidth": 1000,
+      "enemyAirHeight": 0
+    }
+  }
+}

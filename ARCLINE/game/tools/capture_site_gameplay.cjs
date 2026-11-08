@@ -37,7 +37,7 @@ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
    captures.push({file,stage,character:id,stageName:state.name,scene:state.scene,viewport:[1280,720],sha256:sha(fs.readFileSync(path.join(site,file))),source:'Current production UI and renderer; staged view, not a recorded victory'});
   }
   if(errors.length)throw Error(errors.join('\n'));
-  const sourceHashes=Object.fromEntries(['levels.js','backgrounds.js','component-art.js','render.js','skills.js','battle-ui.js','battle-ui.css','battle-catalog.js','battle-aim.js','i18n.js'].map(name=>['game/dist/'+name,sha(fs.readFileSync(path.join(root,'ARCLINE/game/dist',name)))]));
+  const sourceHashes=Object.fromEntries(['levels.js','geometry.js','physics.js','backgrounds.js','component-art.js','render.js','skills.js','battle-ui.js','battle-ui.css','battle-catalog.js','battle-aim.js','i18n.js'].map(name=>['game/dist/'+name,sha(fs.readFileSync(path.join(root,'ARCLINE/game/dist',name)))]));
   fs.writeFileSync(path.join(site,'gameplay-captures.json'),JSON.stringify({implementation:release.version,siteRevision:'game-'+release.version,sourceHashes,captures},null,2)+'\n');
   console.log('Captured4 current native game screens for '+release.version);
  }finally{await browser.close();server.close();}

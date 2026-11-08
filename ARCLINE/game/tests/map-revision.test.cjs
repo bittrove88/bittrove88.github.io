@@ -1,6 +1,6 @@
 'use strict';
 const assert=require('assert/strict'),fs=require('fs'),path=require('path'),crypto=require('crypto'),E=require('../dist/engine.js'),base=require('./fixtures/integration-baseline.json');
-const postReview=[...require('../../design/stage_reviews/STAGES_REVIEW_COMPLETION_RUNTIME_20261107.json').stages,...require('../../design/stage_reviews/STAGES_POST_REVIEW_RUNTIME_20261107.json').stages,...require('../../design/stage_reviews/STAGES_INTRO_REFINEMENT_RUNTIME_20261107.json').stages],postIds=new Set(postReview.map(r=>r.stage));
+const postReview=[...require('../../design/stage_reviews/STAGES_REPORTED_FIXES_20261108.json').stages,...require('../../design/stage_reviews/STAGES_REVIEW_COMPLETION_RUNTIME_20261107.json').stages,...require('../../design/stage_reviews/STAGES_POST_REVIEW_RUNTIME_20261107.json').stages,...require('../../design/stage_reviews/STAGES_INTRO_REFINEMENT_RUNTIME_20261107.json').stages],postIds=new Set(postReview.map(r=>r.stage));
 require('./integration-preservation.cjs').verifyPostReview();
 const approved=require('../../design/stage_reviews/STAGES_051_099_APPROVED_RUNTIME.json').stages.map(old=>postReview.find(r=>r.stage===old.stage)||old);
 assert.deepEqual(approved.map(r=>r.stage),Array.from({length:49},(_,i)=>51+i));

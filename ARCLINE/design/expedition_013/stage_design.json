@@ -375,16 +375,16 @@
       "stage": 8,
       "difficultyBand": "入門",
       "theme": "鏡の岸壁",
-      "learningGoal": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
+      "learningGoal": "水平な天井で一度返し、低くなった岩背の奥を狙う。",
       "mainGimmicks": [],
-      "terrainIntent": "床の高低差19。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。岩背の奥へ、前方の庇の鏡面から一度返して狙う。。",
-      "basicRoute": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
-      "alternativeRoute": "通常 33°/90% → 左へ70px歩行→通常 138°/75% → 左へ52.5px歩行→通常 126°/65%。実際の敵手番を含む固定seedの成立例。人の難度測定とは別。",
+      "terrainIntent": "床の高低差12。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。水平な天井で一度返し、低くなった岩背の奥を狙う。。",
+      "basicRoute": "水平な天井で一度返し、低くなった岩背の奥を狙う。",
+      "alternativeRoute": "通常 42°/55% → 通常 42°/55%。現行エンジン・固定seedの入力例。人の難易度は未測定。",
       "advantage": {
         "character": "hana",
         "reason": "時間差の三連射で広い足元を覆える。"
       },
-      "hint": "岩背の奥へ、前方の庇の鏡面から一度返して狙う。",
+      "hint": "水平な天井で一度返し、低くなった岩背の奥を狙う。",
       "enemyInteraction": {
         "spawn": [
           67,
@@ -406,7 +406,7 @@
       "testResult": {
         "stage": 8,
         "status": "PASS",
-        "blueprintSha256": "654d3389a72e125877f842b845c373d1ec4dfcb7e6cabdcacaa1e1caee14a5e9",
+        "blueprintSha256": "91d57a969aa039e23db01d124a96686eaf62817c4d68e79b58e49d7a8ddda45d",
         "normalGunWin": true,
         "gunSeedWins": 1,
         "gunActions": [
@@ -418,15 +418,18 @@
         "featuredTechniqueVerified": false,
         "humanDifficulty": "未測定。実描画と限定的な設計確認、固定seedの自動攻略は、人の楽しさ・初見難度・勝率とは別。",
         "reports": [
-          "../../evidence/maps-0250/MATCHES_CHANGED.json"
-        ]
+          "../../evidence/reported-fixes-0281/MAP_GUIDES.json"
+        ],
+        "recommendedCharacter": "hana",
+        "recommendedWin": true,
+        "recommendedActions": 2
       },
       "basicRouteProof": {
-        "character": "gun",
-        "actions": 3,
-        "description": "通常 33°/90% → 左へ70px歩行→通常 138°/75% → 左へ52.5px歩行→通常 126°/65%。実際の敵手番を含む固定seedの成立例。人の難度測定とは別。",
+        "character": "hana",
+        "actions": 2,
+        "description": "通常 42°/55% → 必殺 132°/60%。現行エンジン・固定seedの入力例。人の難易度は未測定。",
         "evidence": {
-          "report": "../../evidence/maps-0250/MATCHES_CHANGED.json",
+          "report": "../../evidence/reported-fixes-0281/MAP_GUIDES.json",
           "stage": 8,
           "difficulty": "normal",
           "seed": 4697
@@ -434,10 +437,10 @@
       },
       "alternativeRouteProof": {
         "character": "gun",
-        "actions": 3,
-        "description": "通常 33°/90% → 左へ70px歩行→通常 138°/75% → 左へ52.5px歩行→通常 126°/65%。実際の敵手番を含む固定seedの成立例。人の難度測定とは別。",
+        "actions": 2,
+        "description": "通常 42°/55% → 通常 42°/55%。現行エンジン・固定seedの入力例。人の難易度は未測定。",
         "evidence": {
-          "report": "../../evidence/maps-0250/MATCHES_CHANGED.json",
+          "report": "../../evidence/reported-fixes-0281/MAP_GUIDES.json",
           "stage": 8,
           "difficulty": "normal",
           "seed": 4697
@@ -606,7 +609,7 @@
       "mainGimmicks": [],
       "terrainIntent": "両岸を切り離した有限地形。歩行で越せない空間に中継棚を置く。床の高低差2。坂の肩と裾で砲口の高さと遮蔽が変わる。天井片1箇所を独立配置。手前で転がすか、梁の入口まで歩いて低い弾を通す。。",
       "basicRoute": "手前で転がすか、梁の入口まで歩いて低い弾を通す。",
-      "alternativeRoute": "右へ140px歩行→通常 6°/95% → 通常 6°/95%。実際の敵手番を含む固定seedの成立例。人の難度測定とは別。",
+      "alternativeRoute": "通常 12°/95% → 通常 12°/95%。現行エンジン・固定seedの入力例。人の難易度は未測定。",
       "advantage": {
         "character": "koro",
         "reason": "床で走り、短い空隙では落下して再び接地する必殺が連続面を活かす。"
@@ -634,7 +637,7 @@
       "testResult": {
         "stage": 12,
         "status": "PASS",
-        "blueprintSha256": "62f647f279576f54736250594d2df7e0be95fd39a8ab0aaf069f4d452f75068c",
+        "blueprintSha256": "c533a1e88e6091e3e6e665ab5e6c82037d7b838744fb74c547214ac5b6107248",
         "normalGunWin": true,
         "gunSeedWins": 1,
         "gunActions": [
@@ -646,15 +649,18 @@
         "featuredTechniqueVerified": false,
         "humanDifficulty": "未測定。実描画と限定的な設計確認、固定seedの自動攻略は、人の楽しさ・初見難度・勝率とは別。",
         "reports": [
-          "../../evidence/maps-0250/MATCHES_CHANGED.json"
-        ]
+          "../../evidence/reported-fixes-0281/MAP_GUIDES.json"
+        ],
+        "recommendedCharacter": "koro",
+        "recommendedWin": true,
+        "recommendedActions": 2
       },
       "basicRouteProof": {
-        "character": "gun",
+        "character": "koro",
         "actions": 2,
-        "description": "右へ140px歩行→通常 6°/95% → 通常 6°/95%。実際の敵手番を含む固定seedの成立例。人の難度測定とは別。",
+        "description": "通常 12°/95% → 通常 12°/95%。現行エンジン・固定seedの入力例。人の難易度は未測定。",
         "evidence": {
-          "report": "../../evidence/maps-0250/MATCHES_CHANGED.json",
+          "report": "../../evidence/reported-fixes-0281/MAP_GUIDES.json",
           "stage": 12,
           "difficulty": "normal",
           "seed": 4697
@@ -663,9 +669,9 @@
       "alternativeRouteProof": {
         "character": "gun",
         "actions": 2,
-        "description": "右へ140px歩行→通常 6°/95% → 通常 6°/95%。実際の敵手番を含む固定seedの成立例。人の難度測定とは別。",
+        "description": "通常 12°/95% → 通常 12°/95%。現行エンジン・固定seedの入力例。人の難易度は未測定。",
         "evidence": {
-          "report": "../../evidence/maps-0250/MATCHES_CHANGED.json",
+          "report": "../../evidence/reported-fixes-0281/MAP_GUIDES.json",
           "stage": 12,
           "difficulty": "normal",
           "seed": 4697

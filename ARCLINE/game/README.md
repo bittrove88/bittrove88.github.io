@@ -1,4 +1,4 @@
-0.28.1：下部UIの安全領域と最大幅は `styles/battle-ui.css` で調整。回転の共通処理と戦場寸法は変更しない。[検証](../docs/releases/0.28.1.md)。
+0.28.1：下部UIは `styles/battle-ui.css`、雲の共有輪郭は `dist/geometry.js` と `design/components/complete/renderer.js`、加入は `dist/character-hero.js`・`expedition-ui.js`、8/12面はstage_blueprintsが正本。[範囲・保護・検証](../docs/releases/0.28.1.md)。
 
 0.28.0 UI本番準備：`ui/battle-ui.js` が既存コマンド・生きた状態を受けて表示と入力導線を所有し、`ui/battle-catalog.js`・`battle-aim.js` と `styles/battle-ui.css` を正式生成する。共有スキル図形はArcSkillsの描画APIから本編・Worker・単体総覧・サービスサイトで利用。戦闘の数値・100面・保存形式は維持。[実装と検証](../docs/releases/0.28.0-ui.md)。未マージ・未公開。
 

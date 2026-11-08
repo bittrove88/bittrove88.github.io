@@ -56,10 +56,13 @@ function fieldMotion(ctx,r,time,u,visible,language='ja'){
   const source=r;r={...r,...bounds};const w=r.x2-r.x1,h=r.y2-r.y1;if(w<=0||h<=0)return;ctx.beginPath();ctx.rect(r.x1,r.y1,w,h);ctx.clip();
   const cols=Math.max(1,Math.min(3,Math.ceil(w/(125*u)))),rows=Math.max(1,Math.min(2,Math.ceil(h/(95*u))));
   if(r.kind==='C'){
-   const thin=(r.slow??.72)>.72;
+   const thin=(r.slow??.72)>.72,clouds=source.clouds;
+   const paintCloud=()=>{ctx.save();ctx.globalAlpha*=thin?(r.thinCloudOpacity??.55):(r.cloudOpacity??.68);ctx.fill();ctx.restore();ctx.save();ctx.strokeStyle=r.accent||'#EAF4F7';ctx.lineWidth=(r.cloudEdgeWidth??1.4)*u;ctx.globalAlpha*=r.cloudEdgeOpacity??.8;ctx.stroke();ctx.restore();};
+   if(clouds){for(const cloud of clouds){ctx.beginPath();for(const [i,p]of cloud.poly.entries())i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y);ctx.closePath();paintCloud();}return;}
+   // Standalone art sheets have no physics world; keep their initial silhouettes fixed too.
+   const fullW=source.x2-source.x1,fullH=source.y2-source.y1,cols=Math.max(1,Math.min(3,Math.ceil(fullW/125))),rows=Math.max(1,Math.min(2,Math.ceil(fullH/95)));
    for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
-    const x=r.x1+w*(i+.5)/cols,y=r.y1+h*(j+.52)/rows+Math.sin(t*Math.PI/4+i+j)*2*u;
-    const a=(thin?.8:1)*u,q=(dx,dy)=>[x+dx*a,y+dy*a];ctx.beginPath();ctx.moveTo(...q(-36,10));ctx.bezierCurveTo(...q(-55,9),...q(-48,-9),...q(-28,-8));ctx.bezierCurveTo(...q(-26,-24),...q(-5,-24),...q(3,-11));ctx.bezierCurveTo(...q(21,-17),...q(37,-11),...q(35,-1));ctx.bezierCurveTo(...q(52,0),...q(50,12),...q(29,12));ctx.closePath();ctx.save();ctx.globalAlpha*=thin?(r.thinCloudOpacity??.55):(r.cloudOpacity??.68);ctx.fill();ctx.restore();ctx.save();ctx.strokeStyle=r.accent||'#EAF4F7';ctx.lineWidth=(r.cloudEdgeWidth??1.4)*u;ctx.globalAlpha*=r.cloudEdgeOpacity??.8;ctx.stroke();ctx.restore();
+    const x=source.x1+fullW*(i+.5)/cols,y=source.y1+fullH*(j+.52)/rows+Math.sin(i+j)*2,q=(dx,dy)=>[x+dx,y+dy];ctx.beginPath();ctx.moveTo(...q(-36,10));ctx.bezierCurveTo(...q(-55,9),...q(-48,-9),...q(-28,-8));ctx.bezierCurveTo(...q(-26,-24),...q(-5,-24),...q(3,-11));ctx.bezierCurveTo(...q(21,-17),...q(37,-11),...q(35,-1));ctx.bezierCurveTo(...q(52,0),...q(50,12),...q(29,12));ctx.closePath();paintCloud();
    }return;
   }
   // The field owns its lanes and animation phase in world coordinates. Camera
