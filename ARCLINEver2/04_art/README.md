@@ -1,5 +1,7 @@
 # Ver.2 キャラクター企画・原画
 
+[画像と設定を見比べるHTML図鑑](../index.html) ／ [図鑑の再生成方法](GALLERY_README.md)
+
 [Ver.2仕様一覧](../README.md) ／ [主人公ARC](../01_protagonist/ARC_BASE.md) ／ [12ジョブ](../02_jobs/JOB_CATALOG.md)
 
 **[キャラクター企画・全案記録](CHARACTER_PLANNING_ARCHIVE.md)** を、没案・中間案・改訂前を含む一元記録の入口とします。通番C0001〜C0231、生成分は全74原画・162企画版。既存世界とARCの参考設定65件、未生成の発想4件も同じファイルに記録しています。
