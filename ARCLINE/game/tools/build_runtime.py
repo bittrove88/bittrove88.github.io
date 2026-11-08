@@ -27,5 +27,9 @@ def build():
     p=dist/'cpu-worker.js';text=re.sub(r'(\?v=)\d+\.\d+\.\d+',lambda m:m[1]+cache,p.read_text());p.write_text(text)
     p=dist/'app.webmanifest';data=json.loads(p.read_text());data['start_url']='./?v='+version;p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     p=ROOT/'index.html';text=p.read_text();text=re.sub(r'(game/dist/[^"?]*\?v=)\d+\.\d+\.\d+',lambda m:m[1]+(version if m[1].startswith('game/dist/?') else cache),text);text=re.sub(r'updates/\d+\.\d+\.\d+/',f'updates/{version}/',text);p.write_text(text)
+    # Captured game images and the native atlas follow the game release too.
+    for pattern in [r'(site/(?:site|experience|scenes)\.js\?v=)[^"\s]+',r'(site/gameplay-[a-z]+\.jpg\?v=)[^"\s]+',r'(design/expedition_013/arcline_100_maps_atlas\.html\?v=)[^"\s]+']:
+        text=re.sub(pattern,lambda m:m[1]+version,text)
+    p.write_text(text)
     print('Compiled runtime',version,'/',cache,':',len(CONFIG['scripts']),'scripts and',len(CONFIG['styles']),'styles')
 if __name__=='__main__':build()

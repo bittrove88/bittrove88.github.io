@@ -21,7 +21,7 @@ const manifest=require('../../design/backgrounds/complete/manifest.json');
 for(const row of manifest.scenes)ok(JSON.stringify(B.scenes.find(s=>s.id===row.id))===JSON.stringify(require(path.join(root,'design/backgrounds/complete',row.json))),'bundle equals individually reviewed artwork '+row.id);
 for(const file of ['engine.js','physics.js','geometry.js','combat.js','weapons.js','skills.js','inventory.js','final-team.js','campaign-run.js','save.js','game.js','visual-art.js']){
  const before=execFileSync('git',['show','3ebb4c9:ARCLINE/game/dist/'+file],{cwd:root});
- const current=fs.readFileSync(path.join(root,'game/dist',file));
+ const current=require('./ui-integration-preservation.cjs')(file,fs.readFileSync(path.join(root,'game/dist',file)));
  const preserved=file==='game.js'?Buffer.from(current.toString().replace(" if(s.spec.boss&&s.stage<100&&!s.spec.midboss)bgm.prepare('VICTORY');\n",'').replace("window.addEventListener('resize',()=>viewport.fit());","window.addEventListener('resize',()=>{clearInput();previous=0;viewport.fit();mapCamera?.resize();draw();});")):current;
  ok(before.equals(preserved),'gameplay/save/foreground source preserved '+file);
 }

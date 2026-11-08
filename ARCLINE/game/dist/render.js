@@ -370,19 +370,13 @@ function create(canvas,configuration={}){
     path([{x:x-r*.6,y},{x:x+r*.6,y}],'#fff0b0',2/scale);
     path([{x,y:y-r*.6},{x,y:y+r*.6}],'#fff0b0',2/scale);
     ctx.font=`800 ${12/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#fff0b0';
-    ctx.fillText(offscreen&&point.y<ceiling?'↑ ×8':'×8',x,y-15/scale);
+    ctx.fillText('×8',x,y-15/scale);
     ctx.restore();
    }
    ctx.restore();
-   if(full&&difficulty!=='hard'){
-    const edgeY=(top-view.y)/scale,points=visible[0]?.path||[];let marks=0;
-    for(let i=1;i<points.length&&marks<2;i++){const a=points[i-1],b=points[i];if((a.y-edgeY)*(b.y-edgeY)>=0)continue;const ratio=(edgeY-a.y)/(b.y-a.y),x=a.x+(b.x-a.x)*ratio,screenX=view.x+x*scale;if(screenX<10||screenX>fieldW-10)continue;
-     const arrow=[{x:x-5/scale,y:edgeY+9/scale},{x,y:edgeY+4/scale},{x:x+5/scale,y:edgeY+9/scale}];path(arrow,'#17344d',5/scale);path(arrow,look.color,2/scale);marks++;
-    }
-   }
+
   }
   display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t),path=[a.from,...(a.path||[]),u],lengths=path.slice(1).map((p,i)=>Math.hypot(p.x-path[i].x,p.y-path[i].y));let distance=lengths.reduce((v,n)=>v+n,0)*ease,index=0;while(index<lengths.length-1&&distance>lengths[index])distance-=lengths[index++];const from=path[index],to=path[index+1],mix=lengths[index]?Math.min(1,distance/lengths[index]):1;return {...u,x:from.x+(to.x-from.x)*mix,y:from.y+(to.y-from.y)*mix-Math.sin(t*Math.PI)*(a.lift||0),slope:(from.slope||0)+((to.slope||0)-(from.slope||0))*mix};})};
-  if(!lobby){for(let side=0;side<2;side++){const u=display.units[side];if(!showsUnit(u,side))continue;ctx.save();ctx.globalAlpha=.38;ctx.strokeStyle=side?'#ffb58f':'#dfffbd';ctx.lineWidth=2/scale;ctx.beginPath();ctx.ellipse(u.x,u.y+5,42,12,0,0,Math.PI*2);ctx.stroke();ctx.restore();}}
   if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,localDemo?.8:1,options);}
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
   if(options.encounter?.boss){
@@ -442,7 +436,6 @@ function create(canvas,configuration={}){
   }
   if(options.impact&&!options.tail&&!shot)explosion(options.impact,options.impact.age,appearance(options.impact.weaponId),scale,options.reducedMotion);
   ctx.restore();
-  if(!lobby&&!localDemo){for(let side=0;side<2;side++){const u=display.units[side],sy=view.y+(u.y-(side&&s.spec.boss?77:22))*scale,sx=view.x+u.x*scale;if(sy>=top+6&&sy<=bottom-6)continue;const y=sy<top?top+12:bottom-12,x=Math.max(30,Math.min(w-30,sx)),dir=sy<top?-1:1;ctx.save();round(x-28,y-11,56,22,7,'#10384cef');path([{x:x-6,y:y-dir*3},{x,y:y+dir*4},{x:x+6,y:y-dir*3}],side?'#ffd1ab':'#d8ffc8',2);ctx.restore();}}
   const fire=canvasRect(document.getElementById('fire'));
   if(!demonstration?.phase&&options.demo?.id==='controls'&&options.demo.age<(options.demo.releaseAt||.95)&&getComputedStyle(document.getElementById('fire')).visibility!=='hidden'){circle(fire.x+fire.width*.55,fire.y+fire.height*.6,11,'#ffffff88','#ffffff');circle(fire.x+fire.width*.55,fire.y+fire.height*.6,18,null,'#ffffff66');}
   // Preview labels are drawn in screen units so the taught contact stays legible
