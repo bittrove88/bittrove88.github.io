@@ -1,3 +1,5 @@
+0.29.1：本編の演出時計は `dist/game.js` が所有し、関数をWorkerへ送る射撃計画に保存しない。フリーズの回帰検証は `tests/battle-turn-continuity-browser.test.cjs`。[原因・検証範囲](../docs/releases/0.29.1.md)。
+
 グラフィック・モーション・演出を制作・改修する前に、[デザインガイド](../docs/design/ARCLINE_GRAPHICS_MOTION_GUIDE.md)を参照する。判断基準、技ごとの設計項目、通常速度での評価と改善手順を共通の開発指針とする。
 
 0.28.1：下部UIは `styles/battle-ui.css`、雲の共有輪郭は `dist/geometry.js` と `design/components/complete/renderer.js`、加入は `dist/character-hero.js`・`expedition-ui.js`、8/12面はstage_blueprintsが正本。[範囲・保護・検証](../docs/releases/0.28.1.md)。
