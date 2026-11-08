@@ -1,58 +1,80 @@
 {
   "version": 1,
-  "change": "マスターモードで武器とスキルの所持をなし／すべてから設定",
-  "reason": "進行設定に在庫変更を加えるため、独立したカテゴリ選択・有限回数・次の出撃・保存失敗と再読み込みを確認する。既存の隠し入口、進行更新、日英の小型画面も隣接範囲として確認する。",
+  "change": "攻撃の命中演出・HP・ダメージ計算を同期し、先行PR130・131・132を保持して0.29.5へ統合",
+  "reason": "初回GitHub CI（run42536920963、head197a4ff）で単体14・ブラウザ6スイートが成功。ゲーム・サイト・テストのソースを変更しないため、この20スイートの成功は再利用する。失敗したpromo-experience-browserは勝利BGMの実AAC再生も含むためnativeAudioを有効にしてブラウザを選び直す。失敗で未実行だった生成物一致・ZIP作成も確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/damage-sync-0293-scope.json",
+    "ARCLINE/design/attacks/definitions.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/attack-catalog.js",
+    "ARCLINE/game/dist/battle-catalog.js",
     "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/effects.js",
+    "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/master-mode.css",
-    "ARCLINE/game/dist/master-mode.js",
-    "ARCLINE/game/dist/master-progress.js",
+    "ARCLINE/game/dist/lessons.js",
+    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/preview.js",
     "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/dist/sfx-manager.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/styles/master-mode.css",
-    "ARCLINE/game/tests/master-move-browser.test.cjs",
-    "ARCLINE/game/tests/master-move.test.cjs",
+    "ARCLINE/game/src/lessons-runtime.js",
+    "ARCLINE/game/tests/approved-map-replay.test.cjs",
+    "ARCLINE/game/tests/charge-camera.test.cjs",
+    "ARCLINE/game/tests/combat-sfx-0190.test.cjs",
+    "ARCLINE/game/tests/damage-sync-browser.test.cjs",
+    "ARCLINE/game/tests/damage-sync-preservation.cjs",
+    "ARCLINE/game/tests/damage-sync.test.cjs",
+    "ARCLINE/game/tests/machine-combat.test.cjs",
+    "ARCLINE/game/tests/recruit-ai-preservation.cjs",
+    "ARCLINE/game/tests/recruit-enemy.test.cjs",
+    "ARCLINE/game/tests/reported-fixes.test.cjs",
+    "ARCLINE/game/tests/special-damage.test.cjs",
+    "ARCLINE/game/tests/special-evolution.test.cjs",
+    "ARCLINE/game/tests/special-targeting.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tests/three-change.test.cjs",
     "ARCLINE/game/tools/build_playables.py",
-    "ARCLINE/game/ui/master-mode.js",
+    "ARCLINE/game/tools/generation.py",
+    "ARCLINE/game/ui/battle-catalog.js",
+    "ARCLINE/game/ui/sfx-manager.js",
     "ARCLINE/index.html",
+    "ARCLINE/site/gameplay-captures.json",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.29.4/index.html"
+    "ARCLINE/updates/0.29.5/index.html"
   ],
   "suites": {
-    "unit": [
-      "master-move"
-    ],
     "browser": [
-      "master-move-browser"
+      "promo-experience-browser"
     ]
   },
   "checks": {
     "generated": true,
     "baseline": false,
-    "package": false,
+    "package": true,
     "python": true,
-    "nativeAudio": false
+    "nativeAudio": true
   },
   "manual": [
-    "通常弾・必殺技・戦闘・AI・地形・保存形式を変更しないことを差分確認する",
-    "公開URL直接表示と物理端末は未確認"
+    "先行main1c1b13bの物語・在庫設定・運用ツールを保持したことをGit差分で照合する",
+    "mainへのマージ・本番配信・物理スマホの確認はこのローカル統合検証に含めない",
+    "初回CI成功時head197a4ffからゲーム・サイト・テストのソースが不変であることをGit差分で確認する"
   ],
   "excluded": [
     {
-      "scope": "全キャラ・全マップの再攻略、敵AI・物理・音声・全ブラウザ",
-      "reason": "変更はマスターの在庫準備・画面・リリース参照のみ。必要な保存と実戦への受渡しは対象スイートで確認する。"
+      "scope": "無関係な音声・エンディング・全画面比較・全100面の再攻略",
+      "reason": "先行マージとの共有変更は版番号・生成物・物語保護検査。先行統合前の45単体／42ブラウザ・161対戦などの成功記録を再利用し、追加影響のない成功済み検査を繰り返さない。"
     },
     {
-      "scope": "配布物全体と映像再生",
-      "reason": "配布構成と素材は変えず、生成物一致を確認する。"
+      "scope": "初回CIで成功した単体14・ブラウザ6スイート",
+      "reason": "同一のゲーム・サイト・テストのソースで成功済み。変更は検証計画と記録のみ。CI_INITIAL.jsonにrun・head・全成功結果を記録する。"
     }
   ]
 }

@@ -14,7 +14,7 @@ const plans={};for(const id of ids){const demo=P.create(arena(id),'S_'+id.toUppe
 const cues=id=>M.timeline(plans[id]).cues;
 eq(cues('hana').filter(c=>c.kind==='fire').map(c=>[c.id,c.t]),[['SP_HANA_1',0],['SP_HANA_2',.18],['SP_HANA_3',.36]],'Hana distinct physical starts');
 eq(cues('mogu').filter(c=>c.kind==='impact').map(c=>c.id),['I04','I04','I04'],'Mogu exactly three main explosions');
-ok(plans.mogu.bullets.filter(b=>!b.effect).map(b=>b.start).join(',')==='0,0.22,0.44','three actual timed launches');
+ok(plans.mogu.bullets.filter(b=>!b.effect).length===1&&plans.mogu.impacts.slice(1).every((h,i)=>Math.abs(h.t-plans.mogu.impacts[i].t-.22)<1e-6),'one launch and three timed explosions');
 eq(cues('sora').filter(c=>c.kind==='fire').length,1,'split children never fire');eq(cues('sora').filter(c=>c.id==='S02').length,1,'one split sound');ok(cues('sora').filter(c=>c.kind==='impact').every(c=>c.id==='I01'&&c.gainDb===-11),'quiet child contacts');
 eq(cues('ban').filter(c=>c.id==='S01').length,3,'three impact waves');eq(cues('ban').filter(c=>c.id==='I05').length,0,'no doubled wave main');
 eq(cues('yui').filter(c=>c.id==='S04').length,1,'actual pull coalesced');eq(cues('yui').filter(c=>c.id==='S05').length,1,'one compression');eq(cues('yui').filter(c=>c.id==='I05').length,0,'no doubled compression');

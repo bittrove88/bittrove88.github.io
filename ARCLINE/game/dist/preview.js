@@ -196,10 +196,10 @@ function at(preview,age=preview?.age||0){
 function specialPreview(original,id){
  const weapon=E.combat.weapons.find(w=>w.id===id&&w.special);if(!weapon)return null;
  const state=fixture(original,id);state.characterId=weapon.machineId;state.specialAmmo=3;state.mode=id;state.selectedSkill=null;state.weaponStock={};
- const target={gun:520,ban:590,hibari:650,hana:440,rin:720,mogu:weapon.volley?600:650,koro:800,sora:580,rico:760,yui:650}[weapon.machineId];
+ const target={gun:520,ban:590,hibari:650,hana:440,rin:720,mogu:600,koro:800,sora:580,rico:760,yui:650}[weapon.machineId];
  state.spec.components=[];state.spec.features=[];
  if(weapon.machineId==='gun')state.spec.components=[{id:'demo-cover',destructible:true,poly:[[40,20],[46,20],[46,12],[40,12]]}];
- if(weapon.machineId==='mogu')state.spec.components=weapon.volley?[44,48,52].map((x,i)=>({id:'demo-cover-'+i,destructible:true,poly:[[x,28],[x+2,28],[x+2,12],[x,12]]})):[{id:'demo-cover',destructible:true,poly:[[40,28],[52,28],[52,12],[40,12]]}];
+ if(weapon.machineId==='mogu')state.spec.components=[44,48,52].map((x,i)=>({id:'demo-cover-'+i,destructible:true,poly:[[x,28],[x+2,28],[x+2,12],[x,12]]}));
  if(weapon.machineId==='rico')state.spec.features=[{type:'R',v:[30,85,28]}];
  if(weapon.machineId==='koro')state.spec.floors=[[[0,12],[48,12]],[[58,4],[100,4]]];
  state.world=G.world(state.spec);const hp=E.combat.get(state.characterId).hp/E.combat.pointsPerUnit;
@@ -211,7 +211,7 @@ function specialPreview(original,id){
   if(weapon.machineId==='hibari')return hit&&events.some(e=>e.type==='airburst');
   if(weapon.machineId==='hana')return plan.bullets.filter(b=>!b.effect).length===(weapon.volley?.length||3)&&plan.damage[1]>.6;
   if(weapon.machineId==='rin')return hit&&events.some(e=>e.type==='critical')&&plan.damage[1]>=2.45;
-  if(weapon.machineId==='mogu')return weapon.volley?hit&&plan.bullets.filter(b=>!b.effect).length===3&&plan.destroyed.length>=2:events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
+  if(weapon.machineId==='mogu')return hit&&events.filter(e=>e.type==='breach-pulse').length===2&&plan.destroyed.length>=2;
   if(weapon.machineId==='koro')return hit&&events.some(e=>e.type==='roll-fall')&&events.filter(e=>e.type==='roll').length>=2;
   if(weapon.machineId==='sora')return plan.damage[1]>.69&&plan.bullets.filter(b=>!b.effect).length===weapon.splitCount+1&&events.some(e=>e.type==='split');
   if(weapon.machineId==='rico')return hit&&events.filter(e=>e.type==='bounce').length===weapon.maxBounces&&plan.damage[1]>=weapon.damageCap-1e-6;

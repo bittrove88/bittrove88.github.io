@@ -6,9 +6,9 @@ let checks=0;
 function ok(value,message){checks++;assert.ok(value,message);}
 function near(value,expected,message){checks++;assert.ok(Math.abs(value-expected)<1e-6,message+' '+value+' vs '+expected);}
 const configured={
- gun:{base:35,cap:35},ban:{base:35/3,cap:35},hibari:{base:30,cap:30},
- hana:{base:6,cap:48},rin:{base:40,cap:50},mogu:{base:13,cap:39},
- koro:{base:30,cap:30},sora:{base:18,cap:45},rico:{base:24,cap:40},yui:{base:30,cap:42}
+ gun:{base:10,cap:35},ban:{base:35/3,cap:35},hibari:{base:11,cap:35},
+ hana:{base:6,cap:36},rin:{base:40,cap:50},mogu:{base:13,cap:39},
+ koro:{base:30,cap:30},sora:{base:10,cap:38},rico:{base:24,cap:40},yui:{base:42,cap:42}
 };
 function arena(id,boss=false){
  const s=E.campaign(4,{equippedCharacterId:id,matchSeed:20261101,battleInventory:{}});
@@ -30,23 +30,23 @@ for(const p of C.profiles){
  ok(!!demo?.proof.valid,'all ten special tutorials still simulate '+p.id);
  ok(demo.plan.damage[1]<=p.special.damageCap+1e-6,'preview stays under cap '+p.id);
 }
-for(const [id,expected] of [['gun',35],['ban',35],['hibari',30],['koro',30],['rico',24],['yui',42]]){
+for(const [id,expected] of [['gun',35],['ban',35],['hibari',35],['koro',30],['rico',24],['yui',42]]){
  near(C.points(direct(id).damage[1]),expected,'actual synthetic center direct '+id);
 }
 ok(direct('rin',18).damage[1]>0&&direct('rin',18).damage[1]<=2.5,'Rin pre-convergence branches share a bounded budget');
 near(C.points(C.get('rin').special.damage*C.get('rin').special.criticalMultiplier),50,'Rin precision multiplier');
 const hana=direct('hana',0,{volley:Array.from({length:9},(_,i)=>({offset:0,delay:i*.1}))});
 ok(hana.impacts.length===9&&hana.impacts.every(hit=>hit.hit?.unit===1),'nine Hana shots actually hit');
-near(C.points(hana.damage[1]),48,'nine Hana hits capped at 48');
+near(C.points(hana.damage[1]),36,'nine Hana hits capped at 36');
 const mogu=C.get('mogu').special;
 near(C.points(mogu.damage*3),39,'Mogu three direct pulses total');
 ok(direct('mogu').impacts.length===3,'Mogu has three advancing detonations');
 const sora=C.get('sora').special;
-near(C.points(sora.splitChildDamage),18,'Sora each of twelve child shells');
-near(C.points(sora.damageCap),45,'Sora all-child aggregate cap');
+near(C.points(sora.splitChildDamage),10,'Sora each of twelve child shells');
+near(C.points(sora.damageCap),38,'Sora all-child aggregate cap');
 const source=arena('sora'),realSora=E.trajectory(source,0,80,90,{weaponId:'S_SORA'});
 ok(realSora.bullets.length===13&&realSora.events.some(e=>e.type==='split'),'Sora apex splits twelve shells');
-ok(realSora.bullets.filter(b=>!b.primary).every(b=>Math.abs(b.budget-.9)<1e-8),'each Sora child inherits eighteen points');
+ok(realSora.bullets.filter(b=>!b.primary).every(b=>Math.abs(b.budget-.5)<1e-8),'each Sora child inherits ten points');
 const rico=C.get('rico').special;
 for(let bounces=0;bounces<=3;bounces++)
  near(C.points(Math.min(rico.damageCap,rico.damage+bounces*rico.bounceDamage)),Math.round((24+bounces*16/3)*100)/100,'Rico reflection '+bounces);
@@ -61,6 +61,6 @@ for(const id of Object.keys(configured)){
  boss.units[1].core={x:0,y:-77,radius:23,exposedRadius:33,multiplier:2};
  const core=E.trajectory(boss,0,0,100,{weaponId:p.id,
   origin:{x:u.x-48,y:u.y-77,theta:0,dx:1,dy:0,dir:1}});
- ok(core.damage[1]<=p.damageCap+1e-7,'boss core cannot bypass special cap '+id);
+ ok(core.damage[1]<=p.bossDamageCap+1e-7,'boss core respects the separate boss cap '+id);
 }
 console.log(JSON.stringify({status:'PASS',checks,scope:'Ten special damage profiles, real single-hit and volley contacts, Ricochet scaling, Sora split, tutorial previews and per-action caps. Synthetic origins are damage fixtures, not playable aim scenarios.'}));

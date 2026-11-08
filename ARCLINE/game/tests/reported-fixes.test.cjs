@@ -256,7 +256,7 @@ for (const [file, hash] of Object.entries(acceptance.reports))
   );
 for (const historicalRow of require("../../evidence/reported-fixes-0281/MAP_GUIDES.json")
   .rows) {
-  const row=require("../../evidence/attacks-0290/MATCHES_PR126.json").rows.find(r=>[r.stage,r.id,r.difficulty,r.seed].join(":")===[historicalRow.stage,historicalRow.id,historicalRow.difficulty,historicalRow.seed].join(":"))||historicalRow;
+  const row=require("./damage-sync-preservation.cjs").replay(require("../../evidence/attacks-0290/MATCHES_PR126.json").rows.find(r=>[r.stage,r.id,r.difficulty,r.seed].join(":")===[historicalRow.stage,historicalRow.id,historicalRow.difficulty,historicalRow.seed].join(":"))||historicalRow,"GUIDE_REPLAYS");
   const state = E.campaign(row.stage, {
     equippedCharacterId: row.id,
     difficulty: row.difficulty,
