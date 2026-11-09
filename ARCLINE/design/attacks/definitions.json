@@ -691,13 +691,14 @@
         "blast": 70,
         "wave": true,
         "progressiveWave": true,
-        "waveDistance": 150,
+        "waveDistance": 90,
         "waveSpeed": 320,
         "push": true,
         "pushFromImpact": true,
         "pushDistance": 65,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "aimErrorScale": 0.65
       },
       "appearance": {
         "color": "#5ac5db",
@@ -723,7 +724,20 @@
         "damage": 0.55,
         "blast": 55,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "volley": [
+          {
+            "muzzleY": -22,
+            "delay": 0,
+            "damage": 0.55
+          },
+          {
+            "muzzleY": 22,
+            "delay": 0.18,
+            "damage": 0.55
+          }
+        ],
+        "aimErrorScale": 0.15
       },
       "appearance": {
         "color": "#e9c77d",
@@ -733,7 +747,7 @@
         "label": "挟撃砲"
       },
       "trajectory": "上下の砲口から高低差のある二発を予告位置へ放つ。",
-      "impact": "二つの角張った衝撃面が時間差で交差する。",
+      "impact": "二つの角張った衝撃面が時間差で広がる。",
       "effect": "二発が独立して衝突する。予告後に移動して避けられ、壁に遮られる。",
       "motion": "追加の停止やスローなし。予告、固有の弾道、実際の着弾間隔を優先する。"
     },
@@ -744,10 +758,10 @@
       "nameJa": "雲裂砲",
       "tier": "boss",
       "params": {
-        "speed": 0.9,
-        "gravity": 0.85,
+        "speed": 2.2,
+        "gravity": 1.2,
         "damage": 0.9,
-        "blast": 82,
+        "blast": 130,
         "split": true,
         "splitCount": 3,
         "splitSpread": 24,
@@ -755,7 +769,8 @@
         "splitChildDamage": 0.4,
         "minAngle": 50,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "aimErrorScale": 0.15
       },
       "appearance": {
         "color": "#c5edf5",
@@ -784,7 +799,8 @@
         "maxBounces": 3,
         "bounces": 0,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "aimErrorScale": 0.1
       },
       "appearance": {
         "color": "#c9b4ed",
@@ -812,7 +828,8 @@
         "phase": 160,
         "penetrating": true,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "aimErrorScale": 0.2
       },
       "appearance": {
         "color": "#e3b253",
@@ -856,7 +873,8 @@
         "pushFromImpact": true,
         "pushDistance": 70,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "aimErrorScale": 0.03
       },
       "appearance": {
         "color": "#9fe4f0",
@@ -935,7 +953,8 @@
           }
         ],
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "aimErrorScale": 0.1
       },
       "appearance": {
         "color": "#ea8394",

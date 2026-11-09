@@ -194,9 +194,13 @@
       gap(s) > 0
     );
   }
+  function facing(s, x = s.units[1].x) {
+    const frozen = s.stage < 100 && s.telegraph?.technique && s.bossEchoFiredRound !== s.round;
+    return (frozen ? s.telegraph.targetX : s.units[0].x) >= x ? 1 : -1;
+  }
   function relocate(s, pad) {
     Object.assign(s.units[1], pad, { slope: 0 });
-    s.units[1].facing = s.units[0].x >= pad.x ? 1 : -1;
+    s.units[1].facing = facing(s, pad.x);
     refresh(s);
   }
   function move(s, amount) {
@@ -213,13 +217,14 @@
         G.move(s, 1, dx);
       }
       u.slope = 0;
+      u.facing = facing(s);
       if (Math.abs(u.x - old.x) < 0.01 || !fits(s)) {
         Object.assign(u, old);
         s.world = oldWorld;
         break;
       }
       remaining -= u.x - old.x;
-      u.facing = s.units[0].x >= u.x ? 1 : -1;
+      u.facing = facing(s);
       refresh(s);
     }
     return u.x - start;
@@ -273,6 +278,7 @@
     shapes,
     gap,
     fits,
+    facing,
     relocate,
     move,
     spawnEcho,

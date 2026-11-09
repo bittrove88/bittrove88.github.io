@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "base": "1219d6ca9c5b71a37f7d4348c51da2b04eaecad3",
+  "version": "0.31.2",
+  "unit": [
+    {
+      "name": "boss-ballistics",
+      "status": "PASS",
+      "ms": 15733,
+      "log": "boss-ballistics.log"
+    },
+    {
+      "name": "boss-movement",
+      "status": "PASS",
+      "ms": 11837,
+      "log": "boss-movement.log"
+    },
+    {
+      "name": "boss-motion",
+      "status": "PASS",
+      "ms": 5194,
+      "log": "boss-motion.log"
+    },
+    {
+      "name": "enemy-evolution",
+      "status": "PASS",
+      "ms": 25413,
+      "log": "enemy-evolution.log"
+    },
+    {
+      "name": "final-attacks",
+      "status": "PASS",
+      "ms": 5722,
+      "log": "final-attacks.log"
+    },
+    {
+      "name": "final-projectiles",
+      "status": "PASS",
+      "ms": 1289,
+      "log": "final-projectiles.log"
+    },
+    {
+      "name": "boss-ballistics-motion",
+      "status": "PASS",
+      "ms": 35321,
+      "log": "boss-ballistics-motion.log"
+    }
+  ],
+  "browser": [
+    {
+      "name": "boss-ballistics-browser",
+      "status": "PASS",
+      "ms": 52044,
+      "log": "boss-ballistics-browser.log"
+    },
+    {
+      "name": "boss-movement-browser",
+      "status": "PASS",
+      "ms": 126053,
+      "log": "boss-movement-browser.log"
+    },
+    {
+      "name": "boss-warning-browser",
+      "status": "PASS",
+      "ms": 3597,
+      "log": "boss-warning-browser.log"
+    },
+    {
+      "name": "boss-motion-browser",
+      "status": "PASS",
+      "ms": 17150,
+      "log": "boss-motion-browser.log"
+    },
+    {
+      "name": "final-projectiles-browser",
+      "status": "PASS",
+      "ms": 29600,
+      "log": "final-projectiles-browser.log"
+    }
+  ],
+  "generated": "GENERATED.json",
+  "runtimeMetadata": "PASS runtime/cache, generated game index/manifest/public index 0.31.2",
+  "movementScope": "27 actual native enemy decisions, transfers, echoes and deferral; 128 seeded stationary shots at each firing position. Plus armoured boss facing regression. Opening two hands use direct cpuPlan for a reproducible ballistic baseline.",
+  "browserScope": "75 player walk/teleport/lowHP/support cases hold boss budgets spent; boss-motion-browser separately executes live boss walking/transfer/echo; final-projectiles-browser preserves final behavior.",
+  "limitations": [
+    "No exhaustive proof over all coordinates and action sequences",
+    "No all100 replay, physical mobile, full audio audit or production deployment check"
+  ],
+  "hashes": {
+    "game/runtime.json": "33ae8467135443db0b4f9a4e6ef45e483b3ac0bf5f6fb080860b9c87de12c80c",
+    "design/attacks/definitions.json": "dbd3df7878ffac8843490a1986409f2d6ca65769c9080d056df96f24c33cc75e",
+    "game/dist/engine.js": "eb56eacf8b63d61608767115cbf08ce7efa80ecfd8d4ed5609798ff145f6b197",
+    "game/dist/enemy-actions.js": "5a438e6260e10ae70804d39f949d4e98cc4897130e081672d36e9216a69d3d0a",
+    "game/dist/boss-actions.js": "a5b368fe37bc4eb4f0fcf8322b45bc91c688dfd2d3157862e459c7b8bd81a0fd",
+    "game/dist/enemy-attacks.js": "0efdc355609ce0713abbf85b54e6cc22abbdd9e6ac870d895ac8b1be95505187",
+    "game/dist/physics.js": "1b1829e587c6888f3761dbf1134344bdc6182633a717abb4d2a58fb80bb4138b",
+    "game/dist/render.js": "09c7c10bec43e73ed86e2bbf94e8b5d898d6a50ea55b09f8aa7e7b4aad7d2eb4"
+  }
+}

@@ -1,54 +1,60 @@
 {
   "version": 1,
-  "change": "0.31.1: PR142のボス移動・残像を保持してラスボス固有技を統合",
-  "reason": "main0.31.0/PR142を取り込み、最終合意済みの3固有技を統合。追加質問へのユーザー回答「終極砲の照射ターンだけ移動せず、予告線を固定する」を反映。通常手番・残像による大技延期・予告位置・一手番の消費・移動予算を保持する。現行mainとの限定差分保護、Workerと本編・共有生成物を検証する。",
+  "change": "大ボス固有技の弾道・既存照準誤差と、予告後の移動・転移の検証",
+  "reason": "既存の弾道・照準誤差で静止命中を改善し、予告後の移動・転移・落下を検証する依頼と「マージに向けて進行」に基づき、PR・CIまで準備。main0.31.1のボス移動・分身・ラスボス弾道を保持して統合する。単体は弾道、プレイヤー移動、既存敵、ボス移動、ラスボス、実敵行動の組合せを選択。ブラウザは回避・予告描画・ボス移動・最終技へ限定し、生成物・版数も照合する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/boss-ballistics-0312-scope.json",
     "ARCLINE/design/attacks/definitions.json",
-    "ARCLINE/design/attacks/final-projectiles-0311-scope.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
     "ARCLINE/game/dist/attack-catalog.js",
-    "ARCLINE/game/dist/attack-motion.js",
     "ARCLINE/game/dist/attack-review-model.js",
+    "ARCLINE/game/dist/boss-actions.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/effects.js",
     "ARCLINE/game/dist/enemy-actions.js",
     "ARCLINE/game/dist/enemy-attacks.js",
     "ARCLINE/game/dist/engine.js",
-    "ARCLINE/game/dist/final-team.js",
     "ARCLINE/game/dist/index.html",
     "ARCLINE/game/dist/physics.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/dist/sfx-manager.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/final-projectiles-browser.test.cjs",
-    "ARCLINE/game/tests/final-projectiles-preservation.cjs",
+    "ARCLINE/game/tests/boss-ballistics-browser.test.cjs",
+    "ARCLINE/game/tests/boss-ballistics-motion.test.cjs",
+    "ARCLINE/game/tests/boss-ballistics-preservation.cjs",
+    "ARCLINE/game/tests/boss-ballistics.test.cjs",
+    "ARCLINE/game/tests/boss-movement-browser.test.cjs",
+    "ARCLINE/game/tests/boss-movement.test.cjs",
+    "ARCLINE/game/tests/boss-warning-browser.test.cjs",
     "ARCLINE/game/tests/final-projectiles.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/ui/sfx-manager.js",
+    "ARCLINE/game/tools/probe_boss_ballistics.cjs",
+    "ARCLINE/game/tools/probe_boss_movement.cjs",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.1/index.html"
+    "ARCLINE/updates/0.31.2/index.html"
   ],
   "suites": {
     "unit": [
-      "final-projectiles",
+      "boss-ballistics",
+      "boss-movement",
+      "enemy-evolution",
       "final-attacks",
-      "special-self-damage",
-      "attack-motion",
-      "map-atlas",
-      "boss-motion"
+      "boss-motion",
+      "final-projectiles",
+      "boss-ballistics-motion"
     ],
     "browser": [
-      "final-projectiles-browser",
-      "final-retry-browser",
-      "boss-motion-browser"
+      "boss-ballistics-browser",
+      "boss-movement-browser",
+      "boss-warning-browser",
+      "boss-motion-browser",
+      "final-projectiles-browser"
     ]
   },
   "checks": {
@@ -59,25 +65,12 @@
     "nativeAudio": false
   },
   "manual": [
-    "合意済みの0.5秒集光・0.3秒到達と螺旋形状の表示を維持。前段0.30.5の結果と統合後0.31.1の結果を区別。",
-    "PR142の最新mainを保持し、統合箇所の本検証とPR143の対象コミットのCIを確認する。"
+    "PR・CIまで準備。公開・実機確認は別工程。"
   ],
   "excluded": [
     {
-      "scope": "全100面の再攻略・無関係な音源・原画・エンディング",
-      "reason": "変更は100面の3固有技と同期・復元境界。地形・HP・自機攻撃・保存はバイト保護。音源の追加・変更なし。"
-    },
-    {
-      "scope": "物理iPhone／Android、音声の実再生、本番公開URLの変更確認",
-      "reason": "実機は未接続。効果音はイベント時刻を検証し、素材の再デコードはしない。本番は未マージ。"
-    },
-    {
-      "scope": "旧バランス時の全件再現リプレイ",
-      "reason": "敵の攻撃変更があるため旧入力列の勝敗を現行必須結果として使わない。"
-    },
-    {
-      "scope": "旧Rico等の全ソース固定を前提とする歴史的ガード",
-      "reason": "PR142がすでに対象ソースを正当に変更したため、最新main0.31.0を基準とした限定差分の逆適用で保護する。自傷と既存の反射ロジックはそれぞれ挙動・mainバイトで維持。"
+      "scope": "全100面再攻略、保存移行、音源、エンディング、未変更の全自機攻撃",
+      "reason": "地形、HP、保存、素材は変更しない。共通物理の変更は省略可能な砲口差分で、既存敵の同じvolley経路はenemy-evolutionで確認する。"
     }
   ]
 }

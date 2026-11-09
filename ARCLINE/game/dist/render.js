@@ -366,7 +366,7 @@ function create(canvas,configuration={}){
   if(s.skillEffects?.gravity&&root.ArcVisualArt){const g=s.skillEffects.gravity,english=root.ArcI18n?.language==='en';root.ArcVisualArt.fieldBadge(ctx,s.units[0].x,s.units[0].y-100/scale,(english?'GRAVITY':'重力')+' ×'+g.factor+' '+(g.factor<1?'↑':'↓')+' · '+g.turns+(english?' turns':'ターン'),g.factor<1?'#86e7ff':'#ffbd8c',fieldOptions);}
   if(demonstration?.focus){const focus=demonstration.focus,radius=focus.radius||85,glow=ctx.createRadialGradient(focus.x,focus.y,0,focus.x,focus.y,radius);glow.addColorStop(0,'#f5ffc415');glow.addColorStop(1,'#f5ffc400');circle(focus.x,focus.y,radius,glow);}
   if(!lobby&&!localDemo&&s.telegraph){
-   const t=s.telegraph,y=G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y;
+   const t=s.telegraph,y=t.targetPose?.y??(G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y);
    if(t.beamWidth&&t.beamFrom&&t.beamTo){
     const a=t.beamFrom,b=t.beamTo,dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),nx=-dy/length*t.beamWidth/2,ny=dx/length*t.beamWidth/2;
     if((s.finalBeamCharge||!t.beamCharging)&&!(shot?.weaponId==='E_FINAL_4'&&flight>=(beamEvent?.t??Infinity))){ctx.save();ctx.globalAlpha=.6;const dots=[1/scale,8/scale];for(const side of [-1,1]){const edge=[{x:a.x+nx*side,y:a.y+ny*side},{x:b.x+nx*side,y:b.y+ny*side}];path(edge,'#26394466',2.5/scale,dots);path(edge,'#ffd19a',1.2/scale,dots);}ctx.restore();}

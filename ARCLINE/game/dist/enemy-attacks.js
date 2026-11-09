@@ -55,19 +55,18 @@ function highLaunch(s,target,weapon){
 function damageScale(plan){return plan.enemyTier==='final'?1:A.finalEncounter.normalDamage/20;}
 function weakenFactor(s,plan){return s.stage===100?(plan.enemyTier==='final'?1:A.finalEncounter.brokenNormalMultiplier):.5;}
 function finalizeDamage(s,plan){
- if(s.stage!==100)return;
+ if(s.stage!==100&&!plan.specialTechnique)return;
  const cap=Math.min(Math.max(0,plan.damage[0]),Math.max(0,s.units[0].hp));let available=cap;
  for(const e of plan.events)if(e.type==='damage'&&e.unit===0){e.rawValue=e.value;e.value=Math.max(0,Math.min(e.value,available));available-=e.value;}
  plan.damage[0]=cap;
 }
-function telegraph(s){if(s.stage===100)return finalWarning(s);const r=technique(s);if(!r||s.round%3!==0)return null;const targetX=s.units[0].x,targetY=s.units[0].y-22;return {kind:r.id,technique:r.id,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:r.id==='E_90'?[-110,0,110]:r.id==='E_20'?[-36,36]:[0],radius:r.params.warningRadius||65,windup:r.tier==='final'?1.05:.8,frozen:true};}
+function telegraph(s){if(s.stage===100)return finalWarning(s);const r=technique(s);if(!r||s.round%3!==0)return null;const u=s.units[0],target=P.bodyCenter(s,0);return {kind:r.id,technique:r.id,name:r.nameJa,nameEn:r.name,targetX:target.x,targetY:target.y,targetPose:{x:u.x,y:u.y,slope:u.slope||0},columns:r.id==='E_90'?[-110,0,110]:r.id==='E_20'?[-36,36]:[0],radius:r.params.warningRadius||65,windup:r.tier==='final'?1.05:.8,frozen:true};}
 function appearance(s,weaponId='W01'){const foe=N.forSpec(s.spec),r=A.enemyAppearances?.[foe.id];return {...W.getEnemy(weaponId).appearance,color:foe.color,blast:W.getEnemy(weaponId).blast,fx:null,palette:null,motif:null,...r};}
 function decorate(s,plan){const r=A.enemyTechniques[plan.weaponId];plan.appearance=r?{...W.getEnemy(plan.weaponId).appearance}:appearance(s,plan.weaponId);if(r){plan.specialTechnique=true;plan.enemyTier=r.tier;plan.techniqueName=r.nameJa;}return plan;}
 function plan(s,angle,power){
  const t=s.telegraph,r=A.enemyTechniques[t?.technique];if(!r)return null;
- const id=r.id,opts={weaponId:id,targetPoint:{x:t.targetX,y:t.targetY}},m=G.muzzle(s,1,angle),side=s.units[1],target={x:t.targetX,y:t.targetY};
+ const id=r.id,opts={weaponId:id,targetPoint:{x:t.targetX,y:t.targetY}},side=s.units[1],target={x:t.targetX,y:t.targetY};
  if(['E_70','E_90'].includes(id))opts.volley=t.columns.map((dx,i)=>({origin:{x:G.clamp(target.x+dx,25,(s.spec.worldWidth||1000)-25),y:Math.min(target.y-260,side.y-180),theta:Math.PI/2},power:20,damage:id==='E_90'?.38:.7,blast:id==='E_90'&&i===2?100:id==='E_70'?90:60,delay:.15+i*.23}));
- if(id==='E_20')opts.volley=[-1,1].map((v,i)=>{const source={x:m.x,y:m.y+v*22},dx=target.x-source.x,dy=target.y-source.y,speed=P.launchSpeed(power,W.getEnemy(id)),distance=Math.abs(dx),g=300*W.getEnemy(id).gravity,disc=speed**4-g*(g*distance**2+2*(-dy)*speed**2);let theta=Math.atan2(dy,dx);if(disc>=0&&distance>1){const a=Math.atan((speed**2+(i?1:-1)*Math.sqrt(disc))/(g*distance));theta=dx<0?Math.PI+a:-a;}return {origin:{...source,theta},delay:i*.18,damage:.55};});
  let launchAngle=angle,launchPower=power;
  if(id==='E_FINAL_2'){
   const launch=highLaunch(s,target,W.getEnemy(id));launchAngle=launch.angle;launchPower=launch.power;

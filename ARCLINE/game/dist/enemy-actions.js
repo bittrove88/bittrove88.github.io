@@ -56,7 +56,7 @@
       const t = clone(s);
       if (B.active(s)) B.relocate(t, p);
       else Object.assign(t.units[1], p);
-      t.units[1].facing = t.units[0].x >= p.x ? 1 : -1;
+      t.units[1].facing = B.active(t) ? B.facing(t, p.x) : t.units[0].x >= p.x ? 1 : -1;
       return t;
     }
     function probe(s) {
@@ -244,7 +244,7 @@
         return { target, plan: cpuPlan(trial, random), action: null };
       }
       if (r.boss) {
-        u.facing = trial.units[0].x >= u.x ? 1 : -1;
+        u.facing = B.facing(trial);
         B.refresh(trial);
       }
       // The charging laser is the sole exception to boss repositioning.
@@ -442,7 +442,7 @@
       )
         return false;
       if (r.boss) {
-        u.facing = s.units[0].x >= u.x ? 1 : -1;
+        u.facing = B.facing(s);
         B.refresh(s);
       }
       s.enemyTactics = { ...action.next, lastRound: s.round };

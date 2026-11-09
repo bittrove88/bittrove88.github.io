@@ -1,0 +1,67 @@
+{
+  "unit": [
+    {
+      "name": "boss-ballistics",
+      "status": "PASS",
+      "sha256": "d664362e23616efbe28e3653b77a49e26eb62914279453ee25550f75d7ba6c44"
+    },
+    {
+      "name": "boss-movement",
+      "status": "PASS",
+      "sha256": "008823b49714e4c2689226c660216b87306e570e3f4b2e1e6b542bb3f6c36a9b"
+    },
+    {
+      "name": "enemy-evolution",
+      "status": "PASS",
+      "sha256": "4b257136b16143b9a2f844c66640b7a556ccd9c0310ce5fd06e3231d8a01adb1"
+    },
+    {
+      "name": "final-attacks",
+      "status": "PASS",
+      "sha256": "61aeabe0d370e0ef41da301d0dab4739daf231f3b806f869dceff37f92b1ef5d"
+    }
+  ],
+  "browser": {
+    "status": "PASS",
+    "mode": "browser",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "boss-ballistics-browser",
+        "status": "PASS",
+        "ms": 51522,
+        "log": "boss-ballistics-browser.log"
+      },
+      {
+        "name": "boss-movement-browser",
+        "status": "PASS",
+        "ms": 121447,
+        "log": "boss-movement-browser.log"
+      }
+    ],
+    "skipped": []
+  },
+  "targetedAfterTidalWaveChange": {
+    "evolution": "{\"status\":\"PASS\",\"checks\":11,\"reports\":[{\"id\":\"E_10\",\"name\":\"潮撃砲\",\"status\":\"PASS\",\"damage\":1,\"bullets\":1,\"events\":[\"technique-warning\",\"impact\",\"wave\",\"damage\"]}]}",
+    "movementSuite": {
+      "status": "PASS",
+      "mode": "unit",
+      "selection": "explicit",
+      "rows": [
+        {
+          "name": "boss-movement",
+          "status": "PASS",
+          "ms": 11683,
+          "log": "boss-movement.log"
+        }
+      ],
+      "skipped": []
+    },
+    "browserCases": 4
+  },
+  "warningBrowserCases": 10,
+  "generated": "155 files match two isolated rebuilds",
+  "ciRun": false,
+  "merged": false,
+  "published": false
+}
