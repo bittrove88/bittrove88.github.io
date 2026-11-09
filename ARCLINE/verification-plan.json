@@ -1,53 +1,67 @@
 {
   "version": 1,
-  "change": "テーマ共通HP・行動上限とEasyの75%・上限80、最終戦各HP100／担当150（Easy80）／20行動を反映",
-  "reason": "全100面の設定と戦闘開始、部位再生成、最終戦・再挑戦を変更する。全300初期化と地形・保存の保護、選定した実入力の再生、実際のWorker手番と日英表示・再挑戦、全生成物の一致を検査する。技・物理・AI・原画・音源は変更しない。 先行PR132〜134を統合し、保護ソースはmain799287eと比較する。命中計上が変わった実入力15件と最終戦到着30件を取り直し、ヒバリ部位破壊後の残り威力も検査する。",
+  "change": "TOPの削除ボタン用空き列と仲間の重複状態欄を修正し、一覧のHP・解放表示と詳細を整理（0.30.1）",
+  "reason": "TOPは削除ボタン移動後も残った3列指定が原因。新しいtop-layout-browserで初回/進行あり・4サイズ×日英の2列同幅、行全幅、44px、各入口/戻り先、設定だけの削除とキャンセル、完全な保存不変を確認。collection-flow-browserは一覧の原画/名前/HP/必殺技名、鍵とグレーの未解放、機体番号/重複HPなし、名前横の単一状態と無効ボタン/下部欄なしを確認し、原画・位置・選択・補充待ち/未解放・キーボード/タッチ・保存を保護。先行PR変更の装備/設定/物語/開始/戦闘UIはCIで継続。未変更の戦闘/マップ/音声のローカル再検査は追加しない。main0.30.0の12保護ファイルを維持。 main7095659（PR137）の文書更新を取り込み、開発開始手順とUI記録の両方を保持。成功済みcb23db2から実装/スタイル/生成物/データ/素材に変更がないためローカル機能検査は再利用し、文書の競合/リンク/最新main保護を照合。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
-    "ARCLINE/design/combat_balance.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/design/expedition_013/stage_design.json",
-    "ARCLINE/design/runtime_campaign_20x5.json",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/battle-catalog.js",
+    "ARCLINE/game/dist/battle-ui.css",
+    "ARCLINE/game/dist/battle-ui.js",
+    "ARCLINE/game/dist/chapter-flow.css",
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/difficulty-ui.js",
-    "ARCLINE/game/dist/encounters.js",
-    "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/game.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/levels.js",
-    "ARCLINE/game/dist/machine-picker.js",
+    "ARCLINE/game/dist/menu-ui.css",
+    "ARCLINE/game/dist/menus.js",
+    "ARCLINE/game/dist/onboarding.js",
+    "ARCLINE/game/dist/player-flow.css",
+    "ARCLINE/game/dist/presentation.js",
     "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/screens.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/hibari-ring.test.cjs",
-    "ARCLINE/game/tests/hp-action-balance-browser.test.cjs",
-    "ARCLINE/game/tests/hp-action-balance.test.cjs",
-    "ARCLINE/game/tests/hp-action-native.test.cjs",
+    "ARCLINE/game/styles/battle-ui.css",
+    "ARCLINE/game/styles/chapter-flow.css",
+    "ARCLINE/game/styles/menu-ui.css",
+    "ARCLINE/game/styles/player-flow.css",
+    "ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs",
+    "ARCLINE/game/tests/collection-flow-browser.test.cjs",
+    "ARCLINE/game/tests/equipment-design-browser.test.cjs",
+    "ARCLINE/game/tests/menu-inventory-browser.test.cjs",
+    "ARCLINE/game/tests/menu-structure-browser.test.cjs",
+    "ARCLINE/game/tests/pickup-stock-browser.test.cjs",
+    "ARCLINE/game/tests/settings-delete-browser.test.cjs",
+    "ARCLINE/game/tests/start-landscape-0171-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/balance.py",
-    "ARCLINE/game/tools/build_campaign.py",
-    "ARCLINE/game/tools/build_encounters.py",
-    "ARCLINE/game/tools/build_playables.py",
-    "ARCLINE/game/tools/build_stage_guide.py",
-    "ARCLINE/game/tools/generation.py",
+    "ARCLINE/game/tests/top-layout-browser.test.cjs",
+    "ARCLINE/game/ui/battle-catalog.js",
+    "ARCLINE/game/ui/battle-ui.js",
     "ARCLINE/game/ui/difficulty-ui.js",
-    "ARCLINE/game/ui/machine-picker.js",
+    "ARCLINE/game/ui/onboarding.js",
+    "ARCLINE/game/ui/screens.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.0/index.html"
+    "ARCLINE/updates/0.29.7/index.html",
+    "ARCLINE/updates/0.30.1/index.html"
   ],
   "suites": {
     "unit": [
-      "hp-action-balance",
-      "hp-action-native",
-      "hibari-ring"
+      "start-landscape-0171"
     ],
     "browser": [
-      "hp-action-balance-browser"
+      "equipment-design-browser",
+      "menu-structure-browser",
+      "menu-inventory-browser",
+      "settings-delete-browser",
+      "battle-ui-browser",
+      "collection-flow-browser",
+      "top-layout-browser"
     ]
   },
   "checks": {
@@ -58,18 +72,14 @@
     "nativeAudio": false
   },
   "manual": [
-    "統合前244条件は履歴として保持。最新mainのダメージ計上で代表15条件を再記録・独立再生する。",
-    "最終戦の各難易度10機の実到着状態から再挑戦し、担当量とHP・上限と保存を確認。",
-    "更新したゲームHTML・Markdownのローカル参照を確認。人の初見・物理端末・公開URLは対象外。"
+    "TOPの修正前後・初回タイトルと、仲間の現在/変更可/未解放/小さい画面/回転画面を比較",
+    "差分でsave/engine/physics/levels/skills/weapons/在庫と取得データの非変更を確認",
+    "mainマージ・本番配信・物理端末の確認は別工程として報告"
   ],
   "excluded": [
     {
-      "scope": "既存の旧HP・旧上限を固定した歴史的な全スイート",
-      "reason": "今回許可された設定と一致しない。旧証拠は保持して履歴表示し、現在の値・全ワールド一致・新実入力・実画面を対象の検査で直接確認する。"
-    },
-    {
-      "scope": "音源・原画・攻撃演出・全機体×全マップ・配布ZIPの全件確認",
-      "reason": "これらの実装を変更しない。無関係な全件実行を追加しない。"
+      "scope": "全100面・攻撃と敵AI・音声デコード・エンディング・全体ベースライン・配布ZIP",
+      "reason": "今回の変更はメニュー表示と確認操作。戦闘数値・マップ・音源・保存処理・配布形式は変更せず、既成功の無関係な検査を繰り返さない。"
     }
   ]
 }

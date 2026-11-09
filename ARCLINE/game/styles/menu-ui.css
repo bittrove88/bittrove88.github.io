@@ -1,0 +1,411 @@
+/* TOP keeps two full-width utility actions after save deletion moved to Settings. */
+#lobby .lobby-tools button { min-height:44px; }
+/* Two purpose-built menus: settings workspace and a three-level story archive. */
+#lobbySettings .settings-panel,#journalPanel .journal-panel {
+  width: min(1120px,100%); height: min(760px,100%); min-height: 0;
+  padding: 22px; gap: 18px; background: #153a48; border-color: #88aca566;
+  box-shadow: 0 22px 70px #061d2c66;
+}
+#lobbySettings .settings-panel>header,#journalPanel .journal-panel>header { min-height: 48px; }
+.utility-eyebrow { display: block; margin-bottom: 5px; font-size: 10px; letter-spacing: .17em; color: #9ebfb6; }
+#lobbySettings .utility-panel h2,#journalPanel .utility-panel h2 { font-size: 26px; line-height: 1.2; color: #f0f0da; }
+#closeSettings,#closeJournal { border-radius: 50%; background: #ffffff08; border-color: #abc7b533; }
+.settings-workspace { flex: 1; min-height: 0; display: grid; grid-template-columns: 214px minmax(0,1fr); gap: 28px; border-top: 1px solid #b1cebd24; padding-top: 18px; }
+.settings-navigation { display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow: auto; padding: 2px 10px 12px 2px; touch-action: pan-y; overscroll-behavior: contain; }
+.settings-navigation button { flex: none; display: flex; align-items: flex-start; gap: 12px; width: 100%; min-height: 78px; padding: 16px 12px; text-align: left; color: #bdd0c5; border: 1px solid transparent; background: transparent; border-radius: 10px; }
+.settings-navigation .nav-number { font-size: 11px; line-height: 21px; color: #8baea3; font-variant-numeric: tabular-nums; }
+.settings-navigation button>span:last-child { min-width: 0; display: grid; gap: 6px; }
+.settings-navigation strong { font-size: 15px; line-height: 1.4; }
+.settings-navigation small { font-size: 11px; line-height: 1.4; color: #93b5aa; }
+.settings-navigation [aria-selected="true"] { color: #eff4db; background: #335650; border-color: #abcda044; box-shadow: inset 3px 0 #dce9ad; }
+.settings-navigation [aria-selected="true"] .nav-number { color: #e1edb9; }
+.settings-pane { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 20px; }
+.settings-section-heading { flex: none; }
+.settings-section-heading h3 { margin: 0 0 8px; font-size: 25px; line-height: 1.35; letter-spacing: .02em; color: #f0f0da; }
+.settings-section-heading p { margin: 0; max-width: 64ch; font-size: 13px; line-height: 1.65; color: #aac7bd; }
+#lobbySettings [role="tabpanel"] { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; touch-action: pan-y; padding: 0 8px 12px 0; scrollbar-gutter: stable; }
+#settingsOptions { display: block; }
+.setting-option { display: grid; grid-template-columns: minmax(0,1fr) minmax(130px,auto); align-items: center; gap: 22px; padding: 22px 0; border-bottom: 1px solid #accbb02b; }
+.setting-option:first-child { padding-top: 6px; }
+.setting-option strong { font-size: 16px; color: #ecf0dc; }
+.setting-option p { margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #a9c7ba; }
+#lobbySettings .setting-option>button { position: static; width: auto; max-width: 240px; min-width: 144px; margin: 0; min-height: 44px; padding: 8px 16px; border-radius: 9px; font-size: 13px; background: #284d54; border-color: #9ab6a54d; }
+#settingsDifficulty .settings-difficulty { padding: 0; }
+#settingsDifficulty #difficultyChoice { border: 0; padding: 0; margin: 0; min-width: 0; }
+#settingsDifficulty #difficultyChoice>legend,#settingsDifficulty #difficultyChoice>p { display: none; }
+#settingsDifficulty .difficulty-options { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; padding: 0; }
+#settingsDifficulty .difficulty-options label { position: relative; display: block; min-width: 0; min-height: 180px; padding: 18px 14px 14px; border: 1px solid #7fa49d66; border-radius: 12px; background: #1b404c; cursor: pointer; }
+#settingsDifficulty .difficulty-options label:has(input:checked) { background: #35574f; border-color: #e0e9ad; }
+#settingsDifficulty .difficulty-options input { position: absolute; inset: 16px 12px auto auto; width: 16px; height: 16px; margin: 0; opacity: 1; appearance: auto; accent-color: #dce9ad; z-index: 2; }
+#settingsDifficulty .difficulty-options label>span { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 0; min-width: 0; }
+#settingsDifficulty .difficulty-options strong { font-size: 18px; line-height: 1.35; padding-right: 15px; }
+#settingsDifficulty .difficulty-options small,#settingsDifficulty .difficulty-guide { font-size: 12px; line-height: 1.6; color: #c0d3c3; white-space: normal; }
+.difficulty-current { display: inline-block; padding: 4px 8px; border-radius: 5px; font-size: 11px; line-height: 1.3; background: #dce9ad; color: #224239; visibility: hidden; }
+input:checked+span .difficulty-current { visibility: visible; }
+#settingsDifficulty .settings-footnote { font-size: 12px; line-height: 1.75; color: #abc5b7; margin: 16px 0 0; }
+#settingsGuide { display: block; }
+#settingsGuide details { margin: 0 0 10px; border: 1px solid #8baaa13d; border-radius: 10px; padding: 0 15px; background: #1b404c; }
+#settingsGuide summary { padding: 14px 0; min-height: 44px; font-size: 15px; color: #edf0d9; }
+#settingsGuide details[open] { border-color: #a9c49a88; }
+#settingsGuide details p { font-size: 14px; line-height: 1.9; padding: 0 0 16px; color: #bfd1c6; }
+#settingsData { display: flex; flex-direction: column; gap: 26px; }
+#settingsData .settings-save { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 12px; background: #244c474d; border: 1px solid #96b99a44; }
+.save-status-icon { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: #dce9ad; color: #285047; font-size: 20px; }
+#settingsData h3 { margin: 0 0 8px; font-size: 17px; color: #eff0dc; }
+#settingsData p { margin: 0; font-size: 13px; line-height: 1.75; color: #b1cbbc; }
+#settingsData .version-info { margin-top: 14px; font-size: 11px; color: #a9c5b4; overflow-wrap: anywhere; }
+#settingsData .settings-danger { display: flex; align-items: center; gap: 22px; justify-content: space-between; padding: 22px 0 4px; border-top: 1px solid #d7a38744; }
+#settingsData .settings-danger h3 { color: #f0c0a5; }
+#settingsData .settings-danger p { max-width: 48ch; }
+#settingsData .delete-save-button { flex: none; width: auto; min-height: 44px; margin: 0; border: 1px solid #d9a68a88; color: #f1bea2; background: #563b382e; font-size: 12px; padding: 8px 14px; }
+.story-toolbar { flex: none; min-height: 54px; display: flex; align-items: center; gap: 18px; border-top: 1px solid #b1cebd24; border-bottom: 1px solid #b1cebd24; padding: 10px 0; }
+#storyBack { flex: none; min-height: 40px; padding: 6px 12px; font-size: 13px; border-color: #9bb9a24d; background: transparent; }
+.story-toolbar>div { display: flex; align-items: center; gap: 14px; min-width: 0; }
+#storyBreadcrumb { font-size: 12px; color: #9bbcaf; }
+#storyLocation { font-size: 15px; color: #ecf0db; }
+#storyTotalProgress { margin-left: auto; flex: none; font-size: 12px; font-variant-numeric: tabular-nums; color: #c9d8ad; }
+.story-hub { flex: 1; min-height: 0; overflow: auto; display: grid; grid-template-columns: 1fr; align-content: start; gap: 20px; touch-action: pan-y; overscroll-behavior: contain; padding: 0 4px 10px 0; }
+.story-current { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 25px 28px; border-radius: 14px; background: linear-gradient(110deg,#355b52,#254b4b 58%,#1c414c); border: 1px solid #adc59955; }
+.story-current>div>small { font-size: 10px; letter-spacing: .14em; color: #c3d6b4; }
+.story-current h3 { margin: 7px 0 8px; font-size: 29px; font-weight: 650; color: #f1f1d5; }
+.story-current p { margin: 0; font-size: 13px; color: #b9d0bb; }
+.story-current-action { display: flex; align-items: center; gap: 28px; }
+.story-current-action>span { font-size: 40px; font-variant-numeric: tabular-nums; line-height: 1; color: #e1eab5; }
+.story-current-action>span small { font-size: 14px; color: #b6c9ac; }
+#storyCurrentChapter { min-height: 46px; padding: 10px 20px; font-size: 13px; background: #e0e9b3; color: #284638; border-color: #e0e9b3; }
+#storyCurrentChapter b { margin-left: 20px; }
+.story-category-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.story-category { display: flex; flex-direction: column; align-items: flex-start; text-align: left; min-height: 220px; padding: 23px; border-radius: 12px; background: #1b414c; border-color: #7da39a55; }
+.story-category:hover { background: #2b504f; border-color: #bbd1a6; }
+.category-number { margin-bottom: 28px; font-size: 12px; color: #a4c2a6; font-variant-numeric: tabular-nums; }
+.story-category>strong { font-size: 23px; line-height: 1.4; color: #f0f0dc; }
+.story-category p { margin: 10px 0 22px; max-width: 28ch; font-size: 13px; line-height: 1.75; color: #aac7b9; }
+.category-action { display: flex; justify-content: space-between; gap: 16px; width: 100%; margin-top: auto; color: #d8e3b4; font-size: 13px; }
+#recordsLayout { display: block; flex: 1; min-height: 0; overflow: hidden; }
+#recordNavigation { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-content: start; gap: 12px; width: 100%; height: 100%; min-height: 0; padding: 2px 8px 12px 2px; overflow: auto; scrollbar-gutter: stable; overscroll-behavior: contain; touch-action: pan-y; }
+#recordNavigation .story-record-card { display: flex; align-items: flex-start; gap: 14px; min-height: 150px; padding: 20px 16px; background: #1b414c; border: 1px solid #88aaa355; border-radius: 11px; text-align: left; }
+#recordNavigation .story-record-card[aria-current="true"] { border-color: #c9d99c; background: #31534d; }
+#recordNavigation .story-record-card:disabled { opacity: .6; background: #173944; }
+.record-card-number { flex: none; font-size: 23px; line-height: 1.1; color: #a8c6a5; font-variant-numeric: tabular-nums; }
+.record-card-copy { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: 7px; }
+.record-card-copy>strong { font-size: 17px; line-height: 1.45; color: #edf0d9; }
+.record-card-copy>small { font-size: 11px; line-height: 1.45; color: #aec7b5; }
+.record-card-arrow { flex: none; font-size: 16px; color: #d2deb2; }
+.record-card-progress { display: block; width: 100%; height: 3px; background: #7f9e8a44; margin: 3px 0 0; overflow: hidden; border-radius: 3px; }
+.record-card-progress i { display: block; height: 100%; background: #d9e5a6; }
+#recordNavigation .companion-record { min-height: 110px; align-items: center; }
+#recordBody { width: 100%; height: 100%; padding: 2px 18px 18px 4px; overflow: auto; overscroll-behavior: contain; touch-action: pan-y; font-size: 15px; line-height: 1.8; }
+#recordBody>* { max-width: 880px; }
+#recordBody .record-kicker { font-size: 11px; color: #acc6a9; letter-spacing: .05em; }
+#recordBody .record-title { font-size: 30px; line-height: 1.4; margin: 4px 0 12px; color: #f2f0d5; }
+#recordBody p { margin: 0 0 14px; }
+#recordBody blockquote { margin: 16px 0; padding: 8px 18px; color: #d0deb8; border-left: 2px solid #9bb88a; }
+#recordBody .record-section { margin: 18px 0; }
+#recordBody details { padding: 0 16px; border: 1px solid #8baaa13d; border-radius: 9px; background: #1b404c; margin: 10px 0; }
+#recordBody summary { min-height: 44px; padding: 12px 0; font-size: 15px; color: #e5edd2; }
+#recordBody details p { padding-bottom: 6px; }
+.story-chapter-progress { display: flex; gap: 5px; margin: 20px 0 7px; max-width: 540px; }
+.story-chapter-progress i { flex: 1; height: 5px; border-radius: 3px; background: #70929755; }
+.story-chapter-progress .complete { background: #dce8ae; }
+#recordBody .story-progress-label { font-size: 12px; color: #b9cbb0; }
+#playStoryChapter { min-height: 46px; padding: 10px 26px; margin: 8px 0 18px; background: #dfe9b2; color: #244739; border-color: #dfe9b2; font-size: 14px; }
+#playStoryChapter:disabled { background: #305461; color: #bed0c9; }
+.story-content-counts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.story-content-counts span { font-size: 11px; line-height: 1.5; padding: 5px 10px; background: #234a4e; border-radius: 6px; color: #c2d2b9; }
+#recordBody .story-replay-note { font-size: 12px; line-height: 1.75; color: #a8c2b5; }
+.settings-navigation *,#recordNavigation *,#recordBody *,#storyHub *,#lobbySettings [role="tabpanel"] * { touch-action: pan-y; }
+@media (max-width: 900px) {
+  #lobbySettings .settings-panel,#journalPanel .journal-panel { padding: 16px; gap: 12px; }
+  .settings-workspace { grid-template-columns: 176px minmax(0,1fr); gap: 20px; padding-top: 12px; }
+  .settings-navigation button { min-height: 70px; padding: 12px 10px; gap: 8px; }
+  .settings-navigation strong { font-size: 14px; }
+  .settings-section-heading h3 { font-size: 22px; }
+  .settings-pane { gap: 14px; }
+  .setting-option { gap: 14px; padding: 16px 0; }
+  .story-category { min-height: 170px; padding: 16px; }
+  .category-number { margin-bottom: 15px; }
+  .story-category>strong { font-size: 20px; }
+  .story-category p { font-size: 12px; margin: 8px 0 15px; }
+  .story-current { padding: 18px 22px; }
+  .story-current h3 { font-size: 25px; }
+  .story-current-action>span { display: none; }
+  #recordNavigation { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 650px) {
+  .settings-workspace { grid-template-columns: 134px minmax(0,1fr); gap: 14px; }
+  .settings-navigation button { padding: 12px 8px; min-height: 60px; }
+  .settings-navigation .nav-number { display: none; }
+  .settings-navigation small { font-size: 10px; }
+  .settings-section-heading h3 { font-size: 19px; }
+  .settings-section-heading p { font-size: 12px; }
+  .setting-option { grid-template-columns: minmax(0,1fr) auto; gap: 8px; }
+  .setting-option strong { font-size: 14px; }
+  .setting-option p { font-size: 11px; }
+  #lobbySettings .setting-option>button { min-width: 104px; max-width: 145px; padding: 8px 10px; font-size: 12px; }
+  #settingsDifficulty .difficulty-options { grid-template-columns: 1fr; gap: 8px; }
+  #settingsDifficulty .difficulty-options label { min-height: 0; padding: 12px; }
+  #settingsDifficulty .difficulty-options label>span { gap: 6px; }
+  #settingsDifficulty .difficulty-options strong { font-size: 16px; }
+  #settingsData .settings-danger { flex-direction: column; align-items: flex-start; gap: 14px; }
+  #settingsData .settings-save { padding: 14px; gap: 10px; }
+  #settingsData h3 { font-size: 15px; }
+  .save-status-icon { width: 28px; height: 28px; font-size: 16px; }
+  .story-hub { gap: 12px; }
+  .story-current { padding: 14px 16px; gap: 14px; }
+  .story-current h3 { font-size: 22px; }
+  .story-current p { font-size: 12px; }
+  #storyCurrentChapter { min-height: 42px; font-size: 12px; padding: 8px 12px; }
+  #storyCurrentChapter b { margin-left: 8px; }
+  .story-category-grid { gap: 8px; }
+  .story-category { padding: 13px 11px; min-height: 168px; }
+  .story-category>strong { font-size: 17px; }
+  .story-category p { font-size: 11px; }
+  .category-action { font-size: 11px; }
+  .story-toolbar { gap: 12px; }
+  .story-toolbar>div { flex-direction: column; align-items: flex-start; gap: 2px; }
+  #storyBreadcrumb { font-size: 10px; }
+  #storyLocation { font-size: 13px; }
+  #storyTotalProgress { font-size: 10px; }
+  #recordNavigation .story-record-card { gap: 10px; padding: 14px 12px; min-height: 140px; }
+  .record-card-number { font-size: 20px; }
+  .record-card-copy>strong { font-size: 15px; }
+}
+@media (max-height: 430px) {
+  #lobbySettings .settings-panel,#journalPanel .journal-panel { padding: 10px 14px; gap: 9px; }
+  #lobbySettings .settings-panel>header,#journalPanel .journal-panel>header { min-height: 40px; }
+  .utility-eyebrow { display: none; }
+  #lobbySettings .utility-panel h2,#journalPanel .utility-panel h2 { font-size: 22px; }
+  .settings-workspace { padding-top: 8px; }
+  .settings-navigation button { min-height: 58px; padding: 10px; }
+  .settings-navigation small { font-size: 10px; }
+  .settings-pane { gap: 10px; }
+  .settings-section-heading h3 { margin-bottom: 4px; font-size: 20px; }
+  .settings-section-heading p { font-size: 11px; line-height: 1.5; }
+  .setting-option { padding: 13px 0; }
+  .story-hub { gap: 12px; }
+  .story-current { padding: 14px 20px; }
+  .story-current h3 { font-size: 22px; margin: 5px 0; }
+  .story-category { min-height: 156px; padding: 14px; }
+  .category-number { margin-bottom: 10px; }
+  .story-category p { margin: 6px 0 12px; font-size: 11px; line-height: 1.6; }
+  .story-toolbar { min-height: 44px; padding: 5px 0; }
+  #recordBody .record-title { font-size: 25px; }
+}
+@media (max-height: 300px) {
+  .settings-section-heading p { display: none; }
+  .settings-navigation small { display: none; }
+  .settings-navigation button { min-height: 44px; }
+  .settings-pane { gap: 8px; }
+  .settings-section-heading h3 { font-size: 17px; }
+  .story-current { padding: 10px 14px; }
+  .story-current h3 { font-size: 20px; }
+  .story-current>div>small { display: none; }
+  .story-category { min-height: 134px; padding: 12px; }
+  .story-category>strong { font-size: 16px; }
+  .category-number { margin-bottom: 6px; }
+  #recordNavigation .story-record-card { min-height: 120px; padding: 12px; }
+}
+
+/* Replay keeps the primary action beside the chapter overview. */
+.story-detail-layout { display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;max-width:none!important; }
+.chapter-replay { padding:20px;border:1px solid #adc59944;border-radius:12px;background:#21494b;align-self:start; }
+.chapter-replay>small { font-size:10px;letter-spacing:.08em;color:#a9c5ac; }
+.chapter-replay #playStoryChapter { display:block;width:100%;margin:14px 0; }
+.chapter-replay .story-content-counts { gap:5px; }
+#recordBody .chapter-replay .story-replay-note { margin-bottom:0; }
+#settingsDifficulty .difficulty-options label>span { border:0;background:transparent;box-shadow:none;text-align:left;justify-content:flex-start; }
+#settingsDifficulty .difficulty-options input:checked+span { background:transparent;border:0;box-shadow:none; }
+#settingsDifficulty .difficulty-options input:checked+span:after { display:none; }
+@media(max-width:650px){.story-detail-layout{gap:14px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.chapter-replay{padding:12px}.chapter-replay #playStoryChapter{padding:8px 12px;font-size:12px}}
+@media(max-height:430px){.chapter-replay{padding:14px}#recordBody .record-title{font-size:25px}.story-detail-layout{gap:24px}}
+/* One equipment view for owned weapons, owned skills, and both catalogs. */
+#collectionPanel {
+ --equipment-card-bg:#204550;
+ --equipment-card-border:#88aaa3;
+ --equipment-copy:#d1e2d8;
+ --equipment-title:#f2f5e6;
+ --equipment-selected-bg:#285c77;
+ --equipment-selected-border:#9adaff;
+}
+#collectionPanel .collection-panel {
+ width:min(1040px,100%);height:min(640px,100%);padding:12px;gap:10px;
+ background:#143746;border:1px solid #88aaa366;
+}
+#collectionPanel .collection-tabs { display:flex;flex:1;gap:8px;margin:0;min-width:0; }
+#collectionPanel .collection-tabs button { flex:1; }
+#collectionGrid { gap:10px; }
+#collectionPanel header { display:flex;align-items:center;justify-content:space-between;gap:12px; }
+#collectionPanel #closeCollection { width:auto;min-width:88px;min-height:44px;padding:8px 12px;font-size:14px;color:#ecf3e7; }
+#collectionPanel :is(.collection-tabs,.collection-scope) button { min-height:44px; }
+.collection-scope { display:flex;gap:8px;flex:none; }
+.collection-scope button { flex:1; }
+.collection-scope button span { margin-left:6px;font-variant-numeric:tabular-nums; }
+.collection-equipment-content { display:flex;flex-direction:column;flex:1;min-height:0; }
+#collectionPanel :is(.collection-tabs,.collection-scope) button:focus-visible { outline:3px solid #d4eeff;outline-offset:-4px; }
+#collectionPanel .stock-empty { grid-column:1/-1;padding:16px;color:#dce8df; }
+#collectionPanel .stock-empty strong { display:block;font-size:16px; }
+#collectionPanel .stock-empty p { font-size:14px;line-height:1.6; }
+#collectionPanel .stock-empty button { min-height:44px;padding:10px 14px;background:#285c77;color:#f2f7ed;border:1px solid #9adaff;border-radius:8px; }
+/* Companion cards inspect; the fixed detail action explicitly changes the team. */
+#collectionPanel .machine-roster { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px; }
+#collectionPanel .machine-buttons { grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;scrollbar-gutter:stable;overscroll-behavior:contain; }
+#collectionPanel .machine-buttons button { display:grid;grid-template-columns:36px minmax(0,1fr) max-content;grid-template-rows:auto auto;align-content:center;align-items:center;gap:3px 6px;min-height:72px;padding:8px;border:1px solid #88aaa3;border-radius:9px;background:#204550;color:#f2f5e6;text-align:left; }
+#collectionPanel .machine-buttons button[aria-pressed="true"] { background:#285c77;border-color:#9adaff;box-shadow:inset 3px 0 #9adaff; }
+#collectionPanel .machine-buttons button:focus-visible { outline:3px solid #d4eeff;outline-offset:-4px; }
+#collectionPanel .machine-buttons button.locked { opacity:1;filter:none; }
+#collectionPanel .machine-buttons button.equipped:before { content:none; }
+#collectionPanel .machine-buttons .ch-art { grid-row:1/3;grid-column:1;width:36px;height:40px;min-height:0;border-radius:6px; }
+#collectionPanel .machine-buttons :is(.ch-art-origin,.roster-role) { display:none; }
+#collectionPanel .machine-buttons strong { grid-column:2;grid-row:1;font-size:14px;line-height:1.35;overflow-wrap:anywhere; }
+#collectionPanel .machine-buttons small { grid-column:2/4;grid-row:2;display:block;font-size:12px;line-height:1.4;color:#c4d9ce;text-align:left;overflow-wrap:anywhere; }
+#collectionPanel .machine-buttons small svg { width:12px;height:12px;vertical-align:middle; }
+#collectionPanel .machine-profile .character-hero { grid-template-columns:minmax(80px,.7fr) minmax(0,1.5fr);border:1px solid #88aaa388; }
+#collectionPanel .machine-profile .ch-art { min-height:0; }
+#collectionPanel .machine-profile .ch-art-origin { display:none; }
+#collectionPanel .machine-profile .ch-copy { padding:12px; }
+#collectionPanel .machine-profile .ch-name { font-size:24px;margin:4px 0; }
+#collectionPanel .machine-profile .ch-role { margin:0 0 4px; }
+#collectionPanel .machine-profile :is(.ch-role,.ch-motto,.ch-description,.ch-facts,.ch-abilities p) { font-size:14px;line-height:1.6; }
+#collectionPanel .machine-profile .ch-abilities summary { min-height:44px;display:flex;align-items:center;font-size:14px;cursor:pointer; }
+#collectionPanel .machine-profile .ch-abilities summary:before { content:'＋';margin-right:6px; }
+#collectionPanel .machine-profile .ch-abilities[open] summary:before { content:'−'; }
+#collectionPanel .machine-profile .ch-copy>button { align-self:flex-start;width:fit-content;max-width:100%;min-width:min(96px,100%);min-height:44px;padding:8px 14px;font-size:14px;margin-top:8px; }
+#collectionPanel .machine-profile .ch-copy>button:disabled { background:#244653;color:#d1e2d8;opacity:1;border-color:#88aaa388; }
+#collectionPanel .machine-profile .ch-state { display:inline-flex;align-items:center;gap:4px;width:fit-content;max-width:100%;margin:6px 0;padding:2px 6px;border:1px solid #88aaa366;border-radius:6px;font-size:11px;line-height:1.4; }
+#collectionPanel .companion-heading { display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px; }
+#collectionPanel .companion-heading .ch-state { margin:0;flex:none; }
+#collectionPanel .machine-profile .ch-description { margin:8px 0 10px;color:#e0eae0; }
+#collectionPanel .companion-current-marker { position:absolute;right:0;bottom:0;z-index:3;display:grid;place-items:center;width:14px;height:14px;background:#9adaff;color:#143746;border-radius:50%;font-size:11px; }
+#collectionPanel .machine-buttons .companion-lock { position:absolute;right:0;bottom:0;z-index:3;width:20px;height:20px;padding:3px;border-radius:5px;background:#0b2938;color:#edf2df; }
+#collectionPanel .machine-buttons .locked .ch-art-plane { filter:grayscale(1);opacity:.6; }
+#collectionPanel .companion-hp { grid-column:3;grid-row:1;white-space:nowrap;font-size:12px;line-height:1.4;font-variant-numeric:tabular-nums;color:#e2ebba; }
+#collectionPanel .machine-buttons .locked { border-style:dashed; }
+@media(min-width:1100px){#collectionPanel .machine-buttons { grid-template-columns:repeat(3,minmax(0,1fr)); }}
+@media(max-width:650px){
+ #collectionGrid { gap:7px; }
+ #collectionPanel .machine-roster { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:8px; }
+ #collectionPanel .machine-buttons { gap:6px; }
+ #collectionPanel .machine-buttons button { grid-template-columns:26px minmax(0,1fr) max-content;padding:6px;min-height:68px; }
+ #collectionPanel .machine-buttons .ch-art { width:26px;height:32px; }
+ #collectionPanel .machine-profile .character-hero { grid-template-columns:48px minmax(0,1fr); }
+ #collectionPanel .machine-profile .ch-copy { padding:10px; }
+}
+#collectionTitle { font-size:18px!important;line-height:1.3; }
+#collectionPanel :is(.collection-tabs,.collection-scope) button {
+ min-height:44px;padding:7px 10px;border-radius:9px;border:1px solid #88aaa388;
+ background:#1b414f;color:#dce8df;font-size:14px;line-height:1.35;
+}
+#collectionPanel :is(.collection-tabs,.collection-scope) [aria-selected="true"] {
+ background:var(--equipment-selected-bg);border-color:var(--equipment-selected-border);color:#f2f7ed;
+}
+.equipment-records {
+ display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);
+ gap:10px 14px;min-height:0;flex:1;
+}
+.equipment-records .inventory-note { grid-column:1/-1;margin:0;color:#d1e2d8;font-size:13px;line-height:1.5; }
+#collectionPanel :is(#weaponChoices,#chapterSkillStock,.equipment-grid) {
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-content:start;margin:0;
+}
+.equipment-records .equipment-grid { overflow:auto;min-height:0;padding:2px 4px 12px 2px;scrollbar-gutter:stable;overscroll-behavior:contain;touch-action:pan-y; }
+#collectionPanel .equipment-item {
+ display:grid;grid-template-columns:26px minmax(0,1fr) max-content;grid-template-rows:auto;
+ align-items:center;align-content:start;gap:8px;min-width:0;width:100%;min-height:64px;
+ padding:8px;border:1px solid var(--equipment-card-border);border-radius:9px;
+ background:var(--equipment-card-bg);color:var(--equipment-title);font:inherit;font-weight:400;text-align:left;box-shadow:none;opacity:1;
+}
+#collectionPanel .equipment-item[aria-pressed="true"] {
+ background:var(--equipment-selected-bg);border-color:var(--equipment-selected-border);
+ box-shadow:inset 3px 0 var(--equipment-selected-border);outline:none;
+}
+#collectionPanel .equipment-item:focus-visible { outline:3px solid #d4eeff;outline-offset:-4px; }
+#collectionPanel .equipment-item-icon {
+ display:grid;place-items:center;grid-column:1;grid-row:1;flex:none;
+ position:relative;width:26px;height:30px;border-radius:6px;background:#123443;color:#b7eddf;font-style:normal;
+}
+#collectionPanel .equipment-item-icon svg { display:block;width:24px;height:24px; }
+#collectionPanel .equipment-item-name {
+ grid-column:2;grid-row:1;min-width:0;margin:0;font-size:14px;font-weight:650;line-height:1.35;
+ color:var(--equipment-title);white-space:normal;overflow:visible;overflow-wrap:anywhere;text-align:left;
+}
+#collectionPanel .equipment-item-stock {
+ grid-column:3;grid-row:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+ min-width:34px;max-width:58px;padding:4px 6px;border:1px solid #8eafa277;border-radius:8px;
+ color:#f0f4cd;background:#0e303e;text-align:center;
+}
+#collectionPanel .equipment-item-stock b { font-size:18px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums; }
+#collectionPanel .equipment-item-stock small { color:#d0e1d7;font-size:11px;line-height:1.25;white-space:normal; }
+#collectionPanel .equipment-item-stock.is-empty b { color:#d0e1d7; }
+#collectionPanel .equipment-item-stock.is-unlimited small { display:none; }
+#collectionPanel .equipment-item-status { position:absolute;right:-4px;bottom:-4px;display:none;place-items:center;width:14px;height:14px;border-radius:50%;font-size:11px;line-height:1;font-weight:700;color:#143746;background:#9adaff; }
+#collectionPanel .equipment-item[aria-pressed="true"] .equipment-item-status { display:grid; }
+#collectionPanel .equipment-detail-panel {
+ align-self:stretch;display:block;min-width:0;min-height:0;overflow:auto;padding:16px;
+ border:1px solid #88aaa388;border-radius:12px;background:#0e2e3d;color:var(--equipment-title);
+ touch-action:pan-y;overscroll-behavior:contain;
+}
+.equipment-detail-heading { display:flex;align-items:center;gap:12px;margin-bottom:18px; }
+.equipment-detail-heading>div { min-width:0;display:grid;gap:5px; }
+.equipment-detail-heading small { font-size:12px;line-height:1.4;color:#c4d9ce; }
+#collectionPanel .equipment-detail-heading strong { display:block;font-size:22px;line-height:1.4;color:var(--equipment-title);overflow-wrap:anywhere; }
+#collectionPanel .equipment-detail-effect h3 { margin:0 0 8px;font-size:14px;line-height:1.4;color:#e6edc9; }
+#collectionPanel .equipment-detail-effect p { margin:0;font-size:16px;line-height:1.8;color:#e0eae0;overflow-wrap:anywhere; }
+#collectionPanel .equipment-detail-note { margin:20px 0 0;padding-top:14px;border-top:1px solid #91b3a344;font-size:12px;line-height:1.7;color:#c4d9ce; }
+.equipment-detail-empty strong { display:block;font-size:18px;line-height:1.5;color:#f2f5e6; }
+.equipment-detail-empty p { font-size:14px;line-height:1.8;color:#d1e2d8; }
+#weaponPicker[data-stock-library="true"] .weapon-picker-note { color:#c4d9ce;font-size:12px;line-height:1.6; }
+#collectionGrid .equipment-grid *,#lobbySettings [role="tabpanel"] * { touch-action:pan-y; }
+@media(max-width:1000px){
+ #collectionPanel :is(#weaponChoices,#chapterSkillStock,.equipment-grid) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:540px){
+ #collectionPanel :is(#weaponChoices,#chapterSkillStock,.equipment-grid) { grid-template-columns:1fr; }
+}
+@media(max-width:650px){
+ .equipment-records { gap:8px; }
+ #collectionPanel .equipment-item { padding:8px;gap:6px;grid-template-columns:26px minmax(0,1fr) max-content; }
+ #collectionPanel .equipment-item-name { font-size:14px; }
+ #collectionPanel .equipment-item-icon { width:26px;height:30px; }
+ #collectionPanel .equipment-item-icon svg { width:24px;height:24px; }
+ #collectionPanel .equipment-item-stock { min-width:34px;padding:4px; }
+ #collectionPanel .equipment-item-stock b { font-size:18px; }
+ #collectionPanel .equipment-detail-panel { padding:12px; }
+ #collectionPanel .equipment-detail-heading strong { font-size:19px; }
+ #collectionPanel .equipment-detail-effect p { font-size:14px;line-height:1.8; }
+ .equipment-detail-heading { gap:9px;margin-bottom:14px; }
+}
+@media(max-height:300px){
+ #collectionPanel .collection-panel { padding:8px 10px;gap:7px; }
+ #collectionPanel .equipment-detail-panel { padding:10px; }
+ #collectionPanel .equipment-detail-heading strong { font-size:19px; }
+ #collectionPanel .equipment-detail-effect p { font-size:14px; }
+}
+
+/* Chapters are scanable rows: number, title/range, then an explicit status. */
+#recordNavigation[data-record-kind="chapters"] { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+#recordNavigation .chapter-record { display:grid; grid-template-columns:38px minmax(0,1fr) auto; align-items:center; gap:14px; min-height:88px; padding:14px 16px; background:#204650; border-color:#92b2ab66; }
+#recordNavigation .chapter-record .record-card-number { font-size:28px; line-height:1.1; color:#e0eab8; font-weight:650; }
+#recordNavigation .chapter-record .record-card-copy { gap:5px; }
+#recordNavigation .chapter-record .record-card-copy>strong { font-size:17px; line-height:1.4; color:#f0f4e3; }
+#recordNavigation .chapter-record .record-card-copy>small { color:#c2d4c8; font-size:11px; line-height:1.4; }
+#recordNavigation .chapter-record .record-card-progress { height:4px; margin-top:2px; background:#b3cbb044; }
+.chapter-status { min-width:58px; text-align:center; white-space:nowrap; padding:6px 8px; border-radius:6px; font-size:11px; line-height:1.3; font-variant-numeric:tabular-nums; }
+.chapter-status.complete { background:#dce8b4; color:#224b3f; }
+.chapter-status.current { color:#edf2c8; background:#42645d; border:1px solid #aec48f77; }
+.chapter-status.locked { color:#b7cbc3; background:#294650; }
+#recordNavigation .chapter-record:disabled { opacity:.8; background:#163642; border-color:#77968e44; }
+#recordNavigation .chapter-record:disabled .record-card-number { color:#91afa3; }
+#recordNavigation .chapter-record[aria-current="true"] { background:#365c52; border-color:#e1eab1; box-shadow:inset 3px 0 #dce8b4; }
+@media(max-width:650px){
+ #recordNavigation .chapter-record { grid-template-columns:28px minmax(0,1fr) auto; gap:8px; min-height:94px; padding:12px 10px; }
+ #recordNavigation .chapter-record .record-card-number { font-size:23px; }
+ #recordNavigation .chapter-record .record-card-copy>strong { font-size:14px; }
+ #recordNavigation .chapter-record .record-card-copy>small { font-size:10px; }
+ .chapter-status { min-width:45px; padding:5px; font-size:10px; }
+}
+
+@media(max-width:1000px){#collectionPanel .collection-heading { position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%); }}
+
+#collectionPanel .collection-scope button { border-radius:0;border:0;border-bottom:2px solid #88aaa355;background:transparent;color:#c4d9ce; }
+#collectionPanel .collection-scope button[aria-selected="true"] { border-bottom-color:#9adaff;color:#f2f7ed;background:#204550; }
+
+@media(max-height:300px){#collectionPanel .machine-profile .ch-id { display:none; }#collectionPanel .machine-profile .ch-name { margin:0 0 4px;font-size:20px; }}
