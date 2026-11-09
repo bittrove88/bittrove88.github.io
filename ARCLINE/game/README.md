@@ -27,6 +27,8 @@
 
 # コードと生成物の編集先
 
+[砲撃ゲーム開発ガイド](../docs/design/ARCLINE_GAME_DEVELOPMENT_GUIDE.md)を設計と改修の共通入口にする。分野別の正本・連動範囲から、実装・表示・保存・確認画面までを一つの変更として扱う。`dist/` の編集可否は `runtime.json` の `generated` だけでなく、`tools/generation.py` と各生成スクリプトでも確認する。
+
 2026-11-07 美術1.9：空中庭園81〜85面の素材配色と名称だけを `design/components/complete/data/normal-16.json` で更新し、明示依頼を `runtime-approval.json` に記録。`ui/component-art.js` は地盤の閉じ底を線で描かず、元の材質面を地中へ連続表示する。カメラによって地表側の模様を伸縮させず、衝突ポリゴンは変更しない。有限の浮島・壁には従来の輪郭を残す。[範囲と確認](../evidence/garden-surface-20261107/README.md)。
 
 0.24.2のコンポーネント美術は `ui/component-art.js` と `../design/components/complete/data/*.json`・`shared-materials.json`・`render-style.json`・共通 `renderer.js` が正本。`tools/build_components.py` が同じ描画器・承認素材・実装アダプターを `dist/component-art.js` へ生成する。承認素材のハッシュは `../design/components/runtime-approval.json`。`render.js` は実際の世界と、背景と同じ最終移動の状態を渡し、衝突や保存には描画データを読み戻さない。[統合と検証](../docs/releases/0.24.2.md)。
