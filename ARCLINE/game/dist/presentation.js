@@ -14,9 +14,9 @@ function syncLobby(data,selectedMap,context){
  $('play').textContent=local('ステージ'+spec.id+'を開始','Start stage '+spec.id);
  $('equippedCharacterName').textContent=language()==='en'?c.name:c.nameJa;
  $('lobbyRover').innerHTML=A.markup(c.id,'hero-character');A.paintAll($('lobbyRover'));
- $('equippedWeapon').textContent=local('武器 '+Object.keys(stock.weapons).length+' · スキル '+Object.keys(stock.skills).length,'Weapons '+Object.keys(stock.weapons).length+' · Skills '+Object.keys(stock.skills).length);
+ $('equippedWeapon').textContent=local('持ち物・図鑑','Inventory & catalogs');
  $('collectionCount').textContent=data.unlockedCharacterIds.length+'/10';
- $('openCollection').setAttribute('aria-label',local('章の持ち物と武器一覧','Chapter inventory and weapon records'));
+ $('openCollection').setAttribute('aria-label',local('持ち物・図鑑。保有武器とスキルを確認','Inventory and catalogs. Inspect owned weapons and skills'));
  $('openCharacters').setAttribute('aria-label',local('仲間を選ぶ。現在 '+c.nameJa,'Choose a companion. Current '+c.name));
  $('chooseLevel').textContent=local('ステージを選ぶ','Stages');
 }
@@ -49,43 +49,140 @@ function renderJourney(data,selectedMap,onSelect,onRestart){
  $('levelPicker').hidden=false;paint();$('closeLevels').focus({preventScroll:true});
 }
 
-let collectionView='characters',collectionRefresh=null;
-function showCollection(data,onEquip,initialView='characters',options={}){
- collectionView=initialView==='weapons'?'weapons':'characters';let inspected=data.equippedCharacterId;
- const owned=id=>Crew.owned(data,id);
- function paint(){
-  document.querySelector('#collectionPanel header strong').textContent=local('仲間と持ち物','Companions and inventory');
-  let body=`<div class="collection-tabs" role="tablist"><button data-collection-tab="characters" role="tab" aria-selected="${collectionView==='characters'}">${local('仲間','Companions')} ${data.unlockedCharacterIds.length}/10</button><button data-collection-tab="weapons" role="tab" aria-selected="${collectionView==='weapons'}">${local('武器一覧','Weapon records')}</button></div>`;
-  if(collectionView==='characters'){
-   const m=A.get(inspected),p=C.get(inspected),r=Crew.get(inspected),selected=data.equippedCharacterId===inspected;
-   body+=`<div class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('10機の仲間','Ten machines')}">${Crew.rows.map(r=>root.ArcCharacterHero.tile(r.id,data,inspected,language())).join('')}</div><section class="machine-profile" aria-label="${m.name}">${root.ArcCharacterHero.markup(m.id,{data,lang:language(),description:root.ArcStory.pick(r.desire,language())})}</section></div>`;
-  }else body+=`<p class="inventory-note">${local('通常弾はいつでも使えます。補助武器は道中で拾い、章の持ち物から選びます。未使用の残数は章を越えて持ち越せます。カプセルは難易度ごとに一度だけ取得できます。','Normal fire is always available. Collect auxiliary weapons along the route and select them from chapter inventory. Unused stock carries across chapters. Capsules can be claimed once per difficulty.')}</p><div class="equipment-grid">${W.weapons.filter(w=>w.id==='W01'||W.activeIds.includes(w.id)||data.unlockedWeaponIds.includes(w.id)).map(w=>{const unlocked=data.unlockedWeaponIds.includes(w.id);return `<article data-weapon-record="${w.id}" class="equipment-card ${unlocked?'':'locked'}"><strong>${root.ArcI18n.t(w.name)}</strong><small>${unlocked?local(w.id==='W01'?'いつでも使用可能':'解放済み・道中で入手',w.id==='W01'?'Always available':'Unlocked · collect along the route'):local((W.coreUnlocks[w.id]||1)+'面クリアで解放','Clear LV '+(W.coreUnlocks[w.id]||1))}</small></article>`;}).join('')}</div>`;
-  $('collectionGrid').innerHTML=body;A.paintAll($('collectionGrid'));root.ArcCharacterHero.hydrate($('collectionGrid'));
-  for(const b of $('collectionGrid').querySelectorAll('[data-inspect-character]'))b.onclick=()=>{inspected=b.dataset.inspectCharacter;paint();$('collectionGrid').querySelector(`[data-inspect-character="${inspected}"]`).focus({preventScroll:true});};
-  for(const b of $('collectionGrid').querySelectorAll('[data-collection-tab]'))b.onclick=()=>{collectionView=b.dataset.collectionTab;paint();};
-  const b=$('collectionGrid').querySelector('[data-confirm-character]');if(b&&root.ArcCrewUsage?.blocked(data,inspected)){b.disabled=true;b.textContent=local('補充あと'+root.ArcCrewUsage.remaining(data,inspected)+'面','Resupply: '+root.ArcCrewUsage.remaining(data,inspected)+' stages');}if(b)b.onclick=()=>{const id=b.dataset.confirmCharacter;if(!owned(id))return;const accepted=onEquip({characterId:id});if(accepted===false)return;data.equippedCharacterId=id;paint();};
+function itemInfo(id,kind='weapons'){
+ const skill=kind==='skills',row=skill?root.ArcSkills.get(id):W.get(id),catalog=root.ArcBattleCatalog;
+ return {name:skill?(language()==='en'?row?.name:row?.nameJa)||root.ArcI18n.t(id):(language()==='en'?catalog.weaponNames[id]?.en:catalog.weaponNames[id]?.ja)||(language()==='en'?row.name:row.nameJa),note:skill?(language()==='en'?row?.note:row?.noteJa)||(language()==='en'?catalog.skillRows[id]?.shortEn:catalog.skillRows[id]?.shortJa)||'':(language()==='en'?catalog.weaponNotesEn[id]:catalog.weaponNotes[id])||local('残数制限のない基本の弾。','Standard fire with unlimited ammunition.'),icon:skill?root.ArcSkills.markup(id):W.iconMarkup(id)};
+}
+function stockLabel(id,kind,inventory){const count=inventory?.[kind]?.[id]||0;return id==='W01'?local('いつでも使用可能 · ∞','Always available · ∞'):local('保有 '+count+(kind==='skills'?'回':'発'),'In stock: '+count+(kind==='skills'?' uses':' shots'));}
+function equipmentStock(id,kind,inventory){
+ const unlimited=id==='W01',count=unlimited?Infinity:inventory?.[kind]?.[id]||0;
+ return {value:unlimited?'∞':String(count),unit:unlimited?local('無制限','Unlimited'):kind==='skills'?local('回','uses'):local('発','shots'),label:stockLabel(id,kind,inventory),empty:!unlimited&&count===0};
+}
+function equipmentKind(id,kind){return kind==='weapons'?local('武器','Weapon'):root.ArcSkills.get(id)?.rare?local('レアスキル','Rare skill'):local('スキル','Skill');}
+function equipmentCard(id,kind,inventory,attribute,selected){
+ const info=itemInfo(id,kind),stock=equipmentStock(id,kind,inventory),compat=attribute==='data-item-record'?' equipment-card':kind==='skills'?' inventory-skill':'';
+ return `<button type="button" class="equipment-item${compat}" ${attribute}="${id}" data-equipment-id="${id}" data-equipment-kind="${kind}" data-story-raw aria-pressed="${selected}" aria-label="${escape(info.name+', '+stock.label)}"><i class="equipment-item-icon" aria-hidden="true">${info.icon}<span class="equipment-item-status" aria-hidden="true">${selected?'✓':''}</span></i><strong class="equipment-item-name">${escape(info.name)}</strong><span class="equipment-item-stock${id==='W01'?' is-unlimited':''}${stock.empty?' is-empty':''}"><b>${stock.value}</b><small>${stock.unit}</small></span></button>`;
+}
+function equipmentDetail(id,kind,inventory){
+ if(!id)return `<div class="equipment-detail-empty"><strong>${local('カードを選んで確認','Select a card to inspect')}</strong><p>${local('一覧から武器やスキルを選ぶと、効果を確認できます。','Choose a weapon or skill to see its effect.')}</p></div>`;
+ const info=itemInfo(id,kind),stock=equipmentStock(id,kind,inventory);
+ return `<div class="equipment-detail-heading"><div><small>${equipmentKind(id,kind)}</small><strong>${escape(info.name)}</strong></div></div><div class="equipment-detail-effect"><h3>${local('効果','Effect')}</h3><p>${escape(info.note)}</p></div>${stock.empty?`<p class="equipment-detail-note">${local('未保有です。マップのカプセルから入手できます。','Not in stock. Collect capsules on the map.')}</p>`:''}`;
+}
+// Companion-screen introductions: personality and purpose, separate from exact ability data.
+const companionIntroductions={
+ gun:{ja:'重い一撃で道を開く、頼もしい重装の仲間。港の作業路を直し、荷物が行き交う音を取り戻すために進む。',en:'A dependable heavyweight who opens the way with two powerful blasts. Gun wants to repair the port roads and hear cargo moving again.'},
+ hana:{ja:'道標を直し、次の旅人を迷わせないやさしい仲間。連華砲の九連射にも、誰かを思う気づかいにも手を抜かない。',en:'A gentle companion who repairs signposts for the next traveller. Nine-round Flower Salvo brings the same care to a full volley as a helping hand.'},
+ koro:{ja:'止まった荷物も、待っている想いも届けたい六輪の運び手。地面を転がる爆走砲とともに、道の先を目指す。',en:'A six-wheeled courier determined to deliver every stranded package. Rolling Blast Cannon travels along the ground; Koro keeps looking for the road ahead.'},
+ ban:{ja:'閉ざされた道を開き、役に立ちたい突破役。衝撃砲の三段の波に、みんなが進める道をつくる願いを込める。',en:'A pathfinder who wants to put a powerful frame to good use. Three forward shockwaves carry a wish to open a road everyone can share.'},
+ sora:{ja:'帰る誰かのため、遠くの誘導灯をともしたい仲間。空から十二発の流星を降らせ、見上げた先に希望を探す。',en:'Sora hopes to relight the distant beacons that guide travellers home. Twelve falling stars answer that hope with a Meteor Cannon strike from above.'},
+ rico:{ja:'行き止まりにも、まだ先があると信じる冒険家。跳ねるほど強くなる跳弾砲で、思いがけない道を切り拓く。',en:'An explorer who sees possibility in every dead end. Ricochet Cannon grows stronger with each bounce, rewarding a shot that takes the unexpected route.'},
+ hibari:{ja:'遠くから届く古い呼出信号を追う偵察役。二枚の光輪を広げ、まだ見ぬ送り主とのつながりを探している。',en:'A curious scout following an old call from far away. Two expanding rings echo the search for a connection with a sender still waiting.'},
+ mogu:{ja:'壊すべきものと、残すべき支えを見分けたい解体の職人。前へ進む三段爆発で、みんなが通れる道をつくる。',en:'A demolition craftsperson who knows some supports are worth keeping. Three advancing blasts help Mogu build a road for everyone who follows.'},
+ rin:{ja:'待つ誰かへ、止めた予報を届け直したい狙撃手。一点へ束ねる収束砲のように、静かな狙いに想いを込める。',en:'A marksman hoping to resume the forecasts someone still awaits. Focus Cannon gathers spreading rounds into one piercing shot, giving a quiet aim purpose.'},
+ yui:{ja:'途切れた記録をたどり、助けを頼めるつながりを取り戻したい支え役。相手を引き寄せる重力砲で、仲間の前進を支える。',en:'A supporter restoring a network where help can be asked for. Gravity Cannon draws opponents inward, turning the power to connect toward the journey ahead.'}
+};
+function decorateCompanions(container,data,character){
+ for(const card of container.querySelectorAll('[data-inspect-character]')){
+  const id=card.dataset.inspectCharacter,special=root.ArcI18n.t(C.get(id).special.name),label=card.querySelector('small'),lock=label.querySelector('svg');
+  label.textContent=special;label.className='companion-special';card.querySelector('.roster-role')?.remove();card.setAttribute('aria-label',card.getAttribute('aria-label')+' · '+special);
+  const hp=document.createElement('span');hp.className='companion-hp';hp.textContent='HP '+C.get(id).hp;card.append(hp);card.setAttribute('aria-label',card.getAttribute('aria-label')+' · '+hp.textContent);
+  if(lock){lock.classList.add('companion-lock');card.querySelector('.ch-art').append(lock);}
+  if(id===data.equippedCharacterId){const marker=document.createElement('span');marker.className='companion-current-marker';marker.textContent='✓';marker.setAttribute('aria-hidden','true');card.querySelector('.ch-art').append(marker);}
  }
- collectionRefresh=paint;root.ArcScreens.open('collectionPanel',{trigger:options.trigger,onEscape:()=>closeCollection()});paint();$('closeCollection').focus({preventScroll:true});
+ const profile=container.querySelector('.machine-profile'),machine=A.get(character),copy=profile.querySelector('.ch-copy-body');
+ profile.querySelector('.ch-name').textContent=local(machine.nameJa,machine.name);profile.querySelector('.ch-name-ja')?.remove();profile.querySelector('.ch-motto')?.remove();
+ copy.insertBefore(copy.querySelector('.ch-description'),copy.querySelector('.ch-facts'));copy.querySelector('.ch-facts')?.remove();copy.querySelector('.ch-id')?.remove();
+ const state=profile.querySelector('.ch-state'),confirm=profile.querySelector('[data-confirm-character]'),selected=character===data.equippedCharacterId,blocked=root.ArcCrewUsage?.blocked(data,character);
+ if(selected){
+  const heading=document.createElement('div');heading.className='companion-heading';copy.insertBefore(heading,copy.querySelector('.ch-name'));heading.append(copy.querySelector('.ch-name'),state);state.textContent=blocked?local('編成中・補充あと'+root.ArcCrewUsage.remaining(data,character)+'面','Selected · Resupply: '+root.ArcCrewUsage.remaining(data,character)+' stages'):local('✓ 編成中','✓ Selected');confirm.remove();
+ }else if(!Crew.owned(data,character)||blocked){
+  if(blocked)state.textContent=local('補充あと'+root.ArcCrewUsage.remaining(data,character)+'面','Resupply: '+root.ArcCrewUsage.remaining(data,character)+' stages');
+  copy.insertBefore(state,copy.querySelector('.ch-description'));confirm.remove();
+ }else state.remove();
+}
+let collectionRefresh=null;
+function showCollection(data,onEquip,initialView='characters',options={}){
+ let view=['weapons','skills'].includes(initialView)?initialView:'characters',scope=options.scope==='owned'?'owned':'all',character=data.equippedCharacterId;
+ const inventory=options.inventory||data.campaignInventory||{weapons:{},skills:{}},positions={},expanded={};
+ const ids=(kind,filter=scope)=>{
+  const held=Object.keys(inventory[kind]||{}).filter(id=>inventory[kind][id]>0);
+  return kind==='weapons'?['W01',...(filter==='owned'?held:[...W.activeIds,...held.filter(id=>!W.activeIds.includes(id))])].filter((id,i,all)=>all.indexOf(id)===i):filter==='owned'?held:[...root.ArcSkills.activeIds,...held.filter(id=>!root.ArcSkills.activeIds.includes(id))];
+ };
+ const selected={weapons:{owned:'W01',all:'W01'},skills:{owned:ids('skills','owned')[0]||null,all:ids('skills','all')[0]||null}};
+ const pane=$('collectionGrid'),panel=$('collectionPanel'),key=()=>view==='characters'?view:view+':'+scope;
+ function remember(){
+  const previous=pane.dataset.collectionState;if(!previous)return;
+  positions[previous]=[...pane.querySelectorAll('[data-collection-scroll]')].map(e=>e.scrollTop);
+  const abilities=pane.querySelector('.ch-abilities');if(abilities)expanded[pane.querySelector('[data-machine]').dataset.machine]=abilities.open;
+ }
+ function focus(selector){panel.querySelector(selector)?.focus({preventScroll:true});}
+ function switchView(next,nextScope=scope,keepItem=false){
+  const current=view!=='characters'?selected[view][scope]:null;
+  remember();view=next;scope=nextScope;
+  if(keepItem&&current&&ids(view).includes(current))selected[view][scope]=current;
+  paint();
+  if(keepItem)pane.querySelector('[data-equipment-id="'+selected[view][scope]+'"]')?.scrollIntoView({block:'nearest'});
+ }
+ function bindTabs(selector,activate){
+  const tabs=[...panel.querySelectorAll(selector)];for(const b of tabs){b.tabIndex=b.getAttribute('aria-selected')==='true'?0:-1;b.onclick=()=>activate(b);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();tabs[e.key==='Home'?0:e.key==='End'?tabs.length-1:(tabs.indexOf(b)+(e.key==='ArrowLeft'?-1:1)+tabs.length)%tabs.length].click();};}
+ }
+ function paint(){
+  panel.dataset.equipmentCatalog=String(view!=='characters');panel.dataset.collectionView=view;panel.dataset.collectionScope=scope;
+  $('collectionTitle').textContent=local('仲間・持ち物','Companions & inventory');$('closeCollection').textContent=local('ホームへ ×','Home ×');$('closeCollection').setAttribute('aria-label',local('ホームへ戻る','Return home'));
+  $('collectionNav').setAttribute('aria-label',local('確認する項目','Browse category'));
+  $('collectionNav').innerHTML=['characters','weapons','skills'].map(kind=>`<button id="collectionTab-${kind}" data-collection-tab="${kind}" role="tab" aria-controls="collectionContent" aria-selected="${view===kind}">${kind==='characters'?local('仲間','Companions')+' '+data.unlockedCharacterIds.length+'/10':kind==='weapons'?local('武器','Weapons'):local('スキル','Skills')}</button>`).join('');
+  let body='';
+  const heading=local(view==='characters'?'仲間':view==='weapons'?'武器':'スキル',view==='characters'?'Companions':view==='weapons'?'Weapons':'Skills');
+  if(view==='characters'){
+   body+=`<div id="collectionContent" role="tabpanel" aria-labelledby="collectionTab-characters" class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('仲間の一覧。選ぶと詳細を表示','Companions. Select to inspect')}" data-collection-scroll>${Crew.rows.map(r=>root.ArcCharacterHero.tile(r.id,data,character,language())).join('')}</div><section class="machine-profile" aria-label="${escape(heading)}">${root.ArcCharacterHero.markup(character,{data,lang:language(),description:companionIntroductions[character][language()==='en'?'en':'ja']})}</section></div>`;
+  }else{
+   const list=ids(view),id=selected[view][scope]=list.includes(selected[view][scope])?selected[view][scope]:list[0]||null,skill=view==='skills',attribute=scope==='all'?'data-item-record':skill?'data-stock-skill':'data-choose-weapon';
+   body+=`<div class="collection-scope" role="tablist" aria-label="${escape(heading+' '+local('表示範囲','scope'))}" data-story-raw><button id="collectionOwned" data-collection-scope="owned" role="tab" aria-controls="collectionEquipment" aria-selected="${scope==='owned'}">${local(skill?'保有スキル':'保有武器',skill?'Owned skills':'Owned weapons')} <span>${ids(view,'owned').length}</span></button><button id="collectionCatalog" data-collection-scope="all" role="tab" aria-controls="collectionEquipment" aria-selected="${scope==='all'}">${local(skill?'スキル図鑑':'武器図鑑',skill?'Skill catalog':'Weapon catalog')} <span>${ids(view,'all').length}</span></button></div><div id="collectionContent" role="tabpanel" aria-labelledby="collectionTab-${view}" class="collection-equipment-content"><div id="collectionEquipment" class="equipment-records" role="tabpanel" aria-labelledby="${scope==='owned'?'collectionOwned':'collectionCatalog'}" data-story-raw><div class="equipment-grid" role="group" aria-label="${escape(heading+' '+local('一覧','list'))}" data-collection-scroll>${list.length?list.map(id=>equipmentCard(id,view,inventory,attribute,id===selected[view][scope])).join(''):`<div class="stock-empty"><strong>${local('保有スキルはありません','No skills in stock')}</strong><p>${local('マップのカプセルから入手できます。図鑑ですべての効果を確認できます。','Collect capsules on the map. Explore every effect in the catalog.')}</p><button type="button" data-empty-catalog>${local('スキル図鑑を見る','Explore skill catalog')} →</button></div>`}</div><section class="equipment-inspector equipment-detail-panel" aria-live="polite" data-collection-scroll>${equipmentDetail(id,view,inventory)}</section></div></div>`;
+  }
+  pane.innerHTML=body;pane.dataset.collectionState=key();
+  if(view==='characters'){
+   decorateCompanions(pane,data,character);
+   pane.querySelector('.ch-copy-body').dataset.collectionScroll='';const abilities=pane.querySelector('.ch-abilities');if(abilities)abilities.open=!!expanded[character];
+   A.paintAll(pane);root.ArcCharacterHero.hydrate(pane);
+  }
+  [...pane.querySelectorAll('[data-collection-scroll]')].forEach((e,i)=>e.scrollTop=positions[key()]?.[i]||0);
+  bindTabs('[data-collection-tab]',b=>{const next=b.dataset.collectionTab;switchView(next);focus('[data-collection-tab="'+next+'"]');});
+  bindTabs('[data-collection-scope]',b=>{const next=b.dataset.collectionScope;switchView(view,next,true);focus('[data-collection-scope="'+next+'"]');});
+  for(const b of pane.querySelectorAll('[data-equipment-id]'))b.onclick=()=>{
+   selected[view][scope]=b.dataset.equipmentId;
+   for(const card of pane.querySelectorAll('[data-equipment-id]')){const active=card===b;card.setAttribute('aria-pressed',String(active));card.querySelector('.equipment-item-status').textContent=active?'✓':'';}
+   const detail=pane.querySelector('.equipment-inspector');detail.innerHTML=equipmentDetail(b.dataset.equipmentId,view,inventory);detail.scrollTop=0;
+  };
+  pane.querySelector('[data-empty-catalog]')?.addEventListener('click',()=>{switchView(view,'all');focus('#collectionCatalog');});
+  for(const b of pane.querySelectorAll('[data-inspect-character]'))b.onclick=()=>{remember();character=b.dataset.inspectCharacter;if(positions.characters)positions.characters[1]=0;paint();focus('[data-inspect-character="'+character+'"]');};
+  const confirm=pane.querySelector('[data-confirm-character]');
+  if(confirm){
+   if(root.ArcCrewUsage?.blocked(data,character)){confirm.disabled=true;confirm.textContent=local('補充あと'+root.ArcCrewUsage.remaining(data,character)+'面','Resupply: '+root.ArcCrewUsage.remaining(data,character)+' stages');}
+   else if(!confirm.disabled)confirm.textContent=local('この仲間を選ぶ','Choose this companion');
+   confirm.onclick=()=>{if(!Crew.owned(data,character)||root.ArcCrewUsage?.blocked(data,character))return;if(onEquip({characterId:character})===false)return;closeCollection();};
+  }
+ }
+ collectionRefresh=()=>{const active=document.activeElement,selector=active?.dataset.equipmentId?'[data-equipment-id="'+active.dataset.equipmentId+'"]':active?.dataset.inspectCharacter?'[data-inspect-character="'+active.dataset.inspectCharacter+'"]':active?.id?'#'+active.id:null;remember();paint();if(selector)focus(selector);};
+ root.ArcScreens.open('collectionPanel',{trigger:options.trigger,block:['lobby','battle'],cycleFocus:true,onEscape:closeCollection});pane.removeAttribute('data-collection-state');paint();focus('[data-collection-tab="'+view+'"]');
 }
 root.addEventListener('arcline-language',()=>{if(!$('collectionPanel').hidden)collectionRefresh?.();if(!$('weaponPicker').hidden)weaponRefresh?.();});
 function closeCollection(){root.ArcScreens.close('collectionPanel');}
 let weaponRefresh=null;
-function closeWeapons(){$('weaponPicker').hidden=true;($('battle').hidden?$('openCollection'):$('weaponToggle')).focus({preventScroll:true});}
+function closeWeapons(){root.ArcScreens.close('weaponPicker');}
 function showWeapons(choices,current,onSelect,options={}){
- const library=!!options.library,skills=Object.entries(options.skills||{}).filter(([,n])=>n>0),aux=choices.filter(c=>c.id!=='W01'&&!((c.weapon||W.get(c.id)).special)&&c.ammo>0),total=aux.reduce((n,c)=>n+c.ammo,0),skillTotal=skills.reduce((n,[,count])=>n+count,0),scroller=$('weaponStockScroll'),positions={weapons:0,skills:0};let tab='weapons';
- $('weaponPickerTitle').textContent=options.title||'Choose weapon';document.querySelector('.weapon-picker-note').textContent=options.note||'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.';
- $('weaponPicker').dataset.stockLibrary=String(library);$('weaponChoices').setAttribute('role',library?'tabpanel':'group');$('weaponChoices').setAttribute('aria-labelledby',library?'inventoryWeaponsTab':'weaponPickerTitle');$('inventoryTabs').hidden=!library;$('openLibrary').hidden=!library;
- const refresh=()=>{
-  $('weaponInventorySummary').textContent=library?local(`武器${aux.length}種類・${total}発 / スキル${skills.length}種類・${skillTotal}回`,`${aux.length} weapon types · ${total} shots / ${skills.length} skill types · ${skillTotal} uses`):local(`補助武器${aux.length}種類・残数${total}発`,`${aux.length} auxiliary types · ${total} shots`);
-  $('inventoryWeaponsTab').textContent=local('武器','Weapons')+' '+aux.length;$('inventorySkillsTab').textContent=local('スキル','Skills')+' '+skills.length;
-  $('chapterSkillStock').innerHTML=skills.length?skills.map(([id,n])=>{const info=root.ArcSkills.get(id);return `<article class="inventory-skill${info?.rare?' rare':''}" data-stock-skill="${id}"><i aria-hidden="true">${root.ArcSkills.markup(id)}</i><div><strong>${escape(root.ArcI18n.t(info?.name||id))}</strong>${info?`<small>${escape(root.ArcI18n.t(info.note))}</small>`:''}</div><b class="inventory-count">×${n}</b></article>`;}).join(''):`<p class="stock-empty">${local('保有スキルはありません。マップのカプセルから入手できます。','No skills in stock. Collect capsules on the map.')}</p>`;
+ const aux=choices.filter(c=>c.id!=='W01'&&!((c.weapon||W.get(c.id)).special)&&c.ammo>0),total=aux.reduce((n,c)=>n+c.ammo,0),scroller=$('weaponStockScroll');
+ $('weaponPicker').dataset.stockLibrary='false';
+ $('weaponChoices').setAttribute('role','group');$('weaponChoices').setAttribute('aria-labelledby','weaponPickerTitle');
+ let category=null;
+ $('weaponChoices').innerHTML=choices.map(choice=>{const heading=options.grouped&&choice.category!==category?`<h3 class="weapon-group-heading">${choice.category==='machine'?'Machine weapons':'Picked auxiliary'}</h3>`:'';category=choice.category;const w=choice.weapon||W.get(choice.id),selected=choice.id===current,empty=!!choice.disabled||choice.ammo<=0,stock=choice.id==='W01'?'Unlimited':`${choice.ammo} ${choice.ammo===1?'shot':'shots'}`,source=choice.id==='W01'?'Always available':choice.source||'Carries across chapters';return heading+`<button type="button" data-choose-weapon="${choice.id}" class="${selected?'selected ':''}${empty?'empty':''}" ${empty?'disabled':''} aria-pressed="${selected}" aria-label="${escape(w.name)}, ${stock}, ${empty?'empty':selected?'selected':source}" style="--weapon-color:${w.appearance.color}"><i aria-hidden="true">${W.iconMarkup(choice.id)}</i><span class="weapon-choice-copy"><strong>${escape(itemInfo(choice.id).name)}</strong><small>${escape(source)}</small></span><span class="weapon-choice-stock"><span>${stock}</span><small>${empty?'Empty':selected?'Selected':'Select'}</small></span></button>`;}).join('');
+ weaponRefresh=()=>{
+  $('weaponPickerTitle').textContent=options.title||'Choose weapon';document.querySelector('.weapon-picker-note').textContent=options.note||'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.';
+  $('weaponInventorySummary').textContent=local(`補助武器${aux.length}種類・残数${total}発`,`${aux.length} auxiliary types · ${total} shots`);
+  for(const card of $('weaponChoices').querySelectorAll('[data-choose-weapon]')){const i=itemInfo(card.dataset.chooseWeapon);card.querySelector('strong').textContent=i.name;card.querySelector('.weapon-choice-copy small').textContent=i.note;card.setAttribute('aria-label',i.name+', '+stockLabel(card.dataset.chooseWeapon,'weapons',{weapons:Object.fromEntries(choices.map(c=>[c.id,c.ammo]))}));}
  };
- weaponRefresh=refresh;refresh();
- let category=null;$('weaponChoices').innerHTML=choices.map(choice=>{const heading=options.grouped&&choice.category!==category?`<h3 class="weapon-group-heading">${choice.category==='machine'?'Machine weapons':'Picked auxiliary'}</h3>`:'';category=choice.category;const w=choice.weapon||W.get(choice.id),selected=choice.id===current,empty=!!choice.disabled||choice.ammo<=0,stock=choice.id==='W01'?'Unlimited':`${choice.ammo} ${choice.ammo===1?'shot':'shots'}`,source=choice.id==='W01'?'Always available':choice.source||'Carries across chapters';return heading+`<button type="button" data-choose-weapon="${choice.id}" class="${selected?'selected ':''}${empty?'empty':''}" ${empty?'disabled':''} aria-pressed="${selected}" aria-label="${escape(w.name)}, ${stock}, ${empty?'empty':selected?'selected':source}" style="--weapon-color:${w.appearance.color}"><i aria-hidden="true">${W.iconMarkup(choice.id)}</i><span class="weapon-choice-copy"><strong>${escape(w.name)}</strong><small>${source}</small></span><span class="weapon-choice-stock"><span>${stock}</span><small>${empty?'Empty':selected?'Selected':'Select'}</small></span></button>`;}).join('');
- const switchTab=(next,focus=false)=>{positions[tab]=scroller.scrollTop;tab=next;document.querySelector('.weapon-picker-note').hidden=library&&tab==='skills';$('weaponChoices').hidden=tab!=='weapons';$('chapterSkillStock').hidden=tab!=='skills';$('openLibrary').hidden=!library||tab!=='weapons';for(const name of ['weapons','skills']){const b=$(name==='weapons'?'inventoryWeaponsTab':'inventorySkillsTab'),active=name===tab;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;if(active&&focus)b.focus({preventScroll:true});}scroller.scrollTop=positions[tab];};
- for(const name of ['weapons','skills']){const b=$(name==='weapons'?'inventoryWeaponsTab':'inventorySkillsTab');b.onclick=()=>switchTab(name);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();switchTab(e.key==='Home'?'weapons':e.key==='End'?'skills':tab==='weapons'?'skills':'weapons',true);};}
- switchTab('weapons');
- $('weaponChoices').querySelectorAll('[data-choose-weapon]').forEach(button=>button.onclick=()=>{if(button.disabled)return;closeWeapons();onSelect(button.dataset.chooseWeapon);});$('closeWeapons').onclick=closeWeapons;$('weaponPicker').hidden=false;scroller.scrollTop=0;const selected=$('weaponChoices').querySelector('.selected:not(:disabled)')||$('weaponChoices').querySelector('button:not(:disabled)');selected?.focus({preventScroll:true});if(selected&&options.grouped&&selected.dataset.chooseWeapon!=='W01'&&!W.get(selected.dataset.chooseWeapon).special)selected.scrollIntoView({block:'nearest'});
+ weaponRefresh();
+ for(const button of $('weaponChoices').querySelectorAll('[data-choose-weapon]'))button.onclick=()=>{if(button.disabled)return;closeWeapons();onSelect(button.dataset.chooseWeapon);};
+ $('closeWeapons').onclick=closeWeapons;root.ArcScreens.open('weaponPicker',{trigger:$('weaponToggle'),block:['lobby','battle'],cycleFocus:true,onEscape:closeWeapons});scroller.scrollTop=0;const selected=$('weaponChoices').querySelector('.selected:not(:disabled)')||$('weaponChoices').querySelector('button:not(:disabled)');selected?.focus({preventScroll:true});if(selected&&options.grouped&&selected.dataset.chooseWeapon!=='W01'&&!W.get(selected.dataset.chooseWeapon).special)selected.scrollIntoView({block:'nearest'});
 }
-root.ArcPresentation={syncLobby,renderJourney,showCollection,closeCollection,showWeapons,closeWeapons};
+root.ArcPresentation={itemInfo,syncLobby,renderJourney,showCollection,closeCollection,showWeapons,closeWeapons};
 })(globalThis);

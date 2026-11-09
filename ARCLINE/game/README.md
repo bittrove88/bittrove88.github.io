@@ -1,4 +1,10 @@
-**0.29.7 敵の移動演出：** 41面以降の歩行を自機と同じ160px/秒へ。71面以降は転移弾の飛翔後に移動し、自機と同じ転移光輪を表示。[範囲・検証](../docs/releases/0.29.7.md)。mainマージ・公開は未実施。
+**0.30.2 敵の移動演出：** 41面以降の歩行を自機と同じ160px/秒へ。71面以降は転移弾の到達後に移動し、自機と同じ光輪を表示。main0.30.1のHP・行動上限・メニューを保持。[範囲・統合検証](../docs/releases/0.30.2.md)。未マージ・本番未反映。
+
+0.30.1：main0.30.0のHP/行動上限とHUDを保持して、設定・ストーリー・共通装備カードのUIを統合。装備カードは64pxへ縮小し、名称・アイコン・保有数と詳細の効果・種類を分けて重複を除去。TOPは `styles/chapter-flow.css` の旧3列指定を除去し、2列へ復帰。`styles/player-flow.css` と `menu-ui.css` で操作高を確保。仲間のHP/必殺技名と解放状態、番号と重複HPのない詳細、名前横の状態だけで無効ボタンを置かない表示、紹介文は `dist/presentation.js`、ペイン比率と内容幅の操作は `styles/menu-ui.css`。共通原画・戦闘・物語データは維持。仲間・保有・両図鑑は `dist/presentation.js` の単一画面へ統合し、`dist/game.js` のホーム入口から直行。カテゴリ/保有範囲の選択と各スクロール位置を保持。`ui/screens.js` のフォーカス制御は tabindex=-1 を除外。`runtime.json` と正式生成で0.30.1へ同期。[範囲・検証](../docs/releases/0.30.1.md)。
+
+0.30.0：テーマ共通HP・行動上限と難易度HPは `design/combat_balance.json` が正本。Easyは75％・上限80、最終戦は自機HP100・各担当150（Easy80）・各20行動。[実装・検証](docs/releases/0.30.0.md)。
+
+0.29.7：設定ワークスペース・ストーリー三階層・図鑑は手書きの `dist/menus.js`・`presentation.js`・`index.html`、削除UIは `ui/onboarding.js`、難易度直行は `ui/difficulty-ui.js`、画面調整は `styles/menu-ui.css`。ロビーの確認は閲覧専用にし、武器／スキル図鑑への入口を固定。`presentation.js` の共通カード・詳細で確認画面と図鑑を統一し、戦闘用CSSはネイティブ武器選択へ限定。章一覧は状態別のコンパクトな行へ変更。戦闘の既存選択は維持。[範囲と検証](../docs/releases/0.29.7.md)。
 
 0.29.4：マスターモードの進行・在庫編集は `dist/master-progress.js`、画面は `ui/master-mode.js` と `styles/master-mode.css`。現行カタログと在庫上限を使い、永続在庫と出撃チェックポイントを同時更新。[範囲](../docs/releases/0.29.4.md)。
 
@@ -22,6 +28,8 @@
 0.24.3：初期画面内の46カプセルを保証する表示と31個の配置調整は `dist/render.js`／`design/pickup_placements.json`。難易度カードの枠内折返しは `styles/chapter-flow.css`、低い天井の説明の画角は `dist/preview.js`。ボス戦開始時の `audio-manager.prepare` と `ending_media.json` の勝利曲開始位置0.21秒で読み込み待ちと先頭無音を削減。原音源・保存・地形・物理は維持。[検証](../docs/releases/0.24.3.md)。
 
 # コードと生成物の編集先
+
+[砲撃ゲーム開発ガイド](../docs/design/ARCLINE_GAME_DEVELOPMENT_GUIDE.md)を設計と改修の共通入口にする。分野別の正本・連動範囲から、実装・表示・保存・確認画面までを一つの変更として扱う。`dist/` の編集可否は `runtime.json` の `generated` だけでなく、`tools/generation.py` と各生成スクリプトでも確認する。
 
 2026-11-07 美術1.9：空中庭園81〜85面の素材配色と名称だけを `design/components/complete/data/normal-16.json` で更新し、明示依頼を `runtime-approval.json` に記録。`ui/component-art.js` は地盤の閉じ底を線で描かず、元の材質面を地中へ連続表示する。カメラによって地表側の模様を伸縮させず、衝突ポリゴンは変更しない。有限の浮島・壁には従来の輪郭を残す。[範囲と確認](../evidence/garden-surface-20261107/README.md)。
 

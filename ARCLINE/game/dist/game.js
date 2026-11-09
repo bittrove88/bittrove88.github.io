@@ -78,11 +78,8 @@ function showLevels(){
 function confirmChapter(stage){
  clearInput();chapterConfirm=stage;$('levelPicker').hidden=true;dialog='chapter';$('overlay').dataset.kind='chapter';$('resultIcon').textContent='↻';$('modalEyebrow').textContent='CHAPTER';$('modalTitle').textContent=`Restart chapter ${R.chapter(stage)}?`;$('modalDetail').textContent='Stock and pickup history are carried forward.';$('resume').textContent='START CHAPTER';$('resume').disabled=false;$('returnLobby').textContent='CANCEL';$('resultJourney').hidden=true;$('endingCollection').hidden=true;$('overlay').hidden=false;$('returnLobby').focus();
 }
-function openChapterInventory(){
- if(hostPaused())return;const context=R.inspect(save.data,selectedMap+1);
- const choices=[{id:'W01',ammo:Infinity},...Object.entries(context.entry.inventory.weapons).map(([id,ammo])=>({id,ammo,source:'Carries across chapters'}))];
- ArcPresentation.showWeapons(choices,context.entry.mode||'W01',id=>{if(R.chooseWeapon(save.data,selectedMap+1,id))save.save();syncLobby();},{title:'Chapter inventory',note:'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.',library:true,skills:context.entry.inventory.skills});
-}
+function openChapterInventory(){openEquipment('weapons','owned');}
+
 function openLoot(continuation){
  if(!s?.pendingLoot.length)return false;clearInput();lootContinuation=continuation;$('lootPicker').hidden=false;paintLoot();hud();return true;
 }
@@ -198,7 +195,7 @@ function firstDemo(){
 }
 function paintEncounter(){
  const data=s&&encounter&&ArcStory.entry(s.stage,ArcI18n.language);$('bossIntroSkip').hidden=!encounter?.boss||!!demo||!!s?.result||manualPaused||reducedMotion;$('bossIntroSkip').textContent=ArcI18n.language==='en'?'Skip intro':'登場演出をスキップ';$('encounterBanner').dataset.phase=encounter?.boss?ArcExperience.introPhase(encounter.age):'name';$('encounterBanner').hidden=!data||!!demo||!!s?.result||manualPaused;
- if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id),value=key==='feature'&&ArcFinalTeam.active(s)?(ArcI18n.language==='en'?'Each machine:70 HP and100 body damage. The ground collapses after every three.':'各機HP70・本体へ100ダメージ。3機ごとに地形が崩壊し次の戦場へ。'):data[key];if(e.textContent!==value)e.textContent=value;e.hidden=!value;}
+ if(!data)return;for(const [id,key]of [['encounterKind','kind'],['encounterName','name'],['encounterFeature','feature'],['encounterLine','line']]){const e=$(id),value=key==='feature'&&ArcFinalTeam.active(s)?(ArcI18n.language==='en'?`Each machine: ${s.spec.finalBattle.fixedHp} HP and ${E.combat.points(s.spec.finalBattle.requiredDamage)} body damage. The ground collapses after every three.`:`各機HP${s.spec.finalBattle.fixedHp}・本体へ${E.combat.points(s.spec.finalBattle.requiredDamage)}ダメージ。3機ごとに地形が崩壊し次の戦場へ。`):data[key];if(e.textContent!==value)e.textContent=value;e.hidden=!value;}
 }
 $('bossIntroSkip').onclick=()=>{if(encounter?.boss){encounter=null;clearInput();renderer.resetCamera();paintEncounter();hud();draw();$('world').focus({preventScroll:true});}};
 function paintResultStory(){if(s?.result==='win')ArcStoryView.showResult(s.stage);else ArcStoryView.hideResult();}
@@ -264,7 +261,7 @@ function finishResult(){
  $('resume').disabled=false;$('resume').textContent=final?(ArcI18n.language==='en'?'Watch the epilogue':'エピローグへ'):[30,60].includes(s.stage)&&s.result==='win'?(ArcI18n.language==='en'?'See what follows':'その後を見る'):s.result==='win'?'NEXT LEVEL':'TRY AGAIN';$('returnLobby').textContent=final?'COLLECTION':'JOURNEY';$('resultJourney').hidden=true;
  const finalRetry=ArcFinalTeam.active(s)&&s.result!=='win'&&!!finalRetryEntry;
  $('overlay').dataset.finalRetry=String(finalRetry);$('retryFinalCharacter').hidden=!finalRetry;
- if(finalRetry){const english=ArcI18n.language==='en';$('retryFinalCharacter').textContent=english?'Retry this machine':'このキャラから再挑戦';$('resume').textContent=english?'Restart all ten':'先頭から再挑戦';$('modalDetail').textContent=english?'Retry this machine with full HP, 3 special charges and 28 actions. Its damage and stock return to its relay entry. Completed machines stay complete.':'このキャラの出撃時点に戻します。HP・必殺技3チャージ・28行動を回復し、このキャラの与ダメージと持ち物を出撃時へ戻します。達成済みキャラは維持します。';}
+ if(finalRetry){const english=ArcI18n.language==='en';$('retryFinalCharacter').textContent=english?'Retry this machine':'このキャラから再挑戦';$('resume').textContent=english?'Restart all ten':'先頭から再挑戦';$('modalDetail').textContent=english?`Retry this machine with ${s.spec.finalBattle.fixedHp} HP, ${s.spec.finalBattle.specialAmmo} special charges and ${s.shotLimit} actions. Its damage and stock return to its relay entry. Completed machines stay complete.`:`このキャラの出撃時点に戻します。HP${s.spec.finalBattle.fixedHp}・必殺技${s.spec.finalBattle.specialAmmo}チャージ・${s.shotLimit}行動を回復し、このキャラの与ダメージと持ち物を出撃時へ戻します。達成済みキャラは維持します。`;}
  $('endingCollection').hidden=!final;$('endingCollection').textContent=final?save.data.unlockedWeaponIds.map(id=>ArcWeapons.get(id).appearance.glyph).join('　'):'';
  $('battle').classList.add('resolved');$('overlay').hidden=false;$('resume').focus();if(!(s.result==='win'&&victoryToken===gameToken))tone(s.result==='win'?660:220,.4,'triangle');
  if(advanced){if([30,60,100].includes(s.stage))save.data.journal.pendingMovie=s.stage===100?'epilogue':String(s.stage);persistAdvance();}
@@ -373,9 +370,8 @@ $('replayClearMovie').onclick=()=>{if(ArcStoryView.active||save.data.journal.pen
 $('play').onclick=start;$('prevMap').onclick=()=>switchMap(-1);$('nextMap').onclick=()=>switchMap(1);$('chooseLevel').onclick=showLevels;$('closeLevels').onclick=()=>{$('levelPicker').hidden=true;$('chooseLevel').focus();};
 $('retryFinalCharacter').onclick=()=>{if(dialog!=='result'||!s?.result||s.result==='win'||!ArcFinalTeam.active(s)||!finalRetryEntry)return;selectedMap=99;start({finalRetry:finalRetryEntry});};
 $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.target.value;save.save();syncLobby();};
-function openEquipment(view='characters'){if(hostPaused()||ArcStoryView.active||ArcExpeditionUi.active)return;clearInput();ArcPresentation.showCollection(save.data,change=>{if(change.characterId&&!ArcCrew.owned(save.data,change.characterId))return false;if(change.weaponId)save.data.equippedWeaponId=change.weaponId;if(change.characterId)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();return true;},view,{trigger:view==='characters'?$('openCharacters'):$('openCollection')});}
+function openEquipment(view='characters',scope='owned'){if(hostPaused()||ArcStoryView.active||ArcExpeditionUi.active)return;clearInput();ArcPresentation.showCollection(save.data,change=>{if(change.characterId&&!ArcCrew.owned(save.data,change.characterId))return false;if(change.weaponId)save.data.equippedWeaponId=change.weaponId;if(change.characterId)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();return true;},view,{scope,trigger:view==='characters'?$('openCharacters'):$('openCollection'),inventory:R.inspect(save.data,selectedMap+1).entry.inventory});}
 $('openCollection').onclick=openChapterInventory;$('openCharacters').onclick=()=>openEquipment('characters');
-$('openLibrary').onclick=()=>{ArcPresentation.closeWeapons();openEquipment('weapons');};
 $('lootSkip').onclick=()=>finishLoot(null,true);
 $('closeCollection').onclick=()=>ArcPresentation.closeCollection();$('pauseMachineChange').onclick=openBattleMachines;
 $('pause').onclick=pause;$('resume').onclick=async()=>{if(hostPaused()||ArcStoryView.active||movieOpening)return;
@@ -452,7 +448,6 @@ ArcI18n.install();
 syncLobby();$('loading').hidden=true;$('app').hidden=false;draw();sdk?.game.firstFrameReady();$('play').disabled=true;
 ArcOnboarding.install({data:()=>save.data,persist:()=>save.ready?save.save():Promise.resolve(true),playMovie:done=>playStoryMovie('prologue',done),trial:done=>difficultyUi.request(done),deleteAvailable:()=>save.ready,canDelete:()=>save.ready&&!s&&!hostPaused()&&!ArcStoryView.active&&!ArcChapterPlayback.active&&(ArcScreens.isOpen('journeyStart')||!ArcOnboarding.active&&!$('lobby').hidden),deleteSave:()=>save.reset(),deleted:()=>{selectedMap=0;lobby();ArcOnboarding.prepare(()=>start());}});
 function openEndingPreview(){
- $('deleteStartSave').hidden=true;
  $('beginJourney').textContent=ArcI18n.language==='en'?'Play ending':'エンディングを再生';
  ArcScreens.open('journeyStart',{block:['lobby','battle'],onEscape(){},cycleFocus:true});
  $('beginJourney').onclick=()=>{globalThis.ArcFullscreen?.enter?.();ArcScreens.close('journeyStart',false);playStoryMovie('epilogue',openEndingPreview,true,$('beginJourney'));};

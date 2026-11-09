@@ -307,7 +307,11 @@
   for (const [id, row] of Object.entries(attacks?.weapons || {})) {
     weaponNames[id] = { ja: row.nameJa, en: row.name };
     weaponNotes[id] = row.noteJa || row.nameJa;
-    weaponNotesEn[id] = row.noteEn || row.name;
+    // Keep an existing effect summary when the imported note only repeats the name.
+    weaponNotesEn[id] =
+      row.noteEn && row.noteEn !== row.name
+        ? row.noteEn
+        : weaponNotesEn[id] || row.name;
   }
   for (const [id, row] of Object.entries(attacks?.specials || {}))
     specialNotes[id] = row.noteJa || row.nameJa;

@@ -38,7 +38,7 @@ for(const power of [60.5,60.67620434,61]){
  const s=E.campaign(10,{equippedCharacterId:'hibari',matchSeed:20261109,battleInventory:{}}),p=E.trajectory(s,0,48,power,{weaponId:'S_HIBARI'});
  near(C.points(p.partDamage[0]),20,'recorded Tideclaw claw is destroyed');
  ok(p.damage[1]>0,'remaining second-ring energy reaches the body after claw destruction');
- if(power===60.67620434){ok(p.events.filter(e=>['damage','part-damage'].includes(e.type)&&e.unit===1).map(e=>C.points(e.value)).join(',')==='5.1,12,2.9,9.1','native recreation of the uploaded clip and restored9.1 body damage');const state=JSON.parse(JSON.stringify(s));E.applyEvents(state,p,Infinity);E.resolve(state,p);near(C.points(state.units[1].hp),190.9,'uploaded-video boss HP becomes190.9');}
+ if(power===60.67620434){ok(p.events.filter(e=>['damage','part-damage'].includes(e.type)&&e.unit===1).map(e=>C.points(e.value)).join(',')==='5.1,12,2.9,9.1','native recreation of the uploaded clip and restored9.1 body damage');const state=JSON.parse(JSON.stringify(s)),initialHp=C.points(s.units[1].hp);E.applyEvents(state,p,Infinity);E.resolve(state,p);near(C.points(state.units[1].hp),initialHp-9.1,'uploaded-video ring retains9.1 body damage at current boss HP');}
  for(const ring of p.events.filter(e=>e.type==='ring')){
   const contacts=p.events.filter(e=>['damage','part-damage'].includes(e.type)&&e.unit===1&&e.bullet===ring.bullet);
   ok(contacts.reduce((sum,e)=>sum+e.value/(e.weak?s.units[1].core.multiplier:1),0)<=.6+1e-7,'one twelve-point wave budget, shared by armor and body');

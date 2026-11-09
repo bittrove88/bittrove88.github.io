@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "敵プレイヤーの歩行速度と転移技の演出を修正（0.29.7）",
-  "reason": "41面の140px歩行を0.45秒へ圧縮する上限を外し自機と同じ160px/秒にする。71面の転移は自機と同じ転移弾描画を使い到達時にのみ移動を確定。実際のWorkerと非Worker、次の手番、PC/小画面、30/120fps、ポーズ、離脱、自機転移と変更対象外のバイトを限定検査する。",
+  "change": "敵プレイヤーの歩行速度と転移技の演出を修正（0.30.2）",
+  "reason": "41面の140px歩行を0.45秒へ圧縮する上限を外し自機と同じ160px/秒にする。71面の転移は自機と同じ転移弾描画を使い到達時にのみ移動を確定。実際のWorkerと非Worker、次の手番、PC/小画面、30/120fps、ポーズ、離脱、自機転移と変更対象外のバイトを限定検査する。 最新main8555e87のHP/行動設定・メニューを保持して競合を解消し、現行値とメニュー接続の限定検査を追加。 先行メニューが変更済みのbattle-catalog英語説明だけ、旧HP検査の固定比較元を承認済みmainへ更新し、他の戦闘・保存固定比較は保持。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -19,19 +19,23 @@
     "ARCLINE/game/tests/enemy-motion-preservation.cjs",
     "ARCLINE/game/tests/enemy-movement-browser.test.cjs",
     "ARCLINE/game/tests/enemy-movement.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance.test.cjs",
     "ARCLINE/game/tests/recruit-ai-preservation.cjs",
     "ARCLINE/game/tests/recruit-enemy-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.29.7/index.html"
+    "ARCLINE/updates/0.30.2/index.html"
   ],
   "suites": {
     "unit": [
-      "enemy-movement"
+      "enemy-movement",
+      "hp-action-balance"
     ],
     "browser": [
-      "enemy-movement-browser"
+      "enemy-movement-browser",
+      "collection-flow-browser",
+      "top-layout-browser"
     ]
   },
   "checks": {

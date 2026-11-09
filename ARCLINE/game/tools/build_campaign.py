@@ -1,6 +1,7 @@
 """Compile individually authored5.0 terrain and its tactical design catalogue."""
 from pathlib import Path
 import json,copy,hashlib
+from balance import apply as apply_balance, DATA as balance_data
 root=Path(__file__).resolve().parents[2]
 blueprints=json.loads((root/'design/expedition_013/stage_blueprints.json').read_text())
 source=root/'design/runtime_campaign_20x5.json'
@@ -47,6 +48,7 @@ for bp,previous in zip(blueprints,campaign['levels']):
     level['lesson']={1:'controls',2:'aim',3:'move',4:'teleport',6:'reflection',7:'destruction',8:'roof',10:'boss-core',21:'C',31:'K',37:'B',41:'U',49:'F',65:'V',71:'M',73:'terminal'}.get(n)
     level['pickups']=[{k:v for k,v in p.items() if k!='stage'} for p in json.loads((root/'design/pickup_placements.json').read_text())['placements'] if p['stage']==n]
     level['enemyHp']=3 if n<=30 else 4 if n<=49 else 5 if n<=79 else 6 if n<=89 else 7;level['recommendedCharacter']=bp['recommended'];level['tacticalGoal']=bp['goal'];level['tacticalGoalEn']=bp.get('goalEn','Choose a firing position and prepare a clear route.');level['enemyProfile']=bp.get('enemyProfile',min(5,(n-1)//20))
+    apply_balance(level)
     records.append({'stage':n,'difficultyBand':band(n),'theme':level['themeName'],'learningGoal':bp['goal'],'mainGimmicks':sorted(set(f['type'] for f in [*bp['features'],*[f for phase in bp.get('phaseFeatures',[]) for f in phase],*[f for m in bp.get('finalBattle',{}).get('maps',[]) for f in m.get('features',[])]])),'terrainIntent':bp['route'],'basicRoute':bp['route'],'alternativeRoute':'割れた遮蔽の除去、歩行できる射点、または広い棚への転移で通常弾の経路を作る。各面の実シミュレーション結果に具体的な操作列を保存する。','advantage':{'character':bp['recommended'],'reason':bp['goal']},'hint':bp['goal'],'enemyInteraction':{'spawn':level['spawn'][1],'movement':'守り手は固有の予告と機構、通常敵は既存の役割に沿って移動。弾の入力へ追従しない。','counterplay':'準備にも敵の手番が返る。遮蔽と射点を先に選ぶ。'},'actionBudget':level['actionLimit'],'expectedActions':bp.get('expectedActions',[3,7] if n<=30 else [5,12] if n<80 else [7,18]),'tolerance':'初級は角度±3°・出力±5を目標。以後も複数の近傍解と安全な準備を確保。','availableStoryCrew':[c['id'] for c in crew if c['stage']<n or c['stage']==0],'testResult':{'status':'pending','report':'stage_verification.json','stage':n}})
     record=records[-1]
     changes=[]
@@ -65,6 +67,8 @@ for bp,previous in zip(blueprints,campaign['levels']):
         record['basicRouteProof']=verified.get('featuredWitness') or verified.get('recommendedWitness') or verified.get('normalWitness')
         record['alternativeRoute']=verified['normalWitness']['description']
         record['alternativeRouteProof']=verified['normalWitness']
+    record['balanceRevision']=balance_data['revision']
+    record['testResult']={**record['testResult'],'status':'HISTORICAL','balanceNote':'掲載の入力列は旧HP・旧上限での履歴。現行バランスの検証はevidence/hp-action-0300を参照。'}
     campaign['levels'][n-1]=level
 campaign['revision']='5.0';campaign['date']='2026-11-02'
 source.write_text(json.dumps(campaign,ensure_ascii=False,indent=2)+'\n')

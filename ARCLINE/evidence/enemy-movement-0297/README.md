@@ -1,3 +1,13 @@
+# 最新main統合後：敵の歩行・テレポート0.30.2
+
+[今回の結果](integrated-0302/ACCEPTANCE.json)／[敵移動の実行記録](integrated-0302/ENEMY_MOVEMENT_BROWSER.json)。main8555e87のHP・行動上限とメニューを保持して競合を解消。限定5スイートと生成物155件の一致が成功。
+
+[PC飛翔](integrated-0302/teleport-flight-1280.png)／[PC到着](integrated-0302/teleport-arrival-1280.png)／[小画面飛翔](integrated-0302/teleport-flight-568.png)／[小画面到着](integrated-0302/teleport-arrival-568.png)。
+
+旧HP検査のbattle-catalog固定比較だけ、先行メニューで承認済みの英語説明の基準へ更新。他の戦闘・保存の固定比較は保持。
+
+以下は初回0.29.6基準の履歴。現在のmain統合の証拠は上記を参照。
+
 # 敵の歩行・テレポート0.29.7
 
 [検証記録](VERIFY.json)。41面の140px歩行は0.875秒。旧0.45秒から約半分の速度へ調整。71面は元の場所に敵を残し、青い転移弾が届いてから移動する。

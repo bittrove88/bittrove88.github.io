@@ -465,6 +465,7 @@
     const baseShowWeapons = ArcPresentation.showWeapons;
     ArcPresentation.showWeapons = function (...args) {
       baseShowWeapons(...args);
+      if (args[3]?.library) return;
       const list = byId("weaponChoices"),
         cards = [...list.querySelectorAll("[data-choose-weapon]")];
       list.querySelectorAll("h3").forEach((h) => h.remove());

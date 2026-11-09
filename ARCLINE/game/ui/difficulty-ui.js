@@ -152,12 +152,12 @@
         ? "Choose enemy aim and trajectory guide"
         : "敵の狙いと射線を選ぼう";
       $("difficultyIntroText").textContent = en()
-        ? "Easy shows the full trajectory, Normal half, and Hard only the firing direction. Enemy aim also gets more accurate from Easy to Hard. Progress and machines are saved per mode; test shots are optional."
-        : "イージーは射線を全表示、ノーマルは半分、ハードは発射方向のみ。敵の狙いも難易度に応じて正確になります。攻略記録と保有機体は難易度別に保存します。試撃は任意です。";
+        ? "Easy shows the full trajectory, Normal half, and Hard only the firing direction. Easy enemies have less HP. Enemy aim also gets more accurate from Easy to Hard. Progress and machines are saved per mode; test shots are optional."
+        : "イージーは射線を全表示、ノーマルは半分、ハードは発射方向のみ。イージーは敵のHPも低くなります。敵の狙いも難易度に応じて正確になります。攻略記録と保有機体は難易度別に保存します。試撃は任意です。";
       $("initialDifficultyOptions").innerHTML = modes
         .map(
           (id, i) =>
-            `<label><input type="radio" name="initialDifficulty" value="${id}" ${id === choice ? "checked" : ""} ${flight || busy ? "disabled" : ""}><span><strong>${names[en() ? "en" : "ja"][i]}</strong><small>${(en() ? ["Loose enemy aim · full guide", "Standard enemy aim · half guide", "Precise enemy aim · direction only"] : ["敵の狙い：ゆるめ／射線すべて", "敵の狙い：標準／射線半分", "敵の狙い：正確／方向のみ"])[i]}</small></span></label>`,
+            `<label><input type="radio" name="initialDifficulty" value="${id}" ${id === choice ? "checked" : ""} ${flight || busy ? "disabled" : ""}><span><strong>${names[en() ? "en" : "ja"][i]}</strong><small>${(en() ? ["Lower enemy HP · loose aim · full guide", "Standard enemy aim · half guide", "Precise enemy aim · direction only"] : ["敵HP：低め／狙い：ゆるめ／射線すべて", "敵の狙い：標準／射線半分", "敵の狙い：正確／方向のみ"])[i]}</small></span></label>`,
         )
         .join("");
       for (const input of $("initialDifficultyOptions").querySelectorAll(
@@ -259,10 +259,7 @@
         sync();
       };
     $("lobbyDifficulty").onclick = () => {
-      root.ArcMenus.openSettings($("lobbyDifficulty"));
-      document
-        .querySelector(".settings-difficulty")
-        .scrollIntoView({ block: "nearest" });
+      root.ArcMenus.openSettings($("lobbyDifficulty"), "difficulty");
     };
     function resized() {
       if (!root.ArcScreens.isOpen("difficultyIntro")) return;

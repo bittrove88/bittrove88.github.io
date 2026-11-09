@@ -34,18 +34,21 @@ for (const file of [
 const runtime = require("../runtime.json");
 assert.equal(runtime.saveSchema, 8);
 assert.equal(runtime.resetVersion, 2);
-// Historical0.29.2 guards still unwrap the newly authorized controller change.
-const historic = require("./recruit-ai-preservation.cjs");
-assert.deepEqual(
-  historic.source(
-    "game.js",
-    fs.readFileSync(path.join(root, "game/dist/game.js")),
-  ),
-  cp.execFileSync("git", [
-    "show",
-    historic.manifest.base + ":ARCLINE/game/dist/game.js",
-  ]),
-);
+for (const file of [
+  "design/combat_balance.json",
+  "game/ui/battle-ui.js",
+  "game/ui/battle-catalog.js",
+  "game/dist/presentation.js",
+  "game/dist/campaign-run.js",
+  "game/tools/balance.py",
+  "game/dist/encounters.js",
+]) {
+  assert.deepEqual(
+    fs.readFileSync(path.join(root, file)),
+    cp.execFileSync("git", ["show", Guard.manifest.base + ":ARCLINE/" + file]),
+    "latest main feature preserved " + file,
+  );
+}
 console.log(
-  "PASS enemy movement: bounded controller delta,13 gameplay/player-presentation modules unchanged,save compatibility,historical preservation guard",
+  "PASS enemy movement: bounded controller delta; latest-main gameplay, HP/action balance, menu sources and save compatibility preserved",
 );
