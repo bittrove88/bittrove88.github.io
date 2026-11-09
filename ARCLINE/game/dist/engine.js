@@ -394,7 +394,7 @@ function cpuPlan(s,random=s.random,extra={}){
  if(s.telegraph?.technique)plan=EnemyAttacks.plan(s,angle,power);
  if(guardian(s)&&s.effects.broken){const factor=EnemyAttacks.weakenFactor(s,plan);plan.damage=plan.damage.map(d=>d*factor);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*factor]));for(const e of plan.events)if(e.type==='damage')e.value*=factor;}
  // Scale only enemy-to-player damage, once, after the existing broken-part half.
- const damageScale=s.stage===100?EnemyAttacks.damageScale(plan):balance.damage;
+ const damageScale=(s.stage===100?EnemyAttacks.damageScale(plan):balance.damage)*(extra.damageScale??1);
  plan.damage[0]*=damageScale;
  for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=damageScale;
  EnemyAttacks.finalizeDamage(s,plan);
@@ -435,10 +435,10 @@ function changeCharacter(s,id,owned){
 const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
 function bossEchoPlan(s,random){
  const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
- const plan=cpuPlan(t,random,{normal:true,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
+ const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
  plan.echo=true;plan.echoId=echo.id;plan.echoUnit=t.units[1];plan.echoField=echo.field;plan.attackKind='ECHO';plan.deferBossAttack=true;
- plan.damage=[plan.damage[0]*BossActions.rules.echoDamage,0];plan.partDamage={};
- plan.events=plan.events.filter(e=>e.unit!==1);for(const e of plan.events)if(e.type==='damage')e.value*=BossActions.rules.echoDamage;
+ plan.damage=[plan.damage[0],0];plan.partDamage={};
+ plan.events=plan.events.filter(e=>e.unit!==1);
  plan.appearance={...plan.appearance,color:['#a6dfff','#c4bdff','#aec5e1','#ffe4a1'][s.stage===100?echo.field:0],blast:BossActions.rules.echoBlast};
  for(const hit of plan.impacts)hit.blast=BossActions.rules.echoBlast;
  for(let i=0;i<echo.shots;i++)plan.events.push({type:'echo-fire',t:i*BossActions.rules.echoInterval,...G.muzzle(t,1,plan.angle)});

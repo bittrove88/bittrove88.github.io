@@ -260,6 +260,27 @@ for (const index of [0, 3, 6, 9]) {
   const immune = copy(s);
   immune.skillEffects = { invincible: true };
   near(E.bossEchoPlan(immune, () => 0.5).damage[0], 0, "invincibility applies");
+  ok(shot.damage[0] > 0, "native echo fixture actually hits");
+  const fragile = copy(s);
+  fragile.units[0].hp = Math.min(0.05, shot.damage[0] / 2);
+  const finisher = E.bossEchoPlan(fragile, () => 0.5);
+  near(
+    finisher.damage[0],
+    fragile.units[0].hp,
+    "scale echo payload before remaining-HP cap",
+  );
+  near(
+    finisher.events
+      .filter((e) => e.type === "damage" && e.unit === 0)
+      .reduce((n, e) => n + e.value, 0),
+    fragile.units[0].hp,
+    "low-HP impact events match actual damage",
+  );
+  E.resolve(fragile, E.launch(fragile, 0, 0, finisher));
+  ok(
+    fragile.result === "lose" && fragile.units[0].hp === 0,
+    "echo can finish a low-HP player without an extra main attack",
+  );
   ok(E.launch(s, 0, 0, shot), "echo launches");
   ok(!s.bossEcho, "echo consumed once");
   E.resolve(s, shot);
