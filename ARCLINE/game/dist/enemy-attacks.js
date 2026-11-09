@@ -52,7 +52,7 @@ function plan(s,angle,power){
  return decorate(s,p);
 }
 function resolve(s,shot){
- if(s.stage===100&&shot.side===1){finalSequence(s);s.finalAttackPattern.step++;}
+ if(s.stage===100&&shot.side===1&&!shot.echo&&!shot.deferBossAttack){finalSequence(s);s.finalAttackPattern.step++;}
  const field=s.effects.gravityField;if(field){field.charges[shot.side]=Math.max(0,field.charges[shot.side]-1);if(!field.charges.some(Boolean))delete s.effects.gravityField;}
  if(shot.createGravityField)s.effects.gravityField=JSON.parse(JSON.stringify(shot.createGravityField));
  if(shot.weaponId==='E_80'&&shot.damage[0]>0){const u=s.units[0],from={x:u.x,y:u.y,slope:u.slope},hits=shot.impacts.filter(h=>Math.hypot(h.x-u.x,h.y-(u.y-22))<85);for(const h of hits){const b=shot.bullets.find(b=>b.id===h.bullet),away=Math.sign(u.x-h.x)||1;G.move(s,0,(b?.stage===1?-1:1)*away*45*(W.combat.get(s.characterId).pushResistance||1));}if(u.x!==from.x){u.animation={from,age:0,duration:.45,lift:0};u.reactionKind='push';}}

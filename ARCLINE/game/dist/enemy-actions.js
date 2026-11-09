@@ -1,5 +1,9 @@
 (function (root) {
   "use strict";
+  const B =
+    typeof module !== "undefined"
+      ? require("./boss-actions.js")
+      : root.ArcBossActions;
   function create({
     G,
     N,
@@ -12,10 +16,18 @@
     afterTurn,
   }) {
     const eligible = (s) =>
-      s.stage >= 40 && s.stage < 100 && !guardian(s) && !s.units[1].floating;
+      B.active(s) ||
+      (s.stage >= 40 && s.stage < 100 && !guardian(s) && !s.units[1].floating);
     const rule = (s) => ({
       walk: eligible(s),
-      teleports: eligible(s) && s.stage >= 71 ? (s.stage < 81 ? 1 : 2) : 0,
+      teleports: B.active(s)
+        ? B.rule(s).teleports
+        : eligible(s) && s.stage >= 71
+          ? s.stage < 81
+            ? 1
+            : 2
+          : 0,
+      boss: B.active(s),
     });
     const stats = (s) => ({
       turns: 0,
@@ -24,7 +36,7 @@
       blocked: 0,
       teleports: 0,
       cooldown: 0,
-      ...s.enemyTactics,
+      ...(B.active(s) ? B.tactics(s) : s.enemyTactics),
     });
     function clone(s) {
       return {
@@ -33,13 +45,17 @@
           ...u,
           parts: u.parts.map((p) => ({ ...p })),
         })),
+        effects: { ...s.effects },
+        pendingChanges: [...s.pendingChanges],
+        finalAttackPattern: s.finalAttackPattern && { ...s.finalAttackPattern },
         turn: 1,
         phase: "cpu",
       };
     }
     function at(s, p) {
       const t = clone(s);
-      Object.assign(t.units[1], p);
+      if (B.active(s)) B.relocate(t, p);
+      else Object.assign(t.units[1], p);
       t.units[1].facing = t.units[0].x >= p.x ? 1 : -1;
       return t;
     }
@@ -81,36 +97,61 @@
         rows = [];
       for (const dx of [140, -140, 100, -100, 60, -60, micro, -micro]) {
         const t = clone(s);
-        G.move(t, 1, Math.max(-budget, Math.min(budget, dx)));
+        (B.active(t) ? B.move : (s, dx) => G.move(s, 1, dx))(
+          t,
+          Math.max(-budget, Math.min(budget, dx)),
+        );
         const p = t.units[1];
         if (
           Math.abs(p.x - u.x) < 12 ||
           Math.abs(p.x - u.x) > budget + 0.001 ||
-          !G.clearBody(s.world, p) ||
+          !(B.active(s) ? B.fits(t) : G.clearBody(s.world, p)) ||
           seen.has(Math.round(p.x))
         )
           continue;
         seen.add(Math.round(p.x));
-        rows.push({ x: p.x, y: p.y, slope: p.slope, surface: p.surface });
+        rows.push({
+          x: p.x,
+          y: p.y,
+          slope: p.slope,
+          surface: p.surface,
+          ...(p.floating ? { floating: true } : {}),
+        });
       }
       return rows;
     }
     function counterable(s) {
+      // A player can turn during the free walking portion of the next hand.
+      // Do not reject a boss retreat merely because the old cannon faces away.
+      if (B.active(s))
+        s = {
+          ...s,
+          units: s.units.map((u, i) =>
+            i === 0 ? { ...u, facing: s.units[1].x >= u.x ? 1 : -1 } : u,
+          ),
+        };
       const p = solve(s, 0);
       if (p.score <= 0.1) return false;
       let hits = 0;
       for (const da of [-1, 0, 1])
-        for (const dp of [-2, 0, 2])
-          if (
-            trajectory(s, 0, p.angle + da, p.power + dp, {
-              weaponId: "W01",
-              skill: null,
-            }).damage[1] > 0.05
-          )
-            hits++;
+        for (const dp of [-2, 0, 2]) {
+          const shot = trajectory(s, 0, p.angle + da, p.power + dp, {
+            weaponId: "W01",
+            skill: null,
+          });
+          const counter =
+            shot.damage[1] +
+            (B.active(s)
+              ? Object.values(shot.partDamage).reduce((a, b) => a + b, 0) * 0.8
+              : 0);
+          if (counter > 0.05) hits++;
+        }
       return hits >= 3;
     }
     function supported(s, p) {
+      if (B.active(s) && (p.floating || s.units[1].floating))
+        return B.fits(at(s, p));
+      if (B.active(s) && !B.fits(at(s, p))) return false;
       const span = 25 * Math.tan(G.maxSlope) + 2;
       return (
         G.clearBody(s.world, p) &&
@@ -124,18 +165,50 @@
         other = s.units[0],
         out = [],
         seen = new Set();
-      for (const f of s.world.surfaces)
+      for (const f of (B.active(s) ? B.terrain(s) : s.world).surfaces)
         for (let i = 1; i < f.points.length; i++) {
           const a = f.points[i - 1],
             b = f.points[i],
             length = Math.abs(b.x - a.x);
           if (length < 45) continue;
-          const count = Math.min(8, Math.max(1, Math.ceil(length / 120)));
-          for (let j = 0; j < count; j++) {
-            const ratio = (j + 0.5) / count,
-              x = a.x + (b.x - a.x) * ratio,
+          const count = Math.min(
+            B.active(s) ? 48 : 8,
+            Math.max(1, Math.ceil(length / (B.active(s) ? 60 : 120))),
+          );
+          const samples = Array.from(
+            { length: count },
+            (_, j) => (j + 0.5) / count,
+          );
+          if (B.active(s))
+            samples.push(
+              ...[
+                35,
+                s.units[1].hitShape?.rx || 35,
+                length / 2,
+                length - 35,
+                length - (s.units[1].hitShape?.rx || 35),
+              ]
+                .filter((x) => x > 0 && x < length)
+                .map((x) => x / length),
+            );
+          for (const ratio of samples) {
+            const x = a.x + (b.x - a.x) * ratio,
               y = a.y + (b.y - a.y) * ratio,
-              p = G.safePosition(s.world, x, y, other, u.range);
+              p =
+                B.active(s) && u.floating
+                  ? {
+                      x: G.clamp(x, u.range[0], u.range[1]),
+                      y: u.y,
+                      slope: 0,
+                      floating: true,
+                    }
+                  : G.safePosition(
+                      B.active(s) ? B.terrain(s) : s.world,
+                      x,
+                      y,
+                      other,
+                      u.range,
+                    );
             if (
               !p ||
               Math.abs(p.x - u.x) < 160 ||
@@ -149,9 +222,16 @@
             out.push(p);
           }
         }
+      if (B.active(s) && out.length > 32) {
+        out.sort((a, b) => a.x - b.x || a.y - b.y);
+        return Array.from(
+          { length: 32 },
+          (_, i) => out[Math.round((i * (out.length - 1)) / 31)],
+        );
+      }
       return out
         .sort((a, b) => Math.abs(a.y - u.y) - Math.abs(b.y - u.y))
-        .slice(0, 16);
+        .slice(0, B.active(s) ? 32 : 16);
     }
     function* evaluate(s, random) {
       const trial = clone(s),
@@ -163,6 +243,11 @@
         G.move(trial, 1, target - u.x);
         return { target, plan: cpuPlan(trial, random), action: null };
       }
+      if (r.boss) {
+        u.facing = trial.units[0].x >= u.x ? 1 : -1;
+        B.refresh(trial);
+      }
+      const retreat = r.boss && B.gap(trial) <= B.rules.close;
       const st = stats(trial),
         rng = seeded(
           ((trial.matchSeed || 0) + trial.round * 8191 + 17077) >>> 0,
@@ -199,15 +284,24 @@
           candidates.push({ p, future, ...probe(future) });
           yield;
         }
-        const skill = (trial.stage - 71) / 28;
+        const skill = r.boss ? 1 : (trial.stage - 71) / 28;
         candidates.sort(
           (a, b) =>
             b.value +
             Math.max(0, u.y - b.p.y) * 0.0005 * skill -
             (a.value + Math.max(0, u.y - a.p.y) * 0.0005 * skill),
         );
-        for (const c of candidates.slice(0, 3)) {
-          if (c.value <= Math.max(current.value, walk?.value || 0) + 0.08)
+        for (const c of retreat ? candidates : candidates.slice(0, 3)) {
+          if (
+            retreat &&
+            (B.gap(c.future) <= B.rules.close ||
+              B.gap(c.future) <= B.gap(trial))
+          )
+            continue;
+          if (
+            !retreat &&
+            c.value <= Math.max(current.value, walk?.value || 0) + 0.08
+          )
             continue;
           const future = c.future;
           const canAttack = exact(future) > 0.1;
@@ -218,22 +312,27 @@
           if (!canCounter) continue;
           opportunity = true;
           const required =
-            (blocked && st.blocked >= 1) || st.opportunityMisses >= 2;
+            retreat ||
+            (blocked && st.blocked >= 1) ||
+            st.opportunityMisses >= 2;
           const chance = Math.min(
             0.85,
             0.55 + (c.value - current.value) * 0.12,
           );
           if (required || rng() < chance) {
             chosen = c;
-            reason = required
-              ? "repeated-useful-opportunity"
-              : "better-firing-position";
+            reason = retreat
+              ? "close-retreat"
+              : required
+                ? "repeated-useful-opportunity"
+                : "better-firing-position";
           }
           break;
         }
       }
       const next = {
         ...st,
+        ...(r.boss ? { field: B.field(trial) } : {}),
         turns: st.turns + 1,
         blocked: blocked ? st.blocked + 1 : 0,
         cooldown: Math.max(0, st.cooldown - 1),
@@ -313,6 +412,7 @@
         return false;
       if (action.kind === "teleport") {
         if (
+          (s.enemyWalkRound === s.round && s.enemyWalkUsed > 0) ||
           st.teleports >= r.teleports ||
           st.cooldown > 0 ||
           !teleportCandidates(s).some(
@@ -320,7 +420,13 @@
           )
         )
           return false;
-        Object.assign(u, action.to);
+        if (r.boss) {
+          const from = { ...u, parts: u.parts.map((p) => ({ ...p })) };
+          B.relocate(s, action.to);
+          B.spawnEcho(s, from);
+          if (s.telegraph)
+            s.deferredBossTelegraph = JSON.parse(JSON.stringify(s.telegraph));
+        } else Object.assign(u, action.to);
         u.facing = s.units[0].x >= u.x ? 1 : -1;
         u.teleportFlash = { age: 0 };
       } else if (
@@ -328,6 +434,10 @@
         Math.abs(action.to.x - u.x) > 140.001
       )
         return false;
+      if (r.boss) {
+        u.facing = s.units[0].x >= u.x ? 1 : -1;
+        B.refresh(s);
+      }
       s.enemyTactics = { ...action.next, lastRound: s.round };
       s.enemyActionLog = (s.enemyActionLog || [])
         .concat({

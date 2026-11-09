@@ -7,6 +7,7 @@ const C=W.combat;
 const N=node?require('./encounters.js'):root.ArcEncounters;
 const guardian=state=>N.guardian(state.spec);
 const EnemyActions=node?require('./enemy-actions.js'):root.ArcEnemyActions;
+const BossActions=node?require('./boss-actions.js'):root.ArcBossActions;
 const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
 const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
 const EnemyAttacks=node?require('./enemy-attacks.js'):root.ArcEnemyAttacks;
@@ -70,6 +71,7 @@ function campaign(stage=1,save={}){
  FinalTeam.init(s);s.enemyLearning.owner=s.characterId;bossGeometry(s);G.addSolidSurfaces(s.world);telegraph(s);return s;
 }
 function telegraph(s){
+ if(s.deferredBossTelegraph){s.telegraph=JSON.parse(JSON.stringify(s.deferredBossTelegraph));return;}
  if(!guardian(s)){s.telegraph=null;return;}
  const technique=EnemyAttacks?.telegraph(s);if(technique){s.telegraph=technique;return;}
  const attacks=N.forSpec(s.spec).attacks,kind=attacks[(s.round-1)%attacks.length];
@@ -162,6 +164,7 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
  s.effects.destroyed=s.effects.destroyed||[];
  while(shot.appliedEvents<shot.events.length&&shot.events[shot.appliedEvents].t<=time){
   const e=shot.events[shot.appliedEvents++];
+  if(e.type==='echo-hit'&&s.bossEcho?.id===e.id)BossActions.clearEcho(s,'broken');
   if(e.type==='pickup'){const c=collect(s,shot,e);if(c)onCollect(c);}
   if(e.type==='break'&&!s.effects.destroyed.includes(e.solidId)){s.effects.destroyed.push(e.solidId);s.world=G.without(s.world,[e.solidId]);}
   if(e.type==='terminal')s.effects.pendingPolarity=-(s.effects.polarity||s.world.regions.find(r=>r.kind==='M')?.direction||1);
@@ -172,6 +175,7 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
 }
 function launch(s,angle=s.angle,power=s.power,plan=null){
  if(s.result||!['aim','cpu','cpuMove'].includes(s.phase))return null;
+ if(s.turn===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return null;
  const side=s.turn;if(side&&plan?.facing)s.units[1].facing=plan.facing;if(!side){
   if(s.restingCharacterIds?.includes(s.characterId))return null;
   if(s.pendingLoot.length)return null;
@@ -181,6 +185,7 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
   if(!s.teleportMode&&!usable(s,s.mode))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
+ if(shot.echo){if(!side||!BossActions.due(s)||shot.echoId!==s.bossEcho.id)return null;BossActions.clearEcho(s,'fired');s.bossEchoFiredRound=s.round;s.bossEchoContinuation=true;}
  if(FinalTeam.active(s)&&side===0)shot.finalOwner=s.characterId;
  if(side&&s.guardActive&&!shot.guarded){shot.damage=[shot.damage[0]*.5,shot.damage[1]];shot.guarded=true;}
  if(!side){s.shotCount++;if(!s.teleportMode&&W.get(s.mode).special)s.specialAmmo--;else if(!s.teleportMode&&s.mode!=='W01'){s.weaponId=s.mode;s.weaponStock[s.mode]--;}
@@ -242,12 +247,12 @@ function resolve(s,shot,onCollect=()=>{}){
  EnemyAttacks?.resolve(s,shot);
  if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){landUnit(u,landing,landing.entry);delete u.entry;u.teleportFlash={age:0};}s.teleportMode=false;}
  settleUnits(s);
- if(shot.side===1){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
+ if(shot.side===1&&!shot.echo){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
 
  if(shot.side===0)shot.enemyHpBefore=shot.enemyHpAtLaunch??s.units[1].hp;
  if(shot.side===0)shot.damage[1]=(shot.appliedDamage?.[1]||0)+FinalTeam.credit(s,shot.finalOwner||s.characterId,Math.max(0,shot.damage[1]-(shot.sourceAppliedDamage?.[1]||0)));
  s.units.forEach((u,i)=>{u.hp=Math.max(0,u.hp-Math.max(0,shot.damage[i]-(shot.appliedDamage?.[i]||0)));if(u.hp<1e-9)u.hp=0;});
- if(shot.side===1)s.guardActive=false;
+ if(shot.side===1&&!shot.echo)s.guardActive=false;
  if(shot.side===0&&!shot.teleport&&!shot.skillAttack){for(const key of ['power','charge'])if(s.skillEffects?.[key]?.single)delete s.skillEffects[key];}
  if(shot.side===0&&W.get(shot.weaponId).drain){const w=W.get(shot.weaponId),u=s.units[0],actual=Math.min(shot.damage[1],shot.enemyHpBefore??shot.damage[1]);shot.drained=Math.min(actual*w.drain,w.drainHpCap==null?Infinity:u.maxHp*w.drainHpCap,u.maxHp-u.hp);u.hp+=shot.drained;if(shot.drained>0){const from=shot.impacts.at(-1)||shot.end;shot.events.push({type:'drain',x:from.x,y:from.y,to:{x:u.x,y:u.y-22},amount:shot.drained,t:shot.duration,duration:.6});}}
  const boss=s.units[1];
@@ -264,7 +269,9 @@ function resolve(s,shot,onCollect=()=>{}){
  }
  if(boss.exposed>0&&shot.side===0)boss.exposed--;
  displace(s,shot.side,shot);
- s.last[shot.side]=shot;s.selectedSkill=null;s.activeShot=null;
+ if(!shot.echo)s.last[shot.side]=shot;
+ if(shot.side===1&&!shot.echo&&!shot.deferBossAttack)delete s.deferredBossTelegraph;
+ s.selectedSkill=null;s.activeShot=null;
  if(!usable(s,s.mode))s.mode='W01';s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));
  check(s);return shot.damage;
 }
@@ -273,14 +280,9 @@ function check(s){
  const [p,e]=s.units;
  if(p.hp<=0||e.hp<=0){s.result=p.hp<=0?(e.hp<=0?'draw':'lose'):'win';s.reason=s.result==='lose'?'durability':s.result==='draw'?'mutual':'defeated';}
  else if(s.turn===0&&s.shotCount>=s.shotLimit&&!(FinalTeam.active(s)&&s.finalTeam.pending)){s.result='lose';s.reason='shots';}
- if(s.result){s.phase='over';return true;}return false;
+ if(s.result){BossActions.clearEcho(s,'end');delete s.bossEchoContinuation;s.phase='over';return true;}return false;
 }
-function bossGeometry(s){
- if(s.stage===40){
-  const u=s.units[1];G.actorParts(s,1).forEach((p,i)=>{if(p.hp<=0)return;const x=u.x+p.dx,y=u.y+p.dy,d=i===0?-1:1;s.world.solids.push({id:'shoulder'+i,kind:'crystal',poly:[{x:x-17,y:y-12*d},{x:x+17,y:y+12*d},{x:x+17,y:y+12*d+5},{x:x-17,y:y-12*d+5}]});});
- }
- if(s.stage===60&&s.effects.broken===0){const u=s.units[1];s.world.solids.push(G.rectangle('front-armor',(u.x-92)/10,(u.x-62)/10,(500-u.y+3)/10,(500-u.y+58)/10));}
-}
+function bossGeometry(s){BossActions.attachments(s);}
 function rebuildWorld(s){
  s.world=G.world(s.spec,s.effects.environmentRound||s.round,s.bossPhase,s.effects);
  bossGeometry(s);G.addSolidSurfaces(s.world);
@@ -321,22 +323,23 @@ function boundary(s){
  if(!changes.length&&s.spec.boss){const u=s.units[1];
   if(s.stage===10&&s.round===2&&s.effects.broken===0)u.x+=30;
   if(s.stage===30&&s.effects.cloudPending){s.effects.cloudOffset=s.effects.cloudOffset?0:80;s.effects.cloudPending=false;}
-  else if(s.stage===30&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
+  else if(s.stage===30&&!BossActions.active(s)&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
   if(s.stage===50&&s.round%2===1){if(/^[45]\./.test(s.spec.contentRevision)){u.exposed=Math.max(1,u.exposed);u.facingCore=s.units[0].x<u.x?-1:1;}else{const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}}
-  if(s.stage===90&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
+  if(s.stage===90&&!BossActions.active(s)&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
  }
  s.boundaryLog.push({round:s.round,changes:changes.map(c=>c.type)});
  rebuildWorld(s);telegraph(s);return changes;
 }
 function next(s){
  if(check(s))return;
+ if(s.turn===1&&s.bossEchoContinuation){delete s.bossEchoContinuation;s.phase='cpu';s.time=0;return;}
  if(s.turn===0&&FinalTeam.active(s)&&s.finalTeam.pending){const handoff=FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=FinalTeam.duration(s,handoff);return;}
- if(s.turn===0){if(s.skillEffects?.skip){delete s.skillEffects.skip;boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}else{s.turn=1;s.phase='cpu';s.time=.6;}}
+ if(s.turn===0){if(s.skillEffects?.skip){BossActions.clearEcho(s,'skip');delete s.skillEffects.skip;boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}else{s.turn=1;s.phase='cpu';s.time=.6;}}
  else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&s.stage>=40&&s.stage<100&&!guardian(s)){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=G.move(s,side,amount);if(side===1&&s.stage>=40&&s.stage<100&&!guardian(s))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1&&BossActions.active(s)?BossActions.move(s,amount):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -366,7 +369,9 @@ function enemyParameters(s){
  const modeError=({easy:1.40,normal:1,hard:.65})[s.difficulty]??1,foe=N.forSpec(s.spec),profile=s.spec.enemyProfile;
  return {stageError,modeError,angle:(guardian(s)?Math.max(6,12-profile):foe.errorAngle)*stageError*modeError,power:(guardian(s)?Math.max(12,22-profile*2):foe.errorPower)*stageError*modeError,damage:stage>80?1.10:stage>60?1.05:1};
 }
-function cpuPlan(s,random=s.random){
+function cpuPlan(s,random=s.random,extra={}){
+ const deferBossAttack=BossActions.active(s)&&s.bossEchoFiredRound===s.round&&!!s.telegraph?.technique;
+ if(deferBossAttack||extra.normal)s={...s,telegraph:null};
  s.units[1].facing=s.units[0].x>=s.units[1].x?1:-1;
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
  const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
@@ -377,7 +382,7 @@ function cpuPlan(s,random=s.random){
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
- const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{})};
+ const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{}),...extra.physics};
  let plan=trajectory(s,1,angle,power,options);
  if(guardian(s)&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
   const volley=[];
@@ -389,11 +394,11 @@ function cpuPlan(s,random=s.random){
  if(s.telegraph?.technique)plan=EnemyAttacks.plan(s,angle,power);
  if(guardian(s)&&s.effects.broken){const factor=EnemyAttacks.weakenFactor(s,plan);plan.damage=plan.damage.map(d=>d*factor);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*factor]));for(const e of plan.events)if(e.type==='damage')e.value*=factor;}
  // Scale only enemy-to-player damage, once, after the existing broken-part half.
- const damageScale=s.stage===100?EnemyAttacks.damageScale(plan):balance.damage;
+ const damageScale=(s.stage===100?EnemyAttacks.damageScale(plan):balance.damage)*(extra.damageScale??1);
  plan.damage[0]*=damageScale;
  for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=damageScale;
  EnemyAttacks.finalizeDamage(s,plan);
- plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
+ plan.deferBossAttack=deferBossAttack;plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
  return EnemyAttacks?EnemyAttacks.decorate(s,plan):plan;
 }
 function combineShots(shots){
@@ -428,6 +433,19 @@ function changeCharacter(s,id,owned){
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
 const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
-const api={planEnemyActionAsync:enemyAI.planAsync,planEnemyAction:enemyAI.plan,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+function bossEchoPlan(s,random){
+ const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
+ const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
+ plan.echo=true;plan.echoId=echo.id;plan.echoUnit=t.units[1];plan.echoField=echo.field;plan.attackKind='ECHO';plan.deferBossAttack=true;
+ plan.damage=[plan.damage[0],0];plan.partDamage={};
+ plan.events=plan.events.filter(e=>e.unit!==1);
+ plan.appearance={...plan.appearance,color:['#a6dfff','#c4bdff','#aec5e1','#ffe4a1'][s.stage===100?echo.field:0],blast:BossActions.rules.echoBlast};
+ for(const hit of plan.impacts)hit.blast=BossActions.rules.echoBlast;
+ for(let i=0;i<echo.shots;i++)plan.events.push({type:'echo-fire',t:i*BossActions.rules.echoInterval,...G.muzzle(t,1,plan.angle)});
+ plan.events.sort((a,b)=>a.t-b.t);return plan;
+}
+function planEnemyAction(s,random){return BossActions.due(s)?{target:s.units[1].x,plan:bossEchoPlan(s,random),action:null}:enemyAI.plan(s,random);}
+async function planEnemyActionAsync(s,random,opts){return BossActions.due(s)?planEnemyAction(s,random):enemyAI.planAsync(s,random,opts);}
+const api={bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);
