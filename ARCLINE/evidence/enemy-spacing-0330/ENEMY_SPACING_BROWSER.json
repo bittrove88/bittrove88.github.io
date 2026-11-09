@@ -1,0 +1,503 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "stage": 9,
+      "width": 1280,
+      "height": 720,
+      "fallback": false,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 15
+      },
+      "decision": {
+        "action": null,
+        "target": 1015,
+        "phase": "cpuMove",
+        "rules": {
+          "walk": false,
+          "teleports": 0,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 1015,
+        "gap": 235,
+        "round": 2,
+        "hp": 6,
+        "worker": true,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 250,
+        "round": 3,
+        "count": 1,
+        "errors": []
+      }
+    },
+    {
+      "stage": 41,
+      "width": 1280,
+      "height": 720,
+      "fallback": false,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 20
+      },
+      "decision": {
+        "action": {
+          "kind": "walk-shoot",
+          "from": {
+            "x": 1000,
+            "y": 400
+          },
+          "to": {
+            "x": 1140,
+            "y": 400,
+            "slope": 0,
+            "surface": "floor0"
+          },
+          "round": 1,
+          "next": {
+            "turns": 1,
+            "walkMisses": 0,
+            "opportunityMisses": 0,
+            "blocked": 0,
+            "teleports": 0,
+            "cooldown": 0
+          },
+          "reason": "spacing-retreat",
+          "position": {
+            "gap": 360,
+            "score": 0.35250000000000004,
+            "direct": true,
+            "band": 1
+          }
+        },
+        "target": 1140,
+        "phase": "cpuMove",
+        "rules": {
+          "walk": true,
+          "teleports": 0,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 1140,
+        "gap": 360,
+        "round": 2,
+        "teleports": 0,
+        "cooldown": 0,
+        "hp": 6,
+        "worker": true,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 500,
+        "round": 3,
+        "count": 1,
+        "teleports": 0,
+        "cooldown": 0,
+        "errors": []
+      }
+    },
+    {
+      "stage": 71,
+      "width": 1280,
+      "height": 720,
+      "fallback": false,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 15
+      },
+      "decision": {
+        "action": {
+          "kind": "teleport",
+          "from": {
+            "x": 1000,
+            "y": 400
+          },
+          "to": {
+            "x": 2062.5,
+            "y": 400,
+            "slope": 0,
+            "surface": "floor0"
+          },
+          "round": 1,
+          "next": {
+            "turns": 1,
+            "walkMisses": 0,
+            "opportunityMisses": 0,
+            "blocked": 0,
+            "teleports": 1,
+            "cooldown": 2
+          },
+          "reason": "close-retreat",
+          "position": {
+            "gap": 1282.5,
+            "score": 0.4921875,
+            "direct": false,
+            "band": 2
+          }
+        },
+        "target": 2062.5,
+        "phase": "cpuTeleport",
+        "rules": {
+          "walk": true,
+          "teleports": 1,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 2062.5,
+        "gap": 1282.5,
+        "round": 2,
+        "teleports": 1,
+        "cooldown": 2,
+        "hp": 7,
+        "worker": true,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 1422.5,
+        "round": 3,
+        "count": 1,
+        "teleports": 1,
+        "cooldown": 1,
+        "errors": []
+      }
+    },
+    {
+      "stage": 81,
+      "width": 1280,
+      "height": 720,
+      "fallback": false,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 0
+      },
+      "decision": {
+        "action": {
+          "kind": "walk-shoot",
+          "from": {
+            "x": 1000,
+            "y": 400
+          },
+          "to": {
+            "x": 1140,
+            "y": 400,
+            "slope": 0,
+            "surface": "floor0"
+          },
+          "round": 1,
+          "next": {
+            "turns": 1,
+            "walkMisses": 0,
+            "opportunityMisses": 0,
+            "blocked": 0,
+            "teleports": 2,
+            "cooldown": 1
+          },
+          "reason": "spacing-retreat",
+          "position": {
+            "gap": 360,
+            "score": 0.37749999999999995,
+            "direct": true,
+            "band": 2
+          }
+        },
+        "target": 1140,
+        "phase": "cpuMove",
+        "rules": {
+          "walk": true,
+          "teleports": 2,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 1140,
+        "gap": 360,
+        "round": 2,
+        "teleports": 2,
+        "cooldown": 1,
+        "hp": 6.406,
+        "worker": true,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 500,
+        "round": 3,
+        "count": 1,
+        "teleports": 2,
+        "cooldown": 0,
+        "errors": []
+      }
+    },
+    {
+      "stage": 9,
+      "width": 568,
+      "height": 320,
+      "fallback": true,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 15
+      },
+      "decision": {
+        "action": null,
+        "target": 1015,
+        "phase": "cpuMove",
+        "rules": {
+          "walk": false,
+          "teleports": 0,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 1015,
+        "gap": 235,
+        "round": 2,
+        "hp": 6,
+        "worker": false,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 250,
+        "round": 3,
+        "count": 1,
+        "errors": []
+      }
+    },
+    {
+      "stage": 41,
+      "width": 568,
+      "height": 320,
+      "fallback": true,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 20
+      },
+      "decision": {
+        "action": {
+          "kind": "walk-shoot",
+          "from": {
+            "x": 1000,
+            "y": 400
+          },
+          "to": {
+            "x": 1140,
+            "y": 400,
+            "slope": 0,
+            "surface": "floor0"
+          },
+          "round": 1,
+          "next": {
+            "turns": 1,
+            "walkMisses": 0,
+            "opportunityMisses": 0,
+            "blocked": 0,
+            "teleports": 0,
+            "cooldown": 0
+          },
+          "reason": "spacing-retreat",
+          "position": {
+            "gap": 360,
+            "score": 0.35250000000000004,
+            "direct": true,
+            "band": 1
+          }
+        },
+        "target": 1140,
+        "phase": "cpuMove",
+        "rules": {
+          "walk": true,
+          "teleports": 0,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 1140,
+        "gap": 360,
+        "round": 2,
+        "teleports": 0,
+        "cooldown": 0,
+        "hp": 6,
+        "worker": false,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 500,
+        "round": 3,
+        "count": 1,
+        "teleports": 0,
+        "cooldown": 0,
+        "errors": []
+      }
+    },
+    {
+      "stage": 71,
+      "width": 568,
+      "height": 320,
+      "fallback": true,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 15
+      },
+      "decision": {
+        "action": {
+          "kind": "teleport",
+          "from": {
+            "x": 1000,
+            "y": 400
+          },
+          "to": {
+            "x": 2062.5,
+            "y": 400,
+            "slope": 0,
+            "surface": "floor0"
+          },
+          "round": 1,
+          "next": {
+            "turns": 1,
+            "walkMisses": 0,
+            "opportunityMisses": 0,
+            "blocked": 0,
+            "teleports": 1,
+            "cooldown": 2
+          },
+          "reason": "close-retreat",
+          "position": {
+            "gap": 1282.5,
+            "score": 0.4921875,
+            "direct": false,
+            "band": 2
+          }
+        },
+        "target": 2062.5,
+        "phase": "cpuTeleport",
+        "rules": {
+          "walk": true,
+          "teleports": 1,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 2062.5,
+        "gap": 1282.5,
+        "round": 2,
+        "teleports": 1,
+        "cooldown": 2,
+        "hp": 7,
+        "worker": false,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 1422.5,
+        "round": 3,
+        "count": 1,
+        "teleports": 1,
+        "cooldown": 1,
+        "errors": []
+      }
+    },
+    {
+      "stage": 81,
+      "width": 568,
+      "height": 320,
+      "fallback": true,
+      "before": {
+        "gap": 220,
+        "x": 1000,
+        "round": 1,
+        "hp": 7,
+        "micro": 0
+      },
+      "decision": {
+        "action": {
+          "kind": "walk-shoot",
+          "from": {
+            "x": 1000,
+            "y": 400
+          },
+          "to": {
+            "x": 1140,
+            "y": 400,
+            "slope": 0,
+            "surface": "floor0"
+          },
+          "round": 1,
+          "next": {
+            "turns": 1,
+            "walkMisses": 0,
+            "opportunityMisses": 0,
+            "blocked": 0,
+            "teleports": 2,
+            "cooldown": 1
+          },
+          "reason": "spacing-retreat",
+          "position": {
+            "gap": 360,
+            "score": 0.37749999999999995,
+            "direct": true,
+            "band": 2
+          }
+        },
+        "target": 1140,
+        "phase": "cpuMove",
+        "rules": {
+          "walk": true,
+          "teleports": 2,
+          "boss": false
+        }
+      },
+      "arrival": {
+        "x": 1140,
+        "gap": 360,
+        "round": 2,
+        "teleports": 2,
+        "cooldown": 1,
+        "hp": 6.406,
+        "worker": false,
+        "errors": [],
+        "echo": false
+      },
+      "after": {
+        "gap": 500,
+        "round": 3,
+        "count": 1,
+        "teleports": 2,
+        "cooldown": 0,
+        "errors": []
+      }
+    }
+  ],
+  "errors": [],
+  "scope": "Controlled flat terrain and a cover fixture, real main controller and Worker/cooperative AI, early micro movement,41 active retreat,71 transfer,81 exhausted-budget retreat; enemy hand/player action/enemy hand/player return. Physical devices and whole-campaign clearance not tested."
+}

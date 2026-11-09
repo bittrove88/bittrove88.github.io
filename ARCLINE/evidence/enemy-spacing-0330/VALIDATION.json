@@ -1,0 +1,211 @@
+{
+  "status": "PASS",
+  "version": "0.33.0",
+  "baseline": "467e13662f0c568eab18103f962b828322be70c7",
+  "agreement": "User OK to the presented spacing and staged position-selection plan; clarification active normal movement starts at41. No merge instruction for this change.",
+  "unit": {
+    "status": "PASS",
+    "mode": "unit",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-spacing",
+        "status": "PASS",
+        "ms": 2463,
+        "log": "logs/enemy-spacing.log"
+      },
+      {
+        "name": "boss-motion",
+        "status": "PASS",
+        "ms": 12666,
+        "log": "logs/boss-motion.log"
+      },
+      {
+        "name": "armor-break",
+        "status": "PASS",
+        "ms": 58,
+        "log": "logs/armor-break.log"
+      }
+    ],
+    "skipped": []
+  },
+  "policyChecks": 3118,
+  "controlledFamilyRatios": [
+    {
+      "stage": 50,
+      "ratio": 0.31666666666666665
+    },
+    {
+      "stage": 80,
+      "ratio": 0.20666666666666667
+    },
+    {
+      "stage": 100,
+      "ratio": 0.10333333333333333
+    }
+  ],
+  "browser": {
+    "status": "PASS",
+    "mode": "browser",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-spacing-browser",
+        "status": "PASS",
+        "ms": 16761,
+        "log": "logs/enemy-spacing-browser.log"
+      },
+      {
+        "name": "armor-break-browser",
+        "status": "PASS",
+        "ms": 1899,
+        "log": "logs/armor-break-browser.log"
+      }
+    ],
+    "skipped": []
+  },
+  "additionalBrowser": {
+    "status": "PASS",
+    "scenarios": 12,
+    "rows": [
+      {
+        "stage": 50,
+        "width": 1280,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 1280,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 1280,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 809.25,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 50,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 809.25,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 50,
+        "width": 844,
+        "reducedMotion": true,
+        "language": "ja",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 844,
+        "reducedMotion": true,
+        "language": "ja",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 844,
+        "reducedMotion": true,
+        "language": "ja",
+        "gap": 809.25,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 50,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "en",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "en",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "en",
+        "gap": 809.25,
+        "echoShots": 1,
+        "playerActionCount": 1
+      }
+    ]
+  },
+  "generated": {
+    "status": "PASS",
+    "generatedFiles": 155,
+    "changedAfterRebuild": [],
+    "unstableAfterSecondRebuild": [],
+    "sourceTreeUntouched": true
+  },
+  "reuse": "boss-motion-browser ran independently on the same final behavior sources. The successful twelve cases were reused instead of rerunning the suite locally.",
+  "scope": "Real physical movement, native boss50/70 and late-final flat relay fixtures; normal enemy flat/cover fixtures9/41/71/81; controlled policy simulations separate from real firing and browser checks. Initial native candidate audit35 maps is not a whole-campaign clearance or probability audit.",
+  "visualReview": [
+    "spacing-transfer-568.png",
+    "spacing-transfer-1280.png"
+  ],
+  "sourceSha256": {
+    "game/dist/enemy-position.js": "00b66d1678a0c389e1c5c74f8fdf12674d1e1d441b1c66a028b99d381619adc1",
+    "game/dist/enemy-actions.js": "7659b6dfde8eab2f8865627c5cfcb0d7980e4e94d90e5118a63fafb7484d0309",
+    "game/dist/boss-actions.js": "fa1865a1dd192078b60aeee98fd12dc7865654166700a0c0e4f63e8419c8e075",
+    "game/dist/engine.js": "0b38b728ab468a5314654b5f6e510bcd2c462c84dd19e31561222bf3e88aab16",
+    "game/dist/cpu-worker.js": "10f2b1b8f40930d178566553b78ca8cb9f4685f9b7aa0e438a11ca496cf657bd",
+    "game/runtime.json": "2ffe304b5e0b46d2f3fde5103a0073170c76ef48d954ee6ef20d66daefb3f858",
+    "game/tests/enemy-spacing.test.cjs": "7c75d69eb423ea8441d365d340d82573c31e181261d099407e84f4b1c5878cae",
+    "game/tests/enemy-spacing-browser.test.cjs": "15cdb55097ea5139324c26bc3f66248c96696e43785eb48c44c1939eb4a43337",
+    "game/tests/boss-motion-browser.test.cjs": "7837dea4a4d937f1a0dd82ec761ade63fe3aaeae7755e36e13967a3334bd9120"
+  },
+  "notPerformed": [
+    "physical iOS/Android",
+    "all100 maps full playthrough and win-rate measurements",
+    "audio decode regression",
+    "merge/deployment/public version"
+  ]
+}

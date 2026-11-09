@@ -3,9 +3,12 @@
   const node = typeof module !== "undefined";
   const G = node ? require("./geometry.js") : root.ArcGeometry;
   const N = node ? require("./encounters.js") : root.ArcEncounters;
+  const Position = node
+    ? require("./enemy-position.js")
+    : root.ArcEnemyPosition;
   const rules = Object.freeze({
     walk: 140,
-    close: 150,
+    close: Position.rules.minGap,
     cooldown: 2,
     echoDamage: 0.25,
     echoBlast: 80,
@@ -38,7 +41,9 @@
       : old;
   }
   const attachment = (id) =>
-    /^shoulder[01](?::|$)/.test(id) || /^front-armor(?::|$)/.test(id) || /^part-armor:/.test(id);
+    /^shoulder[01](?::|$)/.test(id) ||
+    /^front-armor(?::|$)/.test(id) ||
+    /^part-armor:/.test(id);
   function terrain(s) {
     if (!s.world.solids.some((o) => attachment(o.id))) return s.world;
     return {
@@ -67,7 +72,7 @@
           ],
         });
       });
-    if (s.stage === 60 && !s.units[1].parts.some(p => p.hp <= 0)) {
+    if (s.stage === 60 && !s.units[1].parts.some((p) => p.hp <= 0)) {
       const u = s.units[1];
       const dir = u.facing || -1,
         xs = [u.x + dir * 62, u.x + dir * 92].sort((a, b) => a - b);
@@ -78,16 +83,28 @@
           xs[1] / 10,
           (500 - u.y + 3) / 10,
           (500 - u.y + 58) / 10,
-        ),armorPart: 0,
+        ),
+        armorPart: 0,
       });
     }
-    if ([70,80,90].includes(s.stage))G.actorParts(s,1).forEach((p,i)=>{
-      if(p.hp<=0)return;const u=s.units[1],r=p.armorRadius;
-      s.world.solids.push({id:'part-armor:'+i,kind:'solid',armorPart:i,poly:Array.from({length:8},(_,j)=>({x:u.x+p.dx+Math.cos(j*Math.PI/4)*r,y:u.y+p.dy+Math.sin(j*Math.PI/4)*r}))});
-    });
+    if ([70, 80, 90].includes(s.stage))
+      G.actorParts(s, 1).forEach((p, i) => {
+        if (p.hp <= 0) return;
+        const u = s.units[1],
+          r = p.armorRadius;
+        s.world.solids.push({
+          id: "part-armor:" + i,
+          kind: "solid",
+          armorPart: i,
+          poly: Array.from({ length: 8 }, (_, j) => ({
+            x: u.x + p.dx + Math.cos((j * Math.PI) / 4) * r,
+            y: u.y + p.dy + Math.sin((j * Math.PI) / 4) * r,
+          })),
+        });
+      });
   }
   function refresh(s) {
-    if (![40,60,70,80,90].includes(s.stage)) return;
+    if (![40, 60, 70, 80, 90].includes(s.stage)) return;
     const w = terrain(s);
     s.world = { ...w, solids: [...w.solids], surfaces: [...w.surfaces] };
     attachments(s);
@@ -200,7 +217,10 @@
     );
   }
   function facing(s, x = s.units[1].x) {
-    const frozen = s.stage < 100 && s.telegraph?.technique && s.bossEchoFiredRound !== s.round;
+    const frozen =
+      s.stage < 100 &&
+      s.telegraph?.technique &&
+      s.bossEchoFiredRound !== s.round;
     return (frozen ? s.telegraph.targetX : s.units[0].x) >= x ? 1 : -1;
   }
   function relocate(s, pad) {
@@ -215,6 +235,8 @@
     while (Math.abs(remaining) > 0.01) {
       const dx = G.clamp(remaining, -2, 2),
         old = { ...u },
+        beforeGap = Position.gap(s),
+        beforeSide = Position.side(s),
         oldWorld = s.world;
       if (u.floating) u.x = G.clamp(u.x + dx, u.range[0], u.range[1]);
       else {
@@ -223,8 +245,12 @@
       }
       u.slope = 0;
       u.facing = facing(s);
-      if (Math.abs(u.x - old.x) < 0.01 || !fits(s)) {
-        Object.assign(u, old);
+      if (
+        Math.abs(u.x - old.x) < 0.01 ||
+        !Position.walkLegal(beforeGap, beforeSide, s) ||
+        !fits(s)
+      ) {
+        Position.restore(u, old);
         s.world = oldWorld;
         break;
       }

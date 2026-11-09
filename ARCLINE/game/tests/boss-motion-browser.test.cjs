@@ -270,6 +270,7 @@ const server = http.createServer((req, res) => {
             labels: [...echoCueLabels],
             duration,
             from: s.bossEcho?.unit.x,
+            gap: ArcEnemyPosition.gap(s),
           };
         });
         assert(
@@ -281,6 +282,10 @@ const server = http.createServer((req, res) => {
           "boss transfer uses readable presentation timing",
         );
         assert.equal(arrival.from, before.x);
+        assert(
+          arrival.gap >= 480 - 1e-7,
+          "boss teleport retains six body widths of horizontal clearance",
+        );
         assert(
           arrival.labels.includes(
             language === "en" ? "ECHO LEFT BEHIND" : "残像が残った",

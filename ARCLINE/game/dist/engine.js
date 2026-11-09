@@ -8,6 +8,7 @@ const N=node?require('./encounters.js'):root.ArcEncounters;
 const guardian=state=>N.guardian(state.spec);
 const EnemyActions=node?require('./enemy-actions.js'):root.ArcEnemyActions;
 const BossActions=node?require('./boss-actions.js'):root.ArcBossActions;
+const EnemyPosition=node?require('./enemy-position.js'):root.ArcEnemyPosition;
 const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
 const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
 const EnemyAttacks=node?require('./enemy-attacks.js'):root.ArcEnemyAttacks;
@@ -347,7 +348,7 @@ function next(s){
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1&&BossActions.active(s)?BossActions.move(s,amount):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount)):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -429,10 +430,10 @@ function enemyMoveTarget(s){
  const u=s.units[1],profile=s.spec.enemyProfile;if(guardian(s)||s.stage<=4||u.floating)return u.x;
  if(u.displaced){u.displaced--;return u.x;}
  if(profile===1&&s.round!==2||profile===2&&s.round%2===1)return u.x;
- const distance=N.forSpec(s.spec).move??[0,30,60,60,90,90][profile],sign=s.last[0]?.end.x<u.x?1:-1;
+ const distance=N.forSpec(s.spec).move??[0,30,60,60,90,90][profile],sign=EnemyPosition.gap(s)<EnemyPosition.rules.minGap?(u.x>=s.units[0].x?1:-1):s.last[0]?.end.x<u.x?1:-1;
  const original={...u};let target=u.x;
  // Candidate movement must retain a shared-physics attack route; no current charge input is read.
- for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);u.facing=s.units[0].x>=u.x?1:-1;if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
+ for(const dx of [distance*sign,-distance*sign]){EnemyPosition.move(s,dx);u.facing=s.units[0].x>=u.x?1:-1;if(solve(s,1).score>.1){target=u.x;EnemyPosition.restore(u,original);break;}EnemyPosition.restore(u,original);}
  return target;
 }
 function chargeSpecial(s){if(guardian(s))return 0;const unlocked=Math.min(3,Math.floor(s.playerTurn/2)),delta=Math.max(0,unlocked-(s.specialUnlocks||0));s.specialUnlocks=unlocked;if(delta){s.specialAmmo=Math.min(3,s.specialAmmo+delta);s.specialChargeSerial+=delta;}return delta;}
@@ -458,6 +459,6 @@ function bossEchoPlan(s,random){
 }
 function planEnemyAction(s,random){return BossActions.due(s)?{target:s.units[1].x,plan:bossEchoPlan(s,random),action:null}:enemyAI.plan(s,random);}
 async function planEnemyActionAsync(s,random,opts){return BossActions.due(s)?planEnemyAction(s,random):enemyAI.planAsync(s,random,opts);}
-const api={bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={enemyPosition:EnemyPosition,bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);
