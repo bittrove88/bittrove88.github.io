@@ -39,18 +39,20 @@ function maximumAngle(s){return weapon(s).maxAngle??170;}
 function usable(s,id){if(id==='W01')return true;const w=W.get(id);return w.special?w.machineId===s.characterId&&s.specialAmmo>0:I.weaponIds.includes(id)&&s.weaponStock[id]>0;}
 function seeded(seed=1){let x=seed>>>0;return ()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296;};}
 function campaign(stage=1,save={}){
- const spec=L[clamp(Math.floor(stage)||1,1,100)-1],world=G.world(spec);
+ const baseSpec=L[clamp(Math.floor(stage)||1,1,100)-1],difficulty=['easy','normal','hard'].includes(save.difficulty)?save.difficulty:'normal';
+ const spec=difficulty==='easy'&&baseSpec.finalBattle?{...baseSpec,finalBattle:{...baseSpec.finalBattle,requiredDamage:baseSpec.finalBattle.easyRequiredDamage}}:baseSpec,world=G.world(spec);
+ const enemyHp=difficulty==='easy'?(baseSpec.easyEnemyHp??baseSpec.enemyHp):baseSpec.enemyHp,enemyHpScale=enemyHp/baseSpec.enemyHp;
  const characterId=C.profiles.some(p=>p.id===save.equippedCharacterId)&&(!Array.isArray(save.unlockedCharacterIds)||save.unlockedCharacterIds.includes(save.equippedCharacterId))?save.equippedCharacterId:'gun',profile=C.get(characterId);
  const units=spec.spawn.map(([x,h],side)=>{
   const raw=G.point(x,h),safe=G.safePosition(world,raw.x,raw.y);
   if(!safe)throw Error('No safe spawn at level '+spec.id+' side '+side);
-  return {...safe,facing:side?-1:1,hp:side?(N.guardian(spec)?N.forSpec(spec).hp:(spec.enemyHp||3)):profile?profile.hp/C.pointsPerUnit:5,maxHp:side?(N.guardian(spec)?N.forSpec(spec).hp:(spec.enemyHp||3)):profile?profile.hp/C.pointsPerUnit:5,range:/^[45]\./.test(spec.contentRevision)?[35,(spec.worldWidth||1000)-35]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
+  return {...safe,facing:side?-1:1,hp:side?enemyHp:profile?profile.hp/C.pointsPerUnit:5,maxHp:side?enemyHp:profile?profile.hp/C.pointsPerUnit:5,range:/^[45]\./.test(spec.contentRevision)?[35,(spec.worldWidth||1000)-35]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
  });
  units[0].facing=units[1].x>=units[0].x?1:-1;units[1].facing=-units[0].facing;
  const encounter=N.forSpec(spec),enemy=units[1];
  enemy.encounterId=encounter.id;enemy.hitShape={...encounter.body};enemy.core=encounter.core?{...encounter.core}:null;enemy.weaponPivot={x:encounter.muzzle.x,y:encounter.muzzle.y};enemy.muzzleLength=encounter.muzzle.length;
  if(N.guardian(spec)){
-  const facing=units[0].x>=enemy.x?1:-1;enemy.slope=0;enemy.parts=encounter.parts.map(p=>({...p,localX:p.dx,dx:p.dx*facing,maxHp:p.hp}));
+  const facing=units[0].x>=enemy.x?1:-1;enemy.slope=0;enemy.parts=encounter.parts.map(p=>{const hp=Math.round(p.hp*C.pointsPerUnit*enemyHpScale)/C.pointsPerUnit;return {...p,localX:p.dx,dx:p.dx*facing,hp,maxHp:hp};});
   if([30,90].includes(spec.id)){enemy.y=500-spec.spawn[1][1]*10;enemy.floating=true;}
  }
  const skillCaps=Object.fromEntries(W.skills.map(id=>[id,I.limits.count]));
@@ -61,7 +63,7 @@ function campaign(stage=1,save={}){
  const inventory=I.normalize(save.battleInventory||{weapons:equipped==='W01'?{}:{[equipped]:3},skills:spec.skills}),mode=(save.battleMode||equipped)==='W01'||inventory.weapons[save.battleMode||equipped]>0?(save.battleMode||equipped):'W01';
  const canUseAmmo=Object.keys(inventory.weapons).length>0||pickups.some(p=>p.kind==='trial'||/^W\d\d$/.test(p.id));
  const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,characterId,specialAmmo:N.guardian(spec)?3:0,playerTurn:1,specialUnlocks:0,specialChargeSerial:0,weaponStock:inventory.weapons,skills:inventory.skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||canUseAmmo),pendingLoot:(save.pendingLoot||[]).map(p=>({...p})),collectedPickupIds:pickupLedger,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(mode,characterId).minAngle||-12),power:20,result:null,reason:null,weaponId:mode,mode,lastPickupWeaponId:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
- s.difficulty=['easy','normal','hard'].includes(save.difficulty)?save.difficulty:'normal';
+ s.difficulty=difficulty;s.enemyHpScale=enemyHpScale;
  s.skillEffects={};s.random=seeded(s.matchSeed);s.enemyLearning={active:false,walk:0,owner:characterId};
  s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
  if(spec.id!==100&&Crew.normalize(save.unlockedCharacterIds).length>1){const cooling=Object.entries(save.machineUsage?.cooldowns||{}).filter(([,n])=>n>0).map(([id])=>id);if(cooling.length)s.restingCharacterIds=cooling;}
@@ -306,7 +308,7 @@ function boundary(s){
   if(c.type==='phase'){
    const old=s.bossPhase;s.bossPhase=c.value;
    for(let phase=old+1;!/^[45]\./.test(s.spec.contentRevision)&&phase<=c.value;phase++)addReward(s,phase===1?'BLINK':'PHASE',phase===1?55:63,phase===1?23:29,'R-phase-'+phase);
-   if(s.bossPhase===1)s.units[1].parts=[{name:'LEFT SHELL',hp:2,maxHp:2,localX:-32,dx:-32,dy:-58,radius:22},{name:'RIGHT SHELL',hp:2,maxHp:2,localX:32,dx:32,dy:-58,radius:22}];
+   if(s.bossPhase===1){const hp=Math.round(40*(s.enemyHpScale??1))/C.pointsPerUnit;s.units[1].parts=[{name:'LEFT SHELL',hp,maxHp:hp,localX:-32,dx:-32,dy:-58,radius:22},{name:'RIGHT SHELL',hp,maxHp:hp,localX:32,dx:32,dy:-58,radius:22}];}
    if(s.bossPhase===2)s.units[1].parts=[];
   }
   if(c.type==='altitude')s.units[1].y+=20;
