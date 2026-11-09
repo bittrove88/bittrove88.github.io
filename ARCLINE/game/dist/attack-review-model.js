@@ -23,7 +23,7 @@ function state(row,scene){
 }
 function create(id,scene='arena'){
  const row=rows.find(r=>r.id===id);if(!row)throw new Error('Unknown attack '+id);let s=state(row,scene),proven=null;
- if(row.side===1){s.round=3;s.turn=1;s.phase='cpu';s.telegraph={kind:row.attackKind,...(row.weaponId.startsWith('E_')?{technique:row.weaponId}:{}),targetX:s.units[0].x,targetY:s.units[0].y-22,radius:A.enemyTechniques?.[row.weaponId]?.params.warningRadius||65,columns:row.weaponId==='E_90'?[-110,0,110]:[0],frozen:true};const before=JSON.parse(JSON.stringify(s)),plan=E.cpuPlan(s,()=>.5);E.resolve(s,plan);return {row,before,after:s,plan,scene,motion:Motion.create(plan)};}
+ if(row.side===1){s.round=3;s.turn=1;s.phase='cpu';s.telegraph={kind:row.attackKind,...(row.weaponId.startsWith('E_')?{technique:row.weaponId}:{}),targetX:s.units[0].x,targetY:s.units[0].y-22,radius:A.enemyTechniques?.[row.weaponId]?.params.warningRadius||65,columns:row.weaponId==='E_90'?[-110,0,110]:[0],frozen:true};if(row.weaponId.startsWith('E_')&&s.stage<100)E.telegraph(s);const before=JSON.parse(JSON.stringify(s)),plan=E.cpuPlan(s,()=>.5);E.resolve(s,plan);return {row,before,after:s,plan,scene,motion:Motion.create(plan)};}
  if(scene==='arena'&&['補助武器','必殺技'].includes(row.category)&&P){const demo=P.create(s,row.weaponId);if(demo?.proof?.valid){s=JSON.parse(JSON.stringify(demo.before));proven={angle:demo.plan.angle,power:demo.plan.power};}}
  if(row.weaponId==='W23')s.units[0].hp=Math.min(s.units[0].hp,s.units[0].maxHp*.3);
  const before=JSON.parse(JSON.stringify(s));

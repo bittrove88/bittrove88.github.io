@@ -334,7 +334,7 @@ function create(canvas,configuration={}){
   if(s.skillEffects?.gravity&&root.ArcVisualArt){const g=s.skillEffects.gravity,english=root.ArcI18n?.language==='en';root.ArcVisualArt.fieldBadge(ctx,s.units[0].x,s.units[0].y-100/scale,(english?'GRAVITY':'重力')+' ×'+g.factor+' '+(g.factor<1?'↑':'↓')+' · '+g.turns+(english?' turns':'ターン'),g.factor<1?'#86e7ff':'#ffbd8c',fieldOptions);}
   if(demonstration?.focus){const focus=demonstration.focus,radius=focus.radius||85,glow=ctx.createRadialGradient(focus.x,focus.y,0,focus.x,focus.y,radius);glow.addColorStop(0,'#f5ffc415');glow.addColorStop(1,'#f5ffc400');circle(focus.x,focus.y,radius,glow);}
   if(!lobby&&!localDemo&&s.telegraph){
-   const t=s.telegraph,y=G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y;
+   const t=s.telegraph,y=t.targetPose?.y??(G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y);
    for(const dx of t.columns||[0])path([{x:t.targetX+dx-t.radius,y:y+5},{x:t.targetX+dx+t.radius,y:y+5}],'#ffc09c',5,[7,6]);
    for(let x=t.targetX-t.radius;x<t.targetX+t.radius;x+=15)path([{x,y:y+14},{x:x+9,y:y+4}],'#ffccac',2);
    ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#ffe2c2';ctx.fillText(t.technique?(root.ArcI18n?.language==='en'?t.nameEn:t.name)||'!':'!',t.targetX,y+20/scale);

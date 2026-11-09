@@ -343,7 +343,7 @@ function solve(s,side,opts={}){
  const physics={weaponId,skill,...(opts.curve?{curve:opts.curve}:{}),...(opts.targetPoint?{targetPoint:opts.targetPoint}:{})};
  // Defensive damage factors must not change an enemy's physical aiming route.
  let aimState=side===1&&s.skillEffects?{...s,skillEffects:{...s.skillEffects,barrier:undefined,weaken:undefined,invincible:undefined}}:s;
- if(side===1&&opts.targetPoint)aimState={...aimState,units:aimState.units.map((u,i)=>i===0?{...u,x:opts.targetPoint.x,y:opts.targetPoint.y+22}:u)};
+ if(side===1&&opts.targetPoint){const pose=opts.targetPoint.pose;aimState={...aimState,units:aimState.units.map((u,i)=>i===0?{...u,...(pose?{x:pose.x,y:pose.y,slope:pose.slope}:{x:opts.targetPoint.x,y:opts.targetPoint.y+22})}:u)};}
  const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,w.scatter?[s.matchSeed,s.shotCount]:null,s.units.map(u=>[u.x,u.y,u.slope,u.facing,u.hp,u.parts.map(p=>p.hp),u.exposed]),s.finalTeam?.damage,s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,s.skillEffects,side,physics,minAngle,maxAngle,opts.requireEvent]);
  if(solveCache.has(key))return solveCache.get(key);
  let best={score:-Infinity,angle:48,power:70};
@@ -367,13 +367,17 @@ function enemyParameters(s){
  return {stageError,modeError,angle:(guardian(s)?Math.max(6,12-profile):foe.errorAngle)*stageError*modeError,power:(guardian(s)?Math.max(12,22-profile*2):foe.errorPower)*stageError*modeError,damage:stage>80?1.10:stage>60?1.05:1};
 }
 function cpuPlan(s,random=s.random){
- s.units[1].facing=s.units[0].x>=s.units[1].x?1:-1;
+ const frozenTechnique=s.stage<100&&!!s.telegraph?.technique;
+ s.units[1].facing=(frozenTechnique?s.telegraph.targetX:s.units[0].x)>=s.units[1].x?1:-1;
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
  const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
  const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};
- if(s.telegraph?.technique)settings={weaponId:s.telegraph.technique,minAngle:W.getEnemy(s.telegraph.technique).minAngle??-8,maxAngle:84,targetPoint:{x:s.telegraph.targetX,y:s.telegraph.targetY}};
+ if(s.telegraph?.technique)settings={weaponId:s.telegraph.technique,minAngle:W.getEnemy(s.telegraph.technique).minAngle??-8,maxAngle:84,targetPoint:{x:s.telegraph.targetX,y:s.telegraph.targetY,...(frozenTechnique&&s.telegraph.targetPose?{pose:s.telegraph.targetPose}:{})}};
  const normalAttack=!guardian(s)||['LOW','ARC'].includes(kind);
- const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=EnemyAttacks?.fixedAim(s)||solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
+ // Tune ordinary boss techniques inside the existing angle/power error model.
+ // Difficulty, learning, the frozen target and the three AI draws stay shared.
+ const balance=enemyParameters(s),techniqueError=s.stage<100&&s.telegraph?.technique?(W.getEnemy(s.telegraph.technique).aimErrorScale??1):1;
+ const errA=balance.angle*techniqueError*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power*techniqueError;let best=EnemyAttacks?.fixedAim(s)||solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);

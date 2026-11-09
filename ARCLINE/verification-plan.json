@@ -1,49 +1,37 @@
 {
   "version": 1,
-  "change": "0.30.4: 失敗時の武器・スキル復元と上位難易度クリアの下位反映",
-  "reason": "ユーザーが2点の方針を最終合意し「マージ直前まで」と指示。消費は勝利時に確定し、再挑戦在庫と取得台帳を一緒に保存。Hard→Normal/Easy、Normal→Easyを勝利と既存セーブの初回移行で反映。実エンジン消費・取得・勝敗・保存境界、既存在庫、モード切替・保存失敗、100面の既存再挑戦を限定確認。",
+  "change": "大ボス固有技の弾道・既存照準誤差と、予告後の移動・転移の検証",
+  "reason": "ユーザーが「プレイヤーが移動した後とかも考慮しシミュレーションし考慮もれないかチェック」と明示。全9大ボスの歩行・転移・斜面・遮蔽破壊・足場落下・防御・低重力/高重力・残HP・スキップ・勝敗をシミュレーション。予告後に位置と傾きが照準へ入る不具合と残HP超過表示を修正し、限定した本検証を実施する。マージ・公開は未許可。 追加確認で予告帯の描画が落下後の高さを参照する点も固定。潮撃砲は波150→90とし、静止命中約48%と徒歩回避を両立。変更した箇所だけ追加確認して既存成功結果を再利用する。",
   "files": [
-    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
-    "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/definitions.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
-    "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/campaign-run.js",
-    "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/difficulty-ui.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/i18n.js",
-    "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/menus.js",
-    "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/save.js",
-    "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/charge-pause.test.cjs",
-    "ARCLINE/game/tests/difficulty-balance.test.cjs",
-    "ARCLINE/game/tests/difficulty-browser.test.cjs",
-    "ARCLINE/game/tests/final-retry-browser.test.cjs",
-    "ARCLINE/game/tests/retry-progress-browser.test.cjs",
-    "ARCLINE/game/tests/retry-progress.test.cjs",
+    "ARCLINE/game/dist/attack-catalog.js",
+    "ARCLINE/game/dist/attack-review-model.js",
+    "ARCLINE/game/dist/enemy-attacks.js",
+    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/tests/boss-ballistics-browser.test.cjs",
+    "ARCLINE/game/tests/boss-ballistics.test.cjs",
+    "ARCLINE/game/tests/boss-movement-browser.test.cjs",
+    "ARCLINE/game/tests/boss-movement.test.cjs",
+    "ARCLINE/game/tests/boss-warning-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/ui/difficulty-ui.js",
-    "ARCLINE/index.html",
-    "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.4/index.html"
+    "ARCLINE/game/tools/probe_boss_ballistics.cjs",
+    "ARCLINE/game/tools/probe_boss_movement.cjs"
   ],
   "suites": {
     "unit": [
-      "retry-progress",
-      "chapter-stock",
-      "difficulty-balance",
-      "crew-supply"
+      "boss-ballistics",
+      "boss-movement",
+      "enemy-evolution",
+      "final-attacks"
     ],
     "browser": [
-      "retry-progress-browser",
-      "difficulty-browser",
-      "final-retry-browser",
-      "charge-pause"
+      "boss-ballistics-browser",
+      "boss-movement-browser",
+      "boss-warning-browser"
     ]
   },
   "checks": {
@@ -54,16 +42,16 @@
     "nativeAudio": false
   },
   "manual": [
-    "PC/小画面の失敗結果と難易度切替を確認。合意済みの2点を実装・検証・PR化し、マージと公開はしない。"
+    "全9体の移動・転移・環境変化の行列を30/120fpsで計算し、実ブラウザで転移前後から次手番まで確認。ユーザーの現行指示の範囲で本検証を行う。マージ・公開は行わない。"
   ],
   "excluded": [
     {
-      "scope": "全100面攻略、全攻撃・音源・原画・エンディング",
-      "reason": "変更は進行・在庫保存と関連文言。攻撃、物理、AI、地形、素材は変更しない。"
+      "scope": "全100面再攻略、保存移行、音源、エンディング、未変更の全自機攻撃",
+      "reason": "地形、HP、保存、素材は変更しない。共通物理の変更は省略可能な砲口差分で、既存敵の同じvolley経路はenemy-evolutionで確認する。"
     },
     {
-      "scope": "物理iPhone/Android、本番URLの変更確認",
-      "reason": "実機は未接続。本番はマージしない。"
+      "scope": "本番配信、リリース版数とキャッシュの切替",
+      "reason": "ローカル候補のレビュー段階。採用と公開準備の段階で版数・更新案内を揃える。"
     }
   ]
 }
