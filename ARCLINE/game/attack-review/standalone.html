@@ -5,12 +5,12 @@
 <title>ARCLINE 攻撃の動作確認</title>
 <style>:root{font-family:system-ui,sans-serif;color:#ecf4f0;background:#142e3b;color-scheme:dark}*{box-sizing:border-box}body{margin:0}main{max-width:1280px;margin:auto;padding:18px}h1{font-size:24px;margin:8px 0}h2{font-size:20px}p{line-height:1.7}a{color:#9ce5dc}.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:16px 0}.controls label{display:grid;gap:5px;font-size:13px}select,button{font:inherit;border:1px solid #6c939b;border-radius:7px;background:#224653;color:inherit;min-height:42px;padding:8px 12px}button{cursor:pointer}button:hover{background:#326373}canvas{display:block;width:100%;height: min(58vw,580px);min-height:250px;background:#244852;border:1px solid #51777d;border-radius:8px}.timeline{display:flex;align-items:center;gap:10px;margin-top:12px}.timeline input{flex:1}.timeline output{min-width:90px;font-variant-numeric:tabular-nums}dl{display:grid;grid-template-columns:60px 1fr;gap:10px;line-height:1.75}dt{color:#a9d9cc;font-weight:700}dd{margin:0}#proof{padding:12px;background:#203f49;border-radius:7px;font-size:13px}@media(max-width:650px){main{padding:10px}.controls label{flex:1;min-width:145px}select{max-width:100%}canvas{height:300px}.timeline{font-size:12px}dl{grid-template-columns:48px 1fr}}
 </style>
-<main><header><span>ARCLINE 0.30.4 · REVIEW</span><h1>攻撃の動作確認</h1><p>実戦と同じ弾道・命中判定・描画を使用します。この画面は攻略の保存を読み書きしません。</p></header>
+<main><header><span>ARCLINE 0.31.0 · REVIEW</span><h1>攻撃の動作確認</h1><p>実戦と同じ弾道・命中判定・描画を使用します。この画面は攻略の保存を読み書きしません。</p></header>
 <section class="controls"><label>分類<select id="category"></select></label><label>キャラと技<select id="attack"></select></label><label>確認場面<select id="scene"><option value="arena">基本の射撃場</option><option value="map">実際のマップ</option><option value="wall">遮蔽</option><option value="reflect">反射</option><option value="gap">床の途切れ</option><option value="miss">外れる弾道</option></select></label><label>モーション<select id="timing"><option value="crafted">調整後</option><option value="physical">時間変化なしと比較</option></select></label><label>速さ<select id="speed"><option value="1">通常</option><option value="0.5">半分</option><option value="0.25">4分の1</option></select></label><button id="play">再生</button><button id="pause">一時停止</button><button id="previous">前の技</button><button id="next">次の技</button></section>
 <canvas id="canvas" aria-label="実エンジンの攻撃確認"></canvas><label class="timeline">経過時間<input id="time" type="range" min="0" max="1" value="0" step="0.005"><output id="clock"></output></label>
 <section class="description"><h2 id="name"></h2><dl><dt>弾道</dt><dd id="trajectory"></dd><dt>着弾</dt><dd id="impact"></dd><dt>敵効果</dt><dd id="effect"></dd><dt>間と速度</dt><dd id="motion"></dd></dl><p id="proof" role="status"></p></section></main>
 <script>/* Generated from game/runtime.json. */
-(function(root){const data=Object.freeze({"version":"0.30.4","cacheVersion":"0.30.4","campaignVersion":"5.0","saveSchema":8,"resetVersion":2});if(typeof module!=="undefined")module.exports=data;else root.ArcRelease=data;})(globalThis);
+(function(root){const data=Object.freeze({"version":"0.31.0","cacheVersion":"0.31.0","campaignVersion":"5.0","saveSchema":8,"resetVersion":2});if(typeof module!=="undefined")module.exports=data;else root.ArcRelease=data;})(globalThis);
 </script>
 <script>(function(root){'use strict';
 const dictionary={"Standard":"通常弾","Heavy Shell":"重榴弾","Needle":"貫通針","Mortar":"迫撃弾","Hopper":"ホッパー","Ricochet":"跳弾","Roller":"転がる弾","Skipper":"低空跳弾","Fan Shot":"扇状弾","Cluster":"分裂弾","Twin":"連射弾","Airburst":"空中炸裂弾","Drill":"ドリル","Rail":"レール弾","Archer":"急降下弾","Undercut":"地走り弾","Impact":"押し出し弾","Magnet":"引き寄せ弾","Lifter":"爆風弾","Pinball":"ピンボール","FIRE":"発射","AIM":"照準","MOVE":"移動","POWER":"威力","ROVER":"自機","RIVAL":"相手","YOUR TURN":"あなたの番","BOSS":"ボス","COMPLETE":"終了","WEAPON":"武器","Unlimited":"無制限","Selected":"選択中","Select":"選択","Used":"使用済み","Next turn":"次の番","NEXT TURN":"次の番","Empty":"残数なし","EMPTY":"残数なし","Equipped":"装備中","Owned":"所持","Always available":"いつでも使用可","Equipped for this level":"この面に持ち込んだ武器","Pickup trial":"拾った武器のお試し","This level":"この面の武器","Special: 2 shots per level":"特殊武器は各面2発","Equipment":"装備","Weapons":"武器","Finishes":"外観","Original":"標準","CHANGE":"変更","STARTING WEAPON":"開始時の武器","JOURNEY":"ステージ","Journey":"ステージ","PLAY":"遊ぶ","GEAR":"装備","LOADOUT":"装備","OK":"OK","PREVIEW":"プレビュー","WATCH":"準備","SHOT":"動作","RESULT":"結果","LEVEL PREVIEW":"この面の案内","WEAPON PREVIEW":"武器の使い方","SKILL PREVIEW":"スキルの使い方","BOSS PREVIEW":"ボスの攻略","CONTROL PREVIEW":"操作の練習","PRACTICE PREVIEW":"練習用の場面","BURST":"爆発強化","BLINK":"瞬間移動","PUSH":"押す","PULL":"引き寄せ","BOUNCE":"反射追加","SPLIT":"分裂","PHASE":"すり抜け","SWAP":"入れ替え","CHOOSE SPOT":"着地点を選択","CANCEL":"取消","Tap a landing spot, then tap again.":"着地点を選び、もう一度タップ","TAP AGAIN TO BLINK":"もう一度タップで移動","HOLD FIRE":"発射を長押し","RELEASE":"指を離す","HIT":"命中","COLLECT":"回収","COLLECTED":"回収完了","HIGH GROUND":"高い足場","REFLECTIVE GROUND":"反射する地面","MOVING GATE":"動くゲート","LOW ROOF":"低い天井","CLOUD":"雲","MIRROR":"反射板","UPDRAFT":"上昇気流","WIND":"風","VENT":"噴き出す気流","MAGNETIC FIELD":"磁場","FIELD SWITCH":"磁場スイッチ","BOSS ARMOR":"ボスの装甲","TURN THE CORE":"コアの向きを変える","BREAK ARMOR":"装甲を壊す","ARMOR BROKEN":"装甲破壊","HIT THE CORE":"コアを狙う","CORE":"コア","CORE ×2":"コア ×2","LOW AIM":"低い照準","HIGH AIM":"高い照準","LOW ARC":"低い弾道","HIGH ARC":"高い弾道","HIGHER ARC":"高い弾道","NEW POSITION":"新しい位置","GATE OPEN":"ゲート開","GATE CLOSED":"ゲート閉","VENT ON":"気流あり","VENT OFF":"気流なし","NO LIFT":"上昇なし","REFLECT":"反射","LIFT":"上昇","DRIFT":"流される","BEND":"曲がる","REVERSED":"反転","CLEAR":"通過","WIDER BLAST":"広い爆風","WIDE BLAST":"広い爆風","LAND":"着地","EXTRA BOUNCE":"反射を追加","THROUGH":"貫通","CORE TURNED":"コアの向きが変化","FAST":"速い弾","HOP":"跳ねる","REBOUND":"跳ね返る","ROLL":"転がる","SKIP":"低く跳ねる","THREE SHOTS":"3方向に発射","TWO HITS":"2発が命中","AIR BLAST":"空中で爆発","STRAIGHT":"まっすぐ","DIVE":"急降下","GROUND WAVE":"地面を伝わる衝撃","Shot":"弾道","No field":"気流・磁場なし","Cleared.":"クリア！","A draw.":"引き分け","Rover disabled.":"自機が破壊されました","Out of shots.":"弾数切れ","Every arc led here.":"すべての軌道が、ここにつながる。","NEXT LEVEL":"次の面へ","TRY AGAIN":"もう一度","RESUME":"再開","Take a breath.":"一時停止","DUEL PAUSED":"一時停止中","Leave this duel?":"この対戦をやめますか？","Collected items saved.":"回収したアイテムは保存済み","LEAVE":"やめる","EQUIPMENT":"装備","COLLECTION":"コレクション","Choose weapon":"武器を選ぶ","Progress saved on this device":"この端末に保存済み","Progress synced":"進行を保存済み","Loading progress…":"進行を読み込み中…","Progress unavailable · Session play":"保存を読み込めません・今回のみプレイ","Progress not saved · Retry on resume":"保存できません・再開時に再試行","A reliable arc and balanced blast.":"扱いやすい弾道と標準的な爆風。","A wide blast catches nearby targets.":"広い爆風で周囲も巻き込む。","A fast, narrow shot for small openings.":"速く細い弾で小さな隙間を狙う。","A high arc falls behind cover.":"高い弾道で障害物の向こうへ。","One high bounce off solid ground.":"地面で一度、高く跳ねる。","Two controlled ricochets.":"2回の跳弾で狙う。","Rolls forward along the ground.":"地面を転がって進む。","Low, repeated ground bounces.":"低く何度も跳ねる。","Three paths spread at launch.":"3方向へ同時に発射。","Splits into three at the top.":"頂点で3つに分裂。","Two close shots in sequence.":"続けて2発を発射。","Bursts near the target before contact.":"相手に近づくと接触前に炸裂。","Passes through a thin wall.":"薄い壁をすり抜ける。","A near-straight shot through a clear lane.":"ほぼまっすぐな高速弾。","Dives sharply after the top.":"頂点から急降下する。","Impact sends waves along the floor.":"着弾から地面に衝撃波が走る。","Pushes the target away.":"相手を押し出す。","Pulls the target toward the impact.":"相手を着弾点へ引き寄せる。","Carries the target to a higher platform.":"相手を高い足場へ打ち上げる。","Ricochets and pushes the target.":"跳弾しながら相手を押し出す。","Pull AIM down.":"照準スティックを下へ倒す","Push AIM up.":"照準スティックを上へ倒す","Lower aim keeps the arc low.":"下に向けると低い弾道になる","Higher aim raises the arc.":"上に向けると高い弾道になる","Language":"言語","Move joystick":"移動スティック","Aim joystick":"照準スティック","Pause":"一時停止","Hold to charge; release to fire":"長押しで威力をため、離すと発射","Choose a landing spot on the battlefield":"戦場の着地点を選んでください","Hold FIRE, then release.":"長押しした発射ボタンから指を離す","Release launches the shot.":"指を離すと弾が飛ぶ","Move the right stick up or down.":"右のスティックを上下に倒す","Higher aim makes a higher arc.":"上に向けるほど高い弾道になる","Push the left stick sideways.":"左のスティックを左右に倒す","Your rover changes position.":"自機の位置が変わる","Move onto a better firing slope.":"狙いやすい斜面へ移動できる","Move onto the higher ground.":"高い足場へ移動する","Position changes your firing angle.":"位置によって発射角度が変わる","Hit the glowing capsule.":"光るカプセルに弾を当てる","The item is saved immediately.":"回収したアイテムはすぐ保存される","Aim into the bright ground.":"光る地面へ撃つ","The shot bounces upward.":"弾が上へ跳ね返る","Watch the gate before firing.":"発射前にゲートの動きを見る","The same shot changes when it moves.":"同じ弾でもゲートの状態で結果が変わる","Aim beneath the roof.":"天井の下を狙う","A low arc clears the cover.":"低い弾道なら障害物の下を通れる","Send a shot through the cloud.":"雲を通るように撃つ","The cloud slows the shot.":"雲に入ると弾が遅くなる","Aim at the bright mirror.":"光る反射板を狙う","The shot turns at the mirror.":"反射板で弾の向きが変わる","Send a shot into the rising air.":"上昇気流へ撃つ","The air lifts the shot.":"気流に乗ると弾が浮き上がる","Fire through the moving air.":"風の中へ撃つ","Wind carries the shot sideways.":"風に流されて弾が横へ動く","Compare the vent on and off.":"気流あり・なしを見比べる","The same shot rises only when on.":"気流があるときだけ弾が浮く","Send a shot through the field.":"磁場へ撃つ","The field bends its path.":"磁場で弾道が曲がる","Hit the glowing switch.":"光るスイッチに当てる","The field reverses next turn.":"次の番に磁場が反転する","Break a bright outer part.":"光る外側の部品を壊す","Then hit the exposed core.":"次は露出したコアを狙う","Select SWAP, then hit the boss.":"入れ替えを選び、ボスに当てる","The core turns toward you.":"コアが自分の方へ向く","Select BURST before firing.":"発射前に爆発強化を選ぶ","The wider blast reaches the rival.":"広い爆風が相手に届く","Select BLINK, then tap a landing twice.":"瞬間移動を選び、着地点を2回タップ","The rover moves to that landing.":"選んだ着地点へ移動する","Select PUSH, then hit the rival.":"押すを選び、相手に当てる","The rival moves farther away.":"相手が遠ざかる","Select PULL, then hit the rival.":"引き寄せを選び、相手に当てる","The rival moves closer.":"相手が近づく","Select BOUNCE before firing.":"発射前に反射追加を選ぶ","The shot gains an extra bounce.":"反射が1回増える","Select SPLIT before firing.":"発射前に分裂を選ぶ","The shot separates at its highest point.":"弾が頂点で分かれる","Select PHASE, then aim through the wall.":"すり抜けを選び、壁の向こうを狙う","The shot passes through thin cover.":"薄い障害物を通り抜ける","Select SWAP, then hit the rival.":"入れ替えを選び、相手に当てる","Both rovers exchange positions.":"自機と相手の位置が入れ替わる","A single arcing shot.":"1発の弾が弧を描いて飛ぶ","Aim near the rival.":"相手の近くを狙う","A wider blast reaches farther.":"広い爆風が遠くまで届く","Aim directly toward the rival.":"相手へ直接狙う","A fast, narrow shot.":"速く細い弾が飛ぶ","Raise the barrel above 55°.":"砲身を55度より上へ向ける","A high arc drops over cover.":"高い弾道で障害物を越える","Aim at the ground before the rival.":"相手の手前の地面を狙う","One hop carries the shot onward.":"1回跳ねて、その先へ進む","Bounce toward the rival.":"跳ね返して相手を狙う","The shot rebounds twice.":"2回跳ね返る","Land on the ground before the rival.":"相手の手前の地面へ着弾させる","The shot rolls into the rival.":"弾が転がって相手へ届く","Aim low at reflective ground.":"反射する地面へ低く撃つ","Several low skips carry the shot.":"低く何度も跳ねて進む","Aim the spread toward the rival.":"相手へ向けて広く撃つ","Three shots leave in different directions.":"3方向へ同時に弾が出る","Aim above the rival.":"相手の上を狙う","The shot splits at its highest point.":"弾が頂点で分かれる","Aim once toward the rival.":"相手に向けて一度狙う","Two shots land one after the other.":"2発が続けて命中する","Send the shot near the rival.":"相手の近くへ撃つ","The blast triggers in the air.":"空中で爆発する","Aim through the thin wall.":"薄い壁の向こうを狙う","The shot exits the cover and hits.":"壁を抜けて相手に当たる","Aim straight at the rival.":"相手へまっすぐ狙う","A fast shot flies almost straight.":"速い弾がほぼ直線に飛ぶ","The shot dives before impact.":"着弾前に急降下する","Land before the rival.":"相手の手前へ着弾させる","A ground wave reaches the rival.":"地面を伝う衝撃が相手に届く","Hit the rival.":"相手に当てる","The rival is pushed away.":"相手が押し出される","The rival is pulled closer.":"相手が引き寄せられる","Hit below the rival.":"相手の下側に当てる","The rival lands on a higher ledge.":"相手が高い足場に着地する","Repeated rebounds push the rival away.":"繰り返す跳弾で相手を押し出す","First Shore":"はじまりの浜辺","Mirror Flats":"鏡の平原","Canal Gates":"水路のゲート","Sunken Ruins":"沈んだ遺跡","Mist Gardens":"霧の庭園","Cloud Terraces":"雲の段丘","Crystal Road":"水晶の道","Prism Station":"プリズム駅","Rising Cavern":"上昇の洞窟","Amber Engines":"琥珀の機関","Wind Observatory":"風の観測所","Frozen Causeway":"凍てつく街道","Volcanic Rim":"火山の縁","Forge Pass":"鍛冶の峠","Magnetic Mine":"磁石の鉱山","Polarity Lab":"極性の研究所","Sky Garden":"空中庭園","Storm Carrier":"嵐の空母","Fortress Gates":"要塞の門","Dawn Keep":"夜明けの城","CLEARED":"クリア","OUT OF SHOTS":"弾数切れ","ROVER DISABLED":"自機破壊","DRAW":"引き分け","choose weapon":"武器を選ぶ","Preview":"プレビュー","Close weapon selection":"武器選択を閉じる","Close collection":"装備を閉じる","Close level selection":"ステージ選択を閉じる","Previous level":"前の面","Next level":"次の面","Previous theme":"前のテーマ","Next theme":"次のテーマ","One skill per turn":"スキルは1ターンに1回","Skills: choose one per turn":"スキルは1ターンに1つ選択","Battlefield. Left joystick moves; right joystick adjusts angle. Arrow keys move and aim; hold space to charge.":"戦場。左スティックで移動、右スティックで照準。矢印キーでも操作でき、スペース長押しで発射。","Fullscreen":"全画面","Exit fullscreen":"全画面を終了","Play without browser bars":"ブラウザのバーなしで遊ぶ","On iPhone Safari, use Share → Add to Home Screen, then launch ARCLINE from its icon.":"iPhoneのSafariでは「共有」→「ホーム画面に追加」を選び、追加されたARCLINEのアイコンから起動してください。","Your progress stays on this browser. The home-screen app may have separate progress.":"今の進行はこのブラウザに残ります。ホーム画面のアプリでは進行が別になる場合があります。","Close":"閉じる"};
@@ -913,7 +913,7 @@ function phaseTravel(a,b,poly,budget){
 }
 function simulate(s,side,angle,power,options={}){
  const finalEnemy=side===1&&s.stage===100;
- const weapon=side===1?W.getEnemy(options.weaponId||'W01'):W.get(options.weaponId||'W01',s.characterId),skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
+ const baseWeapon=side===1?W.getEnemy(options.weaponId||'W01'):W.get(options.weaponId||'W01',s.characterId),weapon=options.weaponOverrides?{...baseWeapon,...options.weaponOverrides}:baseWeapon,skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
  if(weapon.machineId)angle=G.clamp(angle,weapon.minAngle,weapon.maxAngle);
  const units=s.units.map(u=>({...u,parts:u.parts.map(p=>({...p}))})),simState={...s,units};
  const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle({...s,mode:weapon.id},side,Math.max(weapon.minAngle||-15,angle));
@@ -1035,6 +1035,7 @@ function simulate(s,side,angle,power,options={}){
   if(weapon.wave){for(const dir of [-1,1]){let current=G.surfaceAt(simWorld,p.x,p.y,30);const path=[];if(current)for(let distance=0;distance<=(weapon.waveDistance||180);distance=Math.min(weapon.waveDistance||180,distance+5)){const x=p.x+dir*distance,next=G.surfaceAt(simWorld,x,current.y,12);if(!next||!G.lineClear(simWorld,{x:current.x,y:current.y-4},{x,y:next.y-4}))break;current=next;path.push({x,y:next.y-4,...(weapon.progressiveWave?{t:p.t+distance/(weapon.waveSpeed||300)}:{})});if(distance===(weapon.waveDistance||180))break;}if(path.length){waves.push(path);events.push({type:'wave',x:p.x,y:p.y,t:p.t,path,bullet:p.id,...(weapon.progressiveWave?{duration:path.at(-1).t-p.t}:{})});}}}
   if(weapon.progressiveWave){for(let j=0;j<2;j++){const u=units[j],q=timed?waves.flat().filter(q=>areaContact(q,j,7)).sort((a,b)=>a.t-b.t)[0]:waves.flat().filter(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25).sort((a,b)=>a.t-b.t)[0];if(q)queue.push({...p,id:bulletId++,effect:'wave-hit',target:j,t:q.t,start:q.t,x:q.x,y:q.y,path:[{x:q.x,y:q.y,t:q.t}],budget:p.budget});}}
   for(let j=0;j<2;j++){
+   if(options.ignoreShooter&&j===side)continue;
    if(timed){
     if(weapon.progressiveCone)continue;
     if(weapon.captureDamage){if(j===1&&p.captureHit)credit(p,p.captureHit,p.budget*multiplier(p.captureHit),'compression');continue;}
@@ -1120,7 +1121,7 @@ function simulate(s,side,angle,power,options={}){
     else{next.y=f.y-3;p.roll+=DT;if(weapon.resumeRoll)p.rollElapsed+=DT;p.rollDistance+=Math.abs(next.x-old.x);}
     if(weapon.rollBursts&&p.rollDistance-(p.lastBurst||0)>=(weapon.burstEvery||80)){p.lastBurst=p.rollDistance;const stage=Math.min(6,Math.floor(p.rollDistance/(weapon.burstEvery||80))),time=p.t;queue.push({...p,id:bulletId++,effect:'burst',secondary:true,budget:weapon.burstDamage||.15,blast:22+stage*5,t:time,start:time,stage,path:[{x:p.x,y:p.y,t:time}]});}
    }
-   const target=hitTargets(simState,side,old,next,p.age,weapon);
+   const target=hitTargets(simState,side,old,next,options.ignoreShooter?-.5:p.age,weapon);
    let solid=G.sweep(simWorld,old,next,p.solidSkip||p.phaseSolid);
    if(solid&&weapon.contactBreak&&p.roll&&solid.solid.destructible){const pieces=simWorld.solids.filter(o=>o.destructible&&(o.id===solid.solid.id||o.poly.some(q=>Math.hypot(q.x-solid.x,q.y-solid.y)<=weapon.contactBreak)));for(const o of pieces){destroyed.add(o.id);events.push({type:'break',x:solid.x,y:solid.y,t:p.t+DT,solidId:o.id,bullet:p.id});}simWorld=G.without(simWorld,pieces.map(o=>o.id));solid=G.sweep(simWorld,old,next,p.solidSkip);}
    let stop=target&&(!solid||target.t<=solid.t)?target:solid;
@@ -1232,6 +1233,32 @@ function simulate(s,side,angle,power,options={}){
  }else if(!timed&&weapon.damageCap)for(const id of Object.keys(partDamage))partDamage[id]=Math.min(cap,partDamage[id]);
  if(!timed)for(const e of events)if(e.type==='damage')e.value*=rawDamage[e.unit]?damage[e.unit]/rawDamage[e.unit]:0;
  const duration=Math.max(...bullets.map(b=>b.t),...events.map(e=>e.t+(e.duration||0)),.01);
+ if(side===0&&!weapon.teleport&&weapon.damage>0&&s.bossEcho){
+  const echo=s.bossEcho,u=echo.unit,ghostState={...s,units:[s.units[0],u]},h=u.hitShape||{x:0,y:-22,rx:31,ry:31};
+  const shapes=[{...G.actorPoint(ghostState,1,h.x||0,h.y),rx:h.rx,ry:h.ry},...G.actorParts(ghostState,1).filter(p=>p.hp>0).map(p=>({x:u.x+p.dx,y:u.y+p.dy,rx:p.radius,ry:p.radius}))];
+  let first=null;
+  const remember=(t,p)=>{if(!first||t<first.t)first={type:'echo-hit',id:echo.id,t,x:p.x,y:p.y};};
+  // Echoes observe a contact; they never shorten a path or consume damage.
+  for(const b of bullets)for(let i=1;i<b.path.length;i++){
+   const a=b.path[i-1],z=b.path[i];
+   for(const q of shapes){const local=p=>({x:(p.x-q.x)/q.rx,y:(p.y-q.y)/q.ry}),hit=G.circle(local(a),local(z),{x:0,y:0},1);if(hit!==null)remember(a.t+(z.t-a.t)*hit,{x:a.x+(z.x-a.x)*hit,y:a.y+(z.y-a.y)*hit});}
+  }
+  const reaches=(p,r,t,cone=null)=>{
+   const w=G.without(s.world,events.filter(e=>e.type==='break'&&e.t<=t).map(e=>e.solidId));
+   for(const q of shapes){
+    const dx=p.x-q.x,dy=p.y-q.y,n=Math.hypot(dx/q.rx,dy/q.ry),target=n<=1?{x:p.x,y:p.y}:{x:q.x+dx/n,y:q.y+dy/n};
+    if(Math.hypot(target.x-p.x,target.y-p.y)>r)continue;
+    if(cone&&Math.abs(Math.atan2(target.y-p.y,(target.x-p.x)*cone.dir))>cone.angle*Math.PI/180)continue;
+    if(G.lineClear(w,{x:p.x,y:p.y-2},target))remember(t,target);
+   }
+  };
+  for(const hit of impacts)reaches(hit,hit.blast??weapon.blast,hit.t);
+  for(const e of events){
+   if(e.type==='ring'||e.type==='shockwave')for(let step=0;step<=30;step++){const f=step/30;reaches(e,(e.radius||e.length||0)*f,e.t+(e.duration||0)*f,e.type==='shockwave'?{dir:e.direction||1,angle:e.halfAngle||28}:null);}
+   if(e.type==='wave')for(const p of e.path||[])reaches(p,7,p.t??e.t);
+  }
+  if(first)events.push(first);
+ }
  events.sort((a,b)=>a.t-b.t);
  return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
@@ -1305,6 +1332,7 @@ const config=s=>s.spec.finalBattle;
 function complete(s){return s?.stage!==100||active(s)&&s.finalTeam?.index===9&&s.characterId==='gun'&&config(s).order.every(id=>(s.finalTeam?.damage[id]||0)>=config(s).requiredDamage-1e-7);}
 function mapIndex(s){return Math.min(3,Math.floor((s.finalTeam?.index||0)/3));}
 function place(s,initial=false){
+ for(const key of ['bossEcho','bossEchoEffect','bossEchoContinuation','bossEchoFiredRound','deferredBossTelegraph'])delete s[key];
  delete s.effects.gravityField;
  const c=config(s),t=s.finalTeam,id=c.order[t.index],index=mapIndex(s),map=c.maps[index],changed=t.map!==index;
  if(initial||changed){s.spec={...s.spec,floors:map.floors,components:map.components,features:map.features,spawn:[map.spawns[id],map.bossSpawn]};delete s.spec.phaseFeatures;s.effects.destroyed=[];s.world=G.world(s.spec,s.round,s.bossPhase,s.effects);}
@@ -1420,7 +1448,7 @@ function plan(s,angle,power){
  return decorate(s,p);
 }
 function resolve(s,shot){
- if(s.stage===100&&shot.side===1){finalSequence(s);s.finalAttackPattern.step++;}
+ if(s.stage===100&&shot.side===1&&!shot.echo&&!shot.deferBossAttack){finalSequence(s);s.finalAttackPattern.step++;}
  const field=s.effects.gravityField;if(field){field.charges[shot.side]=Math.max(0,field.charges[shot.side]-1);if(!field.charges.some(Boolean))delete s.effects.gravityField;}
  if(shot.createGravityField)s.effects.gravityField=JSON.parse(JSON.stringify(shot.createGravityField));
  if(shot.weaponId==='E_80'&&shot.damage[0]>0){const u=s.units[0],from={x:u.x,y:u.y,slope:u.slope},hits=shot.impacts.filter(h=>Math.hypot(h.x-u.x,h.y-(u.y-22))<85);for(const h of hits){const b=shot.bullets.find(b=>b.id===h.bullet),away=Math.sign(u.x-h.x)||1;G.move(s,0,(b?.stage===1?-1:1)*away*45*(W.combat.get(s.characterId).pushResistance||1));}if(u.x!==from.x){u.animation={from,age:0,duration:.45,lift:0};u.reactionKind='push';}}
@@ -1430,6 +1458,295 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
 </script>
 <script>(function (root) {
   "use strict";
+  const node = typeof module !== "undefined";
+  const G = node ? require("./geometry.js") : root.ArcGeometry;
+  const N = node ? require("./encounters.js") : root.ArcEncounters;
+  const rules = Object.freeze({
+    walk: 140,
+    close: 150,
+    cooldown: 2,
+    echoDamage: 0.25,
+    echoBlast: 80,
+    echoInterval: 0.2,
+  });
+  const active = (s) => N.guardian(s.spec) && s.stage >= 30;
+  const field = (s) =>
+    s.stage === 100
+      ? Math.min(3, Math.floor((s.finalTeam?.index || 0) / 3))
+      : 0;
+  function rule(s) {
+    return {
+      boss: active(s),
+      walk: active(s),
+      teleports: active(s) && s.stage >= 50 ? (s.spec.midboss ? 1 : 2) : 0,
+      echo: !!s.spec.boss && s.stage >= 50,
+      field: field(s),
+    };
+  }
+  function tactics(s) {
+    const old = s.enemyTactics || {};
+    return s.stage === 100 && old.field !== field(s)
+      ? {
+          ...old,
+          field: field(s),
+          teleports: 0,
+          opportunityMisses: 0,
+          blocked: 0,
+        }
+      : old;
+  }
+  const attachment = (id) =>
+    /^shoulder[01](?::|$)/.test(id) || /^front-armor(?::|$)/.test(id);
+  function terrain(s) {
+    if (!s.world.solids.some((o) => attachment(o.id))) return s.world;
+    return {
+      ...s.world,
+      solids: s.world.solids.filter((o) => !attachment(o.id)),
+      surfaces: s.world.surfaces.filter((f) => !attachment(f.solidId || f.id)),
+    };
+  }
+  function attachments(s) {
+    if (s.stage === 40)
+      G.actorParts(s, 1).forEach((p, i) => {
+        if (p.hp <= 0) return;
+        const u = s.units[1],
+          x = u.x + p.dx,
+          y = u.y + p.dy,
+          d = (i === 0 ? -1 : 1) * -(u.facing || -1);
+        s.world.solids.push({
+          id: "shoulder" + i,
+          kind: "crystal",
+          poly: [
+            { x: x - 17, y: y - 12 * d },
+            { x: x + 17, y: y + 12 * d },
+            { x: x + 17, y: y + 12 * d + 5 },
+            { x: x - 17, y: y - 12 * d + 5 },
+          ],
+        });
+      });
+    if (s.stage === 60 && s.effects.broken === 0) {
+      const u = s.units[1];
+      const dir = u.facing || -1,
+        xs = [u.x + dir * 62, u.x + dir * 92].sort((a, b) => a - b);
+      s.world.solids.push(
+        G.rectangle(
+          "front-armor",
+          xs[0] / 10,
+          xs[1] / 10,
+          (500 - u.y + 3) / 10,
+          (500 - u.y + 58) / 10,
+        ),
+      );
+    }
+  }
+  function refresh(s) {
+    if (![40, 60].includes(s.stage)) return;
+    const w = terrain(s);
+    s.world = { ...w, solids: [...w.solids], surfaces: [...w.surfaces] };
+    attachments(s);
+    G.addSolidSurfaces(s.world);
+  }
+  function shapes(s, side = 1) {
+    const u = s.units[side],
+      h = u.hitShape || { x: 0, y: -22, rx: 31, ry: 31 };
+    return [
+      { ...G.actorPoint(s, side, h.x || 0, h.y), rx: h.rx, ry: h.ry },
+      ...G.actorParts(s, side)
+        .filter((p) => p.hp > 0)
+        .map((p) => ({
+          x: u.x + p.dx,
+          y: u.y + p.dy,
+          rx: p.radius,
+          ry: p.radius,
+        })),
+    ];
+  }
+  function gap(s) {
+    const p =
+      Math.abs(s.units[0].slope || 0) > (35 * Math.PI) / 180
+        ? G.actorPoint(s, 0, 0, -22)
+        : { x: s.units[0].x, y: s.units[0].y - 22 };
+    return Math.min(
+      ...shapes(s).map((b) => {
+        if (((p.x - b.x) / b.rx) ** 2 + ((p.y - b.y) / b.ry) ** 2 <= 1)
+          return -31;
+        let distance = Infinity;
+        for (let i = 0; i < 48; i++) {
+          const a = (i * Math.PI) / 24,
+            z = ((i + 1) * Math.PI) / 24;
+          const x = b.x + Math.cos(a) * b.rx,
+            y = b.y + Math.sin(a) * b.ry;
+          const dx = (Math.cos(z) - Math.cos(a)) * b.rx,
+            dy = (Math.sin(z) - Math.sin(a)) * b.ry;
+          const t = G.clamp(
+            ((p.x - x) * dx + (p.y - y) * dy) / (dx * dx + dy * dy),
+            0,
+            1,
+          );
+          distance = Math.min(
+            distance,
+            Math.hypot(p.x - x - t * dx, p.y - y - t * dy),
+          );
+        }
+        return distance - 31;
+      }),
+    );
+  }
+  function fits(s) {
+    const u = s.units[1],
+      w = terrain(s),
+      width = s.spec.worldWidth || 1000;
+    const owned = { ...s, world: { solids: [] } };
+    attachments(owned);
+    const armorClear = owned.world.solids.every((armor) => {
+      return !w.solids.some((o) => {
+        // Existing armor skirts meet the slope supporting the chassis.
+        // Permit that lower contact, while checking the full plate against
+        // every other obstacle and its upper half against its own support.
+        const support = w.surfaces.some(
+          (f) => f.id === u.surface && (f.solidId || f.id) === o.id,
+        );
+        const poly = armor.poly.map((p) => ({
+          x: p.x,
+          y: Math.min(u.y - (support ? 26 : 3), p.y),
+        }));
+        return (
+          poly.some((p) => G.inside(p, o.poly)) ||
+          o.poly.some((p) => G.inside(p, poly)) ||
+          poly.some((a, i) =>
+            o.poly.some((b, j) => {
+              const hit = G.segment(
+                a,
+                poly[(i + 1) % poly.length],
+                b,
+                o.poly[(j + 1) % o.poly.length],
+              );
+              return hit && hit.t > 0.001 && hit.t < 0.999;
+            }),
+          )
+        );
+      });
+    });
+    return (
+      armorClear &&
+      shapes(s).every((h) => {
+        if (h.x - h.rx < 0 || h.x + h.rx > width) return false;
+        const points = [{ x: h.x, y: h.y }];
+        for (let i = 0; i < 24; i++) {
+          const a = (i * Math.PI) / 12;
+          points.push({
+            x: h.x + Math.cos(a) * h.rx * 0.98,
+            y: Math.min(u.y - 2, h.y + Math.sin(a) * h.ry * 0.98),
+          });
+        }
+        return !w.solids.some(
+          (o) =>
+            points.some((p) => G.inside(p, o.poly)) ||
+            o.poly.some(
+              (p) =>
+                p.y < u.y - 3 &&
+                ((p.x - h.x) / h.rx) ** 2 + ((p.y - h.y) / h.ry) ** 2 < 0.98,
+            ),
+        );
+      }) &&
+      gap(s) > 0
+    );
+  }
+  function relocate(s, pad) {
+    Object.assign(s.units[1], pad, { slope: 0 });
+    s.units[1].facing = s.units[0].x >= pad.x ? 1 : -1;
+    refresh(s);
+  }
+  function move(s, amount) {
+    const u = s.units[1],
+      start = u.x;
+    let remaining = G.clamp(amount, -rules.walk, rules.walk);
+    while (Math.abs(remaining) > 0.01) {
+      const dx = G.clamp(remaining, -2, 2),
+        old = { ...u },
+        oldWorld = s.world;
+      if (u.floating) u.x = G.clamp(u.x + dx, u.range[0], u.range[1]);
+      else {
+        s.world = terrain(s);
+        G.move(s, 1, dx);
+      }
+      u.slope = 0;
+      if (Math.abs(u.x - old.x) < 0.01 || !fits(s)) {
+        Object.assign(u, old);
+        s.world = oldWorld;
+        break;
+      }
+      remaining -= u.x - old.x;
+      u.facing = s.units[0].x >= u.x ? 1 : -1;
+      refresh(s);
+    }
+    return u.x - start;
+  }
+  function spawnEcho(s, from) {
+    if (!rule(s).echo) return;
+    const unit = JSON.parse(JSON.stringify(from));
+    for (const k of ["animation", "reaction", "recoil", "teleportFlash"])
+      delete unit[k];
+    s.bossEcho = {
+      id: (s.bossEchoSerial || 0) + 1,
+      unit,
+      round: s.round,
+      field: field(s),
+      teamSerial: s.finalTeam?.serial,
+      shots: s.stage === 100 && field(s) >= 2 ? 2 : 1,
+    };
+    s.bossEchoSerial = s.bossEcho.id;
+  }
+  function clearEcho(s, reason) {
+    if (!s.bossEcho) return;
+    s.bossEchoEffect = {
+      id: s.bossEcho.id,
+      unit: s.bossEcho.unit,
+      field: s.bossEcho.field,
+      reason,
+      age: 0,
+      duration:
+        0.2 +
+        (reason === "fired" ? (s.bossEcho.shots - 1) * rules.echoInterval : 0),
+    };
+    delete s.bossEcho;
+  }
+  function due(s) {
+    return (
+      !!s.bossEcho &&
+      s.round > s.bossEcho.round &&
+      !s.result &&
+      !s.finalTeam?.pending
+    );
+  }
+  const api = {
+    rules,
+    active,
+    field,
+    rule,
+    tactics,
+    terrain,
+    attachments,
+    refresh,
+    shapes,
+    gap,
+    fits,
+    relocate,
+    move,
+    spawnEcho,
+    clearEcho,
+    due,
+  };
+  if (node) module.exports = api;
+  else root.ArcBossActions = api;
+})(globalThis);
+</script>
+<script>(function (root) {
+  "use strict";
+  const B =
+    typeof module !== "undefined"
+      ? require("./boss-actions.js")
+      : root.ArcBossActions;
   function create({
     G,
     N,
@@ -1442,10 +1759,18 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     afterTurn,
   }) {
     const eligible = (s) =>
-      s.stage >= 40 && s.stage < 100 && !guardian(s) && !s.units[1].floating;
+      B.active(s) ||
+      (s.stage >= 40 && s.stage < 100 && !guardian(s) && !s.units[1].floating);
     const rule = (s) => ({
       walk: eligible(s),
-      teleports: eligible(s) && s.stage >= 71 ? (s.stage < 81 ? 1 : 2) : 0,
+      teleports: B.active(s)
+        ? B.rule(s).teleports
+        : eligible(s) && s.stage >= 71
+          ? s.stage < 81
+            ? 1
+            : 2
+          : 0,
+      boss: B.active(s),
     });
     const stats = (s) => ({
       turns: 0,
@@ -1454,7 +1779,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       blocked: 0,
       teleports: 0,
       cooldown: 0,
-      ...s.enemyTactics,
+      ...(B.active(s) ? B.tactics(s) : s.enemyTactics),
     });
     function clone(s) {
       return {
@@ -1463,13 +1788,17 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           ...u,
           parts: u.parts.map((p) => ({ ...p })),
         })),
+        effects: { ...s.effects },
+        pendingChanges: [...s.pendingChanges],
+        finalAttackPattern: s.finalAttackPattern && { ...s.finalAttackPattern },
         turn: 1,
         phase: "cpu",
       };
     }
     function at(s, p) {
       const t = clone(s);
-      Object.assign(t.units[1], p);
+      if (B.active(s)) B.relocate(t, p);
+      else Object.assign(t.units[1], p);
       t.units[1].facing = t.units[0].x >= p.x ? 1 : -1;
       return t;
     }
@@ -1511,36 +1840,61 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         rows = [];
       for (const dx of [140, -140, 100, -100, 60, -60, micro, -micro]) {
         const t = clone(s);
-        G.move(t, 1, Math.max(-budget, Math.min(budget, dx)));
+        (B.active(t) ? B.move : (s, dx) => G.move(s, 1, dx))(
+          t,
+          Math.max(-budget, Math.min(budget, dx)),
+        );
         const p = t.units[1];
         if (
           Math.abs(p.x - u.x) < 12 ||
           Math.abs(p.x - u.x) > budget + 0.001 ||
-          !G.clearBody(s.world, p) ||
+          !(B.active(s) ? B.fits(t) : G.clearBody(s.world, p)) ||
           seen.has(Math.round(p.x))
         )
           continue;
         seen.add(Math.round(p.x));
-        rows.push({ x: p.x, y: p.y, slope: p.slope, surface: p.surface });
+        rows.push({
+          x: p.x,
+          y: p.y,
+          slope: p.slope,
+          surface: p.surface,
+          ...(p.floating ? { floating: true } : {}),
+        });
       }
       return rows;
     }
     function counterable(s) {
+      // A player can turn during the free walking portion of the next hand.
+      // Do not reject a boss retreat merely because the old cannon faces away.
+      if (B.active(s))
+        s = {
+          ...s,
+          units: s.units.map((u, i) =>
+            i === 0 ? { ...u, facing: s.units[1].x >= u.x ? 1 : -1 } : u,
+          ),
+        };
       const p = solve(s, 0);
       if (p.score <= 0.1) return false;
       let hits = 0;
       for (const da of [-1, 0, 1])
-        for (const dp of [-2, 0, 2])
-          if (
-            trajectory(s, 0, p.angle + da, p.power + dp, {
-              weaponId: "W01",
-              skill: null,
-            }).damage[1] > 0.05
-          )
-            hits++;
+        for (const dp of [-2, 0, 2]) {
+          const shot = trajectory(s, 0, p.angle + da, p.power + dp, {
+            weaponId: "W01",
+            skill: null,
+          });
+          const counter =
+            shot.damage[1] +
+            (B.active(s)
+              ? Object.values(shot.partDamage).reduce((a, b) => a + b, 0) * 0.8
+              : 0);
+          if (counter > 0.05) hits++;
+        }
       return hits >= 3;
     }
     function supported(s, p) {
+      if (B.active(s) && (p.floating || s.units[1].floating))
+        return B.fits(at(s, p));
+      if (B.active(s) && !B.fits(at(s, p))) return false;
       const span = 25 * Math.tan(G.maxSlope) + 2;
       return (
         G.clearBody(s.world, p) &&
@@ -1554,18 +1908,50 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         other = s.units[0],
         out = [],
         seen = new Set();
-      for (const f of s.world.surfaces)
+      for (const f of (B.active(s) ? B.terrain(s) : s.world).surfaces)
         for (let i = 1; i < f.points.length; i++) {
           const a = f.points[i - 1],
             b = f.points[i],
             length = Math.abs(b.x - a.x);
           if (length < 45) continue;
-          const count = Math.min(8, Math.max(1, Math.ceil(length / 120)));
-          for (let j = 0; j < count; j++) {
-            const ratio = (j + 0.5) / count,
-              x = a.x + (b.x - a.x) * ratio,
+          const count = Math.min(
+            B.active(s) ? 48 : 8,
+            Math.max(1, Math.ceil(length / (B.active(s) ? 60 : 120))),
+          );
+          const samples = Array.from(
+            { length: count },
+            (_, j) => (j + 0.5) / count,
+          );
+          if (B.active(s))
+            samples.push(
+              ...[
+                35,
+                s.units[1].hitShape?.rx || 35,
+                length / 2,
+                length - 35,
+                length - (s.units[1].hitShape?.rx || 35),
+              ]
+                .filter((x) => x > 0 && x < length)
+                .map((x) => x / length),
+            );
+          for (const ratio of samples) {
+            const x = a.x + (b.x - a.x) * ratio,
               y = a.y + (b.y - a.y) * ratio,
-              p = G.safePosition(s.world, x, y, other, u.range);
+              p =
+                B.active(s) && u.floating
+                  ? {
+                      x: G.clamp(x, u.range[0], u.range[1]),
+                      y: u.y,
+                      slope: 0,
+                      floating: true,
+                    }
+                  : G.safePosition(
+                      B.active(s) ? B.terrain(s) : s.world,
+                      x,
+                      y,
+                      other,
+                      u.range,
+                    );
             if (
               !p ||
               Math.abs(p.x - u.x) < 160 ||
@@ -1579,9 +1965,16 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             out.push(p);
           }
         }
+      if (B.active(s) && out.length > 32) {
+        out.sort((a, b) => a.x - b.x || a.y - b.y);
+        return Array.from(
+          { length: 32 },
+          (_, i) => out[Math.round((i * (out.length - 1)) / 31)],
+        );
+      }
       return out
         .sort((a, b) => Math.abs(a.y - u.y) - Math.abs(b.y - u.y))
-        .slice(0, 16);
+        .slice(0, B.active(s) ? 32 : 16);
     }
     function* evaluate(s, random) {
       const trial = clone(s),
@@ -1593,6 +1986,11 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         G.move(trial, 1, target - u.x);
         return { target, plan: cpuPlan(trial, random), action: null };
       }
+      if (r.boss) {
+        u.facing = trial.units[0].x >= u.x ? 1 : -1;
+        B.refresh(trial);
+      }
+      const retreat = r.boss && B.gap(trial) <= B.rules.close;
       const st = stats(trial),
         rng = seeded(
           ((trial.matchSeed || 0) + trial.round * 8191 + 17077) >>> 0,
@@ -1629,15 +2027,24 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           candidates.push({ p, future, ...probe(future) });
           yield;
         }
-        const skill = (trial.stage - 71) / 28;
+        const skill = r.boss ? 1 : (trial.stage - 71) / 28;
         candidates.sort(
           (a, b) =>
             b.value +
             Math.max(0, u.y - b.p.y) * 0.0005 * skill -
             (a.value + Math.max(0, u.y - a.p.y) * 0.0005 * skill),
         );
-        for (const c of candidates.slice(0, 3)) {
-          if (c.value <= Math.max(current.value, walk?.value || 0) + 0.08)
+        for (const c of retreat ? candidates : candidates.slice(0, 3)) {
+          if (
+            retreat &&
+            (B.gap(c.future) <= B.rules.close ||
+              B.gap(c.future) <= B.gap(trial))
+          )
+            continue;
+          if (
+            !retreat &&
+            c.value <= Math.max(current.value, walk?.value || 0) + 0.08
+          )
             continue;
           const future = c.future;
           const canAttack = exact(future) > 0.1;
@@ -1648,22 +2055,27 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           if (!canCounter) continue;
           opportunity = true;
           const required =
-            (blocked && st.blocked >= 1) || st.opportunityMisses >= 2;
+            retreat ||
+            (blocked && st.blocked >= 1) ||
+            st.opportunityMisses >= 2;
           const chance = Math.min(
             0.85,
             0.55 + (c.value - current.value) * 0.12,
           );
           if (required || rng() < chance) {
             chosen = c;
-            reason = required
-              ? "repeated-useful-opportunity"
-              : "better-firing-position";
+            reason = retreat
+              ? "close-retreat"
+              : required
+                ? "repeated-useful-opportunity"
+                : "better-firing-position";
           }
           break;
         }
       }
       const next = {
         ...st,
+        ...(r.boss ? { field: B.field(trial) } : {}),
         turns: st.turns + 1,
         blocked: blocked ? st.blocked + 1 : 0,
         cooldown: Math.max(0, st.cooldown - 1),
@@ -1743,6 +2155,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         return false;
       if (action.kind === "teleport") {
         if (
+          (s.enemyWalkRound === s.round && s.enemyWalkUsed > 0) ||
           st.teleports >= r.teleports ||
           st.cooldown > 0 ||
           !teleportCandidates(s).some(
@@ -1750,7 +2163,13 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           )
         )
           return false;
-        Object.assign(u, action.to);
+        if (r.boss) {
+          const from = { ...u, parts: u.parts.map((p) => ({ ...p })) };
+          B.relocate(s, action.to);
+          B.spawnEcho(s, from);
+          if (s.telegraph)
+            s.deferredBossTelegraph = JSON.parse(JSON.stringify(s.telegraph));
+        } else Object.assign(u, action.to);
         u.facing = s.units[0].x >= u.x ? 1 : -1;
         u.teleportFlash = { age: 0 };
       } else if (
@@ -1758,6 +2177,10 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         Math.abs(action.to.x - u.x) > 140.001
       )
         return false;
+      if (r.boss) {
+        u.facing = s.units[0].x >= u.x ? 1 : -1;
+        B.refresh(s);
+      }
       s.enemyTactics = { ...action.next, lastRound: s.round };
       s.enemyActionLog = (s.enemyActionLog || [])
         .concat({
@@ -1796,6 +2219,7 @@ const C=W.combat;
 const N=node?require('./encounters.js'):root.ArcEncounters;
 const guardian=state=>N.guardian(state.spec);
 const EnemyActions=node?require('./enemy-actions.js'):root.ArcEnemyActions;
+const BossActions=node?require('./boss-actions.js'):root.ArcBossActions;
 const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
 const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
 const EnemyAttacks=node?require('./enemy-attacks.js'):root.ArcEnemyAttacks;
@@ -1859,6 +2283,7 @@ function campaign(stage=1,save={}){
  FinalTeam.init(s);s.enemyLearning.owner=s.characterId;bossGeometry(s);G.addSolidSurfaces(s.world);telegraph(s);return s;
 }
 function telegraph(s){
+ if(s.deferredBossTelegraph){s.telegraph=JSON.parse(JSON.stringify(s.deferredBossTelegraph));return;}
  if(!guardian(s)){s.telegraph=null;return;}
  const technique=EnemyAttacks?.telegraph(s);if(technique){s.telegraph=technique;return;}
  const attacks=N.forSpec(s.spec).attacks,kind=attacks[(s.round-1)%attacks.length];
@@ -1951,6 +2376,7 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
  s.effects.destroyed=s.effects.destroyed||[];
  while(shot.appliedEvents<shot.events.length&&shot.events[shot.appliedEvents].t<=time){
   const e=shot.events[shot.appliedEvents++];
+  if(e.type==='echo-hit'&&s.bossEcho?.id===e.id)BossActions.clearEcho(s,'broken');
   if(e.type==='pickup'){const c=collect(s,shot,e);if(c)onCollect(c);}
   if(e.type==='break'&&!s.effects.destroyed.includes(e.solidId)){s.effects.destroyed.push(e.solidId);s.world=G.without(s.world,[e.solidId]);}
   if(e.type==='terminal')s.effects.pendingPolarity=-(s.effects.polarity||s.world.regions.find(r=>r.kind==='M')?.direction||1);
@@ -1961,6 +2387,7 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
 }
 function launch(s,angle=s.angle,power=s.power,plan=null){
  if(s.result||!['aim','cpu','cpuMove'].includes(s.phase))return null;
+ if(s.turn===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return null;
  const side=s.turn;if(side&&plan?.facing)s.units[1].facing=plan.facing;if(!side){
   if(s.restingCharacterIds?.includes(s.characterId))return null;
   if(s.pendingLoot.length)return null;
@@ -1970,6 +2397,7 @@ function launch(s,angle=s.angle,power=s.power,plan=null){
   if(!s.teleportMode&&!usable(s,s.mode))return null;
  }
  const shot=plan||trajectory(s,side,angle,power);
+ if(shot.echo){if(!side||!BossActions.due(s)||shot.echoId!==s.bossEcho.id)return null;BossActions.clearEcho(s,'fired');s.bossEchoFiredRound=s.round;s.bossEchoContinuation=true;}
  if(FinalTeam.active(s)&&side===0)shot.finalOwner=s.characterId;
  if(side&&s.guardActive&&!shot.guarded){shot.damage=[shot.damage[0]*.5,shot.damage[1]];shot.guarded=true;}
  if(!side){s.shotCount++;if(!s.teleportMode&&W.get(s.mode).special)s.specialAmmo--;else if(!s.teleportMode&&s.mode!=='W01'){s.weaponId=s.mode;s.weaponStock[s.mode]--;}
@@ -2031,12 +2459,12 @@ function resolve(s,shot,onCollect=()=>{}){
  EnemyAttacks?.resolve(s,shot);
  if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){landUnit(u,landing,landing.entry);delete u.entry;u.teleportFlash={age:0};}s.teleportMode=false;}
  settleUnits(s);
- if(shot.side===1){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
+ if(shot.side===1&&!shot.echo){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
 
  if(shot.side===0)shot.enemyHpBefore=shot.enemyHpAtLaunch??s.units[1].hp;
  if(shot.side===0)shot.damage[1]=(shot.appliedDamage?.[1]||0)+FinalTeam.credit(s,shot.finalOwner||s.characterId,Math.max(0,shot.damage[1]-(shot.sourceAppliedDamage?.[1]||0)));
  s.units.forEach((u,i)=>{u.hp=Math.max(0,u.hp-Math.max(0,shot.damage[i]-(shot.appliedDamage?.[i]||0)));if(u.hp<1e-9)u.hp=0;});
- if(shot.side===1)s.guardActive=false;
+ if(shot.side===1&&!shot.echo)s.guardActive=false;
  if(shot.side===0&&!shot.teleport&&!shot.skillAttack){for(const key of ['power','charge'])if(s.skillEffects?.[key]?.single)delete s.skillEffects[key];}
  if(shot.side===0&&W.get(shot.weaponId).drain){const w=W.get(shot.weaponId),u=s.units[0],actual=Math.min(shot.damage[1],shot.enemyHpBefore??shot.damage[1]);shot.drained=Math.min(actual*w.drain,w.drainHpCap==null?Infinity:u.maxHp*w.drainHpCap,u.maxHp-u.hp);u.hp+=shot.drained;if(shot.drained>0){const from=shot.impacts.at(-1)||shot.end;shot.events.push({type:'drain',x:from.x,y:from.y,to:{x:u.x,y:u.y-22},amount:shot.drained,t:shot.duration,duration:.6});}}
  const boss=s.units[1];
@@ -2053,7 +2481,9 @@ function resolve(s,shot,onCollect=()=>{}){
  }
  if(boss.exposed>0&&shot.side===0)boss.exposed--;
  displace(s,shot.side,shot);
- s.last[shot.side]=shot;s.selectedSkill=null;s.activeShot=null;
+ if(!shot.echo)s.last[shot.side]=shot;
+ if(shot.side===1&&!shot.echo&&!shot.deferBossAttack)delete s.deferredBossTelegraph;
+ s.selectedSkill=null;s.activeShot=null;
  if(!usable(s,s.mode))s.mode='W01';s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));
  check(s);return shot.damage;
 }
@@ -2062,14 +2492,9 @@ function check(s){
  const [p,e]=s.units;
  if(p.hp<=0||e.hp<=0){s.result=p.hp<=0?(e.hp<=0?'draw':'lose'):'win';s.reason=s.result==='lose'?'durability':s.result==='draw'?'mutual':'defeated';}
  else if(s.turn===0&&s.shotCount>=s.shotLimit&&!(FinalTeam.active(s)&&s.finalTeam.pending)){s.result='lose';s.reason='shots';}
- if(s.result){s.phase='over';return true;}return false;
+ if(s.result){BossActions.clearEcho(s,'end');delete s.bossEchoContinuation;s.phase='over';return true;}return false;
 }
-function bossGeometry(s){
- if(s.stage===40){
-  const u=s.units[1];G.actorParts(s,1).forEach((p,i)=>{if(p.hp<=0)return;const x=u.x+p.dx,y=u.y+p.dy,d=i===0?-1:1;s.world.solids.push({id:'shoulder'+i,kind:'crystal',poly:[{x:x-17,y:y-12*d},{x:x+17,y:y+12*d},{x:x+17,y:y+12*d+5},{x:x-17,y:y-12*d+5}]});});
- }
- if(s.stage===60&&s.effects.broken===0){const u=s.units[1];s.world.solids.push(G.rectangle('front-armor',(u.x-92)/10,(u.x-62)/10,(500-u.y+3)/10,(500-u.y+58)/10));}
-}
+function bossGeometry(s){BossActions.attachments(s);}
 function rebuildWorld(s){
  s.world=G.world(s.spec,s.effects.environmentRound||s.round,s.bossPhase,s.effects);
  bossGeometry(s);G.addSolidSurfaces(s.world);
@@ -2110,22 +2535,23 @@ function boundary(s){
  if(!changes.length&&s.spec.boss){const u=s.units[1];
   if(s.stage===10&&s.round===2&&s.effects.broken===0)u.x+=30;
   if(s.stage===30&&s.effects.cloudPending){s.effects.cloudOffset=s.effects.cloudOffset?0:80;s.effects.cloudPending=false;}
-  else if(s.stage===30&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
+  else if(s.stage===30&&!BossActions.active(s)&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
   if(s.stage===50&&s.round%2===1){if(/^[45]\./.test(s.spec.contentRevision)){u.exposed=Math.max(1,u.exposed);u.facingCore=s.units[0].x<u.x?-1:1;}else{const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}}
-  if(s.stage===90&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
+  if(s.stage===90&&!BossActions.active(s)&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
  }
  s.boundaryLog.push({round:s.round,changes:changes.map(c=>c.type)});
  rebuildWorld(s);telegraph(s);return changes;
 }
 function next(s){
  if(check(s))return;
+ if(s.turn===1&&s.bossEchoContinuation){delete s.bossEchoContinuation;s.phase='cpu';s.time=0;return;}
  if(s.turn===0&&FinalTeam.active(s)&&s.finalTeam.pending){const handoff=FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=FinalTeam.duration(s,handoff);return;}
- if(s.turn===0){if(s.skillEffects?.skip){delete s.skillEffects.skip;boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}else{s.turn=1;s.phase='cpu';s.time=.6;}}
+ if(s.turn===0){if(s.skillEffects?.skip){BossActions.clearEcho(s,'skip');delete s.skillEffects.skip;boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}else{s.turn=1;s.phase='cpu';s.time=.6;}}
  else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&s.stage>=40&&s.stage<100&&!guardian(s)){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=G.move(s,side,amount);if(side===1&&s.stage>=40&&s.stage<100&&!guardian(s))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1&&BossActions.active(s)?BossActions.move(s,amount):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -2155,7 +2581,9 @@ function enemyParameters(s){
  const modeError=({easy:1.40,normal:1,hard:.65})[s.difficulty]??1,foe=N.forSpec(s.spec),profile=s.spec.enemyProfile;
  return {stageError,modeError,angle:(guardian(s)?Math.max(6,12-profile):foe.errorAngle)*stageError*modeError,power:(guardian(s)?Math.max(12,22-profile*2):foe.errorPower)*stageError*modeError,damage:stage>80?1.10:stage>60?1.05:1};
 }
-function cpuPlan(s,random=s.random){
+function cpuPlan(s,random=s.random,extra={}){
+ const deferBossAttack=BossActions.active(s)&&s.bossEchoFiredRound===s.round&&!!s.telegraph?.technique;
+ if(deferBossAttack||extra.normal)s={...s,telegraph:null};
  s.units[1].facing=s.units[0].x>=s.units[1].x?1:-1;
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
  const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
@@ -2166,7 +2594,7 @@ function cpuPlan(s,random=s.random){
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
- const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{})};
+ const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{}),...extra.physics};
  let plan=trajectory(s,1,angle,power,options);
  if(guardian(s)&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
   const volley=[];
@@ -2182,7 +2610,7 @@ function cpuPlan(s,random=s.random){
  plan.damage[0]*=damageScale;
  for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=damageScale;
  EnemyAttacks.finalizeDamage(s,plan);
- plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
+ plan.deferBossAttack=deferBossAttack;plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
  return EnemyAttacks?EnemyAttacks.decorate(s,plan):plan;
 }
 function combineShots(shots){
@@ -2217,7 +2645,20 @@ function changeCharacter(s,id,owned){
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
 const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
-const api={planEnemyActionAsync:enemyAI.planAsync,planEnemyAction:enemyAI.plan,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+function bossEchoPlan(s,random){
+ const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
+ const plan=cpuPlan(t,random,{normal:true,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
+ plan.echo=true;plan.echoId=echo.id;plan.echoUnit=t.units[1];plan.echoField=echo.field;plan.attackKind='ECHO';plan.deferBossAttack=true;
+ plan.damage=[plan.damage[0]*BossActions.rules.echoDamage,0];plan.partDamage={};
+ plan.events=plan.events.filter(e=>e.unit!==1);for(const e of plan.events)if(e.type==='damage')e.value*=BossActions.rules.echoDamage;
+ plan.appearance={...plan.appearance,color:['#a6dfff','#c4bdff','#aec5e1','#ffe4a1'][s.stage===100?echo.field:0],blast:BossActions.rules.echoBlast};
+ for(const hit of plan.impacts)hit.blast=BossActions.rules.echoBlast;
+ for(let i=0;i<echo.shots;i++)plan.events.push({type:'echo-fire',t:i*BossActions.rules.echoInterval,...G.muzzle(t,1,plan.angle)});
+ plan.events.sort((a,b)=>a.t-b.t);return plan;
+}
+function planEnemyAction(s,random){return BossActions.due(s)?{target:s.units[1].x,plan:bossEchoPlan(s,random),action:null}:enemyAI.plan(s,random);}
+async function planEnemyActionAsync(s,random,opts){return BossActions.due(s)?planEnemyAction(s,random):enemyAI.planAsync(s,random,opts);}
+const api={bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);
 </script>
@@ -4088,6 +4529,35 @@ function create(canvas,configuration={}){
    ctx.restore();
   }
  }
+ let echoSprite=null,echoSpriteKey='';
+ function bossEcho(s,options,time,scale){
+  const echo=s.bossEcho||s.bossEchoEffect;if(!echo||!root.ArcVisualArt)return;
+  const firing=options.shot?.echo?options.shot:null,u=firing?.echoUnit||echo.unit;
+  const angle=firing?.angle??52,display={...s,units:[s.units[0],u]},muzzle=G.muzzle(display,1,angle);
+  const tint=s.stage===100?['#a6dfff','#c4bdff','#aec5e1','#ffe4a1'][echo.field||0]:'#a6dfff';
+  const key=[s.stage,echo.id,u.x,u.y,u.facing,angle,tint,...u.parts.map(p=>p.hp)].join(':');
+  if(!echoSprite||echoSpriteKey!==key){
+   echoSprite=document.createElement('canvas');echoSprite.width=384;echoSprite.height=256;const c=echoSprite.getContext('2d');
+   c.translate(192-u.x,192-u.y);
+   root.ArcVisualArt.drawActor(c,s.spec.encounterId||root.ArcEncounters.forSpec(s.spec).id,u,{state:display,side:1,muzzle,angle,alpha:1,dpr:1,detail:'battle',kind:'boss',time:0});
+   c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-in';c.fillStyle=tint;c.fillRect(0,0,384,256);echoSpriteKey=key;
+  }
+  const fading=!s.bossEcho,progress=fading?Math.min(1,echo.age/echo.duration):0,alpha=.46*(1-progress);
+  ctx.save();ctx.globalAlpha=alpha;ctx.drawImage(echoSprite,u.x-192,u.y-192);
+  ctx.globalAlpha=.22*(1-progress);ctx.drawImage(echoSprite,u.x-192+2/scale,u.y-192-1/scale);
+  if(!options.reducedMotion){
+   for(let i=0;i<6;i++){const phase=time*.8+i*1.7,x=u.x+Math.cos(phase)*65,y=u.y-35+Math.sin(phase*.7)*35;circle(x,y,1.4/scale,tint);}
+  }
+  if(s.stage===100&&echo.field===0){ctx.globalAlpha=.4*(1-progress);ctx.strokeStyle='#f4da91';ctx.lineWidth=1.5/scale;ctx.beginPath();ctx.ellipse(u.x,u.y-44,50,18,0,0,Math.PI*2);ctx.stroke();}
+  if(s.stage===100&&echo.field===2)circle(u.x,u.y-44,7,'#233348');
+  if(fading){
+   ctx.globalAlpha=1-progress;
+   for(let i=0;i<9;i++){const a=i*2.4,x=u.x+Math.cos(a)*(15+35*progress),y=u.y-40+Math.sin(a)*25-progress*24;path([{x:x-2,y:y-3},{x:x+2,y:y+3}],tint,1.5/scale);}
+   if(echo.reason==='fired')path([{x:muzzle.pivot.x,y:muzzle.pivot.y},{x:u.x+12,y:u.y-25},{x:u.x-15,y:u.y-52}],tint,1.5/scale);
+  }
+  if(firing)for(const e of firing.events)if(e.type==='echo-fire'&&options.flight>=e.t&&options.flight-e.t<.14){const t=(options.flight-e.t)/.14;ctx.globalAlpha=1-t;circle(e.x,e.y,(4+8*t)/scale,tint);}
+  ctx.restore();
+ }
  function draw(s,options={}){
   const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;
   const localDemo=options.demo,variant=localDemo?.variants?.[Math.min(localDemo.variants.length-1,Math.floor(localDemo.age/(localDemo.duration/localDemo.variants.length)))],demonstration=variant?{...localDemo,...variant}:localDemo;
@@ -4112,7 +4582,8 @@ function create(canvas,configuration={}){
   const controls=canvasRect(document.getElementById('battleControls')),header=canvasRect(document.querySelector('.battle-top')),tutorial=canvasRect(document.getElementById('tutorial'));
   const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=arenaWidth;
   const closeFocus=demonstration?.phase==='RESULT'&&validFocus&&!demonstration.framing?.keepOverview?{...lessonFocus,radius:Math.max(100,Math.min(280,lessonFocus.radius||170))}:null;
-  const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=s.units.filter(showsUnit);
+  const echoUnit=s.bossEcho?.unit||s.bossEchoEffect?.unit;
+  const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=[...s.units.filter(showsUnit),...(!lobby&&!localDemo&&echoUnit?[echoUnit]:[])];
   const phoneLandscape=!lobby&&!localDemo&&w>h&&h<=600&&matchMedia('(pointer: coarse)').matches;
   const top=Number.isFinite(options.presentationFrame?.top)?Math.max(0,Math.min(h-1,options.presentationFrame.top)):lobby?(wide?100:h*.23):localDemo?16:phoneLandscape?(h<=280?4:h<=340?8:48):Math.max(80,(header?.bottom||64)+20);
   const bottom=Number.isFinite(options.presentationFrame?.bottom)?Math.max(top+1,Math.min(h,options.presentationFrame.bottom)):lobby?(wide?h-55:h*.63):localDemo&&tutorial?.height?Math.max(top+1,tutorial.top-12):phoneLandscape?h-(h<=280?96:104)-Math.max(0,h-(controls?.bottom||h-4)-4):Math.max(top+100,(controls?.top||h-210)-12);
@@ -4126,7 +4597,7 @@ function create(canvas,configuration={}){
   let minX=Math.max(-25,Math.min(...landmarks.map(p=>p.x))-85),maxX=Math.min(arenaWidth+25,Math.max(...landmarks.map(p=>p.x))+85);
   const floorPoints=world.surfaces.filter(f=>f.id.startsWith('floor')).flatMap(f=>f.points).filter(p=>p.x>=minX&&p.x<=maxX);
   let minY=Math.min(...landmarks.map(p=>p.y),...frameUnits.map(u=>u.y-100))-28,maxY=Math.max(...frameUnits.map(u=>u.y+24),...floorPoints.map(p=>p.y+16),...(closeFocus?[closeFocus.y+45]:[]));
-  if(phoneLandscape){minY=Math.min(...s.units.map((u,i)=>u.y-(i&&E.guardian(s)?(s.spec.boss?140:110):72)))-4;maxY=Math.max(...s.units.map(u=>u.y+8));}
+  if(phoneLandscape){minY=Math.min(...frameUnits.map((u,i)=>u.y-(i&&E.guardian(s)?(s.spec.boss?140:110):72)))-4;maxY=Math.max(...frameUnits.map(u=>u.y+8));}
   const baseline={minX,maxX,minY,maxY,scale:Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY))};
   const planning=!localDemo&&(options.canAim||options.planning),guide=planning?aimPlan(s):null;
   // Off-board miss paths never determine the arena framing.
@@ -4137,6 +4608,7 @@ function create(canvas,configuration={}){
   const critical=[];
   function includeActors(state){for(let side=0;side<2;side++){const u=state.units[side];if(!showsUnit(u,side))continue;const extent=side&&E.guardian(state)?(state.spec.boss?105:65):48;critical.push(u.x-extent,u.x+extent);const muzzle=G.muzzle(state,side,side?52:state.angle);critical.push(muzzle.x-6,muzzle.x+6);}for(const pickup of state.pickups||[])if(isArenaPickup(pickup)&&!localDemo&&!phoneLandscape)critical.push(pickup.x-24,pickup.x+24);}
   includeActors(s);if(demonstration?.after)includeActors(demonstration.after);if(closeFocus)critical.push(closeFocus.x-closeFocus.radius,closeFocus.x+closeFocus.radius);
+  if(echoUnit&&!lobby&&!localDemo){critical.push(echoUnit.x-105,echoUnit.x+105);const m=G.muzzle({...s,units:[s.units[0],echoUnit]},1,52);critical.push(m.x-6,m.x+6);}
   // A held shot freezes this view, so reserve the player's legal walking extent first.
   if(planning&&!lobby&&!localDemo&&!phoneLandscape&&arenaWidth<=1000)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
   const leftMargin=phoneLandscape?Math.max(12,controls?.left||12):12,rightMargin=phoneLandscape?Math.max(12,w-(controls?.right||w-12)):12;
@@ -4323,6 +4795,7 @@ function create(canvas,configuration={}){
   }
   display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t),path=[a.from,...(a.path||[]),u],lengths=path.slice(1).map((p,i)=>Math.hypot(p.x-path[i].x,p.y-path[i].y));let distance=lengths.reduce((v,n)=>v+n,0)*ease,index=0;while(index<lengths.length-1&&distance>lengths[index])distance-=lengths[index++];const from=path[index],to=path[index+1],mix=lengths[index]?Math.min(1,distance/lengths[index]):1;return {...u,x:from.x+(to.x-from.x)*mix,y:from.y+(to.y-from.y)*mix-Math.sin(t*Math.PI)*(a.lift||0),slope:(from.slope||0)+((to.slope||0)-(from.slope||0))*mix};})};
   if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,localDemo?.8:1,options);}
+  if(!lobby)bossEcho(display,options,time,scale);
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
   if(options.encounter?.boss){
    const u=display.units[1],t=Math.min(1,options.encounter.age/(options.encounter.duration||1.1));

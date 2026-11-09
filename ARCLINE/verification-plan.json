@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "0.30.4: 失敗時の武器・スキル復元と上位難易度クリアの下位反映",
-  "reason": "ユーザーが2点の方針を最終合意し「マージ直前まで」と指示。消費は勝利時に確定し、再挑戦在庫と取得台帳を一緒に保存。Hard→Normal/Easy、Normal→Easyを勝利と既存セーブの初回移行で反映。実エンジン消費・取得・勝敗・保存境界、既存在庫、モード切替・保存失敗、100面の既存再挑戦を限定確認。",
+  "change": "0.31.0 制作候補：中ボス/大ボスの移動・接近退避と大ボス/最終戦の残像",
+  "reason": "変更後の最終合意前の候補計画。共有判断・物理の透過接触・補助攻撃と本体の同一手番・最終攻撃順/交代/再試行・Worker/協調フォールバック・小画面描画・生成先への登録を対象とする。制作事前確認の有効な結果を再利用し、本検証やCIは最終合意後に行う。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -10,40 +10,36 @@
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/campaign-run.js",
+    "ARCLINE/game/dist/boss-actions.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/difficulty-ui.js",
+    "ARCLINE/game/dist/enemy-actions.js",
+    "ARCLINE/game/dist/enemy-attacks.js",
+    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/final-team.js",
     "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/i18n.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/menus.js",
+    "ARCLINE/game/dist/physics.js",
     "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/save.js",
+    "ARCLINE/game/dist/render.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/charge-pause.test.cjs",
-    "ARCLINE/game/tests/difficulty-balance.test.cjs",
-    "ARCLINE/game/tests/difficulty-browser.test.cjs",
-    "ARCLINE/game/tests/final-retry-browser.test.cjs",
-    "ARCLINE/game/tests/retry-progress-browser.test.cjs",
-    "ARCLINE/game/tests/retry-progress.test.cjs",
+    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
+    "ARCLINE/game/tests/boss-motion.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/ui/difficulty-ui.js",
+    "ARCLINE/game/tools/build_attack_review.py",
+    "ARCLINE/game/tools/build_map_atlas.py",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.4/index.html"
+    "ARCLINE/updates/0.31.0/index.html"
   ],
   "suites": {
     "unit": [
-      "retry-progress",
-      "chapter-stock",
-      "difficulty-balance",
-      "crew-supply"
+      "boss-motion",
+      "final-attacks"
     ],
     "browser": [
-      "retry-progress-browser",
-      "difficulty-browser",
-      "final-retry-browser",
-      "charge-pause"
+      "boss-motion-browser",
+      "enemy-movement-browser",
+      "final-retry-browser"
     ]
   },
   "checks": {
@@ -54,16 +50,21 @@
     "nativeAudio": false
   },
   "manual": [
-    "PC/小画面の失敗結果と難易度切替を確認。合意済みの2点を実装・検証・PR化し、マージと公開はしない。"
+    "制作事前確認の268項目、4ブラウザケース、既存ラスボス874項目、通常敵7比較、実地形15面の条件と最終ソースを照合して再利用する。",
+    "最終合意後、発動割合・接近退避・残像への対処を含む代表ボスの実戦評価を行う。人の難易度・実機と自動成立を区別する。"
   ],
   "excluded": [
     {
-      "scope": "全100面攻略、全攻撃・音源・原画・エンディング",
-      "reason": "変更は進行・在庫保存と関連文言。攻撃、物理、AI、地形、素材は変更しない。"
+      "scope": "全100面の再攻略・全技/全原画/全音源/全画面の一括検証",
+      "reason": "今回の移動/残像と共有手番へ直接影響する範囲を選ぶ。過去の操作列は現行AIの勝利証拠へ流用しない。"
     },
     {
-      "scope": "物理iPhone/Android、本番URLの変更確認",
-      "reason": "実機は未接続。本番はマージしない。"
+      "scope": "旧ソース完全一致とボス移動除外を固定した歴史的検査",
+      "reason": "今回の明示依頼が除外を更新する。保持する通常敵の判断/弾道と12正本は基準mainとの直接比較で確認する。"
+    },
+    {
+      "scope": "本番/STG配信、物理端末、音声素材の全デコード、配布ZIP一式",
+      "reason": "制作段階のため公開しない。音源・素材・配布ツールは変更せず、依存はruntime/Worker/埋込生成で追従する。"
     }
   ]
 }
