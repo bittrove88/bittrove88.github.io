@@ -61,7 +61,7 @@ for(const id of W.activeIds){const s=arena('gun',true),w=W.get(id),p=shot(s,id,{
 // A cone touching the edge of a body must hit even while the body's center is outside it.
 const edge=arena('ban');edge.units[1].x=700;edge.units[1].y=360;
 const cone=shot(edge,'S_BAN',{origin:{x:640,y:399,theta:Math.PI/2,dir:1,dx:0,dy:1}});ok(cone.damage[1]>0,'Ban cone catches a real body edge');verifyTimeline(edge,cone,'Ban edge');
-const relay=E.campaign(100,{matchSeed:20261109,battleInventory:{}});relay.units[1].parts=[];relay.finalTeam.damage[relay.characterId]=4.5;
+const relay=E.campaign(100,{matchSeed:20261109,battleInventory:{}});relay.units[1].parts=[];relay.finalTeam.damage[relay.characterId]=relay.spec.finalBattle.requiredDamage-.5;
 const core=G.actorPoint(relay,1,relay.units[1].core.x,relay.units[1].core.y),quota=E.trajectory(relay,0,0,100,{weaponId:'W01',origin:{x:core.x-100,y:core.y,theta:0,dx:1,dy:0,dir:1}});
 near(C.points(quota.damage[1]),10,'final relay labels stop at the remaining ten-point quota');verifyTimeline(relay,quota,'relay quota');
 console.log(JSON.stringify({status:'PASS',checks,scope:'Contact-by-contact HP/labels for all32 player attacks, chronological caps, two rings, advancing pulses, capture42, armor break during volley, real core ceilings and cone edge contacts.'}));

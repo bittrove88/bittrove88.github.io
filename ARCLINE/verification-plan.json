@@ -1,28 +1,92 @@
 {
   "version": 1,
-  "change": "最終合意前は制作改善の事前確認にとどめ、Draft PRではARCLINEのCIテストジョブを起動しない",
-  "reason": "2つのARCLINEワークフローの起動条件と運用文書だけを変更する。YAML構文と実際のジョブ条件式をローカルで事前確認し、最終合意後にDraftでのスキップとReadyでの起動を確認する。候補計画の保存だけでは本検証・CI起動を許可しない。staging safetyは独立したワークフローとして確認する。",
+  "change": "ラスボス攻撃0.30.1に、リコの4段階すべてを敵側へ向ける補正と全自機必殺技の自傷50％軽減を追加。先行HPと20行動を保持。",
+  "reason": "累積PRは0.30.1の最終戦攻撃と今回のリコ・自傷だけ。新しい方向・自傷検査、全10必殺技の軽減前後、低HP境界、既存自機HP/表示、最終戦・先行HP保護、実ControllerとWorker、生成物と画像指紋を確認する。無関係で成功済みの検査はローカルで再利用し、CIでは累積差分の選択を渡す。 最新main8555e87のPR135/136/137を保持し、52ファイル・HTMLと依存登録を照合。UI統合後の本編Workerと先行TOP/仲間画面を追加し、旧0.30.1更新文書はUI版を保持して攻撃案内を0.30.2へまとめる。 先行PR139（最終合意後の検証/Ready条件、main74ef684）も保持。ユーザーの今回内容の整理に対する「OK」を最終合意として引き継ぐ。",
   "files": [
-    ".github/workflows/arcline-checks.yml"
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/definitions.json",
+    "ARCLINE/design/attacks/final-attacks-0301-scope.json",
+    "ARCLINE/design/attacks/rico-direction-0302-scope.json",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/attack-catalog.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/enemy-attacks.js",
+    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/geometry.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/damage-display-preservation.cjs",
+    "ARCLINE/game/tests/damage-sync.test.cjs",
+    "ARCLINE/game/tests/enemy-evolution.test.cjs",
+    "ARCLINE/game/tests/final-attacks-browser.test.cjs",
+    "ARCLINE/game/tests/final-attacks-preservation.cjs",
+    "ARCLINE/game/tests/final-attacks.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance.test.cjs",
+    "ARCLINE/game/tests/rico-direction-browser.test.cjs",
+    "ARCLINE/game/tests/rico-direction-preservation.cjs",
+    "ARCLINE/game/tests/rico-direction.test.cjs",
+    "ARCLINE/game/tests/special-evolution.test.cjs",
+    "ARCLINE/game/tests/special-self-damage.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tools/build_playables.py",
+    "ARCLINE/index.html",
+    "ARCLINE/site/gameplay-captures.json",
+    "ARCLINE/site/gameplay-fortress.jpg",
+    "ARCLINE/site/gameplay-garden.jpg",
+    "ARCLINE/site/gameplay-volcano.jpg",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.30.2/index.html"
   ],
-  "suites": {},
+  "suites": {
+    "unit": [
+      "final-attacks",
+      "enemy-evolution",
+      "hp-action-balance",
+      "damage-sync",
+      "hibari-ring",
+      "attack-motion",
+      "combat-sfx-0190",
+      "promo-experience",
+      "rico-direction",
+      "special-self-damage"
+    ],
+    "browser": [
+      "final-attacks-browser",
+      "attack-review-browser",
+      "hp-action-balance-browser",
+      "../site-tests/service-site",
+      "rico-direction-browser",
+      "top-layout-browser",
+      "collection-flow-browser"
+    ]
+  },
   "checks": {
-    "generated": false,
+    "generated": true,
     "baseline": false,
-    "package": false,
-    "python": false,
+    "package": true,
+    "python": true,
     "nativeAudio": false
   },
   "manual": [
-    "制作改善中の事前確認: 2ワークフローのYAMLを解析し、実際のジョブ条件式をDraft/Ready/Ready切替/main push/手動起動のイベント条件で照合する。",
-    "最終合意後: Draft PRでARCLINE checksとstaging safetyのテストジョブがskippedであることを確認する。スキップを本検証合格と報告しない。",
-    "最終合意後: Readyへの切替でCIが起動することと、選択計画・既存staging safetyの結果を確認する。既存staging safetyは自身のワークフロー変更に対して実行され、ゲーム全件検査は追加しない。",
-    "AGENTS・開発ガイド・更新ルール・検証運用・PRテンプレートの最終合意と事前確認の区別、および追加したリンクを確認する。"
+    "PCとスマホ相当で跳弾の全段階と自傷後のHPの実画面を目視。検査用に置いた浮遊標的・HP2000は対戦勝利の証拠と区別する。",
+    "全10必殺技で自傷だけ半減・敵への威力維持を前版比較。物理端末・人の勝率・本番URL・音声デコードは対象外。",
+    "先行メニューと仲間画面の正本52ファイル、Hosted HTMLの版数だけの差、runtime登録を最新mainと照合。攻撃ランタイム5ファイルは検証済み6f9e871と同一。"
   ],
   "excluded": [
     {
-      "scope": "ゲーム本体の全単体・対戦・全マップ・音声・原画・生成物・配布ZIP・実機",
-      "reason": "ゲーム実装・データ・素材・生成元を変更しない。今回変更するCIの起動条件と運用を直接確認する。"
+      "scope": "全100面再攻略・旧HPを固定する歴史的全スイート・全キャラ全マップ",
+      "reason": "最終戦攻撃とリコの方向・全必殺技の自傷だけを変更。全300初期化、限定ソース保護、対象技の実弾・HP・Workerで検査する。"
+    },
+    {
+      "scope": "原画・BGM・音声デコード・エンディング・全画面基準",
+      "reason": "これらの実装を変更しない。音は接触イベントと既存SFX整合性だけを検査する。"
     }
   ]
 }
