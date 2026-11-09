@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "仲間一覧を必殺技名へ整理し、右ペイン・操作幅と10機の紹介文を改善、TOPからの動線を明示（0.30.1）",
-  "reason": "最新修正は仲間画面専用の文言とレイアウト。collection-flow-browserを拡張し10機の日英必殺技名、解放済み表記なし、右ペインと操作幅、文字の見切れ、独自の紹介文と能力欄の分担を検査。既存TOP入口・5表示・戻り先・位置保持・原画・未解放/補充待ち・保存不変も同じスイートで維持確認。共有CSSに隣接する装備表示をequipment-design-browserで確認。累積PRの他の開始/設定/ストーリー/戦闘UIは既存の7スイートのCIで継続し、成功済みの無関係なローカル検査は繰り返さない。main0.30.0の12保護ファイルを維持。",
+  "change": "TOPの削除ボタン用空き列と仲間の重複状態欄を修正し、一覧のHP・解放表示と詳細を整理（0.30.1）",
+  "reason": "TOPは削除ボタン移動後も残った3列指定が原因。新しいtop-layout-browserで初回/進行あり・4サイズ×日英の2列同幅、行全幅、44px、各入口/戻り先、設定だけの削除とキャンセル、完全な保存不変を確認。collection-flow-browserは一覧の原画/名前/HP/必殺技名、鍵とグレーの未解放、機体番号/重複HPなし、名前横の単一状態と無効ボタン/下部欄なしを確認し、原画・位置・選択・補充待ち/未解放・キーボード/タッチ・保存を保護。先行PR変更の装備/設定/物語/開始/戦闘UIはCIで継続。未変更の戦闘/マップ/音声のローカル再検査は追加しない。main0.30.0の12保護ファイルを維持。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -13,6 +13,7 @@
     "ARCLINE/game/dist/battle-catalog.js",
     "ARCLINE/game/dist/battle-ui.css",
     "ARCLINE/game/dist/battle-ui.js",
+    "ARCLINE/game/dist/chapter-flow.css",
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/difficulty-ui.js",
     "ARCLINE/game/dist/game.js",
@@ -20,12 +21,15 @@
     "ARCLINE/game/dist/menu-ui.css",
     "ARCLINE/game/dist/menus.js",
     "ARCLINE/game/dist/onboarding.js",
+    "ARCLINE/game/dist/player-flow.css",
     "ARCLINE/game/dist/presentation.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/dist/screens.js",
     "ARCLINE/game/runtime.json",
     "ARCLINE/game/styles/battle-ui.css",
+    "ARCLINE/game/styles/chapter-flow.css",
     "ARCLINE/game/styles/menu-ui.css",
+    "ARCLINE/game/styles/player-flow.css",
     "ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs",
     "ARCLINE/game/tests/collection-flow-browser.test.cjs",
     "ARCLINE/game/tests/equipment-design-browser.test.cjs",
@@ -35,6 +39,7 @@
     "ARCLINE/game/tests/settings-delete-browser.test.cjs",
     "ARCLINE/game/tests/start-landscape-0171-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tests/top-layout-browser.test.cjs",
     "ARCLINE/game/ui/battle-catalog.js",
     "ARCLINE/game/ui/battle-ui.js",
     "ARCLINE/game/ui/difficulty-ui.js",
@@ -55,7 +60,8 @@
       "menu-inventory-browser",
       "settings-delete-browser",
       "battle-ui-browser",
-      "collection-flow-browser"
+      "collection-flow-browser",
+      "top-layout-browser"
     ]
   },
   "checks": {
@@ -66,7 +72,7 @@
     "nativeAudio": false
   },
   "manual": [
-    "TOPと仲間の現在/変更可/未解放、小画面/回転画面を撮影し、全TOP入口の遷移表と10機の紹介文を確認",
+    "TOPの修正前後・初回タイトルと、仲間の現在/変更可/未解放/小さい画面/回転画面を比較",
     "差分でsave/engine/physics/levels/skills/weapons/在庫と取得データの非変更を確認",
     "mainマージ・本番配信・物理端末の確認は別工程として報告"
   ],

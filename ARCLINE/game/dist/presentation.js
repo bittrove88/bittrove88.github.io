@@ -85,12 +85,20 @@ function decorateCompanions(container,data,character){
  for(const card of container.querySelectorAll('[data-inspect-character]')){
   const id=card.dataset.inspectCharacter,special=root.ArcI18n.t(C.get(id).special.name),label=card.querySelector('small'),lock=label.querySelector('svg');
   label.textContent=special;label.className='companion-special';card.querySelector('.roster-role')?.remove();card.setAttribute('aria-label',card.getAttribute('aria-label')+' · '+special);
-  if(lock){lock.classList.add('companion-lock');card.append(lock);}
-  if(id===data.equippedCharacterId){const marker=document.createElement('span');marker.className='companion-current-marker';marker.textContent='✓';marker.setAttribute('aria-hidden','true');card.append(marker);}
+  const hp=document.createElement('span');hp.className='companion-hp';hp.textContent='HP '+C.get(id).hp;card.append(hp);card.setAttribute('aria-label',card.getAttribute('aria-label')+' · '+hp.textContent);
+  if(lock){lock.classList.add('companion-lock');card.querySelector('.ch-art').append(lock);}
+  if(id===data.equippedCharacterId){const marker=document.createElement('span');marker.className='companion-current-marker';marker.textContent='✓';marker.setAttribute('aria-hidden','true');card.querySelector('.ch-art').append(marker);}
  }
  const profile=container.querySelector('.machine-profile'),machine=A.get(character),copy=profile.querySelector('.ch-copy-body');
  profile.querySelector('.ch-name').textContent=local(machine.nameJa,machine.name);profile.querySelector('.ch-name-ja')?.remove();profile.querySelector('.ch-motto')?.remove();
- copy.insertBefore(copy.querySelector('.ch-description'),copy.querySelector('.ch-facts'));
+ copy.insertBefore(copy.querySelector('.ch-description'),copy.querySelector('.ch-facts'));copy.querySelector('.ch-facts')?.remove();copy.querySelector('.ch-id')?.remove();
+ const state=profile.querySelector('.ch-state'),confirm=profile.querySelector('[data-confirm-character]'),selected=character===data.equippedCharacterId,blocked=root.ArcCrewUsage?.blocked(data,character);
+ if(selected){
+  const heading=document.createElement('div');heading.className='companion-heading';copy.insertBefore(heading,copy.querySelector('.ch-name'));heading.append(copy.querySelector('.ch-name'),state);state.textContent=blocked?local('編成中・補充あと'+root.ArcCrewUsage.remaining(data,character)+'面','Selected · Resupply: '+root.ArcCrewUsage.remaining(data,character)+' stages'):local('✓ 編成中','✓ Selected');confirm.remove();
+ }else if(!Crew.owned(data,character)||blocked){
+  if(blocked)state.textContent=local('補充あと'+root.ArcCrewUsage.remaining(data,character)+'面','Resupply: '+root.ArcCrewUsage.remaining(data,character)+' stages');
+  copy.insertBefore(state,copy.querySelector('.ch-description'));confirm.remove();
+ }else state.remove();
 }
 let collectionRefresh=null;
 function showCollection(data,onEquip,initialView='characters',options={}){
