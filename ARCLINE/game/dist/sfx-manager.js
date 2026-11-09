@@ -68,6 +68,8 @@
       add(id, { t: bullet.start, bullet: bullet.id }, "fire", special ? 5 : 2);
     }
     for (const event of events) {
+      if (event.type === "final-beam")
+        add(data.enemyAttackFire[shot.attackKind] || weapon.enemyFire, event, "fire", 3);
       if (event.type === "bounce" || event.type === "skip")
         add(
           shot.weaponId === "S_RICO"

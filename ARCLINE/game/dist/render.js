@@ -335,9 +335,17 @@ function create(canvas,configuration={}){
   if(demonstration?.focus){const focus=demonstration.focus,radius=focus.radius||85,glow=ctx.createRadialGradient(focus.x,focus.y,0,focus.x,focus.y,radius);glow.addColorStop(0,'#f5ffc415');glow.addColorStop(1,'#f5ffc400');circle(focus.x,focus.y,radius,glow);}
   if(!lobby&&!localDemo&&s.telegraph){
    const t=s.telegraph,y=G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y;
+   if(t.beamWidth){
+    const left=t.targetX-t.beamWidth/2;ctx.save();ctx.fillStyle='#ffba6c30';ctx.fillRect(left,-1800,t.beamWidth,2500);
+    path([{x:left,y:-1800},{x:left,y:700}],'#ffd18d',2/scale,[8/scale,6/scale]);path([{x:left+t.beamWidth,y:-1800},{x:left+t.beamWidth,y:700}],'#ffd18d',2/scale,[8/scale,6/scale]);
+    for(let yy=y-260;yy<y+40;yy+=42/scale)path([{x:t.targetX-7/scale,y:yy-6/scale},{x:t.targetX,y:yy},{x:t.targetX+7/scale,y:yy-6/scale}],'#ffe1a8',2/scale);
+    const warningPanel=canvasRect(canvas.closest('#app')?.querySelector('#finalTeamHUD')),label=root.ArcI18n?.language==='en'?'LASER NEXT · MOVE OUT':'次にレーザー · 帯の外へ',labelY=G.clamp(y-110/scale,(Math.max(top,header?.bottom||0,warningPanel?.bottom||0)+24-view.y)/scale,(bottom-28-view.y)/scale);
+    ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';const labelWidth=ctx.measureText(label).width;round(t.targetX-labelWidth/2-7/scale,labelY-17/scale,labelWidth+14/scale,23/scale,5/scale,'#183c4ae8');ctx.fillStyle='#ffe5b6';ctx.fillText(label,t.targetX,labelY);ctx.restore();
+   }else{
    for(const dx of t.columns||[0])path([{x:t.targetX+dx-t.radius,y:y+5},{x:t.targetX+dx+t.radius,y:y+5}],'#ffc09c',5,[7,6]);
    for(let x=t.targetX-t.radius;x<t.targetX+t.radius;x+=15)path([{x,y:y+14},{x:x+9,y:y+4}],'#ffccac',2);
    ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#ffe2c2';ctx.fillText(t.technique?(root.ArcI18n?.language==='en'?t.nameEn:t.name)||'!':'!',t.targetX,y+20/scale);
+   }
   }
   if(s.effects.gravityField||demonstration?.after?.effects.gravityField){const f=s.effects.gravityField||demonstration.after.effects.gravityField;ctx.save();ctx.globalAlpha=.65;circle(f.x,f.y,f.radius,'#a6b6cc12','#c7d6ea');circle(f.x,f.y,9/scale,'#172432','#e5edf5');for(let i=0;i<3;i++){ctx.beginPath();ctx.ellipse(f.x,f.y,f.radius*.8,f.radius*.25,i*Math.PI/3,0,Math.PI*2);ctx.strokeStyle='#a8bdd0';ctx.lineWidth=1/scale;ctx.stroke();}ctx.restore();}
   for(const item of s.pickups){if(localDemo&&demonstration.id!=='pickup')continue;if(!isArenaPickup(item)||demonstration?.plan?.events.some(e=>e.type==='pickup'&&e.id===item.id&&demoFlight>=e.t))continue;const y=item.y+(options.reducedMotion?0:Math.sin(time*Math.PI+item.x)*4);

@@ -373,8 +373,8 @@ function cpuPlan(s,random=s.random){
  const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};
  if(s.telegraph?.technique)settings={weaponId:s.telegraph.technique,minAngle:W.getEnemy(s.telegraph.technique).minAngle??-8,maxAngle:84,targetPoint:{x:s.telegraph.targetX,y:s.telegraph.targetY}};
  const normalAttack=!guardian(s)||['LOW','ARC'].includes(kind);
- const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=EnemyAttacks?.fixedAim(s)||solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
- let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
+ const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=EnemyAttacks?.fixedAim(s,solve)||solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
+ let angle=best.angle+(random()*2-1)*errA*(best.frozenAim?0:1),power=best.power+(random()*2-1)*errP*(best.frozenAim?0:1);
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
  const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{})};

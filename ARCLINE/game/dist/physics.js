@@ -41,9 +41,20 @@ function phaseTravel(a,b,poly,budget){
  }
  return {used,stop:null};
 }
+function forecastBeam(s,angle,power,weapon,options){
+ const frozen=options.targetPoint||(s.telegraph?.technique===weapon.id?s.telegraph:null),x=frozen?.x??frozen?.targetX??s.units[0].x,y=frozen?.y??frozen?.targetY??s.units[0].y-22;
+ const width=weapon.beamWidth,delay=weapon.beamDelay,duration=delay+weapon.beamDuration,center=bodyCenter(s,0),hit=Math.abs(center.x-x)<=width/2+31;
+ const defense=s.skillEffects||{},guarded=!!s.guardActive,factor=(defense.invincible?0:(defense.barrier?.factor??1)*(defense.weaken?.factor??1))*(guarded?.5:1);
+ const value=hit?Math.min(Math.max(0,s.units[0].hp),Math.min(weapon.damage,weapon.enemyDamageCap)*factor):0;
+ const events=[{type:'final-beam',x,y,t:delay,duration:weapon.beamDuration,width,top:-1800,bottom:700,bullet:0}];
+ if(value>0)events.push({type:'damage',unit:0,value,x:center.x,y:center.y,t:delay,bullet:0,source:'beam'});
+ const point={x,y,t:delay},path=[{x,y,t:0},{x,y,t:duration}];
+ return {playerTarget:{...center,radius:31},destroyed:[],teleport:false,side:1,angle,power,weaponId:weapon.id,skill:null,bullets:[{id:0,effect:'beam',primary:true,start:0,t:duration,path}],events,impacts:[{...point,bullet:0,beam:true,blast:0,hit:hit?{unit:0,kind:'body'}:null}],damage:[value,0],partDamage:{},duration,iterations:0,appliedEvents:0,resolved:false,path,end:point,hit:hit?0:-1,...(guarded?{guarded:true}:{})};
+}
 function simulate(s,side,angle,power,options={}){
  const finalEnemy=side===1&&s.stage===100;
  const weapon=side===1?W.getEnemy(options.weaponId||'W01'):W.get(options.weaponId||'W01',s.characterId),skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
+ if(finalEnemy&&weapon.forecastBeam)return forecastBeam(s,angle,power,weapon,options);
  if(weapon.machineId)angle=G.clamp(angle,weapon.minAngle,weapon.maxAngle);
  const units=s.units.map(u=>({...u,parts:u.parts.map(p=>({...p}))})),simState={...s,units};
  const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle({...s,mode:weapon.id},side,Math.max(weapon.minAngle||-15,angle));

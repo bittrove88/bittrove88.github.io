@@ -1,0 +1,811 @@
+{
+  "stage": "limited development preview; final agreement and formal validation pending",
+  "base": "f3bce106244ebadf27c2a9df5b281f266c5087bc",
+  "branch": "codex/arcline-final-projectile-review",
+  "star": {
+    "main": 40,
+    "satellites": [
+      8,
+      8,
+      8
+    ],
+    "cap": 64,
+    "previewRuns": 6,
+    "firstArenaCompletions": 6,
+    "observedAttacks": 18,
+    "mean": 19.77777777777778,
+    "range": [
+      0,
+      56.0
+    ],
+    "scope": "Six first-arena only native previews,Normal/Hard x seeds4697/42/20261109; not ten-pilot victories"
+  },
+  "gravity": {
+    "damage": 36,
+    "speed": 1.1,
+    "gravity": 0.65,
+    "highArc": [
+      55,
+      74
+    ],
+    "coveredArc": [
+      -8,
+      54
+    ],
+    "aim": "Fixed warning target and pose; no random launch error, no post-warning player tracking; collision retained",
+    "preview": {
+      "stage": "limited development preview,not final validation",
+      "base": "f3bce10",
+      "rows": [
+        {
+          "id": "mogu",
+          "warning": {
+            "kind": "E_FINAL_3",
+            "technique": "E_FINAL_3",
+            "name": "重界砲",
+            "nameEn": "Gravity Domain Cannon",
+            "targetX": 740,
+            "targetY": -242,
+            "columns": [
+              0
+            ],
+            "radius": 200,
+            "windup": 1.05,
+            "frozen": true,
+            "next": "ARC",
+            "targetSlope": 0,
+            "targetFacing": 1,
+            "targetHp": 3.75
+          },
+          "variants": [
+            {
+              "input": 0,
+              "moved": 0,
+              "damage": 36,
+              "hpLost": 36,
+              "angle": 55,
+              "power": 61,
+              "top": -356.7260873179093,
+              "impacts": [
+                {
+                  "x": 766.0927352775489,
+                  "y": -225.26174543939078
+                }
+              ],
+              "events": [
+                {
+                  "type": "damage",
+                  "unit": 0,
+                  "value": 1.8,
+                  "x": 766.0927352775489,
+                  "y": -225.26174543939078,
+                  "t": 3.055555555555547,
+                  "bullet": 0,
+                  "source": "impact",
+                  "rawValue": 1.8
+                }
+              ]
+            },
+            {
+              "input": -10000,
+              "moved": -140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 55,
+              "power": 61,
+              "top": -356.7260873179093,
+              "impacts": [
+                {
+                  "x": 760.1597325046191,
+                  "y": -220,
+                  "solidId": "floor0"
+                }
+              ],
+              "events": []
+            },
+            {
+              "input": 10000,
+              "moved": 98,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 55,
+              "power": 61,
+              "top": -356.7260873179093,
+              "impacts": [
+                {
+                  "x": 760.1597325046191,
+                  "y": -220,
+                  "solidId": "floor0"
+                }
+              ],
+              "events": []
+            }
+          ]
+        },
+        {
+          "id": "rin",
+          "warning": {
+            "kind": "E_FINAL_3",
+            "technique": "E_FINAL_3",
+            "name": "重界砲",
+            "nameEn": "Gravity Domain Cannon",
+            "targetX": 2500,
+            "targetY": 298,
+            "columns": [
+              0
+            ],
+            "radius": 200,
+            "windup": 1.05,
+            "frozen": true,
+            "next": "CURVE",
+            "targetSlope": 0,
+            "targetFacing": -1,
+            "targetHp": 5
+          },
+          "variants": [
+            {
+              "input": 0,
+              "moved": 0,
+              "damage": 36,
+              "hpLost": 36,
+              "angle": 10,
+              "power": 100,
+              "top": -5.588761792490287,
+              "impacts": [
+                {
+                  "x": 2474.2051807825724,
+                  "y": 315.19381579348317
+                }
+              ],
+              "events": [
+                {
+                  "type": "damage",
+                  "unit": 0,
+                  "value": 1.8,
+                  "x": 2474.2051807825724,
+                  "y": 315.19381579348317,
+                  "t": 1.255555555555553,
+                  "bullet": 0,
+                  "source": "impact",
+                  "rawValue": 1.8
+                }
+              ]
+            },
+            {
+              "input": -10000,
+              "moved": -140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 10,
+              "power": 100,
+              "top": -5.588761792490287,
+              "impacts": [
+                {
+                  "x": 2481.6129701001737,
+                  "y": 320,
+                  "solidId": "floor0"
+                }
+              ],
+              "events": []
+            },
+            {
+              "input": 10000,
+              "moved": 140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 10,
+              "power": 100,
+              "top": -5.588761792490287,
+              "impacts": [
+                {
+                  "x": 2481.6129701001737,
+                  "y": 320,
+                  "solidId": "floor0"
+                }
+              ],
+              "events": []
+            }
+          ]
+        },
+        {
+          "id": "yui",
+          "warning": {
+            "kind": "E_FINAL_3",
+            "technique": "E_FINAL_3",
+            "name": "重界砲",
+            "nameEn": "Gravity Domain Cannon",
+            "targetX": 650,
+            "targetY": -242,
+            "columns": [
+              0
+            ],
+            "radius": 200,
+            "windup": 1.05,
+            "frozen": true,
+            "next": "ARC",
+            "targetSlope": 0,
+            "targetFacing": 1,
+            "targetHp": 3.125
+          },
+          "variants": [
+            {
+              "input": 0,
+              "moved": 0,
+              "damage": 36,
+              "hpLost": 36,
+              "angle": 55,
+              "power": 64,
+              "top": -391.8743708192547,
+              "impacts": [
+                {
+                  "x": 680.9999647447752,
+                  "y": -242.0467527827707
+                }
+              ],
+              "events": [
+                {
+                  "type": "damage",
+                  "unit": 0,
+                  "value": 1.8,
+                  "x": 680.9999647447752,
+                  "y": -242.0467527827707,
+                  "t": 3.233333333333324,
+                  "bullet": 0,
+                  "source": "impact",
+                  "rawValue": 1.8
+                }
+              ]
+            },
+            {
+              "input": -10000,
+              "moved": -140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 55,
+              "power": 64,
+              "top": -391.8743708192547,
+              "impacts": [
+                {
+                  "x": 657.1711302218337,
+                  "y": -220,
+                  "solidId": "floor0"
+                }
+              ],
+              "events": []
+            },
+            {
+              "input": 10000,
+              "moved": 140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 55,
+              "power": 64,
+              "top": -391.8743708192547,
+              "impacts": [
+                {
+                  "x": 657.1711302218337,
+                  "y": -220,
+                  "solidId": "floor0"
+                }
+              ],
+              "events": []
+            }
+          ]
+        },
+        {
+          "id": "gun",
+          "warning": {
+            "kind": "E_FINAL_4",
+            "technique": "E_FINAL_4",
+            "name": "終極砲",
+            "nameEn": "Finale Cannon",
+            "targetX": 1600,
+            "targetY": -102,
+            "columns": [
+              0
+            ],
+            "radius": 50,
+            "windup": 1.05,
+            "frozen": true,
+            "next": "TWIN",
+            "beamWidth": 100
+          },
+          "variants": [
+            {
+              "input": 0,
+              "moved": 0,
+              "damage": 38,
+              "hpLost": 38,
+              "angle": 0.8233244637027382,
+              "power": 100,
+              "top": -102,
+              "impacts": [
+                {
+                  "x": 1600,
+                  "y": -102,
+                  "beam": true
+                }
+              ],
+              "events": [
+                {
+                  "type": "final-beam",
+                  "x": 1600,
+                  "y": -102,
+                  "t": 0.18,
+                  "duration": 0.62,
+                  "width": 100,
+                  "top": -1800,
+                  "bottom": 700,
+                  "bullet": 0
+                },
+                {
+                  "type": "damage",
+                  "unit": 0,
+                  "value": 1.9,
+                  "x": 1600,
+                  "y": -102,
+                  "t": 0.18,
+                  "bullet": 0,
+                  "source": "beam",
+                  "rawValue": 1.9
+                }
+              ]
+            },
+            {
+              "input": -10000,
+              "moved": -140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 0.8233244637027382,
+              "power": 100,
+              "top": -102,
+              "impacts": [
+                {
+                  "x": 1600,
+                  "y": -102,
+                  "beam": true
+                }
+              ],
+              "events": [
+                {
+                  "type": "final-beam",
+                  "x": 1600,
+                  "y": -102,
+                  "t": 0.18,
+                  "duration": 0.62,
+                  "width": 100,
+                  "top": -1800,
+                  "bottom": 700,
+                  "bullet": 0
+                }
+              ]
+            },
+            {
+              "input": 10000,
+              "moved": 140,
+              "damage": 0,
+              "hpLost": 0,
+              "angle": 0.8233244637027382,
+              "power": 100,
+              "top": -102,
+              "impacts": [
+                {
+                  "x": 1600,
+                  "y": -102,
+                  "beam": true
+                }
+              ],
+              "events": [
+                {
+                  "type": "final-beam",
+                  "x": 1600,
+                  "y": -102,
+                  "t": 0.18,
+                  "duration": 0.62,
+                  "width": 100,
+                  "top": -1800,
+                  "bottom": 700,
+                  "bullet": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "browserPreview": {
+      "stage": "limited visual development preview; not full validation",
+      "rows": [
+        {
+          "width": 1200,
+          "height": 720,
+          "lang": "ja",
+          "dodge": false,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_3",
+              "technique": "E_FINAL_3",
+              "name": "重界砲",
+              "nameEn": "Gravity Domain Cannon",
+              "targetX": 740,
+              "targetY": -242,
+              "columns": [
+                0
+              ],
+              "radius": 200,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "ARC",
+              "targetSlope": 0,
+              "targetFacing": 1,
+              "targetHp": 3.75
+            },
+            "hp": 75,
+            "moved": 0,
+            "character": "mogu",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_3",
+            "apex": 1.8888888888888842,
+            "duration": 3.055555555555547,
+            "launchAngle": 55,
+            "launchPower": 61,
+            "damage": 36,
+            "hp": 75,
+            "worker": true,
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 39,
+            "next": "ARC",
+            "errors": []
+          }
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "lang": "en",
+          "dodge": false,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_3",
+              "technique": "E_FINAL_3",
+              "name": "重界砲",
+              "nameEn": "Gravity Domain Cannon",
+              "targetX": 740,
+              "targetY": -242,
+              "columns": [
+                0
+              ],
+              "radius": 200,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "ARC",
+              "targetSlope": 0,
+              "targetFacing": 1,
+              "targetHp": 3.75
+            },
+            "hp": 75,
+            "moved": 0,
+            "character": "mogu",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_3",
+            "apex": 1.8888888888888842,
+            "duration": 3.055555555555547,
+            "launchAngle": 55,
+            "launchPower": 61,
+            "damage": 36,
+            "hp": 75,
+            "worker": true,
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 39,
+            "next": "ARC",
+            "errors": []
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  "laser": {
+    "damage": 38,
+    "width": 100,
+    "delay": 0.18,
+    "duration": 0.62,
+    "orientation": "vertical",
+    "terrain": "ignored",
+    "warning": "Next enemy attack is fixed during previous player turn",
+    "repeatedDamage": false,
+    "browserPreview": {
+      "stage": "limited visual development preview; not full validation",
+      "rows": [
+        {
+          "width": 1200,
+          "height": 720,
+          "lang": "ja",
+          "dodge": false,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_4",
+              "technique": "E_FINAL_4",
+              "name": "終極砲",
+              "nameEn": "Finale Cannon",
+              "targetX": 1600,
+              "targetY": -102,
+              "columns": [
+                0
+              ],
+              "radius": 50,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "TWIN",
+              "beamWidth": 100
+            },
+            "hp": 100,
+            "moved": 0,
+            "character": "gun",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_4",
+            "damage": 38,
+            "hp": 62,
+            "worker": true,
+            "beam": {
+              "type": "final-beam",
+              "x": 1600,
+              "y": -102,
+              "t": 0.18,
+              "duration": 0.62,
+              "width": 100,
+              "top": -1800,
+              "bottom": 700,
+              "bullet": 0
+            },
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 62,
+            "next": "TWIN",
+            "errors": []
+          }
+        },
+        {
+          "width": 1200,
+          "height": 720,
+          "lang": "ja",
+          "dodge": true,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_4",
+              "technique": "E_FINAL_4",
+              "name": "終極砲",
+              "nameEn": "Finale Cannon",
+              "targetX": 1600,
+              "targetY": -102,
+              "columns": [
+                0
+              ],
+              "radius": 50,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "TWIN",
+              "beamWidth": 100
+            },
+            "hp": 100,
+            "moved": 112,
+            "character": "gun",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_4",
+            "damage": 0,
+            "hp": 100,
+            "worker": true,
+            "beam": {
+              "type": "final-beam",
+              "x": 1600,
+              "y": -102,
+              "t": 0.18,
+              "duration": 0.62,
+              "width": 100,
+              "top": -1800,
+              "bottom": 700,
+              "bullet": 0
+            },
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 100,
+            "next": "TWIN",
+            "errors": []
+          }
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "lang": "en",
+          "dodge": false,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_4",
+              "technique": "E_FINAL_4",
+              "name": "終極砲",
+              "nameEn": "Finale Cannon",
+              "targetX": 1600,
+              "targetY": -102,
+              "columns": [
+                0
+              ],
+              "radius": 50,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "TWIN",
+              "beamWidth": 100
+            },
+            "hp": 100,
+            "moved": 0,
+            "character": "gun",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_4",
+            "damage": 38,
+            "hp": 62,
+            "worker": true,
+            "beam": {
+              "type": "final-beam",
+              "x": 1600,
+              "y": -102,
+              "t": 0.18,
+              "duration": 0.62,
+              "width": 100,
+              "top": -1800,
+              "bottom": 700,
+              "bullet": 0
+            },
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 62,
+            "next": "TWIN",
+            "errors": []
+          }
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "lang": "en",
+          "dodge": true,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_4",
+              "technique": "E_FINAL_4",
+              "name": "終極砲",
+              "nameEn": "Finale Cannon",
+              "targetX": 1600,
+              "targetY": -102,
+              "columns": [
+                0
+              ],
+              "radius": 50,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "TWIN",
+              "beamWidth": 100
+            },
+            "hp": 100,
+            "moved": 112,
+            "character": "gun",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_4",
+            "damage": 0,
+            "hp": 100,
+            "worker": true,
+            "beam": {
+              "type": "final-beam",
+              "x": 1600,
+              "y": -102,
+              "t": 0.18,
+              "duration": 0.62,
+              "width": 100,
+              "top": -1800,
+              "bottom": 700,
+              "bullet": 0
+            },
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 100,
+            "next": "TWIN",
+            "errors": []
+          }
+        }
+      ],
+      "errors": []
+    },
+    "smallWarningReview": {
+      "stage": "limited visual development preview; not full validation",
+      "rows": [
+        {
+          "width": 844,
+          "height": 390,
+          "lang": "en",
+          "dodge": false,
+          "setup": {
+            "warning": {
+              "kind": "E_FINAL_4",
+              "technique": "E_FINAL_4",
+              "name": "終極砲",
+              "nameEn": "Finale Cannon",
+              "targetX": 1600,
+              "targetY": -102,
+              "columns": [
+                0
+              ],
+              "radius": 50,
+              "windup": 1.05,
+              "frozen": true,
+              "next": "TWIN",
+              "beamWidth": 100
+            },
+            "hp": 100,
+            "moved": 0,
+            "character": "gun",
+            "step": 2
+          },
+          "fired": {
+            "weapon": "E_FINAL_4",
+            "damage": 38,
+            "hp": 62,
+            "worker": true,
+            "beam": {
+              "type": "final-beam",
+              "x": 1600,
+              "y": -102,
+              "t": 0.18,
+              "duration": 0.62,
+              "width": 100,
+              "top": -1800,
+              "bottom": 700,
+              "bullet": 0
+            },
+            "phase": "flight"
+          },
+          "after": {
+            "aim": true,
+            "hp": 62,
+            "next": "TWIN",
+            "errors": []
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  "noFormalSuiteOrCI": true,
+  "mergeOrPublish": false,
+  "relevantSourceHashes": {
+    "ARCLINE/design/attacks/definitions.json": "7dbbb8657bf63f8eee106a2f8555eb5b678d2a6a2807a826ef9c5d3ebb03aef1",
+    "ARCLINE/game/dist/physics.js": "efcfd91d2a24460aabb4a513f2bb5d589d1c098d3f870d1c270ecffcdc376e83",
+    "ARCLINE/game/dist/engine.js": "d8e05520f9fc080ea3b2a9e90360dbe74c89588878b8b83f7cb419825fbf9027",
+    "ARCLINE/game/dist/enemy-attacks.js": "0b44321da7476ee28e0e7c088e31087fccd55fe2fe35ebc6d871ef14002ce83c",
+    "ARCLINE/game/dist/render.js": "7ca9138d29b0e66e7243013ad2dfb455ad8a63c964c8f803162750fa4e614b96",
+    "ARCLINE/game/dist/effects.js": "7989613f2501caa023bbcf4fee9ac108e1b7a1395cbc0a209fb321919f73abf2",
+    "ARCLINE/game/dist/attack-motion.js": "64437e4ca6f24e939f00a6473485e66e1a95eed462e606c305fe8b2b299b03ef",
+    "ARCLINE/game/ui/sfx-manager.js": "34df233070c1f4e1798a31f49334fb8f4e93ef4ec26b6e3c583522ae798fb031"
+  }
+}

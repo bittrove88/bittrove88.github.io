@@ -8,11 +8,15 @@ function finalSequence(s){
 }
 function finalWarning(s){
  const sequence=finalSequence(s),step=s.finalAttackPattern.step,kind=sequence[step%sequence.length],r=A.enemyTechniques[kind],targetX=s.units[0].x,targetY=s.units[0].y-22;
- if(r)return {kind,technique:kind,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:[0],radius:r.params.warningRadius||65,windup:1.05,frozen:true,next:sequence[(step+1)%sequence.length]};
+ if(r)return {kind,technique:kind,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:[0],radius:r.params.warningRadius||65,windup:1.05,frozen:true,next:sequence[(step+1)%sequence.length],...(kind==='E_FINAL_3'?{targetSlope:s.units[0].slope||0,targetFacing:s.units[0].facing,targetHp:s.units[0].hp}:{}),...(r.params.forecastBeam?{beamWidth:r.params.beamWidth}:{} )};
  const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
  return {kind,targetX,targetY,columns,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next:sequence[(step+1)%sequence.length],frozen:true};
 }
-function fixedAim(s){return s.telegraph?.technique==='E_FINAL_2'?{angle:65,power:75,score:1}:null;}
+function fixedAim(s,solve){
+ const id=s.telegraph?.technique;if(id==='E_FINAL_2')return {angle:65,power:75,score:1};if(id==='E_FINAL_4')return {angle:0,power:100,score:1};
+ if(id==='E_FINAL_3'&&solve){const t=s.telegraph,targetPoint={x:t.targetX,y:t.targetY},aimed={...s,units:s.units.map((u,i)=>i?u:{...u,slope:t.targetSlope??0,facing:t.targetFacing??u.facing,hp:t.targetHp??u.hp})},high=solve(aimed,1,{weaponId:id,minAngle:55,maxAngle:74,targetPoint}),low=solve(aimed,1,{weaponId:id,minAngle:-8,maxAngle:54,targetPoint}),best=high.score>0&&high.score>=low.score-.05?high:low;return {...best,frozenAim:true};}
+ return null;
+}
 function highLaunch(s,target,weapon){
  let aim=65,launch;
  // Solve the rising arc to an apex above both actors, rather than steering
@@ -46,7 +50,7 @@ function plan(s,angle,power){
   opts.volley=r.params.volley.map(v=>({origin:launch.origin,power:launch.power,delay:v.delay,damage:v.damage}));
  }
  const p=P.simulate(s,1,launchAngle,launchPower,opts);if(id==='E_FINAL_3'&&p.impacts.length){const h=p.impacts[0];p.createGravityField={x:h.x,y:h.y,radius:200,charges:[1,1],serial:s.round};}
- if(id==='E_FINAL_4'&&p.impacts.length){const h=p.impacts[0];p.events.push({type:'final-collapse',t:p.duration,x:h.x,y:h.y,duration:.25});p.duration+=.25;}
+ if(id==='E_FINAL_4'&&!r.params.forecastBeam&&p.impacts.length){const h=p.impacts[0];p.events.push({type:'final-collapse',t:p.duration,x:h.x,y:h.y,duration:.25});p.duration+=.25;}
  // The warning is fixed before the player's turn; the projectile never reads a later aim.
  p.events.unshift({type:'technique-warning',t:0,x:t.targetX,y:t.targetY,radius:t.radius,columns:t.columns,duration:.18});
  return decorate(s,p);

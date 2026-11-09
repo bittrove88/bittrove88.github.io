@@ -25,7 +25,7 @@ function create(plan,options={}){
  else if(id==='E_40'){base=1;const t=first('reflect-split')?.t;if(t!==undefined){hold(t,.03,'反射面の分光');fast(t+.015,1.2,'三色の射出');}}
  else if(id==='E_FINAL_1'){base=1;fast(.45,1.2,'衛星の解放');}
  else if(id==='E_FINAL_2'){base=1;const t=first('redirect')?.t;if(t!==undefined){focus(t,.025,0,.55,'折れ点');hold(t,.025,'転軌');fast(t+.01,1.2,'新しい軌道');}}
- else if(id==='E_FINAL_4'){base=1;focus(impact,.05,0,.4,'主弾の重み');hold(impact,.05,'終極の接触');fast(impact+.02,1.15,'三波の解放');}
+ else if(id==='E_FINAL_4'){return identity();}
  else{return identity();}
  const boundaries=new Set([0,end]);for(let i=1;i<64;i++)boundaries.add(end*i/64);for(const w of windows){boundaries.add(w.from);boundaries.add(w.to);}for(const h of holds)boundaries.add(h.t);
  const points=[...boundaries].sort((a,b)=>a-b),segments=[];let real=0;
