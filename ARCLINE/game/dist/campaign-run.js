@@ -67,13 +67,26 @@ function finish(data,context,state,options={}){
  const inventory=I.fromState(state),pickupLedger=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);data.campaignInventory=inventory;data.pickupLedger=pickupLedger;
  data.chapterRun=state.stage===100?null:checkpoint(state.stage+1,inventory,pickupLedger,reset?newId():context.entry.runId,options.seed??randomSeed());
  if(data.chapterRun&&data.chapterRun.inventory.weapons[state.mode]>0)data.chapterRun.mode=state.mode;
+ const Save=node?require('./save.js'):root.ArcSave;Save.inheritClears(data);
  return {advanced:true,reset:false,nextStage:state.stage===100?null:state.stage+1};
 }
-// Persist earned and consumed stock together with the once-only capsule ledger.
+// Persist retry stock and the once-only capsule ledger together. Consumption is
+// provisional until a win; pickups survive a failed/abandoned attempt without
+// respawning. Tracking stays in the live context, never in the battle/Worker.
 // The final relay keeps its existing battle-local retry snapshot contract.
 function updateBattle(data,context,state){
  if(!matches(data,context)||state.stage===100)return false;
- const inventory=I.fromState(state),ids=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);
+ const remaining=I.fromState(state),previous=context.remaining||context.entry.inventory;
+ const spent=context.spent||{weapons:{},skills:{}},inventory=I.normalize(remaining);
+ for(const kind of ['weapons','skills']){
+  for(const [id,n]of Object.entries(previous[kind])){
+   const used=Math.max(0,n-(remaining[kind][id]||0));
+   if(used)spent[kind][id]=Math.min(I.limits.count,(spent[kind][id]||0)+used);
+  }
+  for(const [id,n]of Object.entries(spent[kind]))inventory[kind][id]=Math.min(I.limits.count,(remaining[kind][id]||0)+n);
+ }
+ context.remaining=remaining;context.spent=spent;
+ const ids=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);
  data.campaignInventory=inventory;data.pickupLedger=ids;
  Object.assign(data.chapterRun,{inventory,pickupLedger:ids,mode:inventory.weapons[state.mode]>0?state.mode:'W01'});context.entry=decode(data.chapterRun);return true;
 }

@@ -42,11 +42,26 @@ function decodeBase(raw){
  return out;
 }
 const modes=['easy','normal','hard'];
-// Preferences and the first-use controls lesson remain device-wide. Everything
-// earned/consumed in a campaign (including its journal and supply clock) is local.
+// Preferences and first-use controls remain device-wide. Stock, the journal
+// and supply clock are mode-local; clear progress flows only downward.
 const progressFields=['campaignInventory','pickupLedger','cleared','unlockedCharacterIds','joinedCharacterIds','equippedCharacterId','unlockedWeaponIds','equippedWeaponId','chapterRun','pendingRecruit','machineUsage','journal'];
 const copy=value=>JSON.parse(JSON.stringify(value));
 function progress(data){return Object.fromEntries(progressFields.filter(k=>data[k]!==undefined).map(k=>[k,copy(data[k])]));}
+// Only clear progress flows downward. Normal decoding derives its standard
+// unlocks; stock, pickup IDs, checkpoints, supply clocks and read flags stay local.
+function inheritClears(data){
+ let higher=0;
+ for(const mode of [...modes].reverse()){
+  const target=mode===data.difficulty?data:data.difficultyProgress?.[mode];
+  if(!target)continue;
+  if(target.cleared<higher){
+   const normalized=decodeBase(JSON.stringify({...target,schemaVersion,campaignResetVersion:resetVersion,difficulty:mode,cleared:higher}));
+   Object.assign(target,progress(normalized));
+  }
+  higher=Math.max(higher,target.cleared);
+ }
+ return data;
+}
 function decode(raw){
  const out=decodeBase(raw);let p;try{p=JSON.parse(raw);}catch{}
  const slots=p?.difficultyProgress;
@@ -58,6 +73,11 @@ function decode(raw){
  }
  // The active campaign lives only at top level; archive the other two modes.
  // This prevents a stale duplicate checkpoint after ordinary in-place updates.
+ // Backfill existing clears once. Later master edits remain explicitly local;
+ // actual victories call inheritClears again from campaign-run.finish.
+ if(p?.clearInheritanceVersion!==1)inheritClears(out);
+ if(out.cleared>0){out.journeyStarted=true;if(!p?.onboarding)out.onboarding.step='done';}
+ out.clearInheritanceVersion=1;
  return out;
 }
 function prepareDifficulty(data,mode){
@@ -70,7 +90,7 @@ function prepareDifficulty(data,mode){
 }
 function create(adapter,status=()=>{}){
  let data=decode(null),ready=false,chain=Promise.resolve(),dirty=false,generation=0,migrationPending=false,resetCleanupPending=false,resetting=false;
- async function load(){try{const raw=await adapter.load();let previous={};try{previous=JSON.parse(raw)||{};}catch{}data=decode(raw);const legacyMigration=!!raw&&(previous.schemaVersion!==schemaVersion||previous.campaignResetVersion!==resetVersion);migrationPending=legacyMigration||!!raw&&!previous.difficultyProgress;ready=true;resetCleanupPending=!raw||legacyMigration;
+ async function load(){try{const raw=await adapter.load();let previous={};try{previous=JSON.parse(raw)||{};}catch{}data=decode(raw);const legacyMigration=!!raw&&(previous.schemaVersion!==schemaVersion||previous.campaignResetVersion!==resetVersion);migrationPending=legacyMigration||!!raw&&(!previous.difficultyProgress||previous.clearInheritanceVersion!==1);ready=true;resetCleanupPending=!raw||legacyMigration;
   if(migrationPending)await save();else status('saved');return data;
  }catch(e){ready=false;status('load-failed');return data;}}
 
@@ -82,5 +102,5 @@ function create(adapter,status=()=>{}){
  function replace(candidate){if(!ready||resetting)return Promise.resolve(false);let next;try{next=decode(JSON.stringify(candidate));}catch{return Promise.resolve(false);}resetting=true;const wasDirty=dirty;++generation;chain=chain.catch(()=>{}).then(async()=>{try{await adapter.save(JSON.stringify(next));data=next;dirty=false;migrationPending=false;resetCleanupPending=false;status('saved');return true;}catch{dirty=wasDirty;status('save-failed');return false;}finally{resetting=false;}});return chain;}
  return {load,save,reset,replace,get data(){return data;},get ready(){return ready;},get dirty(){return dirty;},get pending(){return chain;},get needsMigrationSave(){return migrationPending;}};
 }
-const api={key,revision,schemaVersion,resetVersion,weaponIds,characterIds,previewIds,progressFields,prepareDifficulty,decode,create};if(typeof module!=='undefined')module.exports=api;else root.ArcSave=api;
+const api={key,revision,schemaVersion,resetVersion,weaponIds,characterIds,previewIds,progressFields,inheritClears,prepareDifficulty,decode,create};if(typeof module!=='undefined')module.exports=api;else root.ArcSave=api;
 })(globalThis);

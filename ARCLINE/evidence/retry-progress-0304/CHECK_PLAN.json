@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "mode": "planned",
+  "change": "0.30.4: 失敗時の武器・スキル復元と上位難易度クリアの下位反映",
+  "reason": "ユーザーが2点の方針を最終合意し「マージ直前まで」と指示。消費は勝利時に確定し、再挑戦在庫と取得台帳を一緒に保存。Hard→Normal/Easy、Normal→Easyを勝利と既存セーブの初回移行で反映。実エンジン消費・取得・勝敗・保存境界、既存在庫、モード切替・保存失敗、100面の既存再挑戦を限定確認。",
+  "files": [
+    "ARCLINE/AGENTS.md",
+    "ARCLINE/README.md",
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/expedition_013/STAGES_JA.md",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/docs/UPDATE_RULES.md",
+    "ARCLINE/docs/design/ARCLINE_GAME_DEVELOPMENT_GUIDE.md",
+    "ARCLINE/docs/releases/0.30.4.md",
+    "ARCLINE/game/README.md",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/campaign-run.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/difficulty-ui.js",
+    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/i18n.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/menus.js",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/save.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/charge-pause.test.cjs",
+    "ARCLINE/game/tests/difficulty-balance.test.cjs",
+    "ARCLINE/game/tests/difficulty-browser.test.cjs",
+    "ARCLINE/game/tests/final-retry-browser.test.cjs",
+    "ARCLINE/game/tests/retry-progress-browser.test.cjs",
+    "ARCLINE/game/tests/retry-progress.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/ui/difficulty-ui.js",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.30.4/index.html",
+    "ARCLINE/verification-plan.json"
+  ],
+  "suites": {
+    "unit": [
+      "retry-progress",
+      "chapter-stock",
+      "difficulty-balance",
+      "crew-supply"
+    ],
+    "browser": [
+      "retry-progress-browser",
+      "difficulty-browser",
+      "final-retry-browser",
+      "charge-pause"
+    ],
+    "input": [],
+    "visual": [],
+    "delivery": []
+  },
+  "checks": {
+    "generated": true,
+    "baseline": false,
+    "package": false,
+    "python": true,
+    "nativeAudio": false
+  },
+  "manual": [
+    "PC/小画面の失敗結果と難易度切替を確認。合意済みの2点を実装・検証・PR化し、マージと公開はしない。"
+  ],
+  "excluded": [
+    {
+      "scope": "全100面攻略、全攻撃・音源・原画・エンディング",
+      "reason": "変更は進行・在庫保存と関連文言。攻撃、物理、AI、地形、素材は変更しない。"
+    },
+    {
+      "scope": "物理iPhone/Android、本番URLの変更確認",
+      "reason": "実機は未接続。本番はマージしない。"
+    }
+  ],
+  "suiteCount": 8,
+  "needsBrowser": true,
+  "needsPython": true,
+  "base": "f3bce106244ebadf27c2a9df5b281f266c5087bc"
+}

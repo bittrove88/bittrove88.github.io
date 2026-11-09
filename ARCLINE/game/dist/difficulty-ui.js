@@ -153,8 +153,8 @@
         ? "Choose enemy aim and trajectory guide"
         : "敵の狙いと射線を選ぼう";
       $("difficultyIntroText").textContent = en()
-        ? "Easy shows the full trajectory, Normal half, and Hard only the firing direction. Easy enemies have less HP. Enemy aim also gets more accurate from Easy to Hard. Progress and machines are saved per mode; test shots are optional."
-        : "イージーは射線を全表示、ノーマルは半分、ハードは発射方向のみ。イージーは敵のHPも低くなります。敵の狙いも難易度に応じて正確になります。攻略記録と保有機体は難易度別に保存します。試撃は任意です。";
+        ? "Easy shows the full trajectory, Normal half, and Hard only the firing direction. Easy enemies have less HP. Enemy aim also gets more accurate from Easy to Hard. Higher clears count for lower modes; stock stays separate. Test shots are optional."
+        : "イージーは射線を全表示、ノーマルは半分、ハードは発射方向のみ。イージーは敵のHPも低くなります。敵の狙いも難易度に応じて正確になります。上位クリアは下位にも反映。持ち物は難易度別です。試撃は任意です。";
       $("initialDifficultyOptions").innerHTML = modes
         .map(
           (id, i) =>
