@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "mode": "planned",
+  "change": "テーマ共通HP・行動上限とEasyの75%・上限80、最終戦各HP100／担当150（Easy80）／20行動を反映",
+  "reason": "全100面の設定と戦闘開始、部位再生成、最終戦・再挑戦を変更する。全300初期化と地形・保存の保護、選定した実入力の再生、実際のWorker手番と日英表示・再挑戦、全生成物の一致を検査する。技・物理・AI・原画・音源は変更しない。 先行PR132〜134を統合し、保護ソースはmain799287eと比較する。命中計上が変わった実入力15件と最終戦到着30件を取り直し、ヒバリ部位破壊後の残り威力も検査する。",
+  "files": [
+    "ARCLINE/AGENTS.md",
+    "ARCLINE/README.md",
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/combat_balance.json",
+    "ARCLINE/design/expedition_013/STAGES_JA.md",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/design/expedition_013/stage_design.json",
+    "ARCLINE/design/runtime_campaign_20x5.json",
+    "ARCLINE/docs/releases/0.30.0.md",
+    "ARCLINE/evidence/hp-action-0300/ACCEPTANCE.json",
+    "ARCLINE/evidence/hp-action-0300/FINAL_ENTRIES.json",
+    "ARCLINE/evidence/hp-action-0300/GENERATED.json",
+    "ARCLINE/evidence/hp-action-0300/HP_ACTION_BALANCE.json",
+    "ARCLINE/evidence/hp-action-0300/HP_ACTION_BROWSER.json",
+    "ARCLINE/evidence/hp-action-0300/HP_ACTION_NATIVE.json",
+    "ARCLINE/evidence/hp-action-0300/INTEGRATED_ACCEPTANCE.json",
+    "ARCLINE/evidence/hp-action-0300/INTEGRATED_FINAL_ENTRIES.json",
+    "ARCLINE/evidence/hp-action-0300/INTEGRATED_HP_ACTION_BALANCE.json",
+    "ARCLINE/evidence/hp-action-0300/INTEGRATED_HP_ACTION_BROWSER.json",
+    "ARCLINE/evidence/hp-action-0300/INTEGRATED_HP_ACTION_NATIVE.json",
+    "ARCLINE/evidence/hp-action-0300/INTEGRATED_MATCHES.json",
+    "ARCLINE/evidence/hp-action-0300/MATCHES.json",
+    "ARCLINE/evidence/hp-action-0300/README.md",
+    "ARCLINE/evidence/hp-action-0300/hp-action-easy-en.png",
+    "ARCLINE/evidence/hp-action-0300/hp-action-easy-ja.png",
+    "ARCLINE/evidence/hp-action-0300/hp-action-hard-en.png",
+    "ARCLINE/evidence/hp-action-0300/hp-action-hard-ja.png",
+    "ARCLINE/evidence/hp-action-0300/hp-action-normal-en.png",
+    "ARCLINE/evidence/hp-action-0300/hp-action-normal-ja.png",
+    "ARCLINE/game/README.md",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/difficulty-ui.js",
+    "ARCLINE/game/dist/encounters.js",
+    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/levels.js",
+    "ARCLINE/game/dist/machine-picker.js",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/hibari-ring.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance-browser.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance.test.cjs",
+    "ARCLINE/game/tests/hp-action-native.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tools/balance.py",
+    "ARCLINE/game/tools/build_campaign.py",
+    "ARCLINE/game/tools/build_encounters.py",
+    "ARCLINE/game/tools/build_playables.py",
+    "ARCLINE/game/tools/build_stage_guide.py",
+    "ARCLINE/game/tools/generation.py",
+    "ARCLINE/game/ui/difficulty-ui.js",
+    "ARCLINE/game/ui/machine-picker.js",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.30.0/index.html",
+    "ARCLINE/verification-plan.json"
+  ],
+  "suites": {
+    "unit": [
+      "hp-action-balance",
+      "hp-action-native",
+      "hibari-ring"
+    ],
+    "browser": [
+      "hp-action-balance-browser"
+    ],
+    "input": [],
+    "visual": [],
+    "delivery": []
+  },
+  "checks": {
+    "generated": true,
+    "baseline": false,
+    "package": false,
+    "python": true,
+    "nativeAudio": false
+  },
+  "manual": [
+    "統合前244条件は履歴として保持。最新mainのダメージ計上で代表15条件を再記録・独立再生する。",
+    "最終戦の各難易度10機の実到着状態から再挑戦し、担当量とHP・上限と保存を確認。",
+    "更新したゲームHTML・Markdownのローカル参照を確認。人の初見・物理端末・公開URLは対象外。"
+  ],
+  "excluded": [
+    {
+      "scope": "既存の旧HP・旧上限を固定した歴史的な全スイート",
+      "reason": "今回許可された設定と一致しない。旧証拠は保持して履歴表示し、現在の値・全ワールド一致・新実入力・実画面を対象の検査で直接確認する。"
+    },
+    {
+      "scope": "音源・原画・攻撃演出・全機体×全マップ・配布ZIPの全件確認",
+      "reason": "これらの実装を変更しない。無関係な全件実行を追加しない。"
+    }
+  ],
+  "suiteCount": 4,
+  "needsBrowser": true,
+  "needsPython": true,
+  "base": "799287e2996b885f2aa350d1d6aabbef8ec795b2"
+}

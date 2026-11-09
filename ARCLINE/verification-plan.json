@@ -1,73 +1,75 @@
 {
   "version": 1,
-  "change": "ダメージを累積数字へ簡略化し、ヒバリ光輪の露出した輪郭・進行する円周・部位破壊後の残り威力を修正（0.29.6）",
-  "reason": "ユーザー動画の10面・48度・表示61％で、部位5.1/12/2.9の後に未使用9.1を捨てて本体HP200が残る問題を再現。修正後190.9となること、各光輪12と全体上限、部分／完全遮蔽、描画半径、単一累積数字、部位数字の抑制、30/120fpsのHP、本編Workerから次の操作への復帰を確認する。",
+  "change": "テーマ共通HP・行動上限とEasyの75%・上限80、最終戦各HP100／担当150（Easy80）／20行動を反映",
+  "reason": "全100面の設定と戦闘開始、部位再生成、最終戦・再挑戦を変更する。全300初期化と地形・保存の保護、選定した実入力の再生、実際のWorker手番と日英表示・再挑戦、全生成物の一致を検査する。技・物理・AI・原画・音源は変更しない。 先行PR132〜134を統合し、保護ソースはmain799287eと比較する。命中計上が変わった実入力15件と最終戦到着30件を取り直し、ヒバリ部位破壊後の残り威力も検査する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
-    "ARCLINE/design/attacks/damage-display-0296-scope.json",
-    "ARCLINE/design/attacks/definitions.json",
+    "ARCLINE/design/combat_balance.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/design/expedition_013/stage_design.json",
+    "ARCLINE/design/runtime_campaign_20x5.json",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/attack-catalog.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/effects.js",
+    "ARCLINE/game/dist/difficulty-ui.js",
+    "ARCLINE/game/dist/encounters.js",
+    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/game.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/levels.js",
+    "ARCLINE/game/dist/machine-picker.js",
     "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/render.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/damage-display-preservation.cjs",
-    "ARCLINE/game/tests/damage-sync-browser.test.cjs",
-    "ARCLINE/game/tests/damage-sync-preservation.cjs",
-    "ARCLINE/game/tests/damage-sync.test.cjs",
     "ARCLINE/game/tests/hibari-ring.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance-browser.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance.test.cjs",
+    "ARCLINE/game/tests/hp-action-native.test.cjs",
     "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tools/balance.py",
+    "ARCLINE/game/tools/build_campaign.py",
+    "ARCLINE/game/tools/build_encounters.py",
     "ARCLINE/game/tools/build_playables.py",
+    "ARCLINE/game/tools/build_stage_guide.py",
+    "ARCLINE/game/tools/generation.py",
+    "ARCLINE/game/ui/difficulty-ui.js",
+    "ARCLINE/game/ui/machine-picker.js",
     "ARCLINE/index.html",
-    "ARCLINE/site/gameplay-captures.json",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.29.6/index.html"
+    "ARCLINE/updates/0.30.0/index.html"
   ],
   "suites": {
     "unit": [
-      "hibari-ring",
-      "damage-sync",
-      "special-damage",
-      "special-targeting",
-      "special-evolution",
-      "attack-motion",
-      "three-change",
-      "combat-sfx-0190",
-      "promo-experience"
+      "hp-action-balance",
+      "hp-action-native",
+      "hibari-ring"
     ],
     "browser": [
-      "damage-sync-browser",
-      "attack-review-browser",
-      "battle-turn-continuity-browser",
-      "../site-tests/service-site"
+      "hp-action-balance-browser"
     ]
   },
   "checks": {
     "generated": true,
     "baseline": false,
-    "package": true,
+    "package": false,
     "python": true,
     "nativeAudio": false
   },
   "manual": [
-    "英字・MAX・命中数がない累積数字と、2枚の明るい円周をPC／スマホ画像で確認する",
-    "元動画と切り出したフレームは公開リポジトリへ含めない",
-    "HP・地形・敵AI・移動・保存・既存の威力／上限パラメータが変わらないことを差分で確認する",
-    "mainマージ・公開・物理端末の確認は別工程として記録する"
+    "統合前244条件は履歴として保持。最新mainのダメージ計上で代表15条件を再記録・独立再生する。",
+    "最終戦の各難易度10機の実到着状態から再挑戦し、担当量とHP・上限と保存を確認。",
+    "更新したゲームHTML・Markdownのローカル参照を確認。人の初見・物理端末・公開URLは対象外。"
   ],
   "excluded": [
     {
-      "scope": "全100面の再攻略、無関係なAI・物語・マスター設定・音声デコード・エンディング",
-      "reason": "変更はヒバリの拡大する輪と攻撃の説明／数字表示に限定。従来成功の無関係な検査は再利用し、音声の実再生を含むpromo-experience-browserは選択しない。"
+      "scope": "既存の旧HP・旧上限を固定した歴史的な全スイート",
+      "reason": "今回許可された設定と一致しない。旧証拠は保持して履歴表示し、現在の値・全ワールド一致・新実入力・実画面を対象の検査で直接確認する。"
+    },
+    {
+      "scope": "音源・原画・攻撃演出・全機体×全マップ・配布ZIPの全件確認",
+      "reason": "これらの実装を変更しない。無関係な全件実行を追加しない。"
     }
   ]
 }
