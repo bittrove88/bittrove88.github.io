@@ -259,10 +259,7 @@
         sync();
       };
     $("lobbyDifficulty").onclick = () => {
-      root.ArcMenus.openSettings($("lobbyDifficulty"));
-      document
-        .querySelector(".settings-difficulty")
-        .scrollIntoView({ block: "nearest" });
+      root.ArcMenus.openSettings($("lobbyDifficulty"), "difficulty");
     };
     function resized() {
       if (!root.ArcScreens.isOpen("difficultyIntro")) return;

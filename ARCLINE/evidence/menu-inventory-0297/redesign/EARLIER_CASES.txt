@@ -1,0 +1,7 @@
+Local Chromium run after radio hit-target fix, before the narrow-list return adjustment:
+PASS structure 1280 720 48 ja
+PASS structure 1280 720 48 en
+PASS structure 844 390 48 ja
+PASS structure 844 390 48 en
+
+The adjustment only preserves the short list viewport when a selected card is taller than the list. Resumed from failed case index4; the remaining8 cases passed in MENU_STRUCTURE_BROWSER_LOCAL.json. CI runs the entire final12-case suite. No aggregate local assertion count is claimed for the earlier partial run.
