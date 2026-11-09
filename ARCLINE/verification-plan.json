@@ -1,61 +1,31 @@
 {
   "version": 1,
-  "change": "敵共通の発射前カメラと連射中の攻撃元表示",
-  "reason": "ユーザーのマージ指示で最終合意。本検証・CI・マージ・配信確認を進める。先行PR155の位置選びを保持し、共通カメラと直接連動する歩行・転移・残像・チャージを確認する。",
+  "change": "現行AIで最終戦の10機・4戦場・保存・エンディングを通す検査へ修正",
+  "reason": "旧0.31.1入力記録の3射目が現行0.33.1の位置選びで外れる。ユーザーの「はい進めてください」に基づき、現行入力と本編controller/Workerを使って通し検証を復旧する。固定した旧敵位置・毎射ダメージは前提にしない。",
   "files": [
-    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
-    "ARCLINE/characters/index.html",
-    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
-    "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/game/attack-review/index.html",
-    "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/enemy-camera.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/enemy-camera-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-camera-flow-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-camera.test.cjs",
-    "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/build_attack_review.py",
-    "ARCLINE/game/tools/build_map_atlas.py",
-    "ARCLINE/game/ui/enemy-camera.js",
-    "ARCLINE/index.html",
-    "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.33.1/index.html"
+    "ARCLINE/game/tests/final-battle-browser.test.cjs",
+    "ARCLINE/game/tests/final-relay-controller.cjs",
+    "ARCLINE/game/tests/fixtures/final-relay-0331.json"
   ],
   "suites": {
-    "unit": [
-      "enemy-camera",
-      "charge-camera",
-      "echo-presentation"
-    ],
-    "browser": [
-      "enemy-camera-browser",
-      "enemy-camera-flow-browser",
-      "charge-camera-browser",
-      "boss-motion-browser"
-    ]
+    "browser": ["final-battle-browser"]
   },
   "checks": {
-    "generated": true,
+    "generated": false,
     "baseline": false,
     "package": false,
     "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "2026-11-10（日本時間）のユーザー「マージ」により、提示済みの共通カメラ修正を最終合意。本検証とPR作成・マージを許可済み。",
-    "90面の通常・固有、100面第4戦場の三連射・終極砲、通常敵と中ボスの高低差、歩行・転移・残像からの連続攻撃、ポーズ・画面寸法変更・軽減表示を確認。"
+    "現行エンジンの独立した候補状態だけで入力探索し、本番のHP・弾道・敵AIを変えず勝利した入力を採用する。",
+    "旧記録の不一致を保存し、新しい通し検査は歩行・転移・残像・発射カメラ、接触フレームのHP、10機の担当量・4戦場・保存の実再読込・エンディングまで確認する。",
+    "不正入力と接触前のHP更新を混入した限定的な反証確認で、検査が失敗することを確認する。"
   ],
   "excluded": [
     {
-      "scope": "全100面攻略・全攻撃再調整・音声全件・実機",
-      "reason": "表示カメラと発射開始時刻の修正。先行mainの物理・威力・射出間隔・位置選び・保存を保護する。"
+      "scope": "ゲーム本体・版数・サイト・全100面・音声全件・物理端末",
+      "reason": "検査と入力fixtureのみの修正。既存の単体5・ブラウザ8・通常操作18手の成功はゲームソース不変を確認して再利用する。"
     }
   ]
 }
