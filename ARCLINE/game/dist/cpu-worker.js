@@ -1,5 +1,5 @@
 'use strict';
-importScripts('crew.js?v=0.32.1','crew-usage.js?v=0.32.1','levels.js?v=0.32.1','attack-catalog.js?v=0.32.1','combat.js?v=0.32.1','battle-catalog.js?v=0.32.1','skills.js?v=0.32.1','weapons.js?v=0.32.1','inventory.js?v=0.32.1','geometry.js?v=0.32.1','physics.js?v=0.32.1','encounters.js?v=0.32.1','final-team.js?v=0.32.1','enemy-attacks.js?v=0.32.1','boss-actions.js?v=0.32.1','enemy-actions.js?v=0.32.1','engine.js?v=0.32.1');
+importScripts('crew.js?v=0.33.1','crew-usage.js?v=0.33.1','levels.js?v=0.33.1','attack-catalog.js?v=0.33.1','combat.js?v=0.33.1','battle-catalog.js?v=0.33.1','skills.js?v=0.33.1','weapons.js?v=0.33.1','inventory.js?v=0.33.1','geometry.js?v=0.33.1','physics.js?v=0.33.1','encounters.js?v=0.33.1','final-team.js?v=0.33.1','enemy-attacks.js?v=0.33.1','enemy-position.js?v=0.33.1','boss-actions.js?v=0.33.1','enemy-actions.js?v=0.33.1','engine.js?v=0.33.1');
 onmessage=e=>{
  const {id,state,seed}=e.data,start=performance.now();
  try{state.random=ArcEngine.seeded(seed);const result=ArcEngine.planEnemyAction(state,state.random);postMessage({id,...result,elapsed:performance.now()-start});}

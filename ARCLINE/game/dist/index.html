@@ -4,19 +4,19 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <link rel="manifest" href="app.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ARCLINE"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#12384c"><title>ARCLINE — A hundred ways across</title>
 <!-- runtime:styles:start -->
-<link rel="stylesheet" href="style.css?v=0.32.1">
-<link rel="stylesheet" href="player-flow.css?v=0.32.1">
-<link rel="stylesheet" href="cinematics.css?v=0.32.1">
-<link rel="stylesheet" href="journey-update.css?v=0.32.1">
-<link rel="stylesheet" href="media-ending.css?v=0.32.1">
-<link rel="stylesheet" href="chapter-flow.css?v=0.32.1">
-<link rel="stylesheet" href="map-camera.css?v=0.32.1">
-<link rel="stylesheet" href="experience.css?v=0.32.1">
-<link rel="stylesheet" href="final-team.css?v=0.32.1">
-<link rel="stylesheet" href="master-mode.css?v=0.32.1">
-<link rel="stylesheet" href="crew-supply.css?v=0.32.1">
-<link rel="stylesheet" href="battle-ui.css?v=0.32.1">
-<link rel="stylesheet" href="menu-ui.css?v=0.32.1">
+<link rel="stylesheet" href="style.css?v=0.33.1">
+<link rel="stylesheet" href="player-flow.css?v=0.33.1">
+<link rel="stylesheet" href="cinematics.css?v=0.33.1">
+<link rel="stylesheet" href="journey-update.css?v=0.33.1">
+<link rel="stylesheet" href="media-ending.css?v=0.33.1">
+<link rel="stylesheet" href="chapter-flow.css?v=0.33.1">
+<link rel="stylesheet" href="map-camera.css?v=0.33.1">
+<link rel="stylesheet" href="experience.css?v=0.33.1">
+<link rel="stylesheet" href="final-team.css?v=0.33.1">
+<link rel="stylesheet" href="master-mode.css?v=0.33.1">
+<link rel="stylesheet" href="crew-supply.css?v=0.33.1">
+<link rel="stylesheet" href="battle-ui.css?v=0.33.1">
+<link rel="stylesheet" href="menu-ui.css?v=0.33.1">
 <!-- runtime:styles:end --></head>
 <body>
 <div id="loading">ARCLINE</div>
@@ -89,77 +89,78 @@
 <section id="expeditionDialog" hidden role="dialog" aria-modal="true" aria-labelledby="expeditionTitle" aria-describedby="expeditionText expeditionQuestion" data-story-raw><div id="expeditionLoading" role="status" aria-live="polite" hidden><p id="expeditionLoadingText"></p><div><button type="button" id="expeditionLoadRetry" hidden></button><button type="button" id="expeditionLoadBack"></button></div></div>
   <div class="expedition-panel"><div class="expedition-visual"><div id="expeditionArt"></div></div><div class="expedition-copy"><small>ARCLINE</small><h2 id="expeditionTitle"></h2><h3 id="expeditionMachineName"></h3><h3 id="expeditionName"></h3><p id="expeditionRole"></p><p id="expeditionMotto"></p><p id="expeditionText"></p><details><summary id="expeditionAbilitySummary">固有必殺技</summary><p id="expeditionAbility"></p></details><p id="expeditionQuestion"></p><p id="expeditionError" hidden role="alert">保存できませんでした。もう一度選択してください。 / Save failed. Please retry.</p></div><div class="expedition-actions"><button type="button" id="expeditionUse"></button><button type="button" id="expeditionStay"></button></div></div></section><section id="chapterPlayback" hidden role="dialog" aria-modal="true" aria-labelledby="chapterPlaybackTitle" data-story-raw><header class="chapter-playback-header"><strong>ARCLINE</strong><span id="chapterPlaybackLabel"></span></header><div class="chapter-playback-body"><div id="chapterPlaybackArt"></div><div class="chapter-playback-copy"><h2 id="chapterPlaybackTitle"></h2><div id="chapterPlaybackText" role="status" aria-live="polite"></div></div></div><footer class="chapter-playback-controls"><button type="button" id="chapterPlaybackBack"></button><button type="button" id="chapterPlaybackPause"></button><button type="button" id="chapterPlaybackNext"></button></footer></section><section id="storyCinema" hidden role="dialog" aria-modal="true" aria-labelledby="filmTitle" data-story-raw><canvas id="storyFilm" aria-hidden="true"></canvas><div class="film-stage"><div id="filmPlate"></div><p id="filmImageStatus" role="status" hidden></p></div><header class="film-header"><span>ARCLINE <small id="filmCount"></small></span><nav><button type="button" id="filmPause">Pause</button><button type="button" id="filmSkip">Skip</button></nav></header><div class="film-caption"><div><h2 id="filmTitle"></h2><div id="filmText" role="status" aria-live="polite"></div></div><button type="button" id="filmNext">Next scene</button></div></section></div><section id="screenHelp" hidden role="dialog" aria-modal="true" aria-labelledby="screenHelpTitle"><div><h2 id="screenHelpTitle">Play without browser bars</h2><p>On iPhone Safari, use Share → Add to Home Screen, then launch ARCLINE from its icon.</p><p>Your progress stays on this browser. The home-screen app may have separate progress.</p><button type="button" id="closeScreenHelp">Close</button></div></section></main>
 <!-- runtime:scripts:start -->
-<script src="release-info.js?v=0.32.1"></script>
-<script src="i18n.js?v=0.32.1"></script>
-<script src="levels.js?v=0.32.1"></script>
-<script src="attack-catalog.js?v=0.32.1"></script>
-<script src="combat.js?v=0.32.1"></script>
-<script src="battle-catalog.js?v=0.32.1"></script>
-<script src="skills.js?v=0.32.1"></script>
-<script src="weapons.js?v=0.32.1"></script>
-<script src="geometry.js?v=0.32.1"></script>
-<script src="physics.js?v=0.32.1"></script>
-<script src="inventory.js?v=0.32.1"></script>
-<script src="crew.js?v=0.32.1"></script>
-<script src="crew-usage.js?v=0.32.1"></script>
-<script src="final-team.js?v=0.32.1"></script>
-<script src="campaign-run.js?v=0.32.1"></script>
-<script src="story.js?v=0.32.1"></script>
-<script src="journal.js?v=0.32.1"></script>
-<script src="save.js?v=0.32.1"></script>
-<script src="encounters.js?v=0.32.1"></script>
-<script src="enemy-attacks.js?v=0.32.1"></script>
-<script src="boss-actions.js?v=0.32.1"></script>
-<script src="enemy-actions.js?v=0.32.1"></script>
-<script src="engine.js?v=0.32.1"></script>
-<script src="lessons.js?v=0.32.1"></script>
-<script src="visual-style.js?v=0.32.1"></script>
-<script src="visual-registry.js?v=0.32.1"></script>
-<script src="characters.js?v=0.32.1"></script>
-<script src="aim-guide.js?v=0.32.1"></script>
-<script src="effects.js?v=0.32.1"></script>
-<script src="actor-bodies.js?v=0.32.1"></script>
-<script src="visual-art.js?v=0.32.1"></script>
-<script src="charge-camera.js?v=0.32.1"></script>
-<script src="enemy-camera.js?v=0.32.1"></script>
-<script src="backgrounds.js?v=0.32.1"></script>
-<script src="component-art.js?v=0.32.1"></script>
-<script src="render.js?v=0.32.1"></script>
-<script src="presentation.js?v=0.32.1"></script>
-<script src="attack-motion.js?v=0.32.1"></script>
-<script src="preview.js?v=0.32.1"></script>
-<script src="viewport.js?v=0.32.1"></script>
-<script src="battle-input.js?v=0.32.1"></script>
-<script src="screens.js?v=0.32.1"></script>
-<script src="difficulty-ui.js?v=0.32.1"></script>
-<script src="machine-picker.js?v=0.32.1"></script>
-<script src="menus.js?v=0.32.1"></script>
-<script src="cinematic-data.js?v=0.32.1"></script>
-<script src="asset-loader.js?v=0.32.1"></script>
-<script src="cinematic-player.js?v=0.32.1"></script>
-<script src="character-hero.js?v=0.32.1"></script>
-<script src="media-data.js?v=0.32.1"></script>
-<script src="audio-manager.js?v=0.32.1"></script>
-<script src="ending-roll-data.js?v=0.32.1"></script>
-<script src="ending-credits.js?v=0.32.1"></script>
-<script src="special-ui.js?v=0.32.1"></script>
-<script src="experience.js?v=0.32.1"></script>
-<script src="story-view.js?v=0.32.1"></script>
-<script src="expedition-ui.js?v=0.32.1"></script>
-<script src="device.js?v=0.32.1"></script>
-<script src="onboarding.js?v=0.32.1"></script>
-<script src="chapter-playback.js?v=0.32.1"></script>
-<script src="sfx-data.js?v=0.32.1"></script>
-<script src="sfx-manager.js?v=0.32.1"></script>
-<script src="map-camera.js?v=0.32.1"></script>
-<script src="final-travel.js?v=0.32.1"></script>
-<script src="final-team-ui.js?v=0.32.1"></script>
-<script src="master-progress.js?v=0.32.1"></script>
-<script src="master-mode.js?v=0.32.1"></script>
-<script src="crew-supply.js?v=0.32.1"></script>
-<script src="battle-aim.js?v=0.32.1"></script>
-<script src="battle-ui.js?v=0.32.1"></script>
-<script src="game.js?v=0.32.1"></script>
-<script src="fullscreen.js?v=0.32.1"></script>
+<script src="release-info.js?v=0.33.1"></script>
+<script src="i18n.js?v=0.33.1"></script>
+<script src="levels.js?v=0.33.1"></script>
+<script src="attack-catalog.js?v=0.33.1"></script>
+<script src="combat.js?v=0.33.1"></script>
+<script src="battle-catalog.js?v=0.33.1"></script>
+<script src="skills.js?v=0.33.1"></script>
+<script src="weapons.js?v=0.33.1"></script>
+<script src="geometry.js?v=0.33.1"></script>
+<script src="physics.js?v=0.33.1"></script>
+<script src="inventory.js?v=0.33.1"></script>
+<script src="crew.js?v=0.33.1"></script>
+<script src="crew-usage.js?v=0.33.1"></script>
+<script src="final-team.js?v=0.33.1"></script>
+<script src="campaign-run.js?v=0.33.1"></script>
+<script src="story.js?v=0.33.1"></script>
+<script src="journal.js?v=0.33.1"></script>
+<script src="save.js?v=0.33.1"></script>
+<script src="encounters.js?v=0.33.1"></script>
+<script src="enemy-attacks.js?v=0.33.1"></script>
+<script src="enemy-position.js?v=0.33.1"></script>
+<script src="boss-actions.js?v=0.33.1"></script>
+<script src="enemy-actions.js?v=0.33.1"></script>
+<script src="engine.js?v=0.33.1"></script>
+<script src="lessons.js?v=0.33.1"></script>
+<script src="visual-style.js?v=0.33.1"></script>
+<script src="visual-registry.js?v=0.33.1"></script>
+<script src="characters.js?v=0.33.1"></script>
+<script src="aim-guide.js?v=0.33.1"></script>
+<script src="effects.js?v=0.33.1"></script>
+<script src="actor-bodies.js?v=0.33.1"></script>
+<script src="visual-art.js?v=0.33.1"></script>
+<script src="charge-camera.js?v=0.33.1"></script>
+<script src="enemy-camera.js?v=0.33.1"></script>
+<script src="backgrounds.js?v=0.33.1"></script>
+<script src="component-art.js?v=0.33.1"></script>
+<script src="render.js?v=0.33.1"></script>
+<script src="presentation.js?v=0.33.1"></script>
+<script src="attack-motion.js?v=0.33.1"></script>
+<script src="preview.js?v=0.33.1"></script>
+<script src="viewport.js?v=0.33.1"></script>
+<script src="battle-input.js?v=0.33.1"></script>
+<script src="screens.js?v=0.33.1"></script>
+<script src="difficulty-ui.js?v=0.33.1"></script>
+<script src="machine-picker.js?v=0.33.1"></script>
+<script src="menus.js?v=0.33.1"></script>
+<script src="cinematic-data.js?v=0.33.1"></script>
+<script src="asset-loader.js?v=0.33.1"></script>
+<script src="cinematic-player.js?v=0.33.1"></script>
+<script src="character-hero.js?v=0.33.1"></script>
+<script src="media-data.js?v=0.33.1"></script>
+<script src="audio-manager.js?v=0.33.1"></script>
+<script src="ending-roll-data.js?v=0.33.1"></script>
+<script src="ending-credits.js?v=0.33.1"></script>
+<script src="special-ui.js?v=0.33.1"></script>
+<script src="experience.js?v=0.33.1"></script>
+<script src="story-view.js?v=0.33.1"></script>
+<script src="expedition-ui.js?v=0.33.1"></script>
+<script src="device.js?v=0.33.1"></script>
+<script src="onboarding.js?v=0.33.1"></script>
+<script src="chapter-playback.js?v=0.33.1"></script>
+<script src="sfx-data.js?v=0.33.1"></script>
+<script src="sfx-manager.js?v=0.33.1"></script>
+<script src="map-camera.js?v=0.33.1"></script>
+<script src="final-travel.js?v=0.33.1"></script>
+<script src="final-team-ui.js?v=0.33.1"></script>
+<script src="master-progress.js?v=0.33.1"></script>
+<script src="master-mode.js?v=0.33.1"></script>
+<script src="crew-supply.js?v=0.33.1"></script>
+<script src="battle-aim.js?v=0.33.1"></script>
+<script src="battle-ui.js?v=0.33.1"></script>
+<script src="game.js?v=0.33.1"></script>
+<script src="fullscreen.js?v=0.33.1"></script>
 <!-- runtime:scripts:end -->
 </body></html>
