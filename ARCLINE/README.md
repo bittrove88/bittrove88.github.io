@@ -32,6 +32,8 @@
 
 # ARCLINE
 
+[砲撃ゲーム開発ガイド](docs/design/ARCLINE_GAME_DEVELOPMENT_GUIDE.md)：マップ・敵・攻撃・ダメージに加え、難易度・在庫・進行・保存・UI・演出をつなぐ共通指針。正本と反映先、変更をまとめて完了する手順、今後の共通化の候補を整理。
+
 [2026-11-08：公式サイトの画像・マップ・説明を現在のゲームへ更新](docs/releases/site-current-game-20261108.md)。本編画面4枚、背景つき攻略デモ、4面のマップ紹介と全100面一覧への導線を整備。ゲーム本体・保存は維持。
 
 [最新の背景・地形・オブジェクトで全100面を見る](design/expedition_013/arcline_100_maps_atlas.html)：ゲームと同じ描画を使うHTML総覧。最終戦4戦場、拡大・移動、機構の表示ターン、HTML／PNG保存に対応。[使い方と確認記録](design/expedition_013/NATIVE_ATLAS.md)。
