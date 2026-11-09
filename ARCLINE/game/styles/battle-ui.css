@@ -763,13 +763,13 @@
   border-left: 1px solid #a9c3b342;
 }
 /* Compact inventory cards share spacing and hierarchy; full native descriptions remain readable. */
-.battle-ui #weaponChoices,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices,
 .battle-ui #skillChoices {
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 8px;
   align-content: start;
 }
-.battle-ui #weaponChoices button,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices button,
 .battle-ui #skillChoices .skill {
   position: relative;
   min-height: 60px;
@@ -782,13 +782,13 @@
   gap: 7px;
   border-radius: 9px;
 }
-.battle-ui #weaponChoices strong,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices strong,
 .battle-ui #skillChoices .skill-name {
   font-size: 14px !important;
   line-height: 17px;
   font-weight: 650;
 }
-.battle-ui #weaponChoices .weapon-choice-copy small,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices .weapon-choice-copy small,
 .battle-ui #skillChoices .skill-note {
   position: static;
   display: block;
@@ -872,7 +872,7 @@
 .battle-ui #warpToggle[aria-pressed="true"],
 .battle-ui #weaponToggle[data-selected="true"],
 .battle-ui #skillToggle[data-selected="true"],
-.battle-ui #weaponChoices button[aria-pressed="true"],
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices button[aria-pressed="true"],
 .battle-ui #skillChoices button[aria-pressed="true"],
 .battle-ui #battleMachineChoices button[aria-pressed="true"] {
   background: var(--battle-selected-bg) !important;
@@ -1129,7 +1129,7 @@
 .battle-ui #warpToggle[aria-pressed="true"],
 .battle-ui #weaponToggle[data-selected="true"],
 .battle-ui #skillToggle[data-selected="true"],
-.battle-ui #weaponChoices button[aria-pressed="true"],
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices button[aria-pressed="true"],
 .battle-ui #skillChoices button[aria-pressed="true"],
 .battle-ui #battleMachineChoices button[aria-pressed="true"] {
   border-width: 2px !important;
@@ -1302,7 +1302,7 @@
   user-select: none;
   -webkit-user-select: none;
 }
-.battle-ui #weaponChoices button:disabled,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices button:disabled,
 .battle-ui #battleMachineChoices button:disabled {
   pointer-events: none;
 }
@@ -1506,10 +1506,10 @@
   display: none !important;
   content: none !important;
 }
-.battle-ui #weaponChoices .weapon-choice-stock small {
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices .weapon-choice-stock small {
   display: none !important;
 }
-.battle-ui #weaponChoices .weapon-choice-copy small {
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices .weapon-choice-copy small {
   white-space: normal;
 }
 /* Requested grid: skill summaries use the full card width below icon, name and count. */
@@ -1779,7 +1779,7 @@
 }
 
 /* Sort only owned cards; native ownership filtering leaves no reserved item slots. */
-.battle-ui #weaponChoices,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices,
 .battle-ui #skillChoices {
   grid-auto-flow: row;
 }
@@ -1791,12 +1791,12 @@
   --battle-detail-copy-size: 11px;
   --battle-detail-copy-line: 16px;
 }
-.battle-ui #weaponChoices .weapon-choice-copy small,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) #weaponChoices .weapon-choice-copy small,
 .battle-ui #skillChoices .skill-note {
   font-size: var(--battle-card-copy-size);
   line-height: var(--battle-card-copy-line);
 }
-.battle-ui #weaponPicker .weapon-picker-note,
+.battle-ui #weaponPicker:not([data-stock-library="true"]) .weapon-picker-note,
 .battle-ui #battleSkillDescription,
 .battle-ui #battleSkillHow {
   font-size: var(--battle-detail-copy-size);

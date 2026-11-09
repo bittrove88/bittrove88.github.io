@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "章一覧の視認性・武器確認の閲覧専用化・武器/スキル図鑑の常設入口を改善し、設定/物語を再設計（0.29.7）",
-  "reason": "最新追加依頼で章一覧をコンパクトにし、武器確認の装備操作と保存処理を削除。武器/スキル図鑑へ常設入口から直行。日英・4サイズ・回転縦持ちで文字/状態の非重複、戻り先、確認中の完全な保存不変、空在庫でも全スキル閲覧、実タッチを検査。共有する戦闘中選択を隣接確認する。PR全体の設定/階層/削除保護は既選択のCIで保持。",
+  "change": "武器/スキル確認と図鑑の共通デザイン・視認性を改善し、開始/設定/ストーリーを整理（0.29.7）",
+  "reason": "最新依頼でロビー武器/スキル確認と各図鑑を共通カード/詳細へ統一。名称・効果・保有数・選択表示の位置/配色/余白、4.5:1コントラスト、未所持/レア/旧/空在庫、実タッチ、言語再描画と保存完全不変を検査。戦闘用カードCSSをネイティブピッカーへ限定し、battle-ui-browserで操作を保護。PR全体の章/設定/階層/図鑑導線/削除検査はCIで継続する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -10,6 +10,7 @@
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/battle-ui.css",
     "ARCLINE/game/dist/battle-ui.js",
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/difficulty-ui.js",
@@ -21,10 +22,13 @@
     "ARCLINE/game/dist/presentation.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/runtime.json",
+    "ARCLINE/game/styles/battle-ui.css",
     "ARCLINE/game/styles/menu-ui.css",
     "ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs",
+    "ARCLINE/game/tests/equipment-design-browser.test.cjs",
     "ARCLINE/game/tests/menu-inventory-browser.test.cjs",
     "ARCLINE/game/tests/menu-structure-browser.test.cjs",
+    "ARCLINE/game/tests/pickup-stock-browser.test.cjs",
     "ARCLINE/game/tests/settings-delete-browser.test.cjs",
     "ARCLINE/game/tests/start-landscape-0171-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
@@ -40,6 +44,7 @@
       "start-landscape-0171"
     ],
     "browser": [
+      "equipment-design-browser",
       "menu-structure-browser",
       "menu-inventory-browser",
       "settings-delete-browser",
@@ -54,7 +59,7 @@
     "nativeAudio": false
   },
   "manual": [
-    "章一覧・閲覧専用の武器確認・武器/スキル図鑑の入口を実描画で目視確認",
+    "武器確認・スキル確認・武器図鑑・スキル図鑑の実描画を比較し、情報配置と視認性を目視確認",
     "差分でsave/engine/physics/levels/skills/weapons/在庫と取得データの非変更を確認",
     "mainマージ・本番配信・物理端末の確認は別工程として報告"
   ],
