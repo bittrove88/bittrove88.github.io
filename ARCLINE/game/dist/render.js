@@ -1,10 +1,10 @@
 (function(root){
 'use strict';
-const E=root.ArcEngine,G=E.geometry,ChargeCamera=root.ArcChargeCamera;
+const E=root.ArcEngine,G=E.geometry,ChargeCamera=root.ArcChargeCamera,EnemyCamera=root.ArcEnemyCamera;
 function create(canvas,configuration={}){
  if(configuration.artStyle==='matte'&&root.ArcVisualArt)return root.ArcVisualArt.create(canvas,configuration);
  const unified=!!root.ArcVisualArt&&configuration.artStyle!=='legacy';
- let arenaWidth=1000;
+ let arenaWidth=1000,attackFrame=null;
  const isPlacedPickup=item=>!item.collected&&Number.isFinite(item.x)&&Number.isFinite(item.y)&&item.x>=0&&item.x<=arenaWidth;
  const isArenaPickup=item=>!item.hidden&&isPlacedPickup(item);
  const ctx=canvas.getContext('2d');let view={scale:1,x:0,y:0},normalView={...view},chargeZoom=0,lastCameraTime=0,cameraKey='',lastPlayerPose=null,aimCache=null,frameCache=null,guideCache=null;
@@ -247,6 +247,9 @@ function create(canvas,configuration={}){
   // A held shot freezes this view, so reserve the player's legal walking extent first.
   if(planning&&!lobby&&!localDemo&&!phoneLandscape&&arenaWidth<=1000)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
   const leftMargin=phoneLandscape?Math.max(12,controls?.left||12):12,rightMargin=phoneLandscape?Math.max(12,w-(controls?.right||w-12)):12;
+  const teamHud=canvasRect(document.getElementById('finalTeamHUD'));
+  const attackTop=Math.max(top,header?.bottom||0,s.finalTeam&&teamHud?.height?teamHud.bottom:0)+12;
+  attackFrame={left:leftMargin+12,right:fieldW-rightMargin-12,top:attackTop,bottom:Math.max(attackTop+1,Math.min(bottom,controls?.top||h)-12)};
   const criticalMin=Math.min(...critical),criticalMax=Math.max(...critical),criticalScale=(fieldW-leftMargin-rightMargin)/Math.max(100,criticalMax-criticalMin);
   const fit=Math.min(fieldW/(maxX-minX),(bottom-top)/Math.max(130,maxY-minY)),readableScale=phoneLandscape?Math.min(1.25,criticalScale,Math.max(.52,(bottom-top)/Math.max(90,baseline.maxY-baseline.minY))):lobby?fit:Math.max(baseline.scale*.85,fit),scaleTarget=Math.min(readableScale,criticalScale,closeFocus?2.2:Infinity),clipped=scaleTarget>fit+.00001;
   // Keep the readable battlefield grounded when a high arc continues above the view.
@@ -312,6 +315,11 @@ function create(canvas,configuration={}){
    const age=options.echoFocus?options.echoFocus.age:ChargeCamera.echoPresentation.lead+(shot?.echo?flight:echoPlan.duration+(options.tail?.age||0));
    const lastStart=Math.max(0,...echoPlan.bullets.map(b=>b.start||0));
    view=ChargeCamera.echoView(normalView,echoPlan.echoUnit,age,{width:fieldW,top,bottom},lastStart);
+  }
+  const attackFocus=options.enemyFocus;
+  if(attackFocus&&!lobby&&!localDemo&&!options.cameraView){
+   const preparing=s.phase==='cpuFocus',active=shot===attackFocus.plan,lingering=options.tail?.shot===attackFocus.plan;
+   if(preparing||active||lingering)view=EnemyCamera.view(view,attackFocus,s,attackFrame,preparing?null:active?flight:attackFocus.plan.duration+options.tail.age,options.reducedMotion);
   }
   lastCameraTime=time;cameraKey=nextKey;const scale=view.scale;
   if(phoneLandscape){
@@ -540,7 +548,7 @@ function create(canvas,configuration={}){
   for(const effect of options.pickupEffects||[]){const t=Math.min(1,effect.age/.8),ease=t*t*(3-2*t),target=canvasRect(document.getElementById(effect.id[0]==='W'?'weaponToggle':'pause')),x=view.x+effect.x*view.scale,y=view.y+effect.y*view.scale;ctx.globalAlpha=1-t;circle(x+(target.x+target.width/2-x)*ease,y+(target.y+target.height/2-y)*ease-Math.sin(t*Math.PI)*30,9,'#f2ffb4','#ffffff');ctx.globalAlpha=1;}
  }
  function toWorld(x,y){const app=canvas.closest('#app')||canvas.parentElement,viewport=root.ArcViewport;if(viewport&&app){const p=viewport.point(x,y,app),c=viewport.rect(canvas,app);return {x:(p.x-c.x-view.x)/view.scale,y:(p.y-c.y-view.y)/view.scale};}const r=canvas.getBoundingClientRect();return {x:((x-r.left)*canvas.clientWidth/r.width-view.x)/view.scale,y:((y-r.top)*canvas.clientHeight/r.height-view.y)/view.scale};}
- return {draw,toWorld,resetCamera(){cameraKey='';lastCameraTime=0;chargeZoom=0;lastPlayerPose=null;},get normalView(){return {...normalView};},get view(){return {...view};}};
+ return {draw,toWorld,prepareEnemyAttack(s,plan,includeEcho=false){return EnemyCamera.prepare(s,plan,view,attackFrame,includeEcho);},enemyAttackReady(s,focus){return !!attackFrame&&EnemyCamera.visible(view,EnemyCamera.bounds(s,focus.plan),attackFrame);},resetCamera(){cameraKey='';lastCameraTime=0;chargeZoom=0;lastPlayerPose=null;attackFrame=null;},get attackFrame(){return attackFrame&&{...attackFrame};},get normalView(){return {...normalView};},get view(){return {...view};}};
 }
 root.ArcRender={create};
 })(globalThis);

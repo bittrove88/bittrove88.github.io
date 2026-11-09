@@ -34,7 +34,7 @@ for tag,data in [('payload',rows),('themePayload',themes)]:
 text=re.sub(r'ARCLINE v\d+\.\d+\.\d+ / Campaign',f'ARCLINE v{CONFIG["version"]} / Campaign',text)
 # The standalone atlas embeds the exact current game modules, with no game boot,
 # save manager, network assets or copied approximation of the art renderer.
-modules=['i18n','levels','attack-catalog','combat','battle-catalog','skills','weapons','geometry','physics','inventory','crew','crew-usage','final-team','encounters','enemy-attacks','enemy-position','boss-actions','enemy-actions','engine','visual-style','visual-registry','characters','aim-guide','effects','actor-bodies','visual-art','charge-camera','backgrounds','component-art','render','map-camera']
+modules=['i18n','levels','attack-catalog','combat','battle-catalog','skills','weapons','geometry','physics','inventory','crew','crew-usage','final-team','encounters','enemy-attacks','enemy-position','boss-actions','enemy-actions','engine','visual-style','visual-registry','characters','aim-guide','effects','actor-bodies','visual-art','charge-camera','enemy-camera','backgrounds','component-art','render','map-camera']
 sources=[f'game/dist/{name}.js' for name in modules]
 sources+=['game/tools/atlas_viewer.css','game/tools/atlas_viewer.js']
 manifest={'version':CONFIG['version'],'stages':100,'uniqueMaps':103,'backgroundScenes':33,'sources':{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in sources}}

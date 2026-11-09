@@ -1,6 +1,6 @@
 {
-  "version": "0.33.0",
-  "cacheVersion": "0.33.0",
+  "version": "0.33.1",
+  "cacheVersion": "0.33.1",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -39,6 +39,7 @@
     "actor-bodies.js",
     "visual-art.js",
     "charge-camera.js",
+    "enemy-camera.js",
     "backgrounds.js",
     "component-art.js",
     "render.js",
@@ -128,7 +129,8 @@
     "battle-aim.js": "ui/battle-aim.js",
     "battle-ui.js": "ui/battle-ui.js",
     "battle-ui.css": "styles/battle-ui.css",
-    "menu-ui.css": "styles/menu-ui.css"
+    "menu-ui.css": "styles/menu-ui.css",
+    "enemy-camera.js": "ui/enemy-camera.js"
   },
   "requires": {
     "screens.js": [],
@@ -202,7 +204,8 @@
       "crew-supply.js",
       "charge-camera.js",
       "battle-ui.js",
-      "attack-motion.js"
+      "attack-motion.js",
+      "enemy-camera.js"
     ],
     "device.js": [
       "screens.js",
@@ -305,7 +308,8 @@
     "render.js": [
       "charge-camera.js",
       "backgrounds.js",
-      "component-art.js"
+      "component-art.js",
+      "enemy-camera.js"
     ],
     "backgrounds.js": [
       "final-team.js"
@@ -363,6 +367,9 @@
     "enemy-position.js": [
       "geometry.js",
       "encounters.js"
+    ],
+    "enemy-camera.js": [
+      "geometry.js"
     ]
   }
 }

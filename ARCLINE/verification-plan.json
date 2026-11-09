@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "0.33.0 敵の六機体分の間合いと後半ほど上手くなる攻守の位置選び",
-  "reason": "ユーザーの調整計画へのOKと41面開始の補足を反映。距離制限の全移動経路・歩行途中・転移確定時、段階的な候補選択、直線候補群の割合と代替、実弾道による攻守評価とWorker/協調実行を確認。ボス手番・残像・装甲の直接影響先と新モジュールの共有生成物を対象にする。 保守性の見直しでは解禁条件・歩行予算・評価設定と転移後の合法性判定を共通化し、同じ6スイートで隣接動作を確認する。",
+  "change": "敵共通の発射前カメラと連射中の攻撃元表示",
+  "reason": "ユーザーのマージ指示で最終合意。本検証・CI・マージ・配信確認を進める。先行PR155の位置選びを保持し、共通カメラと直接連動する歩行・転移・残像・チャージを確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -10,56 +10,52 @@
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/boss-actions.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/enemy-actions.js",
-    "ARCLINE/game/dist/enemy-position.js",
-    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/enemy-camera.js",
+    "ARCLINE/game/dist/game.js",
     "ARCLINE/game/dist/index.html",
     "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/render.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-spacing-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-spacing.test.cjs",
+    "ARCLINE/game/tests/enemy-camera-browser.test.cjs",
+    "ARCLINE/game/tests/enemy-camera-flow-browser.test.cjs",
+    "ARCLINE/game/tests/enemy-camera.test.cjs",
     "ARCLINE/game/tests/suites.json",
     "ARCLINE/game/tools/build_attack_review.py",
     "ARCLINE/game/tools/build_map_atlas.py",
+    "ARCLINE/game/ui/enemy-camera.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.33.0/index.html"
+    "ARCLINE/updates/0.33.1/index.html"
   ],
   "suites": {
     "unit": [
-      "enemy-spacing",
-      "boss-motion",
-      "armor-break"
+      "enemy-camera",
+      "charge-camera",
+      "echo-presentation"
     ],
     "browser": [
-      "enemy-spacing-browser",
-      "boss-motion-browser",
-      "armor-break-browser"
+      "enemy-camera-browser",
+      "enemy-camera-flow-browser",
+      "charge-camera-browser",
+      "boss-motion-browser"
     ]
   },
   "checks": {
     "generated": true,
     "baseline": false,
     "package": false,
-    "python": true,
+    "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "PCと568px幅で間合いと遮蔽を持つ実描画を確認。初期配置35面の候補数を旧仕様と比較し、候補が新たにゼロになる面がないことを確認。",
-    "構造整理前b8f5ebdと整理後の123条件（100面の解禁・14移動列・9行動と射撃計画）の一致を比較記録する。敵名・マップ別の追加分岐と設定の重複を差分レビューする。",
-    "同一ソースで成功済みのローカル結果を引き継ぎ、PRのCIとマージ可能性を確認する。マージ・公開は別の状態として報告する。"
+    "2026-11-10（日本時間）のユーザー「マージ」により、提示済みの共通カメラ修正を最終合意。本検証とPR作成・マージを許可済み。",
+    "90面の通常・固有、100面第4戦場の三連射・終極砲、通常敵と中ボスの高低差、歩行・転移・残像からの連続攻撃、ポーズ・画面寸法変更・軽減表示を確認。"
   ],
   "excluded": [
     {
-      "scope": "HP・威力・難易度の照準誤差・地形変更・在庫・保存・全100面攻略と勝率測定",
-      "reason": "依頼は敵の自主的な位置選び。プレイヤー移動・強制移動・攻撃と保存形式を変更しない。"
-    },
-    {
-      "scope": "チュートリアル・メニュー・音声全件・無関係な全件検査と配布パッケージ",
-      "reason": "PR154の案内と既存表示は保持。新モジュールの読み込みと敵行動から次の自機操作までを直接検証する。物理端末は利用できず未確認。"
+      "scope": "全100面攻略・全攻撃再調整・音声全件・実機",
+      "reason": "表示カメラと発射開始時刻の修正。先行mainの物理・威力・射出間隔・位置選び・保存を保護する。"
     }
   ]
 }
