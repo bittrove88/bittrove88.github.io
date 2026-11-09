@@ -1,12 +1,13 @@
 {
   "version": 1,
-  "change": "ラスボス通常25・固有32/34/36/38、6手の攻撃順、高所から固定予告へ曲がる転軌砲。先行PR136のHPと20行動を保持。",
-  "reason": "最終戦に限定した攻撃設定・敵計画・物理・HP表示と実Worker手番を確認する。旧自機攻撃と他の敵の限定差分保護、先行HP300条件、正式生成物・紹介画像・配布構成を検査する。成功済みの全マップ再攻略は繰り返さない。",
+  "change": "ラスボス攻撃0.30.1に、リコの4段階すべてを敵側へ向ける補正と全自機必殺技の自傷50％軽減を追加。先行HPと20行動を保持。",
+  "reason": "累積PRは0.30.1の最終戦攻撃と今回のリコ・自傷だけ。新しい方向・自傷検査、全10必殺技の軽減前後、低HP境界、既存自機HP/表示、最終戦・先行HP保護、実ControllerとWorker、生成物と画像指紋を確認する。無関係で成功済みの検査はローカルで再利用し、CIでは累積差分の選択を渡す。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
     "ARCLINE/design/attacks/definitions.json",
     "ARCLINE/design/attacks/final-attacks-0301-scope.json",
+    "ARCLINE/design/attacks/rico-direction-0302-scope.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
@@ -16,6 +17,7 @@
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/enemy-attacks.js",
     "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/geometry.js",
     "ARCLINE/game/dist/index.html",
     "ARCLINE/game/dist/physics.js",
     "ARCLINE/game/dist/release-info.js",
@@ -27,6 +29,11 @@
     "ARCLINE/game/tests/final-attacks-preservation.cjs",
     "ARCLINE/game/tests/final-attacks.test.cjs",
     "ARCLINE/game/tests/hp-action-balance.test.cjs",
+    "ARCLINE/game/tests/rico-direction-browser.test.cjs",
+    "ARCLINE/game/tests/rico-direction-preservation.cjs",
+    "ARCLINE/game/tests/rico-direction.test.cjs",
+    "ARCLINE/game/tests/special-evolution.test.cjs",
+    "ARCLINE/game/tests/special-self-damage.test.cjs",
     "ARCLINE/game/tests/suites.json",
     "ARCLINE/game/tools/build_playables.py",
     "ARCLINE/index.html",
@@ -35,7 +42,8 @@
     "ARCLINE/site/gameplay-garden.jpg",
     "ARCLINE/site/gameplay-volcano.jpg",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.1/index.html"
+    "ARCLINE/updates/0.30.1/index.html",
+    "ARCLINE/updates/0.30.2/index.html"
   ],
   "suites": {
     "unit": [
@@ -46,13 +54,16 @@
       "hibari-ring",
       "attack-motion",
       "combat-sfx-0190",
-      "promo-experience"
+      "promo-experience",
+      "rico-direction",
+      "special-self-damage"
     ],
     "browser": [
       "final-attacks-browser",
       "attack-review-browser",
       "hp-action-balance-browser",
-      "../site-tests/service-site"
+      "../site-tests/service-site",
+      "rico-direction-browser"
     ]
   },
   "checks": {
@@ -63,13 +74,13 @@
     "nativeAudio": false
   },
   "manual": [
-    "PC1200×720とスマホ844×390相当の転軌砲頂点の実画面を目視。物理端末・人の勝率・本番URLは未確認。",
-    "生成したローカル更新ページとリリース文書のリンクを確認。マージ・配信は別工程。"
+    "PCとスマホ相当で跳弾の全段階と自傷後のHPの実画面を目視。検査用に置いた浮遊標的・HP2000は対戦勝利の証拠と区別する。",
+    "全10必殺技で自傷だけ半減・敵への威力維持を前版比較。物理端末・人の勝率・本番URL・音声デコードは対象外。"
   ],
   "excluded": [
     {
       "scope": "全100面再攻略・旧HPを固定する歴史的全スイート・全キャラ全マップ",
-      "reason": "最終戦攻撃だけを変更。先行PR136の設定は保護し、300初期化と今回のネイティブ配置3件・隣接スイートで確認する。"
+      "reason": "最終戦攻撃とリコの方向・全必殺技の自傷だけを変更。全300初期化、限定ソース保護、対象技の実弾・HP・Workerで検査する。"
     },
     {
       "scope": "原画・BGM・音声デコード・エンディング・全画面基準",

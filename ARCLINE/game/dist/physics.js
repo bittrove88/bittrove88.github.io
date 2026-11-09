@@ -46,7 +46,7 @@ function simulate(s,side,angle,power,options={}){
  const weapon=side===1?W.getEnemy(options.weaponId||'W01'):W.get(options.weaponId||'W01',s.characterId),skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
  if(weapon.machineId)angle=G.clamp(angle,weapon.minAngle,weapon.maxAngle);
  const units=s.units.map(u=>({...u,parts:u.parts.map(p=>({...p}))})),simState={...s,units};
- const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle(s,side,Math.max(weapon.minAngle||-15,angle));
+ const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle({...s,mode:weapon.id},side,Math.max(weapon.minAngle||-15,angle));
  const startDelay=G.clamp(Number(options.startDelay)||0,0,2),curve=G.clamp(Number(options.curve)||0,-1.5,1.5);
  let simWorld=s.world,breachUsed=false;const destroyed=new Set();
  const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
@@ -60,8 +60,10 @@ function simulate(s,side,angle,power,options={}){
   const j=hit.unit,part=j===1&&hit.kind==='part'?units[j].parts[hit.part]:null;
   if(part&&part.hp<=0)return 0;
   if(j===1&&hit.kind==='weak'&&s.spec.boss)bossWeak=true;
-  const cap=j===0?1:bossWeak?(weapon.bossDamageCap??weapon.damageCap??2):(weapon.damageCap??(hit.critical?1.875:1.25));
-  const raw=value*(j===1?boost:1),available=j===1?Math.max(0,cap-spent):Math.max(0,cap-damage[j]);
+  // Reduce the self-hit payload and its attack cap before clipping to remaining HP.
+  const selfFactor=side===0&&j===0&&weapon.special?0.5:1;
+  const cap=j===0?selfFactor:bossWeak?(weapon.bossDamageCap??weapon.damageCap??2):(weapon.damageCap??(hit.critical?1.875:1.25));
+  const raw=value*(j===1?boost:selfFactor),available=j===1?Math.max(0,cap-spent):Math.max(0,cap-damage[j]);
   const amount=Math.min(raw,available,part?part.hp:units[j].hp,j===1&&!part?relayRemaining:Infinity);
   if(amount<=1e-10)return 0;
   if(part){part.hp=Math.max(0,part.hp-amount);if(part.hp<1e-9)part.hp=0;partDamage[hit.part]=(partDamage[hit.part]||0)+amount;}
@@ -72,7 +74,8 @@ function simulate(s,side,angle,power,options={}){
  }
  const damageBudget=weapon.damage;
  const newBullet=(offset=0,delay=0,budget=damageBudget,primary=true,source=origin,powerValue=power)=>{
-  delay+=startDelay;const a=source.theta+offset*Math.PI/180,v=launchSpeed(powerValue,weapon);
+  delay+=startDelay;let a=source.theta+offset*Math.PI/180;const v=launchSpeed(powerValue,weapon);
+  if(weapon.enemyBounce==='all')a=Math.atan2(Math.sin(a),(units[1-side].x>=source.x?1:-1)*Math.abs(Math.cos(a)));
   return {id:bulletId++,x:source.x,y:source.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:delay,start:delay,age:0,budget,primary,path:[{x:source.x,y:source.y,t:delay}],forceEntries:new Set(),initialBounces:0,clouds:new Set(),magnetTime:{},bounces:0,solidBounces:0,phaseRemaining:Math.max(weapon.phase||0,skill==='PHASE'?60:0),phaseUsed:false,phaseSolid:null,phaseExit:false,solidSkip:null,splitDone:false,archerDone:false,roll:0,rollDistance:0,...(weapon.resumeRoll?{rollElapsed:0}:{})};
  };
  const queue=[];
@@ -266,15 +269,20 @@ function simulate(s,side,angle,power,options={}){
    });
    p.t+=DT;p.age+=DT;
    if(solid&&stop===solid&&!weapon.teleport){
-    const material=solid.solid.kind,reflective=material==='reflector'||material==='crystal';
+    const material=solid.solid.kind,reflective=material==='reflector'||material==='crystal',enemyDir=units[1-side].x>=solid.x?1:-1;
+    const enemySideBlocked=weapon.enemyBounce==='all'&&Math.abs(solid.ny)<1e-7&&enemyDir*solid.nx<0;
     const canPhase=material!=='floor'&&material!=='reflector'&&(weapon.penetrating?!!solid.solid.destructible:skill==='PHASE'||(weapon.id==='W13'?!!solid.solid.destructible:['solid','roof','bridge','fragile'].includes(material)));
     if(!p.phaseUsed&&p.phaseRemaining>0&&canPhase){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
-    else if(p.bounces<(weapon.maxBounces||3)&&(reflective||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
+    else if(!enemySideBlocked&&p.bounces<(weapon.maxBounces||3)&&(reflective||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
      const restitution=weapon.restitution||.9,dot=p.vx*solid.nx+p.vy*solid.ny;p.vx=(p.vx-2*dot*solid.nx)*restitution;p.vy=(p.vy-2*dot*solid.ny)*restitution;
      if(weapon.hop&&solid.ny<-.5)p.vy=-Math.max(150,Math.abs(p.vy)*1.1);
      if(weapon.skipper&&solid.ny<-.5){p.vx*=.98;p.vy=-Math.max(55,Math.min(95,Math.abs(p.vy)*.3));}
      p.x=solid.x+solid.nx*1.5;p.y=solid.y+solid.ny*1.5;p.bounces++;p.solidBounces++;p.solidSkip=solid.solid.id;
-     if(weapon.enemyBounce===p.bounces){const wanted=Math.sign(units[1-side].x-p.x)||1,vx=wanted*Math.abs(p.vx);if(vx*solid.nx+p.vy*solid.ny>=0)p.vx=vx;}
+     if(weapon.enemyBounce==='all'){
+      const speed=Math.hypot(p.vx,p.vy);p.vx=enemyDir*Math.max(Math.abs(p.vx),speed*.05);
+      if(p.vx*solid.nx+p.vy*solid.ny<0)p.vy=-p.vx*solid.nx/solid.ny+Math.sign(solid.ny)*speed*.05;
+      const scale=speed/Math.hypot(p.vx,p.vy);p.vx*=scale;p.vy*=scale;
+     }else if(weapon.enemyBounce===p.bounces){const wanted=Math.sign(units[1-side].x-p.x)||1,vx=wanted*Math.abs(p.vx);if(vx*solid.nx+p.vy*solid.ny>=0)p.vx=vx;}
      if(weapon.bounceDamage){p.budget=Math.min(weapon.damageCap,p.budget+weapon.bounceDamage);p.blast=Math.min(weapon.maxBlast,weapon.blast+p.bounces*weapon.bounceBlast);}
      events.push({type:'bounce',x:p.x,y:p.y,t:p.t,count:p.bounces,surface:material,solidId:solid.solid.id,bullet:p.id});p.path.push({x:p.x,y:p.y,t:p.t});
      if(weapon.reflectSplit&&reflective&&!p.reflectedSplit){events.push({type:'reflect-split',x:p.x,y:p.y,t:p.t,bullet:p.id});for(let i=-1;i<=1;i++){const a=i*.19,c=Math.cos(a),sn=Math.sin(a);queue.push({...p,id:bulletId++,vx:p.vx*c-p.vy*sn,vy:p.vx*sn+p.vy*c,budget:p.budget/3,reflectedSplit:true,primary:false,start:p.t,path:[{x:p.x,y:p.y,t:p.t}],appearance:{color:['#ff8faa','#94e3f3','#c4b2ff'][i+1]},forceEntries:new Set(p.forceEntries),clouds:new Set(p.clouds),magnetTime:{...p.magnetTime}});}ended=true;break;}continue;

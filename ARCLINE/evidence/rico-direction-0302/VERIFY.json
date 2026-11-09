@@ -1,0 +1,151 @@
+{
+  "status": "PASS",
+  "version": "0.30.2",
+  "base": "4c419ec",
+  "currentRuntimeSuiteCount": 9,
+  "currentRuntimeSuites": [
+    {
+      "mode": "unit",
+      "name": "special-self-damage",
+      "status": "PASS",
+      "ms": 1027
+    },
+    {
+      "mode": "unit",
+      "name": "rico-direction",
+      "status": "PASS",
+      "ms": 120
+    },
+    {
+      "mode": "unit",
+      "name": "damage-sync",
+      "status": "PASS",
+      "ms": 1208
+    },
+    {
+      "mode": "unit",
+      "name": "hibari-ring",
+      "status": "PASS",
+      "ms": 195
+    },
+    {
+      "mode": "unit",
+      "name": "final-attacks",
+      "status": "PASS",
+      "ms": 4610
+    },
+    {
+      "mode": "unit",
+      "name": "hp-action-balance",
+      "status": "PASS",
+      "ms": 214
+    },
+    {
+      "mode": "unit",
+      "name": "promo-experience",
+      "status": "PASS",
+      "ms": 45
+    },
+    {
+      "mode": "browser",
+      "name": "rico-direction-browser",
+      "status": "PASS",
+      "ms": 9525
+    },
+    {
+      "mode": "browser",
+      "name": "attack-review-browser",
+      "status": "PASS",
+      "ms": 17510
+    }
+  ],
+  "earlierUnrelatedSuiteResultsRetained": [
+    {
+      "mode": "unit",
+      "name": "enemy-evolution",
+      "status": "PASS",
+      "ms": 17104,
+      "testedRuntime": "0.30.1",
+      "rerunAfter0302": false,
+      "reason": "Unchanged behavior protected by exact scoped source reversal; previous successful evidence retained."
+    },
+    {
+      "mode": "unit",
+      "name": "attack-motion",
+      "status": "PASS",
+      "ms": 1239,
+      "testedRuntime": "0.30.1",
+      "rerunAfter0302": false,
+      "reason": "Unchanged behavior protected by exact scoped source reversal; previous successful evidence retained."
+    },
+    {
+      "mode": "unit",
+      "name": "combat-sfx-0190",
+      "status": "PASS",
+      "ms": 3674,
+      "testedRuntime": "0.30.1",
+      "rerunAfter0302": false,
+      "reason": "Unchanged behavior protected by exact scoped source reversal; previous successful evidence retained."
+    },
+    {
+      "mode": "browser",
+      "name": "final-attacks-browser",
+      "status": "PASS",
+      "ms": 19065,
+      "testedRuntime": "0.30.1",
+      "rerunAfter0302": false,
+      "reason": "Unchanged behavior protected by exact scoped source reversal; previous successful evidence retained."
+    },
+    {
+      "mode": "browser",
+      "name": "hp-action-balance-browser",
+      "status": "PASS",
+      "ms": 9804,
+      "testedRuntime": "0.30.1",
+      "rerunAfter0302": false,
+      "reason": "Unchanged behavior protected by exact scoped source reversal; previous successful evidence retained."
+    },
+    {
+      "mode": "browser",
+      "name": "../site-tests/service-site",
+      "status": "PASS",
+      "ms": 15341,
+      "testedRuntime": "0.30.1",
+      "rerunAfter0302": false,
+      "reason": "Unchanged behavior protected by exact scoped source reversal; previous successful evidence retained."
+    }
+  ],
+  "results": {
+    "ricoChecks": 593,
+    "selfDamageChecks": 866,
+    "actualControllerCases": 6,
+    "allOwnSpecials": 10,
+    "damageAndHPFrameRates": [
+      30,
+      120
+    ],
+    "generatedFiles": 154,
+    "packageEntries": 214,
+    "packageRuntimeFiles": 87,
+    "package": {
+      "name": "ARCLINE_0.30.2_Playables.zip",
+      "bytes": 72936756,
+      "sha256": "5fc5496d96f98f36eed6b40ec9db6471d025dc48aa64f739f735582f49a13525"
+    }
+  },
+  "resolvedTestHarnessIssues": [
+    "Recreated a showcase plan with cleared appliedDamage bookkeeping before testing HP again.",
+    "Normal stage4 refills one special at turn2; verify consumption before refill and natural stock afterward.",
+    "Compare actual HP at the end of the player shot, before enemy self-damage; accept the display rounding of fractional enemy damage."
+  ],
+  "statusBoundaries": {
+    "localImplementation": true,
+    "selectedLocalChecks": true,
+    "CI": false,
+    "merged": false,
+    "published": false,
+    "physicalDevice": false,
+    "nativeWinEvidence": false,
+    "nativeAudioDecode": false
+  }
+}
