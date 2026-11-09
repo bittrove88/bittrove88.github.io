@@ -12,13 +12,20 @@ let checks = 0;
 const rows = [], errors = [], requests = [];
 function ok(value, message) { checks++; assert(value, message); }
 const html = fs.readFileSync(path.join(root, "ARCLINE/index.html"), "utf8");
-const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="game\/dist\/([^"?]+)(?:\?[^" ]*)?"/g)].map(match => match[1]);
-for (const [index, script] of scripts.entries()) {
+const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="game\/dist\/([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1]);
+const checked = new Set();
+function checkEngineDependencies(script) {
+  if (checked.has(script)) return;
+  checked.add(script);
+  const index = scripts.indexOf(script);
+  ok(index >= 0, "site loads engine dependency " + script);
   for (const dependency of release.requires[script] || []) {
     const dependencyIndex = scripts.indexOf(dependency);
     ok(dependencyIndex >= 0 && dependencyIndex < index, script + " loads after its runtime dependency " + dependency);
+    checkEngineDependencies(dependency);
   }
 }
+checkEngineDependencies("engine.js");
 const server = http.createServer((req, res) => {
   const pathname = new URL(req.url, "http://localhost").pathname;
   const file = path.resolve(root, "." + (pathname.endsWith("/") ? pathname + "index.html" : pathname));
