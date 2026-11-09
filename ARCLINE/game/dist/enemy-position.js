@@ -2,20 +2,127 @@
   "use strict";
   const G =
     typeof module !== "undefined" ? require("./geometry.js") : root.ArcGeometry;
+  const N =
+    typeof module !== "undefined"
+      ? require("./encounters.js")
+      : root.ArcEncounters;
+  const bodyWidth = 80,
+    minBodies = 6;
   const rules = Object.freeze({
-    bodyWidth: 80,
-    minGap: 480,
-    preferredMin: 560,
-    preferredMax: 800,
+    bodyWidth,
+    minBodies,
+    minGap: bodyWidth * minBodies,
+    preferredMin: bodyWidth * 7,
+    preferredMax: bodyWidth * 10,
+    farRange: bodyWidth * 10,
+    walk: 140,
+    cooldown: 2,
+    unlocks: Object.freeze({
+      normalWalk: 41,
+      bossWalk: 30,
+      bossTeleport: 50,
+      normalTeleport: 71,
+      secondNormalTeleport: 81,
+      final: 100,
+    }),
   });
+  const policy = Object.freeze({
+    attackWeight: 0.45,
+    defenseWeight: 0.45,
+    distanceWeight: 0.1,
+    hitThreshold: 0.05,
+    routeThreshold: 0.1,
+    counterHits: 3,
+    retreatGain: 1,
+    walkAttackTolerance: 0.05,
+    walkScoreGain: 0.01,
+    teleportAttackGain: 0.08,
+    teleportScoreGain: 0.015,
+  });
+  const progression = Object.freeze(
+    [
+      {
+        before: 40,
+        band: 0,
+        angles: 4,
+        choices: 6,
+        directChance: 0.3,
+        searchLimit: 4,
+        forecastWalk: false,
+      },
+      {
+        before: 70,
+        band: 1,
+        angles: 6,
+        choices: 4,
+        directChance: 0.3,
+        searchLimit: 6,
+        forecastWalk: false,
+      },
+      {
+        before: 90,
+        band: 2,
+        angles: 8,
+        choices: 3,
+        directChance: 0.2,
+        searchLimit: 8,
+        forecastWalk: false,
+      },
+      {
+        before: Infinity,
+        band: 3,
+        angles: 9,
+        choices: 2,
+        directChance: 0.1,
+        searchLimit: 10,
+        forecastWalk: true,
+      },
+    ].map(Object.freeze),
+  );
   function profile(stage) {
-    return stage < 40
-      ? { band: 0, angles: 4, choices: 6, directChance: 0.3 }
-      : stage < 70
-        ? { band: 1, angles: 6, choices: 4, directChance: 0.3 }
-        : stage < 90
-          ? { band: 2, angles: 8, choices: 3, directChance: 0.2 }
-          : { band: 3, angles: 9, choices: 2, directChance: 0.1 };
+    return (
+      progression.find((p) => stage < p.before) ||
+      progression[progression.length - 1]
+    );
+  }
+  function unlocked(s) {
+    const guardian = N.guardian(s.spec),
+      u = rules.unlocks;
+    return {
+      boss: guardian && s.stage >= u.bossWalk,
+      normal: !guardian && s.stage >= u.normalWalk && s.stage < u.final,
+    };
+  }
+  function capabilities(s) {
+    const { boss, normal } = unlocked(s),
+      u = rules.unlocks,
+      walk = boss || (normal && !s.units[1].floating);
+    return {
+      walk,
+      teleports: boss
+        ? s.stage >= u.bossTeleport
+          ? s.spec.midboss
+            ? 1
+            : 2
+          : 0
+        : walk && s.stage >= u.normalTeleport
+          ? s.stage < u.secondNormalTeleport
+            ? 1
+            : 2
+          : 0,
+      boss,
+    };
+  }
+  const bossActive = (s) => unlocked(s).boss;
+  function usesWalkBudget(s) {
+    const { boss, normal } = unlocked(s);
+    return boss || normal;
+  }
+  function remainingWalk(s) {
+    return Math.max(
+      0,
+      rules.walk - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
+    );
   }
   function bounds(s, side) {
     const u = s.units[side],
@@ -88,15 +195,18 @@
         0.5 +
         (0.5 * (distance - rules.minGap)) / (rules.preferredMin - rules.minGap)
       );
-    return Math.max(0, 1 - Math.max(0, distance - rules.preferredMax) / 800);
+    return Math.max(
+      0,
+      1 - Math.max(0, distance - rules.preferredMax) / rules.farRange,
+    );
   }
   function score(attack, incoming, distance) {
     const strength = (p) =>
       (0.5 * p.hits) / p.samples + (0.5 * p.damage) / (1 + p.damage);
     return (
-      0.45 * strength(attack) +
-      0.45 * (1 - strength(incoming)) +
-      0.1 * comfort(distance)
+      policy.attackWeight * strength(attack) +
+      policy.defenseWeight * (1 - strength(incoming)) +
+      policy.distanceWeight * comfort(distance)
     );
   }
   function choose(rows, stage, random) {
@@ -132,6 +242,11 @@
   }
   const api = {
     rules,
+    policy,
+    capabilities,
+    bossActive,
+    usesWalkBudget,
+    remainingWalk,
     profile,
     bounds,
     gap,

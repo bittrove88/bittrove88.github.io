@@ -11,7 +11,6 @@
   function create({
     G,
     N,
-    guardian,
     trajectory,
     solve,
     cpuPlan,
@@ -19,20 +18,8 @@
     legacyMove,
     afterTurn,
   }) {
-    const eligible = (s) =>
-      B.active(s) ||
-      (s.stage >= 41 && s.stage < 100 && !guardian(s) && !s.units[1].floating);
-    const rule = (s) => ({
-      walk: eligible(s),
-      teleports: B.active(s)
-        ? B.rule(s).teleports
-        : eligible(s) && s.stage >= 71
-          ? s.stage < 81
-            ? 1
-            : 2
-          : 0,
-      boss: B.active(s),
-    });
+    const rule = Position.capabilities,
+      policy = Position.policy;
     const stats = (s) => ({
       turns: 0,
       walkMisses: 0,
@@ -120,7 +107,7 @@
             },
           );
           const amount = threat(s, shot, side);
-          if (amount > 0.05 && shot.damage[side] < amount) {
+          if (amount > policy.hitThreshold && shot.damage[side] < amount) {
             hits++;
             damage = Math.max(damage, amount);
           }
@@ -151,7 +138,11 @@
         ? N.forSpec(s.spec).attack || {}
         : { weaponId: "W01", skill: null };
       let best = solve(s, side, a);
-      if (side && best.score <= 0.1 && Object.keys(a).length) {
+      if (
+        side &&
+        best.score <= policy.routeThreshold &&
+        Object.keys(a).length
+      ) {
         a = {};
         best = solve(s, side, a);
       }
@@ -160,7 +151,7 @@
     function aimProbe(s, side, aim, angles = [-3, 0, 3], powers = [-8, 0, 8]) {
       let hits = 0,
         damage = 0;
-      if (aim.score > 0.1)
+      if (aim.score > policy.routeThreshold)
         for (const da of angles)
           for (const dp of powers) {
             const shot = trajectory(
@@ -175,7 +166,7 @@
               },
             );
             const amount = threat(s, shot, side);
-            if (amount > 0.05 && shot.damage[side] < amount) {
+            if (amount > policy.hitThreshold && shot.damage[side] < amount) {
               hits++;
               damage = Math.max(damage, amount);
             }
@@ -186,7 +177,7 @@
     function* inspect(c) {
       const own = solution(c.state);
       yield;
-      if (own.score <= 0.1)
+      if (own.score <= policy.routeThreshold)
         return { ...c, canAttack: false, canCounter: false };
       const defense = playerView(c.state),
         other = solution(defense, 0);
@@ -199,20 +190,28 @@
         attack,
         incoming,
         score: Position.score(attack, incoming, c.gap),
-        canAttack: own.score > 0.1,
-        canCounter: other.score > 0.1 && narrow.hits >= 3,
+        canAttack: own.score > policy.routeThreshold,
+        canCounter:
+          other.score > policy.routeThreshold &&
+          narrow.hits >= policy.counterHits,
       };
     }
     function walkCandidates(s) {
       const u = s.units[1],
-        budget = Math.max(
-          0,
-          140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-        ),
+        budget = Position.remainingWalk(s),
         micro = N.forSpec(s.spec).move || 0,
         seen = new Set(),
         rows = [];
-      for (const dx of [140, -140, 100, -100, 60, -60, micro, -micro]) {
+      for (const dx of [
+        Position.rules.walk,
+        -Position.rules.walk,
+        100,
+        -100,
+        60,
+        -60,
+        micro,
+        -micro,
+      ]) {
         const t = clone(s);
         (B.active(t) ? B.move : Position.move)(
           t,
@@ -248,6 +247,15 @@
         !!G.surfaceAt(s.world, p.x - 25, p.y, span) &&
         !!G.surfaceAt(s.world, p.x + 25, p.y, span)
       );
+    }
+    // Planning and application are separate checks, using one landing rule.
+    function landingFuture(s, p) {
+      const future = afterTurn(at(s, p));
+      return Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
+        !supported(future, future.units[1]) ||
+        Position.gap(future) < Position.rules.minGap
+        ? null
+        : future;
     }
     function teleportCandidates(s) {
       const u = s.units[1],
@@ -396,7 +404,7 @@
       const walking = [];
       for (const p of walkCandidates(trial)) {
         let future = at(trial, p);
-        if (Position.profile(trial.stage).band === 3) {
+        if (Position.profile(trial.stage).forecastWalk) {
           future = afterTurn(future);
           if (
             Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
@@ -405,7 +413,8 @@
             continue;
         }
         const c = assess(future, p);
-        if (!retreat || c.gap > current.gap + 1) walking.push(c);
+        if (!retreat || c.gap > current.gap + policy.retreatGain)
+          walking.push(c);
         yield;
       }
       const walkOptions = [];
@@ -418,8 +427,9 @@
           c.canAttack &&
           c.canCounter &&
           (retreat ||
-            c.attack.value >= current.attack.value - 0.05 ||
-            c.score > current.score + 0.01)
+            c.attack.value >=
+              current.attack.value - policy.walkAttackTolerance ||
+            c.score > current.score + policy.walkScoreGain)
         )
           walkOptions.push(c);
         if (
@@ -437,14 +447,9 @@
       if (r.teleports > st.teleports && st.cooldown === 0) {
         const candidates = [];
         for (const p of teleportCandidates(trial)) {
-          const future = afterTurn(at(trial, p));
+          const future = landingFuture(trial, p);
           // A bridge or gate may change as soon as the player gets control.
-          if (
-            Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
-            !supported(future, future.units[1]) ||
-            Position.gap(future) < Position.rules.minGap
-          )
-            continue;
+          if (!future) continue;
           candidates.push(assess(future, p));
           yield;
         }
@@ -459,14 +464,17 @@
           const options = [];
           const search = retreat
             ? pool
-            : pool.slice(0, 4 + 2 * Position.profile(trial.stage).band);
+            : pool.slice(0, Position.profile(trial.stage).searchLimit);
           for (const raw of search) {
             const c = yield* inspect(raw);
             const improvesAttack =
               c.attack.value >
-              Math.max(current.attack.value, walk?.attack.value || 0) + 0.08;
+              Math.max(current.attack.value, walk?.attack.value || 0) +
+                policy.teleportAttackGain;
             const improvesPosition =
-              c.score > Math.max(current.score, walk?.score || 0) + 0.015;
+              c.score >
+              Math.max(current.score, walk?.score || 0) +
+                policy.teleportScoreGain;
             if (
               c.canAttack &&
               c.canCounter &&
@@ -516,7 +524,7 @@
       };
       if (chosen) {
         next.teleports++;
-        next.cooldown = 2;
+        next.cooldown = Position.rules.cooldown;
         next.blocked = 0;
         next.opportunityMisses = 0;
         return {
@@ -615,16 +623,7 @@
           )
         )
           return false;
-        const future = afterTurn(at(s, action.to));
-        if (
-          Position.gap(future) < Position.rules.minGap ||
-          Math.hypot(
-            future.units[1].x - action.to.x,
-            future.units[1].y - action.to.y,
-          ) > 2 ||
-          !supported(future, future.units[1])
-        )
-          return false;
+        if (!landingFuture(s, action.to)) return false;
         if (r.boss) {
           const from = { ...u, parts: u.parts.map((p) => ({ ...p })) };
           B.relocate(s, action.to);
@@ -636,12 +635,7 @@
         u.teleportFlash = { age: 0 };
       } else if (
         !["shoot", "walk-shoot"].includes(action.kind) ||
-        Math.abs(action.to.x - u.x) >
-          Math.max(
-            0,
-            140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-          ) +
-            0.001
+        Math.abs(action.to.x - u.x) > Position.remainingWalk(s) + 0.001
       )
         return false;
       else {

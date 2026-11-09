@@ -2,29 +2,30 @@
   "use strict";
   const node = typeof module !== "undefined";
   const G = node ? require("./geometry.js") : root.ArcGeometry;
-  const N = node ? require("./encounters.js") : root.ArcEncounters;
   const Position = node
     ? require("./enemy-position.js")
     : root.ArcEnemyPosition;
   const rules = Object.freeze({
-    walk: 140,
+    walk: Position.rules.walk,
     close: Position.rules.minGap,
-    cooldown: 2,
+    cooldown: Position.rules.cooldown,
     echoDamage: 0.25,
     echoBlast: 80,
     echoInterval: 0.2,
   });
-  const active = (s) => N.guardian(s.spec) && s.stage >= 30;
+  const active = Position.bossActive;
   const field = (s) =>
     s.stage === 100
       ? Math.min(3, Math.floor((s.finalTeam?.index || 0) / 3))
       : 0;
   function rule(s) {
+    const boss = active(s),
+      r = boss ? Position.capabilities(s) : null;
     return {
-      boss: active(s),
-      walk: active(s),
-      teleports: active(s) && s.stage >= 50 ? (s.spec.midboss ? 1 : 2) : 0,
-      echo: !!s.spec.boss && s.stage >= 50,
+      boss,
+      walk: boss,
+      teleports: r ? r.teleports : 0,
+      echo: !!s.spec.boss && s.stage >= Position.rules.unlocks.bossTeleport,
       field: field(s),
     };
   }

@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "baselineCommit": "b8f5ebd94c7e1fcb70111cd62dc2273f50b3cd92",
+  "scope": "Behavior-preserving architecture cleanup of PR155; gameplay specification unchanged.",
+  "findings": [
+    {
+      "finding": "Movement unlocks, walk budget and cooldown were repeated across planning and execution.",
+      "resolution": "enemy-position.js owns shared rules and capability/budget queries. BossActions and Engine consume those queries."
+    },
+    {
+      "finding": "Teleport future-landing validity was repeated in candidate planning and application.",
+      "resolution": "Both boundaries call one landingFuture function; application revalidation remains."
+    },
+    {
+      "finding": "Progression search/forecast behavior and score thresholds were partly embedded in evaluation code.",
+      "resolution": "Frozen progression table and shared policy settings are owned by enemy-position.js."
+    }
+  ],
+  "retainedBoundaries": [
+    "EnemyActions owns real ballistic evaluation and the shared synchronous/cooperative planning generator.",
+    "Normal and boss physical movement remain distinct because boss armor and floating collision need their existing handling; both use Position.walkLegal.",
+    "Existing boss40/60 armor gates and final-field mechanics are preserved, not new map-specific spacing exceptions."
+  ],
+  "equivalence": {
+    "status": "PASS",
+    "conditions": 123,
+    "capabilityStages": 100,
+    "movementTraces": 14,
+    "nativeDecisionsAndShotPlans": 9,
+    "beforeSha256": "60b437e8a9b76dcf48de6fedd4bae22a118da48dac783f43a58a9c18a2844a72",
+    "afterSha256": "60b437e8a9b76dcf48de6fedd4bae22a118da48dac783f43a58a9c18a2844a72",
+    "before": "ARCHITECTURE_BEFORE.json",
+    "reproduce": "node ARCLINE/evidence/enemy-spacing-0330/compare-architecture.cjs /tmp/arcline-architecture-after.json ARCLINE/evidence/enemy-spacing-0330/ARCHITECTURE_BEFORE.json",
+    "note": "Canonical full-state movement and complete shot-plan hashes; planning also asserts the live input state remains unchanged."
+  },
+  "limits": [
+    "123 sampled conditions are not proof of equivalence for every random seed and every reachable game state.",
+    "Automated tests do not establish long-term maintainability, all-map play balance or physical-device performance.",
+    "No new generic AI framework, per-enemy behavior configuration or map exceptions were added."
+  ]
+}

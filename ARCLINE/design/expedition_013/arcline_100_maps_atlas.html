@@ -72,7 +72,7 @@
   out+='<circle class="atlas-spawn" cx="'+fixed(a[0])+'" cy="'+fixed(a[1]-9)+'" r="7" fill="'+c+'" stroke="#111c2b" stroke-width="2"/>';
  }
  return out+'</svg>';
-}function render(){let tf=$('filter').value,df=$('difficulty').value,filtered=themes.filter(t=>(tf==='all'||String(t.id)===tf)&&(df==='all'||t.difficulty.includes(df)));$('mapgroups').innerHTML=filtered.map(t=>{let arr=levels.slice((t.id-1)*5,t.id*5);return '<div class="theme-group"><div class="theme-heading"><strong>'+String(t.id).padStart(2,'0')+' '+escapeHtml(t.name)+'</strong><small>STAGE '+t.range[0]+'–'+t.range[1]+'</small><span class="badge band">'+escapeHtml(t.difficulty)+'</span></div><div class="mapgrid">'+arr.map(s=>'<div class="tile"><div class="tile-head"><b>'+String(s.id).padStart(3,'0')+'</b><span title="'+escapeHtml(s.name)+'">'+escapeHtml(s.name)+'</span></div>'+svg(s)+'</div>').join('')+'</div></div>'}).join('');const relay=levels.find(s=>s.id===100).geometry;const showFinal=filtered.some(t=>t.id===20);$('finalArenas').hidden=!showFinal;$('finalMapGrid').innerHTML=showFinal?(relay.relayMaps||[]).map((m,i)=>'<div class="tile"><div class="tile-head"><b>100 / '+(i+1)+'</b><span>'+escapeHtml(m.name.ja)+'</span></div>'+svg({id:'100-'+(i+1),geometry:{floors:m.floors,components:m.components,features:m.features,spawn:[Object.values(m.spawns)[0],m.bossSpawn],playerSpawns:Object.values(m.spawns),worldWidth:relay.worldWidth}})+'</div>').join(''):'';$('themeRows').innerHTML=filtered.map(t=>{let types=t.features.map(x=>names[x]||x).join('・')||'環境装置なし';let special=t.goals.filter((x,i)=>i<4).map(x=>x.replace(/[。]$/,'')).join(' / ');return '<tr><td>'+String(t.id).padStart(2,'0')+' '+escapeHtml(t.name)+'<br><small>'+t.range.join('–')+'</small></td><td>'+escapeHtml(t.difficulty)+'</td><td>'+escapeHtml(t.goal)+'</td><td>'+escapeHtml(types)+'<br><small>障害物'+t.obstacles+'（破壊可'+t.destructible+'）</small></td><td>'+escapeHtml(special)+'</td><td>'+t.actionMin+'〜'+t.actionMax+'手</td></tr>'}).join('');$('stats').innerHTML='<span><strong>'+filtered.length*5+'</strong> / 100 マップ</span><span><strong>'+filtered.length+'</strong> / 20 テーマ</span><span>各テーマ5面を横並び表示</span>'}for(let t of themes)$('filter').add(new Option(String(t.id).padStart(2,'0')+' '+t.name,t.id));for(let d of [...new Set(themes.flatMap(t=>t.difficulty.split('・')))])$('difficulty').add(new Option(d,d));$('filter').onchange=$('difficulty').onchange=render;$('density').onclick=()=>{document.body.classList.toggle('compact');$('density').textContent=document.body.classList.contains('compact')?'標準サイズに切替':'コンパクト表示に切替'};$('print').onclick=()=>window.print();$('export').onclick=()=>{const rows=[['テーマ','範囲','難易度','学習テーマ','ギミック','障害物','破壊可能','想定行動最小','想定行動最大'],...themes.map(t=>[t.name,t.range.join('-'),t.difficulty,t.goal,t.features.map(f=>names[f]||f).join(' / '),t.obstacles,t.destructible,t.actionMin,t.actionMax])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');let a=document.createElement('a'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='ARCLINE_theme_difficulty.csv';a.click();URL.revokeObjectURL(url)};render();</script><!-- ATLAS_NATIVE_START --><script id="atlasNativeManifest" type="application/json">{"version":"0.33.0","stages":100,"uniqueMaps":103,"backgroundScenes":33,"sources":{"game/dist/i18n.js":"99f6962c9769e1df1a02ab390412dd9ea4477a9029c5be0850941319e4dd98a1","game/dist/levels.js":"8ca25af567cd9cb2b013aeee768d29e99581f8a51a79ca3f69a2b29f4f95d039","game/dist/attack-catalog.js":"5abfcd546b99aacc82c85ceeeaa50b439ff562be126647e144e6797fea986cba","game/dist/combat.js":"ffe8a3db911f3d8467d315ffe007d9459afdc2d1e20aa002354875af71b9ac9c","game/dist/battle-catalog.js":"9df2994924170fda8f8e88b1bc8ec2ec6c6e2d3b2befb4ec3343daf0cb031531","game/dist/skills.js":"08d0a0e844a1f922e01c876304c95b80ae7c563262e5221fe9024c8a119edb3b","game/dist/weapons.js":"bc588ca4a21da4f6af5e22ce9ae80c141e6b387f444e562da8dbcbb44f894948","game/dist/geometry.js":"ee248f437eb20d2dc7867b6b9582de1d838b9f639b877eb92d531a397fb427cb","game/dist/physics.js":"813ff07e6661f221b79a3d7f956cd8d4a8bba457d3bd4b7b89820d13bee6c3c4","game/dist/inventory.js":"89551d4a213f1896c32eb7d1a6faf1196a55bc033b75be740147a05331b3bccc","game/dist/crew.js":"7d2e5d2cb7855400a9108c27ebcf055def8b53f0cb8893ddef5b99b8de9a5612","game/dist/crew-usage.js":"d61c6348a0f7a7e902ff21cfb7da6251d5f714f156b9b4b6e6c8e591f8c3abfb","game/dist/final-team.js":"cbe72945dd083f089af2ca14c6c8ecf30a8ffdd5a457936132d9ce248a159162","game/dist/encounters.js":"35e15ec11dd6e840c1807445966eb1ee846d7e9537467443bbad540250d35416","game/dist/enemy-attacks.js":"0efdc355609ce0713abbf85b54e6cc22abbdd9e6ac870d895ac8b1be95505187","game/dist/enemy-position.js":"00b66d1678a0c389e1c5c74f8fdf12674d1e1d441b1c66a028b99d381619adc1","game/dist/boss-actions.js":"fa1865a1dd192078b60aeee98fd12dc7865654166700a0c0e4f63e8419c8e075","game/dist/enemy-actions.js":"7659b6dfde8eab2f8865627c5cfcb0d7980e4e94d90e5118a63fafb7484d0309","game/dist/engine.js":"0b38b728ab468a5314654b5f6e510bcd2c462c84dd19e31561222bf3e88aab16","game/dist/visual-style.js":"309c3e10ccec0431bc6b4fe8e06e8ea863189986fa92ef7c154106c31a9f7a2e","game/dist/visual-registry.js":"7efd90e6673a3cdd0338ad40ec6ffb751474e66facad670ec4d0ce815037acdf","game/dist/characters.js":"5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609","game/dist/aim-guide.js":"69a5da10e5b1dde430bfb5b22f99f93aaefd672d7abdd5e381a2701a0fc52eb0","game/dist/effects.js":"0bc606b7ecd206c2aad14f30358423757d286271a7cc5199b8c4ea6fb73aaa66","game/dist/actor-bodies.js":"a700656ea18a143003c0e7a9eddc39c3aa9dc9b6b39a244a5ed07882a701597a","game/dist/visual-art.js":"81150f4cb3f780bcd2a28682b4cb47867a8539f9f2dccafa05e254430b79ba29","game/dist/charge-camera.js":"d5425945cdad9465d58d749f57095f42f4a81f2fff214d0bde025b2c4449024e","game/dist/backgrounds.js":"bb1776004aefce40b3015bf6f8f8550adec652c94d24129ef99121fd6fd0126e","game/dist/component-art.js":"349b854462137ec4a32584d978a5d5235df87eddc528adee45f596ad17051bc3","game/dist/render.js":"9325a1411e39071108a80325e5181ddfb50706c5dc681bb8a6e79b98a7844770","game/dist/map-camera.js":"5642985ca420a806ace90029c7654279ff5294b773ff894d4f3040c50fff7c95","game/tools/atlas_viewer.css":"aca3ff7850d8dfbb56c82e0c9ad8c91761b1c7b3bd42d02eda2f6a1c393ea660","game/tools/atlas_viewer.js":"1ef7c56e12f9d1a0a13965b61f7a46fcb57aa97acee17d5c57af3dcef89beac6"}}</script><style data-atlas-source="game/tools/atlas_viewer.css">
+}function render(){let tf=$('filter').value,df=$('difficulty').value,filtered=themes.filter(t=>(tf==='all'||String(t.id)===tf)&&(df==='all'||t.difficulty.includes(df)));$('mapgroups').innerHTML=filtered.map(t=>{let arr=levels.slice((t.id-1)*5,t.id*5);return '<div class="theme-group"><div class="theme-heading"><strong>'+String(t.id).padStart(2,'0')+' '+escapeHtml(t.name)+'</strong><small>STAGE '+t.range[0]+'–'+t.range[1]+'</small><span class="badge band">'+escapeHtml(t.difficulty)+'</span></div><div class="mapgrid">'+arr.map(s=>'<div class="tile"><div class="tile-head"><b>'+String(s.id).padStart(3,'0')+'</b><span title="'+escapeHtml(s.name)+'">'+escapeHtml(s.name)+'</span></div>'+svg(s)+'</div>').join('')+'</div></div>'}).join('');const relay=levels.find(s=>s.id===100).geometry;const showFinal=filtered.some(t=>t.id===20);$('finalArenas').hidden=!showFinal;$('finalMapGrid').innerHTML=showFinal?(relay.relayMaps||[]).map((m,i)=>'<div class="tile"><div class="tile-head"><b>100 / '+(i+1)+'</b><span>'+escapeHtml(m.name.ja)+'</span></div>'+svg({id:'100-'+(i+1),geometry:{floors:m.floors,components:m.components,features:m.features,spawn:[Object.values(m.spawns)[0],m.bossSpawn],playerSpawns:Object.values(m.spawns),worldWidth:relay.worldWidth}})+'</div>').join(''):'';$('themeRows').innerHTML=filtered.map(t=>{let types=t.features.map(x=>names[x]||x).join('・')||'環境装置なし';let special=t.goals.filter((x,i)=>i<4).map(x=>x.replace(/[。]$/,'')).join(' / ');return '<tr><td>'+String(t.id).padStart(2,'0')+' '+escapeHtml(t.name)+'<br><small>'+t.range.join('–')+'</small></td><td>'+escapeHtml(t.difficulty)+'</td><td>'+escapeHtml(t.goal)+'</td><td>'+escapeHtml(types)+'<br><small>障害物'+t.obstacles+'（破壊可'+t.destructible+'）</small></td><td>'+escapeHtml(special)+'</td><td>'+t.actionMin+'〜'+t.actionMax+'手</td></tr>'}).join('');$('stats').innerHTML='<span><strong>'+filtered.length*5+'</strong> / 100 マップ</span><span><strong>'+filtered.length+'</strong> / 20 テーマ</span><span>各テーマ5面を横並び表示</span>'}for(let t of themes)$('filter').add(new Option(String(t.id).padStart(2,'0')+' '+t.name,t.id));for(let d of [...new Set(themes.flatMap(t=>t.difficulty.split('・')))])$('difficulty').add(new Option(d,d));$('filter').onchange=$('difficulty').onchange=render;$('density').onclick=()=>{document.body.classList.toggle('compact');$('density').textContent=document.body.classList.contains('compact')?'標準サイズに切替':'コンパクト表示に切替'};$('print').onclick=()=>window.print();$('export').onclick=()=>{const rows=[['テーマ','範囲','難易度','学習テーマ','ギミック','障害物','破壊可能','想定行動最小','想定行動最大'],...themes.map(t=>[t.name,t.range.join('-'),t.difficulty,t.goal,t.features.map(f=>names[f]||f).join(' / '),t.obstacles,t.destructible,t.actionMin,t.actionMax])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');let a=document.createElement('a'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='ARCLINE_theme_difficulty.csv';a.click();URL.revokeObjectURL(url)};render();</script><!-- ATLAS_NATIVE_START --><script id="atlasNativeManifest" type="application/json">{"version":"0.33.0","stages":100,"uniqueMaps":103,"backgroundScenes":33,"sources":{"game/dist/i18n.js":"99f6962c9769e1df1a02ab390412dd9ea4477a9029c5be0850941319e4dd98a1","game/dist/levels.js":"8ca25af567cd9cb2b013aeee768d29e99581f8a51a79ca3f69a2b29f4f95d039","game/dist/attack-catalog.js":"5abfcd546b99aacc82c85ceeeaa50b439ff562be126647e144e6797fea986cba","game/dist/combat.js":"ffe8a3db911f3d8467d315ffe007d9459afdc2d1e20aa002354875af71b9ac9c","game/dist/battle-catalog.js":"9df2994924170fda8f8e88b1bc8ec2ec6c6e2d3b2befb4ec3343daf0cb031531","game/dist/skills.js":"08d0a0e844a1f922e01c876304c95b80ae7c563262e5221fe9024c8a119edb3b","game/dist/weapons.js":"bc588ca4a21da4f6af5e22ce9ae80c141e6b387f444e562da8dbcbb44f894948","game/dist/geometry.js":"ee248f437eb20d2dc7867b6b9582de1d838b9f639b877eb92d531a397fb427cb","game/dist/physics.js":"813ff07e6661f221b79a3d7f956cd8d4a8bba457d3bd4b7b89820d13bee6c3c4","game/dist/inventory.js":"89551d4a213f1896c32eb7d1a6faf1196a55bc033b75be740147a05331b3bccc","game/dist/crew.js":"7d2e5d2cb7855400a9108c27ebcf055def8b53f0cb8893ddef5b99b8de9a5612","game/dist/crew-usage.js":"d61c6348a0f7a7e902ff21cfb7da6251d5f714f156b9b4b6e6c8e591f8c3abfb","game/dist/final-team.js":"cbe72945dd083f089af2ca14c6c8ecf30a8ffdd5a457936132d9ce248a159162","game/dist/encounters.js":"35e15ec11dd6e840c1807445966eb1ee846d7e9537467443bbad540250d35416","game/dist/enemy-attacks.js":"0efdc355609ce0713abbf85b54e6cc22abbdd9e6ac870d895ac8b1be95505187","game/dist/enemy-position.js":"d97892a0320818d8f1d49521ce9ab26e3e31187099a3bd076a115ac7cb8c1821","game/dist/boss-actions.js":"980dc976b87ec2375bc2f5e36983fbb42013ea4e9f3481be1176b3c7eb131434","game/dist/enemy-actions.js":"de6907ecccd16ca99672977c151c064d75f2766178eaec4b46ac451042f5ad6c","game/dist/engine.js":"ba0a9761da554ef5b7ac482f0366e7119893d8ac40f66f72f8e321ce24761258","game/dist/visual-style.js":"309c3e10ccec0431bc6b4fe8e06e8ea863189986fa92ef7c154106c31a9f7a2e","game/dist/visual-registry.js":"7efd90e6673a3cdd0338ad40ec6ffb751474e66facad670ec4d0ce815037acdf","game/dist/characters.js":"5bae42298f49b5862e1f5a45d8fee913083c18d15f0674286b6fd49b2fdcf609","game/dist/aim-guide.js":"69a5da10e5b1dde430bfb5b22f99f93aaefd672d7abdd5e381a2701a0fc52eb0","game/dist/effects.js":"0bc606b7ecd206c2aad14f30358423757d286271a7cc5199b8c4ea6fb73aaa66","game/dist/actor-bodies.js":"a700656ea18a143003c0e7a9eddc39c3aa9dc9b6b39a244a5ed07882a701597a","game/dist/visual-art.js":"81150f4cb3f780bcd2a28682b4cb47867a8539f9f2dccafa05e254430b79ba29","game/dist/charge-camera.js":"d5425945cdad9465d58d749f57095f42f4a81f2fff214d0bde025b2c4449024e","game/dist/backgrounds.js":"bb1776004aefce40b3015bf6f8f8550adec652c94d24129ef99121fd6fd0126e","game/dist/component-art.js":"349b854462137ec4a32584d978a5d5235df87eddc528adee45f596ad17051bc3","game/dist/render.js":"9325a1411e39071108a80325e5181ddfb50706c5dc681bb8a6e79b98a7844770","game/dist/map-camera.js":"5642985ca420a806ace90029c7654279ff5294b773ff894d4f3040c50fff7c95","game/tools/atlas_viewer.css":"aca3ff7850d8dfbb56c82e0c9ad8c91761b1c7b3bd42d02eda2f6a1c393ea660","game/tools/atlas_viewer.js":"1ef7c56e12f9d1a0a13965b61f7a46fcb57aa97acee17d5c57af3dcef89beac6"}}</script><style data-atlas-source="game/tools/atlas_viewer.css">
 body.atlas-native .tile>svg{display:none}.atlas-open{display:none;width:100%;padding:0;border:0;border-radius:0;background:transparent;cursor:zoom-in;position:relative}body.atlas-native .atlas-open{display:block}.atlas-open canvas{display:block;width:100%;aspect-ratio:16/9;background:#152936}.atlas-open::after{content:'拡大';position:absolute;right:6px;bottom:6px;padding:2px 7px;border-radius:4px;background:#10212bd9;color:#e5edf2;font-size:10px}.atlas-open:focus-visible{outline:3px solid var(--mint);outline-offset:-3px}.atlas-dialog{width:min(1260px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 24px);padding:16px;border:1px solid #527080;border-radius:12px;background:#132735;color:var(--text);overflow:auto}.atlas-dialog::backdrop{background:#061019d9}.atlas-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.atlas-dialog-head h2{font-size:20px;overflow-wrap:anywhere}.atlas-dialog-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.atlas-dialog-head button{flex:none}.atlas-stage{display:block;width:100%;height:clamp(190px,53dvh,660px);border:1px solid #3e5865;border-radius:7px;touch-action:none;cursor:grab;background:#152936}.atlas-stage:active{cursor:grabbing}.atlas-view-controls{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:10px}.atlas-view-controls output{min-width:45px;text-align:center;color:var(--mint)}.atlas-caption{margin:9px 0 0;font-size:13px;line-height:1.65}.atlas-help{font-size:12px;color:var(--muted);margin:6px 0}.atlas-view-label{display:flex;gap:6px;align-items:center}.atlas-render-error{padding:12px;background:#663b35;color:#fff3dc}.atlas-native .legend{font-size:12px}.atlas-native .tile-head span{white-space:normal;text-align:left}.atlas-native .mapgrid{grid-template-columns:repeat(5,minmax(0,1fr))}@media(max-width:1000px){.atlas-native .mapgrid{grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}.atlas-native #finalMapGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}@media(max-width:540px){.atlas-dialog{padding:10px}.atlas-dialog-head h2{font-size:16px}.atlas-view-controls{gap:5px}.atlas-view-controls button{padding:7px 9px}.atlas-stage{height:47dvh}.atlas-native .theme-heading{flex-wrap:wrap}.atlas-native .theme-heading .band{margin-left:0}.atlas-native .toolbar{position:static}.atlas-native main{padding:10px}.atlas-native .mapgrid{grid-template-columns:minmax(0,1fr)}.atlas-native #finalMapGrid{grid-template-columns:minmax(0,1fr)!important}.atlas-native .tile-head span{font-size:12px}}@media print{.atlas-dialog,.atlas-open::after,.atlas-render-error{display:none!important}.atlas-native .mapgrid{grid-template-columns:repeat(5,minmax(0,1fr))!important}.atlas-native #finalMapGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important}.atlas-open{break-inside:avoid}.atlas-open canvas{width:100%}.atlas-native .tile-head span{font-size:8px}.atlas-native .legend{font-size:9px}}
 
 </style><script data-atlas-source="game/dist/i18n.js">
@@ -1605,20 +1605,127 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   "use strict";
   const G =
     typeof module !== "undefined" ? require("./geometry.js") : root.ArcGeometry;
+  const N =
+    typeof module !== "undefined"
+      ? require("./encounters.js")
+      : root.ArcEncounters;
+  const bodyWidth = 80,
+    minBodies = 6;
   const rules = Object.freeze({
-    bodyWidth: 80,
-    minGap: 480,
-    preferredMin: 560,
-    preferredMax: 800,
+    bodyWidth,
+    minBodies,
+    minGap: bodyWidth * minBodies,
+    preferredMin: bodyWidth * 7,
+    preferredMax: bodyWidth * 10,
+    farRange: bodyWidth * 10,
+    walk: 140,
+    cooldown: 2,
+    unlocks: Object.freeze({
+      normalWalk: 41,
+      bossWalk: 30,
+      bossTeleport: 50,
+      normalTeleport: 71,
+      secondNormalTeleport: 81,
+      final: 100,
+    }),
   });
+  const policy = Object.freeze({
+    attackWeight: 0.45,
+    defenseWeight: 0.45,
+    distanceWeight: 0.1,
+    hitThreshold: 0.05,
+    routeThreshold: 0.1,
+    counterHits: 3,
+    retreatGain: 1,
+    walkAttackTolerance: 0.05,
+    walkScoreGain: 0.01,
+    teleportAttackGain: 0.08,
+    teleportScoreGain: 0.015,
+  });
+  const progression = Object.freeze(
+    [
+      {
+        before: 40,
+        band: 0,
+        angles: 4,
+        choices: 6,
+        directChance: 0.3,
+        searchLimit: 4,
+        forecastWalk: false,
+      },
+      {
+        before: 70,
+        band: 1,
+        angles: 6,
+        choices: 4,
+        directChance: 0.3,
+        searchLimit: 6,
+        forecastWalk: false,
+      },
+      {
+        before: 90,
+        band: 2,
+        angles: 8,
+        choices: 3,
+        directChance: 0.2,
+        searchLimit: 8,
+        forecastWalk: false,
+      },
+      {
+        before: Infinity,
+        band: 3,
+        angles: 9,
+        choices: 2,
+        directChance: 0.1,
+        searchLimit: 10,
+        forecastWalk: true,
+      },
+    ].map(Object.freeze),
+  );
   function profile(stage) {
-    return stage < 40
-      ? { band: 0, angles: 4, choices: 6, directChance: 0.3 }
-      : stage < 70
-        ? { band: 1, angles: 6, choices: 4, directChance: 0.3 }
-        : stage < 90
-          ? { band: 2, angles: 8, choices: 3, directChance: 0.2 }
-          : { band: 3, angles: 9, choices: 2, directChance: 0.1 };
+    return (
+      progression.find((p) => stage < p.before) ||
+      progression[progression.length - 1]
+    );
+  }
+  function unlocked(s) {
+    const guardian = N.guardian(s.spec),
+      u = rules.unlocks;
+    return {
+      boss: guardian && s.stage >= u.bossWalk,
+      normal: !guardian && s.stage >= u.normalWalk && s.stage < u.final,
+    };
+  }
+  function capabilities(s) {
+    const { boss, normal } = unlocked(s),
+      u = rules.unlocks,
+      walk = boss || (normal && !s.units[1].floating);
+    return {
+      walk,
+      teleports: boss
+        ? s.stage >= u.bossTeleport
+          ? s.spec.midboss
+            ? 1
+            : 2
+          : 0
+        : walk && s.stage >= u.normalTeleport
+          ? s.stage < u.secondNormalTeleport
+            ? 1
+            : 2
+          : 0,
+      boss,
+    };
+  }
+  const bossActive = (s) => unlocked(s).boss;
+  function usesWalkBudget(s) {
+    const { boss, normal } = unlocked(s);
+    return boss || normal;
+  }
+  function remainingWalk(s) {
+    return Math.max(
+      0,
+      rules.walk - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
+    );
   }
   function bounds(s, side) {
     const u = s.units[side],
@@ -1691,15 +1798,18 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         0.5 +
         (0.5 * (distance - rules.minGap)) / (rules.preferredMin - rules.minGap)
       );
-    return Math.max(0, 1 - Math.max(0, distance - rules.preferredMax) / 800);
+    return Math.max(
+      0,
+      1 - Math.max(0, distance - rules.preferredMax) / rules.farRange,
+    );
   }
   function score(attack, incoming, distance) {
     const strength = (p) =>
       (0.5 * p.hits) / p.samples + (0.5 * p.damage) / (1 + p.damage);
     return (
-      0.45 * strength(attack) +
-      0.45 * (1 - strength(incoming)) +
-      0.1 * comfort(distance)
+      policy.attackWeight * strength(attack) +
+      policy.defenseWeight * (1 - strength(incoming)) +
+      policy.distanceWeight * comfort(distance)
     );
   }
   function choose(rows, stage, random) {
@@ -1735,6 +1845,11 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   }
   const api = {
     rules,
+    policy,
+    capabilities,
+    bossActive,
+    usesWalkBudget,
+    remainingWalk,
     profile,
     bounds,
     gap,
@@ -1758,29 +1873,30 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   "use strict";
   const node = typeof module !== "undefined";
   const G = node ? require("./geometry.js") : root.ArcGeometry;
-  const N = node ? require("./encounters.js") : root.ArcEncounters;
   const Position = node
     ? require("./enemy-position.js")
     : root.ArcEnemyPosition;
   const rules = Object.freeze({
-    walk: 140,
+    walk: Position.rules.walk,
     close: Position.rules.minGap,
-    cooldown: 2,
+    cooldown: Position.rules.cooldown,
     echoDamage: 0.25,
     echoBlast: 80,
     echoInterval: 0.2,
   });
-  const active = (s) => N.guardian(s.spec) && s.stage >= 30;
+  const active = Position.bossActive;
   const field = (s) =>
     s.stage === 100
       ? Math.min(3, Math.floor((s.finalTeam?.index || 0) / 3))
       : 0;
   function rule(s) {
+    const boss = active(s),
+      r = boss ? Position.capabilities(s) : null;
     return {
-      boss: active(s),
-      walk: active(s),
-      teleports: active(s) && s.stage >= 50 ? (s.spec.midboss ? 1 : 2) : 0,
-      echo: !!s.spec.boss && s.stage >= 50,
+      boss,
+      walk: boss,
+      teleports: r ? r.teleports : 0,
+      echo: !!s.spec.boss && s.stage >= Position.rules.unlocks.bossTeleport,
       field: field(s),
     };
   }
@@ -2090,7 +2206,6 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   function create({
     G,
     N,
-    guardian,
     trajectory,
     solve,
     cpuPlan,
@@ -2098,20 +2213,8 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     legacyMove,
     afterTurn,
   }) {
-    const eligible = (s) =>
-      B.active(s) ||
-      (s.stage >= 41 && s.stage < 100 && !guardian(s) && !s.units[1].floating);
-    const rule = (s) => ({
-      walk: eligible(s),
-      teleports: B.active(s)
-        ? B.rule(s).teleports
-        : eligible(s) && s.stage >= 71
-          ? s.stage < 81
-            ? 1
-            : 2
-          : 0,
-      boss: B.active(s),
-    });
+    const rule = Position.capabilities,
+      policy = Position.policy;
     const stats = (s) => ({
       turns: 0,
       walkMisses: 0,
@@ -2199,7 +2302,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             },
           );
           const amount = threat(s, shot, side);
-          if (amount > 0.05 && shot.damage[side] < amount) {
+          if (amount > policy.hitThreshold && shot.damage[side] < amount) {
             hits++;
             damage = Math.max(damage, amount);
           }
@@ -2230,7 +2333,11 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         ? N.forSpec(s.spec).attack || {}
         : { weaponId: "W01", skill: null };
       let best = solve(s, side, a);
-      if (side && best.score <= 0.1 && Object.keys(a).length) {
+      if (
+        side &&
+        best.score <= policy.routeThreshold &&
+        Object.keys(a).length
+      ) {
         a = {};
         best = solve(s, side, a);
       }
@@ -2239,7 +2346,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     function aimProbe(s, side, aim, angles = [-3, 0, 3], powers = [-8, 0, 8]) {
       let hits = 0,
         damage = 0;
-      if (aim.score > 0.1)
+      if (aim.score > policy.routeThreshold)
         for (const da of angles)
           for (const dp of powers) {
             const shot = trajectory(
@@ -2254,7 +2361,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
               },
             );
             const amount = threat(s, shot, side);
-            if (amount > 0.05 && shot.damage[side] < amount) {
+            if (amount > policy.hitThreshold && shot.damage[side] < amount) {
               hits++;
               damage = Math.max(damage, amount);
             }
@@ -2265,7 +2372,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     function* inspect(c) {
       const own = solution(c.state);
       yield;
-      if (own.score <= 0.1)
+      if (own.score <= policy.routeThreshold)
         return { ...c, canAttack: false, canCounter: false };
       const defense = playerView(c.state),
         other = solution(defense, 0);
@@ -2278,20 +2385,28 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         attack,
         incoming,
         score: Position.score(attack, incoming, c.gap),
-        canAttack: own.score > 0.1,
-        canCounter: other.score > 0.1 && narrow.hits >= 3,
+        canAttack: own.score > policy.routeThreshold,
+        canCounter:
+          other.score > policy.routeThreshold &&
+          narrow.hits >= policy.counterHits,
       };
     }
     function walkCandidates(s) {
       const u = s.units[1],
-        budget = Math.max(
-          0,
-          140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-        ),
+        budget = Position.remainingWalk(s),
         micro = N.forSpec(s.spec).move || 0,
         seen = new Set(),
         rows = [];
-      for (const dx of [140, -140, 100, -100, 60, -60, micro, -micro]) {
+      for (const dx of [
+        Position.rules.walk,
+        -Position.rules.walk,
+        100,
+        -100,
+        60,
+        -60,
+        micro,
+        -micro,
+      ]) {
         const t = clone(s);
         (B.active(t) ? B.move : Position.move)(
           t,
@@ -2327,6 +2442,15 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         !!G.surfaceAt(s.world, p.x - 25, p.y, span) &&
         !!G.surfaceAt(s.world, p.x + 25, p.y, span)
       );
+    }
+    // Planning and application are separate checks, using one landing rule.
+    function landingFuture(s, p) {
+      const future = afterTurn(at(s, p));
+      return Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
+        !supported(future, future.units[1]) ||
+        Position.gap(future) < Position.rules.minGap
+        ? null
+        : future;
     }
     function teleportCandidates(s) {
       const u = s.units[1],
@@ -2475,7 +2599,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       const walking = [];
       for (const p of walkCandidates(trial)) {
         let future = at(trial, p);
-        if (Position.profile(trial.stage).band === 3) {
+        if (Position.profile(trial.stage).forecastWalk) {
           future = afterTurn(future);
           if (
             Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
@@ -2484,7 +2608,8 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             continue;
         }
         const c = assess(future, p);
-        if (!retreat || c.gap > current.gap + 1) walking.push(c);
+        if (!retreat || c.gap > current.gap + policy.retreatGain)
+          walking.push(c);
         yield;
       }
       const walkOptions = [];
@@ -2497,8 +2622,9 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           c.canAttack &&
           c.canCounter &&
           (retreat ||
-            c.attack.value >= current.attack.value - 0.05 ||
-            c.score > current.score + 0.01)
+            c.attack.value >=
+              current.attack.value - policy.walkAttackTolerance ||
+            c.score > current.score + policy.walkScoreGain)
         )
           walkOptions.push(c);
         if (
@@ -2516,14 +2642,9 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       if (r.teleports > st.teleports && st.cooldown === 0) {
         const candidates = [];
         for (const p of teleportCandidates(trial)) {
-          const future = afterTurn(at(trial, p));
+          const future = landingFuture(trial, p);
           // A bridge or gate may change as soon as the player gets control.
-          if (
-            Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
-            !supported(future, future.units[1]) ||
-            Position.gap(future) < Position.rules.minGap
-          )
-            continue;
+          if (!future) continue;
           candidates.push(assess(future, p));
           yield;
         }
@@ -2538,14 +2659,17 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           const options = [];
           const search = retreat
             ? pool
-            : pool.slice(0, 4 + 2 * Position.profile(trial.stage).band);
+            : pool.slice(0, Position.profile(trial.stage).searchLimit);
           for (const raw of search) {
             const c = yield* inspect(raw);
             const improvesAttack =
               c.attack.value >
-              Math.max(current.attack.value, walk?.attack.value || 0) + 0.08;
+              Math.max(current.attack.value, walk?.attack.value || 0) +
+                policy.teleportAttackGain;
             const improvesPosition =
-              c.score > Math.max(current.score, walk?.score || 0) + 0.015;
+              c.score >
+              Math.max(current.score, walk?.score || 0) +
+                policy.teleportScoreGain;
             if (
               c.canAttack &&
               c.canCounter &&
@@ -2595,7 +2719,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       };
       if (chosen) {
         next.teleports++;
-        next.cooldown = 2;
+        next.cooldown = Position.rules.cooldown;
         next.blocked = 0;
         next.opportunityMisses = 0;
         return {
@@ -2694,16 +2818,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           )
         )
           return false;
-        const future = afterTurn(at(s, action.to));
-        if (
-          Position.gap(future) < Position.rules.minGap ||
-          Math.hypot(
-            future.units[1].x - action.to.x,
-            future.units[1].y - action.to.y,
-          ) > 2 ||
-          !supported(future, future.units[1])
-        )
-          return false;
+        if (!landingFuture(s, action.to)) return false;
         if (r.boss) {
           const from = { ...u, parts: u.parts.map((p) => ({ ...p })) };
           B.relocate(s, action.to);
@@ -2715,12 +2830,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         u.teleportFlash = { age: 0 };
       } else if (
         !["shoot", "walk-shoot"].includes(action.kind) ||
-        Math.abs(action.to.x - u.x) >
-          Math.max(
-            0,
-            140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-          ) +
-            0.001
+        Math.abs(action.to.x - u.x) > Position.remainingWalk(s) + 0.001
       )
         return false;
       else {
@@ -3121,7 +3231,30 @@ function next(s){
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount)):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){
+ if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;
+ if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;
+ if(side===0&&s.characterId){
+  const p=C.get(s.characterId);
+  amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);
+ }
+ if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));
+ const enemyWalking=side===1&&EnemyPosition.usesWalkBudget(s);
+ if(enemyWalking){
+  if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}
+  const remaining=EnemyPosition.remainingWalk(s);
+  amount=clamp(amount,-remaining,remaining);
+ }
+ const moved=side===1
+  ?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount))
+  :G.move(s,side,amount);
+ if(enemyWalking)s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);
+ if(side===0&&moved){
+  s.walkUsed=(s.walkUsed||0)+Math.abs(moved);
+  if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}
+ }
+ return moved;
+}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -3218,7 +3351,7 @@ function changeCharacter(s,id,owned){
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
-const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
+const enemyAI=EnemyActions.create({G,N,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
 function bossEchoPlan(s,random){
  const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
  const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});

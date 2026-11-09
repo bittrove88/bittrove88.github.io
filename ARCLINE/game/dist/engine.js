@@ -348,7 +348,30 @@ function next(s){
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount)):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){
+ if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;
+ if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;
+ if(side===0&&s.characterId){
+  const p=C.get(s.characterId);
+  amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);
+ }
+ if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));
+ const enemyWalking=side===1&&EnemyPosition.usesWalkBudget(s);
+ if(enemyWalking){
+  if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}
+  const remaining=EnemyPosition.remainingWalk(s);
+  amount=clamp(amount,-remaining,remaining);
+ }
+ const moved=side===1
+  ?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount))
+  :G.move(s,side,amount);
+ if(enemyWalking)s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);
+ if(side===0&&moved){
+  s.walkUsed=(s.walkUsed||0)+Math.abs(moved);
+  if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}
+ }
+ return moved;
+}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -445,7 +468,7 @@ function changeCharacter(s,id,owned){
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
-const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
+const enemyAI=EnemyActions.create({G,N,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
 function bossEchoPlan(s,random){
  const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
  const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});

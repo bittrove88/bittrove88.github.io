@@ -189,7 +189,7 @@ for (const stage of [9, 30, 41, 50, 60, 70, 90, 100]) {
 }
 // A controlled shared-geometry policy fixture isolates selection quality from
 // weapon damage and tests the actual evaluator, not a second implementation.
-function policy(stage, wall = 150) {
+function policy(stage, wall = 150, future = copy) {
   const s = arena(stage, 500, 2200, wall);
   s.enemyWalkRound = s.round;
   s.enemyWalkUsed = 140;
@@ -205,7 +205,7 @@ function policy(stage, wall = 150) {
     guardian: E.guardian,
     seeded: E.seeded,
     legacyMove: (t) => t.units[1].x,
-    afterTurn: copy,
+    afterTurn: future,
     solve: () => ({ score: 1, angle: 48, power: 65 }),
     cpuPlan: () => ({}),
     trajectory: (t, side) => {
@@ -296,6 +296,86 @@ for (const wall of [null, 90]) {
   const high = arena(100);
   high.units[1].y = 100;
   ok(P.directLane(high), "height alone is not classified as a covered lane");
+}
+// The same capability definition serves planning and execution. Floating normal
+// enemies stay immobile in the planner while retaining the legacy move budget.
+{
+  ok(
+    Object.isFrozen(P.rules) &&
+      Object.isFrozen(P.rules.unlocks) &&
+      Object.isFrozen(P.policy) &&
+      Object.isFrozen(P.profile(90)),
+    "shared policy cannot be accidentally changed during evaluation",
+  );
+  ok(
+    P.rules.minGap === P.rules.bodyWidth * P.rules.minBodies,
+    "six-body distance has a single definition",
+  );
+  ok(
+    !E.bossActions.active({ spec: {}, stage: 71 }),
+    "boss eligibility remains a metadata-only query",
+  );
+  assert.deepEqual(E.bossActions.rule({ spec: {}, stage: 71 }), {
+    boss: false,
+    walk: false,
+    teleports: 0,
+    echo: false,
+    field: 0,
+  });
+  checks++;
+  for (let stage = 1; stage <= 100; stage++) {
+    const s = E.campaign(stage),
+      guardian = E.guardian(s),
+      r = E.enemyActionRules(s);
+    ok(
+      r.walk === (guardian ? stage >= 30 : stage >= 41 && !s.units[1].floating),
+      "shared unlock agrees with stage contract " + stage,
+    );
+    ok(
+      E.bossActions.active(s) === (guardian && stage >= 30),
+      "boss uses the same capability source " + stage,
+    );
+  }
+  const floating = arena(41);
+  floating.units[1].floating = true;
+  ok(
+    !E.enemyActionRules(floating).walk,
+    "floating normal enemy gains no autonomous walking",
+  );
+  ok(
+    E.move(floating, 1, 400) <= 140 && floating.enemyWalkUsed <= 140,
+    "execution preserves the existing budget even when floating",
+  );
+  let forecasts = 0;
+  const { s, ai } = policy(50, null, (t) => {
+    forecasts++;
+    const next = copy(t);
+    next.units[0].x = next.units[1].x - 200;
+    return next;
+  });
+  ok(
+    ai.plan(s, E.seeded(3)).action.kind !== "teleport",
+    "planner rejects a landing made too close by the next terrain state",
+  );
+  s.enemyWalkUsed = 0;
+  const to = E.enemyTeleportCandidates(s)[0],
+    action = {
+      kind: "teleport",
+      from: { x: s.units[1].x, y: s.units[1].y },
+      to,
+      round: s.round,
+      next: { teleports: 1, cooldown: 2 },
+    };
+  forecasts = 0;
+  const before = JSON.stringify(s);
+  ok(
+    !ai.commit(s, action) && forecasts === 1,
+    "application reuses that same future-landing check",
+  );
+  ok(
+    before === JSON.stringify(s),
+    "future-landing rejection consumes no live state",
+  );
 }
 console.log(
   JSON.stringify({

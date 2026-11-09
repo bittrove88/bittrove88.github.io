@@ -1526,20 +1526,127 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   "use strict";
   const G =
     typeof module !== "undefined" ? require("./geometry.js") : root.ArcGeometry;
+  const N =
+    typeof module !== "undefined"
+      ? require("./encounters.js")
+      : root.ArcEncounters;
+  const bodyWidth = 80,
+    minBodies = 6;
   const rules = Object.freeze({
-    bodyWidth: 80,
-    minGap: 480,
-    preferredMin: 560,
-    preferredMax: 800,
+    bodyWidth,
+    minBodies,
+    minGap: bodyWidth * minBodies,
+    preferredMin: bodyWidth * 7,
+    preferredMax: bodyWidth * 10,
+    farRange: bodyWidth * 10,
+    walk: 140,
+    cooldown: 2,
+    unlocks: Object.freeze({
+      normalWalk: 41,
+      bossWalk: 30,
+      bossTeleport: 50,
+      normalTeleport: 71,
+      secondNormalTeleport: 81,
+      final: 100,
+    }),
   });
+  const policy = Object.freeze({
+    attackWeight: 0.45,
+    defenseWeight: 0.45,
+    distanceWeight: 0.1,
+    hitThreshold: 0.05,
+    routeThreshold: 0.1,
+    counterHits: 3,
+    retreatGain: 1,
+    walkAttackTolerance: 0.05,
+    walkScoreGain: 0.01,
+    teleportAttackGain: 0.08,
+    teleportScoreGain: 0.015,
+  });
+  const progression = Object.freeze(
+    [
+      {
+        before: 40,
+        band: 0,
+        angles: 4,
+        choices: 6,
+        directChance: 0.3,
+        searchLimit: 4,
+        forecastWalk: false,
+      },
+      {
+        before: 70,
+        band: 1,
+        angles: 6,
+        choices: 4,
+        directChance: 0.3,
+        searchLimit: 6,
+        forecastWalk: false,
+      },
+      {
+        before: 90,
+        band: 2,
+        angles: 8,
+        choices: 3,
+        directChance: 0.2,
+        searchLimit: 8,
+        forecastWalk: false,
+      },
+      {
+        before: Infinity,
+        band: 3,
+        angles: 9,
+        choices: 2,
+        directChance: 0.1,
+        searchLimit: 10,
+        forecastWalk: true,
+      },
+    ].map(Object.freeze),
+  );
   function profile(stage) {
-    return stage < 40
-      ? { band: 0, angles: 4, choices: 6, directChance: 0.3 }
-      : stage < 70
-        ? { band: 1, angles: 6, choices: 4, directChance: 0.3 }
-        : stage < 90
-          ? { band: 2, angles: 8, choices: 3, directChance: 0.2 }
-          : { band: 3, angles: 9, choices: 2, directChance: 0.1 };
+    return (
+      progression.find((p) => stage < p.before) ||
+      progression[progression.length - 1]
+    );
+  }
+  function unlocked(s) {
+    const guardian = N.guardian(s.spec),
+      u = rules.unlocks;
+    return {
+      boss: guardian && s.stage >= u.bossWalk,
+      normal: !guardian && s.stage >= u.normalWalk && s.stage < u.final,
+    };
+  }
+  function capabilities(s) {
+    const { boss, normal } = unlocked(s),
+      u = rules.unlocks,
+      walk = boss || (normal && !s.units[1].floating);
+    return {
+      walk,
+      teleports: boss
+        ? s.stage >= u.bossTeleport
+          ? s.spec.midboss
+            ? 1
+            : 2
+          : 0
+        : walk && s.stage >= u.normalTeleport
+          ? s.stage < u.secondNormalTeleport
+            ? 1
+            : 2
+          : 0,
+      boss,
+    };
+  }
+  const bossActive = (s) => unlocked(s).boss;
+  function usesWalkBudget(s) {
+    const { boss, normal } = unlocked(s);
+    return boss || normal;
+  }
+  function remainingWalk(s) {
+    return Math.max(
+      0,
+      rules.walk - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
+    );
   }
   function bounds(s, side) {
     const u = s.units[side],
@@ -1612,15 +1719,18 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         0.5 +
         (0.5 * (distance - rules.minGap)) / (rules.preferredMin - rules.minGap)
       );
-    return Math.max(0, 1 - Math.max(0, distance - rules.preferredMax) / 800);
+    return Math.max(
+      0,
+      1 - Math.max(0, distance - rules.preferredMax) / rules.farRange,
+    );
   }
   function score(attack, incoming, distance) {
     const strength = (p) =>
       (0.5 * p.hits) / p.samples + (0.5 * p.damage) / (1 + p.damage);
     return (
-      0.45 * strength(attack) +
-      0.45 * (1 - strength(incoming)) +
-      0.1 * comfort(distance)
+      policy.attackWeight * strength(attack) +
+      policy.defenseWeight * (1 - strength(incoming)) +
+      policy.distanceWeight * comfort(distance)
     );
   }
   function choose(rows, stage, random) {
@@ -1656,6 +1766,11 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   }
   const api = {
     rules,
+    policy,
+    capabilities,
+    bossActive,
+    usesWalkBudget,
+    remainingWalk,
     profile,
     bounds,
     gap,
@@ -1678,29 +1793,30 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   "use strict";
   const node = typeof module !== "undefined";
   const G = node ? require("./geometry.js") : root.ArcGeometry;
-  const N = node ? require("./encounters.js") : root.ArcEncounters;
   const Position = node
     ? require("./enemy-position.js")
     : root.ArcEnemyPosition;
   const rules = Object.freeze({
-    walk: 140,
+    walk: Position.rules.walk,
     close: Position.rules.minGap,
-    cooldown: 2,
+    cooldown: Position.rules.cooldown,
     echoDamage: 0.25,
     echoBlast: 80,
     echoInterval: 0.2,
   });
-  const active = (s) => N.guardian(s.spec) && s.stage >= 30;
+  const active = Position.bossActive;
   const field = (s) =>
     s.stage === 100
       ? Math.min(3, Math.floor((s.finalTeam?.index || 0) / 3))
       : 0;
   function rule(s) {
+    const boss = active(s),
+      r = boss ? Position.capabilities(s) : null;
     return {
-      boss: active(s),
-      walk: active(s),
-      teleports: active(s) && s.stage >= 50 ? (s.spec.midboss ? 1 : 2) : 0,
-      echo: !!s.spec.boss && s.stage >= 50,
+      boss,
+      walk: boss,
+      teleports: r ? r.teleports : 0,
+      echo: !!s.spec.boss && s.stage >= Position.rules.unlocks.bossTeleport,
       field: field(s),
     };
   }
@@ -2009,7 +2125,6 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
   function create({
     G,
     N,
-    guardian,
     trajectory,
     solve,
     cpuPlan,
@@ -2017,20 +2132,8 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     legacyMove,
     afterTurn,
   }) {
-    const eligible = (s) =>
-      B.active(s) ||
-      (s.stage >= 41 && s.stage < 100 && !guardian(s) && !s.units[1].floating);
-    const rule = (s) => ({
-      walk: eligible(s),
-      teleports: B.active(s)
-        ? B.rule(s).teleports
-        : eligible(s) && s.stage >= 71
-          ? s.stage < 81
-            ? 1
-            : 2
-          : 0,
-      boss: B.active(s),
-    });
+    const rule = Position.capabilities,
+      policy = Position.policy;
     const stats = (s) => ({
       turns: 0,
       walkMisses: 0,
@@ -2118,7 +2221,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             },
           );
           const amount = threat(s, shot, side);
-          if (amount > 0.05 && shot.damage[side] < amount) {
+          if (amount > policy.hitThreshold && shot.damage[side] < amount) {
             hits++;
             damage = Math.max(damage, amount);
           }
@@ -2149,7 +2252,11 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         ? N.forSpec(s.spec).attack || {}
         : { weaponId: "W01", skill: null };
       let best = solve(s, side, a);
-      if (side && best.score <= 0.1 && Object.keys(a).length) {
+      if (
+        side &&
+        best.score <= policy.routeThreshold &&
+        Object.keys(a).length
+      ) {
         a = {};
         best = solve(s, side, a);
       }
@@ -2158,7 +2265,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     function aimProbe(s, side, aim, angles = [-3, 0, 3], powers = [-8, 0, 8]) {
       let hits = 0,
         damage = 0;
-      if (aim.score > 0.1)
+      if (aim.score > policy.routeThreshold)
         for (const da of angles)
           for (const dp of powers) {
             const shot = trajectory(
@@ -2173,7 +2280,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
               },
             );
             const amount = threat(s, shot, side);
-            if (amount > 0.05 && shot.damage[side] < amount) {
+            if (amount > policy.hitThreshold && shot.damage[side] < amount) {
               hits++;
               damage = Math.max(damage, amount);
             }
@@ -2184,7 +2291,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     function* inspect(c) {
       const own = solution(c.state);
       yield;
-      if (own.score <= 0.1)
+      if (own.score <= policy.routeThreshold)
         return { ...c, canAttack: false, canCounter: false };
       const defense = playerView(c.state),
         other = solution(defense, 0);
@@ -2197,20 +2304,28 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         attack,
         incoming,
         score: Position.score(attack, incoming, c.gap),
-        canAttack: own.score > 0.1,
-        canCounter: other.score > 0.1 && narrow.hits >= 3,
+        canAttack: own.score > policy.routeThreshold,
+        canCounter:
+          other.score > policy.routeThreshold &&
+          narrow.hits >= policy.counterHits,
       };
     }
     function walkCandidates(s) {
       const u = s.units[1],
-        budget = Math.max(
-          0,
-          140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-        ),
+        budget = Position.remainingWalk(s),
         micro = N.forSpec(s.spec).move || 0,
         seen = new Set(),
         rows = [];
-      for (const dx of [140, -140, 100, -100, 60, -60, micro, -micro]) {
+      for (const dx of [
+        Position.rules.walk,
+        -Position.rules.walk,
+        100,
+        -100,
+        60,
+        -60,
+        micro,
+        -micro,
+      ]) {
         const t = clone(s);
         (B.active(t) ? B.move : Position.move)(
           t,
@@ -2246,6 +2361,15 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         !!G.surfaceAt(s.world, p.x - 25, p.y, span) &&
         !!G.surfaceAt(s.world, p.x + 25, p.y, span)
       );
+    }
+    // Planning and application are separate checks, using one landing rule.
+    function landingFuture(s, p) {
+      const future = afterTurn(at(s, p));
+      return Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
+        !supported(future, future.units[1]) ||
+        Position.gap(future) < Position.rules.minGap
+        ? null
+        : future;
     }
     function teleportCandidates(s) {
       const u = s.units[1],
@@ -2394,7 +2518,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       const walking = [];
       for (const p of walkCandidates(trial)) {
         let future = at(trial, p);
-        if (Position.profile(trial.stage).band === 3) {
+        if (Position.profile(trial.stage).forecastWalk) {
           future = afterTurn(future);
           if (
             Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
@@ -2403,7 +2527,8 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             continue;
         }
         const c = assess(future, p);
-        if (!retreat || c.gap > current.gap + 1) walking.push(c);
+        if (!retreat || c.gap > current.gap + policy.retreatGain)
+          walking.push(c);
         yield;
       }
       const walkOptions = [];
@@ -2416,8 +2541,9 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           c.canAttack &&
           c.canCounter &&
           (retreat ||
-            c.attack.value >= current.attack.value - 0.05 ||
-            c.score > current.score + 0.01)
+            c.attack.value >=
+              current.attack.value - policy.walkAttackTolerance ||
+            c.score > current.score + policy.walkScoreGain)
         )
           walkOptions.push(c);
         if (
@@ -2435,14 +2561,9 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       if (r.teleports > st.teleports && st.cooldown === 0) {
         const candidates = [];
         for (const p of teleportCandidates(trial)) {
-          const future = afterTurn(at(trial, p));
+          const future = landingFuture(trial, p);
           // A bridge or gate may change as soon as the player gets control.
-          if (
-            Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
-            !supported(future, future.units[1]) ||
-            Position.gap(future) < Position.rules.minGap
-          )
-            continue;
+          if (!future) continue;
           candidates.push(assess(future, p));
           yield;
         }
@@ -2457,14 +2578,17 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           const options = [];
           const search = retreat
             ? pool
-            : pool.slice(0, 4 + 2 * Position.profile(trial.stage).band);
+            : pool.slice(0, Position.profile(trial.stage).searchLimit);
           for (const raw of search) {
             const c = yield* inspect(raw);
             const improvesAttack =
               c.attack.value >
-              Math.max(current.attack.value, walk?.attack.value || 0) + 0.08;
+              Math.max(current.attack.value, walk?.attack.value || 0) +
+                policy.teleportAttackGain;
             const improvesPosition =
-              c.score > Math.max(current.score, walk?.score || 0) + 0.015;
+              c.score >
+              Math.max(current.score, walk?.score || 0) +
+                policy.teleportScoreGain;
             if (
               c.canAttack &&
               c.canCounter &&
@@ -2514,7 +2638,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       };
       if (chosen) {
         next.teleports++;
-        next.cooldown = 2;
+        next.cooldown = Position.rules.cooldown;
         next.blocked = 0;
         next.opportunityMisses = 0;
         return {
@@ -2613,16 +2737,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           )
         )
           return false;
-        const future = afterTurn(at(s, action.to));
-        if (
-          Position.gap(future) < Position.rules.minGap ||
-          Math.hypot(
-            future.units[1].x - action.to.x,
-            future.units[1].y - action.to.y,
-          ) > 2 ||
-          !supported(future, future.units[1])
-        )
-          return false;
+        if (!landingFuture(s, action.to)) return false;
         if (r.boss) {
           const from = { ...u, parts: u.parts.map((p) => ({ ...p })) };
           B.relocate(s, action.to);
@@ -2634,12 +2749,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         u.teleportFlash = { age: 0 };
       } else if (
         !["shoot", "walk-shoot"].includes(action.kind) ||
-        Math.abs(action.to.x - u.x) >
-          Math.max(
-            0,
-            140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-          ) +
-            0.001
+        Math.abs(action.to.x - u.x) > Position.remainingWalk(s) + 0.001
       )
         return false;
       else {
@@ -3039,7 +3149,30 @@ function next(s){
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount)):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=41&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){
+ if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;
+ if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;
+ if(side===0&&s.characterId){
+  const p=C.get(s.characterId);
+  amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);
+ }
+ if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));
+ const enemyWalking=side===1&&EnemyPosition.usesWalkBudget(s);
+ if(enemyWalking){
+  if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}
+  const remaining=EnemyPosition.remainingWalk(s);
+  amount=clamp(amount,-remaining,remaining);
+ }
+ const moved=side===1
+  ?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount))
+  :G.move(s,side,amount);
+ if(enemyWalking)s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);
+ if(side===0&&moved){
+  s.walkUsed=(s.walkUsed||0)+Math.abs(moved);
+  if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}
+ }
+ return moved;
+}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -3136,7 +3269,7 @@ function changeCharacter(s,id,owned){
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
-const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
+const enemyAI=EnemyActions.create({G,N,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
 function bossEchoPlan(s,random){
  const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
  const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
