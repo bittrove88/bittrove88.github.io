@@ -1,3 +1,9 @@
+# 最新main統合後：敵の歩行・テレポート0.30.3
+
+[最終のローカル結果](integrated-0303/ACCEPTANCE.json)。先行PR140の攻撃修正を保持し、敵移動・自機転移とHP/行動を再検証。生成物155件が一致。メニュー/TOPのソースは不変のため下記成功を再利用し、最新コミットのCIでも計画した5スイートを確認する。
+
+[転移弾](integrated-0303/teleport-flight-568.png)／[到着](integrated-0303/teleport-arrival-568.png)。ユーザーからマージ指示受領。
+
 # 最新main統合後：敵の歩行・テレポート0.30.2
 
 [今回の結果](integrated-0302/ACCEPTANCE.json)／[敵移動の実行記録](integrated-0302/ENEMY_MOVEMENT_BROWSER.json)。main8555e87のHP・行動上限とメニューを保持して競合を解消。限定5スイートと生成物155件の一致が成功。

@@ -9,6 +9,8 @@ for (const file of [
   "game.js",
   "engine.js",
   "enemy-actions.js",
+  "enemy-attacks.js",
+  "attack-catalog.js",
   "physics.js",
   "geometry.js",
   "levels.js",

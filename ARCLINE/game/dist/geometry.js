@@ -183,7 +183,9 @@ function move(s,side,amount){
 }
 function actorPoint(s,side,x,y){const u=s.units[side],dir=u.facing||(s.units[1-side].x>=u.x?1:-1),a=u.slope||0;return {x:u.x+x*dir*Math.cos(a)-y*Math.sin(a),y:u.y+x*dir*Math.sin(a)+y*Math.cos(a)};}
 function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}
-function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1),theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope,dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
+function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1);let theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope;
+ if(side===0&&s.mode==='S_RICO'&&!s.teleportMode)theta=Math.atan2(Math.sin(theta),(s.units[1].x>=u.x?1:-1)*Math.abs(Math.cos(theta)));
+ const dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
  const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
 const api={cloudPolygons,cloudContains,maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
 })(globalThis);

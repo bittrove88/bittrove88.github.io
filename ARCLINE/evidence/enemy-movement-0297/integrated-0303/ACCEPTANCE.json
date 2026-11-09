@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "base": "62f23680cd83c3078b64d9882bc8a91500ff0103",
+  "runtime": "0.30.3",
+  "unit": {
+    "status": "PASS",
+    "mode": "unit",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-movement",
+        "status": "PASS",
+        "ms": 174,
+        "log": "enemy-movement.log"
+      },
+      {
+        "name": "hp-action-balance",
+        "status": "PASS",
+        "ms": 540,
+        "log": "hp-action-balance.log"
+      }
+    ],
+    "skipped": []
+  },
+  "browser": {
+    "status": "PASS",
+    "mode": "browser",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-movement-browser",
+        "status": "PASS",
+        "ms": 24314,
+        "log": "enemy-movement-browser.log"
+      }
+    ],
+    "skipped": []
+  },
+  "generated": {
+    "status": "PASS",
+    "files": 155
+  },
+  "reused": [
+    "integrated-0302/COLLECTION_FLOW_BROWSER.json",
+    "integrated-0302/TOP_LAYOUT_BROWSER.json"
+  ],
+  "reuseReason": "PR140 preserves the menu/TOP sources byte for byte; shared physics changed, so native enemy movement and player teleport were rerun",
+  "preservedMain": [
+    "final boss attack damage and sequence",
+    "high transfer trajectory",
+    "Rico enemyward initial launch and rebounds",
+    "50% own-special self damage",
+    "HP/action caps",
+    "menu sources",
+    "save identity"
+  ],
+  "authorization": "User instructed verification and then merge; no scope or behavior change beyond the agreed enemy movement fix",
+  "ci": "Pending latest pushed commit workflow",
+  "physicalDevices": "Not tested"
+}
