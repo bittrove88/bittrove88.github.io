@@ -68,8 +68,10 @@
       add(id, { t: bullet.start, bullet: bullet.id }, "fire", special ? 5 : 2);
     }
     for (const event of events) {
-      if (event.type === "final-beam")
-        add(data.enemyAttackFire[shot.attackKind] || weapon.enemyFire, event, "fire", 3);
+      if (event.type === "final-beam") {
+        add("F03", event, "fire", 5);
+        add("F04", { ...event, t: event.t + 0.025 }, "fire", 4, -3);
+      }
       if (event.type === "bounce" || event.type === "skip")
         add(
           shot.weaponId === "S_RICO"
@@ -123,6 +125,10 @@
       }
     }
     for (const impact of shot.impacts || []) {
+      if (impact.beam) {
+        if (shot.damage[0] > 0) add("I02", impact, "impact", 4);
+        continue;
+      }
       if (
         shot.weaponId === "S_BAN" &&
         events.some(

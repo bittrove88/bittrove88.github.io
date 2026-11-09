@@ -336,10 +336,8 @@ function create(canvas,configuration={}){
   if(!lobby&&!localDemo&&s.telegraph){
    const t=s.telegraph,y=G.surfaceAt(s.world,t.targetX,s.units[0].y)?.y||s.units[0].y;
    if(t.beamWidth&&t.beamFrom&&t.beamTo){
-    const a=t.beamFrom,b=t.beamTo,dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),nx=-dy/length*t.beamWidth/2,ny=dx/length*t.beamWidth/2;ctx.save();ctx.fillStyle='#ffba6c30';polygon([{x:a.x+nx,y:a.y+ny},{x:b.x+nx,y:b.y+ny},{x:b.x-nx,y:b.y-ny},{x:a.x-nx,y:a.y-ny}]);ctx.fill();
-    path([{x:a.x+nx,y:a.y+ny},{x:b.x+nx,y:b.y+ny}],'#ffd18d',2/scale,[8/scale,6/scale]);path([{x:a.x-nx,y:a.y-ny},{x:b.x-nx,y:b.y-ny}],'#ffd18d',2/scale,[8/scale,6/scale]);
-    const warningPanel=canvasRect(canvas.closest('#app')?.querySelector('#finalTeamHUD')),label=root.ArcI18n?.language==='en'?'LASER NEXT · TELEPORT OUT':'次にレーザー · テレポートで離脱',labelY=G.clamp(y-110/scale,(Math.max(top,header?.bottom||0,warningPanel?.bottom||0)+24-view.y)/scale,(bottom-28-view.y)/scale);
-    ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';const labelWidth=ctx.measureText(label).width;round(t.targetX-labelWidth/2-7/scale,labelY-17/scale,labelWidth+14/scale,23/scale,5/scale,'#183c4ae8');ctx.fillStyle='#ffe5b6';ctx.fillText(label,t.targetX,labelY);ctx.restore();
+    const a=t.beamFrom,b=t.beamTo,dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),nx=-dy/length*t.beamWidth/2,ny=dx/length*t.beamWidth/2;
+    if((s.finalBeamCharge||!t.beamCharging)&&!(shot?.weaponId==='E_FINAL_4'&&flight>=.18)){ctx.save();ctx.globalAlpha=.6;const dots=[1/scale,8/scale];for(const side of [-1,1]){const edge=[{x:a.x+nx*side,y:a.y+ny*side},{x:b.x+nx*side,y:b.y+ny*side}];path(edge,'#26394466',2.5/scale,dots);path(edge,'#ffd19a',1.2/scale,dots);}ctx.restore();}
    }else{
    for(const dx of t.columns||[0])path([{x:t.targetX+dx-t.radius,y:y+5},{x:t.targetX+dx+t.radius,y:y+5}],'#ffc09c',5,[7,6]);
    for(let x=t.targetX-t.radius;x<t.targetX+t.radius;x+=15)path([{x,y:y+14},{x:x+9,y:y+4}],'#ffccac',2);
@@ -386,6 +384,7 @@ function create(canvas,configuration={}){
   }
   display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t),path=[a.from,...(a.path||[]),u],lengths=path.slice(1).map((p,i)=>Math.hypot(p.x-path[i].x,p.y-path[i].y));let distance=lengths.reduce((v,n)=>v+n,0)*ease,index=0;while(index<lengths.length-1&&distance>lengths[index])distance-=lengths[index++];const from=path[index],to=path[index+1],mix=lengths[index]?Math.min(1,distance/lengths[index]):1;return {...u,x:from.x+(to.x-from.x)*mix,y:from.y+(to.y-from.y)*mix-Math.sin(t*Math.PI)*(a.lift||0),slope:(from.slope||0)+((to.slope||0)-(from.slope||0))*mix};})};
   if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,localDemo?.8:1,options);}
+  if(!lobby&&s.finalBeamCharge&&s.phase!=='finish'){const c=s.finalBeamCharge.from,pulse=options.reducedMotion?.6:.5+.5*Math.sin(time*3);ctx.save();ctx.globalAlpha=.5;circle(c.x,c.y,(12+5*pulse)/scale,'#ffdf9a33','#fff0c6');circle(c.x,c.y,(4+2*pulse)/scale,'#fff4d2');ctx.restore();}
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
   if(options.encounter?.boss){
    const u=display.units[1],t=Math.min(1,options.encounter.age/(options.encounter.duration||1.1));

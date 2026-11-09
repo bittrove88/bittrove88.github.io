@@ -7,11 +7,21 @@ function finalSequence(s){
  return A.finalEncounter.patterns[phase];
 }
 function finalWarning(s){
- const sequence=finalSequence(s),step=s.finalAttackPattern.step,kind=sequence[step%sequence.length],r=A.enemyTechniques[kind],targetX=s.units[0].x,targetY=s.units[0].y-22;
- const beam=r?.params.forecastBeam?P.beamGeometry(s,W.getEnemy(kind),{targetPoint:{x:targetX,y:targetY}}):null;
- if(r)return {kind,technique:kind,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:[0],radius:r.params.warningRadius||65,windup:1.05,frozen:true,next:sequence[(step+1)%sequence.length],...(kind==='E_FINAL_3'?{targetSlope:s.units[0].slope||0,targetFacing:s.units[0].facing,targetHp:s.units[0].hp}:{}),...(beam?{beamWidth:beam.width,beamFrom:beam.from,beamTo:beam.to}:{} )};
+ const sequence=finalSequence(s),phase=s.finalAttackPattern.phase,step=s.finalAttackPattern.step,kind=sequence[step%sequence.length],r=A.enemyTechniques[kind],next=sequence[(step+1)%sequence.length];
+ let targetX=s.units[0].x,targetY=s.units[0].y-22,beam=null;
+ if(phase!==3)delete s.finalBeamCharge;
+ if(next==='E_FINAL_4'){
+  if(s.finalBeamCharge?.phase!==phase||s.finalBeamCharge.fireStep!==step+1)s.finalBeamCharge={phase,fireStep:step+1,...P.beamGeometry(s,W.getEnemy('E_FINAL_4'),{targetPoint:{x:targetX,y:targetY}})};
+  beam=s.finalBeamCharge;
+ }
+ if(r?.params.forecastBeam){
+  beam=s.finalBeamCharge?.phase===phase&&s.finalBeamCharge.fireStep===step?s.finalBeamCharge:P.beamGeometry(s,W.getEnemy(kind),{targetPoint:{x:targetX,y:targetY}});
+  targetX=beam.targetX;targetY=beam.targetY;
+ }
+ const beamWarning=beam?{beamWidth:beam.width,beamFrom:beam.from,beamTo:beam.to,beamCharging:true}:{};
+ if(r)return {kind,technique:kind,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:[0],radius:r.params.warningRadius||65,windup:1.05,frozen:true,next,...(kind==='E_FINAL_3'?{targetSlope:s.units[0].slope||0,targetFacing:s.units[0].facing,targetHp:s.units[0].hp}:{}),...beamWarning};
  const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
- return {kind,targetX,targetY,columns,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next:sequence[(step+1)%sequence.length],frozen:true};
+ return {kind,targetX,targetY,columns,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next,frozen:true,...beamWarning};
 }
 function fixedAim(s,solve){
  const id=s.telegraph?.technique;if(id==='E_FINAL_2')return {angle:65,power:75,score:1};if(id==='E_FINAL_4')return {angle:0,power:100,score:1};
@@ -58,6 +68,7 @@ function plan(s,angle,power){
 }
 function resolve(s,shot){
  if(s.stage===100&&shot.side===1){finalSequence(s);s.finalAttackPattern.step++;}
+ if(shot.side===1&&shot.weaponId==='E_FINAL_4')delete s.finalBeamCharge;
  const field=s.effects.gravityField;if(field){field.charges[shot.side]=Math.max(0,field.charges[shot.side]-1);if(!field.charges.some(Boolean))delete s.effects.gravityField;}
  if(shot.createGravityField)s.effects.gravityField=JSON.parse(JSON.stringify(shot.createGravityField));
  if(shot.weaponId==='E_80'&&shot.damage[0]>0){const u=s.units[0],from={x:u.x,y:u.y,slope:u.slope},hits=shot.impacts.filter(h=>Math.hypot(h.x-u.x,h.y-(u.y-22))<85);for(const h of hits){const b=shot.bullets.find(b=>b.id===h.bullet),away=Math.sign(u.x-h.x)||1;G.move(s,0,(b?.stage===1?-1:1)*away*45*(W.combat.get(s.characterId).pushResistance||1));}if(u.x!==from.x){u.animation={from,age:0,duration:.45,lift:0};u.reactionKind='push';}}
