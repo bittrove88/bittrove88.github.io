@@ -81,7 +81,7 @@ function confirmChapter(stage){
 function openChapterInventory(){
  if(hostPaused())return;const context=R.inspect(save.data,selectedMap+1);
  const choices=[{id:'W01',ammo:Infinity},...Object.entries(context.entry.inventory.weapons).map(([id,ammo])=>({id,ammo,source:'Carries across chapters'}))];
- ArcPresentation.showWeapons(choices,context.entry.mode||'W01',id=>{if(R.chooseWeapon(save.data,selectedMap+1,id))save.save();syncLobby();},{title:'Chapter inventory',note:'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.',library:true,skills:context.entry.inventory.skills});
+ ArcPresentation.showWeapons(choices,context.entry.mode||'W01',()=>{},{title:'Chapter inventory',note:'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.',library:true,skills:context.entry.inventory.skills});
 }
 function openLoot(continuation){
  if(!s?.pendingLoot.length)return false;clearInput();lootContinuation=continuation;$('lootPicker').hidden=false;paintLoot();hud();return true;
@@ -365,6 +365,7 @@ $('weaponLoadout').onchange=e=>{unlockAudio();save.data.equippedWeaponId=e.targe
 function openEquipment(view='characters'){if(hostPaused()||ArcStoryView.active||ArcExpeditionUi.active)return;clearInput();ArcPresentation.showCollection(save.data,change=>{if(change.characterId&&!ArcCrew.owned(save.data,change.characterId))return false;if(change.weaponId)save.data.equippedWeaponId=change.weaponId;if(change.characterId)save.data.equippedCharacterId=change.characterId;save.save();syncLobby();draw();return true;},view,{trigger:view==='characters'?$('openCharacters'):$('openCollection'),inventory:R.inspect(save.data,selectedMap+1).entry.inventory});}
 $('openCollection').onclick=openChapterInventory;$('openCharacters').onclick=()=>openEquipment('characters');
 $('openLibrary').onclick=()=>{ArcPresentation.closeWeapons();openEquipment('weapons');};
+$('openSkillLibrary').onclick=()=>{ArcPresentation.closeWeapons();openEquipment('skills');};
 $('lootSkip').onclick=()=>finishLoot(null,true);
 $('closeCollection').onclick=()=>ArcPresentation.closeCollection();$('pauseMachineChange').onclick=openBattleMachines;
 $('pause').onclick=pause;$('resume').onclick=async()=>{if(hostPaused()||ArcStoryView.active||movieOpening)return;
