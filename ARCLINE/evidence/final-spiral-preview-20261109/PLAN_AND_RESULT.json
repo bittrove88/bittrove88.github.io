@@ -1,0 +1,52 @@
+{
+  "stage": "Local visual prototype; limited preliminary preview, not formal validation",
+  "request": "Remove rectangular beam root, show forceful emission, and use a bright axial core with orange spiral coils inspired by the supplied reference.",
+  "baseline": "main a2234ed (0.30.4), previous local WIP 9653c53",
+  "scope": [
+    "Tapered curved silhouette from the muzzle, pointed traveling front",
+    "White-gold sharp axial core and orange spiral drawn behind and in front of the core",
+    "Brief inward particles, outward shock rings and 0.14s decaying firing camera kick",
+    "Reduced-motion branch uses a static spiral and omits firing camera kick, particles, shock rings and fast extension",
+    "Shared attack-review standalone and map atlas regenerated from source"
+  ],
+  "completion": [
+    "No flat right-angle muzzle cutoff",
+    "Visible outward emission and rotating spiral in native renderer frames",
+    "Existing dotted warning, damage, frozen targeting and next-turn flow retained"
+  ],
+  "preliminaryChecks": {
+    "nativeBrowser": "PC1200x720 Japanese and small844x390 English; stay/teleport on each; actual Controller and CPU Worker; current normal seed4697 Gun entry restored from captured native arrival",
+    "result": "4 cases returned to player input without browser errors; stay38, teleport0; fixed charge survived preceding action and cleared after beam",
+    "syntax": "node --check effects.js and render.js passed",
+    "preservation": "Definitions, physics, engine, enemy-attacks, attack-motion and SFX source are byte-identical to previous WIP9653c53",
+    "visualInspection": [
+      "finale-growing-1200.png",
+      "finale-flash-1200.png",
+      "finale-fired-844-stay.png"
+    ],
+    "video": "45 actual native renderer frames at30fps,1.5s,silent"
+  },
+  "excluded": {
+    "formalSuites": "Not run while visual design is being iterated",
+    "CI": "Not run",
+    "physicalDevices": "Not tested; small viewport is browser emulation",
+    "audioPlayback": "Not tested; unchanged sound logic",
+    "reducedMotion": "Branch reviewed in source; not captured in this browser preview",
+    "unrelatedMapsAndAttacks": "No gameplay changes in this visual iteration"
+  },
+  "sourceHashes": {
+    "ARCLINE/design/attacks/definitions.json": "b04f79c9c8ab6b9f8fec31358a6f2aca3f7b01e288484d6467211caf378910ec",
+    "ARCLINE/game/dist/physics.js": "6ba8571fb6b039a294f6fc6e712dce451ad86699c79ee69d6036a951f6674d8b",
+    "ARCLINE/game/dist/engine.js": "d8e05520f9fc080ea3b2a9e90360dbe74c89588878b8b83f7cb419825fbf9027",
+    "ARCLINE/game/dist/enemy-attacks.js": "ae058bc143b6872ab607a29d51c8d3c0968c77ea6a550699800b8791223d1932",
+    "ARCLINE/game/dist/attack-motion.js": "64437e4ca6f24e939f00a6473485e66e1a95eed462e606c305fe8b2b299b03ef",
+    "ARCLINE/game/dist/render.js": "d5a77d10c7d5e4e2254c9477a92fd219aff557b274024974d5713ab9ebfa49e0",
+    "ARCLINE/game/dist/effects.js": "6e77fa4a95d6163f59865af54985329ebeb92e872ca243148f090588700babf7",
+    "ARCLINE/game/ui/sfx-manager.js": "0c7163b2402d6d2fd280460e0b0973ca9aaaad94aefe45e8c61872812f26fdf4",
+    "ARCLINE/game/attack-review/standalone.html": "1ef57e23a895c15cedcf77ffa7e4bb9e3e703fc7f72c13acf4cbb06b24ae7217",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html": "b2e71f1628c9f6011bdc65658c7cab16c09497563519cf4d7d9ff0aeb7c0847c"
+  },
+  "formalSuites": false,
+  "CI": false,
+  "published": false
+}

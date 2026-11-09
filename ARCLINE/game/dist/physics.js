@@ -41,9 +41,27 @@ function phaseTravel(a,b,poly,budget){
  }
  return {used,stop:null};
 }
+function beamGeometry(s,weapon,options={}){
+ const t=options.targetPoint||(s.telegraph?.technique===weapon.id?s.telegraph:null),targetX=t?.x??t?.targetX??s.units[0].x,targetY=t?.y??t?.targetY??s.units[0].y-22;
+ const core=G.actorPoint(s,1,s.units[1].weaponPivot?.x||0,s.units[1].weaponPivot?.y??-64),aim={x:targetX,y:targetY+(weapon.beamAimOffsetY||0)},distance=Math.hypot(aim.x-core.x,aim.y-core.y)||1,dx=(aim.x-core.x)/distance,dy=(aim.y-core.y)/distance,length=Math.hypot(s.spec.worldWidth||1000,2500)*2;
+ return {from:{x:core.x+dx*24,y:core.y+dy*24},to:{x:core.x+dx*length,y:core.y+dy*length},width:weapon.beamWidth,targetX,targetY};
+}
+function forecastBeam(s,angle,power,weapon,options){
+ const t=s.telegraph,line=t?.technique===weapon.id&&t.beamFrom&&t.beamTo?{from:t.beamFrom,to:t.beamTo,width:t.beamWidth,targetX:t.targetX,targetY:t.targetY}:beamGeometry(s,weapon,options),{from,to,width}=line,x=line.targetX,y=line.targetY,dx=to.x-from.x,dy=to.y-from.y,length=Math.hypot(dx,dy),center=bodyCenter(s,0),along=((center.x-from.x)*dx+(center.y-from.y)*dy)/length,distance=Math.abs((center.x-from.x)*dy-(center.y-from.y)*dx)/length;
+ // A single world-space front drives rendering, contact HP and sound timing.
+ const delay=weapon.beamDelay,fadeDuration=weapon.beamFadeDuration,hit=along>=-31&&along<=length+31&&distance<=width/2+31;
+ const targetAlong=Math.max(0,((x-from.x)*dx+(y-from.y)*dy)/length),speed=Math.max(1,targetAlong)/weapon.beamTravelDuration,contactAlong=Math.max(0,along),arrival=delay+(hit?contactAlong:targetAlong)/speed,beamDuration=Math.max(targetAlong,hit?contactAlong:0)/speed+weapon.beamDuration,duration=delay+beamDuration+fadeDuration;
+ const defense=s.skillEffects||{},guarded=!!s.guardActive,factor=(defense.invincible?0:(defense.barrier?.factor??1)*(defense.weaken?.factor??1))*(guarded?.5:1);
+ const value=hit?Math.min(Math.max(0,s.units[0].hp),Math.min(weapon.damage,weapon.enemyDamageCap)*factor):0;
+ const events=[{type:'final-beam',x,y,t:delay,duration:beamDuration,speed,chargeDuration:delay,fadeDuration,width,from:{...from},to:{...to},bullet:0}];
+ if(value>0)events.push({type:'damage',unit:0,value,x:center.x,y:center.y,t:arrival,bullet:0,source:'beam'});
+ const point={x:hit?center.x:x,y:hit?center.y:y,t:arrival},path=[{x,y,t:0},{x,y,t:duration}];
+ return {playerTarget:{...center,radius:31},destroyed:[],teleport:false,side:1,angle,power,weaponId:weapon.id,skill:null,bullets:[{id:0,effect:'beam',primary:true,start:0,t:duration,path}],events,impacts:[{...point,bullet:0,beam:true,blast:0,hit:hit?{unit:0,kind:'body'}:null}],damage:[value,0],partDamage:{},duration,iterations:0,appliedEvents:0,resolved:false,path,end:point,hit:hit?0:-1,...(guarded?{guarded:true}:{})};
+}
 function simulate(s,side,angle,power,options={}){
  const finalEnemy=side===1&&s.stage===100;
  const baseWeapon=side===1?W.getEnemy(options.weaponId||'W01'):W.get(options.weaponId||'W01',s.characterId),weapon=options.weaponOverrides?{...baseWeapon,...options.weaponOverrides}:baseWeapon,skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
+ if(finalEnemy&&weapon.forecastBeam)return forecastBeam(s,angle,power,weapon,options);
  if(weapon.machineId)angle=G.clamp(angle,weapon.minAngle,weapon.maxAngle);
  const units=s.units.map(u=>({...u,parts:u.parts.map(p=>({...p}))})),simState={...s,units};
  const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle({...s,mode:weapon.id},side,Math.max(weapon.minAngle||-15,angle));
@@ -392,5 +410,5 @@ function simulate(s,side,angle,power,options={}){
  events.sort((a,b)=>a.t-b.t);
  return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
-const api={simulate,inRegion,launchSpeed,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
+const api={simulate,beamGeometry,inRegion,launchSpeed,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
 })(globalThis);

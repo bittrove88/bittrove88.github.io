@@ -49,6 +49,7 @@ function restore(s,entry){
  if(c.order.some((id,i)=>entry.finalTeam.damage[id]!== (i<index?c.requiredDamage:0)))return false;
  const random=s.random;Object.assign(s,JSON.parse(JSON.stringify(entry)),{random,result:null,reason:null,phase:'aim'});
  delete s.effects.gravityField;
+ if(!entry.finalBeamCharge)delete s.finalBeamCharge;
  return true;
 }
 const duration=(s,change)=>change?.mapChanged?config(s).transitionSeconds:.6;

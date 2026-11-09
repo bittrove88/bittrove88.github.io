@@ -1,45 +1,54 @@
 {
   "version": 1,
-  "change": "0.31.0 中ボス/大ボスの移動・接近退避と大ボス/最終戦の残像",
-  "reason": "2026-11-09、ユーザーがPR142の補完内容を含め「検証してマージして」と最終合意・マージを指示。共有判断・透過接触・補助攻撃と本体の同一手番・最終攻撃順/交代/再試行・Worker/協調フォールバック・小画面描画・生成先登録を本検証する。有効な事前確認を再利用し、隣接ブラウザと正式生成一致を確認する。",
+  "change": "0.31.1: PR142のボス移動・残像を保持してラスボス固有技を統合",
+  "reason": "main0.31.0/PR142を取り込み、最終合意済みの3固有技を統合。追加質問へのユーザー回答「終極砲の照射ターンだけ移動せず、予告線を固定する」を反映。通常手番・残像による大技延期・予告位置・一手番の消費・移動予算を保持する。現行mainとの限定差分保護、Workerと本編・共有生成物を検証する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/definitions.json",
+    "ARCLINE/design/attacks/final-projectiles-0311-scope.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/boss-actions.js",
+    "ARCLINE/game/dist/attack-catalog.js",
+    "ARCLINE/game/dist/attack-motion.js",
+    "ARCLINE/game/dist/attack-review-model.js",
     "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/effects.js",
     "ARCLINE/game/dist/enemy-actions.js",
     "ARCLINE/game/dist/enemy-attacks.js",
     "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/final-team.js",
-    "ARCLINE/game/dist/game.js",
     "ARCLINE/game/dist/index.html",
     "ARCLINE/game/dist/physics.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/dist/sfx-manager.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
-    "ARCLINE/game/tests/boss-motion.test.cjs",
+    "ARCLINE/game/tests/final-projectiles-browser.test.cjs",
+    "ARCLINE/game/tests/final-projectiles-preservation.cjs",
+    "ARCLINE/game/tests/final-projectiles.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/build_attack_review.py",
-    "ARCLINE/game/tools/build_map_atlas.py",
+    "ARCLINE/game/ui/sfx-manager.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.0/index.html"
+    "ARCLINE/updates/0.31.1/index.html"
   ],
   "suites": {
     "unit": [
-      "boss-motion",
-      "final-attacks"
+      "final-projectiles",
+      "final-attacks",
+      "special-self-damage",
+      "attack-motion",
+      "map-atlas",
+      "boss-motion"
     ],
     "browser": [
-      "boss-motion-browser",
-      "enemy-movement-browser",
-      "final-retry-browser"
+      "final-projectiles-browser",
+      "final-retry-browser",
+      "boss-motion-browser"
     ]
   },
   "checks": {
@@ -50,21 +59,25 @@
     "nativeAudio": false
   },
   "manual": [
-    "同一条件で有効な事前確認は再利用。低HP補正順の修正を含めた284項目と既存ラスボス874項目・ブラウザ経路・正式生成を修正headのCIで確認する。",
-    "代表ボスの実際の入力・自律敵行動で実戦を確認する。自動探索の成否と、人の難易度・楽しさ・実機確認を区別する。"
+    "合意済みの0.5秒集光・0.3秒到達と螺旋形状の表示を維持。前段0.30.5の結果と統合後0.31.1の結果を区別。",
+    "PR142の最新mainを保持し、統合箇所の本検証とPR143の対象コミットのCIを確認する。"
   ],
   "excluded": [
     {
-      "scope": "全100面の再攻略・全技/全原画/全音源/全画面の一括検証",
-      "reason": "今回の移動/残像と共有手番へ直接影響する範囲を選ぶ。過去の操作列は現行AIの勝利証拠へ流用しない。"
+      "scope": "全100面の再攻略・無関係な音源・原画・エンディング",
+      "reason": "変更は100面の3固有技と同期・復元境界。地形・HP・自機攻撃・保存はバイト保護。音源の追加・変更なし。"
     },
     {
-      "scope": "旧ソース完全一致とボス移動除外を固定した歴史的検査",
-      "reason": "今回の明示依頼が除外を更新する。保持する通常敵の判断/弾道と12正本は基準mainとの直接比較で確認する。"
+      "scope": "物理iPhone／Android、音声の実再生、本番公開URLの変更確認",
+      "reason": "実機は未接続。効果音はイベント時刻を検証し、素材の再デコードはしない。本番は未マージ。"
     },
     {
-      "scope": "物理端末、音声素材の全デコード、配布ZIP一式、STG配信",
-      "reason": "実機は未接続。音源・素材・配布ツールは不変で、依存はruntime/Worker/埋込生成を確認する。ユーザー指示に従い、成功後にmainへマージし本番CI・Pages配信・公開URLを確認する。"
+      "scope": "旧バランス時の全件再現リプレイ",
+      "reason": "敵の攻撃変更があるため旧入力列の勝敗を現行必須結果として使わない。"
+    },
+    {
+      "scope": "旧Rico等の全ソース固定を前提とする歴史的ガード",
+      "reason": "PR142がすでに対象ソースを正当に変更したため、最新main0.31.0を基準とした限定差分の逆適用で保護する。自傷と既存の反射ロジックはそれぞれ挙動・mainバイトで維持。"
     }
   ]
 }

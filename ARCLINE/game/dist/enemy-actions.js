@@ -247,6 +247,13 @@
         u.facing = trial.units[0].x >= u.x ? 1 : -1;
         B.refresh(trial);
       }
+      // The charging laser is the sole exception to boss repositioning.
+      // Echo deferral is a normal turn, so it keeps the usual movement rules.
+      if (trial.telegraph?.technique === "E_FINAL_4" && trial.bossEchoFiredRound !== trial.round) {
+        const st = stats(trial), p = { x: u.x, y: u.y, slope: u.slope, surface: u.surface };
+        const next = { ...st, field: B.field(trial), turns: st.turns + 1, cooldown: Math.max(0, st.cooldown - 1) };
+        return { target: u.x, plan: cpuPlan(trial, random), action: { kind: "shoot", from, to: p, round: trial.round, next, reason: "final-beam-lock" } };
+      }
       const retreat = r.boss && B.gap(trial) <= B.rules.close;
       const st = stats(trial),
         rng = seeded(
