@@ -102,7 +102,7 @@ function bridgeDemo(original){
  }return null;
 }
 function truncate(plan,time){
- const p=clone(plan);for(const b of p.bullets){b.path=b.path.filter(q=>q.t<=time);b.t=Math.min(b.t,time);}p.bullets=p.bullets.filter(b=>b.path.length);p.events=p.events.filter(e=>e.t<=time);p.impacts=p.impacts.filter(i=>i.t<=time);p.duration=Math.min(p.duration,time);p.damage=[0,0];p.partDamage={};p.end=p.impacts.at(-1)||p.bullets[0].path.at(-1);p.path=p.bullets[0].path;return p;
+ const p=clone(plan);for(const b of p.bullets){b.path=b.path.filter(q=>q.t<=time);b.t=Math.min(b.t,time);}p.bullets=p.bullets.filter(b=>b.path.length);p.events=p.events.filter(e=>e.t<=time);p.impacts=p.impacts.filter(i=>i.t<=time);p.duration=Math.min(p.duration,time);p.damage=[0,0];p.partDamage={};p.partHits=Object.fromEntries(Object.keys(plan.partHits||{}).map(i=>[i,p.events.filter(e=>e.type==='part-hit'&&e.part===Number(i)).length]));p.end=p.impacts.at(-1)||p.bullets[0].path.at(-1);p.path=p.bullets[0].path;return p;
 }
 const playbackRate=.65,resultHold=1.65;
 const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',slope:'NEW POSITION',height:'HIGH GROUND',pickup:'COLLECTED',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'BOUNCE',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE','boss-swap':'CORE EXPOSED',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
@@ -163,7 +163,7 @@ function bossCore(original){
  function choose(s,kind){
   for(const angle of [0,8,16,24,32,40,48,56,64,72,80,-8,4,12,20,28,36,44,52,60,68,76,84])for(const power of [95,85,75,65,55,45,100,35,25,20]){
    const plan=E.trajectory(s,0,angle,power);
-   if(kind==='part'&&Object.entries(plan.partDamage).some(([i,d])=>d>=s.units[1].parts[i].hp&&s.units[1].parts[i].hp>0))return {plan,angle,power};
+   if(kind==='part'&&(Object.entries(plan.partDamage).some(([i,d])=>d>=s.units[1].parts[i].hp&&s.units[1].parts[i].hp>0)||Object.entries(plan.partHits||{}).some(([i,n])=>n>=s.units[1].parts[i].hitsRemaining)))return {plan,angle,power};
    if(kind==='weak'&&plan.damage[1]>1){
     const u=s.units[1],center={x:u.x+(u.facingCore||0)*20,y:u.y-77},radius=u.exposed>0?44:u.parts.some(p=>p.hp<=0)?38:26;
     if(plan.impacts.some(hit=>hit.hit?.unit===1&&hit.hit.kind==='weak'&&Math.hypot(hit.x-center.x,hit.y-center.y)<=radius+1e-6))return {plan,angle,power};

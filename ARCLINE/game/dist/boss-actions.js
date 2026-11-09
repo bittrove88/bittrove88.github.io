@@ -38,7 +38,7 @@
       : old;
   }
   const attachment = (id) =>
-    /^shoulder[01](?::|$)/.test(id) || /^front-armor(?::|$)/.test(id);
+    /^shoulder[01](?::|$)/.test(id) || /^front-armor(?::|$)/.test(id) || /^part-armor:/.test(id);
   function terrain(s) {
     if (!s.world.solids.some((o) => attachment(o.id))) return s.world;
     return {
@@ -57,6 +57,7 @@
           d = (i === 0 ? -1 : 1) * -(u.facing || -1);
         s.world.solids.push({
           id: "shoulder" + i,
+          armorPart: i,
           kind: "crystal",
           poly: [
             { x: x - 17, y: y - 12 * d },
@@ -66,23 +67,27 @@
           ],
         });
       });
-    if (s.stage === 60 && s.effects.broken === 0) {
+    if (s.stage === 60 && !s.units[1].parts.some(p => p.hp <= 0)) {
       const u = s.units[1];
       const dir = u.facing || -1,
         xs = [u.x + dir * 62, u.x + dir * 92].sort((a, b) => a - b);
-      s.world.solids.push(
-        G.rectangle(
+      s.world.solids.push({
+        ...G.rectangle(
           "front-armor",
           xs[0] / 10,
           xs[1] / 10,
           (500 - u.y + 3) / 10,
           (500 - u.y + 58) / 10,
-        ),
-      );
+        ),armorPart: 0,
+      });
     }
+    if ([70,80,90].includes(s.stage))G.actorParts(s,1).forEach((p,i)=>{
+      if(p.hp<=0)return;const u=s.units[1],r=p.armorRadius;
+      s.world.solids.push({id:'part-armor:'+i,kind:'solid',armorPart:i,poly:Array.from({length:8},(_,j)=>({x:u.x+p.dx+Math.cos(j*Math.PI/4)*r,y:u.y+p.dy+Math.sin(j*Math.PI/4)*r}))});
+    });
   }
   function refresh(s) {
-    if (![40, 60].includes(s.stage)) return;
+    if (![40,60,70,80,90].includes(s.stage)) return;
     const w = terrain(s);
     s.world = { ...w, solids: [...w.solids], surfaces: [...w.surfaces] };
     attachments(s);

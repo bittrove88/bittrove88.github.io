@@ -85,7 +85,7 @@ function giant(ctx,d,c,key,u,o){
 }
 function damage(ctx,d,c,u,o){
  const def=o.definition;if(!def||def.kind==='normal')return;const parts=u.parts||[],dir=o.dir||1,core=u.core||def.core;
- for(const p of parts){const x=p.dx,y=p.dy;if(p.hp>0){d.oval(x,y,6,7,c.accent,I,1);d.line([x-4,y-3,x+4,y+3],c.trim,1);for(let n=0;n<Math.ceil(p.maxHp);n++)d.rect(x-5+n*6,y-p.radius-6,4,2,.4,n<p.hp?c.accent:S,null);}if(p.hp<=0){const r=p.radius*.82;d.poly([x-r,y-r*.45,x-r*.35,y-r*.85,x+r*.4,y-r*.73,x+r,y-r*.12,x+r*.65,y+r*.65,x-r*.15,y+r*.8,x-r*.85,y+r*.2],S);d.poly([x-8,y-6,x,y-10,x+8,y-3,x+5,y+7,x-7,y+5],S);d.line([x-8,y-6,x+3,y-1,x-2,y+6],V.colors.crack,1.4);}else if(p.hp<p.maxHp){d.line([x-7,y-9,x+1,y-3,x-4,y+4,x+6,y+8],V.colors.crack,1.1);}}
+ for(const p of parts){const x=p.dx,y=p.dy;if(p.hp>0){d.oval(x,y,6,7,c.accent,I,1);d.line([x-4,y-3,x+4,y+3],c.trim,1);if(!p.breakHits)for(let n=0;n<Math.ceil(p.maxHp);n++)d.rect(x-5+n*6,y-p.radius-6,4,2,.4,n<p.hp?c.accent:S,null);}if(p.hp<=0){const r=p.radius*.82;d.poly([x-r,y-r*.45,x-r*.35,y-r*.85,x+r*.4,y-r*.73,x+r,y-r*.12,x+r*.65,y+r*.65,x-r*.15,y+r*.8,x-r*.85,y+r*.2],S);d.poly([x-8,y-6,x,y-10,x+8,y-3,x+5,y+7,x-7,y+5],S);d.line([x-8,y-6,x+3,y-1,x-2,y+6],V.colors.crack,1.4);}else if(p.hp<p.maxHp){d.line([x-7,y-9,x+1,y-3,x-4,y+4,x+6,y+8],V.colors.crack,1.1);}}
  if(core&&(!o.state?.spec.midboss||parts.some(p=>p.hp<=0)||u.exposed>0)){
   const x=core.x,y=core.y,exposed=parts.some(p=>p.hp<=0)||u.exposed>0||o.state?.bossPhase===2;
   d.oval(x,y,exposed?13:9,exposed?14:10,exposed?'#b8dec3':'#75b5be',I,1.2);d.oval(x,y,exposed?6:4,exposed?8:5,exposed?'#e0e6bd':'#b0d3cd',null);

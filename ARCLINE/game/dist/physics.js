@@ -67,16 +67,26 @@ function simulate(s,side,angle,power,options={}){
  const provided=options.origin,origin=provided&&[provided.x,provided.y,provided.theta].every(Number.isFinite)?provided:G.muzzle({...s,mode:weapon.id},side,Math.max(weapon.minAngle||-15,angle));
  const startDelay=G.clamp(Number(options.startDelay)||0,0,2),curve=G.clamp(Number(options.curve)||0,-1.5,1.5);
  let simWorld=s.world,breachUsed=false;const destroyed=new Set();
- const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
+ const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},partHits={},seenPartBullets=new Set(),seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
  const timed=side===0&&!weapon.teleport,boost=side===0?(s.skillEffects?.power?.factor||1):1;
  let spent=0,bossWeak=false;
  let relayRemaining=s.stage===100&&s.spec.finalBattle&&s.finalTeam?Math.max(0,s.spec.finalBattle.requiredDamage-(s.finalTeam.damage[s.characterId]||0)):Infinity;
+ function countPart(p,index,point,source){
+  const part=units[1].parts[index],key=index+':'+p.id;
+  if(side!==0||weapon.damage<=0||!part?.breakHits||part.hp<=0||seenPartBullets.has(key))return false;
+  seenPartBullets.add(key);part.hitsRemaining=Math.max(0,part.hitsRemaining-1);part.hp=part.hitsRemaining>0?1:0;partHits[index]=(partHits[index]||0)+1;
+  const event={unit:1,part:index,value:1,remaining:part.hitsRemaining,total:part.breakHits,x:point.x,y:point.y,t:p.t,bullet:p.id,source};
+  events.push({...event,type:'part-hit'},{...event,type:'armor-guard'});
+  if(!part.hp){const gone=simWorld.solids.filter(o=>o.armorPart===index||s.stage===60&&o.id==='front-armor').map(o=>o.id);simWorld=G.without(simWorld,gone);}
+  return true;
+ }
  // Damage is credited in contact order. The same ledger drives HP, labels and
  // part destruction; later hits never rescale an earlier hit.
  function credit(p,hit,value,source){
   if(!hit||value<=0)return 0;
   const j=hit.unit,part=j===1&&hit.kind==='part'?units[j].parts[hit.part]:null;
   if(part&&part.hp<=0)return 0;
+  if(part?.breakHits&&side===0){countPart(p,hit.part,hit.point||{x:hit.x??p.x,y:hit.y??p.y},source);return value*boost;}
   if(j===1&&hit.kind==='weak'&&s.spec.boss)bossWeak=true;
   // Reduce the self-hit payload and its attack cap before clipping to remaining HP.
   const selfFactor=side===0&&j===0&&weapon.special?0.5:1;
@@ -291,7 +301,14 @@ function simulate(s,side,angle,power,options={}){
     const material=solid.solid.kind,reflective=material==='reflector'||material==='crystal',enemyDir=units[1-side].x>=solid.x?1:-1;
     const enemySideBlocked=weapon.enemyBounce==='all'&&Math.abs(solid.ny)<1e-7&&enemyDir*solid.nx<0;
     const canPhase=material!=='floor'&&material!=='reflector'&&(weapon.penetrating?!!solid.solid.destructible:skill==='PHASE'||(weapon.id==='W13'?!!solid.solid.destructible:['solid','roof','bridge','fragile'].includes(material)));
-    if(!p.phaseUsed&&p.phaseRemaining>0&&canPhase){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
+    // A visual contact only: attached armor keeps its existing collision,
+    // reflection and damage rules. Successful phase travel is not a guard.
+    const phasing=!p.phaseUsed&&p.phaseRemaining>0&&canPhase;
+    if(!phasing&&side===0&&weapon.damage>0){
+     if(Number.isInteger(solid.solid.armorPart))countPart(p,solid.solid.armorPart,solid,'armor');
+     else if(/^(?:shoulder[01]|front-armor)(?::|$)/.test(solid.solid.id))events.push({type:'armor-guard',x:solid.x,y:solid.y,t:p.t,bullet:p.id,solidId:solid.solid.id});
+    }
+    if(phasing){p.phaseUsed=true;p.phaseSolid=solid.solid.id;p.phaseExit=true;events.push({type:'phase',x:solid.x,y:solid.y,t:p.t,bullet:p.id});stop=null;}
     else if(!enemySideBlocked&&p.bounces<(weapon.maxBounces||3)&&(reflective||p.solidBounces<weapon.bounces||skill==='BOUNCE'&&p.solidBounces<1)){
      const restitution=weapon.restitution||.9,dot=p.vx*solid.nx+p.vy*solid.ny;p.vx=(p.vx-2*dot*solid.nx)*restitution;p.vy=(p.vy-2*dot*solid.ny)*restitution;
      if(weapon.hop&&solid.ny<-.5)p.vy=-Math.max(150,Math.abs(p.vy)*1.1);
@@ -408,7 +425,7 @@ function simulate(s,side,angle,power,options={}){
   if(first)events.push(first);
  }
  events.sort((a,b)=>a.t-b.t);
- return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
+ return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,...(Object.keys(partHits).length?{partHits}:{}),duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};
 }
 const api={simulate,beamGeometry,inRegion,launchSpeed,bodyCenter,DT,GRAVITY};if(typeof module!=='undefined')module.exports=api;else root.ArcPhysics=api;
 })(globalThis);
