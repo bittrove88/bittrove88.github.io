@@ -1,3 +1,5 @@
+**0.30.4 再挑戦とクリア連動：** 失敗時は使用した武器・スキルを復元し、取得物と台帳は維持。Hard→Normal/Easy、Normal→Easyへクリア済みを反映。旧セーブも補完し、在庫・補充・既読等はモード別。schema8/reset2・100面の再挑戦を維持。[範囲・検証](docs/releases/0.30.4.md)。未マージ・未公開。
+
 # ARCLINE の開発開始手順
 
 今後の開発では、[砲撃ゲーム開発ガイド](docs/design/ARCLINE_GAME_DEVELOPMENT_GUIDE.md)を共通指針として使う。まず第10章の変更・PR・マージ・別提案の基準を読み、第3章から対象分野の正本と利用先を確認する。検証は第11章と[検証運用](docs/VERIFICATION.md)に従う。

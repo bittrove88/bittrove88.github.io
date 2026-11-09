@@ -10,8 +10,8 @@ const server=http.createServer((q,r)=>{let f=path.join(root,new URL(q.url,'http:
   const p=await c.newPage();p.on('pageerror',e=>errors.push(String(e)));await p.goto('http://127.0.0.1:'+server.address().port+'/ARCLINE/game/dist/');await p.waitForFunction('!document.getElementById("play").disabled');await p.locator('#play').tap();await p.waitForFunction('s?.stage===100');
   async function ready(){if(await p.locator('#bossIntroSkip').isVisible())await p.locator('#bossIntroSkip').tap();await p.waitForFunction('canAim()');await p.evaluate(()=>{cancelAnimationFrame(raf);raf=0;});}
   await ready();await p.evaluate(lang=>ArcI18n.setLanguage(lang),lang);ok(await p.evaluate(lang=>ArcI18n.language===lang&&document.documentElement.lang===lang,lang),'requested UI language '+lang);
-  ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===28'),'initial full charges and character budget '+width);
-  await p.locator('#finalTeamHUD').tap();const note=await p.locator('#battleMachineNote').textContent();ok(note.includes(lang==='en'?'3 specials':'各3発')&&note.includes('28'),'sortie order explains current charges and actions '+lang);await p.locator('#closeBattleMachines').tap();
+  ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===s.spec.finalBattle.actionLimits[s.characterId]'),'initial full charges and character budget '+width);
+  await p.locator('#finalTeamHUD').tap();const note=await p.locator('#battleMachineNote').textContent();ok(note.includes(lang==='en'?'3 specials':'各3発')&&note.includes('20'),'sortie order explains current charges and actions '+lang);await p.locator('#closeBattleMachines').tap();
   for(const index of [2,3,6,9]){
    await p.evaluate(index=>{while(s.finalTeam.index<index){if(s.finalTeam.index===0)s.weaponStock.W14=1;ArcFinalTeam.credit(s,s.characterId,s.spec.finalBattle.requiredDamage);advanceTurn();transition=null;s.phase='aim';}hud();draw();},index);
    const expected=await p.evaluate(()=>({id:s.characterId,index:s.finalTeam.index,map:s.finalTeam.map,damage:JSON.stringify(s.finalTeam.damage),stock:JSON.stringify(I.fromState(s)),world:JSON.stringify(s.world),effects:JSON.stringify(s.effects),boss:JSON.stringify({hp:s.units[1].hp,parts:s.units[1].parts.map(p=>p.hp)}),save:JSON.stringify(save.data)}));
@@ -20,17 +20,17 @@ const server=http.createServer((q,r)=>{let f=path.join(root,new URL(q.url,'http:
    const rects=await p.evaluate(()=>['retryFinalCharacter','resume','returnLobby'].map(id=>{const r=document.getElementById(id).getBoundingClientRect();return {id,left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};}));
    ok(rects.every(r=>r.left>=-1&&r.right<=width+1&&r.top>=-1&&r.bottom<=height+1&&Math.min(r.width,r.height)>=43),'all retry actions fit and retain touch targets '+width+'/'+index+' '+JSON.stringify(rects));
    if(index===6)await p.screenshot({path:path.join(out,'final-retry-'+width+'-'+lang+'.png')});
-   await p.locator('#retryFinalCharacter').tap();await p.waitForFunction(id=>s?.characterId===id&&s.units[0].hp===3.5,expected.id);await ready();
+   await p.locator('#retryFinalCharacter').tap();await p.waitForFunction(id=>s?.characterId===id&&s.units[0].hp===s.spec.finalBattle.fixedHp/E.combat.pointsPerUnit,expected.id);await ready();
    const actual=await p.evaluate(()=>({id:s.characterId,index:s.finalTeam.index,map:s.finalTeam.map,damage:JSON.stringify(s.finalTeam.damage),stock:JSON.stringify(I.fromState(s)),world:JSON.stringify(s.world),effects:JSON.stringify(s.effects),boss:JSON.stringify({hp:s.units[1].hp,parts:s.units[1].parts.map(p=>p.hp)}),save:JSON.stringify(save.data)}));
    ok(JSON.stringify(actual)===JSON.stringify(expected),'retry restores exact machine entry,prior progress,stock,boss,terrain and campaign record '+width+'/'+index);
-   ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===28&&!cpuJob&&!cpuReady&&!charge'),'retry resets charges,actions and old CPU/input '+width+'/'+index);
+   ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===s.spec.finalBattle.actionLimits[s.characterId]&&!cpuJob&&!cpuReady&&!charge'),'retry resets charges,actions and old CPU/input '+width+'/'+index);
    rows.push({width,height,lang,motion,index,character:actual.id,map:actual.map});
   }
   await p.evaluate(()=>{s.units[0].hp=0;E.check(s);finishResult();});await p.locator('#resume').tap();await p.waitForFunction('s.characterId==="hana"&&s.finalTeam.index===0');await ready();
-  ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===28&&Object.values(s.finalTeam.damage).every(v=>v===0)&&s.weaponStock.W14===2'),'restart all ten restores full level entry '+width);
+  ok(await p.evaluate('s.specialAmmo===3&&s.shotCount===0&&s.shotLimit===s.spec.finalBattle.actionLimits[s.characterId]&&Object.values(s.finalTeam.damage).every(v=>v===0)&&s.weaponStock.W14===2'),'restart all ten restores full level entry '+width);
   await p.evaluate(()=>{selectedMap=89;start({skipStory:true});});await ready();await p.evaluate(()=>{s.units[0].hp=0;E.check(s);finishResult();});
-  ok(await p.locator('#retryFinalCharacter').isHidden()&&await p.evaluate('s.shotLimit===28'),'ordinary stage90 retains its existing retry and budget '+width);
+  ok(await p.locator('#retryFinalCharacter').isHidden()&&await p.evaluate('s.shotLimit===s.spec.actionLimit'),'ordinary stage90 retains its existing retry and budget '+width);
   await c.close();
  }
- ok(!errors.length,errors.join('\n'));fs.writeFileSync(path.join(out,'FINAL_RETRY_BROWSER.json'),JSON.stringify({status:'PASS',checks,rows,errors,scope:'Real Chromium touch retry from relay indices2,3,6,9;full HP,three charges,28 actions,entry stock/enemy/terrain and completed-machine restoration;unchanged campaign record,full restart,ordinary stage90,Japanese/English,short landscape/portrait,reduced motion. Physical devices unverified.'},null,2));console.log('PASS final retry browser '+checks+' checks');
+ ok(!errors.length,errors.join('\n'));fs.writeFileSync(path.join(out,'FINAL_RETRY_BROWSER.json'),JSON.stringify({status:'PASS',checks,rows,errors,scope:'Real Chromium touch retry from relay indices2,3,6,9;full HP,three charges,20 actions,entry stock/enemy/terrain and completed-machine restoration;unchanged campaign record,full restart,ordinary stage90,Japanese/English,short landscape/portrait,reduced motion. Physical devices unverified.'},null,2));console.log('PASS final retry browser '+checks+' checks');
 }finally{await b.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});

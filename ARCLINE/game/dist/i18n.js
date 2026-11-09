@@ -38,7 +38,7 @@ Object.assign(dictionary,{
  'Difficulty':'難易度','Easy':'イージー','Normal':'ノーマル','Hard':'ハード',
  'Less accurate enemy aim':'敵の狙い：ゆるめ','Standard enemy aim':'敵の狙い：標準','More accurate enemy aim':'敵の狙い：正確',
  'Easy: less accurate enemy aim':'イージー：敵の狙いはゆるめ','Normal: standard enemy aim':'ノーマル：敵の狙いは標準','Hard: more accurate enemy aim':'ハード：敵の狙いは正確',
- 'Easy: full trajectory; Normal: half; Hard: firing direction only. Enemy aim gets more accurate. Progress and machines are saved per difficulty.':'イージーは射線全表示、ノーマルは半分、ハードは発射方向のみ。敵の狙いも正確になります。攻略記録と保有機体は難易度ごとに保存。'
+ 'Easy: full trajectory; Normal: half; Hard: firing direction only. Enemy aim gets more accurate. Higher-difficulty clears count for lower modes. Stock stays separate.':'イージーは射線全表示、ノーマルは半分、ハードは発射方向のみ。敵の狙いも正確になります。上位でクリアした面は下位もクリア済み。持ち物は難易度別です。'
 });
 Object.assign(dictionary,{
  'CHAPTER STOCK':'章の持ち物','PRACTICE WEAPON':'練習用の武器','VIEW':'見る','Skills':'スキル','PRACTICE':'練習','CONTINUE':'つづきから','Back':'再開',
@@ -126,7 +126,7 @@ Object.assign(dictionary,{
  'Unused weapons and skills carry across chapters.':'未使用の武器・スキルは章を越えて持ち越します。',
  'Unused ammunition and skills carry across chapters. Each map capsule can be claimed once per difficulty.':'未使用の残数は章を越えて持ち越します。マップのカプセルは難易度ごとに一度だけ取得できます。',
  'Stock and pickup history are carried forward.':'残数と取得履歴は引き継ぎます。',
- 'Remaining stock and claimed pickups stay saved when retrying.':'再挑戦でも消費後の残数と取得済み履歴は保持します。',
+ 'Used weapons and skills return when retrying. Claimed pickups stay saved.':'再挑戦では使用した武器・スキルが戻ります。取得済みの持ち物と記録も保持します。',
  'Special unlocks on your turns 2, 4 and 6. Guardians start with three. Unused stock carries across chapters.':'通常戦は自分の第2・4・6ターンで必殺を蓄積。ボスは3発から。未使用の補助武器・スキルは章を越えて持ち越します。'
 });
 function setLanguage(next){language=next==='en'?'en':'ja';try{localStorage.setItem('arcline-language',language);}catch{}apply();root.dispatchEvent(new Event('arcline-language'));}
