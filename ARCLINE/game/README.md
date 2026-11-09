@@ -1,4 +1,4 @@
-**0.31.0 ボス移動・残像（制作中）：** `dist/boss-actions.js` が対象・定数・実寸配置・残像状態を所有し、`enemy-actions.js` が共通判断、`engine.js` が補助攻撃と同じ手番への継続を接続。Worker・総覧・攻撃確認の読み込みも同期。[詳細設計](../docs/design/BOSS_MOTION_ECHO_0310.md)／[事前確認と未実施工程](../docs/releases/0.31.0.md)。
+**0.31.0 ボス移動・残像：** `dist/boss-actions.js` が対象・定数・実寸配置・残像状態を所有し、`enemy-actions.js` が共通判断、`engine.js` が補助攻撃と同じ手番への継続を接続。Worker・総覧・攻撃確認の読み込みも同期。[詳細設計](../docs/design/BOSS_MOTION_ECHO_0310.md)／[事前確認と未実施工程](../docs/releases/0.31.0.md)。
 
 **0.30.4 再挑戦とクリア連動：** 失敗時は使用した武器・スキルを復元し、取得物と台帳は維持。Hard→Normal/Easy、Normal→Easyへクリア済みを反映。旧セーブも補完し、在庫・補充・既読等はモード別。schema8/reset2・100面の再挑戦を維持。[範囲・検証](../docs/releases/0.30.4.md)。未マージ・未公開。
 
