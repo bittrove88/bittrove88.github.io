@@ -228,14 +228,16 @@ function startCharge(id){
 function releaseCharge(id){
  if(!charge||charge.id!==id)return;const valid=canAim()&&s.selectedSkill!=='BLINK'&&!charge.cancel,power=s.power,previousPower=charge.previous,canceled=charge.cancel;charge=null;stopChargeTone();if(valid){s.power=power;launch();}else{s.power=previousPower;if(canceled)feedback='Shot canceled';hud();}
 }
-function launch(plan=null){
- if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
+function launch(plan=null,echoFocused=false){
+ if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();
+ if(plan?.echo&&!echoFocused&&!reducedMotion){s.echoFocusPresentation={plan,age:0};s.phase='cpuEchoFocus';return;}
+ shot=E.launch(s,s.angle,s.power,plan);
  if(!shot)return;shot.presentationAge=0;shotMotion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;if(!shot.echo)s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.echo)tone(480,.09,'sine',.035);if(shot.teleport)tone(620,.19,'sine');hud();
 }
 function beginEnemyTeleport(action){
  // A presentation-only transfer pulse uses the player's TELEPORT brush. Its
  // destination is the AI's already validated landing, never a damage shot.
- const u=s.units[1],dx=action.to.x-u.x,dy=action.to.y-u.y,theta=Math.atan2(dy,dx)-u.slope,angle=(u.facing===1?-theta:theta-Math.PI)*180/Math.PI,m=G.muzzle(s,1,angle),distance=Math.hypot(dx,dy),duration=E.clamp(distance/650,.45,1.2),lift=Math.min(70,distance*.12);
+ const u=s.units[1],dx=action.to.x-u.x,dy=action.to.y-u.y,theta=Math.atan2(dy,dx)-u.slope,angle=(u.facing===1?-theta:theta-Math.PI)*180/Math.PI,m=G.muzzle(s,1,angle),distance=Math.hypot(dx,dy),duration=ArcChargeCamera.transferDuration(distance,E.guardian(s)),lift=Math.min(70,distance*.12);
  const path=Array.from({length:49},(_,i)=>{const t=i/48;return {x:m.x+(action.to.x-m.x)*t,y:m.y+(action.to.y-m.y)*t-4*lift*t*(1-t),t:t*duration};});
  const end=path.at(-1),plan={side:1,weaponId:'TELEPORT',teleport:true,angle,power:20,bullets:[{id:0,start:0,t:duration,path}],events:[{...end,type:'teleport-contact',bullet:0}],impacts:[],damage:[0,0],duration,end,path};
  s.enemyTeleport={action,plan,age:0,landed:false};s.phase='cpuTeleport';cpuJob=null;cpuReady=null;u.recoil={age:0};tone(620,.19,'sine');
@@ -305,6 +307,8 @@ function update(dt,realDt=dt){
    if(Math.abs(s.cpuTarget-s.cpuStart)<1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
    else{s.cpuMoveDuration=E.enemyActionRules(s).walk?Math.abs(s.cpuTarget-s.cpuStart)/160:E.clamp(Math.abs(s.cpuTarget-s.cpuStart)/200,.2,.45);s.phase='cpuMove';}
   }
+ }else if(s.phase==='cpuEchoFocus'){
+  s.echoFocusPresentation.age+=dt;if(s.echoFocusPresentation.age>=ArcChargeCamera.echoPresentation.lead){const plan=s.echoFocusPresentation.plan;delete s.echoFocusPresentation;s.phase='cpu';launch(plan,true);}
  }else if(s.phase==='cpuTeleport'){
   const transfer=s.enemyTeleport;transfer.age+=dt;
   if(!transfer.landed&&transfer.age>=transfer.plan.duration){s.phase='cpu';if(!E.commitEnemyAction(s,transfer.action)){delete s.enemyTeleport;requestCPU();hud();return;}s.phase='cpuTeleport';transfer.landed=true;tone(580,.3,'sine',.15);}
@@ -338,7 +342,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}const transfer=s?.enemyTeleport;renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot:shot||transfer?.plan,flight:transfer?transfer.age:flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
+function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}const transfer=s?.enemyTeleport;renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,echoFocus:s?.echoFocusPresentation,shot:shot||transfer?.plan,flight:transfer?transfer.age:flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=hostPaused();}
