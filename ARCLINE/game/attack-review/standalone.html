@@ -5,12 +5,12 @@
 <title>ARCLINE 攻撃の動作確認</title>
 <style>:root{font-family:system-ui,sans-serif;color:#ecf4f0;background:#142e3b;color-scheme:dark}*{box-sizing:border-box}body{margin:0}main{max-width:1280px;margin:auto;padding:18px}h1{font-size:24px;margin:8px 0}h2{font-size:20px}p{line-height:1.7}a{color:#9ce5dc}.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:16px 0}.controls label{display:grid;gap:5px;font-size:13px}select,button{font:inherit;border:1px solid #6c939b;border-radius:7px;background:#224653;color:inherit;min-height:42px;padding:8px 12px}button{cursor:pointer}button:hover{background:#326373}canvas{display:block;width:100%;height: min(58vw,580px);min-height:250px;background:#244852;border:1px solid #51777d;border-radius:8px}.timeline{display:flex;align-items:center;gap:10px;margin-top:12px}.timeline input{flex:1}.timeline output{min-width:90px;font-variant-numeric:tabular-nums}dl{display:grid;grid-template-columns:60px 1fr;gap:10px;line-height:1.75}dt{color:#a9d9cc;font-weight:700}dd{margin:0}#proof{padding:12px;background:#203f49;border-radius:7px;font-size:13px}@media(max-width:650px){main{padding:10px}.controls label{flex:1;min-width:145px}select{max-width:100%}canvas{height:300px}.timeline{font-size:12px}dl{grid-template-columns:48px 1fr}}
 </style>
-<main><header><span>ARCLINE 0.32.0 · REVIEW</span><h1>攻撃の動作確認</h1><p>実戦と同じ弾道・命中判定・描画を使用します。この画面は攻略の保存を読み書きしません。</p></header>
+<main><header><span>ARCLINE 0.33.0 · REVIEW</span><h1>攻撃の動作確認</h1><p>実戦と同じ弾道・命中判定・描画を使用します。この画面は攻略の保存を読み書きしません。</p></header>
 <section class="controls"><label>分類<select id="category"></select></label><label>キャラと技<select id="attack"></select></label><label>確認場面<select id="scene"><option value="arena">基本の射撃場</option><option value="map">実際のマップ</option><option value="wall">遮蔽</option><option value="reflect">反射</option><option value="gap">床の途切れ</option><option value="miss">外れる弾道</option></select></label><label>モーション<select id="timing"><option value="crafted">調整後</option><option value="physical">時間変化なしと比較</option></select></label><label>速さ<select id="speed"><option value="1">通常</option><option value="0.5">半分</option><option value="0.25">4分の1</option></select></label><button id="play">再生</button><button id="pause">一時停止</button><button id="previous">前の技</button><button id="next">次の技</button></section>
 <canvas id="canvas" aria-label="実エンジンの攻撃確認"></canvas><label class="timeline">経過時間<input id="time" type="range" min="0" max="1" value="0" step="0.005"><output id="clock"></output></label>
 <section class="description"><h2 id="name"></h2><dl><dt>弾道</dt><dd id="trajectory"></dd><dt>着弾</dt><dd id="impact"></dd><dt>敵効果</dt><dd id="effect"></dd><dt>間と速度</dt><dd id="motion"></dd></dl><p id="proof" role="status"></p></section></main>
 <script>/* Generated from game/runtime.json. */
-(function(root){const data=Object.freeze({"version":"0.32.0","cacheVersion":"0.32.0","campaignVersion":"5.0","saveSchema":8,"resetVersion":2});if(typeof module!=="undefined")module.exports=data;else root.ArcRelease=data;})(globalThis);
+(function(root){const data=Object.freeze({"version":"0.33.0","cacheVersion":"0.33.0","campaignVersion":"5.0","saveSchema":8,"resetVersion":2});if(typeof module!=="undefined")module.exports=data;else root.ArcRelease=data;})(globalThis);
 </script>
 <script>(function(root){'use strict';
 const dictionary={"Standard":"通常弾","Heavy Shell":"重榴弾","Needle":"貫通針","Mortar":"迫撃弾","Hopper":"ホッパー","Ricochet":"跳弾","Roller":"転がる弾","Skipper":"低空跳弾","Fan Shot":"扇状弾","Cluster":"分裂弾","Twin":"連射弾","Airburst":"空中炸裂弾","Drill":"ドリル","Rail":"レール弾","Archer":"急降下弾","Undercut":"地走り弾","Impact":"押し出し弾","Magnet":"引き寄せ弾","Lifter":"爆風弾","Pinball":"ピンボール","FIRE":"発射","AIM":"照準","MOVE":"移動","POWER":"威力","ROVER":"自機","RIVAL":"相手","YOUR TURN":"あなたの番","BOSS":"ボス","COMPLETE":"終了","WEAPON":"武器","Unlimited":"無制限","Selected":"選択中","Select":"選択","Used":"使用済み","Next turn":"次の番","NEXT TURN":"次の番","Empty":"残数なし","EMPTY":"残数なし","Equipped":"装備中","Owned":"所持","Always available":"いつでも使用可","Equipped for this level":"この面に持ち込んだ武器","Pickup trial":"拾った武器のお試し","This level":"この面の武器","Special: 2 shots per level":"特殊武器は各面2発","Equipment":"装備","Weapons":"武器","Finishes":"外観","Original":"標準","CHANGE":"変更","STARTING WEAPON":"開始時の武器","JOURNEY":"ステージ","Journey":"ステージ","PLAY":"遊ぶ","GEAR":"装備","LOADOUT":"装備","OK":"OK","PREVIEW":"プレビュー","WATCH":"準備","SHOT":"動作","RESULT":"結果","LEVEL PREVIEW":"この面の案内","WEAPON PREVIEW":"武器の使い方","SKILL PREVIEW":"スキルの使い方","BOSS PREVIEW":"ボスの攻略","CONTROL PREVIEW":"操作の練習","PRACTICE PREVIEW":"練習用の場面","BURST":"爆発強化","BLINK":"瞬間移動","PUSH":"押す","PULL":"引き寄せ","BOUNCE":"反射追加","SPLIT":"分裂","PHASE":"すり抜け","SWAP":"入れ替え","CHOOSE SPOT":"着地点を選択","CANCEL":"取消","Tap a landing spot, then tap again.":"着地点を選び、もう一度タップ","TAP AGAIN TO BLINK":"もう一度タップで移動","HOLD FIRE":"発射を長押し","RELEASE":"指を離す","HIT":"命中","COLLECT":"回収","COLLECTED":"回収完了","HIGH GROUND":"高い足場","REFLECTIVE GROUND":"反射する地面","MOVING GATE":"動くゲート","LOW ROOF":"低い天井","CLOUD":"雲","MIRROR":"反射板","UPDRAFT":"上昇気流","WIND":"風","VENT":"噴き出す気流","MAGNETIC FIELD":"磁場","FIELD SWITCH":"磁場スイッチ","BOSS ARMOR":"ボスの装甲","TURN THE CORE":"コアの向きを変える","BREAK ARMOR":"装甲を壊す","ARMOR BROKEN":"装甲破壊","HIT THE CORE":"コアを狙う","CORE":"コア","CORE ×2":"コア ×2","LOW AIM":"低い照準","HIGH AIM":"高い照準","LOW ARC":"低い弾道","HIGH ARC":"高い弾道","HIGHER ARC":"高い弾道","NEW POSITION":"新しい位置","GATE OPEN":"ゲート開","GATE CLOSED":"ゲート閉","VENT ON":"気流あり","VENT OFF":"気流なし","NO LIFT":"上昇なし","REFLECT":"反射","LIFT":"上昇","DRIFT":"流される","BEND":"曲がる","REVERSED":"反転","CLEAR":"通過","WIDER BLAST":"広い爆風","WIDE BLAST":"広い爆風","LAND":"着地","EXTRA BOUNCE":"反射を追加","THROUGH":"貫通","CORE TURNED":"コアの向きが変化","FAST":"速い弾","HOP":"跳ねる","REBOUND":"跳ね返る","ROLL":"転がる","SKIP":"低く跳ねる","THREE SHOTS":"3方向に発射","TWO HITS":"2発が命中","AIR BLAST":"空中で爆発","STRAIGHT":"まっすぐ","DIVE":"急降下","GROUND WAVE":"地面を伝わる衝撃","Shot":"弾道","No field":"気流・磁場なし","Cleared.":"クリア！","A draw.":"引き分け","Rover disabled.":"自機が破壊されました","Out of shots.":"弾数切れ","Every arc led here.":"すべての軌道が、ここにつながる。","NEXT LEVEL":"次の面へ","TRY AGAIN":"もう一度","RESUME":"再開","Take a breath.":"一時停止","DUEL PAUSED":"一時停止中","Leave this duel?":"この対戦をやめますか？","Collected items saved.":"回収したアイテムは保存済み","LEAVE":"やめる","EQUIPMENT":"装備","COLLECTION":"コレクション","Choose weapon":"武器を選ぶ","Progress saved on this device":"この端末に保存済み","Progress synced":"進行を保存済み","Loading progress…":"進行を読み込み中…","Progress unavailable · Session play":"保存を読み込めません・今回のみプレイ","Progress not saved · Retry on resume":"保存できません・再開時に再試行","A reliable arc and balanced blast.":"扱いやすい弾道と標準的な爆風。","A wide blast catches nearby targets.":"広い爆風で周囲も巻き込む。","A fast, narrow shot for small openings.":"速く細い弾で小さな隙間を狙う。","A high arc falls behind cover.":"高い弾道で障害物の向こうへ。","One high bounce off solid ground.":"地面で一度、高く跳ねる。","Two controlled ricochets.":"2回の跳弾で狙う。","Rolls forward along the ground.":"地面を転がって進む。","Low, repeated ground bounces.":"低く何度も跳ねる。","Three paths spread at launch.":"3方向へ同時に発射。","Splits into three at the top.":"頂点で3つに分裂。","Two close shots in sequence.":"続けて2発を発射。","Bursts near the target before contact.":"相手に近づくと接触前に炸裂。","Passes through a thin wall.":"薄い壁をすり抜ける。","A near-straight shot through a clear lane.":"ほぼまっすぐな高速弾。","Dives sharply after the top.":"頂点から急降下する。","Impact sends waves along the floor.":"着弾から地面に衝撃波が走る。","Pushes the target away.":"相手を押し出す。","Pulls the target toward the impact.":"相手を着弾点へ引き寄せる。","Carries the target to a higher platform.":"相手を高い足場へ打ち上げる。","Ricochets and pushes the target.":"跳弾しながら相手を押し出す。","Pull AIM down.":"照準スティックを下へ倒す","Push AIM up.":"照準スティックを上へ倒す","Lower aim keeps the arc low.":"下に向けると低い弾道になる","Higher aim raises the arc.":"上に向けると高い弾道になる","Language":"言語","Move joystick":"移動スティック","Aim joystick":"照準スティック","Pause":"一時停止","Hold to charge; release to fire":"長押しで威力をため、離すと発射","Choose a landing spot on the battlefield":"戦場の着地点を選んでください","Hold FIRE, then release.":"長押しした発射ボタンから指を離す","Release launches the shot.":"指を離すと弾が飛ぶ","Move the right stick up or down.":"右のスティックを上下に倒す","Higher aim makes a higher arc.":"上に向けるほど高い弾道になる","Push the left stick sideways.":"左のスティックを左右に倒す","Your rover changes position.":"自機の位置が変わる","Move onto a better firing slope.":"狙いやすい斜面へ移動できる","Move onto the higher ground.":"高い足場へ移動する","Position changes your firing angle.":"位置によって発射角度が変わる","Hit the glowing capsule.":"光るカプセルに弾を当てる","The item is saved immediately.":"回収したアイテムはすぐ保存される","Aim into the bright ground.":"光る地面へ撃つ","The shot bounces upward.":"弾が上へ跳ね返る","Watch the gate before firing.":"発射前にゲートの動きを見る","The same shot changes when it moves.":"同じ弾でもゲートの状態で結果が変わる","Aim beneath the roof.":"天井の下を狙う","A low arc clears the cover.":"低い弾道なら障害物の下を通れる","Send a shot through the cloud.":"雲を通るように撃つ","The cloud slows the shot.":"雲に入ると弾が遅くなる","Aim at the bright mirror.":"光る反射板を狙う","The shot turns at the mirror.":"反射板で弾の向きが変わる","Send a shot into the rising air.":"上昇気流へ撃つ","The air lifts the shot.":"気流に乗ると弾が浮き上がる","Fire through the moving air.":"風の中へ撃つ","Wind carries the shot sideways.":"風に流されて弾が横へ動く","Compare the vent on and off.":"気流あり・なしを見比べる","The same shot rises only when on.":"気流があるときだけ弾が浮く","Send a shot through the field.":"磁場へ撃つ","The field bends its path.":"磁場で弾道が曲がる","Hit the glowing switch.":"光るスイッチに当てる","The field reverses next turn.":"次の番に磁場が反転する","Break a bright outer part.":"光る外側の部品を壊す","Then hit the exposed core.":"次は露出したコアを狙う","Select SWAP, then hit the boss.":"入れ替えを選び、ボスに当てる","The core turns toward you.":"コアが自分の方へ向く","Select BURST before firing.":"発射前に爆発強化を選ぶ","The wider blast reaches the rival.":"広い爆風が相手に届く","Select BLINK, then tap a landing twice.":"瞬間移動を選び、着地点を2回タップ","The rover moves to that landing.":"選んだ着地点へ移動する","Select PUSH, then hit the rival.":"押すを選び、相手に当てる","The rival moves farther away.":"相手が遠ざかる","Select PULL, then hit the rival.":"引き寄せを選び、相手に当てる","The rival moves closer.":"相手が近づく","Select BOUNCE before firing.":"発射前に反射追加を選ぶ","The shot gains an extra bounce.":"反射が1回増える","Select SPLIT before firing.":"発射前に分裂を選ぶ","The shot separates at its highest point.":"弾が頂点で分かれる","Select PHASE, then aim through the wall.":"すり抜けを選び、壁の向こうを狙う","The shot passes through thin cover.":"薄い障害物を通り抜ける","Select SWAP, then hit the rival.":"入れ替えを選び、相手に当てる","Both rovers exchange positions.":"自機と相手の位置が入れ替わる","A single arcing shot.":"1発の弾が弧を描いて飛ぶ","Aim near the rival.":"相手の近くを狙う","A wider blast reaches farther.":"広い爆風が遠くまで届く","Aim directly toward the rival.":"相手へ直接狙う","A fast, narrow shot.":"速く細い弾が飛ぶ","Raise the barrel above 55°.":"砲身を55度より上へ向ける","A high arc drops over cover.":"高い弾道で障害物を越える","Aim at the ground before the rival.":"相手の手前の地面を狙う","One hop carries the shot onward.":"1回跳ねて、その先へ進む","Bounce toward the rival.":"跳ね返して相手を狙う","The shot rebounds twice.":"2回跳ね返る","Land on the ground before the rival.":"相手の手前の地面へ着弾させる","The shot rolls into the rival.":"弾が転がって相手へ届く","Aim low at reflective ground.":"反射する地面へ低く撃つ","Several low skips carry the shot.":"低く何度も跳ねて進む","Aim the spread toward the rival.":"相手へ向けて広く撃つ","Three shots leave in different directions.":"3方向へ同時に弾が出る","Aim above the rival.":"相手の上を狙う","The shot splits at its highest point.":"弾が頂点で分かれる","Aim once toward the rival.":"相手に向けて一度狙う","Two shots land one after the other.":"2発が続けて命中する","Send the shot near the rival.":"相手の近くへ撃つ","The blast triggers in the air.":"空中で爆発する","Aim through the thin wall.":"薄い壁の向こうを狙う","The shot exits the cover and hits.":"壁を抜けて相手に当たる","Aim straight at the rival.":"相手へまっすぐ狙う","A fast shot flies almost straight.":"速い弾がほぼ直線に飛ぶ","The shot dives before impact.":"着弾前に急降下する","Land before the rival.":"相手の手前へ着弾させる","A ground wave reaches the rival.":"地面を伝う衝撃が相手に届く","Hit the rival.":"相手に当てる","The rival is pushed away.":"相手が押し出される","The rival is pulled closer.":"相手が引き寄せられる","Hit below the rival.":"相手の下側に当てる","The rival lands on a higher ledge.":"相手が高い足場に着地する","Repeated rebounds push the rival away.":"繰り返す跳弾で相手を押し出す","First Shore":"はじまりの浜辺","Mirror Flats":"鏡の平原","Canal Gates":"水路のゲート","Sunken Ruins":"沈んだ遺跡","Mist Gardens":"霧の庭園","Cloud Terraces":"雲の段丘","Crystal Road":"水晶の道","Prism Station":"プリズム駅","Rising Cavern":"上昇の洞窟","Amber Engines":"琥珀の機関","Wind Observatory":"風の観測所","Frozen Causeway":"凍てつく街道","Volcanic Rim":"火山の縁","Forge Pass":"鍛冶の峠","Magnetic Mine":"磁石の鉱山","Polarity Lab":"極性の研究所","Sky Garden":"空中庭園","Storm Carrier":"嵐の空母","Fortress Gates":"要塞の門","Dawn Keep":"夜明けの城","CLEARED":"クリア","OUT OF SHOTS":"弾数切れ","ROVER DISABLED":"自機破壊","DRAW":"引き分け","choose weapon":"武器を選ぶ","Preview":"プレビュー","Close weapon selection":"武器選択を閉じる","Close collection":"装備を閉じる","Close level selection":"ステージ選択を閉じる","Previous level":"前の面","Next level":"次の面","Previous theme":"前のテーマ","Next theme":"次のテーマ","One skill per turn":"スキルは1ターンに1回","Skills: choose one per turn":"スキルは1ターンに1つ選択","Battlefield. Left joystick moves; right joystick adjusts angle. Arrow keys move and aim; hold space to charge.":"戦場。左スティックで移動、右スティックで照準。矢印キーでも操作でき、スペース長押しで発射。","Fullscreen":"全画面","Exit fullscreen":"全画面を終了","Play without browser bars":"ブラウザのバーなしで遊ぶ","On iPhone Safari, use Share → Add to Home Screen, then launch ARCLINE from its icon.":"iPhoneのSafariでは「共有」→「ホーム画面に追加」を選び、追加されたARCLINEのアイコンから起動してください。","Your progress stays on this browser. The home-screen app may have separate progress.":"今の進行はこのブラウザに残ります。ホーム画面のアプリでは進行が別になる場合があります。","Close":"閉じる"};
@@ -1524,28 +1524,299 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
 </script>
 <script>(function (root) {
   "use strict";
+  const G =
+    typeof module !== "undefined" ? require("./geometry.js") : root.ArcGeometry;
+  const N =
+    typeof module !== "undefined"
+      ? require("./encounters.js")
+      : root.ArcEncounters;
+  const bodyWidth = 80,
+    minBodies = 6;
+  const rules = Object.freeze({
+    bodyWidth,
+    minBodies,
+    minGap: bodyWidth * minBodies,
+    preferredMin: bodyWidth * 7,
+    preferredMax: bodyWidth * 10,
+    farRange: bodyWidth * 10,
+    walk: 140,
+    cooldown: 2,
+    unlocks: Object.freeze({
+      normalWalk: 41,
+      bossWalk: 30,
+      bossTeleport: 50,
+      normalTeleport: 71,
+      secondNormalTeleport: 81,
+      final: 100,
+    }),
+  });
+  const policy = Object.freeze({
+    attackWeight: 0.45,
+    defenseWeight: 0.45,
+    distanceWeight: 0.1,
+    hitThreshold: 0.05,
+    routeThreshold: 0.1,
+    counterHits: 3,
+    retreatGain: 1,
+    walkAttackTolerance: 0.05,
+    walkScoreGain: 0.01,
+    teleportAttackGain: 0.08,
+    teleportScoreGain: 0.015,
+  });
+  const progression = Object.freeze(
+    [
+      {
+        before: 40,
+        band: 0,
+        angles: 4,
+        choices: 6,
+        directChance: 0.3,
+        searchLimit: 4,
+        forecastWalk: false,
+      },
+      {
+        before: 70,
+        band: 1,
+        angles: 6,
+        choices: 4,
+        directChance: 0.3,
+        searchLimit: 6,
+        forecastWalk: false,
+      },
+      {
+        before: 90,
+        band: 2,
+        angles: 8,
+        choices: 3,
+        directChance: 0.2,
+        searchLimit: 8,
+        forecastWalk: false,
+      },
+      {
+        before: Infinity,
+        band: 3,
+        angles: 9,
+        choices: 2,
+        directChance: 0.1,
+        searchLimit: 10,
+        forecastWalk: true,
+      },
+    ].map(Object.freeze),
+  );
+  function profile(stage) {
+    return (
+      progression.find((p) => stage < p.before) ||
+      progression[progression.length - 1]
+    );
+  }
+  function unlocked(s) {
+    const guardian = N.guardian(s.spec),
+      u = rules.unlocks;
+    return {
+      boss: guardian && s.stage >= u.bossWalk,
+      normal: !guardian && s.stage >= u.normalWalk && s.stage < u.final,
+    };
+  }
+  function capabilities(s) {
+    const { boss, normal } = unlocked(s),
+      u = rules.unlocks,
+      walk = boss || (normal && !s.units[1].floating);
+    return {
+      walk,
+      teleports: boss
+        ? s.stage >= u.bossTeleport
+          ? s.spec.midboss
+            ? 1
+            : 2
+          : 0
+        : walk && s.stage >= u.normalTeleport
+          ? s.stage < u.secondNormalTeleport
+            ? 1
+            : 2
+          : 0,
+      boss,
+    };
+  }
+  const bossActive = (s) => unlocked(s).boss;
+  function usesWalkBudget(s) {
+    const { boss, normal } = unlocked(s);
+    return boss || normal;
+  }
+  function remainingWalk(s) {
+    return Math.max(
+      0,
+      rules.walk - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
+    );
+  }
+  function bounds(s, side) {
+    const u = s.units[side],
+      h = u.hitShape || { x: 0, y: -22, rx: 40, ry: 31 };
+    const c = G.actorPoint(s, side, h.x || 0, h.y),
+      rx = Math.max(rules.bodyWidth / 2, h.rx);
+    const parts = G.actorParts(s, side).filter((p) => p.hp > 0);
+    return {
+      left: Math.min(
+        c.x - rx,
+        ...parts.map(
+          (p) => u.x + p.dx - Math.max(p.radius || 0, p.armorRadius || 0),
+        ),
+      ),
+      right: Math.max(
+        c.x + rx,
+        ...parts.map(
+          (p) => u.x + p.dx + Math.max(p.radius || 0, p.armorRadius || 0),
+        ),
+      ),
+      center: c,
+    };
+  }
+  function gap(s) {
+    const a = bounds(s, 0),
+      b = bounds(s, 1);
+    return Math.max(b.left - a.right, a.left - b.right);
+  }
+  function at(s, p) {
+    return { ...s, units: [s.units[0], { ...s.units[1], ...p }] };
+  }
+  const side = (s) => Math.sign(s.units[1].x - s.units[0].x);
+  function walkLegal(beforeGap, beforeSide, s) {
+    return (
+      beforeSide * side(s) >= 0 &&
+      gap(s) >= Math.min(rules.minGap, beforeGap) - 1e-7
+    );
+  }
+  function restore(u, original) {
+    for (const key of Object.keys(u)) if (!(key in original)) delete u[key];
+    Object.assign(u, original);
+  }
+  // Only voluntary enemy movement uses this guard; player and forced movement
+  // retain the shared geometry's original rules.
+  function move(s, amount) {
+    const u = s.units[1],
+      start = u.x;
+    let remaining = G.clamp(amount, -1000, 1000);
+    while (Math.abs(remaining) > 0.01) {
+      const old = { ...u },
+        before = gap(s),
+        direction = side(s),
+        dx = G.clamp(remaining, -2, 2);
+      G.move(s, 1, dx);
+      if (!walkLegal(before, direction, s)) {
+        restore(u, old);
+        break;
+      }
+      const moved = u.x - old.x;
+      if (Math.abs(moved) < 0.01) break;
+      remaining -= moved;
+      if (u.animation?.fall && u.animation !== old.animation) break;
+    }
+    return u.x - start;
+  }
+  function comfort(distance) {
+    if (distance < rules.minGap) return 0;
+    if (distance < rules.preferredMin)
+      return (
+        0.5 +
+        (0.5 * (distance - rules.minGap)) / (rules.preferredMin - rules.minGap)
+      );
+    return Math.max(
+      0,
+      1 - Math.max(0, distance - rules.preferredMax) / rules.farRange,
+    );
+  }
+  function score(attack, incoming, distance) {
+    const strength = (p) =>
+      (0.5 * p.hits) / p.samples + (0.5 * p.damage) / (1 + p.damage);
+    return (
+      policy.attackWeight * strength(attack) +
+      policy.defenseWeight * (1 - strength(incoming)) +
+      policy.distanceWeight * comfort(distance)
+    );
+  }
+  function choose(rows, stage, random) {
+    const sorted = [...rows].sort(
+      (a, b) => b.score - a.score || (b.gap || 0) - (a.gap || 0),
+    );
+    const count = Math.min(profile(stage).choices, sorted.length);
+    return count
+      ? sorted[Math.min(count - 1, Math.floor(random() * count))]
+      : null;
+  }
+  function directLane(s, world = s.world) {
+    // Height alone is not cover. Both direct firing segments must be open;
+    // attached armor is excluded by the caller's terrain view.
+    const centers = [bounds(s, 0).center, bounds(s, 1).center];
+    return [0, 1].every((i) => {
+      const u = s.units[i],
+        target = centers[1 - i],
+        theta = Math.atan2(target.y - u.y, target.x - u.x) - (u.slope || 0);
+      const angle =
+        ((u.facing === 1 ? -theta : theta - Math.PI) * 180) / Math.PI;
+      return G.lineClear(world, G.muzzle(s, i, angle), target);
+    });
+  }
+  function spread(rows, count) {
+    const sorted = [...rows].sort((a, b) => a.x - b.x || a.y - b.y);
+    if (sorted.length <= count) return sorted;
+    return Array.from(
+      { length: count },
+      (_, i) =>
+        sorted[Math.round((i * (sorted.length - 1)) / Math.max(1, count - 1))],
+    );
+  }
+  const api = {
+    rules,
+    policy,
+    capabilities,
+    bossActive,
+    usesWalkBudget,
+    remainingWalk,
+    profile,
+    bounds,
+    gap,
+    at,
+    side,
+    walkLegal,
+    restore,
+    move,
+    comfort,
+    score,
+    choose,
+    directLane,
+    spread,
+  };
+  if (typeof module !== "undefined") module.exports = api;
+  else root.ArcEnemyPosition = api;
+})(globalThis);
+</script>
+<script>(function (root) {
+  "use strict";
   const node = typeof module !== "undefined";
   const G = node ? require("./geometry.js") : root.ArcGeometry;
-  const N = node ? require("./encounters.js") : root.ArcEncounters;
+  const Position = node
+    ? require("./enemy-position.js")
+    : root.ArcEnemyPosition;
   const rules = Object.freeze({
-    walk: 140,
-    close: 150,
-    cooldown: 2,
+    walk: Position.rules.walk,
+    close: Position.rules.minGap,
+    cooldown: Position.rules.cooldown,
     echoDamage: 0.25,
     echoBlast: 80,
     echoInterval: 0.2,
   });
-  const active = (s) => N.guardian(s.spec) && s.stage >= 30;
+  const active = Position.bossActive;
   const field = (s) =>
     s.stage === 100
       ? Math.min(3, Math.floor((s.finalTeam?.index || 0) / 3))
       : 0;
   function rule(s) {
+    const boss = active(s),
+      r = boss ? Position.capabilities(s) : null;
     return {
-      boss: active(s),
-      walk: active(s),
-      teleports: active(s) && s.stage >= 50 ? (s.spec.midboss ? 1 : 2) : 0,
-      echo: !!s.spec.boss && s.stage >= 50,
+      boss,
+      walk: boss,
+      teleports: r ? r.teleports : 0,
+      echo: !!s.spec.boss && s.stage >= Position.rules.unlocks.bossTeleport,
       field: field(s),
     };
   }
@@ -1562,7 +1833,9 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       : old;
   }
   const attachment = (id) =>
-    /^shoulder[01](?::|$)/.test(id) || /^front-armor(?::|$)/.test(id) || /^part-armor:/.test(id);
+    /^shoulder[01](?::|$)/.test(id) ||
+    /^front-armor(?::|$)/.test(id) ||
+    /^part-armor:/.test(id);
   function terrain(s) {
     if (!s.world.solids.some((o) => attachment(o.id))) return s.world;
     return {
@@ -1591,7 +1864,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           ],
         });
       });
-    if (s.stage === 60 && !s.units[1].parts.some(p => p.hp <= 0)) {
+    if (s.stage === 60 && !s.units[1].parts.some((p) => p.hp <= 0)) {
       const u = s.units[1];
       const dir = u.facing || -1,
         xs = [u.x + dir * 62, u.x + dir * 92].sort((a, b) => a - b);
@@ -1602,16 +1875,28 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           xs[1] / 10,
           (500 - u.y + 3) / 10,
           (500 - u.y + 58) / 10,
-        ),armorPart: 0,
+        ),
+        armorPart: 0,
       });
     }
-    if ([70,80,90].includes(s.stage))G.actorParts(s,1).forEach((p,i)=>{
-      if(p.hp<=0)return;const u=s.units[1],r=p.armorRadius;
-      s.world.solids.push({id:'part-armor:'+i,kind:'solid',armorPart:i,poly:Array.from({length:8},(_,j)=>({x:u.x+p.dx+Math.cos(j*Math.PI/4)*r,y:u.y+p.dy+Math.sin(j*Math.PI/4)*r}))});
-    });
+    if ([70, 80, 90].includes(s.stage))
+      G.actorParts(s, 1).forEach((p, i) => {
+        if (p.hp <= 0) return;
+        const u = s.units[1],
+          r = p.armorRadius;
+        s.world.solids.push({
+          id: "part-armor:" + i,
+          kind: "solid",
+          armorPart: i,
+          poly: Array.from({ length: 8 }, (_, j) => ({
+            x: u.x + p.dx + Math.cos((j * Math.PI) / 4) * r,
+            y: u.y + p.dy + Math.sin((j * Math.PI) / 4) * r,
+          })),
+        });
+      });
   }
   function refresh(s) {
-    if (![40,60,70,80,90].includes(s.stage)) return;
+    if (![40, 60, 70, 80, 90].includes(s.stage)) return;
     const w = terrain(s);
     s.world = { ...w, solids: [...w.solids], surfaces: [...w.surfaces] };
     attachments(s);
@@ -1724,7 +2009,10 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     );
   }
   function facing(s, x = s.units[1].x) {
-    const frozen = s.stage < 100 && s.telegraph?.technique && s.bossEchoFiredRound !== s.round;
+    const frozen =
+      s.stage < 100 &&
+      s.telegraph?.technique &&
+      s.bossEchoFiredRound !== s.round;
     return (frozen ? s.telegraph.targetX : s.units[0].x) >= x ? 1 : -1;
   }
   function relocate(s, pad) {
@@ -1739,6 +2027,8 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     while (Math.abs(remaining) > 0.01) {
       const dx = G.clamp(remaining, -2, 2),
         old = { ...u },
+        beforeGap = Position.gap(s),
+        beforeSide = Position.side(s),
         oldWorld = s.world;
       if (u.floating) u.x = G.clamp(u.x + dx, u.range[0], u.range[1]);
       else {
@@ -1747,8 +2037,12 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       }
       u.slope = 0;
       u.facing = facing(s);
-      if (Math.abs(u.x - old.x) < 0.01 || !fits(s)) {
-        Object.assign(u, old);
+      if (
+        Math.abs(u.x - old.x) < 0.01 ||
+        !Position.walkLegal(beforeGap, beforeSide, s) ||
+        !fits(s)
+      ) {
+        Position.restore(u, old);
         s.world = oldWorld;
         break;
       }
@@ -1824,10 +2118,13 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     typeof module !== "undefined"
       ? require("./boss-actions.js")
       : root.ArcBossActions;
+  const Position =
+    typeof module !== "undefined"
+      ? require("./enemy-position.js")
+      : root.ArcEnemyPosition;
   function create({
     G,
     N,
-    guardian,
     trajectory,
     solve,
     cpuPlan,
@@ -1835,20 +2132,8 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
     legacyMove,
     afterTurn,
   }) {
-    const eligible = (s) =>
-      B.active(s) ||
-      (s.stage >= 40 && s.stage < 100 && !guardian(s) && !s.units[1].floating);
-    const rule = (s) => ({
-      walk: eligible(s),
-      teleports: B.active(s)
-        ? B.rule(s).teleports
-        : eligible(s) && s.stage >= 71
-          ? s.stage < 81
-            ? 1
-            : 2
-          : 0,
-      boss: B.active(s),
-    });
+    const rule = Position.capabilities,
+      policy = Position.policy;
     const stats = (s) => ({
       turns: 0,
       walkMisses: 0,
@@ -1876,48 +2161,173 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       const t = clone(s);
       if (B.active(s)) B.relocate(t, p);
       else Object.assign(t.units[1], p);
-      t.units[1].facing = B.active(t) ? B.facing(t, p.x) : t.units[0].x >= p.x ? 1 : -1;
+      t.units[1].facing = B.active(t)
+        ? B.facing(t, p.x)
+        : t.units[0].x >= p.x
+          ? 1
+          : -1;
       return t;
     }
-    function probe(s) {
+    function playerView(s) {
+      return {
+        ...s,
+        mode: "W01",
+        weaponId: "W01",
+        selectedSkill: null,
+        teleportMode: false,
+        angle: 48,
+        power: 70,
+        units: s.units.map((u, i) =>
+          i === 0 ? { ...u, facing: s.units[1].x >= u.x ? 1 : -1 } : u,
+        ),
+      };
+    }
+    function threat(s, shot, side) {
+      return (
+        shot.damage[1 - side] +
+        (side === 0
+          ? s.units[1].parts.reduce(
+              (n, p, i) =>
+                n +
+                0.8 *
+                  (p.breakHits
+                    ? (shot.partHits?.[i] || 0) / p.breakHits
+                    : shot.partDamage?.[i] || 0),
+              0,
+            )
+          : 0)
+      );
+    }
+    function probe(s, side = 1) {
+      if (!side) s = playerView(s);
       const foe = N.forSpec(s.spec),
-        a = foe.attack || {},
+        a = side ? foe.attack || {} : {},
         lo = Math.max(-8, a.minAngle ?? -8),
-        hi = Math.min(84, a.maxAngle ?? 84);
+        hi = Math.min(84, a.maxAngle ?? 84),
+        angles = Position.profile(s.stage).angles;
       let hits = 0,
         damage = 0;
-      for (let i = 0; i < 6; i++)
+      for (let i = 0; i < angles; i++)
         for (const power of [35, 65, 95]) {
-          const shot = trajectory(s, 1, lo + ((hi - lo) * i) / 5, power, {
-            weaponId: a.weaponId || "W01",
-            ...(a.curve ? { curve: a.curve } : {}),
-          });
-          if (shot.damage[0] > 0.05 && shot.damage[1] < shot.damage[0]) {
+          const shot = trajectory(
+            s,
+            side,
+            lo + ((hi - lo) * i) / (angles - 1),
+            power,
+            {
+              weaponId: a.weaponId || "W01",
+              skill: null,
+              ...(a.curve ? { curve: a.curve } : {}),
+            },
+          );
+          const amount = threat(s, shot, side);
+          if (amount > policy.hitThreshold && shot.damage[side] < amount) {
             hits++;
-            damage = Math.max(damage, shot.damage[0]);
+            damage = Math.max(damage, amount);
           }
         }
-      return { hits, damage, value: damage * 2 + hits / 18 };
+      return {
+        hits,
+        damage,
+        samples: angles * 3,
+        value: damage * 2 + hits / (angles * 3),
+      };
     }
-    function exact(s, side = 1) {
-      const a = side ? N.forSpec(s.spec).attack || {} : {};
+    function assess(s, p) {
+      const attack = probe(s),
+        incoming = probe(s, 0),
+        gap = Position.gap(s);
+      return {
+        p,
+        state: s,
+        attack,
+        incoming,
+        gap,
+        score: Position.score(attack, incoming, gap),
+        direct: Position.directLane(s, B.terrain(s)),
+      };
+    }
+    function solution(s, side = 1) {
+      let a = side
+        ? N.forSpec(s.spec).attack || {}
+        : { weaponId: "W01", skill: null };
       let best = solve(s, side, a);
-      if (side && best.score <= 0.1 && Object.keys(a).length)
-        best = solve(s, side);
-      return best.score;
+      if (
+        side &&
+        best.score <= policy.routeThreshold &&
+        Object.keys(a).length
+      ) {
+        a = {};
+        best = solve(s, side, a);
+      }
+      return { ...best, settings: a };
+    }
+    function aimProbe(s, side, aim, angles = [-3, 0, 3], powers = [-8, 0, 8]) {
+      let hits = 0,
+        damage = 0;
+      if (aim.score > policy.routeThreshold)
+        for (const da of angles)
+          for (const dp of powers) {
+            const shot = trajectory(
+              s,
+              side,
+              Math.max(-8, Math.min(84, aim.angle + da)),
+              Math.max(20, Math.min(100, aim.power + dp)),
+              {
+                ...aim.settings,
+                weaponId: aim.settings.weaponId || "W01",
+                skill: null,
+              },
+            );
+            const amount = threat(s, shot, side);
+            if (amount > policy.hitThreshold && shot.damage[side] < amount) {
+              hits++;
+              damage = Math.max(damage, amount);
+            }
+          }
+      const samples = angles.length * powers.length;
+      return { hits, damage, samples, value: damage * 2 + hits / samples };
+    }
+    function* inspect(c) {
+      const own = solution(c.state);
+      yield;
+      if (own.score <= policy.routeThreshold)
+        return { ...c, canAttack: false, canCounter: false };
+      const defense = playerView(c.state),
+        other = solution(defense, 0);
+      yield;
+      const attack = aimProbe(c.state, 1, own),
+        incoming = aimProbe(defense, 0, other),
+        narrow = aimProbe(defense, 0, other, [-1, 0, 1], [-2, 0, 2]);
+      return {
+        ...c,
+        attack,
+        incoming,
+        score: Position.score(attack, incoming, c.gap),
+        canAttack: own.score > policy.routeThreshold,
+        canCounter:
+          other.score > policy.routeThreshold &&
+          narrow.hits >= policy.counterHits,
+      };
     }
     function walkCandidates(s) {
       const u = s.units[1],
-        budget = Math.max(
-          0,
-          140 - (s.enemyWalkRound === s.round ? s.enemyWalkUsed || 0 : 0),
-        ),
+        budget = Position.remainingWalk(s),
         micro = N.forSpec(s.spec).move || 0,
         seen = new Set(),
         rows = [];
-      for (const dx of [140, -140, 100, -100, 60, -60, micro, -micro]) {
+      for (const dx of [
+        Position.rules.walk,
+        -Position.rules.walk,
+        100,
+        -100,
+        60,
+        -60,
+        micro,
+        -micro,
+      ]) {
         const t = clone(s);
-        (B.active(t) ? B.move : (s, dx) => G.move(s, 1, dx))(
+        (B.active(t) ? B.move : Position.move)(
           t,
           Math.max(-budget, Math.min(budget, dx)),
         );
@@ -1940,34 +2350,6 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       }
       return rows;
     }
-    function counterable(s) {
-      // A player can turn during the free walking portion of the next hand.
-      // Do not reject a boss retreat merely because the old cannon faces away.
-      if (B.active(s))
-        s = {
-          ...s,
-          units: s.units.map((u, i) =>
-            i === 0 ? { ...u, facing: s.units[1].x >= u.x ? 1 : -1 } : u,
-          ),
-        };
-      const p = solve(s, 0);
-      if (p.score <= 0.1) return false;
-      let hits = 0;
-      for (const da of [-1, 0, 1])
-        for (const dp of [-2, 0, 2]) {
-          const shot = trajectory(s, 0, p.angle + da, p.power + dp, {
-            weaponId: "W01",
-            skill: null,
-          });
-          const counter =
-            shot.damage[1] +
-            (B.active(s)
-              ? (Object.values(shot.partDamage).reduce((a, b) => a + b, 0) + Object.values(shot.partHits||{}).reduce((a,b)=>a+b,0)) * 0.8
-              : 0);
-          if (counter > 0.05) hits++;
-        }
-      return hits >= 3;
-    }
     function supported(s, p) {
       if (B.active(s) && (p.floating || s.units[1].floating))
         return B.fits(at(s, p));
@@ -1979,6 +2361,15 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         !!G.surfaceAt(s.world, p.x - 25, p.y, span) &&
         !!G.surfaceAt(s.world, p.x + 25, p.y, span)
       );
+    }
+    // Planning and application are separate checks, using one landing rule.
+    function landingFuture(s, p) {
+      const future = afterTurn(at(s, p));
+      return Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
+        !supported(future, future.units[1]) ||
+        Position.gap(future) < Position.rules.minGap
+        ? null
+        : future;
     }
     function teleportCandidates(s) {
       const u = s.units[1],
@@ -2032,8 +2423,16 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             if (
               !p ||
               Math.abs(p.x - u.x) < 160 ||
-              Math.abs(p.x - other.x) < 250 ||
-              Math.hypot(p.x - other.x, p.y - other.y) < 300 ||
+              Position.gap(
+                Position.at(s, {
+                  ...p,
+                  facing: B.active(s)
+                    ? B.facing(s, p.x)
+                    : other.x >= p.x
+                      ? 1
+                      : -1,
+                }),
+              ) < Position.rules.minGap ||
               seen.has(Math.round(p.x)) ||
               !supported(s, p)
             )
@@ -2042,16 +2441,29 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             out.push(p);
           }
         }
-      if (B.active(s) && out.length > 32) {
-        out.sort((a, b) => a.x - b.x || a.y - b.y);
-        return Array.from(
-          { length: 32 },
-          (_, i) => out[Math.round((i * (out.length - 1)) / 31)],
-        );
+      const limit = B.active(s) ? 32 : 16;
+      const direct = [],
+        covered = [];
+      for (const p of out) {
+        const t = Position.at(s, { ...p, facing: other.x >= p.x ? 1 : -1 });
+        (Position.directLane(t, B.terrain(s)) ? direct : covered).push(p);
       }
-      return out
-        .sort((a, b) => Math.abs(a.y - u.y) - Math.abs(b.y - u.y))
-        .slice(0, B.active(s) ? 32 : 16);
+      if (!direct.length || !covered.length) return Position.spread(out, limit);
+      const first = Position.spread(
+        covered,
+        Math.min(covered.length, limit / 2),
+      );
+      const second = Position.spread(
+        direct,
+        Math.min(direct.length, limit - first.length),
+      );
+      return first.concat(
+        second,
+        Position.spread(
+          covered.filter((p) => !first.includes(p)),
+          limit - first.length - second.length,
+        ),
+      );
     }
     function* evaluate(s, random) {
       const trial = clone(s),
@@ -2060,7 +2472,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         r = rule(trial);
       if (!r.walk) {
         const target = legacyMove(trial);
-        G.move(trial, 1, target - u.x);
+        Position.move(trial, target - u.x);
         return { target, plan: cpuPlan(trial, random), action: null };
       }
       if (r.boss) {
@@ -2069,74 +2481,128 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       }
       // The charging laser is the sole exception to boss repositioning.
       // Echo deferral is a normal turn, so it keeps the usual movement rules.
-      if (trial.telegraph?.technique === "E_FINAL_4" && trial.bossEchoFiredRound !== trial.round) {
-        const st = stats(trial), p = { x: u.x, y: u.y, slope: u.slope, surface: u.surface };
-        const next = { ...st, field: B.field(trial), turns: st.turns + 1, cooldown: Math.max(0, st.cooldown - 1) };
-        return { target: u.x, plan: cpuPlan(trial, random), action: { kind: "shoot", from, to: p, round: trial.round, next, reason: "final-beam-lock" } };
+      if (
+        trial.telegraph?.technique === "E_FINAL_4" &&
+        trial.bossEchoFiredRound !== trial.round
+      ) {
+        const st = stats(trial),
+          p = { x: u.x, y: u.y, slope: u.slope, surface: u.surface };
+        const next = {
+          ...st,
+          field: B.field(trial),
+          turns: st.turns + 1,
+          cooldown: Math.max(0, st.cooldown - 1),
+        };
+        return {
+          target: u.x,
+          plan: cpuPlan(trial, random),
+          action: {
+            kind: "shoot",
+            from,
+            to: p,
+            round: trial.round,
+            next,
+            reason: "final-beam-lock",
+          },
+        };
       }
-      const retreat = r.boss && B.gap(trial) <= B.rules.close;
+      const retreat = Position.gap(trial) < Position.rules.minGap;
       const st = stats(trial),
         rng = seeded(
           ((trial.matchSeed || 0) + trial.round * 8191 + 17077) >>> 0,
         ),
-        current = probe(trial);
+        current = yield* inspect(assess(trial, { x: u.x, y: u.y }));
       yield;
-      const blocked = exact(trial) <= 0.1;
+      const blocked = !current.canAttack;
       yield;
       const walking = [];
       for (const p of walkCandidates(trial)) {
-        walking.push({ p, ...probe(at(trial, p)) });
+        let future = at(trial, p);
+        if (Position.profile(trial.stage).forecastWalk) {
+          future = afterTurn(future);
+          if (
+            Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
+            !supported(future, p)
+          )
+            continue;
+        }
+        const c = assess(future, p);
+        if (!retreat || c.gap > current.gap + policy.retreatGain)
+          walking.push(c);
         yield;
       }
-      walking.sort(
-        (a, b) =>
-          b.value - a.value || Math.abs(b.p.x - u.x) - Math.abs(a.p.x - u.x),
+      const walkOptions = [];
+      const rankedWalk = [...walking].sort((a, b) =>
+        retreat ? b.gap - a.gap || b.score - a.score : b.score - a.score,
       );
-      const walk = walking.find(
-        (c) => c.value >= current.value - 0.05 && (!blocked || c.hits > 0),
-      );
+      for (const raw of rankedWalk) {
+        const c = yield* inspect(raw);
+        if (
+          c.canAttack &&
+          c.canCounter &&
+          (retreat ||
+            c.attack.value >=
+              current.attack.value - policy.walkAttackTolerance ||
+            c.score > current.score + policy.walkScoreGain)
+        )
+          walkOptions.push(c);
+        if (
+          (retreat && walkOptions.length) ||
+          walkOptions.length >= Position.profile(trial.stage).choices
+        )
+          break;
+      }
+      const walk = retreat
+        ? walkOptions[0] || null
+        : Position.choose(walkOptions, trial.stage, rng);
       let chosen = null,
         opportunity = false,
         reason = "current-shot";
       if (r.teleports > st.teleports && st.cooldown === 0) {
         const candidates = [];
         for (const p of teleportCandidates(trial)) {
-          const future = afterTurn(at(trial, p));
+          const future = landingFuture(trial, p);
           // A bridge or gate may change as soon as the player gets control.
-          if (
-            Math.hypot(future.units[1].x - p.x, future.units[1].y - p.y) > 2 ||
-            !supported(future, future.units[1])
-          )
-            continue;
-          candidates.push({ p, future, ...probe(future) });
+          if (!future) continue;
+          candidates.push(assess(future, p));
           yield;
         }
-        const skill = r.boss ? 1 : (trial.stage - 71) / 28;
-        candidates.sort(
-          (a, b) =>
-            b.value +
-            Math.max(0, u.y - b.p.y) * 0.0005 * skill -
-            (a.value + Math.max(0, u.y - a.p.y) * 0.0005 * skill),
-        );
-        for (const c of retreat ? candidates : candidates.slice(0, 3)) {
-          if (
-            retreat &&
-            (B.gap(c.future) <= B.rules.close ||
-              B.gap(c.future) <= B.gap(trial))
-          )
-            continue;
-          if (
-            !retreat &&
-            c.value <= Math.max(current.value, walk?.value || 0) + 0.08
-          )
-            continue;
-          const future = c.future;
-          const canAttack = exact(future) > 0.1;
-          yield;
-          if (!canAttack) continue;
-          const canCounter = counterable(future);
-          yield;
-          if (!canCounter) continue;
+        // The family roll selects a destination, never whether to teleport.
+        // A missing or unfair family falls back to the other legal family.
+        const direct = rng() < Position.profile(trial.stage).directChance;
+        let landing = null;
+        for (const family of [direct, !direct]) {
+          const pool = candidates
+            .filter((c) => c.direct === family)
+            .sort((a, b) => b.score - a.score);
+          const options = [];
+          const search = retreat
+            ? pool
+            : pool.slice(0, Position.profile(trial.stage).searchLimit);
+          for (const raw of search) {
+            const c = yield* inspect(raw);
+            const improvesAttack =
+              c.attack.value >
+              Math.max(current.attack.value, walk?.attack.value || 0) +
+                policy.teleportAttackGain;
+            const improvesPosition =
+              c.score >
+              Math.max(current.score, walk?.score || 0) +
+                policy.teleportScoreGain;
+            if (
+              c.canAttack &&
+              c.canCounter &&
+              (retreat || improvesAttack || improvesPosition)
+            )
+              options.push(c);
+            if (options.length >= Position.profile(trial.stage).choices) break;
+          }
+          if (options.length) {
+            landing = Position.choose(options, trial.stage, rng);
+            break;
+          }
+        }
+        if (landing) {
           opportunity = true;
           const required =
             retreat ||
@@ -2144,17 +2610,22 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             st.opportunityMisses >= 2;
           const chance = Math.min(
             0.85,
-            0.55 + (c.value - current.value) * 0.12,
+            0.55 +
+              Math.max(
+                0,
+                landing.attack.value - current.attack.value,
+                (landing.score - current.score) * 4,
+              ) *
+                0.12,
           );
           if (required || rng() < chance) {
-            chosen = c;
+            chosen = landing;
             reason = retreat
               ? "close-retreat"
               : required
                 ? "repeated-useful-opportunity"
-                : "better-firing-position";
+                : "better-combat-position";
           }
-          break;
         }
       }
       const next = {
@@ -2167,7 +2638,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       };
       if (chosen) {
         next.teleports++;
-        next.cooldown = 2;
+        next.cooldown = Position.rules.cooldown;
         next.blocked = 0;
         next.opportunityMisses = 0;
         return {
@@ -2180,6 +2651,12 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
             round: trial.round,
             next,
             reason,
+            position: {
+              gap: chosen.gap,
+              score: chosen.score,
+              direct: chosen.direct,
+              band: Position.profile(trial.stage).band,
+            },
           },
         };
       }
@@ -2187,10 +2664,14 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
       if (
         walk &&
         !u.displaced &&
-        (st.walkMisses >= 1 || blocked || rng() < 0.72)
+        (retreat || st.walkMisses >= 1 || blocked || rng() < 0.72)
       ) {
         p = walk.p;
-        reason = blocked ? "open-firing-line" : "reposition";
+        reason = retreat
+          ? "spacing-retreat"
+          : blocked
+            ? "open-firing-line"
+            : "reposition";
         next.walkMisses = 0;
         next.blocked = 0;
       } else next.walkMisses = walk ? st.walkMisses + 1 : 0;
@@ -2201,6 +2682,15 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         round: trial.round,
         next,
         reason,
+        position:
+          walk && p === walk.p
+            ? {
+                gap: walk.gap,
+                score: walk.score,
+                direct: walk.direct,
+                band: Position.profile(trial.stage).band,
+              }
+            : null,
       };
       return { target: p.x, plan: cpuPlan(at(trial, p), random), action };
     }
@@ -2247,6 +2737,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           )
         )
           return false;
+        if (!landingFuture(s, action.to)) return false;
         if (r.boss) {
           const from = { ...u, parts: u.parts.map((p) => ({ ...p })) };
           B.relocate(s, action.to);
@@ -2258,9 +2749,22 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
         u.teleportFlash = { age: 0 };
       } else if (
         !["shoot", "walk-shoot"].includes(action.kind) ||
-        Math.abs(action.to.x - u.x) > 140.001
+        Math.abs(action.to.x - u.x) > Position.remainingWalk(s) + 0.001
       )
         return false;
+      else {
+        const preview = clone(s),
+          delta = action.to.x - u.x;
+        (r.boss ? B.move : Position.move)(preview, delta);
+        if (
+          Math.hypot(
+            preview.units[1].x - action.to.x,
+            preview.units[1].y - action.to.y,
+          ) > 2 ||
+          (action.kind === "shoot" && Math.abs(delta) > 1)
+        )
+          return false;
+      }
       if (r.boss) {
         u.facing = B.facing(s);
         B.refresh(s);
@@ -2275,6 +2779,7 @@ const api={technique,telegraph,appearance,decorate,plan,resolve,fixedAim,damageS
           teleports: s.enemyTactics.teleports,
           cooldown: s.enemyTactics.cooldown,
           reason: action.reason,
+          position: action.position || null,
         })
         .slice(-40);
       if (u.displaced) u.displaced--;
@@ -2304,6 +2809,7 @@ const N=node?require('./encounters.js'):root.ArcEncounters;
 const guardian=state=>N.guardian(state.spec);
 const EnemyActions=node?require('./enemy-actions.js'):root.ArcEnemyActions;
 const BossActions=node?require('./boss-actions.js'):root.ArcBossActions;
+const EnemyPosition=node?require('./enemy-position.js'):root.ArcEnemyPosition;
 const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
 const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
 const EnemyAttacks=node?require('./enemy-attacks.js'):root.ArcEnemyAttacks;
@@ -2643,7 +3149,30 @@ function next(s){
 }
 const movementLimit=140;
 function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
-function move(s,side,amount,charging=false){if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;if(side===0&&s.characterId){const p=C.get(s.characterId);amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);}if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s))){if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}amount=clamp(amount,-Math.max(0,140-(s.enemyWalkUsed||0)),Math.max(0,140-(s.enemyWalkUsed||0)));}const moved=side===1&&BossActions.active(s)?BossActions.move(s,amount):G.move(s,side,amount);if(side===1&&(BossActions.active(s)||s.stage>=40&&s.stage<100&&!guardian(s)))s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);if(side===0&&moved){s.walkUsed=(s.walkUsed||0)+Math.abs(moved);if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}}return moved;}
+function move(s,side,amount,charging=false){
+ if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;
+ if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;
+ if(side===0&&s.characterId){
+  const p=C.get(s.characterId);
+  amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);
+ }
+ if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));
+ const enemyWalking=side===1&&EnemyPosition.usesWalkBudget(s);
+ if(enemyWalking){
+  if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}
+  const remaining=EnemyPosition.remainingWalk(s);
+  amount=clamp(amount,-remaining,remaining);
+ }
+ const moved=side===1
+  ?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount))
+  :G.move(s,side,amount);
+ if(enemyWalking)s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);
+ if(side===0&&moved){
+  s.walkUsed=(s.walkUsed||0)+Math.abs(moved);
+  if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}
+ }
+ return moved;
+}
 const solveCache=new Map();
 function solve(s,side,opts={}){
  const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
@@ -2725,10 +3254,10 @@ function enemyMoveTarget(s){
  const u=s.units[1],profile=s.spec.enemyProfile;if(guardian(s)||s.stage<=4||u.floating)return u.x;
  if(u.displaced){u.displaced--;return u.x;}
  if(profile===1&&s.round!==2||profile===2&&s.round%2===1)return u.x;
- const distance=N.forSpec(s.spec).move??[0,30,60,60,90,90][profile],sign=s.last[0]?.end.x<u.x?1:-1;
+ const distance=N.forSpec(s.spec).move??[0,30,60,60,90,90][profile],sign=EnemyPosition.gap(s)<EnemyPosition.rules.minGap?(u.x>=s.units[0].x?1:-1):s.last[0]?.end.x<u.x?1:-1;
  const original={...u};let target=u.x;
  // Candidate movement must retain a shared-physics attack route; no current charge input is read.
- for(const dx of [distance*sign,-distance*sign]){G.move(s,1,dx);u.facing=s.units[0].x>=u.x?1:-1;if(solve(s,1).score>.1){target=u.x;Object.assign(u,original);break;}Object.assign(u,original);}
+ for(const dx of [distance*sign,-distance*sign]){EnemyPosition.move(s,dx);u.facing=s.units[0].x>=u.x?1:-1;if(solve(s,1).score>.1){target=u.x;EnemyPosition.restore(u,original);break;}EnemyPosition.restore(u,original);}
  return target;
 }
 function chargeSpecial(s){if(guardian(s))return 0;const unlocked=Math.min(3,Math.floor(s.playerTurn/2)),delta=Math.max(0,unlocked-(s.specialUnlocks||0));s.specialUnlocks=unlocked;if(delta){s.specialAmmo=Math.min(3,s.specialAmmo+delta);s.specialChargeSerial+=delta;}return delta;}
@@ -2740,7 +3269,7 @@ function changeCharacter(s,id,owned){
  if(W.get(s.mode).special)s.mode=C.get(id).special.id;
  s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
 }
-const enemyAI=EnemyActions.create({G,N,guardian,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
+const enemyAI=EnemyActions.create({G,N,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
 function bossEchoPlan(s,random){
  const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
  const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
@@ -2754,7 +3283,7 @@ function bossEchoPlan(s,random){
 }
 function planEnemyAction(s,random){return BossActions.due(s)?{target:s.units[1].x,plan:bossEchoPlan(s,random),action:null}:enemyAI.plan(s,random);}
 async function planEnemyActionAsync(s,random,opts){return BossActions.due(s)?planEnemyAction(s,random):enemyAI.planAsync(s,random,opts);}
-const api={bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+const api={enemyPosition:EnemyPosition,bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
 if(node)module.exports=api;else root.ArcEngine=api;
 })(globalThis);
 </script>

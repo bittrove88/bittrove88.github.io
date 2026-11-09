@@ -1,0 +1,219 @@
+{
+  "status": "PASS",
+  "version": "0.33.0",
+  "baseline": "467e13662f0c568eab18103f962b828322be70c7",
+  "agreement": "User OK to the presented spacing and staged position-selection plan; clarification active normal movement starts at41. No merge instruction for this change.",
+  "unit": {
+    "status": "PASS",
+    "mode": "unit",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-spacing",
+        "status": "PASS",
+        "ms": 2367,
+        "log": "logs/enemy-spacing.log"
+      },
+      {
+        "name": "boss-motion",
+        "status": "PASS",
+        "ms": 11907,
+        "log": "logs/boss-motion.log"
+      },
+      {
+        "name": "armor-break",
+        "status": "PASS",
+        "ms": 56,
+        "log": "logs/armor-break.log"
+      }
+    ],
+    "skipped": []
+  },
+  "policyChecks": 3327,
+  "controlledFamilyRatios": [
+    {
+      "stage": 50,
+      "ratio": 0.31666666666666665
+    },
+    {
+      "stage": 80,
+      "ratio": 0.20666666666666667
+    },
+    {
+      "stage": 100,
+      "ratio": 0.10333333333333333
+    }
+  ],
+  "browser": {
+    "status": "PASS",
+    "mode": "browser",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-spacing-browser",
+        "status": "PASS",
+        "ms": 15478,
+        "log": "logs/enemy-spacing-browser.log"
+      },
+      {
+        "name": "boss-motion-browser",
+        "status": "PASS",
+        "ms": 55573,
+        "log": "logs/boss-motion-browser.log"
+      },
+      {
+        "name": "armor-break-browser",
+        "status": "PASS",
+        "ms": 1959,
+        "log": "logs/armor-break-browser.log"
+      }
+    ],
+    "skipped": []
+  },
+  "additionalBrowser": {
+    "status": "PASS",
+    "scenarios": 12,
+    "rows": [
+      {
+        "stage": 50,
+        "width": 1280,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 1280,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 1280,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 809.25,
+        "echoShots": 2,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 50,
+        "width": 568,
+        "reducedMotion": true,
+        "language": "ja",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 568,
+        "reducedMotion": true,
+        "language": "ja",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 568,
+        "reducedMotion": true,
+        "language": "ja",
+        "gap": 809.25,
+        "echoShots": 2,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 50,
+        "width": 844,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 844,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 844,
+        "reducedMotion": false,
+        "language": "ja",
+        "gap": 809.25,
+        "echoShots": 2,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 50,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "en",
+        "gap": 762,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 70,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "en",
+        "gap": 650.1340581726183,
+        "echoShots": 1,
+        "playerActionCount": 1
+      },
+      {
+        "stage": 100,
+        "width": 568,
+        "reducedMotion": false,
+        "language": "en",
+        "gap": 809.25,
+        "echoShots": 2,
+        "playerActionCount": 1
+      }
+    ]
+  },
+  "generated": {
+    "status": "PASS",
+    "generatedFiles": 155,
+    "changedAfterRebuild": [],
+    "unstableAfterSecondRebuild": [],
+    "sourceTreeUntouched": true,
+    "scope": "Two isolated regenerations,canonical UI/style/release resources,data,previews and guides; original production tree unchanged."
+  },
+  "reuse": "The final six suites ran together after architecture cleanup. The native35-map candidate audit is reused because its candidate-generation behavior is unchanged; the123-condition architecture comparison is recorded separately.",
+  "scope": "Real physical movement, native boss50/70 and late-final flat relay fixtures; normal enemy flat/cover fixtures9/41/71/81; controlled policy simulations separate from real firing and browser checks. Initial native candidate audit35 maps is not a whole-campaign clearance or probability audit.",
+  "visualReview": [
+    "spacing-transfer-568.png",
+    "spacing-transfer-1280.png"
+  ],
+  "sourceSha256": {
+    "game/dist/enemy-position.js": "d97892a0320818d8f1d49521ce9ab26e3e31187099a3bd076a115ac7cb8c1821",
+    "game/dist/enemy-actions.js": "de6907ecccd16ca99672977c151c064d75f2766178eaec4b46ac451042f5ad6c",
+    "game/dist/boss-actions.js": "980dc976b87ec2375bc2f5e36983fbb42013ea4e9f3481be1176b3c7eb131434",
+    "game/dist/engine.js": "ba0a9761da554ef5b7ac482f0366e7119893d8ac40f66f72f8e321ce24761258",
+    "game/dist/cpu-worker.js": "10f2b1b8f40930d178566553b78ca8cb9f4685f9b7aa0e438a11ca496cf657bd",
+    "game/runtime.json": "84f3ade5a432137c2251e381f1b7cc09f211fd0b78e381db98f8d54ae9845360",
+    "game/tests/enemy-spacing.test.cjs": "e2b33f64d92ca20cf4cacd8d249fb0d92f40fd4edd6ef36500a989696ac92c42",
+    "game/tests/enemy-spacing-browser.test.cjs": "15cdb55097ea5139324c26bc3f66248c96696e43785eb48c44c1939eb4a43337",
+    "game/tests/boss-motion-browser.test.cjs": "7837dea4a4d937f1a0dd82ec761ade63fe3aaeae7755e36e13967a3334bd9120"
+  },
+  "notPerformed": [
+    "physical iOS/Android",
+    "all100 maps full playthrough and win-rate measurements",
+    "audio decode regression",
+    "merge/deployment/public version"
+  ],
+  "architectureReview": "ARCHITECTURE_REVIEW.json"
+}

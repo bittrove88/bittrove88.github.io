@@ -1,74 +1,65 @@
 {
   "version": 1,
-  "change": "序盤チュートリアルの統合と未使用定義削除",
-  "reason": "合意した導入順を保ち、1・2面の別画面の連続と未選択道具の割り込みを解消する。必須ギミック、旧既読・進行、操作復帰に限定して確認する。",
+  "change": "0.33.0 敵の六機体分の間合いと後半ほど上手くなる攻守の位置選び",
+  "reason": "ユーザーの調整計画へのOKと41面開始の補足を反映。距離制限の全移動経路・歩行途中・転移確定時、段階的な候補選択、直線候補群の割合と代替、実弾道による攻守評価とWorker/協調実行を確認。ボス手番・残像・装甲の直接影響先と新モジュールの共有生成物を対象にする。 保守性の見直しでは解禁条件・歩行予算・評価設定と転移後の合法性判定を共通化し、同じ6スイートで隣接動作を確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/design/narrative_0_13.json",
-    "ARCLINE/design/preview_curriculum.json",
-    "ARCLINE/design/story_emotion_0141/TEXT_DIFF.json",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/battle-ui.js",
+    "ARCLINE/game/dist/boss-actions.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/encounters.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/i18n.js",
+    "ARCLINE/game/dist/enemy-actions.js",
+    "ARCLINE/game/dist/enemy-position.js",
+    "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/lessons.js",
-    "ARCLINE/game/dist/media-ending.css",
-    "ARCLINE/game/dist/preview.js",
     "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/screens.js",
-    "ARCLINE/game/dist/special-ui.js",
-    "ARCLINE/game/dist/story.js",
-    "ARCLINE/game/dist/style.css",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/src/lessons-runtime.js",
-    "ARCLINE/game/styles/gameplay.css",
-    "ARCLINE/game/styles/media-ending.css",
+    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
+    "ARCLINE/game/tests/enemy-spacing-browser.test.cjs",
+    "ARCLINE/game/tests/enemy-spacing.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tests/tutorial-flow-browser.test.cjs",
-    "ARCLINE/game/tests/tutorial-flow.test.cjs",
-    "ARCLINE/game/ui/battle-ui.js",
-    "ARCLINE/game/ui/screens.js",
-    "ARCLINE/game/ui/special-ui.js",
-    "ARCLINE/game/visual/encounters.json",
+    "ARCLINE/game/tools/build_attack_review.py",
+    "ARCLINE/game/tools/build_map_atlas.py",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.32.0/index.html"
+    "ARCLINE/updates/0.33.0/index.html"
   ],
   "suites": {
     "unit": [
-      "tutorial-flow"
+      "enemy-spacing",
+      "boss-motion",
+      "armor-break"
     ],
     "browser": [
-      "tutorial-flow-browser"
+      "enemy-spacing-browser",
+      "boss-motion-browser",
+      "armor-break-browser"
     ]
   },
   "checks": {
     "generated": true,
     "baseline": false,
     "package": false,
-    "python": false,
+    "python": true,
     "nativeAudio": false
   },
   "manual": [
-    "制作中の単体336項目・ブラウザ174項目は同じソース・条件で有効な事前確認として保持。最終合意「検証しマージ」により、選択2スイートと生成物一致をCIで本検証する。",
-    "成功後に先行mainとマージ指示の条件を確認してマージし、対象コミットのCI・Pages配信・公開版0.32.0の読み込みと初回案内を確認する。音声全件・物理端末の確認とは区別する。"
+    "PCと568px幅で間合いと遮蔽を持つ実描画を確認。初期配置35面の候補数を旧仕様と比較し、候補が新たにゼロになる面がないことを確認。",
+    "構造整理前b8f5ebdと整理後の123条件（100面の解禁・14移動列・9行動と射撃計画）の一致を比較記録する。敵名・マップ別の追加分岐と設定の重複を差分レビューする。",
+    "同一ソースで成功済みのローカル結果を引き継ぎ、PRのCIとマージ可能性を確認する。マージ・公開は別の状態として報告する。"
   ],
   "excluded": [
     {
-      "scope": "戦闘値・物理・AI・全100面攻略・音声全件・物理端末",
-      "reason": "チュートリアルの表示と導線の変更。先行mainの装甲・残像・戦闘ルールは変更しない。"
+      "scope": "HP・威力・難易度の照準誤差・地形変更・在庫・保存・全100面攻略と勝率測定",
+      "reason": "依頼は敵の自主的な位置選び。プレイヤー移動・強制移動・攻撃と保存形式を変更しない。"
     },
     {
-      "scope": "武器個別の実演任意化と新しい取得物チュートリアル",
-      "reason": "今回の合意では別候補。選択時の既存実演を維持し、未使用pickup専用実演を復活させない。"
+      "scope": "チュートリアル・メニュー・音声全件・無関係な全件検査と配布パッケージ",
+      "reason": "PR154の案内と既存表示は保持。新モジュールの読み込みと敵行動から次の自機操作までを直接検証する。物理端末は利用できず未確認。"
     }
   ]
 }
