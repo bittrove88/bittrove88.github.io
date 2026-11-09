@@ -1,0 +1,89 @@
+{
+  "stage": "Local implementation and limited preliminary checks; not full validation",
+  "request": "Keep approved spiral appearance, charge at muzzle for0.5s, then reach frozen warning point in0.3s; document design and resolve contradictions. Entire thick forward ray must hit, including nearer/farther positions, rather than only a circle at the forecast point.",
+  "baseline": "main a2234ed (0.30.4, PR141); previous local prototype2d2bda7",
+  "parameters": {
+    "damage": 1.9,
+    "blast": 0,
+    "forecastBeam": true,
+    "beamWidth": 110,
+    "beamDelay": 0.5,
+    "beamDuration": 0.62,
+    "warningRadius": 55,
+    "progressiveDamage": true,
+    "criticalMultiplier": 1,
+    "enemyDamageCap": 1.9,
+    "beamAimOffsetY": 52,
+    "beamFadeDuration": 0.18,
+    "beamTravelDuration": 0.3
+  },
+  "corrections": [
+    "Use one planned front for beam visual, damage and SFX timing",
+    "Compute constant speed per shot from frozen target distance/0.3, independent of hit or miss",
+    "Start root charge at0, fire at0.5, arrive at original target at0.8",
+    "Include0.62s hold and0.18s fade in plan duration; typical total1.6s",
+    "Reduced-motion uses same front timing and suppresses decorative rotation, particles, shock rings and camera kick"
+  ],
+  "preliminary": {
+    "timingProbe": "10 native-arrival variants: stay, two full walks, two actual legal teleports, guard, barrier, weaken, immune, lowHP; each at30/120fps. HP changes once upon arrival; no duplicate resolve; SFX cue times match fire/contact.",
+    "controllerWorker": "4 actual browser cases: PC1200x720 JA/small844x390 EN x stay/teleport; all returned to input, charge remained frozen then cleared, no page errors.",
+    "damage": "Stay and both full walks38; both teleports0; guard/barrier19, weaken28.5, immune0, remainingHP5 yields5.",
+    "nativeFrameSample": {
+      "eventContact": 0.8,
+      "firstHPDecreaseAt30fps": 0.8333333333333333,
+      "beforeArrivalHP": 100,
+      "afterArrivalHP": 62,
+      "note": "First frame at or after the event; floating clock accumulation can defer by up to one frame."
+    },
+    "video": "72 native renderer frames at30fps (2.4s),silent",
+    "syntax": "Physics/effects and portable preview scripts passed node --check; portable timing input reproduces saved output.",
+    "preservation": {
+      "unchangedFrom2d2bda7": [
+        "ARCLINE/game/dist/enemy-attacks.js",
+        "ARCLINE/game/dist/engine.js",
+        "ARCLINE/game/dist/render.js",
+        "ARCLINE/game/dist/attack-motion.js",
+        "ARCLINE/game/ui/sfx-manager.js",
+        "ARCLINE/design/combat_balance.json",
+        "ARCLINE/game/dist/final-team.js",
+        "ARCLINE/game/dist/save.js",
+        "ARCLINE/game/dist/campaign-run.js"
+      ],
+      "attackDefinitions": "Only E_FINAL_4 row changed; other weapons, pilots, specials, boss attacks and patterns identical."
+    },
+    "wholeRayGeometry": "27 geometry cases:5 distances along the full forward ray x5 offsets across the width (including player radius), plus behind/beyond bounds. All positions inside the thick ray take38, outside0. Synthetic geometry probes are distinct from legal move/teleport inputs.",
+    "reducedFallback": "Additional actual844x390 JA Controller case with prefers-reduced-motion:reduce and Worker unavailable. Same0.5s fire/0.8s contact,38 damage, no errors, returned to input.",
+    "lastChange": "Attack descriptions clarified the existing whole-ray collision; parameters and executable physics/effects unchanged after previews."
+  },
+  "reproducibility": {
+    "fixture": "GUN_ENTRY_FIXTURE.json: original native Normal seed4697 Gun entry captured on main0.30.3; HP/map/relay unchanged in0.30.4. Current implementation is used for all current shots.",
+    "inputs": "TELEPORT_INPUTS.json: previously found legal left/right shots, re-resolved by current engine",
+    "scripts": [
+      "timing-preview.cjs",
+      "browser-preview.cjs"
+    ],
+    "output": "ARCLINE_PREVIEW_DIR or /tmp/arcline-final-speed-preview"
+  },
+  "sourceHashes": {
+    "ARCLINE/design/attacks/definitions.json": "51512cbaadf09cea8ee1396d0b73a6c5a563559199d4a52a8f45f3bb7fce7f6a",
+    "ARCLINE/game/dist/physics.js": "39ab18ccea16847f6f236f9ca61a792ccdf29ba9311d4d2be9ee1aacbcaf8a16",
+    "ARCLINE/game/dist/effects.js": "9ff7db71e7ebb0a45de5321cd6ddcc5e23ff48cc43f6aba4cedcc63323a3ca55",
+    "ARCLINE/game/dist/attack-catalog.js": "c8585aac49c4fe11f187baf57618515146c1283e5eba79f8e7ce85acd8aba2bf",
+    "ARCLINE/game/dist/enemy-attacks.js": "ae058bc143b6872ab607a29d51c8d3c0968c77ea6a550699800b8791223d1932",
+    "ARCLINE/game/dist/engine.js": "d8e05520f9fc080ea3b2a9e90360dbe74c89588878b8b83f7cb419825fbf9027",
+    "ARCLINE/game/dist/render.js": "d5a77d10c7d5e4e2254c9477a92fd219aff557b274024974d5713ab9ebfa49e0",
+    "ARCLINE/game/dist/attack-motion.js": "64437e4ca6f24e939f00a6473485e66e1a95eed462e606c305fe8b2b299b03ef",
+    "ARCLINE/game/ui/sfx-manager.js": "0c7163b2402d6d2fd280460e0b0973ca9aaaad94aefe45e8c61872812f26fdf4",
+    "ARCLINE/game/attack-review/standalone.html": "aeaf00f4d7a3a1574dd89dcf6168bb850402a0bb6725ec7c53c52997199c0ae4",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html": "5ca3eab7da175b259a24c366564602a0731a71106b163fa359af4235423da8d2"
+  },
+  "formalSuites": false,
+  "CI": false,
+  "published": false,
+  "notChecked": [
+    "Physical devices",
+    "Audio playback (cue timing only)",
+    "Full campaign win rate",
+    "Formal preservation/generation/test suites; planned in detailed design"
+  ]
+}

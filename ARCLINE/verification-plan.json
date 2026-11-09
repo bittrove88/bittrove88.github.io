@@ -1,37 +1,60 @@
 {
   "version": 1,
   "change": "大ボス固有技の弾道・既存照準誤差と、予告後の移動・転移の検証",
-  "reason": "ユーザーが「プレイヤーが移動した後とかも考慮しシミュレーションし考慮もれないかチェック」と明示。全9大ボスの歩行・転移・斜面・遮蔽破壊・足場落下・防御・低重力/高重力・残HP・スキップ・勝敗をシミュレーション。予告後に位置と傾きが照準へ入る不具合と残HP超過表示を修正し、限定した本検証を実施する。マージ・公開は未許可。 追加確認で予告帯の描画が落下後の高さを参照する点も固定。潮撃砲は波150→90とし、静止命中約48%と徒歩回避を両立。変更した箇所だけ追加確認して既存成功結果を再利用する。",
+  "reason": "既存の弾道・照準誤差で静止命中を改善し、予告後の移動・転移・落下を検証する依頼と「マージに向けて進行」に基づき、PR・CIまで準備。main0.31.1のボス移動・分身・ラスボス弾道を保持して統合する。単体は弾道、プレイヤー移動、既存敵、ボス移動、ラスボス、実敵行動の組合せを選択。ブラウザは回避・予告描画・ボス移動・最終技へ限定し、生成物・版数も照合する。",
   "files": [
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/boss-ballistics-0312-scope.json",
     "ARCLINE/design/attacks/definitions.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
     "ARCLINE/game/dist/attack-catalog.js",
     "ARCLINE/game/dist/attack-review-model.js",
+    "ARCLINE/game/dist/boss-actions.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/enemy-actions.js",
     "ARCLINE/game/dist/enemy-attacks.js",
     "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/index.html",
     "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/runtime.json",
     "ARCLINE/game/tests/boss-ballistics-browser.test.cjs",
+    "ARCLINE/game/tests/boss-ballistics-motion.test.cjs",
+    "ARCLINE/game/tests/boss-ballistics-preservation.cjs",
     "ARCLINE/game/tests/boss-ballistics.test.cjs",
     "ARCLINE/game/tests/boss-movement-browser.test.cjs",
     "ARCLINE/game/tests/boss-movement.test.cjs",
     "ARCLINE/game/tests/boss-warning-browser.test.cjs",
+    "ARCLINE/game/tests/final-projectiles.test.cjs",
     "ARCLINE/game/tests/suites.json",
     "ARCLINE/game/tools/probe_boss_ballistics.cjs",
-    "ARCLINE/game/tools/probe_boss_movement.cjs"
+    "ARCLINE/game/tools/probe_boss_movement.cjs",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.31.2/index.html"
   ],
   "suites": {
     "unit": [
       "boss-ballistics",
       "boss-movement",
       "enemy-evolution",
-      "final-attacks"
+      "final-attacks",
+      "boss-motion",
+      "final-projectiles",
+      "boss-ballistics-motion"
     ],
     "browser": [
       "boss-ballistics-browser",
       "boss-movement-browser",
-      "boss-warning-browser"
+      "boss-warning-browser",
+      "boss-motion-browser",
+      "final-projectiles-browser"
     ]
   },
   "checks": {
@@ -42,16 +65,12 @@
     "nativeAudio": false
   },
   "manual": [
-    "全9体の移動・転移・環境変化の行列を30/120fpsで計算し、実ブラウザで転移前後から次手番まで確認。ユーザーの現行指示の範囲で本検証を行う。マージ・公開は行わない。"
+    "PR・CIまで準備。公開・実機確認は別工程。"
   ],
   "excluded": [
     {
       "scope": "全100面再攻略、保存移行、音源、エンディング、未変更の全自機攻撃",
       "reason": "地形、HP、保存、素材は変更しない。共通物理の変更は省略可能な砲口差分で、既存敵の同じvolley経路はenemy-evolutionで確認する。"
-    },
-    {
-      "scope": "本番配信、リリース版数とキャッシュの切替",
-      "reason": "ローカル候補のレビュー段階。採用と公開準備の段階で版数・更新案内を揃える。"
     }
   ]
 }

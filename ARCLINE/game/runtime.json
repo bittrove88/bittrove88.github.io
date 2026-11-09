@@ -1,6 +1,6 @@
 {
-  "version": "0.30.4",
-  "cacheVersion": "0.30.4",
+  "version": "0.31.2",
+  "cacheVersion": "0.31.2",
   "campaignVersion": "5.0",
   "saveSchema": 8,
   "resetVersion": 2,
@@ -26,6 +26,7 @@
     "save.js",
     "encounters.js",
     "enemy-attacks.js",
+    "boss-actions.js",
     "enemy-actions.js",
     "engine.js",
     "lessons.js",
@@ -262,7 +263,8 @@
     "engine.js": [
       "final-team.js",
       "enemy-attacks.js",
-      "enemy-actions.js"
+      "enemy-actions.js",
+      "boss-actions.js"
     ],
     "final-team-ui.js": [
       "final-team.js",
@@ -347,6 +349,13 @@
       "geometry.js",
       "physics.js"
     ],
-    "attack-motion.js": []
+    "attack-motion.js": [],
+    "boss-actions.js": [
+      "geometry.js",
+      "encounters.js"
+    ],
+    "enemy-actions.js": [
+      "boss-actions.js"
+    ]
   }
 }

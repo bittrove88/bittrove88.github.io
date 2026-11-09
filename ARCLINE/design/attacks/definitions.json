@@ -1004,19 +1004,19 @@
       "params": {
         "speed": 1,
         "gravity": 0.85,
-        "damage": 1,
+        "damage": 2,
         "blast": 80,
         "satellites": true,
         "volley": [
           {
             "offset": 0,
             "delay": 0,
-            "damage": 1
+            "damage": 2
           },
           {
             "offset": -7,
             "delay": 0.035,
-            "damage": 0.2,
+            "damage": 0.4,
             "blast": 35,
             "appearance": {
               "size": 6,
@@ -1026,7 +1026,7 @@
           {
             "offset": 0,
             "delay": 0.035,
-            "damage": 0.2,
+            "damage": 0.4,
             "blast": 35,
             "appearance": {
               "size": 6,
@@ -1036,7 +1036,7 @@
           {
             "offset": 7,
             "delay": 0.035,
-            "damage": 0.2,
+            "damage": 0.4,
             "blast": 35,
             "appearance": {
               "size": 6,
@@ -1057,15 +1057,15 @@
       },
       "trajectory": "金白の主弾に三つの衛星弾が周回し、前方へほどけて広がる。",
       "impact": "星の輪と幾何学の光片が広がり、主弾が重い閃光を残す。",
-      "effect": "主弾20と衛星弾4×3が独立して衝突する。合計上限32。部位破壊で固有技の威力を下げない。",
+      "effect": "主弾40と衛星弾8×3が独立して衝突する。各弾は従来の2倍だが、一攻撃の合計上限32を維持する。部位破壊で固有技の威力を下げない。",
       "motion": "衛星の周回中は等速。ほどけた後だけ加速。",
       "damageSummary": {
         "maximum": 32,
         "components": [
-          20,
-          4,
-          4,
-          4
+          40,
+          8,
+          8,
+          8
         ]
       }
     },
@@ -1134,14 +1134,15 @@
       "nameJa": "重界砲",
       "tier": "final",
       "params": {
-        "speed": 0.9,
-        "gravity": 0.8,
+        "speed": 1.1,
+        "gravity": 0.65,
         "damage": 1.8,
         "blast": 65,
         "warningRadius": 200,
         "progressiveDamage": true,
         "criticalMultiplier": 1,
-        "enemyDamageCap": 1.8
+        "enemyDamageCap": 1.8,
+        "minAngle": -8
       },
       "appearance": {
         "color": "#c4d5e4",
@@ -1150,9 +1151,9 @@
         "fx": "gravity",
         "label": "重界砲"
       },
-      "trajectory": "黒白の核が細い白金の輪を引いて飛び、着弾点に薄い重力領域を残す。",
+      "trajectory": "黒白の核が固定した予告地点へ、地形を越える高い放物線を優先して飛ぶ。屋根で遮られる配置では通れる低い放物線を選び、地形との衝突は維持する。",
       "impact": "光の線が湾曲し、静かな黒い中心と境界の輪が残る。",
-      "effect": "着弾36。重力領域は双方の次の一射を曲げるが、継続ダメージはない。移行・再試行で解除する。",
+      "effect": "着弾36。予告位置への放物線を選び、発射前の照準ぶれは加えない。移動後の自機を追い直さず、固定地形を貫通しない。重力領域は双方の次の一射を曲げるが、継続ダメージはない。移行・再試行で解除する。",
       "motion": "追加の停止やスローなし。予告、固有の弾道、実際の着弾間隔を優先する。",
       "damageSummary": {
         "maximum": 36,
@@ -1168,53 +1169,35 @@
       "nameJa": "終極砲",
       "tier": "final",
       "params": {
-        "speed": 0.85,
-        "gravity": 1,
-        "damage": 0.7,
-        "blast": 100,
-        "afterRings": [
-          {
-            "delay": 0.0,
-            "radius": 100,
-            "duration": 0.5,
-            "damage": 0.4
-          },
-          {
-            "delay": 0.18,
-            "radius": 135,
-            "duration": 0.5,
-            "damage": 0.4
-          },
-          {
-            "delay": 0.36,
-            "radius": 170,
-            "duration": 0.5,
-            "damage": 0.4
-          }
-        ],
-        "warningRadius": 170,
+        "damage": 1.9,
+        "blast": 0,
+        "forecastBeam": true,
+        "beamWidth": 110,
+        "beamDelay": 0.5,
+        "beamDuration": 0.62,
+        "warningRadius": 55,
         "progressiveDamage": true,
         "criticalMultiplier": 1,
-        "enemyDamageCap": 1.9
+        "enemyDamageCap": 1.9,
+        "beamAimOffsetY": 52,
+        "beamFadeDuration": 0.18,
+        "beamTravelDuration": 0.3
       },
       "appearance": {
         "color": "#ffe6a3",
-        "shape": "shell",
+        "shape": "beam",
         "size": 12,
-        "fx": "finale",
+        "fx": "final-beam",
         "label": "終極砲"
       },
-      "trajectory": "金白の巨大な主弾が長い光跡を引く。大きな予告と発射の溜めを設ける。",
-      "impact": "中心の閃光から三つの光輪が時間差で広がり、余韻が静かに消える。",
-      "effect": "主弾14と3波8×3で合計38。範囲外や遮蔽へ退避でき、部位破壊で固有技の威力を下げない。",
-      "motion": "主弾の接触だけ50ms静止。三つの光輪は流れを保って解放。",
+      "trajectory": "アークハートの砲口で0.5秒ため、予告時の自機の足元側へ向けて直線の太いレーザーを伸ばし、予告地点まで0.3秒で到達する。",
+      "impact": "アークハート本体の高さに近い太さ110pxの直線レーザーが地形を貫く。予告地点だけでなく、砲口から前方へ伸びる射線全体に命中判定を持つ。",
+      "effect": "直前の通常砲撃ターンに直線を固定して予告し、次の敵手番に射線全体へ38ダメージのレーザーを一度だけ照射する。手前・奥を問わず自機が太い射線に重なれば命中し、線外なら回避する。直前の砲撃は転移先を狙い照準ぶれを保つ。レーザーは転移先を追い直さず、地形を貫く。",
+      "motion": "アークハートのチャージ開始から文字なしの控えめな点線を表示する。実際の照射手番では砲口で0.5秒集光し、滑らかに広がる白金の芯にオレンジの螺旋を巻いて発射。予告地点へ0.3秒で届く等速の先端に、命中音・38ダメージを同期する。発射音・光の衝撃波・短い揺れは出射時。停止・全体スローは加えない。",
       "damageSummary": {
         "maximum": 38,
         "components": [
-          14,
-          8,
-          8,
-          8
+          38
         ]
       }
     }
@@ -1314,7 +1297,7 @@
         "ARC",
         "E_FINAL_4",
         "TWIN",
-        "DROP",
+        "ARC",
         "E_FINAL_4"
       ]
     ]

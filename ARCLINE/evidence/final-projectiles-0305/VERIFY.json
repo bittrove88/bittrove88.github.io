@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "scope": "Final-only0.30.5 implementation; user accepted detailed whole-ray,0.5s charge/0.3s arrival design and instructed continuation. Local formal validation, CI still pending.",
+  "base": "a2234ed88c665f0d3d96201304921541787a4c48",
+  "version": "0.30.5",
+  "suites": {
+    "unit": [
+      "final-projectiles",
+      "final-attacks",
+      "rico-direction",
+      "special-self-damage",
+      "attack-motion",
+      "map-atlas"
+    ],
+    "browser": [
+      "final-projectiles-browser",
+      "final-retry-browser"
+    ]
+  },
+  "browserCases": 8,
+  "reviewCases": 6,
+  "gravityWorkerCases": 4,
+  "generatedFiles": 155,
+  "regressions": {
+    "scope": "Specific old-source/new-source reproduction of a missing transient on entry restore and a valid low route missed by coarse sampling; not whole-match wins",
+    "retry": {
+      "oldChargeRemains": true,
+      "newChargeRemains": false
+    },
+    "roof": {
+      "before": {
+        "angle": 45,
+        "power": 65,
+        "damage": 0
+      },
+      "after": {
+        "angle": 50,
+        "power": 57,
+        "damage": 36
+      }
+    }
+  },
+  "sourceHashes": {
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html": "ab5d0f4da1ab9be970170d497f80bf370e8456e336e5f68fa221cda6c2afb062",
+    "ARCLINE/characters/index.html": "4f4410add311778c5d215947ed559f3ec08d292b8956b34513195250c3dcdb32",
+    "ARCLINE/design/attacks/definitions.json": "51512cbaadf09cea8ee1396d0b73a6c5a563559199d4a52a8f45f3bb7fce7f6a",
+    "ARCLINE/design/attacks/final-projectiles-0305-scope.json": "990953e0dbce2908a77d16600e1906ea0497286399566a4b693f075d03454505",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html": "f59708b0a1e4222ac0fa1f43047e73b05c551a792a830a5be8b0d4d73010d61c",
+    "ARCLINE/design/expedition_013/index.html": "9e345137ef8803bbb402a8fe6bd06f93ca14412ebb3df0e249afe8b34763620c",
+    "ARCLINE/game/attack-review/index.html": "bc57992362638c95721d178fe5c9cdc656cdd60fcf79cf4db3eba8b9ab314f6f",
+    "ARCLINE/game/attack-review/standalone.html": "5c241d4608c75452bb43ccda9c917b464143ffe904527f1c2185fedbc32c4926",
+    "ARCLINE/game/dist/app.webmanifest": "2f9c79967eec18dad311f5944d3d8dfe457ccea69354362439d0826515181af8",
+    "ARCLINE/game/dist/attack-catalog.js": "c8585aac49c4fe11f187baf57618515146c1283e5eba79f8e7ce85acd8aba2bf",
+    "ARCLINE/game/dist/attack-motion.js": "64437e4ca6f24e939f00a6473485e66e1a95eed462e606c305fe8b2b299b03ef",
+    "ARCLINE/game/dist/attack-review-model.js": "8a4ff294a061a5d5f6065025bf80b03bb928587355b4994e32b73eda88736a78",
+    "ARCLINE/game/dist/cpu-worker.js": "158ff739f4633b414a0830d2c92b3c954d4db33423d5392c57eeb206d0a07bdf",
+    "ARCLINE/game/dist/effects.js": "9ff7db71e7ebb0a45de5321cd6ddcc5e23ff48cc43f6aba4cedcc63323a3ca55",
+    "ARCLINE/game/dist/enemy-attacks.js": "81008b04b32b7e82bb36c8083e89e3681bac83d3f892c0f2c1faf10a29a6d274",
+    "ARCLINE/game/dist/engine.js": "c1989f2de493963cc658b4cd1ffef910efd05889517d5aaa5466a1e429076cc7",
+    "ARCLINE/game/dist/final-team.js": "754c24012ca2486c704aae61dd716965213231f2dbf249b4e536ff17313b0ba3",
+    "ARCLINE/game/dist/index.html": "6c22de08ea24c6fb27176b6f3452a7a16df6a0f7c735a6973c235707b8d48d2c",
+    "ARCLINE/game/dist/physics.js": "39ab18ccea16847f6f236f9ca61a792ccdf29ba9311d4d2be9ee1aacbcaf8a16",
+    "ARCLINE/game/dist/release-info.js": "8a8ebdb0fd5a96c78bca86b7a2207e011f663f01e1ef64e269fbebf27d1c7d8a",
+    "ARCLINE/game/dist/render.js": "d5a77d10c7d5e4e2254c9477a92fd219aff557b274024974d5713ab9ebfa49e0",
+    "ARCLINE/game/dist/sfx-manager.js": "7360faab15124edabaed6f69147a4f610636b771cdb9d853025b74cb8bfe5a81",
+    "ARCLINE/game/runtime.json": "259cdf88f0545664f7ea6f59c00ced0063b41831236dacf7bdebdbc4dc248d2f",
+    "ARCLINE/game/tests/final-projectiles-browser.test.cjs": "9a5d35461e31e108061802531b37c48edc3ec4e6455fc2ab39d953efd588b803",
+    "ARCLINE/game/tests/final-projectiles-preservation.cjs": "7356f51669d5fa38637a75325ffca2045be23edd57ff1c30fbbc787953d73452",
+    "ARCLINE/game/tests/final-projectiles.test.cjs": "2c376e1e1aa56d463fd1c8d257a0248bcee1531590a9331206ff82a506aa05c3",
+    "ARCLINE/game/tests/rico-direction-preservation.cjs": "9e929862d9e61aee30daeb5ad06c701606614a5d6aca6100f724345395c739e8",
+    "ARCLINE/game/tests/suites.json": "cc51411220c90bbf5a0e9cd3fa2fd8979c3d568a816c2615c1bab9db5621938e",
+    "ARCLINE/game/ui/sfx-manager.js": "0c7163b2402d6d2fd280460e0b0973ca9aaaad94aefe45e8c61872812f26fdf4",
+    "ARCLINE/index.html": "8e2b9e36d941de8f48aaaa517de3bbf0b7071c1adcae7bd7c0b7bf036ec9221f",
+    "ARCLINE/site/scenes.js": "54331e7e290757b72822b2e1090e3a562266003d70a257f2ec2b75f1cf3d2c2b",
+    "ARCLINE/updates/0.30.5/index.html": "0fb8e7a00823177dfa455f6d3de70056a619e86189a5a3b102887c8499e8020f"
+  },
+  "reuse": {
+    "finalRetry": "The existing final-retry-browser passed before the gravity-only low-route refinement and frozen facing fix. Its restore-only fixtures do not execute either aiming branch. The new final-projectiles-browser reran after both fixes.",
+    "visual": "Approved spiral shape and0.5s/0.3s native frame video are unchanged; reused from final-speed-preview-20261109.",
+    "generated": "155 outputs rebuilt twice in isolation after final runtime edits; equal and deterministic."
+  },
+  "CI": "pending",
+  "merged": false,
+  "published": false,
+  "notChecked": [
+    "Physical devices",
+    "Actual audio playback",
+    "Human success rate",
+    "Unrelated full campaign replays"
+  ]
+}

@@ -20,7 +20,7 @@ const server=http.createServer((req,res)=>{let file=path.resolve(root,'.'+new UR
     await page.setViewportSize(fps===120?{width:844,height:390}:{width:1200,height:720});
     const before=await page.evaluate(({stage,fixture,seed,dodge,dodgeDirection})=>{
      cancelAnimationFrame(raf);raf=0;selectedMap=stage-1;start({skipStory:true});endDemo();encounter=null;demo=null;transition=null;document.getElementById('encounterBanner').hidden=true;hostAudio=false;audioSync();
-     s=structuredClone(fixture);s.random=E.seeded(s.matchSeed);s.matchSeed=(seed-s.round*1009)>>>0;s.turn=0;s.phase='aim';const warning=structuredClone(s.telegraph),hp=s.units[0].hp,walked=dodge?E.move(s,0,dodgeDirection*10000):0;
+     s=structuredClone(fixture);s.enemyTactics={...s.enemyTactics,teleports:2,cooldown:2};s.enemyWalkRound=s.round;s.enemyWalkUsed=140;s.random=E.seeded(s.matchSeed);s.matchSeed=(seed-s.round*1009)>>>0;s.turn=0;s.phase='aim';const warning=structuredClone(s.telegraph),hp=s.units[0].hp,walked=dodge?E.move(s,0,dodgeDirection*10000):0;
      s.turn=1;s.phase='cpu';s.time=0;shot=null;shotMotion=null;tail=null;cpuJob=null;cpuReady=null;manualPaused=false;
      window.ballisticCase={hp,warning,expected:E.planEnemyAction(s,E.seeded(seed)).plan};requestCPU();hud();draw();return {hp:E.combat.points(hp),walked,warning};
     },{stage,fixture,seed,dodge,dodgeDirection});

@@ -1,0 +1,21 @@
+{
+  "stage": "limited development preview; not final validation",
+  "main": "a2234ed (0.30.4,PR141 retained)",
+  "implementation": "29b743d",
+  "scope": "User steering: Finale should primarily require teleportation rather than walking",
+  "beamWidth": 320,
+  "damage": 38,
+  "playerWalkingBudget": 140,
+  "fixedAim": "Previous player-turn targetX, not updated by walking or teleporting",
+  "nativeResult": "stay or walk full140px each direction ->38 damage; legal teleport approximately230px left/right ->0 damage",
+  "controllerResult": "PC1200x720 JA/mobile844x390 EN; actual teleport launch, CPU Worker beam, HP and next input; all six previews returned to input with no errors",
+  "preserve": "Star64 candidate and Gravity36 arc candidate retained; HP,quota,20-action budget,other stages and new main inventory/save changes retained",
+  "formalValidation": "Awaiting final agreement on the full three-technique change; no formal suite or CI",
+  "sourceHashes": {
+    "ARCLINE/design/attacks/definitions.json": "e62ad662a0a2e7e09e1a1f28932b718657c9e09f111a6d43634c4babbb4ad67b",
+    "ARCLINE/game/dist/physics.js": "efcfd91d2a24460aabb4a513f2bb5d589d1c098d3f870d1c270ecffcdc376e83",
+    "ARCLINE/game/dist/engine.js": "d8e05520f9fc080ea3b2a9e90360dbe74c89588878b8b83f7cb419825fbf9027",
+    "ARCLINE/game/dist/enemy-attacks.js": "0b44321da7476ee28e0e7c088e31087fccd55fe2fe35ebc6d871ef14002ce83c",
+    "ARCLINE/game/dist/render.js": "b4afb84adefd34c272099db1141c206e8309aba9d3aa6d3bddf5677edc099be5"
+  }
+}

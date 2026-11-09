@@ -1,0 +1,40 @@
+{
+  "stage": "limited development preview; not final validation",
+  "base": "a2234ed (0.30.4)",
+  "scope": "Replace the vertical beam with a straight ray from Archeart,approximately its body height; clarify predecessor damage and advance-warning timing",
+  "geometry": {
+    "width": 110,
+    "direction": "from Archeart muzzle to frozen player foot-side point",
+    "aimOffsetFromPlayerCenterY": 52,
+    "terrain": "ignored",
+    "damage": 38,
+    "tracking": false
+  },
+  "native": "Stay/max-walk left or right140 ->38; native teleport to selected safe positions ->0",
+  "controller": "Six PC/mobile/JA/EN actual CPU Worker previews:38/38/0 for stay/walk/teleport,returned to input",
+  "predecessors": {
+    "currentOrder": [
+      "TRIPLE",
+      "ARC",
+      "E_FINAL_4",
+      "TWIN",
+      "DROP",
+      "E_FINAL_4"
+    ],
+    "fixedHitProbability": false,
+    "normalAimError": {
+      "angle": 4.2,
+      "power": 8.4
+    },
+    "observations": "12 bounded samples per landing:ARC2/12 and1/12;DROP0/12 and0/12",
+    "timing": "User clarification pending; attack sequence and warning timing have not yet been changed"
+  },
+  "formalValidation": "No formal suites,CI,Ready PR,merge or publication in this iteration",
+  "sourceHashes": {
+    "ARCLINE/design/attacks/definitions.json": "217444320868f755132aa3f459277870b3e3553ac088371ed2267534243ec884",
+    "ARCLINE/game/dist/physics.js": "6ba8571fb6b039a294f6fc6e712dce451ad86699c79ee69d6036a951f6674d8b",
+    "ARCLINE/game/dist/enemy-attacks.js": "e63e0caaaaff5aced3ab838ad5bf22d034f4d1edb9a6ef3cade3721e459efd04",
+    "ARCLINE/game/dist/render.js": "35fe16c74866446f17502ac1d37896d799b3306e24c2f448a4e84991b2827068",
+    "ARCLINE/game/dist/effects.js": "3d8d4fb6f07b78b42d07ca309c3fb75a881b54d0752ab48af5c169b753f37a0e"
+  }
+}
