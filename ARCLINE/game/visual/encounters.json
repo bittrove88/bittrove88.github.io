@@ -1,5 +1,5 @@
 {
-  "revision": "4.2",
+  "revision": "4.3",
   "enemies": [
     {
       "id": "enemy:pebble",
@@ -954,14 +954,12 @@
       "parts": [
         {
           "name": "LEFT RIM",
-          "hp": 2,
           "dx": 39,
           "dy": -66,
           "radius": 22
         },
         {
           "name": "RIGHT RIM",
-          "hp": 2,
           "dx": -39,
           "dy": -66,
           "radius": 22
@@ -977,8 +975,8 @@
         "REFLECT",
         "DROP"
       ],
-      "feature": "鏡面の枠を壊して核を狙う",
-      "featureEn": "Break the mirror rims to expose the core."
+      "feature": "肩の装甲は各1発で破壊。反射を止めて核を狙う。",
+      "featureEn": "Each shoulder armor breaks in one hit. Stop reflections and aim for the core."
     },
     {
       "id": "boss:dust-driller",
@@ -1056,14 +1054,12 @@
       "parts": [
         {
           "name": "FAN A",
-          "hp": 2,
           "dx": 43,
           "dy": -56,
           "radius": 23
         },
         {
           "name": "FAN B",
-          "hp": 2,
           "dx": -43,
           "dy": -56,
           "radius": 23
@@ -1079,8 +1075,8 @@
         "ARC",
         "LOW"
       ],
-      "feature": "送風機を止めると風が弱まる",
-      "featureEn": "Disable the fans to weaken the wind."
+      "feature": "ファンの装甲は各1発。前面装甲への命中でも破壊できる。",
+      "featureEn": "Each fan armor breaks in one hit. Hitting the front armor also breaks it."
     },
     {
       "id": "boss:forge-titan",
@@ -1107,17 +1103,17 @@
       "parts": [
         {
           "name": "ARM A",
-          "hp": 2,
           "dx": 44,
           "dy": -38,
-          "radius": 23
+          "radius": 16,
+          "armorRadius": 16
         },
         {
           "name": "ARM B",
-          "hp": 2,
           "dx": -44,
           "dy": -38,
-          "radius": 23
+          "radius": 16,
+          "armorRadius": 16
         }
       ],
       "muzzle": {
@@ -1131,8 +1127,8 @@
         "DROP",
         "LOW"
       ],
-      "feature": "腕を止め、加熱の予告を避ける",
-      "featureEn": "Stop the arms and avoid the heat warning."
+      "feature": "腕の小型装甲は1枚につき2発。連射の弾も1発ずつ数える。",
+      "featureEn": "Each small arm armor takes two projectile hits. Each round in a volley counts."
     },
     {
       "id": "boss:polaris-core",
@@ -1159,17 +1155,17 @@
       "parts": [
         {
           "name": "GEN A",
-          "hp": 2,
           "dx": 58,
           "dy": -30,
-          "radius": 20
+          "radius": 16,
+          "armorRadius": 16
         },
         {
           "name": "GEN B",
-          "hp": 2,
           "dx": -58,
           "dy": -30,
-          "radius": 20
+          "radius": 16,
+          "armorRadius": 16
         }
       ],
       "muzzle": {
@@ -1182,8 +1178,8 @@
         "TWIN",
         "ARC"
       ],
-      "feature": "発生器を止めると磁場が弱まる",
-      "featureEn": "Disable generators to weaken the field."
+      "feature": "発生器の小型装甲は1枚につき2発。壊すと磁場が弱まる。",
+      "featureEn": "Each small generator armor takes two projectile hits. Breaking it weakens the magnetic field."
     },
     {
       "id": "boss:skycarrier",
@@ -1210,24 +1206,24 @@
       "parts": [
         {
           "name": "MAIN GUN",
-          "hp": 2,
           "dx": 27,
           "dy": -62,
-          "radius": 22
+          "radius": 16,
+          "armorRadius": 16
         },
         {
           "name": "THRUSTER A",
-          "hp": 2,
           "dx": 49,
           "dy": -22,
-          "radius": 20
+          "radius": 16,
+          "armorRadius": 16
         },
         {
           "name": "THRUSTER B",
-          "hp": 2,
           "dx": -49,
           "dy": -22,
-          "radius": 20
+          "radius": 16,
+          "armorRadius": 16
         }
       ],
       "muzzle": {
@@ -1240,8 +1236,8 @@
         "TWIN",
         "TRIPLE"
       ],
-      "feature": "砲と推進器を止め、空の航路を開く",
-      "featureEn": "Stop cannons and thrusters to open the skyway."
+      "feature": "砲と推進器の小型装甲は1枚につき2発。残り回数を見て狙う。",
+      "featureEn": "Each small cannon or thruster armor takes two projectile hits. Read the remaining-hit labels."
     },
     {
       "id": "boss:archeart",

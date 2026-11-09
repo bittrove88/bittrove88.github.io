@@ -142,7 +142,7 @@
           const counter =
             shot.damage[1] +
             (B.active(s)
-              ? Object.values(shot.partDamage).reduce((a, b) => a + b, 0) * 0.8
+              ? (Object.values(shot.partDamage).reduce((a, b) => a + b, 0) + Object.values(shot.partHits||{}).reduce((a,b)=>a+b,0)) * 0.8
               : 0);
           if (counter > 0.05) hits++;
         }

@@ -85,7 +85,7 @@
         add("S01", event, "special", 6);
       if (
         shot.side === 0 &&
-        (event.type === "damage" || event.type === "part-damage") &&
+        (event.type === "damage" || event.type === "part-damage" || event.type === "part-hit") &&
         ["ring", "cone", "wave"].includes(event.source)
       )
         add(

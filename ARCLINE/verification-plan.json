@@ -1,60 +1,72 @@
 {
   "version": 1,
-  "change": "0.31.3 残像の発砲フォーカス・転移直後の識別・ボス転移弾の速度",
-  "reason": "ユーザーの「マージに向けて検証」を受領し実行する計画。発砲前の表示段階、通常画角への復帰、既存充電カメラ、ボスと通常敵の転移時間、共有描画と版数の生成物を対象にする。",
+  "change": "装甲の弾ごとの破壊カウントと残り回数・ガード表示（最終合意済み）",
+  "reason": "40/60面は1発、70/80/90面は装甲1枚ごとに2発。別の弾は同じ攻撃内でも数え、実体・命中・表示・AI・生成を検証する。仕様合意済み。0.31.3の残像表示と共有描画を統合し、echo-presentationとboss-motion-browserも確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
+    "ARCLINE/design/combat_balance.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/design/runtime_campaign_20x5.json",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/actor-bodies.js",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/charge-camera.js",
+    "ARCLINE/game/dist/boss-actions.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/effects.js",
+    "ARCLINE/game/dist/encounters.js",
+    "ARCLINE/game/dist/enemy-actions.js",
+    "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/levels.js",
+    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/preview.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/dist/sfx-manager.js",
+    "ARCLINE/game/dist/visual-art.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
-    "ARCLINE/game/tests/echo-presentation.test.cjs",
+    "ARCLINE/game/tests/armor-break-browser.test.cjs",
+    "ARCLINE/game/tests/armor-break.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/ui/charge-camera.js",
+    "ARCLINE/game/tools/balance.py",
+    "ARCLINE/game/tools/build_encounters.py",
+    "ARCLINE/game/ui/sfx-manager.js",
+    "ARCLINE/game/visual/encounters.json",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.3/index.html"
+    "ARCLINE/updates/0.31.4/index.html"
   ],
   "suites": {
     "unit": [
-      "echo-presentation",
-      "charge-camera"
+      "armor-break",
+      "damage-sync",
+      "boss-motion",
+      "echo-presentation"
     ],
     "browser": [
-      "boss-motion-browser",
-      "charge-camera-browser",
-      "enemy-movement-browser"
+      "armor-break-browser",
+      "damage-sync-browser",
+      "boss-motion-browser"
     ]
   },
   "checks": {
     "generated": true,
     "baseline": false,
     "package": false,
-    "python": true,
+    "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "旧位置の残像表示と発砲画角はPC・小画面の制作中スクリーンショットで確認。事前確認の成功条件と差分を照合し再利用する。",
-    "選択CIの結果を確認し、マージ可能性と先行mainの保持を確認する。マージ・配信は実施状態を分けて報告する。"
+    "PC幅とスマホ横幅で、対象5面の初期・命中・破壊表示を確認。代表的な衝突・描画再現であり、全攻略・物理端末確認とは区別する。",
+    "統合後の単体4・ブラウザ3スイートと生成155ファイルの一致・安定性はローカルで合格。CIで同じ選択範囲を確認し、マージ後に配信と公開URLを確認する。"
   ],
   "excluded": [
     {
-      "scope": "物理・威力・HP・在庫・保存・全100面攻略・音声全件",
-      "reason": "演出と時間の変更に限定し、戦闘の計算・転移条件・手番を変更しない。"
-    },
-    {
-      "scope": "無関係なサイト・マーケティング・全件ブラウザ・配布パッケージ",
-      "reason": "共有描画の生成物と既存の充電／敵移動以外へ改修を広げない。実機iOS/Androidは利用できず未確認。"
+      "scope": "全件検査・無関係な全機体/全マップ・音源・物理端末",
+      "reason": "対象5面の装甲と最新mainの共有描画との整合が目的。本検証・マージ・配信確認は承認済み。無関係な全件検査を追加しない。"
     }
   ]
 }
