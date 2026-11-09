@@ -5,6 +5,7 @@ const assert=require('node:assert/strict'),crypto=require('node:crypto');
 const manifest=require('../../design/attacks/damage-sync-0293-scope.json');
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function source(file,bytes){
+ bytes=require("./damage-display-preservation.cjs").source(file,bytes);
  const patch=manifest.sourcePatches[file];if(!patch)return bytes;
  assert.equal(sha(bytes),patch.afterSha256,'exact authorized0.29.3 attack delta '+file);
  let text=bytes.toString();for(const edit of [...patch.edits].reverse()){

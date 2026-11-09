@@ -30,7 +30,7 @@ function verifyTimeline(before,plan,label){
 for(const row of M.rows.filter(r=>['通常弾','補助武器','必殺技'].includes(r.category))){const r=M.create(row.id);verifyTimeline(r.before,r.plan,row.id);}
 const hana=arena('hana'),nine=shot(hana,'S_HANA',{volley:Array.from({length:9},(_,i)=>({offset:0,delay:i*.1}))});
 near(C.points(nine.damage[1]),36,'Hana total36');ok(events(nine).length===6&&events(nine).every(e=>Math.abs(e.value-.3)<1e-8),'Hana first six hits retain six points');verifyTimeline(hana,nine,'Hana all hit');
-ok(events(nine).at(-1).capped,'an exact six-hit cap also displays MAX before later rounds arrive');
+ok(events(nine).at(-1).capped,'an exact six-hit cap is represented in event metadata');
 const sora=arena('sora'),twelve=shot(sora,'S_SORA',{volley:Array.from({length:12},(_,i)=>({offset:0,delay:i*.1}))});
 near(C.points(twelve.damage[1]),38,'Sora total38');ok(events(twelve).map(e=>C.points(e.value)).join(',')==='10,10,10,8','Sora chronological10/10/10/8');
 const hibari=arena('hibari'),rings=shot(hibari,'S_HIBARI');

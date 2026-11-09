@@ -394,9 +394,6 @@ function create(canvas,configuration={}){
     ctx.save();for(let i=0;i<3;i++){const age=options.reducedMotion?.35:(end.age*.35+i*.28)%1,x=fallen.x+(i-1)*10/scale,y=fallen.y-25-age*28/scale;ctx.globalAlpha=(1-age)*.22;circle(x,y,(5+age*7)/scale,'#b2bdc8');}ctx.restore();
    }
   }
-  if(!lobby&&showsUnit(display.units[1],1)&&E.guardian(s)&&display.units[1].hp>0&&(display.units[1].exposed>0||s.effects.broken>0)){
-   const u=display.units[1];ctx.save();ctx.textAlign='center';ctx.font=`800 ${10/scale}px system-ui`;ctx.fillStyle='#e9ffc9';ctx.strokeStyle='#243d4a';ctx.lineWidth=3/scale;const core=G.actorPoint(display,1,u.core?.x||0,u.core?.y||-77),x=core.x,y=core.y-(u.core?.exposedRadius||28)-10/scale,label='CORE ×'+(u.core?.multiplier||2);ctx.strokeText(label,x,y);ctx.fillText(label,x,y);ctx.restore();
-  }
   function shotAt(plan,t,alpha=1){
    const look=plan.side===1?{...appearance(plan.weaponId),color:'#ffab8c'}:appearance(plan.weaponId),rail=plan.weaponId==='W14'||plan.weaponId==='S_RIN';
    if(root.ArcEffects)root.ArcEffects.forContext(ctx).draw(plan,t,{scale,alpha,reducedMotion:options.reducedMotion});
@@ -419,22 +416,14 @@ function create(canvas,configuration={}){
    }
    const enemy=1-plan.side,timed=plan.events.filter(e=>(e.type==='damage'||e.type==='part-damage')&&e.unit===enemy),arrived=timed.filter(e=>e.t<=t);
    if(!localDemo&&timed.length){
-    const groups=[];
-    for(const e of arrived){
-     if(t-e.t>=.9||e.value<=0)continue;
-     const text=(e.type==='part-damage'?'PART':e.weak?'CORE':e.critical?'CRITICAL':'HIT')+' · '+E.combat.points(e.value)+(e.capped?' MAX':'');
-     const group=groups.find(g=>g.text===text&&Math.abs(g.event.t-e.t)<=.06);
-     if(group){group.count++;group.event=e;}else groups.push({text,event:e,count:1});
-    }
-    const anchor=display.units[enemy];
-    for(const [index,group]of groups.reverse().entries()){
-     const e=group.event,age=t-e.t,label=group.text+(group.count>1?' ×'+group.count:'');
-     const x=anchor.x,y=anchor.y-(48+age*16+index*21)/scale;
-     ctx.save();ctx.globalAlpha=alpha*(1-age/.9);ctx.textAlign='center';ctx.font=`800 ${17/scale}px system-ui`;ctx.lineWidth=4/scale;ctx.strokeStyle='#19384c';ctx.fillStyle=e.type==='part-damage'?'#d9e5ff':'#fff6c4';ctx.strokeText(label,x,y);ctx.fillText(label,x,y);ctx.restore();
+    const body=arrived.filter(e=>e.type==='damage'&&e.value>0),last=body.at(-1);
+    if(last&&t-last.t<.9){
+     const age=t-last.t,anchor=display.units[enemy],label=String(E.combat.points(body.reduce((sum,e)=>sum+e.value,0))),x=anchor.x,y=anchor.y-(48+age*16)/scale;
+     ctx.save();ctx.globalAlpha=alpha*(1-age/.9);ctx.textAlign='center';ctx.font=`800 ${20/scale}px system-ui`;ctx.lineWidth=4/scale;ctx.strokeStyle='#19384c';ctx.fillStyle=last.weak||last.critical?'#ffe28a':'#fff6c4';ctx.strokeText(label,x,y);ctx.fillText(label,x,y);ctx.restore();
     }
    }else if(!localDemo&&!timed.length){
     const damage=plan.damage?.[enemy]||0,marker=plan.impacts.find(i=>i.hit?.unit===enemy)||plan.impacts.at(-1);
-    if(damage>0&&marker&&t>=marker.t&&t-marker.t<.9){const age=t-marker.t;ctx.save();ctx.globalAlpha=alpha*(1-age/.9);ctx.textAlign='center';ctx.font=`800 ${20/scale}px system-ui`;ctx.lineWidth=4/scale;ctx.strokeStyle='#19384c';ctx.fillStyle='#fff6c4';const label='HIT · '+E.combat.points(damage);ctx.strokeText(label,marker.x,marker.y-(48+age*38)/scale);ctx.fillText(label,marker.x,marker.y-(48+age*38)/scale);ctx.restore();}
+    if(damage>0&&marker&&t>=marker.t&&t-marker.t<.9){const age=t-marker.t;ctx.save();ctx.globalAlpha=alpha*(1-age/.9);ctx.textAlign='center';ctx.font=`800 ${20/scale}px system-ui`;ctx.lineWidth=4/scale;ctx.strokeStyle='#19384c';ctx.fillStyle='#fff6c4';const label=String(E.combat.points(damage));ctx.strokeText(label,marker.x,marker.y-(48+age*38)/scale);ctx.fillText(label,marker.x,marker.y-(48+age*38)/scale);ctx.restore();}
    }
   }
   if(shot)shotAt(shot,flight,1);
