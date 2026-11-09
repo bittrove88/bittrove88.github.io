@@ -144,7 +144,7 @@ function create(canvas,configuration={}){
    ctx.restore();
   }
  }
- let echoSprite=null,echoSpriteKey='';
+ let echoSprite=null,echoOutline=null,echoSpriteKey='',echoCueOwner=null,echoCueId=null,echoCueStart=0;
  function bossEcho(s,options,time,scale){
   const echo=s.bossEcho||s.bossEchoEffect;if(!echo||!root.ArcVisualArt)return;
   const firing=options.shot?.echo?options.shot:null,u=firing?.echoUnit||echo.unit;
@@ -156,10 +156,22 @@ function create(canvas,configuration={}){
    c.translate(192-u.x,192-u.y);
    root.ArcVisualArt.drawActor(c,s.spec.encounterId||root.ArcEncounters.forSpec(s.spec).id,u,{state:display,side:1,muzzle,angle,alpha:1,dpr:1,detail:'battle',kind:'boss',time:0});
    c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-in';c.fillStyle=tint;c.fillRect(0,0,384,256);echoSpriteKey=key;
+   echoOutline=document.createElement('canvas');echoOutline.width=384;echoOutline.height=256;const outline=echoOutline.getContext('2d');
+   for(const [x,y]of [[-3,0],[3,0],[0,-3],[0,3],[-2,-2],[2,-2],[-2,2],[2,2]])outline.drawImage(echoSprite,x,y);
+   outline.globalCompositeOperation='source-in';outline.fillStyle='#e0f8ff';outline.fillRect(0,0,384,256);outline.globalCompositeOperation='destination-out';outline.drawImage(echoSprite,0,0);
   }
-  const fading=!s.bossEcho,progress=fading?Math.min(1,echo.age/echo.duration):0,alpha=.46*(1-progress);
+  const cue=s.bossEcho?ChargeCamera.echoCue(options.echoCueAge??Infinity):0;
+  const fading=!s.bossEcho,progress=fading?Math.min(1,echo.age/echo.duration):0,alpha=(.46+.22*cue)*(1-progress);
   ctx.save();ctx.globalAlpha=alpha;ctx.drawImage(echoSprite,u.x-192,u.y-192);
   ctx.globalAlpha=.22*(1-progress);ctx.drawImage(echoSprite,u.x-192+2/scale,u.y-192-1/scale);
+  if(cue>.02){
+   ctx.globalAlpha=.95*cue;ctx.drawImage(echoOutline,u.x-192,u.y-192);
+   const bounds=options.echoLabelBounds,h=u.hitShape||{y:-44,ry:44};
+   const x=bounds?Math.max(bounds.left+30/scale,Math.min(bounds.right-30/scale,u.x)):u.x;
+   const top=Math.min(u.y+h.y-h.ry,...G.actorParts(display,1).filter(p=>p.hp>0).map(p=>u.y+p.dy-p.radius))-24/scale;
+   const y=bounds?Math.max(bounds.top+12/scale,Math.min(bounds.bottom-12/scale,top)):top;
+   round(x-27/scale,y-10/scale,54/scale,20/scale,5/scale,'#183946e8');ctx.font=`700 ${12/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#e0f8ff';ctx.fillText(root.ArcI18n?.language==='en'?'ECHO':'残像',x,y+4/scale);
+  }
   if(!options.reducedMotion){
    for(let i=0;i<6;i++){const phase=time*.8+i*1.7,x=u.x+Math.cos(phase)*65,y=u.y-35+Math.sin(phase*.7)*35;circle(x,y,1.4/scale,tint);}
   }
@@ -198,6 +210,9 @@ function create(canvas,configuration={}){
   const lessonFocus=demonstration?.focus,validFocus=lessonFocus&&Number.isFinite(lessonFocus.x)&&Number.isFinite(lessonFocus.y)&&lessonFocus.x>=0&&lessonFocus.x<=arenaWidth;
   const closeFocus=demonstration?.phase==='RESULT'&&validFocus&&!demonstration.framing?.keepOverview?{...lessonFocus,radius:Math.max(100,Math.min(280,lessonFocus.radius||170))}:null;
   const echoUnit=s.bossEcho?.unit||s.bossEchoEffect?.unit;
+  if(s.bossEcho&&(echoCueOwner!==s||echoCueId!==s.bossEcho.id)){echoCueOwner=s;echoCueId=s.bossEcho.id;echoCueStart=options.time||0;}
+  if(!s.bossEcho){echoCueOwner=null;echoCueId=null;}
+  const echoCueAge=s.bossEcho?(options.time||0)-echoCueStart:Infinity;
   const frameUnit=u=>!closeFocus||Math.abs(u.x-closeFocus.x)<=closeFocus.radius+65&&Math.abs(u.y-closeFocus.y)<=260,subjects=demonstration?.framing?.subjects,showsUnit=(u,i)=>(!subjects||subjects.includes(i))&&frameUnit(u),frameUnits=[...s.units.filter(showsUnit),...(!lobby&&!localDemo&&echoUnit?[echoUnit]:[])];
   const phoneLandscape=!lobby&&!localDemo&&w>h&&h<=600&&matchMedia('(pointer: coarse)').matches;
   const top=Number.isFinite(options.presentationFrame?.top)?Math.max(0,Math.min(h-1,options.presentationFrame.top)):lobby?(wide?100:h*.23):localDemo?16:phoneLandscape?(h<=280?4:h<=340?8:48):Math.max(80,(header?.bottom||64)+20);
@@ -224,6 +239,7 @@ function create(canvas,configuration={}){
   function includeActors(state){for(let side=0;side<2;side++){const u=state.units[side];if(!showsUnit(u,side))continue;const extent=side&&E.guardian(state)?(state.spec.boss?105:65):48;critical.push(u.x-extent,u.x+extent);const muzzle=G.muzzle(state,side,side?52:state.angle);critical.push(muzzle.x-6,muzzle.x+6);}for(const pickup of state.pickups||[])if(isArenaPickup(pickup)&&!localDemo&&!phoneLandscape)critical.push(pickup.x-24,pickup.x+24);}
   includeActors(s);if(demonstration?.after)includeActors(demonstration.after);if(closeFocus)critical.push(closeFocus.x-closeFocus.radius,closeFocus.x+closeFocus.radius);
   if(echoUnit&&!lobby&&!localDemo){critical.push(echoUnit.x-105,echoUnit.x+105);const m=G.muzzle({...s,units:[s.units[0],echoUnit]},1,52);critical.push(m.x-6,m.x+6);}
+  if(options.shot?.teleport&&s.enemyTeleport&&E.guardian(s)){const p=options.shot.end;critical.push(p.x-105,p.x+105);}
   // A held shot freezes this view, so reserve the player's legal walking extent first.
   if(planning&&!lobby&&!localDemo&&!phoneLandscape&&arenaWidth<=1000)critical.push(s.units[0].range[0]-50,s.units[0].range[1]+50);
   const leftMargin=phoneLandscape?Math.max(12,controls?.left||12):12,rightMargin=phoneLandscape?Math.max(12,w-(controls?.right||w-12)):12;
@@ -286,6 +302,12 @@ function create(canvas,configuration={}){
    chargeZoom=ChargeCamera.advance(chargeZoom,!!engaged,Math.max(0,time-lastCameraTime),options.reducedMotion);
    const player=s.units[0],pivot={x:normalView.x+player.x*normalView.scale,y:normalView.y+player.y*normalView.scale};view=ChargeCamera.apply(normalView,pivot,chargeZoom);
   }else chargeZoom=0;
+  const echoPlan=options.echoFocus?.plan||(shot?.echo?shot:options.tail?.shot?.echo?options.tail.shot:null);
+  if(echoPlan&&!lobby&&!localDemo&&!options.cameraView&&!options.reducedMotion){
+   const age=options.echoFocus?options.echoFocus.age:ChargeCamera.echoPresentation.lead+(shot?.echo?flight:echoPlan.duration+(options.tail?.age||0));
+   const lastStart=Math.max(0,...echoPlan.bullets.map(b=>b.start||0));
+   view=ChargeCamera.echoView(normalView,echoPlan.echoUnit,age,{width:fieldW,top,bottom},lastStart);
+  }
   lastCameraTime=time;cameraKey=nextKey;const scale=view.scale;
   if(phoneLandscape){
    const enemyY=view.y+(s.units[1].y-(s.spec.boss?77:22))*view.scale;document.getElementById('battle').dataset.enemyDirection=enemyY<top?'above':enemyY>bottom?'below':'visible';
@@ -416,7 +438,7 @@ function create(canvas,configuration={}){
   }
   display={...display,units:display.units.map(u=>{if(!u.animation)return u;const a=u.animation,t=Math.min(1,a.age/a.duration),ease=a.fall?t*t:t*t*(3-2*t),path=[a.from,...(a.path||[]),u],lengths=path.slice(1).map((p,i)=>Math.hypot(p.x-path[i].x,p.y-path[i].y));let distance=lengths.reduce((v,n)=>v+n,0)*ease,index=0;while(index<lengths.length-1&&distance>lengths[index])distance-=lengths[index++];const from=path[index],to=path[index+1],mix=lengths[index]?Math.min(1,distance/lengths[index]):1;return {...u,x:from.x+(to.x-from.x)*mix,y:from.y+(to.y-from.y)*mix-Math.sin(t*Math.PI)*(a.lift||0),slope:(from.slope||0)+((to.slope||0)-(from.slope||0))*mix};})};
   if(!lobby){if(display.guardActive){const u=display.units[0];circle(u.x,u.y-25,48,null,'#c6efbd');root.ArcSkills.draw(ctx,'S_GUARD',u.x+38,u.y-60,18/scale);}if(s.repair&&s.phase==='repair'){const u=display.units[0];circle(u.x,u.y-25,(25+40*s.repair.age)/scale,null,'#b7f4c6');}const enemyShot=demonstration?.plan?.side===1?demonstration.plan:shot?.side===1?shot:options.tail?.shot?.side===1?options.tail.shot:null;if(showsUnit(display.units[0],0))rover(display,0,s.angle,localDemo?.9:1,options);if(showsUnit(display.units[1],1))rover(display,1,enemyShot?.angle??52,localDemo?.8:1,options);}
-  if(!lobby)bossEcho(display,options,time,scale);
+  if(!lobby)bossEcho(display,{...options,echoCueAge,echoLabelBounds:fieldBounds},time,scale);
   if(!lobby&&s.finalBeamCharge&&s.phase!=='finish'){const c=s.finalBeamCharge.from,pulse=options.reducedMotion?.6:.5+.5*Math.sin(time*3);ctx.save();ctx.globalAlpha=.5;circle(c.x,c.y,(12+5*pulse)/scale,'#ffdf9a33','#fff0c6');circle(c.x,c.y,(4+2*pulse)/scale,'#fff4d2');ctx.restore();}
   if(!lobby)for(let side=0;side<2;side++)if(showsUnit(display.units[side],side))unitEffects(display,display.units[side],side,options,time,scale);
   if(options.encounter?.boss){

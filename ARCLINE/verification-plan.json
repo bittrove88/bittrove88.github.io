@@ -1,48 +1,60 @@
 {
   "version": 1,
-  "change": "現行0.31.2との不整合による結合検査の失敗を修正",
-  "reason": "ユーザーが不具合のみの修正を依頼。旧UI・旧担当量・旧HP・旧敵AIを前提とする7ブラウザ検査とSTG検査を、現行の画面・合法入力記録・Worker行動契約へ合わせる。アプリの値や挙動を検査に合わせて戻さない。",
+  "change": "0.31.3 残像の発砲フォーカス・転移直後の識別・ボス転移弾の速度",
+  "reason": "追加演出の最終合意後に実行する候補計画。発砲前の表示段階、通常画角への復帰、既存充電カメラ、ボスと通常敵の転移時間、共有描画と版数の生成物を対象にする。",
   "files": [
-    "ARCLINE/game/tests/player-flow-0143-browser.test.cjs",
-    "ARCLINE/game/tests/backgrounds-browser.test.cjs",
-    "ARCLINE/game/tests/pickup-stock-browser.test.cjs",
-    "ARCLINE/game/tests/difficulty-browser.test.cjs",
-    "ARCLINE/game/tests/damage-sync-browser.test.cjs",
-    "ARCLINE/game/tests/final-battle-browser.test.cjs",
-    "ARCLINE/game/tests/attack-review-browser.test.cjs",
-    "ARCLINE/environments/tests/staging-browser.test.cjs"
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/charge-camera.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
+    "ARCLINE/game/tests/echo-presentation.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/ui/charge-camera.js",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.31.3/index.html"
   ],
   "suites": {
-    "unit": [],
+    "unit": [
+      "echo-presentation",
+      "charge-camera"
+    ],
     "browser": [
-      "player-flow-0143-browser",
-      "backgrounds-browser",
-      "pickup-stock-browser",
-      "difficulty-browser",
-      "damage-sync-browser",
-      "final-battle-browser",
-      "attack-review-browser"
+      "boss-motion-browser",
+      "charge-camera-browser",
+      "enemy-movement-browser"
     ]
   },
   "checks": {
-    "generated": false,
+    "generated": true,
     "baseline": false,
     "package": false,
-    "python": false,
+    "python": true,
     "nativeAudio": false
   },
   "manual": [
-    "STGの配布と保存非干渉は既存staging-safety CIで独立実行。ローカルはゲーム配布物が一致する既存0.31.2 STG成果物を使用。",
-    "最終戦は現行Normal/seed4697の正規入力47行動を再生。小画面の配置検査と進行フィクスチャ、人の実プレイ・勝率を区別する。"
+    "旧位置の残像表示と発砲画角はPC・小画面の制作中スクリーンショットで確認。事前確認の成功条件と差分を照合し再利用する。",
+    "最終合意後に選択CIを実行。マージ・配信の依頼がある場合は対象コミットの配信と公開バージョンを別に確認する。"
   ],
   "excluded": [
     {
-      "scope": "紹介画像・紹介文・デザイン・画像sourceHashes・PR65履歴の更新",
-      "reason": "サイト更新は後日まとめるというユーザー指定。service-siteの既知ハッシュ失敗を隠すための変更はしない。"
+      "scope": "物理・威力・HP・在庫・保存・全100面攻略・音声全件",
+      "reason": "演出と時間の変更に限定し、戦闘の計算・転移条件・手番を変更しない。"
     },
     {
-      "scope": "単体テスト全件・他の成功済み結合検査・本番配信",
-      "reason": "変更は検査コードのみ。ゲーム本体・素材・保存・版数を変更しない。"
+      "scope": "無関係なサイト・マーケティング・全件ブラウザ・配布パッケージ",
+      "reason": "共有描画の生成物と既存の充電／敵移動以外へ改修を広げない。実機iOS/Androidは利用できず未確認。"
     }
   ]
 }

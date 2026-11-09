@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "phase": "development precheck; final validation pending user agreement",
+  "baseline": "c56a4aa680dd942e027b9ed218a5ea8cee1eb0a0",
+  "version": "0.31.3",
+  "unit": {
+    "command": "node ARCLINE/game/tests/echo-presentation.test.cjs",
+    "checks": 33,
+    "status": "PASS"
+  },
+  "browser": {
+    "command": "ARCLINE_EVIDENCE_DIR=/workspace/work/echo-camera/precheck node ARCLINE/game/tests/boss-motion-browser.test.cjs",
+    "scenarios": 6,
+    "status": "PASS",
+    "details": "BOSS_MOTION_BROWSER.json",
+    "additionalCheck": "Pending echo focus is paused without changing game state, then successfully resumes the shot."
+  },
+  "visualReview": [
+    "echo-arrival-50-568.png",
+    "echo-fire-100-568.png"
+  ],
+  "scope": "Stage50 native terrain; stage100 late relay on a flat presentation fixture. 1280x720 Worker, 568x320 cooperative fallback, 844x390 reduced motion Worker. Main/echo hand continuity and timing.",
+  "sourceSha256": {
+    "game/ui/charge-camera.js": "783b8c71eb35780a9db789aa1cc94f2fc59a3ddf4ed14d7e6db82b26a1809dda",
+    "game/dist/charge-camera.js": "9bbd7643a2bc22202f8eb1a5bfa55e1bc6cb53f7f4d600bf29e7e687d5bfe83d",
+    "game/dist/game.js": "94612c77d3ed42b69ac27cd29cde90345fb7f1b84fd52a56a8b95395d127d2fb",
+    "game/dist/render.js": "65a5a4b912b8d3d3487a81e85cdfd93844fa0d49326ff017da095410e30c85df",
+    "game/runtime.json": "9cc63e7def6b576c6e7b2d05dde0e6430df9a2066bd44c9011e5607e47b4c1d1",
+    "game/tests/echo-presentation.test.cjs": "53c3a40d6fbf9bad80d18c21979995c4c5eaf61238c59373e273098ffcdde9e8",
+    "game/tests/boss-motion-browser.test.cjs": "169c590237a042f2f4a9fd31243910af918ed39b96829dd31e724ea632d62f8d"
+  },
+  "notPerformed": [
+    "formal validation / CI",
+    "merge / deployment / public URL verification",
+    "physical iOS/Android",
+    "whole campaign / audio regression"
+  ]
+}

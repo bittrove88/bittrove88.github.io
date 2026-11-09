@@ -43,13 +43,15 @@ const server = http.createServer((req, res) => {
     args: ["--no-sandbox"],
   });
   try {
-    for (const [width, height, fallback] of [
+    for (const [width, height, fallback, reduce] of [
       [1280, 720, false],
       [568, 320, true],
+      [844, 390, false, true],
     ]) {
       const page = await browser.newPage({
         viewport: { width, height },
         hasTouch: width < 1000,
+        reducedMotion: reduce ? "reduce" : "no-preference",
       });
       page.on("pageerror", (e) => errors.push(e.stack));
       await page.addInitScript(
@@ -90,6 +92,16 @@ const server = http.createServer((req, res) => {
         manualPaused = false;
         bgm.stop?.();
         window.bossResolved = [];
+        window.echoCueLabels = [];
+        window.echoCameraFrames = [];
+        const originalText = CanvasRenderingContext2D.prototype.fillText;
+        CanvasRenderingContext2D.prototype.fillText = function (
+          value,
+          ...args
+        ) {
+          if (value === "残像" || value === "ECHO") echoCueLabels.push(value);
+          return originalText.call(this, value, ...args);
+        };
         const original = E.resolve;
         E.resolve = (state, plan, ...args) => {
           bossResolved.push({
@@ -104,6 +116,23 @@ const server = http.createServer((req, res) => {
           for (let t = 0; t < seconds; t += 1 / 60) {
             update(Math.min(1 / 60, seconds - t));
             draw();
+            const plan =
+              s.echoFocusPresentation?.plan || (shot?.echo ? shot : null);
+            if (plan) {
+              const v = renderer.view,
+                u = plan.echoUnit;
+              echoCameraFrames.push({
+                phase: s.phase,
+                flight: shot?.echo ? flight : -1,
+                x: v.x + u.x * v.scale,
+                main: v.x + s.units[1].x * v.scale,
+                scale: v.scale / renderer.normalView.scale,
+                round: s.round,
+                cooldown: s.enemyTactics?.cooldown,
+                hp: s.units[0].hp,
+                shot: !!shot,
+              });
+            }
           }
         };
         window.prepareBoss = (stage, index = 0, flat = false) => {
@@ -182,6 +211,8 @@ const server = http.createServer((req, res) => {
           cpuJob = null;
           cpuReady = null;
           bossResolved.length = 0;
+          echoCueLabels.length = 0;
+          echoCameraFrames.length = 0;
           s.turn = 1;
           s.phase = "cpu";
           s.time = 0;
@@ -208,6 +239,32 @@ const server = http.createServer((req, res) => {
         assert.equal(decision.kind, "teleport");
         assert.equal(decision.phase, "cpuTeleport");
         assert.equal(decision.x, before.x);
+        const arrival = await page.evaluate(() => {
+          const t = s.enemyTeleport,
+            duration = t.plan.duration;
+          bossStep(duration - t.age + 0.02);
+          return {
+            echo: !!s.bossEcho,
+            labels: [...echoCueLabels],
+            duration,
+            from: s.bossEcho?.unit.x,
+          };
+        });
+        assert(
+          arrival.echo && arrival.labels.length > 0,
+          "residue is explicitly identified at the departure position",
+        );
+        assert(
+          arrival.duration >= 0.7 && arrival.duration <= 1.6,
+          "boss transfer uses readable presentation timing",
+        );
+        assert.equal(arrival.from, before.x);
+        await page.screenshot({
+          path: path.join(
+            out,
+            `echo-arrival-${stage}-${width}${reduce ? "-reduce" : ""}.png`,
+          ),
+        });
         const waiting = await page.evaluate(() => {
           bossStep(3);
           return {
@@ -255,15 +312,42 @@ const server = http.createServer((req, res) => {
           s.power = 20;
           launch();
         });
-        let done = false;
+        let done = false,
+          focusCaptured = false,
+          focusPauseChecked = false;
         for (let i = 0; i < 700; i++) {
           const state = await page.evaluate(() => {
             bossStep(0.08);
             return {
               done: s.turn === 0 && s.phase === "aim" && s.shotCount === 1,
               over: !!s.result,
+              firing: !!shot?.echo && flight < 0.14,
+              focusing: s.phase === "cpuEchoFocus",
             };
           });
+          if (state.focusing && !focusPauseChecked) {
+            const frozen = await page.evaluate(() => {
+              const state = JSON.stringify(s);
+              manualPaused = true;
+              bossStep(0.5);
+              manualPaused = false;
+              return state === JSON.stringify(s);
+            });
+            assert(
+              frozen,
+              "pause freezes the focus lead and resumes the pending shot",
+            );
+            focusPauseChecked = true;
+          }
+          if (state.firing && !focusCaptured) {
+            await page.screenshot({
+              path: path.join(
+                out,
+                `echo-fire-${stage}-${width}${reduce ? "-reduce" : ""}.png`,
+              ),
+            });
+            focusCaptured = true;
+          }
           if (state.done) {
             done = true;
             break;
@@ -280,6 +364,8 @@ const server = http.createServer((req, res) => {
           echo: !!s.bossEcho,
           worker: !!worker,
           errors: platformStatus.errors,
+          focusFrames: echoCameraFrames,
+          cueLabels: [...echoCueLabels],
         }));
         assert.equal(result.resolved.filter((r) => r.echo).length, 1);
         assert.equal(
@@ -293,7 +379,72 @@ const server = http.createServer((req, res) => {
         assert(!result.echo);
         assert.equal(result.worker, !fallback);
         assert.deepEqual(result.errors, []);
-        rows.push({ stage, index, width, height, fallback, waiting, result });
+        const approach = result.focusFrames.filter(
+          (x) => x.phase === "cpuEchoFocus",
+        );
+        if (reduce) {
+          assert.equal(
+            approach.length,
+            0,
+            "reduced motion adds no focus delay",
+          );
+          assert(
+            result.focusFrames.every((x) => Math.abs(x.scale - 1) < 1e-7),
+            "reduced motion keeps the normal camera",
+          );
+        } else {
+          assert(focusPauseChecked, "focus pause path was exercised");
+          assert(
+            approach.length > 0,
+            "camera acquires residue before the first shot",
+          );
+          assert(
+            approach.every(
+              (x) =>
+                !x.shot &&
+                x.round === waiting.round &&
+                x.cooldown === 2 &&
+                x.hp === waiting.hp,
+            ),
+            "focus lead never fires or consumes a turn/HP/cooldown",
+          );
+          const flashes = result.focusFrames.filter(
+            (x) =>
+              (x.flight >= 0 && x.flight <= 0.14) ||
+              (stage === 100 && x.flight >= 0.2 && x.flight <= 0.34),
+          );
+          assert(flashes.length > 0);
+          assert(
+            flashes.every(
+              (x) =>
+                Math.abs(x.x - width / 2) < 2 &&
+                Math.abs(x.main - width / 2) > 10,
+            ),
+            "muzzle flashes focus the residue rather than the main body",
+          );
+          if (stage === 100)
+            assert(
+              flashes.some((x) => x.flight >= 0.2),
+              "second shot retains residue focus",
+            );
+        }
+        assert(result.cueLabels.length > 0, "initial residue cue was drawn");
+        const restored = await page.evaluate(
+          () =>
+            Math.abs(renderer.view.scale - renderer.normalView.scale) < 1e-7,
+        );
+        assert(restored, "normal view restored for the player");
+        rows.push({
+          stage,
+          index,
+          width,
+          height,
+          fallback,
+          reduce,
+          arrival,
+          waiting,
+          result,
+        });
       }
       await page.close();
     }
