@@ -1,10 +1,10 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const E=require('../dist/engine.js'),Q=require('../tools/approved-map-qa.cjs'),T=require('../dist/final-team.js'),S=require('../dist/save.js'),R=require('../dist/campaign-run.js'),Crew=require('../dist/crew.js');
-const evidence=path.resolve(__dirname,'../../evidence/hp-action-0300'),acceptance=require('../../evidence/hp-action-0300/ACCEPTANCE.json');
+const evidence=path.resolve(__dirname,'../../evidence/hp-action-0300'),acceptance=require('../../evidence/hp-action-0300/INTEGRATED_ACCEPTANCE.json');
 let checks=0,playerActions=0,enemyTurns=0;const eq=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);},ok=(x,m)=>{checks++;assert(x,m);},near=(a,b,m)=>{checks++;assert(Math.abs(a-b)<1e-6,m+' '+a+'/'+b);};
 for(const [file,sha]of Object.entries(acceptance.reports))eq(crypto.createHash('sha256').update(fs.readFileSync(path.join(evidence,file))).digest('hex'),sha,'pinned native input '+file);
-const rows=require('../../evidence/hp-action-0300/MATCHES.json').rows;
+const rows=require('../../evidence/hp-action-0300/INTEGRATED_MATCHES.json').rows;
 const selected=[[1,'easy','clean'],[5,'easy','clean'],[10,'normal','clean'],[45,'easy','clean'],[60,'normal','clean'],[80,'hard','clean'],[85,'normal','miss2'],[95,'easy','clean'],[91,'normal','clean'],[91,'normal','survival-route','rico'],[91,'normal','survival-route','rin'],[98,'normal','main'],[100,'easy','clean'],[100,'normal','clean'],[100,'hard','clean']];
 const chosen=process.env.ARCLINE_ALL_BALANCE_REPLAYS==='1'?rows:selected.map(([stage,mode,scenario,id])=>rows.find(r=>r.stage===stage&&r.mode===mode&&r.scenario===scenario&&(!id||r.id===id)&&r.seed===4697));
 const proof=[];
@@ -16,7 +16,7 @@ for(const row of chosen){ok(row,'selected current replay exists');const state=E.
  if(row.stage===100){ok(T.complete(state),'all ten quotas');const data=S.decode(JSON.stringify({schemaVersion:8,campaignResetVersion:2,cleared:99,unlockedCharacterIds:Crew.ids,equippedCharacterId:'gun',difficulty:row.mode,difficultyConfirmed:true})),context=R.begin(data,100,{seed:row.seed});ok(R.finish(data,context,state).advanced,'real final clear accepted');eq(data.cleared,100,'clear persisted');eq(S.decode(JSON.stringify(data)),data,'save round trip');}
  proof.push({stage:row.stage,mode:row.mode,scenario:row.scenario,actions:row.actions.length});
 }
-const arrivals=require('../../evidence/hp-action-0300/FINAL_ENTRIES.json');let retries=0;
+const arrivals=require('../../evidence/hp-action-0300/INTEGRATED_FINAL_ENTRIES.json');let retries=0;
 for(const group of arrivals){eq(group.entries.length,10,'all ten real arrivals');const row=rows.find(r=>r.stage===100&&r.mode===group.mode&&r.scenario==='clean'&&r.seed===group.seed);
  for(const entry of group.entries){const state=E.campaign(100,{difficulty:group.mode,matchSeed:group.seed}),first=row.actions.find(a=>a.owner===entry.characterId);ok(T.restore(state,entry),'restore real arrival');eq(state.units[0].hp*20,100,'restored player100');eq(state.shotLimit,20,'restored cap20');eq(state.spec.finalBattle.requiredDamage*20,group.mode==='easy'?80:150,'restored quota');E.move(state,0,first.input);first.teleport?E.selectTeleport(state):E.selectWeapon(state,'W01');const shot=E.launch(state,first.angle,first.power);ok(shot,'real retry attack');E.resolve(state,shot);near(shot.damage[1],first.damage[1],'same retry damage');ok(T.restore(state,entry),'restore after partial quota');eq(state.finalTeam.damage,entry.finalTeam.damage,'failed quota undone');eq(state.units,entry.units,'HP and positions restored');eq(state.world,entry.world,'world restored');eq(state.shotCount,0,'retry resets count');retries++;}
 }

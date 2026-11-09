@@ -1,7 +1,7 @@
 {
   "version": 1,
   "change": "テーマ共通HP・行動上限とEasyの75%・上限80、最終戦各HP100／担当150（Easy80）／20行動を反映",
-  "reason": "全100面の設定と戦闘開始、部位再生成、最終戦・再挑戦を変更する。全300初期化と地形・保存の保護、選定した実入力の再生、実際のWorker手番と日英表示・再挑戦、全生成物の一致を検査する。技・物理・AI・原画・音源は変更しない。",
+  "reason": "全100面の設定と戦闘開始、部位再生成、最終戦・再挑戦を変更する。全300初期化と地形・保存の保護、選定した実入力の再生、実際のWorker手番と日英表示・再挑戦、全生成物の一致を検査する。技・物理・AI・原画・音源は変更しない。 先行PR132〜134を統合し、保護ソースはmain799287eと比較する。命中計上が変わった実入力15件と最終戦到着30件を取り直し、ヒバリ部位破壊後の残り威力も検査する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -23,6 +23,7 @@
     "ARCLINE/game/dist/machine-picker.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/hibari-ring.test.cjs",
     "ARCLINE/game/tests/hp-action-balance-browser.test.cjs",
     "ARCLINE/game/tests/hp-action-balance.test.cjs",
     "ARCLINE/game/tests/hp-action-native.test.cjs",
@@ -42,7 +43,8 @@
   "suites": {
     "unit": [
       "hp-action-balance",
-      "hp-action-native"
+      "hp-action-native",
+      "hibari-ring"
     ],
     "browser": [
       "hp-action-balance-browser"
@@ -56,7 +58,7 @@
     "nativeAudio": false
   },
   "manual": [
-    "Normal/Easy全100面とHard代表16面、失敗復帰・低HP別経路を含む244件の実入力対戦を記録。既存地形・物理・敵の実手番を使用。",
+    "統合前244条件は履歴として保持。最新mainのダメージ計上で代表15条件を再記録・独立再生する。",
     "最終戦の各難易度10機の実到着状態から再挑戦し、担当量とHP・上限と保存を確認。",
     "更新したゲームHTML・Markdownのローカル参照を確認。人の初見・物理端末・公開URLは対象外。"
   ],

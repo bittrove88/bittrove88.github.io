@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "change": "ダメージを累積数字へ簡略化し、ヒバリ光輪の露出した輪郭・進行する円周・部位破壊後の残り威力を修正（0.29.6）",
+  "reason": "ユーザー動画の10面・48度・表示61％で、部位5.1/12/2.9の後に未使用9.1を捨てて本体HP200が残る問題を再現。修正後190.9となること、各光輪12と全体上限、部分／完全遮蔽、描画半径、単一累積数字、部位数字の抑制、30/120fpsのHP、本編Workerから次の操作への復帰を確認する。 Local execution reuses the just-passed hibari-ring74 checks from the same final sources.",
+  "rows": [
+    {
+      "label": "unit: damage-sync, special-damage, special-targeting, special-evolution, attack-motion, three-change, combat-sfx-0190, promo-experience",
+      "status": "PASS",
+      "ms": 9035
+    },
+    {
+      "label": "browser: damage-sync-browser, attack-review-browser, battle-turn-continuity-browser, ../site-tests/service-site",
+      "status": "PASS",
+      "ms": 93619
+    },
+    {
+      "label": "generated output",
+      "status": "PASS",
+      "ms": 11220
+    },
+    {
+      "label": "package",
+      "status": "PASS",
+      "ms": 2019
+    }
+  ],
+  "manual": [
+    "英字・MAX・命中数がない累積数字と、2枚の明るい円周をPC／スマホ画像で確認する",
+    "元動画と切り出したフレームは公開リポジトリへ含めない",
+    "HP・地形・敵AI・移動・保存・既存の威力／上限パラメータが変わらないことを差分で確認する",
+    "mainマージ・公開・物理端末の確認は別工程として記録する"
+  ],
+  "excluded": [
+    {
+      "scope": "全100面の再攻略、無関係なAI・物語・マスター設定・音声デコード・エンディング",
+      "reason": "変更はヒバリの拡大する輪と攻撃の説明／数字表示に限定。従来成功の無関係な検査は再利用し、音声の実再生を含むpromo-experience-browserは選択しない。"
+    }
+  ]
+}

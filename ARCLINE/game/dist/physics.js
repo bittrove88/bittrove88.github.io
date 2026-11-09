@@ -49,6 +49,26 @@ function simulate(s,side,angle,power,options={}){
  const startDelay=G.clamp(Number(options.startDelay)||0,0,2),curve=G.clamp(Number(options.curve)||0,-1.5,1.5);
  let simWorld=s.world,breachUsed=false;const destroyed=new Set();
  const events=[],bullets=[],impacts=[],damage=[0,0],partDamage={},seenPickups=new Set(),seenTerminals=new Set();let iterations=0,bulletId=0;
+ const timed=side===0&&!weapon.teleport,boost=side===0?(s.skillEffects?.power?.factor||1):1;
+ let spent=0,bossWeak=false;
+ let relayRemaining=s.stage===100&&s.spec.finalBattle&&s.finalTeam?Math.max(0,s.spec.finalBattle.requiredDamage-(s.finalTeam.damage[s.characterId]||0)):Infinity;
+ // Damage is credited in contact order. The same ledger drives HP, labels and
+ // part destruction; later hits never rescale an earlier hit.
+ function credit(p,hit,value,source){
+  if(!hit||value<=0)return 0;
+  const j=hit.unit,part=j===1&&hit.kind==='part'?units[j].parts[hit.part]:null;
+  if(part&&part.hp<=0)return 0;
+  if(j===1&&hit.kind==='weak'&&s.spec.boss)bossWeak=true;
+  const cap=j===0?1:bossWeak?(weapon.bossDamageCap??weapon.damageCap??2):(weapon.damageCap??(hit.critical?1.875:1.25));
+  const raw=value*(j===1?boost:1),available=j===1?Math.max(0,cap-spent):Math.max(0,cap-damage[j]);
+  const amount=Math.min(raw,available,part?part.hp:units[j].hp,j===1&&!part?relayRemaining:Infinity);
+  if(amount<=1e-10)return 0;
+  if(part){part.hp=Math.max(0,part.hp-amount);if(part.hp<1e-9)part.hp=0;partDamage[hit.part]=(partDamage[hit.part]||0)+amount;}
+  else{damage[j]+=amount;units[j].hp=Math.max(0,units[j].hp-amount);if(units[j].hp<1e-9)units[j].hp=0;if(j===1)relayRemaining=Math.max(0,relayRemaining-amount);}
+  if(j===1)spent+=amount;
+  events.push({type:part?'part-damage':'damage',unit:j,...(part?{part:hit.part}:{}),value:amount,rawValue:raw,weak:hit.kind==='weak',critical:!!hit.critical,capped:j===1&&amount+1e-9>=available,cap,x:hit.point?.x??hit.x??p.x,y:hit.point?.y??hit.y??p.y,t:p.t,bullet:p.id,source});
+  return amount;
+ }
  const damageBudget=weapon.damage;
  const newBullet=(offset=0,delay=0,budget=damageBudget,primary=true,source=origin,powerValue=power)=>{
   delay+=startDelay;const a=source.theta+offset*Math.PI/180,v=launchSpeed(powerValue,weapon);
@@ -74,6 +94,47 @@ function simulate(s,side,angle,power,options={}){
  if(curve)events.push({type:'curve',x:origin.x,y:origin.y,t:startDelay,bullet:0});
  const centerOf=j=>bodyCenter({...s,units},j,true);
  function clearTo(point,target,solidId=null){const h=G.sweep(simWorld,point,target);return !h||h.t>.98||solidId&&h.solid.id===solidId;}
+ function multiplier(hit){return hit.kind==='weak'?(units[hit.unit].core?.multiplier||2):hit.critical?(weapon.criticalMultiplier??1.5):1;}
+ // Intersect the growing effect with the actual body/part/core shapes, rather
+ // than requiring the effect to reach a single arbitrary chassis center.
+ function areaContact(p,j,radius,kind='ring',innerRadius=0){
+  const u=units[j],boss=j===1&&(s.spec.boss||s.spec.midboss),targets=[];
+  if(boss){
+   const parts=G.actorParts(simState,j),core=u.core||{x:0,y:-77,radius:26,exposedRadius:38},exposed=u.exposed>0||s.spec.id===100&&s.bossPhase===2,broken=parts.some(q=>q.hp<=0);
+   for(const [i,q]of parts.entries())if(q.hp>0)targets.push({x:u.x+q.dx,y:u.y+q.dy,rx:q.radius,ry:q.radius,kind:'part',part:i});
+   if(!s.spec.midboss||broken||exposed)targets.push({...G.actorPoint(simState,j,core.x,core.y),rx:exposed?core.exposedRadius:core.radius+(broken?3:0),ry:exposed?core.exposedRadius:core.radius+(broken?3:0),kind:'weak'});
+   const h=u.hitShape||{x:0,y:-38,rx:58,ry:58};targets.push({...G.actorPoint(simState,j,h.x,h.y),rx:h.rx,ry:h.ry,slope:u.slope||0,kind:'body'});
+  }else targets.push({...bodyCenter(simState,j),rx:weapon.needle?25:31,ry:weapon.needle?25:31,kind:'body'});
+  const hits=[],axis=(origin.dir||1)<0?Math.PI:0,half=(weapon.coneAngle||28)*Math.PI/180;
+  for(const q of targets){
+   // A circular wave can touch any exposed arc of the target. Sweep only the
+   // newly drawn front, so later terrain/armor changes cannot hit its old interior.
+   if(p.effect==='area'&&kind==='ring'){
+    const theta=Math.atan2(q.y-p.y,q.x-p.x),distanceToCenter=Math.hypot(q.x-p.x,q.y-p.y),span=distanceToCenter<=Math.max(q.rx,q.ry)?Math.PI:Math.asin(Math.min(1,Math.max(q.rx,q.ry)/distanceToCenter)),slope=q.slope||0,c=Math.cos(slope),sn=Math.sin(slope);
+    for(const fraction of [0,-.2,.2,-.4,.4,-.6,.6,-.8,.8,-.98,.98]){
+     const angle=theta+fraction*span,dx=Math.cos(angle),dy=Math.sin(angle),x=((p.x-q.x)*c+(p.y-q.y)*sn)/q.rx,y=(-(p.x-q.x)*sn+(p.y-q.y)*c)/q.ry,vx=(dx*c+dy*sn)/q.rx,vy=(-dx*sn+dy*c)/q.ry,A=vx*vx+vy*vy,B=2*(x*vx+y*vy),D=B*B-4*A*(x*x+y*y-1);
+     if(D<0)continue;const entry=Math.max(0,(-B-Math.sqrt(D))/(2*A)),exit=(-B+Math.sqrt(D))/(2*A),distance=Math.max(entry,innerRadius);
+     if(exit<distance-1e-7||distance>radius+1e-7)continue;
+     const point={x:p.x+dx*distance,y:p.y+dy*distance};if(!clearTo({x:p.x,y:p.y-2},point))continue;
+     const blocked=boss?hitTargets(simState,side,p,point,1,weapon):null;
+     if(blocked?.kind==='part'&&(q.kind!=='part'||blocked.part!==q.part)&&blocked.t<1-1e-6)continue;
+     hits.push({...q,unit:j,distance,point});
+    }
+    continue;
+   }
+   const theta=Math.atan2(q.y-p.y,q.x-p.x),delta=Math.atan2(Math.sin(theta-axis),Math.cos(theta-axis)),a=kind==='cone'?axis+G.clamp(delta,-half,half):theta;
+   const reach=Math.max(1,Math.hypot(q.x-p.x,q.y-p.y)+Math.max(q.rx,q.ry)*2),end={x:p.x+Math.cos(a)*reach,y:p.y+Math.sin(a)*reach},slope=q.slope||0;
+   const local=v=>({x:((v.x-q.x)*Math.cos(slope)+(v.y-q.y)*Math.sin(slope))/q.rx,y:(-(v.x-q.x)*Math.sin(slope)+(v.y-q.y)*Math.cos(slope))/q.ry});
+   const t=G.circle(local(p),local(end),{x:0,y:0},1);if(t===null)continue;
+   const point={x:p.x+(end.x-p.x)*t,y:p.y+(end.y-p.y)*t},distance=Math.hypot(point.x-p.x,point.y-p.y);
+   if(distance>radius+1e-7||!clearTo({x:p.x,y:p.y-2},point))continue;
+   const blocked=boss?hitTargets(simState,side,p,point,1,weapon):null;
+   if(blocked?.kind==='part'&&(q.kind!=='part'||blocked.part!==q.part)&&blocked.t<1-1e-6)continue;
+   hits.push({...q,unit:j,distance,point});
+  }
+  // A clear aperture to a core keeps the same priority as a real projectile.
+  return hits.find(q=>q.kind==='weak')||hits.sort((a,b)=>a.distance-b.distance||(a.kind==='part'?-1:1))[0]||null;
+ }
  function forward(point,target){const dx=(target.x-point.x)*(origin.dir||Math.sign(Math.cos(origin.theta))||1),dy=target.y-point.y;return dx>=-1e-7&&Math.hypot(dx,dy)<=weapon.coneLength&&Math.abs(Math.atan2(dy,Math.max(0,dx)))<=weapon.coneAngle*Math.PI/180;}
  function breakPieces(p,contact,blast){
   const contacted=simWorld.solids.find(o=>o.id===contact?.solidId),breach=skill==='S_BREACH'&&!breachUsed&&contacted?.destructible;if(breach)breachUsed=true;
@@ -87,18 +148,29 @@ function simulate(s,side,angle,power,options={}){
  }
  function explode(p,hit=null,contact=null){
   finishConvergence(p);
-  const end={x:p.x,y:p.y,t:p.t},blast=(p.blast??weapon.blast)*(skill==='BURST'?1.5:1);impacts.push({...end,hit,contact,bullet:p.id,...(weapon.special||weapon.enemyTechnique?{blast}:{} )});
+  const end={x:p.x,y:p.y,t:p.t},blast=(p.blast??weapon.blast)*(skill==='BURST'?1.5:1);impacts.push({...end,hit,contact,bullet:p.id,...(timed||weapon.special||weapon.enemyTechnique?{blast}:{} )});
   if(weapon.teleport){events.push({...end,type:'teleport-contact',bullet:p.id,contact});return;}
   events.push({...end,type:hit?.critical?'critical':hit?.kind==='weak'?'weak':hit?.kind==='part'?'part':hit?.kind==='airburst'?'airburst':'impact',bullet:p.id});
   breakPieces(p,contact,blast);
+  if(timed&&blast>0&&!weapon.captureDamage)events.push({type:'blast-zone',...end,radius:blast,fade:.28,bullet:p.id});
   if(!p.secondary&&weapon.afterBursts)for(const [i,b]of weapon.afterBursts.entries()){const time=p.t+b.delay;queue.push({...p,id:bulletId++,effect:'burst',secondary:true,budget:b.damage,blast:b.blast,t:time,start:time,stage:i+1,path:[{x:p.x,y:p.y,t:time}]});}
-  if(!p.secondary&&(weapon.expandingRing||weapon.progressiveCone)){const duration=weapon.areaSeconds||.6;queue.push({...p,id:bulletId++,effect:'area',secondary:true,areaKind:weapon.progressiveCone?'cone':'ring',areaRadius:weapon.progressiveCone?weapon.coneLength:weapon.expandingRing,areaDuration:duration,areaSeen:new Set(),areaParts:new Set(),budget:weapon.areaDamage??p.budget,t:p.t,start:p.t,path:[{x:p.x,y:p.y,t:p.t}]});}
+  if(!p.secondary&&(weapon.expandingRing||weapon.progressiveCone)){const duration=weapon.areaSeconds||.6;for(let index=0;index<(weapon.ringCount||1);index++){const time=p.t+index*(weapon.ringInterval||0);queue.push({...p,id:bulletId++,effect:'area',secondary:true,areaKind:weapon.progressiveCone?'cone':'ring',areaRadius:weapon.progressiveCone?weapon.coneLength:weapon.expandingRing,areaDuration:duration,areaSeen:new Set(),areaParts:new Set(),budget:weapon.areaDamage??p.budget,t:time,start:time,ringIndex:index,path:[{x:p.x,y:p.y,t:time}]});}}
   if(!p.secondary&&weapon.afterRings)for(const [i,r]of weapon.afterRings.entries()){const t=p.t+r.delay;queue.push({...p,id:bulletId++,effect:'area',secondary:true,areaKind:'ring',areaRadius:r.radius,areaDuration:r.duration,areaSeen:new Set(),areaParts:new Set(),budget:r.damage,t,start:t,stage:i+1,path:[{x:p.x,y:p.y,t}]});}
   if(weapon.coneLength&&!weapon.progressiveCone)events.push({...end,type:'shockwave',bullet:p.id,direction:origin.dir||1,length:weapon.coneLength,halfAngle:weapon.coneAngle});
   const waves=[];
   if(weapon.wave){for(const dir of [-1,1]){let current=G.surfaceAt(simWorld,p.x,p.y,30);const path=[];if(current)for(let distance=0;distance<=(weapon.waveDistance||180);distance=Math.min(weapon.waveDistance||180,distance+5)){const x=p.x+dir*distance,next=G.surfaceAt(simWorld,x,current.y,12);if(!next||!G.lineClear(simWorld,{x:current.x,y:current.y-4},{x,y:next.y-4}))break;current=next;path.push({x,y:next.y-4,...(weapon.progressiveWave?{t:p.t+distance/(weapon.waveSpeed||300)}:{})});if(distance===(weapon.waveDistance||180))break;}if(path.length){waves.push(path);events.push({type:'wave',x:p.x,y:p.y,t:p.t,path,bullet:p.id,...(weapon.progressiveWave?{duration:path.at(-1).t-p.t}:{})});}}}
-  if(weapon.progressiveWave){for(let j=0;j<2;j++){const u=units[j],q=waves.flat().filter(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25).sort((a,b)=>a.t-b.t)[0];if(q)queue.push({...p,id:bulletId++,effect:'wave-hit',target:j,t:q.t,start:q.t,path:[{x:q.x,y:q.y,t:q.t}],budget:p.budget});}}
+  if(weapon.progressiveWave){for(let j=0;j<2;j++){const u=units[j],q=timed?waves.flat().filter(q=>areaContact(q,j,7)).sort((a,b)=>a.t-b.t)[0]:waves.flat().filter(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25).sort((a,b)=>a.t-b.t)[0];if(q)queue.push({...p,id:bulletId++,effect:'wave-hit',target:j,t:q.t,start:q.t,x:q.x,y:q.y,path:[{x:q.x,y:q.y,t:q.t}],budget:p.budget});}}
   for(let j=0;j<2;j++){
+   if(timed){
+    if(weapon.progressiveCone)continue;
+    if(weapon.captureDamage){if(j===1&&p.captureHit)credit(p,p.captureHit,p.budget*multiplier(p.captureHit),'compression');continue;}
+    const direct=hit?.unit===j&&hit.kind!=='airburst',target=direct?hit:areaContact(p,j,blast);
+    if(!target)continue;
+    const falloff=direct||hit?.unit===j&&hit.kind==='airburst'?1:Math.max(0,1-(target.distance||0)/Math.max(1,blast));
+    let value=p.budget*falloff*multiplier(target);
+    if(!direct&&hit?.kind!=='airburst'&&!weapon.special&&skill!=='BURST')value=p.budget*.5*multiplier(target);
+    credit(p,target,value,p.effect||'impact');continue;
+   }
    const u=units[j],center=centerOf(j),d=Math.hypot(p.x-center.x,p.y-center.y);
    let value=0;
    if(weapon.progressiveCone)value=0;
@@ -110,12 +182,12 @@ function simulate(s,side,angle,power,options={}){
    damage[j]+=value;
    if(weapon.progressiveDamage&&value>0)events.push({type:'damage',unit:j,value,x:p.x,y:p.y,t:p.t,bullet:p.id,source:p.effect||'impact'});
   }
-  if(hit?.kind==='part'&&!weapon.progressiveCone)partDamage[hit.part]=(partDamage[hit.part]||0)+p.budget;
+  if(!timed&&hit?.kind==='part'&&!weapon.progressiveCone)partDamage[hit.part]=(partDamage[hit.part]||0)+p.budget;
   if(weapon.breachPulses&&(p.pulseIndex||0)<weapon.breachPulses-1){
    // Each of the three blast positions advances in the firing direction. Charge controls spacing, never damage.
-   const distance=(weapon.pulseAdvance||22)*(.4+.6*G.clamp((power-20)/80,0,1)),direction=origin.dir||Math.sign(p.vx)||1;
-   const next={x:p.x+direction*distance,y:p.y},blocked=G.sweep(simWorld,p,next),point=blocked?{x:blocked.x+blocked.nx*.6,y:blocked.y+blocked.ny*.6}:next,time=p.t+weapon.pulseDelay;
-   queue.push({...p,...point,id:bulletId++,t:time,start:time,effect:'pulse',pulseIndex:(p.pulseIndex||0)+1,path:[{...point,t:time}],pulseContact:blocked?{solidId:blocked.solid.id}:null});
+   const distance=weapon.pulseBlasts?weapon.pulseAdvance:(weapon.pulseAdvance||22)*(.4+.6*G.clamp((power-20)/80,0,1)),direction=origin.dir||Math.sign(p.vx)||1;
+   const next={x:p.x+direction*distance,y:p.y-2},blocked=G.sweep(simWorld,{x:p.x,y:p.y-2},next),point=blocked?{x:blocked.x+blocked.nx*.6,y:blocked.y+blocked.ny*.6}:{x:next.x,y:p.y},time=p.t+weapon.pulseDelay,index=(p.pulseIndex||0)+1;
+   if(!blocked||blocked.solid.destructible)queue.push({...p,...point,id:bulletId++,t:time,start:time,effect:'pulse',pulseIndex:index,blast:weapon.pulseBlasts?.[index]??p.blast,path:[{...point,t:time}],pulseContact:blocked?{solidId:blocked.solid.id}:null});
   }
  }
  const seenBullets=new Set();
@@ -125,7 +197,24 @@ function simulate(s,side,angle,power,options={}){
   queue.sort((a,b)=>a.t-b.t||a.id-b.id);const p=queue.shift();if(!seenBullets.has(p.id)){seenBullets.add(p.id);bullets.push(p);if(!p.primary&&(weapon.twoWave||weapon.spiral)){const solid=simWorld.solids.find(o=>G.inside(p,o.poly));if(solid){explode(p,null,{solidId:solid.id});continue;}}}let ended=false;
   if(p.effect==='area'){
    const age=p.t-p.start,radius=p.areaRadius*Math.min(1,age/p.areaDuration);
-   if(!p.announced){p.announced=true;events.push({type:p.areaKind==='ring'?'ring':'shockwave',x:p.x,y:p.y,t:p.start,duration:p.areaDuration,radius:p.areaRadius,length:p.areaRadius,halfAngle:weapon.coneAngle||28,direction:origin.dir||1,bullet:p.id});}
+   if(!p.announced){p.announced=true;events.push({type:p.areaKind==='ring'?'ring':'shockwave',x:p.x,y:p.y,t:p.start,duration:p.areaDuration,radius:p.areaRadius,length:p.areaRadius,halfAngle:weapon.coneAngle||28,direction:origin.dir||1,bullet:p.id,ringIndex:p.ringIndex});}
+   if(timed){
+    for(let j=0;j<2;j++)if(!p.areaSeen.has(j)){
+     const hit=areaContact(p,j,radius,p.areaKind,p.areaPreviousRadius||0);
+     if(hit){
+      const budget=p.areaBudgets?.[j]??p.budget,m=multiplier(hit),amount=credit(p,hit,budget*m,p.areaKind);
+      // Breaking a part spends only its remaining HP. The same ring carries
+      // its unused energy onward, while intact armor consumes the whole wave.
+      if(p.areaKind==='ring'&&hit.kind==='part'&&units[j].parts[hit.part].hp<=0){
+       const remaining=Math.max(0,budget-amount/(m*(j===1?boost:1)));p.areaBudgets=p.areaBudgets||{};p.areaBudgets[j]=remaining;
+       if(remaining>1e-10)continue;
+      }
+      p.areaSeen.add(j);
+     }
+    }
+    p.areaPreviousRadius=radius;
+    if(age<p.areaDuration-1e-8){p.t=Math.min(p.start+p.areaDuration,p.t+DT);queue.push(p);}continue;
+   }
    const reached=point=>{const dx=point.x-p.x,dy=point.y-p.y,d=Math.hypot(dx,dy);return d<=radius+12&&(p.areaKind!=='cone'||dx*(origin.dir||1)>=0&&Math.abs(Math.atan2(dy,Math.abs(dx)))<=(weapon.coneAngle||28)*Math.PI/180)&&clearTo({x:p.x,y:p.y-2},point);};
    for(let j=0;j<2;j++){
     const parts=j===1?G.actorParts(simState,j).filter(q=>q.hp>0):[];
@@ -134,7 +223,7 @@ function simulate(s,side,angle,power,options={}){
    }
    if(age<p.areaDuration-1e-8){p.t=Math.min(p.start+p.areaDuration,p.t+DT);queue.push(p);}continue;
   }
-  if(p.effect==='wave-hit'){damage[p.target]+=p.budget;events.push({type:'damage',unit:p.target,value:p.budget,x:p.path[0].x,y:p.path[0].y,t:p.t,bullet:p.id,source:'wave'});continue;}
+  if(p.effect==='wave-hit'){if(timed){const hit=areaContact(p,p.target,7);if(hit)credit(p,hit,p.budget*multiplier(hit),'wave');}else{damage[p.target]+=p.budget;events.push({type:'damage',unit:p.target,value:p.budget,x:p.path[0].x,y:p.path[0].y,t:p.t,bullet:p.id,source:'wave'});}continue;}
   if(p.effect==='burst'){events.push({type:'secondary-burst',x:p.x,y:p.y,t:p.t,bullet:p.id,stage:p.stage});explode(p,null,p.pulseContact);continue;}
   if(p.effect){events.push({type:p.effect==='pulse'?'breach-pulse':'compression',x:p.x,y:p.y,t:p.t,bullet:p.id});explode(p,p.effect==='pulse'?hitTargets(simState,side,{x:p.x-.01,y:p.y},{x:p.x+.01,y:p.y},p.age,weapon):p.effectHit,p.pulseContact||p.effectContact);continue;}
   for(let steps=0;steps<1;steps++){
@@ -195,14 +284,15 @@ function simulate(s,side,angle,power,options={}){
    }
    if(stop){const contact=stop.solid?{x:stop.x,y:stop.y,nx:stop.nx,ny:stop.ny,solidId:stop.solid.id}: {x:stop.x,y:stop.y,nx:Math.sign(stop.x-units[stop.unit].x)||-Math.sign(p.vx),ny:0,unit:stop.unit};
     if(weapon.pullToImpact){const j=1-side,u=units[j],center=centerOf(j),from={x:u.x,y:u.y,slope:u.slope,surface:u.surface},point={x:p.x,y:p.y-2};
+     const capture=timed&&weapon.captureDamage?areaContact(p,j,weapon.pullRadius):null;
      if(weapon.gravityWell)events.push({type:'gravity-well',x:p.x,y:p.y,t:p.t,duration:weapon.pullSeconds,radius:weapon.pullRadius,bullet:p.id});
-     if(Math.hypot(p.x-center.x,p.y-center.y)<=weapon.pullRadius&&clearTo(point,center)){
+     if(weapon.captureDamage?!!capture:Math.hypot(p.x-center.x,p.y-center.y)<=weapon.pullRadius&&clearTo(point,center)){
       const dx=G.clamp(p.x-u.x,-weapon.pullDistance,weapon.pullDistance)*(s.spec.boss&&j===1?.25:1);
       if(u.floating){const x=G.clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-units[side].x)>100&&G.lineClear(simWorld,center,{x,y:center.y}))u.x=x;}
       else G.move({...simState,world:simWorld},j,dx);
       if(Math.abs(u.x-from.x)>.01||Math.abs(u.y-from.y)>.01)events.push({type:'pull',x:p.x,y:p.y,t:p.t,unit:j,from,to:{x:u.x,y:u.y,slope:u.slope,surface:u.surface},duration:weapon.pullSeconds,bullet:p.id});
      }
-     const time=p.t+weapon.pullSeconds;queue.push({...p,id:bulletId++,effect:'compression',effectHit:target===stop?target:null,effectContact:contact,t:time,start:time,path:[{x:p.x,y:p.y,t:time}]});
+     const time=p.t+weapon.pullSeconds;queue.push({...p,id:bulletId++,effect:'compression',captureHit:capture,effectHit:capture|| (target===stop?target:null),effectContact:contact,t:time,start:time,path:[{x:p.x,y:p.y,t:time}]});
     }else explode(p,target===stop?target:null,contact);ended=true;break;}
    if(p.convergeBranch&&p.age>=(weapon.convergeSeconds||.14)-1e-8){finishConvergence(p,true);ended=true;break;}
    let ax=0,ay=GRAVITY*weapon.gravity*(s.skillEffects?.gravity?.factor||1)*(p.archerDone?2.8:1);
@@ -245,16 +335,16 @@ function simulate(s,side,angle,power,options={}){
   if(!ended)queue.push(p);
  }
  // Aggregate once per attack; no part/body double counting, no multi-bullet overkill bonus.
- const rawDamage=damage.slice(),boost=side===0?(s.skillEffects?.power?.factor||1):1;damage[1]*=boost;for(const id of Object.keys(partDamage))partDamage[id]*=boost;
+ const rawDamage=damage.slice();if(!timed){damage[1]*=boost;for(const id of Object.keys(partDamage))partDamage[id]*=boost;}
  const cap=weapon.damageCap?(s.spec.boss?weapon.bossDamageCap||weapon.damageCap:weapon.damageCap):s.spec.boss?2:events.some(e=>e.type==='critical')?1.875:1.25;
- damage[1]=Math.min(side===1?1:cap,damage[1]);damage[0]=Math.min(1,damage[0]);
+ if(!timed){damage[1]=Math.min(side===1?1:cap,damage[1]);damage[0]=Math.min(1,damage[0]);}
  if(side===1&&s.skillEffects){const f=s.skillEffects;damage[0]*=f.invincible?0:(f.barrier?.factor??1)*(f.weaken?.factor??1);}
  const guarded=side===1&&!!s.guardActive;if(guarded)damage[0]*=.5;
- if(side===0&&(W.activeIds.includes(weapon.id)||weapon.special&&weapon.progressiveDamage)){
+ if(!timed&&side===0&&(W.activeIds.includes(weapon.id)||weapon.special&&weapon.progressiveDamage)){
   const total=Object.values(partDamage).reduce((sum,n)=>sum+n,0),scale=total>cap?cap/total:1;
   for(const id of Object.keys(partDamage))partDamage[id]*=scale;
- }else if(weapon.damageCap)for(const id of Object.keys(partDamage))partDamage[id]=Math.min(cap,partDamage[id]);
- for(const e of events)if(e.type==='damage')e.value*=rawDamage[e.unit]?damage[e.unit]/rawDamage[e.unit]:0;
+ }else if(!timed&&weapon.damageCap)for(const id of Object.keys(partDamage))partDamage[id]=Math.min(cap,partDamage[id]);
+ if(!timed)for(const e of events)if(e.type==='damage')e.value*=rawDamage[e.unit]?damage[e.unit]/rawDamage[e.unit]:0;
  const duration=Math.max(...bullets.map(b=>b.t),...events.map(e=>e.t+(e.duration||0)),.01);
  events.sort((a,b)=>a.t-b.t);
  return {playerTarget:{...bodyCenter(s,0),radius:weapon.needle?25:31},destroyed:[...destroyed],teleport:!!weapon.teleport,teleportContact:weapon.teleport?impacts[0]?.contact:null,side,angle,power,weaponId:weapon.id,skill,bullets,events,impacts,damage,partDamage,duration,iterations,appliedEvents:0,resolved:false,path:bullets[0].path,end:impacts.at(-1)||bullets.at(-1).path.at(-1),hit:impacts.find(i=>i.hit)?.hit?.unit??-1,...(guarded?{guarded:true}:{})};

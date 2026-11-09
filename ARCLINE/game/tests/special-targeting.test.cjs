@@ -26,14 +26,14 @@ ok(!!wave,'Ban emits shockwave');
 near(wave.length,140,'Ban event length');
 near(wave.halfAngle,28,'Ban event half angle');
 
-// Mogu launches three physical rounds. Earlier contacts can open the path for later rounds.
+// One Mogu shell starts three advancing explosions from its actual impact.
 const mogu=C.get('mogu').special;
 for(const power of [20,100]){
  const p=E.trajectory(flat('mogu'),0,0,power,{weaponId:mogu.id,origin:{x:700,y:415,theta:0,dir:1,dx:1,dy:0}});
- ok(p.bullets.filter(b=>!b.effect).length===3,'three real Mogu projectiles');
+ ok(p.bullets.filter(b=>!b.effect).length===1,'one real Mogu carrier');
  ok(p.impacts.length===3,'three Mogu impacts');
- ok(!p.events.some(e=>e.type==='breach-pulse'),'no synthetic post-impact shots');
- ok(p.bullets.filter(b=>!b.effect).map(b=>b.start).join(',')==='0,0.22,0.44','three timed starts');
+ ok(p.events.filter(e=>e.type==='breach-pulse').length===2,'two post-impact advancing stages');
+ ok(p.impacts.slice(1).every((h,i)=>Math.abs(h.x-p.impacts[i].x-42)<1e-6&&Math.abs(h.t-p.impacts[i].t-.22)<1e-6),'three42px advances with220ms cadence');
  ok(p.impacts.map(h=>h.blast).sort((a,b)=>a-b).join(',')==='32,50,75','growing three-stage blasts');
  ok(p.damage[1]<=mogu.damageCap+1e-7,'one action aggregate cap');
 }

@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "change": "攻撃の命中演出・HP・ダメージ計算を同期し、先行PR130・131・132を保持して0.29.5へ統合",
+  "reason": "全32自機攻撃の計算・命中時HPと描画、大ボス上限、最終リレーの残量、実際の敵手番への復帰を確認する。先行した物語3枠とマスターの在庫設定、検証計画の保護を追加確認する。",
+  "rows": [
+    {
+      "label": "unit: damage-sync, special-damage, special-targeting, machine-combat, special-evolution, auxiliary-evolution, combat-sfx-0190, charge-camera, three-change, final-battle, recruit-enemy, story-emotion-0141, master-move, verification-planning",
+      "status": "PASS",
+      "ms": 83116
+    },
+    {
+      "label": "browser: damage-sync-browser, attack-review-browser, battle-turn-continuity-browser, enemy-story-browser, master-move-browser, ../site-tests/service-site, promo-experience-browser",
+      "status": "PASS",
+      "ms": 123659
+    },
+    {
+      "label": "generated output",
+      "status": "PASS",
+      "ms": 11430
+    },
+    {
+      "label": "package",
+      "status": "PASS",
+      "ms": 2155
+    }
+  ],
+  "manual": [
+    "先行main1c1b13bの物語・在庫設定・運用ツールを保持したことをGit差分で照合する",
+    "mainへのマージ・本番配信・物理スマホの確認はこのローカル統合検証に含めない"
+  ],
+  "excluded": [
+    {
+      "scope": "無関係な音声・エンディング・全画面比較・全100面の再攻略",
+      "reason": "先行マージとの共有変更は版番号・生成物・物語保護検査。先行統合前の45単体／42ブラウザ・161対戦などの成功記録を再利用し、追加影響のない成功済み検査を繰り返さない。"
+    }
+  ]
+}

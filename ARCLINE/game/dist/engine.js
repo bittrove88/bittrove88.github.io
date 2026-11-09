@@ -166,7 +166,8 @@ function applyEvents(s,shot,time,onCollect=()=>{}){
   if(e.type==='break'&&!s.effects.destroyed.includes(e.solidId)){s.effects.destroyed.push(e.solidId);s.world=G.without(s.world,[e.solidId]);}
   if(e.type==='terminal')s.effects.pendingPolarity=-(s.effects.polarity||s.world.regions.find(r=>r.kind==='M')?.direction||1);
   if(e.type==='pull'){const u=s.units[e.unit];Object.assign(u,e.to);u.animation={from:{...e.from},age:0,duration:e.duration,lift:0};u.reactionKind='pull';u.displaced=1;}
-  if(e.type==='damage'){shot.appliedDamage=shot.appliedDamage||[0,0];shot.sourceAppliedDamage=shot.sourceAppliedDamage||[0,0];if(e.unit===1&&shot.enemyHpAtLaunch===undefined)shot.enemyHpAtLaunch=s.units[1].hp;const raw=Math.max(0,Math.min(e.value,shot.damage[e.unit]-shot.sourceAppliedDamage[e.unit]));const amount=shot.side===0&&e.unit===1?FinalTeam.credit(s,shot.finalOwner||s.characterId,raw):raw;s.units[e.unit].hp=Math.max(0,s.units[e.unit].hp-amount);shot.sourceAppliedDamage[e.unit]+=raw;shot.appliedDamage[e.unit]+=amount;}
+  if(e.type==='part-damage'){const part=s.units[e.unit].parts[e.part];shot.appliedPartDamage=shot.appliedPartDamage||{};const applied=shot.appliedPartDamage[e.part]||0,amount=Math.max(0,Math.min(e.value,(shot.partDamage[e.part]||0)-applied));if(part){part.hp=Math.max(0,part.hp-amount);if(part.hp<1e-9)part.hp=0;}shot.appliedPartDamage[e.part]=applied+amount;}
+  if(e.type==='damage'){shot.appliedDamage=shot.appliedDamage||[0,0];shot.sourceAppliedDamage=shot.sourceAppliedDamage||[0,0];if(e.unit===1&&shot.enemyHpAtLaunch===undefined)shot.enemyHpAtLaunch=s.units[1].hp;const raw=Math.max(0,Math.min(e.value,shot.damage[e.unit]-shot.sourceAppliedDamage[e.unit]));const amount=shot.side===0&&e.unit===1?FinalTeam.credit(s,shot.finalOwner||s.characterId,raw):raw;s.units[e.unit].hp=Math.max(0,s.units[e.unit].hp-amount);if(s.units[e.unit].hp<1e-9)s.units[e.unit].hp=0;shot.sourceAppliedDamage[e.unit]+=raw;shot.appliedDamage[e.unit]+=amount;}
  }
 }
 function launch(s,angle=s.angle,power=s.power,plan=null){
@@ -245,13 +246,13 @@ function resolve(s,shot,onCollect=()=>{}){
 
  if(shot.side===0)shot.enemyHpBefore=shot.enemyHpAtLaunch??s.units[1].hp;
  if(shot.side===0)shot.damage[1]=(shot.appliedDamage?.[1]||0)+FinalTeam.credit(s,shot.finalOwner||s.characterId,Math.max(0,shot.damage[1]-(shot.sourceAppliedDamage?.[1]||0)));
- s.units.forEach((u,i)=>u.hp=Math.max(0,u.hp-Math.max(0,shot.damage[i]-(shot.appliedDamage?.[i]||0))));
+ s.units.forEach((u,i)=>{u.hp=Math.max(0,u.hp-Math.max(0,shot.damage[i]-(shot.appliedDamage?.[i]||0)));if(u.hp<1e-9)u.hp=0;});
  if(shot.side===1)s.guardActive=false;
  if(shot.side===0&&!shot.teleport&&!shot.skillAttack){for(const key of ['power','charge'])if(s.skillEffects?.[key]?.single)delete s.skillEffects[key];}
  if(shot.side===0&&W.get(shot.weaponId).drain){const w=W.get(shot.weaponId),u=s.units[0],actual=Math.min(shot.damage[1],shot.enemyHpBefore??shot.damage[1]);shot.drained=Math.min(actual*w.drain,w.drainHpCap==null?Infinity:u.maxHp*w.drainHpCap,u.maxHp-u.hp);u.hp+=shot.drained;if(shot.drained>0){const from=shot.impacts.at(-1)||shot.end;shot.events.push({type:'drain',x:from.x,y:from.y,to:{x:u.x,y:u.y-22},amount:shot.drained,t:shot.duration,duration:.6});}}
  const boss=s.units[1];
  if(guardian(s)&&shot.side===0){
-  for(const [i,damage] of Object.entries(shot.partDamage)){const p=boss.parts[i];if(p)p.hp=Math.max(0,p.hp-damage);}
+  for(const [i,damage] of Object.entries(shot.partDamage)){const p=boss.parts[i];if(p)p.hp=Math.max(0,p.hp-Math.max(0,damage-(shot.appliedPartDamage?.[i]||0)));}
   const broken=boss.parts.filter(p=>p.hp<=0).length;
   if(broken>s.effects.broken){
    s.effects.broken=broken;
@@ -343,10 +344,10 @@ function solve(s,side,opts={}){
  // Defensive damage factors must not change an enemy's physical aiming route.
  let aimState=side===1&&s.skillEffects?{...s,skillEffects:{...s.skillEffects,barrier:undefined,weaken:undefined,invincible:undefined}}:s;
  if(side===1&&opts.targetPoint)aimState={...aimState,units:aimState.units.map((u,i)=>i===0?{...u,x:opts.targetPoint.x,y:opts.targetPoint.y+22}:u)};
- const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,w.scatter?[s.matchSeed,s.shotCount]:null,s.units.map(u=>[u.x,u.y,u.slope,u.facing,u.parts.map(p=>p.hp>0),u.exposed]),s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,s.skillEffects,side,physics,minAngle,maxAngle,opts.requireEvent]);
+ const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,w.scatter?[s.matchSeed,s.shotCount]:null,s.units.map(u=>[u.x,u.y,u.slope,u.facing,u.hp,u.parts.map(p=>p.hp),u.exposed]),s.finalTeam?.damage,s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,s.skillEffects,side,physics,minAngle,maxAngle,opts.requireEvent]);
  if(solveCache.has(key))return solveCache.get(key);
  let best={score:-Infinity,angle:48,power:70};
- const score=shot=>shot.damage[1-side]-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-aimState.units[1-side].x,shot.end.y-aimState.units[1-side].y))*.00001;
+ const score=shot=>shot.damage[1-side]+(side===0?Object.values(shot.partDamage).reduce((n,d)=>n+d,0)*.8:0)-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-aimState.units[1-side].x,shot.end.y-aimState.units[1-side].y))*.00001;
  for(let a=minAngle;a<=maxAngle;a+=6)for(let power=20;power<=100;power+=5){const shot=trajectory(aimState,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
  const coarse={...best};for(let a=Math.max(minAngle,coarse.angle-5);a<=Math.min(maxAngle,coarse.angle+5);a+=2)for(let power=Math.max(20,coarse.power-5);power<=Math.min(100,coarse.power+5);power+=2){const shot=trajectory(aimState,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
  if(solveCache.size>512)solveCache.clear();solveCache.set(key,best);return best;
