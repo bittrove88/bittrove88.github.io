@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "開始画面の削除を設定へ移動し、設定・ストーリー・武器スキル確認と図鑑を整理（0.29.7）",
-  "reason": "画面の構成とロビー確認操作を変更。各画面の開閉、選択と装備の分離、save不変、削除の失敗／再試行、タッチスクロール、日英と小型横／回転縦を確認し、戦闘中の既存選択を隣接検査する。削除の既存ブラウザ検査は設定導線へ更新し、映像と切り離して実行する。",
+  "change": "設定ワークスペースとストーリーの入口→一覧→詳細を再設計し、武器スキル確認を改善（0.29.7）",
+  "reason": "追加依頼で設定の上部タブを左カテゴリナビへ、ストーリーを三階層へ再設計。単一内容ペイン・戻ると閉じる・実タッチ・日英・0/48/100面の解放と既読・再生復帰・設定の保存を確認。難易度の直行導線も修正。PR全体の前回の武器スキル確認と削除保護を引き続きCIで確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -12,6 +12,7 @@
     "ARCLINE/game/dist/app.webmanifest",
     "ARCLINE/game/dist/battle-ui.js",
     "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/difficulty-ui.js",
     "ARCLINE/game/dist/game.js",
     "ARCLINE/game/dist/index.html",
     "ARCLINE/game/dist/menu-ui.css",
@@ -21,11 +22,14 @@
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/runtime.json",
     "ARCLINE/game/styles/menu-ui.css",
+    "ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs",
     "ARCLINE/game/tests/menu-inventory-browser.test.cjs",
+    "ARCLINE/game/tests/menu-structure-browser.test.cjs",
     "ARCLINE/game/tests/settings-delete-browser.test.cjs",
     "ARCLINE/game/tests/start-landscape-0171-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
     "ARCLINE/game/ui/battle-ui.js",
+    "ARCLINE/game/ui/difficulty-ui.js",
     "ARCLINE/game/ui/onboarding.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
@@ -36,6 +40,7 @@
       "start-landscape-0171"
     ],
     "browser": [
+      "menu-structure-browser",
       "menu-inventory-browser",
       "settings-delete-browser",
       "battle-ui-browser"
@@ -49,7 +54,7 @@
     "nativeAudio": false
   },
   "manual": [
-    "844×390の設定・ストーリー・武器確認・スキル図鑑の実描画を目視確認",
+    "設定（環境／難易度／保存）・ストーリー（入口／一覧／詳細）の実描画を目視確認",
     "差分でsave/engine/physics/levels/skills/weapons/在庫と取得データの非変更を確認",
     "mainマージ・本番配信・物理端末の確認は別工程として報告"
   ],
