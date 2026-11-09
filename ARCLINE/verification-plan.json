@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "change": "0.30.5: ラスボス固有技の命中と螺旋レーザーを仕上げる",
-  "reason": "具体的な設計・動画と射線全体判定の提示後、ユーザー「進めて」を受領。星環砲の単発増加と合計32、重界砲の固定放物線、終極砲の一手前予告・射線全体38・0.5秒集光＋0.3秒到達を検証。到達HP・防御・再挑戦、Worker／非Workerと共有確認画面、既存のリコと自傷・時計、先行mainの保護を選択する。",
+  "change": "0.31.1: PR142のボス移動・残像を保持してラスボス固有技を統合",
+  "reason": "main0.31.0/PR142を取り込み、最終合意済みの3固有技を統合。追加質問へのユーザー回答「終極砲の照射ターンだけ移動せず、予告線を固定する」を反映。通常手番・残像による大技延期・予告位置・一手番の消費・移動予算を保持する。現行mainとの限定差分保護、Workerと本編・共有生成物を検証する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
     "ARCLINE/design/attacks/definitions.json",
-    "ARCLINE/design/attacks/final-projectiles-0305-scope.json",
+    "ARCLINE/design/attacks/final-projectiles-0311-scope.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
@@ -17,6 +17,7 @@
     "ARCLINE/game/dist/attack-review-model.js",
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/effects.js",
+    "ARCLINE/game/dist/enemy-actions.js",
     "ARCLINE/game/dist/enemy-attacks.js",
     "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/final-team.js",
@@ -29,25 +30,25 @@
     "ARCLINE/game/tests/final-projectiles-browser.test.cjs",
     "ARCLINE/game/tests/final-projectiles-preservation.cjs",
     "ARCLINE/game/tests/final-projectiles.test.cjs",
-    "ARCLINE/game/tests/rico-direction-preservation.cjs",
     "ARCLINE/game/tests/suites.json",
     "ARCLINE/game/ui/sfx-manager.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.5/index.html"
+    "ARCLINE/updates/0.31.1/index.html"
   ],
   "suites": {
     "unit": [
       "final-projectiles",
       "final-attacks",
-      "rico-direction",
       "special-self-damage",
       "attack-motion",
-      "map-atlas"
+      "map-atlas",
+      "boss-motion"
     ],
     "browser": [
       "final-projectiles-browser",
-      "final-retry-browser"
+      "final-retry-browser",
+      "boss-motion-browser"
     ]
   },
   "checks": {
@@ -58,9 +59,8 @@
     "nativeAudio": false
   },
   "manual": [
-    "既存の螺旋形状を保持した通常速度動画とPC／小画面の実描画を確認。事前確認はソースと条件を限定して再利用。",
-    "Normal/Hard seed4697の最終戦を現行エンジンの合法操作で各1回完走。10機の担当量、20行動上限、実反撃とHPを記録し、最適化照準による限定条件と明示する。",
-    "PRを作成し対象コミットのCIを確認する。マージと本番配信は別工程。"
+    "合意済みの0.5秒集光・0.3秒到達と螺旋形状の表示を維持。前段0.30.5の結果と統合後0.31.1の結果を区別。",
+    "PR142の最新mainを保持し、統合箇所の本検証とPR143の対象コミットのCIを確認する。"
   ],
   "excluded": [
     {
@@ -74,6 +74,10 @@
     {
       "scope": "旧バランス時の全件再現リプレイ",
       "reason": "敵の攻撃変更があるため旧入力列の勝敗を現行必須結果として使わない。"
+    },
+    {
+      "scope": "旧Rico等の全ソース固定を前提とする歴史的ガード",
+      "reason": "PR142がすでに対象ソースを正当に変更したため、最新main0.31.0を基準とした限定差分の逆適用で保護する。自傷と既存の反射ロジックはそれぞれ挙動・mainバイトで維持。"
     }
   ]
 }

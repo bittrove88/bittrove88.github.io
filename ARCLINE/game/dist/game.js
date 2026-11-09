@@ -230,7 +230,7 @@ function releaseCharge(id){
 }
 function launch(plan=null){
  if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
- if(!shot)return;shot.presentationAge=0;shotMotion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
+ if(!shot)return;shot.presentationAge=0;shotMotion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;if(!shot.echo)s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.echo)tone(480,.09,'sine',.035);if(shot.teleport)tone(620,.19,'sine');hud();
 }
 function beginEnemyTeleport(action){
  // A presentation-only transfer pulse uses the player's TELEPORT brush. Its
@@ -314,7 +314,7 @@ function update(dt,realDt=dt){
   if(ratio>=1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
  }else if(s.phase==='flight'){
   shot.presentationAge+=dt;const previousFlight=flight;flight=shotMotion.at(shot.presentationAge);actionDt=Math.max(0,flight-previousFlight);sfx.update(Math.min(flight,shot.duration));const before=shot.appliedEvents;E.applyEvents(s,shot,flight,acquired);
-  for(const e of shot.events.slice(before,shot.appliedEvents)){if(e.type==='cloud')tone(180,.09,'triangle',.03);if(e.type==='phase')tone(1400,.08,'sine',.04);}
+  for(const e of shot.events.slice(before,shot.appliedEvents)){if(e.type==='echo-hit')tone(940,.06,'sine',.025);if(e.type==='echo-fire'&&e.t>0)tone(480,.09,'sine',.035);if(e.type==='cloud')tone(180,.09,'triangle',.03);if(e.type==='phase')tone(1400,.08,'sine',.04);}
   if(flight>=shot.duration-1e-8&&shotMotion.done(shot.presentationAge)){
    const last=shot,parts=s.units.map(u=>u.parts.map(p=>p.hp));E.resolve(s,last,acquired);tail={shot:last,age:0};impact={...last.end,age:0,weaponId:last.weaponId,shot:last,damage:last.damage};shot=null;shotMotion=null;
    s.units.forEach((u,i)=>{const broken=u.parts.flatMap((p,j)=>p.hp<=0&&parts[i][j]>0?[j]:[]);if(last.damage[i]>0||broken.length)u.reaction={age:0,damage:last.damage[i],side:last.side,broken};});
@@ -329,6 +329,7 @@ function update(dt,realDt=dt){
  }else if(s.phase==='transition'){
   s.time-=dt;if(tail)tail.age+=dt;if(transition){transition.age+=dt;if(transition.kind==='final-travel'&&!transition.reframed&&transition.age>=transition.duration*.55){transition.reframed=true;renderer.resetCamera();}}if(s.time<=0){transition=null;s.phase='aim';s.power=20;feedback='';shot=null;shotMotion=null;tail=null;if(!openLoot(afterLootAim))afterLootAim();hud();}
  }
+ if(s.bossEchoEffect){s.bossEchoEffect.age+=dt;if(s.bossEchoEffect.age>=s.bossEchoEffect.duration)delete s.bossEchoEffect;}
  for(const p of pickupEffects)p.age+=dt;pickupEffects=pickupEffects.filter(p=>p.age<.8);
  for(const u of s.units)if(u.teleportFlash&&(u.teleportFlash.age+=dt)>.8)delete u.teleportFlash;
  for(const u of s.units)if(u.animation){u.animation.age+=actionDt;if(u.animation.age>=u.animation.duration)delete u.animation;}

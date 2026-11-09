@@ -15,7 +15,8 @@ function finalWarning(s){
   beam=s.finalBeamCharge;
  }
  if(r?.params.forecastBeam){
-  beam=s.finalBeamCharge?.phase===phase&&s.finalBeamCharge.fireStep===step?s.finalBeamCharge:P.beamGeometry(s,W.getEnemy(kind),{targetPoint:{x:targetX,y:targetY}});
+  const prior=s.finalBeamCharge?.phase===phase&&s.finalBeamCharge.fireStep===step?s.finalBeamCharge:null;
+  beam=s.finalBeamCharge={phase,fireStep:step,...P.beamGeometry(s,W.getEnemy(kind),{targetPoint:{x:prior?.targetX??targetX,y:prior?.targetY??targetY}})};
   targetX=beam.targetX;targetY=beam.targetY;
  }
  const beamWarning=beam?{beamWidth:beam.width,beamFrom:beam.from,beamTo:beam.to,beamCharging:true}:{};
@@ -79,7 +80,7 @@ function plan(s,angle,power){
  return decorate(s,p);
 }
 function resolve(s,shot){
- if(s.stage===100&&shot.side===1){finalSequence(s);s.finalAttackPattern.step++;}
+ if(s.stage===100&&shot.side===1&&!shot.echo&&!shot.deferBossAttack){finalSequence(s);s.finalAttackPattern.step++;}
  if(shot.side===1&&shot.weaponId==='E_FINAL_4')delete s.finalBeamCharge;
  const field=s.effects.gravityField;if(field){field.charges[shot.side]=Math.max(0,field.charges[shot.side]-1);if(!field.charges.some(Boolean))delete s.effects.gravityField;}
  if(shot.createGravityField)s.effects.gravityField=JSON.parse(JSON.stringify(shot.createGravityField));
