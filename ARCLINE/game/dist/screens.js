@@ -67,6 +67,7 @@
     ].filter(
       (e) =>
         e.getClientRects().length &&
+        e.tabIndex >= 0 &&
         !e.closest("[hidden],[inert]") &&
         (e.type !== "radio" || e.checked),
     );

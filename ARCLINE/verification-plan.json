@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "武器/スキル確認と図鑑をコンパクトにし、一覧と詳細の情報重複を整理（0.30.1）",
-  "reason": "共通カードを64pxへ縮小し、一覧は名称/アイコン/保有数/選択、詳細は効果/種類/未所持案内へ分離。4サイズ×日英で密度、見切れ、可読性、重複なし、選択との対応、保存不変を検査。英語効果が名称で上書きされる取り込みを修正し、隣接のbattle-ui-browserも再検証。PR全体の開始/設定/ストーリー/図鑑/削除の検査はCIで継続。main0.30.0のHP/行動上限と12保護ファイルを保持。",
+  "change": "仲間・武器確認・スキル確認・両図鑑の導線を1画面へ統合し、選択・位置・キーボード操作を整理（0.30.1）",
+  "reason": "仲間/武器/スキルのカテゴリと保有/図鑑の範囲を分けた同一ダイアログへ再設計。ホーム入口、5つの表示、同項目を保つ範囲切替、独立した一覧/詳細位置、Tabと矢印操作、戻り先、仲間の未解放/補充待ち/明示選択、空在庫/旧スキルと閲覧時保存不変をcollection-flow-browserで検査。equipment-design-browserは64pxカードの密度・重複除去・視認性、menu-inventory-browserは新しい導線で従来の図鑑/設定/物語保護を検査。ネイティブ戦闘ピッカーを隣接のbattle-ui-browserで確認。共有フォーカス制御はtabindex=-1を除外し、既存settings/story CIも継続。main0.30.0のHP/行動上限と12保護ファイルを保持。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -22,10 +22,12 @@
     "ARCLINE/game/dist/onboarding.js",
     "ARCLINE/game/dist/presentation.js",
     "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/screens.js",
     "ARCLINE/game/runtime.json",
     "ARCLINE/game/styles/battle-ui.css",
     "ARCLINE/game/styles/menu-ui.css",
     "ARCLINE/game/tests/chapter-flow-0170-browser.test.cjs",
+    "ARCLINE/game/tests/collection-flow-browser.test.cjs",
     "ARCLINE/game/tests/equipment-design-browser.test.cjs",
     "ARCLINE/game/tests/menu-inventory-browser.test.cjs",
     "ARCLINE/game/tests/menu-structure-browser.test.cjs",
@@ -37,6 +39,7 @@
     "ARCLINE/game/ui/battle-ui.js",
     "ARCLINE/game/ui/difficulty-ui.js",
     "ARCLINE/game/ui/onboarding.js",
+    "ARCLINE/game/ui/screens.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
     "ARCLINE/updates/0.29.7/index.html",
@@ -51,7 +54,8 @@
       "menu-structure-browser",
       "menu-inventory-browser",
       "settings-delete-browser",
-      "battle-ui-browser"
+      "battle-ui-browser",
+      "collection-flow-browser"
     ]
   },
   "checks": {
@@ -62,7 +66,7 @@
     "nativeAudio": false
   },
   "manual": [
-    "武器確認・スキル確認・武器図鑑・スキル図鑑の64pxカードと詳細の情報分担を実描画で比較",
+    "仲間・保有武器・保有スキル・武器図鑑・スキル図鑑の実画面を比較し、2段のナビゲーションと一覧/詳細/ホーム操作を確認",
     "差分でsave/engine/physics/levels/skills/weapons/在庫と取得データの非変更を確認",
     "mainマージ・本番配信・物理端末の確認は別工程として報告"
   ],
