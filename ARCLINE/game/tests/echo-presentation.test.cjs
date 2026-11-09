@@ -66,6 +66,50 @@ near(
   "cue ends without permanent warning",
 );
 near(C.echoCue(-1), 0, "no cue before creation");
+near(
+  C.echoCue(1),
+  1,
+  "creation message stays fully emphasized long enough to read",
+);
+ok(
+  C.echoPresentation.revealIn +
+    C.echoPresentation.revealHold +
+    C.echoPresentation.revealOut <
+    C.echoPresentation.settle,
+  "creation camera returns before the next player hand",
+);
+for (const other of [
+  { x: 1450, y: 400 },
+  { x: 2500, y: 400 },
+  { x: 1450, y: 900 },
+]) {
+  const subjects = [unit, other],
+    inputs = JSON.stringify(subjects);
+  assert.deepEqual(C.echoRevealView(normal, subjects, 0, frame), normal);
+  checks++;
+  const shown = C.echoRevealView(normal, subjects, 0.3, frame);
+  for (const u of subjects) {
+    ok(
+      shown.x + (u.x - 105) * shown.scale >= 19 &&
+        shown.x + (u.x + 105) * shown.scale <= frame.width - 19,
+      "both old and new positions fit horizontally",
+    );
+    ok(
+      shown.y + (u.y - 150) * shown.scale >= frame.top + 11 &&
+        shown.y + (u.y + 24) * shown.scale <= frame.bottom - 11,
+      "both bodies fit above the controls even on different heights",
+    );
+  }
+  assert.deepEqual(
+    C.echoRevealView(normal, subjects, C.echoPresentation.settle, frame),
+    normal,
+  );
+  checks++;
+  ok(
+    JSON.stringify(subjects) === inputs,
+    "creation framing cannot move either body",
+  );
+}
 for (const distance of [50, 300, 600, 1000, 2500]) {
   const old = Math.max(0.45, Math.min(1.2, distance / 650)),
     boss = C.transferDuration(distance, true);

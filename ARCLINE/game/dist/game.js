@@ -312,7 +312,7 @@ function update(dt,realDt=dt){
  }else if(s.phase==='cpuTeleport'){
   const transfer=s.enemyTeleport;transfer.age+=dt;
   if(!transfer.landed&&transfer.age>=transfer.plan.duration){s.phase='cpu';if(!E.commitEnemyAction(s,transfer.action)){delete s.enemyTeleport;requestCPU();hud();return;}s.phase='cpuTeleport';transfer.landed=true;tone(580,.3,'sine',.15);}
-  if(transfer.age>=transfer.plan.duration+.55){delete s.enemyTeleport;advanceTurn();}
+  if(transfer.age>=transfer.plan.duration+(s.bossEcho?ArcChargeCamera.echoPresentation.settle:.55)){delete s.enemyTeleport;advanceTurn();}
  }else if(s.phase==='cpuMove'){
   s.cpuMoveTime+=dt;const ratio=Math.min(1,s.cpuMoveTime/s.cpuMoveDuration),x=s.cpuStart+(s.cpuTarget-s.cpuStart)*ratio;E.move(s,1,x-s.units[1].x);
   if(ratio>=1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
