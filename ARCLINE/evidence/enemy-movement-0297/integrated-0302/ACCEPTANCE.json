@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "base": "8555e87d8f7027043e32bccf4c9599baa4d9321e",
+  "runtime": "0.30.2",
+  "unit": {
+    "enemy-movement": "PASS enemy movement: bounded controller delta; latest-main gameplay, HP/action balance, menu sources and save compatibility preserved",
+    "hp-action-balance": "PASS: 2662 assertions"
+  },
+  "browser": {
+    "status": "PASS",
+    "mode": "browser",
+    "selection": "explicit",
+    "rows": [
+      {
+        "name": "enemy-movement-browser",
+        "status": "PASS",
+        "ms": 22298,
+        "log": "enemy-movement-browser.log"
+      },
+      {
+        "name": "collection-flow-browser",
+        "status": "PASS",
+        "ms": 31858,
+        "log": "collection-flow-browser.log"
+      },
+      {
+        "name": "top-layout-browser",
+        "status": "PASS",
+        "ms": 25886,
+        "log": "top-layout-browser.log"
+      }
+    ],
+    "skipped": []
+  },
+  "generated": {
+    "status": "PASS",
+    "files": 155
+  },
+  "conflictsResolved": true,
+  "mainPreserved": "HP/action balance, menu sources, physics, AI, maps, save and player teleport match main; game.js reverses only the enemy-motion delta",
+  "notPerformed": [
+    "main merge",
+    "production deployment",
+    "physical Safari/Android",
+    "native audio decode"
+  ],
+  "ci": "Pending push and PR workflow"
+}

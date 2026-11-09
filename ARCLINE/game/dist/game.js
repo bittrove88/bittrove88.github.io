@@ -232,6 +232,14 @@ function launch(plan=null){
  if(hostPaused()||manualPaused||demo||ArcStoryView.active)return;clearInput();shot=E.launch(s,s.angle,s.power,plan);
  if(!shot)return;shot.presentationAge=0;shotMotion=ArcAttackMotion.create(shot,{reducedMotion});persistStock();if(!shot.side&&shot.skill)lastSkill=shot.skill;s.units[shot.side].recoil={age:0};flight=0;tail=null;impact=null;feedback='';sfxSync();sfx.begin(shot);if(shot.teleport)tone(620,.19,'sine');hud();
 }
+function beginEnemyTeleport(action){
+ // A presentation-only transfer pulse uses the player's TELEPORT brush. Its
+ // destination is the AI's already validated landing, never a damage shot.
+ const u=s.units[1],dx=action.to.x-u.x,dy=action.to.y-u.y,theta=Math.atan2(dy,dx)-u.slope,angle=(u.facing===1?-theta:theta-Math.PI)*180/Math.PI,m=G.muzzle(s,1,angle),distance=Math.hypot(dx,dy),duration=E.clamp(distance/650,.45,1.2),lift=Math.min(70,distance*.12);
+ const path=Array.from({length:49},(_,i)=>{const t=i/48;return {x:m.x+(action.to.x-m.x)*t,y:m.y+(action.to.y-m.y)*t-4*lift*t*(1-t),t:t*duration};});
+ const end=path.at(-1),plan={side:1,weaponId:'TELEPORT',teleport:true,angle,power:20,bullets:[{id:0,start:0,t:duration,path}],events:[{...end,type:'teleport-contact',bullet:0}],impacts:[],damage:[0,0],duration,end,path};
+ s.enemyTeleport={action,plan,age:0,landed:false};s.phase='cpuTeleport';cpuJob=null;cpuReady=null;u.recoil={age:0};tone(620,.19,'sine');
+}
 function beginVictory(){if(victoryToken===gameToken||!ArcAudio.victoryFor(s,runContext||{}))return;victoryToken=gameToken;bgm.request('VICTORY',{restart:true});audioSync();}
 function finishResult(){
  if(s.result==='win'&&s.stage===100&&!ArcFinalTeam.complete(s)){ArcFinalTeam.guard(s);return;}
@@ -293,11 +301,14 @@ function update(dt,realDt=dt){
   const axis=input.movementAxis;if(axis)E.move(s,0,axis*160*dt,!!charge);
   if(input.aimAxis)s.angle=E.clamp(s.angle+50*input.aimAxis*Math.abs(input.aimAxis)*dt,minimumAngle(),maximumAngle());
  }else if(s.phase==='cpu'){
-  s.time-=dt;if(s.time<=0&&cpuReady){if(cpuReady.action&&!E.commitEnemyAction(s,cpuReady.action)){cpuReady={target:s.units[1].x,plan:E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0))};}if(cpuReady.action?.kind==='teleport'){cpuJob=null;cpuReady=null;s.phase='cpuTeleport';s.time=.55;tone(580,.25,'sine',.08);hud();return;}s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;
+  s.time-=dt;if(s.time<=0&&cpuReady){const teleport=cpuReady.action?.kind==='teleport';if(cpuReady.action&&!E.commitEnemyAction(teleport?{...s,units:s.units.map(u=>({...u}))}:s,cpuReady.action)){cpuReady={target:s.units[1].x,plan:E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0))};}if(cpuReady.action?.kind==='teleport'){beginEnemyTeleport(cpuReady.action);hud();return;}s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;
    if(Math.abs(s.cpuTarget-s.cpuStart)<1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
-   else{s.cpuMoveDuration=E.clamp(Math.abs(s.cpuTarget-s.cpuStart)/200,.2,.45);s.phase='cpuMove';}
+   else{s.cpuMoveDuration=E.enemyActionRules(s).walk?Math.abs(s.cpuTarget-s.cpuStart)/160:E.clamp(Math.abs(s.cpuTarget-s.cpuStart)/200,.2,.45);s.phase='cpuMove';}
   }
- }else if(s.phase==='cpuTeleport'){s.time-=dt;if(s.time<=0)advanceTurn();
+ }else if(s.phase==='cpuTeleport'){
+  const transfer=s.enemyTeleport;transfer.age+=dt;
+  if(!transfer.landed&&transfer.age>=transfer.plan.duration){s.phase='cpu';if(!E.commitEnemyAction(s,transfer.action)){delete s.enemyTeleport;requestCPU();hud();return;}s.phase='cpuTeleport';transfer.landed=true;tone(580,.3,'sine',.15);}
+  if(transfer.age>=transfer.plan.duration+.55){delete s.enemyTeleport;advanceTurn();}
  }else if(s.phase==='cpuMove'){
   s.cpuMoveTime+=dt;const ratio=Math.min(1,s.cpuMoveTime/s.cpuMoveDuration),x=s.cpuStart+(s.cpuTarget-s.cpuStart)*ratio;E.move(s,1,x-s.units[1].x);
   if(ratio>=1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
@@ -326,7 +337,7 @@ function update(dt,realDt=dt){
  if(ending)ending.age+=dt;
  if(impact){impact.age+=dt;if(impact.age>1)impact=null;}hud();
 }
-function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
+function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}const transfer=s?.enemyTeleport;renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot:shot||transfer?.plan,flight:transfer?transfer.age:flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}
 function schedule(){if(!hostPaused()&&!raf)raf=requestAnimationFrame(loop);}
 function loop(t){raf=0;if(hostPaused())return;const realDt=previous?Math.max(0,(t-previous)/1000):0;previous=t;if(!manualPaused){update(Math.min(realDt,.05),realDt);draw();}schedule();}
 function syncInert(){$('app').inert=hostPaused();}

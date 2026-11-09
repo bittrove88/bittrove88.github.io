@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "mode": "planned",
+  "change": "敵プレイヤーの歩行速度と転移技の演出を修正（0.30.2）",
+  "reason": "41面の140px歩行を0.45秒へ圧縮する上限を外し自機と同じ160px/秒にする。71面の転移は自機と同じ転移弾描画を使い到達時にのみ移動を確定。実際のWorkerと非Worker、次の手番、PC/小画面、30/120fps、ポーズ、離脱、自機転移と変更対象外のバイトを限定検査する。 最新main8555e87のHP/行動設定・メニューを保持して競合を解消し、現行値とメニュー接続の限定検査を追加。 先行メニューが変更済みのbattle-catalog英語説明だけ、旧HP検査の固定比較元を承認済みmainへ更新し、他の戦闘・保存固定比較は保持。",
+  "files": [
+    "ARCLINE/AGENTS.md",
+    "ARCLINE/README.md",
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/enemy-motion-0297-scope.json",
+    "ARCLINE/design/expedition_013/STAGES_JA.md",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/docs/releases/0.30.2.md",
+    "ARCLINE/evidence/enemy-movement-0297/README.md",
+    "ARCLINE/evidence/enemy-movement-0297/VERIFY.json",
+    "ARCLINE/evidence/enemy-movement-0297/teleport-arrival-1280.png",
+    "ARCLINE/evidence/enemy-movement-0297/teleport-arrival-568.png",
+    "ARCLINE/evidence/enemy-movement-0297/teleport-flight-1280.png",
+    "ARCLINE/evidence/enemy-movement-0297/teleport-flight-568.png",
+    "ARCLINE/game/README.md",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/enemy-motion-preservation.cjs",
+    "ARCLINE/game/tests/enemy-movement-browser.test.cjs",
+    "ARCLINE/game/tests/enemy-movement.test.cjs",
+    "ARCLINE/game/tests/hp-action-balance.test.cjs",
+    "ARCLINE/game/tests/recruit-ai-preservation.cjs",
+    "ARCLINE/game/tests/recruit-enemy-browser.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.30.2/index.html",
+    "ARCLINE/verification-plan.json"
+  ],
+  "suites": {
+    "unit": [
+      "enemy-movement",
+      "hp-action-balance"
+    ],
+    "browser": [
+      "enemy-movement-browser",
+      "collection-flow-browser",
+      "top-layout-browser"
+    ],
+    "input": [],
+    "visual": [],
+    "delivery": []
+  },
+  "checks": {
+    "generated": true,
+    "baseline": false,
+    "package": false,
+    "python": true,
+    "nativeAudio": false
+  },
+  "manual": [
+    "通常速度で転移の発射・到達・光輪と歩行を確認する",
+    "mainマージ・公開・物理端末は別工程"
+  ],
+  "excluded": [
+    {
+      "scope": "全100面再攻略、全攻撃・仲間画像・音源デコード・エンディング",
+      "reason": "本編の敵移動の表示時間と演出だけを変更。敵AI・物理・地形・保存はバイト一致で保護し、無関係な既成功スイートを繰り返さない。"
+    }
+  ],
+  "suiteCount": 5,
+  "needsBrowser": true,
+  "needsPython": true,
+  "base": "8555e87d8f7027043e32bccf4c9599baa4d9321e"
+}
