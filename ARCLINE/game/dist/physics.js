@@ -48,12 +48,14 @@ function beamGeometry(s,weapon,options={}){
 }
 function forecastBeam(s,angle,power,weapon,options){
  const t=s.telegraph,line=t?.technique===weapon.id&&t.beamFrom&&t.beamTo?{from:t.beamFrom,to:t.beamTo,width:t.beamWidth,targetX:t.targetX,targetY:t.targetY}:beamGeometry(s,weapon,options),{from,to,width}=line,x=line.targetX,y=line.targetY,dx=to.x-from.x,dy=to.y-from.y,length=Math.hypot(dx,dy),center=bodyCenter(s,0),along=((center.x-from.x)*dx+(center.y-from.y)*dy)/length,distance=Math.abs((center.x-from.x)*dy-(center.y-from.y)*dx)/length;
- const delay=weapon.beamDelay,duration=delay+weapon.beamDuration,hit=along>=-31&&along<=length+31&&distance<=width/2+31;
+ // A single world-space front drives rendering, contact HP and sound timing.
+ const delay=weapon.beamDelay,fadeDuration=weapon.beamFadeDuration,hit=along>=-31&&along<=length+31&&distance<=width/2+31;
+ const targetAlong=Math.max(0,((x-from.x)*dx+(y-from.y)*dy)/length),speed=Math.max(1,targetAlong)/weapon.beamTravelDuration,contactAlong=Math.max(0,along),arrival=delay+(hit?contactAlong:targetAlong)/speed,beamDuration=Math.max(targetAlong,hit?contactAlong:0)/speed+weapon.beamDuration,duration=delay+beamDuration+fadeDuration;
  const defense=s.skillEffects||{},guarded=!!s.guardActive,factor=(defense.invincible?0:(defense.barrier?.factor??1)*(defense.weaken?.factor??1))*(guarded?.5:1);
  const value=hit?Math.min(Math.max(0,s.units[0].hp),Math.min(weapon.damage,weapon.enemyDamageCap)*factor):0;
- const events=[{type:'final-beam',x,y,t:delay,duration:weapon.beamDuration,width,from:{...from},to:{...to},bullet:0}];
- if(value>0)events.push({type:'damage',unit:0,value,x:center.x,y:center.y,t:delay,bullet:0,source:'beam'});
- const point={x,y,t:delay},path=[{x,y,t:0},{x,y,t:duration}];
+ const events=[{type:'final-beam',x,y,t:delay,duration:beamDuration,speed,chargeDuration:delay,fadeDuration,width,from:{...from},to:{...to},bullet:0}];
+ if(value>0)events.push({type:'damage',unit:0,value,x:center.x,y:center.y,t:arrival,bullet:0,source:'beam'});
+ const point={x:hit?center.x:x,y:hit?center.y:y,t:arrival},path=[{x,y,t:0},{x,y,t:duration}];
  return {playerTarget:{...center,radius:31},destroyed:[],teleport:false,side:1,angle,power,weaponId:weapon.id,skill:null,bullets:[{id:0,effect:'beam',primary:true,start:0,t:duration,path}],events,impacts:[{...point,bullet:0,beam:true,blast:0,hit:hit?{unit:0,kind:'body'}:null}],damage:[value,0],partDamage:{},duration,iterations:0,appliedEvents:0,resolved:false,path,end:point,hit:hit?0:-1,...(guarded?{guarded:true}:{})};
 }
 function simulate(s,side,angle,power,options={}){

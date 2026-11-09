@@ -86,10 +86,11 @@ function forContext(ctx){if(brushes.has(ctx))return brushes.get(ctx);
   ctx.restore();
  }
 
- function finaleBeam(e,age,scale,reducedMotion,alpha,plan){
-  if(age<-.14||age>e.duration+.18)return;
-  const dx=e.to.x-e.from.x,dy=e.to.y-e.from.y,length=Math.hypot(dx,dy),w=e.width,fire=Math.max(0,age),fade=age<0?1:Math.max(0,Math.min(1,(e.duration+.18-age)/.18)),flare=reducedMotion?.25:Math.max(0,1-fire/.18),unitX=dx/length,unitY=dy/length;
-  const contact=plan.events.find(q=>q.type==='damage'&&q.unit===0),focus=contact||e,reach=Math.max(w*2,(focus.x-e.from.x)*unitX+(focus.y-e.from.y)*unitY),front=reducedMotion?(age>=0?length:0):Math.min(length,Math.max(0,(reach+40)*(age+.1)/.1)),nose=Math.min(w*.45,front*.3),neck=Math.min(w*.78,front*.65);
+ function finaleBeam(e,age,scale,reducedMotion,alpha){
+  const chargeDuration=e.chargeDuration,fadeDuration=e.fadeDuration;
+  if(age<-chargeDuration||age>e.duration+fadeDuration)return;
+  const dx=e.to.x-e.from.x,dy=e.to.y-e.from.y,length=Math.hypot(dx,dy),w=e.width,fire=Math.max(0,age),fade=age<0?1:Math.max(0,Math.min(1,(e.duration+fadeDuration-age)/fadeDuration)),flare=reducedMotion?.25:Math.max(0,1-fire/.18);
+  const front=Math.min(length,e.speed*fire),nose=Math.min(w*.45,front*.3),neck=Math.min(w*.78,front*.65);
   const shape=(half)=>{ctx.beginPath();ctx.moveTo(-14,0);ctx.bezierCurveTo(-4,-half*.08,neck*.12,-half*.1,neck*.33,-half*.3);ctx.bezierCurveTo(neck*.56,-half*.78,neck*.7,-half,neck,-half);ctx.lineTo(Math.max(neck,front-nose),-half);ctx.quadraticCurveTo(front-nose*.3,-half*.62,front+12,0);ctx.quadraticCurveTo(front-nose*.3,half*.62,Math.max(neck,front-nose),half);ctx.lineTo(neck,half);ctx.bezierCurveTo(neck*.7,half,neck*.56,half*.78,neck*.33,half*.3);ctx.bezierCurveTo(neck*.12,half*.1,-4,half*.08,-14,0);ctx.closePath();};
   ctx.save();ctx.translate(e.from.x,e.from.y);ctx.rotate(Math.atan2(dy,dx));
   if(front>2){
@@ -104,7 +105,7 @@ function forContext(ctx){if(brushes.has(ctx))return brushes.get(ctx);
    ctx.restore();
    if(!reducedMotion&&front<3600){ctx.globalAlpha=alpha*fade*.8;ctx.fillStyle='#fffbe6';ctx.beginPath();ctx.moveTo(front-18,-w*.12);ctx.lineTo(front+28,0);ctx.lineTo(front-18,w*.12);ctx.closePath();ctx.fill();}
   }
-  const charge=age<0?1+age/.14:1,r=w*(.38+flare*.55)*Math.max(.1,charge),glow=ctx.createRadialGradient(0,0,0,0,0,r);glow.addColorStop(0,'#ffffef');glow.addColorStop(.2,'#fff5bf');glow.addColorStop(.5,'#ffca64a0');glow.addColorStop(1,'#ffa51000');ctx.globalAlpha=alpha*(age<0?charge*.8:.28+flare*.72);circle(-6,0,r,glow);circle(-6,0,(7+flare*17)*Math.max(.1,charge),'#fffde8');
+  const charge=age<0?1+age/chargeDuration:1,r=w*(.38+flare*.55)*Math.max(.1,charge),glow=ctx.createRadialGradient(0,0,0,0,0,r);glow.addColorStop(0,'#ffffef');glow.addColorStop(.2,'#fff5bf');glow.addColorStop(.5,'#ffca64a0');glow.addColorStop(1,'#ffa51000');ctx.globalAlpha=alpha*(age<0?charge*.8:.28+flare*.72);circle(-6,0,r,glow);circle(-6,0,(7+flare*17)*Math.max(.1,charge),'#fffde8');
   if(!reducedMotion){const travel=fire*1350;for(let i=0;i<3;i++){const x=travel-i*w*.9,q=(fire-i*.035)/.24;if(x<0||q<0||q>1)continue;ctx.globalAlpha=alpha*(1-q)*.7;ctx.strokeStyle=i?'#ffbd45':'#fff0b4';ctx.lineWidth=(3-i*.5)/scale;ctx.beginPath();ctx.ellipse(x,0,9+q*13,w*.23+q*w*.28,0,0,Math.PI*2);ctx.stroke();}
    if(age<0||fire<.17)for(let i=0;i<8;i++){const a=i*2.399+(age<0?charge:fire)*5,d=w*(age<0?.8*(1-charge)+.1:.2+fire*2);ctx.globalAlpha=alpha*(age<0?charge:flare)*.75;path([{x:Math.cos(a)*d,y:Math.sin(a)*d},{x:Math.cos(a)*d*.55,y:Math.sin(a)*d*.55}],'#ffe29b',1.6/scale);}
   }
@@ -118,7 +119,7 @@ function forContext(ctx){if(brushes.has(ctx))return brushes.get(ctx);
   }
   for(const e of plan.events){const age=t-e.t;
    if(e.type==='redirect'&&age>-.3&&age<.22){ctx.save();ctx.globalAlpha=alpha*.65;motif('mirror',e.x,e.y,12/scale,look.color,0);ctx.restore();}
-   if(e.type==='final-beam'){finaleBeam(e,age,scale,options.reducedMotion,alpha,plan);continue;}
+   if(e.type==='final-beam'){finaleBeam(e,age,scale,options.reducedMotion,alpha);continue;}
    if(age<0)continue;
 
    if(e.type==='converge'&&age<.18){ctx.save();ctx.globalAlpha=alpha*(1-age/.18);star(e.x,e.y,(10-30*age)/scale,'#fffaff',Math.PI/4);ctx.restore();}
