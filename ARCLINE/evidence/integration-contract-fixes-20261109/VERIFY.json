@@ -1,0 +1,101 @@
+{
+  "status": "PASS",
+  "gameBase": "1f048574dd9020e12f066e51adff260e2c0ca44d",
+  "localSuites": [
+    {
+      "name": "player-flow-0143-browser",
+      "status": "PASS",
+      "checks": 121,
+      "cases": 4,
+      "result": "results/BROWSER.json"
+    },
+    {
+      "name": "backgrounds-browser",
+      "status": "PASS",
+      "checks": 2004,
+      "cases": 610,
+      "result": "results/BACKGROUNDS_BROWSER.json"
+    },
+    {
+      "name": "pickup-stock-browser",
+      "status": "PASS",
+      "checks": 669,
+      "cases": 4,
+      "result": "results/PICKUP_STOCK_BROWSER.json"
+    },
+    {
+      "name": "difficulty-browser",
+      "status": "PASS",
+      "checks": 22,
+      "cases": 3,
+      "result": "results/DIFFICULTY_BROWSER.json"
+    },
+    {
+      "name": "damage-sync-browser",
+      "status": "PASS",
+      "checks": null,
+      "cases": 64,
+      "result": "results/DAMAGE_SYNC_BROWSER.json"
+    },
+    {
+      "name": "final-battle-browser",
+      "status": "PASS",
+      "checks": 36,
+      "cases": 0,
+      "result": "results/FINAL_BATTLE_BROWSER.json"
+    },
+    {
+      "name": "attack-review-browser",
+      "status": "PASS",
+      "checks": 149,
+      "cases": 117,
+      "result": "results/ATTACK_REVIEW_BROWSER.json"
+    },
+    {
+      "name": "staging-browser",
+      "status": "PASS",
+      "checks": 44,
+      "cases": 0,
+      "result": "results/STAGING_BROWSER.json"
+    },
+    {
+      "name": "final-queue",
+      "status": "PASS",
+      "checks": 5,
+      "cases": 0,
+      "result": "results/HANDOFF_QUEUE.json"
+    },
+    {
+      "name": "final-cave",
+      "status": "PASS",
+      "checks": 5,
+      "cases": 0,
+      "result": "results/CAVE_VISUAL.json"
+    }
+  ],
+  "sourceHashes": {
+    "ARCLINE/environments/tests/staging-browser.test.cjs": "5025cd571d9d407af3486dd41268855694714eeede53294a4f17b3015f398fd4",
+    "ARCLINE/game/tests/attack-review-browser.test.cjs": "acbd20f675f132d15f1d7c5d1a9b3057c5e6b2946f69d8b94adddaded0a6631a",
+    "ARCLINE/game/tests/backgrounds-browser.test.cjs": "5fda80c638c9aa21a12c54cc1bc040719cdf93407fcda508332cda3134b3c277",
+    "ARCLINE/game/tests/damage-sync-browser.test.cjs": "72a24d70712d484a5dc0ac9b2d3347eebebad556eae186f14153568a0c971248",
+    "ARCLINE/game/tests/difficulty-browser.test.cjs": "98780461598963207b70e0fee1665c73897039e2ddc04814310bb4e4457f4844",
+    "ARCLINE/game/tests/final-battle-browser.test.cjs": "afd216f43654cca883a19c64638add4b94df023bd285cca53a3779a28b66bc32",
+    "ARCLINE/game/tests/pickup-stock-browser.test.cjs": "748aebfa3db97df4eb15fb23dbdd3fb4ab4f6d323a34abb9ad9d226e9f135063",
+    "ARCLINE/game/tests/player-flow-0143-browser.test.cjs": "70c52844bbd21b4aa46b927c84a9036e6914446b39f20132ec3204b77316cf2e"
+  },
+  "before": {
+    "commit": "1219d6ca9c5b71a37f7d4348c51da2b04eaecad3",
+    "scope": "Initial audit failures, retained without modification. These seven test sources were unchanged when0.31.2 merged."
+  },
+  "limits": [
+    "Synthetic progress for arena inspection",
+    "Full final replay is recorded legal inputs at one Normal seed, not human play or win rates",
+    "Physical devices and audible output unverified"
+  ],
+  "unchanged": [
+    "Game runtime",
+    "Version/cache",
+    "Save schema",
+    "Site text/images/capture provenance"
+  ]
+}
