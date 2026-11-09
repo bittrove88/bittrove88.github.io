@@ -1153,13 +1153,14 @@
         "damage": 1.9,
         "blast": 0,
         "forecastBeam": true,
-        "beamWidth": 320,
+        "beamWidth": 110,
         "beamDelay": 0.18,
         "beamDuration": 0.62,
-        "warningRadius": 160,
+        "warningRadius": 55,
         "progressiveDamage": true,
         "criticalMultiplier": 1,
-        "enemyDamageCap": 1.9
+        "enemyDamageCap": 1.9,
+        "beamAimOffsetY": 52
       },
       "appearance": {
         "color": "#ffe6a3",
@@ -1168,9 +1169,9 @@
         "fx": "final-beam",
         "label": "終極砲"
       },
-      "trajectory": "前の自機ターンに幅320pxの縦の照射位置を固定し、次の敵手番で上から太いレーザーを照射する。",
-      "impact": "金白の幅320pxのレーザーが地形を貫き、固定した帯の中だけを一度攻撃する。",
-      "effect": "前の自機ターンから予告された帯に残ると38ダメージ。通常歩行の1ターン上限140pxでは逃げ切れない幅で、テレポートで帯の外へ離脱する。地形では防げず、発射時に位置を追い直さず、多重ダメージも与えない。",
+      "trajectory": "アークハートの砲口から、予告時の自機の足元側へ向けて直線の太いレーザーを伸ばす。",
+      "impact": "アークハート本体の高さに近い太さ110pxの直線レーザーが地形を貫く。",
+      "effect": "固定した予告帯に残ると38ダメージ。レーザーの向きは移動や転移先を追い直さず、地形では防げない。テレポートで帯の外へ離脱する。",
       "motion": "照射位置の予告、短い発射の溜め、一定幅の照射と減衰。停止・スロー・旧主弾・光輪は使わない。",
       "damageSummary": {
         "maximum": 38,

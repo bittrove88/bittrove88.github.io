@@ -8,7 +8,8 @@ function finalSequence(s){
 }
 function finalWarning(s){
  const sequence=finalSequence(s),step=s.finalAttackPattern.step,kind=sequence[step%sequence.length],r=A.enemyTechniques[kind],targetX=s.units[0].x,targetY=s.units[0].y-22;
- if(r)return {kind,technique:kind,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:[0],radius:r.params.warningRadius||65,windup:1.05,frozen:true,next:sequence[(step+1)%sequence.length],...(kind==='E_FINAL_3'?{targetSlope:s.units[0].slope||0,targetFacing:s.units[0].facing,targetHp:s.units[0].hp}:{}),...(r.params.forecastBeam?{beamWidth:r.params.beamWidth}:{} )};
+ const beam=r?.params.forecastBeam?P.beamGeometry(s,W.getEnemy(kind),{targetPoint:{x:targetX,y:targetY}}):null;
+ if(r)return {kind,technique:kind,name:r.nameJa,nameEn:r.name,targetX,targetY,columns:[0],radius:r.params.warningRadius||65,windup:1.05,frozen:true,next:sequence[(step+1)%sequence.length],...(kind==='E_FINAL_3'?{targetSlope:s.units[0].slope||0,targetFacing:s.units[0].facing,targetHp:s.units[0].hp}:{}),...(beam?{beamWidth:beam.width,beamFrom:beam.from,beamTo:beam.to}:{} )};
  const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
  return {kind,targetX,targetY,columns,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next:sequence[(step+1)%sequence.length],frozen:true};
 }
