@@ -1,7 +1,7 @@
 {
   "version": 1,
   "change": "ラスボス攻撃0.30.1に、リコの4段階すべてを敵側へ向ける補正と全自機必殺技の自傷50％軽減を追加。先行HPと20行動を保持。",
-  "reason": "累積PRは0.30.1の最終戦攻撃と今回のリコ・自傷だけ。新しい方向・自傷検査、全10必殺技の軽減前後、低HP境界、既存自機HP/表示、最終戦・先行HP保護、実ControllerとWorker、生成物と画像指紋を確認する。無関係で成功済みの検査はローカルで再利用し、CIでは累積差分の選択を渡す。",
+  "reason": "累積PRは0.30.1の最終戦攻撃と今回のリコ・自傷だけ。新しい方向・自傷検査、全10必殺技の軽減前後、低HP境界、既存自機HP/表示、最終戦・先行HP保護、実ControllerとWorker、生成物と画像指紋を確認する。無関係で成功済みの検査はローカルで再利用し、CIでは累積差分の選択を渡す。 最新main8555e87のPR135/136/137を保持し、52ファイル・HTMLと依存登録を照合。UI統合後の本編Workerと先行TOP/仲間画面を追加し、旧0.30.1更新文書はUI版を保持して攻撃案内を0.30.2へまとめる。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -42,7 +42,6 @@
     "ARCLINE/site/gameplay-garden.jpg",
     "ARCLINE/site/gameplay-volcano.jpg",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.1/index.html",
     "ARCLINE/updates/0.30.2/index.html"
   ],
   "suites": {
@@ -63,7 +62,9 @@
       "attack-review-browser",
       "hp-action-balance-browser",
       "../site-tests/service-site",
-      "rico-direction-browser"
+      "rico-direction-browser",
+      "top-layout-browser",
+      "collection-flow-browser"
     ]
   },
   "checks": {
@@ -75,7 +76,8 @@
   },
   "manual": [
     "PCとスマホ相当で跳弾の全段階と自傷後のHPの実画面を目視。検査用に置いた浮遊標的・HP2000は対戦勝利の証拠と区別する。",
-    "全10必殺技で自傷だけ半減・敵への威力維持を前版比較。物理端末・人の勝率・本番URL・音声デコードは対象外。"
+    "全10必殺技で自傷だけ半減・敵への威力維持を前版比較。物理端末・人の勝率・本番URL・音声デコードは対象外。",
+    "先行メニューと仲間画面の正本52ファイル、Hosted HTMLの版数だけの差、runtime登録を最新mainと照合。攻撃ランタイム5ファイルは検証済み6f9e871と同一。"
   ],
   "excluded": [
     {
