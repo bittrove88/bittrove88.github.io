@@ -1,0 +1,104 @@
+{
+  "status": "PASS",
+  "baseline": "a795468756ced3bb75619562fc7598d805e67fe6",
+  "authorization": "2026-11-10 JST user: はい進めてください, for the identified final-relay verification repair. No merge instruction for this PR.",
+  "runtimeVersion": "0.33.1",
+  "browser": {
+    "suite": "final-battle-browser",
+    "checks": 42,
+    "playerInputs": 38,
+    "launchedShots": 63,
+    "resolvedShots": 63,
+    "contactFrames": 5204,
+    "workerDecisions": 31,
+    "allWorker": true,
+    "echoShots": 3,
+    "quotaGuardRestorations": 1,
+    "order": [
+      "hana",
+      "koro",
+      "ban",
+      "sora",
+      "rico",
+      "hibari",
+      "mogu",
+      "rin",
+      "yui",
+      "gun"
+    ],
+    "damage": {
+      "hana": 7.5,
+      "koro": 7.5,
+      "ban": 7.5,
+      "sora": 7.5,
+      "rico": 7.5,
+      "hibari": 7.5,
+      "mogu": 7.5,
+      "rin": 7.5,
+      "yui": 7.5,
+      "gun": 7.5
+    },
+    "requiredDamage": 7.5,
+    "finalOwner": "gun",
+    "pageErrors": [],
+    "workerErrors": [],
+    "evidence": "FINAL_BATTLE_BROWSER.json"
+  },
+  "inputSearch": {
+    "tool": "game/tools/approved-map-qa.cjs",
+    "seed": 4697,
+    "difficulty": "normal",
+    "signatureAttacks": true,
+    "result": "win",
+    "reason": "defeated",
+    "remainingHp": 2.475,
+    "playerInputs": 38,
+    "sourceSha256": {
+      "game/dist/engine.js": "ba0a9761da554ef5b7ac482f0366e7119893d8ac40f66f72f8e321ce24761258",
+      "game/dist/physics.js": "813ff07e6661f221b79a3d7f956cd8d4a8bba457d3bd4b7b89820d13bee6c3c4",
+      "game/dist/enemy-actions.js": "de6907ecccd16ca99672977c151c064d75f2766178eaec4b46ac451042f5ad6c",
+      "game/dist/enemy-position.js": "d97892a0320818d8f1d49521ce9ab26e3e31187099a3bd076a115ac7cb8c1821",
+      "game/dist/boss-actions.js": "980dc976b87ec2375bc2f5e36983fbb42013ea4e9f3481be1176b3c7eb131434",
+      "game/dist/enemy-attacks.js": "0efdc355609ce0713abbf85b54e6cc22abbdd9e6ac870d895ac8b1be95505187",
+      "game/dist/final-team.js": "cbe72945dd083f089af2ca14c6c8ecf30a8ffdd5a457936132d9ce248a159162",
+      "game/dist/levels.js": "8ca25af567cd9cb2b013aeee768d29e99581f8a51a79ca3f69a2b29f4f95d039",
+      "game/dist/combat.js": "ffe8a3db911f3d8467d315ffe007d9459afdc2d1e20aa002354875af71b9ac9c",
+      "game/dist/weapons.js": "bc588ca4a21da4f6af5e22ce9ae80c141e6b387f444e562da8dbcbb44f894948",
+      "game/tools/approved-map-qa.cjs": "4360cbae58cebbf9529f4fb4a53df01ff793309083aa5b3d15e1d63f744e6426"
+    },
+    "scope": "Native engine match with autonomous enemies. Search selects legal inputs in isolated candidates. No fabricated impact/HP/AI. Not a human win-rate measurement."
+  },
+  "negativeChecks": {
+    "status": "PASS",
+    "results": [
+      {
+        "fault": "illegal-power",
+        "detected": true,
+        "error": "Error: page.evaluate: Error: Illegal replay aim/power\n    at eval (eval at evaluate (:311:30), <anonymous>:21:15)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+      },
+      {
+        "fault": "early-contact",
+        "detected": true,
+        "error": "Error: page.evaluate: Error: Contact-time HP mismatch: hana/S_HANA/1 at 0.03333333333333333\n    at E.applyEvents (eval at evaluate (:311:30), <anonymous>:55:19)\n    at update (http://127.0.0.1:32921/ARCLINE/game/dist/game.js?v=0.33.1:349:219)\n    at window.relayTick (eval at evaluate (:311:30), <anonymous>:118:9)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:7)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+      }
+    ],
+    "scope": "Fault injection only inside isolated test pages. Game sources untouched."
+  },
+  "sourceSha256": {
+    "game/tests/final-battle-browser.test.cjs": "0a56c99b87a949647ad783f92a731ade6c01d7503093561402a344d3c4165e12",
+    "game/tests/final-relay-controller.cjs": "db1f557fdbb888e871f87df08b47aeab6403ae91aa38f4a44ee022641c2a5a4a",
+    "game/tests/fixtures/final-relay-0331.json": "df36eb0ee786f28ab6817b6a3e26d4ee7aee7860c261106708ea045c31b7e5c9"
+  },
+  "preservation": {
+    "productionPathsChanged": [],
+    "runtimeVersionUnchanged": true,
+    "priorAuditReused": "Prior unchanged-source audit: five unit suites/eight browser suites and18 normal-speed UI hands. Not rerun."
+  },
+  "notPerformed": [
+    "Merge/deployment",
+    "Physical devices",
+    "Full100-stage clearance",
+    "Human difficulty/win-rate evaluation",
+    "All audio decode/playback"
+  ]
+}
