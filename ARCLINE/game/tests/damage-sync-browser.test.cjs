@@ -54,7 +54,7 @@ const server=http.createServer((q,r)=>{let f=path.resolve(root,'.'+new URL(q.url
     const videoBefore=ArcEngine.campaign(10,{equippedCharacterId:'hibari',matchSeed:20261109,battleInventory:{}}),videoPlan=ArcEngine.trajectory(videoBefore,0,48,60.67620434,{weaponId:'S_HIBARI'});
     const contacts=videoPlan.events.filter(e=>['damage','part-damage'].includes(e.type)&&e.unit===1);
     if(contacts.map(e=>ArcCombat.points(e.value)).join(',')!=='5.1,12,2.9,9.1')throw Error('native user-video regression');
-    for(const fps of [30,120]){const state=clone(videoBefore),plan=clone(videoPlan);for(let time=0;time<plan.duration+1/fps;time+=1/fps)ArcEngine.applyEvents(state,plan,time);ArcEngine.resolve(state,plan);if(ArcCombat.points(state.units[1].hp)!==190.9||state.units[1].parts[0].hp!==0)throw Error('user-video body/armor timeline '+fps);}
+    for(const fps of [30,120]){const state=clone(videoBefore),plan=clone(videoPlan);for(let time=0;time<plan.duration+1/fps;time+=1/fps)ArcEngine.applyEvents(state,plan,time);ArcEngine.resolve(state,plan);if(Math.abs(ArcCombat.points(state.units[1].hp)-(ArcCombat.points(videoBefore.units[1].hp)-9.1))>1e-7||state.units[1].parts[0].hp!==0)throw Error('user-video body/armor timeline '+fps);}
     for(const e of contacts){labels.length=0;draw.resetCamera();draw.draw(videoBefore,{shot:videoPlan,flight:e.t+.001,time:e.t+.001});const numeric=labels.filter(label=>/^\d+(?:\.\d+)?$/.test(label));if(e.type==='part-damage'?numeric.length!==0:numeric.join(',')!=='9.1')throw Error('armor is visual, body has one actual-damage number '+numeric);}
     window.hibariVideo={before:videoBefore,plan:videoPlan};
     window.damageCanvas=canvas;window.damageRenderer=draw;

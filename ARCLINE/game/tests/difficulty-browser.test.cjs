@@ -13,10 +13,10 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
   ok(await page.evaluate(mode=>save.data.difficulty===mode&&save.data.cleared===(mode==='hard'?0:60)&&save.data.unlockedCharacterIds.length===(mode==='normal'?10:mode==='easy'?9:1),mode),'downward progress and mode-local ownership persists '+mode);
   ok(await page.evaluate(()=>selectedMap===(save.data.chapterRun?save.data.chapterRun.stage-1:save.data.cleared)),'lobby stage refreshed');
   const parity=await page.evaluate(async mode=>{
-   const state=ArcEngine.campaign(90,{matchSeed:42,difficulty:mode}),seed=42,copy=JSON.parse(JSON.stringify(state));copy.random=ArcEngine.seeded(seed);const target=ArcEngine.enemyMoveTarget(copy);ArcEngine.geometry.move(copy,1,target-copy.units[1].x);const plan=ArcEngine.cpuPlan(copy,copy.random);
+   const state=ArcEngine.campaign(90,{matchSeed:42,difficulty:mode}),seed=42,copy=JSON.parse(JSON.stringify(state));copy.random=ArcEngine.seeded(seed);const expected=ArcEngine.planEnemyAction(copy,copy.random);
    const result=await new Promise((resolve,reject)=>{const worker=new Worker('cpu-worker.js?v='+ArcRelease.cacheVersion);worker.onmessage=e=>{worker.terminate();e.data.error?reject(Error(e.data.error)):resolve(e.data);};worker.onerror=reject;worker.postMessage({id:1,state:{...state,random:undefined},seed});});
    const player=ArcEngine.trajectory(state,0,50,70),easy=ArcAimGuide.paths(player,'easy'),normal=ArcAimGuide.paths(player,'normal'),hard=ArcAimGuide.paths(player,'hard');
-   return {worker:result.target===target&&JSON.stringify(result.plan)===JSON.stringify(plan),guide:easy.length>0&&normal.length>0&&hard.length===0&&normal.every(b=>{const full=easy.find(e=>e.id===b.id);return full&&Math.abs(ArcAimGuide.length(b.path)-ArcAimGuide.length(full.path)*.5)<1e-5;}),parameters:ArcEngine.enemyParameters(state)};
+   return {worker:JSON.stringify([result.action,result.target,result.plan])===JSON.stringify([expected.action,expected.target,expected.plan]),guide:easy.length>0&&normal.length>0&&hard.length===0&&normal.every(b=>{const full=easy.find(e=>e.id===b.id);return full&&Math.abs(ArcAimGuide.length(b.path)-ArcAimGuide.length(full.path)*.5)<1e-5;}),parameters:ArcEngine.enemyParameters(state)};
   },mode);
   ok(parity.worker,'real Worker parity '+mode);ok(parity.guide,'difficulty-specific player guide '+mode);rows.push({mode,...parity});
  }

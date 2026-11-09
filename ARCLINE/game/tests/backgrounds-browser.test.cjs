@@ -22,7 +22,7 @@ const server=http.createServer((q,r)=>{let name=decodeURIComponent(new URL(q.url
    proto.stroke=function(...args){if(bgTrace?.active&&this.canvas.id==='world'&&Math.abs(this.globalAlpha-.8)<.001&&Math.abs(this.lineWidth*renderer.view.scale-2)<.001&&this.strokeStyle===bgTrace.guideColor)bgTrace.guides.push(bgTrace.points.map(p=>({...p})));return stroke.apply(this,args);};
    globalThis.bgFixture=(stage,map,mode)=>{
     clearInput();shot=null;tail=null;impact=null;transition=null;ending=null;s=E.campaign(stage,{difficulty:mode,matchSeed:17});
-    if(stage===100)while(ArcFinalTeam.mapIndex(s)<map){ArcFinalTeam.credit(s,s.characterId,5);E.next(s);s.phase='aim';}
+    if(stage===100)while(ArcFinalTeam.mapIndex(s)<map){ArcFinalTeam.credit(s,s.characterId,s.spec.finalBattle.requiredDamage);E.next(s);s.phase='aim';}
     selectedMap=stage-1;s.phase='aim';s.angle=55;s.power=72;clock=0;renderer.resetCamera();hud();
    };
    globalThis.bgCapture=(options={})=>{
@@ -50,8 +50,8 @@ const server=http.createServer((q,r)=>{let name=decodeURIComponent(new URL(q.url
   ok(base.hash===camera.hash&&base.hash===flight.hash,'camera/flight/impact never move backdrop '+width);ok(camera.unchanged&&flight.unchanged,'display leaves simulation intact');
   for(const reduced of[false,true])for(const to of[1,2,3]){
    const transitionRows=await p.evaluate(({to,reduced})=>{
-    bgFixture(100,to-1,'normal');while(s.finalTeam.index<to*3-1){ArcFinalTeam.credit(s,s.characterId,5);E.next(s);s.phase='aim';}
-    const before=JSON.parse(JSON.stringify(s));ArcFinalTeam.credit(s,s.characterId,5);advanceTurn();const travel=ArcFinalTravel.create(before,renderer.view,{from:to-1,to,duration:2.2},reduced),saved=JSON.stringify(s),results=[];
+    bgFixture(100,to-1,'normal');while(s.finalTeam.index<to*3-1){ArcFinalTeam.credit(s,s.characterId,s.spec.finalBattle.requiredDamage);E.next(s);s.phase='aim';}
+    const before=JSON.parse(JSON.stringify(s));ArcFinalTeam.credit(s,s.characterId,s.spec.finalBattle.requiredDamage);advanceTurn();const travel=ArcFinalTravel.create(before,renderer.view,{from:to-1,to,duration:2.2},reduced),saved=JSON.stringify(s),results=[];
     for(const t of[0,.35,.549,.55,.83,1]){travel.age=travel.duration*t;const r=bgCapture({transition:travel,canAim:false});results.push({t,id:r.id,captured:r.backgroundCaptured,different:r.different,unchanged:JSON.stringify(s)===saved});}
     return {duration:travel.duration,results};
    },{to,reduced});

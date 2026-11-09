@@ -1,16 +1,27 @@
 {
   "version": 1,
-  "change": "0.31.2: 紹介サイトのボス依存読み込み漏れを修正",
-  "reason": "ユーザーが修正計画に同意し、不具合のみの修正を依頼。新しいboss-actions依存を紹介HTMLへ追加し、画像の取得元ハッシュとは独立した実ブラウザ起動検査で再発を防ぐ。",
+  "change": "現行0.31.2との不整合による結合検査の失敗を修正",
+  "reason": "ユーザーが不具合のみの修正を依頼。旧UI・旧担当量・旧HP・旧敵AIを前提とする7ブラウザ検査とSTG検査を、現行の画面・合法入力記録・Worker行動契約へ合わせる。アプリの値や挙動を検査に合わせて戻さない。",
   "files": [
-    "ARCLINE/index.html",
-    "ARCLINE/site-tests/site-startup.test.cjs",
-    "ARCLINE/game/tests/suites.json"
+    "ARCLINE/game/tests/player-flow-0143-browser.test.cjs",
+    "ARCLINE/game/tests/backgrounds-browser.test.cjs",
+    "ARCLINE/game/tests/pickup-stock-browser.test.cjs",
+    "ARCLINE/game/tests/difficulty-browser.test.cjs",
+    "ARCLINE/game/tests/damage-sync-browser.test.cjs",
+    "ARCLINE/game/tests/final-battle-browser.test.cjs",
+    "ARCLINE/game/tests/attack-review-browser.test.cjs",
+    "ARCLINE/environments/tests/staging-browser.test.cjs"
   ],
   "suites": {
     "unit": [],
     "browser": [
-      "../site-tests/site-startup"
+      "player-flow-0143-browser",
+      "backgrounds-browser",
+      "pickup-stock-browser",
+      "difficulty-browser",
+      "damage-sync-browser",
+      "final-battle-browser",
+      "attack-review-browser"
     ]
   },
   "checks": {
@@ -21,16 +32,17 @@
     "nativeAudio": false
   },
   "manual": [
-    "サイトの画像・紹介文・デザインは後日まとめて更新する。今回の正の起動確認と、依存が欠落した基準mainでの失敗を区別して記録する。"
+    "STGの配布と保存非干渉は既存staging-safety CIで独立実行。ローカルはゲーム配布物が一致する既存0.31.2 STG成果物を使用。",
+    "最終戦は現行Normal/seed4697の正規入力47行動を再生。小画面の配置検査と進行フィクスチャ、人の実プレイ・勝率を区別する。"
   ],
   "excluded": [
     {
-      "scope": "ゲーム本体・戦闘・保存・版数・素材",
-      "reason": "修正は紹介HTMLの依存1本と起動検査のみ。"
+      "scope": "紹介画像・紹介文・デザイン・画像sourceHashes・PR65履歴の更新",
+      "reason": "サイト更新は後日まとめるというユーザー指定。service-siteの既知ハッシュ失敗を隠すための変更はしない。"
     },
     {
-      "scope": "紹介画像の再撮影とsourceHashes更新、PR65の履歴整理",
-      "reason": "ユーザーがサイト更新を後回しに指定。"
+      "scope": "単体テスト全件・他の成功済み結合検査・本番配信",
+      "reason": "変更は検査コードのみ。ゲーム本体・素材・保存・版数を変更しない。"
     }
   ]
 }

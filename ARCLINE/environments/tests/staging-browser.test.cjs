@@ -70,10 +70,9 @@ const server = http.createServer((req,res) => {
       const parity=await page.evaluate(async()=>{
         const state=ArcEngine.campaign(50,{matchSeed:424242,difficulty:'normal'});
         const seed=42,copy=JSON.parse(JSON.stringify(state));copy.random=ArcEngine.seeded(seed);
-        const target=ArcEngine.enemyMoveTarget(copy);ArcEngine.geometry.move(copy,1,target-copy.units[1].x);
-        const plan=ArcEngine.cpuPlan(copy,copy.random);
+        const expected=ArcEngine.planEnemyAction(copy,copy.random);
         const result=await new Promise((resolve,reject)=>{const worker=new Worker('cpu-worker.js?v='+ArcRelease.cacheVersion);worker.onmessage=e=>{worker.terminate();e.data.error?reject(Error(e.data.error)):resolve(e.data);};worker.onerror=reject;worker.postMessage({id:1,state:{...state,random:undefined},seed});});
-        return result.target===target&&JSON.stringify(result.plan)===JSON.stringify(plan);
+        return JSON.stringify([result.action,result.target,result.plan])===JSON.stringify([expected.action,expected.target,expected.plan]);
       });
       ok(parity,'real packaged Worker matches engine '+stage); started.push(stage);
       await page.reload();await page.waitForFunction('globalThis.ArcStaging&&document.documentElement.dataset.stagingReady==="true"&&save.ready');
