@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "0.31.3 残像の発砲フォーカス・転移直後の識別・ボス転移弾の速度",
-  "reason": "ユーザーの「マージに向けて検証」を受領し実行する計画。発砲前の表示段階、通常画角への復帰、既存充電カメラ、ボスと通常敵の転移時間、共有描画と版数の生成物を対象にする。",
+  "change": "0.31.4 転移直後と待機中の残像を識別できる表示",
+  "reason": "新しい出現表示・画角・時間をレビューする候補計画。残像の細部・常設表示・出現時の2地点の画角と復帰、発砲時フォーカス、既存の充電カメラ、通常敵の移動と共有生成物を確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -19,11 +19,10 @@
     "ARCLINE/game/runtime.json",
     "ARCLINE/game/tests/boss-motion-browser.test.cjs",
     "ARCLINE/game/tests/echo-presentation.test.cjs",
-    "ARCLINE/game/tests/suites.json",
     "ARCLINE/game/ui/charge-camera.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.3/index.html"
+    "ARCLINE/updates/0.31.4/index.html"
   ],
   "suites": {
     "unit": [
@@ -44,8 +43,8 @@
     "nativeAudio": false
   },
   "manual": [
-    "旧位置の残像表示と発砲画角はPC・小画面の制作中スクリーンショットで確認。事前確認の成功条件と差分を照合し再利用する。",
-    "選択CIの結果を確認し、マージ可能性と先行mainの保持を確認する。マージ・配信は実施状態を分けて報告する。"
+    "転移直後と待機中の残像を568px幅の日英、PC、動きを減らす設定で実描画確認。スクリーンショットと事前確認条件を照合して再利用する。",
+    "最終合意後に選択CIを実行。マージ・配信は実施状態を分けて確認する。"
   ],
   "excluded": [
     {

@@ -144,33 +144,37 @@ function create(canvas,configuration={}){
    ctx.restore();
   }
  }
- let echoSprite=null,echoOutline=null,echoSpriteKey='',echoCueOwner=null,echoCueId=null,echoCueStart=0;
+ let echoSprite=null,echoOutline=null,echoDarkOutline=null,echoSpriteKey='',echoCueOwner=null,echoCueId=null,echoCueStart=0;
  function bossEcho(s,options,time,scale){
   const echo=s.bossEcho||s.bossEchoEffect;if(!echo||!root.ArcVisualArt)return;
   const firing=options.shot?.echo?options.shot:null,u=firing?.echoUnit||echo.unit;
   const angle=firing?.angle??52,display={...s,units:[s.units[0],u]},muzzle=G.muzzle(display,1,angle);
   const tint=s.stage===100?['#a6dfff','#c4bdff','#aec5e1','#ffe4a1'][echo.field||0]:'#a6dfff';
-  const key=[s.stage,echo.id,u.x,u.y,u.facing,angle,tint,...u.parts.map(p=>p.hp)].join(':');
+  const edge=Math.max(1,Math.ceil(2/scale)),key=[s.stage,echo.id,u.x,u.y,u.facing,angle,tint,edge,...u.parts.map(p=>p.hp)].join(':');
   if(!echoSprite||echoSpriteKey!==key){
    echoSprite=document.createElement('canvas');echoSprite.width=384;echoSprite.height=256;const c=echoSprite.getContext('2d');
    c.translate(192-u.x,192-u.y);
    root.ArcVisualArt.drawActor(c,s.spec.encounterId||root.ArcEncounters.forSpec(s.spec).id,u,{state:display,side:1,muzzle,angle,alpha:1,dpr:1,detail:'battle',kind:'boss',time:0});
-   c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-in';c.fillStyle=tint;c.fillRect(0,0,384,256);echoSpriteKey=key;
-   echoOutline=document.createElement('canvas');echoOutline.width=384;echoOutline.height=256;const outline=echoOutline.getContext('2d');
-   for(const [x,y]of [[-3,0],[3,0],[0,-3],[0,3],[-2,-2],[2,-2],[-2,2],[2,2]])outline.drawImage(echoSprite,x,y);
-   outline.globalCompositeOperation='source-in';outline.fillStyle='#e0f8ff';outline.fillRect(0,0,384,256);outline.globalCompositeOperation='destination-out';outline.drawImage(echoSprite,0,0);
+   // Tint over the original drawing: retain the cockpit, armor and barrel
+   // instead of replacing every opaque pixel with a featureless silhouette.
+   c.setTransform(1,0,0,1,0,0);c.globalCompositeOperation='source-atop';c.globalAlpha=.48;c.fillStyle=tint;c.fillRect(0,0,384,256);c.globalAlpha=1;echoSpriteKey=key;
+   function outline(color,radius){const layer=document.createElement('canvas');layer.width=384;layer.height=256;const a=layer.getContext('2d');for(let i=0;i<8;i++){const angle=i*Math.PI/4;a.drawImage(echoSprite,Math.cos(angle)*radius,Math.sin(angle)*radius);}a.globalCompositeOperation='source-in';a.fillStyle=color;a.fillRect(0,0,384,256);a.globalCompositeOperation='destination-out';a.drawImage(echoSprite,0,0);return layer;}
+   echoOutline=outline('#b7f3ff',edge);echoDarkOutline=outline('#123341',edge*2);
   }
   const cue=s.bossEcho?ChargeCamera.echoCue(options.echoCueAge??Infinity):0;
-  const fading=!s.bossEcho,progress=fading?Math.min(1,echo.age/echo.duration):0,alpha=(.46+.22*cue)*(1-progress);
-  ctx.save();ctx.globalAlpha=alpha;ctx.drawImage(echoSprite,u.x-192,u.y-192);
-  ctx.globalAlpha=.22*(1-progress);ctx.drawImage(echoSprite,u.x-192+2/scale,u.y-192-1/scale);
-  if(cue>.02){
-   ctx.globalAlpha=.95*cue;ctx.drawImage(echoOutline,u.x-192,u.y-192);
-   const bounds=options.echoLabelBounds,h=u.hitShape||{y:-44,ry:44};
-   const x=bounds?Math.max(bounds.left+30/scale,Math.min(bounds.right-30/scale,u.x)):u.x;
+  const fading=!s.bossEcho,progress=fading?Math.min(1,echo.age/echo.duration):0,alpha=(.84+.12*cue)*(1-progress),h=u.hitShape||{y:-44,ry:44};
+  ctx.save();ctx.globalAlpha=.9*(1-progress);ctx.beginPath();ctx.ellipse(u.x,u.y-1,Math.max(38,Math.min(110,h.rx||70)),8/scale,0,0,Math.PI*2);ctx.fillStyle='#153b4dcc';ctx.fill();ctx.strokeStyle='#163848';ctx.lineWidth=6/scale;ctx.stroke();ctx.strokeStyle='#9eecff';ctx.lineWidth=2/scale;ctx.stroke();
+  ctx.drawImage(echoDarkOutline,u.x-192,u.y-192);ctx.drawImage(echoOutline,u.x-192,u.y-192);
+  ctx.globalAlpha=alpha;ctx.drawImage(echoSprite,u.x-192,u.y-192);
+  if(s.bossEcho){
+   const bounds=options.echoLabelBounds,english=root.ArcI18n?.language==='en',text=cue>.02?(english?'ECHO LEFT BEHIND':'残像が残った'):(english?'ECHO':'残像');
+   ctx.font=`700 ${14/scale}px system-ui`;const labelWidth=ctx.measureText(text).width+24/scale,half=labelWidth/2;
+   const x=bounds?Math.max(bounds.left+half+4/scale,Math.min(bounds.right-half-4/scale,u.x)):u.x;
    const top=Math.min(u.y+h.y-h.ry,...G.actorParts(display,1).filter(p=>p.hp>0).map(p=>u.y+p.dy-p.radius))-24/scale;
-   const y=bounds?Math.max(bounds.top+12/scale,Math.min(bounds.bottom-12/scale,top)):top;
-   round(x-27/scale,y-10/scale,54/scale,20/scale,5/scale,'#183946e8');ctx.font=`700 ${12/scale}px system-ui`;ctx.textAlign='center';ctx.fillStyle='#e0f8ff';ctx.fillText(root.ArcI18n?.language==='en'?'ECHO':'残像',x,y+4/scale);
+   const y=bounds?Math.max(bounds.top+16/scale,Math.min(bounds.bottom-16/scale,top)):top;
+   ctx.globalAlpha=1;path([{x,y:y+13/scale},{x:u.x,y:u.y+h.y-h.ry}],'#102f40',4/scale);path([{x,y:y+13/scale},{x:u.x,y:u.y+h.y-h.ry}],'#b7f3ff',1.5/scale);
+   round(x-half,y-13/scale,labelWidth,26/scale,6/scale,'#102f40');ctx.strokeStyle='#a9efff';ctx.lineWidth=1.5/scale;ctx.stroke();ctx.textAlign='center';ctx.fillStyle='#edfcff';ctx.fillText(text,x,y+5/scale);
+   if(!options.reducedMotion&&options.echoCueAge<.65){const t=options.echoCueAge/.65;ctx.globalAlpha=.65*(1-t);ctx.strokeStyle='#c7f8ff';ctx.lineWidth=2/scale;ctx.beginPath();ctx.ellipse(u.x,u.y-1,(40+50*t)/scale,(10+14*t)/scale,0,0,Math.PI*2);ctx.stroke();}
   }
   if(!options.reducedMotion){
    for(let i=0;i<6;i++){const phase=time*.8+i*1.7,x=u.x+Math.cos(phase)*65,y=u.y-35+Math.sin(phase*.7)*35;circle(x,y,1.4/scale,tint);}
@@ -302,6 +306,7 @@ function create(canvas,configuration={}){
    chargeZoom=ChargeCamera.advance(chargeZoom,!!engaged,Math.max(0,time-lastCameraTime),options.reducedMotion);
    const player=s.units[0],pivot={x:normalView.x+player.x*normalView.scale,y:normalView.y+player.y*normalView.scale};view=ChargeCamera.apply(normalView,pivot,chargeZoom);
   }else chargeZoom=0;
+  if(s.bossEcho&&s.enemyTeleport?.landed&&!lobby&&!localDemo&&!options.cameraView&&!options.reducedMotion)view=ChargeCamera.echoRevealView(normalView,[s.bossEcho.unit,s.units[1]],echoCueAge,{width:fieldW,top,bottom});
   const echoPlan=options.echoFocus?.plan||(shot?.echo?shot:options.tail?.shot?.echo?options.tail.shot:null);
   if(echoPlan&&!lobby&&!localDemo&&!options.cameraView&&!options.reducedMotion){
    const age=options.echoFocus?options.echoFocus.age:ChargeCamera.echoPresentation.lead+(shot?.echo?flight:echoPlan.duration+(options.tail?.age||0));
