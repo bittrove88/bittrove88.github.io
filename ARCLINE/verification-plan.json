@@ -1,61 +1,32 @@
 {
   "version": 1,
-  "change": "敵共通の発射前カメラと連射中の攻撃元表示",
-  "reason": "ユーザーのマージ指示で最終合意。本検証・CI・マージ・配信確認を進める。先行PR155の位置選びを保持し、共通カメラと直接連動する歩行・転移・残像・チャージを確認する。",
+  "change": "紹介ページの enemy-position.js 読み込み漏れを修正",
+  "reason": "PR155で追加された依存をboss-actions.jsより先に読み込み、ArcSite初期化・ヒーローとマップ・機体とデモ操作・既存保存の維持を確認する。",
   "files": [
-    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
-    "ARCLINE/characters/index.html",
-    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
-    "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/game/attack-review/index.html",
-    "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/enemy-camera.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/enemy-camera-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-camera-flow-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-camera.test.cjs",
-    "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/build_attack_review.py",
-    "ARCLINE/game/tools/build_map_atlas.py",
-    "ARCLINE/game/ui/enemy-camera.js",
     "ARCLINE/index.html",
-    "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.33.1/index.html"
+    "ARCLINE/site-tests/site-startup.test.cjs"
   ],
   "suites": {
-    "unit": [
-      "enemy-camera",
-      "charge-camera",
-      "echo-presentation"
-    ],
     "browser": [
-      "enemy-camera-browser",
-      "enemy-camera-flow-browser",
-      "charge-camera-browser",
-      "boss-motion-browser"
+      "../site-tests/site-startup"
     ]
   },
   "checks": {
-    "generated": true,
+    "generated": false,
     "baseline": false,
     "package": false,
     "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "2026-11-10（日本時間）のユーザー「マージ」により、提示済みの共通カメラ修正を最終合意。本検証とPR作成・マージを許可済み。",
-    "90面の通常・固有、100面第4戦場の三連射・終極砲、通常敵と中ボスの高低差、歩行・転移・残像からの連続攻撃、ポーズ・画面寸法変更・軽減表示を確認。"
+    "制作中の事前確認は修正前の実ブラウザ再現と、修正後の390/1440pxでの起動・代表操作・保存不変に限定する。",
+    "最終合意後の本検証候補はsite-startupの1スイート。依存順の整合と5画面幅での初期化・機体/デモ操作・保存不変・例外/取得失敗なしを完了条件とする。成功済みの同条件は再利用し、重複実行しない。",
+    "本検証・CI・マージ・公開確認は未実施。今回のユーザー指摘は修正依頼として扱い、過去PRのマージ指示を新しい修正へ拡張しない。"
   ],
   "excluded": [
     {
-      "scope": "全100面攻略・全攻撃再調整・音声全件・実機",
-      "reason": "表示カメラと発射開始時刻の修正。先行mainの物理・威力・射出間隔・位置選び・保存を保護する。"
+      "scope": "ゲーム本体・全100面攻略・敵AI再検証・全生成物・配布パッケージ・音声・物理端末",
+      "reason": "手書きの紹介HTMLの依存参照のみを修正する。ゲーム0.33.1・間合い・発射前カメラ・保存の実装と生成元は変更しない。"
     }
   ]
 }

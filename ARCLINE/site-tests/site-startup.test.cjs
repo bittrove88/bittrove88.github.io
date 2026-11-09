@@ -11,6 +11,14 @@ const release = require("../game/runtime.json");
 let checks = 0;
 const rows = [], errors = [], requests = [];
 function ok(value, message) { checks++; assert(value, message); }
+const html = fs.readFileSync(path.join(root, "ARCLINE/index.html"), "utf8");
+const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="game\/dist\/([^"?]+)(?:\?[^" ]*)?"/g)].map(match => match[1]);
+for (const [index, script] of scripts.entries()) {
+  for (const dependency of release.requires[script] || []) {
+    const dependencyIndex = scripts.indexOf(dependency);
+    ok(dependencyIndex >= 0 && dependencyIndex < index, script + " loads after its runtime dependency " + dependency);
+  }
+}
 const server = http.createServer((req, res) => {
   const pathname = new URL(req.url, "http://localhost").pathname;
   const file = path.resolve(root, "." + (pathname.endsWith("/") ? pathname + "index.html" : pathname));
@@ -32,8 +40,9 @@ const server = http.createServer((req, res) => {
       page.on("pageerror", error => errors.push(String(error)));
       page.on("response", response => { if (response.status() >= 400) requests.push({ status: response.status(), url: response.url() }); });
       await page.goto("http://127.0.0.1:" + server.address().port + "/ARCLINE/");
-      await page.waitForFunction(() => globalThis.ArcSite || typeof globalThis.ArcEngine === "object", null, { timeout: 10000 });
+      await page.waitForFunction(() => globalThis.ArcSite, null, { timeout: 10000 });
       ok(await page.evaluate("!!globalThis.ArcSite"), "site initializes with its real script dependencies: " + errors.join("; "));
+      ok(await page.evaluate("typeof ArcEnemyPosition.capabilities === 'function'"), "enemy positioning dependency is available");
       ok(await page.evaluate("typeof ArcBossActions.attachments === 'function'"), "boss geometry dependency is available");
       ok(await page.evaluate(version => ArcSite.version === version, release.version), "site uses current runtime version");
       ok(await page.evaluate("ArcSite.heroStage === 81 && JSON.stringify(ArcSite.maps) === '[4,31,84,98]'"), "hero and map canvases initialize");
