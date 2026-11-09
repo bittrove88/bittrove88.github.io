@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "武器/スキル確認と図鑑の共通デザイン・視認性を改善し、開始/設定/ストーリーを整理（0.30.1）",
-  "reason": "最新依頼でロビー武器/スキル確認と各図鑑を共通カード/詳細へ統一。名称・効果・保有数・選択表示の位置/配色/余白、4.5:1コントラスト、未所持/レア/旧/空在庫、実タッチ、言語再描画と保存完全不変を検査。戦闘用カードCSSをネイティブピッカーへ限定し、battle-ui-browserで操作を保護。PR全体の章/設定/階層/図鑑導線/削除検査はCIで継続する。 mainに入った0.30.0（1904d3e）のHP/行動上限を保持して競合解消。engine/levels/encounters/バランス/地形/在庫保存の12ファイルをバイト比較し、現行runtimeとHUD上で装備デザイン・戦闘UIを再確認。",
+  "change": "武器/スキル確認と図鑑をコンパクトにし、一覧と詳細の情報重複を整理（0.30.1）",
+  "reason": "共通カードを64pxへ縮小し、一覧は名称/アイコン/保有数/選択、詳細は効果/種類/未所持案内へ分離。4サイズ×日英で密度、見切れ、可読性、重複なし、選択との対応、保存不変を検査。英語効果が名称で上書きされる取り込みを修正し、隣接のbattle-ui-browserも再検証。PR全体の開始/設定/ストーリー/図鑑/削除の検査はCIで継続。main0.30.0のHP/行動上限と12保護ファイルを保持。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -10,6 +10,7 @@
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/battle-catalog.js",
     "ARCLINE/game/dist/battle-ui.css",
     "ARCLINE/game/dist/battle-ui.js",
     "ARCLINE/game/dist/cpu-worker.js",
@@ -32,6 +33,7 @@
     "ARCLINE/game/tests/settings-delete-browser.test.cjs",
     "ARCLINE/game/tests/start-landscape-0171-browser.test.cjs",
     "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/ui/battle-catalog.js",
     "ARCLINE/game/ui/battle-ui.js",
     "ARCLINE/game/ui/difficulty-ui.js",
     "ARCLINE/game/ui/onboarding.js",
@@ -60,7 +62,7 @@
     "nativeAudio": false
   },
   "manual": [
-    "武器確認・スキル確認・武器図鑑・スキル図鑑の実描画を比較し、情報配置と視認性を目視確認",
+    "武器確認・スキル確認・武器図鑑・スキル図鑑の64pxカードと詳細の情報分担を実描画で比較",
     "差分でsave/engine/physics/levels/skills/weapons/在庫と取得データの非変更を確認",
     "mainマージ・本番配信・物理端末の確認は別工程として報告"
   ],

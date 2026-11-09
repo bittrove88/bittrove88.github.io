@@ -61,12 +61,12 @@ function equipmentStock(id,kind,inventory){
 function equipmentKind(id,kind){return kind==='weapons'?local('武器','Weapon'):root.ArcSkills.get(id)?.rare?local('レアスキル','Rare skill'):local('スキル','Skill');}
 function equipmentCard(id,kind,inventory,attribute,selected){
  const info=itemInfo(id,kind),stock=equipmentStock(id,kind,inventory),compat=attribute==='data-item-record'?' equipment-card':kind==='skills'?' inventory-skill':'';
- return `<button type="button" class="equipment-item${compat}" ${attribute}="${id}" data-equipment-id="${id}" data-equipment-kind="${kind}" data-story-raw aria-pressed="${selected}" aria-label="${escape(info.name+', '+stock.label)}"><i class="equipment-item-icon" aria-hidden="true">${info.icon}</i><strong class="equipment-item-name">${escape(info.name)}</strong><span class="equipment-item-stock${stock.empty?' is-empty':''}"><b>${stock.value}</b><small>${stock.unit}</small></span><span class="equipment-item-effect">${escape(info.note)}</span><span class="equipment-item-footer"><small>${equipmentKind(id,kind)}</small><span class="equipment-item-status" aria-hidden="true">${selected?'✓ '+local('確認中','Viewing'):''}</span></span></button>`;
+ return `<button type="button" class="equipment-item${compat}" ${attribute}="${id}" data-equipment-id="${id}" data-equipment-kind="${kind}" data-story-raw aria-pressed="${selected}" aria-label="${escape(info.name+', '+stock.label)}"><i class="equipment-item-icon" aria-hidden="true">${info.icon}<span class="equipment-item-status" aria-hidden="true">${selected?'✓':''}</span></i><strong class="equipment-item-name">${escape(info.name)}</strong><span class="equipment-item-stock${id==='W01'?' is-unlimited':''}${stock.empty?' is-empty':''}"><b>${stock.value}</b><small>${stock.unit}</small></span></button>`;
 }
 function equipmentDetail(id,kind,inventory){
- if(!id)return `<div class="equipment-detail-empty"><strong>${local('カードを選んで確認','Select a card to inspect')}</strong><p>${local('一覧から武器やスキルを選ぶと、効果と保有数を確認できます。','Choose a weapon or skill to see its effect and stock.')}</p></div>`;
+ if(!id)return `<div class="equipment-detail-empty"><strong>${local('カードを選んで確認','Select a card to inspect')}</strong><p>${local('一覧から武器やスキルを選ぶと、効果を確認できます。','Choose a weapon or skill to see its effect.')}</p></div>`;
  const info=itemInfo(id,kind),stock=equipmentStock(id,kind,inventory);
- return `<div class="equipment-detail-heading"><i class="equipment-item-icon" aria-hidden="true">${info.icon}</i><div><small>${equipmentKind(id,kind)}</small><strong>${escape(info.name)}</strong></div></div><div class="equipment-detail-stock"><span>${local('保有数','In stock')}</span><span class="equipment-item-stock${stock.empty?' is-empty':''}"><b>${stock.value}</b><small>${stock.unit}</small></span></div><div class="equipment-detail-effect"><h3>${local('効果','Effect')}</h3><p>${escape(info.note)}</p></div><p class="equipment-detail-note">${stock.empty?local('未保有です。マップのカプセルから入手できます。','Not in stock. Collect capsules on the map.'):local('確認では持ち物を消費しません。戦闘中に選んで使用できます。','Inspecting never consumes stock. Choose and use it during battle.')}</p>`;
+ return `<div class="equipment-detail-heading"><div><small>${equipmentKind(id,kind)}</small><strong>${escape(info.name)}</strong></div></div><div class="equipment-detail-effect"><h3>${local('効果','Effect')}</h3><p>${escape(info.note)}</p></div>${stock.empty?`<p class="equipment-detail-note">${local('未保有です。マップのカプセルから入手できます。','Not in stock. Collect capsules on the map.')}</p>`:''}`;
 }
 let collectionView='characters',collectionRefresh=null;
 function showCollection(data,onEquip,initialView='characters',options={}){
@@ -120,7 +120,7 @@ function showWeapons(choices,current,onSelect,options={}){
  function paintInspector(){
   if(!library||!inspector)return;
   inspector.innerHTML=equipmentDetail(inspected,tab,inventory);
-  for(const card of $('weaponPicker').querySelectorAll('[data-equipment-id]')){const kind=card.dataset.equipmentKind,selected=card.dataset.equipmentId===inspectedByTab[kind];card.setAttribute('aria-pressed',String(selected));card.dataset.inspected=String(selected);card.querySelector('.equipment-item-status').textContent=selected?'✓ '+local('確認中','Viewing'):'';}
+  for(const card of $('weaponPicker').querySelectorAll('[data-equipment-id]')){const kind=card.dataset.equipmentKind,selected=card.dataset.equipmentId===inspectedByTab[kind];card.setAttribute('aria-pressed',String(selected));card.dataset.inspected=String(selected);card.querySelector('.equipment-item-status').textContent=selected?'✓':'';}
  }
 
  function bindSkillInspection(){for(const card of $('chapterSkillStock').querySelectorAll('[data-stock-skill]'))card.onclick=()=>{inspected=inspectedByTab.skills=card.dataset.stockSkill;paintInspector();};}

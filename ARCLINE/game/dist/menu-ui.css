@@ -232,7 +232,7 @@ input:checked+span .difficulty-current { visibility: visible; }
  background:#143746;border:1px solid #88aaa366;
 }
 #weaponPicker[data-stock-library="true"] .weapon-panel {
- display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);
+ display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);
 }
 #weaponPicker[data-stock-library="true"] .weapon-panel>header { grid-column:1/-1; }
 #weaponPicker[data-stock-library="true"] #inventoryTabs { grid-column:1; }
@@ -250,18 +250,18 @@ input:checked+span .difficulty-current { visibility: visible; }
  background:var(--equipment-selected-bg);border-color:var(--equipment-selected-border);color:#f2f7ed;
 }
 .equipment-records {
- display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);
+ display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);
  gap:10px 14px;min-height:0;flex:1;
 }
 .equipment-records .inventory-note { grid-column:1/-1;margin:0;color:#d1e2d8;font-size:13px;line-height:1.5; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) :is(#weaponChoices,#chapterSkillStock,.equipment-grid) {
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:start;margin:0;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-content:start;margin:0;
 }
 .equipment-records .equipment-grid { overflow:auto;min-height:0;padding:2px 4px 12px 2px;scrollbar-gutter:stable;overscroll-behavior:contain;touch-action:pan-y; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item {
- display:grid;grid-template-columns:34px minmax(0,1fr) max-content;grid-template-rows:auto auto auto;
- align-items:center;align-content:start;gap:8px;min-width:0;width:100%;min-height:124px;
- padding:12px;border:1px solid var(--equipment-card-border);border-radius:11px;
+ display:grid;grid-template-columns:26px minmax(0,1fr) max-content;grid-template-rows:auto;
+ align-items:center;align-content:start;gap:8px;min-width:0;width:100%;min-height:64px;
+ padding:8px;border:1px solid var(--equipment-card-border);border-radius:9px;
  background:var(--equipment-card-bg);color:var(--equipment-title);font:inherit;font-weight:400;text-align:left;box-shadow:none;opacity:1;
 }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item[aria-pressed="true"] {
@@ -271,62 +271,54 @@ input:checked+span .difficulty-current { visibility: visible; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item:focus-visible { outline:3px solid #d4eeff;outline-offset:-4px; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon {
  display:grid;place-items:center;grid-column:1;grid-row:1;flex:none;
- width:34px;height:38px;border-radius:8px;background:#123443;color:#b7eddf;font-style:normal;
+ position:relative;width:26px;height:30px;border-radius:6px;background:#123443;color:#b7eddf;font-style:normal;
 }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon svg { display:block;width:28px;height:28px; }
+:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon svg { display:block;width:24px;height:24px; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-name {
- grid-column:2;grid-row:1;min-width:0;margin:0;font-size:15px;font-weight:650;line-height:1.4;
+ grid-column:2;grid-row:1;min-width:0;margin:0;font-size:14px;font-weight:650;line-height:1.35;
  color:var(--equipment-title);white-space:normal;overflow:visible;overflow-wrap:anywhere;text-align:left;
 }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock {
- grid-column:3;grid-row:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
- min-width:43px;max-width:76px;padding:6px 7px;border:1px solid #8eafa277;border-radius:8px;
+ grid-column:3;grid-row:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+ min-width:34px;max-width:58px;padding:4px 6px;border:1px solid #8eafa277;border-radius:8px;
  color:#f0f4cd;background:#0e303e;text-align:center;
 }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock b { font-size:21px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums; }
+:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock b { font-size:18px;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock small { color:#d0e1d7;font-size:11px;line-height:1.25;white-space:normal; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock.is-empty b { color:#d0e1d7; }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-effect {
- grid-column:1/-1;grid-row:2;display:block;min-height:39px;margin:0;
- font-size:13px;line-height:1.5;color:var(--equipment-copy);white-space:normal;overflow-wrap:anywhere;
-}
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-footer {
- grid-column:1/-1;grid-row:3;display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:17px;
-}
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-footer small { font-size:11px;line-height:1.4;color:#c4d9ce; }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-status { font-size:11px;line-height:1.4;color:#e6f4ff;white-space:nowrap;font-weight:650; }
+:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock.is-unlimited small { display:none; }
+:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-status { position:absolute;right:-4px;bottom:-4px;display:none;place-items:center;width:14px;height:14px;border-radius:50%;font-size:11px;line-height:1;font-weight:700;color:#143746;background:#9adaff; }
+:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item[aria-pressed="true"] .equipment-item-status { display:grid; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-panel {
  align-self:stretch;display:block;min-width:0;min-height:0;overflow:auto;padding:16px;
  border:1px solid #88aaa388;border-radius:12px;background:#0e2e3d;color:var(--equipment-title);
  touch-action:pan-y;overscroll-behavior:contain;
 }
 .equipment-detail-heading { display:flex;align-items:center;gap:12px;margin-bottom:18px; }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-heading .equipment-item-icon { width:42px;height:46px; }
 .equipment-detail-heading>div { min-width:0;display:grid;gap:5px; }
 .equipment-detail-heading small { font-size:12px;line-height:1.4;color:#c4d9ce; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-heading strong { display:block;font-size:22px;line-height:1.4;color:var(--equipment-title);overflow-wrap:anywhere; }
-.equipment-detail-stock { display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #91b3a344;border-bottom:1px solid #91b3a344;margin-bottom:18px; }
-.equipment-detail-stock>span:first-child { font-size:13px;color:#d1e2d8; }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-stock .equipment-item-stock { flex-direction:row;gap:7px;max-width:none;min-width:70px;padding:8px 10px; }
-:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-stock .equipment-item-stock small { font-size:12px; }
-.equipment-detail-effect h3 { margin:0 0 8px;font-size:14px;line-height:1.4;color:#e6edc9; }
+:is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-effect h3 { margin:0 0 8px;font-size:14px;line-height:1.4;color:#e6edc9; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-effect p { margin:0;font-size:16px;line-height:1.8;color:#e0eae0;overflow-wrap:anywhere; }
 :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-note { margin:20px 0 0;padding-top:14px;border-top:1px solid #91b3a344;font-size:12px;line-height:1.7;color:#c4d9ce; }
 .equipment-detail-empty strong { display:block;font-size:18px;line-height:1.5;color:#f2f5e6; }
 .equipment-detail-empty p { font-size:14px;line-height:1.8;color:#d1e2d8; }
 #weaponPicker[data-stock-library="true"] .weapon-picker-note { color:#c4d9ce;font-size:12px;line-height:1.6; }
 #collectionGrid .equipment-grid *,#lobbySettings [role="tabpanel"] * { touch-action:pan-y; }
-@media(max-width:700px){
+@media(max-width:1000px){
+ :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) :is(#weaponChoices,#chapterSkillStock,.equipment-grid) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:540px){
  :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) :is(#weaponChoices,#chapterSkillStock,.equipment-grid) { grid-template-columns:1fr; }
 }
 @media(max-width:650px){
  .equipment-records { gap:8px; }
- :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item { padding:10px;gap:7px;grid-template-columns:30px minmax(0,1fr) max-content; }
+ :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item { padding:8px;gap:6px;grid-template-columns:26px minmax(0,1fr) max-content; }
  :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-name { font-size:14px; }
- :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon { width:30px;height:34px; }
- :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon svg { width:25px;height:25px; }
- :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock { min-width:38px;padding:5px; }
- :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock b { font-size:19px; }
+ :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon { width:26px;height:30px; }
+ :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-icon svg { width:24px;height:24px; }
+ :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock { min-width:34px;padding:4px; }
+ :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-item-stock b { font-size:18px; }
  :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-panel { padding:12px; }
  :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-heading strong { font-size:19px; }
  :is(#weaponPicker[data-stock-library="true"],#collectionPanel[data-equipment-catalog="true"]) .equipment-detail-effect p { font-size:14px;line-height:1.8; }
