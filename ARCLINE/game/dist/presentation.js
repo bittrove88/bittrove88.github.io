@@ -68,6 +68,30 @@ function equipmentDetail(id,kind,inventory){
  const info=itemInfo(id,kind),stock=equipmentStock(id,kind,inventory);
  return `<div class="equipment-detail-heading"><div><small>${equipmentKind(id,kind)}</small><strong>${escape(info.name)}</strong></div></div><div class="equipment-detail-effect"><h3>${local('効果','Effect')}</h3><p>${escape(info.note)}</p></div>${stock.empty?`<p class="equipment-detail-note">${local('未保有です。マップのカプセルから入手できます。','Not in stock. Collect capsules on the map.')}</p>`:''}`;
 }
+// Companion-screen introductions: personality and purpose, separate from exact ability data.
+const companionIntroductions={
+ gun:{ja:'重い一撃で道を開く、頼もしい重装の仲間。港の作業路を直し、荷物が行き交う音を取り戻すために進む。',en:'A dependable heavyweight who opens the way with two powerful blasts. Gun wants to repair the port roads and hear cargo moving again.'},
+ hana:{ja:'道標を直し、次の旅人を迷わせないやさしい仲間。連華砲の九連射にも、誰かを思う気づかいにも手を抜かない。',en:'A gentle companion who repairs signposts for the next traveller. Nine-round Flower Salvo brings the same care to a full volley as a helping hand.'},
+ koro:{ja:'止まった荷物も、待っている想いも届けたい六輪の運び手。地面を転がる爆走砲とともに、道の先を目指す。',en:'A six-wheeled courier determined to deliver every stranded package. Rolling Blast Cannon travels along the ground; Koro keeps looking for the road ahead.'},
+ ban:{ja:'閉ざされた道を開き、役に立ちたい突破役。衝撃砲の三段の波に、みんなが進める道をつくる願いを込める。',en:'A pathfinder who wants to put a powerful frame to good use. Three forward shockwaves carry a wish to open a road everyone can share.'},
+ sora:{ja:'帰る誰かのため、遠くの誘導灯をともしたい仲間。空から十二発の流星を降らせ、見上げた先に希望を探す。',en:'Sora hopes to relight the distant beacons that guide travellers home. Twelve falling stars answer that hope with a Meteor Cannon strike from above.'},
+ rico:{ja:'行き止まりにも、まだ先があると信じる冒険家。跳ねるほど強くなる跳弾砲で、思いがけない道を切り拓く。',en:'An explorer who sees possibility in every dead end. Ricochet Cannon grows stronger with each bounce, rewarding a shot that takes the unexpected route.'},
+ hibari:{ja:'遠くから届く古い呼出信号を追う偵察役。二枚の光輪を広げ、まだ見ぬ送り主とのつながりを探している。',en:'A curious scout following an old call from far away. Two expanding rings echo the search for a connection with a sender still waiting.'},
+ mogu:{ja:'壊すべきものと、残すべき支えを見分けたい解体の職人。前へ進む三段爆発で、みんなが通れる道をつくる。',en:'A demolition craftsperson who knows some supports are worth keeping. Three advancing blasts help Mogu build a road for everyone who follows.'},
+ rin:{ja:'待つ誰かへ、止めた予報を届け直したい狙撃手。一点へ束ねる収束砲のように、静かな狙いに想いを込める。',en:'A marksman hoping to resume the forecasts someone still awaits. Focus Cannon gathers spreading rounds into one piercing shot, giving a quiet aim purpose.'},
+ yui:{ja:'途切れた記録をたどり、助けを頼めるつながりを取り戻したい支え役。相手を引き寄せる重力砲で、仲間の前進を支える。',en:'A supporter restoring a network where help can be asked for. Gravity Cannon draws opponents inward, turning the power to connect toward the journey ahead.'}
+};
+function decorateCompanions(container,data,character){
+ for(const card of container.querySelectorAll('[data-inspect-character]')){
+  const id=card.dataset.inspectCharacter,special=root.ArcI18n.t(C.get(id).special.name),label=card.querySelector('small'),lock=label.querySelector('svg');
+  label.textContent=special;label.className='companion-special';card.querySelector('.roster-role')?.remove();card.setAttribute('aria-label',card.getAttribute('aria-label')+' · '+special);
+  if(lock){lock.classList.add('companion-lock');card.append(lock);}
+  if(id===data.equippedCharacterId){const marker=document.createElement('span');marker.className='companion-current-marker';marker.textContent='✓';marker.setAttribute('aria-hidden','true');card.append(marker);}
+ }
+ const profile=container.querySelector('.machine-profile'),machine=A.get(character),copy=profile.querySelector('.ch-copy-body');
+ profile.querySelector('.ch-name').textContent=local(machine.nameJa,machine.name);profile.querySelector('.ch-name-ja')?.remove();profile.querySelector('.ch-motto')?.remove();
+ copy.insertBefore(copy.querySelector('.ch-description'),copy.querySelector('.ch-facts'));
+}
 let collectionRefresh=null;
 function showCollection(data,onEquip,initialView='characters',options={}){
  let view=['weapons','skills'].includes(initialView)?initialView:'characters',scope=options.scope==='owned'?'owned':'all',character=data.equippedCharacterId;
@@ -102,14 +126,14 @@ function showCollection(data,onEquip,initialView='characters',options={}){
   let body='';
   const heading=local(view==='characters'?'仲間':view==='weapons'?'武器':'スキル',view==='characters'?'Companions':view==='weapons'?'Weapons':'Skills');
   if(view==='characters'){
-   const r=Crew.get(character);
-   body+=`<div id="collectionContent" role="tabpanel" aria-labelledby="collectionTab-characters" class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('仲間の一覧。選ぶと詳細を表示','Companions. Select to inspect')}" data-collection-scroll>${Crew.rows.map(r=>root.ArcCharacterHero.tile(r.id,data,character,language())).join('')}</div><section class="machine-profile" aria-label="${escape(heading)}">${root.ArcCharacterHero.markup(character,{data,lang:language(),description:root.ArcStory.pick(r.desire,language())})}</section></div>`;
+   body+=`<div id="collectionContent" role="tabpanel" aria-labelledby="collectionTab-characters" class="machine-roster"><div class="machine-buttons" role="group" aria-label="${local('仲間の一覧。選ぶと詳細を表示','Companions. Select to inspect')}" data-collection-scroll>${Crew.rows.map(r=>root.ArcCharacterHero.tile(r.id,data,character,language())).join('')}</div><section class="machine-profile" aria-label="${escape(heading)}">${root.ArcCharacterHero.markup(character,{data,lang:language(),description:companionIntroductions[character][language()==='en'?'en':'ja']})}</section></div>`;
   }else{
    const list=ids(view),id=selected[view][scope]=list.includes(selected[view][scope])?selected[view][scope]:list[0]||null,skill=view==='skills',attribute=scope==='all'?'data-item-record':skill?'data-stock-skill':'data-choose-weapon';
    body+=`<div class="collection-scope" role="tablist" aria-label="${escape(heading+' '+local('表示範囲','scope'))}" data-story-raw><button id="collectionOwned" data-collection-scope="owned" role="tab" aria-controls="collectionEquipment" aria-selected="${scope==='owned'}">${local(skill?'保有スキル':'保有武器',skill?'Owned skills':'Owned weapons')} <span>${ids(view,'owned').length}</span></button><button id="collectionCatalog" data-collection-scope="all" role="tab" aria-controls="collectionEquipment" aria-selected="${scope==='all'}">${local(skill?'スキル図鑑':'武器図鑑',skill?'Skill catalog':'Weapon catalog')} <span>${ids(view,'all').length}</span></button></div><div id="collectionContent" role="tabpanel" aria-labelledby="collectionTab-${view}" class="collection-equipment-content"><div id="collectionEquipment" class="equipment-records" role="tabpanel" aria-labelledby="${scope==='owned'?'collectionOwned':'collectionCatalog'}" data-story-raw><div class="equipment-grid" role="group" aria-label="${escape(heading+' '+local('一覧','list'))}" data-collection-scroll>${list.length?list.map(id=>equipmentCard(id,view,inventory,attribute,id===selected[view][scope])).join(''):`<div class="stock-empty"><strong>${local('保有スキルはありません','No skills in stock')}</strong><p>${local('マップのカプセルから入手できます。図鑑ですべての効果を確認できます。','Collect capsules on the map. Explore every effect in the catalog.')}</p><button type="button" data-empty-catalog>${local('スキル図鑑を見る','Explore skill catalog')} →</button></div>`}</div><section class="equipment-inspector equipment-detail-panel" aria-live="polite" data-collection-scroll>${equipmentDetail(id,view,inventory)}</section></div></div>`;
   }
   pane.innerHTML=body;pane.dataset.collectionState=key();
   if(view==='characters'){
+   decorateCompanions(pane,data,character);
    pane.querySelector('.ch-copy-body').dataset.collectionScroll='';const abilities=pane.querySelector('.ch-abilities');if(abilities)abilities.open=!!expanded[character];
    A.paintAll(pane);root.ArcCharacterHero.hydrate(pane);
   }

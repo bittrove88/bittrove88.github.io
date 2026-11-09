@@ -245,7 +245,7 @@ input:checked+span .difficulty-current { visibility: visible; }
 #collectionPanel .stock-empty p { font-size:14px;line-height:1.6; }
 #collectionPanel .stock-empty button { min-height:44px;padding:10px 14px;background:#285c77;color:#f2f7ed;border:1px solid #9adaff;border-radius:8px; }
 /* Companion cards inspect; the fixed detail action explicitly changes the team. */
-#collectionPanel .machine-roster { grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:14px; }
+#collectionPanel .machine-roster { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px; }
 #collectionPanel .machine-buttons { grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;scrollbar-gutter:stable;overscroll-behavior:contain; }
 #collectionPanel .machine-buttons button { display:grid;grid-template-columns:36px minmax(0,1fr);grid-template-rows:auto auto;align-content:center;align-items:center;gap:3px 6px;min-height:72px;padding:8px;border:1px solid #88aaa3;border-radius:9px;background:#204550;color:#f2f5e6;text-align:left; }
 #collectionPanel .machine-buttons button[aria-pressed="true"] { background:#285c77;border-color:#9adaff;box-shadow:inset 3px 0 #9adaff; }
@@ -255,26 +255,33 @@ input:checked+span .difficulty-current { visibility: visible; }
 #collectionPanel .machine-buttons .ch-art { grid-row:1/3;grid-column:1;width:36px;height:40px;min-height:0;border-radius:6px; }
 #collectionPanel .machine-buttons :is(.ch-art-origin,.roster-role) { display:none; }
 #collectionPanel .machine-buttons strong { font-size:14px;line-height:1.35;overflow-wrap:anywhere; }
-#collectionPanel .machine-buttons small { font-size:11px;line-height:1.4;color:#c4d9ce; }
+#collectionPanel .machine-buttons small { display:block;font-size:12px;line-height:1.4;color:#c4d9ce;text-align:left;overflow-wrap:anywhere; }
 #collectionPanel .machine-buttons small svg { width:12px;height:12px;vertical-align:middle; }
 #collectionPanel .machine-profile .character-hero { grid-template-columns:minmax(80px,.7fr) minmax(0,1.5fr);border:1px solid #88aaa388; }
 #collectionPanel .machine-profile .ch-art { min-height:0; }
 #collectionPanel .machine-profile .ch-art-origin { display:none; }
 #collectionPanel .machine-profile .ch-copy { padding:12px; }
-#collectionPanel .machine-profile .ch-name { font-size:24px; }
+#collectionPanel .machine-profile .ch-name { font-size:24px;margin:4px 0; }
+#collectionPanel .machine-profile .ch-role { margin:0 0 4px; }
 #collectionPanel .machine-profile :is(.ch-role,.ch-motto,.ch-description,.ch-facts,.ch-abilities p) { font-size:14px;line-height:1.6; }
 #collectionPanel .machine-profile .ch-abilities summary { min-height:44px;display:flex;align-items:center;font-size:14px;cursor:pointer; }
 #collectionPanel .machine-profile .ch-abilities summary:before { content:'＋';margin-right:6px; }
 #collectionPanel .machine-profile .ch-abilities[open] summary:before { content:'−'; }
-#collectionPanel .machine-profile .ch-copy>button { min-height:44px;padding:8px;font-size:14px;margin-top:8px; }
+#collectionPanel .machine-profile .ch-copy>button { align-self:flex-start;width:fit-content;max-width:100%;min-width:min(96px,100%);min-height:44px;padding:8px 14px;font-size:14px;margin-top:8px; }
+#collectionPanel .machine-profile .ch-copy>button:disabled { background:#244653;color:#d1e2d8;opacity:1;border-color:#88aaa388; }
+#collectionPanel .machine-profile .ch-state { display:inline-flex;align-items:center;gap:4px;align-self:flex-start;width:fit-content;max-width:100%;padding:4px 8px;border:1px solid #88aaa366;border-radius:6px;font-size:12px;line-height:1.4; }
+#collectionPanel .machine-profile .ch-description { margin:8px 0 10px;color:#e0eae0; }
+#collectionPanel .companion-current-marker { position:absolute;right:4px;top:3px;font-size:12px;color:#bce7ff; }
+#collectionPanel .machine-buttons .companion-lock { position:absolute;right:4px;top:4px;width:12px;height:12px;color:#c4d9ce; }
+#collectionPanel .machine-buttons .locked { border-style:dashed; }
 @media(min-width:1100px){#collectionPanel .machine-buttons { grid-template-columns:repeat(3,minmax(0,1fr)); }}
 @media(max-width:650px){
  #collectionGrid { gap:7px; }
- #collectionPanel .machine-roster { grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:8px; }
+ #collectionPanel .machine-roster { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:8px; }
  #collectionPanel .machine-buttons { gap:6px; }
  #collectionPanel .machine-buttons button { grid-template-columns:26px minmax(0,1fr);padding:6px;min-height:68px; }
  #collectionPanel .machine-buttons .ch-art { width:26px;height:32px; }
- #collectionPanel .machine-profile .character-hero { grid-template-columns:70px minmax(0,1fr); }
+ #collectionPanel .machine-profile .character-hero { grid-template-columns:48px minmax(0,1fr); }
  #collectionPanel .machine-profile .ch-copy { padding:10px; }
 }
 #collectionTitle { font-size:18px!important;line-height:1.3; }
@@ -394,3 +401,5 @@ input:checked+span .difficulty-current { visibility: visible; }
 
 #collectionPanel .collection-scope button { border-radius:0;border:0;border-bottom:2px solid #88aaa355;background:transparent;color:#c4d9ce; }
 #collectionPanel .collection-scope button[aria-selected="true"] { border-bottom-color:#9adaff;color:#f2f7ed;background:#204550; }
+
+@media(max-height:300px){#collectionPanel .machine-profile .ch-id { display:none; }#collectionPanel .machine-profile .ch-name { margin:0 0 4px;font-size:20px; }}
