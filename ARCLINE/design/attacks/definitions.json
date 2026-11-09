@@ -985,19 +985,19 @@
       "params": {
         "speed": 1,
         "gravity": 0.85,
-        "damage": 0.65,
+        "damage": 1,
         "blast": 80,
         "satellites": true,
         "volley": [
           {
             "offset": 0,
             "delay": 0,
-            "damage": 0.65
+            "damage": 1
           },
           {
             "offset": -7,
             "delay": 0.035,
-            "damage": 0.15,
+            "damage": 0.2,
             "blast": 35,
             "appearance": {
               "size": 6,
@@ -1007,7 +1007,7 @@
           {
             "offset": 0,
             "delay": 0.035,
-            "damage": 0.15,
+            "damage": 0.2,
             "blast": 35,
             "appearance": {
               "size": 6,
@@ -1017,7 +1017,7 @@
           {
             "offset": 7,
             "delay": 0.035,
-            "damage": 0.15,
+            "damage": 0.2,
             "blast": 35,
             "appearance": {
               "size": 6,
@@ -1026,7 +1026,8 @@
           }
         ],
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "enemyDamageCap": 1.6
       },
       "appearance": {
         "color": "#f4da91",
@@ -1037,8 +1038,17 @@
       },
       "trajectory": "金白の主弾に三つの衛星弾が周回し、前方へほどけて広がる。",
       "impact": "星の輪と幾何学の光片が広がり、主弾が重い閃光を残す。",
-      "effect": "主弾と三衛星の独立した衝突。一攻撃の合計威力を制限する。",
-      "motion": "衛星の周回中は等速。ほどけた後だけ加速。"
+      "effect": "主弾20と衛星弾4×3が独立して衝突する。合計上限32。部位破壊で固有技の威力を下げない。",
+      "motion": "衛星の周回中は等速。ほどけた後だけ加速。",
+      "damageSummary": {
+        "maximum": 32,
+        "components": [
+          20,
+          4,
+          4,
+          4
+        ]
+      }
     },
     "E_FINAL_2": {
       "id": "E_FINAL_2",
@@ -1047,27 +1057,36 @@
       "nameJa": "転軌砲",
       "tier": "final",
       "params": {
-        "speed": 1,
+        "speed": 1.5,
         "gravity": 0.55,
-        "damage": 0.34,
+        "damage": 0.7,
         "blast": 52,
-        "redirectOnce": 0.38,
         "volley": [
           {
-            "offset": -13,
-            "delay": 0
+            "offset": 0,
+            "delay": 0,
+            "damage": 0.5
           },
           {
             "offset": 0,
-            "delay": 0.06
+            "delay": 0.14,
+            "damage": 0.7
           },
           {
-            "offset": 13,
-            "delay": 0.12
+            "offset": 0,
+            "delay": 0.28,
+            "damage": 0.5
           }
         ],
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "enemyDamageCap": 1.7,
+        "redirectAtApex": true,
+        "redirectHeight": 360,
+        "redirectFraction": 0.2,
+        "redirectSpeed": 1000,
+        "redirectLinear": true,
+        "maxVelocity": 1200
       },
       "appearance": {
         "color": "#cebcff",
@@ -1076,10 +1095,18 @@
         "fx": "redirect",
         "label": "転軌砲"
       },
-      "trajectory": "白紫の三弾が進み、予め決まった折れ点で一度だけ方向を変える。",
+      "trajectory": "白紫の3弾が高い頂点へ上昇し、頂点で一度だけ固定した予告地点へ向きを変えて直進する。",
       "impact": "折れ点に菱形の光が静止し、着弾で鋭い白紫の閃光が走る。",
-      "effect": "方向転換後は固定した予告地点へ直進。無限追尾や壁抜けを行わない。",
-      "motion": "最初の折れ点だけ25ms静止し、新しい方向へ加速。"
+      "effect": "予告位置を上から狙う3弾。威力10・14・10、合計34。予告後の移動を追尾せず、固定壁は通過しない。",
+      "motion": "最初の折れ点だけ25ms静止し、新しい方向へ加速。",
+      "damageSummary": {
+        "maximum": 34,
+        "components": [
+          10,
+          14,
+          10
+        ]
+      }
     },
     "E_FINAL_3": {
       "id": "E_FINAL_3",
@@ -1090,11 +1117,12 @@
       "params": {
         "speed": 0.9,
         "gravity": 0.8,
-        "damage": 0.8,
+        "damage": 1.8,
         "blast": 65,
         "warningRadius": 200,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "enemyDamageCap": 1.8
       },
       "appearance": {
         "color": "#c4d5e4",
@@ -1105,8 +1133,14 @@
       },
       "trajectory": "黒白の核が細い白金の輪を引いて飛び、着弾点に薄い重力領域を残す。",
       "impact": "光の線が湾曲し、静かな黒い中心と境界の輪が残る。",
-      "effect": "一時領域は自機と敵の双方の次の一射を曲げる。移動・再試行で解除する。",
-      "motion": "追加の停止やスローなし。予告、固有の弾道、実際の着弾間隔を優先する。"
+      "effect": "着弾36。重力領域は双方の次の一射を曲げるが、継続ダメージはない。移行・再試行で解除する。",
+      "motion": "追加の停止やスローなし。予告、固有の弾道、実際の着弾間隔を優先する。",
+      "damageSummary": {
+        "maximum": 36,
+        "components": [
+          36
+        ]
+      }
     },
     "E_FINAL_4": {
       "id": "E_FINAL_4",
@@ -1117,31 +1151,32 @@
       "params": {
         "speed": 0.85,
         "gravity": 1,
-        "damage": 0.35,
+        "damage": 0.7,
         "blast": 100,
         "afterRings": [
           {
             "delay": 0.0,
             "radius": 100,
             "duration": 0.5,
-            "damage": 0.25
+            "damage": 0.4
           },
           {
             "delay": 0.18,
             "radius": 135,
             "duration": 0.5,
-            "damage": 0.25
+            "damage": 0.4
           },
           {
             "delay": 0.36,
             "radius": 170,
             "duration": 0.5,
-            "damage": 0.25
+            "damage": 0.4
           }
         ],
         "warningRadius": 170,
         "progressiveDamage": true,
-        "criticalMultiplier": 1
+        "criticalMultiplier": 1,
+        "enemyDamageCap": 1.9
       },
       "appearance": {
         "color": "#ffe6a3",
@@ -1152,8 +1187,17 @@
       },
       "trajectory": "金白の巨大な主弾が長い光跡を引く。大きな予告と発射の溜めを設ける。",
       "impact": "中心の閃光から三つの光輪が時間差で広がり、余韻が静かに消える。",
-      "effect": "主弾と到達した三波でダメージ。全画面即死にせず、範囲外や遮蔽へ退避できる。",
-      "motion": "主弾の接触だけ50ms静止。三つの光輪は流れを保って解放。"
+      "effect": "主弾14と3波8×3で合計38。範囲外や遮蔽へ退避でき、部位破壊で固有技の威力を下げない。",
+      "motion": "主弾の接触だけ50ms静止。三つの光輪は流れを保って解放。",
+      "damageSummary": {
+        "maximum": 38,
+        "components": [
+          14,
+          8,
+          8,
+          8
+        ]
+      }
     }
   },
   "enemyAppearances": {
@@ -1217,5 +1261,43 @@
       "size": 7,
       "motif": "grid"
     }
+  },
+  "finalEncounter": {
+    "normalDamage": 25,
+    "brokenNormalMultiplier": 0.75,
+    "patterns": [
+      [
+        "LOW",
+        "ARC",
+        "E_FINAL_1",
+        "DROP",
+        "TWIN",
+        "E_FINAL_1"
+      ],
+      [
+        "REFLECT",
+        "ARC",
+        "E_FINAL_2",
+        "TWIN",
+        "DROP",
+        "E_FINAL_2"
+      ],
+      [
+        "CURVE",
+        "MARK",
+        "E_FINAL_3",
+        "ARC",
+        "TWIN",
+        "E_FINAL_3"
+      ],
+      [
+        "TRIPLE",
+        "ARC",
+        "E_FINAL_4",
+        "TWIN",
+        "DROP",
+        "E_FINAL_4"
+      ]
+    ]
   }
 }

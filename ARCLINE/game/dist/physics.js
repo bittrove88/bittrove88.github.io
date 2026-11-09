@@ -42,6 +42,7 @@ function phaseTravel(a,b,poly,budget){
  return {used,stop:null};
 }
 function simulate(s,side,angle,power,options={}){
+ const finalEnemy=side===1&&s.stage===100;
  const weapon=side===1?W.getEnemy(options.weaponId||'W01'):W.get(options.weaponId||'W01',s.characterId),skill=weapon.special&&options.skill!=='S_GUARD'?null:options.skill||null;
  if(weapon.machineId)angle=G.clamp(angle,weapon.minAngle,weapon.maxAngle);
  const units=s.units.map(u=>({...u,parts:u.parts.map(p=>({...p}))})),simState={...s,units};
@@ -180,7 +181,7 @@ function simulate(s,side,angle,power,options={}){
    if(weapon.pullToImpact&&d<=weapon.compressionRadius&&value>0)value+=weapon.compressionBonus;
    if(weapon.wave&&!weapon.progressiveWave&&waves.some(path=>path.some(q=>Math.abs(q.x-u.x)<28&&Math.abs(q.y-u.y)<25)))value=Math.max(value,p.budget);
    damage[j]+=value;
-   if(weapon.progressiveDamage&&value>0)events.push({type:'damage',unit:j,value,x:p.x,y:p.y,t:p.t,bullet:p.id,source:p.effect||'impact'});
+   if((weapon.progressiveDamage||finalEnemy)&&value>0)events.push({type:'damage',unit:j,value,x:p.x,y:p.y,t:p.t,bullet:p.id,source:p.effect||'impact'});
   }
   if(!timed&&hit?.kind==='part'&&!weapon.progressiveCone)partDamage[hit.part]=(partDamage[hit.part]||0)+p.budget;
   if(weapon.breachPulses&&(p.pulseIndex||0)<weapon.breachPulses-1){
@@ -189,6 +190,11 @@ function simulate(s,side,angle,power,options={}){
    const next={x:p.x+direction*distance,y:p.y-2},blocked=G.sweep(simWorld,{x:p.x,y:p.y-2},next),point=blocked?{x:blocked.x+blocked.nx*.6,y:blocked.y+blocked.ny*.6}:{x:next.x,y:p.y},time=p.t+weapon.pulseDelay,index=(p.pulseIndex||0)+1;
    if(!blocked||blocked.solid.destructible)queue.push({...p,...point,id:bulletId++,t:time,start:time,effect:'pulse',pulseIndex:index,blast:weapon.pulseBlasts?.[index]??p.blast,path:[{...point,t:time}],pulseContact:blocked?{solidId:blocked.solid.id}:null});
   }
+ }
+ function redirectAt(p){
+  const target=options.targetPoint||{x:s.units[1-side].x,y:s.units[1-side].y-22},theta=Math.atan2(target.y-p.y,target.x-p.x),speed=weapon.redirectSpeed||Math.hypot(p.vx,p.vy);
+  p.redirected=true;p.vx=Math.cos(theta)*speed;p.vy=Math.sin(theta)*speed;
+  events.push({type:'redirect',x:p.x,y:p.y,t:p.t,bullet:p.id,targetX:target.x,targetY:target.y});
  }
  const seenBullets=new Set();
  // Advance the earliest projectile by one fixed step. Every projectile sees
@@ -295,8 +301,9 @@ function simulate(s,side,angle,power,options={}){
      const time=p.t+weapon.pullSeconds;queue.push({...p,id:bulletId++,effect:'compression',captureHit:capture,effectHit:capture|| (target===stop?target:null),effectContact:contact,t:time,start:time,path:[{x:p.x,y:p.y,t:time}]});
     }else explode(p,target===stop?target:null,contact);ended=true;break;}
    if(p.convergeBranch&&p.age>=(weapon.convergeSeconds||.14)-1e-8){finishConvergence(p,true);ended=true;break;}
+   if(p.redirected&&weapon.redirectLinear)continue;
    let ax=0,ay=GRAVITY*weapon.gravity*(s.skillEffects?.gravity?.factor||1)*(p.archerDone?2.8:1);
-   if(weapon.redirectOnce&&!p.redirected&&p.age>=weapon.redirectOnce){p.redirected=true;const target=options.targetPoint||{x:s.units[1-side].x,y:s.units[1-side].y-22},theta=Math.atan2(target.y-p.y,target.x-p.x),v=Math.hypot(p.vx,p.vy);p.vx=Math.cos(theta)*v;p.vy=Math.sin(theta)*v;events.push({type:'redirect',x:p.x,y:p.y,t:p.t,bullet:p.id});}
+   if(weapon.redirectOnce&&!p.redirected&&p.age>=weapon.redirectOnce)redirectAt(p);
    const field=s.effects?.gravityField;if(field&&field.charges?.[side]>0&&Math.hypot(p.x-field.x,p.y-field.y)<field.radius){const theta=Math.atan2(field.y-p.y,field.x-p.x),a=G.clamp(Math.atan2(Math.sin(theta-Math.atan2(p.vy,p.vx)),Math.cos(theta-Math.atan2(p.vy,p.vx))),-1,1)*DT*.9,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;if(!p.fieldEntered){p.fieldEntered=true;events.push({type:'gravity-bend',x:p.x,y:p.y,t:p.t,bullet:p.id});}}
    if(curve&&p.age<=1.2){const a=curve*DT,c=Math.cos(a),sn=Math.sin(a),vx=p.vx;p.vx=vx*c-p.vy*sn;p.vy=vx*sn+p.vy*c;}
    for(const r of simWorld.regions){
@@ -313,6 +320,7 @@ function simulate(s,side,angle,power,options={}){
    }
    if(!p.roll){const oldVy=p.vy;p.vx=G.clamp(p.vx+G.clamp(ax,-300,300)*DT,-(weapon.maxVelocity||900),weapon.maxVelocity||900);p.vy=G.clamp(p.vy+G.clamp(ay,-400,600)*DT,-(weapon.maxVelocity||700),weapon.maxVelocity||900);
     if(oldVy<0&&p.vy>=0){
+     if(weapon.redirectAtApex&&!p.redirected){redirectAt(p);continue;}
      if(weapon.apexBurst){events.push({type:'apex-burst',x:p.x,y:p.y,t:p.t,bullet:p.id});explode(p);ended=true;break;}
      if(weapon.archer&&!p.archerDone){p.vx*=.25;p.vy=Math.max(110,p.vy);p.archerDone=true;events.push({type:'dive',x:p.x,y:p.y,t:p.t,bullet:p.id});}
      if(!p.splitDone&&(weapon.split||skill==='SPLIT'&&p.primary)){
@@ -337,7 +345,7 @@ function simulate(s,side,angle,power,options={}){
  // Aggregate once per attack; no part/body double counting, no multi-bullet overkill bonus.
  const rawDamage=damage.slice();if(!timed){damage[1]*=boost;for(const id of Object.keys(partDamage))partDamage[id]*=boost;}
  const cap=weapon.damageCap?(s.spec.boss?weapon.bossDamageCap||weapon.damageCap:weapon.damageCap):s.spec.boss?2:events.some(e=>e.type==='critical')?1.875:1.25;
- if(!timed){damage[1]=Math.min(side===1?1:cap,damage[1]);damage[0]=Math.min(1,damage[0]);}
+ if(!timed){damage[1]=Math.min(side===1?1:cap,damage[1]);damage[0]=Math.min(finalEnemy?(weapon.enemyDamageCap??1):1,damage[0]);}
  if(side===1&&s.skillEffects){const f=s.skillEffects;damage[0]*=f.invincible?0:(f.barrier?.factor??1)*(f.weaken?.factor??1);}
  const guarded=side===1&&!!s.guardActive;if(guarded)damage[0]*=.5;
  if(!timed&&side===0&&(W.activeIds.includes(weapon.id)||weapon.special&&weapon.progressiveDamage)){

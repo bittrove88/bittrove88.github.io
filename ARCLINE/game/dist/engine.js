@@ -373,7 +373,7 @@ function cpuPlan(s,random=s.random){
  const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};
  if(s.telegraph?.technique)settings={weaponId:s.telegraph.technique,minAngle:W.getEnemy(s.telegraph.technique).minAngle??-8,maxAngle:84,targetPoint:{x:s.telegraph.targetX,y:s.telegraph.targetY}};
  const normalAttack=!guardian(s)||['LOW','ARC'].includes(kind);
- const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
+ const balance=enemyParameters(s),errA=balance.angle*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power;let best=EnemyAttacks?.fixedAim(s)||solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
  let angle=best.angle+(random()*2-1)*errA,power=best.power+(random()*2-1)*errP;
  if(s.stage<=3)power-=8;
  angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
@@ -387,10 +387,12 @@ function cpuPlan(s,random=s.random){
 
  }
  if(s.telegraph?.technique)plan=EnemyAttacks.plan(s,angle,power);
- if(guardian(s)&&s.effects.broken){plan.damage=plan.damage.map(d=>d*.5);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*.5]));for(const e of plan.events)if(e.type==='damage')e.value*=.5;}
+ if(guardian(s)&&s.effects.broken){const factor=EnemyAttacks.weakenFactor(s,plan);plan.damage=plan.damage.map(d=>d*factor);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*factor]));for(const e of plan.events)if(e.type==='damage')e.value*=factor;}
  // Scale only enemy-to-player damage, once, after the existing broken-part half.
- plan.damage[0]*=balance.damage;
- for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=balance.damage;
+ const damageScale=s.stage===100?EnemyAttacks.damageScale(plan):balance.damage;
+ plan.damage[0]*=damageScale;
+ for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=damageScale;
+ EnemyAttacks.finalizeDamage(s,plan);
  plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
  return EnemyAttacks?EnemyAttacks.decorate(s,plan):plan;
 }

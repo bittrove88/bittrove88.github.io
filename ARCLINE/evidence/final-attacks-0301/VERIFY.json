@@ -1,0 +1,141 @@
+{
+  "status": "PASS",
+  "base": "1904d3e5032039eeae89b8c3f3f2604b67e94924",
+  "version": "0.30.1",
+  "suiteCount": 12,
+  "suites": [
+    {
+      "mode": "unit",
+      "name": "final-attacks",
+      "status": "PASS",
+      "ms": 4366
+    },
+    {
+      "mode": "unit",
+      "name": "enemy-evolution",
+      "status": "PASS",
+      "ms": 17104
+    },
+    {
+      "mode": "unit",
+      "name": "hp-action-balance",
+      "status": "PASS",
+      "ms": 225
+    },
+    {
+      "mode": "unit",
+      "name": "damage-sync",
+      "status": "PASS",
+      "ms": 840
+    },
+    {
+      "mode": "unit",
+      "name": "hibari-ring",
+      "status": "PASS",
+      "ms": 86
+    },
+    {
+      "mode": "unit",
+      "name": "attack-motion",
+      "status": "PASS",
+      "ms": 1239
+    },
+    {
+      "mode": "unit",
+      "name": "combat-sfx-0190",
+      "status": "PASS",
+      "ms": 3674
+    },
+    {
+      "mode": "unit",
+      "name": "promo-experience",
+      "status": "PASS",
+      "ms": 43
+    },
+    {
+      "mode": "browser",
+      "name": "final-attacks-browser",
+      "status": "PASS",
+      "ms": 19065
+    },
+    {
+      "mode": "browser",
+      "name": "attack-review-browser",
+      "status": "PASS",
+      "ms": 15514
+    },
+    {
+      "mode": "browser",
+      "name": "hp-action-balance-browser",
+      "status": "PASS",
+      "ms": 9804
+    },
+    {
+      "mode": "browser",
+      "name": "../site-tests/service-site",
+      "status": "PASS",
+      "ms": 15341
+    }
+  ],
+  "initialFailuresResolved": [
+    {
+      "suite": "damage-sync",
+      "cause": "Fixture hardcoded the old100-point relay quota; use current requiredDamage minus ten displayed HP. Runtime unchanged by this fixture correction."
+    },
+    {
+      "suite": "final-attacks-browser",
+      "cause": "Test referenced an optional harness error array without checking its existence; corrected the test and reran all14 controller cases."
+    }
+  ],
+  "results": {
+    "newUnitChecks": 874,
+    "hpActionInitializations": 300,
+    "hpActionChecks": 2662,
+    "nativeTransferDamage": [
+      34,
+      34,
+      34
+    ],
+    "nativeWalkingAvoidanceDamage": [
+      0,
+      0,
+      0
+    ],
+    "fixedCoverDamage": [
+      0,
+      0,
+      0
+    ],
+    "controllerCases": 14,
+    "generatedFiles": 154,
+    "packageEntries": 214,
+    "runtimeFiles": 87,
+    "archive": {
+      "name": "ARCLINE_0.30.1_Playables.zip",
+      "bytes": 72936459,
+      "sha256": "2aa3f84368d2705ba1c71570e10d8fca0eba3ee80fd974d46ad7d80daa782fe6"
+    }
+  },
+  "preserved": {
+    "playerHP": 100,
+    "normalHardQuota": 150,
+    "easyQuota": 80,
+    "actionsPerPilot": 20,
+    "threeSpecials": true,
+    "otherEnemyAttacks": true,
+    "playerAttacks": true,
+    "allMapsAndPickups": true,
+    "saveSchema": 8,
+    "resetVersion": 2
+  },
+  "statusBoundaries": {
+    "localImplementation": true,
+    "selectedLocalTests": true,
+    "CI": false,
+    "merged": false,
+    "published": false,
+    "physicalDevice": false,
+    "humanWinRate": false,
+    "nativeAudioDecode": false
+  }
+}
