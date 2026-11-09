@@ -1,0 +1,123 @@
+/* Lobby utilities: fixed navigation and one scroll area per content pane. */
+#lobbySettings .settings-panel,
+#journalPanel .journal-panel {
+  width: min(980px, 100%);
+  height: min(660px, 100%);
+  padding: 14px;
+  gap: 10px;
+}
+#lobbySettings .utility-tabs,
+#journalPanel .utility-tabs { gap: 6px; }
+#lobbySettings .utility-tabs button,
+#journalPanel .utility-tabs button { min-height: 40px; padding: 6px 10px; }
+#lobbySettings [role="tabpanel"] {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 2px 4px 10px;
+}
+#settingsOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 12px;
+}
+#settingsOptions .settings-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(110px, 1fr);
+  align-items: center;
+  padding: 14px;
+  gap: 12px;
+  margin: 0;
+}
+#settingsOptions .settings-row strong {
+  min-height: 0;
+  line-height: 1.5;
+  font-size: 14px;
+}
+#settingsOptions .settings-row button { min-height: 44px; }
+#settingsDifficulty .settings-difficulty { padding: 0; }
+#settingsDifficulty #difficultyChoice { margin: 0; padding: 12px; }
+#settingsDifficulty #difficultyChoice > p { max-width: 65ch; line-height: 1.65; }
+#settingsData { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: start; }
+#settingsData section { border: 1px solid #bad7ca40; border-radius: 12px; padding: 16px; }
+#settingsData h3 { margin: 0 0 10px; font-size: 17px; }
+#settingsData p { margin: 8px 0 12px; font-size: 14px; line-height: 1.7; }
+#settingsData .settings-danger { border-color: #e1a28c80; background: #503b402e; }
+#settingsData .delete-save-button { width: 100%; margin: 8px 0 0; min-height: 44px; color: #ffcebb; border: 1px solid #ecab91; }
+#settingsData .version-info { color: #b8d0c8; font-size: 12px; overflow-wrap: anywhere; }
+.utility-hint { flex: none; margin: 0; color: #bfd4d0; font-size: 13px; line-height: 1.5; }
+#recordsLayout { flex: 1; grid-template-columns: 190px minmax(0, 1fr); gap: 18px; }
+#recordNavigation { padding: 2px 6px 10px 2px; scrollbar-gutter: stable; }
+#recordNavigation button { min-height: 48px; font-size: 14px; }
+#recordNavigation button:disabled { opacity: .55; }
+#recordBody { padding: 4px 12px 16px; }
+#recordBody .record-title { font-size: clamp(20px, 2.6vw, 28px); line-height: 1.4; margin: 6px 0 12px; }
+#recordBody p { margin-bottom: 10px; }
+.story-chapter-card { max-width: 680px; }
+.story-chapter-progress { display: flex; gap: 5px; margin: 20px 0 6px; }
+.story-chapter-progress i { flex: 1; height: 5px; border-radius: 3px; background: #70929755; }
+.story-chapter-progress .complete { background: #e2efb5; }
+#recordBody .story-progress-label { font-size: 12px; color: #c5d8c4; }
+#playStoryChapter { min-height: 44px; padding: 10px 22px; background: #ddebba; color: #163b47; border-color: #e2efb5; margin: 8px 0 12px; }
+#playStoryChapter:disabled { background: #305461; color: #bed0c9; }
+#recordBody .story-replay-note { font-size: 13px; color: #c0d2cb; line-height: 1.65; max-width: 52ch; }
+#collectionGrid .collection-tabs { display: flex; gap: 6px; margin: 0; }
+#collectionGrid .collection-tabs button { flex: 1; min-height: 40px; padding: 6px; }
+#collectionGrid .collection-tabs [aria-selected="true"] { background: #ddebba; color: #163b47; }
+.equipment-records { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 10px 16px; min-height: 0; flex: 1; }
+.equipment-records .inventory-note { grid-column: 1/-1; margin: 8px 0 0; font-size: 13px; }
+.equipment-records .equipment-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; padding: 2px 6px 12px 2px; scrollbar-gutter: stable; overscroll-behavior: contain; touch-action: pan-y; }
+.equipment-records .equipment-card { display: grid; grid-template-columns: 28px minmax(0, 1fr); grid-template-rows: auto auto auto; align-content: start; text-align: left; gap: 5px 8px; min-height: 116px; padding: 12px; background: #214956; color: #eef6e6; }
+.equipment-records .equipment-card > i { grid-row: 1/3; width: 28px; color: #aee5d2; }
+.equipment-card svg { display: block; width: 26px; height: 26px; }
+.equipment-records .equipment-card > strong { font-size: 14px; line-height: 1.4; white-space: normal; }
+.equipment-records .equipment-card > small { font-size: 11px; color: #c7d9ca; white-space: normal; }
+.equipment-records .equipment-card > span { grid-column: 1/-1; font-size: 12px; line-height: 1.5; color: #c7d9d3; }
+.equipment-records .equipment-card[aria-pressed="true"] { border-color: #e2efb5; background: #3c615e; }
+.equipment-inspector { overflow: auto; min-height: 0; padding: 16px; border-radius: 12px; background: #0d2f40; border: 1px solid #95b6ad55; touch-action: pan-y; }
+.equipment-inspector > strong { display: block; font-size: 20px; line-height: 1.4; }
+.equipment-inspector p { line-height: 1.8; font-size: 15px; }
+.equipment-inspector small { color: #d9e7bc; }
+#weaponPicker[data-stock-library="true"] .weapon-panel { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); width: min(1040px, 100%); gap: 10px 14px; }
+#weaponPicker[data-stock-library="true"] .weapon-panel > header,
+#weaponPicker[data-stock-library="true"] #inventoryTabs { grid-column: 1/-1; }
+#weaponPicker[data-stock-library="true"] #weaponStockScroll { grid-column: 1; grid-row: 3; }
+.stock-inspector { grid-column: 2; grid-row: 3; align-self: stretch; min-height: 0; overflow: auto; padding: 14px; border-radius: 12px; border: 1px solid #95b6ad55; background: #0d2f40; touch-action: pan-y; }
+.stock-inspector strong { font-size: 20px; line-height: 1.4; }
+.stock-inspector p { font-size: 14px; line-height: 1.7; margin: 8px 0 12px; }
+.stock-inspector small { display: block; font-size: 12px; line-height: 1.6; color: #c7d9ca; }
+#confirmStockWeapon { min-height: 44px; width: 100%; margin-top: 16px; background: #ddebba; color: #163b47; }
+#weaponPicker[data-stock-library="true"] #weaponChoices { grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); }
+#weaponPicker[data-stock-library="true"] #weaponChoices .weapon-choice-copy small { display: block; }
+#weaponPicker[data-stock-library="true"] #weaponChoices [data-inspected="true"],
+#chapterSkillStock [aria-pressed="true"] { outline: 2px solid #e2efb5; outline-offset: -3px; }
+#weaponPicker[data-stock-library="true"] #chapterSkillStock { grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); }
+#chapterSkillStock .inventory-skill { width: 100%; }
+#openLibrary { width: 100%; min-height: 44px; margin-top: 10px; }
+#collectionGrid .equipment-grid *,#recordNavigation *,#recordBody *,#lobbySettings [role="tabpanel"] * { touch-action: pan-y; }
+@media (max-width: 700px) {
+  #settingsOptions { grid-template-columns: 1fr; }
+  #settingsData { grid-template-columns: 1fr; }
+  #recordsLayout { grid-template-columns: 132px minmax(0,1fr); gap: 8px; }
+  .equipment-records .equipment-grid { grid-template-columns: 1fr; }
+  .equipment-records { grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 8px; }
+}
+@media (max-height: 400px) {
+  #lobbySettings .settings-panel,#journalPanel .journal-panel { padding: 10px 12px; gap: 7px; }
+  #lobbySettings .utility-tabs button,#journalPanel .utility-tabs button { min-height: 36px; }
+  #recordHint { display: none; }
+  #settingsOptions .settings-row { padding: 8px 12px; }
+  #settingsOptions .settings-row strong { font-size: 13px; }
+  #recordBody .record-title { margin: 3px 0 8px; font-size: 22px; }
+  .story-chapter-progress { margin-top: 12px; }
+  #weaponPicker[data-stock-library="true"] .weapon-panel { gap: 6px 10px; }
+  .stock-inspector { padding: 10px; }
+  .stock-inspector strong { font-size: 17px; }
+  .stock-inspector p { font-size: 13px; }
+  .equipment-inspector { padding: 10px; }
+  .equipment-inspector > strong { font-size: 17px; }
+  .equipment-inspector p { font-size: 13px; }
+}

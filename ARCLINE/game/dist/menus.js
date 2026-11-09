@@ -24,8 +24,9 @@ function prepare(id,trigger){
 }
 function close(focus=true){if(!active)return;root.ArcScreens.close(active,focus);active=null;delete $('app').dataset.utilityOpen;}
 function renderSettings(){
- $('settingsOptions').hidden=settingsTab!=='options';$('settingsGuide').hidden=settingsTab!=='guide';
+ for(const [name,id] of Object.entries({options:'settingsOptions',difficulty:'settingsDifficulty',guide:'settingsGuide',data:'settingsData'}))$(id).hidden=settingsTab!==name;
  for(const b of document.querySelectorAll('[data-settings-tab]')){const selected=b.dataset.settingsTab===settingsTab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
+ for(const [id,ja,en] of [['settingsOptionsTab','基本設定','General'],['settingsDifficultyTab','難易度','Difficulty'],['settingsGuideTab','操作ガイド','How to play'],['settingsDataTab','データ','Data'],['settingsInstallTitle','ホーム画面に追加','Home-screen app'],['settingsSaveTitle','保存状況','Save status'],['settingsSaveNote','進行状況は自動で保存されます。攻略記録と持ち物は難易度ごとに保持します。','Progress is saved automatically. Each difficulty keeps its own progress and inventory.'],['settingsDeleteTitle','最初からやり直す','Start over'],['settingsDeleteNote','すべての難易度の進行と持ち物を削除します。次の確認画面で確定するまで削除されません。','Delete progress and inventory in every difficulty. Nothing is deleted until you confirm on the next screen.']])$(id).textContent=local(ja,en);
  $('installationGuide').textContent=local('ホーム画面への追加案内','Home-screen installation guide');
  $('settingsControlState').textContent=hooks.controls()==='left'?local('移動・照準は左側','Move and aim on the left'):local('移動・照準は右側','Move and aim on the right');
  const control=hooks.controls()==='left'?local('左で移動・照準、右で発射。','Move and aim on the left; fire on the right.'):local('右で移動・照準、左で発射。','Move and aim on the right; fire on the left.');
@@ -34,10 +35,10 @@ function renderSettings(){
   [local('ためる・撃つ・取り消す','Charge, fire, cancel'),local('発射を長押し、離して発射。指をボタンの外へずらして離すと取消。キーボードは矢印とSpace、取消はEsc。','Hold FIRE and release to shoot. Slide outside the button and release to cancel. Keyboard: arrows and Space; Esc cancels.')],
   [local('通常弾と必殺','Normal and special'),local('通常弾は無制限。通常戦の必殺は自分の第2・4・6ターンに1発ずつ。中ボス・大ボスは最初から3発。機体を変えても残数は共通です。','Normal fire is unlimited. Normal battles unlock one special on player turns2,4,6. Guardians start with3. Switching machines shares the same ammo.')],
   [local('転移と行動数','Teleport and actions'),local('転移弾は4面から。着弾先へ移り、1行動を使います。攻撃・転移・修理が残り行動を使い、歩行と照準は使いません。','Teleport unlocks at stage 4. Its contact moves you and costs one action. Attacking, teleporting and repairing use actions; walking and aiming do not.')],
-  [local('章の持ち物','Chapter stock'),local('武器箱で3発まで補充。武器3種類・スキル2種類を持てます。入手した補助武器・スキルの残数は、章ボス戦まで持ち越し可能です。章ボス撃破後、所持品はリセットされます。','Weapon boxes refill to three shots. Remaining auxiliary ammunition and skills can be carried into the chapter boss battle. Chapter stock resets after defeating that boss.')],
+  [local('章の持ち物','Chapter stock'),local('道中のカプセルから武器・スキルを入手します。未使用の残数は章を越えて持ち越せます。カプセルは難易度ごとに一度だけ取得できます。','Collect weapons and skills from capsules along the route. Unused stock carries across chapters. Each capsule can be claimed once per difficulty.')],
   [local('やり直しと保存','Retry and saving'),local('やり直し・中断復帰は面開始時のHPと持ち物へ戻ります。選んだ面をクリアすると次の面へ進み、物語が続きます。','Retrying or returning after interruption restores the level-entry HP and stock. Clear the selected stage to continue to the next stage and its story.')]
  ];
- $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE '+root.ArcRelease.version+' · Campaign'+root.ArcRelease.campaignVersion+' · schema'+root.ArcSave.schemaVersion+' · '+$('saveStatus').textContent;
+ $('settingsGuide').innerHTML=guide.map(([title,body])=>`<details><summary>${escape(title)}</summary><p>${escape(body)}</p></details>`).join('');$('saveVersionInfo').textContent='ARCLINE '+root.ArcRelease.version+' · '+$('saveStatus').textContent;
  root.ArcI18n.apply();
 }
 function openSettings(trigger=$('openSettings')){if(!prepare('lobbySettings',trigger))return;settingsTab='options';renderSettings();$('settingsOptions').scrollTop=0;$('closeSettings').focus({preventScroll:true});}
@@ -71,7 +72,8 @@ function renderScenes(){
  $('recordNavigation').innerHTML=J.chapters.map(c=>`<button type="button" data-story-chapter="${c.id}" aria-pressed="${chapter===c.id}" ${n<c.start-1?'disabled':''}>${local('第'+c.id+'章','Chapter '+c.id)}<small>${c.start}–${c.end}</small></button>`).join('');
  for(const b of $('recordNavigation').querySelectorAll('button')){b.onclick=()=>{chapter=+b.dataset.storyChapter;renderJournal();$('recordBody').scrollTop=0;};touchTap(b);}
  const available=n>=c.start||chapter===1&&data.journeyStarted;
- $('recordBody').innerHTML=`<h3 class="record-title">${escape(t(c.title))}</h3><p>${local('台詞・映像・仲間との出会いを、章ごとに続けて再生します。','Play the dialogue, films and meetings as one chapter.')}</p><p>${c.start}–${c.end} · ${local('クリア済みの物語のみ','Cleared stories only')}</p><button type="button" id="playStoryChapter" data-play-chapter="${chapter}" ${available?'':'disabled'}>${local('この章を再生','Play this chapter')} ▶</button>`;
+ const cleared=Math.max(0,Math.min(10,n-c.start+1));
+ $('recordBody').innerHTML=`<section class="story-chapter-card" data-story-raw><p class="record-kicker">${local('第'+chapter+'章','Chapter '+chapter)} · ${c.start}–${c.end}</p><h3 class="record-title">${escape(t(c.title))}</h3><p>${escape(t(c.question))}</p><div class="story-chapter-progress" aria-label="${local('クリア済み','Cleared')} ${cleared}/10">${Array.from({length:10},(_,i)=>`<i class="${i<cleared?'complete':''}"></i>`).join('')}</div><p class="story-progress-label">${local(cleared+' / 10 面クリア',cleared+' / 10 stages cleared')}</p><button type="button" id="playStoryChapter" data-play-chapter="${chapter}" ${available?'':'disabled'}>${local('この章を再生','Play this chapter')} ▶</button><p class="story-replay-note">${available?local('台詞・映像・仲間との出会いを続けて再生。進行と持ち物は変わりません。','Play dialogue, films and meetings in order. Progress and inventory stay unchanged.'):local(c.start+'面をクリアすると再生できます。','Clear stage '+c.start+' to unlock playback.')}</p></section>`;
  const b=$('playStoryChapter');b.onclick=()=>{root.ArcFullscreen?.enter?.();const panel=active;active=null;$('journalPanel').hidden=true;const done=()=>{active=panel;$('journalPanel').hidden=false;b.focus({preventScroll:true});};if(!hooks.playChapter(chapter,b,done))done();};touchTap(b);
 }
 
@@ -79,6 +81,8 @@ function renderJournal(){
  for(const id of ['replayPrologue','replay30','replay60','replayEpilogue'])$(id).hidden=true;$('replay30').textContent=local('30面の幕間','Stage30 scene');$('replay60').textContent=local('60面の幕間','Stage60 scene');
  for(const b of document.querySelectorAll('[data-record-tab]')){const selected=b.dataset.recordTab===tab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
  if(tab==='scenes')renderScenes();else if(tab==='machines')renderMachine();else renderJourney();for(const d of $('recordBody').querySelectorAll('[data-read-ids]'))d.addEventListener('toggle',()=>{if(d.open)read(d.dataset.readIds.split(','));});root.ArcI18n.apply();
+ $('recordHint').textContent=tab==='machines'?local('仲間を選ぶと、出会いや背景を読めます。','Choose a companion to read their story.'):local('章を選んで、クリア済みの物語を振り返ります。','Choose a chapter to revisit cleared stories.');
+ const nav=$('recordNavigation'),selected=nav.querySelector('[aria-pressed="true"]');if(selected){const a=root.ArcViewport.rect(nav,$('app')),b=root.ArcViewport.rect(selected,$('app'));nav.scrollTop+=b.top<a.top?b.top-a.top:b.bottom>a.bottom?b.bottom-a.bottom:0;}
  // Repaint the selected record's unread mark without rebuilding its content.
  const data=hooks.data();for(const b of $('recordNavigation').querySelectorAll('button[aria-pressed="true"]'))b.querySelector('.unread-dot')?.remove();
  hooks.summary?.(data);
@@ -95,7 +99,7 @@ function install(options){
  document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){touchPointers.add(e.pointerId);if(touchPointers.size>1)touchBatch++;}},true);
  for(const event of ['pointerup','pointercancel'])document.addEventListener(event,e=>touchPointers.delete(e.pointerId),true);
  root.addEventListener('blur',()=>{touchPointers.clear();touchBatch++;});
- hooks=options;const installButton=document.createElement('button');installButton.id='installationGuide';installButton.type='button';installButton.textContent=local('ホーム画面への追加案内','Home-screen installation guide');$('settingsOptions').append(installButton);installButton.onclick=()=>root.ArcDevice.offer(()=>{},true);for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;replayMovie(movie,$(id));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
+ hooks=options;$('installationGuide').onclick=()=>root.ArcDevice.offer(()=>{},true);for(const [id,movie,unlock] of [['replayPrologue','prologue',0],['replay30','30',30],['replay60','60',60],['replayEpilogue','epilogue',100]])$(id).onclick=()=>{if(J.progress(hooks.data())<unlock)return;replayMovie(movie,$(id));};$('openSettings').onclick=()=>openSettings();$('openJournal').onclick=()=>openJournal();$('closeSettings').onclick=$('closeJournal').onclick=()=>close();$('settingsMirror').onclick=()=>{hooks.toggleControls();renderSettings();};
  for(const b of document.querySelectorAll('#lobbySettings button,#journalPanel button,#openSettings,#openJournal'))touchTap(b);
  document.addEventListener('click',e=>{const a=touchActivation;if(!a||!e.isTrusted||e.detail===0||performance.now()-a.time>500)return;const samePointer=e.pointerType==='touch'&&e.pointerId===a.id,sameLegacyTouch=!e.pointerType&&Math.hypot(e.clientX-a.x,e.clientY-a.y)<4;if(samePointer||sameLegacyTouch){touchActivation=null;e.preventDefault();e.stopImmediatePropagation();}},true);
  bindTabs('[data-settings-tab]','data-settings-tab',value=>{settingsTab=value;renderSettings();});bindTabs('[data-record-tab]','data-record-tab',value=>{tab=value;renderJournal();$('recordBody').scrollTop=0;});

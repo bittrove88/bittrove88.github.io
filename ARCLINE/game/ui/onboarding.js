@@ -8,7 +8,7 @@
     busy = false,
     deleting = false;
   function syncDelete() {
-    for (const id of ["deleteStartSave", "deleteLobbySave"]) {
+    for (const id of ["deleteSettingsSave"]) {
       $(id).textContent = local("セーブデータを削除", "Delete save data");
       $(id).disabled = deleting || !hooks?.deleteAvailable();
     }
@@ -39,7 +39,7 @@
     syncDelete();
     root.ArcScreens.open("deleteSaveDialog", {
       trigger: event.currentTarget,
-      block: ["lobby", "battle", "journeyStart"],
+      block: ["lobby", "battle", "journeyStart", "lobbySettings"],
       onEscape: cancelDelete,
       cycleFocus: true,
     });
@@ -103,7 +103,7 @@
   }
   function install(options) {
     hooks = options;
-    for (const id of ["deleteStartSave", "deleteLobbySave"])
+    for (const id of ["deleteSettingsSave"])
       $(id).onclick = requestDelete;
     $("cancelDeleteSave").onclick = cancelDelete;
     $("confirmDeleteSave").onclick = async () => {
@@ -119,6 +119,7 @@
         return;
       }
       root.ArcScreens.close("deleteSaveDialog", false);
+      root.ArcMenus.close(false);
       root.ArcScreens.close("journeyStart", false);
       active = false;
       after = null;

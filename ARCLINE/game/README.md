@@ -1,3 +1,5 @@
+0.29.7：開始・設定・ストーリーと図鑑は手書きの `dist/menus.js`・`presentation.js`・`index.html`、削除UIは `ui/onboarding.js`、画面調整は `styles/menu-ui.css`。ロビー持ち物の確認と装備を分離し、戦闘の既存選択は維持。[範囲と検証](../docs/releases/0.29.7.md)。
+
 0.29.4：マスターモードの進行・在庫編集は `dist/master-progress.js`、画面は `ui/master-mode.js` と `styles/master-mode.css`。現行カタログと在庫上限を使い、永続在庫と出撃チェックポイントを同時更新。[範囲](../docs/releases/0.29.4.md)。
 
 検証は修正単位で計画し、必要なスイート名を選択する。[検証運用](../docs/VERIFICATION.md)／[CI計画](../verification-plan.json)。`test.cjs <mode> <suite...> --list` で実行せず選択内容を確認できる。
