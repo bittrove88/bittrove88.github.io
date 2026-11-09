@@ -8,9 +8,14 @@ assert [len(d[k]) for k in ['enemies','midbosses','bosses']]==[12,10,10]
 for row in d['midbosses'] + d['bosses']:
     stats = balance_data['guardians'][str(row['stage'])]
     row['hp'] = stats['hp'] / 20
-    assert len(row['parts']) == len(stats['partsHp'])
-    for part, hp in zip(row['parts'], stats['partsHp']):
-        part['hp'] = hp / 20
+    values = stats.get('partsBreakHits', stats.get('partsHp'))
+    assert len(row['parts']) == len(values)
+    for part, value in zip(row['parts'], values):
+        if 'partsBreakHits' in stats:
+            part.pop('hp', None)
+            part['breakHits'] = value
+        else:
+            part['hp'] = value / 20
 payload=json.dumps(d,ensure_ascii=False,separators=(',',':'))
 code="""(function(root){'use strict';
 const data=PAYLOAD;

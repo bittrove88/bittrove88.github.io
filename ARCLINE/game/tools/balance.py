@@ -19,6 +19,11 @@ def apply(level):
     level['easyEnemyHp'] = easy_hp(stats['hp']) / 20
     level['actionLimit'] = stats['actionLimit']
     level['balanceRevision'] = DATA['revision']
+    if 'partsBreakHits' in stats:
+        assert len(level['bossSpec']['parts']) == len(stats['partsBreakHits'])
+        for part, hits in zip(level['bossSpec']['parts'], stats['partsBreakHits']):
+            part.pop('hp', None)
+            part['breakHits'] = hits
     if n == 100:
         final = level['finalBattle']
         final['fixedHp'] = DATA['final']['playerHp']

@@ -233,7 +233,7 @@ function create(canvas,configuration={}){
    const style={...options,dpr,world,view,width:w,height:h,detail:view.scale<.65?'distant':'battle'};
    for(const o of world.solids)drawSolid(ctx,o,world,style);for(const r of world.regions)drawRegion(ctx,r,style);for(const t of world.terminals)drawTerminal(ctx,t,{...s,world},style);for(const p of options.pickups||s.pickups||[])drawPickup(ctx,p,style);
    const results=[];for(let i=0;i<display.units.length;i++){const u=display.units[i];results.push(drawActor(ctx,actors[i],u,{...style,state:display,side:i,kind:actors[i].split(':')[0],angle:i?52:s.angle,muzzle:root.ArcEngine.geometry.muzzle(display,i,i?52:s.angle)}));}
-   drawShot(ctx,options.shot,options.flight||0,{...style,characterId:s.characterId});if(options.debug)contracts(ctx,display,actors,style);
+   root.ArcEffects?.forContext(ctx).armorCounters(display,{...style,scale:view.scale});drawShot(ctx,options.shot,options.flight||0,{...style,characterId:s.characterId});if(options.debug)contracts(ctx,display,actors,style);
    return {view:{...view},dpr,field:{top,bottom},actors:results,bodyWidths:display.units.map((u,i)=>(i&&s.spec.boss?130:64)*view.scale)};
   }finally{ctx.restore();}
  }

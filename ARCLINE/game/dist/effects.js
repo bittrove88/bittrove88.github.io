@@ -112,6 +112,35 @@ function forContext(ctx){if(brushes.has(ctx))return brushes.get(ctx);
   ctx.restore();
  }
 
+ function armorCounters(s,options={}){
+  const scale=options.scale||1,u=s.units[1],parts=u.parts.map((p,i)=>({p,i})).filter(({p})=>p.breakHits&&p.hp>0);if(!parts.length)return;
+  const G=root.ArcEngine.geometry,en=root.ArcI18n?.language==='en',m=ctx.getTransform(),bounds=options.bounds||{left:-m.e/m.a,right:(ctx.canvas.width-m.e)/m.a,top:-m.f/m.d,bottom:(ctx.canvas.height-m.f)/m.d};
+  ctx.save();ctx.lineJoin='round';ctx.font=`800 ${16/scale}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';
+  const rows=parts.map(({p,i})=>{
+   const q=G.actorParts(s,1)[i],plate=s.world.solids.find(o=>o.armorPart===i),point=plate?{x:plate.poly.reduce((n,v)=>n+v.x,0)/plate.poly.length,y:Math.min(...plate.poly.map(v=>v.y))}:{x:u.x+q.dx,y:u.y+q.dy-p.radius};
+   if(p.armorRadius){const x=u.x+q.dx,y=u.y+q.dy,r=p.armorRadius;ctx.beginPath();for(let j=0;j<8;j++){const a=j*Math.PI/4,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;j?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.closePath();ctx.fillStyle=p.hitsRemaining<p.breakHits?'#826341':'#456877';ctx.fill();ctx.strokeStyle='#ffe0a0';ctx.lineWidth=2/scale;ctx.stroke();path([{x:x-r*.5,y:y+r*.15},{x:x-r*.1,y:y+r*.45},{x:x+r*.55,y:y-r*.45}],'#ffe9b9',2/scale);}
+   const label=en?p.hitsRemaining+' LEFT':'あと'+p.hitsRemaining+'発',width=ctx.measureText(label).width+18/scale;return {point,label,width,x:point.x,y:Math.max(bounds.top+17/scale,point.y-20/scale)};
+  }).sort((a,b)=>a.x-b.x);
+  let edge=bounds.left+4/scale;for(const row of rows){row.x=Math.max(row.x,edge+row.width/2);edge=row.x+row.width/2+5/scale;}
+  edge=bounds.right-4/scale;for(const row of [...rows].reverse()){row.x=Math.min(row.x,edge-row.width/2);edge=row.x-row.width/2-5/scale;}
+  for(const row of rows){path([row.point,{x:row.x,y:row.y+13/scale}],'#ffe0a0',1/scale);round(row.x-row.width/2,row.y-13/scale,row.width,26/scale,5/scale,'#142d40');ctx.lineWidth=1.5/scale;ctx.strokeStyle='#ffdc80';ctx.stroke();ctx.fillStyle='#fff0bb';ctx.fillText(row.label,row.x,row.y);}
+  ctx.restore();
+ }
+ function armorGuard(event,age,scale,alpha,options){
+  if(age<0||age>=.95)return;
+  const fade=Math.min(1,(.95-age)/.25),rise=options.reducedMotion?0:Math.min(1,age/.2)*6;
+  ctx.save();ctx.globalAlpha=alpha*fade;ctx.lineJoin='round';ctx.lineWidth=2/scale;
+  // The contact stays on the real armor. Only its label is clamped to the field.
+  if(age<.28){ctx.globalAlpha*=1-age/.28;circle(event.x,event.y,(12+(options.reducedMotion?0:age*50))/scale,null,'#ffe4a0');ctx.globalAlpha=alpha*fade;}
+  const en=root.ArcI18n?.language==='en',label=en?'GUARD':'ガード',subtitle=event.remaining===undefined?'':event.remaining===0?(en?'ARMOR BREAK':'装甲破壊'):(en?event.remaining+' LEFT':'あと'+event.remaining+'発');ctx.font=`900 ${24/scale}px system-ui`;
+  const width=Math.max(ctx.measureText(label).width+46/scale,subtitle.length*8/scale+18/scale),height=(subtitle?58:38)/scale,m=ctx.getTransform(),bounds=options.bounds||{left:-m.e/m.a,right:(ctx.canvas.width-m.e)/m.a,top:-m.f/m.d,bottom:(ctx.canvas.height-m.f)/m.d};
+  const x=Math.max(bounds.left+width/2+4/scale,Math.min(bounds.right-width/2-4/scale,event.x)),y=Math.max(bounds.top+height/2+4/scale,Math.min(bounds.bottom-height/2-4/scale,event.y+(event.remaining===undefined?-32-rise:32-rise)/scale));
+  round(x-width/2,y-height/2,width,height,8/scale,'#142d40');ctx.lineWidth=2/scale;ctx.strokeStyle='#ffdc80';ctx.stroke();
+  const sx=x-width/2+18/scale,sy=y-(subtitle?17:8)/scale;
+  ctx.beginPath();ctx.moveTo(sx,sy-3/scale);ctx.lineTo(sx+9/scale,sy);ctx.lineTo(sx+7/scale,sy+12/scale);ctx.lineTo(sx,sy+18/scale);ctx.lineTo(sx-7/scale,sy+12/scale);ctx.lineTo(sx-9/scale,sy);ctx.closePath();ctx.fillStyle='#ffdc80';ctx.fill();
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#fff0bb';ctx.fillText(label,x+12/scale,y+(subtitle?-8:1)/scale);
+  if(subtitle){ctx.font=`800 ${14/scale}px system-ui`;ctx.fillStyle=event.remaining===0?'#a6f0cd':'#ffdc80';ctx.fillText(subtitle,x,y+17/scale);}ctx.restore();
+ }
  function draw(plan,t,options={}){
   if(!plan)return;const scale=options.scale||1,alpha=options.alpha??1,look={...appearance(plan.weaponId),...(plan.appearance||{})},rail=plan.weaponId==='W14'||plan.weaponId==='S_RIN';
   for(const b of plan.bullets){if(t<b.start||b.effect)continue;const look=lookFor(plan,b,t),points=b.path.filter(p=>p.t<=t);if(!points.length)continue;const alive=t<=b.t,next=b.path[points.length];if(alive&&next){const p=points.at(-1),q=(t-p.t)/(next.t-p.t||1);points.push({x:p.x+(next.x-p.x)*q,y:p.y+(next.y-p.y)*q,t});}const hot=points.filter(p=>p.t>=t-(look.fx?.3:.2)),tail=points.filter(p=>p.t>=t-(look.fx==='meteor'?.65:.45));
@@ -136,8 +165,10 @@ function forContext(ctx){if(brushes.has(ctx))return brushes.get(ctx);
    if(e.type==='pull'&&age<e.duration){const a=age/e.duration;ctx.save();ctx.globalAlpha=alpha*(1-a*.5);path([{x:e.from.x+(e.to.x-e.from.x)*a,y:e.from.y+(e.to.y-e.from.y)*a-22},{x:e.x,y:e.y}],look.color,(look.fx==='blackhole'?1.5:3)/scale,[5/scale,4/scale]);if(look.fx!=='blackhole')circle(e.x,e.y,(10+Math.sin(a*Math.PI)*10)/scale,look.color+'44',look.color);ctx.restore();}
   }
   for(const hit of plan.teleport?[]:plan.impacts||[]){if(hit.beam)continue;const b=plan.bullets.find(b=>b.id===hit.bullet),itemLook=lookFor(plan,b,hit.t);explosion(hit,t-hit.t,{...itemLook,blast:impactBlast(plan,hit,itemLook)},scale,options.reducedMotion,alpha);}
+  const guards=plan.events.filter(e=>e.type==='armor-guard'&&e.t<=t&&t-e.t<.95),guarded=guards.filter(e=>e.remaining===0).at(-1)||guards.at(-1);
+  if(guarded)armorGuard(guarded,t-guarded.t,scale,alpha,options);
  }
- const api=Object.freeze({projectile,explosion,draw});brushes.set(ctx,api);return api;
+ const api=Object.freeze({projectile,explosion,draw,armorCounters});brushes.set(ctx,api);return api;
 }
 const api=Object.freeze({version:1,metrics,appearance,impactBlast,footprint,forContext});if(typeof module!=='undefined')module.exports=api;else root.ArcEffects=api;
 })(globalThis);

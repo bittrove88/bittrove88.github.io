@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "phase": "focused development precheck; formal validation pending final agreement",
-  "baseline": "8df8a5a7dc3e8988e22e0c7bede612e0c73cdfd4",
+  "baseline": "8c5da3c79bc569a69340d32cfff38ad5bd2c4455",
   "candidateVersion": "0.31.5",
   "unit": {
     "script": "game/tests/echo-presentation.test.cjs",
@@ -10,7 +10,7 @@
   },
   "browser": {
     "script": "game/tests/boss-motion-browser.test.cjs",
-    "scenarios": 8,
+    "scenarios": 12,
     "status": "PASS",
     "details": "BOSS_MOTION_BROWSER.json"
   },
@@ -18,17 +18,22 @@
     "echo-reveal-50-568-ja.png",
     "boss-50-568-ja.png",
     "echo-reveal-100-568-en.png",
-    "echo-reveal-50-1280-ja.png"
+    "echo-reveal-50-1280-ja.png",
+    "echo-reveal-70-568-ja.png"
   ],
-  "scope": "Native stage50 close placement and late-final flat fixture, desktop, small screen Japanese and English, reduced motion, Worker and cooperative fallback. Creation camera, persistent identity, pause, echo fire and main/player hand continuity.",
-  "metadataNote": "Presentation prechecks ran at0.31.3; runtime/cache then bumped to0.31.5 with unchanged behavior sources. Formal generated and regression checks remain pending.",
+  "scope": "Native stage50 and70 close placements and late-final flat fixture. Desktop,568px Japanese and English,844px reduced motion,Worker and cooperative fallback. Creation and persistent echo identity, nonoverlapping main armor counters, focus pause, echo/main/player continuity.",
+  "metadataNote": "Integrated PR152 armor changes and regenerated0.31.5 before all twelve browser prechecks. No version-only mutation after the integrated prechecks.",
   "sourceSha256": {
     "game/ui/charge-camera.js": "47569854d9bb0fdc2027cae31c92a93ccb07c38341a6fe15fbe8db7386bc8a55",
     "game/dist/charge-camera.js": "d5425945cdad9465d58d749f57095f42f4a81f2fff214d0bde025b2c4449024e",
-    "game/dist/render.js": "2f075bb8352ac3802f996a8b486fdb1f8a6b853826a2423581083c064f5ca766",
+    "game/dist/render.js": "9325a1411e39071108a80325e5181ddfb50706c5dc681bb8a6e79b98a7844770",
     "game/dist/game.js": "552d628304463bc6c71a1c24c193f5051a4c6d2d6368a364a2ae78d4588d7f2f",
     "game/tests/echo-presentation.test.cjs": "af32f68f5672c3faf569100f54e5de43ec340339a841d2fca90a45f065c1ce0e",
-    "game/tests/boss-motion-browser.test.cjs": "95a2776094e2e774dbf3a60599bedac4d72d6b40133b421f9286fca96c264e9b"
+    "game/tests/boss-motion-browser.test.cjs": "be1cbf7f720f9694f6ae68f30e111b369437af02e0a2fa67e7cede5d518a84b9",
+    "game/runtime.json": "a5d18316186444e149a5c3a00af389e399d96f531a4e57900c5a4087be9ff1fa",
+    "game/dist/effects.js": "0bc606b7ecd206c2aad14f30358423757d286271a7cc5199b8c4ea6fb73aaa66",
+    "game/dist/physics.js": "813ff07e6661f221b79a3d7f956cd8d4a8bba457d3bd4b7b89820d13bee6c3c4",
+    "game/dist/engine.js": "ffff526e6bb361c914eb58a83b7af9b1abfa6df2174a8e9ad370a6f3bc11c777"
   },
   "notPerformed": [
     "formal validation / CI",

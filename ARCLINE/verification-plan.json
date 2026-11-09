@@ -1,7 +1,7 @@
 {
   "version": 1,
   "change": "0.31.5 転移直後と待機中の残像を識別できる表示",
-  "reason": "新しい出現表示・画角・時間をレビューする候補計画。残像の細部・常設表示・出現時の2地点の画角と復帰、発砲時フォーカス、既存の充電カメラ、通常敵の移動と共有生成物を確認する。",
+  "reason": "新しい出現表示・画角・時間をレビューする候補計画。残像の細部・常設表示・出現時の2地点の画角と復帰、発砲時フォーカス、既存の充電カメラ、通常敵の移動と共有生成物を確認する。 PR152統合後の共有描画で装甲カウンターとガード表示を保持するため、armor-break-browserも候補に含める。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -32,7 +32,8 @@
     "browser": [
       "boss-motion-browser",
       "charge-camera-browser",
-      "enemy-movement-browser"
+      "enemy-movement-browser",
+      "armor-break-browser"
     ]
   },
   "checks": {

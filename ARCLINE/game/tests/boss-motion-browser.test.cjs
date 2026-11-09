@@ -98,6 +98,7 @@ const server = http.createServer((req, res) => {
         window.bossResolved = [];
         window.echoCueLabels = [];
         window.echoCameraFrames = [];
+        window.presentationLabels = [];
         const originalText = CanvasRenderingContext2D.prototype.fillText;
         CanvasRenderingContext2D.prototype.fillText = function (
           value,
@@ -107,6 +108,18 @@ const server = http.createServer((req, res) => {
             ["残像", "ECHO", "残像が残った", "ECHO LEFT BEHIND"].includes(value)
           )
             echoCueLabels.push(value);
+          if (/残像|ECHO|^あと\d発$|^\d LEFT$/.test(value)) {
+            const t = this.getTransform(),
+              dpr = window.devicePixelRatio || 1,
+              font = Number(/([\d.]+)px/.exec(this.font)?.[1] || 14);
+            presentationLabels.push({
+              label: value,
+              x: (t.a * args[0] + t.e) / dpr,
+              y: (t.d * args[1] + t.f) / dpr,
+              width: (this.measureText(value).width * t.a) / dpr + 16,
+              height: (font * t.d) / dpr + 8,
+            });
+          }
           return originalText.call(this, value, ...args);
         };
         const original = E.resolve;
@@ -122,6 +135,7 @@ const server = http.createServer((req, res) => {
         window.bossStep = (seconds) => {
           for (let t = 0; t < seconds; t += 1 / 60) {
             update(Math.min(1 / 60, seconds - t));
+            presentationLabels.length = 0;
             draw();
             const plan =
               s.echoFocusPresentation?.plan || (shot?.echo ? shot : null);
@@ -231,6 +245,7 @@ const server = http.createServer((req, res) => {
       });
       for (const [stage, index, flat] of [
         [50, 0, false],
+        [70, 0, false],
         [100, 6, true],
       ]) {
         const before = await page.evaluate(
@@ -302,6 +317,7 @@ const server = http.createServer((req, res) => {
               bottom: v.y + (u.y + 24) * v.scale,
             })),
             ratio: v.scale / renderer.normalView.scale,
+            labels: [...presentationLabels],
           };
         });
         assert.equal(reveal.phase, "cpuTeleport");
@@ -330,6 +346,22 @@ const server = http.createServer((req, res) => {
             Math.abs(reveal.ratio - 1) < 1e-7,
             "reduced motion avoids the creation camera move",
           );
+        if (stage === 70) {
+          const echo = reveal.labels.find((p) => /残像|ECHO/.test(p.label)),
+            armor = reveal.labels.filter((p) =>
+              /^あと\d発$|^\d LEFT$/.test(p.label),
+            );
+          assert(
+            echo && armor.length > 0,
+            "main armor counters and echo identity are both visible",
+          );
+          for (const a of armor)
+            assert(
+              Math.abs(echo.x - a.x) > (echo.width + a.width) / 2 ||
+                Math.abs(echo.y - a.y) > (echo.height + a.height) / 2,
+              "echo identity does not overlap main armor counters",
+            );
+        }
         await page.screenshot({
           path: path.join(
             out,
