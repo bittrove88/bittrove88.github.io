@@ -262,7 +262,8 @@ function create(canvas,configuration={}){
    const align=high?(high.x>w/2?'left':'right'):'center',battle=document.getElementById('battle');if(battle.dataset.hudAlign!==align)battle.dataset.hudAlign=align;
   }
 
-  const shake=options.impact&&!options.reducedMotion?Math.max(0,1-options.impact.age*5)*5:0,shakeX=Math.sin(time*80)*shake;
+  const beamEvent=shot?.weaponId==='E_FINAL_4'?shot.events.find(e=>e.type==='final-beam'):null,beamAge=beamEvent?flight-beamEvent.t:-1,beamKick=!options.reducedMotion&&beamAge>=0&&beamAge<.14?Math.sin(beamAge*145)*4.5*(1-beamAge/.14):0;
+  const shake=options.impact&&!options.reducedMotion?Math.max(0,1-options.impact.age*5)*5:0,shakeX=Math.sin(time*80)*shake+beamKick;
   ctx.save();ctx.translate(view.x+shakeX,view.y);ctx.scale(scale,scale);
   // Continue only exterior soil beyond the world edge. Interior island gaps and
   // the collision polygons remain unchanged when the camera leaves a margin.
