@@ -34,6 +34,11 @@ for(const id of removed) {
 same(L.describe('W'),L.describe('reflection'),'manual W reuses the canonical reflection lesson');
 ok(L.seen('reflection',{seenPreviewIds:['v5:W']}),'historical manual acknowledgement suppresses a duplicate reflection lesson');
 ok(P.create(E.campaign(6),'W')?.proof.valid,'manual reflection playback remains available');
+for (const id of L.ids.filter(id=>/^W\d\d$|^S_/.test(id)||E.skills.includes(id))) {
+  const state=E.campaign(10), before=JSON.stringify(state);
+  ok(P.create(state,id)?.proof.valid,`selected equipment keeps its real example: ${id}`);
+  same(JSON.stringify(state),before,`selected equipment preview cannot spend stock: ${id}`);
+}
 const old={...Save.decode(null),cleared:19,journeyStarted:true,difficultyConfirmed:true,seenPreviewIds:['v5:controls','v5:aim','v5:pickup','v5:wall-fall','v5:W','v6:special-charge','v7:touch-controls','v7:character-change'],campaignInventory:{weapons:{W02:3},skills:{S_REPAIR:2}},pickupLedger:['L004:SK004']};
 const restored=Save.decode(JSON.stringify(old));
 same(restored.seenPreviewIds,old.seenPreviewIds,'removed lesson keys remain readable without replaying onboarding');

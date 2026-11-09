@@ -43,10 +43,11 @@ const server = http.createServer((req, res) => {
     args: ["--no-sandbox"],
   });
   try {
-    for (const [width, height, fallback, reduce] of [
+    for (const [width, height, fallback, reduce, language = "ja"] of [
       [1280, 720, false],
       [568, 320, true],
       [844, 390, false, true],
+      [568, 320, false, false, "en"],
     ]) {
       const page = await browser.newPage({
         viewport: { width, height },
@@ -55,7 +56,8 @@ const server = http.createServer((req, res) => {
       });
       page.on("pageerror", (e) => errors.push(e.stack));
       await page.addInitScript(
-        ({ seed, fallback }) => {
+        ({ seed, fallback, language }) => {
+          localStorage.setItem("arcline-language", language);
           localStorage.setItem("arcline-campaign-v1", JSON.stringify(seed));
           localStorage.setItem(
             "arcline-install-guide-v1",
@@ -65,9 +67,11 @@ const server = http.createServer((req, res) => {
         },
         {
           fallback,
+          language,
           seed: {
             schemaVersion: 8,
             campaignResetVersion: 2,
+            preferences: { language },
             cleared: 99,
             difficultyConfirmed: true,
             journeyStarted: true,
@@ -94,12 +98,28 @@ const server = http.createServer((req, res) => {
         window.bossResolved = [];
         window.echoCueLabels = [];
         window.echoCameraFrames = [];
+        window.presentationLabels = [];
         const originalText = CanvasRenderingContext2D.prototype.fillText;
         CanvasRenderingContext2D.prototype.fillText = function (
           value,
           ...args
         ) {
-          if (value === "残像" || value === "ECHO") echoCueLabels.push(value);
+          if (
+            ["残像", "ECHO", "残像が残った", "ECHO LEFT BEHIND"].includes(value)
+          )
+            echoCueLabels.push(value);
+          if (/残像|ECHO|^あと\d発$|^\d LEFT$/.test(value)) {
+            const t = this.getTransform(),
+              dpr = window.devicePixelRatio || 1,
+              font = Number(/([\d.]+)px/.exec(this.font)?.[1] || 14);
+            presentationLabels.push({
+              label: value,
+              x: (t.a * args[0] + t.e) / dpr,
+              y: (t.d * args[1] + t.f) / dpr,
+              width: (this.measureText(value).width * t.a) / dpr + 16,
+              height: (font * t.d) / dpr + 8,
+            });
+          }
           return originalText.call(this, value, ...args);
         };
         const original = E.resolve;
@@ -115,6 +135,7 @@ const server = http.createServer((req, res) => {
         window.bossStep = (seconds) => {
           for (let t = 0; t < seconds; t += 1 / 60) {
             update(Math.min(1 / 60, seconds - t));
+            presentationLabels.length = 0;
             draw();
             const plan =
               s.echoFocusPresentation?.plan || (shot?.echo ? shot : null);
@@ -224,6 +245,7 @@ const server = http.createServer((req, res) => {
       });
       for (const [stage, index, flat] of [
         [50, 0, false],
+        [70, 0, false],
         [100, 6, true],
       ]) {
         const before = await page.evaluate(
@@ -259,15 +281,99 @@ const server = http.createServer((req, res) => {
           "boss transfer uses readable presentation timing",
         );
         assert.equal(arrival.from, before.x);
+        assert(
+          arrival.labels.includes(
+            language === "en" ? "ECHO LEFT BEHIND" : "残像が残った",
+          ),
+          "arrival explicitly says an echo was left behind",
+        );
         await page.screenshot({
           path: path.join(
             out,
-            `echo-arrival-${stage}-${width}${reduce ? "-reduce" : ""}.png`,
+            `echo-arrival-${stage}-${width}${reduce ? "-reduce" : ""}-${language}.png`,
+          ),
+        });
+        const reveal = await page.evaluate(() => {
+          const before = {
+            round: s.round,
+            hp: s.units[0].hp,
+            cooldown: s.enemyTactics.cooldown,
+          };
+          bossStep(0.32);
+          const v = renderer.view;
+          return {
+            phase: s.phase,
+            canAim: canAim(),
+            before,
+            after: {
+              round: s.round,
+              hp: s.units[0].hp,
+              cooldown: s.enemyTactics.cooldown,
+            },
+            subjects: [s.bossEcho.unit, s.units[1]].map((u) => ({
+              left: v.x + (u.x - 105) * v.scale,
+              right: v.x + (u.x + 105) * v.scale,
+              top: v.y + (u.y - 150) * v.scale,
+              bottom: v.y + (u.y + 24) * v.scale,
+            })),
+            ratio: v.scale / renderer.normalView.scale,
+            labels: [...presentationLabels],
+          };
+        });
+        assert.equal(reveal.phase, "cpuTeleport");
+        assert(
+          !reveal.canAim,
+          "leave time to read the creation cue before enabling player input",
+        );
+        assert.deepEqual(
+          reveal.before,
+          reveal.after,
+          "reveal does not consume combat state",
+        );
+        if (!reduce)
+          assert(
+            reveal.subjects.every(
+              (u) =>
+                u.left >= 18 &&
+                u.right <= width - 18 &&
+                u.top >= 0 &&
+                u.bottom <= height,
+            ),
+            "reveal includes departure echo and relocated body",
+          );
+        else
+          assert(
+            Math.abs(reveal.ratio - 1) < 1e-7,
+            "reduced motion avoids the creation camera move",
+          );
+        if (stage === 70) {
+          const echo = reveal.labels.find((p) => /残像|ECHO/.test(p.label)),
+            armor = reveal.labels.filter((p) =>
+              /^あと\d発$|^\d LEFT$/.test(p.label),
+            );
+          assert(
+            echo && armor.length > 0,
+            "main armor counters and echo identity are both visible",
+          );
+          for (const a of armor)
+            assert(
+              Math.abs(echo.x - a.x) > (echo.width + a.width) / 2 ||
+                Math.abs(echo.y - a.y) > (echo.height + a.height) / 2,
+              "echo identity does not overlap main armor counters",
+            );
+        }
+        await page.screenshot({
+          path: path.join(
+            out,
+            `echo-reveal-${stage}-${width}${reduce ? "-reduce" : ""}-${language}.png`,
           ),
         });
         const waiting = await page.evaluate(() => {
           bossStep(3);
+          echoCueLabels.length = 0;
+          draw();
           return {
+            labels: [...echoCueLabels],
             turn: s.turn,
             phase: s.phase,
             echo: !!s.bossEcho,
@@ -290,6 +396,10 @@ const server = http.createServer((req, res) => {
         assert.equal(waiting.turn, 0);
         assert.equal(waiting.phase, "aim");
         assert(waiting.echo);
+        assert(
+          waiting.labels.includes(language === "en" ? "ECHO" : "残像"),
+          "an idle echo retains a readable identity after the birth cue ends",
+        );
         assert.equal(waiting.hp, before.hp);
         assert.notEqual(waiting.x, before.x);
         assert(
@@ -297,7 +407,10 @@ const server = http.createServer((req, res) => {
           "echo remains within horizontal camera bounds",
         );
         await page.screenshot({
-          path: path.join(out, `boss-${stage}-${width}.png`),
+          path: path.join(
+            out,
+            `boss-${stage}-${width}${reduce ? "-reduce" : ""}-${language}.png`,
+          ),
         });
         const paused = await page.evaluate(() => {
           const before = JSON.stringify(s);
@@ -343,7 +456,7 @@ const server = http.createServer((req, res) => {
             await page.screenshot({
               path: path.join(
                 out,
-                `echo-fire-${stage}-${width}${reduce ? "-reduce" : ""}.png`,
+                `echo-fire-${stage}-${width}${reduce ? "-reduce" : ""}-${language}.png`,
               ),
             });
             focusCaptured = true;
@@ -441,6 +554,8 @@ const server = http.createServer((req, res) => {
           height,
           fallback,
           reduce,
+          language,
+          reveal,
           arrival,
           waiting,
           result,

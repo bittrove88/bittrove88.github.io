@@ -334,7 +334,7 @@ function update(dt,realDt=dt){
  }else if(s.phase==='cpuTeleport'){
   const transfer=s.enemyTeleport;transfer.age+=dt;
   if(!transfer.landed&&transfer.age>=transfer.plan.duration){s.phase='cpu';if(!E.commitEnemyAction(s,transfer.action)){delete s.enemyTeleport;requestCPU();hud();return;}s.phase='cpuTeleport';transfer.landed=true;tone(580,.3,'sine',.15);}
-  if(transfer.age>=transfer.plan.duration+.55){delete s.enemyTeleport;advanceTurn();}
+  if(transfer.age>=transfer.plan.duration+(s.bossEcho?ArcChargeCamera.echoPresentation.settle:.55)){delete s.enemyTeleport;advanceTurn();}
  }else if(s.phase==='cpuMove'){
   s.cpuMoveTime+=dt;const ratio=Math.min(1,s.cpuMoveTime/s.cpuMoveDuration),x=s.cpuStart+(s.cpuTarget-s.cpuStart)*ratio;E.move(s,1,x-s.units[1].x);
   if(ratio>=1){const plan=cpuReady.plan;cpuJob=null;cpuReady=null;launch(plan);}
@@ -454,7 +454,7 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Escape'){if(!$('skillPicker').hidden){$('closeSkills').click();return;}if(!$('weaponPicker').hidden){$('closeWeapons').click();return;}if(!$('collectionPanel').hidden){$('closeCollection').click();return;}if(!$('levelPicker').hidden){$('levelPicker').hidden=true;return;}if(demo&&$('overlay').hidden)return;if(!$('overlay').hidden){if(dialog==='chapter')$('returnLobby').click();else if(dialog==='result')$('returnLobby').click();else if(dialog==='confirm'||dialog==='retry')pause();else $('resume').click();}else pause();return;}
  input.keydown(e);
 });
-mapCamera=ArcMapCamera.create({state:()=>s,allowed:()=>!charge&&(canAim()||!!demo?.guide&&demo.guide.kind==='map'),available:()=>!hostPaused()&&!manualPaused,clearInput,changed:()=>{previous=0;hud();},draw,resetCamera:()=>renderer.resetCamera()});
+mapCamera=ArcMapCamera.create({state:()=>s,allowed:()=>!hostPaused()&&!manualPaused&&!charge&&(canAim()||!!demo?.guide&&demo.guide.kind==='map'),available:()=>!hostPaused()&&!manualPaused,clearInput,changed:()=>{previous=0;hud();},draw,resetCamera:()=>renderer.resetCamera()});
 // The UI owns presentation and inspection gestures; combat and persistence stay native.
 ArcBattleUi.install({
  state:()=>s,charge:()=>charge,demo:()=>demo,paused:()=>manualPaused,

@@ -25,7 +25,7 @@ async function reachable(p,selector){const r=await p.locator(selector).evaluate(
  try{
   for(const [width,height,language] of [[844,390,'ja'],[568,240,'ja'],[568,240,'en'],[1280,800,'en']]){
    const context=await browser.newContext({viewport:{width,height},hasTouch:true,reducedMotion:'reduce'});
-   await context.addInitScript(data=>{localStorage.setItem('arcline-install-guide-v1',JSON.stringify({state:'closed'}));localStorage.setItem('arcline-campaign-v1',JSON.stringify(data));},profile(language));
+   await context.addInitScript(data=>{localStorage.setItem('arcline-install-guide-v1',JSON.stringify({state:'closed'}));if(!localStorage.getItem('arcline-campaign-v1'))localStorage.setItem('arcline-campaign-v1',JSON.stringify(data));},profile(language));
    const p=await context.newPage();p.on('pageerror',e=>errors.push(String(e)));await p.goto(url);await p.waitForFunction('save.ready&&!document.getElementById("play").disabled');
    await enter(p,1,[]);same(await p.evaluate('demo.seenId'),'controls','first level still teaches firing');
    await p.evaluate(()=>globalThis.firstTutorialPanel=document.getElementById('tutorial'));
@@ -41,7 +41,11 @@ async function reachable(p,selector){const r=await p.locator(selector).evaluate(
    await p.locator('#previewOK').click();same(await p.evaluate('demo.guide.kind'),'map','map follows aim in the same flow');
    ok(await p.locator('#battleCoach').isHidden(),'no second controls modal');
    ok(await p.evaluate('!save.data.seenPreviewIds.includes("v7:touch-controls")'),'opening the map guide does not mark it read');
+   await p.evaluate('save.pending');await p.reload();await p.waitForFunction('save.ready&&!document.getElementById("play").disabled');await p.locator('#play').click();
+   same(await p.evaluate('demo.guide.kind'),'map','an interrupted map guide resumes after a real save/reload');
+   same(await p.evaluate('demo.seenId'),'guide','the completed aiming example is not replayed on resume');
    const mapBefore=await resources(p);await reachable(p,'#previewOK');
+   await p.evaluate(()=>{pauseHost('tutorial-precheck');mapCamera.open();});ok(await p.evaluate('!mapCamera.active'),'host pause also blocks opening a map from the guide');await p.evaluate(()=>resumeHost('tutorial-precheck'));
    // The guide may scroll at 240px height; its action remains keyboard/touch accessible.
    await p.locator('#tutorialOpenMap').scrollIntoViewIfNeeded();await reachable(p,'#tutorialOpenMap');await p.locator('#tutorialOpenMap').click();
    ok(await p.evaluate('mapCamera.active&&!canAim()'),'the actual map opens from the guide while battle input stays blocked');
