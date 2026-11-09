@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "mode": "planned",
+  "change": "ダメージを累積数字へ簡略化し、ヒバリ光輪の露出した輪郭・進行する円周・部位破壊後の残り威力を修正（0.29.6）",
+  "reason": "ユーザー動画の10面・48度・表示61％で、部位5.1/12/2.9の後に未使用9.1を捨てて本体HP200が残る問題を再現。修正後190.9となること、各光輪12と全体上限、部分／完全遮蔽、描画半径、単一累積数字、部位数字の抑制、30/120fpsのHP、本編Workerから次の操作への復帰を確認する。",
+  "files": [
+    "ARCLINE/AGENTS.md",
+    "ARCLINE/README.md",
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/damage-display-0296-scope.json",
+    "ARCLINE/design/attacks/definitions.json",
+    "ARCLINE/design/expedition_013/STAGES_JA.md",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/docs/releases/0.29.6.md",
+    "ARCLINE/evidence/damage-display-0296/BATTLE_TURN_CONTINUITY.json",
+    "ARCLINE/evidence/damage-display-0296/BUNDLE_CHECK.json",
+    "ARCLINE/evidence/damage-display-0296/CHECK_PLAN.json",
+    "ARCLINE/evidence/damage-display-0296/CHECK_PLAN_RUN.json",
+    "ARCLINE/evidence/damage-display-0296/DAMAGE_SYNC_BROWSER.json",
+    "ARCLINE/evidence/damage-display-0296/GENERATED.json",
+    "ARCLINE/evidence/damage-display-0296/HIBARI_RING.json",
+    "ARCLINE/evidence/damage-display-0296/PLAN.md",
+    "ARCLINE/evidence/damage-display-0296/PRESERVATION.json",
+    "ARCLINE/evidence/damage-display-0296/README.md",
+    "ARCLINE/evidence/damage-display-0296/SUITE_BROWSER.json",
+    "ARCLINE/evidence/damage-display-0296/SUITE_UNIT.json",
+    "ARCLINE/evidence/damage-display-0296/VALIDATION.json",
+    "ARCLINE/evidence/damage-display-0296/damage-hibari-1200.png",
+    "ARCLINE/evidence/damage-display-0296/damage-hibari-844.png",
+    "ARCLINE/evidence/damage-display-0296/damage-hibari-boss-1200.png",
+    "ARCLINE/evidence/damage-display-0296/damage-hibari-boss-844.png",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/attack-catalog.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/effects.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/tests/damage-display-preservation.cjs",
+    "ARCLINE/game/tests/damage-sync-browser.test.cjs",
+    "ARCLINE/game/tests/damage-sync-preservation.cjs",
+    "ARCLINE/game/tests/damage-sync.test.cjs",
+    "ARCLINE/game/tests/hibari-ring.test.cjs",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tools/build_playables.py",
+    "ARCLINE/index.html",
+    "ARCLINE/site/gameplay-captures.json",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.29.6/index.html",
+    "ARCLINE/verification-plan.json"
+  ],
+  "suites": {
+    "unit": [
+      "hibari-ring",
+      "damage-sync",
+      "special-damage",
+      "special-targeting",
+      "special-evolution",
+      "attack-motion",
+      "three-change",
+      "combat-sfx-0190",
+      "promo-experience"
+    ],
+    "browser": [
+      "damage-sync-browser",
+      "attack-review-browser",
+      "battle-turn-continuity-browser",
+      "../site-tests/service-site"
+    ],
+    "input": [],
+    "visual": [],
+    "delivery": []
+  },
+  "checks": {
+    "generated": true,
+    "baseline": false,
+    "package": true,
+    "python": true,
+    "nativeAudio": false
+  },
+  "manual": [
+    "英字・MAX・命中数がない累積数字と、2枚の明るい円周をPC／スマホ画像で確認する",
+    "元動画と切り出したフレームは公開リポジトリへ含めない",
+    "HP・地形・敵AI・移動・保存・既存の威力／上限パラメータが変わらないことを差分で確認する",
+    "mainマージ・公開・物理端末の確認は別工程として記録する"
+  ],
+  "excluded": [
+    {
+      "scope": "全100面の再攻略、無関係なAI・物語・マスター設定・音声デコード・エンディング",
+      "reason": "変更はヒバリの拡大する輪と攻撃の説明／数字表示に限定。従来成功の無関係な検査は再利用し、音声の実再生を含むpromo-experience-browserは選択しない。"
+    }
+  ],
+  "suiteCount": 13,
+  "needsBrowser": true,
+  "needsPython": true,
+  "base": "415e7bc9cb28ee591abd80063ce4eab18da07607"
+}

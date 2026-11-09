@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "change": "攻撃の命中演出・HP・ダメージ計算を同期し、先行PR130・131・132を保持して0.29.5へ統合",
-  "reason": "初回GitHub CI（run42536920963、head197a4ff）で単体14・ブラウザ6スイートが成功。ゲーム・サイト・テストのソースを変更しないため、この20スイートの成功は再利用する。失敗したpromo-experience-browserは勝利BGMの実AAC再生も含むためnativeAudioを有効にしてブラウザを選び直す。失敗で未実行だった生成物一致・ZIP作成も確認する。",
+  "change": "ダメージを累積数字へ簡略化し、ヒバリ光輪の露出した輪郭・進行する円周・部位破壊後の残り威力を修正（0.29.6）",
+  "reason": "ユーザー動画の10面・48度・表示61％で、部位5.1/12/2.9の後に未使用9.1を捨てて本体HP200が残る問題を再現。修正後190.9となること、各光輪12と全体上限、部分／完全遮蔽、描画半径、単一累積数字、部位数字の抑制、30/120fpsのHP、本編Workerから次の操作への復帰を確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
-    "ARCLINE/design/attacks/damage-sync-0293-scope.json",
+    "ARCLINE/design/attacks/damage-display-0296-scope.json",
     "ARCLINE/design/attacks/definitions.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
@@ -13,46 +13,42 @@
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
     "ARCLINE/game/dist/attack-catalog.js",
-    "ARCLINE/game/dist/battle-catalog.js",
     "ARCLINE/game/dist/cpu-worker.js",
     "ARCLINE/game/dist/effects.js",
-    "ARCLINE/game/dist/engine.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/lessons.js",
     "ARCLINE/game/dist/physics.js",
-    "ARCLINE/game/dist/preview.js",
     "ARCLINE/game/dist/release-info.js",
     "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/dist/sfx-manager.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/src/lessons-runtime.js",
-    "ARCLINE/game/tests/approved-map-replay.test.cjs",
-    "ARCLINE/game/tests/charge-camera.test.cjs",
-    "ARCLINE/game/tests/combat-sfx-0190.test.cjs",
+    "ARCLINE/game/tests/damage-display-preservation.cjs",
     "ARCLINE/game/tests/damage-sync-browser.test.cjs",
     "ARCLINE/game/tests/damage-sync-preservation.cjs",
     "ARCLINE/game/tests/damage-sync.test.cjs",
-    "ARCLINE/game/tests/machine-combat.test.cjs",
-    "ARCLINE/game/tests/recruit-ai-preservation.cjs",
-    "ARCLINE/game/tests/recruit-enemy.test.cjs",
-    "ARCLINE/game/tests/reported-fixes.test.cjs",
-    "ARCLINE/game/tests/special-damage.test.cjs",
-    "ARCLINE/game/tests/special-evolution.test.cjs",
-    "ARCLINE/game/tests/special-targeting.test.cjs",
+    "ARCLINE/game/tests/hibari-ring.test.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tests/three-change.test.cjs",
     "ARCLINE/game/tools/build_playables.py",
-    "ARCLINE/game/tools/generation.py",
-    "ARCLINE/game/ui/battle-catalog.js",
-    "ARCLINE/game/ui/sfx-manager.js",
     "ARCLINE/index.html",
     "ARCLINE/site/gameplay-captures.json",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.29.5/index.html"
+    "ARCLINE/updates/0.29.6/index.html"
   ],
   "suites": {
+    "unit": [
+      "hibari-ring",
+      "damage-sync",
+      "special-damage",
+      "special-targeting",
+      "special-evolution",
+      "attack-motion",
+      "three-change",
+      "combat-sfx-0190",
+      "promo-experience"
+    ],
     "browser": [
-      "promo-experience-browser"
+      "damage-sync-browser",
+      "attack-review-browser",
+      "battle-turn-continuity-browser",
+      "../site-tests/service-site"
     ]
   },
   "checks": {
@@ -60,21 +56,18 @@
     "baseline": false,
     "package": true,
     "python": true,
-    "nativeAudio": true
+    "nativeAudio": false
   },
   "manual": [
-    "先行main1c1b13bの物語・在庫設定・運用ツールを保持したことをGit差分で照合する",
-    "mainへのマージ・本番配信・物理スマホの確認はこのローカル統合検証に含めない",
-    "初回CI成功時head197a4ffからゲーム・サイト・テストのソースが不変であることをGit差分で確認する"
+    "英字・MAX・命中数がない累積数字と、2枚の明るい円周をPC／スマホ画像で確認する",
+    "元動画と切り出したフレームは公開リポジトリへ含めない",
+    "HP・地形・敵AI・移動・保存・既存の威力／上限パラメータが変わらないことを差分で確認する",
+    "mainマージ・公開・物理端末の確認は別工程として記録する"
   ],
   "excluded": [
     {
-      "scope": "無関係な音声・エンディング・全画面比較・全100面の再攻略",
-      "reason": "先行マージとの共有変更は版番号・生成物・物語保護検査。先行統合前の45単体／42ブラウザ・161対戦などの成功記録を再利用し、追加影響のない成功済み検査を繰り返さない。"
-    },
-    {
-      "scope": "初回CIで成功した単体14・ブラウザ6スイート",
-      "reason": "同一のゲーム・サイト・テストのソースで成功済み。変更は検証計画と記録のみ。CI_INITIAL.jsonにrun・head・全成功結果を記録する。"
+      "scope": "全100面の再攻略、無関係なAI・物語・マスター設定・音声デコード・エンディング",
+      "reason": "変更はヒバリの拡大する輪と攻撃の説明／数字表示に限定。従来成功の無関係な検査は再利用し、音声の実再生を含むpromo-experience-browserは選択しない。"
     }
   ]
 }

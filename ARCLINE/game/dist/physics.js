@@ -97,7 +97,7 @@ function simulate(s,side,angle,power,options={}){
  function multiplier(hit){return hit.kind==='weak'?(units[hit.unit].core?.multiplier||2):hit.critical?(weapon.criticalMultiplier??1.5):1;}
  // Intersect the growing effect with the actual body/part/core shapes, rather
  // than requiring the effect to reach a single arbitrary chassis center.
- function areaContact(p,j,radius,kind='ring'){
+ function areaContact(p,j,radius,kind='ring',innerRadius=0){
   const u=units[j],boss=j===1&&(s.spec.boss||s.spec.midboss),targets=[];
   if(boss){
    const parts=G.actorParts(simState,j),core=u.core||{x:0,y:-77,radius:26,exposedRadius:38},exposed=u.exposed>0||s.spec.id===100&&s.bossPhase===2,broken=parts.some(q=>q.hp<=0);
@@ -107,6 +107,21 @@ function simulate(s,side,angle,power,options={}){
   }else targets.push({...bodyCenter(simState,j),rx:weapon.needle?25:31,ry:weapon.needle?25:31,kind:'body'});
   const hits=[],axis=(origin.dir||1)<0?Math.PI:0,half=(weapon.coneAngle||28)*Math.PI/180;
   for(const q of targets){
+   // A circular wave can touch any exposed arc of the target. Sweep only the
+   // newly drawn front, so later terrain/armor changes cannot hit its old interior.
+   if(p.effect==='area'&&kind==='ring'){
+    const theta=Math.atan2(q.y-p.y,q.x-p.x),distanceToCenter=Math.hypot(q.x-p.x,q.y-p.y),span=distanceToCenter<=Math.max(q.rx,q.ry)?Math.PI:Math.asin(Math.min(1,Math.max(q.rx,q.ry)/distanceToCenter)),slope=q.slope||0,c=Math.cos(slope),sn=Math.sin(slope);
+    for(const fraction of [0,-.2,.2,-.4,.4,-.6,.6,-.8,.8,-.98,.98]){
+     const angle=theta+fraction*span,dx=Math.cos(angle),dy=Math.sin(angle),x=((p.x-q.x)*c+(p.y-q.y)*sn)/q.rx,y=(-(p.x-q.x)*sn+(p.y-q.y)*c)/q.ry,vx=(dx*c+dy*sn)/q.rx,vy=(-dx*sn+dy*c)/q.ry,A=vx*vx+vy*vy,B=2*(x*vx+y*vy),D=B*B-4*A*(x*x+y*y-1);
+     if(D<0)continue;const entry=Math.max(0,(-B-Math.sqrt(D))/(2*A)),exit=(-B+Math.sqrt(D))/(2*A),distance=Math.max(entry,innerRadius);
+     if(exit<distance-1e-7||distance>radius+1e-7)continue;
+     const point={x:p.x+dx*distance,y:p.y+dy*distance};if(!clearTo({x:p.x,y:p.y-2},point))continue;
+     const blocked=boss?hitTargets(simState,side,p,point,1,weapon):null;
+     if(blocked?.kind==='part'&&(q.kind!=='part'||blocked.part!==q.part)&&blocked.t<1-1e-6)continue;
+     hits.push({...q,unit:j,distance,point});
+    }
+    continue;
+   }
    const theta=Math.atan2(q.y-p.y,q.x-p.x),delta=Math.atan2(Math.sin(theta-axis),Math.cos(theta-axis)),a=kind==='cone'?axis+G.clamp(delta,-half,half):theta;
    const reach=Math.max(1,Math.hypot(q.x-p.x,q.y-p.y)+Math.max(q.rx,q.ry)*2),end={x:p.x+Math.cos(a)*reach,y:p.y+Math.sin(a)*reach},slope=q.slope||0;
    const local=v=>({x:((v.x-q.x)*Math.cos(slope)+(v.y-q.y)*Math.sin(slope))/q.rx,y:(-(v.x-q.x)*Math.sin(slope)+(v.y-q.y)*Math.cos(slope))/q.ry});
@@ -185,9 +200,19 @@ function simulate(s,side,angle,power,options={}){
    if(!p.announced){p.announced=true;events.push({type:p.areaKind==='ring'?'ring':'shockwave',x:p.x,y:p.y,t:p.start,duration:p.areaDuration,radius:p.areaRadius,length:p.areaRadius,halfAngle:weapon.coneAngle||28,direction:origin.dir||1,bullet:p.id,ringIndex:p.ringIndex});}
    if(timed){
     for(let j=0;j<2;j++)if(!p.areaSeen.has(j)){
-     const hit=areaContact(p,j,radius,p.areaKind);
-     if(hit){p.areaSeen.add(j);credit(p,hit,p.budget*multiplier(hit),p.areaKind);}
+     const hit=areaContact(p,j,radius,p.areaKind,p.areaPreviousRadius||0);
+     if(hit){
+      const budget=p.areaBudgets?.[j]??p.budget,m=multiplier(hit),amount=credit(p,hit,budget*m,p.areaKind);
+      // Breaking a part spends only its remaining HP. The same ring carries
+      // its unused energy onward, while intact armor consumes the whole wave.
+      if(p.areaKind==='ring'&&hit.kind==='part'&&units[j].parts[hit.part].hp<=0){
+       const remaining=Math.max(0,budget-amount/(m*(j===1?boost:1)));p.areaBudgets=p.areaBudgets||{};p.areaBudgets[j]=remaining;
+       if(remaining>1e-10)continue;
+      }
+      p.areaSeen.add(j);
+     }
     }
+    p.areaPreviousRadius=radius;
     if(age<p.areaDuration-1e-8){p.t=Math.min(p.start+p.areaDuration,p.t+DT);queue.push(p);}continue;
    }
    const reached=point=>{const dx=point.x-p.x,dy=point.y-p.y,d=Math.hypot(dx,dy);return d<=radius+12&&(p.areaKind!=='cone'||dx*(origin.dir||1)>=0&&Math.abs(Math.atan2(dy,Math.abs(dx)))<=(weapon.coneAngle||28)*Math.PI/180)&&clearTo({x:p.x,y:p.y-2},point);};
