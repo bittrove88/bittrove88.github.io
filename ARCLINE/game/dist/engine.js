@@ -367,7 +367,7 @@ function enemyParameters(s){
  return {stageError,modeError,angle:(guardian(s)?Math.max(6,12-profile):foe.errorAngle)*stageError*modeError,power:(guardian(s)?Math.max(12,22-profile*2):foe.errorPower)*stageError*modeError,damage:stage>80?1.10:stage>60?1.05:1};
 }
 function cpuPlan(s,random=s.random){
- s.units[1].facing=s.units[0].x>=s.units[1].x?1:-1;
+ const facingTarget=['E_FINAL_3','E_FINAL_4'].includes(s.telegraph?.technique)?s.telegraph.targetX:s.units[0].x;s.units[1].facing=facingTarget>=s.units[1].x?1:-1;
  if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
  const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
  const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};

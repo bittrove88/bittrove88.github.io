@@ -25,7 +25,19 @@ function finalWarning(s){
 }
 function fixedAim(s,solve){
  const id=s.telegraph?.technique;if(id==='E_FINAL_2')return {angle:65,power:75,score:1};if(id==='E_FINAL_4')return {angle:0,power:100,score:1};
- if(id==='E_FINAL_3'&&solve){const t=s.telegraph,targetPoint={x:t.targetX,y:t.targetY},aimed={...s,units:s.units.map((u,i)=>i?u:{...u,slope:t.targetSlope??0,facing:t.targetFacing??u.facing,hp:t.targetHp??u.hp})},high=solve(aimed,1,{weaponId:id,minAngle:55,maxAngle:74,targetPoint}),low=solve(aimed,1,{weaponId:id,minAngle:-8,maxAngle:54,targetPoint}),best=high.score>0&&high.score>=low.score-.05?high:low;return {...best,frozenAim:true};}
+ if(id==='E_FINAL_3'&&solve){
+  const t=s.telegraph,targetPoint={x:t.targetX,y:t.targetY},aimed={...s,units:s.units.map((u,i)=>i?u:{...u,x:t.targetX,y:t.targetY+22,slope:t.targetSlope??0,facing:t.targetFacing??u.facing,hp:t.targetHp??u.hp})},high=solve(aimed,1,{weaponId:id,minAngle:55,maxAngle:74,targetPoint}),low=solve(aimed,1,{weaponId:id,minAngle:-8,maxAngle:54,targetPoint});
+  let best=high.score>0&&high.score>=low.score-.05?high:low;
+  // A roof can leave a valid low route between coarse angle/power samples.
+  // Refine only a missed low candidate, without tracking a later player pose.
+  if(best.score<=0){const probe={...aimed,skillEffects:{...aimed.skillEffects,barrier:undefined,weaken:undefined,invincible:undefined}};
+   for(let a=Math.max(-8,low.angle-6);a<=Math.min(54,low.angle+6);a++)for(let power=Math.max(20,low.power-10);power<=Math.min(100,low.power+10);power++){
+    const shot=P.simulate(probe,1,a,power,{weaponId:id,targetPoint}),score=shot.damage[0]-shot.damage[1]*2-Math.min(2000,Math.hypot(shot.end.x-targetPoint.x,shot.end.y-targetPoint.y))*.00001;
+    if(score>best.score)best={angle:a,power,score};
+   }
+  }
+  return {...best,frozenAim:true};
+ }
  return null;
 }
 function highLaunch(s,target,weapon){

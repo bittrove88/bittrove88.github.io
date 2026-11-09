@@ -1,49 +1,53 @@
 {
   "version": 1,
-  "change": "0.30.4: 失敗時の武器・スキル復元と上位難易度クリアの下位反映",
-  "reason": "ユーザーが2点の方針を最終合意し「マージ直前まで」と指示。消費は勝利時に確定し、再挑戦在庫と取得台帳を一緒に保存。Hard→Normal/Easy、Normal→Easyを勝利と既存セーブの初回移行で反映。実エンジン消費・取得・勝敗・保存境界、既存在庫、モード切替・保存失敗、100面の既存再挑戦を限定確認。",
+  "change": "0.30.5: ラスボス固有技の命中と螺旋レーザーを仕上げる",
+  "reason": "具体的な設計・動画と射線全体判定の提示後、ユーザー「進めて」を受領。星環砲の単発増加と合計32、重界砲の固定放物線、終極砲の一手前予告・射線全体38・0.5秒集光＋0.3秒到達を検証。到達HP・防御・再挑戦、Worker／非Workerと共有確認画面、既存のリコと自傷・時計、先行mainの保護を選択する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
+    "ARCLINE/design/attacks/definitions.json",
+    "ARCLINE/design/attacks/final-projectiles-0305-scope.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/campaign-run.js",
+    "ARCLINE/game/dist/attack-catalog.js",
+    "ARCLINE/game/dist/attack-motion.js",
+    "ARCLINE/game/dist/attack-review-model.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/difficulty-ui.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/i18n.js",
+    "ARCLINE/game/dist/effects.js",
+    "ARCLINE/game/dist/enemy-attacks.js",
+    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/final-team.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/menus.js",
+    "ARCLINE/game/dist/physics.js",
     "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/save.js",
+    "ARCLINE/game/dist/render.js",
+    "ARCLINE/game/dist/sfx-manager.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/charge-pause.test.cjs",
-    "ARCLINE/game/tests/difficulty-balance.test.cjs",
-    "ARCLINE/game/tests/difficulty-browser.test.cjs",
-    "ARCLINE/game/tests/final-retry-browser.test.cjs",
-    "ARCLINE/game/tests/retry-progress-browser.test.cjs",
-    "ARCLINE/game/tests/retry-progress.test.cjs",
+    "ARCLINE/game/tests/final-projectiles-browser.test.cjs",
+    "ARCLINE/game/tests/final-projectiles-preservation.cjs",
+    "ARCLINE/game/tests/final-projectiles.test.cjs",
+    "ARCLINE/game/tests/rico-direction-preservation.cjs",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/ui/difficulty-ui.js",
+    "ARCLINE/game/ui/sfx-manager.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.4/index.html"
+    "ARCLINE/updates/0.30.5/index.html"
   ],
   "suites": {
     "unit": [
-      "retry-progress",
-      "chapter-stock",
-      "difficulty-balance",
-      "crew-supply"
+      "final-projectiles",
+      "final-attacks",
+      "rico-direction",
+      "special-self-damage",
+      "attack-motion",
+      "map-atlas"
     ],
     "browser": [
-      "retry-progress-browser",
-      "difficulty-browser",
-      "final-retry-browser",
-      "charge-pause"
+      "final-projectiles-browser",
+      "final-retry-browser"
     ]
   },
   "checks": {
@@ -54,16 +58,22 @@
     "nativeAudio": false
   },
   "manual": [
-    "PC/小画面の失敗結果と難易度切替を確認。合意済みの2点を実装・検証・PR化し、マージと公開はしない。"
+    "既存の螺旋形状を保持した通常速度動画とPC／小画面の実描画を確認。事前確認はソースと条件を限定して再利用。",
+    "Normal/Hard seed4697の最終戦を現行エンジンの合法操作で各1回完走。10機の担当量、20行動上限、実反撃とHPを記録し、最適化照準による限定条件と明示する。",
+    "PRを作成し対象コミットのCIを確認する。マージと本番配信は別工程。"
   ],
   "excluded": [
     {
-      "scope": "全100面攻略、全攻撃・音源・原画・エンディング",
-      "reason": "変更は進行・在庫保存と関連文言。攻撃、物理、AI、地形、素材は変更しない。"
+      "scope": "全100面の再攻略・無関係な音源・原画・エンディング",
+      "reason": "変更は100面の3固有技と同期・復元境界。地形・HP・自機攻撃・保存はバイト保護。音源の追加・変更なし。"
     },
     {
-      "scope": "物理iPhone/Android、本番URLの変更確認",
-      "reason": "実機は未接続。本番はマージしない。"
+      "scope": "物理iPhone／Android、音声の実再生、本番公開URLの変更確認",
+      "reason": "実機は未接続。効果音はイベント時刻を検証し、素材の再デコードはしない。本番は未マージ。"
+    },
+    {
+      "scope": "旧バランス時の全件再現リプレイ",
+      "reason": "敵の攻撃変更があるため旧入力列の勝敗を現行必須結果として使わない。"
     }
   ]
 }
