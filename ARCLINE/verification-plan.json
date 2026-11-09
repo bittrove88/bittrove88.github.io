@@ -1,29 +1,8 @@
 {
   "version": 1,
-  "change": "0.31.5 転移直後と待機中の残像を識別できる表示",
-  "reason": "ユーザーの「マージ」を受領し、新しい出現表示・画角・時間を合意済みとして実行する計画。残像の細部・常設表示・出現時の2地点の画角と復帰、発砲時フォーカス、既存の充電カメラ、通常敵の移動と共有生成物を確認する。 PR152統合後の共有描画で装甲カウンターとガード表示を保持するため、armor-break-browserも含める。",
-  "files": [
-    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
-    "ARCLINE/characters/index.html",
-    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
-    "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/game/attack-review/index.html",
-    "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/charge-camera.js",
-    "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/boss-motion-browser.test.cjs",
-    "ARCLINE/game/tests/echo-presentation.test.cjs",
-    "ARCLINE/game/ui/charge-camera.js",
-    "ARCLINE/index.html",
-    "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.5/index.html"
-  ],
+  "change": "0.31.5 GitHub内部エラー後の検証・公開処理の再起動",
+  "reason": "PR153の6スイートと生成155ファイルは成功済み。最初のmain CIとPagesはジョブ作成前のGitHub内部エラーで失敗し、同実行の再試行は拒否された。ゲーム本体を変えずにリリース記録・計画を更新し、未完了のmain検証と配信を同じ6スイートで再実行する。",
+  "files": [],
   "suites": {
     "unit": [
       "echo-presentation",
@@ -45,7 +24,7 @@
   },
   "manual": [
     "転移直後と待機中の残像を568px幅の日英、PC、動きを減らす設定で実描画確認。スクリーンショットと事前確認条件を照合して再利用する。",
-    "ユーザーのマージ指示に基づき選択CIを実行し、成功後は対象コミットをマージ。main CI・配信・公開版を別途確認する。"
+    "最初のmain CIとPagesのGitHub内部エラーからの再起動を確認。対象コミットのmain CI・Pages・公開0.31.5と実際の残像表示を確認し、PR153へ結果を記録する。"
   ],
   "excluded": [
     {
