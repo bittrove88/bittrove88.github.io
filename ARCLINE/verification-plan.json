@@ -1,75 +1,28 @@
 {
   "version": 1,
-  "change": "テーマ共通HP・行動上限とEasyの75%・上限80、最終戦各HP100／担当150（Easy80）／20行動を反映",
-  "reason": "全100面の設定と戦闘開始、部位再生成、最終戦・再挑戦を変更する。全300初期化と地形・保存の保護、選定した実入力の再生、実際のWorker手番と日英表示・再挑戦、全生成物の一致を検査する。技・物理・AI・原画・音源は変更しない。 先行PR132〜134を統合し、保護ソースはmain799287eと比較する。命中計上が変わった実入力15件と最終戦到着30件を取り直し、ヒバリ部位破壊後の残り威力も検査する。",
+  "change": "最終合意前は制作改善の事前確認にとどめ、Draft PRではARCLINEのCIテストジョブを起動しない",
+  "reason": "2つのARCLINEワークフローの起動条件と運用文書だけを変更する。YAML構文と実際のジョブ条件式をローカルで事前確認し、最終合意後にDraftでのスキップとReadyでの起動を確認する。候補計画の保存だけでは本検証・CI起動を許可しない。staging safetyは独立したワークフローとして確認する。",
   "files": [
-    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
-    "ARCLINE/characters/index.html",
-    "ARCLINE/design/combat_balance.json",
-    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
-    "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/design/expedition_013/stage_design.json",
-    "ARCLINE/design/runtime_campaign_20x5.json",
-    "ARCLINE/game/attack-review/index.html",
-    "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/difficulty-ui.js",
-    "ARCLINE/game/dist/encounters.js",
-    "ARCLINE/game/dist/engine.js",
-    "ARCLINE/game/dist/game.js",
-    "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/levels.js",
-    "ARCLINE/game/dist/machine-picker.js",
-    "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/hibari-ring.test.cjs",
-    "ARCLINE/game/tests/hp-action-balance-browser.test.cjs",
-    "ARCLINE/game/tests/hp-action-balance.test.cjs",
-    "ARCLINE/game/tests/hp-action-native.test.cjs",
-    "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/balance.py",
-    "ARCLINE/game/tools/build_campaign.py",
-    "ARCLINE/game/tools/build_encounters.py",
-    "ARCLINE/game/tools/build_playables.py",
-    "ARCLINE/game/tools/build_stage_guide.py",
-    "ARCLINE/game/tools/generation.py",
-    "ARCLINE/game/ui/difficulty-ui.js",
-    "ARCLINE/game/ui/machine-picker.js",
-    "ARCLINE/index.html",
-    "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.0/index.html"
+    ".github/workflows/arcline-checks.yml"
   ],
-  "suites": {
-    "unit": [
-      "hp-action-balance",
-      "hp-action-native",
-      "hibari-ring"
-    ],
-    "browser": [
-      "hp-action-balance-browser"
-    ]
-  },
+  "suites": {},
   "checks": {
-    "generated": true,
+    "generated": false,
     "baseline": false,
     "package": false,
-    "python": true,
+    "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "統合前244条件は履歴として保持。最新mainのダメージ計上で代表15条件を再記録・独立再生する。",
-    "最終戦の各難易度10機の実到着状態から再挑戦し、担当量とHP・上限と保存を確認。",
-    "更新したゲームHTML・Markdownのローカル参照を確認。人の初見・物理端末・公開URLは対象外。"
+    "制作改善中の事前確認: 2ワークフローのYAMLを解析し、実際のジョブ条件式をDraft/Ready/Ready切替/main push/手動起動のイベント条件で照合する。",
+    "最終合意後: Draft PRでARCLINE checksとstaging safetyのテストジョブがskippedであることを確認する。スキップを本検証合格と報告しない。",
+    "最終合意後: Readyへの切替でCIが起動することと、選択計画・既存staging safetyの結果を確認する。既存staging safetyは自身のワークフロー変更に対して実行され、ゲーム全件検査は追加しない。",
+    "AGENTS・開発ガイド・更新ルール・検証運用・PRテンプレートの最終合意と事前確認の区別、および追加したリンクを確認する。"
   ],
   "excluded": [
     {
-      "scope": "既存の旧HP・旧上限を固定した歴史的な全スイート",
-      "reason": "今回許可された設定と一致しない。旧証拠は保持して履歴表示し、現在の値・全ワールド一致・新実入力・実画面を対象の検査で直接確認する。"
-    },
-    {
-      "scope": "音源・原画・攻撃演出・全機体×全マップ・配布ZIPの全件確認",
-      "reason": "これらの実装を変更しない。無関係な全件実行を追加しない。"
+      "scope": "ゲーム本体の全単体・対戦・全マップ・音声・原画・生成物・配布ZIP・実機",
+      "reason": "ゲーム実装・データ・素材・生成元を変更しない。今回変更するCIの起動条件と運用を直接確認する。"
     }
   ]
 }
