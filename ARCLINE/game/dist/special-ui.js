@@ -2,71 +2,151 @@
 (function (root) {
   "use strict";
   const key = "v6:special-charge",
-    local = (ja, en) => (root.ArcI18n.language === "en" ? en : ja);
-  const title = () => local("必殺技の使い方", "Using Special Attacks");
-  function createLesson() {
-    const screen = document.createElement("section");
-    screen.id = "specialLesson";
-    screen.className = "special-lesson";
-    screen.hidden = true;
-    screen.setAttribute("data-story-raw", "");
-    screen.setAttribute("role", "dialog");
-    screen.setAttribute("aria-modal", "true");
-    screen.setAttribute("aria-labelledby", "specialLessonTitle");
-    screen.innerHTML =
-      '<div><h2 id="specialLessonTitle"></h2><p data-copy="normal"></p><p data-copy="fire"></p><p data-copy="boss"></p><p data-copy="ready"></p><button type="button"></button></div>';
-    document.getElementById("gameSurface").append(screen);
-    const text = {
-      normal: [
-        "必殺技は、機体ごとに異なる特別な攻撃です。通常戦闘では、自分の第2・4・6ターンに1回分ずつチャージされます。1回分あれば、武器の切り替えから必殺技を選んで使えます。最大3回分までためられます。",
-        "Each machine has its own special attack. In normal battles, you gain one use on your 2nd, 4th, and 6th turns. Choose it from the weapon selector when you have at least one charge. You can hold up to three uses.",
-      ],
-      fire: [
-        "FIREの長押しは弾の威力調整。必殺技のチャージとは別です。",
-        "Holding FIRE adjusts shot power. It does not charge your special attack.",
-      ],
-      boss: [
-        "大ボス戦では最初から必殺技を3回分使えます。",
-        "Guardian battles start with three special uses available.",
-      ],
-      ready: [
-        "チャージ完了！ 武器切り替えから必殺技を選べます。",
-        "Special ready! Open the weapon selector to use it.",
-      ],
-    };
-    function paint() {
-      document.getElementById("specialLessonTitle").textContent = title();
-      for (const [id, pair] of Object.entries(text))
-        screen.querySelector('[data-copy="' + id + '"]').textContent = local(
-          ...pair,
+    mapKey = "v7:touch-controls";
+  const local = (ja, en) => (root.ArcI18n.language === "en" ? en : ja);
+  function remaining(data, state) {
+    const pages = [];
+    if (!data.seenPreviewIds.includes(key))
+      pages.push({ kind: "special", key });
+    if (state?.stage >= 2 && !data.seenPreviewIds.includes(mapKey))
+      pages.push({ kind: "map", key: mapKey });
+    return pages;
+  }
+  function pagesFor(id, data, state) {
+    return remaining(data, state).filter((page) =>
+      page.kind === "special"
+        ? id === "controls"
+        : id === "aim" || id === "controls",
+    );
+  }
+  function createLesson(options = {}) {
+    const $ = (id) => document.getElementById(id),
+      panel = $("tutorial");
+    const details = document.createElement("div");
+    details.id = "tutorialDetails";
+    details.className = "tutorial-details";
+    details.dataset.storyRaw = "";
+    details.tabIndex = 0;
+    details.hidden = true;
+    panel.querySelector(".preview-copy").append(details);
+    const actions = document.createElement("div"),
+      mapButton = document.createElement("button"),
+      confirmButton = $("previewOK");
+    actions.className = "tutorial-actions";
+    confirmButton.replaceWith(actions);
+    actions.append(confirmButton);
+    mapButton.id = "tutorialOpenMap";
+    mapButton.type = "button";
+    mapButton.hidden = true;
+    mapButton.dataset.storyRaw = "";
+    mapButton.onclick = () => options.openMap?.();
+    actions.append(mapButton);
+    let current = null,
+      currentState = null;
+    function paint(page, state) {
+      current = page;
+      currentState = state;
+      panel.dataset.page = page.kind;
+      details.replaceChildren();
+      details.hidden = false;
+      panel.setAttribute("aria-describedby", "tutorialName tutorialDetails");
+      $("tutorialInstruction").hidden = true;
+      $("tutorialOutcome").hidden = true;
+      $("previewCharge").hidden = true;
+      $("tutorialStep").textContent = local("確認", "GUIDE");
+      $("tutorialContext").textContent = local("操作ガイド", "CONTROLS");
+      let copy;
+      if (page.kind === "special") {
+        $("tutorialName").textContent = local(
+          "必殺技の使い方",
+          "Using Special Attacks",
         );
-      screen.querySelector("button").textContent = local("わかった", "Got it");
+        copy = [
+          local(
+            "必殺技は機体ごとに異なる攻撃です。通常戦は自分の第2・4・6ターンに1回分ずつ増え、最大3回分までためられます。",
+            "Each machine has its own special attack. Gain one use on your 2nd, 4th and 6th turns in normal battles; hold up to three uses.",
+          ),
+          local(
+            "1回分あれば「武器」から選択できます。FIREの長押しは弾の威力調整で、必殺技のチャージとは別です。",
+            "With one use available, choose it from Weapons. Holding FIRE adjusts shot power; it does not charge your special attack.",
+          ),
+        ];
+        if (state?.spec.boss || state?.spec.midboss)
+          copy.push(
+            local(
+              "ボス戦では最初から3回分使えます。",
+              "Guardian battles start with three special uses.",
+            ),
+          );
+      } else if (page.kind === "map") {
+        $("tutorialName").textContent = local(
+          "斜角とマップの操作",
+          "Aim and explore the map",
+        );
+        const ratio = document.createElement("div");
+        ratio.className = "battle-touch-ratio";
+        for (const text of [
+          local("左4/5：斜角", "Left 80%: Aim"),
+          local("右1/5：見渡し", "Right 20%: Pan"),
+        ]) {
+          const span = document.createElement("span");
+          span.textContent = text;
+          ratio.append(span);
+        }
+        details.append(ratio);
+        copy = [
+          local(
+            "斜角は左4/5の上下操作か下のボタン。右1/5は見渡し、二本指は拡大縮小。発射で視点が戻ります。",
+            "Aim using the left 80% or the Aim control below. Pan on the right 20%; pinch to zoom. Fire returns the view.",
+          ),
+          local(
+            "「マップ」は全体確認。ドラッグで移動、＋／−で拡大縮小、「全体」で全景、「戦闘に戻る」で復帰。",
+            "Open Map for the overview. Drag to pan, + / − to zoom, Fit map for the full view, and Back to battle to return.",
+          ),
+        ];
+      } else {
+        const lesson = page.lesson;
+        $("tutorialName").textContent = root.ArcI18n.t(lesson.title);
+        $("tutorialContext").textContent = local(
+          "この面の仕組み",
+          "THIS LEVEL",
+        );
+        copy = [
+          root.ArcI18n.t(lesson.instruction),
+          root.ArcI18n.t(lesson.outcome),
+        ];
+      }
+      for (const text of copy) {
+        const p = document.createElement("p");
+        p.textContent = text;
+        details.append(p);
+      }
+      if (page.kind === "map") {
+        mapButton.textContent = local("マップ", "Open Map");
+        mapButton.setAttribute("aria-label", local("マップを開く", "Open Map"));
+        mapButton.hidden = false;
+      }
     }
-    root.addEventListener("arcline-language", paint);
+    function reset() {
+      current = null;
+      currentState = null;
+      details.hidden = true;
+      mapButton.hidden = true;
+      delete panel.dataset.page;
+      $("previewCharge").hidden = false;
+      panel.setAttribute(
+        "aria-describedby",
+        "tutorialName tutorialInstruction tutorialOutcome",
+      );
+    }
+    root.addEventListener("arcline-language", () => {
+      if (current) paint(current, currentState);
+    });
     return {
-      show(data, persist, done, state) {
-        if (data.seenPreviewIds.includes(key)) return false;
-        paint();
-        screen.querySelector('[data-copy="boss"]').hidden = !state?.spec.boss;
-        screen.querySelector('[data-copy="ready"]').hidden =
-          !state?.specialAmmo;
-        root.ArcScreens.open("specialLesson", {
-          block: ["battle", "overlay"],
-          onEscape() {},
-          cycleFocus: true,
-        });
-        screen.querySelector("button").onclick = () => {
-          if (screen.hidden) return;
-          data.seenPreviewIds.push(key);
-          persist();
-          root.ArcScreens.close("specialLesson", false);
-          done?.();
-        };
-        screen.querySelector("button").focus();
-        return true;
-      },
+      paint,
+      reset,
       get active() {
-        return !screen.hidden;
+        return !!current;
       },
     };
   }
@@ -170,7 +250,7 @@
       },
     };
   }
-  const api = { key, createLesson, createNotice };
+  const api = { key, mapKey, remaining, pagesFor, createLesson, createNotice };
   if (typeof module !== "undefined") module.exports = api;
   else root.ArcSpecialUi = api;
 })(globalThis);

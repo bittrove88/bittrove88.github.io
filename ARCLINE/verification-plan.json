@@ -1,55 +1,53 @@
 {
   "version": 1,
-  "change": "装甲の弾ごとの破壊カウントと残り回数・ガード表示（最終合意済み）",
-  "reason": "40/60面は1発、70/80/90面は装甲1枚ごとに2発。別の弾は同じ攻撃内でも数え、実体・命中・表示・AI・生成を検証する。仕様合意済み。0.31.3の残像表示と共有描画を統合し、echo-presentationとboss-motion-browserも確認する。",
+  "change": "序盤チュートリアルの統合と未使用定義削除",
+  "reason": "合意した導入順を保ち、1・2面の別画面の連続と未選択道具の割り込みを解消する。必須ギミック、旧既読・進行、操作復帰に限定して確認する。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
-    "ARCLINE/design/combat_balance.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/design/runtime_campaign_20x5.json",
+    "ARCLINE/design/narrative_0_13.json",
+    "ARCLINE/design/preview_curriculum.json",
+    "ARCLINE/design/story_emotion_0141/TEXT_DIFF.json",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/actor-bodies.js",
     "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/boss-actions.js",
+    "ARCLINE/game/dist/battle-ui.js",
     "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/effects.js",
     "ARCLINE/game/dist/encounters.js",
-    "ARCLINE/game/dist/enemy-actions.js",
-    "ARCLINE/game/dist/engine.js",
+    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/i18n.js",
     "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/levels.js",
-    "ARCLINE/game/dist/physics.js",
+    "ARCLINE/game/dist/lessons.js",
+    "ARCLINE/game/dist/media-ending.css",
     "ARCLINE/game/dist/preview.js",
     "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/dist/sfx-manager.js",
-    "ARCLINE/game/dist/visual-art.js",
+    "ARCLINE/game/dist/screens.js",
+    "ARCLINE/game/dist/special-ui.js",
+    "ARCLINE/game/dist/story.js",
+    "ARCLINE/game/dist/style.css",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/armor-break-browser.test.cjs",
-    "ARCLINE/game/tests/armor-break.test.cjs",
+    "ARCLINE/game/src/lessons-runtime.js",
+    "ARCLINE/game/styles/gameplay.css",
+    "ARCLINE/game/styles/media-ending.css",
     "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/balance.py",
-    "ARCLINE/game/tools/build_encounters.py",
-    "ARCLINE/game/ui/sfx-manager.js",
+    "ARCLINE/game/tests/tutorial-flow-browser.test.cjs",
+    "ARCLINE/game/tests/tutorial-flow.test.cjs",
+    "ARCLINE/game/ui/battle-ui.js",
+    "ARCLINE/game/ui/screens.js",
+    "ARCLINE/game/ui/special-ui.js",
     "ARCLINE/game/visual/encounters.json",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.4/index.html"
+    "ARCLINE/updates/0.32.0/index.html"
   ],
   "suites": {
     "unit": [
-      "armor-break",
-      "damage-sync",
-      "boss-motion",
-      "echo-presentation"
+      "tutorial-flow"
     ],
     "browser": [
-      "armor-break-browser",
-      "damage-sync-browser",
-      "boss-motion-browser"
+      "tutorial-flow-browser"
     ]
   },
   "checks": {
@@ -60,13 +58,17 @@
     "nativeAudio": false
   },
   "manual": [
-    "PC幅とスマホ横幅で、対象5面の初期・命中・破壊表示を確認。代表的な衝突・描画再現であり、全攻略・物理端末確認とは区別する。",
-    "統合後の単体4・ブラウザ3スイートと生成155ファイルの一致・安定性はローカルで合格。CIで同じ選択範囲を確認し、マージ後に配信と公開URLを確認する。"
+    "制作中に1・2・4・5・9・10・21面と全ギミック初登場の限定再現を行い、PC・568px幅の日英で案内と復帰を確認する。",
+    "対象が変わらない事前確認は本検証で再利用する。実装結果の最終確認前には本検証・CIを起動せずDraftで提示する。"
   ],
   "excluded": [
     {
-      "scope": "全件検査・無関係な全機体/全マップ・音源・物理端末",
-      "reason": "対象5面の装甲と最新mainの共有描画との整合が目的。本検証・マージ・配信確認は承認済み。無関係な全件検査を追加しない。"
+      "scope": "戦闘値・物理・AI・全100面攻略・音声全件・物理端末",
+      "reason": "チュートリアルの表示と導線の変更。先行mainの装甲・残像・戦闘ルールは変更しない。"
+    },
+    {
+      "scope": "武器個別の実演任意化と新しい取得物チュートリアル",
+      "reason": "今回の合意では別候補。選択時の既存実演を維持し、未使用pickup専用実演を復活させない。"
     }
   ]
 }

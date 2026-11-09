@@ -121,6 +121,8 @@ function applyMutations(records){
  if(!selected.length)return;applying=true;observer.disconnect();try{for(const node of selected)translate(node);}finally{applying=false;observe();}
 }
 Object.assign(dictionary,{
+ 'Release FIRE to launch. Slide outside the button to cancel.':'離すと発射します。ボタンの外へずらすとキャンセルできます。',
+ 'Contact moves your rover. A wall contact falls to a landing. Landing ends your action; the rival then acts.':'接触先へ転移し、壁に当たった場合は落下して着地します。着地で1行動を使い、その後に敵が行動します。',
  'Repair restores 30% max HP and uses one action.':'最大HPの30%を回復し、1行動を使います。',
  'Carries across chapters':'未使用の残数は章を越えて持ち越し',
  'Unused weapons and skills carry across chapters.':'未使用の武器・スキルは章を越えて持ち越します。',

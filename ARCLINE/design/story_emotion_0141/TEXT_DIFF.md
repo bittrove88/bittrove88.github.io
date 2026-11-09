@@ -106,6 +106,26 @@ Gun draws a connected bridge and ten lights on the back of the old letter. Then 
 
 ガンは古い便りの裏に、つながった橋と十の灯りを描いた。そして、小さく書き添えた。「ただいま。今度は、ぼくらが道をつくるよ。」十機はそれぞれの仕事へ戻っていく。その道を、新しい旅人が走り出した。
 
+### `/guardians/0/feature/en`
+
+**変更前**
+
+Break the winch drum to weaken attacks.
+
+**変更後**
+
+Destroy the winch drum to halve its attack damage.
+
+### `/guardians/0/feature/ja`
+
+**変更前**
+
+巻上げドラムを狙うと攻撃が弱まる
+
+**変更後**
+
+巻上げドラムを破壊すると攻撃ダメージが半減する
+
 ### `/guardians/4/response/en`
 
 **変更前**

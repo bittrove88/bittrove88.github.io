@@ -71,84 +71,43 @@
     }
     let topChange, coach;
     function closeCoach() {
+      if (!coach.hidden) {
+        const key = "v7:character-change";
+        if (!hooks.save.data.seenPreviewIds.includes(key)) {
+          hooks.save.data.seenPreviewIds.push(key);
+          hooks.save.save();
+        }
+      }
       ArcScreens.close("battleCoach");
       hooks.refresh();
     }
-    function paintCoach(kind) {
-      coach.dataset.kind = kind;
-      const characters = kind === "characters";
-      const title = characters
-        ? local("キャラチェンジ", "Change character")
-        : local("画面の左右で操作", "Battlefield controls");
-      let content;
-      if (characters) {
-        content =
-          "<p>" +
-          local(
-            "マップの横の「キャラチェンジ」から、仲間のキャラを選べます。一時停止からも同じ画面を開けます。",
-            "Use Change Char. beside Map to choose a companion. You can open the same screen from Pause.",
-          ) +
-          "</p><p>" +
-          local(
-            "HPの割合と必殺技の残数は引き継ぎます。",
-            "Your HP percentage and remaining special ammo carry over.",
-          ) +
-          "</p>";
-      } else {
-        content =
-          '<div class="battle-touch-ratio" aria-label="' +
-          local(
-            "左80%が斜角、右20%がマップ移動",
-            "Left 80%: aim. Right 20%: pan the map.",
-          ) +
-          '"><span>' +
-          local("斜角 4/5", "Aim · 80%") +
-          "</span><span>" +
-          local("マップ 1/5", "Map · 20%") +
-          '</span></div><div class="battle-guide-halves"><div>' +
-          ArcBattleAim.get(aimDesign).svg +
-          "<strong>" +
-          local("左4/5 · 斜角", "Left 80% · Aim") +
-          "</strong><small>" +
-          local(
-            "上下にスワイプして狙いを調整",
-            "Swipe up or down to adjust your aim",
-          ) +
-          "</small></div><div>" +
-          icons.pan +
-          "<strong>" +
-          local("右1/5 · マップ移動", "Right 20% · Pan map") +
-          "</strong><small>" +
-          local(
-            "ドラッグして周囲を確認<br>発射操作で視点が戻ります",
-            "Drag to look around<br>Press Fire to reset the view",
-          ) +
-          "</small></div></div><p>" +
-          local(
-            "下の移動・斜角ボタンでも操作できます。二本指のピンチで戦場を拡大・縮小できます。発射は長押しでチャージし、離すと発射します。外へスライドするとキャンセル。",
-            "Use Move and Aim below. Pinch with exactly two fingers to zoom. Hold Fire to charge; release to shoot. Slide outside to cancel.",
-          ) +
-          "</p>";
-      }
+    function paintCoach() {
+      coach.dataset.kind = "characters";
       coach.innerHTML =
         '<div><header><h2 id="battleCoachTitle">' +
-        title +
+        local("キャラチェンジ", "Change character") +
         '</h2><button class="coach-close" aria-label="' +
         local("閉じる", "Close guide") +
-        '">✕</button></header><div class="battle-coach-content">' +
-        content +
-        '</div><button class="coach-done">' +
-        (characters
-          ? local("キャラを選ぶ", "Choose a character")
-          : local("操作して確認", "Try it")) +
+        '">✕</button></header><div class="battle-coach-content"><p>' +
+        local(
+          "マップの横の「キャラチェンジ」から、仲間のキャラを選べます。一時停止からも同じ画面を開けます。",
+          "Use Change Char. beside Map to choose a companion. You can open the same screen from Pause.",
+        ) +
+        "</p><p>" +
+        local(
+          "HPの割合と必殺技の残数は引き継ぎます。",
+          "Your HP percentage and remaining special ammo carry over.",
+        ) +
+        '</p></div><button class="coach-done">' +
+        local("キャラを選ぶ", "Choose a character") +
         "</button></div>";
       coach.querySelector(".coach-close").onclick = closeCoach;
       coach.querySelector(".coach-done").onclick = () => {
         closeCoach();
-        if (characters) hooks.machinePicker.open();
+        hooks.machinePicker.open();
       };
     }
-    function openCoach(kind) {
+    function openCoach() {
       if (
         !byId("battleCoach").hidden ||
         hooks.charge() ||
@@ -158,7 +117,7 @@
       )
         return false;
       hooks.clearInput();
-      paintCoach(kind);
+      paintCoach();
       ArcScreens.open("battleCoach", {
         block: ["battle", "overlay"],
         cycleFocus: true,
@@ -1275,22 +1234,11 @@
         clearGestures();
         return;
       }
-      const kind =
-        hooks.state().stage === 2
-          ? "controls"
-          : hooks.state().stage === 9
-            ? "characters"
-            : null;
-      const key =
-        kind === "controls" ? "v7:touch-controls" : "v7:character-change";
       if (
-        kind &&
-        !hooks.save.data.seenPreviewIds.includes(key) &&
-        openCoach(kind)
-      ) {
-        hooks.save.data.seenPreviewIds.push(key);
-        hooks.save.save();
-      }
+        hooks.state().stage === 9 &&
+        !hooks.save.data.seenPreviewIds.includes("v7:character-change")
+      )
+        openCoach();
     }, 300);
   }
   root.ArcBattleUi = Object.freeze({ install });
