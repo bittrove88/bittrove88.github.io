@@ -1,0 +1,133 @@
+{
+  "status": "PASS",
+  "base": "f3bce106244ebadf27c2a9df5b281f266c5087bc",
+  "version": "0.30.4",
+  "userAuthorization": "方針OKなのでマージ直前まで進めて。2点の合意済み仕様を実装・検証・Ready PRへ。マージ・公開は対象外。",
+  "suites": [
+    {
+      "suite": "retry-progress",
+      "status": "PASS",
+      "checks": 133,
+      "report": "RETRY_PROGRESS.json"
+    },
+    {
+      "suite": "chapter-stock",
+      "status": "PASS",
+      "checks": 113,
+      "report": "CHAPTER_STOCK.json"
+    },
+    {
+      "suite": "difficulty-balance",
+      "status": "PASS",
+      "checks": 127,
+      "report": "DIFFICULTY_BALANCE.json"
+    },
+    {
+      "suite": "crew-supply",
+      "status": "PASS",
+      "checks": 50,
+      "report": "CREW_SUPPLY_UNIT.json"
+    },
+    {
+      "suite": "retry-progress-browser",
+      "status": "PASS",
+      "checks": 46,
+      "report": "RETRY_PROGRESS_BROWSER.json"
+    },
+    {
+      "suite": "difficulty-browser",
+      "status": "PASS",
+      "checks": 22,
+      "report": "DIFFICULTY_BROWSER.json"
+    },
+    {
+      "suite": "final-retry-browser",
+      "status": "PASS",
+      "checks": 64,
+      "report": "FINAL_RETRY_BROWSER.json"
+    },
+    {
+      "suite": "charge-pause",
+      "status": "PASS",
+      "checks": 245,
+      "report": "CHARGE_PAUSE.json"
+    }
+  ],
+  "assertions": 800,
+  "generatedFiles": 155,
+  "protected": [
+    {
+      "path": "ARCLINE/game/dist/engine.js",
+      "unchanged": true,
+      "sha256": "795fa1f3adcbb6c2f673be3979142574f2ca7798026fdaffcf69d1f14d923047"
+    },
+    {
+      "path": "ARCLINE/game/dist/physics.js",
+      "unchanged": true,
+      "sha256": "b8e9ab21a40f950d60577f01f23ba803823c2270d2f0113e62ae50595936e740"
+    },
+    {
+      "path": "ARCLINE/game/dist/geometry.js",
+      "unchanged": true,
+      "sha256": "ee248f437eb20d2dc7867b6b9582de1d838b9f639b877eb92d531a397fb427cb"
+    },
+    {
+      "path": "ARCLINE/game/dist/enemy-actions.js",
+      "unchanged": true,
+      "sha256": "cf319014eebcf20143b5cc8416b90b7d373a19a150b8a57cea89dfc9a21c21d8"
+    },
+    {
+      "path": "ARCLINE/game/dist/enemy-attacks.js",
+      "unchanged": true,
+      "sha256": "fb7e8b39fe35f58c7c56e2aa5e08ee2d9c203e612c24e0d66f6309f3a0cf527a"
+    },
+    {
+      "path": "ARCLINE/game/dist/final-team.js",
+      "unchanged": true,
+      "sha256": "07fb5cdb3a4a9c377ed3f0b27499bb7d0246649ef9ce7f52f80efe5b9b3a2120"
+    },
+    {
+      "path": "ARCLINE/game/dist/crew-usage.js",
+      "unchanged": true,
+      "sha256": "d61c6348a0f7a7e902ff21cfb7da6251d5f714f156b9b4b6e6c8e591f8c3abfb"
+    },
+    {
+      "path": "ARCLINE/game/dist/inventory.js",
+      "unchanged": true,
+      "sha256": "89551d4a213f1896c32eb7d1a6faf1196a55bc033b75be740147a05331b3bccc"
+    },
+    {
+      "path": "ARCLINE/game/dist/levels.js",
+      "unchanged": true,
+      "sha256": "ae117a8dbf3a6f3a32ee91c28346c023408f5a0a5b48aff848999753acfd6436"
+    },
+    {
+      "path": "ARCLINE/game/dist/attack-catalog.js",
+      "unchanged": true,
+      "sha256": "9d431aa32b6f0b51fe9c44c0835ca1abb6d8a54c0d16aedc79a4430992e80f4c"
+    },
+    {
+      "path": "ARCLINE/design/combat_balance.json",
+      "unchanged": true,
+      "sha256": "b35f98e1b5840632512c001ceebddf6aa5ecd8be69568c65703faf1a725b22c2"
+    },
+    {
+      "path": "ARCLINE/design/pickup_placements.json",
+      "unchanged": true,
+      "sha256": "72e26dd0c31a26d780ac47c494531b6b4bdc6fd0e349916e6a50e11c68fdf95b"
+    },
+    {
+      "path": "ARCLINE/design/expedition_013/stage_blueprints.json",
+      "unchanged": true,
+      "sha256": "a76ba40c009126f61efe591d5676c93c57089247d3afaa1adc812768ed50baaa"
+    }
+  ],
+  "manual": [
+    "568x240日本語の敗北結果を目視。復元説明と2つの操作が画面内。"
+  ],
+  "limitations": [
+    "Controlled HP terminal fixtures exercise engine/result/save flow; no human playthrough/balance assertion.",
+    "No physical devices, native audio decoding, main merge, deployment or production verification."
+  ],
+  "ci": "PR作成後に対象headのCIを確認する。"
+}

@@ -1,40 +1,49 @@
 {
   "version": 1,
-  "change": "敵プレイヤーの歩行速度と転移技の演出を修正（0.30.3）",
-  "reason": "41面の140px歩行を0.45秒へ圧縮する上限を外し自機と同じ160px/秒にする。71面の転移は自機と同じ転移弾描画を使い到達時にのみ移動を確定。実際のWorkerと非Worker、次の手番、PC/小画面、30/120fps、ポーズ、離脱、自機転移と変更対象外のバイトを限定検査する。 最新main8555e87のHP/行動設定・メニューを保持して競合を解消し、現行値とメニュー接続の限定検査を追加。 先行メニューが変更済みのbattle-catalog英語説明だけ、旧HP検査の固定比較元を承認済みmainへ更新し、他の戦闘・保存固定比較は保持。 PR138へのユーザーの「検証」を本検証の合意として引き継ぐ。PR139のDraft条件・開発文書を保持し、ゲーム実装が不変のためローカル成功結果を再利用する。 マージ直前の先行PR140（main62f2368）の攻撃修正をバイト保持。共有物理の更新があるため敵移動・自機転移とHPを再検証し、UI/TOPは不変の成功を再利用。",
+  "change": "0.30.4: 失敗時の武器・スキル復元と上位難易度クリアの下位反映",
+  "reason": "ユーザーが2点の方針を最終合意し「マージ直前まで」と指示。消費は勝利時に確定し、再挑戦在庫と取得台帳を一緒に保存。Hard→Normal/Easy、Normal→Easyを勝利と既存セーブの初回移行で反映。実エンジン消費・取得・勝敗・保存境界、既存在庫、モード切替・保存失敗、100面の既存再挑戦を限定確認。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
-    "ARCLINE/design/enemy-motion-0297-scope.json",
     "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
     "ARCLINE/design/expedition_013/index.html",
     "ARCLINE/game/attack-review/index.html",
     "ARCLINE/game/attack-review/standalone.html",
     "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/campaign-run.js",
     "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/difficulty-ui.js",
     "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/i18n.js",
     "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/menus.js",
     "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/save.js",
     "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/enemy-motion-preservation.cjs",
-    "ARCLINE/game/tests/enemy-movement-browser.test.cjs",
-    "ARCLINE/game/tests/enemy-movement.test.cjs",
-    "ARCLINE/game/tests/recruit-ai-preservation.cjs",
-    "ARCLINE/game/tests/recruit-enemy-browser.test.cjs",
+    "ARCLINE/game/tests/charge-pause.test.cjs",
+    "ARCLINE/game/tests/difficulty-balance.test.cjs",
+    "ARCLINE/game/tests/difficulty-browser.test.cjs",
+    "ARCLINE/game/tests/final-retry-browser.test.cjs",
+    "ARCLINE/game/tests/retry-progress-browser.test.cjs",
+    "ARCLINE/game/tests/retry-progress.test.cjs",
     "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/ui/difficulty-ui.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.30.3/index.html"
+    "ARCLINE/updates/0.30.4/index.html"
   ],
   "suites": {
     "unit": [
-      "enemy-movement",
-      "hp-action-balance"
+      "retry-progress",
+      "chapter-stock",
+      "difficulty-balance",
+      "crew-supply"
     ],
     "browser": [
-      "enemy-movement-browser",
-      "collection-flow-browser",
-      "top-layout-browser"
+      "retry-progress-browser",
+      "difficulty-browser",
+      "final-retry-browser",
+      "charge-pause"
     ]
   },
   "checks": {
@@ -45,13 +54,16 @@
     "nativeAudio": false
   },
   "manual": [
-    "通常速度で転移の発射・到達・光輪と歩行を確認する",
-    "mainマージ・公開・物理端末は別工程"
+    "PC/小画面の失敗結果と難易度切替を確認。合意済みの2点を実装・検証・PR化し、マージと公開はしない。"
   ],
   "excluded": [
     {
-      "scope": "全100面再攻略、全攻撃・仲間画像・音源デコード・エンディング",
-      "reason": "本編の敵移動の表示時間と演出だけを変更。敵AI・物理・地形・保存はバイト一致で保護し、無関係な既成功スイートを繰り返さない。"
+      "scope": "全100面攻略、全攻撃・音源・原画・エンディング",
+      "reason": "変更は進行・在庫保存と関連文言。攻撃、物理、AI、地形、素材は変更しない。"
+    },
+    {
+      "scope": "物理iPhone/Android、本番URLの変更確認",
+      "reason": "実機は未接続。本番はマージしない。"
     }
   ]
 }

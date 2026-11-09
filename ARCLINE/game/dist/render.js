@@ -339,7 +339,7 @@ function create(canvas,configuration={}){
     const left=t.targetX-t.beamWidth/2;ctx.save();ctx.fillStyle='#ffba6c30';ctx.fillRect(left,-1800,t.beamWidth,2500);
     path([{x:left,y:-1800},{x:left,y:700}],'#ffd18d',2/scale,[8/scale,6/scale]);path([{x:left+t.beamWidth,y:-1800},{x:left+t.beamWidth,y:700}],'#ffd18d',2/scale,[8/scale,6/scale]);
     for(let yy=y-260;yy<y+40;yy+=42/scale)path([{x:t.targetX-7/scale,y:yy-6/scale},{x:t.targetX,y:yy},{x:t.targetX+7/scale,y:yy-6/scale}],'#ffe1a8',2/scale);
-    const warningPanel=canvasRect(canvas.closest('#app')?.querySelector('#finalTeamHUD')),label=root.ArcI18n?.language==='en'?'LASER NEXT · MOVE OUT':'次にレーザー · 帯の外へ',labelY=G.clamp(y-110/scale,(Math.max(top,header?.bottom||0,warningPanel?.bottom||0)+24-view.y)/scale,(bottom-28-view.y)/scale);
+    const warningPanel=canvasRect(canvas.closest('#app')?.querySelector('#finalTeamHUD')),label=root.ArcI18n?.language==='en'?'LASER NEXT · TELEPORT OUT':'次にレーザー · テレポートで離脱',labelY=G.clamp(y-110/scale,(Math.max(top,header?.bottom||0,warningPanel?.bottom||0)+24-view.y)/scale,(bottom-28-view.y)/scale);
     ctx.font=`700 ${14/scale}px system-ui`;ctx.textAlign='center';const labelWidth=ctx.measureText(label).width;round(t.targetX-labelWidth/2-7/scale,labelY-17/scale,labelWidth+14/scale,23/scale,5/scale,'#183c4ae8');ctx.fillStyle='#ffe5b6';ctx.fillText(label,t.targetX,labelY);ctx.restore();
    }else{
    for(const dx of t.columns||[0])path([{x:t.targetX+dx-t.radius,y:y+5},{x:t.targetX+dx+t.radius,y:y+5}],'#ffc09c',5,[7,6]);
