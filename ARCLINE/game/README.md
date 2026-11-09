@@ -1,3 +1,7 @@
+0.30.1：main0.30.0のHP/行動上限とHUDを保持して、設定・ストーリー・共通装備カードのUIを統合。`runtime.json` と正式生成で0.30.1へ同期。[範囲・検証](../docs/releases/0.30.1.md)。
+
+0.30.0：テーマ共通HP・行動上限と難易度HPは `design/combat_balance.json` が正本。Easyは75％・上限80、最終戦は自機HP100・各担当150（Easy80）・各20行動。[実装・検証](docs/releases/0.30.0.md)。
+
 0.29.7：設定ワークスペース・ストーリー三階層・図鑑は手書きの `dist/menus.js`・`presentation.js`・`index.html`、削除UIは `ui/onboarding.js`、難易度直行は `ui/difficulty-ui.js`、画面調整は `styles/menu-ui.css`。ロビーの確認は閲覧専用にし、武器／スキル図鑑への入口を固定。`presentation.js` の共通カード・詳細で確認画面と図鑑を統一し、戦闘用CSSはネイティブ武器選択へ限定。章一覧は状態別のコンパクトな行へ変更。戦闘の既存選択は維持。[範囲と検証](../docs/releases/0.29.7.md)。
 
 0.29.4：マスターモードの進行・在庫編集は `dist/master-progress.js`、画面は `ui/master-mode.js` と `styles/master-mode.css`。現行カタログと在庫上限を使い、永続在庫と出撃チェックポイントを同時更新。[範囲](../docs/releases/0.29.4.md)。

@@ -28,7 +28,7 @@ function renderSettings(){
  for(const b of document.querySelectorAll('[data-settings-tab]')){const selected=b.dataset.settingsTab===settingsTab;b.setAttribute('aria-selected',selected);b.tabIndex=selected?0:-1;}
  const sections={
   options:[local('プレイ環境','Play preferences'),local('言語・操作・表示','Language, controls, display'),local('遊びやすい環境に整える','Make yourself comfortable'),local('表示と言語、操作の左右配置を変更できます。','Choose your language, control layout and display.')],
-  difficulty:[local('難易度','Difficulty'),local('射線と敵の狙い','Guides and enemy aim'),local('自分に合う難易度を選ぶ','Choose your difficulty'),local('変わるのは射線の長さと敵の狙い。各モードの進行は個別に保存されます。','Trajectory guides and enemy aim change. Each mode keeps its own progress.')],
+  difficulty:[local('難易度','Difficulty'),local('射線と敵の狙い','Guides and enemy aim'),local('自分に合う難易度を選ぶ','Choose your difficulty'),local('射線と敵の狙いが変わり、イージーは敵HPも低めになります。進行は難易度ごとに保存。','Trajectory guides and enemy aim change; Easy also lowers enemy HP. Each mode keeps its own progress.')],
   guide:[local('操作ガイド','How to play'),local('操作と道具を調べる','Controls and equipment'),local('知りたい操作を選ぶ','Find the help you need'),local('項目を開くと、基本操作や道具の使い方を確認できます。','Open a topic to read about controls and equipment.')],
   data:[local('セーブデータ','Save data'),local('保存状況・やり直し','Save status and reset'),local('進行状況を管理する','Manage your progress'),local('自動保存の状態を確認できます。最初からやり直す操作もここにあります。','Check your automatic save or start a new journey.')]
  };

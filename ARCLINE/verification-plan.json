@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "change": "武器/スキル確認と図鑑の共通デザイン・視認性を改善し、開始/設定/ストーリーを整理（0.29.7）",
-  "reason": "最新依頼でロビー武器/スキル確認と各図鑑を共通カード/詳細へ統一。名称・効果・保有数・選択表示の位置/配色/余白、4.5:1コントラスト、未所持/レア/旧/空在庫、実タッチ、言語再描画と保存完全不変を検査。戦闘用カードCSSをネイティブピッカーへ限定し、battle-ui-browserで操作を保護。PR全体の章/設定/階層/図鑑導線/削除検査はCIで継続する。",
+  "change": "武器/スキル確認と図鑑の共通デザイン・視認性を改善し、開始/設定/ストーリーを整理（0.30.1）",
+  "reason": "最新依頼でロビー武器/スキル確認と各図鑑を共通カード/詳細へ統一。名称・効果・保有数・選択表示の位置/配色/余白、4.5:1コントラスト、未所持/レア/旧/空在庫、実タッチ、言語再描画と保存完全不変を検査。戦闘用カードCSSをネイティブピッカーへ限定し、battle-ui-browserで操作を保護。PR全体の章/設定/階層/図鑑導線/削除検査はCIで継続する。 mainに入った0.30.0（1904d3e）のHP/行動上限を保持して競合解消。engine/levels/encounters/バランス/地形/在庫保存の12ファイルをバイト比較し、現行runtimeとHUD上で装備デザイン・戦闘UIを再確認。",
   "files": [
     "ARCLINE/characters/ARCLINE_Characters_Preview.html",
     "ARCLINE/characters/index.html",
@@ -37,7 +37,8 @@
     "ARCLINE/game/ui/onboarding.js",
     "ARCLINE/index.html",
     "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.29.7/index.html"
+    "ARCLINE/updates/0.29.7/index.html",
+    "ARCLINE/updates/0.30.1/index.html"
   ],
   "suites": {
     "unit": [

@@ -1,9 +1,16 @@
 """Compile combat/anchor definitions shared by the main thread and CPU worker."""
 from pathlib import Path
 import json
+from balance import DATA as balance_data
 ROOT=Path(__file__).resolve().parents[1]
 d=json.loads((ROOT/'visual/encounters.json').read_text())
 assert [len(d[k]) for k in ['enemies','midbosses','bosses']]==[12,10,10]
+for row in d['midbosses'] + d['bosses']:
+    stats = balance_data['guardians'][str(row['stage'])]
+    row['hp'] = stats['hp'] / 20
+    assert len(row['parts']) == len(stats['partsHp'])
+    for part, hp in zip(row['parts'], stats['partsHp']):
+        part['hp'] = hp / 20
 payload=json.dumps(d,ensure_ascii=False,separators=(',',':'))
 code="""(function(root){'use strict';
 const data=PAYLOAD;
