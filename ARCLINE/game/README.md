@@ -1,3 +1,5 @@
+**0.29.7 敵の移動演出：** 41面以降の歩行を自機と同じ160px/秒へ。71面以降は転移弾の飛翔後に移動し、自機と同じ転移光輪を表示。[範囲・検証](../docs/releases/0.29.7.md)。mainマージ・公開は未実施。
+
 0.29.4：マスターモードの進行・在庫編集は `dist/master-progress.js`、画面は `ui/master-mode.js` と `styles/master-mode.css`。現行カタログと在庫上限を使い、永続在庫と出撃チェックポイントを同時更新。[範囲](../docs/releases/0.29.4.md)。
 
 検証は修正単位で計画し、必要なスイート名を選択する。[検証運用](../docs/VERIFICATION.md)／[CI計画](../verification-plan.json)。`test.cjs <mode> <suite...> --list` で実行せず選択内容を確認できる。

@@ -603,7 +603,7 @@ const server = http.createServer((q, r) => {
         count: s.shotCount,
         queued: !!cpuReady,
       };
-      update(0.6);
+      update(s.enemyTeleport.plan.duration + 0.6);
       return {
         hp,
         count,

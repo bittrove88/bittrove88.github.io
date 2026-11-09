@@ -1,0 +1,32 @@
+{
+  "base": "799287e2996b885f2aa350d1d6aabbef8ec795b2",
+  "scope": "User authorized enemy walking speed and player-style teleport presentation only; AI, physics, maps, HP, stocks and saves preserved.",
+  "sourcePatches": {
+    "game.js": {
+      "beforeSha256": "78d7bce1087332c5667c1bbd5be8f3d8e9973177eadff59edf74c07837731c9e",
+      "afterSha256": "9693b5a3d042a048b843557315b1d4ecf58fd4024c83563440d4d4cae79f60ae",
+      "edits": [
+        {
+          "before": "",
+          "after": "function beginEnemyTeleport(action){\n // A presentation-only transfer pulse uses the player's TELEPORT brush. Its\n // destination is the AI's already validated landing, never a damage shot.\n const u=s.units[1],dx=action.to.x-u.x,dy=action.to.y-u.y,theta=Math.atan2(dy,dx)-u.slope,angle=(u.facing===1?-theta:theta-Math.PI)*180/Math.PI,m=G.muzzle(s,1,angle),distance=Math.hypot(dx,dy),duration=E.clamp(distance/650,.45,1.2),lift=Math.min(70,distance*.12);\n const path=Array.from({length:49},(_,i)=>{const t=i/48;return {x:m.x+(action.to.x-m.x)*t,y:m.y+(action.to.y-m.y)*t-4*lift*t*(1-t),t:t*duration};});\n const end=path.at(-1),plan={side:1,weaponId:'TELEPORT',teleport:true,angle,power:20,bullets:[{id:0,start:0,t:duration,path}],events:[{...end,type:'teleport-contact',bullet:0}],impacts:[],damage:[0,0],duration,end,path};\n s.enemyTeleport={action,plan,age:0,landed:false};s.phase='cpuTeleport';cpuJob=null;cpuReady=null;u.recoil={age:0};tone(620,.19,'sine');\n}\n"
+        },
+        {
+          "before": "  s.time-=dt;if(s.time<=0&&cpuReady){if(cpuReady.action&&!E.commitEnemyAction(s,cpuReady.action)){cpuReady={target:s.units[1].x,plan:E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0))};}if(cpuReady.action?.kind==='teleport'){cpuJob=null;cpuReady=null;s.phase='cpuTeleport';s.time=.55;tone(580,.25,'sine',.08);hud();return;}s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;\n",
+          "after": "  s.time-=dt;if(s.time<=0&&cpuReady){const teleport=cpuReady.action?.kind==='teleport';if(cpuReady.action&&!E.commitEnemyAction(teleport?{...s,units:s.units.map(u=>({...u}))}:s,cpuReady.action)){cpuReady={target:s.units[1].x,plan:E.cpuPlan(s,E.seeded((s.matchSeed+s.round*1009)>>>0))};}if(cpuReady.action?.kind==='teleport'){beginEnemyTeleport(cpuReady.action);hud();return;}s.cpuTarget=cpuReady.target;s.cpuStart=s.units[1].x;s.cpuMoveTime=0;\n"
+        },
+        {
+          "before": "   else{s.cpuMoveDuration=E.clamp(Math.abs(s.cpuTarget-s.cpuStart)/200,.2,.45);s.phase='cpuMove';}\n",
+          "after": "   else{s.cpuMoveDuration=E.enemyActionRules(s).walk?Math.abs(s.cpuTarget-s.cpuStart)/160:E.clamp(Math.abs(s.cpuTarget-s.cpuStart)/200,.2,.45);s.phase='cpuMove';}\n"
+        },
+        {
+          "before": " }else if(s.phase==='cpuTeleport'){s.time-=dt;if(s.time<=0)advanceTurn();\n",
+          "after": " }else if(s.phase==='cpuTeleport'){\n  const transfer=s.enemyTeleport;transfer.age+=dt;\n  if(!transfer.landed&&transfer.age>=transfer.plan.duration){s.phase='cpu';if(!E.commitEnemyAction(s,transfer.action)){delete s.enemyTeleport;requestCPU();hud();return;}s.phase='cpuTeleport';transfer.landed=true;tone(580,.3,'sine',.15);}\n  if(transfer.age>=transfer.plan.duration+.55){delete s.enemyTeleport;advanceTurn();}\n"
+        },
+        {
+          "before": "function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot,flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}\n",
+          "after": "function draw(){if(ArcStoryView.active){ArcStoryView.drawFilm();return;}const transfer=s?.enemyTeleport;renderer.draw(s||preview,{...mapCamera?.options,time:clock,lobby:!s,canAim:canAim(),difficulty:s?.difficulty||save.data.difficulty,characterId:s?.characterId||save.data.equippedCharacterId,shot:shot||transfer?.plan,flight:transfer?transfer.age:flight,tail,impact,demo:activePreview(),reducedMotion,transition,pickupEffects,charging:!!charge,cameraLock:charge?.cameraLock,chargeCamera:charge?.cameraState,chargeWalking:!!charge&&!!input?.movementAxis,encounter,ending,collection:{weapons:save.data.unlockedWeaponIds}});}\n"
+        }
+      ]
+    }
+  }
+}
