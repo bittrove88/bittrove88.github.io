@@ -1,76 +1,66 @@
 {
-  "version": 1,
-  "change": "大ボス固有技の弾道・既存照準誤差と、予告後の移動・転移の検証",
-  "reason": "既存の弾道・照準誤差で静止命中を改善し、予告後の移動・転移・落下を検証する依頼と「マージに向けて進行」に基づき、PR・CIまで準備。main0.31.1のボス移動・分身・ラスボス弾道を保持して統合する。単体は弾道、プレイヤー移動、既存敵、ボス移動、ラスボス、実敵行動の組合せを選択。ブラウザは回避・予告描画・ボス移動・最終技へ限定し、生成物・版数も照合する。",
+  "change": "PR145の訴求方針による30秒・15秒ムービー初稿と視聴ページ",
+  "reason": "候補計画。構成の最終合意後に、動画プレイヤーと今回の新規MP4・字幕・コピー・リンクだけを本検証する。現在は制作中の実描画・収録・メタデータ・ページ試写のみ。",
   "files": [
-    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
-    "ARCLINE/characters/index.html",
-    "ARCLINE/design/attacks/boss-ballistics-0312-scope.json",
-    "ARCLINE/design/attacks/definitions.json",
-    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
-    "ARCLINE/design/expedition_013/index.html",
-    "ARCLINE/game/attack-review/index.html",
-    "ARCLINE/game/attack-review/standalone.html",
-    "ARCLINE/game/dist/app.webmanifest",
-    "ARCLINE/game/dist/attack-catalog.js",
-    "ARCLINE/game/dist/attack-review-model.js",
-    "ARCLINE/game/dist/boss-actions.js",
-    "ARCLINE/game/dist/cpu-worker.js",
-    "ARCLINE/game/dist/enemy-actions.js",
-    "ARCLINE/game/dist/enemy-attacks.js",
-    "ARCLINE/game/dist/engine.js",
-    "ARCLINE/game/dist/index.html",
-    "ARCLINE/game/dist/physics.js",
-    "ARCLINE/game/dist/release-info.js",
-    "ARCLINE/game/dist/render.js",
-    "ARCLINE/game/runtime.json",
-    "ARCLINE/game/tests/boss-ballistics-browser.test.cjs",
-    "ARCLINE/game/tests/boss-ballistics-motion.test.cjs",
-    "ARCLINE/game/tests/boss-ballistics-preservation.cjs",
-    "ARCLINE/game/tests/boss-ballistics.test.cjs",
-    "ARCLINE/game/tests/boss-movement-browser.test.cjs",
-    "ARCLINE/game/tests/boss-movement.test.cjs",
-    "ARCLINE/game/tests/boss-warning-browser.test.cjs",
-    "ARCLINE/game/tests/final-projectiles.test.cjs",
-    "ARCLINE/game/tests/suites.json",
-    "ARCLINE/game/tools/probe_boss_ballistics.cjs",
-    "ARCLINE/game/tools/probe_boss_movement.cjs",
+    "ARCLINE/game/tools/capture_marketing_movie.cjs",
+    "ARCLINE/game/tools/render_marketing_cards.cjs",
+    "ARCLINE/game/tools/render_marketing_movie.py",
     "ARCLINE/index.html",
-    "ARCLINE/site/scenes.js",
-    "ARCLINE/updates/0.31.2/index.html"
+    "ARCLINE/promo/edit/capture.json",
+    "ARCLINE/promo/edit/end-card.png",
+    "ARCLINE/promo/edit/legacy-media.json",
+    "ARCLINE/promo/edit/manifest.json",
+    "ARCLINE/promo/edit/preview.json",
+    "ARCLINE/promo/edit/review-1440.jpg",
+    "ARCLINE/promo/edit/review-390.jpg",
+    "ARCLINE/promo/edit/storyboard.jpg",
+    "ARCLINE/promo/edit/timeline.json",
+    "ARCLINE/promo/index.html",
+    "ARCLINE/promo/media.json",
+    "ARCLINE/promo/media/arcline-play-15-en-1080p.mp4",
+    "ARCLINE/promo/media/arcline-play-15-en-720p.mp4",
+    "ARCLINE/promo/media/arcline-play-15-en-vertical.mp4",
+    "ARCLINE/promo/media/arcline-play-15-en.srt",
+    "ARCLINE/promo/media/arcline-play-15-en.vtt",
+    "ARCLINE/promo/media/arcline-play-15-ja-1080p.mp4",
+    "ARCLINE/promo/media/arcline-play-15-ja-720p.mp4",
+    "ARCLINE/promo/media/arcline-play-15-ja-vertical.mp4",
+    "ARCLINE/promo/media/arcline-play-15-ja.srt",
+    "ARCLINE/promo/media/arcline-play-15-ja.vtt",
+    "ARCLINE/promo/media/arcline-play-30-en-1080p.mp4",
+    "ARCLINE/promo/media/arcline-play-30-en-720p.mp4",
+    "ARCLINE/promo/media/arcline-play-30-en-vertical.mp4",
+    "ARCLINE/promo/media/arcline-play-30-en.srt",
+    "ARCLINE/promo/media/arcline-play-30-en.vtt",
+    "ARCLINE/promo/media/arcline-play-30-ja-1080p.mp4",
+    "ARCLINE/promo/media/arcline-play-30-ja-720p.mp4",
+    "ARCLINE/promo/media/arcline-play-30-ja-vertical.mp4",
+    "ARCLINE/promo/media/arcline-play-30-ja.srt",
+    "ARCLINE/promo/media/arcline-play-30-ja.vtt",
+    "ARCLINE/promo/media/poster.jpg",
+    "ARCLINE/site-tests/promo.test.cjs"
   ],
   "suites": {
-    "unit": [
-      "boss-ballistics",
-      "boss-movement",
-      "enemy-evolution",
-      "final-attacks",
-      "boss-motion",
-      "final-projectiles",
-      "boss-ballistics-motion"
-    ],
     "browser": [
-      "boss-ballistics-browser",
-      "boss-movement-browser",
-      "boss-warning-browser",
-      "boss-motion-browser",
-      "final-projectiles-browser"
+      "../site-tests/promo"
     ]
   },
   "checks": {
-    "generated": true,
+    "generated": false,
     "baseline": false,
     "package": false,
-    "python": true,
+    "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "PR・CIまで準備。公開・実機確認は別工程。"
+    "最終合意後に30秒・15秒の横・縦と日英字幕、発射・着弾の音・字幕の同期、スマホ相当の可読性を確認。",
+    "新しいMP4の実デコード・尺・解像度・コーデックと素材ハッシュ、リンク、初期機能の誤認・ネタバレを確認。",
+    "本番反映前に最終合意を得る。マージ・Pages配信・公開URL確認は別工程。"
   ],
   "excluded": [
     {
-      "scope": "全100面再攻略、保存移行、音源、エンディング、未変更の全自機攻撃",
-      "reason": "地形、HP、保存、素材は変更しない。共通物理の変更は省略可能な砲口差分で、既存敵の同じvolley経路はenemy-evolutionで確認する。"
+      "scope": "本編の戦闘・保存・全100面・全攻撃・既存BGM全件・生成物一式",
+      "reason": "ゲームコード・戦闘値・保存・素材正本を変更しない。サイト側動画と編集ツールだけの変更で、既成功の本編検査や全音源AACプローブを繰り返さない。"
     }
   ]
 }

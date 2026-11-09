@@ -1,0 +1,408 @@
+{
+  "revision": "marketing-20261109-r1",
+  "status": "review-draft",
+  "gameVersion": "0.31.2",
+  "gameCommit": "9ebc251943f4ad9ace87f2983cc34c028a3c78d0",
+  "fps": 30,
+  "note": "Native update/draw at 1/30 s per captured frame, real keyboard charge/release and DOM angle input; isolated synthetic progress selects an unlocked stage. No HP, geometry, damage, motion or rendering overrides.",
+  "audio": {
+    "music": "assets/audio/bgm/bgm_battle_a.m4a",
+    "approach": "既存音源の編集用ミックス。実射撃のイベントと本編のArcSFX.timelineから発射・破壊・着弾の位置を合わせる。ブラウザの同録音声ではない。ナレーションなし。",
+    "credits": "ARCLINE既存制作素材。第三者の参考作品素材は使用しない。"
+  },
+  "assets": [
+    {
+      "file": "arcline-play-15-en-1080p.mp4",
+      "bytes": 1513778,
+      "sha256": "50f2e9b72d6c39ad35c46e5ea6ab80dc440b7db8455e8c3ebfa03cf487c8301f",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "15.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-15-en-720p.mp4",
+      "bytes": 877258,
+      "sha256": "531cf064cc8f7b57e461c44772a3ee82b37594fa212223d1736576cd26d5707e",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "15.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-15-en-vertical.mp4",
+      "bytes": 973480,
+      "sha256": "22d8ea7a80f47b83e5723aee68a03b08de988abe1841999ec366fd42be05b963",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "15.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-15-en.srt",
+      "bytes": 296,
+      "sha256": "9a99ec2f38d567fe3fe4ddf5652f0857ec0a678fec00f3ea288e1f6eab6a843f"
+    },
+    {
+      "file": "arcline-play-15-en.vtt",
+      "bytes": 304,
+      "sha256": "9555cc6a1e78b46d28879d83058cc358aae141a38fb3f6992e12bb1879f96409"
+    },
+    {
+      "file": "arcline-play-15-ja-1080p.mp4",
+      "bytes": 1513328,
+      "sha256": "88a4292514f2a4e558c165134e6f51f228911969e7fa8c99f3e0470ee4816d4c",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "15.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-15-ja-720p.mp4",
+      "bytes": 872879,
+      "sha256": "aadd07f3e670af5e09d20d061c69626813145e8fcfa7b8f698f11b507e4b8daf",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "15.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-15-ja-vertical.mp4",
+      "bytes": 978537,
+      "sha256": "f70eaf879601918a8f9f2a79983c1cedebcf71c4f5ac08eeadd67c40b7626680",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "15.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-15-ja.srt",
+      "bytes": 343,
+      "sha256": "9ad6f402ff2f5ace22b6785c9ad567c855c359febc82f6b98cf1a97a3a92a103"
+    },
+    {
+      "file": "arcline-play-15-ja.vtt",
+      "bytes": 351,
+      "sha256": "9d7b1d46f6391697b35e6a7b82125b2a88037ee8049c8854ee7f3453df517715"
+    },
+    {
+      "file": "arcline-play-30-en-1080p.mp4",
+      "bytes": 3283003,
+      "sha256": "e7e1f84a81738c2f45ae08d65b7f9a6b1975176a26c1ae51a2d1bc969fc10d9e",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-30-en-720p.mp4",
+      "bytes": 1868080,
+      "sha256": "50acb8df04ee3a1d1817e42654ee88cc2dca27ea9654b9e28b6495eb0a33e05a",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-30-en-vertical.mp4",
+      "bytes": 2015211,
+      "sha256": "d46ba8bf49d85973e0c036a17481baab7b01b458212046518381abf633edd4fe",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-30-en.srt",
+      "bytes": 553,
+      "sha256": "9cdef83dca8546fa84077fc677eaeee3a78b7c3cbb9379a87ca6eb9874d22b1e"
+    },
+    {
+      "file": "arcline-play-30-en.vtt",
+      "bytes": 561,
+      "sha256": "9d4d475b7c490d58bddd6c68cd3691707fb351d2fdd929c252aca36c4f73d430"
+    },
+    {
+      "file": "arcline-play-30-ja-1080p.mp4",
+      "bytes": 3211797,
+      "sha256": "998cda46cb2d8a24e3105e7be9abb81cb19a3c5701582af53a065925181bd9c4",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-30-ja-720p.mp4",
+      "bytes": 1852327,
+      "sha256": "b8953a3c0130b8c5267e66d73fe4b7a16046895686aba049701f020e55826f9a",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-30-ja-vertical.mp4",
+      "bytes": 2014335,
+      "sha256": "d2c0d658ce9b6d1b56162ec44a5f3fa734af386f5da65cac370e16b4eefdd57a",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "r_frame_rate": "30/1",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "30.000000"
+        }
+      }
+    },
+    {
+      "file": "arcline-play-30-ja.srt",
+      "bytes": 601,
+      "sha256": "fb3adb2b03f71d640ebf3296ae3f7b531ad79b1a663531008978751cb0273ac2"
+    },
+    {
+      "file": "arcline-play-30-ja.vtt",
+      "bytes": 609,
+      "sha256": "a1225011ad026e50bdf67d107b51852aca3a589e9f960e3a7e818f6ff654b177"
+    },
+    {
+      "file": "poster.jpg",
+      "bytes": 123552,
+      "sha256": "2edbc1791a77b462c76e58da8c400b75a4ef8c93a49a3227017ffecb09a20eff"
+    }
+  ]
+}
