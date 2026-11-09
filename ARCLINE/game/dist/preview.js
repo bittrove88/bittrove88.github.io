@@ -4,9 +4,8 @@ const E=typeof module!=='undefined'?require('./engine.js'):root.ArcEngine,G=E.ge
 const L=typeof module!=='undefined'?require('./lessons.js'):root.ArcLessons;
 const Motion=typeof module!=='undefined'?require('./attack-motion.js'):root.ArcAttackMotion;
 const clone=value=>JSON.parse(JSON.stringify(value));
-const titles={controls:'HOLD · RELEASE',slope:'MOVE · AIM',height:'CHANGE YOUR POSITION',pickup:'SHOOT THE CAPSULE',reflection:'REFLECTIVE GROUND',W:'REFLECTIVE GROUND',B:'OPEN · CLOSED',C:'CLOUD SLOWS THE SHOT',K:'BOUNCE OFF THE MIRROR',U:'RIDE THE UPDRAFT',F:'LET THE WIND CARRY',V:'VENT ON · OFF',M:'FOLLOW THE CURVE',terminal:'SWITCH THE FIELD',roof:'SHOOT UNDER THE ROOF',BURST:'A WIDER BLAST',BLINK:'CHOOSE A LANDING',PUSH:'PUSH THE RIVAL',PULL:'PULL THE RIVAL',BOUNCE:'ADD ONE BOUNCE',SPLIT:'SPLIT AT THE TOP',PHASE:'THROUGH A THIN WALL',SWAP:'EXCHANGE POSITIONS','boss-swap':'TURN THE CORE','ceiling-lift':'STAY BELOW THE ROOF','gate-choices':'CHOOSE YOUR ENTRANCE'};
-for(const id of L.ids)titles[id]=L.describe(id).title;
-const eventFor={'boss-core':'part',reflection:'bounce',roof:'bounce',W:'bounce',B:'impact',C:'cloud',K:'bounce',U:'updraft',F:'wind',V:'vent',M:'magnet',terminal:'terminal',pickup:'pickup',BOUNCE:'bounce',SPLIT:'split',PHASE:'phase',BURST:'impact',W05:'bounce',W06:'bounce',W07:'roll',W08:'bounce',W09:'impact',W10:'split',W11:'impact',W12:'airburst',W13:'phase',W15:'dive',W16:'wave',W20:'bounce'};
+const titles=Object.fromEntries(L.ids.map(id=>[id,L.describe(id).title]));
+const eventFor={'boss-core':'part',reflection:'bounce',roof:'bounce',W:'bounce',B:'impact',C:'cloud',K:'bounce',U:'updraft',F:'wind',V:'vent',M:'magnet',terminal:'terminal',BOUNCE:'bounce',SPLIT:'split',PHASE:'phase',BURST:'impact',W05:'bounce',W06:'bounce',W07:'roll',W08:'bounce',W09:'impact',W10:'split',W11:'impact',W12:'airburst',W13:'phase',W15:'dive',W16:'wave',W20:'bounce'};
 function snapshot(s){const copy=clone(s);copy.random=E.seeded(s.stage*997);copy.phase='aim';copy.turn=0;copy.result=null;copy.reason=null;return copy;}
 function fixture(source,id){
  const s=snapshot(source),skills=E.skills.includes(id)?{[id]:3}:{};
@@ -15,19 +14,18 @@ function fixture(source,id){
  if(id==='K')spec.features=[{type:'K',v:[54,22,38]}];
  if(id==='PHASE')spec.features=[{type:'S',v:[43,48,0,32]}];
  if(id==='W13')spec.components=[{id:'demo-drill',destructible:true,poly:[[43,32],[45,32],[45,0],[43,0]]}];
- if(['W04','ceiling-lift'].includes(id))spec.features=[{type:'R',v:[40,63,25]}];
+ if(id==='W04')spec.features=[{type:'R',v:[40,63,25]}];
  if(id==='roof')spec.components=[{id:'demo-mirrored-eave',destructible:false,poly:[[36,34],[67,34],[67,25],[36,25]],reflectiveUnderside:[[36,25],[67,25]]}];
- if(['B','gate-choices'].includes(id))spec.features=[{type:'B',v:[44,12,20,1]}];
+ if(id==='B')spec.features=[{type:'B',v:[44,12,20,1]}];
  if(['C','U','F','V'].includes(id))spec.features=[{type:id,v:[36,56,4,34]}];
  if(id==='M'||id==='terminal')spec.features=[{type:'M',v:[48,24,13,1]},...(id==='terminal'?[{type:'T',v:[34,22]}]:[])];
  if(id==='W19')spec.floors=[[[0,12],[60,12]],[[62,21],[100,21]]];
- if(id==='height'||id==='slope')spec.floors=[[[0,12],[22,12],[42,22],[100,22]]];
  s.spec=spec;s.world=G.world(spec);s.stage=source.stage;s.skills=skills;s.skillCaps=Object.fromEntries(Object.entries(skills).map(([k])=>[k,4]));s.selectedSkill=E.skills.includes(id)&&id!=='BLINK'?id:null;s.skillUsed=false;s.bossPhase=0;s.effects={broken:0,polarity:0,destroyed:[]};s.teleportMode=false;s.pendingChanges=[];s.last=[null,null];s.telegraph=null;
  const profile=s.characterId?E.combat.get(s.characterId):null,near=profile?Math.max(300,Math.min(720,160+360*profile.normal.speed**2/profile.normal.gravity)):720;
  const targetX=({W07:500,W11:420,W13:560,PHASE:620,W16:520})[id]||(id==='W19'?575:/^W\d\d$/.test(id)&&id!=='W01'?720:near),hp=profile?profile.hp/E.combat.pointsPerUnit:5;
  s.units=[{...G.safePosition(s.world,160,380),hp,maxHp:hp,parts:[],range:[35,650],exposed:0},{...G.safePosition(s.world,targetX,380),hp:3,maxHp:3,parts:[],range:[250,965],exposed:0}];
  s.blink=spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
- s.pickups=id==='pickup'?[{id:'S-demo',name:'Capsule',x:380,y:280,radius:24,collected:false}]:[];
+ s.pickups=[];
  s.mode=/^W\d\d$/.test(id)?id:'W01';s.weaponId=s.mode;s.weaponStock=s.mode==='W01'?{}:{[s.mode]:3};s.pendingLoot=[];s.shotCount=0;s.guardActive=false;delete s.repair;s.angle=48;s.power=65;s._preview=true;
  return s;
 }
@@ -65,11 +63,10 @@ function useful(s,id,plan){
   if(id==='W16'&&!plan.events.some(e=>e.type==='wave'&&e.path.some(p=>Math.abs(p.x-s.units[1].x)<28)))return false;
   return true;
  }
- if(['PUSH','PULL','SWAP','W17','W18','W19','boss-swap'].includes(id)){
+ if(['PUSH','PULL','SWAP','W17','W18','W19'].includes(id)){
   if(plan.damage[1]<=0)return false;const after=snapshot(s);E.resolve(after,clone(plan));return after.units.some((u,i)=>Math.hypot(u.x-s.units[i].x,u.y-s.units[i].y)>8)||after.units[1].exposed>s.units[1].exposed;
  }
  if(id==='roof')return plan.events.some(e=>e.type==='bounce'&&e.solidId?.includes(':under')&&plan.bullets.some(b=>b.path.some(p=>p.t>e.t+.08&&p.x>e.x+5&&p.y>e.y+5)));
- if(id==='ceiling-lift'){const roof=s.world.solids.find(o=>o.kind==='roof');return !!roof&&plan.bullets.some(b=>b.path.some(p=>p.x>roof.poly[0].x+10&&p.x<roof.poly[1].x-10&&p.y>roof.poly[2].y+6&&p.y<460));}
  const event=eventFor[id];return event?plan.events.some(e=>e.type===event):plan.damage[1]>.1;
 }
 function find(s,id){
@@ -105,14 +102,14 @@ function truncate(plan,time){
  const p=clone(plan);for(const b of p.bullets){b.path=b.path.filter(q=>q.t<=time);b.t=Math.min(b.t,time);}p.bullets=p.bullets.filter(b=>b.path.length);p.events=p.events.filter(e=>e.t<=time);p.impacts=p.impacts.filter(i=>i.t<=time);p.duration=Math.min(p.duration,time);p.damage=[0,0];p.partDamage={};p.partHits=Object.fromEntries(Object.keys(plan.partHits||{}).map(i=>[i,p.events.filter(e=>e.type==='part-hit'&&e.part===Number(i)).length]));p.end=p.impacts.at(-1)||p.bullets[0].path.at(-1);p.path=p.bullets[0].path;return p;
 }
 const playbackRate=.65,resultHold=1.65;
-const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',slope:'NEW POSITION',height:'HIGH GROUND',pickup:'COLLECTED',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'BOUNCE',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE','boss-swap':'CORE EXPOSED',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
+const annotations={controls:'HIT',aim:'HIGHER ARC',move:'MOVE',reflection:'BOUNCE',B:'GATE',C:'SLOWER',K:'REFLECT',U:'LIFT',F:'DRIFT',V:'LIFT',M:'BEND',terminal:'REVERSED',roof:'BOUNCE',BURST:'WIDER BLAST',BLINK:'LAND',PUSH:'PUSH',PULL:'PULL',BOUNCE:'EXTRA BOUNCE',SPLIT:'SPLIT',PHASE:'THROUGH',SWAP:'SWAP','boss-core':'CORE',W02:'WIDE BLAST',W03:'FAST',W04:'HIGH ARC',W05:'HOP',W06:'REBOUND',W07:'ROLL',W08:'SKIP',W09:'THREE SHOTS',W10:'SPLIT',W11:'TWO HITS',W12:'AIR BLAST',W13:'THROUGH',W14:'STRAIGHT',W15:'DIVE',W16:'GROUND WAVE',W17:'PUSH',W18:'PULL',W19:'LIFT',W20:'REBOUND'};
 function decorate(result,id,source){
  const description=L.describe(id)||{title:titles[id],instruction:'Watch the action.',outcome:'Watch what changes.',context:'DEMO'};
  Object.assign(result,description,{id,title:description.title,source});
  if(source==='stage'&&!E.skills.includes(id)&&!/^W\d\d$/.test(id))result.context='THIS LEVEL';
  if(source==='boss-demo')result.context='BOSS DEMO';
  result.focus={...result.focus,radius:170};result.annotation={x:result.focus.x,y:result.focus.y,label:annotations[id]||description.title};
- result.cue={control:id==='controls'?'fire':id==='aim'?'aimStick':['move','slope','height'].includes(id)?'stick':E.skills.includes(id)?'skill':/^W\d\d$/.test(id)?'weapon':'feature',axis:id==='aim'?1:0};
+ result.cue={control:id==='controls'?'fire':id==='aim'?'aimStick':id==='move'?'stick':E.skills.includes(id)?'skill':/^W\d\d$/.test(id)?'weapon':'feature',axis:id==='aim'?1:0};
  if(result.plan&&Motion){result.attackMotion=Motion.create(result.plan);result.flightEnd=result.flightStart+result.attackMotion.duration/(result.playbackRate||1);result.duration=result.flightEnd+(result.resultHold||resultHold);}
  const points=result.plan?.bullets.flatMap(b=>b.path.filter((p,i)=>i%8===0||i===b.path.length-1)).filter(p=>p.x>=0&&p.x<=1000&&p.y>=-250&&p.y<=560)||[];
  result.framing={points:[...points,{x:result.before.units[0].x,y:result.before.units[0].y-30},result.focus],subjects:[0,...(/^W\d\d$/.test(id)||E.skills.includes(id)||id==='boss-core'||id==='boss-swap'||id==='controls'?[1]:[])]};
@@ -145,7 +142,7 @@ function make(s,id,found,source){
 }
 function motion(before,after,id,event){
  const result=decorate({id,state:before,before,after,pose:{angle:before.angle,power:20,mode:before.mode,selectedSkill:before.selectedSkill},plan:null,proof:{event,valid:true},releaseAt:.85,flightStart:.85,flightEnd:1.85,duration:3.5,resultHold,focus:{x:after.units[0].x,y:after.units[0].y-25,radius:170}},id,before._preview?'vignette':'stage');
- if(['move','slope','height'].includes(id))result.cue.axis=Math.sign(after.units[0].x-before.units[0].x);return result;
+ if(id==='move')result.cue.axis=Math.sign(after.units[0].x-before.units[0].x);return result;
 }
 function aimDemo(original){
  const state=fixture(original,'aim');Object.assign(state.units[1],G.safePosition(state.world,700,380));state.mode='W01';state.selectedSkill=null;
@@ -238,24 +235,23 @@ function skillPreview(original,id){
   const after=snapshot(state);E.selectSkill(after,id);let miss;for(let a=-8;a<=80&&!miss;a+=4)for(let power=25;power<=100;power+=5){const p=E.trajectory(after,0,a,power);if(p.damage.every(d=>d===0)&&!p.destroyed.length){miss=p;break;}}if(!miss)return null;E.resolve(after,E.launch(after,miss.angle,miss.power));E.next(after);const aim=E.solve(after,1),plan=E.trajectory(after,1,aim.angle,aim.power),raw=E.trajectory({...after,guardActive:false},1,aim.angle,aim.power);if(!plan.damage[0]||Math.abs(plan.damage[0]*2-raw.damage[0])>1e-6)return null;
   const before=snapshot(state);before.guardActive=true;E.resolve(after,E.launch(after,aim.angle,aim.power,plan));const result=build(before,after,plan,'DAMAGE '+E.combat.points(raw.damage[0])+' → '+E.combat.points(plan.damage[0]),plan.impacts.find(i=>i.hit?.unit===0)||plan.end);result.proof={event:id,valid:true,damage:plan.damage[0],unprotected:raw.damage[0]};return result;
  }
- const before=snapshot(state);before.units[0].hp=Math.max(.5,before.units[0].maxHp*.5);const healed=snapshot(before);if(!E.repair(healed))return null;const repair=build(before,snapshot(healed),null,'HP +'+E.combat.points(healed.repair.healed),{x:healed.units[0].x,y:healed.units[0].y-30});repair.motion={kind:'repair'};E.next(healed);const aim=E.solve(healed,1),plan=E.trajectory(healed,1,aim.angle,aim.power),after=JSON.parse(JSON.stringify(healed));E.resolve(after,E.launch(after,aim.angle,aim.power,plan));const response=build(snapshot(healed),after,plan,'RIVAL RESPONSE',plan.impacts.find(i=>i.hit?.unit===0)||plan.end);response.instruction='The rival acts after the repair.';return {...repair,variants:[repair,response],duration:repair.duration+response.duration,after,proof:{event:id,valid:after.skills[id]===2&&healed.shotCount===1}};
+ return null;
 }
 function create(original,requested){
- if(['S_GUARD','S_BREACH','S_REPAIR'].includes(requested))return skillPreview(original,requested);
+ if(['S_GUARD','S_BREACH'].includes(requested))return skillPreview(original,requested);
  if(E.combat.weapons.some(w=>w.special&&w.id===requested))return specialPreview(original,requested);
- let id=requested==='touch-controls-v2'?'controls':requested==='W'?'reflection':requested==='ceiling-lift'?'roof':requested==='gate-choices'?'B':requested;
- if(!Object.prototype.hasOwnProperty.call(titles,id)&&!E.weapons.some(w=>w.id===id))return null;
- if(['teleport','wall-fall','destruction','choices'].includes(id)){
-  const before=snapshot(original);before.mode='W01';before.selectedSkill=null;before.teleportMode=id==='teleport'||id==='wall-fall';
-  if(id==='choices'){const result=create(original,'destruction');return result?{...result,...L.describe(id),id}:null;}
+ const id=requested==='W'?'reflection':requested;
+ if(!Object.prototype.hasOwnProperty.call(titles,id))return null;
+ if(['teleport','destruction'].includes(id)){
+  const before=snapshot(original);before.mode='W01';before.selectedSkill=null;before.teleportMode=id==='teleport';
   let found=null;
   for(let angle=-8;angle<=84&&!found;angle+=4)for(let power=25;power<=100;power+=5){const plan=E.trajectory(before,0,angle,power);
    if(id==='destruction'){const event=plan.events.find(e=>e.type==='break');if(event){found={plan,angle,power,event};break;}}
-   else{const landing=G.teleportLanding(before.world,plan.teleportContact,before.units[1],before.units[0].range);if(landing&&Math.hypot(landing.x-before.units[0].x,landing.y-before.units[0].y)>65&&(id!=='wall-fall'||landing.y-landing.entry.y>45)){found={plan,angle,power,event:plan.events.find(e=>e.type==='teleport-contact')};break;}}
+   else{const landing=G.teleportLanding(before.world,plan.teleportContact,before.units[1],before.units[0].range);if(landing&&Math.hypot(landing.x-before.units[0].x,landing.y-before.units[0].y)>65){found={plan,angle,power,event:plan.events.find(e=>e.type==='teleport-contact')};break;}}
   }
   if(!found)return null;before.angle=found.angle;before.power=found.power;const after=snapshot(before);E.resolve(after,clone(found.plan));
   const description=L.describe(id),releaseAt=.85,flightEnd=releaseAt+found.plan.duration/playbackRate,focus=found.event;
-  return {...description,id,state:before,before,after,pose:{angle:found.angle,power:found.power,mode:before.teleportMode?'TELEPORT':'W01'},plan:found.plan,proof:{event:id,valid:true},source:'stage',releaseAt,flightStart:releaseAt,flightEnd,duration:flightEnd+resultHold,playbackRate,resultHold,focus:{x:focus.x,y:focus.y,radius:210},annotation:{x:focus.x,y:focus.y,label:id==='destruction'?'OPEN':id==='wall-fall'?'FALL · LAND':'LAND'},annotationAt:found.plan.duration,framing:{points:found.plan.path.filter((_,i)=>i%12===0),subjects:[0]},cue:{control:'fire'}};
+  return {...description,id,state:before,before,after,pose:{angle:found.angle,power:found.power,mode:before.teleportMode?'TELEPORT':'W01'},plan:found.plan,proof:{event:id,valid:true},source:'stage',releaseAt,flightStart:releaseAt,flightEnd,duration:flightEnd+resultHold,playbackRate,resultHold,focus:{x:focus.x,y:focus.y,radius:210},annotation:{x:focus.x,y:focus.y,label:id==='destruction'?'OPEN':'LAND'},annotationAt:found.plan.duration,framing:{points:found.plan.path.filter((_,i)=>i%12===0),subjects:[0]},cue:{control:'fire'}};
  }
  if(id==='controls'){
   const state=fixture(original,id);if(!state.characterId)Object.assign(state.units[1],G.safePosition(state.world,650,380));state.mode='W01';state.selectedSkill=null;
@@ -264,10 +260,10 @@ function create(original,requested){
  }
  if(id==='aim')return aimDemo(original);
  if(id==='boss-core')return bossCore(original);
- if(id==='move'||id==='slope'||id==='height'){
+ if(id==='move'){
   for(const before of [snapshot(original),fixture(original,id)]){
    for(const distance of [80,160,240,-80,-160]){const after=snapshot(before);E.move(after,0,distance);
-    if(Math.abs(after.units[0].x-before.units[0].x)<=30||id!=='move'&&Math.abs(after.units[0].y-before.units[0].y)<=8)continue;
+    if(Math.abs(after.units[0].x-before.units[0].x)<=30)continue;
     return motion(before,after,id,'move');
    }
   }return null;
@@ -281,7 +277,6 @@ function create(original,requested){
  // Feature lessons first use the actual stage, with a designed local scene only if no valid example exists.
  let state=/^W\d\d$/.test(id)||E.skills.includes(id)?fixture(original,id):snapshot(original),source=state._preview?'vignette':'stage';
  state.mode=/^W\d\d$/.test(id)?id:'W01';state.selectedSkill=E.skills.includes(id)?id:null;
- if(id==='boss-swap'){state.selectedSkill='SWAP';state.skills.SWAP=2;source='vignette';}
  if(id==='V')for(const r of state.world.regions)if(r.kind==='V')r.on=true;
  let found=find(state,id);
  if(!found){state=fixture(original,id);source='vignette';found=find(state,id);}

@@ -794,6 +794,46 @@ h1 {
 .preview-copy {
   min-width: 0;
 }
+.tutorial-details {
+  max-height: min(190px, calc(100vh - 112px));
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin-top: 8px;
+  padding-right: 6px;
+  font-size: 13px;
+  line-height: 1.55;
+  scrollbar-width: thin;
+}
+.tutorial-actions {
+  display: grid;
+  gap: 8px;
+}
+#tutorialOpenMap {
+  width: 72px;
+  min-height: 44px;
+  padding: 4px;
+  font-size: 11px;
+}
+.tutorial-details p {
+  margin: 0 0 8px;
+}
+.tutorial-details p:last-child {
+  margin-bottom: 0;
+}
+.tutorial-details .battle-touch-ratio {
+  margin: 0 0 6px;
+  line-height: 26px;
+}
+.tutorial-details button {
+  min-height: 44px;
+  padding: 8px 16px;
+}
+#tutorial[data-page] #previewCharge {
+  display: none;
+}
+#battle[data-camera="true"] #tutorial {
+  visibility: hidden;
+}
 .preview-meta {
   display: flex;
   justify-content: space-between;
@@ -3645,7 +3685,9 @@ html[lang="ja"] #fire:disabled #chargeValue {
   position: absolute;
   inset: 0;
   z-index: 12;
-  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  padding: max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
   display: grid;
   place-items: center;
   background: #092333c9;
@@ -3873,7 +3915,10 @@ html[lang="ja"] #fire:disabled #chargeValue {
     padding: 12px;
   }
   .utility-overlay {
-    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    padding: max(10px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(10px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
   }
   .guide-grid {
     grid-template-columns: 1fr;
@@ -3890,7 +3935,10 @@ html[lang="ja"] #fire:disabled #chargeValue {
 }
 @media (orientation: landscape) and (max-height: 500px) {
   .utility-overlay {
-    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    padding: max(10px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(10px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
   }
   .utility-panel {
     padding: 12px;
@@ -3953,7 +4001,9 @@ html[lang="ja"] #fire:disabled #chargeValue {
     gap: 5px;
   }
   .utility-overlay {
-    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    padding: max(8px, env(safe-area-inset-top))
+      max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom))
+      max(8px, env(safe-area-inset-left));
   }
   .settings-row {
     padding: 5px 8px;
@@ -5061,7 +5111,8 @@ details p {
 }
 @media (orientation: landscape) and (max-height: 600px) {
   #lobby {
-    padding: 10px max(18px, env(safe-area-inset-right)) 10px max(18px, env(safe-area-inset-left));
+    padding: 10px max(18px, env(safe-area-inset-right)) 10px
+      max(18px, env(safe-area-inset-left));
     gap: 8px;
   }
   #lobby .brand {
@@ -5208,7 +5259,8 @@ details p {
 }
 @media (orientation: landscape) and (max-height: 340px) {
   #lobby {
-    padding: 6px max(12px, env(safe-area-inset-right)) 6px max(12px, env(safe-area-inset-left));
+    padding: 6px max(12px, env(safe-area-inset-right)) 6px
+      max(12px, env(safe-area-inset-left));
     gap: 4px;
   }
   #lobby .lobby-tools button {

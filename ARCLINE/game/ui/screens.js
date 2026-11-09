@@ -12,7 +12,6 @@
     "lootPicker",
     "weaponPicker",
     "skillPicker",
-    "specialLesson",
     "journeyStart",
     "chapterPlayback",
     "deleteSaveDialog",

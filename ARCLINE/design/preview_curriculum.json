@@ -1,7 +1,7 @@
 {
   "revision": "5",
-  "entryPolicy": "At most one unseen relevant entry lesson per stage. OK returns to play. Rest/application stages do not invent a preview.",
-  "optionalToolPolicy": "Weapons and skills preview only when available and actually selected. Acquiring a weapon does not auto-equip or open its preview.",
+  "entryPolicy": "One related entry flow per stage. Keep the authored order; returning players complete basic controls before the current unseen feature. Midboss parts use their existing encounter introduction.",
+  "optionalToolPolicy": "Weapons and legacy skill previews only when available and actually selected. Never preview carried or acquired equipment automatically. Repair uses its existing confirmation.",
   "playbackPolicy": "Show one named cause and its visible effect, with a setup pause, slower physics playback and an outcome hold. Loop until OK. Practice/demo scenes are labelled.",
   "stages": [
     {
@@ -901,7 +901,7 @@
     "controls": {
       "title": "HOLD · RELEASE",
       "instruction": "Hold FIRE on the right; move and aim on the left.",
-      "outcome": "Release FIRE to launch from your current position.",
+      "outcome": "Release FIRE to launch. Slide outside the button to cancel.",
       "context": "CONTROL"
     },
     "aim": {
@@ -915,24 +915,6 @@
       "instruction": "Hold FIRE; use the outer left stick to move.",
       "outcome": "Stop moving and adjust aim without releasing FIRE.",
       "context": "CONTROL"
-    },
-    "slope": {
-      "title": "MOVE",
-      "instruction": "Push the left stick sideways.",
-      "outcome": "Move onto a better firing slope.",
-      "context": "THIS LEVEL"
-    },
-    "height": {
-      "title": "HIGH GROUND",
-      "instruction": "Move onto the higher ground.",
-      "outcome": "Position changes your firing angle.",
-      "context": "THIS LEVEL"
-    },
-    "pickup": {
-      "title": "COLLECT",
-      "instruction": "Hit the glowing capsule.",
-      "outcome": "The item is saved immediately.",
-      "context": "THIS LEVEL"
     },
     "reflection": {
       "title": "REFLECTIVE GROUND",
@@ -1000,12 +982,6 @@
       "outcome": "Then hit the exposed core.",
       "context": "BOSS DEMO"
     },
-    "boss-swap": {
-      "title": "TURN THE CORE",
-      "instruction": "Select SWAP, then hit the boss.",
-      "outcome": "The core turns toward you.",
-      "context": "BOSS DEMO"
-    },
     "BURST": {
       "title": "BURST",
       "instruction": "Select BURST before firing.",
@@ -1053,12 +1029,6 @@
       "instruction": "Select SWAP, then hit the rival.",
       "outcome": "Both rovers exchange positions.",
       "context": "SKILL DEMO"
-    },
-    "W01": {
-      "title": "Standard",
-      "instruction": "Hold FIRE, then release.",
-      "outcome": "A single arcing shot.",
-      "context": "WEAPON DEMO"
     },
     "W02": {
       "title": "Heavy Shell",
@@ -1174,52 +1144,16 @@
       "outcome": "Repeated rebounds push the rival away.",
       "context": "WEAPON DEMO"
     },
-    "W": {
-      "title": "REFLECTIVE GROUND",
-      "instruction": "Aim into the bright ground.",
-      "outcome": "The shot bounces upward.",
-      "context": "THIS LEVEL"
-    },
-    "ceiling-lift": {
-      "title": "MIRRORED EAVE",
-      "instruction": "Aim at the bright underside of the eave.",
-      "outcome": "The mirror sends the shot downward.",
-      "context": "THIS LEVEL"
-    },
-    "gate-choices": {
-      "title": "MOVING GATE",
-      "instruction": "Watch the gate before firing.",
-      "outcome": "The same shot changes when it moves.",
-      "context": "THIS LEVEL"
-    },
-    "touch-controls-v2": {
-      "title": "FIRE",
-      "instruction": "Hold FIRE, then release.",
-      "outcome": "Release launches the shot.",
-      "context": "CONTROL DEMO"
-    },
     "teleport": {
       "title": "TELEPORT PROJECTILE",
       "instruction": "Select Teleport, aim and release FIRE.",
-      "outcome": "Contact moves your rover. Landing ends your action.",
-      "context": "CONTROL"
-    },
-    "wall-fall": {
-      "title": "CONTACT · FALL · LAND",
-      "instruction": "A teleport projectile hits the side of a wall.",
-      "outcome": "Your rover drops straight down before the rival acts.",
+      "outcome": "Contact moves your rover. A wall contact falls to a landing. Landing ends your action; the rival then acts.",
       "context": "CONTROL"
     },
     "destruction": {
       "title": "OPEN THE PURPLE COVER",
       "instruction": "Shoot one cracked purple piece.",
       "outcome": "The opening remains for later shots.",
-      "context": "LEVEL"
-    },
-    "choices": {
-      "title": "CHOOSE A WAY THROUGH",
-      "instruction": "Move by teleport, break cover, or use the open route.",
-      "outcome": "Preparation costs an action; the rival still responds.",
       "context": "LEVEL"
     }
   }

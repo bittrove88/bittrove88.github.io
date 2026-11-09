@@ -1,39 +1,74 @@
 {
   "version": 1,
-  "change": "0.31.5 GitHub内部エラー後の検証・公開処理の再起動",
-  "reason": "PR153の6スイートと生成155ファイルは成功済み。最初のmain CIとPagesはジョブ作成前のGitHub内部エラーで失敗し、同実行の再試行は拒否された。ゲーム本体を変えずにリリース記録・計画を更新し、未完了のmain検証と配信を同じ6スイートで再実行する。",
-  "files": [],
+  "change": "序盤チュートリアルの統合と未使用定義削除",
+  "reason": "合意した導入順を保ち、1・2面の別画面の連続と未選択道具の割り込みを解消する。必須ギミック、旧既読・進行、操作復帰に限定して確認する。",
+  "files": [
+    "ARCLINE/characters/ARCLINE_Characters_Preview.html",
+    "ARCLINE/characters/index.html",
+    "ARCLINE/design/expedition_013/arcline_100_maps_atlas.html",
+    "ARCLINE/design/expedition_013/index.html",
+    "ARCLINE/design/narrative_0_13.json",
+    "ARCLINE/design/preview_curriculum.json",
+    "ARCLINE/design/story_emotion_0141/TEXT_DIFF.json",
+    "ARCLINE/game/attack-review/index.html",
+    "ARCLINE/game/attack-review/standalone.html",
+    "ARCLINE/game/dist/app.webmanifest",
+    "ARCLINE/game/dist/battle-ui.js",
+    "ARCLINE/game/dist/cpu-worker.js",
+    "ARCLINE/game/dist/encounters.js",
+    "ARCLINE/game/dist/game.js",
+    "ARCLINE/game/dist/i18n.js",
+    "ARCLINE/game/dist/index.html",
+    "ARCLINE/game/dist/lessons.js",
+    "ARCLINE/game/dist/media-ending.css",
+    "ARCLINE/game/dist/preview.js",
+    "ARCLINE/game/dist/release-info.js",
+    "ARCLINE/game/dist/screens.js",
+    "ARCLINE/game/dist/special-ui.js",
+    "ARCLINE/game/dist/story.js",
+    "ARCLINE/game/dist/style.css",
+    "ARCLINE/game/runtime.json",
+    "ARCLINE/game/src/lessons-runtime.js",
+    "ARCLINE/game/styles/gameplay.css",
+    "ARCLINE/game/styles/media-ending.css",
+    "ARCLINE/game/tests/suites.json",
+    "ARCLINE/game/tests/tutorial-flow-browser.test.cjs",
+    "ARCLINE/game/tests/tutorial-flow.test.cjs",
+    "ARCLINE/game/ui/battle-ui.js",
+    "ARCLINE/game/ui/screens.js",
+    "ARCLINE/game/ui/special-ui.js",
+    "ARCLINE/game/visual/encounters.json",
+    "ARCLINE/index.html",
+    "ARCLINE/site/scenes.js",
+    "ARCLINE/updates/0.32.0/index.html"
+  ],
   "suites": {
     "unit": [
-      "echo-presentation",
-      "charge-camera"
+      "tutorial-flow"
     ],
     "browser": [
-      "boss-motion-browser",
-      "charge-camera-browser",
-      "enemy-movement-browser",
-      "armor-break-browser"
+      "tutorial-flow-browser"
     ]
   },
   "checks": {
     "generated": true,
     "baseline": false,
     "package": false,
-    "python": true,
+    "python": false,
     "nativeAudio": false
   },
   "manual": [
-    "転移直後と待機中の残像を568px幅の日英、PC、動きを減らす設定で実描画確認。スクリーンショットと事前確認条件を照合して再利用する。",
-    "最初のmain CIとPagesのGitHub内部エラーからの再起動を確認。対象コミットのmain CI・Pages・公開0.31.5と実際の残像表示を確認し、PR153へ結果を記録する。"
+    "制作中の単体336項目・ブラウザ174項目は同じソース・条件で有効な事前確認として保持。最終合意「検証しマージ」により、選択2スイートと生成物一致をCIで本検証する。",
+    "成功後に先行mainとマージ指示の条件を確認してマージし、対象コミットのCI・Pages配信・公開版0.32.0の読み込みと初回案内を確認する。音声全件・物理端末の確認とは区別する。"
   ],
   "excluded": [
     {
-      "scope": "物理・威力・HP・在庫・保存・全100面攻略・音声全件",
-      "reason": "演出と時間の変更に限定し、戦闘の計算・転移条件・手番を変更しない。"
+      "scope": "戦闘値・物理・AI・全100面攻略・音声全件・物理端末",
+      "reason": "チュートリアルの表示と導線の変更。先行mainの装甲・残像・戦闘ルールは変更しない。"
     },
     {
-      "scope": "無関係なサイト・マーケティング・全件ブラウザ・配布パッケージ",
-      "reason": "共有描画の生成物と既存の充電／敵移動以外へ改修を広げない。実機iOS/Androidは利用できず未確認。"
+      "scope": "武器個別の実演任意化と新しい取得物チュートリアル",
+      "reason": "今回の合意では別候補。選択時の既存実演を維持し、未使用pickup専用実演を復活させない。"
     }
   ]
 }
