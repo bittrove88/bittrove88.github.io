@@ -149,12 +149,43 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
       await page.locator("#heroVideo").scrollIntoViewIfNeeded();
       await page.locator('[data-hero="sora"]').click();
       await page.locator("#heroVideo").scrollIntoViewIfNeeded();
-      await page.waitForFunction(
-        () =>
-          heroVideo.readyState >= 2 &&
-          !heroVideo.paused &&
-          heroVideo.currentTime > 0.05,
-      );
+      await page
+        .waitForFunction(
+          () =>
+            heroVideo.readyState >= 2 &&
+            !heroVideo.paused &&
+            heroVideo.currentTime > 0.05,
+        )
+        .catch(async (error) => {
+          const media = await page.evaluate(() => ({
+            userAgent: navigator.userAgent,
+            hidden: document.hidden,
+            reduced: matchMedia("(prefers-reduced-motion: reduce)").matches,
+            viewport: [innerWidth, innerHeight],
+            videos: [...document.querySelectorAll("video")].map((video) => {
+              const rect = video.getBoundingClientRect();
+              return {
+                id: video.id,
+                source: video.currentSrc,
+                readyState: video.readyState,
+                networkState: video.networkState,
+                paused: video.paused,
+                muted: video.muted,
+                time: video.currentTime,
+                error: video.error?.message,
+                rectangle: [rect.top, rect.bottom, rect.height],
+                h264: video.canPlayType('video/mp4; codecs="avc1.42E01E"'),
+              };
+            }),
+          }));
+          fs.writeFileSync(
+            path.join(out, "MEDIA_FAILURE.json"),
+            JSON.stringify(media, null, 2) + "\n",
+          );
+          await page.screenshot({ path: path.join(out, "media-failure.png") });
+          console.error("MEDIA_FAILURE " + JSON.stringify(media));
+          throw error;
+        });
       ok(
         await page.evaluate(
           () =>
