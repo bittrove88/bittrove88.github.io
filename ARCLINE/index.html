@@ -21,11 +21,13 @@
     />
     <meta property="og:url" content="https://bittrove88.github.io/ARCLINE/" />
     <link rel="icon" href="game/dist/icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="site/styles.css?v=20261110-refinement" />
+    <link rel="stylesheet" href="site/frame.css?v=20261110-frame" />
+    <link rel="stylesheet" href="site/styles.css?v=20261110-frame" />
     <script defer src="game/dist/release-info.js?v=0.33.1"></script>
-    <script defer src="site/site.js?v=20261110-refinement"></script>
+    <script defer src="site/navigation.js?v=20261110-frame"></script>
+    <script defer src="site/site.js?v=20261110-frame"></script>
   </head>
-  <body>
+  <body class="arcline-site has-mobile-play">
     <a
       class="skip-link"
       href="#main"
@@ -33,44 +35,22 @@
       data-en="Skip to content"
       >本文へ移動</a
     >
+    <!-- SITE_HEADER_START -->
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="ARCLINE"
-        >ARCLINE<span aria-hidden="true">◆</span></a
-      >
-      <button
-        id="menuButton"
-        class="menu-button"
-        aria-expanded="false"
-        aria-controls="mainNav"
-        aria-label="メニューを開く"
-      >
-        ☰
-      </button>
-      <nav id="mainNav" aria-label="メインナビゲーション">
-        <a href="#machines" data-ja="必殺技と相棒" data-en="Special attacks"
-          >必殺技と相棒</a
-        >
-        <a href="#play" data-ja="作戦をつくる" data-en="Make your plan"
-          >作戦をつくる</a
-        >
-        <a href="#journey" data-ja="旅の先へ" data-en="The journey">旅の先へ</a>
-        <a href="#how-to" data-ja="遊び方" data-en="How to play">遊び方</a>
-        <button
-          id="languageButton"
-          class="language-button"
-          aria-label="Switch to English"
-        >
-          EN
-        </button>
-      </nav>
-      <a
-        class="button header-play"
-        href="game/dist/?v=0.33.1"
-        data-ja="ゲームを遊ぶ →"
-        data-en="Play ARCLINE →"
-        >ゲームを遊ぶ →</a
-      >
+      <div class="site-shell">
+        <a class="brand" href="#top" aria-label="ARCLINE">ARCLINE<span aria-hidden="true">◆</span></a>
+        <button id="menuButton" class="menu-button" aria-expanded="false" aria-controls="mainNav" aria-label="メニューを開く">☰</button>
+        <nav id="mainNav" class="site-nav" aria-label="メインナビゲーション">
+          <a href="#machines" data-ja="必殺技と相棒" data-en="Special attacks">必殺技と相棒</a>
+          <a href="#play" data-ja="作戦をつくる" data-en="Make your plan">作戦をつくる</a>
+          <a href="#journey" data-ja="旅の先へ" data-en="The journey">旅の先へ</a>
+          <a href="#how-to" data-ja="遊び方" data-en="How to play">遊び方</a>
+          <button id="languageButton" class="language-button" aria-label="Switch to English">EN</button>
+        </nav>
+        <a class="button header-play" href="game/dist/?v=0.33.1"><span data-ja="ゲームを遊ぶ" data-en="Play ARCLINE">ゲームを遊ぶ</span><span aria-hidden="true">→</span></a>
+      </div>
     </header>
+    <!-- SITE_HEADER_END -->
     <main id="main">
       <section id="top" class="hero">
         <div class="hero-grid wrap">
@@ -812,22 +792,27 @@
 <script id="machineData" type="application/json">[{"id":"gun","role":["重装アサルトタンク","Heavy assault tank"],"charm":["慎重で、仲間の支えを一機で背負いがち。頼ることも覚えていく。","Careful and protective, Gun learns that sharing a load is strength too."],"desire":["港の作業路を直し、荷物が行き交う音を取り戻す。","Gun wants to repair the port’s work roads and hear cargo moving again."],"line":["急がなくていい。ちゃんと、向こうへ行こう。","No need to rush. Let us get there properly."],"hp":140,"stage":0,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["破砕砲：通常の敵に最大35ダメージ。","Two explosions push the target away. Up to 35 against ordinary enemies."]},{"id":"hana","role":["三連装ライトタンク","Triple-barrel light tank"],"charm":["やさしい言葉と丁寧な仕事。違う色も残す職人気質。","Gentle words and exacting work, with room for someone else’s colours."],"desire":["道標を直し、後から来る誰かを迷わせない。","Hana wants to repaint the signposts so the next traveller will not lose the way."],"line":["きれいに直そう。あなたの色も、残したまま。","Let us make it right, and keep your colour too."],"hp":100,"stage":5,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["連華砲：通常の敵に最大36ダメージ。","Fire nine rounds in three volleys. Up to 36 against ordinary enemies."]},{"id":"sora","role":["自走迫撃モーター","Self-propelled mortar"],"charm":["少し控えめな空想家。飛べなくても、空へ届けたいものがある。","A reserved dreamer who has something to send skyward without flying."],"desire":["帰る者のため、遠くの誘導灯をもう一度ともす。","Sora wants to see the distant lights welcoming travellers home again."],"line":["飛べなくても、空へ届くものはある。","Some things can reach the sky without flying."],"hp":100,"stage":20,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["流星砲：通常の敵に最大38ダメージ。","Release twelve falling meteors. Up to 38 against ordinary enemies."]},{"id":"rico","role":["跳躍トリックスター","Ricochet trickster"],"charm":["遊び心と挑戦心。失敗も隠さない案内役を目指す。","Playful and daring, learning to be a guide who shows the failures too."],"desire":["行き止まりとして消された道も、正しい情報とともに地図へ戻す。","Rico wants to put roads erased as dead ends back onto the map."],"line":["近道もある。でも、こっちならみんな通れる。","There is a shortcut. But this way can take everyone."],"hp":80,"stage":25,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["跳弾砲：通常の敵に最大40ダメージ。","Bounces increase the damage. Up to 40 against ordinary enemies."]},{"id":"rin","role":["精密狙撃デストロイヤー","Precision tank destroyer"],"charm":["静かな完璧主義者。確かでないことも伝える勇気を持つ。","A quiet perfectionist finding the courage to share uncertainty."],"desire":["止めてしまった予報の続きを、待つ者へ伝える。","Rin wants to resume the forecasts that others are still waiting for."],"line":["確かじゃない。でも、通れる道はある。","I am not certain. But there is a way through."],"hp":100,"stage":60,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["収束砲：通常の敵に最大50ダメージ。","Fire a fast piercing shot. Up to 50 against ordinary enemies."]},{"id":"ban","role":["突破型ショックマシン","Breakthrough shock machine"],"charm":["軽口の奥に責任感。壊した先の帰り道まで見届けたい。","A joking exterior hides real responsibility for the way back."],"desire":["閉ざされた道を開き、役に立つ力を使う。","Ban wants to open closed roads and put its strength to use for someone."],"line":["道をあけるぞ。今度は、帰り道もな！","I will clear the way. The way back too, this time!"],"hp":120,"stage":15,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["衝撃砲：通常の敵に最大35ダメージ。","Release three forward shockwaves. Up to 35 against ordinary enemies."]},{"id":"hibari","role":["偵察型インターセプター","Recon interceptor"],"charm":["好奇心旺盛な聞き上手。返事のない声にも耳を澄ます。","A curious listener who never gives up on an unanswered voice."],"desire":["遠くから届く古い呼出信号の送り主を見つける。","Hibari wants to find the sender of an old call arriving from far away."],"line":["聞こえたよ。今度は、こっちから届ける。","I heard you. This time, I will send something back."],"hp":120,"stage":30,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["光輪砲：通常の敵に最大35ダメージ。","Attack with two expanding rings. Up to 35 against ordinary enemies."]},{"id":"mogu","role":["解体作業デモリッション","Demolition work machine"],"charm":["豪快だけれど几帳面。図面には掘らない線も描きたい。","Bold but meticulous, drawing the lines worth leaving undug."],"desire":["進める道と、残すべき支えの両方を図面へ描く。","Mogu wants to redraw the map with both passable routes and the supports worth preserving."],"line":["ここは掘る。こっちは、残す。","Dig here. Leave this part standing."],"hp":120,"stage":40,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["掘削砲：通常の敵に最大39ダメージ。","Three explosions advance from impact. Up to 39 against ordinary enemies."]},{"id":"koro","role":["六輪ローバー砲撃車","Six-wheel rover"],"charm":["明るくせっかち。最速より、みんなの到着を大切にしていく。","Cheerful and impatient, learning to value everyone arriving over coming first."],"desire":["止まった貨物を動かし、待っている荷物を全部届ける。","Koro wants to move the stranded cargo and deliver every waiting package."],"line":["一番乗りより、みんなで到着だ！","Better than first place: everyone arriving!"],"hp":100,"stage":10,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["爆走砲：通常の敵に最大30ダメージ。","Roll along the ground and explode. Up to 30 against ordinary enemies."]},{"id":"yui","role":["重力牽引サポート","Gravity towing support"],"charm":["放っておけない世話焼き。つなぐだけでなく、離すことも覚える。","A caring helper learning when to connect and when to let go."],"desire":["自分が運んだ停止信号の続きを確かめ、助けを頼めるつながりを戻す。","Yui wants to understand its old connection records and restore a network where help can be requested."],"line":["つないでおくね。進むときは、離せるように。","I will keep us connected, with room to let go when you move."],"hp":100,"stage":80,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["重力砲：通常の敵に最大42ダメージ。","Pull the target toward the impact. Up to 42 against ordinary enemies."]}]</script>
 <!-- SITE_MACHINES_END -->
     </main>
-    <footer class="wrap site-footer">
-      <a class="brand" href="#top">ARCLINE<span aria-hidden="true">◆</span></a>
-      <nav aria-label="詳しく知る">
-        <a href="#machines" data-ja="機体と仲間" data-en="Meet the machines"
-          >機体と仲間</a
-        ><a
-          href="design/expedition_013/arcline_100_maps_atlas.html?v=0.33.1"
-          data-ja="マップ総覧"
-          data-en="Map atlas"
-          >マップ総覧</a
-        ><a href="promo/" data-ja="長編ムービー" data-en="Story movie"
-          >長編ムービー</a
-        >
-      </nav>
-      <span id="siteVersion">ARCLINE · 0.33.1</span>
+    <!-- SITE_FOOTER_START -->
+    <footer class="site-footer">
+      <div class="site-shell">
+        <div class="footer-main">
+          <div class="footer-identity">
+            <a class="brand" href="#top" aria-label="ARCLINE">ARCLINE<span aria-hidden="true">◆</span></a>
+            <p class="footer-tagline"><span data-ja="読み切れ。" data-en="Read the battle.">読み切れ。</span><span class="accent" data-ja="撃ち抜け。" data-en="Make your shot.">撃ち抜け。</span></p>
+          </div>
+          <nav class="footer-nav" aria-label="詳しく知る">
+            <a href="#machines" data-ja="必殺技と相棒" data-en="Special attacks">必殺技と相棒</a>
+            <a href="design/expedition_013/arcline_100_maps_atlas.html?v=0.33.1" data-ja="マップ総覧" data-en="Map atlas">マップ総覧</a>
+            <a href="promo/" data-ja="長編ムービー" data-en="Story movie">長編ムービー</a>
+          </nav>
+        </div>
+        <div class="footer-meta">
+          <p data-ja="ひとり用・ターン制砲撃アドベンチャー" data-en="A single-player, turn-based artillery adventure">ひとり用・ターン制砲撃アドベンチャー</p>
+          <span id="siteVersion">ARCLINE · 0.33.1</span>
+        </div>
+      </div>
     </footer>
+    <!-- SITE_FOOTER_END -->
     <div class="mobile-play">
       <a class="button" href="game/dist/?v=0.33.1"
         ><span data-ja="ゲームを遊ぶ" data-en="Play ARCLINE">ゲームを遊ぶ</span

@@ -1,21 +1,15 @@
 /* Shared ARCLINE editorial style. Embedded by the atlas builder for offline use. */
 body.arc-secondary {
   color-scheme: light;
-  --bg: #f5f1e5;
-  --panel: #e9e6d9;
-  --line: #cbd0c5;
-  --text: #112f3a;
+  --bg: var(--paper);
+  --panel: var(--paper-deep);
+  --text: var(--ink);
   --muted: #5a6f70;
-  --mint: #df6936;
-  --orange: #f18a51;
+  --mint: var(--orange-strong);
   background: var(--bg);
   color: var(--text);
-  font:
-    13px/1.8 "Noto Sans JP",
-    "Hiragino Kaku Gothic ProN",
-    "Yu Gothic",
-    system-ui,
-    sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
 }
 .arc-secondary a {
   color: inherit;
@@ -25,54 +19,23 @@ body.arc-secondary {
 .arc-secondary select {
   border-radius: 0;
   border: 1px solid #aeb9b2;
-  background: #fffdf6;
-  color: #112f3a;
+  background: var(--white);
+  color: var(--ink);
   padding: 9px 12px;
 }
 .arc-secondary button:hover,
 .arc-secondary select:hover {
-  border-color: #df6936;
+  border-color: var(--orange-strong);
 }
 .arc-secondary :focus-visible {
-  outline: 3px solid #df6936;
+  outline: 3px solid var(--orange-strong);
   outline-offset: 3px;
 }
 .arc-secondary .atlas-header {
-  padding: 0 max(28px, calc((100vw - 1280px) / 2));
-  background: #112f3a;
-  color: #fffdf6;
+  padding: 0;
+  background: var(--ink);
+  color: var(--white);
   border-bottom: 0;
-}
-.secondary-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 23px 0;
-  border-bottom: 1px solid #ffffff25;
-}
-.secondary-brand {
-  font-size: 26px;
-  line-height: 1;
-  letter-spacing: -0.06em;
-  font-weight: 850;
-}
-.secondary-brand span {
-  color: #f18a51;
-  font-size: 15px;
-  margin-left: 8px;
-}
-.secondary-nav > div {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  font-size: 11px;
-}
-.secondary-nav .secondary-play {
-  background: #f18a51;
-  color: #112f3a;
-  padding: 12px 20px;
-  font-weight: 800;
 }
 .atlas-heading {
   display: flex;
@@ -87,7 +50,7 @@ body.arc-secondary {
 .atlas-heading .secondary-eyebrow {
   font-size: 10px;
   letter-spacing: 0.19em;
-  color: #f18a51;
+  color: var(--orange);
   margin: 0 0 20px;
 }
 .atlas-heading h1 {
@@ -112,7 +75,7 @@ body.arc-secondary {
 }
 .atlas-heading .atlas-index {
   font-size: 37px;
-  color: #f18a51;
+  color: var(--orange);
   line-height: 1.3;
   font-weight: 750;
   margin: 0;
@@ -124,8 +87,9 @@ body.arc-secondary {
   font-size: 22px;
 }
 .arc-secondary main {
-  max-width: 1336px;
-  padding: 28px;
+  width: min(var(--site-width), calc(100% - var(--site-gutter) * 2));
+  max-width: none;
+  padding: 28px 0;
   margin: auto;
 }
 .arc-secondary .toolbar {
@@ -142,7 +106,7 @@ body.arc-secondary {
 }
 .arc-secondary .summary strong {
   font-size: 25px;
-  color: #df6936;
+  color: var(--orange-strong);
 }
 .arc-secondary .section-head {
   margin: 36px 0 18px;
@@ -163,10 +127,10 @@ body.arc-secondary {
 .arc-secondary .theme-heading,
 .arc-secondary.compact .theme-heading {
   padding: 13px 16px;
-  background: #112f3a;
-  border-color: #112f3a;
+  background: var(--ink);
+  border-color: var(--ink);
   border-radius: 0;
-  color: #fffdf6;
+  color: var(--white);
   gap: 15px;
 }
 .arc-secondary .theme-heading strong {
@@ -184,13 +148,13 @@ body.arc-secondary {
 .arc-secondary.compact .mapgrid {
   padding: 9px;
   gap: 8px;
-  background: #e9e6d9;
-  border-color: #cbd0c5;
+  background: var(--paper-deep);
+  border-color: var(--line);
   border-radius: 0;
 }
 .arc-secondary .tile {
-  background: #fffdf6;
-  border-color: #cbd0c5;
+  background: var(--white);
+  border-color: var(--line);
   border-radius: 0;
 }
 .arc-secondary .tile-head,
@@ -201,7 +165,7 @@ body.arc-secondary {
   align-items: flex-start;
 }
 .arc-secondary .tile-head b {
-  color: #df6936;
+  color: var(--orange-strong);
   font-size: 11px;
 }
 .arc-secondary .tile-head span,
@@ -214,33 +178,27 @@ body.arc-secondary {
   background: #112f3ad9;
 }
 .arc-secondary .theme-table {
-  background: #fffdf6;
+  background: var(--white);
   font-size: 11px;
 }
 .arc-secondary .theme-table th {
-  background: #112f3a;
-  color: #fffdf6;
+  background: var(--ink);
+  color: var(--white);
   top: 80px;
 }
 .arc-secondary .theme-table th,
 .arc-secondary .theme-table td {
   padding: 14px 16px;
-  border-color: #cbd0c5;
+  border-color: var(--line);
 }
 .arc-secondary .theme-table tr:hover {
-  background: #e9e6d9;
-}
-.arc-secondary footer {
-  max-width: 1336px;
-  padding: 30px 28px 45px;
-  margin: auto;
-  border-top: 1px solid #cbd0c5;
+  background: var(--paper-deep);
 }
 .arc-secondary .atlas-dialog {
   border: 1px solid #5c797e;
   border-radius: 0;
-  background: #112f3a;
-  color: #fffdf6;
+  background: var(--ink);
+  color: var(--white);
   padding: 22px;
 }
 .arc-secondary .atlas-dialog-head p,
@@ -254,16 +212,13 @@ body.arc-secondary {
 .arc-secondary .atlas-dialog button,
 .arc-secondary .atlas-dialog select {
   background: #254550;
-  color: #fffdf6;
+  color: var(--white);
   border-color: #537177;
 }
 .arc-secondary .atlas-view-controls output {
-  color: #f18a51;
+  color: var(--orange);
 }
 @media (max-width: 1000px) {
-  .secondary-nav > div {
-    gap: 18px;
-  }
   .atlas-heading {
     padding: 45px 0 50px;
   }
@@ -277,24 +232,7 @@ body.arc-secondary {
 }
 @media (max-width: 600px) {
   .arc-secondary .atlas-header {
-    padding: 0 20px;
-  }
-  .secondary-nav {
-    gap: 12px;
-    padding: 20px 0;
-    align-items: flex-start;
-  }
-  .secondary-brand {
-    font-size: 23px;
-  }
-  .secondary-nav > div {
-    gap: 10px 16px;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    font-size: 10px;
-  }
-  .secondary-nav .secondary-play {
-    padding: 8px 12px;
+    padding: 0;
   }
   .atlas-heading {
     gap: 18px;
@@ -311,7 +249,7 @@ body.arc-secondary {
   }
   .arc-secondary main,
   .arc-secondary.atlas-native main {
-    padding: 16px;
+    padding: 16px 0;
   }
   .arc-secondary .toolbar {
     position: static;
@@ -347,10 +285,6 @@ body.arc-secondary {
   .arc-secondary {
     background: white;
     color: #111;
-  }
-  .secondary-nav,
-  .atlas-heading .atlas-index {
-    display: none;
   }
   .arc-secondary .atlas-header {
     background: white;

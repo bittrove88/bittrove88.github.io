@@ -540,6 +540,57 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
         ),
       "retired downloadable viewer supplies a redirect and visible fallback",
     );
+    // The public subpages use the same menu without booting the introduction's features.
+    for (const route of [
+      "design/expedition_013/arcline_100_maps_atlas.html",
+      "promo/",
+    ]) {
+      const context = await browser.newContext({
+        viewport: { width: 390, height: 844 },
+        reducedMotion: "reduce",
+      });
+      await context.addInitScript(() => {
+        localStorage.setItem("arcline-campaign-v1", "shared-frame-sentinel");
+        globalThis.frameCampaignAccess = [];
+        for (const key of ["getItem", "setItem", "removeItem"]) {
+          const original = Storage.prototype[key];
+          Storage.prototype[key] = function (name, ...args) {
+            if (name === "arcline-campaign-v1") frameCampaignAccess.push(key);
+            return original.call(this, name, ...args);
+          };
+        }
+      });
+      const page = await context.newPage();
+      page.on("pageerror", (error) => errors.push(String(error)));
+      await page.goto(base + "/ARCLINE/" + route);
+      await page.locator("#menuButton").click();
+      ok(
+        await page.locator("#mainNav").isVisible(),
+        "shared subpage menu opens: " + route,
+      );
+      await page.keyboard.press("Escape");
+      ok(
+        (await page.locator("#menuButton").getAttribute("aria-expanded")) ===
+          "false" &&
+          (await page
+            .locator("#menuButton")
+            .evaluate((e) => e === document.activeElement)),
+        "shared menu closes and returns focus: " + route,
+      );
+      ok(
+        await page.evaluate(() => frameCampaignAccess.length === 0),
+        "public navigation never accesses campaign storage: " + route,
+      );
+      await page.locator("#menuButton").click();
+      await page.locator('#mainNav a[href$="#machines"]').click();
+      await page.waitForURL("**/ARCLINE/#machines");
+      await page.waitForFunction(() => !!globalThis.ArcSite);
+      ok(
+        (await page.locator("[data-machine]").count()) === 10,
+        "subpage navigation returns to integrated machines: " + route,
+      );
+      await context.close();
+    }
     const reduced = await browser.newContext({
         viewport: { width: 390, height: 844 },
         reducedMotion: "reduce",

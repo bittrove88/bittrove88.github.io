@@ -10,10 +10,11 @@ OUTPUTS += [f'assets/ending/roll-cutouts/players/{name}.png' for name in ['gun',
 OUTPUTS += [row['output'] for row in json.loads((ROOT/'design/ending-roll-preparation/cutouts.json').read_text())['rows']]
 OUTPUTS += ['game/dist/sfx-data.js', 'assets/audio/sfx/manifest.json']
 OUTPUTS += [row['src'] for row in json.loads((ROOT/'design/audio/sfx/runtime.json').read_text())['assets'].values()]
-OUTPUTS += ['design/expedition_013/arcline_100_maps_atlas.html','game/dist/cpu-worker.js']
+OUTPUTS += ['design/expedition_013/arcline_100_maps_atlas.html','game/dist/cpu-worker.js','promo/index.html']
 OUTPUTS += ['game/dist/attack-catalog.js','game/attack-review/index.html','game/attack-review/standalone.html']
 def rebuild(root,history_repo):
     tools=root/'game/tools';env={**os.environ,'ARCLINE_HISTORY_REPO':str(history_repo)}
+    subprocess.run(['node',str(tools/'build_site_frame.cjs')],check=True,stdout=subprocess.DEVNULL)
     for name in SCRIPTS:subprocess.run(['python3',str(tools/name)],check=True,env=env,stdout=subprocess.DEVNULL)
     subprocess.run(['node',str(tools/'build_site_scenes.cjs')],check=True,stdout=subprocess.DEVNULL)
     subprocess.run(['node',str(tools/'build_site_machines.cjs')],check=True,stdout=subprocess.DEVNULL)
