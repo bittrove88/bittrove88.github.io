@@ -83,7 +83,7 @@ const rows = [],
       );
       ok(
         (await page.locator("#heroVideo").getAttribute("poster")) ===
-          "site/media/hana.jpg?v=20261110",
+          "site/media/hana.jpg?v=20261110-2",
         "poster survives: " + mode,
       );
       ok(

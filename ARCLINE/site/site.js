@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = (id) => document.getElementById(id);
-  const revision = "20261110";
+  const revision = "20261110-2";
   const machines = [
     {
       id: "gun",
@@ -135,6 +135,10 @@
       ],
     },
   ];
+  let profiles = [];
+  try {
+    profiles = JSON.parse($("machineData").textContent);
+  } catch {}
   const regions = {
     shore: { stage: "01 — 05", name: ["はじまりの入江", "First Inlet"] },
     volcano: { stage: "61 — 65", name: ["火山の外縁", "Volcanic Rim"] },
@@ -159,8 +163,8 @@
     teleport: {
       stage: 4,
       description: [
-        "歩いて渡れない谷を越えて転移。相手の手番の後、対岸から次の一射を通す。",
-        "Teleport across a gap you cannot walk over. After the rival’s turn, fire from the far bank.",
+        "岩肩の上を越えて、対岸へ転移。相手の手番の後、対岸から次の一射を通す。",
+        "Send the teleport shot over the headland. After the rival’s turn, fire from the far bank.",
       ],
     },
     warning: {
@@ -332,10 +336,30 @@
     $("machineDescription").textContent = local(row.description);
     $("machineCounter").textContent =
       String(machines.indexOf(row) + 1).padStart(2, "0") + " / 10";
-    $("machineArt").src = "site/media/" + row.id + "-art.webp";
+    $("machineArt").src = "site/media/" + row.id + "-concept.webp";
+    const profile = profiles.find((p) => p.id === row.id);
+    if (profile) {
+      $("machineRole").textContent = local(profile.role);
+      $("machineHP").textContent = profile.hp;
+      $("machineJoin").textContent =
+        profile.stage === 0
+          ? local(["最初の相棒", "Your first companion"])
+          : local([
+              "STAGE " + profile.stage + " クリア後",
+              "After Stage " + profile.stage,
+            ]);
+      $("machineLine").textContent = local([
+        "「" + profile.line[0] + "」",
+        "“" + profile.line[1] + "”",
+      ]);
+      $("machineCharm").textContent = local(profile.charm);
+      $("machineDesire").textContent = local(profile.desire);
+      $("machineNormal").textContent = local(profile.normal);
+      $("machineAbility").textContent = local(profile.special);
+    }
     $("machineArt").alt = local([
-      row.name[0] + "のキャラクター原画",
-      row.name[1] + " character artwork",
+      row.name[0] + "のコンセプトアート",
+      row.name[1] + " concept artwork",
     ]);
     $("machineVideo").setAttribute(
       "aria-label",

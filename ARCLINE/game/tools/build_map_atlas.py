@@ -36,11 +36,12 @@ text=re.sub(r'ARCLINE v\d+\.\d+\.\d+ / Campaign',f'ARCLINE v{CONFIG["version"]} 
 # save manager, network assets or copied approximation of the art renderer.
 modules=['i18n','levels','attack-catalog','combat','battle-catalog','skills','weapons','geometry','physics','inventory','crew','crew-usage','final-team','encounters','enemy-attacks','enemy-position','boss-actions','enemy-actions','engine','visual-style','visual-registry','characters','aim-guide','effects','actor-bodies','visual-art','charge-camera','enemy-camera','backgrounds','component-art','render','map-camera']
 sources=[f'game/dist/{name}.js' for name in modules]
-sources+=['game/tools/atlas_viewer.css','game/tools/atlas_viewer.js']
+sources+=['game/tools/atlas_viewer.css','game/tools/atlas_viewer.js','site/secondary.css']
 manifest={'version':CONFIG['version'],'stages':100,'uniqueMaps':103,'backgroundScenes':33,'sources':{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in sources}}
 block=['<!-- ATLAS_NATIVE_START -->','<script id="atlasNativeManifest" type="application/json">'+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+'</script>']
 css=(root/'game/tools/atlas_viewer.css').read_text()
 block.append('<style data-atlas-source="game/tools/atlas_viewer.css">\n'+css+'\n</style>')
+block.append('<style data-atlas-source="site/secondary.css">\n'+(root/'site/secondary.css').read_text()+'\n</style>')
 for name in [*[f'game/dist/{name}.js' for name in modules],'game/tools/atlas_viewer.js']:
     code=(root/name).read_text()
     code=re.sub(r'</script',r'<\\/script',code,flags=re.I)
