@@ -13,3 +13,9 @@ PCでは10機、スマホではハナとユイの切替を確認。原画・機�
 機体セクションの画像は、読みやすくするため撮影時だけスマホ下部の固定CTAを非表示にした要素全体のスクリーンショット。実装の固定CTAは保持している。映像を抑える設定で静止画を表示し、別の確認でハナ・バン・ユイの実動画を再生した。ブラウザはLinux上のChromiumで、実機Safari・Androidの確認ではない。
 
 [実演14本と収録台帳](../../site/showcase-captures.json) ／ [変更範囲と生成元](../../docs/releases/site-refinement-20261110.md)
+
+## 最終合意後の本検証
+
+ユーザー「OK」を受領後、合意した4スイートと生成物検査を実施。[ローカル集約結果](verification/LOCAL_VERIFY.json)：4スイート・1,589項目と生成156ファイルの一致が成功。初回の古い文言チェックの失敗と、その検査だけの再実行は同記録に区別している。
+
+[紹介ページ529項目](verification/SERVICE_SITE.json) ／ [起動45項目](verification/SITE_STARTUP.json) ／ [総覧・公開導線212項目](verification/RELEASE_WEB.json) ／ [生成156ファイル](verification/GENERATED.json)。総覧の正本・埋め込み803項目も集約結果へ記録。CIはPR160の対象コミットで別途確認する。未マージ・未公開。
