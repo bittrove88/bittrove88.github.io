@@ -44,7 +44,9 @@ const rows = [],
       if (mode === "no-site-script")
         await page.route("**/site/site.js*", (r) => r.abort());
       if (mode === "failed-video")
-        await page.route("**/site/media/hana.mp4*", (r) => r.abort());
+        await page.route(/\/site\/media\/hana\.(mp4|webm)(\?|$)/, (r) =>
+          r.abort(),
+        );
       if (mode === "no-storage")
         await context.addInitScript(() => {
           for (const key of ["getItem", "setItem", "removeItem"])

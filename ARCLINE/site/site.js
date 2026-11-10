@@ -192,6 +192,13 @@
   const playerFor = (video) => players.find((row) => row.video === video);
   const videoURL = (id, extension) =>
     "site/media/" + id + "." + extension + "?v=" + revision;
+  function supportedSource(video) {
+    const h264 = video.canPlayType('video/mp4; codecs="avc1.42E01E"');
+    const vp9 = video.canPlayType('video/webm; codecs="vp9"');
+    return !h264 && vp9
+      ? video.dataset.src.replace(/\.mp4(?=\?|$)/, ".webm")
+      : video.dataset.src;
+  }
   function updatePlaybackLabels() {
     for (const { video, failed } of players) {
       const button = document.querySelector('[data-video="' + video.id + '"]');
@@ -227,7 +234,8 @@
         row.video.pause();
         continue;
       }
-      if (!row.video.getAttribute("src")) row.video.src = row.video.dataset.src;
+      if (!row.video.getAttribute("src"))
+        row.video.src = supportedSource(row.video);
       if (row.video.paused)
         row.video.play().catch(() => {
           updatePlaybackLabels();

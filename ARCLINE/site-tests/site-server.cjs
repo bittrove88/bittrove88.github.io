@@ -4,6 +4,7 @@ const fs = require("node:fs"),
   http = require("node:http");
 const root = path.resolve(__dirname, "../..");
 const types = {
+  ".webm": "video/webm",
   ".js": "text/javascript",
   ".css": "text/css",
   ".html": "text/html",

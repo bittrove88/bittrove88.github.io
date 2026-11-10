@@ -41,6 +41,7 @@ for (const [file, expected] of Object.entries(manifest.sourceHashes))
   ok(hash(file) === expected, "native capture source unchanged: " + file);
 for (const row of manifest.captures) {
   ok(hash("site/" + row.file) === row.sha256, "video bytes: " + row.id);
+  ok(hash("site/" + row.webm) === row.webmSha256, "WebM bytes: " + row.id);
   ok(
     hash("site/" + row.poster) === row.posterSha256,
     "poster bytes: " + row.id,
@@ -225,7 +226,9 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
           await page.evaluate(
             (id) =>
               ArcSite.machine === id &&
-              machineVideo.currentSrc.includes("/" + id + ".mp4"),
+              new RegExp("/" + id + "\\.(mp4|webm)(\\?|$)").test(
+                machineVideo.currentSrc,
+              ),
             id,
           ),
           "selected native special " + id + " " + width,
@@ -265,7 +268,9 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
           await page.evaluate(
             (id) =>
               ArcSite.feature === id &&
-              featureVideo.currentSrc.includes("/" + id + ".mp4"),
+              new RegExp("/" + id + "\\.(mp4|webm)(\\?|$)").test(
+                featureVideo.currentSrc,
+              ),
             id,
           ),
           "native tactical replay " + id + " " + width,
@@ -396,7 +401,8 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
       p = await reduced.newPage(),
       mediaRequests = [];
     p.on("request", (request) => {
-      if (request.url().includes(".mp4")) mediaRequests.push(request.url());
+      if (/\.(mp4|webm)(\?|$)/.test(request.url()))
+        mediaRequests.push(request.url());
     });
     await p.goto(base + "/ARCLINE/");
     await p.waitForFunction(() => !!globalThis.ArcSite);
@@ -424,6 +430,39 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
       "explicit video pause",
     );
     await reduced.close();
+    const noH264 = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+    });
+    await noH264.addInitScript(() => {
+      const native = HTMLMediaElement.prototype.canPlayType;
+      HTMLMediaElement.prototype.canPlayType = function (type) {
+        return type.includes("avc1") ? "" : native.call(this, type);
+      };
+    });
+    const fallback = await noH264.newPage();
+    await fallback.goto(base + "/ARCLINE/");
+    await fallback.waitForFunction(
+      () => heroVideo.readyState >= 2 && heroVideo.currentTime > 0.1,
+    );
+    ok(
+      await fallback
+        .locator("#heroVideo")
+        .evaluate(
+          (video) =>
+            video.currentSrc.includes("/hana.webm") &&
+            video.videoWidth === 1024,
+        ),
+      "real WebM playback when H.264 is unavailable",
+    );
+    await fallback.locator('[data-hero="sora"]').click();
+    await fallback.waitForFunction(
+      () =>
+        heroVideo.currentSrc.includes("/sora.webm") &&
+        heroVideo.readyState >= 2 &&
+        heroVideo.currentTime > 0.1,
+    );
+    ok(true, "special selection preserves native WebM playback");
+    await noH264.close();
     // Exercise the actual public entry route without modifying an existing save.
     const launchContext = await browser.newContext({
         viewport: { width: 844, height: 390 },

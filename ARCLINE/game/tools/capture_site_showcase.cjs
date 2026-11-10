@@ -14,26 +14,28 @@ const output = path.join(site, "media"),
   release = require("../runtime.json");
 const sha = (bytes) => crypto.createHash("sha256").update(bytes).digest("hex");
 const artOnly = process.argv.includes("--art-only");
-const ids = artOnly
-  ? []
-  : process.argv.slice(2).length
-    ? process.argv.slice(2)
-    : [
-        "hana",
-        "sora",
-        "rico",
-        "gun",
-        "rin",
-        "ban",
-        "hibari",
-        "mogu",
-        "koro",
-        "yui",
-        "destruction",
-        "reflection",
-        "teleport",
-        "warning",
-      ];
+const webmOnly = process.argv.includes("--webm-only");
+const ids =
+  artOnly || webmOnly
+    ? []
+    : process.argv.slice(2).length
+      ? process.argv.slice(2)
+      : [
+          "hana",
+          "sora",
+          "rico",
+          "gun",
+          "rin",
+          "ban",
+          "hibari",
+          "mogu",
+          "koro",
+          "yui",
+          "destruction",
+          "reflection",
+          "teleport",
+          "warning",
+        ];
 const types = {
   ".html": "text/html",
   ".js": "text/javascript",
@@ -360,13 +362,11 @@ const server = http.createServer((req, res) => {
         path.join(output, file),
       ]);
       fs.unlinkSync(temp);
-      await page
-        .locator("#canvas")
-        .screenshot({
-          path: path.join(output, poster),
-          type: "jpeg",
-          quality: 88,
-        });
+      await page.locator("#canvas").screenshot({
+        path: path.join(output, poster),
+        type: "jpeg",
+        quality: 88,
+      });
       rows.push({
         ...result,
         file: "media/" + file,
@@ -439,6 +439,34 @@ const server = http.createServer((req, res) => {
       ...(previous?.captures || []).filter((row) => !ids.includes(row.id)),
       ...rows,
     ];
+    if (!artOnly) {
+      for (const row of captures) {
+        row.webm = row.file.replace(/\.mp4$/, ".webm");
+        execFileSync("ffmpeg", [
+          "-y",
+          "-loglevel",
+          "error",
+          "-i",
+          path.join(site, row.file),
+          "-an",
+          "-c:v",
+          "libvpx-vp9",
+          "-b:v",
+          "0",
+          "-crf",
+          "32",
+          "-cpu-used",
+          "4",
+          "-row-mt",
+          "1",
+          "-threads",
+          "2",
+          path.join(site, row.webm),
+        ]);
+        row.webmSha256 = sha(fs.readFileSync(path.join(site, row.webm)));
+        console.log("Encoded WebM " + row.id);
+      }
+    }
     fs.writeFileSync(
       manifestPath,
       JSON.stringify(
@@ -446,7 +474,7 @@ const server = http.createServer((req, res) => {
           version: release.version,
           kind: "Native no-save attack demonstrations",
           recording:
-            "1024x576, 30fps canvas recording, silent H.264 MP4. Specials use native crafted motion at 1x; terrain replays preserve documented 0.75x flight; warning example uses native motion at 1x.",
+            "1024x576, 30fps canvas recording, silent H.264 MP4 and VP9 WebM transcodes of the same frames. Specials use native crafted motion at 1x; terrain replays preserve documented 0.75x flight; warning example uses native motion at 1x.",
           sourceHashes,
           artwork,
           captures,
