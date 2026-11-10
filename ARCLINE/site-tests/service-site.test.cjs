@@ -1,37 +1,517 @@
-'use strict';
-const {chromium}=require('playwright'),assert=require('node:assert/strict'),http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),vm=require('node:vm'),cp=require('node:child_process');
-const root=path.resolve(__dirname,'../..'),out=process.env.ARCLINE_EVIDENCE_DIR||'/tmp/arcline-service-site';fs.mkdirSync(out,{recursive:true});let checks=0;const ok=(value,message)=>{checks++;assert(value,message);};
-const scope={};vm.runInNewContext(fs.readFileSync(path.join(root,'ARCLINE/site/scenes.js'),'utf8'),scope);
-const E=require('../game/dist/engine.js');
-const captures=require('../site/gameplay-captures.json'),release=require('../game/runtime.json');
-ok(captures.captures.length===4,'four current production gameplay captures');
-for(const [name,hash]of Object.entries(captures.sourceHashes))ok(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'ARCLINE',name))).digest('hex')===hash,'capture matches current visual source '+name);
-for(const row of captures.captures){ok(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'ARCLINE/site',row.file))).digest('hex')===row.sha256,'current captured image '+row.file);ok(E.levels[row.stage-1].name===row.stageName,'capture uses current map '+row.stage);}
-for(const scene of Object.values(scope.ArcSiteScenes)){
- ok(scene.proof.valid,'native sequence proof '+scene.id);
- for(const step of scene.steps){const p=step.plan;ok(p.path.length>2&&p.path.every(p=>Number.isFinite(p.x+p.y+p.t)),'finite native path '+scene.id);const current=p.side?E.cpuPlan(JSON.parse(JSON.stringify(step.before)),E.seeded(77)):E.trajectory(step.before,0,p.angle,p.power,{weaponId:p.weaponId,skill:p.skill});ok(JSON.stringify(current.path)===JSON.stringify(p.path),'re-simulated trajectory matches rendered sequence '+scene.id);ok(JSON.stringify(current.damage)===JSON.stringify(p.damage),'re-simulated impact matches '+scene.id);}
+"use strict";
+const fs = require("node:fs"),
+  path = require("node:path"),
+  crypto = require("node:crypto"),
+  assert = require("node:assert/strict");
+const { chromium } = require("playwright");
+const root = path.resolve(__dirname, ".."),
+  release = require("../game/runtime.json"),
+  manifest = require("../site/showcase-captures.json");
+const server = require("./site-server.cjs")(),
+  out = process.env.ARCLINE_EVIDENCE_DIR || "/tmp/arcline-service-site";
+fs.mkdirSync(out, { recursive: true });
+let checks = 0;
+const ok = (value, message) => {
+    checks++;
+    assert(value, message);
+  },
+  hash = (file) =>
+    crypto
+      .createHash("sha256")
+      .update(fs.readFileSync(path.join(root, file)))
+      .digest("hex");
+const allMachines = [
+  "gun",
+  "hana",
+  "sora",
+  "rico",
+  "rin",
+  "ban",
+  "hibari",
+  "mogu",
+  "koro",
+  "yui",
+];
+ok(
+  manifest.version === release.version,
+  "footage records the current game version",
+);
+ok(manifest.captures.length === 14, "10 specials and four tactical examples");
+for (const [file, expected] of Object.entries(manifest.sourceHashes))
+  ok(hash(file) === expected, "native capture source unchanged: " + file);
+for (const row of manifest.captures) {
+  ok(hash("site/" + row.file) === row.sha256, "video bytes: " + row.id);
+  ok(hash("site/" + row.webm) === row.webmSha256, "WebM bytes: " + row.id);
+  ok(
+    hash("site/" + row.poster) === row.posterSha256,
+    "poster bytes: " + row.id,
+  );
+  ok(
+    row.damage.every(Number.isFinite) && row.duration > 2,
+    "native attack evidence: " + row.id,
+  );
 }
-ok(scope.ArcSiteScenes.reflection.proof.crystalHit&&scope.ArcSiteScenes.reflection.proof.enemyDamage>0,'reflection hits the entrance crystal and rival');ok(scope.ArcSiteScenes.destruction.proof.beforeSolids>scope.ArcSiteScenes.destruction.proof.afterSolids&&scope.ArcSiteScenes.destruction.proof.followUpDamage>0,'cover removed before the follow-up');ok(scope.ArcSiteScenes.teleport.proof.displacement>350&&scope.ArcSiteScenes.teleport.proof.walkingLimit<scope.ArcSiteScenes.teleport.proof.landing.x-50,'distant teleport crosses a non-walkable gap');
-// An optional baseline protects presentation-only work; later game releases may intentionally change these files.
-const baseline=process.env.ARCLINE_GAME_BASELINE||null,distribution=[];for(const name of fs.readdirSync(path.join(root,'ARCLINE/game/dist'))){const rel='ARCLINE/game/dist/'+name,now=fs.readFileSync(path.join(root,rel));if(baseline){const before=cp.execFileSync('git',['show',baseline+':'+rel],{cwd:root});ok(before.equals(now),'game distribution unchanged '+name);}distribution.push({name,sha256:crypto.createHash('sha256').update(now).digest('hex')});}
-const types={'.js':'text/javascript','.css':'text/css','.html':'text/html','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.webmanifest':'application/manifest+json'};
-const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://localhost').pathname;const file=path.resolve(root,'.'+(name.endsWith('/')?name+'index.html':name));if(!file.startsWith(root+'/'))return res.writeHead(403).end();fs.readFile(file,(e,b)=>{if(e)return res.writeHead(404).end();res.setHeader('Content-Type',types[path.extname(file)]||'application/octet-stream');res.end(b);});});
-(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({executablePath:process.env.ARCLINE_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox']}),errors=[],bad=[],external=[],rows=[];
-try{for(const [width,height]of[[360,780],[390,844],[844,390],[768,1024],[1440,1000]]){const context=await browser.newContext({viewport:{width,height},hasTouch:width<1000}),page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));page.on('response',r=>{if(r.status()>=400)bad.push(r.url()+' '+r.status());});page.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1:'))external.push(r.url());});
-await page.goto('http://127.0.0.1:'+server.address().port+'/ARCLINE/');await page.waitForFunction('!!globalThis.ArcSite');await page.locator('img').evaluateAll(xs=>xs.forEach(x=>x.loading='eager'));await page.waitForFunction('[...document.images].every(x=>x.complete&&x.naturalWidth>0)');
-ok(await page.locator('h1').count()===1,'one primary heading');ok(await page.locator('[data-machine]').count()===10,'ten machine profiles '+width);ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'site fits '+width);
-ok(await page.evaluate(()=>ArcSite.version===ArcRelease.version&&ArcSite.heroStage===81&&JSON.stringify(ArcSite.maps)==='[4,31,84,98]'),'current native hero and four live map previews '+width);
-ok(await page.locator('.native-map[data-scene]').count()===4,'all current map previews rendered '+width);
-ok(await page.locator('.maps-link a').getAttribute('href')==='design/expedition_013/arcline_100_maps_atlas.html?v='+release.version,'visible all100-map entrance '+width);
-for(const id of ['shore','volcano','garden','fortress']){await page.locator('[data-landscape="'+id+'"]').click();ok((await page.locator('.main-shot img').getAttribute('src')).includes('gameplay-'+id+'.jpg?v='+release.version),'latest landscape switch '+id+' '+width);}
-for(const lang of['ja','en']){if(await page.locator('html').getAttribute('lang')!==lang){if(width<=600&&await page.locator('#languageButton').isHidden())await page.locator('#menuButton').click();await page.locator('#languageButton').click();}ok(await page.locator('html').getAttribute('lang')===lang,'language '+lang);ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'translated page fits '+width+' '+lang);ok((await page.locator('.native-map').first().getAttribute('aria-label')).startsWith(lang==='en'?'Stage ':'4面 '),'native map labels translate '+width+' '+lang);}
-if(width<=600){await page.locator('#menuButton').click();if(await page.locator('#menuButton').getAttribute('aria-expanded')!=='true')await page.locator('#menuButton').click();await page.keyboard.press('Escape');ok(await page.locator('#menuButton').getAttribute('aria-expanded')==='false','mobile menu closes by keyboard');const r=await page.locator('.mobile-play a').boundingBox();ok(r.x>=0&&r.y>=0&&r.x+r.width<=width&&r.y+r.height<=height,'mobile play button fits');}
-await page.locator('#machines').scrollIntoViewIfNeeded();ok(await page.locator('#machinePicker').evaluate(e=>e.scrollWidth<=e.clientWidth),'ten selectors require no horizontal scroll '+width);for(const id of['gun','ban','hibari','hana','rin','mogu','koro','sora','rico','yui']){await page.locator('[data-machine="'+id+'"]').click();ok(await page.evaluate(id=>ArcSite.machine===id,id),'switch machine '+id);ok(await page.locator('#machineName').innerText()===id.toUpperCase(),'profile updates '+id);for(const field of ['machinePersonality','machineNormal','machineSpecial','machineTerrain','machineJoin'])ok((await page.locator('#'+field).innerText()).length>2,'complete profile '+id+'/'+field);const button=await page.locator('[data-machine="'+id+'"]').boundingBox();ok(button.width>=44&&button.height>=44,'touch target '+id);}
-await page.locator('#play').scrollIntoViewIfNeeded();for(const id of['reflection','destruction','teleport']){await page.locator('[data-feature="'+id+'"]').click();ok(await page.evaluate(id=>ArcSite.feature===id,id),'switch real preview '+id);ok(await page.locator('[data-feature="'+id+'"]').getAttribute('aria-selected')==='true','selected preview '+id);}
-await page.locator('#featureCanvas').scrollIntoViewIfNeeded();await page.waitForTimeout(200);await page.locator('#motionButton').click();ok(await page.evaluate('ArcSite.paused'),'pause preview');const a=await page.locator('#featureCanvas').evaluate(c=>c.toDataURL());await page.waitForTimeout(150);ok(await page.locator('#featureCanvas').evaluate(c=>c.toDataURL())===a,'pause freezes drawing');await page.locator('#motionButton').click();
-if(width===1440){await page.locator('#feature-reflection').focus();await page.keyboard.press('ArrowRight');ok(await page.evaluate('ArcSite.feature')==='destruction','keyboard feature tabs');await page.screenshot({path:path.join(out,'site-desktop.png'),fullPage:true});}
-if(width===390)await page.screenshot({path:path.join(out,'site-mobile.png'),fullPage:true});
-await page.goto('http://127.0.0.1:'+server.address().port+'/ARCLINE/characters/');ok(await page.locator('.machine').count()===10,'published machine viewer '+width);ok(await page.locator('.viewer-nav a[download]').count()===1,'HTML download present');const dl=page.waitForEvent('download');await page.locator('.viewer-nav a[download]').click();const download=await dl;ok(download.suggestedFilename()==='ARCLINE_Characters_Preview.html','download filename');const file=await download.path();ok(fs.readFileSync(file).equals(fs.readFileSync(path.join(root,'ARCLINE/characters/ARCLINE_Characters_Preview.html'))),'download contains exact standalone file');ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'viewer fits '+width);
-if(width===1440){const png=page.waitForEvent('download');await page.locator('.image-download').click();const d=await png;ok(d.suggestedFilename()==='ARCLINE_Characters_Preview.png','image download filename');ok(fs.readFileSync(await d.path()).equals(fs.readFileSync(path.join(root,'ARCLINE/characters/ARCLINE_Characters_Preview.png'))),'exact image download');}
-await page.locator('.viewer-nav a').nth(1).click();await page.waitForFunction('!document.getElementById("play").disabled');ok(await page.locator('#lobby').isVisible(),'launch actual game from viewer '+width);ok(await page.evaluate('save.data.cleared')===0,'site browsing did not change game progress');rows.push({width,height,machines:10,languages:2,download:true,gameLaunch:true});await context.close();}
-const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});await context.addInitScript(()=>localStorage.setItem('arcline-campaign-v1','{"cleared":37,"sentinel":"site-view-only"}'));const page=await context.newPage();await page.goto('http://127.0.0.1:'+server.address().port+'/ARCLINE/');await page.waitForFunction('!!globalThis.ArcSite');ok(await page.evaluate('ArcSite.paused'),'reduced motion starts paused');ok(await page.evaluate(()=>localStorage.getItem('arcline-campaign-v1')==='{"cleared":37,"sentinel":"site-view-only"}'),'native site preview preserves existing game save');await page.goto('http://127.0.0.1:'+server.address().port+'/catalog/');ok(await page.locator('a#ARCLINE').count()===1,'one catalog entry');await page.goto('http://127.0.0.1:'+server.address().port+'/');ok((await page.locator('body').innerText()).trim()===''&&await page.locator('body a').count()===0,'root remains blank');await context.close();ok(errors.length===0,errors.join('\n'));ok(bad.length===0,bad.join('\n'));ok(external.length===0,external.join('\n'));const report={status:'PASS',checks,viewports:rows,errors,badRequests:bad,externalRequests:external,gameDistribution:distribution,comparedGameBaseline:baseline,scope:'Real Chromium: five responsive sizes, Japanese/English, ten machine profiles, four current production images with source hashes,four native map previews and all100-map entrance,three multi-step native-physics demonstrations with current background/material renderer,pause, keyboard tabs/menu, actual standalone HTML download, and launch to the current game. Physical Safari/Android remains unverified.'};fs.writeFileSync(path.join(out,'SERVICE_SITE.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checks,viewports:rows,errors},null,2));}finally{await browser.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exit(1)});
+for (const row of manifest.artwork) {
+  ok(hash(row.source) === row.sourceSha256, "approved original: " + row.id);
+  ok(
+    hash("site/" + row.file) === row.sha256,
+    "optimized original artwork: " + row.id,
+  );
+}
+const warning = manifest.captures.find((row) => row.id === "warning").proof;
+ok(
+  warning.valid &&
+    warning.damageWithoutMove > 0 &&
+    warning.damageAfterMove === 0 &&
+    warning.sameAngle &&
+    warning.samePower &&
+    warning.walk <= 140,
+  "real frozen-warning avoidance, unchanged enemy aim and legal movement",
+);
+const captures = require("../site/gameplay-captures.json");
+ok(
+  captures.implementation === release.version,
+  "current production UI screenshots",
+);
+for (const [file, expected] of Object.entries(captures.sourceHashes))
+  ok(hash(file) === expected, "current world image source: " + file);
+const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
+  const url = new URL(match[1], "http://localhost/ARCLINE/");
+  if (url.origin !== "http://localhost" || url.hash) continue;
+  let file = path.join(root, "..", decodeURIComponent(url.pathname));
+  if (url.pathname.endsWith("/")) file = path.join(file, "index.html");
+  ok(fs.existsSync(file), "local reference exists: " + match[1]);
+}
+(async () => {
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  const base = "http://127.0.0.1:" + server.address().port;
+  const browser = await chromium.launch({
+      executablePath: process.env.ARCLINE_CHROMIUM || "/usr/bin/chromium",
+      args: ["--no-sandbox"],
+    }),
+    rows = [],
+    errors = [],
+    bad = [];
+  try {
+    for (const [width, height] of [
+      [360, 780],
+      [390, 844],
+      [844, 390],
+      [768, 1024],
+      [1440, 1000],
+    ]) {
+      const context = await browser.newContext({
+        viewport: { width, height },
+        hasTouch: width < 1000,
+      });
+      await context.addInitScript(() => {
+        localStorage.setItem("arcline-campaign-v1", "site-showcase-sentinel");
+      });
+      const page = await context.newPage();
+      page.on("pageerror", (e) => errors.push(String(e)));
+      page.on("response", (r) => {
+        if (r.status() >= 400) bad.push({ status: r.status(), url: r.url() });
+      });
+      await page.goto(base + "/ARCLINE/");
+      await page.waitForFunction(() => !!globalThis.ArcSite);
+      ok(
+        (await page.locator("h1").count()) === 1,
+        "one brand heading " + width,
+      );
+      ok(
+        (await page.locator("h1").innerText()).replace(/\s/g, "") ===
+          "読み切れ。撃ち抜け。",
+        "approved work tagline " + width,
+      );
+      ok(
+        await page.evaluate(() => !globalThis.ArcEngine),
+        "landing works without battle initialization " + width,
+      );
+      ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        "fits viewport " + width,
+      );
+      const order = await page
+        .locator("main>section")
+        .evaluateAll((items) => items.map((item) => item.id));
+      ok(
+        JSON.stringify(order.slice(0, 5)) ===
+          JSON.stringify(["top", "machines", "play", "journey", "how-to"]),
+        "approved information hierarchy " + width,
+      );
+      ok(
+        (await page.locator("[data-machine]").count()) === 10,
+        "ten selectable companions " + width,
+      );
+      // A full-view video must play; a mostly offscreen landscape video may remain paused.
+      await page.locator("#heroVideo").scrollIntoViewIfNeeded();
+      await page.locator('[data-hero="sora"]').click();
+      await page.locator("#heroVideo").scrollIntoViewIfNeeded();
+      await page
+        .waitForFunction(
+          () =>
+            heroVideo.readyState >= 2 &&
+            !heroVideo.paused &&
+            heroVideo.currentTime > 0.05,
+        )
+        .catch(async (error) => {
+          const media = await page.evaluate(() => ({
+            userAgent: navigator.userAgent,
+            hidden: document.hidden,
+            reduced: matchMedia("(prefers-reduced-motion: reduce)").matches,
+            viewport: [innerWidth, innerHeight],
+            videos: [...document.querySelectorAll("video")].map((video) => {
+              const rect = video.getBoundingClientRect();
+              return {
+                id: video.id,
+                source: video.currentSrc,
+                readyState: video.readyState,
+                networkState: video.networkState,
+                paused: video.paused,
+                muted: video.muted,
+                time: video.currentTime,
+                error: video.error?.message,
+                rectangle: [rect.top, rect.bottom, rect.height],
+                h264: video.canPlayType('video/mp4; codecs="avc1.42E01E"'),
+              };
+            }),
+          }));
+          fs.writeFileSync(
+            path.join(out, "MEDIA_FAILURE.json"),
+            JSON.stringify(media, null, 2) + "\n",
+          );
+          await page.screenshot({ path: path.join(out, "media-failure.png") });
+          console.error("MEDIA_FAILURE " + JSON.stringify(media));
+          throw error;
+        });
+      ok(
+        await page.evaluate(
+          () =>
+            ArcSite.hero === "sora" &&
+            heroVideo.videoWidth === 1024 &&
+            heroVideo.muted &&
+            heroVideo.playsInline,
+        ),
+        "native hero video plays inline " + width,
+      );
+      await page.locator('[data-video="heroVideo"]').click();
+      const stopped = await page
+        .locator("#heroVideo")
+        .evaluate((video) => video.currentTime);
+      await page.waitForTimeout(130);
+      ok(
+        await page
+          .locator("#heroVideo")
+          .evaluate(
+            (video, t) =>
+              video.paused && Math.abs(video.currentTime - t) < 0.02,
+            stopped,
+          ),
+        "explicit pause holds " + width,
+      );
+      await page.locator("#machines").scrollIntoViewIfNeeded();
+      for (const id of width === 1440 ? allMachines : ["hana", "rico"]) {
+        await page.locator('[data-machine="' + id + '"]').click();
+        await page.locator("#machineVideo").scrollIntoViewIfNeeded();
+        await page.waitForFunction(
+          () =>
+            machineVideo.readyState >= 2 &&
+            machineVideo.videoWidth === 1024 &&
+            !machineVideo.paused,
+        );
+        ok(
+          await page.evaluate(
+            (id) =>
+              ArcSite.machine === id &&
+              new RegExp("/" + id + "\\.(mp4|webm)(\\?|$)").test(
+                machineVideo.currentSrc,
+              ),
+            id,
+          ),
+          "selected native special " + id + " " + width,
+        );
+        ok(
+          (await page
+            .locator('[data-machine="' + id + '"]')
+            .getAttribute("aria-pressed")) === "true",
+          "selected machine exposed " + id,
+        );
+        ok(
+          (await page.locator("#machineMotto").innerText()).length > 4 &&
+            (await page.locator("#machineSpecial").innerText()).length > 2,
+          "complete attack introduction " + id,
+        );
+        await page.locator("#machineArt").evaluate((img) => img.decode());
+        ok(
+          await page
+            .locator("#machineArt")
+            .evaluate((img) => img.naturalWidth > 0),
+          "approved artwork decoded " + id,
+        );
+      }
+      ok(
+        await page.locator("#heroVideo").evaluate((video) => video.paused),
+        "hero stops outside viewport " + width,
+      );
+      for (const id of width === 390 || width === 1440
+        ? ["destruction", "reflection", "teleport", "warning"]
+        : ["reflection", "warning"]) {
+        await page.locator('[data-feature="' + id + '"]').click();
+        await page.locator("#featureVideo").scrollIntoViewIfNeeded();
+        await page.waitForFunction(
+          () => featureVideo.readyState >= 2 && !featureVideo.paused,
+        );
+        ok(
+          await page.evaluate(
+            (id) =>
+              ArcSite.feature === id &&
+              new RegExp("/" + id + "\\.(mp4|webm)(\\?|$)").test(
+                featureVideo.currentSrc,
+              ),
+            id,
+          ),
+          "native tactical replay " + id + " " + width,
+        );
+        ok(
+          (await page
+            .locator("#featurePanel")
+            .getAttribute("aria-labelledby")) ===
+            "feature-" + id,
+          "tactical panel association " + id,
+        );
+        ok(
+          await page.evaluate(
+            () =>
+              [...document.querySelectorAll("video")].filter(
+                (video) => !video.paused,
+              ).length <= 1,
+          ),
+          "one active video " + id + " " + width,
+        );
+      }
+      await page.locator("#feature-destruction").focus();
+      await page.keyboard.press("ArrowRight");
+      ok(
+        await page.evaluate(() => ArcSite.feature === "reflection"),
+        "keyboard tactic tabs " + width,
+      );
+      for (const id of ["shore", "volcano", "garden", "fortress"]) {
+        await page.locator('[data-landscape="' + id + '"]').click();
+        await page.locator("#landscapeImage").evaluate((img) => img.decode());
+        ok(
+          await page
+            .locator("#landscapeImage")
+            .evaluate(
+              (img, id) =>
+                img.naturalWidth === 1280 && img.src.includes("gameplay-" + id),
+              id,
+            ),
+          "current world image " + id + " " + width,
+        );
+      }
+      await page.locator(".faq details").nth(1).locator("summary").click();
+      ok(
+        await page
+          .locator(".faq details")
+          .nth(1)
+          .evaluate((node) => node.open),
+        "save information opens " + width,
+      );
+      if (width <= 800) {
+        await page.locator("#menuButton").click();
+        await page.keyboard.press("Escape");
+        ok(
+          (await page.locator("#menuButton").getAttribute("aria-expanded")) ===
+            "false",
+          "Escape closes mobile navigation " + width,
+        );
+        await page.locator("#menuButton").click();
+      }
+      await page.locator("#languageButton").click();
+      ok(
+        (await page.locator("html").getAttribute("lang")) === "en",
+        "English switch " + width,
+      );
+      ok(
+        (await page.locator("h1").innerText()).includes("Read the battle."),
+        "English brand line " + width,
+      );
+      ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        "English fits " + width,
+      );
+      if (width === 390 || width === 1440) {
+        await page.locator("#top").scrollIntoViewIfNeeded();
+        await page.screenshot({
+          path: path.join(out, "site-impact-" + width + "-en.png"),
+        });
+      }
+      await page.locator("#languageButton").click();
+      if (width <= 800) await page.keyboard.press("Escape");
+      ok(
+        await page.evaluate(
+          () =>
+            localStorage.getItem("arcline-campaign-v1") ===
+            "site-showcase-sentinel",
+        ),
+        "campaign save unchanged by browsing " + width,
+      );
+      const links = await page
+        .locator('a[href^="game/dist/"]')
+        .evaluateAll((items) => items.map((item) => item.getAttribute("href")));
+      ok(
+        links.every((link) => link === "game/dist/?v=" + release.version),
+        "all game CTAs target current release " + width,
+      );
+      rows.push({
+        width,
+        height,
+        machines: width === 1440 ? 10 : 2,
+        languages: 2,
+        tacticalExamples: width === 390 || width === 1440 ? 4 : 2,
+      });
+      if (width === 390 || width === 1440) {
+        await page
+          .locator("img")
+          .evaluateAll((images) =>
+            images.forEach((img) => (img.loading = "eager")),
+          );
+        await page.waitForFunction(() =>
+          [...document.images].every(
+            (img) => img.complete && img.naturalWidth > 0,
+          ),
+        );
+        await page.locator("#top").scrollIntoViewIfNeeded();
+        await page.screenshot({
+          path: path.join(out, "site-impact-" + width + "-ja.png"),
+          fullPage: true,
+        });
+      }
+      await context.close();
+    }
+    const reduced = await browser.newContext({
+        viewport: { width: 390, height: 844 },
+        reducedMotion: "reduce",
+      }),
+      p = await reduced.newPage(),
+      mediaRequests = [];
+    p.on("request", (request) => {
+      if (/\.(mp4|webm)(\?|$)/.test(request.url()))
+        mediaRequests.push(request.url());
+    });
+    await p.goto(base + "/ARCLINE/");
+    await p.waitForFunction(() => !!globalThis.ArcSite);
+    await p.locator("#heroVideo").scrollIntoViewIfNeeded();
+    ok(
+      await p
+        .locator("video")
+        .evaluateAll((videos) =>
+          videos.every((video) => video.paused && !video.getAttribute("src")),
+        ),
+      "reduced motion uses posters without video downloads",
+    );
+    ok(
+      mediaRequests.length === 0,
+      "no unsolicited video download in reduced motion",
+    );
+    await p.locator('[data-video="heroVideo"]').click();
+    await p.waitForFunction(
+      () => !heroVideo.paused && heroVideo.currentTime > 0.1,
+    );
+    ok(true, "reduced motion allows explicit playback");
+    await p.locator('[data-video="heroVideo"]').click();
+    ok(
+      await p.locator("#heroVideo").evaluate((video) => video.paused),
+      "explicit video pause",
+    );
+    await reduced.close();
+    const noH264 = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+    });
+    await noH264.addInitScript(() => {
+      const native = HTMLMediaElement.prototype.canPlayType;
+      HTMLMediaElement.prototype.canPlayType = function (type) {
+        return type.includes("avc1") ? "" : native.call(this, type);
+      };
+    });
+    const fallback = await noH264.newPage();
+    await fallback.goto(base + "/ARCLINE/");
+    await fallback.waitForFunction(
+      () => heroVideo.readyState >= 2 && heroVideo.currentTime > 0.1,
+    );
+    ok(
+      await fallback
+        .locator("#heroVideo")
+        .evaluate(
+          (video) =>
+            video.currentSrc.includes("/hana.webm") &&
+            video.videoWidth === 1024,
+        ),
+      "real WebM playback when H.264 is unavailable",
+    );
+    await fallback.locator('[data-hero="sora"]').click();
+    await fallback.waitForFunction(
+      () =>
+        heroVideo.currentSrc.includes("/sora.webm") &&
+        heroVideo.readyState >= 2 &&
+        heroVideo.currentTime > 0.1,
+    );
+    ok(true, "special selection preserves native WebM playback");
+    await noH264.close();
+    // Exercise the actual public entry route without modifying an existing save.
+    const launchContext = await browser.newContext({
+        viewport: { width: 844, height: 390 },
+      }),
+      launch = await launchContext.newPage();
+    await launch.goto(base + "/ARCLINE/");
+    await launch.locator(".header-play").click();
+    await launch.waitForFunction(
+      () =>
+        document.getElementById("play") &&
+        !document.getElementById("play").disabled,
+    );
+    ok(
+      await launch.locator("#lobby").isVisible(),
+      "landing CTA opens the real game lobby",
+    );
+    ok(
+      await launch.evaluate(
+        (version) => ArcRelease.version === version,
+        release.version,
+      ),
+      "game entry loads the current release",
+    );
+    await launchContext.close();
+    ok(errors.length === 0, "no page exceptions " + errors.join(";"));
+    ok(bad.length === 0, "no failed resources " + JSON.stringify(bad));
+    fs.writeFileSync(
+      path.join(out, "SERVICE_SITE.json"),
+      JSON.stringify(
+        {
+          status: "PASS",
+          checks,
+          rows,
+          errors,
+          badRequests: bad,
+          scope:
+            "Current capture/source hashes; five responsive sizes in JA/EN; ten native special videos; tactical examples and frozen-warning proof; native playback, pause, offscreen stopping, one player at a time, reduced motion, storage preservation, actual game entry. Physical devices and human marketing response remain unverified.",
+        },
+        null,
+        2,
+      ) + "\n",
+    );
+    console.log("PASS service site " + checks + " checks");
+  } finally {
+    await browser.close();
+    server.close();
+  }
+})().catch((error) => {
+  console.error(error);
+  server.close();
+  process.exitCode = 1;
+});

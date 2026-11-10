@@ -1,61 +1,171 @@
 "use strict";
-const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const path = require("node:path");
-const http = require("node:http");
-const { chromium } = require("playwright");
-const root = path.resolve(__dirname, "../..");
+const assert = require("node:assert/strict"),
+  fs = require("node:fs"),
+  path = require("node:path"),
+  { chromium } = require("playwright");
+const server = require("./site-server.cjs")(),
+  release = require("../game/runtime.json");
 const out = process.env.ARCLINE_EVIDENCE_DIR || "/tmp/arcline-site-startup";
 fs.mkdirSync(out, { recursive: true });
-const release = require("../game/runtime.json");
 let checks = 0;
-const rows = [], errors = [], requests = [];
-function ok(value, message) { checks++; assert(value, message); }
-const server = http.createServer((req, res) => {
-  const pathname = new URL(req.url, "http://localhost").pathname;
-  const file = path.resolve(root, "." + (pathname.endsWith("/") ? pathname + "index.html" : pathname));
-  if (!file.startsWith(root + path.sep)) return res.writeHead(403).end();
-  fs.readFile(file, (error, body) => {
-    if (error) return res.writeHead(404).end();
-    res.setHeader("Content-Type", ({ ".js": "text/javascript", ".css": "text/css", ".html": "text/html", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml" })[path.extname(file)] || "application/octet-stream");
-    res.end(body);
-  });
-});
+const rows = [],
+  ok = (value, message) => {
+    checks++;
+    assert(value, message);
+  };
 (async () => {
-  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
-  const browser = await chromium.launch({ executablePath: process.env.ARCLINE_CHROMIUM || "/usr/bin/chromium", args: ["--no-sandbox"] });
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  const base = "http://127.0.0.1:" + server.address().port;
+  const browser = await chromium.launch({
+    executablePath: process.env.ARCLINE_CHROMIUM || "/usr/bin/chromium",
+    args: ["--no-sandbox"],
+  });
   try {
-    for (const [width, height] of [[360, 780], [390, 844], [844, 390], [768, 1024], [1440, 1000]]) {
-      const context = await browser.newContext({ viewport: { width, height }, hasTouch: width < 1000, reducedMotion: "reduce" });
-      await context.addInitScript(() => localStorage.setItem("arcline-campaign-v1", "site-startup-save-sentinel"));
-      const page = await context.newPage();
-      page.on("pageerror", error => errors.push(String(error)));
-      page.on("response", response => { if (response.status() >= 400) requests.push({ status: response.status(), url: response.url() }); });
-      await page.goto("http://127.0.0.1:" + server.address().port + "/ARCLINE/");
-      await page.waitForFunction(() => globalThis.ArcSite || typeof globalThis.ArcEngine === "object", null, { timeout: 10000 });
-      ok(await page.evaluate("!!globalThis.ArcSite"), "site initializes with its real script dependencies: " + errors.join("; "));
-      ok(await page.evaluate("typeof ArcBossActions.attachments === 'function'"), "boss geometry dependency is available");
-      ok(await page.evaluate(version => ArcSite.version === version, release.version), "site uses current runtime version");
-      ok(await page.evaluate("ArcSite.heroStage === 81 && JSON.stringify(ArcSite.maps) === '[4,31,84,98]'"), "hero and map canvases initialize");
-      ok(await page.locator("[data-machine]").count() === 10, "all machine controls initialize");
-      for (const id of ["gun", "rico", "hibari", "yui"]) {
-        await page.locator('[data-machine="' + id + '"]').click();
-        ok(await page.evaluate(id => ArcSite.machine === id, id), "machine selection works: " + id);
+    for (const mode of [
+      "normal",
+      "no-game-metadata",
+      "no-site-script",
+      "no-javascript",
+      "no-storage",
+      "failed-video",
+    ]) {
+      const context = await browser.newContext({
+        viewport: { width: 390, height: 844 },
+        javaScriptEnabled: mode !== "no-javascript",
+        reducedMotion: mode === "failed-video" ? "no-preference" : "reduce",
+      });
+      const page = await context.newPage(),
+        errors = [],
+        requests = [];
+      page.on("pageerror", (e) => errors.push(String(e)));
+      page.on("request", (r) => requests.push(r.url()));
+      if (mode === "no-game-metadata")
+        await page.route("**/release-info.js*", (r) => r.abort());
+      if (mode === "no-site-script")
+        await page.route("**/site/site.js*", (r) => r.abort());
+      if (mode === "failed-video")
+        await page.route(/\/site\/media\/hana\.(mp4|webm)(\?|$)/, (r) =>
+          r.abort(),
+        );
+      if (mode === "no-storage")
+        await context.addInitScript(() => {
+          for (const key of ["getItem", "setItem", "removeItem"])
+            Storage.prototype[key] = () => {
+              throw Error("Storage unavailable");
+            };
+        });
+      else
+        await context.addInitScript(() => {
+          localStorage.setItem(
+            "arcline-campaign-v1",
+            "site-startup-save-sentinel",
+          );
+          for (const key of ["getItem", "setItem", "removeItem"]) {
+            const native = Storage.prototype[key];
+            Storage.prototype[key] = function (name, ...args) {
+              if (name === "arcline-campaign-v1")
+                throw Error("Site must not access campaign storage");
+              return native.call(this, name, ...args);
+            };
+          }
+        });
+      await page.goto(base + "/ARCLINE/");
+      ok(
+        (await page.locator("h1").innerText()).replace(/\s/g, "") ===
+          "読み切れ。撃ち抜け。",
+        "brand copy readable: " + mode,
+      );
+      ok(
+        (await page
+          .locator('a[href="game/dist/?v=' + release.version + '"]')
+          .count()) >= 3,
+        "real game entry survives: " + mode,
+      );
+      ok(
+        (await page.locator("#heroVideo").getAttribute("poster")) ===
+          "site/media/hana.jpg?v=20261110",
+        "poster survives: " + mode,
+      );
+      ok(
+        !requests.some((url) =>
+          /\/game\/dist\/(enemy-position|boss-actions|enemy-actions|engine)\.js/.test(
+            url,
+          ),
+        ),
+        "landing does not depend on battle initialization: " + mode,
+      );
+      if (!["no-site-script", "no-javascript"].includes(mode)) {
+        await page.waitForFunction(() => !!globalThis.ArcSite);
+        ok(
+          await page.evaluate((v) => ArcSite.version === v, release.version),
+          "site metadata or fallback is current: " + mode,
+        );
+        ok(
+          (await page.locator("[data-machine]").count()) === 10,
+          "machine selectors initialize: " + mode,
+        );
+        if (mode === "no-storage") {
+          await page.locator("#menuButton").click();
+          await page.locator("#languageButton").click();
+          ok(
+            (await page.locator("html").getAttribute("lang")) === "en",
+            "translation survives unavailable storage",
+          );
+        }
       }
-      for (const id of ["reflection", "destruction", "teleport"]) {
-        await page.locator('[data-feature="' + id + '"]').click();
-        ok(await page.evaluate(id => ArcSite.feature === id, id), "live demo selection works: " + id);
+      if (mode === "failed-video") {
+        await page.locator("#heroVideo").scrollIntoViewIfNeeded();
+        await page
+          .locator(".hero-frame .media-error")
+          .waitFor({ state: "visible" });
+        ok(
+          await page.locator(".hero-frame .playback").isDisabled(),
+          "failed video offers readable fallback",
+        );
+        await page.locator('[data-hero="sora"]').click();
+        await page.waitForFunction(
+          () => heroVideo.readyState >= 2 && !heroVideo.paused,
+        );
+        ok(true, "selecting another clip recovers playback");
       }
-      ok(await page.locator(".native-map[data-scene]").count() === 4, "four live map previews remain present");
-      ok(await page.evaluate("document.documentElement.scrollWidth <= innerWidth"), "site fits viewport");
-      ok(await page.evaluate(() => localStorage.getItem("arcline-campaign-v1") === "site-startup-save-sentinel"), "site startup and browsing preserve existing campaign storage");
-      ok(errors.length === 0, "no page exceptions: " + errors.join("; "));
-      ok(requests.length === 0, "no failed resources: " + JSON.stringify(requests));
-      if (width === 390 || width === 1440) await page.screenshot({ path: path.join(out, "site-startup-" + width + ".png") });
-      rows.push({ width, height, version: release.version });
+      ok(
+        errors.length === 0,
+        "no uncaught exceptions: " + mode + " " + errors.join(";"),
+      );
+      if (mode !== "no-storage" && mode !== "no-javascript")
+        ok(
+          await page.evaluate(
+            () =>
+              Object.fromEntries(Object.entries(localStorage))[
+                "arcline-campaign-v1"
+              ] === "site-startup-save-sentinel",
+          ),
+          "campaign storage preserved: " + mode,
+        );
+      rows.push({ mode, errors, requests: requests.length });
       await context.close();
     }
-    fs.writeFileSync(path.join(out, "SITE_STARTUP.json"), JSON.stringify({ status: "PASS", checks, rows, errors, requests, scope: "Real script loading and initialization, five viewport sizes, hero/maps/machine/demo controls and unchanged campaign storage. Capture provenance, content updates, physical devices and game balance are separate checks." }, null, 2) + "\n");
+    fs.writeFileSync(
+      path.join(out, "SITE_STARTUP.json"),
+      JSON.stringify(
+        {
+          status: "PASS",
+          checks,
+          rows,
+          scope:
+            "Six startup/failure modes; no landing dependency on battle modules; real CTA and static content survive; campaign storage access forbidden.",
+        },
+        null,
+        2,
+      ) + "\n",
+    );
     console.log("PASS site startup " + checks + " checks");
-  } finally { await browser.close(); server.close(); }
-})().catch(error => { console.error(error); server.close(); process.exitCode = 1; });
+  } finally {
+    await browser.close();
+    server.close();
+  }
+})().catch((error) => {
+  console.error(error);
+  server.close();
+  process.exitCode = 1;
+});
