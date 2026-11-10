@@ -70,6 +70,20 @@ const rows = [],
           }
         });
       await page.goto(base + "/ARCLINE/");
+      if (mode === "no-site-script") {
+        await page.locator("#menuButton").click();
+        ok(
+          await page.locator("#mainNav").isVisible(),
+          "shared navigation survives failed feature script",
+        );
+        await page.keyboard.press("Escape");
+        ok(
+          (await page.locator("#menuButton").getAttribute("aria-expanded")) ===
+            "false",
+          "independent navigation closes with Escape",
+        );
+      }
+
       ok(
         (await page.locator("h1").innerText()).replace(/\s/g, "") ===
           "読み切れ。撃ち抜け。",

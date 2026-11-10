@@ -217,8 +217,10 @@
   $('print').onclick = async () => {await renderAll();window.print();};
   download.onclick = async () => {
     const copy = document.documentElement.cloneNode(true);
+    copy.querySelector('.site-header')?.classList.remove('menu-open');
+    copy.querySelector('#menuButton')?.setAttribute('aria-expanded','false');
     // Saved HTML keeps working navigation when opened outside its original directory.
-    copy.querySelectorAll('.secondary-nav a').forEach(a => {a.href = new URL(a.getAttribute('href'), 'https://bittrove88.github.io/ARCLINE/design/expedition_013/arcline_100_maps_atlas.html').href;});
+    copy.querySelectorAll('.site-header a,.site-footer a').forEach(a => {a.href = new URL(a.getAttribute('href'), 'https://bittrove88.github.io/ARCLINE/design/expedition_013/arcline_100_maps_atlas.html').href;});
     copy.querySelectorAll('#atlasMode,#atlasTurn,#atlasDownload,#atlasDialog,#atlasError,[data-atlas-context],.atlas-open').forEach(node => node.remove());
     copy.querySelector('body').classList.remove('atlas-native');
     copy.querySelector('.legend').innerHTML = originalLegend;

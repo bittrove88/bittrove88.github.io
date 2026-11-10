@@ -496,26 +496,6 @@
       regionId = button.dataset.landscape;
       updateLandscape();
     };
-  function closeMenu() {
-    document.querySelector(".site-header").classList.remove("menu-open");
-    $("menuButton").setAttribute("aria-expanded", "false");
-  }
-  $("menuButton").onclick = () => {
-    const open = $("menuButton").getAttribute("aria-expanded") !== "true";
-    document.querySelector(".site-header").classList.toggle("menu-open", open);
-    $("menuButton").setAttribute("aria-expanded", String(open));
-  };
-  for (const anchor of $("mainNav").querySelectorAll("a"))
-    anchor.addEventListener("click", closeMenu);
-  document.addEventListener("keydown", (event) => {
-    if (
-      event.key === "Escape" &&
-      $("menuButton").getAttribute("aria-expanded") === "true"
-    ) {
-      closeMenu();
-      $("menuButton").focus();
-    }
-  });
   function translate() {
     document.documentElement.lang = language;
     document.title = local([
@@ -530,10 +510,6 @@
     $("languageButton").setAttribute(
       "aria-label",
       local(["Switch to English", "日本語に切り替え"]),
-    );
-    $("menuButton").setAttribute(
-      "aria-label",
-      local(["メニューを開く", "Open navigation"]),
     );
     $("mainNav").setAttribute(
       "aria-label",
