@@ -16,3 +16,4 @@ def rebuild(root,history_repo):
     tools=root/'game/tools';env={**os.environ,'ARCLINE_HISTORY_REPO':str(history_repo)}
     for name in SCRIPTS:subprocess.run(['python3',str(tools/name)],check=True,env=env,stdout=subprocess.DEVNULL)
     subprocess.run(['node',str(tools/'build_site_scenes.cjs')],check=True,stdout=subprocess.DEVNULL)
+    subprocess.run(['node',str(tools/'build_site_machines.cjs')],check=True,stdout=subprocess.DEVNULL)

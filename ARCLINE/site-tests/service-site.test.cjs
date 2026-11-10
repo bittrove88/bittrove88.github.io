@@ -68,6 +68,62 @@ ok(
     warning.walk <= 140,
   "real frozen-warning avoidance, unchanged enemy aim and legal movement",
 );
+// Staging must preserve native mechanics while making the requested arcs and landings readable.
+const Showcase = require("../site/showcase-model.js");
+const Combat = require("../game/dist/combat.js");
+// Browser and Node builds may differ below a millionth of a world pixel.
+const roundedProof = (value) =>
+  JSON.stringify(value, (_key, part) =>
+    typeof part === "number" ? Math.round(part * 1e6) / 1e6 : part,
+  );
+
+for (const id of allMachines) {
+  const native = Showcase.create(id),
+    recorded = manifest.captures.find((r) => r.id === id);
+  ok(
+    roundedProof(native.proof) === roundedProof(recorded.proof),
+    "recording matches native staged trajectory: " + id,
+  );
+  ok(
+    native.plan.damage[1] > 0 && native.plan.damage[0] === 0,
+    "native hit without self damage: " + id,
+  );
+}
+const proof = (id) => manifest.captures.find((r) => r.id === id).proof;
+ok(proof("hana").arcRise > 110, "Hana salvo has a visible arc");
+ok(
+  proof("ban").arcRise > 95 && proof("ban").impactDistance < 80,
+  "Ban arcs down near the target",
+);
+ok(
+  proof("yui").arcRise > 110 &&
+    proof("yui").impactDistance < 90 &&
+    proof("yui").radius === Combat.get("yui").special.pullRadius,
+  "Yui lands nearby with the native gravity radius",
+);
+ok(
+  proof("sora").arcRise > proof("hana").arcRise &&
+    proof("rin").arcRise < 70 &&
+    proof("koro").arcRise < 30 &&
+    proof("rico").bounces === 3,
+  "meteor, piercing, rolling and ricochet trajectories retain distinct shapes",
+);
+require("../site/scenes.js");
+const terrain = globalThis.ArcSiteScenes;
+ok(
+  terrain.destruction.proof.arcRise > 90 &&
+    terrain.destruction.proof.followUpDamage > 0,
+  "higher cover break still opens a valid follow-up",
+);
+const roof = terrain.teleport.steps[0].plan.path.filter(
+  (p) => p.x >= 540 && p.x <= 740,
+);
+ok(
+  roof.length > 0 &&
+    roof.every((p) => p.y < 95) &&
+    terrain.teleport.proof.followUpDamage > 0,
+  "teleport flies over the headland and enables the next shot",
+);
 const captures = require("../site/gameplay-captures.json");
 ok(
   captures.implementation === release.version,
@@ -76,6 +132,36 @@ ok(
 for (const [file, expected] of Object.entries(captures.sourceHashes))
   ok(hash(file) === expected, "current world image source: " + file);
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const profiles = JSON.parse(
+  html.match(
+    /<script id="machineData" type="application\/json">([\s\S]*?)<\/script>/,
+  )[1],
+);
+const Crew = require("../game/dist/crew.js"),
+  Cast = require("../game/dist/characters.js");
+for (const row of profiles) {
+  const crew = Crew.get(row.id),
+    machine = Cast.get(row.id);
+  ok(
+    row.hp === Combat.get(row.id).hp && row.stage === crew.stage,
+    "current HP and join stage: " + row.id,
+  );
+  ok(
+    row.charm[0] === crew.charm.ja &&
+      row.desire[1] === crew.desire.en &&
+      row.role[0] === machine.roleJa,
+    "current bilingual identity and story: " + row.id,
+  );
+}
+ok(
+  profiles.length === 10 && new Set(profiles.map((r) => r.id)).size === 10,
+  "all ten integrated profiles",
+);
+ok(
+  !/href="characters\/"|href="updates\//.test(html),
+  "retired character and updates links removed",
+);
+
 for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
   const url = new URL(match[1], "http://localhost/ARCLINE/");
   if (url.origin !== "http://localhost" || url.hash) continue;
@@ -251,6 +337,23 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
             .evaluate((img) => img.naturalWidth > 0),
           "approved artwork decoded " + id,
         );
+        const profile = profiles.find((row) => row.id === id);
+        ok(
+          (await page.locator("#machineArt").getAttribute("src")).endsWith(
+            id + "-concept.webp",
+          ) &&
+            (await page
+              .locator("#machineArt")
+              .evaluate((img) => img.naturalWidth >= 1200)),
+          "large full concept artwork: " + id,
+        );
+        ok(
+          (await page.locator("#machineHP").innerText()) ===
+            String(profile.hp) &&
+            (await page.locator("#machineRole").innerText()) ===
+              profile.role[0],
+          "integrated machine profile follows the selection: " + id,
+        );
       }
       ok(
         await page.locator("#heroVideo").evaluate((video) => video.paused),
@@ -339,6 +442,16 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
         (await page.locator("h1").innerText()).includes("Read the battle."),
         "English brand line " + width,
       );
+      const selectedId = await page.evaluate(() => ArcSite.machine),
+        selectedProfile = profiles.find((row) => row.id === selectedId);
+      ok(
+        (await page.locator("#machineRole").innerText()) ===
+          selectedProfile.role[1] &&
+          (await page.locator("#machineDesire").innerText()) ===
+            selectedProfile.desire[1],
+        "integrated machine story switches to English " + width,
+      );
+
       ok(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -392,8 +505,41 @@ for (const match of html.matchAll(/(?:src|href|poster|data-src)="([^"]+)"/g)) {
           fullPage: true,
         });
       }
+      if (width === 1440) {
+        await page.goto(base + "/ARCLINE/characters/");
+        await page.waitForURL("**/ARCLINE/#machines");
+        await page.waitForFunction(() => !!globalThis.ArcSite);
+        ok(
+          (await page.locator("[data-machine]").count()) === 10 &&
+            (await page.evaluate(
+              () => !globalThis.ArcEngine && !globalThis.ArcSave,
+            )),
+          "retired machine route opens the integrated engine-free showcase",
+        );
+        ok(
+          await page.evaluate(
+            () =>
+              localStorage.getItem("arcline-campaign-v1") ===
+              "site-showcase-sentinel",
+          ),
+          "legacy route preserves campaign data",
+        );
+      }
       await context.close();
     }
+    const retired = fs.readFileSync(
+      path.join(root, "characters/ARCLINE_Characters_Preview.html"),
+      "utf8",
+    );
+    ok(
+      retired.includes(
+        "0;url=https://bittrove88.github.io/ARCLINE/#machines",
+      ) &&
+        retired.includes(
+          'href="https://bittrove88.github.io/ARCLINE/#machines"',
+        ),
+      "retired downloadable viewer supplies a redirect and visible fallback",
+    );
     const reduced = await browser.newContext({
         viewport: { width: 390, height: 844 },
         reducedMotion: "reduce",

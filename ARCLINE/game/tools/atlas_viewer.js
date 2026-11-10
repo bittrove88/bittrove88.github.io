@@ -38,7 +38,7 @@
   const originalLegend = document.querySelector('.legend').innerHTML;
   const originalNote = document.querySelector('.note').textContent;
   const manifest = JSON.parse($('atlasNativeManifest').textContent);
-  document.querySelector('header p').textContent = '全100面と最終戦4戦場を、最新の背景・地形・オブジェクトで確認。各マップを選ぶと拡大できます。';
+  document.querySelector('.atlas-intro').textContent = '全100面と最終戦4戦場を、最新の背景・地形・オブジェクトで確認。各マップを選ぶと拡大できます。';
 
   function report(error) {
     errors.push(String(error));
@@ -217,6 +217,8 @@
   $('print').onclick = async () => {await renderAll();window.print();};
   download.onclick = async () => {
     const copy = document.documentElement.cloneNode(true);
+    // Saved HTML keeps working navigation when opened outside its original directory.
+    copy.querySelectorAll('.secondary-nav a').forEach(a => {a.href = new URL(a.getAttribute('href'), 'https://bittrove88.github.io/ARCLINE/design/expedition_013/arcline_100_maps_atlas.html').href;});
     copy.querySelectorAll('#atlasMode,#atlasTurn,#atlasDownload,#atlasDialog,#atlasError,[data-atlas-context],.atlas-open').forEach(node => node.remove());
     copy.querySelector('body').classList.remove('atlas-native');
     copy.querySelector('.legend').innerHTML = originalLegend;

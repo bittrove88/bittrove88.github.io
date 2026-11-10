@@ -101,6 +101,7 @@ const server = http.createServer((req, res) => {
         "html,body{margin:0;padding:0;background:#153b46}main{padding:0!important;max-width:none!important}main>*{display:none!important}#canvas{display:block!important;width:1024px!important;height:576px!important;aspect-ratio:16/9!important;border:0!important;border-radius:0!important}",
     });
     await page.addScriptTag({ url: "/ARCLINE/site/scenes.js" });
+    await page.addScriptTag({ url: "/ARCLINE/site/showcase-model.js" });
     await page.addScriptTag({ url: "/ARCLINE/game/dist/map-camera.js" });
     await page.evaluate(() => {
       for (const id of captureFrames) cancelAnimationFrame(id);
@@ -199,7 +200,7 @@ const server = http.createServer((req, res) => {
             scene: "campaign",
             motion: { duration },
           };
-          posterAge = id === "reflection" ? 2.4 : 1.5;
+          posterAge = id === "reflection" ? 2.4 : id === "teleport" ? 2.8 : 1.5;
           proof = scene.proof;
         } else if (id === "warning") {
           const original = ArcAttackReview.create("technique:E_60", "map"),
@@ -273,17 +274,35 @@ const server = http.createServer((req, res) => {
             samePower: plan.power === original.plan.power,
           };
         } else {
-          c = review.select("special:" + id);
-          review.seek(0);
+          c = ArcSiteShowcase.create(id);
+          proof = c.proof;
+          const renderer = ArcRender.create(canvas);
           duration = 0.8 + c.motion.duration + 1.4;
           seekAge = (elapsed) => {
             const age = Math.max(0, elapsed - 0.8),
-              physical = c.motion.at(Math.min(c.motion.duration, age));
-            review.seek(
-              age > c.motion.duration
-                ? c.plan.duration + (age - c.motion.duration)
-                : physical,
-            );
+              flight = c.motion.at(age);
+            renderer.draw(c.before, {
+              time: flight,
+              characterId: c.before.characterId,
+              presentationFrame: { top: 18, bottom: canvas.clientHeight - 20 },
+              demo: {
+                id: c.row.id,
+                state: c.before,
+                before: c.before,
+                after: c.motion.done(age) ? c.after : null,
+                plan: c.plan,
+                age,
+                flight,
+                flightStart: 0,
+                flightEnd: c.plan.duration,
+                phase: c.motion.done(age) ? "RESULT" : "SHOT",
+                effectProgress: Math.min(
+                  1,
+                  Math.max(0, (age - c.motion.duration) / 0.5),
+                ),
+                framing: { keepOverview: true },
+              },
+            });
           };
           posterAge = 0.8 + c.motion.duration * 0.65;
         }
@@ -385,6 +404,7 @@ const server = http.createServer((req, res) => {
       "game/dist/attack-review-model.js",
       "game/attack-review/review.js",
       "site/scenes.js",
+      "site/showcase-model.js",
     ];
     const sourceHashes = Object.fromEntries(
       [...new Set(sources)].map((name) => [
@@ -427,6 +447,32 @@ const server = http.createServer((req, res) => {
         sourceSha256: sha(fs.readFileSync(path.join(root, "ARCLINE", source))),
         file,
         sha256: sha(fs.readFileSync(path.join(site, file))),
+      });
+      const conceptSource = "assets/characters/unlock/" + id + ".png",
+        conceptFile = "media/" + id + "-concept.webp";
+      execFileSync("ffmpeg", [
+        "-y",
+        "-loglevel",
+        "error",
+        "-i",
+        path.join(root, "ARCLINE", conceptSource),
+        "-vf",
+        "scale=1280:1280:force_original_aspect_ratio=decrease",
+        "-c:v",
+        "libwebp",
+        "-quality",
+        "88",
+        path.join(site, conceptFile),
+      ]);
+      artwork.push({
+        id,
+        kind: "concept",
+        source: conceptSource,
+        sourceSha256: sha(
+          fs.readFileSync(path.join(root, "ARCLINE", conceptSource)),
+        ),
+        file: conceptFile,
+        sha256: sha(fs.readFileSync(path.join(site, conceptFile))),
       });
     }
     const manifestPath = path.join(site, "showcase-captures.json"),

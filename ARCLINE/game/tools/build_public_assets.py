@@ -1,16 +1,25 @@
-"""Build an offline preview with the exact canonical identity, save decoder and Canvas fallback."""
+"""Keep former character URLs usable after integrating the cast into the main site."""
 from pathlib import Path
-import re
-from release import CONFIG
-root=Path(__file__).resolve().parents[2];p=root/'characters/index.html';source=p.read_text();source=re.sub(r'v=0\.\d+\.\d+','v='+CONFIG['cacheVersion'],source);p.write_text(source)
-def script(m):
- name=m.group(1);code=(root/'game/dist'/name).read_text();return '<script>\n'+code.replace('</script','<\\/script')+'\n</script>'
-offline=re.sub(r'<script src="../game/dist/([^?"/]+)\?v=[^"]+"></script>',script,source)
-offline=re.sub(r'(<script\b)',lambda m:'<script>globalThis.ArcOfflinePreview=true;</script>'+m[1],offline,count=1)
-offline=re.sub(r'(<main\b[^>]*>)',lambda m:m[1]+'<p class="offline-art-label" style="margin:0;padding:8px 20px;background:#163b4b;color:#e5e9ce;font-size:13px">オフライン版：ゲーム内デザインで表示 / Offline: in-game designs</p>',offline,count=1)
-assert 'globalThis.ArcOfflinePreview=true;' in offline
-offline=re.sub(r'<link rel="stylesheet" href="../game/dist/cinematics.css\?v=[^"]+">',lambda m:'<style>\n'+(root/'game/dist/cinematics.css').read_text()+'\n</style>',offline)
-offline=offline.replace('<title>ARCLINE — 10機のキャラ確認</title>','<title>ARCLINE 0.14.3 — 10機のキャラ確認（オフライン対応）</title>')
-assert not re.search(r'<script[^>]+src=',offline)
-(root/'characters/ARCLINE_Characters_Preview.html').write_text(offline)
-print('Built canonical character UI and self-contained offline Canvas fallback')
+
+root = Path(__file__).resolve().parents[2]
+canonical = 'https://bittrove88.github.io/ARCLINE/#machines'
+
+def redirect(target):
+    return f'''<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARCLINE — 10機の相棒</title>
+<meta http-equiv="refresh" content="0;url={target}">
+<link rel="canonical" href="{canonical}">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#112f3a">
+<style>body{{margin:0;padding:12vh 7vw;background:#112f3a;color:#fffdf6;font:16px/1.8 system-ui,sans-serif}}main{{max-width:700px;margin:auto}}h1{{font-size:clamp(28px,5vw,48px)}}a{{color:#f18a51}}</style>
+</head><body><main><p>ARCLINE / 10 MACHINES</p><h1>好きな一撃で、相棒を選べ。</h1>
+<p>10機の紹介は、公式サイトに統合しました。</p><p>The 10 machines now share a home on the main site.</p>
+<a href="{target}">相棒たちを見る / Meet the machines →</a></main></body></html>
+'''
+
+(root / 'characters/index.html').write_text(redirect('../#machines'))
+# Downloaded copies still point to the online destination; the separate offline UI is retired.
+(root / 'characters/ARCLINE_Characters_Preview.html').write_text(redirect(canonical))
+print('Built compatibility redirects for the integrated machine showcase')
