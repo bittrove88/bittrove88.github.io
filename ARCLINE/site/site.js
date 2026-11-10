@@ -1,88 +1,573 @@
-(function(){
-'use strict';
-const $=id=>document.getElementById(id),A=globalThis.ArcCharacters,scenes=globalThis.ArcSiteScenes;
-if(!A||!scenes)return;
-let language='ja',machineId='gun',featureId='reflection',paused=matchMedia('(prefers-reduced-motion: reduce)').matches,clock=0,previous=0,raf=0;
-try{if(localStorage.getItem('arcline-language')==='en')language='en';}catch{}
-const captions={reflection:{ja:'地面を使って、回り込む。',en:'Let the ground open a new angle.',index:'01 / REFLECT'},destruction:{ja:'遮蔽物を壊して、道をひらく。',en:'Break the cover. Open the way.',index:'02 / BREAK'},teleport:{ja:'着弾した場所が、次の射点。',en:'Your impact becomes your next position.',index:'03 / TELEPORT'}};
-function translate(){
- ArcI18n.setLanguage(language);
- document.documentElement.lang=language;for(const e of document.querySelectorAll('[data-ja][data-en]'))e.textContent=e.dataset[language];
- $('languageButton').textContent=language==='ja'?'EN ↗':'日本語 ↗';$('languageButton').setAttribute('aria-label',language==='ja'?'Switch to English':'日本語に切り替え');
- $('menuButton').setAttribute('aria-label',language==='ja'?'メニューを開く':'Open navigation');
- $('demoCaption').textContent=captions[featureId][language];$('motionButton').setAttribute('aria-label',language==='ja'?(paused?'プレビューを再生':'プレビューを一時停止'):(paused?'Play preview':'Pause preview'));
- $('featureCanvas').setAttribute('aria-label',captions[featureId][language]);
- $('heroCanvas').setAttribute('aria-label',language==='ja'?'白石と淡い青緑の空中庭園81面のゲーム内地形':'Stage81: the pale stone and jade terrain of the Sky Gardens');
- for(const e of document.querySelectorAll('[data-alt-ja]'))e.alt=language==='ja'?e.dataset.altJa:e.dataset.altEn;
- $('mainNav').setAttribute('aria-label',language==='ja'?'メインナビゲーション':'Main navigation');$('machinePicker').setAttribute('aria-label',language==='ja'?'紹介する機体を選ぶ':'Choose a machine to explore');
- if($('siteVersion'))$('siteVersion').textContent='ARCLINE · '+ArcRelease.version;
- updateMachine(false);
- for(const canvas of document.querySelectorAll("canvas[data-site-stage]")){const name=canvas.closest("article").querySelector("h3").dataset[language];canvas.setAttribute("aria-label",language==="ja"?canvas.dataset.siteStage+"面 "+name+"のマップ":"Stage "+canvas.dataset.siteStage+": "+name);}
- drawHero();drawFeature();drawMaps();
-}
-function updateMachine(repaint=true){
- const c=A.get(machineId),n=ArcCrew.rows.findIndex(r=>r.id===c.id)+1;$('machineName').textContent=c.name;$('machineJapanese').textContent=c.nameJa;
- $('machineRole').textContent=language==='ja'?c.roleJa:c.role;$('machineMotto').textContent=language==='ja'?c.mottoJa:c.motto;
- const crew=ArcCrew.get(machineId),profile=ArcCombat.get(machineId);$('machinePersonality').textContent=ArcStory.pick(crew.charm,language)+' '+ArcStory.pick(crew.desire,language);$('machineNormal').textContent=language==='ja'?ArcI18n.t(profile.normalNote):profile.normalNote;$('machineSpecial').textContent=(language==='ja'?ArcI18n.t(profile.special.name):profile.special.name)+' — '+(language==='ja'?ArcI18n.t(profile.specialNote):profile.specialNote);$('machineTerrain').textContent=language==='ja'?({gun:'近い射点・破壊可能な遮蔽',hana:'狙いやすい中距離・幅のある目標',koro:'連続する床・低い天井',ban:'前方へ続く道・押し出す空間',sora:'高い壁・山の裏・上からの着弾',hibari:'開けた射線・届きにくい相手の近く',rico:'安全な反射路・角度を読める鏡面',mogu:'ひび割れた壁・掘る順番のある地形',rin:'遮蔽を外した長い射線・狭い弱点',yui:'有利な着弾点へ引き寄せる位置取り'})[machineId]:({gun:'Close positions and breakable cover',hana:'Broad targets at medium range',koro:'Continuous floors and low roofs',ban:'Forward lanes and room to push',sora:'High walls, mountain shadows and overhead impacts',hibari:'Clear routes toward distant opponents',rico:'Readable mirror angles and safe ricochet routes',mogu:'Cracked walls and ordered excavation',rin:'Long open lanes and narrow weak points',yui:'Positions that pull a rival toward a useful impact'})[machineId];$('machineJoin').textContent=crew.stage===0?(language==='ja'?'最初の相棒':'Your first companion'):(language==='ja'?crew.stage+'面クリアで合流':'Joins after stage '+crew.stage);
- $('machineCounter').textContent=String(n).padStart(2,'0')+' / 10';$('machineFeature').style.setProperty('--machine-color',c.shade);
- $('machineCanvas').setAttribute('aria-label',language==='ja'?c.nameJa+'のゲーム内キャラクター描画':c.name+' in-game machine drawing');
- $('machinePalette').replaceChildren(...[c.color,c.trim,'#40525b',c.accent].map(color=>{const e=document.createElement('i');e.style.background=color;return e;}));
- for(const b of $('machinePicker').querySelectorAll('button')){b.setAttribute('aria-pressed',String(b.dataset.machine===c.id));b.setAttribute('aria-label',language==='ja'?A.get(b.dataset.machine).nameJa:A.get(b.dataset.machine).name);}
- if(repaint)A.paint($('machineCanvas'),machineId,{angle:machineId==='sora'?58:20});
-}
-for(const r of ArcCrew.rows){const c=A.get(r.id),b=document.createElement('button');b.className='machine-thumb';b.type='button';b.dataset.machine=c.id;b.setAttribute('aria-pressed',String(c.id===machineId));b.innerHTML=A.markup(c.id)+'<strong>'+c.name+'</strong>';b.onclick=()=>{machineId=c.id;updateMachine();};$('machinePicker').append(b);}
-$('languageButton').onclick=()=>{language=language==='ja'?'en':'ja';try{localStorage.setItem('arcline-language',language);}catch{}translate();};
-function closeMenu(){$('menuButton').setAttribute('aria-expanded','false');document.querySelector('.site-header').classList.remove('menu-open');}
-$('menuButton').onclick=()=>{const open=$('menuButton').getAttribute('aria-expanded')!=='true';$('menuButton').setAttribute('aria-expanded',String(open));document.querySelector('.site-header').classList.toggle('menu-open',open);};
-for(const a of $('mainNav').querySelectorAll('a'))a.addEventListener('click',closeMenu);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('menuButton').getAttribute('aria-expanded')==='true'){closeMenu();$('menuButton').focus();}});
-function selectFeature(id){featureId=id;clock=0;for(const b of document.querySelectorAll('[data-feature]')){const selected=b.dataset.feature===id;b.classList.toggle('active',selected);b.setAttribute('aria-selected',String(selected));b.tabIndex=selected?0:-1;}$('featurePanel').setAttribute('aria-labelledby','feature-'+id);$('demoIndex').textContent=captions[id].index;$('featureCanvas').setAttribute('aria-label',language==='ja'?captions[id].ja:captions[id].en);$('demoCaption').textContent=captions[id][language];drawFeature();}
-for(const b of document.querySelectorAll('[data-feature]')){b.onclick=()=>selectFeature(b.dataset.feature);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();const items=[...document.querySelectorAll('[data-feature]')],index=items.indexOf(b),next=e.key==='Home'?0:e.key==='End'?items.length-1:(index+(['ArrowRight','ArrowDown'].includes(e.key)?1:-1)+items.length)%items.length;selectFeature(items[next].dataset.feature);items[next].focus();};}
-$('motionButton').onclick=()=>{paused=!paused;$('motionButton').setAttribute('aria-pressed',String(paused));$('motionButton').classList.toggle('is-paused',paused);translate();schedule();};
-const E=globalThis.ArcEngine,Camera=globalThis.ArcMapCamera;
-const renderers=new WeakMap();
-// The production renderer annotates this HUD host on touch screens.
-const hudHost=document.createElement('div');hudHost.id='battle';hudHost.hidden=true;hudHost.setAttribute('inert','');document.body.append(hudHost);
-const heroState=E.campaign(81,{equippedCharacterId:'gun',matchSeed:77,difficulty:'normal',battleInventory:{}});
-const mapPreviews=[...document.querySelectorAll('canvas[data-site-stage]')].map(canvas=>({canvas,state:E.campaign(Number(canvas.dataset.siteStage),{equippedCharacterId:'gun',matchSeed:77,difficulty:'normal',battleInventory:{}})}));
-function drawNative(canvas,state,{area,inset={left:10,right:10,top:10,bottom:10},...options}={}){
- const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;
- let renderer=renderers.get(canvas);if(!renderer){renderer=ArcRender.create(canvas);renderers.set(canvas,renderer);}
- const cameraView=Camera.fit(area||Camera.bounds(state),{left:inset.left,top:inset.top,width:Math.max(1,w-inset.left-inset.right),height:Math.max(1,h-inset.top-inset.bottom)});
- renderer.draw(state,{cameraView,presentationFrame:{top:0,bottom:h},canAim:false,reducedMotion:paused,time:clock,...options});
- canvas.dataset.stage=state.stage;canvas.dataset.scene=ArcBackgrounds.sceneFor(state).id;
-}
-function drawHero(){drawNative($('heroCanvas'),heroState);}
-function drawMaps(){for(const entry of mapPreviews)drawNative(entry.canvas,entry.state,{time:0,reducedMotion:true});}
-const sceneAreas=new Map();
-function sceneArea(scene){
- if(sceneAreas.has(scene.id))return sceneAreas.get(scene.id);
- const points=scene.steps.flatMap(step=>[
-  ...step.plan.path.filter(p=>p.x>=0&&p.x<=(step.before.spec.worldWidth||1000)),
-  ...[step.before,step.after].flatMap(state=>state.units.flatMap(u=>[{x:u.x-85,y:u.y-110},{x:u.x+85,y:u.y+45}]))
- ]);
- const area={left:Math.min(...points.map(p=>p.x))-24,right:Math.max(...points.map(p=>p.x))+24,top:Math.min(...points.map(p=>p.y))-24,bottom:Math.max(...points.map(p=>p.y))+24};
- sceneAreas.set(scene.id,area);return area;
-}
-function drawFeature(){
- const scene=scenes[featureId],length=step=>.9+step.plan.duration/.75+1.2,total=scene.steps.reduce((n,s)=>n+length(s),0);
- let time=paused&&clock===0?total-.01:clock%total,index=0;
- while(index<scene.steps.length-1&&time>=length(scene.steps[index]))time-=length(scene.steps[index++]);
- const step=scene.steps[index],flight=Math.max(0,(time-.9)*.75),result=flight>=step.plan.duration,source=result?step.after:step.before;
- const state={...source,angle:step.plan.side===0?step.plan.angle:source.angle,power:step.plan.power,units:source.units.map(u=>({...u}))};
- if(step.walkFrom&&time<.9){const u=state.units[step.walkSide],t=time/.9;u.x=step.walkFrom.x+(u.x-step.walkFrom.x)*t;u.y=step.walkFrom.y+(u.y-step.walkFrom.y)*t;}
- if(featureId==='teleport'&&index===0&&result){const end=step.after.units[0],from=end.animation?.from||end,t=Math.min(1,(flight-step.plan.duration)*3);Object.assign(state.units[0],{x:from.x+(end.x-from.x)*t,y:from.y+(end.y-from.y)*t});}
- const caption=scene.reason[language]+' '+step.label[language];
- if($('demoCaption').textContent!==caption)$('demoCaption').textContent=caption;
- $('demoIndex').textContent=captions[featureId].index+' · STAGE '+String(scene.stage).padStart(2,'0')+' · '+(index+1)+'/'+scene.steps.length;
- drawNative($('featureCanvas'),state,{area:sceneArea(scene),inset:{left:12,right:12,top:49,bottom:66},shot:time>=.9&&!result?step.plan:null,flight,tail:result?{shot:step.plan,age:flight-step.plan.duration}:null});
-}
-
-const visible=new Set();if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{for(const e of entries)e.isIntersecting?visible.add(e.target.id):visible.delete(e.target.id);schedule();},{rootMargin:'80px'});observer.observe($('heroCanvas'));observer.observe($('featureCanvas'));}else{visible.add('heroCanvas');visible.add('featureCanvas');}
-function frame(t){raf=0;if(document.hidden||paused)return;if(t-previous>=32||!previous){clock+=previous?Math.min(.08,(t-previous)/1000):0;previous=t;if(visible.has('heroCanvas'))drawHero();if(visible.has('featureCanvas'))drawFeature();}schedule();}
-function schedule(){if(!raf&&!paused&&!document.hidden&&visible.size)raf=requestAnimationFrame(frame);}
-document.addEventListener('visibilitychange',()=>{previous=0;if(document.hidden){cancelAnimationFrame(raf);raf=0;}else schedule();});
-let resize=0;addEventListener('resize',()=>{cancelAnimationFrame(resize);resize=requestAnimationFrame(()=>{drawHero();drawFeature();drawMaps();A.paintAll($('machinePicker'));updateMachine();});});
-$('motionButton').setAttribute('aria-pressed',String(paused));$('motionButton').classList.toggle('is-paused',paused);selectFeature('reflection');translate();A.paintAll($('machinePicker'));updateMachine();schedule();
-globalThis.ArcSite={get version(){return ArcRelease.version;},get heroStage(){return heroState.stage;},get maps(){return mapPreviews.map(e=>e.state.stage);},get language(){return language;},get machine(){return machineId;},get feature(){return featureId;},get paused(){return paused;},selectFeature};
+(() => {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const revision = "20261110";
+  const machines = [
+    {
+      id: "gun",
+      name: ["ガン", "Gun"],
+      attack: ["破砕砲", "Demolition Cannon"],
+      tag: ["重爆", "Blast"],
+      headline: [
+        "重い一撃。爆発は、二度来る。",
+        "A heavy hit. Two explosive bursts.",
+      ],
+      description: [
+        "重い接触から、二段の爆発へ。近い射点から破砕砲を叩き込む。",
+        "A heavy impact leads into two bursts. Bring the Demolition Cannon to bear from a close position.",
+      ],
+    },
+    {
+      id: "hana",
+      name: ["ハナ", "Hana"],
+      attack: ["連華砲", "Flower Salvo"],
+      tag: ["連射", "Salvo"],
+      headline: ["撃ち込め、咲き誇る連射。", "Let a blooming salvo fly."],
+      description: [
+        "三度の連射で、九発の弾を送り込む。広がる弾道を、幅のある目標へ。",
+        "Nine rounds in three volleys. Send a spreading salvo toward a broad target.",
+      ],
+    },
+    {
+      id: "sora",
+      name: ["ソラ", "Sora"],
+      attack: ["流星砲", "Meteor Cannon"],
+      tag: ["分裂", "Meteors"],
+      headline: [
+        "空に放て。流星となって降り注げ。",
+        "Send it skyward. Bring down the meteors.",
+      ],
+      description: [
+        "上空で分かれた弾が、流星となって落ちる。壁の向こうへ、上から攻める。",
+        "The shot divides in the sky and falls as meteors. Attack from above, beyond the wall.",
+      ],
+    },
+    {
+      id: "rico",
+      name: ["リコ", "Rico"],
+      attack: ["跳弾砲", "Ricochet Cannon"],
+      tag: ["跳弾", "Ricochet"],
+      headline: [
+        "跳ねるたび、攻め筋になる。",
+        "Every bounce opens another angle.",
+      ],
+      description: [
+        "反射する弾道をつなぎ、敵へ向かう跳弾を放つ。地形の角度を味方にしよう。",
+        "Read the surfaces and send a ricocheting shot toward your rival. Make the angles work for you.",
+      ],
+    },
+    {
+      id: "rin",
+      name: ["リン", "Rin"],
+      attack: ["収束砲", "Focus Cannon"],
+      tag: ["収束", "Piercing"],
+      headline: ["収束。その先まで、貫け。", "Focus. Pierce through."],
+      description: [
+        "光を収束し、速い一撃を射ち出す。開いた射線から、狭い弱点を狙う。",
+        "Gather the light into a fast, piercing shot. Find a narrow weak point along an open line of fire.",
+      ],
+    },
+    {
+      id: "ban",
+      name: ["バン", "Ban"],
+      attack: ["衝撃砲", "Shockwave Cannon"],
+      tag: ["衝撃", "Shockwave"],
+      headline: [
+        "前へ、前へ。衝撃を叩き込め。",
+        "Drive a wave of impact forward.",
+      ],
+      description: [
+        "前方へ三つの衝撃波を放つ。近い間合いから、押し出す空間も読んで攻める。",
+        "Release three forward shockwaves. Read the close-range opening and the space beyond the target.",
+      ],
+    },
+    {
+      id: "hibari",
+      name: ["ヒバリ", "Hibari"],
+      attack: ["光輪砲", "Ribbon Ring Cannon"],
+      tag: ["光輪", "Rings"],
+      headline: [
+        "広がる光で、捉えろ。",
+        "Catch your target in expanding light.",
+      ],
+      description: [
+        "二つの光輪が広がり、敵の輪郭へ届く。遠い相手の近くへ、光の中心を運ぼう。",
+        "Two rings expand toward the rival. Place the center of light close to your distant target.",
+      ],
+    },
+    {
+      id: "mogu",
+      name: ["モグ", "Mogu"],
+      attack: ["掘削砲", "Excavation Cannon"],
+      tag: ["掘削", "Drill"],
+      headline: ["阻む壁へ、掘り進め。", "Drill into what stands in your way."],
+      description: [
+        "段階的な掘削で、ひび割れた遮蔽を攻める。壊す順番が、次の一射を変える。",
+        "A sequence of drilling pulses attacks cracked cover. What you break first can change your next shot.",
+      ],
+    },
+    {
+      id: "koro",
+      name: ["コロ", "Koro"],
+      attack: ["爆走砲", "Rolling Blast Cannon"],
+      tag: ["転がる", "Rolling"],
+      headline: [
+        "地を走れ。爆発を連れて。",
+        "Race along the ground. Bring the blasts.",
+      ],
+      description: [
+        "地面を転がりながら、爆発を刻む。連続する床と、低い天井の下を攻める。",
+        "A rolling shot leaves bursts along its route. Follow connected ground beneath low ceilings.",
+      ],
+    },
+    {
+      id: "yui",
+      name: ["ユイ", "Yui"],
+      attack: ["重力砲", "Gravity Cannon"],
+      tag: ["吸引", "Pull"],
+      headline: [
+        "引き寄せて、好機をつくれ。",
+        "Pull the rival into your opportunity.",
+      ],
+      description: [
+        "着弾点へ敵を引き寄せる。どこへ当てるかが、その後の位置取りにつながる。",
+        "Pull the rival toward the impact. Where you land the shot shapes the position that follows.",
+      ],
+    },
+  ];
+  const regions = {
+    shore: { stage: "01 — 05", name: ["はじまりの入江", "First Inlet"] },
+    volcano: { stage: "61 — 65", name: ["火山の外縁", "Volcanic Rim"] },
+    garden: { stage: "81 — 85", name: ["空中庭園", "Sky Gardens"] },
+    fortress: { stage: "91 — 95", name: ["要塞の重層門", "Fortress Gates"] },
+  };
+  const features = {
+    destruction: {
+      stage: 7,
+      description: [
+        "一射目で遮蔽を外し、相手の手番を経て、開いた射線を次の一射で使う。",
+        "Remove the cover, give the rival their turn, then use the open lane for your next shot.",
+      ],
+    },
+    reflection: {
+      stage: 31,
+      description: [
+        "入口の結晶で一度返し、岩肩の奥の敵へ弾を通す。",
+        "Bounce once from the entrance crystal to reach the rival behind the ridge.",
+      ],
+    },
+    teleport: {
+      stage: 4,
+      description: [
+        "歩いて渡れない谷を越えて転移。相手の手番の後、対岸から次の一射を通す。",
+        "Teleport across a gap you cannot walk over. After the rival’s turn, fire from the far bank.",
+      ],
+    },
+    warning: {
+      stage: 60,
+      description: [
+        "予告された場所から移動。敵の狙いが固定されたまま、攻撃が旧位置を通る。",
+        "Move away from the warned target. The rival’s frozen aim sends the attack through your old position.",
+      ],
+    },
+  };
+  let language = "ja",
+    machineId = "gun",
+    heroId = "hana",
+    featureId = "destruction",
+    regionId = "shore",
+    heroAuto = true;
+  try {
+    if (localStorage.getItem("arcline-language") === "en") language = "en";
+  } catch {}
+  const local = (pair) => pair[language === "ja" ? 0 : 1];
+  const findMachine = (id) => machines.find((row) => row.id === id);
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const players = [...document.querySelectorAll("video")].map((video) => ({
+    video,
+    ratio: 0,
+    intent: null,
+    failed: false,
+  }));
+  const playerFor = (video) => players.find((row) => row.video === video);
+  const videoURL = (id, extension) =>
+    "site/media/" + id + "." + extension + "?v=" + revision;
+  function updatePlaybackLabels() {
+    for (const { video, failed } of players) {
+      const button = document.querySelector('[data-video="' + video.id + '"]');
+      button.textContent = video.paused ? "▶︎" : "Ⅱ";
+      button.setAttribute(
+        "aria-label",
+        local(
+          video.paused
+            ? ["映像を再生", "Play video"]
+            : ["映像を一時停止", "Pause video"],
+        ),
+      );
+      button.setAttribute("aria-pressed", String(!video.paused));
+      button.disabled = failed;
+    }
+  }
+  function syncPlayback() {
+    const eligible = players.filter(
+      (row) =>
+        row.ratio > 0.15 &&
+        !row.failed &&
+        row.intent !== false &&
+        (!reduced.matches || row.intent === true) &&
+        !document.hidden,
+    );
+    const active = eligible.sort(
+      (a, b) =>
+        Number(b.intent === true) - Number(a.intent === true) ||
+        b.ratio - a.ratio,
+    )[0];
+    for (const row of players) {
+      if (row !== active) {
+        row.video.pause();
+        continue;
+      }
+      if (!row.video.getAttribute("src")) row.video.src = row.video.dataset.src;
+      if (row.video.paused)
+        row.video.play().catch(() => {
+          updatePlaybackLabels();
+        });
+    }
+    updatePlaybackLabels();
+  }
+  function setVideo(video, id) {
+    const row = playerFor(video);
+    video.pause();
+    video.removeAttribute("src");
+    video.dataset.src = videoURL(id, "mp4");
+    video.poster = videoURL(id, "jpg");
+    row.failed = false;
+    video.closest("figure").querySelector(".media-error").hidden = true;
+    video.load();
+    syncPlayback();
+  }
+  for (const row of players) {
+    row.video.addEventListener("play", () => {
+      for (const other of players) if (other !== row) other.video.pause();
+      updatePlaybackLabels();
+    });
+    row.video.addEventListener("pause", updatePlaybackLabels);
+    row.video.addEventListener("error", () => {
+      row.failed = true;
+      row.video.pause();
+      row.video.closest("figure").querySelector(".media-error").hidden = false;
+      updatePlaybackLabels();
+    });
+    document.querySelector('[data-video="' + row.video.id + '"]').onclick =
+      () => {
+        row.intent = row.video.paused;
+        if (row.intent) {
+          for (const other of players)
+            if (other !== row && other.intent === true) other.intent = null;
+        }
+        syncPlayback();
+      };
+  }
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          playerFor(entry.target).ratio = entry.isIntersecting
+            ? entry.intersectionRatio
+            : 0;
+        syncPlayback();
+      },
+      { threshold: [0, 0.15, 0.4, 0.7, 1] },
+    );
+    for (const { video } of players) observer.observe(video);
+  } else {
+    function updateVisibility() {
+      for (const row of players) {
+        const r = row.video.getBoundingClientRect();
+        row.ratio =
+          Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) /
+          r.height;
+      }
+      syncPlayback();
+    }
+    addEventListener("scroll", updateVisibility, { passive: true });
+    updateVisibility();
+  }
+  reduced.addEventListener("change", () => {
+    for (const row of players) row.intent = null;
+    syncPlayback();
+  });
+  document.addEventListener("visibilitychange", syncPlayback);
+  $("machinePicker").replaceChildren();
+  for (const machine of machines) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "machine-thumb";
+    button.dataset.machine = machine.id;
+    const image = document.createElement("img");
+    image.src = "site/media/" + machine.id + "-art.webp";
+    image.alt = "";
+    image.loading = "lazy";
+    image.width = 60;
+    image.height = 36;
+    const label = document.createElement("strong");
+    button.append(image, label);
+    button.onclick = () => selectMachine(machine.id);
+    $("machinePicker").append(button);
+  }
+  function updateMachine() {
+    const row = findMachine(machineId);
+    $("machineName").textContent = row.id.toUpperCase();
+    $("machineJapanese").textContent = local(row.name);
+    $("machineSpecial").textContent = local(row.attack);
+    $("machineMotto").textContent = local(row.headline);
+    $("machineDescription").textContent = local(row.description);
+    $("machineCounter").textContent =
+      String(machines.indexOf(row) + 1).padStart(2, "0") + " / 10";
+    $("machineArt").src = "site/media/" + row.id + "-art.webp";
+    $("machineArt").alt = local([
+      row.name[0] + "のキャラクター原画",
+      row.name[1] + " character artwork",
+    ]);
+    $("machineVideo").setAttribute(
+      "aria-label",
+      local([
+        row.name[0] + "の" + row.attack[0] + "のゲーム内実演",
+        row.name[1] + ": " + row.attack[1] + " in-game demonstration",
+      ]),
+    );
+    for (const button of document.querySelectorAll("[data-machine]")) {
+      const machine = findMachine(button.dataset.machine);
+      button.setAttribute("aria-pressed", String(machine.id === machineId));
+      button.setAttribute(
+        "aria-label",
+        local(machine.name) + " / " + local(machine.attack),
+      );
+      button.querySelector("strong").textContent = local(machine.name);
+    }
+  }
+  function selectMachine(id) {
+    if (!findMachine(id)) return;
+    machineId = id;
+    updateMachine();
+    setVideo($("machineVideo"), id);
+  }
+  function updateHero() {
+    const row = findMachine(heroId),
+      index = ["hana", "sora", "rico"].indexOf(heroId);
+    $("heroAttack").textContent = local(row.attack);
+    $("heroMachine").textContent =
+      row.id.toUpperCase() + " / " + local(row.name);
+    $("heroCount").textContent = String(index + 1).padStart(2, "0") + " — 03";
+    $("heroVideo").setAttribute(
+      "aria-label",
+      local([
+        row.name[0] + "の" + row.attack[0] + "のゲーム内実演",
+        row.name[1] + ": " + row.attack[1] + " in-game demonstration",
+      ]),
+    );
+    for (const button of document.querySelectorAll("[data-hero]"))
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.hero === heroId),
+      );
+  }
+  function selectHero(id, automatic = false) {
+    if (!["hana", "sora", "rico"].includes(id)) return;
+    heroId = id;
+    if (!automatic) heroAuto = false;
+    $("heroVideo").loop = !heroAuto;
+    updateHero();
+    setVideo($("heroVideo"), id);
+  }
+  for (const button of document.querySelectorAll("[data-hero]"))
+    button.onclick = () => selectHero(button.dataset.hero);
+  $("heroVideo").addEventListener("ended", () => {
+    if (heroAuto) {
+      const ids = ["hana", "sora", "rico"];
+      selectHero(ids[(ids.indexOf(heroId) + 1) % ids.length], true);
+    }
+  });
+  function updateFeature() {
+    const row = features[featureId];
+    $("demoIndex").textContent =
+      "STAGE " +
+      String(row.stage).padStart(2, "0") +
+      " / " +
+      local(["攻略の一例", "ONE POSSIBLE APPROACH"]);
+    $("demoCaption").textContent = local(row.description);
+    $("featureVideo").setAttribute("aria-label", local(row.description));
+    $("featurePanel").setAttribute("aria-labelledby", "feature-" + featureId);
+    for (const button of document.querySelectorAll("[data-feature]")) {
+      const selected = button.dataset.feature === featureId;
+      button.setAttribute("aria-selected", String(selected));
+      button.tabIndex = selected ? 0 : -1;
+    }
+  }
+  function selectFeature(id) {
+    if (!features[id]) return;
+    featureId = id;
+    updateFeature();
+    setVideo($("featureVideo"), id);
+  }
+  for (const button of document.querySelectorAll("[data-feature]")) {
+    button.onclick = () => selectFeature(button.dataset.feature);
+    button.onkeydown = (event) => {
+      if (
+        ![
+          "ArrowLeft",
+          "ArrowRight",
+          "ArrowUp",
+          "ArrowDown",
+          "Home",
+          "End",
+        ].includes(event.key)
+      )
+        return;
+      event.preventDefault();
+      const buttons = [...document.querySelectorAll("[data-feature]")],
+        index = buttons.indexOf(button);
+      const next =
+        event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? buttons.length - 1
+            : (index +
+                (["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1) +
+                buttons.length) %
+              buttons.length;
+      selectFeature(buttons[next].dataset.feature);
+      buttons[next].focus();
+    };
+  }
+  function updateLandscape() {
+    const row = regions[regionId];
+    $("landscapeImage").src =
+      "site/gameplay-" +
+      regionId +
+      ".jpg?v=" +
+      (globalThis.ArcRelease?.version || "0.33.1");
+    $("landscapeImage").alt = local([
+      row.name[0] + "の実際のゲーム画面",
+      "Actual game screen: " + row.name[1],
+    ]);
+    $("landscapeStage").textContent = row.stage;
+    $("landscapeName").textContent = local(row.name);
+    for (const button of document.querySelectorAll("[data-landscape]"))
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.landscape === regionId),
+      );
+  }
+  for (const button of document.querySelectorAll("[data-landscape]"))
+    button.onclick = () => {
+      regionId = button.dataset.landscape;
+      updateLandscape();
+    };
+  function closeMenu() {
+    document.querySelector(".site-header").classList.remove("menu-open");
+    $("menuButton").setAttribute("aria-expanded", "false");
+  }
+  $("menuButton").onclick = () => {
+    const open = $("menuButton").getAttribute("aria-expanded") !== "true";
+    document.querySelector(".site-header").classList.toggle("menu-open", open);
+    $("menuButton").setAttribute("aria-expanded", String(open));
+  };
+  for (const anchor of $("mainNav").querySelectorAll("a"))
+    anchor.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      $("menuButton").getAttribute("aria-expanded") === "true"
+    ) {
+      closeMenu();
+      $("menuButton").focus();
+    }
+  });
+  function translate() {
+    document.documentElement.lang = language;
+    document.title = local([
+      "ARCLINE — 読み切れ。撃ち抜け。",
+      "ARCLINE — Read the battle. Make your shot.",
+    ]);
+    for (const element of document.querySelectorAll("[data-ja][data-en]"))
+      element.textContent = element.dataset[language];
+    for (const image of document.querySelectorAll("[data-alt-ja]"))
+      image.alt = language === "ja" ? image.dataset.altJa : image.dataset.altEn;
+    $("languageButton").textContent = language === "ja" ? "EN" : "日本語";
+    $("languageButton").setAttribute(
+      "aria-label",
+      local(["Switch to English", "日本語に切り替え"]),
+    );
+    $("menuButton").setAttribute(
+      "aria-label",
+      local(["メニューを開く", "Open navigation"]),
+    );
+    $("mainNav").setAttribute(
+      "aria-label",
+      local(["メインナビゲーション", "Main navigation"]),
+    );
+    $("machinePicker").setAttribute(
+      "aria-label",
+      local(["紹介する機体を選ぶ", "Choose a machine to explore"]),
+    );
+    document
+      .querySelector(".hero-tabs")
+      .setAttribute(
+        "aria-label",
+        local(["冒頭で見る必殺技", "Choose a featured special attack"]),
+      );
+    document
+      .querySelector(".tactic-options")
+      .setAttribute(
+        "aria-label",
+        local(["攻略の一例", "Choose a tactical example"]),
+      );
+    document
+      .querySelector(".landscape-options")
+      .setAttribute(
+        "aria-label",
+        local(["旅の風景を選ぶ", "Choose a landscape"]),
+      );
+    document
+      .querySelector(".site-footer nav")
+      .setAttribute("aria-label", local(["詳しく知る", "Explore ARCLINE"]));
+    updateMachine();
+    updateHero();
+    updateFeature();
+    updateLandscape();
+    updatePlaybackLabels();
+  }
+  $("languageButton").onclick = () => {
+    language = language === "ja" ? "en" : "ja";
+    try {
+      localStorage.setItem("arcline-language", language);
+    } catch {}
+    translate();
+  };
+  if (globalThis.ArcRelease)
+    $("siteVersion").textContent = "ARCLINE · " + ArcRelease.version;
+  translate();
+  globalThis.ArcSite = Object.freeze({
+    get version() {
+      return globalThis.ArcRelease?.version || "0.33.1";
+    },
+    get language() {
+      return language;
+    },
+    get machine() {
+      return machineId;
+    },
+    get hero() {
+      return heroId;
+    },
+    get feature() {
+      return featureId;
+    },
+    get landscape() {
+      return regionId;
+    },
+    selectMachine,
+    selectFeature,
+  });
 })();
