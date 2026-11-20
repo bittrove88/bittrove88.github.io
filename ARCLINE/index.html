@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#112f3a" />
+    <title>ARCLINE — 読み切れ。撃ち抜け。</title>
+    <meta
+      name="description"
+      content="連射、分裂、跳弾、収束。10機の必殺技で、あなたの一撃を決めろ。地形と敵を読み、20テーマ100ステージを旅する、ひとり用・ターン制砲撃アドベンチャー。"
+    />
+    <meta property="og:title" content="ARCLINE — 読み切れ。撃ち抜け。" />
+    <meta
+      property="og:description"
+      content="連射、分裂、跳弾、収束。10機の必殺技で、あなたの一撃を決めろ。"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://bittrove88.github.io/ARCLINE/site/media/hana.jpg"
+    />
+    <meta property="og:url" content="https://bittrove88.github.io/ARCLINE/" />
+    <link rel="icon" href="game/dist/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="site/frame.css?v=20261110-frame" />
+    <link rel="stylesheet" href="site/styles.css?v=20261110-frame" />
+    <script defer src="game/dist/release-info.js?v=0.33.1"></script>
+    <script defer src="site/navigation.js?v=20261110-frame"></script>
+    <script defer src="site/site.js?v=20261110-frame"></script>
+  </head>
+  <body class="arcline-site has-mobile-play">
+    <a
+      class="skip-link"
+      href="#main"
+      data-ja="本文へ移動"
+      data-en="Skip to content"
+      >本文へ移動</a
+    >
+    <!-- SITE_HEADER_START -->
+    <header class="site-header">
+      <div class="site-shell">
+        <a class="brand" href="#top" aria-label="ARCLINE">ARCLINE<span aria-hidden="true">◆</span></a>
+        <button id="menuButton" class="menu-button" aria-expanded="false" aria-controls="mainNav" aria-label="メニューを開く">☰</button>
+        <nav id="mainNav" class="site-nav" aria-label="メインナビゲーション">
+          <a href="#machines" data-ja="必殺技と相棒" data-en="Special attacks">必殺技と相棒</a>
+          <a href="#play" data-ja="作戦をつくる" data-en="Make your plan">作戦をつくる</a>
+          <a href="#journey" data-ja="旅の先へ" data-en="The journey">旅の先へ</a>
+          <a href="#how-to" data-ja="遊び方" data-en="How to play">遊び方</a>
+          <button id="languageButton" class="language-button" aria-label="Switch to English">EN</button>
+        </nav>
+        <a class="button header-play" href="game/dist/?v=0.33.1"><span data-ja="ゲームを遊ぶ" data-en="Play ARCLINE">ゲームを遊ぶ</span><span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+    <!-- SITE_HEADER_END -->
+    <main id="main">
+      <section id="top" class="hero">
+        <div class="hero-grid wrap">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span class="live-dot" aria-hidden="true"></span
+              ><span
+                data-ja="ひとり用・ターン制砲撃アドベンチャー"
+                data-en="A single-player, turn-based artillery adventure"
+                >ひとり用・ターン制砲撃アドベンチャー</span
+              >
+            </p>
+            <h1>
+              <span data-ja="読み切れ。" data-en="Read the battle."
+                >読み切れ。</span
+              ><span
+                class="accent"
+                data-ja="撃ち抜け。"
+                data-en="Make your shot."
+                >撃ち抜け。</span
+              >
+            </h1>
+            <p
+              class="hero-lead"
+              data-ja="連射、分裂、跳弾、収束。"
+              data-en="Salvos. Meteors. Ricochets. Piercing shots."
+            >
+              連射、分裂、跳弾、収束。
+            </p>
+            <p
+              class="hero-detail"
+              data-ja="10機の必殺技で、あなたの一撃を決めろ。"
+              data-en="Find your favorite special attack. Make it count."
+            >
+              10機の必殺技で、あなたの一撃を決めろ。
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="game/dist/?v=0.33.1"
+                ><span data-ja="ゲームを遊ぶ" data-en="Play ARCLINE"
+                  >ゲームを遊ぶ</span
+                ><span aria-hidden="true">→</span></a
+              ><a
+                class="text-link"
+                href="#machines"
+                data-ja="必殺技を見る ↓︎"
+                data-en="Explore the attacks ↓︎"
+                >必殺技を見る ↓︎</a
+              >
+            </div>
+            <p
+              class="start-note"
+              data-ja="ブラウザでプレイ。スマホは横向きで。"
+              data-en="Play in your browser. Turn your phone sideways."
+            >
+              ブラウザでプレイ。スマホは横向きで。
+            </p>
+          </div>
+          <div class="hero-showcase">
+            <div class="stage-label">
+              <span>ARCLINE / SPECIAL ATTACK</span
+              ><span id="heroCount">01 — 03</span>
+            </div>
+            <figure class="video-frame hero-frame">
+              <video
+                id="heroVideo"
+                muted
+                playsinline
+                preload="none"
+                poster="site/media/hana.jpg?v=20261110-2"
+                data-src="site/media/hana.mp4?v=20261110-2"
+                aria-label="ハナの連華砲のゲーム内実演"
+              ></video>
+              <button
+                class="playback"
+                data-video="heroVideo"
+                aria-label="映像を一時停止"
+              >
+                Ⅱ
+              </button>
+              <p
+                class="media-error"
+                hidden
+                data-ja="映像を読み込めませんでした。画像で技をご紹介しています。"
+                data-en="Video unavailable. The still image shows the attack."
+              >
+                映像を読み込めませんでした。画像で技をご紹介しています。
+              </p>
+              <figcaption>
+                <span
+                  ><strong id="heroAttack">連華砲</strong
+                  ><small id="heroMachine">HANA / ハナ</small></span
+                ><span
+                  class="demo-label"
+                  data-ja="ゲーム内の必殺技・実演"
+                  data-en="Native in-game attack demonstration"
+                  >ゲーム内の必殺技・実演</span
+                >
+              </figcaption>
+            </figure>
+            <div class="hero-tabs" role="group" aria-label="冒頭で見る必殺技">
+              <button data-hero="hana" aria-pressed="true">
+                <span>01</span
+                ><strong
+                  data-ja="連射で、咲かせる。"
+                  data-en="A blooming salvo."
+                  >連射で、咲かせる。</strong
+                ><span aria-hidden="true">→</span>
+              </button>
+              <button data-hero="sora" aria-pressed="false">
+                <span>02</span
+                ><strong
+                  data-ja="流星を、降らせる。"
+                  data-en="Bring down meteors."
+                  >流星を、降らせる。</strong
+                ><span aria-hidden="true">→</span>
+              </button>
+              <button data-hero="rico" aria-pressed="false">
+                <span>03</span
+                ><strong
+                  data-ja="跳弾で、攻め抜く。"
+                  data-en="Find a ricochet route."
+                  >跳弾で、攻め抜く。</strong
+                ><span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bottom wrap">
+          <span>THINK IT. FIRE IT. FEEL IT.</span
+          ><a
+            href="#machines"
+            data-ja="あなたの一撃を見つけよう ↓︎"
+            data-en="Find your kind of shot ↓︎"
+            >あなたの一撃を見つけよう ↓︎</a
+          >
+        </div>
+      </section>
+      <section id="machines" class="machines section-dark">
+        <div class="wrap">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">01 / FIND YOUR SPECIAL</p>
+              <h2
+                data-ja="好きな一撃で、相棒を選べ。"
+                data-en="Find your shot. Find your companion."
+              >
+                好きな一撃で、相棒を選べ。
+              </h2>
+            </div>
+            <p
+              data-ja="重い一撃も、怒涛の連射も。旅で出会う10機には、それぞれの必殺技がある。"
+              data-en="A heavy blast or a flurry of shots. Each of the 10 machines you meet has a special attack of its own."
+            >
+              重い一撃も、怒涛の連射も。旅で出会う10機には、それぞれの必殺技がある。
+            </p>
+          </div>
+          <div
+            id="machinePicker"
+            class="machine-picker"
+            role="group"
+            aria-label="紹介する機体を選ぶ"
+          >
+            <a
+              href="#machineFeature"
+              class="no-script-machine"
+              data-ja="10機の必殺技と個性を紹介"
+              data-en="Explore 10 special attacks and personalities"
+              >10機の必殺技と個性を紹介</a
+            >
+          </div>
+          <div id="machineFeature" class="machine-feature">
+            <div class="machine-identity">
+              <figure class="machine-concept">
+                <img
+                  id="machineArt"
+                  src="site/media/gun-concept.webp"
+                  alt="ガンのコンセプトアート"
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                />
+                <figcaption>
+                  <span id="machineJapanese">ガン</span
+                  ><span data-ja="コンセプトアート" data-en="Concept artwork"
+                    >コンセプトアート</span
+                  >
+                </figcaption>
+              </figure>
+              <div class="machine-story">
+                <p class="machine-line" id="machineLine">
+                  「急がなくていい。ちゃんと、向こうへ行こう。」
+                </p>
+                <p id="machineCharm">
+                  慎重で、仲間の支えを一機で背負いがち。頼ることも覚えていく。
+                </p>
+                <p
+                  class="machine-wish-label"
+                  data-ja="この旅で、叶えたいこと。"
+                  data-en="A wish carried on this journey."
+                >
+                  この旅で、叶えたいこと。
+                </p>
+                <p id="machineDesire">
+                  港の作業路を直し、荷物が行き交う音を取り戻す。
+                </p>
+              </div>
+            </div>
+            <div class="machine-presentation">
+              <div class="machine-media">
+                <figure class="video-frame">
+                  <video
+                    id="machineVideo"
+                    muted
+                    playsinline
+                    loop
+                    preload="none"
+                    poster="site/media/gun.jpg?v=20261110-2"
+                    data-src="site/media/gun.mp4?v=20261110-2"
+                    aria-label="ガンの破砕砲のゲーム内実演"
+                  ></video
+                  ><button
+                    class="playback"
+                    data-video="machineVideo"
+                    aria-label="映像を一時停止"
+                  >
+                    Ⅱ
+                  </button>
+                  <p
+                    class="media-error"
+                    hidden
+                    data-ja="映像を読み込めませんでした。画像で技をご紹介しています。"
+                    data-en="Video unavailable. The still image shows the attack."
+                  >
+                    映像を読み込めませんでした。画像で技をご紹介しています。
+                  </p>
+                  <figcaption>
+                    <span id="machineSpecial">破砕砲</span
+                    ><small
+                      data-ja="必殺技の実演"
+                      data-en="Special attack demonstration"
+                      >必殺技の実演</small
+                    >
+                  </figcaption>
+                </figure>
+              </div>
+              <div class="machine-copy" aria-live="polite">
+                <p class="machine-number">
+                  <span id="machineCounter">01 / 10</span
+                  ><span
+                    data-ja="旅で出会う相棒たち"
+                    data-en="Companions along the way"
+                    >旅で出会う相棒たち</span
+                  >
+                </p>
+                <p class="machine-id" id="machineName">GUN</p>
+                <h3 id="machineMotto">重い一撃。爆発は、二度来る。</h3>
+                <p class="machine-description" id="machineDescription">
+                  重い接触から、二段の爆発へ。近い射点から破砕砲を叩き込む。
+                </p>
+                <dl class="machine-stats">
+                  <div>
+                    <dt data-ja="機体タイプ" data-en="Machine type">
+                      機体タイプ
+                    </dt>
+                    <dd id="machineRole">重装アサルトタンク</dd>
+                  </div>
+                  <div>
+                    <dt>HP</dt>
+                    <dd id="machineHP">140</dd>
+                  </div>
+                  <div>
+                    <dt data-ja="合流" data-en="Joins">合流</dt>
+                    <dd id="machineJoin">最初の相棒</dd>
+                  </div>
+                </dl>
+                <details class="machine-profile">
+                  <summary
+                    data-ja="通常弾と必殺技の特徴"
+                    data-en="Normal shot &amp; special attack"
+                  >
+                    通常弾と必殺技の特徴
+                  </summary>
+                  <p id="machineNormal">全機体で基本の弾道は共通です。</p>
+                  <p id="machineAbility">二段の爆発で相手を押し出す。</p>
+                </details>
+              </div>
+            </div>
+          </div>
+          <p
+            class="section-footnote"
+            data-ja="最初の相棒はガン。仲間は旅を進めると合流します。"
+            data-en="Begin with Gun; other companions join as your journey continues."
+          >
+            最初の相棒はガン。仲間は旅を進めると合流します。
+          </p>
+        </div>
+      </section>
+      <section id="play" class="tactics section-light">
+        <div class="wrap">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">02 / MAKE YOUR OPENING</p>
+              <h2
+                data-ja="その地形、突破口に変えろ。"
+                data-en="Turn the terrain into your opening."
+              >
+                その地形、突破口に変えろ。
+              </h2>
+            </div>
+            <p
+              data-ja="遮蔽を開く。射点を変える。敵の狙いを外す。その一手が、次の砲撃を変える。"
+              data-en="Open a lane. Change your position. Step away from a warning. Your next shot starts with that choice."
+            >
+              遮蔽を開く。射点を変える。敵の狙いを外す。その一手が、次の砲撃を変える。
+            </p>
+          </div>
+          <div class="tactic-grid">
+            <div class="tactic-options" role="tablist" aria-label="攻略の一例">
+              <button
+                id="feature-destruction"
+                role="tab"
+                aria-selected="true"
+                aria-controls="featurePanel"
+                data-feature="destruction"
+              >
+                <span>01 / BREAK</span
+                ><strong
+                  data-ja="塞ぐ壁を、次の射線に。"
+                  data-en="Break the wall. Open the lane."
+                  >塞ぐ壁を、次の射線に。</strong
+                ><small
+                  data-ja="遮蔽を壊し、開いた道から次の一射を通す。"
+                  data-en="Remove the cover, then send your next shot through."
+                  >遮蔽を壊し、開いた道から次の一射を通す。</small
+                >
+              </button>
+              <button
+                id="feature-reflection"
+                role="tab"
+                aria-selected="false"
+                aria-controls="featurePanel"
+                data-feature="reflection"
+                tabindex="-1"
+              >
+                <span>02 / REFLECT</span
+                ><strong
+                  data-ja="正面がだめなら、跳ねていけ。"
+                  data-en="No direct route? Find a bounce."
+                  >正面がだめなら、跳ねていけ。</strong
+                ><small
+                  data-ja="結晶の角度を使い、岩の奥へ弾を届ける。"
+                  data-en="Use the crystal's angle to reach behind the ridge."
+                  >結晶の角度を使い、岩の奥へ弾を届ける。</small
+                >
+              </button>
+              <button
+                id="feature-teleport"
+                role="tab"
+                aria-selected="false"
+                aria-controls="featurePanel"
+                data-feature="teleport"
+                tabindex="-1"
+              >
+                <span>03 / REPOSITION</span
+                ><strong
+                  data-ja="届かないなら、射点を変えろ。"
+                  data-en="Change the position. Change the shot."
+                  >届かないなら、射点を変えろ。</strong
+                ><small
+                  data-ja="転移弾で対岸へ渡り、横から狙う一手をつくる。"
+                  data-en="Teleport across the gap to open a side shot."
+                  >転移弾で対岸へ渡り、横から狙う一手をつくる。</small
+                >
+              </button>
+              <button
+                id="feature-warning"
+                role="tab"
+                aria-selected="false"
+                aria-controls="featurePanel"
+                data-feature="warning"
+                tabindex="-1"
+              >
+                <span>04 / READ THE RIVAL</span
+                ><strong
+                  data-ja="読めたら、攻め返せ。"
+                  data-en="Read the warning. Make your move."
+                  >読めたら、攻め返せ。</strong
+                ><small
+                  data-ja="予告された狙いから離れ、次の攻撃に備える。"
+                  data-en="Move away from the warned target and prepare your next attack."
+                  >予告された狙いから離れ、次の攻撃に備える。</small
+                >
+              </button>
+            </div>
+            <div
+              id="featurePanel"
+              role="tabpanel"
+              aria-labelledby="feature-destruction"
+              class="tactic-panel"
+            >
+              <figure class="video-frame">
+                <video
+                  id="featureVideo"
+                  muted
+                  playsinline
+                  loop
+                  preload="none"
+                  poster="site/media/destruction.jpg?v=20261110-2"
+                  data-src="site/media/destruction.mp4?v=20261110-2"
+                  aria-label="遮蔽を破壊して射線を開く攻略実演"
+                ></video
+                ><button
+                  class="playback"
+                  data-video="featureVideo"
+                  aria-label="映像を一時停止"
+                >
+                  Ⅱ
+                </button>
+                <p
+                  class="media-error"
+                  hidden
+                  data-ja="映像を読み込めませんでした。画像と説明で攻略をご紹介しています。"
+                  data-en="Video unavailable. Read the example with its still image."
+                >
+                  映像を読み込めませんでした。画像と説明で攻略をご紹介しています。
+                </p>
+              </figure>
+              <div class="tactic-caption">
+                <span id="demoIndex">STAGE 07 / 攻略の一例</span>
+                <p id="demoCaption">
+                  一射目で遮蔽を外し、相手の手番を経て、開いた射線を次の一射で使う。
+                </p>
+              </div>
+              <p
+                class="tactic-note"
+                data-ja="敵も歩き、転移し、射点を変える。旅が進むほど、相手に合わせた作戦が必要になる。"
+                data-en="Rivals also walk, teleport and change positions. As the journey unfolds, adapt your plan to theirs."
+              >
+                敵も歩き、転移し、射点を変える。旅が進むほど、相手に合わせた作戦が必要になる。
+              </p>
+            </div>
+          </div>
+          <a
+            class="text-link map-link"
+            href="design/expedition_013/arcline_100_maps_atlas.html?v=0.33.1"
+            data-ja="マップと機構をもっと見る →（終盤の地形を含みます）"
+            data-en="Explore the maps and mechanisms → (includes later stages)"
+            >マップと機構をもっと見る →（終盤の地形を含みます）</a
+          >
+        </div>
+      </section>
+      <section id="journey" class="journey section-light">
+        <div class="wrap">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">03 / A JOURNEY WORTH TAKING</p>
+              <h2>
+                <span data-ja="次の戦場で、" data-en="A new battlefield."
+                  >次の戦場で、</span
+                ><span
+                  data-ja="次の自分の作戦を。"
+                  data-en="A new plan of your own."
+                  >次の自分の作戦を。</span
+                >
+              </h2>
+            </div>
+            <p
+              data-ja="海辺から火山へ、地下から空へ。景色が変われば、弾の通り道も変わる。"
+              data-en="From shores to volcanoes, from underground to the sky. A different landscape opens a different line of fire."
+            >
+              海辺から火山へ、地下から空へ。景色が変われば、弾の通り道も変わる。
+            </p>
+          </div>
+          <div class="landscape-layout">
+            <figure class="main-shot">
+              <img
+                id="landscapeImage"
+                src="site/gameplay-shore.jpg?v=0.33.1"
+                alt="入江の実際のゲーム画面"
+                loading="lazy"
+                width="1280"
+                height="720"
+              />
+              <figcaption>
+                <span id="landscapeStage">01 — 05</span
+                ><span id="landscapeName">はじまりの入江</span>
+              </figcaption>
+            </figure>
+            <div
+              class="landscape-options"
+              role="group"
+              aria-label="旅の風景を選ぶ"
+            >
+              <button data-landscape="shore" aria-pressed="true">
+                <span>01</span
+                ><strong data-ja="海辺" data-en="The shore">海辺</strong
+                ><small
+                  data-ja="対岸へ渡り、新しい射点を探す。"
+                  data-en="Cross the gap. Find a new firing position."
+                  >対岸へ渡り、新しい射点を探す。</small
+                ></button
+              ><button data-landscape="volcano" aria-pressed="false">
+                <span>02</span
+                ><strong data-ja="火山" data-en="The volcano">火山</strong
+                ><small
+                  data-ja="岩棚と噴気を読み、弾を通す。"
+                  data-en="Read the ledges and vents. Find your route."
+                  >岩棚と噴気を読み、弾を通す。</small
+                ></button
+              ><button data-landscape="garden" aria-pressed="false">
+                <span>03</span
+                ><strong data-ja="空中庭園" data-en="The sky gardens"
+                  >空中庭園</strong
+                ><small
+                  data-ja="浮島と磁場から、攻める角度を選ぶ。"
+                  data-en="Choose an angle among floating islands and magnetic fields."
+                  >浮島と磁場から、攻める角度を選ぶ。</small
+                ></button
+              ><button data-landscape="fortress" aria-pressed="false">
+                <span>04</span
+                ><strong data-ja="要塞" data-en="The fortress">要塞</strong
+                ><small
+                  data-ja="重なる城壁に、突破口を見つける。"
+                  data-en="Find an opening through the layered walls."
+                  >重なる城壁に、突破口を見つける。</small
+                >
+              </button>
+            </div>
+          </div>
+          <div class="journey-stats">
+            <p>
+              <strong>20</strong
+              ><span data-ja="テーマ" data-en="themes">テーマ</span>
+            </p>
+            <p>
+              <strong>100</strong
+              ><span data-ja="ステージの旅" data-en="stages to explore"
+                >ステージの旅</span
+              >
+            </p>
+            <p>
+              <strong>10</strong
+              ><span data-ja="機の相棒" data-en="companions">機の相棒</span>
+            </p>
+            <p
+              class="journey-stat-copy"
+              data-ja="次に試したい一手が、その先に。"
+              data-en="Another idea to try. Another reason to go on."
+            >
+              次に試したい一手が、その先に。
+            </p>
+          </div>
+          <div class="story">
+            <figure>
+              <img
+                src="assets/cinematics/P03-01.jpeg"
+                alt="ガンが見つけた一通の便りの原画"
+                data-alt-ja="ガンが見つけた一通の便りの原画"
+                data-alt-en="Story artwork: the letter Gun finds"
+                loading="lazy"
+                width="1024"
+                height="576"
+              />
+              <figcaption data-ja="物語の原画" data-en="Story artwork">
+                物語の原画
+              </figcaption>
+            </figure>
+            <div>
+              <p class="eyebrow">A LETTER. A REASON TO GO.</p>
+              <h3
+                data-ja="返事を届けに、道をひらく。"
+                data-en="Open the way. Deliver a reply."
+              >
+                返事を届けに、道をひらく。
+              </h3>
+              <p
+                class="story-quote"
+                data-ja="「道が開いたら、また会おう。」"
+                data-en="“When the roads open, let's meet again.”"
+              >
+                「道が開いたら、また会おう。」
+              </p>
+              <p
+                data-ja="止まった世界で、ガンが拾った一通の便り。道をつなぎ、仲間と出会いながら、まだ届いていない返事を届ける旅へ。"
+                data-en="In a world that has come to a halt, Gun finds a letter. Reconnect the roads, meet new companions and follow a journey to deliver a reply."
+              >
+                止まった世界で、ガンが拾った一通の便り。道をつなぎ、仲間と出会いながら、まだ届いていない返事を届ける旅へ。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="how-to" class="how-to section-light">
+        <div class="wrap">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">04 / YOUR FIRST SHOT</p>
+              <h2
+                data-ja="狙って、ためて、解き放て。"
+                data-en="Aim. Charge. Let it fly."
+              >
+                狙って、ためて、解き放て。
+              </h2>
+            </div>
+            <p
+              data-ja="一手ずつ状況を見て、自分の作戦を選ぶ。始めはガンと、最初の一射から。"
+              data-en="Read the situation, one turn at a time. Begin with Gun and your own first shot."
+            >
+              一手ずつ状況を見て、自分の作戦を選ぶ。始めはガンと、最初の一射から。
+            </p>
+          </div>
+          <ol class="steps">
+            <li>
+              <span class="step-symbol" aria-hidden="true">→</span
+              ><span class="eyebrow">01 / AIM</span>
+              <h3
+                data-ja="位置と角度を選ぶ。"
+                data-en="Choose your position and angle."
+              >
+                位置と角度を選ぶ。
+              </h3>
+              <p
+                data-ja="左側の操作で移動・照準。どこから、どう通すかを考える。"
+                data-en="Use the controls on the left to move and aim. Choose where to fire and how to reach your target."
+              >
+                左側の操作で移動・照準。どこから、どう通すかを考える。
+              </p>
+            </li>
+            <li>
+              <span class="step-symbol charge-symbol" aria-hidden="true"
+                >▰▰▰▱</span
+              ><span class="eyebrow">02 / CHARGE</span>
+              <h3
+                data-ja="長押しで、強さをためる。"
+                data-en="Hold FIRE to set your power."
+              >
+                長押しで、強さをためる。
+              </h3>
+              <p
+                data-ja="右側の発射を押し続け、飛ばす強さを合わせる。"
+                data-en="Hold the FIRE control on the right and choose how much power to use."
+              >
+                右側の発射を押し続け、飛ばす強さを合わせる。
+              </p>
+            </li>
+            <li>
+              <span class="step-symbol" aria-hidden="true">⤴</span
+              ><span class="eyebrow">03 / FIRE</span>
+              <h3
+                data-ja="指を離して、一射。"
+                data-en="Release. Make your shot."
+              >
+                指を離して、一射。
+              </h3>
+              <p
+                data-ja="弾道と結果を見届けたら、次の一手を組み立てよう。"
+                data-en="Follow the shot, read the result and plan your next move."
+              >
+                弾道と結果を見届けたら、次の一手を組み立てよう。
+              </p>
+            </li>
+          </ol>
+          <p
+            class="keyboard-note"
+            data-ja="PCは矢印キーで移動・照準、スペース長押しで発射。"
+            data-en="On PC, use the arrow keys to move and aim. Hold Space to charge, then release to fire."
+          >
+            PCは矢印キーで移動・照準、スペース長押しで発射。
+          </p>
+          <div class="faq">
+            <details>
+              <summary data-ja="どこで遊べる？" data-en="Where can I play?">
+                どこで遊べる？
+              </summary>
+              <p
+                data-ja="このサイトからブラウザ版を起動できます。スマホでは横向きでプレイしてください。音声はゲーム内で操作してから始まります。"
+                data-en="Open the browser game directly from this site. Play in landscape on your phone. Audio starts after you interact with the game."
+              >
+                このサイトからブラウザ版を起動できます。スマホでは横向きでプレイしてください。音声はゲーム内で操作してから始まります。
+              </p>
+            </details>
+            <details>
+              <summary
+                data-ja="途中でやめても、続きから遊べる？"
+                data-en="Can I come back later?"
+              >
+                途中でやめても、続きから遊べる？
+              </summary>
+              <p
+                data-ja="進行は、このブラウザに保存されます。同じブラウザから続きを再開できます。ブラウザのデータ削除やプライベートモードにご注意ください。別端末への自動同期はありません。"
+                data-en="Progress is saved in this browser. Return using the same browser to continue. Clearing browser data or using private browsing may affect saves. Progress is not automatically synced across devices."
+              >
+                進行は、このブラウザに保存されます。同じブラウザから続きを再開できます。ブラウザのデータ削除やプライベートモードにご注意ください。別端末への自動同期はありません。
+              </p>
+            </details>
+            <details>
+              <summary
+                data-ja="別の作戦で試し直せる？"
+                data-en="Can I try a different plan?"
+              >
+                別の作戦で試し直せる？
+              </summary>
+              <p
+                data-ja="1〜99面では、再挑戦するとその挑戦で使った武器・スキルが戻ります。勝利時に使用分が確定するので、違う作戦も試してみましょう。"
+                data-en="On stages 1–99, retrying restores the weapons and skills used in that attempt. Their use is committed when you win, leaving room to try a different plan."
+              >
+                1〜99面では、再挑戦するとその挑戦で使った武器・スキルが戻ります。勝利時に使用分が確定するので、違う作戦も試してみましょう。
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="final-cta">
+        <div class="wrap">
+          <p class="eyebrow">YOUR TURN.</p>
+          <h2>
+            <span
+              data-ja="見ていた一撃を、"
+              data-en="The shot you've been watching."
+              >見ていた一撃を、</span
+            ><span data-ja="あなたの手で。" data-en="Now make it yours."
+              >あなたの手で。</span
+            >
+          </h2>
+          <a class="button" href="game/dist/?v=0.33.1"
+            ><span data-ja="ゲームを遊ぶ" data-en="Play ARCLINE"
+              >ゲームを遊ぶ</span
+            ><span aria-hidden="true">→</span></a
+          >
+          <p
+            data-ja="ARCLINE — 読み切れ。撃ち抜け。"
+            data-en="ARCLINE — Read the battle. Make your shot."
+          >
+            ARCLINE — 読み切れ。撃ち抜け。
+          </p>
+        </div>
+      </section>
+      <!-- SITE_MACHINES_START -->
+<script id="machineData" type="application/json">[{"id":"gun","role":["重装アサルトタンク","Heavy assault tank"],"charm":["慎重で、仲間の支えを一機で背負いがち。頼ることも覚えていく。","Careful and protective, Gun learns that sharing a load is strength too."],"desire":["港の作業路を直し、荷物が行き交う音を取り戻す。","Gun wants to repair the port’s work roads and hear cargo moving again."],"line":["急がなくていい。ちゃんと、向こうへ行こう。","No need to rush. Let us get there properly."],"hp":140,"stage":0,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["破砕砲：通常の敵に最大35ダメージ。","Two explosions push the target away. Up to 35 against ordinary enemies."]},{"id":"hana","role":["三連装ライトタンク","Triple-barrel light tank"],"charm":["やさしい言葉と丁寧な仕事。違う色も残す職人気質。","Gentle words and exacting work, with room for someone else’s colours."],"desire":["道標を直し、後から来る誰かを迷わせない。","Hana wants to repaint the signposts so the next traveller will not lose the way."],"line":["きれいに直そう。あなたの色も、残したまま。","Let us make it right, and keep your colour too."],"hp":100,"stage":5,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["連華砲：通常の敵に最大36ダメージ。","Fire nine rounds in three volleys. Up to 36 against ordinary enemies."]},{"id":"sora","role":["自走迫撃モーター","Self-propelled mortar"],"charm":["少し控えめな空想家。飛べなくても、空へ届けたいものがある。","A reserved dreamer who has something to send skyward without flying."],"desire":["帰る者のため、遠くの誘導灯をもう一度ともす。","Sora wants to see the distant lights welcoming travellers home again."],"line":["飛べなくても、空へ届くものはある。","Some things can reach the sky without flying."],"hp":100,"stage":20,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["流星砲：通常の敵に最大38ダメージ。","Release twelve falling meteors. Up to 38 against ordinary enemies."]},{"id":"rico","role":["跳躍トリックスター","Ricochet trickster"],"charm":["遊び心と挑戦心。失敗も隠さない案内役を目指す。","Playful and daring, learning to be a guide who shows the failures too."],"desire":["行き止まりとして消された道も、正しい情報とともに地図へ戻す。","Rico wants to put roads erased as dead ends back onto the map."],"line":["近道もある。でも、こっちならみんな通れる。","There is a shortcut. But this way can take everyone."],"hp":80,"stage":25,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["跳弾砲：通常の敵に最大40ダメージ。","Bounces increase the damage. Up to 40 against ordinary enemies."]},{"id":"rin","role":["精密狙撃デストロイヤー","Precision tank destroyer"],"charm":["静かな完璧主義者。確かでないことも伝える勇気を持つ。","A quiet perfectionist finding the courage to share uncertainty."],"desire":["止めてしまった予報の続きを、待つ者へ伝える。","Rin wants to resume the forecasts that others are still waiting for."],"line":["確かじゃない。でも、通れる道はある。","I am not certain. But there is a way through."],"hp":100,"stage":60,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["収束砲：通常の敵に最大50ダメージ。","Fire a fast piercing shot. Up to 50 against ordinary enemies."]},{"id":"ban","role":["突破型ショックマシン","Breakthrough shock machine"],"charm":["軽口の奥に責任感。壊した先の帰り道まで見届けたい。","A joking exterior hides real responsibility for the way back."],"desire":["閉ざされた道を開き、役に立つ力を使う。","Ban wants to open closed roads and put its strength to use for someone."],"line":["道をあけるぞ。今度は、帰り道もな！","I will clear the way. The way back too, this time!"],"hp":120,"stage":15,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["衝撃砲：通常の敵に最大35ダメージ。","Release three forward shockwaves. Up to 35 against ordinary enemies."]},{"id":"hibari","role":["偵察型インターセプター","Recon interceptor"],"charm":["好奇心旺盛な聞き上手。返事のない声にも耳を澄ます。","A curious listener who never gives up on an unanswered voice."],"desire":["遠くから届く古い呼出信号の送り主を見つける。","Hibari wants to find the sender of an old call arriving from far away."],"line":["聞こえたよ。今度は、こっちから届ける。","I heard you. This time, I will send something back."],"hp":120,"stage":30,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["光輪砲：通常の敵に最大35ダメージ。","Attack with two expanding rings. Up to 35 against ordinary enemies."]},{"id":"mogu","role":["解体作業デモリッション","Demolition work machine"],"charm":["豪快だけれど几帳面。図面には掘らない線も描きたい。","Bold but meticulous, drawing the lines worth leaving undug."],"desire":["進める道と、残すべき支えの両方を図面へ描く。","Mogu wants to redraw the map with both passable routes and the supports worth preserving."],"line":["ここは掘る。こっちは、残す。","Dig here. Leave this part standing."],"hp":120,"stage":40,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["掘削砲：通常の敵に最大39ダメージ。","Three explosions advance from impact. Up to 39 against ordinary enemies."]},{"id":"koro","role":["六輪ローバー砲撃車","Six-wheel rover"],"charm":["明るくせっかち。最速より、みんなの到着を大切にしていく。","Cheerful and impatient, learning to value everyone arriving over coming first."],"desire":["止まった貨物を動かし、待っている荷物を全部届ける。","Koro wants to move the stranded cargo and deliver every waiting package."],"line":["一番乗りより、みんなで到着だ！","Better than first place: everyone arriving!"],"hp":100,"stage":10,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["爆走砲：通常の敵に最大30ダメージ。","Roll along the ground and explode. Up to 30 against ordinary enemies."]},{"id":"yui","role":["重力牽引サポート","Gravity towing support"],"charm":["放っておけない世話焼き。つなぐだけでなく、離すことも覚える。","A caring helper learning when to connect and when to let go."],"desire":["自分が運んだ停止信号の続きを確かめ、助けを頼めるつながりを戻す。","Yui wants to understand its old connection records and restore a network where help can be requested."],"line":["つないでおくね。進むときは、離せるように。","I will keep us connected, with room to let go when you move."],"hp":100,"stage":80,"normal":["基本の弾道は全機体で共通。","All machines share the same base trajectory."],"special":["重力砲：通常の敵に最大42ダメージ。","Pull the target toward the impact. Up to 42 against ordinary enemies."]}]</script>
+<!-- SITE_MACHINES_END -->
+    </main>
+    <!-- SITE_FOOTER_START -->
+    <footer class="site-footer">
+      <div class="site-shell">
+        <div class="footer-main">
+          <div class="footer-identity">
+            <a class="brand" href="#top" aria-label="ARCLINE">ARCLINE<span aria-hidden="true">◆</span></a>
+            <p class="footer-tagline"><span data-ja="読み切れ。" data-en="Read the battle.">読み切れ。</span><span class="accent" data-ja="撃ち抜け。" data-en="Make your shot.">撃ち抜け。</span></p>
+          </div>
+          <nav class="footer-nav" aria-label="詳しく知る">
+            <a href="#machines" data-ja="必殺技と相棒" data-en="Special attacks">必殺技と相棒</a>
+            <a href="design/expedition_013/arcline_100_maps_atlas.html?v=0.33.1" data-ja="マップ総覧" data-en="Map atlas">マップ総覧</a>
+            <a href="promo/" data-ja="長編ムービー" data-en="Story movie">長編ムービー</a>
+          </nav>
+        </div>
+        <div class="footer-meta">
+          <p data-ja="ひとり用・ターン制砲撃アドベンチャー" data-en="A single-player, turn-based artillery adventure">ひとり用・ターン制砲撃アドベンチャー</p>
+          <span id="siteVersion">ARCLINE · 0.33.1</span>
+        </div>
+      </div>
+    </footer>
+    <!-- SITE_FOOTER_END -->
+    <div class="mobile-play">
+      <a class="button" href="game/dist/?v=0.33.1"
+        ><span data-ja="ゲームを遊ぶ" data-en="Play ARCLINE">ゲームを遊ぶ</span
+        ><span aria-hidden="true">→</span></a
+      >
+    </div>
+  </body>
+</html>

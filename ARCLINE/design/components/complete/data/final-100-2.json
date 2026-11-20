@@ -1,0 +1,185 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "final-100-2",
+  "title": "アークハート核防護 — 岩盤の保全洞",
+  "kind": "final",
+  "themeIndex": 19,
+  "stageRange": [
+    96,
+    100
+  ],
+  "stage": 100,
+  "mapIndex": 2,
+  "sampleStage": 100,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/final-100-2.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 19,
+    "materialStory": "地中の不規則な岩盤と、その内側に収まる青緑の保全管。",
+    "terrain": {
+      "name": "保全洞の岩",
+      "palette": {
+        "face": "#837F66",
+        "shade": "#737761",
+        "light": "#8D8668",
+        "cap": "#A59976",
+        "ink": "#777861",
+        "accent": "#7D816A"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              0.36,
+              0
+            ],
+            [
+              0.56,
+              0.31
+            ],
+            [
+              0.25,
+              0.6
+            ],
+            [
+              0,
+              0.38
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.62,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.43,
+              1
+            ],
+            [
+              0.56,
+              0.31
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.12,
+              0.58
+            ],
+            [
+              0.33,
+              0.49
+            ],
+            [
+              0.4,
+              0.7
+            ],
+            [
+              0.21,
+              0.8
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "岩盤内の保全架台",
+      "palette": {
+        "face": "#6E8276",
+        "shade": "#5A7368",
+        "light": "#7B8F7C",
+        "cap": "#979C82",
+        "ink": "#637A6E",
+        "accent": "#7C8470"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.22
+            ],
+            [
+              0,
+              0.22
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.12,
+              0.38
+            ],
+            [
+              0.81,
+              0.38
+            ],
+            [
+              0.81,
+              0.86
+            ],
+            [
+              0.12,
+              0.86
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.86,
+              0.22
+            ],
+            [
+              0.96,
+              0.22
+            ],
+            [
+              0.96,
+              1
+            ],
+            [
+              0.86,
+              1
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

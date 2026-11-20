@@ -1,0 +1,47 @@
+* { box-sizing:border-box; }
+html { color-scheme:light; scroll-behavior:smooth; scroll-padding-top:24px; }
+body { margin:0; background:#f7f8fa; color:#253344; font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; line-height:1.95; }
+a { color:#294e78; text-underline-offset:.25em; }
+a:focus-visible { outline:3px solid #597ea5; outline-offset:4px; }
+header, main, footer { max-width:1040px; margin:auto; }
+header { display:flex; justify-content:space-between; gap:20px; padding:28px 40px; font-size:12px; letter-spacing:.08em; }
+main { background:white; border:1px solid #e1e6ec; }
+.hero { padding:56px 56px 44px; }
+.eyebrow { font-size:11px; letter-spacing:.15em; color:#6a7888; }
+h1 { font-size:22px; font-weight:500; margin:18px 0 24px; line-height:1.5; }
+h1 span { display:block; font-size:42px; font-weight:650; letter-spacing:.12em; margin-top:8px; }
+.lead { font-size:18px; color:#4c6075; }
+.current { display:grid; grid-template-columns:140px 1fr; gap:14px 24px; margin:28px 0; font-size:14px; }
+dt { color:#687687; } dd { margin:0; } strong { color:#253f5a; }
+.download { display:inline-block; padding:12px 20px; background:#253f5a; color:white; text-decoration:none; font-size:13px; }
+nav { display:flex; gap:10px 24px; flex-wrap:wrap; padding:22px 56px; border-block:1px solid #e1e6ec; font-size:13px; background:#f8fafc; }
+nav a { text-decoration:none; }
+section { padding:40px 56px; border-bottom:1px solid #e1e6ec; }
+h2 { font-size:24px; font-weight:650; line-height:1.6; margin:0 0 22px; }
+h3 { font-size:17px; line-height:1.7; margin:28px 0 10px; }
+h4 { font-size:16px; line-height:1.8; margin:24px 0 10px; }
+section p { font-size:14px; margin:12px 0; overflow-wrap:anywhere; }
+.timeline { list-style:none; padding:0; margin:0; }
+.timeline li { border-left:2px solid #d9e1e9; margin-left:5px; padding:0 0 28px 26px; position:relative; }
+.timeline li:before { content:""; position:absolute; width:10px; height:10px; border-radius:50%; background:#8fa4ba; left:-6px; top:9px; }
+.timeline .date { font-size:12px; color:#687687; margin:0 0 8px; }
+.timeline h3 { margin:0 0 10px; }
+.timeline .latest:before { background:#253f5a; }
+.timeline .latest h3 { color:#1e4165; font-weight:750; }
+.timeline li:last-child { padding-bottom:0; }
+.contribution { border-left:3px solid #cedae6; padding:4px 0 4px 22px; margin:24px 0; }
+.contribution h3 { margin:0; }
+.company { margin-top:36px; padding-bottom:12px; border-bottom:1px solid #e1e6ec; font-size:19px; }
+.company:first-of-type { margin-top:0; }
+.subheading { margin-top:36px; color:#54677c; }
+.project-line { margin:8px 0; }
+.reference-link { font-size:12px; }
+.references { padding-left:20px; }
+.references li { margin:20px 0; font-size:14px; }
+.references p, .source-note { font-size:12px; color:#6a7888; }
+footer { display:flex; justify-content:space-between; gap:20px; padding:30px 40px; font-size:12px; color:#6a7888; }
+.skip { position:fixed; left:8px; top:8px; transform:translateY(-160%); z-index:2; padding:8px 16px; background:white; }
+.skip:focus { transform:translateY(0); }
+@media(max-width:700px) { header { padding:20px; font-size:10px; } .hero { padding:32px 22px; } h1 span { font-size:36px; } .lead { font-size:16px; } .current { grid-template-columns:1fr; gap:4px; } dd { margin-bottom:12px; } nav { padding:20px 22px; gap:10px 20px; font-size:12px; } section { padding:32px 22px; } h2 { font-size:22px; } footer { padding:24px 20px; flex-wrap:wrap; } }
+@media print { body { background:white; color:black; font-size:10pt; } header, nav, footer, .skip, .download { display:none; } main { border:0; max-width:none; } section, .hero { padding:18pt 0; } .timeline li { break-inside:avoid; } h2, h3, h4 { break-after:avoid; } a { color:inherit; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }

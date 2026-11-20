@@ -1,0 +1,487 @@
+(function(root){
+'use strict';
+const node=typeof module!=='undefined';
+const G=node?require('./geometry.js'):root.ArcGeometry,L=node?require('./levels.js'):root.ArcLevels,W=node?require('./weapons.js'):root.ArcWeapons,P=node?require('./physics.js'):root.ArcPhysics,I=node?require('./inventory.js'):root.ArcInventory;
+const clamp=G.clamp;
+const C=W.combat;
+const N=node?require('./encounters.js'):root.ArcEncounters;
+const guardian=state=>N.guardian(state.spec);
+const EnemyActions=node?require('./enemy-actions.js'):root.ArcEnemyActions;
+const BossActions=node?require('./boss-actions.js'):root.ArcBossActions;
+const EnemyPosition=node?require('./enemy-position.js'):root.ArcEnemyPosition;
+const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
+const K=node?require('./skills.js'):root.ArcSkills,Crew=node?require('./crew.js'):root.ArcCrew;
+const EnemyAttacks=node?require('./enemy-attacks.js'):root.ArcEnemyAttacks;
+const biomes=[
+{name:'First Shore',sky:['#153d59','#a2d1c6'],land:'#3b797d',edge:'#d6e7b0',material:'sand',accent:'#f4dfac'},
+{name:'Mirror Flats',sky:['#234454','#bbd5ce'],land:'#527f83',edge:'#c3fff1',material:'mirror',accent:'#9affdf'},
+{name:'Canal Gates',sky:['#283b52','#d3c49c'],land:'#717763',edge:'#ebdda9',material:'stone',accent:'#eac38f'},
+{name:'Sunken Ruins',sky:['#243f4c','#9eb9ac'],land:'#55776c',edge:'#c3d8ad',material:'masonry',accent:'#b9e4b9'},
+{name:'Mist Gardens',sky:['#364464','#d5d2eb'],land:'#747c9f',edge:'#e3e5fa',material:'garden',accent:'#e0c5f4'},
+{name:'Cloud Terraces',sky:['#42547d','#d3e0ee'],land:'#7c91ab',edge:'#f1f0dc',material:'terrace',accent:'#c9f2f2'},
+{name:'Crystal Road',sky:['#282e55','#a0d7dc'],land:'#476f83',edge:'#b3ffeb',material:'crystal',accent:'#a4ffea'},
+{name:'Prism Station',sky:['#403251','#c8b5dd'],land:'#736785',edge:'#e8d3ff',material:'rail',accent:'#d6adff'},
+{name:'Rising Cavern',sky:['#514049','#d6ab82'],land:'#8b6c55',edge:'#f1d59c',material:'cavern',accent:'#f5d99f'},
+{name:'Amber Engines',sky:['#593d4a','#e5b880'],land:'#a07758',edge:'#ffdda1',material:'engine',accent:'#ffc485'},
+{name:'Wind Observatory',sky:['#153b61','#c7dfed'],land:'#7197b4',edge:'#efffff',material:'ice',accent:'#b4eaff'},
+{name:'Frozen Causeway',sky:['#263c60','#b4d3df'],land:'#587e9b',edge:'#dbffff',material:'frost',accent:'#a8ffee'},
+{name:'Volcanic Rim',sky:['#3f2844','#df9674'],land:'#825b64',edge:'#ffc18e',material:'basalt',accent:'#ffb173'},
+{name:'Forge Pass',sky:['#492f3b','#d88f6e'],land:'#76545c',edge:'#ffe0a5',material:'forge',accent:'#ffce7e'},
+{name:'Magnetic Mine',sky:['#292a53','#9eafd7'],land:'#5c6187',edge:'#cdceff',material:'ore',accent:'#c5b6ff'},
+{name:'Polarity Lab',sky:['#263849','#a5cad0'],land:'#53767f',edge:'#d8fff2',material:'lab',accent:'#b9ffe6'},
+{name:'Sky Garden',sky:['#2d496a','#d0dcd2'],land:'#728e9a',edge:'#e4fbd8',material:'island',accent:'#defac3'},
+{name:'Storm Carrier',sky:['#293e5c','#99b3bf'],land:'#536f84',edge:'#d8eced',material:'deck',accent:'#b5d8f4'},
+{name:'Fortress Gates',sky:['#28203e','#b998b1'],land:'#706080',edge:'#f6c6dd',material:'fortress',accent:'#f4b9d2'},
+{name:'Dawn Keep',sky:['#433044','#e7beaa'],land:'#826d81',edge:'#ffebbe',material:'keep',accent:'#ffe3a1'}];
+const chargeDuration=2.6;
+function chargePower(seconds,state){return C.chargePower(seconds*(state?.skillEffects?.charge?.factor||1),state);}
+function weapon(s,side=0,id=null){return W.get(id||(side?'W01':s.teleportMode?'TELEPORT':s.mode),side?null:s.characterId);}
+function minimumAngle(s){return weapon(s).minAngle??-12;}
+function maximumAngle(s){return weapon(s).maxAngle??170;}
+function usable(s,id){if(id==='W01')return true;const w=W.get(id);return w.special?w.machineId===s.characterId&&s.specialAmmo>0:I.weaponIds.includes(id)&&s.weaponStock[id]>0;}
+function seeded(seed=1){let x=seed>>>0;return ()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296;};}
+function campaign(stage=1,save={}){
+ const baseSpec=L[clamp(Math.floor(stage)||1,1,100)-1],difficulty=['easy','normal','hard'].includes(save.difficulty)?save.difficulty:'normal';
+ const spec=difficulty==='easy'&&baseSpec.finalBattle?{...baseSpec,finalBattle:{...baseSpec.finalBattle,requiredDamage:baseSpec.finalBattle.easyRequiredDamage}}:baseSpec,world=G.world(spec);
+ const enemyHp=difficulty==='easy'?(baseSpec.easyEnemyHp??baseSpec.enemyHp):baseSpec.enemyHp,enemyHpScale=enemyHp/baseSpec.enemyHp;
+ const characterId=C.profiles.some(p=>p.id===save.equippedCharacterId)&&(!Array.isArray(save.unlockedCharacterIds)||save.unlockedCharacterIds.includes(save.equippedCharacterId))?save.equippedCharacterId:'gun',profile=C.get(characterId);
+ const units=spec.spawn.map(([x,h],side)=>{
+  const raw=G.point(x,h),safe=G.safePosition(world,raw.x,raw.y);
+  if(!safe)throw Error('No safe spawn at level '+spec.id+' side '+side);
+  return {...safe,facing:side?-1:1,hp:side?enemyHp:profile?profile.hp/C.pointsPerUnit:5,maxHp:side?enemyHp:profile?profile.hp/C.pointsPerUnit:5,range:/^[45]\./.test(spec.contentRevision)?[35,(spec.worldWidth||1000)-35]:side?[Math.max(320,raw.x-110),965]:[35,Math.min(650,spec.spawn[1][0]*10-110)],exposed:0,parts:[]};
+ });
+ units[0].facing=units[1].x>=units[0].x?1:-1;units[1].facing=-units[0].facing;
+ const encounter=N.forSpec(spec),enemy=units[1];
+ enemy.encounterId=encounter.id;enemy.hitShape={...encounter.body};enemy.core=encounter.core?{...encounter.core}:null;enemy.weaponPivot={x:encounter.muzzle.x,y:encounter.muzzle.y};enemy.muzzleLength=encounter.muzzle.length;
+ if(N.guardian(spec)){
+  const facing=units[0].x>=enemy.x?1:-1;enemy.slope=0;enemy.parts=encounter.parts.map(p=>{const hp=p.breakHits?1:Math.round(p.hp*C.pointsPerUnit*enemyHpScale)/C.pointsPerUnit;return {...p,localX:p.dx,dx:p.dx*facing,hp,maxHp:hp,...(p.breakHits?{hitsRemaining:p.breakHits}:{})};});
+  if([30,90].includes(spec.id)){enemy.y=500-spec.spawn[1][1]*10;enemy.floating=true;}
+ }
+ const skillCaps=Object.fromEntries(W.skills.map(id=>[id,I.limits.count]));
+ const collected=save.unlockedWeaponIds||['W01'];
+ const pickupLedger=Array.isArray(save.pickupLedger)?[...save.pickupLedger]:[];
+ const pickups=spec.pickups.filter(p=>['skill','trial','ammo'].includes(p.kind)).map(p=>{const placementId=p.placementId||`L${String(spec.id).padStart(3,'0')}:${p.id}`;return {...p,...G.point(p.x,p.h),placementId,radius:22,collected:pickupLedger.includes(placementId),hidden:p.spawnTurn===5,skill:p.skillId||p.skill||(p.id[0]==='R'?(spec.id===67?'PHASE':spec.id===87?'BOUNCE':'BLINK'):null)};});
+ const requested=save.equippedWeaponId||'W01',equipped=W.weapons.some(w=>w.id===requested)&&(!Array.isArray(save.unlockedWeaponIds)||save.unlockedWeaponIds.includes(requested))?requested:'W01';
+ const inventory=I.normalize(save.battleInventory||{weapons:equipped==='W01'?{}:{[equipped]:3},skills:spec.skills}),mode=(save.battleMode||equipped)==='W01'||inventory.weapons[save.battleMode||equipped]>0?(save.battleMode||equipped):'W01';
+ const canUseAmmo=Object.keys(inventory.weapons).length>0||pickups.some(p=>p.kind==='trial'||/^W\d\d$/.test(p.id));
+ const s={spec,world,stage:spec.id,map:spec.id-1,bossPhase:0,round:1,turn:0,phase:'aim',units,characterId,specialAmmo:N.guardian(spec)?3:0,playerTurn:1,specialUnlocks:0,specialChargeSerial:0,weaponStock:inventory.weapons,skills:inventory.skills,skillCaps,pickups:pickups.filter(p=>p.kind!=='ammo'||canUseAmmo),pendingLoot:(save.pendingLoot||[]).map(p=>({...p})),collectedPickupIds:pickupLedger,selectedSkill:null,skillUsed:false,shotCount:0,shotLimit:spec.actionLimit||(spec.boss?18:10),angle:Math.max(48,W.get(mode,characterId).minAngle||-12),power:20,result:null,reason:null,weaponId:mode,mode,lastPickupWeaponId:null,last:[null,null],effects:{broken:0,polarity:0,destroyed:[]},pendingChanges:[],boundaryLog:[],rewardGiven:false,telegraph:null,matchSeed:Number.isInteger(save.matchSeed)?save.matchSeed:Math.floor(Math.random()*4294967296),random:null,teleportMode:false,preview:null};
+ s.difficulty=difficulty;s.enemyHpScale=enemyHpScale;
+ s.skillEffects={};s.random=seeded(s.matchSeed);s.enemyLearning={active:false,walk:0,owner:characterId};
+ s.blink=spec.blink.map(([x,h])=>G.safePosition(world,x*10,500-h*10,units[1],units[0].range)).filter(Boolean);
+ if(spec.id!==100&&Crew.normalize(save.unlockedCharacterIds).length>1){const cooling=Object.entries(save.machineUsage?.cooldowns||{}).filter(([,n])=>n>0).map(([id])=>id);if(cooling.length)s.restingCharacterIds=cooling;}
+ FinalTeam.init(s);s.enemyLearning.owner=s.characterId;bossGeometry(s);G.addSolidSurfaces(s.world);telegraph(s);return s;
+}
+function telegraph(s){
+ if(s.deferredBossTelegraph){s.telegraph=s.deferredBossTelegraph.technique==='E_FINAL_4'?EnemyAttacks.telegraph(s):JSON.parse(JSON.stringify(s.deferredBossTelegraph));return;}
+ if(!guardian(s)){s.telegraph=null;return;}
+ const technique=EnemyAttacks?.telegraph(s);if(technique){s.telegraph=technique;return;}
+ const attacks=N.forSpec(s.spec).attacks,kind=attacks[(s.round-1)%attacks.length];
+ const targetX=s.units[0].x;
+ const columns=kind==='MARK'?[-64,0,64]:kind==='TRIPLE'?[-42,0,42]:kind==='TWIN'?[-28,28]:[0];
+ s.telegraph={kind,targetX,targetY:s.units[0].y-22,radius:kind==='MARK'?145:kind==='PREPARE'?120:kind==='DROP'?85:35,columns,windup:kind==='PREPARE'?.8:kind==='MARK'?.25:0,next:attacks[s.round%attacks.length],frozen:true};
+}
+function availableWeapons(s){
+ const options=[{id:'W01',ammo:Infinity,category:'machine',trial:false}];
+ if(s.characterId)options.push({id:C.get(s.characterId).special.id,ammo:s.specialAmmo,category:'machine',disabled:s.specialAmmo<=0});
+ for(const [id,n] of Object.entries(s.weaponStock||{}))if(I.weaponIds.includes(id)&&n>0)options.push({id,ammo:n,carried:true,category:'auxiliary'});return options;
+}
+function selectWeapon(s,id){
+ if(s.result||s.phase!=='aim'||s.turn!==0||!availableWeapons(s).some(w=>w.id===id&&!w.disabled)||!usable(s,id))return false;
+ s.teleportMode=false;s.mode=id;if(I.weaponIds.includes(id))s.weaponId=id;if(s.selectedSkill&&skillCompatibility(s,s.selectedSkill))s.selectedSkill=null;if(s.lastPickupWeaponId===id)s.lastPickupWeaponId=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
+}
+function skillCompatibility(s,id){if(id==='S_REPAIR')return null;if(K.get(id))return K.compatible(id,weapon(s))?null:weapon(s).teleport?'Not with teleport':'Not with special';return id==='SWAP'&&s.spec.boss?'Unavailable on bosses':W.get(s.mode).special?'Not with special':null;}
+function skillReason(s,id){if(K.activeIds.includes(id)){if(['S_REPAIR','S_FULL_REPAIR'].includes(id)&&s.units[0].hp>=s.units[0].maxHp)return 'Full HP';if(id==='S_SPECIAL_REFILL'&&s.specialAmmo>=3)return 'Full special';}return s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length?'Next turn':s.skillUsed?'Next turn':!s.skills[id]?'Empty':id==='S_REPAIR'&&s.units[0].hp>=s.units[0].maxHp?'Full HP':skillCompatibility(s,id);}
+function selectSkill(s,id){if(K.activeIds.includes(id))return !!useSkill(s,id);if(id==='S_REPAIR'||skillReason(s,id))return false;if(id!=='S_GUARD')s.teleportMode=false;s.selectedSkill=s.selectedSkill===id?null:id;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
+function useSkill(s,id){
+ if(!K.activeIds.includes(id)||skillReason(s,id)||s.shotCount>=s.shotLimit)return null;
+ const u=s.units[0],effects=s.skillEffects||(s.skillEffects={});let healed=0,action=false;
+ if(id==='S_REPAIR'||id==='S_FULL_REPAIR'){healed=Math.min(u.maxHp-u.hp,id==='S_FULL_REPAIR'?u.maxHp:u.maxHp*.3);u.hp+=healed;action=true;}
+ if(id==='S_SPECIAL_REFILL')s.specialAmmo=3;
+ const buffs={S_CHARGE_SLOW_I:['charge',.7,2],S_CHARGE_SLOW_II:['charge',.4,1,true],S_POWER_UP_I:['power',1.2,2],S_POWER_UP_II:['power',1.4,1,true],S_FREE_MOVE:['move',1,2],S_BARRIER:['barrier',.5,2],S_ENEMY_WEAKEN:['weaken',.6,2],S_INVINCIBLE:['invincible',0,1],S_LOW_GRAVITY:['gravity',.5,2],S_HIGH_GRAVITY:['gravity',2,2],S_ENEMY_SKIP:['skip',1,1]};
+ if(buffs[id]){const [key,factor,turns,single]=buffs[id];effects[key]={id,factor,turns,single:!!single};}
+ s.skills[id]--;s.skillUsed=true;s.selectedSkill=null;
+ if(id==='S_ALL_ATTACK'){
+  const part=s.units[1].parts.findIndex(p=>p.hp>0),protectedBody=guardian(s)&&part>=0;
+  const attack={side:0,weaponId:'W01',damage:[0,protectedBody?0:1.25],partDamage:protectedBody?{[part]:1}:{},events:[],impacts:[],bullets:[],appliedEvents:0,finalOwner:s.characterId,skill:id,skillAttack:true,path:[],end:{x:s.units[1].x,y:s.units[1].y-22},duration:0};
+  if(protectedBody&&s.units[1].parts[part].breakHits){attack.partDamage={};attack.partHits={[part]:1};}
+  resolve(s,attack);action=true;
+ }
+ if(action){s.shotCount++;s.teleportMode=false;s.phase='repair';s.time=.65;s.repair={healed,age:0,duration:.65};check(s);}
+ return {kind:id,healed,action};
+}
+function repair(s){return useSkill(s,'S_REPAIR');}
+function blink(s,index){
+ if(s.phase!=='aim'||s.skillUsed||!s.skills.BLINK||s.selectedSkill!=='BLINK')return false;
+ const b=s.blink[index];if(!b)return false;const dest=G.safePosition(s.world,b.x,b.y,s.units[1],s.units[0].range);if(!dest)return false;
+ Object.assign(s.units[0],dest);s.skills.BLINK--;s.skillUsed=true;s.selectedSkill=null;return true;
+}
+function selectTeleport(s){if(s.result||s.turn||s.phase!=='aim'||!s.spec.teleport)return false;s.teleportMode=!s.teleportMode;if(s.selectedSkill!=='S_GUARD')s.selectedSkill=null;s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;}
+function trajectory(s,side,angle,power,opts={}){return P.simulate(s,side,angle,power,{weaponId:side?'W01':s.teleportMode?'TELEPORT':s.mode,skill:side||s.teleportMode&&s.selectedSkill!=='S_GUARD'?null:s.selectedSkill,...opts});}
+function landUnit(u,pad,from={x:u.x,y:u.y,slope:u.slope}){Object.assign(u,pad);delete u.slidePath;u.animation={from,path:pad.slidePath,age:0,duration:Math.min(1,Math.max(.25,Math.sqrt(Math.hypot(pad.x-from.x,pad.y-from.y)/400))),lift:0,fall:true};}
+function settleUnits(s){for(let side=0;side<2;side++){const u=s.units[side];if(u.floating)continue;const current=G.support(s.world,u.x,u.y);if(G.walkable(current)&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current)){Object.assign(u,current);continue;}const pad=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);if(pad)landUnit(u,pad);}}
+
+function markPickup(s,item){if(item.placementId&&!s.collectedPickupIds.includes(item.placementId))s.collectedPickupIds.push(item.placementId);item.collected=true;}
+function acceptLoot(s,record,result,item){
+ I.apply(s,result.inventory);if(record.kind==='weapons')s.lastPickupWeaponId=s.mode===record.id?null:record.id;
+ if(item)markPickup(s,item);else if(record.origin==='reward'&&!s.collectedPickupIds.includes(record.placementId))s.collectedPickupIds.push(record.placementId);return {...(item||{}),id:item?.id||record.placementId,kind:record.kind==='weapons'?'trial':'skill',weaponId:record.kind==='weapons'?record.id:undefined,skill:record.kind==='skills'?record.id:undefined,taken:result.taken,pending:false};
+}
+function claimClearRewards(s,practice=false){
+ if(s.result!=='win'||s.clearRewardsClaimed)return [];s.clearRewardsClaimed=true;s.clearRewardSkills=[];if(practice)return [];
+ const accepted=[];for(const item of s.pickups)if(item.hidden&&item.spawnTurn===5&&!item.collected){item.hidden=false;const value=collect(s,null,{id:item.id});if(value)accepted.push(value);}
+ for(const reward of s.spec.clearRewards||[]){if(s.collectedPickupIds.includes(reward.placementId))continue;const record={kind:'skills',id:reward.skillId,amount:reward.amount,fill:false,origin:'reward',placementId:reward.placementId},result=I.add(I.fromState(s),'skills',record.id,record.amount);
+  if(result.status==='accepted'){accepted.push(acceptLoot(s,record,result,null));s.clearRewardSkills.push(record.id);}
+  else if(result.status==='pending')s.pendingLoot.push(record);
+  else s.collectedPickupIds.push(record.placementId);
+ }return accepted;
+}
+function collect(s,shot,event){
+ const item=s.pickups.find(c=>c.id===event.id);if(!item||item.collected||item.hidden)return null;
+ let record;
+ if(item.kind==='trial'||/^W\d\d$/.test(item.id))record={kind:'weapons',id:item.weaponId||item.id,amount:item.amount||2,fill:false};
+ else if(item.kind==='ammo'){
+  const id=s.mode!=='W01'&&I.weaponIds.includes(s.mode)?s.mode:I.weaponIds.includes(s.weaponId)?s.weaponId:Object.keys(s.weaponStock)[0];
+  if(!id)return null;record={kind:'weapons',id,amount:1,fill:false};
+ }else if(item.skill)record={kind:'skills',id:item.skill,amount:item.amount||1,fill:false};
+ else{markPickup(s,item);return item;}
+ record={...record,itemId:item.id,placementId:item.placementId,origin:'pickup'};
+ const result=I.add(I.fromState(s),record.kind,record.id,record.amount,record.fill);
+ if(result.status==='accepted'){const accepted=acceptLoot(s,record,result,item);return item.kind==='ammo'?{...accepted,kind:'ammo'}:accepted;}
+ if(result.status==='pending'){item.collected=true;s.pendingLoot.push(record);return {...item,pending:true};}
+ if(result.status==='full'){markPickup(s,item);return {...item,full:true,taken:0};}
+ return null;
+}
+function resolveLoot(s,removeId=null,skip=false){
+ const record=s.pendingLoot[0];if(!record)return null;const item=s.pickups.find(p=>p.id===record.itemId);
+ const finishReward=()=>{if(record.origin==='reward'&&!s.collectedPickupIds.includes(record.placementId))s.collectedPickupIds.push(record.placementId);};
+ if(skip){finishReward();s.pendingLoot.shift();if(item)markPickup(s,item);return {skipped:true,origin:record.origin};}
+ const before=I.fromState(s),result=removeId?I.replace(before,record.kind,record.id,record.amount,record.fill,removeId):I.add(before,record.kind,record.id,record.amount,record.fill);
+ if(result.status==='full'){finishReward();s.pendingLoot.shift();if(item)item.collected=false;return {full:true,origin:record.origin};}
+ if(result.status!=='accepted')return null;
+ s.pendingLoot.shift();const accepted=acceptLoot(s,record,result,item);
+ if(record.origin==='reward')(s.clearRewardSkills||=[]).push(record.id);
+ if(!usable(s,s.mode))s.mode='W01';s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));if(s.selectedSkill&&!s.skills[s.selectedSkill])s.selectedSkill=null;
+ return {...accepted,...(item?.kind==='ammo'?{kind:'ammo'}:{}),origin:record.origin};
+}
+function applyEvents(s,shot,time,onCollect=()=>{}){
+ s.effects.destroyed=s.effects.destroyed||[];
+ while(shot.appliedEvents<shot.events.length&&shot.events[shot.appliedEvents].t<=time){
+  const e=shot.events[shot.appliedEvents++];
+  if(e.type==='echo-hit'&&s.bossEcho?.id===e.id)BossActions.clearEcho(s,'broken');
+  if(e.type==='pickup'){const c=collect(s,shot,e);if(c)onCollect(c);}
+  if(e.type==='break'&&!s.effects.destroyed.includes(e.solidId)){s.effects.destroyed.push(e.solidId);s.world=G.without(s.world,[e.solidId]);}
+  if(e.type==='terminal')s.effects.pendingPolarity=-(s.effects.polarity||s.world.regions.find(r=>r.kind==='M')?.direction||1);
+  if(e.type==='pull'){const u=s.units[e.unit];Object.assign(u,e.to);u.animation={from:{...e.from},age:0,duration:e.duration,lift:0};u.reactionKind='pull';u.displaced=1;}
+  if(e.type==='part-hit')applyPartHits(s,shot,e.part,1);
+  if(e.type==='part-damage'){const part=s.units[e.unit].parts[e.part];shot.appliedPartDamage=shot.appliedPartDamage||{};const applied=shot.appliedPartDamage[e.part]||0,amount=Math.max(0,Math.min(e.value,(shot.partDamage[e.part]||0)-applied));if(part){part.hp=Math.max(0,part.hp-amount);if(part.hp<1e-9)part.hp=0;}shot.appliedPartDamage[e.part]=applied+amount;}
+  if(e.type==='damage'){shot.appliedDamage=shot.appliedDamage||[0,0];shot.sourceAppliedDamage=shot.sourceAppliedDamage||[0,0];if(e.unit===1&&shot.enemyHpAtLaunch===undefined)shot.enemyHpAtLaunch=s.units[1].hp;const raw=Math.max(0,Math.min(e.value,shot.damage[e.unit]-shot.sourceAppliedDamage[e.unit]));const amount=shot.side===0&&e.unit===1?FinalTeam.credit(s,shot.finalOwner||s.characterId,raw):raw;s.units[e.unit].hp=Math.max(0,s.units[e.unit].hp-amount);if(s.units[e.unit].hp<1e-9)s.units[e.unit].hp=0;shot.sourceAppliedDamage[e.unit]+=raw;shot.appliedDamage[e.unit]+=amount;}
+ }
+}
+function applyPartHits(s,shot,index,requested){
+ const p=s.units[1].parts[index];if(!p?.breakHits)return;
+ shot.appliedPartHits=shot.appliedPartHits||{};const applied=shot.appliedPartHits[index]||0,amount=Math.max(0,Math.min(requested,(shot.partHits?.[index]||0)-applied,p.hitsRemaining));
+ if(!amount)return;p.hitsRemaining-=amount;p.hp=p.hitsRemaining>0?1:0;shot.appliedPartHits[index]=applied+amount;BossActions.refresh(s);
+}
+function launch(s,angle=s.angle,power=s.power,plan=null){
+ if(s.result||!['aim','cpu','cpuMove'].includes(s.phase))return null;
+ if(s.turn===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return null;
+ const side=s.turn;if(side&&plan?.facing)s.units[1].facing=plan.facing;if(!side){
+  if(s.restingCharacterIds?.includes(s.characterId))return null;
+  if(s.pendingLoot.length)return null;
+  if(s.shotCount>=s.shotLimit)return null;
+  // BLINK commits through its landing confirmation, never through a shot.
+  if(['BLINK','S_REPAIR'].includes(s.selectedSkill))return null;
+  if(!s.teleportMode&&!usable(s,s.mode))return null;
+ }
+ const shot=plan||trajectory(s,side,angle,power);
+ if(shot.echo){if(!side||!BossActions.due(s)||shot.echoId!==s.bossEcho.id)return null;BossActions.clearEcho(s,'fired');s.bossEchoFiredRound=s.round;s.bossEchoContinuation=true;}
+ if(FinalTeam.active(s)&&side===0)shot.finalOwner=s.characterId;
+ if(side&&s.guardActive&&!shot.guarded){shot.damage=[shot.damage[0]*.5,shot.damage[1]];shot.guarded=true;}
+ if(!side){s.shotCount++;if(!s.teleportMode&&W.get(s.mode).special)s.specialAmmo--;else if(!s.teleportMode&&s.mode!=='W01'){s.weaponId=s.mode;s.weaponStock[s.mode]--;}
+  if(s.selectedSkill==='S_GUARD'){s.skills.S_GUARD--;s.skillUsed=true;s.guardActive=true;shot.skill='S_GUARD';}
+  else if(!s.teleportMode&&s.selectedSkill&&!W.get(s.mode).special){s.skills[s.selectedSkill]--;s.skillUsed=true;}
+ }
+ s.phase='flight';s.activeShot=shot;return shot;
+}
+function addReward(s,skill,authoredX=65,authoredHeight=28,id='R-boss'){
+ if(!(skill in s.skills))return;
+ const position=G.point(authoredX,authoredHeight);
+ // All reward callers use the same 0..100 authoring coordinates as the maps.
+ // Reject an invalid position instead of creating an off-board camera target.
+ if(!Number.isFinite(position.x+position.y)||position.x<22||position.x>978||position.y<22||position.y>478)return;
+ const old=s.pickups.find(p=>p.id[0]==='R'&&p.skill===skill&&!p.collected);if(old){old.amount=(old.amount||1)+1;return;}
+ if(s.pickups.filter(p=>!p.collected).length>=3)return;
+ s.pickups.push({id,skill,amount:1,name:skill,...position,radius:22,collected:false});
+}
+function liftLanding(s,side,height,distance){
+ const u=s.units[side],other=s.units[1-side],candidates=[];
+ for(const surface of s.world.surfaces)for(let dx=-distance;dx<=distance;dx+=10){
+  const x=clamp(u.x+dx,u.range[0],u.range[1]),y=G.floorY(surface.points,x);
+  if(y===null||y>u.y-12||y<u.y-height)continue;
+  const p=G.safePosition(s.world,x,y,other,u.range);
+  if(!p||p.y>u.y-12||p.y<u.y-height||Math.abs(p.x-u.x)>distance+1)continue;
+  const apex={x:(u.x+p.x)/2,y:Math.min(u.y,p.y)-48};
+  if(!G.lineClear(s.world,{x:u.x,y:u.y-24},apex)||!G.lineClear(s.world,apex,{x:p.x,y:p.y-24}))continue;
+  candidates.push(p);
+ }return candidates.sort((a,b)=>(u.y-b.y)-(u.y-a.y)||Math.abs(a.x-u.x)-Math.abs(b.x-u.x))[0]||null;
+}
+function displace(s,side,shot){
+ const w=side?W.getEnemy(shot.weaponId):W.get(shot.weaponId),u=s.units[1-side],hit=shot.impacts.find(x=>x.hit?.unit===1-side);
+ if(!shot.damage[1-side]||!(w.push||w.pull||w.lift||['PUSH','PULL','SWAP'].includes(shot.skill)))return;
+ const contact=shot.impacts.find(i=>i.hit?.unit===1-side)||shot.impacts[0],away=Math.sign(u.x-(w.pushFromImpact&&contact?contact.x:s.units[side].x))||1,before={x:u.x,y:u.y,slope:u.slope,surface:u.surface,floating:u.floating};
+ if(guardian(s)&&side===0&&shot.skill==='SWAP'){u.exposed=2;u.facingCore=s.units[0].x<u.x?-1:1;u.reactionKind='rotate';return;}
+ if(shot.skill==='SWAP'&&hit&&shot.bullets.find(b=>b.id===hit.bullet)?.primary){
+  const a=s.units[0],b=s.units[1],pa={x:a.x,y:a.y,slope:a.slope,surface:a.surface,range:a.range},pb={x:b.x,y:b.y,slope:b.slope,surface:b.surface,range:b.range};Object.assign(a,pb);Object.assign(b,pa);a.animation={from:pa,age:0,duration:.6,lift:0};b.animation={from:pb,age:0,duration:.6,lift:0};a.displaced=1;b.displaced=1;
+ }else{
+  const pulling=w.pull||shot.skill==='PULL',distance=w.lift?(w.liftDistance||60):pulling?(w.pullDistance||100):(w.pushDistance||110),boss=guardian(s)&&side===0;
+  const resistance=side===1&&s.characterId?C.get(s.characterId).pushResistance:1,dx=(pulling?-away:away)*Math.min(distance,boss?(w.special?distance*.25:pulling?48:36):distance)*resistance;
+  const landing=w.lift?liftLanding(s,1-side,w.liftHeight||110,boss?80:120):null;
+  if(landing)Object.assign(u,landing);
+  else if(u.floating){const x=clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-s.units[side].x)>110)u.x=x;}
+  else if(w.lift){
+   // A carry can clear a short gap, but may not pass through a wall or roof.
+   const p=G.safePosition(s.world,u.x+dx,u.y,s.units[side],u.range),apex=p&&{x:(u.x+p.x)/2,y:Math.min(u.y,p.y)-(w.liftHeight||110)};
+   if(p&&G.lineClear(s.world,{x:u.x,y:u.y-24},apex)&&G.lineClear(s.world,apex,{x:p.x,y:p.y-24}))Object.assign(u,p);else G.move(s,1-side,dx);
+  }else G.move(s,1-side,dx);
+  if(boss){
+   // Do not trade a useful hit for a boss position without a basic-cannon route.
+   if((Math.abs(u.x-before.x)>1||Math.abs(u.y-before.y)>1)&&(solve(s,0).score<=.1||solve(s,1).score<=.1))Object.assign(u,before);
+   u.slope=0;u.exposed=Math.max(u.exposed,pulling||w.lift?2:1);u.facingCore=s.units[0].x<u.x?-1:1;
+  }
+  u.reactionKind=w.lift?'lift':pulling?'pull':'push';u.animation={from:before,age:0,duration:.5,lift:w.lift?Math.min(45,Math.max(18,(before.y-u.y)*.3)):0};u.displaced=1;u.previousX=before.x;
+ }
+}
+function resolve(s,shot,onCollect=()=>{}){
+ if(shot.resolved)return [0,0];applyEvents(s,shot,Infinity,onCollect);shot.resolved=true;
+ EnemyAttacks?.resolve(s,shot);
+ if(shot.teleport){const u=s.units[0],landing=G.teleportLanding(s.world,shot.teleportContact,s.units[1],u.range);shot.teleportSuccess=!!landing;if(landing){landUnit(u,landing,landing.entry);delete u.entry;u.teleportFlash={age:0};}s.teleportMode=false;}
+ settleUnits(s);
+ if(shot.side===1&&!shot.echo){s.lastCpuFamily=shot.attackKind;learnFromShot(s,shot);}
+
+ if(shot.side===0)shot.enemyHpBefore=shot.enemyHpAtLaunch??s.units[1].hp;
+ if(shot.side===0)shot.damage[1]=(shot.appliedDamage?.[1]||0)+FinalTeam.credit(s,shot.finalOwner||s.characterId,Math.max(0,shot.damage[1]-(shot.sourceAppliedDamage?.[1]||0)));
+ s.units.forEach((u,i)=>{u.hp=Math.max(0,u.hp-Math.max(0,shot.damage[i]-(shot.appliedDamage?.[i]||0)));if(u.hp<1e-9)u.hp=0;});
+ if(shot.side===1&&!shot.echo)s.guardActive=false;
+ if(shot.side===0&&!shot.teleport&&!shot.skillAttack){for(const key of ['power','charge'])if(s.skillEffects?.[key]?.single)delete s.skillEffects[key];}
+ if(shot.side===0&&W.get(shot.weaponId).drain){const w=W.get(shot.weaponId),u=s.units[0],actual=Math.min(shot.damage[1],shot.enemyHpBefore??shot.damage[1]);shot.drained=Math.min(actual*w.drain,w.drainHpCap==null?Infinity:u.maxHp*w.drainHpCap,u.maxHp-u.hp);u.hp+=shot.drained;if(shot.drained>0){const from=shot.impacts.at(-1)||shot.end;shot.events.push({type:'drain',x:from.x,y:from.y,to:{x:u.x,y:u.y-22},amount:shot.drained,t:shot.duration,duration:.6});}}
+ const boss=s.units[1];
+ if(guardian(s)&&shot.side===0){
+  for(const [i,hits]of Object.entries(shot.partHits||{}))applyPartHits(s,shot,i,hits);
+  for(const [i,damage] of Object.entries(shot.partDamage)){const p=boss.parts[i];if(p)p.hp=Math.max(0,p.hp-Math.max(0,damage-(shot.appliedPartDamage?.[i]||0)));}
+  const broken=boss.parts.filter(p=>p.hp<=0).length;
+  if(broken>s.effects.broken){
+   s.effects.broken=broken;
+   if(!s.rewardGiven){s.rewardGiven=true;if(!/^[45]\./.test(s.spec.contentRevision))addReward(s,s.spec.bossSpec.reward);}
+   s.pendingChanges.push({type:'parts',broken});
+  }
+  if(s.stage===100){const phaseHp=FinalTeam.active(s)?boss.hp/boss.maxHp*10:boss.hp;const target=phaseHp<=4+1e-7?2:phaseHp<=7+1e-7?1:0;if(target>s.bossPhase)s.pendingChanges.push({type:'phase',value:target});}
+  if(s.stage===90&&boss.hp<=5&&!s.effects.stageTwo){s.effects.stageTwo=true;s.pendingChanges.push({type:'altitude'},{type:'cloud'});}
+ }
+ if(boss.exposed>0&&shot.side===0)boss.exposed--;
+ displace(s,shot.side,shot);
+ if(!shot.echo)s.last[shot.side]=shot;
+ if(shot.side===1&&!shot.echo&&!shot.deferBossAttack)delete s.deferredBossTelegraph;
+ s.selectedSkill=null;s.activeShot=null;
+ if(!usable(s,s.mode))s.mode='W01';s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));
+ check(s);return shot.damage;
+}
+function check(s){
+ FinalTeam.guard(s);
+ const [p,e]=s.units;
+ if(p.hp<=0||e.hp<=0){s.result=p.hp<=0?(e.hp<=0?'draw':'lose'):'win';s.reason=s.result==='lose'?'durability':s.result==='draw'?'mutual':'defeated';}
+ else if(s.turn===0&&s.shotCount>=s.shotLimit&&!(FinalTeam.active(s)&&s.finalTeam.pending)){s.result='lose';s.reason='shots';}
+ if(s.result){BossActions.clearEcho(s,'end');delete s.bossEchoContinuation;s.phase='over';return true;}return false;
+}
+function bossGeometry(s){BossActions.attachments(s);}
+function rebuildWorld(s){
+ s.world=G.world(s.spec,s.effects.environmentRound||s.round,s.bossPhase,s.effects);
+ bossGeometry(s);G.addSolidSurfaces(s.world);
+ s.units.forEach((u,side)=>{if(u.floating)return;
+ const current=G.support(s.world,u.x,u.y);
+ if(G.walkable(current)&&Math.abs(current.y-u.y)<2&&G.clearBody(s.world,current)){Object.assign(u,current);return;}
+ const fallen=G.fallLanding(s.world,u.x,u.y,s.units[1-side],u.range);
+ if(fallen){landUnit(u,fallen);return;}
+ const p=G.safePosition(s.world,u.x,u.y,s.units[1-side],u.range);if(p)Object.assign(u,p);else{
+  const [x,h]=s.spec.spawn[side],fallback=G.safePosition(s.world,x*10,500-h*10,s.units[1-side],u.range);if(!fallback)throw Error('Unsafe boundary '+s.stage);Object.assign(u,fallback);
+ }});
+ s.blink=s.spec.blink.map(([x,h])=>G.safePosition(s.world,x*10,500-h*10,s.units[1],s.units[0].range)).filter(Boolean);
+ if(guardian(s))s.units[1].slope=0;
+}
+function boundary(s){
+ s.walkUsed=0;
+ if(FinalTeam.active(s)&&s.enemyLearning?.owner!==s.characterId)s.enemyLearning={active:false,walk:0,owner:s.characterId};
+ for(const [key,effect] of Object.entries(s.skillEffects||{}))if(!effect.single&&--effect.turns<=0)delete s.skillEffects[key];
+ s.round++;s.playerTurn=(s.playerTurn||s.round-1)+1;chargeSpecial(s);for(const item of s.pickups)if(item.hidden&&s.playerTurn>=item.spawnTurn){item.hidden=false;item.spawnedAt=s.playerTurn;}
+ if(s.effects.pendingPolarity!==undefined){s.pendingChanges.push({type:'polarity',value:s.effects.pendingPolarity});delete s.effects.pendingPolarity;}
+ // Each queued major change gets a separate visual transition; Lv90 defers cloud to next boundary.
+ let changes=[];
+ if(s.stage===90&&s.pendingChanges.length){changes=[s.pendingChanges.shift()];s.effects.deferEnvironment=true;s.effects.environmentRound=s.effects.environmentRound||s.round-1;}
+ else{changes=s.pendingChanges.splice(0);s.effects.deferEnvironment=false;s.effects.environmentRound=s.round;}
+ for(const c of changes){
+  if(c.type==='phase'){
+   const old=s.bossPhase;s.bossPhase=c.value;
+   for(let phase=old+1;!/^[45]\./.test(s.spec.contentRevision)&&phase<=c.value;phase++)addReward(s,phase===1?'BLINK':'PHASE',phase===1?55:63,phase===1?23:29,'R-phase-'+phase);
+   if(s.bossPhase===1){const hp=Math.round(40*(s.enemyHpScale??1))/C.pointsPerUnit;s.units[1].parts=[{name:'LEFT SHELL',hp,maxHp:hp,localX:-32,dx:-32,dy:-58,radius:22},{name:'RIGHT SHELL',hp,maxHp:hp,localX:32,dx:32,dy:-58,radius:22}];}
+   if(s.bossPhase===2)s.units[1].parts=[];
+  }
+  if(c.type==='altitude')s.units[1].y+=20;
+  if(c.type==='parts'&&s.stage===30){s.units[1].y+=20;s.effects.cloudPending=true;}
+  if(c.type==='cloud')s.effects.thinCloud=true;
+  if(c.type==='polarity')s.effects.polarity=c.value;
+ }
+ // Floating boss motion never changes on the same boundary as cloud motion / part geometry.
+ if(!changes.length&&s.spec.boss){const u=s.units[1];
+  if(s.stage===10&&s.round===2&&s.effects.broken===0)u.x+=30;
+  if(s.stage===30&&s.effects.cloudPending){s.effects.cloudOffset=s.effects.cloudOffset?0:80;s.effects.cloudPending=false;}
+  else if(s.stage===30&&!BossActions.active(s)&&s.effects.broken<2&&s.round%2===0){u.x+=s.round%4===0?-30:30;u.y+=s.round%4===0?-15:15;}
+  if(s.stage===50&&s.round%2===1){if(/^[45]\./.test(s.spec.contentRevision)){u.exposed=Math.max(1,u.exposed);u.facingCore=s.units[0].x<u.x?-1:1;}else{const high=s.round%4===3;u.x=high?850:790;u.y=high?280:420;u.floating=true;}}
+  if(s.stage===90&&!BossActions.active(s)&&s.effects.broken<3&&s.round%2===1)u.x=s.round%4===1?790:830;
+ }
+ s.boundaryLog.push({round:s.round,changes:changes.map(c=>c.type)});
+ rebuildWorld(s);telegraph(s);return changes;
+}
+function next(s){
+ if(check(s))return;
+ if(s.turn===1&&s.bossEchoContinuation){delete s.bossEchoContinuation;s.phase='cpu';s.time=0;return;}
+ if(s.turn===0&&FinalTeam.active(s)&&s.finalTeam.pending){const handoff=FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=FinalTeam.duration(s,handoff);return;}
+ if(s.turn===0){if(s.skillEffects?.skip){BossActions.clearEcho(s,'skip');delete s.skillEffects.skip;boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}else{s.turn=1;s.phase='cpu';s.time=.6;}}
+ else{s.turn=0;FinalTeam.advance(s);boundary(s);s.skillUsed=false;s.selectedSkill=null;s.last=[null,null];s.phase='transition';s.time=.6;}
+}
+const movementLimit=140;
+function movementRemaining(s){return s?.skillEffects?.move?Infinity:Math.max(0,movementLimit-(s?.walkUsed||0));}
+function move(s,side,amount,charging=false){
+ if(!Number.isFinite(amount)||s.result||side!==s.turn||!['aim','cpu','cpuMove'].includes(s.phase))return 0;
+ if(side===1&&s.enemyTactics?.lastRound===s.round&&s.enemyActionLog?.at(-1)?.kind==='teleport')return 0;
+ if(side===0&&s.characterId){
+  const p=C.get(s.characterId);
+  amount*=p.walk*(charging?p.chargeWalk:1)*(Math.abs(s.units[0].slope)>.05&&amount*s.units[0].slope<0?p.climb:1);
+ }
+ if(side===0)amount=clamp(amount,-movementRemaining(s),movementRemaining(s));
+ const enemyWalking=side===1&&EnemyPosition.usesWalkBudget(s);
+ if(enemyWalking){
+  if(s.enemyWalkRound!==s.round){s.enemyWalkRound=s.round;s.enemyWalkUsed=0;}
+  const remaining=EnemyPosition.remainingWalk(s);
+  amount=clamp(amount,-remaining,remaining);
+ }
+ const moved=side===1
+  ?(BossActions.active(s)?BossActions.move(s,amount):EnemyPosition.move(s,amount))
+  :G.move(s,side,amount);
+ if(enemyWalking)s.enemyWalkUsed=(s.enemyWalkUsed||0)+Math.abs(moved);
+ if(side===0&&moved){
+  s.walkUsed=(s.walkUsed||0)+Math.abs(moved);
+  if(s.enemyLearning?.active){s.enemyLearning.walk+=Math.abs(moved);if(s.enemyLearning.walk>=learningRule(s).walk)s.enemyLearning={active:false,walk:0,owner:s.characterId};}
+ }
+ return moved;
+}
+const solveCache=new Map();
+function solve(s,side,opts={}){
+ const weaponId=opts.weaponId||'W01',skill=opts.skill||null,w=side?W.getEnemy(weaponId):W.get(weaponId,s.characterId),minAngle=Math.max(opts.minAngle??-8,w.minAngle??-12),maxAngle=Math.min(opts.maxAngle??84,w.maxAngle??85);
+ const physics={weaponId,skill,...(opts.curve?{curve:opts.curve}:{}),...(opts.targetPoint?{targetPoint:opts.targetPoint}:{})};
+ // Defensive damage factors must not change an enemy's physical aiming route.
+ let aimState=side===1&&s.skillEffects?{...s,skillEffects:{...s.skillEffects,barrier:undefined,weaken:undefined,invincible:undefined}}:s;
+ if(side===1&&opts.targetPoint){const pose=opts.targetPoint.pose;aimState={...aimState,units:aimState.units.map((u,i)=>i===0?{...u,...(pose?{x:pose.x,y:pose.y,slope:pose.slope}:{x:opts.targetPoint.x,y:opts.targetPoint.y+22})}:u)};}
+ const key=JSON.stringify([s.stage,s.round,s.bossPhase,!!s.guardActive,w.id,w.scatter?[s.matchSeed,s.shotCount]:null,s.units.map(u=>[u.x,u.y,u.slope,u.facing,u.hp,u.parts.map(p=>[p.hp,p.hitsRemaining]),u.exposed]),s.finalTeam?.damage,s.effects,s.world.solids.map(o=>[o.id,o.kind,o.poly]),s.world.regions,s.skillEffects,side,physics,minAngle,maxAngle,opts.requireEvent]);
+ if(solveCache.has(key))return solveCache.get(key);
+ let best={score:-Infinity,angle:48,power:70};
+ const score=shot=>shot.damage[1-side]+(side===0?(Object.values(shot.partDamage).reduce((n,d)=>n+d,0)+Object.values(shot.partHits||{}).reduce((n,d)=>n+d,0))*.8:0)-shot.damage[side]*2-(opts.requireEvent&&!shot.events.some(e=>e.type===opts.requireEvent)?.3:0)-Math.min(2000,Math.hypot(shot.end.x-aimState.units[1-side].x,shot.end.y-aimState.units[1-side].y))*.00001;
+ for(let a=minAngle;a<=maxAngle;a+=6)for(let power=20;power<=100;power+=5){const shot=trajectory(aimState,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
+ const coarse={...best};for(let a=Math.max(minAngle,coarse.angle-5);a<=Math.min(maxAngle,coarse.angle+5);a+=2)for(let power=Math.max(20,coarse.power-5);power<=Math.min(100,coarse.power+5);power+=2){const shot=trajectory(aimState,side,a,power,physics),v=score(shot);if(v>best.score)best={angle:a,power,score:v};}
+ if(solveCache.size>512)solveCache.clear();solveCache.set(key,best);return best;
+}
+function learningRule(s){return s.difficulty==='hard'&&s.stage>=21?{retain:0,walk:70}:s.difficulty==='normal'&&s.stage>=41?{retain:s.stage<=60?.25:0,walk:50}:null;}
+function learnFromShot(s,shot){
+ const rule=learningRule(s);if(!rule||s.enemyLearning?.active||!shot.normalAttack||shot.side!==1)return;
+ const center=shot.playerTarget||{x:s.units[0].x,y:s.units[0].y-22},radius=shot.playerTarget?.radius||(W.get(shot.weaponId).needle?25:31);
+ for(const bullet of shot.bullets||[])for(let i=1;i<bullet.path.length;i++){
+  const a=bullet.path[i-1],b=bullet.path[i],dx=b.x-a.x,dy=b.y-a.y,t=clamp(((center.x-a.x)*dx+(center.y-a.y)*dy)/(dx*dx+dy*dy||1),0,1);
+  if(Math.hypot(a.x+dx*t-center.x,a.y+dy*t-center.y)<=radius+30+1e-7){s.enemyLearning={active:true,walk:0,owner:s.characterId};return;}
+ }
+}
+function enemyParameters(s){
+ const stage=s.stage,stageError=stage===100?.70:stage>80?.65:stage>60?.75:stage>40?.90:1;
+ const modeError=({easy:1.40,normal:1,hard:.65})[s.difficulty]??1,foe=N.forSpec(s.spec),profile=s.spec.enemyProfile;
+ return {stageError,modeError,angle:(guardian(s)?Math.max(6,12-profile):foe.errorAngle)*stageError*modeError,power:(guardian(s)?Math.max(12,22-profile*2):foe.errorPower)*stageError*modeError,damage:stage>80?1.10:stage>60?1.05:1};
+}
+function cpuPlan(s,random=s.random,extra={}){
+ const deferBossAttack=BossActions.active(s)&&s.bossEchoFiredRound===s.round&&!!s.telegraph?.technique;
+ if(deferBossAttack||extra.normal)s={...s,telegraph:null};
+ const frozenTechnique=s.stage<100&&!!s.telegraph?.technique;
+ const facingTarget=frozenTechnique||['E_FINAL_3','E_FINAL_4'].includes(s.telegraph?.technique)?s.telegraph.targetX:s.units[0].x;s.units[1].facing=facingTarget>=s.units[1].x?1:-1;
+ if(typeof random!=='function')random=seeded(s.stage*1000+s.round);
+ const kind=s.telegraph?.kind;let family='STANDARD';const families=[{minAngle:-8,maxAngle:38},{minAngle:24,maxAngle:64},{minAngle:52,maxAngle:84}];let familyIndex=(s.round+Math.floor(random()*3))%3;if('FAMILY'+familyIndex===s.lastCpuFamily)familyIndex=(familyIndex+1)%3;family='FAMILY'+familyIndex;
+ const foe=N.forSpec(s.spec);let settings=guardian(s)?({LOW:{minAngle:-8,maxAngle:32},ARC:{minAngle:54,maxAngle:84},REFLECT:{weaponId:'W06',minAngle:-8,maxAngle:60,requireEvent:'bounce'},FAN:{weaponId:'W09',minAngle:12,maxAngle:68},CURVE:{curve:-.65,minAngle:12,maxAngle:66},TWIN:{weaponId:'W11',minAngle:18,maxAngle:76}}[kind]||{}):s.stage<=4?families[familyIndex]:{...foe.attack};
+ if(s.telegraph?.technique)settings={weaponId:s.telegraph.technique,minAngle:W.getEnemy(s.telegraph.technique).minAngle??-8,maxAngle:84,targetPoint:{x:s.telegraph.targetX,y:s.telegraph.targetY,...(frozenTechnique&&s.telegraph.targetPose?{pose:s.telegraph.targetPose}:{})}};
+ const normalAttack=!guardian(s)||['LOW','ARC'].includes(kind);
+ // Tune ordinary boss techniques inside the existing angle/power error model.
+ // Difficulty, learning, the frozen target and the three AI draws stay shared.
+ const balance=enemyParameters(s),techniqueError=s.stage<100&&s.telegraph?.technique?(W.getEnemy(s.telegraph.technique).aimErrorScale??1):1;
+ const errA=balance.angle*techniqueError*(normalAttack&&s.enemyLearning?.active?(learningRule(s)?.retain??1):1),errP=balance.power*techniqueError;let best=EnemyAttacks?.fixedAim(s,solve)||solve(s,1,settings);if(best.score<=0&&!s.telegraph?.technique){settings={};best=solve(s,1);}
+ let angle=best.angle+(random()*2-1)*errA*(best.frozenAim?0:1),power=best.power+(random()*2-1)*errP*(best.frozenAim?0:1);
+ if(s.stage<=3)power-=8;
+ angle=clamp(angle,settings.minAngle??-12,settings.maxAngle??85);power=clamp(power,20,100);
+ const options={weaponId:settings.weaponId||'W01',...(settings.curve?{curve:settings.curve}:{}),...extra.physics};
+ let plan=trajectory(s,1,angle,power,options);
+ if(guardian(s)&&['DROP','MARK','TRIPLE','PREPARE'].includes(kind)){
+  const volley=[];
+  if(kind==='TRIPLE')for(let i=0;i<3;i++)volley.push({offset:(i-1)*7,delay:i*.22});
+  else{const offsets=kind==='MARK'?[-64,0,64]:[0],target=s.telegraph;offsets.forEach((offset,i)=>volley.push({origin:{x:clamp(target.targetX+offset,25,(s.spec.worldWidth||1000)-25),y:Math.min(target.targetY-300,s.units[0].y-300),theta:Math.PI/2+(kind==='MARK'?(i-1)*.035:0)},power:20,delay:kind==='PREPARE'?.8:kind==='MARK'?.25+i*.12:0}));}
+  plan=P.simulate(s,1,angle,power,{weaponId:kind==='PREPARE'?'W02':'W01',volley});
+
+ }
+ if(s.telegraph?.technique)plan=EnemyAttacks.plan(s,angle,power);
+ if(guardian(s)&&s.effects.broken){const factor=EnemyAttacks.weakenFactor(s,plan);plan.damage=plan.damage.map(d=>d*factor);plan.partDamage=Object.fromEntries(Object.entries(plan.partDamage).map(([k,d])=>[k,d*factor]));for(const e of plan.events)if(e.type==='damage')e.value*=factor;}
+ // Scale only enemy-to-player damage, once, after the existing broken-part half.
+ const damageScale=(s.stage===100?EnemyAttacks.damageScale(plan):balance.damage)*(extra.damageScale??1);
+ plan.damage[0]*=damageScale;
+ for(const e of plan.events)if(e.type==='damage'&&e.unit===0)e.value*=damageScale;
+ EnemyAttacks.finalizeDamage(s,plan);
+ plan.deferBossAttack=deferBossAttack;plan.normalAttack=normalAttack;plan.attackKind=kind||family;plan.facing=s.units[1].facing;
+ return EnemyAttacks?EnemyAttacks.decorate(s,plan):plan;
+}
+function combineShots(shots){
+ const bullets=[],events=[],impacts=[],damage=[0,0],partDamage={};let nextId=0;
+ for(const shot of shots){const ids=new Map(shot.bullets.map(b=>[b.id,nextId++]));
+  for(const b of shot.bullets)bullets.push({...b,id:ids.get(b.id)});
+  for(const e of shot.events)events.push({...e,...(e.bullet!==undefined?{bullet:ids.get(e.bullet)}:{})});
+  for(const e of shot.impacts)impacts.push({...e,bullet:ids.get(e.bullet)});
+  for(let i=0;i<2;i++)damage[i]+=shot.damage[i];
+  for(const [i,d]of Object.entries(shot.partDamage))partDamage[i]=(partDamage[i]||0)+d;
+ }events.sort((a,b)=>a.t-b.t);impacts.sort((a,b)=>a.t-b.t);
+ const duration=Math.max(...bullets.map(b=>b.t)),end=impacts.at(-1)||bullets.at(-1).path.at(-1);
+ return {...shots[0],bullets,events,impacts,damage:damage.map(d=>Math.min(1,d)),partDamage,duration,appliedEvents:0,resolved:false,path:bullets[0].path,end,hit:impacts.find(i=>i.hit)?.hit?.unit??-1};
+}
+function enemyMoveTarget(s){
+ const u=s.units[1],profile=s.spec.enemyProfile;if(guardian(s)||s.stage<=4||u.floating)return u.x;
+ if(u.displaced){u.displaced--;return u.x;}
+ if(profile===1&&s.round!==2||profile===2&&s.round%2===1)return u.x;
+ const distance=N.forSpec(s.spec).move??[0,30,60,60,90,90][profile],sign=EnemyPosition.gap(s)<EnemyPosition.rules.minGap?(u.x>=s.units[0].x?1:-1):s.last[0]?.end.x<u.x?1:-1;
+ const original={...u};let target=u.x;
+ // Candidate movement must retain a shared-physics attack route; no current charge input is read.
+ for(const dx of [distance*sign,-distance*sign]){EnemyPosition.move(s,dx);u.facing=s.units[0].x>=u.x?1:-1;if(solve(s,1).score>.1){target=u.x;EnemyPosition.restore(u,original);break;}EnemyPosition.restore(u,original);}
+ return target;
+}
+function chargeSpecial(s){if(guardian(s))return 0;const unlocked=Math.min(3,Math.floor(s.playerTurn/2)),delta=Math.max(0,unlocked-(s.specialUnlocks||0));s.specialUnlocks=unlocked;if(delta){s.specialAmmo=Math.min(3,s.specialAmmo+delta);s.specialChargeSerial+=delta;}return delta;}
+function nextSpecialTurn(s){if(guardian(s)||(s.specialUnlocks||0)>=3)return null;return [2,4,6][s.specialUnlocks||0];}
+function changeCharacter(s,id,owned){
+ if(s.restingCharacterIds?.includes(id)||!FinalTeam.canChange(s)||!Crew.ids.includes(id)||!owned?.includes(id)||s.result||s.turn!==0||s.phase!=='aim'||s.pendingLoot.length||s.characterId===id)return false;
+ const u=s.units[0],ratio=Math.floor(Math.min(1,u.hp/u.maxHp)*1e6+1e-8)/1e6;if(ratio<=0)return false;
+ const max=C.get(id).hp/C.pointsPerUnit;u.maxHp=max;u.hp=max*ratio;s.characterId=id;
+ if(W.get(s.mode).special)s.mode=C.get(id).special.id;
+ s.angle=clamp(s.angle,minimumAngle(s),maximumAngle(s));return true;
+}
+const enemyAI=EnemyActions.create({G,N,trajectory,solve,cpuPlan,seeded,legacyMove:enemyMoveTarget,afterTurn:s=>{const t=JSON.parse(JSON.stringify({...s,random:undefined}));t.turn=1;t.phase='cpu';next(t);return t;}});
+function bossEchoPlan(s,random){
+ const echo=s.bossEcho,t={...s,units:[{...s.units[0]},JSON.parse(JSON.stringify(echo.unit))],telegraph:null,bossEcho:null};
+ const plan=cpuPlan(t,random,{normal:true,damageScale:BossActions.rules.echoDamage,physics:{ignoreShooter:true,weaponOverrides:{blast:BossActions.rules.echoBlast,enemyDamageCap:echo.shots},volley:Array.from({length:echo.shots},(_,i)=>({offset:0,delay:i*BossActions.rules.echoInterval,blast:BossActions.rules.echoBlast}))}});
+ plan.echo=true;plan.echoId=echo.id;plan.echoUnit=t.units[1];plan.echoField=echo.field;plan.attackKind='ECHO';plan.deferBossAttack=true;
+ plan.damage=[plan.damage[0],0];plan.partDamage={};
+ plan.events=plan.events.filter(e=>e.unit!==1);
+ plan.appearance={...plan.appearance,color:['#a6dfff','#c4bdff','#aec5e1','#ffe4a1'][s.stage===100?echo.field:0],blast:BossActions.rules.echoBlast};
+ for(const hit of plan.impacts)hit.blast=BossActions.rules.echoBlast;
+ for(let i=0;i<echo.shots;i++)plan.events.push({type:'echo-fire',t:i*BossActions.rules.echoInterval,...G.muzzle(t,1,plan.angle)});
+ plan.events.sort((a,b)=>a.t-b.t);return plan;
+}
+function planEnemyAction(s,random){return BossActions.due(s)?{target:s.units[1].x,plan:bossEchoPlan(s,random),action:null}:enemyAI.plan(s,random);}
+async function planEnemyActionAsync(s,random,opts){return BossActions.due(s)?planEnemyAction(s,random):enemyAI.planAsync(s,random,opts);}
+const api={enemyPosition:EnemyPosition,bossActions:BossActions,bossEchoPlan,planEnemyActionAsync,planEnemyAction,commitEnemyAction:enemyAI.commit,enemyActionRules:enemyAI.rule,enemyTeleportCandidates:enemyAI.teleportCandidates,useSkill,learningRule,learnFromShot,movementLimit,movementRemaining,chargeSpecial,nextSpecialTurn,changeCharacter,encounters:N,guardian,campaign,create:()=>campaign(1),chargeDuration,chargePower,weapon,minimumAngle,maximumAngle,combat:C,seeded,biomes,clamp,trajectory,launch,resolve,applyEvents,collect,resolveLoot,check,next,move,solve,enemyParameters,cpu:cpuPlan,cpuPlan,enemyMoveTarget,availableWeapons,selectWeapon,selectSkill,skillReason,repair,claimClearRewards,selectTeleport,settleUnits,blink,rebuildWorld,boundary,telegraph,geometry:G,weapons:W.weapons,skills:W.skills,levels:L};
+if(node)module.exports=api;else root.ArcEngine=api;
+})(globalThis);

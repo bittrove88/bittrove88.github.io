@@ -1,0 +1,209 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-04",
+  "title": "霧の谷",
+  "kind": "normal",
+  "themeIndex": 4,
+  "stageRange": [
+    21,
+    25
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 24,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": true,
+  "backgroundRef": "references/backgrounds/normal-04.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 4,
+    "materialStory": "月明かりの霧から分離する濡れた石。灰青と苔の大面を重ね、細かな霧の模様を前景へ足さない。",
+    "terrain": {
+      "name": "湿った谷の岩",
+      "palette": {
+        "face": "#72868B",
+        "shade": "#667B82",
+        "light": "#7C8F93",
+        "cap": "#9AAAAA",
+        "ink": "#697D84",
+        "accent": "#738788"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              0.65,
+              0
+            ],
+            [
+              0.52,
+              0.21
+            ],
+            [
+              0.18,
+              0.4
+            ],
+            [
+              0,
+              0.33
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0.42
+            ],
+            [
+              0.31,
+              0.25
+            ],
+            [
+              0.52,
+              0.38
+            ],
+            [
+              0.43,
+              0.54
+            ],
+            [
+              0.13,
+              0.64
+            ],
+            [
+              0,
+              0.6
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.7,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.49,
+              1
+            ],
+            [
+              0.59,
+              0.5
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "風化した灰石",
+      "palette": {
+        "face": "#7E8C93",
+        "shade": "#6C7D87",
+        "light": "#8A9AA0",
+        "cap": "#A4B0B1",
+        "ink": "#73828A",
+        "accent": "#7F8F94"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0.84,
+              0.2
+            ],
+            [
+              0.34,
+              0.3
+            ],
+            [
+              0,
+              0.23
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0.6
+            ],
+            [
+              0.28,
+              0.44
+            ],
+            [
+              0.75,
+              0.39
+            ],
+            [
+              1,
+              0.57
+            ],
+            [
+              1,
+              0.67
+            ],
+            [
+              0.56,
+              0.55
+            ],
+            [
+              0,
+              0.75
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.7,
+              0.69
+            ],
+            [
+              1,
+              0.58
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0.47,
+              1
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

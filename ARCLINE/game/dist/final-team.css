@@ -1,0 +1,66 @@
+/* Generated from game/styles/final-team.css. Edit the source. */
+#finalTeamHUD{position:absolute;z-index:4;left:max(12px,env(safe-area-inset-left));top:80px;width:190px;min-height:44px;padding:4px 7px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2px;background:#143c4ee8;border:1px solid #d6e6b788;border-radius:9px;color:#edf1d7;text-align:left;line-height:1.25;pointer-events:auto}
+#finalTeamHUD strong{font-size:13px}#finalTeamHUD span{font-size:11px;color:#d5e5b6}#finalTeamHUD:disabled{opacity:.9}#finalTeamHUD[hidden]{display:none}
+#battle[data-final-team="true"] .turn-pill{display:none}#battle[data-final-team="true"] #specialHUD{display:none}
+#finalTeamTransition{position:absolute;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#102e3ff2;color:#edf1d7;pointer-events:none}#finalTeamTransition[hidden]{display:none}#finalTeamTransition strong{font-size:clamp(24px,4vw,42px)}#finalTeamTransition span{font-size:clamp(13px,2vw,19px)}#finalTeamTransition.is-entering{animation:team-handoff .6s ease-out both}
+#battleMachinePicker[data-fixed-order="true"] button[data-quick-machine]:disabled{opacity:1;color:#e8edce}#battleMachinePicker[data-fixed-order="true"] button[data-team-complete="true"]{border-color:#91cf9c;background:#29504d}#battleMachinePicker[data-fixed-order="true"] button[data-team-current="true"]{outline:2px solid #ebd09b;outline-offset:-3px}
+@keyframes team-handoff{0%,35%{opacity:1}100%{opacity:0}}
+@media(orientation:landscape) and (max-height:600px) and (pointer:coarse){#finalTeamHUD{top:2px;width:calc((100% - 360px)/2 - 24px);max-width:200px;min-width:100px}#finalTeamHUD strong{font-size:12px}}
+@media(orientation:landscape) and (max-height:340px) and (pointer:coarse){#finalTeamHUD{width:calc((100% - 280px)/2 - 24px);min-width:100px}#finalTeamHUD strong,#finalTeamHUD span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#finalTeamTransition.is-entering{animation:none;opacity:1}}
+
+#finalTeamTransition small{font-size:clamp(12px,2vw,18px);letter-spacing:.12em;color:#f0c489}#finalTeamTransition[data-travel="true"]{background:transparent;justify-content:flex-start;padding-top:12vh;text-shadow:0 2px 12px #102e3f;overflow:hidden}#finalTeamTransition[data-travel="true"]:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,#0c2535,#274956);z-index:-1;transform:translateX(-110%)}#finalTeamTransition[data-travel="true"].is-entering{animation:travel-caption var(--team-duration,2.2s) linear both}#finalTeamTransition[data-travel="true"].is-entering:before{animation:travel-curtain var(--team-duration,2.2s) ease-in-out both}
+@keyframes travel-curtain{0%,25%{transform:translateX(-110%)}46%,60%{transform:translateX(0)}88%,100%{transform:translateX(110%)}}@keyframes travel-caption{0%{opacity:0}12%,85%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){#finalTeamTransition[data-travel="true"].is-entering,#finalTeamTransition[data-travel="true"].is-entering:before{animation:none}#finalTeamTransition[data-travel="true"]{background:#102e3ff2}}
+
+/* Keep both final-battle retries and the exit reachable on short screens. */
+#overlay[data-final-retry="true"] .modal {
+  display: grid;
+  width: min(640px, 100%);
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.8fr);
+  grid-template-rows: auto auto auto;
+  gap: 6px 12px;
+  padding: 10px 12px;
+  text-align: left;
+}
+#overlay[data-final-retry="true"] #resultIcon {
+  display: none;
+}
+#overlay[data-final-retry="true"] #modalEyebrow {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  font-size: 11px;
+}
+#overlay[data-final-retry="true"] #modalTitle {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  font-size: 22px;
+  align-self: center;
+}
+#overlay[data-final-retry="true"] #modalDetail {
+  grid-column: 1;
+  grid-row: 3;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.3;
+}
+#overlay[data-final-retry="true"] :is(#retryFinalCharacter, #resume, #returnLobby) {
+  grid-column: 2;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 5px 8px;
+  font-size: 13px;
+  line-height: 1.3;
+}
+#overlay[data-final-retry="true"] #retryFinalCharacter {
+  grid-row: 1;
+}
+#overlay[data-final-retry="true"] #resume {
+  grid-row: 2;
+}
+#overlay[data-final-retry="true"] #returnLobby {
+  grid-row: 3;
+}

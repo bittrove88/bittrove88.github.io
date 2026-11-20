@@ -1,0 +1,631 @@
+/* Generated from game/styles/chapter-flow.css. Edit the source. */
+/* Additional user direction: full-window scenes and fixed-condition trials. */
+#journeyStart {
+  z-index: 24;
+  background: #0c283b;
+  align-content: center;
+  gap: 22px;
+}
+#beginJourney {
+  min-width: 220px;
+  min-height: 64px;
+  padding: 18px 44px;
+  font-size: clamp(25px, 5vw, 44px);
+  border-radius: 16px;
+  color: #f1f2dc;
+  background: #3b685e;
+  border: 1px solid #d8e7bf;
+}
+#difficultyIntro {
+  padding: max(8px, env(safe-area-inset-top))
+    max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom))
+    max(8px, env(safe-area-inset-left));
+}
+#difficultyIntro .first-difficulty {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto minmax(100px, 1fr) auto auto auto;
+  gap: 6px;
+  padding: 12px;
+}
+#difficultyTrial {
+  height: 100%;
+  min-height: 100px;
+  object-fit: contain;
+}
+#difficultyIntroText {
+  margin: 0;
+  line-height: 1.5;
+  font-size: clamp(12px, 1.8vw, 16px);
+}
+#initialDifficultyOptions {
+  gap: 6px;
+  margin: 0;
+}
+#initialDifficultyOptions label {
+  min-width: 0;
+  min-height: 48px;
+  padding: 6px;
+}
+#initialDifficultyOptions strong {
+  font-size: clamp(14px, 2.5vw, 19px);
+}
+#initialDifficultyOptions small {
+  font-size: clamp(10px, 1.6vw, 13px);
+}
+.trial-controls {
+  justify-content: center;
+}
+#trialFire {
+  min-width: 130px;
+  min-height: 44px;
+}
+#trialResult {
+  margin: 0;
+  font-size: 12px;
+  min-height: 1.5em;
+  text-align: center;
+}
+#confirmDifficulty {
+  min-height: 44px;
+}
+#battleCharacters {
+  cursor: default;
+}
+#pauseMachineChange {
+  font-size: clamp(16px, 2.3vw, 22px);
+  border-color: #c5deb0;
+  background: #315d57;
+}
+#overlay:not([data-kind="pause"]) #pauseMachineChange {
+  display: none;
+}
+#overlay[data-kind="pause"] #resume {
+  grid-column: 1;
+  grid-row: 2;
+}
+#overlay[data-kind="pause"] #pauseMachineChange {
+  grid-column: 2;
+  grid-row: 2;
+  display: block;
+  margin: 0;
+  min-height: 48px;
+  padding: 6px 10px;
+}
+#overlay[data-kind="pause"] #pauseSettings {
+  grid-row: 3;
+}
+#overlay[data-kind="pause"] #retryLevel {
+  grid-column: 1;
+  grid-row: 4;
+}
+#overlay[data-kind="pause"] #returnLobby {
+  grid-column: 2;
+  grid-row: 4;
+}
+@media (orientation: landscape) and (max-height: 340px) {
+  #overlay[data-kind="pause"] #pauseMachineChange {
+    min-height: 44px;
+    font-size: 14px;
+  }
+}
+#onboardingIntro,
+#expeditionDialog {
+  padding: 0;
+}
+#onboardingIntro .gun-intro,
+#expeditionDialog .expedition-panel {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+#onboardingIntro .gun-intro > div + div {
+  padding: max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+    16px;
+}
+#expeditionDialog .expedition-actions {
+  padding: 8px max(12px, env(safe-area-inset-right))
+    max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+#expeditionDialog #expeditionRevealSkip {
+  top: max(8px, env(safe-area-inset-top));
+  left: max(8px, env(safe-area-inset-left));
+}
+#expeditionDialog .expedition-panel {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+}
+#expeditionDialog .expedition-copy {
+  padding: max(18px, env(safe-area-inset-top))
+    max(18px, env(safe-area-inset-right)) 12px 18px;
+}
+#chapterPlayback {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  background: #0a2638;
+  color: #f1eed7;
+  padding: max(12px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 12px;
+}
+.chapter-playback-header,
+.chapter-playback-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.chapter-playback-controls button {
+  min-height: 44px;
+  padding: 8px 18px;
+}
+.chapter-playback-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(14px, 3vw, 40px);
+  min-height: 0;
+}
+#chapterPlaybackArt {
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+}
+#chapterPlaybackArt .ch-art {
+  height: 100%;
+  min-height: 0;
+}
+.chapter-playback-copy {
+  min-height: 0;
+  overflow: auto;
+  align-self: center;
+  max-height: 100%;
+  padding-block: 12px;
+  touch-action: pan-y;
+}
+#chapterPlaybackTitle {
+  font-size: clamp(20px, 4vw, 42px);
+  line-height: 1.3;
+}
+#chapterPlaybackText {
+  font-size: clamp(15px, 2.3vw, 23px);
+  line-height: 1.8;
+}
+#chapterPlaybackText p {
+  margin-block: 12px;
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  #difficultyIntro .first-difficulty {
+    display: grid;
+    grid-template-columns: minmax(230px, 0.85fr) minmax(0, 1.5fr);
+    grid-template-rows: auto auto minmax(44px, 1fr) auto;
+    gap: 6px 12px;
+    padding: 8px 12px;
+  }
+  #difficultyIntroTitle {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: clamp(17px, 2.7vw, 24px);
+  }
+  #difficultyIntroText {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 12px;
+  }
+  #initialDifficultyOptions {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: center;
+  }
+  #initialDifficultyOptions label {
+    min-height: 46px;
+  }
+  #initialDifficultyOptions strong {
+    font-size: 14px;
+  }
+  #initialDifficultyOptions small {
+    font-size: 10px;
+  }
+  #difficultyTrial {
+    grid-column: 2;
+    grid-row: 1/4;
+    min-height: 0;
+    height: 100%;
+  }
+  .trial-controls {
+    grid-column: 2;
+    grid-row: 4;
+  }
+  #trialResult {
+    grid-column: 2;
+    grid-row: 4;
+    align-self: end;
+    font-size: 10px;
+    pointer-events: none;
+  }
+  #trialFire {
+    align-self: start;
+    margin-bottom: 20px;
+  }
+  #confirmDifficulty {
+    grid-column: 1;
+    grid-row: 4;
+    font-size: 13px;
+  }
+  #difficultySaveError {
+    grid-column: 1/-1;
+  }
+  #chapterPlayback {
+    gap: 6px;
+  }
+  #chapterPlaybackTitle {
+    margin-block: 6px;
+  }
+  #chapterPlaybackText {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+/* Keep canvas intrinsic bitmap dimensions out of grid sizing. */
+.trial-range {
+  position: relative;
+  min-height: 100px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+#difficultyTrial {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+#initialDifficultyOptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+/* The label is the grid item; its visible span must fit that same cell. */
+#initialDifficultyOptions label {
+  display: block;
+  padding: 0;
+}
+#initialDifficultyOptions label > span {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 6px;
+}
+#initialDifficultyOptions strong,
+#initialDifficultyOptions small,
+#difficultyChoice .difficulty-options small {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#initialDifficultyOptions strong {
+  line-height: 1.3;
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .trial-range {
+    grid-column: 2;
+    grid-row: 1/4;
+    min-height: 0;
+  }
+}
+
+.chapter-playback-copy {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#chapterPlaybackTitle {
+  flex: 0 0 auto;
+}
+#chapterPlaybackText {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  touch-action: pan-y;
+}
+
+/* One scoped grid owns clear-story text and actions at every viewport size. */
+#app #overlay[data-story-tier] {
+  padding: 0;
+  background: #12384c;
+}
+#app #overlay[data-story-tier] .modal {
+  display: grid !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: #14384b;
+  padding: clamp(10px, 2vw, 24px) max(14px, env(safe-area-inset-right))
+    clamp(10px, 2vw, 24px) max(14px, env(safe-area-inset-left));
+  grid-template-columns: minmax(0, 1fr) clamp(132px, 19vw, 210px);
+  grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+  gap: 8px 22px;
+  text-align: left;
+  overflow: hidden;
+}
+#app #overlay[data-story-tier] #resultIcon {
+  display: none;
+}
+#app #overlay[data-story-tier] #modalEyebrow {
+  grid-column: 1;
+  grid-row: 1;
+}
+#app #overlay[data-story-tier] #modalTitle {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  text-align: left;
+  font-size: clamp(22px, 3.5vw, 38px);
+  line-height: 1.2;
+}
+#app #overlay[data-story-tier] #modalDetail {
+  grid-column: 1;
+  grid-row: 3;
+  margin: 0;
+  font-size: clamp(12px, 1.7vw, 16px);
+  line-height: 1.4;
+}
+#app #overlay[data-story-tier] #clearRewardLine {
+  grid-column: 1;
+  grid-row: 4;
+  margin: 0;
+}
+#app #overlay[data-story-tier] #clearNarrative {
+  grid-column: 1;
+  grid-row: 5;
+  display: grid;
+  grid-template-columns: clamp(64px, 18vw, 220px) minmax(0, 1fr);
+  align-items: center;
+  align-self: stretch;
+  gap: clamp(12px, 2vw, 28px);
+  margin: 0;
+  min-height: 0;
+  max-height: none;
+  overflow: hidden;
+  padding: clamp(10px, 2vw, 24px);
+}
+#app #overlay[data-story-tier] #resultStoryArt {
+  display: block;
+  width: 100%;
+  height: clamp(64px, 28vh, 210px);
+  align-self: center;
+}
+#app #overlay[data-story-tier] .clear-story-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+#app #overlay[data-story-tier] #clearStoryTitle {
+  font-size: clamp(16px, 2.3vw, 25px);
+  line-height: 1.35;
+}
+#app #overlay[data-story-tier] #clearStoryArea {
+  flex: none;
+}
+#app #overlay[data-story-tier] #clearDiscovery {
+  flex: none;
+}
+#app #overlay[data-story-tier] #chapterMessage {
+  position: static !important;
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+  touch-action: pan-y;
+  font-size: clamp(14px, 2vw, 21px);
+  line-height: 1.65;
+}
+#app #overlay[data-story-tier] :is(#resume, #replayClearMovie, #returnLobby) {
+  position: static !important;
+  grid-column: 2;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  font-size: clamp(13px, 1.8vw, 18px);
+  align-self: start;
+}
+#app #overlay[data-story-tier] #resume {
+  grid-row: 1/3;
+}
+#app #overlay[data-story-tier] #replayClearMovie {
+  grid-row: 3/5;
+}
+#app #overlay[data-story-tier] #returnLobby {
+  grid-row: 5;
+  align-self: end;
+}
+#app #overlay[data-story-tier] #endingCollection {
+  grid-row: 6;
+  grid-column: 1/-1;
+  max-height: 12vh;
+  overflow: auto;
+}
+
+@media (orientation: landscape) and (max-height: 340px) {
+  #app #overlay[data-story-tier] .modal {
+    gap: 3px 12px;
+    padding: 8px max(10px, env(safe-area-inset-right)) 8px
+      max(10px, env(safe-area-inset-left));
+  }
+  #app #overlay[data-story-tier] #clearNarrative {
+    grid-template-columns: 64px minmax(0, 1fr);
+    padding: 8px 10px;
+    gap: 12px;
+  }
+  #app #overlay[data-story-tier] #clearStoryTitle {
+    font-size: 15px;
+  }
+  #app #overlay[data-story-tier] #chapterMessage {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  #app #overlay[data-story-tier] #modalTitle {
+    font-size: 21px;
+  }
+  #app #overlay[data-story-tier] #modalDetail {
+    font-size: 11px;
+  }
+}
+
+.delete-save-button {
+  min-height: 44px;
+  padding: 8px 14px;
+  color: #ebc6bb;
+  border-color: #d8a89766;
+  background: #153745;
+  font-size: 13px;
+}
+#deleteSaveDialog {
+  z-index: 28;
+  background: #092333ef;
+}
+.delete-save-panel {
+  width: min(560px, 100%);
+  overflow: auto;
+  touch-action: pan-y;
+}
+.delete-save-panel h2,
+.delete-save-panel p {
+  margin: 0;
+  line-height: 1.6;
+}
+.delete-save-panel h2 {
+  font-size: 22px;
+}
+.delete-save-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.delete-save-actions button {
+  min-height: 44px;
+  padding: 8px 14px;
+}
+#confirmDeleteSave {
+  background: #71483e;
+  border-color: #e7b49e;
+}
+#deleteSaveError {
+  color: #ffd2bf;
+}
+@media (orientation: landscape) and (max-height: 340px) {
+  #deleteSaveDialog {
+    padding: 8px max(12px, env(safe-area-inset-right)) 8px
+      max(12px, env(safe-area-inset-left));
+  }
+  .delete-save-panel {
+    gap: 6px;
+    padding: 10px 14px;
+  }
+  .delete-save-panel h2 {
+    font-size: 18px;
+  }
+  .delete-save-panel p {
+    font-size: 12px;
+  }
+}
+
+/* Very short landscape: keep all three choices and the two action buttons
+   inside the visible viewport without shrinking the 44px touch targets.
+   Full difficulty explanation remains available to assistive technologies. */
+@media (orientation: landscape) and (min-width: 500px) and (max-height: 280px) {
+  #difficultyIntro .first-difficulty {
+    grid-template-rows: auto minmax(48px, 1fr) 44px 14px;
+    gap: 3px 8px;
+    padding: 4px 8px;
+  }
+  #difficultyIntroTitle {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 16px;
+    line-height: 1.15;
+    margin: 0;
+  }
+  #difficultyIntroText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  #initialDifficultyOptions {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: center;
+    gap: 3px;
+  }
+  #initialDifficultyOptions label {
+    min-height: 44px;
+    padding: 3px;
+  }
+  #initialDifficultyOptions label > span {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 3px;
+  }
+  #initialDifficultyOptions strong {
+    font-size: 12px;
+  }
+  #initialDifficultyOptions small {
+    font-size: 9px;
+    line-height: 1.2;
+    white-space: normal;
+  }
+  .trial-range {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .trial-controls {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  #trialFire {
+    min-height: 44px;
+    margin-bottom: 0;
+  }
+  #confirmDifficulty {
+    grid-column: 1;
+    grid-row: 3;
+    min-height: 44px;
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+  #trialResult {
+    grid-column: 2;
+    grid-row: 4;
+    min-height: 0;
+    align-self: center;
+    font-size: 9px;
+    line-height: 1.15;
+  }
+}

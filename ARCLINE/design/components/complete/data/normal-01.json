@@ -1,0 +1,229 @@
+{
+  "schema": "arcline.component-scene/v1",
+  "id": "normal-01",
+  "title": "鏡の岸壁",
+  "kind": "normal",
+  "themeIndex": 1,
+  "stageRange": [
+    6,
+    10
+  ],
+  "stage": null,
+  "mapIndex": null,
+  "sampleStage": 9,
+  "designApproved": false,
+  "runtimeIntegrated": false,
+  "backgroundApprovedAtSource": false,
+  "backgroundRef": "references/backgrounds/normal-01.json",
+  "backgroundCommit": "4c3369f4616e0601fe4020b9f0ea87c5a3a276ef",
+  "materials": {
+    "themeIndex": 1,
+    "materialStory": "冷たい青い板状岩。地盤は縦の大きな剥離面、支持材は横に重なる青灰の石板。",
+    "terrain": {
+      "name": "青い海食板岩",
+      "palette": {
+        "face": "#77879A",
+        "shade": "#677A8F",
+        "light": "#8092A5",
+        "cap": "#A0ADB8",
+        "ink": "#6C7D91",
+        "accent": "#7B8A9E"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              0.22,
+              0
+            ],
+            [
+              0.18,
+              0.46
+            ],
+            [
+              0.25,
+              1
+            ],
+            [
+              0.06,
+              1
+            ],
+            [
+              0.09,
+              0.44
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0.31,
+              0
+            ],
+            [
+              0.44,
+              0
+            ],
+            [
+              0.39,
+              0.49
+            ],
+            [
+              0.47,
+              1
+            ],
+            [
+              0.29,
+              1
+            ],
+            [
+              0.33,
+              0.5
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0.49,
+              0
+            ],
+            [
+              0.68,
+              0
+            ],
+            [
+              0.6,
+              0.43
+            ],
+            [
+              0.65,
+              0.72
+            ],
+            [
+              0.53,
+              1
+            ],
+            [
+              0.43,
+              1
+            ],
+            [
+              0.48,
+              0.46
+            ]
+          ]
+        }
+      ]
+    },
+    "structure": {
+      "name": "積層の岸壁石板",
+      "palette": {
+        "face": "#637589",
+        "shade": "#54687E",
+        "light": "#708498",
+        "cap": "#8F9EAC",
+        "ink": "#5A6D81",
+        "accent": "#68798E"
+      },
+      "planes": [
+        {
+          "color": "light",
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0.19
+            ],
+            [
+              0.45,
+              0.25
+            ],
+            [
+              0,
+              0.18
+            ]
+          ]
+        },
+        {
+          "color": "shade",
+          "points": [
+            [
+              0,
+              0.38
+            ],
+            [
+              0.61,
+              0.31
+            ],
+            [
+              1,
+              0.42
+            ],
+            [
+              1,
+              0.51
+            ],
+            [
+              0.56,
+              0.43
+            ],
+            [
+              0,
+              0.52
+            ]
+          ]
+        },
+        {
+          "color": "accent",
+          "points": [
+            [
+              0,
+              0.65
+            ],
+            [
+              0.38,
+              0.58
+            ],
+            [
+              0.75,
+              0.67
+            ],
+            [
+              1,
+              0.61
+            ],
+            [
+              1,
+              0.78
+            ],
+            [
+              0.3,
+              0.76
+            ],
+            [
+              0,
+              0.84
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "sharedRef": "shared-materials.json",
+  "geometryRule": "Paint clipped material planes inside the current collider. No silhouette, support, destruction-unit or gameplay changes."
+}

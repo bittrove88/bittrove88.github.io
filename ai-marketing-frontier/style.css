@@ -1,0 +1,202 @@
+* { box-sizing:border-box; }
+:root { --blue:#0737a4; --ink:#1c273b; --muted:#606b7b; --line:#dfe4ed; --paper:#fff; --tint:#f3f6fb; }
+html { scroll-behavior:smooth; scroll-padding-top:24px; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; line-height:1.95; }
+a { color:var(--blue); text-underline-offset:.3em; }
+a:focus-visible,summary:focus-visible { outline:3px solid var(--blue); outline-offset:5px; }
+img { display:block; max-width:100%; height:auto; }
+header { display:flex; justify-content:space-between; align-items:center; gap:20px; max-width:1320px; margin:auto; padding:26px 48px; border-bottom:1px solid var(--line); }
+.brand { font-weight:750; text-decoration:none; letter-spacing:.08em; font-size:14px; }
+header nav { display:flex; gap:26px; flex-wrap:wrap; font-size:12px; }
+header nav a { text-decoration:none; }
+main { max-width:1320px; margin:auto; }
+.hero { display:grid; grid-template-columns:1.3fr 1fr; min-height:650px; }
+.hero>div:first-child { padding:70px 48px; }
+.kicker { color:var(--blue); font-size:11px; letter-spacing:.16em; font-weight:700; margin:0 0 18px; }
+h1 { font-family:"Hiragino Mincho ProN","Yu Mincho",serif; font-size:clamp(34px,4.4vw,60px); font-weight:650; line-height:1.5; margin:0 0 24px; letter-spacing:.01em; }
+h1 em { color:var(--blue); font-style:normal; }
+.subtitle { font-size:18px; line-height:1.9; color:var(--muted); }
+.dateline { font-size:11px; color:var(--muted); letter-spacing:.1em; margin:26px 0; }
+.button { display:inline-block; padding:12px 24px; background:var(--blue); color:white; font-size:13px; font-weight:600; text-decoration:none; }
+.hero-image { background:var(--blue); position:relative; overflow:hidden; }
+.hero-image img { width:100%; height:100%; object-fit:cover; opacity:.62; }
+.hero-image p { position:absolute; bottom:40px; left:36px; right:24px; color:white; font-size:12px; letter-spacing:.15em; line-height:2; }
+.context { background:var(--tint); font-size:12px; color:var(--muted); padding:22px 48px; border-top:1px solid var(--line); }
+.contents { padding:48px; border-bottom:1px solid var(--line); }
+.contents ol { list-style:decimal-leading-zero; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px 40px; padding-left:24px; font-size:14px; }
+.contents li { padding-left:6px; }
+.contents a { display:flex; justify-content:space-between; gap:10px; text-decoration:none; border-bottom:1px solid var(--line); padding:12px 0; color:var(--ink); }
+.chapter { padding:72px 48px; border-bottom:1px solid var(--line); scroll-margin-top:20px; }
+.chapter-heading { display:flex; align-items:start; gap:28px; margin-bottom:24px; }
+.chapter-heading>span { background:var(--blue); color:white; width:52px; height:52px; display:grid; place-items:center; flex-shrink:0; font-size:18px; }
+.chapter-heading .kicker { margin:0 0 8px; }
+h2 { font-size:clamp(26px,3.2vw,40px); line-height:1.55; margin:0; letter-spacing:-.02em; }
+h3 { font-size:19px; line-height:1.65; margin:0 0 14px; }
+.chapter>p { max-width:950px; font-size:15px; }
+.section-lead { color:var(--muted); margin-bottom:36px; }
+.speakers { display:grid; gap:36px; }
+.speaker { display:grid; grid-template-columns:180px 1fr; gap:28px; padding:28px; background:var(--tint); }
+.speaker .source-figure { margin:0; }
+.speaker img { aspect-ratio:1; width:100%; object-fit:cover; }
+.speaker figcaption { display:none; }
+.speaker p { font-size:13px; margin:8px 0 0; }
+.speaker .role { color:var(--blue); font-size:12px; }
+.source-figure { margin:24px 0; min-width:0; }
+.source-figure img { max-height:600px; width:100%; object-fit:contain; background:white; border:1px solid var(--line); }
+.source-figure figcaption { margin-top:10px; font-size:11px; color:var(--muted); }
+.figure-grid { display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start; }
+blockquote { margin:48px 0 28px; padding:26px 32px; font-family:"Hiragino Mincho ProN","Yu Mincho",serif; color:var(--blue); border-left:4px solid var(--blue); background:var(--tint); font-size:clamp(25px,3vw,36px); line-height:1.65; font-weight:650; }
+blockquote small { font-size:.65em; }
+.cards,.timeline { display:grid; gap:18px; margin:28px 0; }
+.three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.two { grid-template-columns:1fr 1fr; }
+.timeline { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.card { padding:24px; border:1px solid var(--line); background:var(--paper); min-width:0; }
+.card h3 { font-size:16px; }
+.card p { font-size:13px; color:var(--muted); margin:0; }
+.subheading { margin-top:44px; font-size:23px; }
+.comparison { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.comparison .card:last-child { border-color:var(--blue); background:var(--tint); }
+.workflow { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin:28px 0; }
+.workflow span { padding:14px 24px; background:var(--tint); color:var(--blue); font-size:14px; font-weight:600; }
+.workflow b { color:var(--muted); }
+.demo-callout { background:var(--tint); padding:36px; margin-top:40px; border-left:4px solid var(--blue); }
+.demo-callout p { font-size:14px; }
+.case-grid { display:grid; gap:24px; margin:40px 0; }
+.case { padding:32px; background:var(--tint); }
+.case p { font-size:14px; }
+.metrics { display:flex; flex-wrap:wrap; gap:24px 60px; margin-top:24px; border-top:1px solid var(--line); padding-top:24px; }
+.metrics strong { display:block; font-size:32px; color:var(--blue); line-height:1.5; }
+.metrics span { display:block; font-size:12px; color:var(--muted); }
+.agent-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.agent-grid>div { display:flex; align-items:center; gap:16px; padding:16px 20px; border:1px solid var(--line); }
+.agent-grid span { font-size:12px; color:var(--blue); }
+.agent-grid p { font-size:14px; margin:0; }
+.source-notes { margin-top:40px; padding-top:20px; border-top:1px solid var(--line); }
+.source-notes summary { cursor:pointer; width:fit-content; font-size:13px; color:var(--muted); }
+.source-content { padding-top:24px; }
+.source-slide { padding:24px; margin:0 0 24px; background:var(--tint); overflow-wrap:anywhere; }
+.source-slide h3 { font-size:12px; color:var(--blue); letter-spacing:.12em; }
+.source-slide p { font-size:13px; margin:10px 0; white-space:normal; }
+.source-slide .source-figure { max-width:100%; }
+.small { color:var(--muted); font-size:12px!important; }
+.closing { color:var(--blue); font-size:40px!important; letter-spacing:.1em; margin-bottom:0; }
+footer { display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; max-width:1320px; margin:auto; padding:36px 48px; font-size:11px; color:var(--muted); }
+.skip { position:fixed; left:8px; top:8px; transform:translateY(-160%); z-index:10; background:white; padding:8px 20px; }
+.skip:focus { transform:translateY(0); }
+@media(max-width:950px) { .hero { grid-template-columns:1.5fr 1fr; } .hero>div:first-child { padding:48px 32px; } .hero-image p { left:24px; font-size:10px; } .timeline { grid-template-columns:1fr 1fr; } .contents ol { grid-template-columns:1fr 1fr; } }
+@media(max-width:700px) { header { padding:20px; align-items:start; } .brand { font-size:12px; } header nav { gap:10px 16px; justify-content:flex-end; font-size:11px; } .hero { display:block; min-height:0; } .hero>div:first-child { padding:48px 22px; } h1 { font-size:36px; } .hero-image { height:180px; } .hero-image img { object-position:center; } .hero-image p { bottom:20px; } .subtitle { font-size:16px; } .context { padding:20px 22px; } .contents { padding:30px 22px; } .contents ol { grid-template-columns:1fr; gap:8px; } .chapter { padding:44px 22px; } .chapter-heading { gap:16px; } .chapter-heading>span { width:38px; height:38px; font-size:14px; } h2 { font-size:25px; } .speaker { grid-template-columns:1fr; padding:22px; gap:20px; } .speaker .source-figure { width:140px; } .figure-grid,.three,.two,.comparison,.agent-grid { grid-template-columns:1fr; } .figure-grid { gap:0; } .timeline { grid-template-columns:1fr; } blockquote { padding:22px; margin-top:32px; font-size:26px; } .case { padding:24px; } .metrics strong { font-size:28px; } .demo-callout { padding:24px; } .source-slide { padding:18px; } footer { padding:28px 22px; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+/* Presentation mode: generated from the article, with independent navigation. */
+.present-start { font:inherit; border:1px solid var(--blue); color:var(--blue); background:white; padding:7px 12px; cursor:pointer; }
+.present-hero { padding:12px 20px; font-size:13px; font-weight:600; margin-top:12px; }
+.present-start[hidden], .presentation-slide[hidden], .presentation-toolbar [hidden] { display:none!important; }
+body.is-presenting { overflow:hidden; }
+.presentation-sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.presentation-dialog { position:fixed; inset:0; width:100%; max-width:none; height:100%; height:100dvh; max-height:none; padding:0; margin:0; border:0; background:#172033; color:var(--ink); }
+.presentation-dialog:not([open]) { display:none; }
+.presentation-dialog[open] { display:flex; flex-direction:column; }
+.presentation-dialog::backdrop { background:#172033; }
+.presentation-stage { position:relative; flex:1; min-height:0; width:100%; display:grid; place-items:center; overflow:hidden; touch-action:pan-y pinch-zoom; }
+.presentation-frame { position:absolute; left:50%; top:50%; width:1600px; height:900px; flex-shrink:0; transform:translate(-50%, -50%) scale(var(--presentation-scale, .5)); transform-origin:center; background:white; box-shadow:0 12px 80px #0004; }
+.presentation-slide { width:100%; height:100%; overflow:auto; touch-action:pan-y pinch-zoom; padding:60px 80px; outline:none; background:white; }
+.presentation-slide>.kicker { font-size:17px; margin:0 0 14px; }
+.presentation-slide>h2 { font-size:44px; line-height:1.5; margin:0 0 30px; }
+.presentation-content { font-size:25px; line-height:1.8; }
+.presentation-content p { font-size:inherit; max-width:none; }
+.presentation-content>.small { font-size:18px!important; }
+.presentation-content .card p, .presentation-content .speaker p, .presentation-content .case p { font-size:22px; }
+.presentation-content .card h3 { font-size:26px; }
+.presentation-content .card { padding:30px; }
+.presentation-content .cards, .presentation-content .timeline { margin:20px 0; }
+.presentation-content .speaker { grid-template-columns:260px 1fr; padding:32px; gap:40px; }
+.presentation-content .speaker h3 { font-size:32px; }
+.presentation-content .speaker .role { font-size:19px; }
+.presentation-content .source-figure { margin:0; }
+.presentation-content .source-figure img { max-height:540px; width:100%; object-fit:contain; }
+.presentation-content .source-figure figcaption { font-size:17px; margin-top:10px; }
+.presentation-content blockquote { font-size:44px; margin:20px 0; padding:30px 36px; }
+.presentation-content .metrics strong { font-size:44px; }
+.presentation-content .metrics span { font-size:20px; }
+.presentation-content .metrics { gap:32px 80px; }
+.presentation-content .agent-grid { grid-template-columns:1fr 1fr; }
+.presentation-content .agent-grid p { font-size:25px; }
+.presentation-content .agent-grid>div { padding:10px 24px; }
+.presentation-content .workflow span { font-size:22px; }
+.presentation-content .demo-callout { margin:0; }
+.presentation-content .demo-callout h3 { font-size:34px; }
+.presentation-content .demo-callout p { font-size:25px; }
+.presentation-content .button { font-size:22px; padding:16px 28px; }
+.presentation-divider { display:flex; flex-direction:column; justify-content:center; border-left:24px solid var(--blue); background:linear-gradient(100deg,#fff 65%,#f1f5ff); }
+.presentation-divider>h2 { font-size:64px; max-width:1300px; }
+.presentation-divider .presentation-content { max-width:1150px; font-size:30px; color:var(--muted); }
+.presentation-title { padding:0; }
+.presentation-title>.kicker, .presentation-title>h2 { display:none; }
+.presentation-title .presentation-content { height:100%; }
+.presentation-cover { height:100%; display:grid; grid-template-columns:1.3fr 1fr; }
+.presentation-cover>div:first-child { padding:90px 70px; }
+.presentation-cover h1 { font-size:68px; }
+.presentation-cover .subtitle { font-size:27px; }
+.presentation-cover .dateline { font-size:18px; }
+.presentation-cover .hero-image { height:100%; }
+.presentation-contents ol { list-style:decimal-leading-zero; margin:40px 0; padding-left:50px; }
+.presentation-contents li { padding:15px 0 15px 20px; }
+.presentation-contents a { display:flex; justify-content:space-between; max-width:1150px; text-decoration:none; border-bottom:1px solid var(--line); }
+.presentation-toolbar { flex-shrink:0; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:10px; padding:12px 20px; color:white; background:#101829; font-size:13px; }
+.presentation-toolbar button, .presentation-toolbar select { font:inherit; color:white; border:1px solid #ffffff40; background:#1e2c45; border-radius:5px; padding:9px 13px; min-height:40px; cursor:pointer; }
+.presentation-toolbar button:disabled { opacity:.35; cursor:default; }
+.presentation-toolbar button:focus-visible, .presentation-toolbar select:focus-visible { outline:3px solid #8cbbff; outline-offset:2px; }
+.presentation-jump select { width:240px; max-width:100%; }
+.presentation-count { min-width:64px; text-align:center; font-variant-numeric:tabular-nums; }
+.presentation-help { color:#b6c5dc; font-size:11px; margin-left:10px; }
+.presentation-progress { display:block; flex-shrink:0; width:100%; height:4px; border:0; appearance:none; accent-color:#72a5ff; }
+.presentation-progress::-webkit-progress-bar { background:#25344b; }
+.presentation-progress::-webkit-progress-value { background:#72a5ff; }
+@media(max-width:1000px) { .presentation-help { display:none; } }
+@media(max-width:900px) {
+  header nav { align-items:center; }
+  .present-start { font-size:11px; }
+  .presentation-stage { display:block; }
+  .presentation-frame.presentation-narrow { position:relative; left:0; top:0; width:100%; height:100%; transform:none; box-shadow:none; }
+  .presentation-slide { padding:28px 22px; }
+  .presentation-slide>.kicker { font-size:11px; }
+  .presentation-slide>h2 { font-size:27px; margin-bottom:22px; }
+  .presentation-content, .presentation-content p { font-size:17px; }
+  .presentation-content .card p, .presentation-content .speaker p, .presentation-content .case p { font-size:16px; }
+  .presentation-content .card h3 { font-size:20px; }
+  .presentation-content .card { padding:20px; }
+  .presentation-content .speaker { grid-template-columns:1fr; padding:20px; gap:20px; }
+  .presentation-content .speaker .source-figure { width:120px; }
+  .presentation-content .speaker h3 { font-size:25px; }
+  .presentation-content .speaker .role { font-size:14px; }
+  .presentation-content .source-figure img { max-height:none; }
+  .presentation-content .source-figure figcaption { font-size:13px; }
+  .presentation-content blockquote { font-size:28px; margin:12px 0; padding:20px; }
+  .presentation-content .metrics strong { font-size:32px; }
+  .presentation-content .metrics span { font-size:14px; }
+  .presentation-content .agent-grid { grid-template-columns:1fr; }
+  .presentation-content .agent-grid p { font-size:17px; }
+  .presentation-content .workflow span { font-size:16px; }
+  .presentation-content .demo-callout { padding:22px; }
+  .presentation-content .demo-callout h3 { font-size:25px; }
+  .presentation-content .demo-callout p { font-size:17px; }
+  .presentation-content .button { font-size:16px; padding:12px 20px; }
+  .presentation-content>.small { font-size:13px!important; }
+  .presentation-divider { border-left-width:10px; }
+  .presentation-divider .presentation-content { font-size:20px; }
+  .presentation-title { padding:0; }
+  .presentation-cover { display:block; height:auto; min-height:100%; }
+  .presentation-cover>div:first-child { padding:36px 24px; }
+  .presentation-cover h1 { font-size:36px; }
+  .presentation-cover .subtitle { font-size:18px; }
+  .presentation-cover .dateline { font-size:12px; }
+  .presentation-cover .hero-image { height:180px; }
+  .presentation-contents ol { padding-left:22px; margin:12px 0; }
+  .presentation-contents li { padding:12px 0 12px 6px; }
+  .presentation-toolbar { padding:8px; gap:6px; font-size:12px; }
+  .presentation-toolbar button, .presentation-toolbar select { padding:8px; min-height:38px; }
+  .presentation-count { min-width:50px; }
+  .presentation-jump { order:2; width:100%; }
+  .presentation-jump select { width:100%; }
+}

@@ -1,0 +1,191 @@
+(function(root){
+'use strict';
+const EPS=1e-7,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const maxSlope=70*Math.PI/180,walkable=p=>!!p&&Math.abs(p.slope)<=maxSlope+EPS;
+const point=(x,h)=>({x:x*10,y:500-h*10});
+const cross=(a,b)=>a.x*b.y-a.y*b.x;
+function segment(a,b,c,d){
+ const r={x:b.x-a.x,y:b.y-a.y},s={x:d.x-c.x,y:d.y-c.y},den=cross(r,s);
+ if(Math.abs(den)<EPS)return null;
+ const ca={x:c.x-a.x,y:c.y-a.y},t=cross(ca,s)/den,u=cross(ca,r)/den;
+ if(t<-EPS||t>1+EPS||u<-EPS||u>1+EPS)return null;
+ const len=Math.hypot(s.x,s.y);let nx=-s.y/len,ny=s.x/len;if(nx*r.x+ny*r.y>0){nx=-nx;ny=-ny;}
+ return {t:clamp(t,0,1),x:a.x+r.x*t,y:a.y+r.y*t,nx,ny};
+}
+function inside(p,poly){let v=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+ const a=poly[i],b=poly[j];if((a.y>p.y)!==(b.y>p.y)&&p.x<(b.x-a.x)*(p.y-a.y)/(b.y-a.y)+a.x)v=!v;
+ }return v;}
+function circle(a,b,c,r){const dx=b.x-a.x,dy=b.y-a.y,fx=a.x-c.x,fy=a.y-c.y,A=dx*dx+dy*dy;if(fx*fx+fy*fy<=r*r)return 0;if(A<EPS)return null;const B=2*(fx*dx+fy*dy),C=fx*fx+fy*fy-r*r,disc=B*B-4*A*C;if(disc<0)return null;const t=(-B-Math.sqrt(disc))/(2*A);return t>=0&&t<=1?t:null;}
+function rectangle(id,x1,x2,h1,h2,kind='solid'){
+ const a=point(x1,h2),b=point(x2,h1);return {id,kind,poly:[a,{x:b.x,y:a.y},b,{x:a.x,y:b.y}]};
+}
+function floorY(points,x){if(x<points[0].x-EPS||x>points.at(-1).x+EPS)return null;for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];if(x<=b.x+EPS&&b.x>a.x)return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x);}return points.at(-1).y;}
+// A cloud owns fixed world-space silhouettes. Rendering and slowing use these same vertices.
+function cloudPolygons(r){
+ const w=r.x2-r.x1,h=r.y2-r.y1,cols=Math.max(1,Math.min(3,Math.ceil(w/125))),rows=Math.max(1,Math.min(2,Math.ceil(h/95))),out=[];
+ const curves=[[-36,10,-55,9,-48,-9,-28,-8],[-28,-8,-26,-24,-5,-24,3,-11],[3,-11,21,-17,37,-11,35,-1],[35,-1,52,0,50,12,29,12]];
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+  const x=r.x1+w*(i+.5)/cols,y=r.y1+h*(j+.52)/rows+Math.sin(i+j)*2,poly=[];
+  for(const c of curves)for(let n=0;n<16;n++){const t=n/16,a=1-t;poly.push({x:x+a*a*a*c[0]+3*a*a*t*c[2]+3*a*t*t*c[4]+t*t*t*c[6],y:y+a*a*a*c[1]+3*a*a*t*c[3]+3*a*t*t*c[5]+t*t*t*c[7]});}
+  poly.push({x:x+29,y:y+12});out.push({poly,x1:Math.min(...poly.map(p=>p.x)),x2:Math.max(...poly.map(p=>p.x)),y1:Math.min(...poly.map(p=>p.y)),y2:Math.max(...poly.map(p=>p.y))});
+ }return out;
+}
+function cloudContains(p,r){return p.x>=r.x1&&p.x<=r.x2&&p.y>=r.y1&&p.y<=r.y2&&(r.clouds||cloudPolygons(r)).some(c=>p.x>=c.x1&&p.x<=c.x2&&p.y>=c.y1&&p.y<=c.y2&&inside(p,c.poly));}
+function world(spec,round=1,bossPhase=0,effects={}){
+ const solids=[],regions=[],waters=[],terminals=[],surfaces=[];const tick=spec.id===11?Math.max(0,round-2):Math.floor((round-1)/(spec.hold||1));
+ spec.floors.forEach((f,i)=>{const top=f.map(([x,h])=>point(x,h));const poly=[...top,{x:top.at(-1).x,y:560},{x:top[0].x,y:560}];solids.push({id:'floor'+i,kind:'floor',poly});surfaces.push({id:'floor'+i,points:top});});
+ // Finite polygons retain their undersides: a mountain, an island and a cave
+ // roof all share collision geometry, rather than a single height function.
+ for(const component of spec.components||[]){
+  const poly=component.poly.map(([x,h])=>point(x,h)),xs=poly.map(p=>p.x),left=Math.min(...xs),right=Math.max(...xs);
+  const count=component.destructible?Math.max(1,Math.ceil((right-left)/100)):1;
+  for(let piece=0;piece<count;piece++){
+   const id=component.id+(component.destructible?'@'+piece:'');if(effects.destroyed?.includes(id))continue;
+   const cut=count===1?poly:clipX(clipX(poly,left+(right-left)*piece/count,true),left+(right-left)*(piece+1)/count,false);
+   if(cut.length<3)continue;
+   const o={id,componentId:component.id,kind:component.destructible?'fragile':'bedrock',destructible:!!component.destructible,poly:cut};solids.push(o);
+   for(let j=1;j<(component.reflectiveUnderside||[]).length;j++){
+    const raw=component.reflectiveUnderside,aa=point(...raw[j-1]),bb=point(...raw[j]);
+    const line=aa.x<bb.x?[aa,bb]:[bb,aa],x1=Math.max(line[0].x,left+(right-left)*piece/count),x2=Math.min(line[1].x,left+(right-left)*(piece+1)/count);
+    if(x2>x1){const a={x:x1,y:floorY(line,x1)},b={x:x2,y:floorY(line,x2)};solids.push({id:id+':under'+j,solidId:id,kind:'reflector',underside:true,poly:[a,b,{x:b.x,y:b.y-6},{x:a.x,y:a.y-6}]});}
+   }
+   for(let edge=0;edge<cut.length;edge++){
+    const a=cut[edge],b=cut[(edge+1)%cut.length];if(Math.abs(a.x-b.x)<EPS)continue;
+    const mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+    if(inside({x:mid.x,y:mid.y+1},cut)&&!inside({x:mid.x,y:mid.y-1},cut))surfaces.push({id:id+':e'+edge,solidId:id,kind:o.kind,points:a.x<b.x?[a,b]:[b,a]});
+   }
+  }
+ }
+ const features=[...(spec.phaseFeatures?.[bossPhase]||spec.features),...(spec.staticFeatures||[]).map((f,j)=>({...f,id:'fixed'+j}))];
+ features.forEach(({type:k,v,id:featureId,openAngleDeg=75,defaultPose,sizeFactor=1},i)=>{
+  const id=featureId||k+i;
+  if(k==='S'||k==='R'){const [x1,x2,h1,h2]=v;const o=rectangle(id,x1,x2,h1,k==='R'?h1+2:h2,k==='R'?'roof':'solid');solids.push(o);surfaces.push({id,points:[o.poly[0],o.poly[1]]});}
+  if(k==='B'){
+   const [x,h,len,open,slope=0]=v,angle=((open+(defaultPose==='lowered'?1:0)+(tick%2))%2?openAngleDeg:slope)*Math.PI/180,a=point(x,h),b={x:a.x+Math.cos(angle)*len*10,y:a.y-Math.sin(angle)*len*10};
+   solids.push({id,kind:'bridge',open:Math.abs(angle-slope*Math.PI/180)>.1,poly:[a,b,{x:b.x,y:b.y+12},{x:a.x,y:a.y+12}],hinge:a});surfaces.push({id,points:[a,b]});
+  }
+  if(k==='K'){
+   const [x,h,angle]=v,aa=(angle+(spec.id===39&&tick%2?90:0))*Math.PI/180,c=point(x,h),dx=Math.cos(aa)*55*sizeFactor,dy=Math.sin(aa)*55*sizeFactor;
+   solids.push({id,kind:'crystal',poly:[{x:c.x-dx,y:c.y-dy},{x:c.x+dx,y:c.y+dy},{x:c.x+dx+4,y:c.y+dy+4},{x:c.x-dx+4,y:c.y-dy+4}]});
+  }
+  if(k==='W'){
+   // The legacy W authoring slot is now a supported reflective material.
+   // Its visible top is exactly the existing floor collision edge, never a
+   // floating water plane or a second, hidden surface beneath the ground.
+   const left=v[0]*10,right=v[1]*10;
+   for(const floor of surfaces.filter(f=>f.kind!=='fragile')){
+    for(let j=1;j<floor.points.length;j++){
+     const a=floor.points[j-1],b=floor.points[j],x1=Math.max(left,a.x),x2=Math.min(right,b.x);
+     if(x2-x1<.01)continue;
+     const from={x:x1,y:floorY([a,b],x1)},to={x:x2,y:floorY([a,b],x2)};
+     solids.push({id:id+':'+floor.id+':'+j,kind:'reflector',sourceFeatureId:id,floorId:floor.id,poly:[from,to,{x:to.x,y:to.y+6},{x:from.x,y:from.y+6}]});
+    }
+   }
+  }
+  if('CUFV'.includes(k)){
+   const [x1,x2,h1,h2]=v;let direction=spec.id===54||spec.id===55?1:tick%2?-1:1;
+   if(spec.id===60&&effects.broken>0)direction=1;
+   const strength=spec.id===60?(effects.broken>=2?0:effects.broken===1?.18:.35):.35;
+   const ventStartsOn=Number.isFinite(v[4])?!!v[4]:spec.ventStartsOn===undefined?spec.id===64:!!spec.ventStartsOn;
+   const on=k!=='V'||(tick+(ventStartsOn?1:0))%2===1;
+   let offset=spec.id===30&&k!=='C'?(effects.cloudOffset||0):0;
+   const field={id,kind:k,x1:x1*10+offset,x2:x2*10+offset,y1:500-h2*10,y2:500-h1*10,direction,strength,on,slow:spec.id===90&&effects.thinCloud?.85:.72};
+   if(k==='C')field.clouds=cloudPolygons(field);
+   regions.push(field);
+  }
+  if(k==='M'){const [x,h,r,dir]=v;regions.push({id,kind:k,...point(x,h),radius:r*10,direction:effects.polarity||dir,strength:spec.id===80?(effects.broken>=2?0:effects.broken===1?.5:1):1,on:true});}
+  if(k==='T')terminals.push({id,...point(v[0],v[1]),radius:20});
+ });
+ return addSolidSurfaces({solids,regions,waters,terminals,surfaces,...(spec.worldWidth?{width:spec.worldWidth}:{})});
+}
+// Every projectile collider also has a supporting upper edge. Keep existing
+// authored surfaces and derive only missing ones (including boss attachments).
+function addSolidSurfaces(w){for(const o of w.solids){
+ if(w.surfaces.some(f=>f.id===o.id||f.solidId===o.id))continue;
+ for(let i=0;i<o.poly.length;i++){const a=o.poly[i],b=o.poly[(i+1)%o.poly.length];if(Math.abs(a.x-b.x)<EPS)continue;
+  const mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+  if(inside({x:mid.x,y:mid.y+.01},o.poly)&&!inside({x:mid.x,y:mid.y-.01},o.poly))w.surfaces.push({id:o.id+':e'+i,solidId:o.id,kind:o.kind,points:a.x<b.x?[a,b]:[b,a]});
+ }
+}return w;}
+function clipX(poly,x,greater){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],ia=greater?a.x>=x-EPS:a.x<=x+EPS,ib=greater?b.x>=x-EPS:b.x<=x+EPS;if(ia)out.push({...a});if(ia!==ib){const t=(x-a.x)/(b.x-a.x);out.push({x,y:a.y+(b.y-a.y)*t});}}return out;}
+function without(w,ids){const gone=new Set(ids);return {...w,solids:w.solids.filter(o=>!gone.has(o.id)&&!gone.has(o.solidId)),surfaces:w.surfaces.filter(f=>!gone.has(f.solidId||f.id))};}
+function segmentKey(f,x){const e=surfaceEdge(f,x);return f.id+':'+e[0].x+':'+e[1].x;}
+function fallLanding(w,x,startY,other=null,range=[35,(w.width||1000)-35]){
+ const route=[],seen=new Set();
+ for(let step=0;step<64;step++){
+  if(x<range[0]||x>range[1])return null;
+  const candidates=w.surfaces.map(f=>({f,y:floorY(f.points,x)})).filter(c=>c.y!==null&&c.y>=startY-2&&!seen.has(segmentKey(c.f,x))).sort((a,b)=>a.y-b.y);
+  let sliding=false;
+  for(const {f,y} of candidates){const p=support(w,x,y,f),separation=other?.hitShape?Math.max(100,other.hitShape.rx+28):100;
+   if(!p||!clearBody(w,p))continue;
+   if(other&&Math.hypot(x-other.x,p.y-other.y)<=separation)return null;
+   if(walkable(p))return route.length?{...p,slidePath:[...route,p]}:p;
+   const edge=surfaceEdge(f,x),end=p.slope>0?edge[1]:edge[0],dir=Math.sign(p.slope);
+   // Follow the face to its lower end, then fall onto the next real surface.
+   const endX=clamp(end.x,range[0],range[1]),endY=floorY(edge,endX),endPad={x:endX,y:endY,slope:p.slope};
+   const length=Math.hypot(endX-x,endY-p.y),samples=Math.ceil(length/8);
+   for(let n=1;n<samples;n++){const t=n/samples;if(length*(1-t)<32)break;const q={x:x+(endX-x)*t,y:p.y+(endY-p.y)*t,slope:p.slope};if(!clearBody(w,q)||other&&Math.hypot(q.x-other.x,q.y-other.y)<=separation)return null;}
+   route.push(p,endPad);seen.add(segmentKey(f,x));x=endX+dir*28;startY=endY;sliding=true;break;
+  }
+  if(!sliding)return null;
+ }
+ return null;
+}
+function teleportLanding(w,hit,other,range=[35,(w.width||1000)-35]){
+ if(!hit||!Number.isFinite(hit.x+hit.y))return null;
+ const nx=Number(hit.nx)||0,ny=Number(hit.ny)||0;
+ const top=ny<-EPS,wall=!top&&Math.abs(nx)>.4&&Math.abs(ny)<.7,dir=Math.sign(nx)||1;
+ // Search adjacent safe columns; side contacts fall from their contact height.
+ // A top contact only requires the actual body's45px headroom.
+ const offsets=top?[0,-6,6,-12,12,-20,20,-32,32,-48,48,-64,64]:wall?[37,45,57,73,97].map(n=>dir*(hit.unit!==undefined?n+50:n)):[0,-8,8,-20,20,-36,36,-56,56];
+ for(const offset of offsets){
+  const entry={x:clamp(hit.x+offset,range[0],range[1]),y:hit.y+(top?0:ny>.4?50:24),slope:top?Math.atan2(nx,-ny):0};
+  if(!clearBody(w,entry))continue;
+  if(wall&&!lineClear(w,{x:hit.x+nx*.6,y:hit.y},{x:entry.x,y:hit.y}))continue;
+  const landing=fallLanding(w,entry.x,entry.y,other,range);
+  if(landing)return {...landing,entry};
+ }return null;
+}
+function surfaceAt(w,x,near=400,maxDifference=Infinity){let best=null;for(const f of w.surfaces){const y=floorY(f.points,x);if(y!==null&&Math.abs(y-near)<=maxDifference&&(!best||Math.abs(y-near)<Math.abs(best.y-near)))best={x,y,id:f.id};}return best;}
+function surfaceEdge(f,x){for(let i=1;i<f.points.length;i++)if(x<=f.points[i].x+EPS&&f.points[i].x>f.points[i-1].x)return [f.points[i-1],f.points[i]];return f.points.slice(-2);}
+function support(w,x,y,surface=null){
+ const nearest=surface?null:surfaceAt(w,x,y,20*Math.tan(maxSlope)+2),f=surface||nearest&&w.surfaces.find(f=>f.id===nearest.id);if(!f)return null;
+ const edge=surfaceEdge(f,x),slope=Math.atan2(edge[1].y-edge[0].y,edge[1].x-edge[0].x);
+ // Preserve the gentle-terrain chassis interpolation; steep faces need a
+ // tangent at the actual contact, not two samples capped at 24px of height.
+ if(Math.abs(slope)<=35*Math.PI/180){const a=surfaceAt(w,x-20,y,24),b=surfaceAt(w,x+20,y,24);if(a&&b&&Math.abs(a.y-b.y)<=40*Math.tan(35*Math.PI/180))return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:a.id};}
+ if(Math.abs(slope)<=maxSlope+EPS){
+  // At the foot/crest, let the chassis bridge connected terrain instead of
+  // hitting the slope as an upright body. Never connect across a real gap.
+  const connected=w.surfaces.filter(n=>n===f||n.points.some(a=>f.points.some(b=>Math.hypot(a.x-b.x,a.y-b.y)<EPS)));
+  const sample=xx=>surfaceAt({...w,surfaces:connected},xx,y,20*Math.tan(maxSlope)+2),a=sample(x-20),b=sample(x+20);
+  if(a&&b)return {x,y:(a.y+b.y)/2,slope:Math.atan2(b.y-a.y,40),surface:f.id};
+ }
+ return {x,y:floorY(f.points,x),slope,surface:f.id};
+}
+function clearBody(w,p){const a=Math.abs(p.slope||0)>35*Math.PI/180?p.slope:0,c=Math.cos(a),s=Math.sin(a),points=[[0,-24],[-22,-20],[22,-20],[0,-45]].map(([x,y])=>({x:p.x+x*c-y*s,y:p.y+x*s+y*c}));return !w.waters.some(r=>p.x>=r.x1&&p.x<=r.x2&&p.y>r.y-2)&&!w.solids.some(o=>points.some(q=>inside(q,o.poly)));}
+function safePosition(w,x,y,other=null,range=[35,(w.width||1000)-35]){
+ for(const dx of [0,-5,5,-12,12,-24,24,-40,40,-70,70,-100,100]){
+  const xx=clamp(x+dx,range[0],range[1]),f=surfaceAt(w,xx,y);if(!f)continue;const p=support(w,xx,f.y);
+  if(walkable(p)&&clearBody(w,p)&&(!other||Math.hypot(xx-other.x,p.y-other.y)>100))return p;
+ }return null;
+}
+function sweep(w,a,b,ignore=null){let best=null;for(const o of w.solids){if(o.id===ignore)continue;for(let i=0;i<o.poly.length;i++){const h=segment(a,b,o.poly[i],o.poly[(i+1)%o.poly.length]);if(h&&(!best||h.t<best.t-EPS||Math.abs(h.t-best.t)<=EPS&&o.kind==='reflector'&&['floor','bedrock'].includes(best.solid.kind)))best={...h,solid:o};}}return best;}
+function lineClear(w,a,b){const h=sweep(w,a,b);return !h||h.t>.98;}
+function move(s,side,amount){
+ const u=s.units[side];if(!Number.isFinite(amount)||s.result)return 0;let remaining=clamp(amount,-1000,1000),moved=0;
+ while(Math.abs(remaining)>.01){const dx=clamp(remaining,-2,2),x=clamp(u.x+dx,u.range[0],u.range[1]);if(Math.abs(x-u.x)<.01)break;
+  const f=surfaceAt(s.world,x,u.y,20*Math.tan(maxSlope)+9),p=f&&support(s.world,x,f.y);if(!p||!clearBody(s.world,p)||Math.hypot(x-s.units[1-side].x,p.y-s.units[1-side].y)<100)break;
+  if(!walkable(p)){const pad=fallLanding(s.world,x,p.y,s.units[1-side],u.range);if(pad){const from={x:u.x,y:u.y,slope:u.slope};Object.assign(u,pad);delete u.slidePath;u.animation={from,path:pad.slidePath,age:0,duration:.7,lift:0,fall:true};moved+=x-from.x;}break;}
+  if(Math.abs(p.y-u.y)>7)break;
+  const d=x-u.x;Object.assign(u,p);moved+=d;remaining-=d;
+ }if(moved)u.facing=moved>0?1:-1;return moved;
+}
+function actorPoint(s,side,x,y){const u=s.units[side],dir=u.facing||(s.units[1-side].x>=u.x?1:-1),a=u.slope||0;return {x:u.x+x*dir*Math.cos(a)-y*Math.sin(a),y:u.y+x*dir*Math.sin(a)+y*Math.cos(a)};}
+function actorParts(s,side){const u=s.units[side];return u.parts.map(p=>{if(p.localX===undefined)return {...p};const q=actorPoint(s,side,p.localX,p.dy);return {...p,dx:q.x-u.x,dy:q.y-u.y};});}
+function muzzle(s,side,relativeAngle){const u=s.units[side],targetDir=u.facing||(s.units[1-side].x>=u.x?1:-1);let theta=(targetDir===1?-relativeAngle:180+relativeAngle)*Math.PI/180+u.slope;
+ if(side===0&&s.mode==='S_RICO'&&!s.teleportMode)theta=Math.atan2(Math.sin(theta),(s.units[1].x>=u.x?1:-1)*Math.abs(Math.cos(theta)));
+ const dir=Math.cos(theta)<-1e-7?-1:Math.cos(theta)>1e-7?1:targetDir;
+ const pivot=u.weaponPivot?actorPoint(s,side,u.weaponPivot.x,u.weaponPivot.y):{x:u.x+Math.sin(u.slope)*26,y:u.y-Math.cos(u.slope)*26},length=u.muzzleLength||35;return {x:pivot.x+Math.cos(theta)*length,y:pivot.y+Math.sin(theta)*length,dx:Math.cos(theta),dy:Math.sin(theta),theta,dir,bodyDir:targetDir,targetDir,pivot,worldAngle:Math.atan2(-Math.sin(theta),Math.abs(Math.cos(theta)))*180/Math.PI};}
+const api={cloudPolygons,cloudContains,maxSlope,walkable,addSolidSurfaces,clamp,point,segment,circle,inside,rectangle,floorY,world,surfaceAt,support,clearBody,safePosition,sweep,lineClear,move,muzzle,actorParts,actorPoint,clipX,without,fallLanding,teleportLanding};if(typeof module!=='undefined')module.exports=api;else root.ArcGeometry=api;
+})(globalThis);

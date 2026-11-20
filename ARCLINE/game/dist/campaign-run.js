@@ -1,0 +1,95 @@
+(function(root){
+'use strict';
+const node=typeof module!=='undefined',I=node?require('./inventory.js'):root.ArcInventory,L=node?require('./levels.js'):root.ArcLevels,Crew=node?require('./crew.js'):root.ArcCrew;
+const FinalTeam=node?require('./final-team.js'):root.ArcFinalTeam;
+const CrewUsage=node?require('./crew-usage.js'):root.ArcCrewUsage;
+const chapter=stage=>Math.floor((stage-1)/10)+1;
+const randomSeed=()=>Math.floor(Math.random()*4294967296)>>>0;
+const newId=()=>Date.now().toString(36)+'-'+randomSeed().toString(36);
+function ledger(raw,stage){
+ return [...new Set((Array.isArray(raw)?raw:[]).filter(id=>{
+  if(typeof id!=='string'||id.length>100||!/^L\d{3}:[\w:-]+$/.test(id))return false;
+  const n=Number(id.slice(1,4));return n>=1&&n<=100;
+ }))].slice(0,1000);
+}
+function decode(raw,maxStage=100){
+ if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==1)return null;
+ if(!Number.isInteger(raw.stage)||raw.stage<1||raw.stage>Math.min(100,maxStage)||!Number.isInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;
+ if(typeof raw.runId!=='string'||!/^[-\w]{1,80}$/.test(raw.runId)||!raw.inventory||typeof raw.inventory!=='object')return null;
+ const pending=(Array.isArray(raw.pending)?raw.pending:[]).filter(p=>p?.kind==='skills'&&I.skillIds.includes(p.id)&&Number.isInteger(p.amount)&&p.amount>0&&p.origin==='supply').slice(0,8).map(p=>({kind:'skills',id:p.id,amount:Math.min(3,p.amount),fill:false,origin:'supply',placementId:`L${String(raw.stage).padStart(3,'0')}:supply:${p.id}`}));
+ const inventory=I.normalize(raw.inventory),mode=typeof raw.mode==='string'&&(raw.mode==='W01'||inventory.weapons[raw.mode]>0)?raw.mode:'W01';
+ return {version:1,runId:raw.runId,stage:raw.stage,chapter:chapter(raw.stage),seed:raw.seed,inventory,mode,pickupLedger:ledger(raw.pickupLedger,raw.stage),pending};
+}
+function checkpoint(stage,inventory={},pickupLedger=[],runId=newId(),seed=randomSeed()){
+ const supplied=I.supply(inventory,L[stage-1].skills,stage);
+ return {version:1,runId,stage,chapter:chapter(stage),seed:seed>>>0,inventory:supplied.inventory,mode:'W01',pickupLedger:ledger(pickupLedger,stage),pending:supplied.pending};
+}
+function selectedEntry(data,stage,runId,seed){
+ if(!Number.isInteger(stage)||stage<1||stage>Math.min(100,data.cleared+1))throw RangeError('Stage is not unlocked');
+ const active=decode(data.chapterRun,Math.min(100,data.cleared+1)),sameChapter=active&&chapter(active.stage)===chapter(stage);
+ const entry=checkpoint(stage,active?.inventory||data.campaignInventory||{},data.pickupLedger||active?.pickupLedger||[],runId,seed);
+ if(active&&entry.inventory.weapons[active.mode]>0)entry.mode=active.mode;
+ return entry;
+}
+function inspect(data,stage){
+ if(data.chapterRun?.stage===stage)return {practice:false,entry:decode(data.chapterRun)};
+ return {practice:false,entry:selectedEntry(data,stage,'selection-preview',0)};
+}
+function begin(data,stage,options={}){
+ const active=decode(data.chapterRun,Math.min(100,data.cleared+1));
+ if(active?.stage===stage){data.chapterRun=active;return {practice:false,entry:decode(active)};}
+ data.chapterRun=selectedEntry(data,stage,newId(),options.seed??randomSeed());
+ return {practice:false,entry:decode(data.chapterRun)};
+}
+function restart(data,stage,options={}){
+ if(!Number.isInteger(stage)||stage<1||stage>100)return null;
+ const first=(chapter(stage)-1)*10+1;
+ if(first>data.cleared+1||first>100||first<1)return null;
+ data.chapterRun=checkpoint(first,data.campaignInventory||data.chapterRun?.inventory||{},data.pickupLedger||data.chapterRun?.pickupLedger||[],newId(),options.seed??randomSeed());return {practice:false,entry:decode(data.chapterRun)};
+}
+function matches(data,context){const a=data.chapterRun,b=context?.entry;return !context?.practice&&a&&b&&a.runId===b.runId&&a.stage===b.stage&&a.seed===b.seed;}
+function updatePreparation(data,context,state){
+ if(!matches(data,context)||state.shotCount!==0||state.round!==1)return false;
+ const active=data.chapterRun;active.inventory=I.fromState(state);active.mode=state.mode==='W01'||active.inventory.weapons[state.mode]>0?state.mode:'W01';active.pending=(state.pendingLoot||[]).filter(p=>p.origin==='supply').map(p=>({...p}));
+ context.entry=decode(active);return true;
+}
+function chooseWeapon(data,stage,id){
+ const selected=inspect(data,stage);if(id!=='W01'&&!selected.entry.inventory.weapons[id])return false;
+ begin(data,stage);const active=data.chapterRun;
+ // The selected opening shot is a preference, never a source of ammunition.
+ active.mode=id;return true;
+}
+function finish(data,context,state,options={}){
+ if(!matches(data,context)||state.stage!==context.entry.stage||state.result!=='win'||!FinalTeam.complete(state))return {advanced:false};
+ if(state.pendingLoot?.length)return {advanced:false,pending:true};
+ CrewUsage.record(data,state);
+ const reset=state.stage%10===0;data.cleared=Math.max(data.cleared,state.stage);Crew.join(data,state.stage);
+ const inventory=I.fromState(state),pickupLedger=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);data.campaignInventory=inventory;data.pickupLedger=pickupLedger;
+ data.chapterRun=state.stage===100?null:checkpoint(state.stage+1,inventory,pickupLedger,reset?newId():context.entry.runId,options.seed??randomSeed());
+ if(data.chapterRun&&data.chapterRun.inventory.weapons[state.mode]>0)data.chapterRun.mode=state.mode;
+ const Save=node?require('./save.js'):root.ArcSave;Save.inheritClears(data);
+ return {advanced:true,reset:false,nextStage:state.stage===100?null:state.stage+1};
+}
+// Persist retry stock and the once-only capsule ledger together. Consumption is
+// provisional until a win; pickups survive a failed/abandoned attempt without
+// respawning. Tracking stays in the live context, never in the battle/Worker.
+// The final relay keeps its existing battle-local retry snapshot contract.
+function updateBattle(data,context,state){
+ if(!matches(data,context)||state.stage===100)return false;
+ const remaining=I.fromState(state),previous=context.remaining||context.entry.inventory;
+ const spent=context.spent||{weapons:{},skills:{}},inventory=I.normalize(remaining);
+ for(const kind of ['weapons','skills']){
+  for(const [id,n]of Object.entries(previous[kind])){
+   const used=Math.max(0,n-(remaining[kind][id]||0));
+   if(used)spent[kind][id]=Math.min(I.limits.count,(spent[kind][id]||0)+used);
+  }
+  for(const [id,n]of Object.entries(spent[kind]))inventory[kind][id]=Math.min(I.limits.count,(remaining[kind][id]||0)+n);
+ }
+ context.remaining=remaining;context.spent=spent;
+ const ids=ledger([...(data.pickupLedger||[]),...state.collectedPickupIds],state.stage);
+ data.campaignInventory=inventory;data.pickupLedger=ids;
+ Object.assign(data.chapterRun,{inventory,pickupLedger:ids,mode:inventory.weapons[state.mode]>0?state.mode:'W01'});context.entry=decode(data.chapterRun);return true;
+}
+const api={updateBattle,chapter,decode,begin,inspect,restart,finish,updatePreparation,chooseWeapon,checkpoint};
+if(typeof module!=='undefined')module.exports=api;else root.ArcCampaignRun=api;
+})(globalThis);
