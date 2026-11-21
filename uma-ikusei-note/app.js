@@ -565,6 +565,23 @@ function supportDeck(deck) {
   }), "sheet-deck");
 }
 
+function trainingSupport(setup) {
+  const decks = data.plan.decks ?? {};
+  const deck = decks[setup.deckId];
+  const alternatives = collection(setup.alternateDeckIds).map(id => decks[id]).filter(Boolean);
+  const research = data.plan.factorResearch?.support;
+  return `<section class="panel sheet-section" id="plan-support" tabindex="-1">
+    <div class="sheet-position-head"><h3>サポート編成</h3>${deck ? tag(deck.name) : ""}</div>
+    ${deck ? supportDeck(deck) : empty("サポート編成は未登録です。")}
+    ${setup.deckNote || deck?.note ? `<p class="meta-note">${esc(setup.deckNote ?? deck.note)}</p>` : ""}
+    ${alternatives.length ? `<div class="sheet-setting">${details("条件付きの代替編成", alternatives.map(option => `
+      <div class="sheet-setting"><h4>${esc(option.name)}</h4>
+      <p class="sheet-hint-summary">${esc(option.note)}</p>${supportDeck(option)}</div>`).join(""))}</div>` : ""}
+    ${research ? `<div class="sheet-setting">${details(`編成の判断と出典　${dated(research.checkedAt)}`, `
+      <p>${esc(research.summary)}</p>${factorResearchLinks(research.sources)}`)}</div>` : ""}
+  </section>`;
+}
+
 function plannedRaces(reservations) {
   return listMarkup(reservations.map(({ period, race, grade, purpose }) => `
     <span class="training-race-date">${esc(period)}</span>
@@ -599,7 +616,7 @@ function trainingHints(setup) {
   const review = setup.hintReview;
   const alternates = collection(review?.alternates);
   return `<section class="sheet-setting" id="plan-hints" tabindex="-1">
-    <div class="sheet-row-title"><h4>優先スキル</h4><span class="num">${review ? "手持ち候補 " : ""}${number(hints.length)} / 10枠</span></div>
+    <div class="sheet-row-title"><h4>優先ヒント</h4><span class="num">主編成 ${number(hints.length)} / 10枠</span></div>
     ${review ? `<p class="sheet-hint-summary">${esc(review.summary)}</p>` : ""}
     ${hints.length ? `<ol class="sheet-hints">${hints.map(([skill, cardId, condition]) => {
       const character = deckCard(cardId)?.character;
@@ -607,9 +624,9 @@ function trainingHints(setup) {
         ${character || condition ? `<p>${esc([character, condition].filter(Boolean).join("・"))}</p>` : ""}</div></li>`;
     }).join("")}</ol>` : empty("優先スキルは未登録です。")}
     ${review ? `
-      ${alternates.length ? details("選択できたら追加・入れ替え", priorityItems(alternates, false)) : ""}
-      <p class="meta-note">ゲームで選べる候補から最大10個。狙う白因子のスキルは、ヒントを得たあと育成終了前に取得します。</p>
-      ${details(`攻略の出典　${dated(data.plan.factorResearch?.checkedAt)}確認`, factorResearchLinks([
+      ${alternates.length ? details("本人・継承などから取る候補", priorityItems(alternates, false)) : ""}
+      <p class="meta-note">候補に出たヒントを最大10個まで設定。本人の初期・覚醒スキルは終了時の取得も確認します。狙う白因子のスキルは育成終了前に取得します。</p>
+      ${details("ヒントと取得経路の出典", factorResearchLinks([
         ...collection(review.sources), "selection", "settings", "higher"
       ]))}` : `
       <p class="meta-note">育成中にヒントを優先する設定。サポート名の後ろに入手条件を表示。</p>`}
@@ -633,7 +650,6 @@ function trainingDetail(id, guide) {
   const setup = guide.setup ?? {};
   const pedigree = setup.parents;
   const trial = ownedTrial(guide);
-  const deck = data.plan.decks?.[setup.deckId];
   const parent = planGuide(guide.requiresParent);
   const parentResult = trainingResult(guide.requiresParent);
   const policy = setup.policy ?? collection(data.plan.teams).find(team => team.distance === guide.distance)?.policy;
@@ -685,11 +701,7 @@ function trainingDetail(id, guide) {
                 <small>　${isFactorGuide(childId) ? "因子馬育成" : "レース馬育成"}</small>`), "training-children")}` : ""}
             ${pedigree?.note ? `<p class="meta-note">${esc(pedigree.note)}</p>` : ""}
           </section>
-          <section class="panel sheet-section" id="plan-support" tabindex="-1">
-            <div class="sheet-position-head"><h3>サポート編成</h3>${deck ? tag(deck.name) : ""}</div>
-            ${deck ? supportDeck(deck) : empty("サポート編成は未登録です。")}
-            ${setup.deckNote || deck?.note ? `<p class="meta-note">${esc(setup.deckNote ?? deck.note)}</p>` : ""}
-          </section>
+          ${trainingSupport(setup)}
           <section class="panel sheet-section sheet-final" id="plan-final" tabindex="-1">
             <div class="sheet-position-head"><h3>最終確認</h3>${tag("自主トレ育成", "confirmed")}</div>
             ${data.plan.scenario ? `<p class="sheet-scenario">${esc(data.plan.scenario)}</p>` : ""}
