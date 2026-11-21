@@ -173,9 +173,7 @@ function controls(key, { queryLabel, filterLabel, filters }) {
 
 function home() {
   const teams = collection(data.plan.teams);
-  const mid = teams.find(team => team.distance === "中距離");
-  const midCandidate = collection(mid?.members).find(id => trainingStatus(id) === "planned");
-  const next = collection(data.plan.order).find(id => trainingStatus(id) === "planned");
+  const next = collection(data.plan.order).filter(canStartTraining).slice(0, 2);
   const recent = [...data.race].sort((a, b) => String(b.race.confirmedAt ?? "").localeCompare(String(a.race.confirmedAt ?? ""))).slice(0, 2);
   const counters = [
     ["育成ウマ娘", data.roster.length, href("owned")],
@@ -187,12 +185,16 @@ function home() {
   const teamRows = teams.map(team => `<a class="distance" data-distance="${esc(team.distance)}" href="${href("plan", team.distance)}">${esc(team.distance)}</a>
     ${collection(team.members).filter(planGuide).map(id => {
       const guide = planGuide(id);
-      return `<div class="team-name"><strong>${esc(horseName(guide.subject))}</strong><small>${esc(guide.style)}${trainingResult(id) ? "・完成" : ""}</small></div>`;
+      const status = trainingStatus(id);
+      const label = status === "complete" ? "・完成" : status === "provisional" ? "・暫定" : "";
+      return `<div class="team-name"><strong>${esc(horseName(guide.subject))}</strong><small>${esc(guide.style)}${label}</small></div>`;
     }).join("")}`);
-  const candidates = [
-    next ? `<a href="${guideHref(next)}">${esc(horseName(planGuide(next).subject))}</a><p>${esc(trainingRole(planGuide(next)))}の主力候補</p>` : "",
-    midCandidate && midCandidate !== next ? `<a href="${guideHref(midCandidate)}">${esc(horseName(planGuide(midCandidate).subject))}</a><p>中距離の編成候補・${esc(planGuide(midCandidate).style)}</p>` : ""
-  ].filter(Boolean);
+  const candidates = next.map(id => {
+    const guide = planGuide(id);
+    const role = trainingRole(guide);
+    return `<a href="${guideHref(id)}">${esc(horseName(guide.subject))}</a>
+      <p>${esc(role)}${trainingStatus(id) === "trial" ? "・手持ちで試走可" : ""}</p>`;
+  });
 
   return `<section class="hero">
     <div class="track" aria-hidden="true"></div>
@@ -324,16 +326,41 @@ function trainingResult(id) {
   return result?.[isFactorGuide(id) ? "factors" : "race"] ? result : null;
 }
 
+function unmetAptitudes(result, target) {
+  const ranks = "GFEDCBAS";
+  return Object.entries(target ?? {}).flatMap(([name, minimum]) => {
+    const actual = result.aptitudes?.[aptitudeNames.indexOf(name)];
+    return actual && ranks.indexOf(actual) >= ranks.indexOf(minimum)
+      ? [] : [[name, `${actual || "未確認"}（目標${minimum}）`]];
+  });
+}
+
+function ownedTrial(guide) {
+  const ids = collection(guide?.setup?.trialParents);
+  if (ids.length !== 2 || ids[0] === ids[1] || ids.some(id => !data.byId.get(id)?.factors)) return null;
+  return { branches: ids.map((recordId, index) => ({
+    side: `自前 ${index + 1}`, parent: { recordId }, grandparents: []
+  })) };
+}
+
 function trainingStatus(id) {
   const guide = planGuide(id);
   if (!guide) return "";
-  if (trainingResult(id)) return "complete";
-  return guide.requiresParent && !trainingResult(guide.requiresParent) ? "waiting" : "planned";
+  const result = trainingResult(id);
+  if (result) return unmetAptitudes(result, guide.goals?.requiredAptitudes).length ? "provisional" : "complete";
+  if (guide.requiresParent && !trainingResult(guide.requiresParent)) return "waiting";
+  return ownedTrial(guide) ? "trial" : "planned";
+}
+
+function canStartTraining(id) {
+  return ["trial", "planned"].includes(trainingStatus(id));
 }
 
 function trainingTag(id) {
   switch (trainingStatus(id)) {
     case "complete": return tag("完成", "confirmed");
+    case "provisional": return tag("暫定・出走可", "plan");
+    case "trial": return tag("試走可", "trial");
     case "waiting": return tag("親待ち", "plan");
     default: return tag("計画あり", "training-planned");
   }
@@ -344,6 +371,7 @@ function trainingProgress(ids) {
   return {
     total: statuses.length,
     complete: statuses.filter(status => status === "complete").length,
+    provisional: statuses.filter(status => status === "provisional").length,
     waiting: statuses.filter(status => status === "waiting").length
   };
 }
@@ -366,7 +394,8 @@ function trainingOverview() {
   const raceProgress = trainingProgress(raceIds);
   const teamProgress = teams.map(team => ({ team, ...trainingProgress(collection(team.members)) }));
   const order = collection(data.plan.order).filter(planGuide);
-  const next = order.find(id => trainingStatus(id) === "planned");
+  const nextRace = order.filter(canStartTraining).slice(0, 2);
+  const nextFactor = parentIds.filter(canStartTraining).slice(0, 2);
 
   const races = teamProgress.map(({ team, complete, total }) => {
     const members = collection(team.members).filter(planGuide);
@@ -388,10 +417,21 @@ function trainingOverview() {
         ${progressCard("因子馬育成", href("plan", "factor-training"), factorProgress,
           `完成未確認 ${number(factorProgress.total - factorProgress.complete)} 件${factorProgress.waiting ? `（親待ち ${number(factorProgress.waiting)}）` : ""}`, "factor-progress")}
         ${progressCard("レース馬育成", href("plan", "race-training"), raceProgress,
-          `完成未確認 ${number(raceProgress.total - raceProgress.complete)} 枠${raceProgress.waiting ? `（親待ち ${number(raceProgress.waiting)}）` : ""}`, "race-progress")}
+          `登録 ${number(raceProgress.complete + raceProgress.provisional)} 枠・暫定 ${number(raceProgress.provisional)} 枠・親待ち ${number(raceProgress.waiting)} 枠`, "race-progress")}
       </div>
+      ${nextRace.length || nextFactor.length ? `<section class="panel">
+        ${panelTitle("次に進める育成")}
+        <div class="training-team-grid training-start">
+          ${[["レース馬の着手候補", nextRace], ["先に作る因子馬", nextFactor]].filter(([, ids]) => ids.length).map(([label, ids]) => `
+            <section class="training-team">
+              <header class="training-team-head"><h3>${esc(label)}</h3></header>
+              ${listMarkup(ids.map(id => trainingListRow(id, planGuide(id).purpose)), "training-race-slots")}
+            </section>`).join("")}
+        </div>
+      </section>` : ""}
       <section class="panel" id="plan-factor-training" tabindex="-1">
         ${panelTitle("因子馬育成", `<a class="source" href="${href("factors", "coverage")}">因子の手持ちを確認</a>`)}
+        ${research?.parentStandard ? `<p class="training-next">${esc(research.parentStandard)}</p>` : ""}
         ${research ? `<div class="factor-research">
           ${details(`攻略の確認日と提案ルール　${dated(research.checkedAt)}`, `
             <p>${esc(research.policy)}</p>
@@ -404,10 +444,6 @@ function trainingOverview() {
       </section>
       <section class="panel" id="plan-race-training" tabindex="-1">
         ${panelTitle("レース馬育成", `<a class="source" href="${href("race")}">レース殿堂</a>`)}
-        ${next ? `<p class="training-next"><span>次の着手候補</span>
-          <a href="${guideHref(next)}">${esc(horseName(planGuide(next).subject))}</a>
-          <small>${esc(trainingRole(planGuide(next)))}</small>
-        </p>` : ""}
         ${races.length ? `<nav class="nav-tabs distance-tabs training-distance-tabs" aria-label="距離別の完成枠">
           ${teamProgress.map(({ team, complete, total }) => `<a href="${href("plan", team.distance)}"${team.distance === state.part ? ' aria-current="location"' : ""}>
             ${esc(team.distance)}<span class="num">${number(complete)} / ${number(total)}</span>
@@ -470,10 +506,19 @@ function priorityItems(rows, isFactor) {
       : `<strong>${esc(name)}</strong>${text ? `<p>${esc(text)}</p>` : ""}`}</div>`), "sheet-priority-list");
 }
 
+function goalPriorities(rows, isFactor) {
+  const primary = rows.filter(([priority]) => priority === "◎");
+  const extra = rows.filter(([priority]) => priority !== "◎");
+  return primary.length && extra.length
+    ? `${priorityItems(primary, isFactor)}${details("次点・条件付き", priorityItems(extra, isFactor))}`
+    : priorityItems(rows, isFactor);
+}
+
 function trainingGoals(guide, result, factor) {
   const goals = guide.goals ?? {};
   const skills = collection(goals.skills);
   const factors = collection(goals.factors);
+  const unmet = result ? unmetAptitudes(result, goals.requiredAptitudes) : [];
   return `<section class="panel sheet-section sheet-goals" id="plan-goals" tabindex="-1">
     ${panelTitle("育成後の目標", !factor && result ? tag("再育成案") : tag("目標案"))}
     <div class="sheet-stat-target">
@@ -481,23 +526,25 @@ function trainingGoals(guide, result, factor) {
       ${Array.isArray(goals.stats) ? `<dl class="sheet-stats">${abilityNames.map((name, index) =>
         `<div><dt>${name}</dt><dd class="num">${number(goals.stats[index])}</dd></div>`).join("")}</dl>` : empty("目標ステータスは未登録です。")}
       ${goals.aptitude ? `<p class="sheet-aptitude"><span>適性</span><strong>${esc(goals.aptitude)}</strong></p>` : ""}
+      ${unmet.length ? `<div class="sheet-setting">${facts(unmet.map(([name, value]) => [`登録個体の${name}`, value]))}</div>` : ""}
       ${goals.note ? `<p class="meta-note">${esc(goals.note)}</p>` : ""}
     </div>
     <p class="sheet-priority-key">◎ 優先　○ 次点　△ 条件付き</p>
     <div class="sheet-goal-grid">
       <section id="plan-acquire" tabindex="-1">
         <h3>獲得したいスキル</h3>
-        ${skills.length ? priorityItems(skills, false) : empty("目標スキルは未登録です。")}
+        ${skills.length ? goalPriorities(skills, false) : empty("目標スキルは未登録です。")}
       </section>
       <section>
         <h3>狙う因子</h3>
         ${factor ? "" : '<p class="sheet-small">完成後に親として使う場合</p>'}
-        ${factors.length ? priorityItems(factors, true) : empty("目標因子は未登録です。")}
+        ${factors.length ? goalPriorities(factors, true) : empty("目標因子は未登録です。")}
       </section>
     </div>
     ${factor && goals.factorCheck ? `<div class="sheet-setting sheet-policy">
       <h3>採用基準</h3><p>${esc(goals.factorCheck)}</p>
     </div>` : ""}
+    ${collection(goals.sources).length ? `<div class="sheet-setting">${details("スキル・採用基準の出典", factorResearchLinks(goals.sources))}</div>` : ""}
     ${result ? `<p class="sheet-record-link"><a href="${href(factor ? "factors" : "race", result.id)}">登録済みの個体 ${number(result.score)} を見る</a></p>` : ""}
   </section>`;
 }
@@ -532,6 +579,7 @@ function trainingRotation(route) {
   return `<section class="sheet-setting" id="plan-rotation" tabindex="-1">
     <div class="sheet-row-title"><h4>出走ローテーション</h4>
       ${route ? tag(`初回予約 ${number(initial.length)}戦`, "confirmed") : ""}</div>
+    ${route?.start ? `<p class="sheet-hint-summary">${esc(route.start)}</p>` : ""}
     ${initial.length ? plannedRaces(initial) : `<p>${route ? "初回は固定目標で進める。" : "ローテは未登録です。"}</p>`}
     ${optional.length ? details(`必要に応じて追加するレース ${number(optional.length)}件`, plannedRaces(optional)) : ""}
     ${goals.length ? details("ゲームの育成目標・期限", facts(goals)) : ""}
@@ -560,7 +608,7 @@ function trainingHints(setup) {
     }).join("")}</ol>` : empty("優先スキルは未登録です。")}
     ${review ? `
       ${alternates.length ? details("選択できたら追加・入れ替え", priorityItems(alternates, false)) : ""}
-      <p class="meta-note">ゲームで選べる候補から最大10個。優先スキルはヒントを狙う設定で、白因子は育成後に抽選されます。</p>
+      <p class="meta-note">ゲームで選べる候補から最大10個。狙う白因子のスキルは、ヒントを得たあと育成終了前に取得します。</p>
       ${details(`攻略の出典　${dated(data.plan.factorResearch?.checkedAt)}確認`, factorResearchLinks([
         ...collection(review.sources), "selection", "settings", "higher"
       ]))}` : `
@@ -584,6 +632,7 @@ function trainingDetail(id, guide) {
   const result = trainingResult(id);
   const setup = guide.setup ?? {};
   const pedigree = setup.parents;
+  const trial = ownedTrial(guide);
   const deck = data.plan.decks?.[setup.deckId];
   const parent = planGuide(guide.requiresParent);
   const parentResult = trainingResult(guide.requiresParent);
@@ -623,6 +672,12 @@ function trainingDetail(id, guide) {
               <a href="${guideHref(guide.requiresParent)}">${esc(horseName(parent.subject))}の因子馬育成</a>
             </p>` : ""}
             ${setup.parentCheck ? `<p class="sheet-small">${esc(setup.parentCheck)}</p>` : ""}
+            ${trial ? `<div class="sheet-setting sheet-trial">
+              <div class="sheet-row-title"><h4>手持ちだけで試走</h4>${tag("試走用", "trial")}</div>
+              ${setup.trialNote ? `<p class="sheet-hint-summary">${esc(setup.trialNote)}</p>` : ""}
+              ${parentLineup(trial)}
+            </div>
+            <div class="sheet-setting sheet-row-title"><h4>本育成用の親</h4></div>` : ""}
             ${parentLineup(pedigree, guide.requiresParent)}
             ${guide.purpose ? `<p class="sheet-small sheet-parent-use">用途　<strong>${esc(guide.purpose)}</strong></p>` : ""}
             ${dependentIds.length ? `<p class="sheet-small sheet-parent-use">この個体を使う育成</p>
@@ -644,6 +699,10 @@ function trainingDetail(id, guide) {
             ${setup.finalCheck ? `<p class="sheet-small">${esc(setup.finalCheck)}</p>` : ""}
             ${trainingRotation(setup.rotation)}
             ${trainingHints(setup)}
+            ${data.plan.factorResearch?.finish ? details("育成終了時のスキル取得・モード別の設定", `
+              ${facts([["終了時の取得", data.plan.factorResearch.finish[factor ? "factor" : "race"]],
+                ["駿大祭の教え", data.plan.factorResearch.finish.teach]])}
+              ${factorResearchLinks(data.plan.factorResearch.finish.sources)}`) : ""}
             ${id === "smart-falcon" ? setupExample(data.plan.setupExample) : ""}
           </section>
         </div>
