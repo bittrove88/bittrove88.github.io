@@ -349,8 +349,8 @@ function trainingStatus(id) {
   const result = trainingResult(id);
   if (result) return unmetAptitudes(result, guide.goals?.requiredAptitudes).length ? "provisional" : "complete";
   if (guide.optional) return "optional";
-  if (guide.requiresParent && !trainingResult(guide.requiresParent)) return "waiting";
-  return ownedTrial(guide) ? "trial" : "planned";
+  if (ownedTrial(guide)) return "trial";
+  return guide.requiresParent && !trainingResult(guide.requiresParent) ? "waiting" : "planned";
 }
 
 function canStartTraining(id) {
@@ -693,7 +693,7 @@ function trainingDetail(id, guide) {
               <div class="tags">${pedigree?.status ? tag(pedigree.status) : ""}
                 ${pedigree?.affinity ? tag(`相性${pedigree.affinity}`, "confirmed") : ""}</div></div>
             ${parent ? `<p class="training-prerequisite">
-              ${tag(parentResult ? "親を確保" : "親の育成が先", parentResult ? "confirmed" : "plan")}
+              ${tag(parentResult ? "親を確保" : trial ? "本育成の親を準備" : "親の育成が先", parentResult ? "confirmed" : "plan")}
               <a href="${guideHref(guide.requiresParent)}">${esc(horseName(parent.subject))}の因子馬育成</a>
             </p>` : ""}
             ${setup.parentCheck ? `<p class="sheet-small">${esc(setup.parentCheck)}</p>` : ""}

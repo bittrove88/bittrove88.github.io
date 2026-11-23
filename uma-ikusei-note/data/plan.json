@@ -63,7 +63,7 @@
     {
       "distance": "長距離",
       "policy": "スタミナ重視",
-      "note": "クリーク先行・ローレル差し・ゴルシ追込。本人の回復と所持ヒントを起点に、直親の固有と祖父母の長距離白を脚質別に選ぶ。",
+      "note": "先行テイオー、差しネイチャ、追込マヤノを直親候補に。本人回復と距離・脚質に合う継承固有を合わせる。",
       "members": [
         "super-creek",
         "sakura-laurel",
@@ -81,7 +81,7 @@
     {
       "distance": "ダート",
       "policy": "バランス重視",
-      "note": "初期Aのファル子は逃げとマイル赤。エルとオグリの初期ダートBはダート★1でA。試走用と仕上げ用の家系を確認。",
+      "note": "マイルの逃げ・先行・差しで親を別に選ぶ。先行エルと差しオグリは有馬記念までの持久力も確保。",
       "members": [
         "smart-falcon",
         "el-condor-pasa",
@@ -98,8 +98,11 @@
     "parent-daiwa-scarlet-mile",
     "parent-grass-wonder-mile",
     "parent-haru-urara-dirt",
+    "parent-tokai-teio-long",
     "parent-nice-nature-long",
-    "parent-el-condor-pasa"
+    "parent-mayano-long-chase",
+    "parent-el-condor-pasa",
+    "parent-oguri-dirt-pace"
   ],
   "order": [
     "fuji-kiseki",
@@ -199,7 +202,8 @@
         "sources": [
           "kingUnique",
           "talent",
-          "genes"
+          "genes",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
@@ -322,7 +326,9 @@
         },
         "alternateDeckIds": [
           "festival-speed"
-        ]
+        ],
+        "deckNote": "過去の周回設定。43,156と40,714を短距離の祖父母に活用する。",
+        "finalCheck": "キングは現行2個体で一区切り。"
       },
       "purpose": "記録・短距離の祖父母候補",
       "optional": true
@@ -399,7 +405,12 @@
         "sources": [
           "elUnique",
           "farming",
-          "aptitude"
+          "aptitude",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "natureWit",
+          "switchSkill",
+          "longAptitudes"
         ]
       },
       "setup": {
@@ -428,8 +439,8 @@
             }
           ]
         },
-        "parentCheck": "ウララ・デジタルはダート★3候補。固定の芝・ダート・マイル目標を回し、共通するダートGⅠは実際の勝利を確認。赤★9は家系のダートを厚くする上積み。",
-        "deckId": "festival-balanced",
+        "parentCheck": "ウララ・デジタルはダート★3候補。固定の芝・ダート・マイル目標を回し、共通するダートGⅠは実際の勝利を確認。赤★9は家系のダートを厚くする上積み。 固定の長距離目標に備え、家系に長距離★1以上を置いて開始長距離Aを見込む。",
+        "deckId": "festival-distance-closing",
         "rotation": {
           "goals": [
             [
@@ -472,15 +483,6 @@
             "18"
           ],
           [
-            "遊びはおしまいっ！",
-            "29",
-            "連続打ち切り分岐。完走スキルが必要な周回は分岐を確認"
-          ],
-          [
-            "ウマ好み",
-            "24"
-          ],
-          [
             "神速",
             "azuma",
             "お出かけ5回目の選択肢"
@@ -488,7 +490,7 @@
         ],
         "policy": "バランス重視",
         "hintReview": {
-          "summary": "まず手持ち6タイプで共通GⅠとダート・差し白を狙う。ダート直線○・コーナー○の継承元を用意できない回だけ、パワーウララ入りと比較。",
+          "summary": "芝のジャパンCと有馬で勝利できる持久力を残す。ダート白2種はウララやレンタル家系・駿大祭で狙う。",
           "sources": [
             "doto",
             "uraraPower",
@@ -512,12 +514,24 @@
               "◎",
               "マイル直線○／マイルコーナー○",
               "マイル赤の相方を選ぶときに白因子の実物を確認。表示されたヒントを優先。"
+            ],
+            [
+              "○",
+              "遊びはおしまいっ！／ウマ好み",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-dirt-hints"
-        ]
+          "festival-balanced-closing"
+        ],
+        "deckNote": "芝のジャパンCと有馬で勝利できる持久力を残す。ダート白2種はウララやレンタル家系・駿大祭で狙う。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       },
       "purpose": "オグリ向けダート・差しの親または祖父母候補",
       "requiresParent": "parent-haru-urara-dirt"
@@ -611,7 +625,8 @@
           "inheritanceOfficial",
           "arena",
           "shortInheritanceRecent",
-          "suzukaUnique"
+          "suzukaUnique",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
@@ -654,7 +669,7 @@
           ]
         },
         "parentCheck": "家系のマイル★1以上で固定のマイル目標に備える。短距離赤・序盤の逃げ白と相性内訳を確認し、地固めを使うなら序盤に発動するスキルを3つ用意。",
-        "deckId": "festival-balanced",
+        "deckId": "festival-speed",
         "rotation": {
           "goals": [
             [
@@ -701,7 +716,7 @@
           ]
         ],
         "alternateDeckIds": [
-          "festival-speed"
+          "festival-balanced"
         ],
         "hintReview": {
           "summary": "先駆けは完凸マックイーン、短距離直線○は賢さカレン。地固めと逃げ速度は短距離逃げ用の両枝で補う。",
@@ -728,7 +743,9 @@
               "短距離★3のレンタルや祖父母を探すときに白の所持も確認。"
             ]
           ]
-        }
+        },
+        "deckNote": "短距離本番に向けスピード2枚・根性。カレンは3凸の得意率と短距離ヒントを評価。固定の阪神JFと桜花賞で持久力が不足する回は6タイプ。",
+        "finalCheck": "短距離の進化と先駆けを先に確認。地固めは序盤に発動する3つのスキルとセット。継承セイウンは終盤コーナー先頭のときに使う。"
       },
       "requiresParent": "parent-silence-suzuka-short"
     },
@@ -816,7 +833,8 @@
           "inheritanceOfficial",
           "arena",
           "shortInheritanceRecent",
-          "airUnique"
+          "airUnique",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
@@ -859,7 +877,7 @@
           ]
         },
         "parentCheck": "新しいエアグルーヴとニシノを6枠で照合。シニアのマイルCSに備えて家系のマイル★1以上を確保し、短距離赤・固有・先行白と相性を確認。",
-        "deckId": "festival-balanced",
+        "deckId": "festival-speed",
         "rotation": {
           "goals": [
             [
@@ -900,17 +918,12 @@
             "連続イベント"
           ],
           [
-            "先行コーナー○",
-            "18",
-            "通常「にんじん……買ってくださいっ」の下段"
-          ],
-          [
             "実直な走り",
             "24"
           ]
         ],
         "alternateDeckIds": [
-          "festival-speed"
+          "festival-balanced"
         ],
         "hintReview": {
           "summary": "短距離加速は本人の進化も使う。ライスとドトウで先行の速度を確保し、マイル固定勝利に備える。",
@@ -935,9 +948,16 @@
               "○",
               "先行直線○",
               "継承白か、スピード2枚の編成でジョーダンのヒントを狙う。"
+            ],
+            [
+              "○",
+              "先行コーナー○",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
             ]
           ]
-        }
+        },
+        "deckNote": "スピード2枚と根性で短距離先行の位置取りを作る。完凸ドトウはマイルCSの持久力が不足する回の代替に使う。",
+        "finalCheck": "バクシン的スプリント！、先行速度、終盤加速の重なりを確認。シニア・マイルCS用の開始マイルAを先に確保。"
       },
       "requiresParent": "parent-air-groove-short"
     },
@@ -990,6 +1010,11 @@
             "△",
             "垂れウマ回避",
             "終盤に前が塞がれたときの補助。"
+          ],
+          [
+            "○",
+            "乗り換え上手",
+            "終盤始めの中団以降。ネイチャ3凸の連続イベント。"
           ]
         ],
         "factors": [
@@ -1027,7 +1052,10 @@
           "arena",
           "shortInheritanceRecent",
           "airUnique",
-          "bambooUnique"
+          "bambooUnique",
+          "festivalDistanceDecks",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
@@ -1069,7 +1097,7 @@
           ]
         },
         "parentCheck": "短距離役割と4月の赤継承に加え、マイル★1以上で開始マイルAを確認。出走用の固有と不足する差し白を、両側の祖父母まで照合。",
-        "deckId": "festival-balanced",
+        "deckId": "festival-speed-closing",
         "rotation": {
           "goals": [
             [
@@ -1106,18 +1134,6 @@
         },
         "hints": [
           [
-            "短距離直線○",
-            "29"
-          ],
-          [
-            "スプリントギア",
-            "29"
-          ],
-          [
-            "差し直線○",
-            "18"
-          ],
-          [
             "ウマ好み",
             "24"
           ],
@@ -1153,12 +1169,25 @@
               "○",
               "尻尾上がり／垂れウマ回避",
               "継承元に白がある場合の補助。ゲームで表示された候補を使う。"
+            ],
+            [
+              "○",
+              "短距離直線○／スプリントギア／差し直線○",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-speed"
-        ]
+          "festival-speed",
+          "festival-balanced-closing"
+        ],
+        "deckNote": "短距離差しのパワー・根性を残し、ネイチャ3凸で終盤加速を補う。短距離直線○は継承・駿大祭が中心。カレン編成は賢さの伸びや短距離白を比較する回。",
+        "finalCheck": "差し直線○は初期、スプリントギアは覚醒から。終盤加速の区間と差しの中盤速度を先に組み、固有・進化が発動する順位を確認。"
       },
       "requiresParent": "parent-air-groove-short-closer"
     },
@@ -1241,48 +1270,53 @@
           "mileFront",
           "mac",
           "talent",
-          "inheritEvolution"
+          "inheritEvolution",
+          "raceInherit",
+          "heliosUnique",
+          "arena",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
         "parents": {
-          "status": "逃げ用の直親の育成待ち",
-          "note": "エル37,732とマルゼンUF4はマイル赤の土台。ダスカ自身と借りる枝で、スズカが取りにくい地固め・逃げとマイルの速度白を補う。",
+          "status": "本育成の両枝を照合",
+          "note": "ダスカは不足白を担当。通常ヘリオスの固有は終盤が迫ったときの前方条件で、マイルの速度維持に使う。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "name": "ダイワスカーレット",
-                "costume": "トップ・オブ・ブルー",
-                "status": "因子育成待ち",
-                "condition": "マイル★3、地固めと逃げ直線○／逃げコーナー○。"
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "マイル赤と逃げ・地固め白を担当。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "マイル・逃げのレンタル直親",
-                "status": "選定中",
-                "condition": "マイル★3、逃げで発動しやすい中盤速度や、コースに合う加速固有。"
+                "name": "ダイタクヘリオス",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "マイル赤、逃げ白、同名を含まない家系を照合。"
               },
               "grandparents": [
                 {
-                  "label": "マイル赤・速度の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤とマイル直線○／コーナー○。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "マイル★3・パワーや賢さの青を比較。"
                 },
                 {
-                  "label": "逃げ白の祖父母",
-                  "status": "選定中",
-                  "condition": "地固めや逃げ直線○／コーナー○と共通GⅠ勝利。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "地固めと逃げ・マイル速度白、ダスカ側と重ねられるGⅠ勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "先駆けは完凸マックイーンから。地固めを取る回は序盤発動3つを確認。ダスカ自身の固有も使うなら才能開花★3。",
-        "deckId": "festival-balanced",
+        "parentCheck": "先駆けはマックイーン。地固めは序盤発動3つと合わせ、ダスカ側の逃げ白・レンタル側のマイル赤を確認。",
+        "deckId": "festival-speed",
         "rotation": {
           "goals": [
             [
@@ -1334,7 +1368,7 @@
           ]
         ],
         "alternateDeckIds": [
-          "festival-speed"
+          "festival-balanced"
         ],
         "hintReview": {
           "summary": "本人の覚醒・初期スキルとマックイーンの先駆けを確認し、使う逃げ白はダイワスカーレットと相方へ。",
@@ -1360,7 +1394,9 @@
               "マイル赤の相方を選ぶときに白因子の実物を確認。表示されたヒントを優先。"
             ]
           ]
-        }
+        },
+        "deckNote": "マイル逃げのスピード・根性を主に伸ばす。カレンは賢さの伸びと汎用ヒントで採用。宝塚・天皇賞秋が厳しい回は6タイプ。",
+        "finalCheck": "先駆けと逃げ速度、序盤の発動数を確認。長めの固定目標に備え、前に出るまでに持久力が足りるかを見る。"
       },
       "requiresParent": "parent-daiwa-scarlet-mile"
     },
@@ -1441,47 +1477,51 @@
           "inheritanceBasics",
           "farming",
           "fuji",
-          "inheritEvolution"
+          "inheritEvolution",
+          "raceInherit",
+          "taikiUnique",
+          "arena",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
         "parents": {
-          "status": "自前直親候補あり・相方選定中",
-          "note": "オグリ38,990の枝は本人とマルゼンのマイル★3ずつ、バレフラが先行★2。フジ自身の覚醒・初期で真っ向勝負とマイルコーナー○を取れる。",
+          "status": "本育成の両枝を照合",
+          "note": "マイル赤の自前オグリと、最終コーナー後半で好位置に取るタイキの加速を組む。コースの終盤入口で加速が残るか照合。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "recordId": "o-m",
-                "status": "仕上げの直親候補",
-                "condition": "マイル★3。終盤速度の勝利の鼓動。根性★1は相方側の青で補う。"
+                "condition": "マイル★6の家系と序盤巧者・積極策。固有は残り200mで使う速度。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "マイル・先行のレンタル直親",
-                "status": "選定中",
-                "condition": "マイル★3、マイル直線○・先行直線○と先行で発動する固有。"
+                "name": "タイキシャトル",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "マイル★3、先行直線○・マイル直線○を補える家系を優先。"
               },
               "grandparents": [
                 {
-                  "label": "マイル赤の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル★3を優先し、共通GⅠの実戦績を確認。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "短距離赤があると初期Bの高松宮を走りやすい。マイル赤は家系全体で確認。"
                 },
                 {
-                  "label": "先行速度・青の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤、先行・マイル速度の不足白と有用な青。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "先行直線○・マイル直線○と、マイルGⅠの勝利歴。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "試走用2頭で目標と本人の進化を確認。仕上げではマイル直線○・先行直線○の入手経路と、競技場で使う相方の固有を確認。",
-        "deckId": "festival-balanced",
+        "parentCheck": "手持ち試走で進化条件と固定勝利を確認。本育成はマイル・先行の不足白と、夏や秋のマイルGⅠの共通勝利を照合。",
+        "deckId": "festival-speed",
         "rotation": {
           "goals": [
             [
@@ -1532,11 +1572,6 @@
             "24"
           ],
           [
-            "先行コーナー○",
-            "18",
-            "通常「にんじん……買ってくださいっ」の下段"
-          ],
-          [
             "先行のコツ○",
             "4"
           ],
@@ -1566,6 +1601,11 @@
               "○",
               "真っ向勝負／マイルコーナー○",
               "本人の覚醒Lv4・初期スキルにあるので、育成終了時に取得を確認。"
+            ],
+            [
+              "○",
+              "先行コーナー○",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
             ]
           ]
         },
@@ -1575,8 +1615,11 @@
         ],
         "trialNote": "オグリ38,990＋エル37,732。確認済みの継承元6枠でマイル★9・ダート★6・先行★2。試走後に、仕上げ用の脚質白・継承固有・相性を比較。 自前直親のオグリと、エル側の祖父母にも別個体のオグリがいる。仕上げの組み合わせは相性内訳で比較する。",
         "alternateDeckIds": [
-          "festival-speed"
-        ]
+          "festival-distance",
+          "festival-balanced"
+        ],
+        "deckNote": "スピード2枚でマイル先行。先行コーナー○は継承も確認。天皇賞（秋）で持久力が足りない回は根性枠を完凸ドトウに替える。",
+        "finalCheck": "クラシック4月はマイル路線。本人の真っ向勝負・マイルコーナー○を活かし、進化2種と不足する先行速度を照合。"
       }
     },
     "vodka": {
@@ -1623,6 +1666,11 @@
             "△",
             "良バ場○",
             "良バ場で使う場合。"
+          ],
+          [
+            "○",
+            "乗り換え上手",
+            "終盤始めの中団以降。ネイチャ3凸の連続イベント。"
           ]
         ],
         "factors": [
@@ -1652,48 +1700,54 @@
           "farming",
           "rubyUnique",
           "mileClosing",
-          "talent"
+          "talent",
+          "raceInherit",
+          "arena",
+          "festivalDistanceDecks",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
         "parents": {
-          "status": "差し用の直親の育成待ち",
-          "note": "グラスはウオッカの不足白を渡す役。ダンスルビーのようなマイル差しの中盤固有を相方候補にできる。ルビーを直親に置くときは、グラス側に通常ルビーがいる案との相性を比較。",
+          "status": "本育成の両枝を照合",
+          "note": "ダンスルビーの蒼炎でマイル中間の中団位置を支える。グラスは差し・マイル白を担当。加速はネイチャやコースに合う取得経路も使う。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "name": "グラスワンダー",
                 "costume": "岩穿つ青",
-                "status": "因子育成待ち",
-                "condition": "マイル★3、マイル速度白・差しコーナー○を持ち、家系の実物が取れる個体。"
+                "status": "自前で育成する候補",
+                "condition": "マイル赤と差し・マイル速度白。本人の才能開花を確認して緑を比較。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "マイル・差しのレンタル直親",
-                "status": "選定中",
-                "condition": "マイル★3、差しで発動する中盤固有やコースに合う加速。マイル速度・差し白の不足分。"
+                "name": "ダイイチルビー",
+                "costume": "Flowing Blue",
+                "status": "レンタル個体を選定",
+                "condition": "マイル赤と差しの速度白。グラス側の祖父母の衣装・同名を照合。"
               },
               "grandparents": [
                 {
-                  "label": "マイル赤・速度の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤とマイル直線○／コーナー○。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "マイル赤と加速を支えるパワー青。"
                 },
                 {
-                  "label": "差し白の祖父母",
-                  "status": "選定中",
-                  "condition": "差しコーナー○／差し切り体勢と共通GⅠ勝利。ウオッカ同名を確認。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "差しコーナー○・マイル直線○と共通マイルGⅠ勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "ウオッカの差し直線○は手持ちから取れる。マイル直線○／コーナー○、差しコーナー○、発動する継承固有を照合。",
-        "deckId": "festival-balanced",
+        "parentCheck": "マイルA・差しAからマイルSを狙い、中盤で前との差を詰める。グラス側は青ルビーを直親に置くときの相性も比較。",
+        "deckId": "festival-speed-closing",
         "rotation": {
           "goals": [
             [
@@ -1717,10 +1771,6 @@
         },
         "hints": [
           [
-            "差し直線○",
-            "18"
-          ],
-          [
             "神速",
             "azuma",
             "お出かけ5回目の選択肢"
@@ -1736,7 +1786,7 @@
           ]
         ],
         "alternateDeckIds": [
-          "festival-speed"
+          "festival-balanced-closing"
         ],
         "hintReview": {
           "summary": "手持ちの練習性能を優先。マイル・差しの白はグラスとレンタルの実物で先に確認。",
@@ -1760,9 +1810,21 @@
               "○",
               "尻尾上がり／垂れウマ回避",
               "継承元に白がある場合の補助。ゲームで表示された候補を使う。"
+            ],
+            [
+              "○",
+              "差し直線○",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
-        }
+        },
+        "deckNote": "マイル差しはネイチャ3凸の乗り換え上手と、パワー・根性を優先。日本ダービーの持久力が足りない回は6タイプ。",
+        "finalCheck": "中盤の位置取りから終盤始めまでをつなげる。差し加速は効果区間を確認し、差し直線○は継承や駿大祭の提示も使う。"
       },
       "requiresParent": "parent-grass-wonder-mile"
     },
@@ -1837,47 +1899,51 @@
         "sources": [
           "inheritanceBasics",
           "farming",
-          "inheritEvolution"
+          "inheritEvolution",
+          "raceInherit",
+          "operaUnique",
+          "teioRunner",
+          "arena",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
         "parents": {
-          "status": "登録済みは中距離S・再育成用の親候補",
-          "note": "登録45,382の実際の継承は未確認。開始前はエル38,098＋水着タキオン（レンタル側は中距離★9、祖父母2頭の名前は未確認）。再育成ではオグリ38,608の先行白と、中距離赤・先行で使う固有の相方を比較。",
+          "status": "本育成の両枝を照合",
+          "note": "45,382の登録個体は中距離S。再育成は中距離オグリと正月オペラオーを比較。恵福は残り400mの先団で発動し、それまでのスキル発動で強化。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "recordId": "oguri-38608",
-                "status": "再育成の自前候補",
-                "condition": "先行コーナー○★3。スズカ＋ネオユニヴァースと合わせて中距離★8。"
+                "condition": "中距離★8の家系。先行コーナー○★3と勝利の鼓動★3を確認。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "name": "アグネスタキオン",
-                "costume": "水着",
-                "status": "以前のレンタル候補",
-                "condition": "開始前に名前を確認した候補。再育成で選ぶ個体の中距離赤と、先行で発動する固有を確認。"
+                "name": "テイエムオペラオー",
+                "costume": "正月",
+                "status": "レンタル個体を選定",
+                "condition": "中距離赤、先行速度、春天・有馬に向けた長距離赤も比較。"
               },
               "grandparents": [
                 {
-                  "label": "レンタル側の中距離祖父母 1",
-                  "status": "選定中",
-                  "condition": "開始前案はパワー★2・中距離★3。名前・現在借りられる個体は未確認。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "中距離赤と長距離★1以上を両立。"
                 },
                 {
-                  "label": "レンタル側の中距離祖父母 2",
-                  "status": "選定中",
-                  "condition": "開始前案はスピード★3・中距離★3。名前・現在借りられる個体は未確認。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "中距離・先行白と春天、有馬、芝中距離GⅠなどの実勝利を照合。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "先行・中距離の速度ヒントは現行サポカと照合。仕上げでは先行の終盤に有効な固有・加速と共通GⅠ勝利を確認。",
+        "parentCheck": "登録個体の実際の血統は確認待ち。再育成は開始長距離A用の★1以上を6枠に確保し、先行加速は本人と編成で選ぶ。",
         "deckId": "festival-distance",
         "rotation": {
           "goals": [
@@ -1960,7 +2026,9 @@
               "6タイプに切り替えた回は完凸の根性ライスから狙える。"
             ]
           ]
-        }
+        },
+        "deckNote": "中距離の先行にスピード2枚。菊花賞・春天・有馬の固定目標もあるので完凸ドトウを維持する。45,382は登録済みの出走枠。",
+        "finalCheck": "45,382は中距離Sで登録済み。再育成では春天・有馬を走れる持久力、先行の中盤速度と有効な終盤加速を照合。"
       }
     },
     "eishin-flash": {
@@ -2042,61 +2110,54 @@
           "inheritanceBasics",
           "farming",
           "pocketUnique",
-          "inheritEvolution"
+          "inheritEvolution",
+          "raceInherit",
+          "stayUnique",
+          "festivalDistanceDecks",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
         "parents": {
-          "status": "暫定出走可・差しの親は再選定",
-          "note": "登録46,156は中距離A。完成時の系譜は未確認。過去のテイオー39,306は中距離★9を供給できる一方、主要な白は先行向き。差し用のジャングルポケットを比較。",
+          "status": "本育成の両枝を照合",
+          "note": "46,156は中距離Aで暫定出走。再育成はポッケの中盤と、ステイゴールドの2000m以上の終盤加速を補う案。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "name": "ジャングルポケット",
                 "costume": "王者の喊声",
-                "status": "因子育成予定の候補",
-                "condition": "中距離★3・差しコーナー○付き。中間地点で中団にいると発動する固有を比較。"
+                "status": "自前で育成する候補",
+                "condition": "中距離赤と差しコーナー○。Faith in the Feralで中団の中盤を支える候補。"
               },
-              "grandparents": [
-                {
-                  "recordId": "t-c",
-                  "status": "祖父母の比較候補",
-                  "condition": "中距離★9の自前枝。ポッケの親をテイオーにする場合。"
-                },
-                {
-                  "name": "ネオユニヴァース",
-                  "costume": "Universe-Naut",
-                  "status": "祖父母の比較候補",
-                  "condition": "中距離★3と差し白。実物の相性と戦績を照合。",
-                  "referenceId": "neo-universe-ud"
-                }
-              ]
+              "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "中距離・差しのレンタル直親",
-                "status": "選定中",
-                "condition": "中距離★3と差しで発動する固有。差しコーナー○や、コースに合う加速。"
+                "name": "ステイゴールド",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "中距離赤と差しの白、長距離固定目標に向けた赤を照合。"
               },
               "grandparents": [
                 {
-                  "label": "中距離赤の祖父母",
-                  "status": "選定中",
-                  "condition": "中距離赤と共通GⅠ勝利。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "中距離赤とスタミナ青、長距離赤が必要か確認。"
                 },
                 {
-                  "label": "差し白の祖父母",
-                  "status": "選定中",
-                  "condition": "差しコーナー○／差し切り体勢。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "差しコーナー○・差し加速と中距離GⅠの勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "中距離・差し直線のヒントは手持ちを活かし、差しコーナー○・差し切り体勢と有効な固有を両枝で探す。",
-        "deckId": "festival-distance",
+        "parentCheck": "黒い閃光の順位と、4月の中距離Sを確認。春天・有馬へ備えた持久力も確保。貸出個体の緑は通常の継承効果で評価。",
+        "deckId": "festival-distance-closing",
         "rotation": {
           "goals": [
             [
@@ -2158,7 +2219,7 @@
           ]
         ],
         "alternateDeckIds": [
-          "festival-balanced"
+          "festival-balanced-closing"
         ],
         "hintReview": {
           "summary": "中距離差しで発動するヒントを優先し、本人の光芒一閃と固有を活かす。差しコーナー○は継承確認。",
@@ -2179,10 +2240,18 @@
               "○",
               "尻尾上がり／垂れウマ回避",
               "継承元に白がある場合の補助。ゲームで表示された候補を使う。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
-        }
-      }
+        },
+        "deckNote": "先に春天・有馬を走れる持久力を確保し、差しの終盤加速用にネイチャ3凸。登録46,156は暫定出走用。",
+        "finalCheck": "登録46,156は中距離A。次回は中距離S、コースと順位に合う加速、本人の黒い閃光を使える位置取りを確認。"
+      },
+      "requiresParent": "parent-jungle-pocket-medium"
     },
     "daring-tact": {
       "subject": {
@@ -2268,48 +2337,55 @@
           "daring",
           "pocketUnique",
           "inheritEvolution",
-          "renmen"
+          "renmen",
+          "raceInherit",
+          "stayUnique",
+          "arena",
+          "festivalDistanceDecks",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
         "parents": {
-          "status": "差し用親の育成待ち・固有3つの候補を選定",
-          "note": "ポッケの中盤固有と、相方の差し向け固有を開始時に確保する案。本人の連綿は継承固有を3つ以上習得すると強化。3つ目は祖父母の緑も候補にして、4月の継承とスキル取得を確認。",
+          "status": "本育成の両枝を照合",
+          "note": "ポッケとステイゴールドで開始の継承固有ヒント2つ。連綿の強化を狙う回は、祖父母候補ネオ等から4月に3つ目を狙い、実際に習得する。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "name": "ジャングルポケット",
                 "costume": "王者の喊声",
-                "status": "因子育成待ち",
-                "condition": "中距離★3と差しコーナー○を優先。継承固有で中盤の速度を補う。"
+                "status": "自前で育成する候補",
+                "condition": "中距離赤と差しコーナー。競技場の中盤固有と祖父母のネオを照合。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "中距離・差しのレンタル直親",
-                "status": "選定中",
-                "condition": "中距離★3と差しで発動する固有。ポッケと合わせて開始時に2種類の固有ヒントを確保。"
+                "name": "ステイゴールド",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "通常継承の黄金を訪ねて。中距離赤、差し白、3つ目の緑候補も選ぶ。"
               },
               "grandparents": [
                 {
-                  "label": "3つ目の固有候補がある祖父母",
-                  "status": "選定中",
-                  "condition": "タクトが使える異なる緑と中距離赤。4月継承は抽選。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "中距離赤とオークス・ジャパンCを支える青。"
                 },
                 {
-                  "label": "中距離赤・差し白の祖父母",
-                  "status": "選定中",
-                  "condition": "中距離赤、差しコーナー○と共通GⅠ勝利。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "有効な緑と中距離・差し白、芝中距離GⅠの実勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "手持ちから中距離直線○・コーナー○を狙える。直親・祖父母は差しコーナー○、有効な固有2つと3つ目の候補を優先。",
-        "deckId": "festival-distance",
+        "parentCheck": "勝利するコースに合う加速を選び、4月継承後に固有の取得数を確認。継承進化は所持と条件を満たす固有で検討。",
+        "deckId": "festival-distance-closing",
         "rotation": {
           "goals": [
             [
@@ -2360,7 +2436,7 @@
             "お出かけ5回目の選択肢"
           ]
         ],
-        "finalCheck": "独立独歩の解放と雪中の松柏への進化条件を育成前に確認。 連綿も活かす回は継承固有を3種類習得したか確認。",
+        "finalCheck": "連綿を強化する回は継承固有を3つ習得。直親2つに加え、4月の祖父母からの継承を確認してスキルPtを残す。",
         "hintReview": {
           "summary": "本人の進化に加え手持ちで中距離の両白を確保。差しコーナー○はポケットとの組み合わせで確認。",
           "sources": [
@@ -2381,12 +2457,18 @@
               "○",
               "尻尾上がり／垂れウマ回避",
               "継承元に白がある場合の補助。ゲームで表示された候補を使う。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-balanced"
-        ]
+          "festival-balanced-closing"
+        ],
+        "deckNote": "オークス・ジャパンC向けにスタミナを残し、ネイチャ3凸で終盤加速を比較。中距離の固有ヒントは親と祖父母で設計。"
       },
       "requiresParent": "parent-jungle-pocket-medium"
     },
@@ -2468,59 +2550,54 @@
           "inheritEvolution",
           "inheritanceBasics",
           "farming",
-          "natureUnique"
+          "natureUnique",
+          "raceInherit",
+          "teioStep",
+          "operaUnique",
+          "longExample",
+          "arena",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
         "parents": {
-          "status": "先行用の直親を選定中",
-          "note": "通常ネイチャは長距離赤・スタミナ青・回復白を持つ場合の自前候補。固有は終盤で3番手かつ後続が接近した時に発動するため、先行で使いやすい別の固有も比較する。",
+          "status": "本育成の両枝を照合",
+          "note": "長距離先行テイオーにオグリ47,004と長距離先行マックをつなぐ。回復は本人進化を軸に、本番で発動する先行固有を足す。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
-                "name": "ナイスネイチャ",
-                "costume": "ポインセチア・リボン",
-                "status": "因子育成予定の比較候補",
-                "condition": "長距離★3・スタミナ青と長距離速度白を確認。直親の固有と白の組み合わせも比較。"
+                "name": "トウカイテイオー",
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "長距離・先行の新因子。長距離赤、先行の速度白、持久力を補う祖父母を用意。"
               },
-              "grandparents": [
-                {
-                  "recordId": "o-l",
-                  "status": "祖父母の比較候補",
-                  "condition": "ネイチャを直親にする場合。長距離★3、スタミナ★2。"
-                },
-                {
-                  "name": "メジロマックイーン",
-                  "costume": "エレガンス・ライン",
-                  "status": "祖父母の比較候補",
-                  "condition": "ネイチャを直親にする場合。長距離★3と長距離直線○を実物で確認。"
-                }
-              ]
+              "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "長距離・先行のレンタル直親",
-                "status": "選定中",
-                "condition": "長距離★3、先行で発動する固有。長距離直線○・真っ向勝負。本領発揮は有効なコースで。"
+                "name": "テイエムオペラオー",
+                "costume": "正月",
+                "status": "レンタル個体を選定",
+                "condition": "長距離赤と先行速度白。恵福は残り400m地点の先団条件。"
               },
               "grandparents": [
                 {
-                  "label": "長距離赤・青の祖父母",
-                  "status": "選定中",
-                  "condition": "長距離赤・スタミナ青、共通GⅠ勝利。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "長距離赤とスタミナ青を優先。"
                 },
                 {
-                  "label": "長距離・先行白の祖父母",
-                  "status": "選定中",
-                  "condition": "長距離直線○・真っ向勝負。本領発揮は有効なコースで。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "先行速度白と菊花賞・春天・有馬の共通勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "円弧のマエストロの進化で持久力を確保。先行で発動する固有と長距離直線○を優先。",
+        "parentCheck": "春天・菊花賞と本番最長距離を見て持久力を確保。長距離直線○・先行白、距離赤と相性を6枠で確認。",
         "deckId": "festival-distance",
         "rotation": {
           "goals": [
@@ -2572,7 +2649,7 @@
             "お出かけ5回目の選択肢"
           ]
         ],
-        "finalCheck": "本人覚醒で円弧のマエストロを取得できるか確認。",
+        "finalCheck": "本人の回復進化を軸に、3000m以上の日も想定して持久力を確認。先行の順位で発動する速度・終盤加速を選ぶ。",
         "alternateDeckIds": [
           "festival-balanced"
         ],
@@ -2597,8 +2674,10 @@
               "長距離・先行向けの相方で供給を確認。順位や発動区間に合う場合に取得。"
             ]
           ]
-        }
-      }
+        },
+        "deckNote": "長距離先行。ドトウ完凸・自前回復・スタミナ青を組み合わせて春天の持久力を確保。長距離回復は本番距離に応じて調整。"
+      },
+      "requiresParent": "parent-tokai-teio-long"
     },
     "sakura-laurel": {
       "subject": {
@@ -2683,59 +2762,56 @@
           "inheritEvolution",
           "inheritanceBasics",
           "farming",
-          "natureUnique"
+          "natureUnique",
+          "raceInherit",
+          "chrisUnique",
+          "stayUnique",
+          "longExample",
+          "arena",
+          "festivalDistanceDecks",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
         "parents": {
-          "status": "差し用の直親を選定中",
-          "note": "ネイチャは速度白や青が不足する回の比較候補。正月ローレルの本人回復・速度を踏まえて、固有と差し白がより合う自前個体があれば比較。",
+          "status": "本育成の両枝を照合",
+          "note": "先行・追込とは別に、ネイチャの長距離・差し白とクリスエスの中盤固有を組む。加速は本人・編成・コースを照合し、ステイゴールド枝も比較。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "name": "ナイスネイチャ",
-                "costume": "ポインセチア・リボン",
-                "status": "因子育成予定の比較候補",
-                "condition": "長距離★3・スタミナ青と長距離速度白を確認。直親の固有と白の組み合わせも比較。"
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "長距離赤・スタミナ青と差し速度白。本人の固有には終盤3番手条件がある。"
               },
-              "grandparents": [
-                {
-                  "recordId": "o-l",
-                  "status": "祖父母の比較候補",
-                  "condition": "ネイチャを直親にする場合。長距離★3、スタミナ★2。"
-                },
-                {
-                  "name": "メジロマックイーン",
-                  "costume": "エレガンス・ライン",
-                  "status": "祖父母の比較候補",
-                  "condition": "ネイチャを直親にする場合。長距離★3と長距離直線○を実物で確認。"
-                }
-              ]
+              "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "長距離・差しのレンタル直親",
-                "status": "選定中",
-                "condition": "長距離★3、差しで発動する固有。長距離直線○・差しコーナー○。がむしゃらはコースと回復条件を確認。"
+                "name": "シンボリクリスエス",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "長距離赤と差し白。中間以降の直線・中団で速度を補う。"
               },
               "grandparents": [
                 {
-                  "label": "長距離赤・青の祖父母",
-                  "status": "選定中",
-                  "condition": "長距離赤・スタミナ青、共通GⅠ勝利。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "長距離赤とスタミナ・パワー青。"
                 },
                 {
-                  "label": "長距離・差し白の祖父母",
-                  "status": "選定中",
-                  "condition": "長距離直線○・差しコーナー○。がむしゃらはコースと回復条件を確認。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "長距離直線○・差しコーナー○と春天・有馬の実勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "回復はまず本人の進化。差しの中盤速度と有効な終盤加速の固有を優先し、持久力は必要な分だけ補う。",
+        "parentCheck": "ローレルの本人回復から持久力を組む。長距離Sと、差しの中盤速度・終盤加速、本人の進化を確認。",
         "deckId": "festival-distance-closing",
         "rotation": {
           "goals": [
@@ -2814,10 +2890,9 @@
             "お出かけ5回目の選択肢"
           ]
         ],
-        "finalCheck": "ファン3,000人とGⅢの入着期限を確認し、先にきさらぎ賞・ラジオNIKKEI賞を入れる。",
+        "finalCheck": "本人の回復進化を確認し、がむしゃらは回復と対象コースを照合。中盤速度と終盤加速を役割ごとに確保。",
         "alternateDeckIds": [
-          "festival-distance",
-          "festival-balanced"
+          "festival-balanced-closing"
         ],
         "hintReview": {
           "summary": "スピード2枚と完凸ドトウで長距離に備える。賢さ3凸ネイチャは乗り換え上手の区間が合う回の候補。回復・速度は本人進化を先に。",
@@ -2839,10 +2914,17 @@
               "○",
               "長距離直線○／がむしゃら",
               "相方の白を確認。加速は持久力と発動位置が合うとき。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
-        }
-      }
+        },
+        "deckNote": "長距離差し。ドトウ完凸で持久力、ネイチャ3凸で終盤加速を比較。本人回復が足りるなら追加回復の分を速度に回す。"
+      },
+      "requiresParent": "parent-nice-nature-long"
     },
     "gold-ship": {
       "subject": {
@@ -2917,59 +2999,54 @@
           "inheritEvolution",
           "inheritanceBasics",
           "farming",
-          "natureUnique"
+          "natureUnique",
+          "raceInherit",
+          "stayUnique",
+          "mayanoUnique",
+          "longExample",
+          "arena",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
         "parents": {
-          "status": "追込用の直親を選定中",
-          "note": "ネイチャは長距離赤・スタミナ青が役立つ。追込で終盤3番手条件の固有は使いにくく、長距離をつなぐ祖父母としても比較。",
+          "status": "本育成の両枝を照合",
+          "note": "マヤノは距離赤と追込白。ステイゴールドは長距離で速度とラストスパートの加速を補う。マヤノの緑は才能開花と前方条件が合う場合に評価。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
-                "name": "ナイスネイチャ",
-                "costume": "ポインセチア・リボン",
-                "status": "因子育成予定の比較候補",
-                "condition": "長距離★3・スタミナ青と長距離速度白を確認。直親の固有と白の組み合わせも比較。"
+                "name": "マヤノトップガン",
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "長距離・追込用。追込Bは育成開始にA。長距離赤と追込白を担う。"
               },
-              "grandparents": [
-                {
-                  "recordId": "o-l",
-                  "status": "祖父母の比較候補",
-                  "condition": "ネイチャを直親にする場合。長距離★3、スタミナ★2。"
-                },
-                {
-                  "name": "メジロマックイーン",
-                  "costume": "エレガンス・ライン",
-                  "status": "祖父母の比較候補",
-                  "condition": "ネイチャを直親にする場合。長距離★3と長距離直線○を実物で確認。"
-                }
-              ]
+              "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "長距離・追込のレンタル直親",
-                "status": "選定中",
-                "condition": "長距離★3、追込で発動する固有。長距離直線○・追込直線○／コーナー○。"
+                "name": "ステイゴールド",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "長距離赤・追込速度白、継承固有の通常効果を照合。"
               },
               "grandparents": [
                 {
-                  "label": "長距離赤・青の祖父母",
-                  "status": "選定中",
-                  "condition": "長距離赤・スタミナ青、共通GⅠ勝利。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "長距離赤・スタミナ青。"
                 },
                 {
-                  "label": "長距離・追込白の祖父母",
-                  "status": "選定中",
-                  "condition": "長距離直線○・追込直線○／コーナー○。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "追込直線○・コーナー○と長距離GⅠ勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "直線一気は現行サポカのヒント。追込の位置取り・速度白と発動する固有を優先。",
+        "parentCheck": "長距離S、長距離・追込の速度白、春天の持久力を確保。直線一気は終盤入口と直線の位置を確認する。",
         "deckId": "festival-distance",
         "rotation": {
           "goals": [
@@ -3036,8 +3113,11 @@
               "長距離・追込用レンタルの白にあれば取得を優先。"
             ]
           ]
-        }
-      }
+        },
+        "deckNote": "長距離追込の持久力を完凸ドトウで確保。賢さカレンは手持ち3凸の練習枠。直線一気・疾風怒濤は完凸ギムレット。",
+        "finalCheck": "追込の中盤の位置取りを支え、直線一気は終盤と直線が合うコースで使う。春天と本番最長距離の持久力を確認。"
+      },
+      "requiresParent": "parent-mayano-long-chase"
     },
     "smart-falcon": {
       "subject": {
@@ -3117,47 +3197,54 @@
           "farming",
           "falcon",
           "mac",
-          "aptitude"
+          "aptitude",
+          "raceInherit",
+          "transcendUnique",
+          "dirtRunner",
+          "arena",
+          "festivalDistanceDecks"
         ]
       },
       "setup": {
         "parents": {
-          "status": "手持ち試走可・逃げの相方選定中",
-          "note": "エル37,732側はマイル★3とダート★6。ファル子はダートAなので相方はマイル赤と逃げ白を優先。以前のアイネスフウジン相性◎233は参考値で、現在使う血統の値は未確認。",
+          "status": "本育成の両枝を照合",
+          "note": "手持ち試走のエル37,732は別枠に掲載。本育成はダスカの逃げ白とトランセンドの前方維持に合う継承固有を比較する。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
-                "recordId": "e-m",
-                "status": "自前の試走・比較候補",
-                "condition": "マイル★3、スピード★3。先行白が中心なので逃げ白と固有は相手側を確認。"
+                "name": "ダイワスカーレット",
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "逃げ・マイル赤と地固め、逃げ白。スズカのマイル用と家系を比較。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "ダートマイル・逃げのレンタル直親",
-                "status": "選定中",
-                "condition": "マイル★3、地固め・逃げ直線○／コーナー○、逃げで使える継承固有。"
+                "name": "トランセンド",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "ダート・マイル逃げの白と、ダートGⅠの勝利歴を優先。"
               },
               "grandparents": [
                 {
-                  "label": "マイル赤の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤を厚くし、マイル直線○／コーナー○を確認。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "マイル赤とパワー・賢さ青。"
                 },
                 {
-                  "label": "ダート・逃げ白の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤、ダート直線○／コーナー○と共通GⅠ勝利。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "逃げ白、短いダートGⅠと2000m前後の共通勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "先駆けは完凸マックイーン、先頭プライド・急ぎ足は本人イベント。地固め・逃げ直線○／コーナー○を両枝で補う。",
-        "deckId": "festival-balanced",
+        "parentCheck": "ファル子は開始ダートA。マイルSを狙う赤と先駆け・地固めの経路を照合。帝王賞などは持久力を確認。",
+        "deckId": "festival-speed",
         "rotation": {
           "goals": [
             [
@@ -3229,7 +3316,7 @@
             "良バ場で使う場合"
           ]
         ],
-        "finalCheck": "序盤のプレオープン2勝を優先。ダートGⅠを足すなら、適性と日程を確認して選ぶ。",
+        "finalCheck": "最初にPre-OP以上2勝を達成。逃げの先駆けと序盤白、本人の進化を確認。地固めは序盤に発動する3つと組み合わせる。",
         "hintReview": {
           "summary": "手持ち6タイプで試走し、ダート中距離の固定目標も確認。先駆けは完凸マックイーンの通常イベント。先頭プライドと急ぎ足は本人イベント。",
           "sources": [
@@ -3268,9 +3355,12 @@
         ],
         "trialNote": "オグリ38,990＋エル37,732。確認済みの継承元6枠でマイル★9・ダート★6・先行★2。試走後に、仕上げ用の脚質白・継承固有・相性を比較。 オグリが枝をまたいで重なるので、仕上げは別の組み合わせと相性内訳を比較する。",
         "alternateDeckIds": [
-          "festival-distance"
-        ]
-      }
+          "festival-distance",
+          "festival-balanced"
+        ],
+        "deckNote": "本番ダートマイルのスピードと根性を優先。帝王賞・JBCクラシック・東京大賞典で失速する回はドトウ入り。"
+      },
+      "requiresParent": "parent-daiwa-scarlet-mile"
     },
     "el-condor-pasa": {
       "subject": {
@@ -3346,47 +3436,56 @@
           "dirt",
           "aptitude",
           "dirtStraight",
-          "dirtCorner"
+          "dirtCorner",
+          "raceInherit",
+          "wonderUnique",
+          "elRunner",
+          "dirtRunner",
+          "arena",
+          "festivalDistanceDecks",
+          "longAptitudes"
         ]
       },
       "setup": {
         "parents": {
-          "status": "自前の試走候補あり・先行の相方選定中",
-          "note": "オグリ37,723のダート★3で開始ダートA。マイル先行レンタルを選べば試走に進める。ウララは仕上げ用の候補として、戦績と不足白を照合。",
+          "status": "本育成の両枝を照合",
+          "note": "前で運ぶエルに、ダート先行オグリの白とアキュートの速度固有を合わせる。終盤加速は本人・先行スキル・開催コースを見て補う。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
-                "recordId": "o-d",
-                "status": "自前の試走候補",
-                "condition": "ダート★3。まずマイル先行レンタルとの試走用。仕上げはウララの家系とも比較する。"
+                "name": "オグリキャップ",
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "ダート・先行の新個体。オグリ37,723は試走に使える。"
               },
               "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "ダートマイル・先行のレンタル直親",
-                "status": "選定中",
-                "condition": "マイル★3、真っ向勝負、マイル・ダート直線○／コーナー○と、先行で発動する固有。"
+                "name": "ワンダーアキュート",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "マイル赤とダート先行白を比較。残り300mの前方条件で継承固有が使える。"
               },
               "grandparents": [
                 {
-                  "label": "マイル赤・速度の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル★3を優先。マイル直線○／コーナー○。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "マイル赤とスタミナ・パワー青。 長距離★1以上の枠も照合。"
                 },
                 {
-                  "label": "ダート・先行白の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤とダート／先行の不足白。共通ダートGⅠ勝利を確認。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "真っ向勝負、先行・マイル・ダート速度、共通のダートGⅠ勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "通常エルのダートBをAにする条件は6枠でダート★1。マイルSは4月継承の抽選なので、相方と祖父母でマイル赤を優先。",
-        "deckId": "festival-balanced",
+        "parentCheck": "開始ダートAは赤★1以上。マイルSは4月の抽選。試走はオグリ37,723＋マイル先行レンタル、本育成は先行白を揃えた新オグリと比較。 固定の長距離目標に備え、家系に長距離★1以上を置いて開始長距離Aを見込む。",
+        "deckId": "festival-distance",
         "rotation": {
           "goals": [
             [
@@ -3415,17 +3514,8 @@
             "通常「にんじん……買ってくださいっ」の下段"
           ],
           [
-            "勇迅円刃",
-            "24",
-            "連続イベント"
-          ],
-          [
             "攻めの姿勢",
             "4"
-          ],
-          [
-            "実直な走り",
-            "24"
           ],
           [
             "先行のコツ○",
@@ -3438,7 +3528,8 @@
           ]
         ],
         "alternateDeckIds": [
-          "festival-distance"
+          "festival-speed",
+          "festival-balanced"
         ],
         "hintReview": {
           "summary": "完凸ドトウとライスで先行速度を補う。ダート・マイル白と先行加速は相方の白を確認。",
@@ -3463,10 +3554,18 @@
               "○",
               "ダート直線○／ダートコーナー○",
               "継承用で作ったダート白やレンタルから狙う。"
+            ],
+            [
+              "○",
+              "勇迅円刃／実直な走り",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
             ]
           ]
-        }
-      }
+        },
+        "deckNote": "競技場はダートマイル。育成では芝2400mのジャパンCと2500mの有馬記念の勝利が必要なため、ドトウを残す。",
+        "finalCheck": "開始ダートAを確認。芝の宝塚・ジャパンC・有馬は先行の持久力を先に確保し、本番用のダート・マイル速度と先行加速を選ぶ。"
+      },
+      "requiresParent": "parent-oguri-dirt-pace"
     },
     "oguri-cap": {
       "subject": {
@@ -3512,6 +3611,11 @@
             "△",
             "ダートコーナー○",
             "ダートのヒントを用意できるとき。"
+          ],
+          [
+            "○",
+            "乗り換え上手",
+            "終盤始めの中団以降。ネイチャ3凸の連続イベント。"
           ]
         ],
         "factors": [
@@ -3543,61 +3647,58 @@
           "aptitude",
           "elUnique",
           "dirtStraight",
-          "dirtCorner"
+          "dirtCorner",
+          "raceInherit",
+          "inariUnique",
+          "oguriRunner",
+          "dirtRunner",
+          "arena",
+          "festivalDistanceDecks",
+          "natureWit",
+          "switchSkill",
+          "longAptitudes"
         ]
       },
       "setup": {
         "parents": {
-          "status": "仕上げ用の直親と祖父母を選定中",
-          "note": "ウララ＋デジタルから作る新エルは、オグリ同名が入らない枝の候補。エルの固有は最終直線の上位が条件。新エルは白・戦績がそろえば直親候補とし、実戦で使う固有を持つ親を置く場合は祖父母起用も比較。",
+          "status": "本育成の両枝を照合",
+          "note": "新エルは赤と差し・ダート白を担当。エルの固有は上位条件。イナリは中団以降と追い比べが想定できるときの速度候補。",
           "branches": [
             {
               "side": "自前側",
               "parent": {
                 "name": "エルコンドルパサー",
-                "costume": "エル☆Número 1",
-                "status": "因子育成予定の比較候補",
-                "condition": "育成予定の個体。ダート・マイル速度白と差しコーナー○、共通GⅠを確認して直親／祖父母を決める。"
+                "costume": "通常",
+                "status": "自前で育成する候補",
+                "condition": "ウララ＋デジタルから作るダート・差し白の親。オグリ同名が入らない家系を確認。"
               },
-              "grandparents": [
-                {
-                  "name": "ハルウララ",
-                  "costume": "うららん一等賞♪",
-                  "status": "因子育成待ち",
-                  "condition": "新エルを直親にする場合。ダート★3と共通ダートGⅠ。"
-                },
-                {
-                  "name": "アグネスデジタル",
-                  "costume": "超特急！フルカラー特殊PP",
-                  "status": "候補・個体未確定",
-                  "condition": "新エルを直親にする場合。ダート★3と共通ダートGⅠ。"
-                }
-              ]
+              "grandparents": []
             },
             {
               "side": "レンタル側",
               "parent": {
-                "label": "ダートマイル・差しのレンタル直親",
-                "status": "選定中",
-                "condition": "マイル★3、差しの中盤・終盤で使える固有とダート／マイルの不足白。"
+                "name": "イナリワン",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "マイル赤、ダート白と差し白を照合。継承固有は前半に中団以降を保ち追い比べが条件。"
               },
               "grandparents": [
                 {
-                  "label": "マイル赤の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル★3を優先し、オグリ同名を確認。"
+                  "label": "赤・青の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "マイル・ダートの赤とパワー青。 長距離★1以上の枠も照合。"
                 },
                 {
-                  "label": "ダート・差し白の祖父母",
-                  "status": "選定中",
-                  "condition": "マイル赤・ダート直線○／コーナー○・差しコーナー○と共通GⅠ勝利。"
+                  "label": "脚質白・共通GⅠの祖父母",
+                  "status": "実個体を照合",
+                  "condition": "ダート速度・差しコーナー○と芝マイル、ダートGⅠの実勝利。"
                 }
               ]
             }
           ]
         },
-        "parentCheck": "通常オグリのダートBをAにする条件は6枠でダート★1。マイルS狙いの赤、ダート・マイル速度白と差しコーナー○を優先。両枝のオグリ同名を確認。",
-        "deckId": "festival-balanced",
+        "parentCheck": "開始ダートA用の★1と4月マイルSを狙う赤を確認。イナリの固有が狙える隊列か、両枝に同名オグリがいないかを照合。 固定の長距離目標に備え、家系に長距離★1以上を置いて開始長距離Aを見込む。",
+        "deckId": "festival-distance-closing",
         "rotation": {
           "goals": [
             [
@@ -3642,17 +3743,14 @@
             "お出かけ5回目の選択肢"
           ],
           [
-            "ウマ好み",
-            "24"
-          ],
-          [
             "良バ場○",
             "22",
             "良バ場で使う場合"
           ]
         ],
         "alternateDeckIds": [
-          "festival-distance"
+          "festival-speed-closing",
+          "festival-balanced-closing"
         ],
         "hintReview": {
           "summary": "手持ち6タイプで練習を確保。新エル・相方の家系からダート、マイル、差しの白を補う。",
@@ -3676,10 +3774,23 @@
               "○",
               "ダート直線○／ダートコーナー○",
               "新エルや相方が持つ白因子を確認。"
+            ],
+            [
+              "○",
+              "ウマ好み",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
-        }
-      }
+        },
+        "deckNote": "ダートマイル差し。固定有馬記念のためドトウを残し、ネイチャ3凸は本番の差し加速を補う。固定目標を安定して勝てる回は根性入りも比較。",
+        "finalCheck": "開始ダートA、家系のオグリ同名、マイルSを確認。育成中は有馬の持久力、本番用は差しの中盤速度とダート・マイルの白を優先。"
+      },
+      "requiresParent": "parent-el-condor-pasa"
     },
     "parent-air-groove-short": {
       "subject": {
@@ -3758,7 +3869,9 @@
           "midPace",
           "inheritanceOfficial",
           "taikiUnique",
-          "aptitude"
+          "aptitude",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills"
         ]
       },
       "setup": {
@@ -3852,7 +3965,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "先行コーナー○はドトウの通常イベント下段。短距離と先行の白を本人に残し、短距離コーナー○と先行直線○の継承元を確認。",
+          "summary": "短距離因子を狙う回もオークス・宝塚記念があるため6タイプ。ドトウの先行コーナー○と、祖父母バクシンの先行直線○を狙う。",
           "sources": [
             "doto",
             "rice",
@@ -3882,8 +3995,10 @@
           ]
         },
         "alternateDeckIds": [
-          "festival-speed"
-        ]
+          "festival-distance"
+        ],
+        "deckNote": "短距離因子を狙う回もオークス・宝塚記念があるため6タイプ。ドトウの先行コーナー○と、祖父母バクシンの先行直線○を狙う。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-daiwa-scarlet-mile": {
@@ -3955,7 +4070,12 @@
           ]
         ],
         "note": "親づくりの能力目安。継承元・赤因子・白因子を完成時に照合する。",
-        "factorCheck": "本人マイル★3、地固め、逃げの直線・コーナーを優先。マイル直線○／コーナー○と共通GⅠを確認。地固めを使う子は序盤に発動するスキルを3つ用意する。"
+        "factorCheck": "本人マイル★3、地固め、逃げの直線・コーナーを優先。マイル直線○／コーナー○と共通GⅠを確認。地固めを使う子は序盤に発動するスキルを3つ用意する。",
+        "sources": [
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "longAptitudes"
+        ]
       },
       "setup": {
         "parents": {
@@ -3982,7 +4102,7 @@
             }
           ]
         },
-        "parentCheck": "スズカの先駆けは完凸マックイーン。ダスカは地固め・逃げ直線○／コーナー○とマイル速度を優先。自分の固有も渡す場合は才能開花★3を確認。",
+        "parentCheck": "スズカの先駆けは完凸マックイーン。ダスカは地固め・逃げ直線○／コーナー○とマイル速度を優先。自分の固有も渡す場合は才能開花★3を確認。 固定の長距離目標に備え、家系に長距離★1以上を置いて開始長距離Aを見込む。",
         "deckId": "festival-balanced",
         "policy": "バランス重視",
         "rotation": {
@@ -4045,7 +4165,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "手持ち6タイプで練習と共通GⅠを優先。マイル・逃げの両系統を用意できる継承元を選ぶ。",
+          "summary": "マイル逃げ白を狙いつつオークス・有馬の目標を走る。地固めは家系と駿大祭、先駆けは所持マックイーン。",
           "sources": [
             "mac",
             "mileFront",
@@ -4072,8 +4192,10 @@
           ]
         },
         "alternateDeckIds": [
-          "festival-speed"
-        ]
+          "festival-distance"
+        ],
+        "deckNote": "マイル逃げ白を狙いつつオークス・有馬の目標を走る。地固めは家系と駿大祭、先駆けは所持マックイーン。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-grass-wonder-mile": {
@@ -4148,7 +4270,11 @@
         "factorCheck": "本人マイル★3、マイル直線○／コーナー○と差しコーナー○を優先。ウオッカが手持ちから取れる差し直線○は上積み。グラス自身の固有を使うなら才能開花★3。",
         "sources": [
           "rubyUnique",
-          "talent"
+          "talent",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
@@ -4166,16 +4292,17 @@
             {
               "side": "レンタル側",
               "parent": {
-                "name": "ダイイチルビー",
-                "costume": "華麗なる紅玉",
-                "condition": "マイル★3と差し向けの白を優先。グラス育成時のレンタル祖父母はグラスと同名か確認。"
+                "name": "シーキングザパール",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "マイル赤と差し・マイル速度白を照合。ウオッカ本育成で借りるダンスルビーと別名。"
               },
               "grandparents": []
             }
           ]
         },
         "parentCheck": "レンタルのマイル★3を確認。固定の有馬記念に向けて持久力を残す。",
-        "deckId": "festival-balanced",
+        "deckId": "festival-balanced-closing",
         "policy": "バランス重視",
         "rotation": {
           "goals": [
@@ -4213,11 +4340,6 @@
             "18"
           ],
           [
-            "遊びはおしまいっ！",
-            "29",
-            "連続打ち切り分岐。完走スキルが必要な周回は分岐を確認"
-          ],
-          [
             "ウマ好み",
             "24"
           ],
@@ -4228,7 +4350,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "固定目標を走れる手持ち6タイプで、差し直線○はドトウ。マイル両白と差しコーナー○の供給は継承元を探す段階で確認。",
+          "summary": "マイル差し白を狙い、日本ダービー・ジャパンC・有馬の勝利に必要な持久力・根性を確保。",
           "sources": [
             "doto",
             "mileClosing",
@@ -4249,12 +4371,24 @@
               "○",
               "尻尾上がり／垂れウマ回避",
               "継承元に白がある場合の補助。ゲームで表示された候補を使う。"
+            ],
+            [
+              "○",
+              "遊びはおしまいっ！",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-distance"
-        ]
+          "festival-distance-closing"
+        ],
+        "deckNote": "マイル差し白を狙い、日本ダービー・ジャパンC・有馬の勝利に必要な持久力・根性を確保。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-jungle-pocket-medium": {
@@ -4339,7 +4473,12 @@
           "daring",
           "aptitude",
           "genes",
-          "affinityBreakdown"
+          "affinityBreakdown",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "natureWit",
+          "switchSkill",
+          "longAptitudes"
         ]
       },
       "setup": {
@@ -4380,8 +4519,8 @@
             }
           ]
         },
-        "parentCheck": "テイオー側の中距離★9＋ネオ本人の中距離★3。開始長距離A用にレンタル祖父母の長距離★1を確認。菊花賞・天皇賞（春）用の持久力、差しコーナー○の供給、共通GⅠも照合。",
-        "deckId": "festival-distance",
+        "parentCheck": "テイオー側の中距離★9＋ネオ本人の中距離★3。開始長距離A用にレンタル祖父母の長距離★1を確認。菊花賞・天皇賞（春）用の持久力、差しコーナー○の供給、共通GⅠも照合。 固定の長距離目標に備え、家系に長距離★1以上を置いて開始長距離Aを見込む。",
+        "deckId": "festival-distance-closing",
         "policy": "バランス重視",
         "rotation": {
           "goals": [
@@ -4438,7 +4577,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "ジョーダン3凸で中距離両白、完凸ドトウで差し直線○。差しコーナー○の継承経路を選び、長距離の固定目標を走れる持久力も残す。",
+          "summary": "中距離差し因子。春天や阪神大賞典も走るのでドトウで持久力を確保し、差し白はネイチャ・継承・駿大祭から狙う。",
           "sources": [
             "jordan",
             "doto",
@@ -4458,12 +4597,19 @@
               "○",
               "尻尾上がり／垂れウマ回避",
               "継承元に白がある場合の補助。ゲームで表示された候補を使う。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-balanced"
-        ]
+          "festival-balanced-closing"
+        ],
+        "deckNote": "中距離差し因子。春天や阪神大賞典も走るのでドトウで持久力を確保し、差し白はネイチャ・継承・駿大祭から狙う。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-nice-nature-long": {
@@ -4473,9 +4619,9 @@
       },
       "distance": "長距離",
       "style": "差し",
-      "purpose": "長距離・速度／回復の親または祖父母候補",
+      "purpose": "長距離・差し／ローレル用の直親候補",
       "recordId": null,
-      "target": "長距離★3・スタミナ青・長距離直線○。脚質別の組み合わせで採用",
+      "target": "ローレルに渡す長距離・差しの親",
       "goals": {
         "stats": [
           1900,
@@ -4530,16 +4676,18 @@
           ]
         ],
         "note": "親づくりの能力目安。継承元・赤因子・白因子を完成時に照合する。",
-        "factorCheck": "本人長距離★3、長距離直線○とスタミナ青を優先。回復白は使う子の持久力に応じて加える。固有は終盤の3番手と後続との差が条件。先行・差し・追込で発動する固有を持つ別親も比較し、長距離赤をつなぐ場合は祖父母に回す。",
+        "factorCheck": "本人の長距離赤とスタミナ青、長距離直線・差し速度の白を優先。固有は終盤3番手で後続が近いとき。ローレルの不足白とレンタル側の固有に合わせて採用する。",
         "sources": [
           "natureUnique",
-          "inheritanceBasics"
+          "inheritanceBasics",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills"
         ]
       },
       "setup": {
         "parents": {
           "status": "長距離の親・祖父母用",
-          "note": "オグリ47,004＋マックイーンで長距離赤と長距離の速度白をつなぐ。先行のクリーク、差しのローレル、追込のゴルシの不足分に合わせて直親・祖父母を選ぶ。",
+          "note": "オグリ47,004から長距離赤をつなぐ。ローレル用の差し白と実際の共通GⅠ勝利で判断する。",
           "branches": [
             {
               "side": "自前側",
@@ -4605,7 +4753,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "完凸ドトウでスタミナを伸ばし、ジョーダンの直線回復・好転一息も使う。長距離直線○など足りない白は継承を確認。",
+          "summary": "長距離赤とスタミナ青、差し白を残す回。賢さはカレン3凸を練習に使う。差し白は継承と演目稽古の提示を軸に狙う。",
           "sources": [
             "jordan",
             "mac",
@@ -4630,7 +4778,9 @@
         },
         "alternateDeckIds": [
           "festival-balanced"
-        ]
+        ],
+        "deckNote": "長距離赤とスタミナ青、差し白を残す回。賢さはカレン3凸を練習に使う。差し白は継承と演目稽古の提示を軸に狙う。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-haru-urara-dirt": {
@@ -4705,7 +4855,11 @@
         "factorCheck": "本人ダート★3と、新エルに使うデジタルと重なるダートGⅠ勝利を優先。マイル・ダート白は上積み。見本スイープはダート直線○／コーナー○が未確認。パワーSSRウララは本人の育成に編成できないため、欲しい白は借りる家系を照合。",
         "sources": [
           "farming",
-          "aptitude"
+          "aptitude",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
@@ -4734,7 +4888,7 @@
           ]
         },
         "parentCheck": "オグリ37,723＋ダート★3のレンタルでダート★6を確保。今の家系でレンタル祖父母をダート★3とマイル★1以上にすればダート★9・開始マイルA。遺伝子確定を優先する回はレンタル祖父母を両方ダート★3にして★12を狙う。",
-        "deckId": "festival-balanced",
+        "deckId": "festival-speed-closing",
         "policy": "バランス重視",
         "rotation": {
           "goals": [
@@ -4762,15 +4916,6 @@
         },
         "hints": [
           [
-            "差し直線○",
-            "18"
-          ],
-          [
-            "遊びはおしまいっ！",
-            "29",
-            "連続打ち切り分岐。完走スキルが必要な周回は分岐を確認"
-          ],
-          [
             "ウマ好み",
             "24"
           ],
@@ -4781,7 +4926,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "祖父母用のダート★3と共通GⅠ勝利を先に確保。ダート・マイル白は継承が確認できた周回で回収。",
+          "summary": "ダート短距離・マイルの固定目標を走り、スピードとダート速度白を回収。有馬は出走目標。マイルAとファン期限を先に確認。",
           "sources": [
             "doto",
             "curren",
@@ -4802,12 +4947,24 @@
               "○",
               "ダート直線○／ダートコーナー○",
               "パワーウララは同名制限。レンタル白で取れる場合に追加。"
+            ],
+            [
+              "○",
+              "差し直線○／遊びはおしまいっ！",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-distance"
-        ]
+          "festival-balanced-closing"
+        ],
+        "deckNote": "ダート短距離・マイルの固定目標を走り、スピードとダート速度白を回収。有馬は出走目標。マイルAとファン期限を先に確認。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-silence-suzuka-short": {
@@ -4878,7 +5035,9 @@
           "mac",
           "curren",
           "shortStart",
-          "farming"
+          "farming",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills"
         ]
       },
       "setup": {
@@ -4961,7 +5120,7 @@
           ]
         ],
         "hintReview": {
-          "summary": "所持の練習型主編成を使い、短距離・逃げの白は継承と駿大祭も合わせて狙う。",
+          "summary": "短距離因子周回でも中距離の固定目標と共通GⅠを走る。地固めと逃げ白はキング側・レンタルからも狙う。",
           "sources": [
             "mac",
             "curren",
@@ -4983,7 +5142,9 @@
         },
         "alternateDeckIds": [
           "festival-speed"
-        ]
+        ],
+        "deckNote": "短距離因子周回でも中距離の固定目標と共通GⅠを走る。地固めと逃げ白はキング側・レンタルからも狙う。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
     },
     "parent-air-groove-short-closer": {
@@ -5052,7 +5213,11 @@
           "farming",
           "shortCorner",
           "aptitude",
-          "bambooUnique"
+          "bambooUnique",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "natureWit",
+          "switchSkill"
         ]
       },
       "setup": {
@@ -5092,7 +5257,7 @@
           ]
         },
         "parentCheck": "短距離Cはキング側の赤で開始Aを見込める。レンタル家系のマイル★1以上も確認。差しの白と比較に必要な戦績を残す。",
-        "deckId": "festival-balanced",
+        "deckId": "festival-balanced-closing",
         "policy": "バランス重視",
         "rotation": {
           "goals": [
@@ -5119,20 +5284,12 @@
         },
         "hints": [
           [
-            "短距離直線○",
-            "29"
-          ],
-          [
             "差し直線○",
             "18"
-          ],
-          [
-            "スプリントギア",
-            "29"
           ]
         ],
         "hintReview": {
-          "summary": "練習型の主編成を使い、差しコーナー○はレンタルや駿大祭で得たヒントから狙う。",
+          "summary": "オークス・宝塚記念に向けて持久力を残し、差し白を狙う。短距離直線○は借り親や駿大祭からも狙い、カレン入りは比較候補。",
           "sources": [
             "curren",
             "doto",
@@ -5144,13 +5301,501 @@
               "◎",
               "差しコーナー○／短距離コーナー○",
               "短距離・差し親の家系を照合。結果に付いた白は他の枝の白と合わせて判断。"
+            ],
+            [
+              "○",
+              "短距離直線○／スプリントギア",
+              "主編成では、継承・駿大祭・本人に提示された場合に候補。カードのヒントは対応する代替編成の回。"
+            ],
+            [
+              "○",
+              "乗り換え上手",
+              "ネイチャ3凸のイベント。レース馬では差しの終盤始めに使える回、因子周回では下位白を狙う回。"
             ]
           ]
         },
         "alternateDeckIds": [
-          "festival-speed"
-        ]
+          "festival-balanced"
+        ],
+        "deckNote": "オークス・宝塚記念に向けて持久力を残し、差し白を狙う。短距離直線○は借り親や駿大祭からも狙い、カレン入りは比較候補。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
       }
+    },
+    "parent-tokai-teio-long": {
+      "subject": {
+        "name": "トウカイテイオー",
+        "costume": "通常"
+      },
+      "distance": "長距離",
+      "style": "先行",
+      "purpose": "長距離・先行／クリークの直親候補",
+      "recordId": null,
+      "target": "クリークに渡す長距離・先行の親",
+      "goals": {
+        "stats": [
+          1900,
+          1550,
+          1300,
+          1000,
+          1250
+        ],
+        "aptitude": "開始芝A・長距離A・先行A",
+        "note": "因子周回の目安。青因子にしたい能力、親と共通するGⅠ勝利、スキルPtを確認する。",
+        "skills": [
+          [
+            "◎",
+            "長距離直線○／先行直線○／先行コーナー○",
+            "継承の白、所持カード、駿大祭で得たヒントから取得を狙う。"
+          ],
+          [
+            "○",
+            "長距離コーナー○／直線回復",
+            "選べるヒントと固定目標に合わせて補う。"
+          ]
+        ],
+        "factors": [
+          [
+            "◎",
+            "赤",
+            "長距離・星3"
+          ],
+          [
+            "◎",
+            "白",
+            "長距離直線○／先行直線○／先行コーナー○"
+          ],
+          [
+            "○",
+            "青",
+            "スタミナ"
+          ],
+          [
+            "○",
+            "白",
+            "長距離コーナー○／直線回復"
+          ]
+        ],
+        "factorCheck": "オグリ47,004と長距離先行のマックイーンをつなぐ。長距離赤と先行白、春天と有馬の共通勝利を確認。",
+        "sources": [
+          "aptitude",
+          "farming",
+          "teioRunner",
+          "teioStep",
+          "longExample",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills"
+        ]
+      },
+      "setup": {
+        "parents": {
+          "status": "本育成の両枝を照合",
+          "note": "長距離Bのテイオーは長距離赤でA。クリーク用の先行速度白と、実際の長距離GⅠ勝利を残す。",
+          "branches": [
+            {
+              "side": "自前側",
+              "parent": {
+                "recordId": "o-l",
+                "condition": "長距離★3・スタミナ青。マチタン43172はさらに一代前の長距離赤。"
+              },
+              "grandparents": []
+            },
+            {
+              "side": "レンタル側",
+              "parent": {
+                "name": "メジロマックイーン",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "長距離・先行の白と春天・有馬の勝利を照合。"
+              },
+              "grandparents": [
+                {
+                  "label": "長距離赤・スタミナ青",
+                  "status": "実個体を照合",
+                  "condition": "長距離・回復の構成を確認。"
+                },
+                {
+                  "label": "先行白・GⅠ",
+                  "status": "実個体を照合",
+                  "condition": "先行直線・コーナーと共通勝利。"
+                }
+              ]
+            }
+          ]
+        },
+        "parentCheck": "共通勝利と固定の春天・有馬を優先。目標の順位は固有ヒントと持久力を確認して達成。",
+        "deckId": "festival-distance",
+        "policy": "スタミナ重視",
+        "rotation": {
+          "goals": [
+            [
+              "クラシック級",
+              "菊花賞に向け長距離Aと持久力。皐月賞・日本ダービーの固定も走る。"
+            ],
+            [
+              "シニア級",
+              "天皇賞（春）3着以内、ジャパンC2着以内、有馬記念1着。"
+            ]
+          ],
+          "reservations": [],
+          "note": "固定目標を優先。追加するGⅠは候補の実際の勝利とターンを照合。"
+        },
+        "hints": [
+          [
+            "長距離コーナー○",
+            "4"
+          ],
+          [
+            "先行直線○",
+            "9"
+          ],
+          [
+            "先行コーナー○",
+            "18",
+            "通常イベント下段"
+          ],
+          [
+            "直線回復",
+            "9"
+          ]
+        ],
+        "hintReview": {
+          "summary": "菊花賞・春天・有馬の勝利とスタミナ青を狙う。コーナー白はドトウ、先行直線○と直線回復はジョーダン。",
+          "sources": [
+            "festivalDecks",
+            "festivalScenarioSkills",
+            "farming"
+          ],
+          "alternates": [
+            [
+              "◎",
+              "長距離直線○／先行直線○／先行コーナー○",
+              "継承本育成の脚質に合う方から取得を狙う。"
+            ]
+          ]
+        },
+        "alternateDeckIds": [
+          "festival-balanced"
+        ],
+        "deckNote": "菊花賞・春天・有馬の勝利とスタミナ青を狙う。コーナー白はドトウ、先行直線○と直線回復はジョーダン。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
+      }
+    },
+    "parent-mayano-long-chase": {
+      "subject": {
+        "name": "マヤノトップガン",
+        "costume": "通常"
+      },
+      "distance": "長距離",
+      "style": "追込",
+      "purpose": "長距離・追込／ゴールドシップの直親候補",
+      "recordId": null,
+      "target": "ゴルシに渡す長距離・追込の親",
+      "goals": {
+        "stats": [
+          1900,
+          1550,
+          1320,
+          1000,
+          1250
+        ],
+        "aptitude": "開始芝A・長距離A・追込A",
+        "note": "因子周回の目安。青因子にしたい能力、親と共通するGⅠ勝利、スキルPtを確認する。",
+        "skills": [
+          [
+            "◎",
+            "長距離直線○／追込直線○／追込コーナー○",
+            "継承の白、所持カード、駿大祭で得たヒントから取得を狙う。"
+          ],
+          [
+            "○",
+            "長距離コーナー○／直線一気／疾風怒濤",
+            "選べるヒントと固定目標に合わせて補う。"
+          ]
+        ],
+        "factors": [
+          [
+            "◎",
+            "赤",
+            "長距離・星3"
+          ],
+          [
+            "◎",
+            "白",
+            "長距離直線○／追込直線○／追込コーナー○"
+          ],
+          [
+            "○",
+            "青",
+            "スタミナまたはパワー"
+          ],
+          [
+            "○",
+            "白",
+            "長距離コーナー○／直線一気／疾風怒濤"
+          ]
+        ],
+        "factorCheck": "長距離赤と追込速度白を狙う。本人の固有は才能開花と前方の発動条件を確認し、赤・白と祖父母で採用判断。",
+        "sources": [
+          "aptitude",
+          "farming",
+          "mayanoRunner",
+          "mayanoUnique",
+          "longExample",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills"
+        ]
+      },
+      "setup": {
+        "parents": {
+          "status": "本育成の両枝を照合",
+          "note": "初期追込Bを赤★1以上でA。追込のヒントはギムレットと借りる枝で狙う。春天・有馬に備えて持久力も確保。",
+          "branches": [
+            {
+              "side": "自前側",
+              "parent": {
+                "recordId": "o-l",
+                "condition": "長距離赤とスタミナ青を用意。"
+              },
+              "grandparents": []
+            },
+            {
+              "side": "レンタル側",
+              "parent": {
+                "name": "ナリタタイシン",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "長距離赤・追込白と家系の追込★1以上を照合。"
+              },
+              "grandparents": [
+                {
+                  "label": "適性の祖父母",
+                  "status": "実個体を照合",
+                  "condition": "長距離赤・追込★1以上の出所。"
+                },
+                {
+                  "label": "追込白と勝利歴",
+                  "status": "実個体を照合",
+                  "condition": "追込速度と春天・有馬・菊花賞。"
+                }
+              ]
+            }
+          ]
+        },
+        "parentCheck": "追込Aと長距離の固定目標を確認。ゴルシ本育成で使うステイゴールドの枝と重なる勝利・白を比較。",
+        "deckId": "festival-distance",
+        "policy": "スタミナ重視",
+        "rotation": {
+          "goals": [
+            [
+              "クラシック〜シニア",
+              "菊花賞・有馬・天皇賞（春）の固定目標を優先。"
+            ]
+          ],
+          "reservations": [],
+          "note": "固定目標を優先。追加するGⅠは候補の実際の勝利とターンを照合。"
+        },
+        "hints": [
+          [
+            "長距離コーナー○",
+            "4"
+          ],
+          [
+            "直線一気",
+            "22"
+          ],
+          [
+            "疾風怒濤",
+            "22"
+          ],
+          [
+            "直線回復",
+            "9"
+          ]
+        ],
+        "hintReview": {
+          "summary": "長距離の勝利と追込白の両方を狙う。完凸ギムレットを使い、追込直線やコーナーは借りる枝も照合。",
+          "sources": [
+            "festivalDecks",
+            "festivalScenarioSkills",
+            "farming"
+          ],
+          "alternates": [
+            [
+              "◎",
+              "長距離直線○／追込直線○／追込コーナー○",
+              "継承本育成の脚質に合う方から取得を狙う。"
+            ]
+          ]
+        },
+        "alternateDeckIds": [
+          "festival-balanced"
+        ],
+        "deckNote": "長距離の勝利と追込白の両方を狙う。完凸ギムレットを使い、追込直線やコーナーは借りる枝も照合。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
+      }
+    },
+    "parent-oguri-dirt-pace": {
+      "subject": {
+        "name": "オグリキャップ",
+        "costume": "通常"
+      },
+      "distance": "ダート",
+      "recordId": null,
+      "target": "エルに渡すダート・先行の親",
+      "style": "先行",
+      "goals": {
+        "stats": [
+          1880,
+          1350,
+          1350,
+          1000,
+          1250
+        ],
+        "aptitude": "開始ダートA・マイルA・先行A",
+        "note": "因子周回の目安。青因子にしたい能力、親と共通するGⅠ勝利、スキルPtを確認する。",
+        "skills": [
+          [
+            "◎",
+            "ダート・マイルの速度／先行直線○／先行コーナー○",
+            "継承の白、所持カード、駿大祭で得たヒントから取得を狙う。"
+          ],
+          [
+            "○",
+            "真っ向勝負／攻めの姿勢",
+            "選べるヒントと固定目標に合わせて補う。"
+          ]
+        ],
+        "factors": [
+          [
+            "◎",
+            "赤",
+            "ダート・星3"
+          ],
+          [
+            "◎",
+            "白",
+            "ダート・マイルの速度／先行直線○／先行コーナー○"
+          ],
+          [
+            "○",
+            "青",
+            "パワーまたはスタミナ"
+          ],
+          [
+            "○",
+            "白",
+            "真っ向勝負／攻めの姿勢"
+          ]
+        ],
+        "factorCheck": "エアグルーヴ側の先行白とデジタル側のダート赤・白を合わせ、エル同名が祖父母に入らない家系を選ぶ。",
+        "sources": [
+          "aptitude",
+          "farming",
+          "oguriRunner",
+          "elRunner",
+          "dirtRunner",
+          "festivalDistanceDecks",
+          "festivalScenarioSkills",
+          "longAptitudes"
+        ]
+      },
+      "setup": {
+        "parents": {
+          "status": "本育成の両枝を照合",
+          "note": "オグリ37,723はエルの試走に使い、仕上げ用オグリはエル同名が祖父母に入らない構成を組む。",
+          "branches": [
+            {
+              "side": "自前側",
+              "parent": {
+                "name": "エアグルーヴ",
+                "costume": "エンプレスロード",
+                "status": "自前で育成する候補",
+                "condition": "先行の白を用意する側。仕上がりと芝GⅠの実勝利を照合。"
+              },
+              "grandparents": []
+            },
+            {
+              "side": "レンタル側",
+              "parent": {
+                "name": "アグネスデジタル",
+                "costume": "通常",
+                "status": "レンタル個体を選定",
+                "condition": "ダート赤、先行・ダート速度の白、芝とダートの勝利歴。"
+              },
+              "grandparents": [
+                {
+                  "label": "ダート・マイル赤",
+                  "status": "実個体を照合",
+                  "condition": "ダート赤とマイル白を確認。 長距離★1以上の枠も照合。"
+                },
+                {
+                  "label": "共通GⅠと脚質白",
+                  "status": "実個体を照合",
+                  "condition": "芝マイル・ダートGⅠの実勝利と先行白。"
+                }
+              ]
+            }
+          ]
+        },
+        "parentCheck": "ダートBから開始A。芝有馬の持久力とダート・先行の白を狙い、相性と家系で採用判断。 固定の長距離目標に備え、家系に長距離★1以上を置いて開始長距離Aを見込む。",
+        "deckId": "festival-distance",
+        "rotation": {
+          "goals": [
+            [
+              "クラシック〜シニア",
+              "ファン条件、マイルCS、芝の有馬記念、固定のGⅠ入着を優先。"
+            ],
+            [
+              "追加比較",
+              "ダートGⅠは候補の勝利歴を確認し、芝の固定目標と重ならない戦を選ぶ。"
+            ]
+          ],
+          "reservations": [],
+          "note": "固定目標を優先。追加するGⅠは候補の実際の勝利とターンを照合。"
+        },
+        "hints": [
+          [
+            "先行直線○",
+            "9"
+          ],
+          [
+            "先行コーナー○",
+            "18",
+            "通常イベント下段"
+          ],
+          [
+            "攻めの姿勢",
+            "4"
+          ],
+          [
+            "直線回復",
+            "9"
+          ]
+        ],
+        "policy": "バランス重視",
+        "hintReview": {
+          "summary": "芝有馬を勝てる持久力を持たせ、ダートと先行の白を継承・駿大祭で狙う。",
+          "sources": [
+            "festivalDecks",
+            "festivalScenarioSkills",
+            "farming"
+          ],
+          "alternates": [
+            [
+              "◎",
+              "ダート・マイルの速度／先行直線○／先行コーナー○",
+              "継承本育成の脚質に合う方から取得を狙う。"
+            ]
+          ]
+        },
+        "alternateDeckIds": [
+          "festival-balanced"
+        ],
+        "deckNote": "芝有馬を勝てる持久力を持たせ、ダートと先行の白を継承・駿大祭で狙う。",
+        "finalCheck": "終盤の仕上げ前に、狙う赤・青、白を拾う経路、両側と共通するGⅠを確認。白のスキル因子の◎は取得の優先目安。"
+      },
+      "purpose": "ダート・先行／エルコンドルパサーの仕上げ用",
+      "requiresParent": "parent-air-groove-short"
     }
   },
   "sources": {
@@ -5170,7 +5815,7 @@
       ]
     },
     "festival-balanced": {
-      "name": "練習を優先する6タイプ",
+      "name": "固定目標・因子周回向けの6タイプ",
       "cards": [
         "4",
         "18",
@@ -5179,7 +5824,7 @@
         "29",
         "azuma"
       ],
-      "note": "完凸のマックイーン・ドトウ・ギムレット・ライスを軸に、賢さカレン3凸とレンタルの完凸吾妻。試走でスピード、固定目標の勝利、獲得Ptを確認。"
+      "note": "完凸4枚・賢さカレン3凸・完凸吾妻の6タイプ。固定目標の勝利、狙う青、スキルPt、稽古の大成功を比較。"
     },
     "festival-speed": {
       "name": "短距離・マイルのスピード2枚",
@@ -5191,10 +5836,10 @@
         "29",
         "azuma"
       ],
-      "note": "完凸ドトウをジョーダン3凸に替えてスピードを補う5タイプ。中距離の固定勝利で持久力が足りるかも確認。"
+      "note": "マックイーン完凸・ジョーダン3凸のスピード2枚に、パワー・根性・賢さ・吾妻。固定の中距離目標とスタミナの伸びも確認。"
     },
     "festival-distance": {
-      "name": "スピード2枚と完凸スタミナ",
+      "name": "中長距離と固定長めのスピード2枚",
       "cards": [
         "4",
         "9",
@@ -5203,10 +5848,10 @@
         "29",
         "azuma"
       ],
-      "note": "完凸ドトウを維持し、ジョーダン3凸を2枚目のスピードに置く5タイプ。先行直線○・中距離の両白と直線回復の候補もある。根性や目標勝利の実績を見て6タイプと比較。"
+      "note": "ドトウ完凸で持久力、ジョーダン3凸でスピードを補う。根性や賢さが不足したら6タイプと比べる。"
     },
     "festival-distance-closing": {
-      "name": "長距離差しのスピード2枚",
+      "name": "中長距離・差しと固定長めの編成",
       "cards": [
         "4",
         "9",
@@ -5215,19 +5860,31 @@
         "31",
         "azuma"
       ],
-      "note": "完凸ドトウを確保したままスピードを2枚に。賢さは同じ3凸のネイチャで、発動区間が合う回の乗り換え上手を狙う。"
+      "note": "完凸ドトウで持久力、ジョーダン3凸でスピードを確保。賢さネイチャ3凸の乗り換え上手は有効な区間・順位で採用。"
     },
-    "festival-dirt-hints": {
-      "name": "ダート白2種を回収する周回",
+    "festival-speed-closing": {
+      "name": "短距離・マイル差しのスピード2枚",
+      "cards": [
+        "4",
+        "9",
+        "22",
+        "24",
+        "31",
+        "azuma"
+      ],
+      "note": "賢さネイチャ3凸の乗り換え上手は終盤始めの中団以降。取得する加速と賢さの到達値を確認。"
+    },
+    "festival-balanced-closing": {
+      "name": "差しと因子周回向けの6タイプ",
       "cards": [
         "4",
         "18",
-        "21",
+        "22",
         "24",
-        "29",
+        "31",
         "azuma"
       ],
-      "note": "新エルでダート直線○・ダートコーナー○の継承元を確保できない回の比較案。完凸ギムレットを無凸パワーウララに替える。白の取得と目標・共通GⅠの勝利を確認。"
+      "note": "固定の中長距離や青因子を重視する回に、スタミナ・根性を両方残す。ネイチャ本人の育成では同名カードを外す。"
     }
   },
   "friendCards": {
@@ -5276,12 +5933,12 @@
     },
     {
       "distance": "長距離",
-      "need": "オグリ47,004をネイチャ経由の祖父母候補に。長距離直線○を優先し、先行・差し・追込で使う固有と不足白に合わせて直親を選ぶ。",
+      "need": "先行クリーク用は長距離テイオー、差しローレル用はネイチャ、追込ゴルシ用はマヤノ。自前オグリ47,004を祖父母候補にし、相方の脚質固有と共通勝利を合わせる。",
       "note": "長距離赤・速度白は共通。先行・差し・追込で継承固有と不足白を選び分ける。"
     },
     {
       "distance": "ダート",
-      "need": "通常エル・オグリはダート赤★1で開始A。先行エルはオグリ37,723＋マイル先行レンタルで試走。ウララ＋デジタルは差しオグリ用の同名が入らない家系づくりへ。",
+      "need": "ファル子はダスカの逃げ白、先行エルは新オグリの先行白、差しオグリは新エルの差し白。開始ダートBのエルとオグリは★1以上。マイルSと脚質固有はレンタル側も照合。",
       "note": "開始Aを確保したらマイルS用の赤と逃げ・先行・差しの不足白。ファル子は初期ダートA。",
       "priority": true
     }
@@ -5592,12 +6249,12 @@
         "https://gamewith.jp/uma-musume/article/show/261510"
       ],
       "pocketUnique": [
-        "ジャングルポケットの継承固有・ゲームウィズ",
+        "Faith in the Feral・ゲームウィズ",
         "https://gamewith.jp/uma-musume/article/show/452905"
       ],
       "rubyUnique": [
-        "ダンス衣装ダイイチルビーの継承固有・神ゲー攻略",
-        "https://kamigame.jp/umamusume/page/309686357624667038.html"
+        "蒼炎の効果・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/443063"
       ],
       "seiunUnique": [
         "セイウンスカイの継承固有・ゲームウィズ",
@@ -5642,6 +6299,86 @@
       "bambooUnique": [
         "熱血！！風紀アタック・ゲームウィズ",
         "https://gamewith.jp/uma-musume/article/show/358262"
+      ],
+      "festivalDistanceDecks": [
+        "駿大祭の距離別サポカ編成・ゲームエイト",
+        "https://game8.jp/umamusume/836416"
+      ],
+      "natureWit": [
+        "賢さナイスネイチャの練習とヒント・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/291764"
+      ],
+      "switchSkill": [
+        "乗り換え上手の条件・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/257942"
+      ],
+      "raceInherit": [
+        "競技場で使う継承固有の比較・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/574331"
+      ],
+      "heliosUnique": [
+        "アゲてアゲてぷちょへんざ！・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/384973"
+      ],
+      "operaUnique": [
+        "恵福バルカローレ・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/314282"
+      ],
+      "stayUnique": [
+        "黄金を訪ねて・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/536748"
+      ],
+      "teioRunner": [
+        "通常テイオーの適性と目標・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/257410"
+      ],
+      "teioStep": [
+        "究極テイオーステップ・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/258034"
+      ],
+      "mayanoRunner": [
+        "マヤノトップガンの適性と目標・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/257397"
+      ],
+      "mayanoUnique": [
+        "ひらめき☆ランディング・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/261508"
+      ],
+      "chrisUnique": [
+        "Mission:Triumph・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/392643"
+      ],
+      "longExample": [
+        "2026年12月・長距離のコース別攻略例・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/578925"
+      ],
+      "dirtRunner": [
+        "ダート育成・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/284493"
+      ],
+      "transcendUnique": [
+        "Info:Acquired・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/440421"
+      ],
+      "wonderUnique": [
+        "Never Say Never・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/374157"
+      ],
+      "inariUnique": [
+        "快走かな、快走かな！・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/346607"
+      ],
+      "oguriRunner": [
+        "通常オグリの固定目標・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/257408"
+      ],
+      "elRunner": [
+        "通常エルの固定目標・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/257399"
+      ],
+      "longAptitudes": [
+        "各馬の距離適性・ゲームウィズ",
+        "https://gamewith.jp/uma-musume/article/show/255084"
       ]
     },
     "parentStandard": "レース馬の距離・脚質から、直親2頭は使える固有と赤・白、祖父母4頭は赤・白・青と共通GⅠ勝利で選ぶ。採用前に実個体6枠と相性の内訳を照合する。白のスキル因子の◎は狙う順の目安。",
@@ -5660,14 +6397,18 @@
       ]
     },
     "support": {
-      "checkedAt": "2026-11-22",
-      "summary": "吾妻SSR込み5タイプ以上を確保し、所持凸での練習性能を基準にする。演目稽古・本人・継承を使ってヒントを集め、限定の金や狙う因子白に専用カードが必要な回は条件付きで比較。 スピード2枚が必要なら、得意率50のジョーダン3凸を比較。マヤノ2凸は得意率が未解放。",
+      "checkedAt": "2026-11-23",
+      "summary": "競技場は短距離・マイルをスピード2枚と根性、中長距離をスピード2枚とスタミナで組む。ダートはマイル本番に合わせ、有馬などの固定勝利が必要な馬はスタミナを使う。因子周回は固定GⅠ勝利・狙う青・スキルPtを優先。賢さは3凸のカレンとネイチャを脚質・練習で選び、吾妻込み5タイプ以上。",
       "sources": [
+        "festivalDistanceDecks",
         "festivalDecks",
         "festivalScenarioSkills",
         "teach",
         "jordan",
-        "maya"
+        "curren",
+        "doto",
+        "natureWit",
+        "switchSkill"
       ]
     }
   }
