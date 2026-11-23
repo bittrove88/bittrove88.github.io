@@ -348,12 +348,14 @@ function trainingStatus(id) {
   if (!guide) return "";
   const result = trainingResult(id);
   if (result) return unmetAptitudes(result, guide.goals?.requiredAptitudes).length ? "provisional" : "complete";
+  if (guide.optional) return "optional";
   if (guide.requiresParent && !trainingResult(guide.requiresParent)) return "waiting";
+  if (guide.setup?.parents?.ready) return "ready";
   return ownedTrial(guide) ? "trial" : "planned";
 }
 
 function canStartTraining(id) {
-  return ["trial", "planned"].includes(trainingStatus(id));
+  return ["ready", "trial", "planned"].includes(trainingStatus(id));
 }
 
 function trainingTag(id) {
@@ -361,6 +363,8 @@ function trainingTag(id) {
     case "complete": return tag("完成", "confirmed");
     case "provisional": return tag("暫定・出走可", "plan");
     case "trial": return tag("試走可", "trial");
+    case "ready": return tag("本育成案", "confirmed");
+    case "optional": return tag("追加候補", "plan");
     case "waiting": return tag("親待ち", "plan");
     default: return tag("計画あり", "training-planned");
   }
@@ -386,7 +390,9 @@ function progressCard(label, target, progress, summary, style) {
 }
 
 function trainingOverview() {
-  const parentIds = collection(data.plan.parentPlans).filter(planGuide);
+  const factorGuides = collection(data.plan.parentPlans).filter(planGuide);
+  const parentIds = factorGuides.filter(id => !planGuide(id).optional);
+  const optionalParentIds = factorGuides.filter(id => planGuide(id).optional);
   const research = data.plan.factorResearch;
   const teams = collection(data.plan.teams);
   const raceIds = teams.flatMap(team => collection(team.members)).filter(planGuide);
@@ -404,6 +410,7 @@ function trainingOverview() {
       <header class="training-team-head">
         <h3>${esc(team.distance)}</h3><span class="num">${number(complete)} / ${number(total)} 完成</span>
       </header>
+      ${team.preparation ? `<p class="sheet-small">${esc(team.preparation)}</p>` : ""}
       ${members.length ? listMarkup(members.map(id => trainingListRow(id)), "training-race-slots") : empty("出走枠は未登録です。")}
       ${alternates.length ? details("予備・比較候補", facts(alternates.map(item => [
         horseName(item), item.stars ? `星${item.stars}・${item.role}` : item.role
@@ -441,6 +448,9 @@ function trainingOverview() {
         </div>` : ""}
         ${parentIds.length ? listMarkup(parentIds.map(id => trainingListRow(id, planGuide(id).purpose || "継承用")),
           "training-race-slots training-factor-slots") : empty("親を作る計画はまだありません。")}
+        ${optionalParentIds.length ? details("必要に応じて追加する因子馬",
+          listMarkup(optionalParentIds.map(id => trainingListRow(id, planGuide(id).purpose)),
+            "training-race-slots training-factor-slots")) : ""}
       </section>
       <section class="panel" id="plan-race-training" tabindex="-1">
         ${panelTitle("レース馬育成", `<a class="source" href="${href("race")}">レース殿堂</a>`)}
@@ -529,7 +539,7 @@ function trainingGoals(guide, result, factor) {
       ${unmet.length ? `<div class="sheet-setting">${facts(unmet.map(([name, value]) => [`登録個体の${name}`, value]))}</div>` : ""}
       ${goals.note ? `<p class="meta-note">${esc(goals.note)}</p>` : ""}
     </div>
-    <p class="sheet-priority-key">◎ 優先　○ 次点　△ 条件付き</p>
+    <p class="sheet-priority-key">◎ 最優先の目安　○ 次点　△ 条件付き。取れたものから組み合わせる。</p>
     <div class="sheet-goal-grid">
       <section id="plan-acquire" tabindex="-1">
         <h3>獲得したいスキル</h3>
@@ -757,7 +767,7 @@ function factors() {
     </section>
     <section class="panel section-gap" id="parents" tabindex="-1">
       ${panelTitle("因子馬の育成計画", `<a class="source" href="${href("plan", "factor-training")}">進捗を見る</a>`)}
-      ${parents.length ? details(`作る因子馬 ${number(parents.length)}件`, listMarkup(parents.map(id => {
+      ${parents.length ? details(`因子馬の育成案 ${number(parents.length)}件`, listMarkup(parents.map(id => {
         const guide = planGuide(id);
         return `<div class="training-parent-head">
           <a href="${guideHref(id)}">${esc(horseName(guide.subject))}</a>${trainingTag(id)}
@@ -769,7 +779,8 @@ function factors() {
 function factorCoverage() {
   const review = collection(data.plan.factorCoverage);
   if (!review.length) return "";
-  const pending = collection(data.plan.parentPlans).filter(id => planGuide(id) && !trainingResult(id));
+  const pending = collection(data.plan.parentPlans)
+    .filter(id => planGuide(id) && !planGuide(id).optional && !trainingResult(id));
   const rows = review.map(row => ({
     ...row,
     count: data.factors.filter(entry => entry.factors.red?.name === row.distance && entry.factors.red?.stars === 3).length,
