@@ -350,12 +350,11 @@ function trainingStatus(id) {
   if (result) return unmetAptitudes(result, guide.goals?.requiredAptitudes).length ? "provisional" : "complete";
   if (guide.optional) return "optional";
   if (guide.requiresParent && !trainingResult(guide.requiresParent)) return "waiting";
-  if (guide.setup?.parents?.ready) return "ready";
   return ownedTrial(guide) ? "trial" : "planned";
 }
 
 function canStartTraining(id) {
-  return ["ready", "trial", "planned"].includes(trainingStatus(id));
+  return ["trial", "planned"].includes(trainingStatus(id));
 }
 
 function trainingTag(id) {
@@ -363,7 +362,6 @@ function trainingTag(id) {
     case "complete": return tag("完成", "confirmed");
     case "provisional": return tag("暫定・出走可", "plan");
     case "trial": return tag("試走可", "trial");
-    case "ready": return tag("本育成案", "confirmed");
     case "optional": return tag("追加候補", "plan");
     case "waiting": return tag("親待ち", "plan");
     default: return tag("計画あり", "training-planned");
@@ -539,7 +537,7 @@ function trainingGoals(guide, result, factor) {
       ${unmet.length ? `<div class="sheet-setting">${facts(unmet.map(([name, value]) => [`登録個体の${name}`, value]))}</div>` : ""}
       ${goals.note ? `<p class="meta-note">${esc(goals.note)}</p>` : ""}
     </div>
-    <p class="sheet-priority-key">◎ 最優先の目安　○ 次点　△ 条件付き。取れたものから組み合わせる。</p>
+    <p class="sheet-priority-key">◎ 優先　○ 次点　△ 条件付き</p>
     <div class="sheet-goal-grid">
       <section id="plan-acquire" tabindex="-1">
         <h3>獲得したいスキル</h3>
@@ -547,6 +545,7 @@ function trainingGoals(guide, result, factor) {
       </section>
       <section>
         <h3>狙う因子</h3>
+        ${factors.some(([, kind]) => kind === "白") ? '<p class="sheet-small">白のスキル因子の◎は、狙う順の目安。</p>' : ""}
         ${factor ? "" : '<p class="sheet-small">完成後に親として使う場合</p>'}
         ${factors.length ? goalPriorities(factors, true) : empty("目標因子は未登録です。")}
       </section>
