@@ -1,6 +1,7 @@
 const main = document.querySelector("#main");
 const abilityNames = ["スピード", "スタミナ", "パワー", "根性", "賢さ"];
 const aptitudeNames = ["芝", "ダート", "短距離", "マイル", "中距離", "長距離", "逃げ", "先行", "差し", "追込"];
+const hallDistances = ["短距離", "マイル", "中距離", "長距離", "ダート"];
 const pageNames = {
   home: "ホーム", owned: "所持一覧", plan: "育成計画",
   factors: "因子殿堂", race: "レース殿堂", updates: "更新履歴"
@@ -35,8 +36,10 @@ function horseName({ name, costume }) {
 }
 
 function dated(value) {
-  const match = String(value ?? "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  return match ? `${match[1]}年${Number(match[2])}月${Number(match[3])}日` : value ?? "未記録";
+  const match = String(value ?? "").match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})\+09:00)?$/);
+  if (!match) return value ?? "未記録";
+  const date = `${match[1]}年${Number(match[2])}月${Number(match[3])}日`;
+  return match[4] ? `${date} ${match[4]}:${match[5]}（JST）` : date;
 }
 
 function href(page, ...parts) {
@@ -232,7 +235,7 @@ function owned() {
   const filterLabel = support ? "タイプ" : "才能開花";
   const filterValues = support
     ? [...new Set(data.supports.map(card => card.type))].filter(Boolean).map(type => [type, type])
-    : [...new Set(data.roster.map(character => character.stars))].filter(Boolean).sort((a, b) => Number(b) - Number(a)).map(stars => [stars, `星${stars}`]);
+    : [...new Set(data.roster.map(character => character.stars))].filter(Boolean).sort((a, b) => Number.parseInt(b, 10) - Number.parseInt(a, 10)).map(stars => [stars, `星${stars}`]);
   const deck = data.plan.decks?.["deck-5"];
   const deckMarkup = support && deck ? `<section class="panel section-gap">${panelTitle("記録にあるデッキ5")}
       ${supportDeck(deck)}
@@ -335,11 +338,17 @@ function unmetAptitudes(result, target) {
   });
 }
 
+function missingRequiredSkills(result, requiredSkills) {
+  const skills = collection(result.race?.skills);
+  return collection(requiredSkills).filter(name => !skills.includes(name));
+}
+
 function ownedTrial(guide) {
-  const ids = collection(guide?.setup?.trialParents);
-  if (ids.length !== 2 || ids[0] === ids[1] || ids.some(id => !data.byId.get(id)?.factors)) return null;
-  return { branches: ids.map((recordId, index) => ({
-    side: `自前 ${index + 1}`, parent: { recordId }, grandparents: []
+  const records = collection(guide?.setup?.trialParents).map(id => data.byId.get(id));
+  if (records.length !== 2 || records.some(record => !record?.factors || record.name === guide.subject.name)) return null;
+  if (records[0].name === records[1].name) return null;
+  return { branches: records.map((record, index) => ({
+    side: `自前 ${index + 1}`, parent: { recordId: record.id }, grandparents: []
   })) };
 }
 
@@ -347,8 +356,13 @@ function trainingStatus(id) {
   const guide = planGuide(id);
   if (!guide) return "";
   const result = trainingResult(id);
-  if (result) return unmetAptitudes(result, guide.goals?.requiredAptitudes).length ? "provisional" : "complete";
+  if (result) {
+    const { requiredAptitudes, requiredSkills } = guide.goals ?? {};
+    const needsUpdate = unmetAptitudes(result, requiredAptitudes).length || missingRequiredSkills(result, requiredSkills).length;
+    return needsUpdate ? "provisional" : "complete";
+  }
   if (guide.optional) return "optional";
+  if (guide.needsParentSelection) return "selection";
   if (ownedTrial(guide)) return "trial";
   return guide.requiresParent && !trainingResult(guide.requiresParent) ? "waiting" : "planned";
 }
@@ -363,6 +377,7 @@ function trainingTag(id) {
     case "provisional": return tag("暫定・出走可", "plan");
     case "trial": return tag("試走可", "trial");
     case "optional": return tag("追加候補", "plan");
+    case "selection": return tag("親選定待ち", "plan");
     case "waiting": return tag("親待ち", "plan");
     default: return tag("計画あり", "training-planned");
   }
@@ -374,7 +389,7 @@ function trainingProgress(ids) {
     total: statuses.length,
     complete: statuses.filter(status => status === "complete").length,
     provisional: statuses.filter(status => status === "provisional").length,
-    waiting: statuses.filter(status => status === "waiting").length
+    waiting: statuses.filter(status => ["waiting", "selection"].includes(status)).length
   };
 }
 
@@ -495,11 +510,15 @@ function parentLineup(pedigree, requiredId) {
     return `<div class="pedigree-branch">
       <h4>${esc(side.side)}</h4>
       ${pedigreeNode(parent ?? {})}
+      ${collection(side.search).length ? `<section class="sheet-setting">
+        <h5>レンタル検索条件</h5>
+        ${facts(side.search)}
+      </section>` : ""}
       <div class="pedigree-descendants">
         ${grandparents.length
           ? details(projected ? "予定の祖父母を見る" : "祖父母を見る",
             listMarkup(grandparents.map(pedigreeNode), "pedigree-grandparents"))
-          : '<p class="pedigree-meta">祖父母は未確認</p>'}
+          : collection(side.search).length ? "" : '<p class="pedigree-meta">祖父母は未確認</p>'}
       </div>
     </div>`;
   }).join("");
@@ -509,7 +528,7 @@ function parentLineup(pedigree, requiredId) {
 function priorityItems(rows, isFactor) {
   const labels = { "◎": "優先", "○": "次点", "△": "条件付き" };
   return listMarkup(rows.map(([priority, name, text]) => `
-    <span class="sheet-priority" data-priority="${esc(priority)}" aria-label="${esc(labels[priority])}">${esc(priority)}</span>
+    <span class="sheet-priority" data-priority="${esc(priority)}" aria-label="${esc(labels[priority] ?? `優先順 ${priority}`)}">${esc(priority)}</span>
     <div>${isFactor ? `<span class="sheet-factor-kind" data-factor="${esc(name)}">${esc(name)}</span> <strong>${esc(text)}</strong>`
       : `<strong>${esc(name)}</strong>${text ? `<p>${esc(text)}</p>` : ""}`}</div>`), "sheet-priority-list");
 }
@@ -527,6 +546,7 @@ function trainingGoals(guide, result, factor) {
   const skills = collection(goals.skills);
   const factors = collection(goals.factors);
   const unmet = result ? unmetAptitudes(result, goals.requiredAptitudes) : [];
+  const missingSkills = result ? missingRequiredSkills(result, goals.requiredSkills) : [];
   return `<section class="panel sheet-section sheet-goals" id="plan-goals" tabindex="-1">
     ${panelTitle("育成後の目標", !factor && result ? tag("再育成案") : tag("目標案"))}
     <div class="sheet-stat-target">
@@ -535,12 +555,14 @@ function trainingGoals(guide, result, factor) {
         `<div><dt>${name}</dt><dd class="num">${number(goals.stats[index])}</dd></div>`).join("")}</dl>` : empty("目標ステータスは未登録です。")}
       ${goals.aptitude ? `<p class="sheet-aptitude"><span>適性</span><strong>${esc(goals.aptitude)}</strong></p>` : ""}
       ${unmet.length ? `<div class="sheet-setting">${facts(unmet.map(([name, value]) => [`登録個体の${name}`, value]))}</div>` : ""}
+      ${missingSkills.length ? `<p class="sheet-small">再育成で取得するスキル　${esc(missingSkills.join("・"))}</p>` : ""}
       ${goals.note ? `<p class="meta-note">${esc(goals.note)}</p>` : ""}
     </div>
-    <p class="sheet-priority-key">◎ 優先　○ 次点　△ 条件付き</p>
+    <p class="sheet-priority-key">${factor ? "数字は白因子にしたいスキルの優先順。◎・○・△は狙う因子の目安。" : "数字は獲得候補の優先順。取れる候補から選び、条件を満たさないものは代替へ。"}</p>
+    ${goals.skillPolicy ? `<p class="sheet-small">${esc(goals.skillPolicy)}</p>` : ""}
     <div class="sheet-goal-grid">
       <section id="plan-acquire" tabindex="-1">
-        <h3>獲得したいスキル</h3>
+        <h3>${factor ? `因子用の取得候補 ${number(skills.length)}件` : `獲得候補・優先順 ${number(skills.length)}件`}</h3>
         ${skills.length ? goalPriorities(skills, false) : empty("目標スキルは未登録です。")}
       </section>
       <section>
@@ -550,6 +572,7 @@ function trainingGoals(guide, result, factor) {
         ${factors.length ? goalPriorities(factors, true) : empty("目標因子は未登録です。")}
       </section>
     </div>
+    ${collection(goals.skillFallbacks).length ? `<div class="sheet-setting">${details("取れなかったときの補充・条件付き候補", facts(goals.skillFallbacks))}</div>` : ""}
     ${factor && goals.factorCheck ? `<div class="sheet-setting sheet-policy">
       <h3>採用基準</h3><p>${esc(goals.factorCheck)}</p>
     </div>` : ""}
@@ -625,7 +648,7 @@ function trainingHints(setup) {
   const review = setup.hintReview;
   const alternates = collection(review?.alternates);
   return `<section class="sheet-setting" id="plan-hints" tabindex="-1">
-    <div class="sheet-row-title"><h4>優先ヒント</h4><span class="num">主編成 ${number(hints.length)} / 10枠</span></div>
+    <div class="sheet-row-title"><h4>優先スキル設定</h4><span class="num">主編成 ${number(hints.length)} / 10枠</span></div>
     ${review ? `<p class="sheet-hint-summary">${esc(review.summary)}</p>` : ""}
     ${hints.length ? `<ol class="sheet-hints">${hints.map(([skill, cardId, condition]) => {
       const character = deckCard(cardId)?.character;
@@ -634,11 +657,13 @@ function trainingHints(setup) {
     }).join("")}</ol>` : empty("優先スキルは未登録です。")}
     ${review ? `
       ${alternates.length ? details("本人・継承などから取る候補", priorityItems(alternates, false)) : ""}
-      <p class="meta-note">候補に出たヒントを最大10個まで設定。本人の初期・覚醒スキルは終了時の取得も確認します。狙う白因子のスキルは育成終了前に取得します。</p>
+      ${collection(review.eventNotes).length ? details("優先枠を使わずに取るイベントと操作", listMarkup(review.eventNotes.map(note => esc(note)))) : ""}
+      <p class="meta-note">ランダムヒントと必要な選択肢誘導を最大10枠。初期・覚醒、直親固有、選択不要のイベントは枠から外します。上の獲得候補は、終了時に取得する順番です。</p>
       ${details("ヒントと取得経路の出典", factorResearchLinks([
         ...collection(review.sources), "selection", "settings", "higher"
       ]))}` : `
-      <p class="meta-note">育成中にヒントを優先する設定。サポート名の後ろに入手条件を表示。</p>`}
+      <p class="meta-note">育成中にヒントを優先する設定。サポート名の後ろに入手条件を表示。</p>
+      <p class="meta-note">${link(setup.hintSource, "以前の10枠")}　${link(data.plan.sources?.skills, "ヒントの供給元")}</p>`}
   </section>`;
 }
 
@@ -661,10 +686,14 @@ function trainingDetail(id, guide) {
   const trial = ownedTrial(guide);
   const parent = planGuide(guide.requiresParent);
   const parentResult = trainingResult(guide.requiresParent);
+  const parentAlternatives = collection(setup.parentAlternatives).filter(planGuide);
   const policy = setup.policy ?? collection(data.plan.teams).find(team => team.distance === guide.distance)?.policy;
   const dependentIds = factor ? [
     ...collection(data.plan.parentPlans), ...collection(data.plan.teams).flatMap(team => collection(team.members)),
-  ].filter(childId => planGuide(childId)?.requiresParent === id) : [];
+  ].filter(childId => {
+    const child = planGuide(childId);
+    return child?.requiresParent === id || collection(child?.setup?.parentAlternatives).includes(id);
+  }) : [];
 
   const target = guideHref(id);
   return `<article class="training-detail training-sheet">
@@ -696,19 +725,24 @@ function trainingDetail(id, guide) {
               ${tag(parentResult ? "親を確保" : trial ? "本育成の親を準備" : "親の育成が先", parentResult ? "confirmed" : "plan")}
               <a href="${guideHref(guide.requiresParent)}">${esc(horseName(parent.subject))}の因子馬育成</a>
             </p>` : ""}
+            ${pedigree?.ideal ? `<div class="sheet-setting sheet-policy">
+              <h4>${factor ? "この因子馬の役割" : "理想の直親と勝ち筋"}</h4><p>${esc(pedigree.ideal)}</p>
+            </div><div class="sheet-setting sheet-row-title"><h4>${factor ? "手持ちから組む家系" : "手持ちとレンタルで組む案"}</h4></div>` : ""}
             ${setup.parentCheck ? `<p class="sheet-small">${esc(setup.parentCheck)}</p>` : ""}
-            ${trial ? `<div class="sheet-setting sheet-trial">
-              <div class="sheet-row-title"><h4>手持ちだけで試走</h4>${tag("試走用", "trial")}</div>
-              ${setup.trialNote ? `<p class="sheet-hint-summary">${esc(setup.trialNote)}</p>` : ""}
-              ${parentLineup(trial)}
-            </div>
-            <div class="sheet-setting sheet-row-title"><h4>本育成用の親</h4></div>` : ""}
             ${parentLineup(pedigree, guide.requiresParent)}
+            ${trial ? `<div class="sheet-setting sheet-trial">${details("手持ちだけで試走", `
+              ${setup.trialNote ? `<p class="sheet-hint-summary">${esc(setup.trialNote)}</p>` : ""}
+              ${parentLineup(trial)}`)}</div>` : ""}
+            ${parentAlternatives.length ? details("不足が出たときの因子馬", listMarkup(parentAlternatives.map(parentId =>
+              `<a href="${guideHref(parentId)}">${esc(planGuide(parentId).purpose || horseName(planGuide(parentId).subject))}</a>`
+            ), "training-children")) : ""}
             ${guide.purpose ? `<p class="sheet-small sheet-parent-use">用途　<strong>${esc(guide.purpose)}</strong></p>` : ""}
-            ${dependentIds.length ? `<p class="sheet-small sheet-parent-use">この個体を使う育成</p>
+            ${dependentIds.length ? `<p class="sheet-small sheet-parent-use">この因子を使う候補</p>
               ${listMarkup(dependentIds.map(childId => `<a href="${guideHref(childId)}">${esc(horseName(planGuide(childId).subject))}</a>
                 <small>　${isFactorGuide(childId) ? "因子馬育成" : "レース馬育成"}</small>`), "training-children")}` : ""}
             ${pedigree?.note ? `<p class="meta-note">${esc(pedigree.note)}</p>` : ""}
+            ${collection(pedigree?.sources).length ? details("継承・コースの出典",
+              factorResearchLinks(pedigree.sources)) : ""}
           </section>
           ${trainingSupport(setup)}
           <section class="panel sheet-section sheet-final" id="plan-final" tabindex="-1">
@@ -748,8 +782,40 @@ function aptitudes(entry) {
 }
 
 function cardHead(entry) {
-  return `<div class="card-head"><h2>${esc(horseName(entry))}</h2>
+  return `<div class="card-head"><h3>${esc(horseName(entry))}</h3>
     <div class="score"><span class="data-label">評価点</span><strong>${number(entry.score)}</strong>${entry.rank ? tag(entry.rank, "rank") : ""}</div></div>`;
+}
+
+function hallDistanceIndex(page, entries, distancesFor, metadata, emptyMessage) {
+  const groups = new Map(hallDistances.map(distance => [distance, []]));
+  for (const entry of entries) {
+    const distances = new Set(distancesFor(entry).filter(distance => groups.has(distance)));
+    if (!distances.size) {
+      if (!groups.has("その他")) groups.set("その他", []);
+      distances.add("その他");
+    }
+    for (const distance of distances) groups.get(distance).push(entry);
+  }
+
+  return `<section class="panel hall-index" id="distance-index" tabindex="-1">
+    ${panelTitle("距離別の候補")}
+    <div class="hall-distance-grid">${[...groups].map(([distance, candidates]) => `<div class="hall-distance">
+      <h3>${esc(distance)}</h3>
+      ${candidates.length ? listMarkup(candidates.map(entry => `<a class="hall-entry-link" href="${href(page, entry.id)}">
+        <span>${esc(horseName(entry))}</span><small>${esc(metadata(entry).filter(Boolean).join("・"))}</small>
+      </a>`), "hall-index-links") : `<p>${esc(emptyMessage)}${page === "race" ? ` <a href="${href("plan", distance)}">育成計画</a>` : ""}</p>`}
+    </div>`).join("")}</div>
+  </section>`;
+}
+
+function hallConditions(entries, grid, card, open) {
+  if (!entries.length) return "";
+  return details(`条件付き候補 ${number(entries.length)}件`, `<div class="${grid}">${entries.map(card).join("")}</div>`,
+    open || state.part === "conditions" || entries.some(entry => entry.id === state.part));
+}
+
+function noHallCandidates(page, message, conditions) {
+  return conditions.length ? `<p class="notice">${esc(message)} <a href="${href(page, "conditions")}">条件付き候補を表示</a></p>` : empty(message);
 }
 
 function factors() {
@@ -758,12 +824,15 @@ function factors() {
     ...data.factors.map(entry => entry.factors.red?.name)
   ])].filter(Boolean);
   const parents = collection(data.plan.parentPlans).filter(planGuide);
+  const candidates = data.factors.filter(entry => !entry.factors.useCondition).sort(compareFactors);
   return `${heading("因子殿堂")}
-    ${factorCoverage()}
-    <section class="panel factor-listing">
+    ${hallDistanceIndex("factors", candidates, factorDistances, entry => [factorRole(entry.factors.role),
+      entry.factors.red && factorLabel(entry.factors.red), number(entry.score)], "自前候補なし")}
+    <section class="panel section-gap factor-listing">
       ${controls("factors", { queryLabel: "名前・因子・評価点", filterLabel: "赤因子", filters: reds.map(red => [red, red]) })}
       <div id="results">${factorResults()}</div>
     </section>
+    ${factorCoverage()}
     <section class="panel section-gap" id="parents" tabindex="-1">
       ${panelTitle("因子馬の育成計画", `<a class="source" href="${href("plan", "factor-training")}">進捗を見る</a>`)}
       ${parents.length ? details(`因子馬の育成案 ${number(parents.length)}件`, listMarkup(parents.map(id => {
@@ -772,7 +841,8 @@ function factors() {
           <a href="${guideHref(id)}">${esc(horseName(guide.subject))}</a>${trainingTag(id)}
         </div><small>${esc(guide.purpose)}</small>`;
       }), "training-hall-plans"), state.part === "parents") : empty("親を作る計画はまだありません。")}
-    </section>`;
+    </section>
+    <div class="hall-conditions" id="hall-conditions" tabindex="-1">${factorConditions()}</div>`;
 }
 
 function factorCoverage() {
@@ -785,7 +855,7 @@ function factorCoverage() {
     count: data.factors.filter(entry => entry.factors.red?.name === row.distance && entry.factors.red?.stars === 3).length,
     planned: pending.filter(id => planGuide(id).distance === row.distance),
   }));
-  return `<section class="panel factor-coverage" id="coverage" tabindex="-1">
+  return `<section class="panel section-gap factor-coverage" id="coverage" tabindex="-1">
     ${panelTitle("自前の赤因子★3", `<a class="source" href="${href("plan", "factor-training")}">育成計画を見る</a>`)}
     <dl class="factor-coverage-strip">
       ${rows.map(({ distance, count, planned, priority }) => `<div data-pending="${Boolean(priority && planned.length)}"><dt>${esc(distance)}</dt>
@@ -803,26 +873,46 @@ function factorCoverage() {
   </section>`;
 }
 
+function factorDistances(entry) {
+  const { candidateDistances, red } = entry.factors;
+  return collection(candidateDistances).length ? candidateDistances : [red?.name];
+}
+
 function matchesFactor(entry, filter) {
-  const { blue, red, unique, use, white, role } = entry.factors;
+  const { blue, red, unique, use, white, role, useCondition } = entry.factors;
   if (filter.filter && red?.name !== filter.filter) return false;
   const query = filter.query.normalize("NFKC").trim();
   if (/^\d[\d,]*$/.test(query)) return String(entry.score).includes(query.replaceAll(",", ""));
-  return withinQuery(query, entry.name, entry.costume, blue?.name, red?.name, unique?.name, use, factorRole(role),
+  return withinQuery(query, entry.name, entry.costume, blue?.name, red?.name, unique?.name, use, useCondition, factorRole(role),
     collection(white).map(factor => factor.name));
 }
 
-function factorResults() {
-  const distances = collection(data.plan.factorCoverage).map(row => row.distance);
+function compareFactors(left, right) {
+  const roleDifference = Number(right.factors.role === "direct") - Number(left.factors.role === "direct");
+  const starDifference = (right.factors.red?.stars ?? 0) - (left.factors.red?.stars ?? 0);
+  return roleDifference || starDifference || (right.score ?? 0) - (left.score ?? 0);
+}
+
+function sortFactors(entries) {
   const order = entry => {
-    const index = distances.indexOf(entry.factors.red?.name);
-    return index < 0 ? distances.length : index;
+    const index = hallDistances.indexOf(factorDistances(entry)[0]);
+    return index < 0 ? hallDistances.length : index;
   };
-  const entries = data.factors.filter(entry => matchesFactor(entry, state.factors)).sort((left, right) => {
-    const starDifference = (right.factors.red?.stars ?? 0) - (left.factors.red?.stars ?? 0);
-    return order(left) - order(right) || starDifference || (right.score ?? 0) - (left.score ?? 0);
-  });
-  return countLabel(entries.length) + (entries.length ? `<div class="factor-grid">${entries.map(factorCard).join("")}</div>` : empty("条件に合う個体はありません。"));
+  return [...entries].sort((left, right) => order(left) - order(right) || compareFactors(left, right));
+}
+
+function factorResults() {
+  const entries = sortFactors(data.factors.filter(entry => !entry.factors.useCondition && matchesFactor(entry, state.factors)));
+  return countLabel(entries.length) + (entries.length ? `<div class="factor-grid">${entries.map(factorCard).join("")}</div>`
+    : noHallCandidates("factors", "条件に合う通常候補はありません。", conditionalFactors()));
+}
+
+function conditionalFactors() {
+  return data.factors.filter(entry => entry.factors.useCondition && matchesFactor(entry, state.factors));
+}
+
+function factorConditions(open) {
+  return hallConditions(sortFactors(conditionalFactors()), "factor-grid", factorCard, open);
 }
 
 function whiteFactorList(whites) {
@@ -854,7 +944,7 @@ function factorRole(role) {
 }
 
 function factorCard(entry) {
-  const { blue, red, unique, white, use, history, confidence, priorityWhite, memo, role } = entry.factors;
+  const { blue, red, unique, white, use, useCondition, history, confidence, priorityWhite, memo, role } = entry.factors;
   const whites = collection(white);
   const featured = collection(priorityWhite).map(name => whites.find(value => value.name === name)).filter(Boolean);
   const profile = abilities(entry) + aptitudes(entry) + (history || memo ? facts([
@@ -871,6 +961,7 @@ function factorCard(entry) {
         ${blue ? tag("青 " + factorLabel(blue), "blue") : ""}
         ${unique ? tag("固有 " + factorLabel(unique), "unique") : ""}
       </div>
+      ${useCondition ? `<p class="hall-use"><strong>使う条件</strong>　${esc(useCondition)}</p>` : ""}
       ${use ? `<p class="factor-use">${esc(use)}</p>` : ""}
       ${featured.length ? `<div class="factor-featured"><h3>注目する白因子</h3>
         <div class="tags">${featured.map(value => tag(factorLabel(value), "factor-highlight")).join("")}</div></div>` : ""}
@@ -883,42 +974,90 @@ function factorCard(entry) {
 }
 
 function race() {
-  const options = [...new Set(data.race.map(entry => entry.race.distance))].filter(Boolean);
-  return `${heading("レース殿堂", "出走用の個体を見比べ、コースと作戦に合う仕上がりを確認。")}
-    <section class="panel">
-      ${controls("race", { queryLabel: "名前・衣装・作戦", filterLabel: "担当距離", filters: options.map(distance => [distance, distance]) })}
-      <div id="results">${raceResults()}</div>
-    </section>
+  const options = [...new Set([...hallDistances, ...data.race.map(entry => entry.race.distance)])].filter(Boolean);
+  const lineup = raceLineup();
+  const entries = [...lineup.keys()].map(id => data.byId.get(id));
+  return `${heading("レース殿堂")}
+    ${hallDistanceIndex("race", entries, entry => [entry.race.distance], entry => [entry.race.style, number(entry.score),
+      lineup.get(entry.id) === "provisional" ? "暫定" : ""], "採用個体なし")}
     <section class="panel section-gap">
+      ${controls("race", { queryLabel: "名前・衣装・作戦・評価点", filterLabel: "担当距離", filters: options.map(distance => [distance, distance]) })}
+      <div id="results">${raceResults(lineup)}</div>
+    </section>
+    <section class="panel section-gap" id="race-compare" tabindex="-1">
       ${panelTitle("個体比較")}
       <div id="compare">${compare()}</div>
-    </section>`;
+    </section>
+    <div class="hall-conditions" id="hall-conditions" tabindex="-1">${raceConditions(false, lineup)}</div>`;
 }
 
-function raceResults() {
+function raceLineup() {
+  const lineup = new Map();
+  for (const team of collection(data.plan.teams)) {
+    for (const id of collection(team.members)) {
+      const record = trainingResult(id);
+      if (record?.race) lineup.set(record.id, trainingStatus(id));
+    }
+  }
+  return lineup;
+}
+
+function matchesRace(entry, filter) {
+  return (!filter.filter || entry.race.distance === filter.filter) &&
+    withinQuery(filter.query, entry.name, entry.costume, entry.race.style, entry.race.distance, entry.score, number(entry.score), entry.race.useCondition);
+}
+
+function raceResults(lineup = raceLineup()) {
   const filter = state.race;
-  const entries = data.race.filter(entry => (!filter.filter || entry.race.distance === filter.filter) &&
-    withinQuery(filter.query, entry.name, entry.costume, entry.race.style, entry.race.distance, entry.score));
-  return countLabel(entries.length) + (entries.length ? `<div class="race-grid">${entries.map(raceCard).join("")}</div>` : empty("条件に合う個体はありません。"));
+  const active = [...lineup.keys()].map(id => data.byId.get(id)).filter(entry => matchesRace(entry, filter));
+  const linked = data.byId.get(state.part);
+  const archived = linked?.race && !lineup.has(linked.id) && !linked.race.useCondition && matchesRace(linked, filter) ? [linked] : [];
+  const section = (title, entries) => entries.length ? `<section class="race-group">
+    <h2>${title} <span>${number(entries.length)}件</span></h2>
+    <div class="race-grid">${entries.map(entry => raceCard(entry, lineup)).join("")}</div>
+  </section>` : "";
+  const total = active.length + archived.length;
+  return `<p class="sr-only" role="status">${number(total)}件</p>` + (total
+    ? section("採用中", active) + section("比較用の記録", archived)
+    : noHallCandidates("race", "条件に合う採用個体はありません。", conditionalRaces(lineup)));
 }
 
-function raceCard(entry) {
+function conditionalRaces(lineup) {
+  return data.race.filter(entry => !lineup.has(entry.id) && entry.race.useCondition && matchesRace(entry, state.race));
+}
+
+function raceConditions(open, lineup = raceLineup()) {
+  return hallConditions(conditionalRaces(lineup), "race-grid", entry => raceCard(entry, lineup), open);
+}
+
+function raceCard(entry, lineup) {
   const record = entry.race;
   const skills = collection(record.skills);
+  const status = lineup.get(entry.id);
+  const condition = !status && record.useCondition;
+  const badge = status === "complete" ? tag("採用・完成", "confirmed")
+    : status === "provisional" ? tag("採用・暫定", "plan")
+    : condition ? tag("条件付き候補", "race-conditional") : tag("比較用");
+  const related = data.byId.get(record.previousId)?.race ? data.byId.get(record.previousId)
+    : data.race.find(item => item.race.previousId === entry.id);
+  const pair = related && (status ? [entry, related] : [related, entry]);
+  const compareLink = pair ? `<a class="race-compare-link" href="${href("race", "compare", ...pair.map(item => item.id))}">${number(related.score)}と比較</a>` : "";
   const detailsMarkup = `
     ${aptitudes(entry)}
+    ${record.focus ? `<p><strong>確認・育成の目安</strong>　${esc(record.focus)}</p>` : ""}
     ${record.known ? `<p>${esc(record.known)}</p>` : ""}
     ${skills.length ? listMarkup(skills.map(esc), "skill-list") : empty("習得スキルは未登録です。")}`;
 
-  return `<article class="race-card" id="entry-${esc(entry.id)}">
+  return `<article class="race-card" data-status="${status ? "active" : condition ? "conditional" : "record"}" id="entry-${esc(entry.id)}" tabindex="-1">
     ${cardHead(entry)}
     <div class="card-body">
-      <div class="tags">${[record.distance, record.style, record.role].filter(Boolean).map(label => tag(label)).join("")}</div>
-      ${abilities(entry)}
+      <div class="tags">${badge}${[record.distance, record.style].filter(Boolean).map(label => tag(label)).join("")}</div>
+      ${condition ? `<p class="hall-use"><strong>使う条件</strong>　${esc(condition)}</p>` : ""}
       ${record.strengths ? `<p><strong>強み</strong>　${esc(record.strengths)}</p>` : ""}
-      ${record.focus ? `<p><strong>次の育成</strong>　${esc(record.focus)}</p>` : ""}
       ${record.comparison ? `<p class="muted">${esc(record.comparison)}
         ${data.byId.get(record.previousId)?.factors ? `<a href="${href("factors", record.previousId)}">旧個体の因子</a>` : ""}</p>` : ""}
+      ${abilities(entry)}
+      ${compareLink}
       ${details(`適性と習得スキル（${skills.length}件）`, detailsMarkup, state.part === entry.id)}
     </div>
   </article>`;
@@ -933,7 +1072,8 @@ function compare() {
   const labels = ["評価点", ...abilityNames];
   const leftValues = [left.score, ...collection(left.stats)];
   const rightValues = [right.score, ...collection(right.stats)];
-  const optionLabel = entry => `${horseName(entry)} ${number(entry.score)}`;
+  const lineup = raceLineup();
+  const optionLabel = entry => `${horseName(entry)} ${number(entry.score)}・${lineup.has(entry.id) ? "採用中" : entry.race.useCondition ? "条件付き" : "比較用"}`;
 
   const selectors = [left, right].map((entry, index) => `<label class="field search">${index === 0 ? "左の個体" : "右の個体"}
     <select data-compare="${index}">${data.race.map(option => `<option value="${esc(option.id)}"${option === entry ? " selected" : ""}>${esc(optionLabel(option))}</option>`).join("")}</select>
@@ -960,7 +1100,7 @@ function compare() {
     ${table(["項目", "左の個体", "右の個体", "左−右"], rows, "chart compact")}
     <div class="compare-extra">
       ${details("適性を比較", table(["項目", "左の個体", "右の個体"], aptitudeRows, "compact"))}
-      ${details("習得スキルの差分", `<h3>${esc(horseName(left))}のみに表示</h3>${skillOnly(leftSkills, rightSkills)}<h3>${esc(horseName(right))}のみに表示</h3>${skillOnly(rightSkills, leftSkills)}`)}
+      ${details("習得スキルの差分", `<h3>${esc(horseName(left))} ${number(left.score)}のみに記録</h3>${skillOnly(leftSkills, rightSkills)}<h3>${esc(horseName(right))} ${number(right.score)}のみに記録</h3>${skillOnly(rightSkills, leftSkills)}`)}
     </div>`;
 }
 
@@ -1004,6 +1144,14 @@ function render(refreshFocus = false) {
       state.factors = { query: "", filter: "" };
     }
   }
+  if (state.page === "race") {
+    const entry = data.byId.get(state.part);
+    if (entry?.race && !matchesRace(entry, state.race)) state.race = { query: "", filter: "" };
+    if (state.part === "compare") {
+      const right = data.byId.get(step);
+      if (data.byId.get(state.planId)?.race && right?.race) state.compare = [state.planId, right.id];
+    }
+  }
   const warning = data.issues.length
     ? `<p class="notice status-note" role="status">読み込みを確認するデータ　${esc(data.issues.join("、"))}</p>`
     : "";
@@ -1025,10 +1173,14 @@ function render(refreshFocus = false) {
       target = document.getElementById(`plan-${guideSections[step]}`);
     } else if (state.page === "factors" && ["parents", "coverage"].includes(state.part)) {
       target = document.getElementById(state.part);
+    } else if (state.page === "race" && state.part === "compare") {
+      target = document.getElementById("race-compare");
+    } else if (["factors", "race"].includes(state.page) && state.part === "conditions") {
+      target = document.getElementById("hall-conditions");
     } else {
       target = document.getElementById(`entry-${state.part}`);
     }
-    const focus = (["plan", "factors"].includes(state.page) && target) || main;
+    const focus = (["plan", "factors", "race"].includes(state.page) && target) || main;
     focus.focus({ preventScroll: true });
     if (target) target.scrollIntoView({ block: "start" });
     else window.scrollTo(0, 0);
@@ -1043,11 +1195,24 @@ function changeFilter(event) {
   state[key][field] = input.value;
   const listing = key === "factors" ? factorResults() : key === "race" ? raceResults() : ownedResults(key);
   document.querySelector("#results").innerHTML = listing;
+  if (key === "factors" || key === "race") {
+    const conditions = document.querySelector("#hall-conditions");
+    const open = conditions.querySelector("details")?.open;
+    conditions.innerHTML = key === "factors" ? factorConditions(open) : raceConditions(open);
+  }
 }
 
 document.querySelector(".skip").addEventListener("click", event => {
   event.preventDefault();
   main.focus();
+});
+
+main.addEventListener("click", event => {
+  const link = event.target.closest(".hall-entry-link");
+  if (link && link.hash === location.hash && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+    event.preventDefault();
+    render(true);
+  }
 });
 
 main.addEventListener("input", event => {
@@ -1065,6 +1230,7 @@ main.addEventListener("change", event => {
     state.compare[other] = data.race.find(entry => entry.id !== input.value)?.id ?? "";
   }
   document.querySelector("#compare").innerHTML = compare();
+  if (state.part === "compare") history.replaceState(null, "", href("race", "compare", ...state.compare));
   document.querySelector(`[data-compare="${index}"]`).focus();
 });
 

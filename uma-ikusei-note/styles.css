@@ -381,6 +381,7 @@ small, .muted { color: var(--muted); }
 }
 
 .results-note { margin-bottom: 0.4rem; font-size: 0.9rem; color: var(--muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .table-wrap { overflow-x: auto; }
 .info-table { border-collapse: collapse; width: 100%; text-align: left; }
 
@@ -850,6 +851,30 @@ details.disclosure summary {
 }
 
 .factor-card { border-top: 0.22rem solid #819ab2; }
+.hall-distance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 0.65rem;
+}
+
+.hall-distance {
+  min-width: 0;
+  padding: 0.68rem 0.78rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: #f6faf5;
+}
+
+.hall-distance h3 { margin-bottom: 0.38rem; color: var(--green-dark); }
+.hall-distance p { font-size: 0.91rem; color: var(--muted); }
+.hall-index-links { padding: 0; list-style: none; }
+.hall-index-links li + li { border-top: 1px solid var(--line); }
+.hall-entry-link { display: grid; padding-block: 0.35rem; gap: 0.06rem; overflow-wrap: anywhere; }
+.hall-entry-link span { font-weight: 720; }
+.hall-entry-link small { justify-self: start; font-size: 0.875rem; }
+.hall-conditions:not(:empty) { margin-top: 1.25rem; }
+.hall-conditions > details { background: var(--paper); }
+.hall-conditions > details > summary { background: #f2eef8; color: var(--violet); }
 .factor-coverage { margin-bottom: 0.9rem; }
 .factor-coverage-strip {
   display: grid;
@@ -914,9 +939,18 @@ details.disclosure summary {
 .factor-parent-list h3 { margin-bottom: 0.32rem; color: var(--muted); font-size: 0.9rem; }
 .factor-parent-list summary { font-size: 0.89rem; }
 .factor-card .abilities dt { white-space: normal; }
-.race-card { border-top: 0.22rem solid #8b76b6; }
+.race-group + .race-group { margin-top: 1.2rem; }
+.race-group h2 { margin-bottom: 0.5rem; font-size: 1.15rem; }
+.race-group h2 span { margin-left: 0.35rem; color: var(--muted); font-size: 0.85rem; font-weight: 600; }
+.race-card { border-top: 0.22rem solid #b5bac1; }
+.race-card[data-status="active"] { border-top-color: #4a8b64; }
+.race-card[data-status="conditional"] { border-top-color: #8b76b6; }
+.tag.race-conditional { background: #eee8fb; color: var(--violet); }
+.hall-use { padding: 0.45rem 0.59rem; border-radius: 0.4rem; background: #f3eef9; }
+.card-body .hall-use strong { color: var(--violet); }
+.race-compare-link { display: inline-block; padding-block: 0.25rem; font-size: 0.93rem; font-weight: 720; }
 .card-head { display: flex; align-items: start; justify-content: space-between; gap: 0.7rem; }
-.card-head h2 { font-size: clamp(1.07rem, 2.45vw, 1.32rem); overflow-wrap: anywhere; }
+.card-head h3 { min-width: 0; font-size: clamp(1.07rem, 2.45vw, 1.32rem); overflow-wrap: anywhere; }
 .card-head .score { text-align: right; flex: none; }
 
 .score strong { display: block; font-variant-numeric: tabular-nums; font-size: clamp(1.2rem, 4vw, 1.75rem); letter-spacing: -0.04em; line-height: 1.15; }
@@ -1003,7 +1037,7 @@ details.disclosure summary {
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.55rem; }
   .stat-card { padding: 0.7rem 0.8rem; }
   .factor-grid, .sheet-goal-grid, .sheet-hints { grid-template-columns: minmax(0, 1fr); }
-  .factor-card .abilities, .factor-card .aptitudes { grid-template-columns: repeat(auto-fit, minmax(min(100%, 3.2rem), 1fr)); }
+  .factor-card .abilities, .factor-card .aptitudes, .race-card .abilities, .race-card .aptitudes { grid-template-columns: repeat(auto-fit, minmax(min(100%, 3.2rem), 1fr)); }
   .sheet-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pedigree-branches { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
   .training-calendar > li { grid-template-columns: minmax(0, 1fr); }
