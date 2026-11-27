@@ -260,8 +260,13 @@ input:checked+span .difficulty-current { visibility: visible; }
 #collectionPanel .machine-buttons strong { grid-column:2;grid-row:1;font-size:14px;line-height:1.35;overflow-wrap:anywhere; }
 #collectionPanel .machine-buttons small { grid-column:2/4;grid-row:2;display:block;font-size:12px;line-height:1.4;color:#c4d9ce;text-align:left;overflow-wrap:anywhere; }
 #collectionPanel .machine-buttons small svg { width:12px;height:12px;vertical-align:middle; }
-#collectionPanel .machine-profile .character-hero { grid-template-columns:minmax(80px,.7fr) minmax(0,1.5fr);border:1px solid #88aaa388; }
-#collectionPanel .machine-profile .ch-art { min-height:0; }
+#collectionPanel .machine-profile .character-hero {
+ grid-template-columns:minmax(0,1fr);
+ grid-template-rows:auto minmax(0,1fr);
+ border:1px solid #88aaa388;
+}
+#collectionPanel .machine-profile .ch-art { align-self:start;aspect-ratio:16/9;min-height:0; }
+#collectionPanel .machine-profile .ch-art:after { display:none; }
 #collectionPanel .machine-profile .ch-art-origin { display:none; }
 #collectionPanel .machine-profile .ch-copy { padding:12px; }
 #collectionPanel .machine-profile .ch-name { font-size:24px;margin:4px 0; }
@@ -282,13 +287,18 @@ input:checked+span .difficulty-current { visibility: visible; }
 #collectionPanel .companion-hp { grid-column:3;grid-row:1;white-space:nowrap;font-size:12px;line-height:1.4;font-variant-numeric:tabular-nums;color:#e2ebba; }
 #collectionPanel .machine-buttons .locked { border-style:dashed; }
 @media(min-width:1100px){#collectionPanel .machine-buttons { grid-template-columns:repeat(3,minmax(0,1fr)); }}
+@media(max-height:500px){
+ #collectionPanel .machine-profile .character-hero {
+  grid-template-columns:minmax(0,2fr) minmax(0,3fr);
+  grid-template-rows:minmax(0,1fr);
+ }
+}
 @media(max-width:650px){
  #collectionGrid { gap:7px; }
  #collectionPanel .machine-roster { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:8px; }
  #collectionPanel .machine-buttons { gap:6px; }
  #collectionPanel .machine-buttons button { grid-template-columns:26px minmax(0,1fr) max-content;padding:6px;min-height:68px; }
  #collectionPanel .machine-buttons .ch-art { width:26px;height:32px; }
- #collectionPanel .machine-profile .character-hero { grid-template-columns:48px minmax(0,1fr); }
  #collectionPanel .machine-profile .ch-copy { padding:10px; }
 }
 #collectionTitle { font-size:18px!important;line-height:1.3; }

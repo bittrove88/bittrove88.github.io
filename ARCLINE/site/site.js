@@ -1,6 +1,8 @@
 (() => {
   "use strict";
   const $ = (id) => document.getElementById(id);
+  const version =
+    globalThis.ArcRelease?.version || $("siteVersion").dataset.release;
   const revision = "20261110-2";
   const machines = [
     {
@@ -474,11 +476,7 @@
   }
   function updateLandscape() {
     const row = regions[regionId];
-    $("landscapeImage").src =
-      "site/gameplay-" +
-      regionId +
-      ".jpg?v=" +
-      (globalThis.ArcRelease?.version || "0.33.1");
+    $("landscapeImage").src = "site/gameplay-" + regionId + ".jpg?v=" + version;
     $("landscapeImage").alt = local([
       row.name[0] + "の実際のゲーム画面",
       "Actual game screen: " + row.name[1],
@@ -554,12 +552,10 @@
     translate();
   };
   if (globalThis.ArcRelease)
-    $("siteVersion").textContent = "ARCLINE · " + ArcRelease.version;
+    $("siteVersion").textContent = "ARCLINE · " + version;
   translate();
   globalThis.ArcSite = Object.freeze({
-    get version() {
-      return globalThis.ArcRelease?.version || "0.33.1";
-    },
+    version,
     get language() {
       return language;
     },
